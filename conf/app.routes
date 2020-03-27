@@ -1,3 +1,7 @@
 # microservice specific routes
 
+
 GET        /hello-world             uk.gov.hmrc.charitiesregistrationfrontend.controllers.HelloWorldController.helloWorld
+
+GET        /eligible-purposes         uk.gov.hmrc.charitiesregistrationfrontend.controllers.CharitableEligibilityController.onPageLoad
+POST       /eligible-purposes         uk.gov.hmrc.charitiesregistrationfrontend.controllers.CharitableEligibilityController.onSubmit

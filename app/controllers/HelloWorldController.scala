@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +12,26 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
-@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
+package controllers
 
-@contentHeader = {
-  <h1>@heading</h1>
+import config.AppConfig
+import javax.inject.{Inject, Singleton}
+import play.api.mvc._
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import views.html.hello_world
+
+import scala.concurrent.Future
+
+@Singleton
+class HelloWorldController @Inject()(appConfig: AppConfig, mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) {
+
+  implicit val config: AppConfig = appConfig
+
+  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(hello_world()))
+  }
+
 }
-
-@mainContent = {
-  <p>@message</p>
-}
-
-@govuk_wrapper(appConfig = appConfig, title = pageTitle, contentHeader = Some(contentHeader), mainContent = mainContent)

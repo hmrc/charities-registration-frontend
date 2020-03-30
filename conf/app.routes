@@ -1,3 +1,6 @@
 # microservice specific routes
+->          /template                           template.Routes
+->          /                                   health.Routes
+->          /hmrc-register-charity-details      charities.Routes
+GET         /admin/metrics                      @com.kenshoo.play.metrics.MetricsController.metrics
 
-GET        /hello-world             uk.gov.hmrc.charitiesregistrationfrontend.controllers.HelloWorldController.helloWorld

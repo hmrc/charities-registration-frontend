@@ -1,0 +1,7 @@
+charities.title = HMRC Register Charity
+
+charitiesRegisterOrganisation.lbl_title = You cannot signin with these details
+charitiesRegisterOrganisation.message.toUseServiceStart = You must signin into Government Gateway as an organisation.
+charitiesRegisterOrganisation.link = You can set up an organisation Government Gateway account.
+charitiesRegisterOrganisation.message.end = If you have already one, 
+charitiesRegisterOrganisation.registerAs.link = sign in with your organisaion sign-in details.

@@ -3,7 +3,7 @@ import play.sbt.PlayImport._
 import sbt.Keys.libraryDependencies
 import sbt._
 
-object AppDependencies {
+object AppDependencies extends {
 
   val compile: Seq[ModuleID] = Seq(
     ws,
@@ -18,13 +18,13 @@ object AppDependencies {
   )
 
   val test: Seq[ModuleID] = Seq(
-		"uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.5.0" ,
 		"org.scalatest"           %% "scalatest"                % "3.0.8" ,
 		"org.jsoup"               %  "jsoup"                    % "1.13.1",
     "com.typesafe.play"       %% "play-test"                % current ,
     "org.pegdown"             %  "pegdown"                  % "1.6.0" ,
     "org.scalatestplus.play"  %% "scalatestplus-play"       % "3.1.2" ,
-    "org.mockito"             % "mockito-core"              % "3.3.3"
+    "org.mockito"             % "mockito-core"              % "3.3.3" ,
+    "uk.gov.hmrc"             %% "hmrctest"                 % "3.9.0-play-26"
   ).map(_ % "test")
 
   val all: Seq[ModuleID] = compile ++ test

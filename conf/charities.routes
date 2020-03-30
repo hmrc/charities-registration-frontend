@@ -1,0 +1,3 @@
+GET        /                                                controllers.CharitiesController.authenticate
+GET        /hello-world                                     controllers.HelloWorldController.helloWorld
+GET        /register-as-an-organisation                     controllers.CharitiesRegisterOrganisationController.onPageLoad

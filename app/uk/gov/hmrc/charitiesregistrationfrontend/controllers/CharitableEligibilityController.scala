@@ -20,9 +20,11 @@ import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
 import uk.gov.hmrc.charitiesregistrationfrontend.forms.EligibilityForm
-import uk.gov.hmrc.charitiesregistrationfrontend.views.html.hello_world
+import uk.gov.hmrc.charitiesregistrationfrontend.models.EligibilityModel
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import uk.gov.hmrc.charitiesregistrationfrontend.views.html.home.eligibility
+import play.api.data.Form
+import play.api.i18n.Messages
 
 import scala.concurrent.Future
 
@@ -31,13 +33,19 @@ class CharitableEligibilityController @Inject()(applicationConfig: AppConfig,
 
   implicit val config: AppConfig = applicationConfig
 
-  def onSubmit : Action[AnyContent] = Action {
-    implicit request => Redirect(routes.HelloWorldController.helloWorld())
-  }
-
 
   def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-
     Future.successful(Ok(eligibility(config, forms.charitableForm)))
+
   }
+
+  def onSubmit : Action[AnyContent] = Action.async { implicit request =>
+    def errorAction(errors: Form[EligibilityModel]) = Future.successful(BadRequest(eligibility(config, errors)))
+
+    def successAction(model: EligibilityModel) = {
+      Future.successful(Redirect(routes.HelloWorldController.helloWorld()))
+    }
+    forms.charitableForm.bindFromRequest().fold(errorAction, successAction)
+  }
+
 }

@@ -19,7 +19,7 @@ package uk.gov.hmrc.charitiesregistrationfrontend.models
 
 import play.api.libs.json._
 
-case class EligibilityModel(vatReturnPeriod: String, turnover: Option[BigDecimal], costOfGoods: Option[BigDecimal])
+case class EligibilityModel(charitable: Boolean)
 
 
 object EligibilityModel {

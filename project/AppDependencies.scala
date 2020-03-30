@@ -1,6 +1,5 @@
 import play.core.PlayVersion.current
 import play.sbt.PlayImport._
-import sbt.Keys.libraryDependencies
 import sbt._
 
 object AppDependencies {
@@ -18,6 +17,7 @@ object AppDependencies {
   )
 
   val test: Seq[ModuleID] = Seq(
+    "uk.gov.hmrc"             %% "hmrctest"                 % "3.9.0-play-26",
 		"uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.5.0" ,
 		"org.scalatest"           %% "scalatest"                % "3.0.8" ,
 		"org.jsoup"               %  "jsoup"                    % "1.13.1",

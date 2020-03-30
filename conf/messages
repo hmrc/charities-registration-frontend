@@ -4,3 +4,4 @@ charities_elig.charitable = Is your charity for charitable purposes only?
 charities_elig.check_eligibility = Check eligibility
 common.continue = Continue
 charities_login.button.back = Back
+charities_elig.confirm = Confirm if your charity is for charitable purposes only

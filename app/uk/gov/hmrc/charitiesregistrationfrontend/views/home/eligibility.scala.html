@@ -26,36 +26,35 @@
 
 @main_template(title = messages("vatReturnPeriod.title"), bodyClasses = None, appConfig = appConfig) {
 
-@if(eligibilityForm.hasErrors){
-@helpers.errorSummary(
-Messages("base.errorSummary"), eligibilityForm
-)
-} <p class="text"><a id="Back" href=" #">@Messages("charities_login.button.back")</a></p>
 
+    <p class="text"><a id="Back" href=" #">@Messages("charities_login.button.back")</a></p>
+    <p>@messages("charities_elig.check_eligibility")</p>
         <h1>@messages("charities_elig.charitable")</h1>
-        <p>@messages("charities_elig.check_eligibility")</p>
 
 
+    @if(eligibilityForm.hasErrors){
+        @helpers.errorSummary(
+            Messages("charities_elig.confirm"), eligibilityForm
+        )
+    }
 
 @form(action = routes.CharitableEligibilityController.onSubmit()) {
 
     <div class="form-group">
-        <fieldset class="form-group inline">
             @helpers.input_radio_group(
-                eligibilityForm("vatReturnPeriod"),
+                field=eligibilityForm("charitable"),
                 Seq(
-                    "true" -> Messages("charities.yes"),
-                    "false" -> Messages("charities.no")
+                    "Yes" -> Messages("charities.yes"),
+                    "No" -> Messages("charities.no")
                 ),
-                '_legend -> Messages("vatReturnPeriod.heading"),
-                '_legendID -> "vatReturnPeriod",
+                '_legend -> Messages("charities_elig.title"),
+                '_legendID -> "charitable",
                 '_legendClass -> "visuallyhidden",
                 '_labelAfter -> true,
                 '_labelClass -> "block-label selection-button-radio"
 
 
             )
-        </fieldset>
     </div>
 
 

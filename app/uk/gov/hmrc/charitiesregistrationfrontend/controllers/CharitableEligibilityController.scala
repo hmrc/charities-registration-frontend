@@ -20,32 +20,32 @@ import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
 import uk.gov.hmrc.charitiesregistrationfrontend.forms.EligibilityForm
-import uk.gov.hmrc.charitiesregistrationfrontend.models.EligibilityModel
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import uk.gov.hmrc.charitiesregistrationfrontend.views.html.home.eligibility
-import play.api.data.Form
-import play.api.i18n.Messages
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 import scala.concurrent.Future
 
-class CharitableEligibilityController @Inject()(applicationConfig: AppConfig,
-                                                mcc: MessagesControllerComponents, forms : EligibilityForm) extends FrontendController(mcc) {
-
-  implicit val config: AppConfig = applicationConfig
-
+class CharitableEligibilityController @Inject()(implicit val appConfig: AppConfig,
+                                                mcc: MessagesControllerComponents) extends FrontendController(mcc) {
 
   def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(eligibility(config, forms.charitableForm)))
+    Future.successful(Ok(eligibility(EligibilityForm.charitableForm)))
 
   }
 
-  def onSubmit : Action[AnyContent] = Action.async { implicit request =>
-    def errorAction(errors: Form[EligibilityModel]) = Future.successful(BadRequest(eligibility(config, errors)))
-
-    def successAction(model: EligibilityModel) = {
-      Future.successful(Redirect(routes.HelloWorldController.helloWorld()))
-    }
-    forms.charitableForm.bindFromRequest().fold(errorAction, successAction)
+  def onSubmit: Action[AnyContent] = Action.async { implicit request =>
+    EligibilityForm.charitableForm.bindFromRequest().fold(
+      errors => Future.successful(BadRequest(eligibility(errors))),
+      success => {
+        //TODO code for data storing
+        if (success.charitable) {
+          Future.successful(Redirect(routes.HelloWorldController.helloWorld()))
+        }
+        else {
+          Future.successful(Redirect(routes.HelloWorldController.helloWorld()))
+        }
+      }
+    )
   }
 
 }

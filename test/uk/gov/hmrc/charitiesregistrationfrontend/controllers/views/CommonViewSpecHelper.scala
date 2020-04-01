@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.controllers.helpers
+package uk.gov.hmrc.charitiesregistrationfrontend.controllers.views
 
-import akka.stream.Materializer
 import org.scalatest.mockito.MockitoSugar
-import play.api.i18n.{Lang, MessagesApi}
 import play.api.mvc.MessagesControllerComponents
-import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
+import play.api.test.FakeRequest
+import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
 
-trait ControllerTestSpec extends UnitSpec with MockitoSugar with WithFakeApplication {
+trait CommonViewSpecHelper extends UnitSpec  with MockitoSugar with WithFakeApplication {
 
-  implicit val mat: Materializer = fakeApplication.injector.instanceOf[Materializer]
-  implicit val lang: Lang = Lang("en")
+  implicit val application = fakeApplication
+  val http = mock[DefaultHttpClient]
+  implicit lazy val fakeRequest = FakeRequest()
+  implicit val mockAppConfig = fakeApplication.injector.instanceOf[AppConfig]
+  implicit val mockMessage = fakeApplication.injector.instanceOf[MessagesControllerComponents].messagesApi.preferred(fakeRequest)
 
-  lazy val messages: MessagesApi = fakeApplication.injector.instanceOf[MessagesApi]
-  lazy val mcc: MessagesControllerComponents = fakeApplication.injector.instanceOf[MessagesControllerComponents]
-  lazy val mockConfig: AppConfig = fakeApplication.injector.instanceOf[AppConfig]
 
 }
+

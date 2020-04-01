@@ -22,43 +22,45 @@
 @import uk.gov.hmrc.charitiesregistrationfrontend.views.html.main_template
 @import uk.gov.hmrc.charitiesregistrationfrontend.controllers.routes
 
-@(appConfig: config.AppConfig, eligibilityForm: Form[EligibilityModel])(implicit request: Request[_], messages: Messages)
+@import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
+@( eligibilityForm: Form[EligibilityModel])(implicit request: Request[_], messages: Messages,appConfig: AppConfig)
 
-@main_template(title = messages("vatReturnPeriod.title"), bodyClasses = None, appConfig = appConfig) {
+@main_template(title = messages("charities_detail.title"), bodyClasses = None) {
 
-
-    <p class="text"><a id="Back" href=" #">@Messages("charities_login.button.back")</a></p>
-    <p>@messages("charities_elig.check_eligibility")</p>
+    <div class="js-visible">
+        <p><a id="back-link" class="link-back" href="#">@messages("charities_login.button.back")</a></p>
+    </div>
+    <header class="page-header page-header-margin">
+        <h2 class="form-hint heading-l">@messages("charities_elig.check_eligibility")</h2>
         <h1>@messages("charities_elig.charitable")</h1>
-
+    </header>
 
     @if(eligibilityForm.hasErrors){
-        @helpers.errorSummary(
-            Messages("charities_elig.confirm"), eligibilityForm
+        @helpers.errorSummary(messages("charities.error"), eligibilityForm
         )
     }
 
 @form(action = routes.CharitableEligibilityController.onSubmit()) {
-
-    <div class="form-group">
-            @helpers.input_radio_group(
-                field=eligibilityForm("charitable"),
-                Seq(
-                    "Yes" -> Messages("charities.yes"),
-                    "No" -> Messages("charities.no")
-                ),
-                '_legend -> Messages("charities_elig.title"),
-                '_legendID -> "charitable",
-                '_legendClass -> "visuallyhidden",
-                '_labelAfter -> true,
-                '_labelClass -> "block-label selection-button-radio"
-
-
-            )
-    </div>
+    <fieldset class="inline">
+        <div class="form-group">
+                @helpers.input_radio_group(
+                    field=eligibilityForm("charitable"),
+                    Seq(
+                        "Yes" -> messages("charities.yes"),
+                        "No" -> messages("charities.no")
+                    ),
+                    '_legend -> messages("charities_detail.title"),
+                    '_legendID -> "charitable",
+                    '_legendClass -> "visuallyhidden",
+                    '_labelAfter -> true,
+                    '_labelClass -> "block-label selection-button-radio"
 
 
-    <button class="button" type="submit" id="continue-button">@Messages("common.continue")</button>
+                )
+        </div>
+    </fieldset>
+    <button class="button" type="submit" id="continue-button">@messages("common.continue")</button>
 }
 
 }
+

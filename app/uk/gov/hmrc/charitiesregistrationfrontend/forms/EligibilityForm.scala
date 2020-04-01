@@ -16,22 +16,20 @@
 
 package uk.gov.hmrc.charitiesregistrationfrontend.forms
 
-import javax.inject.Inject
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.charitiesregistrationfrontend.models.EligibilityModel
-import uk.gov.hmrc.charitiesregistrationfrontend.common.Validation._
 import uk.gov.hmrc.charitiesregistrationfrontend.common.Transformers._
+import uk.gov.hmrc.charitiesregistrationfrontend.common.Validation._
+import uk.gov.hmrc.charitiesregistrationfrontend.models.EligibilityModel
 
-class EligibilityForm @Inject()(val messagesApi: MessagesApi)extends I18nSupport{
+object EligibilityForm{
 
   val charitableForm = Form(
     mapping(
-      "charitable" -> text
-        .verifying("charities_elig.check_eligibility", mandatoryCheck)
-        .verifying("charities_elig.check_eligibility", yesNoCheck)
-        .transform(stringToBoolean, booleanToString)
+      "charitable" -> optional[String](text)
+        .verifying("charities_elig.confirm", optionalMandatoryCheck)
+        .verifying("charities_elig.check_eligibility", optionalYesNoCheck)
+        .transform(optionStringToBoolean, booleanToOptionString)
     )(EligibilityModel.apply)(EligibilityModel.unapply)
   )
 }

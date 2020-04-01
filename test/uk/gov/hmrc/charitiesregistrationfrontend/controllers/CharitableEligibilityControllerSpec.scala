@@ -24,34 +24,28 @@ import uk.gov.hmrc.charitiesregistrationfrontend.controllers.helpers.ControllerT
 
 class CharitableEligibilityControllerSpec extends ControllerTestSpec {
 
-  def createTestController() = {
-    object TestController extends CharitableEligibilityController(mockConfig, mcc, mockForm)
-    TestController
-  }
+  def testController() = new CharitableEligibilityController()(mockConfig, mcc)
 
     "EligibilityController" should {
 
       "Successfully load the eligibility page" in {
         lazy val request = FakeRequest("GET", "/eligible-purposes")
-        lazy val controller = createTestController()
-        lazy val result = controller.onPageLoad(request)
+        lazy val result = testController.onPageLoad(request)
         status(result) shouldBe Status.OK
       }
 
       "process 'Yes' submit of the eligibility page" in {
-        lazy val controller = createTestController()
         val form = ("charitable", "Yes")
         implicit val request = FakeRequest("POST", "/eligible-purposes").withFormUrlEncodedBody(form)
-        lazy val result = controller.onSubmit(request)
+        lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
         result.header.headers.get("Location").get shouldBe "/charities-registration-frontend/hello-world"
       }
 
       "process 'No' submit of the eligibility page" in {
-        lazy val controller = createTestController()
         val form = ("charitable", "No")
         implicit val request = FakeRequest("POST", "/eligible-purposes").withFormUrlEncodedBody(form)
-        lazy val result = controller.onSubmit(request)
+        lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
         result.header.headers.get("Location").get shouldBe "/charities-registration-frontend/hello-world"
       }

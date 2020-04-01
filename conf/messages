@@ -5,3 +5,6 @@ charities_elig.check_eligibility = Check eligibility
 common.continue = Continue
 charities_login.button.back = Back
 charities_elig.confirm = Confirm if your charity is for charitable purposes only
+charities_detail.title=Enter Your charity details
+charities_nav.title=HMRC Register Charity
+charities.error = There are errors on this page

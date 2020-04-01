@@ -14,25 +14,28 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.controllers
+package controllers
 
+import config.AppConfig
 import javax.inject.{Inject, Singleton}
-
-import play.api.mvc._
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
-import uk.gov.hmrc.charitiesregistrationfrontend.views.html.hello_world
 
 import scala.concurrent.Future
 
 @Singleton
-class HelloWorldController @Inject()(appConfig: AppConfig, mcc: MessagesControllerComponents)
-    extends FrontendController(mcc) {
+class CharitiesRegisterOrganisationController @Inject()(mcc: MessagesControllerComponents
+                                                        ,implicit val appConfig: AppConfig
+                                                        )
+  extends FrontendController(mcc) {
 
-  implicit val config: AppConfig = appConfig
+  final val ggRegistration="http://www.access.service.gov.uk/login/signin/creds"
+  final val ggSignin="http://www.access.service.gov.uk/registration/email"
 
-  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(hello_world()))
+  def onPageLoad(): Action[AnyContent] = Action.async {
+    implicit request =>
+      Future.successful(Ok(views.html.charitiesRegisterOrganisation(ggRegistration, ggSignin)))
   }
-
 }
+

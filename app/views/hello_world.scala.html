@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import config.AppConfig
+@()(implicit request: Request[AnyRef], messages: Messages, appConfig: AppConfig)
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import uk.gov.hmrc.play.views.html.helpers
 @import  uk.gov.hmrc.charitiesregistrationfrontend.config

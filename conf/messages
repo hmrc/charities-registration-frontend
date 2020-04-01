@@ -8,3 +8,10 @@ charities_elig.confirm = Confirm if your charity is for charitable purposes only
 charities_detail.title=Enter Your charity details
 charities_nav.title=HMRC Register Charity
 charities.error = There are errors on this page
+charities.title = HMRC Register Charity
+
+charitiesRegisterOrganisation.lbl_title = You cannot signin with these details
+charitiesRegisterOrganisation.message.toUseServiceStart = You must signin into Government Gateway as an organisation.
+charitiesRegisterOrganisation.link = You can set up an organisation Government Gateway account.
+charitiesRegisterOrganisation.message.end = If you have already one, 
+charitiesRegisterOrganisation.registerAs.link = sign in with your organisaion sign-in details.

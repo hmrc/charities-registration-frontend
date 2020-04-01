@@ -17,7 +17,7 @@
 package uk.gov.hmrc.charitiesregistrationfrontend.controllers.views
 
 import org.jsoup.Jsoup
-import uk.gov.hmrc.charitiesregistrationfrontend.forms.EligibilityForm
+import forms.EligibilityForm
 import uk.gov.hmrc.charitiesregistrationfrontend.views.html.home.eligibility
 import uk.gov.hmrc.charitiesregistrationfrontend.controllers
 class CharitableEligibilityControllerViewSpec extends CommonViewSpecHelper with CharitiesViewMessages{

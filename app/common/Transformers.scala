@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +12,27 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.AppConfig
-@()(implicit request: Request[AnyRef], messages: Messages, appConfig: AppConfig)
+package common
+
+object Transformers {
+
+  val optionStringToBoolean: Option[String] => Boolean = {
+    case Some("Yes") => true
+    case _ => false
+  }
+
+  val booleanToOptionString: Boolean => Option[String] = input => {
+    if (input) Some("Yes")
+    else Some("No")
+  }
+
+  val stringToBoolean: String => Boolean = {
+    case "Yes" => true
+    case _ => false
+  }
 
 
-@main_template(title = "Hello from charities-registration-frontend", bodyClasses = None) {
-    <h1>Hello from charities-registration-frontend !</h1>
+  val booleanToString: Boolean => String = (input) => if (input) "Yes" else "No"
 }

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.controllers
+package controllers
 
+import config.AppConfig
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
-import uk.gov.hmrc.charitiesregistrationfrontend.forms.EligibilityForm
-import uk.gov.hmrc.charitiesregistrationfrontend.views.html.home.eligibility
+import forms.EligibilityForm
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import views.html.home.eligibility
 
 import scala.concurrent.Future
 
@@ -39,10 +39,10 @@ class CharitableEligibilityController @Inject()(implicit val appConfig: AppConfi
       success => {
         //TODO code for data storing
         if (success.charitable) {
-          Future.successful(Redirect(routes.HelloWorldController.helloWorld()))
+          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
         }
         else {
-          Future.successful(Redirect(routes.HelloWorldController.helloWorld()))
+          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
         }
       }
     )

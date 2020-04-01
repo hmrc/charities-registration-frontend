@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.common
-
-import java.time.{LocalDate, ZonedDateTime}
+package common
 
 import play.api.data.validation.{ValidationError, _}
-import uk.gov.hmrc.play.views.helpers.MoneyPounds
-
-import scala.util.{Failure, Success, Try}
 
 object Validation {
   def constraintBuilder[A](key: String, args: String*)(condition: A => Boolean): Constraint[A] = {

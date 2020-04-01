@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.common
+package forms
 
-object Transformers {
+import play.api.data.Form
+import play.api.data.Forms._
+import common.Transformers._
+import common.Validation._
+import models.EligibilityModel
 
-  val optionStringToBoolean: Option[String] => Boolean = {
-    case Some("Yes") => true
-    case _ => false
-  }
+object EligibilityForm{
 
-  val booleanToOptionString: Boolean => Option[String] = input => {
-    if (input) Some("Yes")
-    else Some("No")
-  }
-
-  val stringToBoolean: String => Boolean = {
-    case "Yes" => true
-    case _ => false
-  }
-
-
-  val booleanToString: Boolean => String = (input) => if (input) "Yes" else "No"
+  val charitableForm = Form(
+    mapping(
+      "charitable" -> optional[String](text)
+        .verifying("charities_elig.confirm", optionalMandatoryCheck)
+        .verifying("charities_elig.check_eligibility", optionalYesNoCheck)
+        .transform(optionStringToBoolean, booleanToOptionString)
+    )(EligibilityModel.apply)(EligibilityModel.unapply)
+  )
 }

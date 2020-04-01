@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.controllers.views
+package views
 
-import org.jsoup.Jsoup
 import forms.EligibilityForm
-import uk.gov.hmrc.charitiesregistrationfrontend.views.html.home.eligibility
-import uk.gov.hmrc.charitiesregistrationfrontend.controllers
+import org.jsoup.Jsoup
+import views.html.home.eligibility
+
+
 class CharitableEligibilityControllerViewSpec extends CommonViewSpecHelper with CharitiesViewMessages{
 
   "the EligibilityView" should{

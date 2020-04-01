@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.controllers.helpers
+package helpers
 
 import akka.stream.Materializer
 import org.scalatest.mockito.MockitoSugar
 import play.api.i18n.{Lang, MessagesApi}
 import play.api.mvc.MessagesControllerComponents
-import uk.gov.hmrc.charitiesregistrationfrontend.config.AppConfig
+import config.AppConfig
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 trait ControllerTestSpec extends UnitSpec with MockitoSugar with WithFakeApplication {

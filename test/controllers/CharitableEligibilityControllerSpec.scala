@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.controllers
+package controllers
 
-
+import helpers.ControllerTestSpec
 import play.api.http.Status
 import play.api.test.FakeRequest
-import uk.gov.hmrc.charitiesregistrationfrontend.controllers.helpers.ControllerTestSpec
+
 
 
 class CharitableEligibilityControllerSpec extends ControllerTestSpec {
@@ -39,7 +39,7 @@ class CharitableEligibilityControllerSpec extends ControllerTestSpec {
         implicit val request = FakeRequest("POST", "/eligible-purposes").withFormUrlEncodedBody(form)
         lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/charities-registration-frontend/hello-world"
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/hello-world"
       }
 
       "process 'No' submit of the eligibility page" in {
@@ -47,7 +47,7 @@ class CharitableEligibilityControllerSpec extends ControllerTestSpec {
         implicit val request = FakeRequest("POST", "/eligible-purposes").withFormUrlEncodedBody(form)
         lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/charities-registration-frontend/hello-world"
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/hello-world"
       }
     }
 }

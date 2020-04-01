@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.charitiesregistrationfrontend.controllers.views
+package views
 
 import config.AppConfig
 import org.scalatest.mockito.MockitoSugar

@@ -1,12 +1,6 @@
 # microservice specific routes
+->          /template                           template.Routes
+->          /                                   health.Routes
+->          /hmrc-register-charity-details      charities.Routes
+GET         /admin/metrics                      @com.kenshoo.play.metrics.MetricsController.metrics
 
-GET        /                                                controllers.CharitiesController.authenticate
-
-GET         /admin/metrics                                  @com.kenshoo.play.metrics.MetricsController.metrics
-
-GET        /hello-world                                     controllers.HelloWorldController.helloWorld
-
-GET        /eligible-purposes                               controllers.CharitableEligibilityController.onPageLoad
-POST       /eligible-purposes                               controllers.CharitableEligibilityController.onSubmit
-
-GET        /register-as-an-organisation                     controllers.CharitiesRegisterOrganisationController.onPageLoad

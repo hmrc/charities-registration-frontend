@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-package controllers
+package forms
 
-import config.AppConfig
-import javax.inject.{Inject, Singleton}
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.hello_world
+import play.api.data.Form
+import play.api.data.Forms._
+import common.Transformers._
+import common.Validation._
+import models.EligibilityModel
 
-import scala.concurrent.Future
+object EligibilityForm{
 
-@Singleton
-class HelloWorldController @Inject()(implicit val appConfig: AppConfig, mcc: MessagesControllerComponents)
-  extends FrontendController(mcc) {
-
-  //implicit val config: AppConfig = appConfig
-
-  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(hello_world()))
-  }
-
+  val charitableForm = Form(
+    mapping(
+      "charitable" -> optional[String](text)
+        .verifying("charities_elig.confirm", optionalMandatoryCheck)
+        .verifying("charities_elig.check_eligibility", optionalYesNoCheck)
+        .transform(optionStringToBoolean, booleanToOptionString)
+    )(EligibilityModel.apply)(EligibilityModel.unapply)
+  )
 }

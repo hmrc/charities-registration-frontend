@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-package controllers
+package views
 
-import config.AppConfig
-import javax.inject.{Inject, Singleton}
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.hello_world
-
-import scala.concurrent.Future
-
-@Singleton
-class HelloWorldController @Inject()(implicit val appConfig: AppConfig, mcc: MessagesControllerComponents)
-  extends FrontendController(mcc) {
-
-  //implicit val config: AppConfig = appConfig
-
-  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(hello_world()))
-  }
+trait CharitiesViewMessages{
+  val charitiesDetailTitle= "Enter Your charity details"
+  val charitiesEligCharitable="Is your charity for charitable purposes only?"
+  val charitiesErrorLable = "There are errors on this page"
+  val charitiesDetailTitleLegendText = "Enter Your charity details"
+  val errorReal = "Confirm if your charity is for charitable purposes only"
 
 }

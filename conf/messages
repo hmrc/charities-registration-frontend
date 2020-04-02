@@ -1,3 +1,12 @@
+charities.yes = Yes
+charities.no = No
+charities_elig.charitable = Is your charity for charitable purposes only?
+charities_elig.check_eligibility = Check eligibility
+common.continue = Continue
+charities_login.button.back = Back
+charities_elig.confirm = Confirm if your charity is for charitable purposes only
+charities_detail.title=Enter Your charity details
+charities.error = There are errors on this page
 charities.title = HMRC Register Charity
 
 charitiesRegisterOrganisation.lbl_title = You cannot signin with these details

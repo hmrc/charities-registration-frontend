@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-package controllers
+package common
 
-import config.AppConfig
-import javax.inject.{Inject, Singleton}
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.hello_world
+object Transformers {
 
-import scala.concurrent.Future
-
-@Singleton
-class HelloWorldController @Inject()(implicit val appConfig: AppConfig, mcc: MessagesControllerComponents)
-  extends FrontendController(mcc) {
-
-  //implicit val config: AppConfig = appConfig
-
-  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(hello_world()))
+  val optionStringToBoolean: Option[String] => Boolean = {
+    case Some("Yes") => true
+    case _ => false
   }
 
+  val booleanToOptionString: Boolean => Option[String] = input => {
+    if (input) Some("Yes")
+    else Some("No")
+  }
+
+  val stringToBoolean: String => Boolean = {
+    case "Yes" => true
+    case _ => false
+  }
+
+
+  val booleanToString: Boolean => String = (input) => if (input) "Yes" else "No"
 }

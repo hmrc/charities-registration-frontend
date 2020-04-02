@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import config.AppConfig
-import javax.inject.{Inject, Singleton}
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.hello_world
 
-import scala.concurrent.Future
+import play.api.libs.json._
 
-@Singleton
-class HelloWorldController @Inject()(implicit val appConfig: AppConfig, mcc: MessagesControllerComponents)
-  extends FrontendController(mcc) {
+case class EligibilityModel(charitable: Boolean)
 
-  //implicit val config: AppConfig = appConfig
 
-  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(hello_world()))
-  }
-
+object EligibilityModel {
+  implicit val format: OFormat[EligibilityModel] = Json.format[EligibilityModel]
 }

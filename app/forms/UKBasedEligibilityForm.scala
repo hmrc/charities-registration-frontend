@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package views
+package forms
 
-trait CharitiesViewMessages{
-  val charitiesDetailTitle= "Enter Your charity details"
-  val charitiesEligCharitable="Is your charity for charitable purposes only?"
-  val charitiesErrorLable = "There are errors on this page"
-  val charitiesDetailTitleLegendText = "Enter Your charity details"
-  val errorReal = "Confirm if your charity is for charitable purposes only"
-  val charitiesUKBased = "Is your charity based in the UK?"
-  val charitiesLocation = "Confirm if your charity is based in the UK"
+import common.Transformers._
+import common.Validation._
+import models.UKBasedModel
+import play.api.data.Form
+import play.api.data.Forms._
 
+object UKBasedEligibilityForm{
+
+  val ukBasedForm = Form(
+    mapping(
+      "ukbased" -> optional[String](text)
+        .verifying("charities_elig.confirm.location", optionalMandatoryCheck)
+        .verifying("charities_elig.check_eligibility", optionalYesNoCheck)
+        .transform(optionStringToBoolean, booleanToOptionString)
+    )(UKBasedModel.apply)(UKBasedModel.unapply)
+  )
 }

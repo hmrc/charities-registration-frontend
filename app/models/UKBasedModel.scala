@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package views
+package models
 
-trait CharitiesViewMessages{
-  val charitiesDetailTitle= "Enter Your charity details"
-  val charitiesEligCharitable="Is your charity for charitable purposes only?"
-  val charitiesErrorLable = "There are errors on this page"
-  val charitiesDetailTitleLegendText = "Enter Your charity details"
-  val errorReal = "Confirm if your charity is for charitable purposes only"
-  val charitiesUKBased = "Is your charity based in the UK?"
-  val charitiesLocation = "Confirm if your charity is based in the UK"
+import play.api.libs.json.{Json, OFormat}
 
+case class UKBasedModel(ukbased: Boolean)
+
+object UKBasedModel{
+  implicit val format: OFormat[UKBasedModel] = Json.format[UKBasedModel]
 }
+

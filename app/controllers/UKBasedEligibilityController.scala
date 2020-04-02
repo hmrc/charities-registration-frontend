@@ -17,28 +17,28 @@
 package controllers
 
 import config.AppConfig
-import forms.EligibilityForm
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.home.eligibility
+import views.html.home.ukBased
+import forms.UKBasedEligibilityForm
 
 import scala.concurrent.Future
 
-class CharitableEligibilityController @Inject()(implicit val appConfig: AppConfig,
-                                                mcc: MessagesControllerComponents) extends FrontendController(mcc) {
+class UKBasedEligibilityController @Inject()(implicit val appConfig: AppConfig,
+                                             mcc: MessagesControllerComponents) extends FrontendController(mcc) {
 
   def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(eligibility(EligibilityForm.charitableForm)))
+    Future.successful(Ok(ukBased(UKBasedEligibilityForm.ukBasedForm)))
 
   }
 
-  def onSubmit: Action[AnyContent] = Action.async { implicit request =>
-    EligibilityForm.charitableForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(eligibility(errors))),
+ def onSubmit: Action[AnyContent] = Action.async { implicit request =>
+    UKBasedEligibilityForm.ukBasedForm.bindFromRequest().fold(
+      errors => Future.successful(BadRequest(ukBased(errors))),
       success => {
         //TODO code for data storing
-        if (success.charitable) {
+       if (success.ukbased) {
           Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
         }
         else {
@@ -47,5 +47,4 @@ class CharitableEligibilityController @Inject()(implicit val appConfig: AppConfi
       }
     )
   }
-
 }

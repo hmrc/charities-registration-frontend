@@ -14,3 +14,6 @@ charitiesRegisterOrganisation.message.toUseServiceStart = You must signin into G
 charitiesRegisterOrganisation.link = You can set up an organisation Government Gateway account.
 charitiesRegisterOrganisation.message.end = If you have already one, 
 charitiesRegisterOrganisation.registerAs.link = sign in with your organisaion sign-in details.
+
+charities_elig.ukbased=Is your charity based in the UK?
+charities_elig.confirm.location = Confirm if your charity is based in the UK

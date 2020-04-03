@@ -4,3 +4,5 @@ GET        /hello-world                                     controllers.HelloWor
 GET        /eligible-purposes                               controllers.CharitableEligibilityController.onPageLoad
 POST       /eligible-purposes                               controllers.CharitableEligibilityController.onSubmit
 GET        /register-as-an-organisation                     controllers.CharitiesRegisterOrganisationController.onPageLoad
+GET        /eligible-location                               controllers.UKBasedEligibilityController.onPageLoad
+POST       /eligible-location                               controllers.UKBasedEligibilityController.onSubmit

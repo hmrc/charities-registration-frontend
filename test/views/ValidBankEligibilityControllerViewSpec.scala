@@ -19,33 +19,33 @@ package views
 import forms.EligibilityForm
 import helpers.TestHelper
 import org.jsoup.Jsoup
-import views.html.home.eligibility
+import views.html.home.validBank
 
 
-class CharitableEligibilityControllerViewSpec extends TestHelper {
+class ValidBankEligibilityControllerViewSpec extends TestHelper {
 
   "the EligibilityView" should{
-    val eligibilityForm = EligibilityForm.charitableForm.bind(Map("charitable" -> "Yes"))
-    lazy val view = eligibility(eligibilityForm)
+    val eligibilityForm = EligibilityForm.validBankForm.bind(Map("charitable" -> "Yes"))
+    lazy val view = validBank(eligibilityForm)
     lazy val doc = Jsoup.parse(view.body)
 
-    val errorForm = EligibilityForm.charitableForm.bind(Map("charitable" -> ""))
-    lazy val errorView = eligibility(errorForm)
+    val errorForm = EligibilityForm.validBankForm.bind(Map("charitable" -> ""))
+    lazy val errorView = validBank(errorForm)
     lazy val errorDoc = Jsoup.parse(errorView.body)
     lazy val form = doc.select("form")
 
     "have the correct title" in{
-      doc.title().toString shouldBe messages("charities_detail.title")
+      doc.title().toString shouldBe messages("charities_elig.title")
     }
 
     "have the correct and properly formatted header"in{
-      doc.select("h1").text shouldBe messages("charities_elig.charitable")
+      doc.select("h1").text shouldBe messages("charities_elig.valid_bank")
     }
 
     "has a valid form" in{
       form.attr("method") shouldBe "POST"
-      form.attr("action") shouldBe controllers.routes.CharitableEligibilityController.onSubmit().url
-      form.select("legend.visuallyhidden").text() shouldBe messages("charities_detail.title")
+      form.attr("action") shouldBe controllers.routes.ValidBankEligibilityController.onSubmit().url
+      form.select("legend.visuallyhidden").text() shouldBe messages("charities_elig.title")
     }
 
 
@@ -55,8 +55,8 @@ class CharitableEligibilityControllerViewSpec extends TestHelper {
 
     "display the correct errors appropriately" in{
       errorDoc.select("h2#error-summary-heading").text shouldBe messages("charities.error")
-      errorDoc.select("a#charitable-error-summary").text shouldBe messages("charities_elig.confirm")
-      errorDoc.select("span.error-notification").text shouldBe messages("charities_elig.confirm")
+      errorDoc.select("a#charitable-error-summary").text shouldBe messages("charities_elig_valid_bank.confirm")
+      errorDoc.select("span.error-notification").text shouldBe messages("charities_elig_valid_bank.confirm")
     }
 
     "not have errors on valid pages" in{

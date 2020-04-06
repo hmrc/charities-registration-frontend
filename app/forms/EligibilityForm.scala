@@ -16,11 +16,11 @@
 
 package forms
 
-import play.api.data.Form
-import play.api.data.Forms._
 import common.Transformers._
 import common.Validation._
 import models.EligibilityModel
+import play.api.data.Form
+import play.api.data.Forms._
 
 object EligibilityForm{
 
@@ -28,7 +28,14 @@ object EligibilityForm{
     mapping(
       "charitable" -> optional[String](text)
         .verifying("charities_elig.confirm", optionalMandatoryCheck)
-        .verifying("charities_elig.check_eligibility", optionalYesNoCheck)
+        .transform(optionStringToBoolean, booleanToOptionString)
+    )(EligibilityModel.apply)(EligibilityModel.unapply)
+  )
+
+  val validBankForm = Form(
+    mapping(
+      "charitable" -> optional[String](text)
+        .verifying("charities_elig_valid_bank.confirm", optionalMandatoryCheck)
         .transform(optionStringToBoolean, booleanToOptionString)
     )(EligibilityModel.apply)(EligibilityModel.unapply)
   )

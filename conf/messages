@@ -1,13 +1,23 @@
+charities.title = Register your charity’s details with HMRC - GOV.UK
+
 charities.yes = Yes
 charities.no = No
-charities_elig.charitable = Is your charity for charitable purposes only?
-charities_elig.check_eligibility = Check eligibility
 common.continue = Continue
 charities_login.button.back = Back
-charities_elig.confirm = Confirm if your charity is for charitable purposes only
+
 charities_detail.title=Enter Your charity details
 charities.error = There are errors on this page
-charities.title = HMRC Register Charity
+charities.register.title = HMRC Register Charity
+
+# Charities Eligibility
+charities_elig.title = Check your eligibility
+charities_elig.charitable = Is your charity for charitable purposes only?
+charities_elig.check_eligibility = Check eligibility
+charities_elig.confirm = Confirm if your charity is for charitable purposes only
+charities_elig.valid_bank = Does your charity have a UK Bank, building society or credit union account?
+charities_elig_valid_bank.confirm = Confirm if your charity has a UK Bank, building society or credit union.
+charities_elig.notEligible = You are not currently eligible to use this service
+charities_elig.notEligibleSummary = From the information you have given, you cannot use this service to register your charity’s details with HM Revenue and Customs (HMRC) for tax purposes.
 
 charitiesRegisterOrganisation.lbl_title = You cannot signin with these details
 charitiesRegisterOrganisation.message.toUseServiceStart = You must signin into Government Gateway as an organisation.

@@ -16,17 +16,17 @@
 
 package controllers
 
-import helpers.ControllerTestSpec
+import helpers.TestHelper
 import play.api.http.Status
 import play.api.test.FakeRequest
 
 
 
-class CharitableEligibilityControllerSpec extends ControllerTestSpec {
+class CharitableEligibilityControllerSpec extends TestHelper {
 
-  def testController() = new CharitableEligibilityController()(mockConfig, mcc)
+  def testController() = new CharitableEligibilityController()(mockAppConfig, mcc)
 
-    "EligibilityController" should {
+    "CharitableEligibilityController" should {
 
       "Successfully load the eligibility page" in {
         lazy val request = FakeRequest("GET", "/eligible-purposes")
@@ -34,20 +34,27 @@ class CharitableEligibilityControllerSpec extends ControllerTestSpec {
         status(result) shouldBe Status.OK
       }
 
-      "process 'Yes' submit of the eligibility page" in {
+      "redirect to eligible account page when 'Yes' is submitted in eligibility page" in {
         val form = ("charitable", "Yes")
+        implicit val request = FakeRequest("POST", "/eligible-purposes").withFormUrlEncodedBody(form)
+        lazy val result = testController.onSubmit(request)
+        status(result) shouldBe Status.SEE_OTHER
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/eligible-account"
+      }
+
+      "redirect to not eligible page when 'No' is submitted in eligibility page" in {
+        val form = ("charitable", "No")
         implicit val request = FakeRequest("POST", "/eligible-purposes").withFormUrlEncodedBody(form)
         lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
         result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/hello-world"
       }
 
-      "process 'No' submit of the eligibility page" in {
-        val form = ("charitable", "No")
+      "show an error if nothing is selected" in {
+        val form = ("charitable", "")
         implicit val request = FakeRequest("POST", "/eligible-purposes").withFormUrlEncodedBody(form)
         lazy val result = testController.onSubmit(request)
-        status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/hello-world"
+        status(result) shouldBe Status.BAD_REQUEST
       }
     }
 }

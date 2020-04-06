@@ -17,11 +17,12 @@
 package views
 
 import forms.UKBasedEligibilityForm
+import helpers.TestHelper
 import org.jsoup.Jsoup
 import views.html.home.ukBased
 
 
-class UKBasedEligibilityControllerViewSpec extends CommonViewSpecHelper with CharitiesViewMessages{
+class UKBasedEligibilityControllerViewSpec extends TestHelper {
 
   "the EligibilityView" should{
     val eligibilityForm = UKBasedEligibilityForm.ukBasedForm.bind(Map("ukbased" -> "Yes"))
@@ -34,17 +35,17 @@ class UKBasedEligibilityControllerViewSpec extends CommonViewSpecHelper with Cha
     lazy val form = doc.select("form")
 
     "have the correct title" in{
-      doc.title().toString shouldBe charitiesDetailTitle
+      doc.title().toString shouldBe messages("charities_detail.title")
     }
 
     "have the correct and properly formatted header"in{
-      doc.select("h1").text shouldBe charitiesUKBased
+      doc.select("h1").text shouldBe messages("charities_elig.ukbased")
     }
 
     "has a valid form" in{
       form.attr("method") shouldBe "POST"
       form.attr("action") shouldBe controllers.routes.UKBasedEligibilityController.onSubmit().url
-      form.select("legend.visuallyhidden").text() shouldBe charitiesDetailTitleLegendText
+      form.select("legend.visuallyhidden").text() shouldBe messages("charities_detail.title")
     }
 
 
@@ -53,9 +54,9 @@ class UKBasedEligibilityControllerViewSpec extends CommonViewSpecHelper with Cha
     }
 
     "display the correct errors appropriately" in{
-      errorDoc.select("h2#error-summary-heading").text shouldBe charitiesErrorLable
-      errorDoc.select("a#ukbased-error-summary").text shouldBe charitiesLocation
-      errorDoc.select("span.error-notification").text shouldBe charitiesLocation
+      errorDoc.select("h2#error-summary-heading").text shouldBe messages("charities.error")
+      errorDoc.select("a#ukbased-error-summary").text shouldBe messages("charities_elig.confirm.location")
+      errorDoc.select("span.error-notification").text shouldBe messages("charities_elig.confirm.location")
     }
 
     "not have errors on valid pages" in{

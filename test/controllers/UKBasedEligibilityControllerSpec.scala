@@ -16,14 +16,14 @@
 
 package controllers
 
-import helpers.ControllerTestSpec
+import helpers.TestHelper
 import play.api.http.Status
 import play.api.test.FakeRequest
 
 
-class UKBasedEligibilityControllerSpec extends ControllerTestSpec {
+class UKBasedEligibilityControllerSpec extends TestHelper {
 
-  def testController() = new UKBasedEligibilityController()(mockConfig, mcc)
+  def testController() = new UKBasedEligibilityController()(mockAppConfig, mcc)
 
     "EligibilityController" should {
 
@@ -47,6 +47,13 @@ class UKBasedEligibilityControllerSpec extends ControllerTestSpec {
         lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
         result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/hello-world"
+      }
+
+      "show an error if nothing is selected" in {
+        val form = ("ukbased", "")
+        implicit val request = FakeRequest("POST", "/eligible-location").withFormUrlEncodedBody(form)
+        lazy val result = testController.onSubmit(request)
+        status(result) shouldBe Status.BAD_REQUEST
       }
     }
 }

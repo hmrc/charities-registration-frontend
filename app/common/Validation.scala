@@ -16,17 +16,7 @@
 
 package common
 
-import play.api.data.validation.{ValidationError, _}
-
 object Validation {
-  def constraintBuilder[A](key: String, args: String*)(condition: A => Boolean): Constraint[A] = {
-    Constraint(input => if (condition(input)) {
-      Valid
-    } else {
-      Invalid(ValidationError(key, args:_*))
-    })
-  }
-
 
   val mandatoryCheck: String => Boolean = input => input.trim != ""
 
@@ -34,18 +24,4 @@ object Validation {
     case Some(input) => mandatoryCheck(input)
     case _ => false
   }
-
-
-  val yesNoCheck: String => Boolean = {
-    case "Yes" => true
-    case "No" => true
-    case "" => true
-    case _ => false
-  }
-
-  val optionalYesNoCheck: Option[String] => Boolean = {
-    case Some(input) => yesNoCheck(input)
-    case _ => true
-  }
-
 }

@@ -27,12 +27,4 @@ object Transformers {
     if (input) Some("Yes")
     else Some("No")
   }
-
-  val stringToBoolean: String => Boolean = {
-    case "Yes" => true
-    case _ => false
-  }
-
-
-  val booleanToString: Boolean => String = (input) => if (input) "Yes" else "No"
 }

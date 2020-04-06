@@ -29,9 +29,6 @@ class AppConfig @Inject()(val runModeConfiguration: Configuration,
   lazy val mode: Mode = environment.mode;
   private def loadConfig(key: String) = servicesConfig.getConfString(key, throw new Exception(s"Missing key: $key"))
 
-  private lazy val citizenAuthHost = loadConfig("govuk-tax.auth.citizen-auth.host")
-  lazy val urBannerLink: String = loadConfig("urBanner.link")
-  lazy val assetsPrefix: String = loadConfig("assets.url") + loadConfig("assets.version")
   private lazy val contactFrontendBaseUrl = loadConfig("microservice.services.contact-frontend.base-url")
   lazy val betaFeedbackUrl = s"$contactFrontendBaseUrl/contact/beta-feedback"
   lazy val betaFeedbackUnauthenticatedUrl = s"$contactFrontendBaseUrl/contact/beta-feedback-unauthenticated"
@@ -39,7 +36,6 @@ class AppConfig @Inject()(val runModeConfiguration: Configuration,
   lazy val analyticsHost: String = servicesConfig.getConfString("google-analytics.host", "auto")
   lazy val reportAProblemPartialUrl = s"$contactFrontendBaseUrl/contact/problem_reports_ajax?secure=true"
   lazy val reportAProblemNonJsUrl = s"$contactFrontendBaseUrl/contact/problem_reports_nonjs?secure=true"
-  lazy val citizenSwitchOffUrl = s"$citizenAuthHost/attorney/switch-off-act"
 
   lazy val companyAuthHost = servicesConfig.getConfString("govuk-tax.auth.company-auth.host", "http://localhost:9025")
   lazy val loginCallback =    servicesConfig.getConfString("govuk-tax.auth.login-callback.url", "http://localhost:9457/hmrc-register-charity-details/contact-details")

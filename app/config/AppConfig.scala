@@ -46,6 +46,7 @@ class AppConfig @Inject()(val runModeConfiguration: Configuration,
   lazy val loginPath = servicesConfig.getConfString("govuk-tax.auth.login_path", "sign-in")        //"sign-in-local"
   lazy val signIn = s"$companyAuthHost/gg/$loginPath"
   lazy val signInS4L = s"$companyAuthHost/gg/$loginPath"
+  println("Inside app config")
   lazy val startURL = servicesConfig.getConfString("microservice.services.charities.start-url", "https://www.gov.uk/charity-recognition-hmrc")
 
   lazy val charitiesBasePath: String = servicesConfig.baseUrl("charities")

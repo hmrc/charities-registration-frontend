@@ -46,7 +46,7 @@ class UKBasedEligibilityControllerSpec extends TestHelper {
         implicit val request = FakeRequest("POST", "/eligible-location").withFormUrlEncodedBody(form)
         lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/hello-world"
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/ineligible-for-registration"
       }
 
       "show an error if nothing is selected" in {

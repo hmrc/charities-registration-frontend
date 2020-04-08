@@ -21,6 +21,7 @@ import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
+
 class IneligibleForRegistrationController @Inject()(implicit val appConfig: AppConfig,
                                                     mcc: MessagesControllerComponents) extends FrontendController(mcc) {
 
@@ -30,3 +31,5 @@ class IneligibleForRegistrationController @Inject()(implicit val appConfig: AppC
 
 
 }
+
+

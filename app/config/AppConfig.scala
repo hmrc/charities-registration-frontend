@@ -20,10 +20,11 @@ import javax.inject.{Inject, Singleton}
 import play.api.{Configuration, Environment, Mode}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
+
 @Singleton
 class AppConfig @Inject()(val runModeConfiguration: Configuration,
-                          val environment: Environment,
-                          servicesConfig: ServicesConfig) {
+                            val environment: Environment,
+                            servicesConfig: ServicesConfig) {
 
   lazy val mode: Mode = environment.mode;
   private def loadConfig(key: String) = servicesConfig.getConfString(key, throw new Exception(s"Missing key: $key"))

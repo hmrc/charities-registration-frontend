@@ -43,7 +43,7 @@ class ValidBankEligibilityController @Inject()(implicit val appConfig: AppConfig
           Future.successful(Redirect(controllers.routes.UKBasedEligibilityController.onPageLoad()))
         }
         else {
-          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
+          Future.successful(Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad()))
         }
       }
     )

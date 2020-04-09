@@ -27,7 +27,7 @@ class IneligibleForRegstrationControllerSpec extends TestHelper  {
 
     "ineligibleController" should {
 
-      "Successfully load the valid bank page" in {
+      "Successfully load the ineligileForRegistration page" in {
         lazy val request = FakeRequest("GET", "/ineligible-for-registration")
         lazy val result = ineligibleController.onPageLoad(request)
         status(result) shouldBe Status.OK

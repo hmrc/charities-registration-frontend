@@ -42,7 +42,7 @@ class CharitableEligibilityController @Inject()(implicit val appConfig: AppConfi
           Future.successful(Redirect(controllers.routes.ValidBankEligibilityController.onPageLoad()))
         }
         else {
-          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
+          Future.successful(Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad()))
         }
       }
     )

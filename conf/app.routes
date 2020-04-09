@@ -12,3 +12,4 @@ GET        /register-as-an-organisation                     controllers.Charitie
 GET        /eligible-location                               controllers.UKBasedEligibilityController.onPageLoad
 POST       /eligible-location                               controllers.UKBasedEligibilityController.onSubmit
 
+GET        /ineligible-for-registration                     controllers.IneligibleForRegistrationController.onPageLoad

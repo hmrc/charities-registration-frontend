@@ -17,34 +17,36 @@
 package controllers
 
 import config.AppConfig
+import forms.EligibilityForm
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.home.ukBased
-import forms.UKBasedEligibilityForm
+import views.html.home.validCountries
 
 import scala.concurrent.Future
 
-class UKBasedEligibilityController @Inject()(implicit val appConfig: AppConfig,
-                                             mcc: MessagesControllerComponents) extends FrontendController(mcc) {
+class ValidCountriesEligibilityController @Inject()(implicit val appConfig: AppConfig,
+                                                    mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) {
 
   def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(ukBased(UKBasedEligibilityForm.ukBasedForm)))
+    Future.successful(Ok(validCountries(EligibilityForm.validCountriesForm)))
 
   }
 
- def onSubmit: Action[AnyContent] = Action.async { implicit request =>
-    UKBasedEligibilityForm.ukBasedForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(ukBased(errors))),
+  def onSubmit: Action[AnyContent] = Action.async { implicit request =>
+    EligibilityForm.validCountriesForm.bindFromRequest().fold(
+      errors => Future.successful(BadRequest(validCountries(errors))),
       success => {
         //TODO code for data storing
-       if (success.ukbased) {
-          Future.successful(Redirect(controllers.routes.ValidCountriesEligibilityController.onPageLoad()))
+        if (success.charitable) {
+          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
         }
         else {
-          Future.successful(Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad()))
+          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
         }
       }
     )
   }
 }
+

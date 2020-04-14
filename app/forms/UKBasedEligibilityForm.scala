@@ -28,7 +28,6 @@ object UKBasedEligibilityForm{
     mapping(
       "ukbased" -> optional[String](text)
         .verifying("charities_elig.confirm.location", optionalMandatoryCheck)
-        .verifying("charities_elig.check_eligibility", optionalYesNoCheck)
         .transform(optionStringToBoolean, booleanToOptionString)
     )(UKBasedModel.apply)(UKBasedModel.unapply)
   )

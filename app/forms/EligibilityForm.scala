@@ -39,4 +39,12 @@ object EligibilityForm{
         .transform(optionStringToBoolean, booleanToOptionString)
     )(EligibilityModel.apply)(EligibilityModel.unapply)
   )
+
+  val validCountriesForm = Form(
+    mapping(
+      "charitable" -> optional[String](text)
+        .verifying("charities_elig.valid_countries.confirm", optionalMandatoryCheck)
+        .transform(optionStringToBoolean, booleanToOptionString)
+    )(EligibilityModel.apply)(EligibilityModel.unapply)
+  )
 }

@@ -37,3 +37,6 @@ charities_elig.validBankReason = To register your charity’s details with HMRC 
 charities_elig.validBankReasonHeading = Your charity must have a UK bank, building society or credit union account
 charities_elig.ukBasedReason = Your charity needs to be based in a Member State of the European Union or another territory specified by HMRC. This means it is subject to the jurisdiction of the courts in the relevant state or territory.
 charities_elig.ukBasedReasonHeading = Your charity must be based in either the UK, another country in the European Union, or in Iceland, Liechtenstein or Norway
+
+charities_lbl.webAddress=What is your charity''s website address?(Optional)
+charities_err.error.websiteAddressInvalid=Enter a valid website address.

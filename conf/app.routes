@@ -13,3 +13,6 @@ GET        /eligible-location                               controllers.UKBasedE
 POST       /eligible-location                               controllers.UKBasedEligibilityController.onSubmit
 
 GET        /ineligible-for-registration                     controllers.IneligibleForRegistrationController.onPageLoad
+
+GET        /website-address                                 controllers.WebsiteAddressController.onPageLoad
+POST       /website-address                                 controllers.WebsiteAddressController.onSubmit

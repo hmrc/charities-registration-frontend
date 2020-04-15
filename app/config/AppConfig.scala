@@ -43,7 +43,7 @@ class AppConfig @Inject()(val runModeConfiguration: Configuration,
 
   lazy val companyAuthHost = servicesConfig.getConfString("govuk-tax.auth.company-auth.host", "http://localhost:9025")
   lazy val loginCallback =    servicesConfig.getConfString("govuk-tax.auth.login-callback.url", "http://localhost:9457/hmrc-register-charity-details/contact-details")
- // lazy val loginCallbackSave4Later = servicesConfig.getConfString("govuk-tax.auth.login-callback-s4l.url", routes.LoginController.retrieveSave4Later().url)
+  // lazy val loginCallbackSave4Later = servicesConfig.getConfString("govuk-tax.auth.login-callback-s4l.url", routes.LoginController.retrieveSave4Later().url)
   lazy val loginPath = servicesConfig.getConfString("govuk-tax.auth.login_path", "sign-in")        //"sign-in-local"
   lazy val signIn = s"$companyAuthHost/gg/$loginPath"
   lazy val signInS4L = s"$companyAuthHost/gg/$loginPath"
@@ -55,4 +55,3 @@ class AppConfig @Inject()(val runModeConfiguration: Configuration,
 
   lazy val survey = servicesConfig.getConfString("microservice.services.feedback-frontend.host", "")
 }
-

@@ -24,10 +24,6 @@
 
 @main_template(title = messages("charities_elig.title"), bodyClasses = None) {
 
-    <div class="js-visible">
-        <p><a id="back-link" class="link-back" href="#">@messages("charities_login.button.back")</a></p>
-    </div>
-
     @if(eligibilityForm.hasErrors){
         @helpers.errorSummary(messages("charities.error"), eligibilityForm
         )

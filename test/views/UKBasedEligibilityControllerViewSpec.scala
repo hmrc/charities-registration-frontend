@@ -64,5 +64,9 @@ class UKBasedEligibilityControllerViewSpec extends TestHelper {
       doc.select("a#ukbased-error-summary").text shouldBe ""
       doc.select("span.error-notification").text shouldBe ""
     }
+
+    "have a back link" in{
+      doc.select("#back-link").attr("href") shouldBe "javascript:history.go(-1)"
+    }
   }
 }

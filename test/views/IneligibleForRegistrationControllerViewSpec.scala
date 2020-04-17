@@ -36,8 +36,7 @@ class IneligibleForRegistrationControllerViewSpec extends TestHelper {
     }
 
     "have a back link" in{
-      doc.select("#back-link").attr("href") shouldBe "#"
-
+      doc.select("#back-link").attr("href") shouldBe "javascript:history.go(-1)"
     }
 
 

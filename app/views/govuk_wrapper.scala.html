@@ -25,6 +25,7 @@
         contentHeader: Option[Html] = None,
         mainContent: Html = HtmlFormat.empty,
         serviceInfoContent: Html = HtmlFormat.empty,
+        isBackLinkDisable:  Option[Boolean] = None,
         scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
 
     @import layouts.{govuk_template => hmrcGovUkTemplate}
@@ -70,9 +71,14 @@
     }
 
     @mainContentHeader = {
-    @if(contentHeader.isDefined) {
-        @uiLayouts.main_content_header(contentHeader = contentHeader.get)
-    }
+        @if(contentHeader.isDefined) {
+            @uiLayouts.main_content_header(contentHeader = contentHeader.get)
+        }
+        @if(!isBackLinkDisable) {
+            <div class="js-visible">
+                <p><a id="back-link" class="link-back" href="javascript:history.go(-1)">@messages("charities_login.button.back")</a></p>
+            </div>
+        }
     }
 
     @getHelpForm = @{uiHelpers.reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJsUrl)}

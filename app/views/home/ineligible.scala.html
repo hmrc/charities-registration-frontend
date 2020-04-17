@@ -22,11 +22,6 @@
 @()(implicit request:Request[_],messages:Messages,appConfig: AppConfig)
 @main_template(title = messages("charities_detail.title"), bodyClasses = None) {
 
-<div class="js-visible">
- <p><a id="back-link" class="link-back" href="#">@messages("charities_login.button.back")</a></p>
-</div>
-
-
 <h1 id="page-title" class="heading-48">
     @Messages("charities_ineligible")
 </h1>

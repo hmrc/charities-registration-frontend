@@ -14,13 +14,13 @@ charities_elig.title = Check your eligibility
 charities_elig.check_eligibility = Check if you can register
 
 charities_elig.charitable = Is your charity for charitable purposes only?
-charities_elig.confirm = Confirm if your charity is for charitable purposes only
+charities_elig.confirm = Select yes if your charity is for charitable purposes only
 
-charities_elig.valid_bank = Does your charity have a UK Bank, building society or credit union account?
-charities_elig_valid_bank.confirm = Confirm if your charity has a UK Bank, building society or credit union.
+charities_elig.valid_bank = Does your charity have a UK bank, building society or credit union account?
+charities_elig_valid_bank.confirm = Select yes if your charity has a UK bank, building society or credit union account
 
 charities_elig.ukbased = Is your charity based in the UK?
-charities_elig.confirm.location = Confirm if your charity is based in the UK
+charities_elig.confirm.location = Select yes if your charity is based in the UK
 
 charities_elig.valid_countries = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 charities_elig.valid_countries.confirm = Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway

@@ -24,18 +24,14 @@
 
 @main_template(title = messages("charities_detail.title"), bodyClasses = None) {
 
-    <div class="js-visible">
-        <p><a id="back-link" class="link-back" href="#">@messages("charities_login.button.back")</a></p>
-    </div>
+    @if(eligibilityForm.hasErrors){
+        @helpers.errorSummary(messages("charities.error"), eligibilityForm)
+    }
+
     <header class="page-header page-header-margin">
         <h2 class="form-hint heading-l">@messages("charities_elig.check_eligibility")</h2>
         <h1>@messages("charities_elig.charitable")</h1>
     </header>
-
-    @if(eligibilityForm.hasErrors){
-        @helpers.errorSummary(messages("charities.error"), eligibilityForm
-        )
-    }
 
 @form(action = routes.CharitableEligibilityController.onSubmit()) {
     <fieldset class="inline">

@@ -43,7 +43,7 @@ class ValidCountriesEligibilityController @Inject()(implicit val appConfig: AppC
           Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
         }
         else {
-          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
+          Future.successful(Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad()))
         }
       }
     )

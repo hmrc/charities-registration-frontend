@@ -23,20 +23,20 @@ import play.api.test.FakeRequest
 
 class ValidCountriesEligibilityControllerSpec extends TestHelper  {
 
-  lazy val validCountriesEligibilityController = fakeApplication.injector.instanceOf[ValidCountriesEligibilityController]
+  def testController() = new ValidCountriesEligibilityController()(mockAppConfig, mcc)
 
     "ValidCountriesEligibilityController" should {
 
       "Successfully load the valid countries page" in {
         lazy val request = FakeRequest("GET", "/eligible-countries")
-        lazy val result = validCountriesEligibilityController.onPageLoad(request)
+        lazy val result = testController.onPageLoad(request)
         status(result) shouldBe Status.OK
       }
 
       "redirect to eligible sign in page when 'Yes' is submitted in valid countries eligibility page" in {
         val form = ("charitable", "Yes")
         implicit val request = FakeRequest("POST", "/eligible-countries").withFormUrlEncodedBody(form)
-        lazy val result = validCountriesEligibilityController.onSubmit(request)
+        lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
         result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/hello-world"
       }
@@ -44,7 +44,7 @@ class ValidCountriesEligibilityControllerSpec extends TestHelper  {
       "redirect to not eligible page when 'No' is submitted in valid countries eligibility page" in {
         val form = ("charitable", "No")
         implicit val request = FakeRequest("POST", "/eligible-countries").withFormUrlEncodedBody(form)
-        lazy val result = validCountriesEligibilityController.onSubmit(request)
+        lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
         result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/ineligible-for-registration"
       }
@@ -52,7 +52,7 @@ class ValidCountriesEligibilityControllerSpec extends TestHelper  {
       "show an error if nothing is selected" in {
         val form = ("charitable", "")
         implicit val request = FakeRequest("POST", "/eligible-countries").withFormUrlEncodedBody(form)
-        lazy val result = validCountriesEligibilityController.onSubmit(request)
+        lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.BAD_REQUEST
       }
     }

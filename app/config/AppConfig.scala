@@ -42,7 +42,7 @@ class AppConfig @Inject()(val runModeConfiguration: Configuration,
   lazy val citizenSwitchOffUrl = s"$citizenAuthHost/attorney/switch-off-act"
 
   lazy val companyAuthHost = servicesConfig.getConfString("govuk-tax.auth.company-auth.host", "http://localhost:9025")
-  lazy val loginCallback =    servicesConfig.getConfString("govuk-tax.auth.login-callback.url", "http://localhost:9457/hmrc-register-charity-details/contact-details")
+  lazy val loginCallback =    servicesConfig.getConfString("govuk-tax.auth.login-callback.url", "http://localhost:9457/hmrc-register-charity-registration-details/contact-details")
   // lazy val loginCallbackSave4Later = servicesConfig.getConfString("govuk-tax.auth.login-callback-s4l.url", routes.LoginController.retrieveSave4Later().url)
   lazy val loginPath = servicesConfig.getConfString("govuk-tax.auth.login_path", "sign-in")        //"sign-in-local"
   lazy val signIn = s"$companyAuthHost/gg/$loginPath"

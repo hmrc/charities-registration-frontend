@@ -67,18 +67,26 @@
     @uiLayouts.serviceInfo(
         betaBanner = HtmlFormat.empty,
         includeGridWrapper = false,
-        serviceInfoContent = Some(serviceInfoContent))
+        serviceInfoContent = Some(serviceInfoContent),
+        setLang  = messages.lang.code)
     }
 
     @mainContentHeader = {
         @if(contentHeader.isDefined) {
             @uiLayouts.main_content_header(contentHeader = contentHeader.get)
         }
-        @if(!isBackLinkDisable) {
-            <div class="js-visible">
-                <p><a id="back-link" class="link-back" href="javascript:history.go(-1)">@messages("charities_login.button.back")</a></p>
-            </div>
-        }
+
+        <div class="form-group">
+            @if(!isBackLinkDisable) {
+                <a id="back-link" class="link-back form-group" href="javascript:history.go(-1)">@messages("charities_login.button.back")</a>
+            }
+
+            @views.html.components.languageSelection(Map(
+                "english" -> Lang("en"),
+                "cymraeg" -> Lang("cy")
+            ), controllers.routes.LanguageSwitchController.switchToLanguage, None)
+        </div>
+
     }
 
     @getHelpForm = @{uiHelpers.reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJsUrl)}

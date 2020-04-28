@@ -1,5 +1,8 @@
 # microservice specific routes
 
+#Language Controller
+GET        /language/:lang                                  controllers.LanguageSwitchController.switchToLanguage(lang: String)
+
 GET        /hello-world                                     controllers.HelloWorldController.helloWorld
 
 GET        /eligible-purposes                               controllers.CharitableEligibilityController.onPageLoad
@@ -12,7 +15,7 @@ GET        /eligible-location                               controllers.UKBasedE
 POST       /eligible-location                               controllers.UKBasedEligibilityController.onSubmit
 
 GET        /eligible-countries                              controllers.ValidCountriesEligibilityController.onPageLoad
-POST       /eligible-countries                               controllers.ValidCountriesEligibilityController.onSubmit
+POST       /eligible-countries                              controllers.ValidCountriesEligibilityController.onSubmit
 
 GET        /ineligible-for-registration                     controllers.IneligibleForRegistrationController.onPageLoad
 

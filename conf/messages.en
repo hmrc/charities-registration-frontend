@@ -1,4 +1,4 @@
-charities.title = Register your charity’s details with HMRC - GOV.UK
+charities.title = Register your charity''s details with HMRC - GOV.UK
 
 charities.yes = Yes
 charities.no = No
@@ -32,7 +32,7 @@ charities_ineligibleSummary=If your circumstances change then you should check i
 charities_elig_register=To register for this service:
 charities_elig.charitableReasonHeading=Your charity must be established for charitable purposes only
 charities_elig.charitableReason = An eligible charity must be restricted by its governing document to using all its income and assets for its stated charitable purposes.
-charities_elig.validBankReason = To register your charity’s details with HMRC online, your charity must have its own UK bank, building society or credit union account.
+charities_elig.validBankReason = To register your charity''s details with HMRC online, your charity must have its own UK bank, building society or credit union account.
 charities_elig.validBankReasonHeading = Your charity must have a UK bank, building society or credit union account
 charities_elig.ukBasedReason = Your charity needs to be based in a Member State of the European Union or another territory specified by HMRC. This means it is subject to the jurisdiction of the courts in the relevant state or territory.
 charities_elig.ukBasedReasonHeading = Your charity must be based in either the UK, another country in the European Union, or in Iceland, Liechtenstein or Norway

@@ -20,3 +20,6 @@ POST       /eligible-countries                              controllers.ValidCou
 GET        /ineligible-for-registration                     controllers.IneligibleForRegistrationController.onPageLoad
 
 GET        /register-as-an-organisation                     controllers.CharitiesRegisterOrganisationController.onPageLoad
+
+GET        /contact-details                                 controllers.CharitiesContactDetailsController.onPageLoad
+POST       /contact-details                                 controllers.CharitiesContactDetailsController.onSubmit

@@ -1,0 +1,58 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.play.views.html.helpers.form
+@import uk.gov.hmrc.play.views.html.helpers
+@import models.EligibilityModel
+@import views.html.main_template
+@import controllers.routes
+@import config.AppConfig
+@( contactDetailsForm: Form[CharitiesContactDetailsModel])(implicit request: Request[_], messages: Messages,appConfig: AppConfig)
+
+@main_template(title = messages("charities_detail.title"), bodyClasses = None) {
+
+    @if(contactDetailsForm.hasErrors){
+        @helpers.errorSummary(messages("charities.error"), contactDetailsForm)
+    }
+
+    <header class="page-header page-header-margin">
+        <h1>@messages("charities_contact_details")</h1>
+    </header>
+
+@form(action = routes.CharitableEligibilityController.onSubmit()) {
+    <fieldset class="inline">
+        <div class="form-group">
+                @helpers.input_radio_group(
+                    field=eligibilityForm("charitable"),
+                    Seq(
+                        "Yes" -> messages("charities.yes"),
+                        "No" -> messages("charities.no")
+                    ),
+                    '_legend -> messages("charities_detail.title"),
+                    '_legendID -> "charitable",
+                    '_legendClass -> "visuallyhidden",
+                    '_labelAfter -> true,
+                    '_labelClass -> "block-label selection-button-radio"
+
+
+                )
+        </div>
+    </fieldset>
+    <button class="button" type="submit" id="continue-button">@messages("common.continue")</button>
+}
+
+}
+

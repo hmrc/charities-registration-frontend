@@ -60,7 +60,7 @@ class AuthActionSpec extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAft
       val result = harness.onPageLoad()(FakeRequest("GET", "/eligible-account"))
 
       status(result) shouldBe Status.SEE_OTHER
-      result.header.headers("Location") shouldBe "http://localhost:9025/gg/sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fhmrc-register-charity-details%2Fcontact-details&origin=charities-registration-frontend"
+      result.header.headers("Location") shouldBe "http://localhost:9025/gg/sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fhmrc-register-charity-registration-details%2Fcontact-details&origin=charities-registration-frontend"
     }
   }
 

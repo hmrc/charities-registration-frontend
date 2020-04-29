@@ -38,7 +38,7 @@ class UKBasedEligibilityControllerSpec extends TestHelper {
         implicit val request = FakeRequest("POST", "/eligible-location").withFormUrlEncodedBody(form)
         lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/eligible-countries"
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-registration-details/eligible-countries"
       }
 
       "process 'No' submit of the eligibility page" in {
@@ -46,7 +46,7 @@ class UKBasedEligibilityControllerSpec extends TestHelper {
         implicit val request = FakeRequest("POST", "/eligible-location").withFormUrlEncodedBody(form)
         lazy val result = testController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/ineligible-for-registration"
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-registration-details/ineligible-for-registration"
       }
 
       "show an error if nothing is selected" in {

@@ -38,7 +38,7 @@ class ValidBankEligibilityControllerSpec extends TestHelper  {
         implicit val request = FakeRequest("POST", "/eligible-account").withFormUrlEncodedBody(form)
         lazy val result = validBankEligibilityController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/eligible-location"
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-registration-details/eligible-location"
       }
 
       "redirect to not eligible page when 'No' is submitted in valid bank eligibility page" in {
@@ -46,7 +46,7 @@ class ValidBankEligibilityControllerSpec extends TestHelper  {
         implicit val request = FakeRequest("POST", "/eligible-account").withFormUrlEncodedBody(form)
         lazy val result = validBankEligibilityController.onSubmit(request)
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-details/ineligible-for-registration"
+        result.header.headers.get("Location").get shouldBe "/hmrc-register-charity-registration-details/ineligible-for-registration"
       }
 
       "show an error if nothing is selected" in {

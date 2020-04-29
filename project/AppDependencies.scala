@@ -9,7 +9,7 @@ object AppDependencies extends {
     ws,
     "uk.gov.hmrc"             %% "http-caching-client"      % "9.0.0-play-26",
     "uk.gov.hmrc"             %% "play-partials"            % "6.9.0-play-26",
-    "uk.gov.hmrc"             %% "govuk-template"           % "5.52.0-play-26",
+    "uk.gov.hmrc"             %% "govuk-template"           % "5.54.0-play-26",
     "uk.gov.hmrc"             %% "play-language"            % "4.2.0-play-26",
     "uk.gov.hmrc"             %% "play-ui"                  % "8.8.0-play-26",
     "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.5.0",
@@ -19,7 +19,7 @@ object AppDependencies extends {
 
   val test: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"             %% "hmrctest"                 % "3.9.0-play-26",
-		"uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.5.0" ,
+		"uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.7.0" ,
 		"org.scalatest"           %% "scalatest"                % "3.0.8" ,
 		"org.jsoup"               %  "jsoup"                    % "1.13.1",
     "com.typesafe.play"       %% "play-test"                % current ,

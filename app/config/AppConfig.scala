@@ -41,17 +41,17 @@ class AppConfig @Inject()(val runModeConfiguration: Configuration,
   lazy val reportAProblemNonJsUrl = s"$contactFrontendBaseUrl/contact/problem_reports_nonjs?secure=true"
   lazy val citizenSwitchOffUrl = s"$citizenAuthHost/attorney/switch-off-act"
 
-  lazy val companyAuthHost = servicesConfig.getString("govuk-tax.auth.company-auth.host").orElse("http://localhost:9025").toString()
-  lazy val loginCallback =    servicesConfig.getString("govuk-tax.auth.login-callback.url").orElse( "http://localhost:9457/hmrc-register-charity-registration-details/contact-details").toString()
+  lazy val companyAuthHost = servicesConfig.getString("govuk-tax.auth.company-auth.host")
+  lazy val loginCallback =    servicesConfig.getString("govuk-tax.auth.login-callback.url")
   // lazy val loginCallbackSave4Later = servicesConfig.getConfString("govuk-tax.auth.login-callback-s4l.url", routes.LoginController.retrieveSave4Later().url)
-  lazy val loginPath = servicesConfig.getString("govuk-tax.auth.login_path").orElse("sign-in").toString()    //"sign-in-local"
+  lazy val loginPath = servicesConfig.getString("govuk-tax.auth.login_path")  //"sign-in-local"
   lazy val signIn = s"$companyAuthHost/gg/$loginPath"
   lazy val signInS4L = s"$companyAuthHost/gg/$loginPath"
-  lazy val startURL = servicesConfig.getString("microservice.services.charities.start-url").orElse("https://www.gov.uk/charity-recognition-hmrc").toString()
+  lazy val startURL = servicesConfig.getString("microservice.services.charities.start-url")
 
   lazy val charitiesBasePath: String = servicesConfig.baseUrl("charities")
 
   lazy val useMinifiedAssets = servicesConfig.getConfBool("assets.minified", true)
 
-  lazy val survey = servicesConfig.getString("microservice.services.feedback-frontend.host").orElse("").toString()
+  lazy val survey = servicesConfig.getString("microservice.services.feedback-frontend.host")
 }

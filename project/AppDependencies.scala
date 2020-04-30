@@ -20,7 +20,7 @@ object AppDependencies extends {
   val test: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"             %% "hmrctest"                 % "3.9.0-play-26",
 		"uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.7.0" ,
-		"org.scalatest"           %% "scalatest"                % "3.1.1" ,
+		"org.scalatest"           %% "scalatest"                % "3.0.8" ,
 		"org.jsoup"               %  "jsoup"                    % "1.13.1",
     "com.typesafe.play"       %% "play-test"                % current ,
     "org.pegdown"             %  "pegdown"                  % "1.6.0" ,

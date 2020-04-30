@@ -17,11 +17,12 @@
 package controllers
 
 import config.AppConfig
-import forms.UKBasedEligibilityForm
+import forms.CharitiesContactDetailsForm
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.home.ukBased
+import views.html.home.contactDetails
+
 
 import scala.concurrent.Future
 
@@ -29,22 +30,17 @@ class CharitiesContactDetailsController @Inject()(implicit val appConfig: AppCon
                                                   mcc: MessagesControllerComponents) extends FrontendController(mcc) {
 
   def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(ukBased(UKBasedEligibilityForm.ukBasedForm)))
+    Future.successful(Ok(contactDetails(CharitiesContactDetailsForm.contactDetailsForm)))
 
   }
 
  def onSubmit: Action[AnyContent] = Action.async { implicit request =>
-    UKBasedEligibilityForm.ukBasedForm.bindFromRequest().fold(
-      errors => Future.successful(BadRequest(ukBased(errors))),
-      success => {
+   CharitiesContactDetailsForm.contactDetailsForm.bindFromRequest().fold(
+      errors => Future.successful(BadRequest(contactDetails(errors))),
+     successful => {  Future.successful(Redirect(controllers.routes.ValidCountriesEligibilityController.onPageLoad()))
         //TODO code for data storing
-       if (success.ukbased) {
-          Future.successful(Redirect(controllers.routes.ValidCountriesEligibilityController.onPageLoad()))
+
         }
-        else {
-          Future.successful(Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad()))
-        }
-      }
     )
   }
 }

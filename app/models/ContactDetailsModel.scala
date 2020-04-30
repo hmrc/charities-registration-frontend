@@ -16,19 +16,19 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
-case class CharitiesContactDetailsModel(daytimePhone:String,mobilePhone:Option[String],emailAddress:String)
+case class ContactDetailsModel(daytimePhone:String,mobilePhone:Option[String],emailAddress:String)
 
 
-object EligibilityModel {
+object ContactDetailsModel {
 
-  implicit val formats = Json.format[CharitiesContactDetailsModel]
+  implicit val format: OFormat[ContactDetailsModel] = Json.format[ContactDetailsModel]
 
-  def fromStrings(daytimePhone: String, mobilePhone: Option[String],
-                  emailAddress:String) = CharitiesContactDetailsModel(daytimePhone, mobilePhone,emailAddress)
+  /*def fromStrings(daytimePhone: String, mobilePhone: Option[String],
+                  emailAddress:String) = ContactDetailsModel(daytimePhone, mobilePhone,emailAddress)
 
-  def toStrings(model: CharitiesContactDetailsModel) = Option((
+  def toStrings(model: ContactDetailsModel) = Option((
     model.daytimePhone, model.mobilePhone.map(_.toString), model.emailAddress.map(_.toString)))
-
+*/
 }

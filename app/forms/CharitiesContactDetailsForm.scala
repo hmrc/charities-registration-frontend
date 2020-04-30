@@ -19,7 +19,7 @@ package forms
 import common.CharitiesValidator
 import common.Transformers._
 import common.Validation._
-import models.UKBasedModel
+import models.ContactDetailsModel
 import play.api.data.Form
 import play.api.data.Forms._
 
@@ -29,8 +29,8 @@ object CharitiesContactDetailsForm{
     mapping(
       "daytimePhone" -> text.verifying("charities_lbl.noDaytimePhoneNo", _.nonEmpty)
         .verifying("error.phMobNum_invalid", field => field.isEmpty || field.matches(CharitiesValidator.validateTelephoneNumber)),
-      "mobilePhone" -> optional(text.verifying("error.phMobNum_invalid", field => field.isEmpty || field.matches(CharitiesValidator.validateTelephoneNumber))),
+      "mobilePhone" -> optional(text.verifying("error.phMobNum_invalid", field => field.isEmpty || field.matches(CharitiesValidator.validateTelephoneNumber))verifying("charities_err.error.emailTooLong", model => model.length<160 || !model.matches(CharitiesValidator.emailAddressPattern))),
       "emailAddress" -> text.verifying("error.emailAddress_invalid", field => field.isEmpty || field.matches(CharitiesValidator.emailAddressPattern)))
-    )(UKBasedModel.apply)(UKBasedModel.unapply)
+    (ContactDetailsModel.apply)(ContactDetailsModel.unapply)
   )
 }

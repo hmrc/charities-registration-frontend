@@ -27,10 +27,10 @@ object CharitiesContactDetailsForm{
 
   val contactDetailsForm = Form(
     mapping(
-      "daytimePhone" -> text.verifying("charities_lbl.noDaytimePhoneNo", _.nonEmpty)
+      "daytimePhone" -> text.verifying("error.phMobNum_invalid", _.nonEmpty)
         .verifying("error.phMobNum_invalid", field => field.isEmpty || field.matches(CharitiesValidator.validateTelephoneNumber)),
-      "mobilePhone" -> optional(text.verifying("error.phMobNum_invalid", field => field.isEmpty || field.matches(CharitiesValidator.validateTelephoneNumber))verifying("charities_err.error.emailTooLong", model => model.length<160 || !model.matches(CharitiesValidator.emailAddressPattern))),
-      "emailAddress" -> text.verifying("error.emailAddress_invalid", field => field.isEmpty || field.matches(CharitiesValidator.emailAddressPattern)))
+      "mobilePhone" -> optional(text.verifying("error.phMobNum_invalid", field => field.isEmpty || field.matches(CharitiesValidator.validateTelephoneNumber))),
+      "emailAddress" -> text.verifying("error.emailAddress_invalid", field => field.isEmpty || field.matches(CharitiesValidator.emailAddressPattern)).verifying("charities_err.error.emailTooLong", field => field.length<160))
     (ContactDetailsModel.apply)(ContactDetailsModel.unapply)
   )
 }

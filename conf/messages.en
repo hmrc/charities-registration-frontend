@@ -7,7 +7,7 @@ charities_login.button.back = Back
 
 charities_detail.title = Enter Your charity details
 charities.error = This form has errors
-charities.register.title = HMRC Register Charity
+charities.register.title = Register your charity''s details with HMRC
 
 # Charities Eligibility
 charities_elig.title = Check your eligibility
@@ -46,10 +46,10 @@ charitiesRegisterOrganisation.registerAs.link = sign in with your organisaion si
 
 #Contact Details
 charities_lbl.daytimePhoneNo=Daytime phone number
-error.phMobNum_invalid=Enter your charity's daytime phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+error.phMobNum_invalid=Enter your charity''s daytime phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 charities_lbl.noemailAddress=Enter correct email address.
-error.emailAddress_invalid=Enter your charity's email address in the correct format, like name@example.com
-charities_contact_details=Charity’'s contact details
+error.emailAddress_invalid=Enter your charity''s email address in the correct format, like name@example.com
+charities_contact_details=Charity''s contact details
 charities_lbl.mobilePhoneNo=Mobile phone number (optional)
 charities_lbl.emailAddress=Email address
-charities_err.error.emailTooLong='Your charity's email address must be 160 characters or fewer.'
+charities_err.error.emailTooLong=Your charity''s email address must be 160 characters or fewer.

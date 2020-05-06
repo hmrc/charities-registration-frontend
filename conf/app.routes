@@ -5,6 +5,8 @@ GET        /language/:lang                                  controllers.Language
 
 GET        /hello-world                                     controllers.HelloWorldController.helloWorld
 
+GET        /service-reset                                   controllers.SessionExpiredController.onPageLoad
+
 GET        /eligible-purposes                               controllers.CharitableEligibilityController.onPageLoad
 POST       /eligible-purposes                               controllers.CharitableEligibilityController.onSubmit
 
@@ -20,6 +22,9 @@ POST       /eligible-countries                              controllers.ValidCou
 GET        /ineligible-for-registration                     controllers.IneligibleForRegistrationController.onPageLoad
 
 GET        /register-as-an-organisation                     controllers.CharitiesRegisterOrganisationController.onPageLoad
+
+GET        /charities-name                                  controllers.CharityNameDetailsController.onPageLoad
+POST       /charities-name                                  controllers.CharityNameDetailsController.onSubmit
 
 GET        /contact-details                                 controllers.CharitiesContactDetailsController.onPageLoad
 POST       /contact-details                                 controllers.CharitiesContactDetailsController.onSubmit

@@ -9,6 +9,11 @@ charities_detail.title = Enter Your charity details
 charities.error = This form has errors
 charities.register.title = charities.register.title
 
+# Session Expired
+session.expired.title = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
+session.expired.heading = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
+session.expired.start_again = Start again
+
 # Charities Eligibility
 charities_elig.title = Check your eligibility
 charities_elig.check_eligibility = Check if you can register
@@ -43,6 +48,19 @@ charitiesRegisterOrganisation.message.toUseServiceStart = You must signin into G
 charitiesRegisterOrganisation.link = You can set up an organisation Government Gateway account.
 charitiesRegisterOrganisation.message.end = If you have already one,
 charitiesRegisterOrganisation.registerAs.link = sign in with your organisaion sign-in details.
+
+# Charities Details
+charitiesDetails.title = Your charity''s contact details
+charityDetails.name.heading = Charity''s details
+charityDetails.fullName = Full name of your charity
+charityDetails.fullName.hint = As shown on your charity''s governing document.
+charityDetails.operatingName = Operating name of your charity(optional)
+charityDetails.operatingName.hint = The working name or acronym by which your charity is known.
+charityDetails.error.fullName.required = Enter the full name of your charity
+charityDetails.fullName.lengthError = Enter a charity name that is 160 characters or fewer
+charityDetails.operatingName.lengthError = Enter an operating name that is 160 characters or fewer
+charityDetails.fullName.invalid = The full name of your charity must not include the following characters: & ( ) : @
+charityDetails.operatingName.invalid = The operating name of your charity must not include the following characters: & ( ) : @
 
 #Contact Details
 charities_lbl.daytimePhoneNo=Daytime phone number

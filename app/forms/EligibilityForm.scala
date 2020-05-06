@@ -18,7 +18,7 @@ package forms
 
 import common.Transformers._
 import common.Validation._
-import models.EligibilityModel
+import models.YesNoModel
 import play.api.data.Form
 import play.api.data.Forms._
 
@@ -26,25 +26,33 @@ object EligibilityForm{
 
   val charitableForm = Form(
     mapping(
-      "charitable" -> optional[String](text)
+      "value" -> optional[String](text)
         .verifying("charities_elig.confirm", optionalMandatoryCheck)
         .transform(optionStringToBoolean, booleanToOptionString)
-    )(EligibilityModel.apply)(EligibilityModel.unapply)
+    )(YesNoModel.apply)(YesNoModel.unapply)
   )
 
   val validBankForm = Form(
     mapping(
-      "charitable" -> optional[String](text)
+      "value" -> optional[String](text)
         .verifying("charities_elig_valid_bank.confirm", optionalMandatoryCheck)
         .transform(optionStringToBoolean, booleanToOptionString)
-    )(EligibilityModel.apply)(EligibilityModel.unapply)
+    )(YesNoModel.apply)(YesNoModel.unapply)
+  )
+
+  val ukBasedForm = Form(
+    mapping(
+      "value" -> optional[String](text)
+        .verifying("charities_elig.confirm.location", optionalMandatoryCheck)
+        .transform(optionStringToBoolean, booleanToOptionString)
+    )(YesNoModel.apply)(YesNoModel.unapply)
   )
 
   val validCountriesForm = Form(
     mapping(
-      "charitable" -> optional[String](text)
+      "value" -> optional[String](text)
         .verifying("charities_elig.valid_countries.confirm", optionalMandatoryCheck)
         .transform(optionStringToBoolean, booleanToOptionString)
-    )(EligibilityModel.apply)(EligibilityModel.unapply)
+    )(YesNoModel.apply)(YesNoModel.unapply)
   )
 }

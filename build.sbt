@@ -8,8 +8,8 @@ scalaVersion := "2.12.11"
 
 lazy val scoverageSettings: Seq[Def.Setting[_]] =
   Seq(
-    ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;.*AuthService.*;models/.data/..*;audit.*;connectors.Links;view.*;models.*;app.Routes.*;charities.Routes.*;controllers.audit.*;uk.gov.hmrc.*;controllers.passcode.*;",
-    ScoverageKeys.coverageMinimum := 80,
+    ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;.*AuthService.*;models/.data/..*;audit.*;connectors.Links;view.*;models.*;app.Routes.*;prod.Routes.*;testOnlyDoNotUseInAppConf.Routes.*;controllers.audit.*;uk.gov.hmrc.*;controllers.passcode.*;",
+    ScoverageKeys.coverageMinimum := 70,
     ScoverageKeys.coverageFailOnMinimum := false,
     ScoverageKeys.coverageHighlighting := true
   )

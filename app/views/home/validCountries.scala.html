@@ -16,17 +16,16 @@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import uk.gov.hmrc.play.views.html.helpers
-@import models.EligibilityModel
+@import models.YesNoModel
 @import views.html.main_template
 @import controllers.routes
 @import config.AppConfig
-@( eligibilityForm: Form[EligibilityModel])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
+@( eligibilityForm: Form[YesNoModel])(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
 @main_template(title = messages("charities_elig.title"), bodyClasses = None) {
 
     @if(eligibilityForm.hasErrors){
-        @helpers.errorSummary(messages("charities.error"), eligibilityForm
-        )
+        @helpers.errorSummary(messages("charities.error"), eligibilityForm)
     }
 
     <header class="page-header page-header-margin">
@@ -50,7 +49,7 @@
         <fieldset class="inline">
             <div class="form-group">
             @helpers.input_radio_group(
-                field=eligibilityForm("charitable"),
+                field=eligibilityForm("value"),
                 Seq(
                     "Yes" -> messages("charities.yes"),
                     "No" -> messages("charities.no")

@@ -17,33 +17,48 @@
 package controllers
 
 import config.AppConfig
+import controllers.actions.{DataRequiredAction, DataRetrievalAction}
+import controllers.auth.{AuthAction, SessionIdentifierAction}
+import controllers.connectors.{DataCacheConnector, DataShortCacheConnector}
 import forms.EligibilityForm
 import javax.inject.Inject
+import models.YesNoModel
+import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.home.validBank
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ValidBankEligibilityController @Inject()(implicit val appConfig: AppConfig,
-                                               mcc: MessagesControllerComponents)
-  extends FrontendController(mcc) {
+   sessionIdentifierAction: SessionIdentifierAction,
+   dataShortCacheConnector: DataShortCacheConnector,
+   getData: DataRetrievalAction,
+   requiredData: DataRequiredAction,
+   mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(validBank(EligibilityForm.validBankForm)))
+  def onPageLoad: Action[AnyContent] = (sessionIdentifierAction andThen getData andThen requiredData).async { implicit request =>
+
+    val preparedForm = request.userAnswers.eligibilityAccount.
+      fold(EligibilityForm.validBankForm)(EligibilityForm.validBankForm.fill)
+
+    Future.successful(Ok(validBank(preparedForm)))
 
   }
 
-  def onSubmit: Action[AnyContent] = Action.async { implicit request =>
+  def onSubmit: Action[AnyContent] = (sessionIdentifierAction andThen getData andThen requiredData).async { implicit request =>
     EligibilityForm.validBankForm.bindFromRequest().fold(
       errors => Future.successful(BadRequest(validBank(errors))),
       success => {
-        //TODO code for data storing
-        if (success.charitable) {
-          Future.successful(Redirect(controllers.routes.UKBasedEligibilityController.onPageLoad()))
-        }
-        else {
-          Future.successful(Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad()))
+        dataShortCacheConnector.save[YesNoModel](request.sessionId, YesNoModel.eligibilityAccountId, success).map{ _ =>
+          if (success.value) {
+            Redirect(controllers.routes.UKBasedEligibilityController.onPageLoad())
+          }
+          else {
+            Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad())
+          }
         }
       }
     )

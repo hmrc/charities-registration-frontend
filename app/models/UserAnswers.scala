@@ -26,5 +26,6 @@ class UserAnswers(cacheMap: CacheMap) extends Enumerable.Implicits {
   def eligibilityCountries: Option[YesNoModel] = cacheMap.getEntry[YesNoModel](YesNoModel.eligibilityCountriesId)
 
   def charityNameDetails: Option[CharityNamesModel] = cacheMap.getEntry[CharityNamesModel](CharityNamesModel.toString)
+  def contactDetails: Option[ContactDetailsModel] = cacheMap.getEntry[ContactDetailsModel](ContactDetailsModel.toString)
 
 }

@@ -25,10 +25,5 @@ object ContactDetailsModel {
 
   implicit val format: OFormat[ContactDetailsModel] = Json.format[ContactDetailsModel]
 
-  /*def fromStrings(daytimePhone: String, mobilePhone: Option[String],
-                  emailAddress:String) = ContactDetailsModel(daytimePhone, mobilePhone,emailAddress)
-
-  def toStrings(model: ContactDetailsModel) = Option((
-    model.daytimePhone, model.mobilePhone.map(_.toString), model.emailAddress.map(_.toString)))
-*/
+  override def toString: String = "charitycontactDetail"
 }

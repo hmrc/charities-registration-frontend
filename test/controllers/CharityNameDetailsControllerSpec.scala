@@ -78,7 +78,7 @@ class CharityNameDetailsControllerSpec extends TestHelper with BeforeAndAfterEac
         lazy val result = testController.onSubmit(request)
 
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers("Location") shouldBe "/hmrc-register-charity-registration-details/hello-world"
+        result.header.headers("Location") shouldBe "/hmrc-register-charity-registration-details/contact-details"
         verify(mockDataCacheConnector, times(1)).save[CharityNamesModel](any(), any(), any())(any())
       }
 

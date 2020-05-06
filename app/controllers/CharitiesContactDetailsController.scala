@@ -17,29 +17,44 @@
 package controllers
 
 import config.AppConfig
+import controllers.actions.DataRetrievalAction
+import controllers.auth.AuthAction
+import controllers.connectors.DataCacheConnector
 import forms.CharitiesContactDetailsForm
 import javax.inject.Inject
+import models.ContactDetailsModel
+import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.home.contactDetails
 
-
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
 
 class CharitiesContactDetailsController @Inject()(implicit val appConfig: AppConfig,
-                                                  mcc: MessagesControllerComponents) extends FrontendController(mcc) {
+                                                  val dataCacheConnector: DataCacheConnector,
+                                                  getData: DataRetrievalAction,
+                                                  authAction: AuthAction,
+                                                  mcc: MessagesControllerComponents) extends FrontendController(mcc) with I18nSupport{
 
-  def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(contactDetails(CharitiesContactDetailsForm.contactDetailsForm)))
+  def onPageLoad: Action[AnyContent] =  (authAction andThen getData).async {
+    implicit request =>
+      val preparedForm = request.userAnswers.flatMap(x => x.contactDetails) match {
+        case None => CharitiesContactDetailsForm.contactDetailsForm
+        case Some(value) => CharitiesContactDetailsForm.contactDetailsForm.fill(value)
+      }
+      Future.successful(Ok(contactDetails(preparedForm)))
 
   }
 
- def onSubmit: Action[AnyContent] = Action.async { implicit request =>
+ def onSubmit: Action[AnyContent] = (authAction andThen getData).async {
+   implicit request =>
    CharitiesContactDetailsForm.contactDetailsForm.bindFromRequest().fold(
       errors => Future.successful(BadRequest(contactDetails(errors))),
-     successful => {  Future.successful(Redirect(controllers.routes.ValidCountriesEligibilityController.onPageLoad()))
-        //TODO code for data storing
-
+     successful => {
+       dataCacheConnector.save[ContactDetailsModel](request.sessionId, ContactDetailsModel.toString, successful).map(cacheMap =>
+       Redirect(controllers.routes.HelloWorldController.helloWorld()))
         }
     )
   }

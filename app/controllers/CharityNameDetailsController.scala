@@ -54,7 +54,7 @@ class CharityNameDetailsController @Inject()(implicit val appConfig: AppConfig,
       errors => Future.successful(BadRequest(CharityNameDetailsView(errors))),
       success => {
         dataCacheConnector.save[CharityNamesModel](request.sessionId, CharityNamesModel.toString, success).map(cacheMap =>
-         Redirect(controllers.routes.HelloWorldController.helloWorld()))
+         Redirect(controllers.routes.CharitiesContactDetailsController.onPageLoad()))
       }
     )
   }

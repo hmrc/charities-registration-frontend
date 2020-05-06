@@ -16,33 +16,26 @@
 
 package controllers.auth
 
-import config.AppConfig
+import helpers.TestHelper
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
-import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.mvc.{Action, AnyContent, Controller, MessagesControllerComponents}
-import play.api.test.{FakeRequest, Injecting}
+import play.api.mvc.{Action, AnyContent, BaseController}
+import play.api.test.FakeRequest
 import play.mvc.Http.Status
 import uk.gov.hmrc.auth.core.AffinityGroup.Organisation
 import uk.gov.hmrc.auth.core.retrieve.Credentials
-import uk.gov.hmrc.auth.core.{SessionRecordNotFound, UnsupportedAffinityGroup}
-import uk.gov.hmrc.play.test.UnitSpec
+import uk.gov.hmrc.auth.core.{AuthConnector, SessionRecordNotFound, UnsupportedAffinityGroup}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthActionSpec extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAfterEach with MockitoSugar with Injecting {
+class AuthActionSpec extends TestHelper {
 
   val mockAuthConnector = mock[AuthConnector]
   implicit val executionContext: ExecutionContext = ExecutionContext.global
-  lazy val appConfig = app.injector.instanceOf[AppConfig]
-  lazy val mockMessagesController: MessagesControllerComponents = inject[MessagesControllerComponents]
 
-  class Harness(authAction: AuthAction) extends Controller {
-    def onPageLoad(): Action[AnyContent] = authAction { _ =>
-      Ok
-    }
+  class Harness(authAction: AuthAction) extends BaseController {
+    override def controllerComponents = mcc
+    def onPageLoad(): Action[AnyContent] = authAction { _ =>  Ok }
   }
 
   type AuthRetrievals = Option[Credentials]
@@ -55,12 +48,12 @@ class AuthActionSpec extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAft
       when(mockAuthConnector.authorise(any(), any())(any(), any()))
         .thenReturn(Future.failed(SessionRecordNotFound()))
 
-      val authAction = new AuthActionImpl(mockAuthConnector, appConfig, mockMessagesController, executionContext)
+      val authAction = new AuthActionImpl(mockAuthConnector, mockAppConfig, mcc)
       val harness = new Harness(authAction)
-      val result = harness.onPageLoad()(FakeRequest("GET", "/eligible-account"))
+      val result = harness.onPageLoad()(FakeRequest())
 
       status(result) shouldBe Status.SEE_OTHER
-      result.header.headers("Location") shouldBe "http://localhost:9025/gg/sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fhmrc-register-charity-registration-details%2Fcontact-details&origin=charities-registration-frontend"
+      result.header.headers("Location") shouldBe "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fhmrc-register-charity-registration-details%2Fcharities-name&origin=charities-registration-frontend"
     }
   }
 
@@ -69,13 +62,12 @@ class AuthActionSpec extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAft
       when(mockAuthConnector.authorise(any(), any())(any(), any()))
         .thenReturn(Future.failed(UnsupportedAffinityGroup()))
 
-      val authAction = new AuthActionImpl(mockAuthConnector, appConfig, mockMessagesController, executionContext)
+      val authAction = new AuthActionImpl(mockAuthConnector, mockAppConfig, mcc)
       val harness = new Harness(authAction)
-      val result = harness.onPageLoad()(FakeRequest("GET", "/eligible-account"))
+      val result = harness.onPageLoad()(FakeRequest())
 
       status(result) shouldBe Status.SEE_OTHER
       result.header.headers("Location") shouldBe controllers.routes.CharitiesRegisterOrganisationController.onPageLoad().url
-      //redirectLocation(result).get `must-revalidate` endWith("/hmrc-register-charity-details/register-as-an-organisation")
     }
   }
 
@@ -87,9 +79,9 @@ class AuthActionSpec extends UnitSpec with GuiceOneAppPerSuite with BeforeAndAft
       when(mockAuthConnector.authorise[AuthRetrievals](any(), any())(any(), any()))
         .thenReturn(retrievalResult)
 
-      val authAction = new AuthActionImpl(mockAuthConnector, appConfig, mockMessagesController, executionContext)
+      val authAction = new AuthActionImpl(mockAuthConnector, mockAppConfig, mcc)
       val harness = new Harness(authAction)
-      val result = harness.onPageLoad()(FakeRequest("GET", "/hello-world"))
+      val result = harness.onPageLoad()(FakeRequest())
 
       status(result) shouldBe Status.OK
     }

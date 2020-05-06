@@ -16,40 +16,36 @@
 
 package controllers.auth
 
+import java.util.UUID
+
 import com.google.inject.ImplementedBy
 import config.AppConfig
 import controllers.auth.requests.AuthenticatedRequest
+import controllers.routes
 import javax.inject.{Inject, Singleton}
+import play.api.Logger
 import play.api.mvc.Results.Redirect
 import play.api.mvc._
-import play.api.{Logger, Mode, Play}
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import uk.gov.hmrc.play.HeaderCarrierConverter
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
-import uk.gov.hmrc.play.http.ws.WSHttp
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class AuthActionImpl @Inject()( val authConnector: AuthConnector,
                                 appConfig: AppConfig,
-                                mcc: MessagesControllerComponents,
-                                implicit val executionContext: ExecutionContext)
+                                mcc: MessagesControllerComponents)
   extends AuthAction with AuthorisedFunctions {
 
-	lazy val url: String = appConfig.signIn
-	def loginParams: Map[String, Seq[String]] = Map(
-		"continue" -> Seq(appConfig.loginCallback),
-		"origin" -> Seq("charities-registration-frontend")
-	)
-
   override def parser: BodyParser[AnyContent] =  mcc.parsers.defaultBodyParser
+  override implicit protected def executionContext: ExecutionContext = mcc.executionContext
 
 	override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
     authorised(AffinityGroup.Organisation)
       .retrieve(Retrievals.credentials) {
         case Some(credentials) =>
@@ -58,7 +54,7 @@ class AuthActionImpl @Inject()( val authConnector: AuthConnector,
   } recover {
     case e: NoActiveSession =>
 			Logger.warn(s"[AuthActionImpl][invokeBlock] NoActive Session, Redirect to sign in - $e")
-		  Redirect(appConfig.signIn, loginParams)
+      Redirect(appConfig.signIn, Map("continue" -> Seq(appConfig.loginCallback), "origin" -> Seq(appConfig.appName)))
     case er: AuthorisationException =>
       Logger.error(s"[AuthActionImpl][invokeBlock] AuthorisationException, Redirect to register-as-an-organisation- $er")
       Redirect(controllers.routes.CharitiesRegisterOrganisationController.onPageLoad().url)
@@ -68,8 +64,20 @@ class AuthActionImpl @Inject()( val authConnector: AuthConnector,
 @ImplementedBy(classOf[AuthActionImpl])
 trait AuthAction extends ActionBuilder[AuthenticatedRequest, AnyContent] with ActionFunction[Request, AuthenticatedRequest]
 
-@Singleton
-class AuthConnector @Inject()(val http: DefaultHttpClient, val servicesConfig: ServicesConfig) extends PlayAuthConnector {
-  val serviceUrl: String = servicesConfig.baseUrl("auth")
-  protected def mode: Mode = Play.current.mode
+class SessionIdentifierAction @Inject()(appConfig: AppConfig,
+                                        val controllerComponents: MessagesControllerComponents
+                                       ) extends FrontendBaseController with AuthAction {
+
+  override implicit protected def executionContext: ExecutionContext = controllerComponents.executionContext
+  override def parser: BodyParser[AnyContent] = controllerComponents.parsers.defaultBodyParser
+
+  override def invokeBlock[A](request: Request[A], block: AuthenticatedRequest[A] => Future[Result]): Future[Result] = {
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    hc.sessionId match {
+      case Some(session) =>
+        block(AuthenticatedRequest(session.value, request))
+      case _ =>
+        Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad().url))
+    }
+  }
 }

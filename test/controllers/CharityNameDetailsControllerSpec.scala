@@ -16,9 +16,10 @@
 
 package controllers
 
-import controllers.connectors.{DataCacheConnector, DataCacheConnectorImpl, DataShortCacheConnector}
+import controllers.auth.{AuthActionImpl, FakeAuthAction}
+import controllers.connectors.{DataCacheConnector, DataCacheConnectorImpl}
 import helpers.TestHelper
-import models.YesNoModel
+import models.CharityNamesModel
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
@@ -34,78 +35,67 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.Future
 
 
-class UKBasedEligibilityControllerSpec extends TestHelper with BeforeAndAfterEach{
+class CharityNameDetailsControllerSpec extends TestHelper with BeforeAndAfterEach {
 
-  lazy val mockDataShortCacheConnector : DataShortCacheConnector = mock[DataShortCacheConnector]
   lazy val mockDataCacheConnector : DataCacheConnector = mock[DataCacheConnectorImpl]
 
   override lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest().withSession(SessionKeys.sessionId -> "foo")
 
   override lazy val fakeApplication: Application = new GuiceApplicationBuilder()
     .overrides(
-      bind[DataShortCacheConnector].toInstance(mockDataShortCacheConnector),
       bind[DataCacheConnector].toInstance(mockDataCacheConnector),
+      bind[AuthActionImpl].to[FakeAuthAction]
     ).build()
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockDataShortCacheConnector,mockDataCacheConnector)
+    reset(mockDataCacheConnector)
 
   }
-  def testController: UKBasedEligibilityController=fakeApplication.injector.instanceOf[UKBasedEligibilityController]
 
-    "EligibilityController" should {
+  def testController: CharityNameDetailsController=fakeApplication.injector.instanceOf[CharityNameDetailsController]
 
-      "Successfully load the eligibility page" in {
+    "CharityNameDetailsController" should {
+
+      "Successfully load the charity name details page" in {
         when(mockDataCacheConnector.fetch(any()))
           .thenReturn(Future.successful(Some(new CacheMap("foo", Map()))))
+
         lazy val result = testController.onPageLoad(fakeRequest)
         status(result) shouldBe Status.OK
       }
 
-      "process 'Yes' submit of the eligibility page" in {
+      "redirect to the charity contact details page when valid data is submitted" in {
         when(mockDataCacheConnector.fetch(any()))
           .thenReturn(Future.successful(Some(new CacheMap("foo", Map()))))
-        when(mockDataShortCacheConnector.save[YesNoModel](any(), any(), any())(any()))
-          .thenReturn(Future.successful(new CacheMap("foo", Map())))
-        val form = ("value", "Yes")
 
-        implicit val request : FakeRequest[AnyContentAsFormUrlEncoded] = fakeRequest.withFormUrlEncodedBody(form)
+        when(mockDataCacheConnector.save(any(), any(), any())(any()))
+          .thenReturn(Future.successful(new CacheMap("foo", Map())))
+
+        implicit val request : FakeRequest[AnyContentAsFormUrlEncoded] =
+          fakeRequest.withFormUrlEncodedBody(("charityFullName", "Good Samaritan"), ("charityOperatingName", ""))
 
         lazy val result = testController.onSubmit(request)
 
         status(result) shouldBe Status.SEE_OTHER
-        result.header.headers("Location") shouldBe "/hmrc-register-charity-registration-details/charities-name"
-        verify(mockDataShortCacheConnector, times(1)).save[YesNoModel](any(), any(), any())(any())
+        result.header.headers("Location") shouldBe "/hmrc-register-charity-registration-details/hello-world"
+        verify(mockDataCacheConnector, times(1)).save[CharityNamesModel](any(), any(), any())(any())
       }
 
-      "process 'No' submit of the eligibility page" in {
+      "return a Bad Request and errors when invalid data is submitted" in {
         when(mockDataCacheConnector.fetch(any()))
           .thenReturn(Future.successful(Some(new CacheMap("foo", Map()))))
-        when(mockDataShortCacheConnector.save[YesNoModel](any(), any(), any())(any()))
+        when(mockDataCacheConnector.save(any(), any(), any())(any()))
           .thenReturn(Future.successful(new CacheMap("foo", Map())))
-        val form = ("value", "No")
 
-        implicit val request : FakeRequest[AnyContentAsFormUrlEncoded] = fakeRequest.withFormUrlEncodedBody(form)
-        lazy val result = testController.onSubmit(request)
-
-        status(result) shouldBe Status.SEE_OTHER
-        result.header.headers("Location") shouldBe "/hmrc-register-charity-registration-details/eligible-countries"
-        verify(mockDataShortCacheConnector, times(1)).save[YesNoModel](any(), any(), any())(any())
-      }
-
-      "show an error if nothing is selected" in {
-        when(mockDataCacheConnector.fetch(any()))
-          .thenReturn(Future.successful(Some(new CacheMap("foo", Map()))))
-        when(mockDataShortCacheConnector.save[YesNoModel](any(), any(), any())(any()))
-          .thenReturn(Future.successful(new CacheMap("foo", Map())))
-        val form = ("value", "")
-        implicit val request : FakeRequest[AnyContentAsFormUrlEncoded] = fakeRequest.withFormUrlEncodedBody(form)
+        implicit val request : FakeRequest[AnyContentAsFormUrlEncoded] =
+          fakeRequest.withFormUrlEncodedBody(("charityFullName", ""), ("charityOperatingName", ""))
 
         lazy val result = testController.onSubmit(request)
 
         status(result) shouldBe Status.BAD_REQUEST
-        verify(mockDataShortCacheConnector, never()).save[YesNoModel](any(), any(), any())(any())
+        verify(mockDataCacheConnector, never()).save[CharityNamesModel](any(), any(), any())(any())
       }
+
     }
 }

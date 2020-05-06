@@ -16,12 +16,17 @@
 
 package models
 
-
-import play.api.libs.json._
-
-case class EligibilityModel(charitable: Boolean)
+import play.api.libs.json.Json
 
 
-object EligibilityModel {
-  implicit val format: OFormat[EligibilityModel] = Json.format[EligibilityModel]
+case class CharityNamesModel(charityFullName: String, charityOperatingName: Option[String])
+
+object CharityNamesModel {
+
+  implicit val formats = Json.format[CharityNamesModel]
+
+  override def toString: String = "charityNamesDetail"
+
 }
+
+

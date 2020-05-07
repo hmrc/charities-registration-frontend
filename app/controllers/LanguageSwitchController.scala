@@ -17,7 +17,6 @@
 package controllers
 
 import com.google.inject.Inject
-import play.api.Configuration
 import play.api.i18n.{I18nSupport, Lang}
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController

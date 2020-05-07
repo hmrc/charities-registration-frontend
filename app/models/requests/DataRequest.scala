@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package config
+package models.requests
 
-import javax.inject.{Inject, Singleton}
-import play.api.i18n.MessagesApi
-import play.api.mvc.Request
-import play.twirl.api.Html
-import views.html.error_template
-import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
+import models.UserAnswers
+import play.api.mvc.{Request, WrappedRequest}
 
-@Singleton
-class ErrorHandler @Inject()(val messagesApi: MessagesApi, implicit val appConfig: AppConfig) extends FrontendErrorHandler {
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit request: Request[_]): Html =
-    error_template(pageTitle, heading, message)
+case class OptionalDataRequest[A] (request: Request[A],
+                                   sessionId: String,
+                                   userAnswers: Option[UserAnswers]) extends WrappedRequest[A](request) {
+
 }
+
+case class DataRequest[A] (request: Request[A],
+                           sessionId: String,
+                           userAnswers: UserAnswers) extends WrappedRequest[A](request)

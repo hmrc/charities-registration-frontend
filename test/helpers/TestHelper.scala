@@ -27,16 +27,13 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 trait TestHelper extends UnitSpec with MockitoSugar with WithFakeApplication {
 
-  implicit val mat: Materializer = fakeApplication.injector.instanceOf[Materializer]
-  implicit val lang: Lang = Lang("en")
-
-  lazy val messages: MessagesApi = fakeApplication.injector.instanceOf[MessagesApi]
-  lazy val mcc: MessagesControllerComponents = fakeApplication.injector.instanceOf[MessagesControllerComponents]
-  implicit lazy val mockAppConfig: AppConfig = fakeApplication.injector.instanceOf[AppConfig]
-
-  implicit val application = fakeApplication
-  val http = mock[DefaultHttpClient]
   implicit lazy val fakeRequest = FakeRequest()
-  implicit val mockMessage = fakeApplication.injector.instanceOf[MessagesControllerComponents].messagesApi.preferred(fakeRequest)
+  implicit lazy val lang: Lang = Lang("en")
+
+  implicit lazy val mat: Materializer = fakeApplication.injector.instanceOf[Materializer]
+  implicit lazy val messages: MessagesApi = fakeApplication.injector.instanceOf[MessagesApi]
+  implicit lazy val mcc: MessagesControllerComponents = fakeApplication.injector.instanceOf[MessagesControllerComponents]
+  implicit lazy val mockAppConfig: AppConfig = fakeApplication.injector.instanceOf[AppConfig]
+  implicit lazy val mockMessage = fakeApplication.injector.instanceOf[MessagesControllerComponents].messagesApi.preferred(fakeRequest)
 
 }

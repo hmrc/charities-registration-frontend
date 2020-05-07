@@ -16,19 +16,18 @@
 
 package controllers
 
-import config.AppConfig
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.http.Status
-import play.api.mvc.{AnyContent, MessagesControllerComponents, Request}
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import uk.gov.hmrc.play.test.UnitSpec
 
 class CharitiesRegisterOrganisationControllerSpec extends UnitSpec with BeforeAndAfterEach with MockitoSugar with GuiceOneAppPerSuite {
-  implicit val request = FakeRequest()
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
-  lazy val charitiesRegisterOrganisationController = app.injector.instanceOf[CharitiesRegisterOrganisationController]
+  lazy val charitiesRegisterOrganisationController: CharitiesRegisterOrganisationController = app.injector.instanceOf[CharitiesRegisterOrganisationController]
 
   "CharitiesRegisterOrganisationController" should {
     "Load the register organisation page " in {

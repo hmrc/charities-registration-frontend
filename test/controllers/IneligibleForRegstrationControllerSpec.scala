@@ -23,7 +23,7 @@ import play.api.test.FakeRequest
 
 class IneligibleForRegstrationControllerSpec extends TestHelper  {
 
-  lazy val ineligibleController = fakeApplication.injector.instanceOf[IneligibleForRegistrationController]
+  lazy val ineligibleController: IneligibleForRegistrationController = fakeApplication.injector.instanceOf[IneligibleForRegistrationController]
 
     "ineligibleController" should {
 

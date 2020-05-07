@@ -1,18 +1,18 @@
 import play.core.PlayVersion.current
 import play.sbt.PlayImport._
-import sbt.Keys.libraryDependencies
 import sbt._
 
 object AppDependencies extends {
 
   val compile: Seq[ModuleID] = Seq(
     ws,
+    "uk.gov.hmrc"             %% "simple-reactivemongo"     % "7.26.0-play-26",
     "uk.gov.hmrc"             %% "http-caching-client"      % "9.0.0-play-26",
     "uk.gov.hmrc"             %% "play-partials"            % "6.9.0-play-26",
     "uk.gov.hmrc"             %% "govuk-template"           % "5.54.0-play-26",
     "uk.gov.hmrc"             %% "play-language"            % "4.2.0-play-26",
-    "uk.gov.hmrc"             %% "play-ui"                  % "8.8.0-play-26",
-    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.5.0",
+    "uk.gov.hmrc"             %% "play-ui"                  % "8.9.0-play-26",
+    "uk.gov.hmrc"             %% "bootstrap-play-26"        % "1.7.0",
     "com.github.fge"          % "json-schema-validator"     % "2.2.6",
     "uk.gov.hmrc"             %% "auth-client"              % "2.35.0-play-26"
   )
@@ -24,7 +24,7 @@ object AppDependencies extends {
 		"org.jsoup"               %  "jsoup"                    % "1.13.1",
     "com.typesafe.play"       %% "play-test"                % current ,
     "org.pegdown"             %  "pegdown"                  % "1.6.0" ,
-    "org.scalatestplus.play"  %% "scalatestplus-play"       % "3.1.2" ,
+    "org.scalatestplus.play"  %% "scalatestplus-play"       % "3.1.3" ,
     "org.mockito"             % "mockito-core"              % "3.3.3"
   ).map(_ % "test")
 

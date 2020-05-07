@@ -16,19 +16,21 @@
 
 package forms
 
-import common.Transformers._
-import common.Validation._
-import models.UKBasedModel
+import javax.inject.Singleton
+import models.CharityNamesModel
 import play.api.data.Form
 import play.api.data.Forms._
 
-object UKBasedEligibilityForm{
+@Singleton
+object CharityDetailsFormProvider {
 
-  val ukBasedForm = Form(
+  def charityNamesForm(): Form[CharityNamesModel] = Form(
     mapping(
-      "ukbased" -> optional[String](text)
-        .verifying("charities_elig.confirm.location", optionalMandatoryCheck)
-        .transform(optionStringToBoolean, booleanToOptionString)
-    )(UKBasedModel.apply)(UKBasedModel.unapply)
+      "charityFullName" -> text.verifying("charityDetails.error.fullName.required", _.nonEmpty)
+          .verifying("charityDetails.fullName.lengthError", field => field.length <= 160),
+      "charityOperatingName" -> optional(text.verifying("charityDetails.operatingName.lengthError", field => field.length <= 160)
+      )
+
+    )(CharityNamesModel.apply)(CharityNamesModel.unapply)
   )
-}
+ }

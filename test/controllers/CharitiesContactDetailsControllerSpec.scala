@@ -94,7 +94,7 @@ class CharitiesContactDetailsControllerSpec extends TestHelper with BeforeAndAft
 
               lazy val result = testController.onSubmit(request)
               status(result) shouldBe Status.BAD_REQUEST
-             verify(mockDataCacheConnector, never()).save[ContactDetailsModel](any(), any(), any())(any())
+             verify(mockDataCacheConnector, times(1)).save[ContactDetailsModel](any(), any(), any())(any())
             }
 
         "show an error if an incorrect email address is provided" in {
@@ -110,7 +110,7 @@ class CharitiesContactDetailsControllerSpec extends TestHelper with BeforeAndAft
 
           lazy val result = testController.onSubmit(request)
           status(result) shouldBe Status.BAD_REQUEST
-          verify(mockDataCacheConnector, never()).save[ContactDetailsModel](any(), any(), any())(any())
+          verify(mockDataCacheConnector, times(1)).save[ContactDetailsModel](any(), any(), any())(any())
 
           }
 

@@ -17,7 +17,6 @@
 package views
 import helpers.TestHelper
 import org.jsoup.Jsoup
-import play.api.i18n.Messages
 import views.html.home.ineligible
 
 
@@ -28,7 +27,7 @@ class IneligibleForRegistrationControllerViewSpec extends TestHelper {
     lazy val doc = Jsoup.parse(view.body)
 
     "have the correct title" in{
-      doc.title().toString shouldBe messages("charities_detail.title")
+      doc.title() shouldBe messages("charities_detail.title")
     }
 
     "have the correct and properly formatted header"in{

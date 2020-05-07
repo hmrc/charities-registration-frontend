@@ -16,11 +16,11 @@
 
 @import uk.gov.hmrc.play.views.html.helpers.form
 @import uk.gov.hmrc.play.views.html.helpers
-@import models.UKBasedModel
+@import models.YesNoModel
 @import views.html.main_template
 @import controllers.routes
 @import config.AppConfig
-@( ukBasedForm: Form[UKBasedModel])(implicit request: Request[_], messages: Messages,appConfig: AppConfig)
+@( ukBasedForm: Form[YesNoModel])(implicit request: Request[_], messages: Messages,appConfig: AppConfig)
 
 @main_template(title = messages("charities_detail.title"), bodyClasses = None) {
 
@@ -37,13 +37,13 @@
     <fieldset class="inline">
         <div class="form-group">
                 @helpers.input_radio_group(
-                    field=ukBasedForm("ukbased"),
+                    field=ukBasedForm("value"),
                     Seq(
                         "Yes" -> messages("charities.yes"),
                         "No" -> messages("charities.no")
                     ),
                     '_legend -> messages("charities_detail.title"),
-                    '_legendID -> "ukbased",
+                    '_legendID -> "value",
                     '_legendClass -> "visuallyhidden",
                     '_labelAfter -> true,
                     '_labelClass -> "block-label selection-button-radio"

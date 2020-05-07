@@ -17,33 +17,47 @@
 package controllers
 
 import config.AppConfig
+import controllers.actions.{DataRequiredAction, DataRetrievalAction}
+import controllers.auth.SessionIdentifierAction
+import connectors.DataShortCacheConnector
 import forms.EligibilityForm
 import javax.inject.Inject
+import models.YesNoModel
+import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.home.validCountries
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class ValidCountriesEligibilityController @Inject()(implicit val appConfig: AppConfig,
-                                                    mcc: MessagesControllerComponents)
-  extends FrontendController(mcc) {
+  sessionIdentifierAction: SessionIdentifierAction,
+  dataShortCacheConnector: DataShortCacheConnector,
+  getData: DataRetrievalAction,
+  requiredData: DataRequiredAction,
+  mcc: MessagesControllerComponents)
+  extends FrontendController(mcc) with I18nSupport{
 
-  def onPageLoad: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(validCountries(EligibilityForm.validCountriesForm)))
+  implicit val executionContext: ExecutionContext = mcc.executionContext
 
+  def onPageLoad: Action[AnyContent] = (sessionIdentifierAction andThen getData andThen requiredData).async { implicit request =>
+
+    val preparedForm = request.userAnswers.eligibilityCountries.
+      fold(EligibilityForm.validCountriesForm)(EligibilityForm.validCountriesForm.fill)
+    Future.successful(Ok(validCountries(preparedForm)))
   }
 
-  def onSubmit: Action[AnyContent] = Action.async { implicit request =>
+  def onSubmit: Action[AnyContent] = (sessionIdentifierAction andThen getData andThen requiredData).async { implicit request =>
     EligibilityForm.validCountriesForm.bindFromRequest().fold(
       errors => Future.successful(BadRequest(validCountries(errors))),
       success => {
-        //TODO code for data storing
-        if (success.charitable) {
-          Future.successful(Redirect(controllers.routes.HelloWorldController.helloWorld()))
-        }
-        else {
-          Future.successful(Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad()))
+        dataShortCacheConnector.save[YesNoModel](request.sessionId, YesNoModel.eligibilityCountriesId, success).map{ _ =>
+          if (success.value) {
+            Redirect(controllers.routes.CharityNameDetailsController.onPageLoad())
+          }
+          else {
+            Redirect(controllers.routes.IneligibleForRegistrationController.onPageLoad())
+          }
         }
       }
     )

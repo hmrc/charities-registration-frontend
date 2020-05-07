@@ -16,36 +16,35 @@
 
 package views
 
-import forms.EligibilityForm
+import forms.CharityDetailsFormProvider
 import helpers.TestHelper
 import org.jsoup.Jsoup
-import views.html.home.eligibility
+import views.html.CharityNameDetailsView
 
+class CharityNameDetailsViewSpec extends TestHelper {
 
-class CharitableEligibilityControllerViewSpec extends TestHelper {
+  "the CharityNameDetailsView" should{
 
-  "the EligibilityView" should{
-    val eligibilityForm = EligibilityForm.charitableForm.bind(Map("value" -> "Yes"))
-    lazy val view = eligibility(eligibilityForm)
+    val charityNamesForm = CharityDetailsFormProvider.charityNamesForm().bind(Map("charityFullName" -> "Good Samaritan", "charityOperatingName" -> ""))
+    lazy val view = CharityNameDetailsView(charityNamesForm)
     lazy val doc = Jsoup.parse(view.body)
 
-    val errorForm = EligibilityForm.charitableForm.bind(Map("value" -> ""))
-    lazy val errorView = eligibility(errorForm)
+    val errorForm = CharityDetailsFormProvider.charityNamesForm().bind(Map("charityFullName" -> "", "charityOperatingName" -> ""))
+    lazy val errorView = CharityNameDetailsView(errorForm)
     lazy val errorDoc = Jsoup.parse(errorView.body)
     lazy val form = doc.select("form")
 
     "have the correct title" in{
-      doc.title() shouldBe messages("charities_detail.title")
+      doc.title() shouldBe messages("charitiesDetails.title")
     }
 
     "have the correct and properly formatted header"in{
-      doc.select("h1").text shouldBe messages("charities_elig.charitable")
+      doc.select("h1").text shouldBe messages("charityDetails.name.heading")
     }
 
     "has a valid form" in{
       form.attr("method") shouldBe "POST"
-      form.attr("action") shouldBe controllers.routes.CharitableEligibilityController.onSubmit().url
-      form.select("legend.visuallyhidden").text() shouldBe messages("charities_detail.title")
+      form.attr("action") shouldBe controllers.routes.CharityNameDetailsController.onSubmit().url
     }
 
 
@@ -55,18 +54,19 @@ class CharitableEligibilityControllerViewSpec extends TestHelper {
 
     "display the correct errors appropriately" in{
       errorDoc.select("h2#error-summary-heading").text shouldBe messages("charities.error")
-      errorDoc.select("a#value-error-summary").text shouldBe messages("charities_elig.confirm")
-      errorDoc.select("span.error-notification").text shouldBe messages("charities_elig.confirm")
+      errorDoc.select("a#charityFullName-error-summary").text shouldBe messages("charityDetails.error.fullName.required")
+      errorDoc.select("span.error-notification").text shouldBe messages("charityDetails.error.fullName.required")
     }
 
     "not have errors on valid pages" in{
-      eligibilityForm.hasErrors shouldBe false
-      doc.select("a#value-error-summary").text shouldBe ""
+      charityNamesForm.hasErrors shouldBe false
+      doc.select("a#charitable-error-summary").text shouldBe ""
       doc.select("span.error-notification").text shouldBe ""
     }
 
     "have a back link" in{
       doc.select("#back-link").attr("href") shouldBe "javascript:history.go(-1)"
     }
+
   }
 }

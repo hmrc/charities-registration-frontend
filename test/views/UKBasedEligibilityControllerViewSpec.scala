@@ -16,7 +16,7 @@
 
 package views
 
-import forms.UKBasedEligibilityForm
+import forms.EligibilityForm
 import helpers.TestHelper
 import org.jsoup.Jsoup
 import views.html.home.ukBased
@@ -25,17 +25,17 @@ import views.html.home.ukBased
 class UKBasedEligibilityControllerViewSpec extends TestHelper {
 
   "the EligibilityView" should{
-    val eligibilityForm = UKBasedEligibilityForm.ukBasedForm.bind(Map("ukbased" -> "Yes"))
+    val eligibilityForm = EligibilityForm.ukBasedForm.bind(Map("value" -> "Yes"))
     lazy val view = ukBased(eligibilityForm)
     lazy val doc = Jsoup.parse(view.body)
 
-    val errorForm = UKBasedEligibilityForm.ukBasedForm.bind(Map("ukbased" -> ""))
+    val errorForm = EligibilityForm.ukBasedForm.bind(Map("value" -> ""))
     lazy val errorView = ukBased(errorForm)
     lazy val errorDoc = Jsoup.parse(errorView.body)
     lazy val form = doc.select("form")
 
     "have the correct title" in{
-      doc.title().toString shouldBe messages("charities_detail.title")
+      doc.title() shouldBe messages("charities_detail.title")
     }
 
     "have the correct and properly formatted header"in{
@@ -55,13 +55,13 @@ class UKBasedEligibilityControllerViewSpec extends TestHelper {
 
     "display the correct errors appropriately" in{
       errorDoc.select("h2#error-summary-heading").text shouldBe messages("charities.error")
-      errorDoc.select("a#ukbased-error-summary").text shouldBe messages("charities_elig.confirm.location")
+      errorDoc.select("a#value-error-summary").text shouldBe messages("charities_elig.confirm.location")
       errorDoc.select("span.error-notification").text shouldBe messages("charities_elig.confirm.location")
     }
 
     "not have errors on valid pages" in{
       eligibilityForm.hasErrors shouldBe false
-      doc.select("a#ukbased-error-summary").text shouldBe ""
+      doc.select("a#value-error-summary").text shouldBe ""
       doc.select("span.error-notification").text shouldBe ""
     }
 

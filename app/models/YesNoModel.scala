@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package common
+package models
 
-object Validation {
 
-  val mandatoryCheck: String => Boolean = input => input.trim != ""
+import play.api.libs.json._
 
-  val optionalMandatoryCheck: Option[String] => Boolean = {
-    case Some(input) => mandatoryCheck(input)
-    case _ => false
-  }
+case class YesNoModel(value: Boolean)
 
+
+object YesNoModel {
+  implicit val format: OFormat[YesNoModel] = Json.format[YesNoModel]
+
+  def eligibilityPurposesId: String = "eligibilityPurposes"
+  def eligibilityAccountId: String = "eligibilityAccount"
+  def eligibilityLocationId: String = "eligibilityLocation"
+  def eligibilityCountriesId: String = "eligibilityCountries"
 }

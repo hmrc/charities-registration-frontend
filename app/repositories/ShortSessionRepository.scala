@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package common
+package repositories
 
-object Validation {
+import config.AppConfig
+import javax.inject.{Inject, Named, Singleton}
+import play.modules.reactivemongo.ReactiveMongoComponent
 
-  val mandatoryCheck: String => Boolean = input => input.trim != ""
+@Singleton
+class ShortSessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appConfig: AppConfig, @Named("appName") appName: String)
+  extends SessionRepository(mongoComponent, appConfig, appName)  {
 
-  val optionalMandatoryCheck: Option[String] => Boolean = {
-    case Some(input) => mandatoryCheck(input)
-    case _ => false
+  override val timeToLiveInSeconds: Int = appConfig.mongoShortTimeToSave
+
+  createIndex(fieldName, createdIndexName, timeToLiveInSeconds)
+
   }
-
-}

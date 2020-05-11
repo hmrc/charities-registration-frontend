@@ -3,7 +3,7 @@ import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
-lazy val appName: String = "charities-registartion-frontend"
+lazy val appName: String = "charities-registration-frontend"
 
 val akkaVersion     = "2.5.23"
 val akkaHttpVersion = "10.0.15"

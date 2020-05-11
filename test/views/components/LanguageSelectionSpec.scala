@@ -16,39 +16,37 @@
 
 package views.components
 
-import helpers.TestHelper
+import base.SpecBase
 import org.jsoup.Jsoup
 import play.api.i18n.Lang
-import play.api.mvc.Call
 import views.html.components.languageSelection
 
-class LanguageSelectionSpec extends TestHelper {
+class LanguageSelectionSpec extends SpecBase {
 
-  def languageMap: Map[String, Lang] = Map(
-    "english" -> Lang("en"),
-    "cymraeg" -> Lang("cy")
-  )
+  lazy val languageSelectionView: languageSelection = app.injector.instanceOf[languageSelection]
 
-  def routeToSwitchLanguage: String => Call =
-    (lang: String) => controllers.routes.LanguageSwitchController.switchToLanguage(lang)
+  object Selectors {
+    val welshLink = "a#cymraeg-switch"
+    val englishLink = "a#english-switch"
+    val content = "p"
+  }
 
   s"languageSelection component" must {
 
     "Render the correct markup, provided the current language is English" in {
-      val html = languageSelection(languageMap, routeToSwitchLanguage)(messages.preferred(Seq(Lang("en"))))
+      val html = languageSelectionView(frontendAppConfig.languageMap, frontendAppConfig.routeToSwitchLanguage)(messagesApi.preferred(Seq(Lang("en"))))
       val document = Jsoup.parse(html.toString)
 
-      document.select("a#cymraeg-switch").attr("href") shouldBe routeToSwitchLanguage("cymraeg").url
-      document.select("p").text shouldBe "English | Cymraeg"
+      document.select(Selectors.welshLink).attr("href") mustBe frontendAppConfig.routeToSwitchLanguage("cymraeg").url
+      document.select(Selectors.content).text mustBe "English | Cymraeg"
     }
 
     "Render the correct markup, provided the current language is Welsh" in {
-      val html = languageSelection(languageMap, routeToSwitchLanguage)(messages.preferred(Seq(Lang("cy"))))
+      val html = languageSelectionView(frontendAppConfig.languageMap, frontendAppConfig.routeToSwitchLanguage)(messagesApi.preferred(Seq(Lang("cy"))))
       val document = Jsoup.parse(html.toString)
 
-      document.select("a#english-switch").attr("href") shouldBe routeToSwitchLanguage("english").url
-      document.select("p").text shouldBe "English | Cymraeg"
+      document.select(Selectors.englishLink).attr("href") mustBe frontendAppConfig.routeToSwitchLanguage("english").url
+      document.select(Selectors.content).text mustBe "English | Cymraeg"
     }
   }
-
 }

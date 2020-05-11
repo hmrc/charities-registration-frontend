@@ -1,0 +1,14 @@
+
+GET        /is-eligible-purpose                      controllers.eligibility.IsEligiblePurposeController.onPageLoad(mode: Mode = NormalMode)
+POST       /is-eligible-purpose                      controllers.eligibility.IsEligiblePurposeController.onSubmit(mode: Mode = NormalMode)
+
+GET        /is-eligible-account                      controllers.eligibility.IsEligibleAccountController.onPageLoad(mode: Mode = NormalMode)
+POST       /is-eligible-account                      controllers.eligibility.IsEligibleAccountController.onSubmit(mode: Mode = NormalMode)
+
+GET        /is-eligible-location                     controllers.eligibility.IsEligibleLocationController.onPageLoad(mode: Mode = NormalMode)
+POST       /is-eligible-location                     controllers.eligibility.IsEligibleLocationController.onSubmit(mode: Mode = NormalMode)
+
+GET        /is-eligible-location-other               controllers.eligibility.IsEligibleLocationOtherController.onPageLoad(mode: Mode = NormalMode)
+POST       /is-eligible-location-other               controllers.eligibility.IsEligibleLocationOtherController.onSubmit(mode: Mode = NormalMode)
+
+GET        /in-eligible                              controllers.eligibility.InEligibleController.onPageLoad(mode: Mode = NormalMode)

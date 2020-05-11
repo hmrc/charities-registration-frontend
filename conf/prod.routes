@@ -1,8 +1,5 @@
 # Add all the application routes to the app.routes file
+->         /charities-registration    app.Routes
+->         /                          health.Routes
 
-->          /template                                           template.Routes
-->          /                                                   health.Routes
-->          /hmrc-register-charity-registration-details         app.Routes
-GET         /admin/metrics                                      @com.kenshoo.play.metrics.MetricsController.metrics
-
-
+GET        /admin/metrics             @com.kenshoo.play.metrics.MetricsController.metrics

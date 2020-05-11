@@ -1,0 +1,5 @@
+
+GET        /charity-name                          controllers.contact.CharityNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /charity-name                          controllers.contact.CharityNameController.onSubmit(mode: Mode = NormalMode)
+GET        /charity-name/change                   controllers.contact.CharityNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /charity-name/change                   controllers.contact.CharityNameController.onSubmit(mode: Mode = CheckMode)

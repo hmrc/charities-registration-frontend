@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package models
+package pages.contact
 
-import play.api.libs.json.Json
+import models.CharityContactDetails
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-case class CharityName(fullName: String, operatingName: Option[String])
+case object CharityContactDetailsPage extends QuestionPage[CharityContactDetails] {
 
-object CharityName {
-
-  implicit val formats = Json.format[CharityName]
-
-  override def toString: String = "charityNamesDetail"
-
-}
-
-case  class CharityContactDetails(daytimePhone:String,mobilePhone:Option[String],emailAddress:String)
-
-object CharityContactDetails {
-
-  implicit val formats = Json.format[CharityContactDetails]
+  override def path: JsPath = JsPath \ toString
 
   override def toString: String = "charityContactDetails"
-
 }

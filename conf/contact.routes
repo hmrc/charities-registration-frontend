@@ -3,3 +3,8 @@ GET        /charity-name                          controllers.contact.CharityNam
 POST       /charity-name                          controllers.contact.CharityNameController.onSubmit(mode: Mode = NormalMode)
 GET        /charity-name/change                   controllers.contact.CharityNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /charity-name/change                   controllers.contact.CharityNameController.onSubmit(mode: Mode = CheckMode)
+
+GET        /charity-contact-details               controllers.contact.CharityContactDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /charity-contact-details               controllers.contact.CharityContactDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /charity-contact-details/change        controllers.contact.CharityContactDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /charity-contact-details/change        controllers.contact.CharityContactDetailsController.onSubmit(mode: Mode = CheckMode)

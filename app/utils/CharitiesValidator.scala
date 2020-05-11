@@ -14,26 +14,12 @@
  * limitations under the License.
  */
 
-package models
+package utils
 
-import play.api.libs.json.Json
+object CharitiesValidator {
 
-case class CharityName(fullName: String, operatingName: Option[String])
+  val validateTelephoneNumber = """^\+?[0-9 ]{10,30}$"""
+  val emailAddressPattern = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
 
-object CharityName {
-
-  implicit val formats = Json.format[CharityName]
-
-  override def toString: String = "charityNamesDetail"
-
-}
-
-case  class CharityContactDetails(daytimePhone:String,mobilePhone:Option[String],emailAddress:String)
-
-object CharityContactDetails {
-
-  implicit val formats = Json.format[CharityContactDetails]
-
-  override def toString: String = "charityContactDetails"
 
 }

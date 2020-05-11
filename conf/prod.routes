@@ -1,5 +1,5 @@
 # Add all the application routes to the app.routes file
-->         /charities-registration    app.Routes
-->         /                          health.Routes
+->         /hmrc-register-charity-registration    app.Routes
+->         /                                      health.Routes
 
 GET        /admin/metrics             @com.kenshoo.play.metrics.MetricsController.metrics

@@ -47,7 +47,5 @@ object Enumerable {
     implicit def writes[A : Enumerable]: Writes[A] = {
       Writes(value => JsString(value.toString))
     }
-
-    implicit def format[A](implicit ev: Enumerable[A]) = Format(reads, writes)
   }
 }

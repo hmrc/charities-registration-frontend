@@ -1,0 +1,93 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import views.components.FooterLinks
+
+@this(
+    govukLayout: GovukLayout,
+    govukPhaseBanner: GovukPhaseBanner,
+    govukBackLink: GovukBackLink,
+    siteHeader: components.siteHeader,
+    phaseBanner: components.phaseBanner,
+    languageSelection: components.languageSelection,
+    link: components.link,
+    gtmSnippet: GtmSnippet
+)
+
+@(pageTitle: Option[String] = None, timeout: Boolean = false, js: Option[Html] = None, backLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+
+@head = {
+    @gtmSnippet()
+    <!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
+    <!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
+}
+
+@scripts = {
+    <script src='@controllers.routes.Assets.versioned("lib/govuk-frontend/govuk/all.js")'></script>
+    <script src='@controllers.routes.Assets.versioned("javascripts/application.min.js")'></script>
+    <script>window.GOVUKFrontend.initAll();</script>
+    <script>
+        if (@timeout) {
+            timeoutDialog({
+                title: '@messages("timeout.title")',
+                message: '@messages("timeout.message")',
+                keepAliveButtonText: '@messages("timeout.keepAlive")',
+                signOutButtonText: '@messages("timeout.signOut")',
+                timeout: @{appConfig.timeout},
+                countdown: @{appConfig.countdown},
+                keepAliveUrl: '@{controllers.routes.IndexController.keepalive().url}',
+                signOutUrl: '@{controllers.routes.SignOutController.signOutNoSurvey().url}'
+            });
+        };
+    </script>
+    @js.map(x => x)
+}
+
+@beforeContentBlock = {
+
+    @phaseBanner("beta")
+
+    @if(backLink == true) {
+        @govukBackLink(BackLink(href = "#", content = Text("Back"), attributes = Map("id" -> "back-link")))
+    }
+
+    @if(appConfig.languageTranslationEnabled) {
+        @languageSelection(
+            appConfig.languageMap,
+            appConfig.routeToSwitchLanguage
+        )
+    }
+}
+
+@content = {
+    <div class="govuk-!-margin-bottom-6">
+        @contentBlock
+    </div>
+
+    <div>
+        @link(appConfig.contactUrl, messages("site.getHelpWithThisPage"))
+    </div>
+}
+
+@govukLayout(
+  pageTitle = pageTitle,
+  headBlock = Some(head),
+  beforeContentBlock = Some(beforeContentBlock),
+  bodyEndBlock = None,
+  scriptsBlock = Some(scripts),
+  headerBlock = Some(siteHeader(timeout)),
+  footerItems = FooterLinks.items
+)(content)

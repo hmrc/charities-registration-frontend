@@ -1,63 +1,151 @@
-charities.title = Register your charity''s details with HMRC - GOV.UK
+service.name = Charities registartion
 
-charities.yes = Yes
-charities.no = No
-common.continue = Continue
-charities_login.button.back = Back
+date.day = Day
+date.month = Month
+date.year = Year
 
-charities_detail.title = Enter Your charity details
-charities.error = This form has errors
-charities.register.title = HMRC Register Charity
+error.browser.title.prefix = Error:
+error.boolean = Please give an answer
+error.invalid_date = Give a correct date
+error.date.day_blank = Enter a day
+error.date.day_invalid = Give a correct day using numbers 1 to 31
+error.date.month_blank = Enter a month
+error.date.month_invalid = Give a correct month using numbers 1 to 12
+error.date.year_blank = Enter a year
+error.date.year_invalid = Give a correct year
+error.integer = Give an answer in whole numbers
+error.non_numeric = Give a value using only numbers
+error.number = Enter a valid number
+error.required = Enter a value
+error.summary.title = There is a problem
+
+
+# Sitewide Messages
+# ----------------------------------------------------------
+site.back = Back
+site.saveForLater = Save and come back later
+site.review = Review
+site.delete = Delete
+site.edit = Change
+site.hidden-delete = Delete {0}
+site.hidden-edit = Change {0}
+site.no = No
+site.yes = Yes
+site.continue = Continue
+site.confirm = Confirm
+site.saveAndContinue = Save and continue
+site.submitAndContinue = Submit and continue
+site.acceptAndContinue = Accept and continue
+site.confirmAndSubmit = Confirm and submit
+site.textarea.char_limit = (Limit is {0} characters)
+site.govuk = GOV.UK
+site.signOut = Sign out
+site.getHelpWithThisPage = Get help with this page
+site.notProvided = Not Provided
+site.incomplete = Incomplete
+site.warning = Warning:
+site.opensInNewWindowOrTab = (opens in a new window or tab)
+site.change = Change
+site.logOut = log out
+site.empref = Employer PAYE reference: {0}
+
+footer.cookies         = Cookies
+footer.privacy         = Privacy policy
+footer.termsConditions = Terms and conditions
+footer.govukHelp       = Help using GOV.UK
+
+
+# UnderConstructionPage Messages
+# ----------------------------------------------------------
+underConstruction.title = This page is under construction
+underConstruction.heading = This page is under construction
+
+
+# Internal Server Error pages
+# ----------------------------------------------------------
+error.submissionError.title = Something has gone wrong
+error.submissionError.heading = Something has gone wrong
+error.submissionError.content = Your claim submission has failed. You need to
+error.submissionError.link = start your claim again
+
 
 # Session Expired
-session.expired.title = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
-session.expired.heading = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
-session.expired.start_again = Start again
+# ----------------------------------------------------------
+session_expired.title = For your security, this service has been reset
+session_expired.heading = For your security, this service has been reset
+session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
-# Charities Eligibility
-charities_elig.title = Check your eligibility
-charities_elig.check_eligibility = Check if you can register
 
-charities_elig.charitable = A yw''ch elusen wedi''i sefydlu at ddibenion elusennol yn unig?
-charities_elig.confirm = Select yes if your charity is for charitable purposes only
+# Unauthorised Error
+# ----------------------------------------------------------
+unauthorised.title = You can’t access this service with this account
+unauthorised.heading = You can’t access this service with this account
 
-charities_elig.valid_bank = A oes gan eich elusen gyfrif banc, cymdeithas adeiladu neu undeb credyd yn y DU?
-charities_elig_valid_bank.confirm = Select yes if your charity has a UK bank, building society or credit union account
 
-charities_elig.ukbased = Is your charity based in the UK?
-charities_elig.confirm.location = Select yes if your charity is based in the UK
+# Timeout Messages
+# ----------------------------------------------------------
+timeout.title = You’re about to be signed out
+timeout.message = For security reasons, you will be signed out of this service in
+timeout.keepAlive = Stay signed in
+timeout.signOut = Sign out
 
-charities_elig.valid_countries = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
-charities_elig.valid_countries.confirm = Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway
-charities_elig.countries.details = Countries in the European Union
-charities_elig.countries.list = Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Lavia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden.
 
-charities_ineligible=You cannot use this service
-charities_ineligibleSummary=If your circumstances change then you should check if you need to register your charity with HMRC for tax purposes
-charities_elig_register=To register for this service:
-charities_elig.charitableReasonHeading=Your charity must be established for charitable purposes only
-charities_elig.charitableReason = An eligible charity must be restricted by its governing document to using all its income and assets for its stated charitable purposes.
-charities_elig.validBankReason = To register your charity''s details with HMRC online, your charity must have its own UK bank, building society or credit union account.
-charities_elig.validBankReasonHeading = Your charity must have a UK bank, building society or credit union account
-charities_elig.ukBasedReason = Your charity needs to be based in a Member State of the European Union or another territory specified by HMRC. This means it is subject to the jurisdiction of the courts in the relevant state or territory.
-charities_elig.ukBasedReasonHeading = Your charity must be based in either the UK, another country in the European Union, or in Iceland, Liechtenstein or Norway
+# Sections
+# ----------------------------------------------------------
+section.main = Main section
 
-# Register as an Organisation
-charitiesRegisterOrganisation.lbl_title = You cannot signin with these details
-charitiesRegisterOrganisation.message.toUseServiceStart = You must signin into Government Gateway as an organisation.
-charitiesRegisterOrganisation.link = You can set up an organisation Government Gateway account.
-charitiesRegisterOrganisation.message.end = If you have already one,
-charitiesRegisterOrganisation.registerAs.link = sign in with your organisaion sign-in details.
+# BETA Banner
+# ----------------------------------------------------------
+feedback.before = This is a new service - your
+feedback.link = feedback
+feedback.after = will help us to improve it.
 
-# Charities Details
-charitiesDetails.title = Your charity''s contact details
-charityDetails.name.heading = Charity''s details
-charityDetails.fullName = Full name of your charity
-charityDetails.fullName.hint = As shown on your charity''s governing document.
-charityDetails.operatingName = Operating name of your charity(optional)
-charityDetails.operatingName.hint = The working name or acronym by which your charity is known.
-charityDetails.error.fullName.required = Enter the full name of your charity
-charityDetails.fullName.lengthError = Enter a charity name that is 160 characters or fewer
-charityDetails.operatingName.lengthError = Enter an operating name that is 160 characters or fewer
-charityDetails.fullName.invalid = The full name of your charity must not include the following characters: & ( ) : @
-charityDetails.operatingName.invalid = The operating name of your charity must not include the following characters: & ( ) : @
+# CheckAnswersPage Messages
+# ----------------------------------------------------------
+main.checkYourAnswers.title = Check your answers
+main.checkYourAnswers.heading = Check your answers
+main.checkYourAnswers.subheading = Main section
+
+# IsEligiblePurposePage Messages
+# ----------------------------------------------------------
+isEligiblePurpose.title = Is your charity for charitable purposes only?
+isEligiblePurpose.heading = Is your charity for charitable purposes only?
+isEligiblePurpose.checkYourAnswersLabel = Is your charity for charitable purposes only?
+isEligiblePurpose.error.required = Select yes if Is your charity for charitable purposes only?
+
+# InEligiblePage Messages
+# ----------------------------------------------------------
+inEligible.title = InEligibleHeading
+inEligible.heading = InEligibleHeading1
+inEligible.checkYourAnswersLabel = InEligibleHeading1
+inEligible.error.required = Select yes if InEligibleHeading1
+
+# IsEligibleAccountPage Messages
+# ----------------------------------------------------------
+isEligibleAccount.title = IsEligibleAccountTitle
+isEligibleAccount.heading = IsEligibleAccountHeading
+isEligibleAccount.checkYourAnswersLabel = IsEligibleAccountHeading
+isEligibleAccount.error.required = Select yes if IsEligibleAccountHeading
+
+# IsEligibleLocationOtherPage Messages
+# ----------------------------------------------------------
+isEligibleLocationOther.title = IsEligibleLocationOtherTitle
+isEligibleLocationOther.heading = IsEligibleLocationOtherHeading
+isEligibleLocationOther.checkYourAnswersLabel = IsEligibleLocationOtherHeading
+isEligibleLocationOther.error.required = Select yes if IsEligibleLocationOtherHeading
+
+# IsEligibleLocationPage Messages
+# ----------------------------------------------------------
+isEligibleLocation.title = IsEligibleLocationTitle
+isEligibleLocation.heading = IsEligibleLocationHeading
+isEligibleLocation.checkYourAnswersLabel = IsEligibleLocationHeading
+isEligibleLocation.error.required = Select yes if IsEligibleLocationHeading
+
+# CharityNamePage Messages
+# ----------------------------------------------------------
+charityName.title = charityName
+charityName.heading = charityName
+charityName.checkYourAnswersLabel = charityName
+charityName.label = Charity’s name
+charityName.error.required = Enter charityName
+charityName.error.length = CharityName must be 32 characters or less

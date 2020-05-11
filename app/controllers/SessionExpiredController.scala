@@ -16,21 +16,31 @@
 
 package controllers
 
-import config.AppConfig
-import controllers.auth.SessionIdentifierAction
-import javax.inject.{Inject, Singleton}
-import play.api.i18n.I18nSupport
+import config.FrontendAppConfig
+import controllers.actions.{DataRetrievalAction, SessionIdentifierAction}
+import javax.inject.Inject
+import models.UserAnswers
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.SessionExpiredView
+import repositories.SessionRepositoryImpl
+import views.html.errors.SessionExpiredView
 
-@Singleton
-class SessionExpiredController @Inject()(implicit val appConfig: AppConfig,
-                                         identify: SessionIdentifierAction,
-                                         override val controllerComponents: MessagesControllerComponents
-                                        ) extends FrontendBaseController with I18nSupport {
+import scala.concurrent.Future
 
-  def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(SessionExpiredView())
+
+class SessionExpiredController @Inject()(sessionRepository: SessionRepositoryImpl,
+  identify: SessionIdentifierAction,
+  getData: DataRetrievalAction,
+  view: SessionExpiredView,
+  val controllerComponents: MessagesControllerComponents)(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+
+  def onPageLoad: Action[AnyContent] = identify.async { implicit request =>
+      Future.successful(Ok(view()))
+  }
+
+  def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>
+    val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+    sessionRepository.set(userAnswers).map { _ =>
+      NoContent
+    }
   }
 }

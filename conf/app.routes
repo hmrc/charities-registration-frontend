@@ -1,27 +1,18 @@
 # microservice specific routes
 
-#Language Controller
-GET        /language/:lang                                  controllers.LanguageSwitchController.switchToLanguage(lang: String)
+->         /govuk-frontend                              govuk.Routes
 
-GET        /hello-world                                     controllers.HelloWorldController.helloWorld
+->         /eligibility                                 eligibility.Routes
 
-GET        /service-reset                                   controllers.SessionExpiredController.onPageLoad
+->         /contact                                     contact.Routes
 
-GET        /eligible-purposes                               controllers.CharitableEligibilityController.onPageLoad
-POST       /eligible-purposes                               controllers.CharitableEligibilityController.onSubmit
+GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
+GET        /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)
 
-GET        /eligible-account                                controllers.ValidBankEligibilityController.onPageLoad
-POST       /eligible-account                                controllers.ValidBankEligibilityController.onSubmit
+GET        /                                            controllers.IndexController.onPageLoad
+GET        /keepalive                                   controllers.IndexController.keepalive
 
-GET        /eligible-location                               controllers.UKBasedEligibilityController.onPageLoad
-POST       /eligible-location                               controllers.UKBasedEligibilityController.onSubmit
-
-GET        /eligible-countries                              controllers.ValidCountriesEligibilityController.onPageLoad
-POST       /eligible-countries                              controllers.ValidCountriesEligibilityController.onSubmit
-
-GET        /ineligible-for-registration                     controllers.IneligibleForRegistrationController.onPageLoad
-
-GET        /register-as-an-organisation                     controllers.CharitiesRegisterOrganisationController.onPageLoad
-
-GET        /charities-name                                  controllers.CharityNameDetailsController.onPageLoad
-POST       /charities-name                                  controllers.CharityNameDetailsController.onSubmit
+GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
+GET        /sign-out                                    controllers.SignOutController.signOut
+GET        /sign-out-no-survey                          controllers.SignOutController.signOutNoSurvey
+GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad

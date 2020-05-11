@@ -1,0 +1,82 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.contact.routes._
+@import models.Mode
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    button: components.button,
+    inputText: components.inputText,
+    h1: components.h1,
+    fieldset: components.fieldset,
+    link: components.link,
+    subheading: components.subheading
+)
+
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, "charityName.title"))) {
+
+    @formHelper(action = CharityNameController.onSubmit(mode)) {
+
+
+        <fieldset class="govuk-fieldset">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                @h1("charityName.heading")
+            </legend>
+
+            @errorSummary(form.errors)
+
+            @inputText(
+                form,
+                id = "fullName",
+                name = "fullName",
+                label = "charityName.fullName.label",
+                isPageHeading = false,
+                hint = Some(Html(fullNameHint)),
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
+
+            @inputText(
+                form,
+                id = "operatingName",
+                name = "operatingName",
+                label = "charityName.operatingName.label",
+                isPageHeading = false,
+                hint = Some(Html(operatingNameHint)),
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
+
+        </fieldset>
+
+        @button("site.continue")
+    }
+}
+
+
+@fullNameHint = {
+    <span id="fullName-hint" class="govuk-hint">@messages("charityName.fullName.hint")</span>
+}
+
+@operatingNameHint = {
+    <span id="operatingName-hint" class="govuk-hint">@messages("charityName.operatingName.hint")</span>
+}

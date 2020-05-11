@@ -20,14 +20,13 @@ import java.util.UUID
 
 import akka.stream.Materializer
 import com.google.inject.Inject
-import javax.inject.Singleton
 import play.api.mvc._
 import play.api.mvc.request.{Cell, RequestAttrKey}
 import uk.gov.hmrc.http.{SessionKeys, HeaderNames => HMRCHeaderNames}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-@Singleton
+
 class SessionIdFilter(
                        override val mat: Materializer,
                        uuid: => UUID,

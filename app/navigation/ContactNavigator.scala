@@ -21,7 +21,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.contact.CharityNamePage
+import pages.contact.{CharityContactDetailsPage, CharityNamePage}
 import play.api.mvc.Call
 
 
@@ -29,6 +29,10 @@ class ContactNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) 
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
+      case Some(_) => controllers.contact.routes.CharityContactDetailsController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
       case Some(_) => routes.IndexController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }

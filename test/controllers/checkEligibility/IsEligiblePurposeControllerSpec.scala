@@ -77,6 +77,7 @@ class IsEligiblePurposeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form.fill(true), NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockSessionRepository, times(1)).get(any())
     }
 
     "redirect to the next page when valid data is submitted" in {

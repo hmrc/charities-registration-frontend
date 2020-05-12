@@ -44,6 +44,11 @@ class InEligibleControllerSpec extends SpecBase with BeforeAndAfterEach {
         bind[IdentifierAction].to[FakeIdentifierAction]
       )
 
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    reset(mockSessionRepository)
+  }
+
   val view: InEligibleView = injector.instanceOf[InEligibleView]
 
   val controller: InEligibleController = inject[InEligibleController]
@@ -58,6 +63,7 @@ class InEligibleControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view()(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockSessionRepository, times(1)).get(any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -66,9 +72,10 @@ class InEligibleControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER  
+      status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      verify(mockSessionRepository, times(1)).get(any())
     }
   }
 }

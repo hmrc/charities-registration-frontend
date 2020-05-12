@@ -17,10 +17,10 @@
 package navigation
 
 import base.SpecBase
-import controllers.eligibility.{routes => elroutes}
+import controllers.checkEligibility.{routes => elroutes}
 import controllers.routes
 import models._
-import pages.eligibility._
+import pages.checkEligibility._
 import pages.{IndexPage, QuestionPage}
 
 class EligibilityNavigatorSpec extends SpecBase{

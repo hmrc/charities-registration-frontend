@@ -111,7 +111,7 @@ isEligiblePurpose.section = Check if you can register
 isEligiblePurpose.help = What are charitable purposes
 isEligiblePurpose.hint = Charitable purposes include things that contribute to education, animal welfare and relieving poverty.
 isEligiblePurpose.checkYourAnswersLabel = Is your charity for charitable purposes only?
-isEligiblePurpose.error.required = Select yes if Is your charity for charitable purposes only
+isEligiblePurpose.error.required = Select yes if your charity is for charitable purposes only
 
 # IsEligibleAccountPage Messages
 # ----------------------------------------------------------

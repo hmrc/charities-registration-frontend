@@ -19,7 +19,7 @@ package generators
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary._
 import pages.contact.CharityNamePage
-import pages.eligibility._
+import pages.checkEligibility._
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators{

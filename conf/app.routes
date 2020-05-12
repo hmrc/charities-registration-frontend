@@ -2,7 +2,7 @@
 
 ->         /govuk-frontend                              govuk.Routes
 
-->         /eligibility                                 eligibility.Routes
+->         /check-eligibility                           checkEligibility.Routes
 
 ->         /contact                                     contact.Routes
 

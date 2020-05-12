@@ -37,7 +37,7 @@ class ContactNavigatorSpec extends SpecBase{
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the InEligibleController page when No is selected" in {
+        "go to the CharityContactDetailsController page when clicked continue button" in {
           navigator.nextPage(CharityNamePage, NormalMode,
             emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
             controllers.contact.routes.CharityContactDetailsController.onPageLoad(NormalMode)

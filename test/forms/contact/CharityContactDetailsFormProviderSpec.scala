@@ -28,7 +28,7 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   ".mainPhoneNumber" must {
 
-    val requiredKey = "charityContactDetails.mainPhoneNumber.error.format"
+    val requiredKey = "charityContactDetails.mainPhoneNumber.error.required"
 
 
     val fieldName = "mainPhoneNumber"

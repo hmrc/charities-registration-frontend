@@ -27,8 +27,8 @@ class CharityContactDetailsFormProvider @Inject() extends Mappings {
   def apply(): Form[CharityContactDetails] =
     Form(
       mapping(
-        "mainPhoneNumber" -> text("charityContactDetails.mainPhoneNumber.error.format")
-          .verifying("charityContactDetails.mainPhoneNumber.error.required", field => field.isEmpty
+        "mainPhoneNumber" -> text("charityContactDetails.mainPhoneNumber.error.required")
+          .verifying("charityContactDetails.mainPhoneNumber.error.format", field => field.isEmpty
             || field.matches(validateTelephoneNumber)),
         "alternativePhoneNumber" -> optional(text().verifying("charityContactDetails.alternativePhoneNumber.error.format",
           field => field.isEmpty || field.matches(validateTelephoneNumber))),

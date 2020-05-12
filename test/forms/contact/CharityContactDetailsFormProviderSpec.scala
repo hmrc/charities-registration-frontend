@@ -23,8 +23,8 @@ import play.api.data.FormError
 class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   val maxLength = 160
-
-  val form = new CharityContactDetailsFormProvider()()
+  val formProvider = new CharityContactDetailsFormProvider()
+  val form = formProvider()
 
   ".mainPhoneNumber" must {
 
@@ -103,4 +103,31 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
       filled("emailAddress").value.value mustBe charityContactDetails.emailAddress
     }
   }
+
+  "validateTelephoneNumber" must {
+
+    "valid for 01632 960 001" in {
+
+      "01632 960 001" must fullyMatch regex formProvider.validateTelephoneNumber
+    }
+
+    "valid for 01632 960" in {
+
+      "01632 960" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    }
+  }
+
+  "emailAddressPattern" must {
+
+    "valid for abc@gmail.com" in {
+
+      "abc@gmail.com" must fullyMatch regex formProvider.emailAddressPattern
+    }
+
+    "valid for abc@gmail" in {
+
+      "abc@gmail" mustNot fullyMatch regex formProvider.emailAddressPattern
+    }
+  }
+
 }

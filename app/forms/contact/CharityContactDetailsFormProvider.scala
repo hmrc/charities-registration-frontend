@@ -19,7 +19,6 @@ package forms.contact
 import forms.mappings.Mappings
 import javax.inject.Inject
 import models.{CharityContactDetails}
-import utils.CharitiesValidator
 import play.api.data.Form
 import play.api.data.Forms._
 
@@ -30,12 +29,16 @@ class CharityContactDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "mainPhoneNumber" -> text("charityContactDetails.mainPhoneNumber.error.format")
           .verifying("charityContactDetails.mainPhoneNumber.error.required", field => field.isEmpty
-            || field.matches(CharitiesValidator.validateTelephoneNumber)),
+            || field.matches(validateTelephoneNumber)),
         "alternativePhoneNumber" -> optional(text().verifying("charityContactDetails.alternativePhoneNumber.error.format",
-          field => field.isEmpty || field.matches(CharitiesValidator.validateTelephoneNumber))),
+          field => field.isEmpty || field.matches(validateTelephoneNumber))),
         "emailAddress" -> text("charityContactDetails.emailAddress.error.required").verifying("charityContactDetails.emailAddress.error.required",
-          _.matches(CharitiesValidator.emailAddressPattern))
+          _.matches(emailAddressPattern))
           .verifying("charityContactDetails.emailAddress.error.length", model => model.length<160))
       (CharityContactDetails.apply)(CharityContactDetails.unapply)
     )
+
+   val validateTelephoneNumber = """^\+?[0-9 ]{10,30}$"""
+   val emailAddressPattern = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
+
 }

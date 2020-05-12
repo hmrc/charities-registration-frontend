@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.contact
 
-object SiteHeaderMessages {
+import models.CharityContactDetails
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-  val govUk = "GOV.UK"
-  val serviceName = "Register your charity's details with HMRC"
-  val signOut = "Sign out"
+case object CharityContactDetailsPage extends QuestionPage[CharityContactDetails] {
 
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "charityContactDetails"
 }

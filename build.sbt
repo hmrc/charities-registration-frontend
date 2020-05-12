@@ -22,6 +22,7 @@ resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactor
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin, SbtArtifactory)
+  .disablePlugins(JUnitXmlReportPlugin)
   .settings(ThisBuild / useSuperShell := false)
   .settings(DefaultBuildSettings.scalaSettings: _*)
   .settings(DefaultBuildSettings.defaultSettings(): _*)

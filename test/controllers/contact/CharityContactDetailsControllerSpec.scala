@@ -18,23 +18,23 @@ package controllers.contact
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.contact.CharityNameFormProvider
-import models.{CharityName, NormalMode}
+import forms.contact.CharityContactDetailsFormProvider
+import models.{CharityContactDetails, NormalMode}
 import navigation.ContactNavigator
 import navigation.FakeNavigators.FakeContactNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.contact.CharityNamePage
+import pages.contact.CharityContactDetailsPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.contact.CharityNameView
+import views.html.contact.CharityContactDetailsView
 
 import scala.concurrent.Future
 
-class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
+class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers = Some(emptyUserAnswers)
 
@@ -51,13 +51,15 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: CharityNameView = injector.instanceOf[CharityNameView]
-  val formProvider: CharityNameFormProvider = injector.instanceOf[CharityNameFormProvider]
+  val view: CharityContactDetailsView = injector.instanceOf[CharityContactDetailsView]
+  val formProvider: CharityContactDetailsFormProvider = injector.instanceOf[CharityContactDetailsFormProvider]
   val form = formProvider()
 
-  val controller: CharityNameController = inject[CharityNameController]
+  val controller: CharityContactDetailsController = inject[CharityContactDetailsController]
 
-  "CharityName Controller" must {
+  val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982","alternativePhoneNumber"->"07700 900 982", "emailAddress" -> "abc@gmail.com")
+
+  "CharityContactDetails Controller " must {
 
     "return OK and the correct view for a GET" in {
 
@@ -73,7 +75,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+      val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982",None,"abc@gmail.com")).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -85,7 +87,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
 
      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
@@ -100,7 +102,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody()
 
      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
@@ -120,11 +122,12 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, never).set(any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
 
@@ -134,6 +137,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, never).set(any())
     }
   }
 }

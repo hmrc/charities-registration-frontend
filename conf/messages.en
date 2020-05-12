@@ -1,4 +1,4 @@
-service.name = Register your charity’s details with HMRC
+service.name = Register your charity''s details with HMRC
 
 date.day = Day
 date.month = Month
@@ -72,12 +72,12 @@ session_expired.guidance = The details you have given have been deleted because 
 
 # Unauthorised Error
 # ----------------------------------------------------------
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
+unauthorised.title = You can''t access this service with this account
+unauthorised.heading = You can''t access this service with this account
 
 # Timeout Messages
 # ----------------------------------------------------------
-timeout.title = You’re about to be signed out
+timeout.title = You''re about to be signed out
 timeout.message = For security reasons, you will be signed out of this service in
 timeout.keepAlive = Stay signed in
 timeout.signOut = Sign out
@@ -99,8 +99,8 @@ main.checkYourAnswers.title = Check your answers
 main.checkYourAnswers.heading = Check your answers
 main.checkYourAnswers.subheading = Main section
 
-index.title = Register your charity’s details with HMRC
-index.heading = Register your charity’s details with HMRC
+index.title = Register your charity''s details with HMRC
+index.heading = Register your charity''s details with HMRC
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
 
 # IsEligiblePurposePage Messages
@@ -153,13 +153,28 @@ inEligible.p3.link = check the HMRC charities and tax guidance (opens in new win
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = Charity’s name
-charityName.heading = Charity’s name
-charityName.checkYourAnswersLabel = Charity’s name
-charityName.fullName.label= Full name of your charity
-charityName.fullName.hint= As shown on your charity’s governing document
+charityName.title = Charity''s name
+charityName.heading = Charity''s name
+charityName.checkYourAnswersLabel = Charity''s name
+charityName.fullName.label = Full name of your charity
+charityName.fullName.hint = As shown on your charity''s governing document
 charityName.fullName.error.required = Enter full name of your charity
-charityName.fullName.error.length = Charity’s name must be 160 characters or less
-charityName.operatingName.label= Operating name of your charity (optional)
-charityName.operatingName.hint= The working name or acronym by which your charity is known.
+charityName.fullName.error.length = Charity''s name must be 160 characters or less
+charityName.operatingName.label = Operating name of your charity (optional)
+charityName.operatingName.hint = The working name or acronym by which your charity is known.
 charityName.operatingName.error.length = Operating name must be 160 characters or less
+
+
+# CharityContactDetailsPage Messages
+# ----------------------------------------------------------
+charityContactDetails.title = Charity''s contact details
+charityContactDetails.heading = Charity''s contact details
+charityContactDetails.checkYourAnswersLabel = Charity''s contact details
+charityContactDetails.mainPhoneNumber.label = Main phone number
+charityContactDetails.mainPhoneNumber.error.format = Enter your charity''s daytime phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.mainPhoneNumber.error.required = Enter your charity''s daytime telephone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.alternativePhoneNumber.label = Alternative phone number (optional)
+charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s mobile phone number, like 07700 900 982
+charityContactDetails.emailAddress.label = Email address
+charityContactDetails.emailAddress.error.required = Enter your charity''s email address, like name@example.com
+charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer

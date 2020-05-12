@@ -27,3 +27,13 @@ object CharityName {
   override def toString: String = "charityNamesDetail"
 
 }
+
+case  class CharityContactDetails(daytimePhone:String,mobilePhone:Option[String],emailAddress:String)
+
+object CharityContactDetails {
+
+  implicit val formats = Json.format[CharityContactDetails]
+
+  override def toString: String = "charityContactDetails"
+
+}

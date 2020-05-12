@@ -31,12 +31,12 @@ import scala.concurrent.Future
 
 class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-//  override def applicationBuilder(): GuiceApplicationBuilder =
-//    new GuiceApplicationBuilder()
-//      .overrides(
-//        bind[UserAnswerRepositoryImpl].toInstance(mockUserAnswerRepository),
-//        bind[IdentifierAction].to[FakeIdentifierAction]
-//      )
+  override def applicationBuilder(): GuiceApplicationBuilder =
+    new GuiceApplicationBuilder()
+      .overrides(
+        bind[UserAnswerRepositoryImpl].toInstance(mockUserAnswerRepository),
+        bind[IdentifierAction].to[FakeIdentifierAction]
+      )
 
   override def beforeEach(): Unit = {
     super.beforeEach()

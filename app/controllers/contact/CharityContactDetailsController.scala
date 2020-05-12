@@ -19,20 +19,20 @@ package controllers.contact
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.contact.{CharityContactDetailsFormProvider}
+import forms.contact.CharityContactDetailsFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.ContactNavigator
-import pages.contact.{CharityContactDetailsPage}
+import pages.contact.CharityContactDetailsPage
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.contact.{CharityContactDetailsView}
+import views.html.contact.CharityContactDetailsView
 
 import scala.concurrent.Future
 
 class CharityContactDetailsController @Inject()(
-   val sessionRepository: UserAnswerRepository,
-   val navigator: ContactNavigator,
+   sessionRepository: UserAnswerRepository,
+   navigator: ContactNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,
    requireData: DataRequiredAction,

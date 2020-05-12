@@ -67,6 +67,7 @@ class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach 
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockSessionRepository, times(1)).get(any())
     }
 
     "return OK and the correct view for a GET when user has already answered" in {
@@ -78,6 +79,7 @@ class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach 
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form.fill(true), NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockSessionRepository, times(1)).get(any())
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -91,6 +93,8 @@ class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach 
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockSessionRepository, times(1)).get(any())
+      verify(mockSessionRepository, times(1)).set(any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -102,6 +106,8 @@ class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach 
       val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
+      verify(mockSessionRepository, times(1)).get(any())
+      verify(mockSessionRepository, never).set(any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -113,6 +119,7 @@ class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      verify(mockSessionRepository, times(1)).get(any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -126,6 +133,7 @@ class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      verify(mockSessionRepository, times(1)).get(any())
     }
   }
 }

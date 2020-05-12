@@ -1,4 +1,4 @@
-service.name = Register your charity’s details with HMRC
+service.name = Register your charity''s details with HMRC
 
 date.day = Day
 date.month = Month
@@ -72,12 +72,12 @@ session_expired.guidance = The details you have given have been deleted because 
 
 # Unauthorised Error
 # ----------------------------------------------------------
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
+unauthorised.title = You can''t access this service with this account
+unauthorised.heading = You can''t access this service with this account
 
 # Timeout Messages
 # ----------------------------------------------------------
-timeout.title = You’re about to be signed out
+timeout.title = You''re about to be signed out
 timeout.message = For security reasons, you will be signed out of this service in
 timeout.keepAlive = Stay signed in
 timeout.signOut = Sign out
@@ -99,8 +99,8 @@ main.checkYourAnswers.title = Check your answers
 main.checkYourAnswers.heading = Check your answers
 main.checkYourAnswers.subheading = Main section
 
-index.title = Register your charity’s details with HMRC
-index.heading = Register your charity’s details with HMRC
+index.title = Register your charity''s details with HMRC
+index.heading = Register your charity''s details with HMRC
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
 
 # IsEligiblePurposePage Messages

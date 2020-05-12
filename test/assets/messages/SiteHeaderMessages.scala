@@ -19,7 +19,7 @@ package assets.messages
 object SiteHeaderMessages {
 
   val govUk = "GOV.UK"
-  val serviceName = "Register your charity’s details with HMRC"
+  val serviceName = "Register your charity's details with HMRC"
   val signOut = "Sign out"
 
 }

@@ -51,11 +51,11 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view = injector.instanceOf[CharityNameView]
-  val formProvider = injector.instanceOf[CharityNameFormProvider]
+  val view: CharityNameView = injector.instanceOf[CharityNameView]
+  val formProvider: CharityNameFormProvider = injector.instanceOf[CharityNameFormProvider]
   val form = formProvider()
 
-  val controller = inject[CharityNameController]
+  val controller: CharityNameController = inject[CharityNameController]
 
   "CharityName Controller" must {
 
@@ -67,6 +67,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
 
@@ -79,6 +80,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -92,6 +94,8 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -103,6 +107,8 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, never).set(any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -113,6 +119,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -126,6 +133,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
     }
   }
 }

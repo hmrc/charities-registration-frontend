@@ -18,11 +18,11 @@ package navigation
 
 import config.FrontendAppConfig
 import controllers.routes
-import controllers.eligibility.{routes => elroutes}
+import controllers.checkEligibility.{routes => elroutes}
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.eligibility._
+import pages.checkEligibility._
 import play.api.mvc.Call
 
 

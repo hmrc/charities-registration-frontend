@@ -1,4 +1,4 @@
-service.name = Charities registartion
+service.name = Register your charity’s details with HMRC
 
 date.day = Day
 date.month = Month
@@ -55,12 +55,6 @@ footer.termsConditions = Terms and conditions
 footer.govukHelp       = Help using GOV.UK
 
 
-# UnderConstructionPage Messages
-# ----------------------------------------------------------
-underConstruction.title = This page is under construction
-underConstruction.heading = This page is under construction
-
-
 # Internal Server Error pages
 # ----------------------------------------------------------
 error.submissionError.title = Something has gone wrong
@@ -80,7 +74,6 @@ session_expired.guidance = The details you have given have been deleted because 
 # ----------------------------------------------------------
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
-
 
 # Timeout Messages
 # ----------------------------------------------------------
@@ -106,46 +99,67 @@ main.checkYourAnswers.title = Check your answers
 main.checkYourAnswers.heading = Check your answers
 main.checkYourAnswers.subheading = Main section
 
+index.title = Register your charity’s details with HMRC
+index.heading = Register your charity’s details with HMRC
+index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
+
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------
 isEligiblePurpose.title = Is your charity for charitable purposes only?
 isEligiblePurpose.heading = Is your charity for charitable purposes only?
+isEligiblePurpose.section = Check if you can register
+isEligiblePurpose.help = What are charitable purposes
+isEligiblePurpose.hint = Charitable purposes include things that contribute to education, animal welfare and relieving poverty.
 isEligiblePurpose.checkYourAnswersLabel = Is your charity for charitable purposes only?
-isEligiblePurpose.error.required = Select yes if Is your charity for charitable purposes only?
-
-# InEligiblePage Messages
-# ----------------------------------------------------------
-inEligible.title = InEligibleHeading
-inEligible.heading = InEligibleHeading1
-inEligible.checkYourAnswersLabel = InEligibleHeading1
-inEligible.error.required = Select yes if InEligibleHeading1
+isEligiblePurpose.error.required = Select yes if your charity is for charitable purposes only
 
 # IsEligibleAccountPage Messages
 # ----------------------------------------------------------
-isEligibleAccount.title = IsEligibleAccountTitle
-isEligibleAccount.heading = IsEligibleAccountHeading
-isEligibleAccount.checkYourAnswersLabel = IsEligibleAccountHeading
-isEligibleAccount.error.required = Select yes if IsEligibleAccountHeading
-
-# IsEligibleLocationOtherPage Messages
-# ----------------------------------------------------------
-isEligibleLocationOther.title = IsEligibleLocationOtherTitle
-isEligibleLocationOther.heading = IsEligibleLocationOtherHeading
-isEligibleLocationOther.checkYourAnswersLabel = IsEligibleLocationOtherHeading
-isEligibleLocationOther.error.required = Select yes if IsEligibleLocationOtherHeading
+isEligibleAccount.title = Does your charity have a UK bank, building society or credit union account?
+isEligibleAccount.heading = Does your charity have a UK bank, building society or credit union account?
+isEligibleAccount.section = Check if you can register
+isEligibleAccount.checkYourAnswersLabel = Does your charity have a UK bank, building society or credit union account?
+isEligibleAccount.error.required = Select yes if your charity have a UK bank, building society or credit union account
 
 # IsEligibleLocationPage Messages
 # ----------------------------------------------------------
-isEligibleLocation.title = IsEligibleLocationTitle
-isEligibleLocation.heading = IsEligibleLocationHeading
-isEligibleLocation.checkYourAnswersLabel = IsEligibleLocationHeading
-isEligibleLocation.error.required = Select yes if IsEligibleLocationHeading
+isEligibleLocation.title = Is your charity based in the UK?
+isEligibleLocation.heading = Is your charity based in the UK?
+isEligibleLocation.section = Check if you can register
+isEligibleLocation.checkYourAnswersLabel = Is your charity based in the UK?
+isEligibleLocation.error.required = Select yes if your charity based in the UK
+
+# IsEligibleLocationOtherPage Messages
+# ----------------------------------------------------------
+isEligibleLocationOther.title = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
+isEligibleLocationOther.heading = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
+isEligibleLocationOther.section = Check if you can register
+isEligibleLocationOther.help = Countries in the European Union
+isEligibleLocationOther.hint = Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden.
+isEligibleLocationOther.checkYourAnswersLabel = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
+isEligibleLocationOther.error.required = Select yes if your charity based in the European Union, Iceland, Liechtenstein or Norway
+
+# InEligiblePage Messages
+# ----------------------------------------------------------
+inEligible.title = You cannot use this service
+inEligible.heading = You cannot use this service
+inEligible.p1 = If things change, you should check back to see if you need to register your charity with HMRC.
+inEligible.p2 = To use this service your charity must:
+inEligible.l1 = be established for charitable purposes only, like animal welfare or relieving poverty
+inEligible.l2 = have a UK bank, building society or credit union account
+inEligible.l3 = be based in either the UK, country in the European Union or in Iceland, Liechtenstein or Norway
+inEligible.p3 = For help with tax,
+inEligible.p3.link = check the HMRC charities and tax guidance (opens in new window).
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = charityName
-charityName.heading = charityName
-charityName.checkYourAnswersLabel = charityName
-charityName.label = Charity’s name
-charityName.error.required = Enter charityName
-charityName.error.length = CharityName must be 32 characters or less
+charityName.title = Charity’s name
+charityName.heading = Charity’s name
+charityName.checkYourAnswersLabel = Charity’s name
+charityName.fullName.label= Full name of your charity
+charityName.fullName.hint= As shown on your charity’s governing document
+charityName.fullName.error.required = Enter full name of your charity
+charityName.fullName.error.length = Charity’s name must be 160 characters or less
+charityName.operatingName.label= Operating name of your charity (optional)
+charityName.operatingName.hint= The working name or acronym by which your charity is known.
+charityName.operatingName.error.length = Operating name must be 160 characters or less

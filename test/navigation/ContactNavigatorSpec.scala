@@ -40,7 +40,7 @@ class ContactNavigatorSpec extends SpecBase{
         "go to the InEligibleController page when No is selected" in {
           navigator.nextPage(CharityNamePage, NormalMode,
             emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad()
+            controllers.contact.routes.CharityContactDetailsController.onPageLoad(NormalMode)
         }
       }
 

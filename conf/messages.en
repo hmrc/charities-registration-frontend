@@ -127,7 +127,7 @@ isEligibleLocation.title = Is your charity based in the UK?
 isEligibleLocation.heading = Is your charity based in the UK?
 isEligibleLocation.section = Check if you can register
 isEligibleLocation.checkYourAnswersLabel = Is your charity based in the UK?
-isEligibleLocation.error.required = Select yes if your charity based in the UK
+isEligibleLocation.error.required = Select yes if your charity is based in the UK
 
 # IsEligibleLocationOtherPage Messages
 # ----------------------------------------------------------

@@ -137,7 +137,7 @@ isEligibleLocationOther.section = Check if you can register
 isEligibleLocationOther.help = Countries in the European Union
 isEligibleLocationOther.hint = Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden.
 isEligibleLocationOther.checkYourAnswersLabel = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.error.required = Select yes if your charity based in the European Union, Iceland, Liechtenstein or Norway
+isEligibleLocationOther.error.required = Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway
 
 # InEligiblePage Messages
 # ----------------------------------------------------------

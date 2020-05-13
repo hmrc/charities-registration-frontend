@@ -8,7 +8,7 @@ POST       /bank-account                             controllers.checkEligibilit
 GET        /uk-based                                 controllers.checkEligibility.IsEligibleLocationController.onPageLoad(mode: Mode = NormalMode)
 POST       /uk-based                                 controllers.checkEligibility.IsEligibleLocationController.onSubmit(mode: Mode = NormalMode)
 
-GET        /is-eligible-location-other               controllers.checkEligibility.IsEligibleLocationOtherController.onPageLoad(mode: Mode = NormalMode)
-POST       /is-eligible-location-other               controllers.checkEligibility.IsEligibleLocationOtherController.onSubmit(mode: Mode = NormalMode)
+GET        /eea-based                                controllers.checkEligibility.IsEligibleLocationOtherController.onPageLoad(mode: Mode = NormalMode)
+POST       /eea-based                                controllers.checkEligibility.IsEligibleLocationOtherController.onSubmit(mode: Mode = NormalMode)
 
 GET        /not-eligible                             controllers.checkEligibility.InEligibleController.onPageLoad(mode: Mode = NormalMode)

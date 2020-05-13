@@ -11,4 +11,4 @@ POST       /uk-based                                 controllers.checkEligibilit
 GET        /is-eligible-location-other               controllers.checkEligibility.IsEligibleLocationOtherController.onPageLoad(mode: Mode = NormalMode)
 POST       /is-eligible-location-other               controllers.checkEligibility.IsEligibleLocationOtherController.onSubmit(mode: Mode = NormalMode)
 
-GET        /in-eligible                              controllers.checkEligibility.InEligibleController.onPageLoad(mode: Mode = NormalMode)
+GET        /not-eligible                             controllers.checkEligibility.InEligibleController.onPageLoad(mode: Mode = NormalMode)

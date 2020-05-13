@@ -2,8 +2,8 @@
 GET        /charitable-purposes                      controllers.checkEligibility.IsEligiblePurposeController.onPageLoad(mode: Mode = NormalMode)
 POST       /charitable-purposes                      controllers.checkEligibility.IsEligiblePurposeController.onSubmit(mode: Mode = NormalMode)
 
-GET        /is-eligible-account                      controllers.checkEligibility.IsEligibleAccountController.onPageLoad(mode: Mode = NormalMode)
-POST       /is-eligible-account                      controllers.checkEligibility.IsEligibleAccountController.onSubmit(mode: Mode = NormalMode)
+GET        /bank-account                             controllers.checkEligibility.IsEligibleAccountController.onPageLoad(mode: Mode = NormalMode)
+POST       /bank-account                             controllers.checkEligibility.IsEligibleAccountController.onSubmit(mode: Mode = NormalMode)
 
 GET        /uk-based                                 controllers.checkEligibility.IsEligibleLocationController.onPageLoad(mode: Mode = NormalMode)
 POST       /uk-based                                 controllers.checkEligibility.IsEligibleLocationController.onSubmit(mode: Mode = NormalMode)

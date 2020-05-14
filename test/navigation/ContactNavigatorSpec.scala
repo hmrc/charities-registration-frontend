@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
-import pages.contact.CharityNamePage
+import pages.contact.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage}
 import pages.{IndexPage, QuestionPage}
 
 class ContactNavigatorSpec extends SpecBase{
@@ -41,6 +41,34 @@ class ContactNavigatorSpec extends SpecBase{
           navigator.nextPage(CharityNamePage, NormalMode,
             emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
             controllers.contact.routes.CharityContactDetailsController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the CharityContactDetailsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityContactDetailsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the CheckCharityDetailsController page when clicked continue button" in {
+          navigator.nextPage(CharityContactDetailsPage, NormalMode,
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982",None,"abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
+
+      "from the CharityUKAddressPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityUKAddressPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the CheckCharityDetailsController page when clicked continue button" in {
+          navigator.nextPage(CharityUKAddressPage, NormalMode,
+            emptyUserAnswers.set(CharityUKAddressPage, CharityUKAddress("123, Morrison St", None, None, "Edinburgh", "EH12 5WU")).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad()
         }
       }
 

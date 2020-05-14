@@ -24,7 +24,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.UserAnswerRepositoryImpl
+import repositories.{SessionRepository, SessionRepositoryImpl, UserAnswerRepositoryImpl}
 import views.html.errors.SessionExpiredView
 
 import scala.concurrent.Future
@@ -34,13 +34,13 @@ class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepositoryImpl].toInstance(mockUserAnswerRepository),
+        bind[SessionRepository].toInstance(mockSessionRepository),
         bind[IdentifierAction].to[FakeIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockSessionRepository)
   }
 
   val view: SessionExpiredView = inject[SessionExpiredView]
@@ -66,7 +66,7 @@ class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return OK and the correct view with user action" in {
 
-        when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+        when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
         val result = controller.keepalive()(fakeRequest)
 
@@ -76,7 +76,7 @@ class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return OK and the correct view with No user action" in {
 
-        when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+        when(mockSessionRepository.get(any())).thenReturn(Future.successful(None))
 
         val result = controller.keepalive()(fakeRequest)
 

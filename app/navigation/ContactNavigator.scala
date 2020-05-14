@@ -21,7 +21,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.contact.{CharityContactDetailsPage, CharityNamePage}
+import pages.contact.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage}
 import play.api.mvc.Call
 
 
@@ -34,6 +34,10 @@ class ContactNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) 
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
       case Some(_) => routes.IndexController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CharityUKAddressPage => userAnswers: UserAnswers => userAnswers.get(CharityUKAddressPage) match {
+      case Some(_) => routes.IndexController.onPageLoad() // TODO Add next page controller once it is created
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case _ => _ => routes.IndexController.onPageLoad()

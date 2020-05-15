@@ -19,9 +19,9 @@
 @(showSignOut: Boolean = true)(implicit messages: Messages)
 
 @govukHeader(Header(
-    homepageUrl = Some(controllers.routes.IndexController.onPageLoad().url),
+    homepageUrl = Some("https://www.gov.uk"),
     serviceName = Some(messages("service.name")),
-    serviceUrl = Some(controllers.routes.IndexController.onPageLoad().url),
+    serviceUrl = if (showSignOut) Some(controllers.routes.IndexController.onPageLoad().url) else Some(controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url),
     containerClasses = Some("govuk-width-container"),
     navigation = if (showSignOut) {
         Some(Seq(

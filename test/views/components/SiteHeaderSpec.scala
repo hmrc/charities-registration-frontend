@@ -37,7 +37,7 @@ class SiteHeaderSpec extends SpecBase {
     lazy val document = Jsoup.parse(html.toString)
 
     "Have the correct govUk home link" in {
-      document.select(Selectors.govUkHomeLink).attr("href") mustBe controllers.routes.IndexController.onPageLoad().url
+      document.select(Selectors.govUkHomeLink).attr("href") mustBe "https://www.gov.uk"
       document.select(Selectors.govUkHomeLink).text mustBe SiteHeaderMessages.govUk
     }
 

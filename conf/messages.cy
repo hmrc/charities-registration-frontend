@@ -204,3 +204,11 @@ charityUKAddress.postcode.hint = For example, L69 9AZ or NE98 1ZZ.
 charityUKAddress.postcode.required = Enter your charity''s UK postcode
 charityUKAddress.postcode.error.format = The Postcode of your charity is invalid
 charityUKAddress.officialAddress.outsideUK.link = Charity’s official address is outside the UK
+
+
+# CharityContactAddressChoicePage Messages
+# ----------------------------------------------------------
+isCharityOfficialAddressInUK.title = Is your charity''s official address in the UK?
+isCharityOfficialAddressInUK.heading = Is your charity''s official address in the UK?
+isCharityOfficialAddressInUK.checkYourAnswersLabel = Is your charity''s official address in the UK?
+isCharityOfficialAddressInUK.error.required = Select yes if your charity’s official address is in the UK

@@ -14,3 +14,7 @@ POST       /enter-uk-address                      controllers.contact.CharityUKA
 GET        /enter-uk-address/change               controllers.contact.CharityUKAddressController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-uk-address/change               controllers.contact.CharityUKAddressController.onSubmit(mode: Mode = CheckMode)
 
+GET        /official-address                      controllers.contact.IsCharityOfficialAddressInUKController.onPageLoad(mode: Mode = NormalMode)
+POST       /official-address                      controllers.contact.IsCharityOfficialAddressInUKController.onSubmit(mode: Mode = NormalMode)
+GET        /official-address/change               controllers.contact.IsCharityOfficialAddressInUKController.onPageLoad(mode: Mode = CheckMode)
+POST       /official-address/change               controllers.contact.IsCharityOfficialAddressInUKController.onSubmit(mode: Mode = CheckMode)

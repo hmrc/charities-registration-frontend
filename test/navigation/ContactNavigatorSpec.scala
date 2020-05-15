@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
-import pages.contact.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage}
+import pages.contact.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage, IsCharityOfficialAddressInUKPage}
 import pages.{IndexPage, QuestionPage}
 
 class ContactNavigatorSpec extends SpecBase{
@@ -65,13 +65,31 @@ class ContactNavigatorSpec extends SpecBase{
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the CheckCharityDetailsController page when clicked continue button" in {
+        "go to the CharityUKAddressController page when clicked continue button" in {
           navigator.nextPage(CharityUKAddressPage, NormalMode,
             emptyUserAnswers.set(CharityUKAddressPage, CharityUKAddress("123, Morrison St", None, None, "Edinburgh", "EH12 5WU")).getOrElse(emptyUserAnswers)) mustBe
             routes.IndexController.onPageLoad()
         }
       }
 
+      "from the IsCharityOfficialAddressInUKPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IndexController page when yes is selected" in {
+          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, true)) mustBe
+            routes.IndexController.onPageLoad()
+        }
+
+        "go to the IndexController page when No is selected" in {
+          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, false)) mustBe
+            routes.IndexController.onPageLoad()
+        }
+
+      }
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {

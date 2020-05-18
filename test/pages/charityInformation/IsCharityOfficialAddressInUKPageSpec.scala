@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package navigation
+package pages.charityInformation
 
-import base.SpecBase
-import config.FrontendAppConfig
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import pages.behaviours.PageBehaviours
 
-object FakeNavigators extends SpecBase {
+class IsCharityOfficialAddressInUKPageSpec extends PageBehaviours {
 
-  trait FakeMainNavigator extends BaseNavigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
+  "IsCharityOfficialAddressInUKPage" must {
+
+    beRetrievable[Boolean](IsCharityOfficialAddressInUKPage)
+
+    beSettable[Boolean](IsCharityOfficialAddressInUKPage)
+
+    beRemovable[Boolean](IsCharityOfficialAddressInUKPage)
   }
-
-  object FakeEligibilityNavigator extends EligibilityNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
-
-  object FakeCharityInformationNavigator extends CharityInformationNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
 }

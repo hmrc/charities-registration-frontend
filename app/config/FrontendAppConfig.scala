@@ -48,9 +48,8 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
 
   private def requestUri(implicit request: RequestHeader): String = SafeRedirectUrl(host + request.uri).encodedUrl
   def feedbackUrl(implicit request: RequestHeader): String =
-    s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier&backUrl=$requestUri"
-  def feedbackUrlAddressLookup: String =
-    s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
+    s"$contactHost/contact/beta-feedback"
+
 
   private lazy val exitSurveyBaseUrl = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
   lazy val exitSurveyUrl = s"$exitSurveyBaseUrl/$contactFormServiceIdentifier"

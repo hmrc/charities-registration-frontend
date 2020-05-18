@@ -17,7 +17,7 @@
 package generators
 
 import org.scalacheck.Arbitrary
-import pages.contact.CharityNamePage
+import pages.charityInformation.CharityNamePage
 import pages.checkEligibility._
 
 trait PageGenerators {

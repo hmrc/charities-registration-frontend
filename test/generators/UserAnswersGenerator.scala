@@ -21,7 +21,7 @@ import org.scalacheck.Arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.TryValues
 import pages._
-import pages.contact.CharityNamePage
+import pages.charityInformation.CharityNamePage
 import pages.checkEligibility._
 import play.api.libs.json.{JsValue, Json}
 

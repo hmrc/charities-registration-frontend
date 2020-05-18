@@ -31,14 +31,14 @@ import views.html.checkEligibility.IsEligiblePurposeView
 import scala.concurrent.Future
 
 class IsEligiblePurposeController @Inject()(
-                                         val sessionRepository: SessionRepositoryImpl,
-                                         val navigator: EligibilityNavigator,
-                                         identify: SessionIdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         formProvider: IsEligiblePurposeFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: IsEligiblePurposeView
-                                 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+   val sessionRepository: SessionRepositoryImpl,
+   val navigator: EligibilityNavigator,
+   identify: SessionIdentifierAction,
+   getData: DataRetrievalAction,
+   formProvider: IsEligiblePurposeFormProvider,
+   val controllerComponents: MessagesControllerComponents,
+   view: IsEligiblePurposeView
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData).async {

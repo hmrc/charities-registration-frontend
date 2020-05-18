@@ -14,37 +14,37 @@
  * limitations under the License.
  */
 
-package controllers.checkEligibility
+package controllers.charityInformation
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.checkEligibility.IsEligibleAccountFormProvider
+import forms.charityInformation.CharityNameFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.EligibilityNavigator
-import pages.checkEligibility.IsEligibleAccountPage
+import navigation.CharityInformationNavigator
+import pages.charityInformation.CharityNamePage
 import play.api.mvc._
-import repositories.SessionRepository
-import views.html.checkEligibility.IsEligibleAccountView
+import repositories.UserAnswerRepository
+import views.html.charityInformation.CharityNameView
 
 import scala.concurrent.Future
 
-class IsEligibleAccountController @Inject()(
-    val sessionRepository: SessionRepository,
-    val navigator: EligibilityNavigator,
-    identify: SessionIdentifierAction,
-    getData: DataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: IsEligibleAccountFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: IsEligibleAccountView
+class CharityNameController @Inject()(
+   val sessionRepository: UserAnswerRepository,
+   val navigator: CharityInformationNavigator,
+   identify: AuthIdentifierAction,
+   getData: UserDataRetrievalAction,
+   requireData: DataRequiredAction,
+   formProvider: CharityNameFormProvider,
+   val controllerComponents: MessagesControllerComponents,
+   view: CharityNameView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val preparedForm = request.userAnswers.get(IsEligibleAccountPage) match {
+    val preparedForm = request.userAnswers.get(CharityNamePage) match {
       case None => form
       case Some(value) => form.fill(value)
     }
@@ -60,9 +60,9 @@ class IsEligibleAccountController @Inject()(
 
       value =>
         for {
-        updatedAnswers <- Future.fromTry(request.userAnswers.set(IsEligibleAccountPage, value))
-        _              <- sessionRepository.set(updatedAnswers)
-      } yield Redirect(navigator.nextPage(IsEligibleAccountPage, mode, updatedAnswers))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityNamePage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(CharityNamePage, mode, updatedAnswers))
     )
   }
 }

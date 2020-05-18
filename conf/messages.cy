@@ -160,10 +160,11 @@ charityName.fullName.label = Full name of your charity
 charityName.fullName.hint = As shown on your charity''s governing document
 charityName.fullName.error.required = Enter full name of your charity
 charityName.fullName.error.length = Charity''s name must be 160 characters or less
+charityName.fullName.error.format = The full name of your charity must not include the following characters: & ( ) : @
 charityName.operatingName.label = Operating name of your charity (optional)
 charityName.operatingName.hint = The working name or acronym by which your charity is known.
 charityName.operatingName.error.length = Operating name must be 160 characters or less
-
+charityName.operatingName.error.format = The operating name of your charity must not include the following characters: & ( ) : @
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
@@ -210,5 +211,4 @@ charityUKAddress.officialAddress.outsideUK.link = Charity’s official address i
 # ----------------------------------------------------------
 isCharityOfficialAddressInUK.title = Is your charity''s official address in the UK?
 isCharityOfficialAddressInUK.heading = Is your charity''s official address in the UK?
-isCharityOfficialAddressInUK.checkYourAnswersLabel = Is your charity''s official address in the UK?
 isCharityOfficialAddressInUK.error.required = Select yes if your charity’s official address is in the UK

@@ -39,7 +39,7 @@ class IsEligibleLocationController @Inject()(
    formProvider: IsEligibleLocationFormProvider,
    val controllerComponents: MessagesControllerComponents,
    view: IsEligibleLocationView
- )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

@@ -153,6 +153,7 @@ inEligible.p3.link = check the HMRC charities and tax guidance (opens in new win
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
+contactDetail.section = Charity Information
 charityName.title = Charity''s name
 charityName.heading = Charity''s name
 charityName.checkYourAnswersLabel = Charity''s name

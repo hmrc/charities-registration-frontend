@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package navigation
+package pages.charityInformation
 
-import base.SpecBase
-import config.FrontendAppConfig
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import models.CharityName
+import org.scalacheck.Arbitrary
+import pages.behaviours.PageBehaviours
 
-object FakeNavigators extends SpecBase {
+class CharityNamePageSpec extends PageBehaviours {
 
-  trait FakeMainNavigator extends BaseNavigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
+  "CharityNamePage" must {
+
+    implicit lazy val arbitraryCharityName: Arbitrary[CharityName] = Arbitrary {
+      CharityName(
+        fullName = "fullName",
+        operatingName = Some("operatingName")
+      )
+    }
+
+    beRetrievable[CharityName](CharityNamePage)
+
+    beSettable[CharityName](CharityNamePage)
+
+    beRemovable[CharityName](CharityNamePage)
   }
-
-  object FakeEligibilityNavigator extends EligibilityNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
-
-  object FakeCharityInformationNavigator extends CharityInformationNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
 }

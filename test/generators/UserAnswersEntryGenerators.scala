@@ -18,7 +18,7 @@ package generators
 
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary._
-import pages.contact.CharityNamePage
+import pages.charityInformation.CharityNamePage
 import pages.checkEligibility._
 import play.api.libs.json.{JsValue, Json}
 

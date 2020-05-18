@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package navigation
+package pages.charityInformation
+import models.CharityName
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import base.SpecBase
-import config.FrontendAppConfig
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+case object CharityNamePage extends QuestionPage[CharityName] {
 
-object FakeNavigators extends SpecBase {
+  override def path: JsPath = JsPath \ toString
 
-  trait FakeMainNavigator extends BaseNavigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
-  }
-
-  object FakeEligibilityNavigator extends EligibilityNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
-
-  object FakeCharityInformationNavigator extends CharityInformationNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
+  override def toString: String = "charityName"
 }

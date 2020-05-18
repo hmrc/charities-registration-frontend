@@ -27,7 +27,7 @@ import scala.reflect.ClassTag
 
 trait ViewSpecBase extends SpecBase with BaseSelectors {
 
-  def viewFor[A](data: Option[UserAnswers] = None)(implicit tag: ClassTag[A]): A = app.injector.instanceOf[A]
+  def viewFor[A](data: Option[UserAnswers] = None)(implicit tag: ClassTag[A]): A = inject[A]
 
   implicit class ContentExtension(x: Content) {
     def text: String = x match {
@@ -112,9 +112,9 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
     }
   }
 
-  def checkYourAnswersRowChecks(id: Int, expectedRowData: (String, String)*)(implicit document: Document): Unit = {
+  def checkYourAnswersRowChecks(id: Int, expectedRowData: (String, String, String)*)(implicit document: Document): Unit = {
 
-    expectedRowData.zipWithIndex.foreach { case ((heading, value), i) =>
+    expectedRowData.zipWithIndex.foreach { case ((heading, value, actionUrl), i) =>
 
       val rowPosition = i + 1
 
@@ -126,6 +126,10 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
 
         s"should have the correct value of '$value'" in {
           document.select(checkAnswersAnswerValue(id, rowPosition)).first.text mustBe value
+        }
+
+        s"should have the correct value of '$actionUrl'" in {
+          document.select(checkAnswersAnswerActionUrl(id, rowPosition)).first.attr("href") mustBe actionUrl
         }
       }
     }

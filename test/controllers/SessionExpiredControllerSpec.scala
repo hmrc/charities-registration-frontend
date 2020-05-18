@@ -19,12 +19,12 @@ package controllers
 import base.SpecBase
 import controllers.actions.{FakeIdentifierAction, IdentifierAction}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, when}
+import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.{SessionRepository, SessionRepositoryImpl, UserAnswerRepositoryImpl}
+import repositories.SessionRepository
 import views.html.errors.SessionExpiredView
 
 import scala.concurrent.Future
@@ -45,7 +45,7 @@ class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   val view: SessionExpiredView = inject[SessionExpiredView]
 
-  val controller = inject[SessionExpiredController]
+  val controller: SessionExpiredController = inject[SessionExpiredController]
 
   "SessionExpired Controller" when {
 
@@ -67,20 +67,26 @@ class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
       "return OK and the correct view with user action" in {
 
         when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+        when(mockSessionRepository.set(any())).thenReturn(Future.successful(true))
 
         val result = controller.keepalive()(fakeRequest)
 
         status(result) mustEqual NO_CONTENT
+        verify(mockSessionRepository, times(1)).get(any())
+        verify(mockSessionRepository, times(1)).set(any())
 
       }
 
       "return OK and the correct view with No user action" in {
 
         when(mockSessionRepository.get(any())).thenReturn(Future.successful(None))
+        when(mockSessionRepository.set(any())).thenReturn(Future.successful(true))
 
         val result = controller.keepalive()(fakeRequest)
 
         status(result) mustEqual NO_CONTENT
+        verify(mockSessionRepository, times(1)).get(any())
+        verify(mockSessionRepository, times(1)).set(any())
 
       }
     }

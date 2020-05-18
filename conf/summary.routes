@@ -1,0 +1,3 @@
+
+GET        /check-charity-details        controllers.summary.CheckCharityDetailsController.onPageLoad()
+POST       /check-charity-details        controllers.summary.CheckCharityDetailsController.onSubmit()

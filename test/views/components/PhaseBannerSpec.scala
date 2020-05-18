@@ -24,7 +24,7 @@ import views.html.components.phaseBanner
 
 class PhaseBannerSpec extends SpecBase {
 
-  lazy val phaseBannerView: phaseBanner = app.injector.instanceOf[phaseBanner]
+  lazy val phaseBannerView: phaseBanner = inject[phaseBanner]
   lazy val html: Html = phaseBannerView("alpha")(fakeRequest, messages, frontendAppConfig)
 
   object Selectors {

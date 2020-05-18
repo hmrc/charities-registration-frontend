@@ -17,6 +17,8 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.charityInformation.{routes => charityInfoRoutes}
+import controllers.summary.{routes => summaryRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models._
@@ -29,25 +31,35 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
-      case Some(_) => controllers.charityInformation.routes.CharityContactDetailsController.onPageLoad(NormalMode)
+      case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-    case CharityUKAddressPage => userAnswers: UserAnswers => userAnswers.get(CharityUKAddressPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO Add next page controller once it is created
+      case Some(_) => charityInfoRoutes.IsCharityOfficialAddressInUKController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case IsCharityOfficialAddressInUKPage => userAnswers: UserAnswers => userAnswers.get(IsCharityOfficialAddressInUKPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()
+      case Some(_) => charityInfoRoutes.CharityUKAddressController.onPageLoad(NormalMode) // TODO Add next page controller once it is created
+      case _ => routes.SessionExpiredController.onPageLoad() // TODO Add next page controller once it is created
+    }
+    case CharityUKAddressPage => userAnswers: UserAnswers => userAnswers.get(CharityUKAddressPage) match {
+      case Some(_) => summaryRoutes.CheckCharityDetailsController.onPageLoad() // TODO Add next page controller once it is created
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
+
+    case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
+      case Some(_) => summaryRoutes.CheckCharityDetailsController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
+      case Some(_) => summaryRoutes.CheckCharityDetailsController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

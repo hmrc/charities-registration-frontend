@@ -26,11 +26,9 @@
     formHelper: FormWithCSRF
 )
 
-@(answers: Seq[SummaryListRow], section: String, postAction: Call, subheadingMsgArgs: Seq[String] = Seq(), headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.submitAndContinue")(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(answers: Seq[SummaryListRow], section: String, postAction: Call, subheadingMsgArgs: Seq[String] = Seq(), headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.continue")(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(messages(s"$section.checkYourAnswers.subheading", subheadingMsgArgs:_*))))) {
-
-    @subheading(s"$section.checkYourAnswers.subheading", subheadingMsgArgs)
+@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title"))) {
 
     @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs:_*))
 
@@ -38,7 +36,7 @@
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
 
-        @button(buttonMsg)
+    @button(buttonMsg)
 
     }
 }

@@ -29,14 +29,12 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   val request: DataRequest[_]
   implicit val messages: Messages
-
-  val userAnswers: UserAnswers = request.userAnswers
+  val userAnswers: UserAnswers
 
   def answer[A](page: QuestionPage[A],
                 changeLinkCall: Call,
                 answerIsMsgKey: Boolean = false,
                 headingMessageArgs: Seq[String] = Seq(),
-                answerIsMonetary: Boolean = false,
                 idx: Option[Int] = None,
                 isReview: Boolean = false)
                (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
@@ -48,37 +46,4 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
         changeLinkCall -> messages("site.edit")
       )
     }
-
-  def monetaryAnswer(page: QuestionPage[BigDecimal],
-                     changeLinkCall: Call,
-                     headingMessageArgs: Seq[String] = Seq(),
-                     idx: Option[Int] = None)
-                    (implicit messages: Messages): Option[SummaryListRow] =
-    userAnswers.get(page, idx) map { ans =>
-      summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
-        value = currencyFormat(ans),
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
-        changeLinkCall -> messages("site.edit")
-      )
-    }
-
-  def percentageAnswer(page: QuestionPage[BigDecimal],
-                       changeLinkCall: Call,
-                       headingMessageArgs: Seq[String] = Seq(),
-                       idx: Option[Int] = None)
-                      (implicit messages: Messages): Option[SummaryListRow] =
-    userAnswers.get(page, idx) map { ans =>
-      summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
-        value = s"$ans%",
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
-        changeLinkCall -> messages("site.edit")
-      )
-    }
-
-  implicit val yesNoValue: Boolean => String = {
-    case true => messages("site.yes")
-    case _ => messages("site.no")
-  }
 }

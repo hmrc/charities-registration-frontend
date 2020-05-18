@@ -21,13 +21,13 @@ import controllers.actions.{DataRetrievalAction, SessionIdentifierAction}
 import javax.inject.Inject
 import models.UserAnswers
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.SessionRepositoryImpl
+import repositories.SessionRepository
 import views.html.errors.SessionExpiredView
 
 import scala.concurrent.Future
 
 
-class SessionExpiredController @Inject()(sessionRepository: SessionRepositoryImpl,
+class SessionExpiredController @Inject()(sessionRepository: SessionRepository,
   identify: SessionIdentifierAction,
   getData: DataRetrievalAction,
   view: SessionExpiredView,

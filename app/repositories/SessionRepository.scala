@@ -27,7 +27,7 @@ class SessionRepositoryImpl @Inject()(
 
     override val collectionName: String = "user-eligibility-answers"
 
-    override val timeToLive: Int = appConfig.servicesConfig.getConfInt("mongodb.user-eligibility-answers.timeToLiveInSeconds", 0)
+    override lazy val timeToLive: Int = appConfig.servicesConfig.getInt("mongodb.user-eligibility-answers.timeToLiveInSeconds")
 }
 
 trait SessionRepository extends AbstractRepository

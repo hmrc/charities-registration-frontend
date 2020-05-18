@@ -17,7 +17,9 @@
 package navigation
 
 import base.SpecBase
+import controllers.charityInformation.{routes => charityInfoRoutes}
 import controllers.routes
+import controllers.summary.{routes => summaryRoutes}
 import models._
 import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage, IsCharityOfficialAddressInUKPage}
 import pages.{IndexPage, QuestionPage}
@@ -40,7 +42,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the CharityContactDetailsController page when clicked continue button" in {
           navigator.nextPage(CharityNamePage, NormalMode,
             emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
-            controllers.charityInformation.routes.CharityContactDetailsController.onPageLoad(NormalMode)
+            charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
         }
       }
 
@@ -54,7 +56,25 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the CheckCharityDetailsController page when clicked continue button" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad()
+            charityInfoRoutes.IsCharityOfficialAddressInUKController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IsCharityOfficialAddressInUKPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IndexController page when yes is selected" in {
+          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, true)) mustBe
+            charityInfoRoutes.CharityUKAddressController.onPageLoad(NormalMode)
+        }
+
+        "go to the IndexController page when No is selected" in {
+          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, false)) mustBe
+            charityInfoRoutes.CharityUKAddressController.onPageLoad(NormalMode)
         }
       }
 
@@ -68,47 +88,58 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the CharityUKAddressController page when clicked continue button" in {
           navigator.nextPage(CharityUKAddressPage, NormalMode,
             emptyUserAnswers.set(CharityUKAddressPage, CharityUKAddress("123, Morrison St", None, None, "Edinburgh", "EH12 5WU")).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad()
+            summaryRoutes.CheckCharityDetailsController.onPageLoad()
         }
       }
 
-      "from the IsCharityOfficialAddressInUKPage" must {
+      "from any UnKnownPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the IndexController page when yes is selected" in {
-          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, true)) mustBe
+        "go to the IndexController page when user answer is empty" in {
+          navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad()
-        }
-
-        "go to the IndexController page when No is selected" in {
-          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, false)) mustBe
-            routes.IndexController.onPageLoad()
-        }
-
-        "from any UnKnownPage" must {
-
-          "go to the IndexController page when user answer is empty" in {
-            navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-              routes.IndexController.onPageLoad()
-          }
-        }
-      }
-
-      "in Check mode" when {
-
-        "from any UnKnownPage" must {
-
-          "go to the IndexController page when user answer is empty" in {
-            navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-              routes.IndexController.onPageLoad()
-          }
         }
       }
     }
+
+  "in Check mode" when {
+
+    "from any UnKnownPage" must {
+
+      "go to the IndexController page when user answer is empty" in {
+        navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
+          routes.IndexController.onPageLoad()
+      }
+    }
+
+    "from the CharityNamePage" must {
+
+      "go to the SessionExpiredController page when user answer is empty" in {
+        navigator.nextPage(CharityNamePage, CheckMode, emptyUserAnswers) mustBe
+          routes.SessionExpiredController.onPageLoad()
+      }
+
+      "go to the CheckCharityDetailsController page when clicked continue button" in {
+        navigator.nextPage(CharityNamePage, CheckMode,
+          emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
+          summaryRoutes.CheckCharityDetailsController.onPageLoad()
+      }
+    }
+
+    "from the CharityContactDetailsPage" must {
+
+      "go to the SessionExpiredController page when user answer is empty" in {
+        navigator.nextPage(CharityContactDetailsPage, CheckMode, emptyUserAnswers) mustBe
+          routes.SessionExpiredController.onPageLoad()
+      }
+
+      "go to the CheckCharityDetailsController page when clicked continue button" in {
+        navigator.nextPage(CharityContactDetailsPage, CheckMode,
+          emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
+          summaryRoutes.CheckCharityDetailsController.onPageLoad()
+      }
+    }
+  }
+
 
     def userAnsewers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
       emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)

@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package pages.checkEligibility
+package pages.summary
 
-import pages.behaviours.PageBehaviours
+import pages.Page
 
-class InEligiblePageSpec extends PageBehaviours {
+case object CheckCharityDetailsPage extends Page {
 
-  "InEligiblePage" must {
-
-    beRetrievable[Boolean](InEligiblePage)
-
-    beSettable[Boolean](InEligiblePage)
-
-    beRemovable[Boolean](InEligiblePage)
-  }
+  override def toString: String = "checkCharityDetails"
 }

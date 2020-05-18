@@ -165,6 +165,10 @@ charityName.operatingName.label = Operating name of your charity (optional)
 charityName.operatingName.hint = The working name or acronym by which your charity is known.
 charityName.operatingName.error.length = Operating name must be 160 characters or less
 charityName.operatingName.error.format = The operating name of your charity must not include the following characters: & ( ) : @
+charityName.checkYourAnswers.title = Check your charity''s contact details
+charityName.checkYourAnswers.heading = Check your charity''s contact details
+charityName.fullName.checkYourAnswersLabel = Full name of your charity
+charityName.operatingName.checkYourAnswersLabel = Operating name of your charity (optional)
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
@@ -179,6 +183,9 @@ charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''
 charityContactDetails.emailAddress.label = Email address
 charityContactDetails.emailAddress.error.required = Enter your charity''s email address, like name@example.com
 charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
+charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
+charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number (optional)
+charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
 
 # Enter UK Address Messages
 #------------------------------------------------------------
@@ -211,4 +218,5 @@ charityUKAddress.officialAddress.outsideUK.link = Charity’s official address i
 # ----------------------------------------------------------
 isCharityOfficialAddressInUK.title = Is your charity''s official address in the UK?
 isCharityOfficialAddressInUK.heading = Is your charity''s official address in the UK?
+isCharityOfficialAddressInUK.checkYourAnswersLabel = Is your charity''s official address in the UK?
 isCharityOfficialAddressInUK.error.required = Select yes if your charity’s official address is in the UK

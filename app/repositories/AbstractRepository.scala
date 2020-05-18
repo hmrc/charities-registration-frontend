@@ -19,6 +19,7 @@ package repositories
 import java.time.LocalDateTime
 
 import models.UserAnswers
+import play.api.Logger
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.indexes.{Index, IndexType}
@@ -42,15 +43,27 @@ trait AbstractRepository {
     mongo.database.map(_.collection[JSONCollection](collectionName))
 
   private val lastUpdatedIndex = Index(
-    key = Seq("expireAt" -> IndexType.Ascending),
+    key = Seq("expiresAt" -> IndexType.Ascending),
     name = Some("dataExpiry"),
+    background = true,
     options = BSONDocument("expireAfterSeconds" -> timeToLive)
   )
 
-  val started: Future[Unit] =
+  val started: Future[Boolean] = {
     collection.flatMap {
-      _.indexesManager.ensure(lastUpdatedIndex)
-    }.map(_ => ())
+      _.indexesManager.ensure(lastUpdatedIndex) map {
+        result => {
+          Logger.debug(s"set [dataExpiry] with value $timeToLive -> result : $result")
+          result
+        }
+      } recover {
+        case e => Logger.error("Failed to set TTL index", e)
+          false
+      }
+    }
+  }
+
+  private def calculateExpiryTime = LocalDateTime.now.plusMinutes(timeToLive)
 
   def get(id: String): Future[Option[UserAnswers]] =
     collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])
@@ -62,7 +75,7 @@ trait AbstractRepository {
     )
 
     val modifier = Json.obj(
-      "$set" -> userAnswers.copy(lastUpdated  = LocalDateTime.now)
+      "$set" -> userAnswers.copy(lastUpdated  = LocalDateTime.now, expiresAt = calculateExpiryTime)
     )
 
     collection.flatMap {

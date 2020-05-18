@@ -27,7 +27,7 @@ class UserAnswerRepositoryImpl @Inject()(
 
   override val collectionName: String = "user-answers"
 
-  override val timeToLive: Int = appConfig.servicesConfig.getConfInt("mongodb.user-answers.timeToLiveInDays", 0)
+  override val timeToLive: Int = appConfig.servicesConfig.getInt("mongodb.user-answers.timeToLiveInDays")
 }
 
 trait UserAnswerRepository extends AbstractRepository

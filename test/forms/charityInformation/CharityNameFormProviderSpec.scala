@@ -24,7 +24,6 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
   val maxLength = 160
 
-//  val form = new CharityNameFormProvider()()
 val formProvider = new CharityNameFormProvider()
   val form = formProvider()
 

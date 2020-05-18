@@ -31,15 +31,15 @@ import views.html.checkEligibility.IsEligibleAccountView
 import scala.concurrent.Future
 
 class IsEligibleAccountController @Inject()(
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: EligibilityNavigator,
-                                         identify: SessionIdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: IsEligibleAccountFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: IsEligibleAccountView
-                                 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    val sessionRepository: SessionRepository,
+    val navigator: EligibilityNavigator,
+    identify: SessionIdentifierAction,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: IsEligibleAccountFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: IsEligibleAccountView
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

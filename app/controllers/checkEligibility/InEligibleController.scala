@@ -27,14 +27,14 @@ import repositories.SessionRepository
 import views.html.checkEligibility.InEligibleView
 
 class InEligibleController @Inject()(
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: EligibilityNavigator,
-                                         identify: SessionIdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: InEligibleView
-                                 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    val sessionRepository: SessionRepository,
+    val navigator: EligibilityNavigator,
+    identify: SessionIdentifierAction,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents,
+    view: InEligibleView
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 

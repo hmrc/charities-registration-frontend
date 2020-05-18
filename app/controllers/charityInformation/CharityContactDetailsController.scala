@@ -31,14 +31,14 @@ import views.html.charityInformation.CharityContactDetailsView
 import scala.concurrent.Future
 
 class CharityContactDetailsController @Inject()(
-                                                 sessionRepository: UserAnswerRepository,
-                                                 navigator: CharityInformationNavigator,
-                                                 identify: AuthIdentifierAction,
-                                                 getData: UserDataRetrievalAction,
-                                                 requireData: DataRequiredAction,
-                                                 formProvider: CharityContactDetailsFormProvider,
-                                                 val controllerComponents: MessagesControllerComponents,
-                                                 view: CharityContactDetailsView
+    sessionRepository: UserAnswerRepository,
+    navigator: CharityInformationNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: CharityContactDetailsFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: CharityContactDetailsView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 

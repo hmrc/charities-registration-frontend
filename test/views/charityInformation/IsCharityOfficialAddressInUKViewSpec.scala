@@ -39,11 +39,11 @@ class IsCharityOfficialAddressInUKViewSpec extends YesNoViewBehaviours  {
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("contactDetail.section")))
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsCharityOfficialAddressInUKController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsCharityOfficialAddressInUKController.onSubmit(NormalMode).url, section = Some(messages("contactDetail.section")))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
   }}

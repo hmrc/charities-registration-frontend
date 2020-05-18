@@ -37,7 +37,7 @@ class CharityNameViewSpec extends QuestionViewBehaviours[CharityName]  {
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("contactDetail.section")))
 
       behave like pageWithBackLink(applyView(form))
 

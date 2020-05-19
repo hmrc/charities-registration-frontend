@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-package pages.checkEligibility
+package models
 
-import pages.IndexPage
-import pages.behaviours.PageBehaviours
 
-class InEligiblePageSpec extends PageBehaviours {
+case class TaskListSection(spokes: List[Spoke])
 
-  "InEligiblePage" must {
-
-    "Have the correct name" in {
-      val name: String = InEligiblePage
-      name mustBe "inEligible"
-    }
-
-  }
-}
+case class Spoke(url: String, status: String)

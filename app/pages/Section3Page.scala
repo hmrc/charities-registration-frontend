@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package pages.checkEligibility
+package pages
 
-import pages.IndexPage
-import pages.behaviours.PageBehaviours
+import play.api.libs.json.JsPath
 
-class InEligiblePageSpec extends PageBehaviours {
+case object Section3Page extends QuestionPage[Boolean] {
 
-  "InEligiblePage" must {
+  override def path: JsPath = JsPath \ toString
 
-    "Have the correct name" in {
-      val name: String = InEligiblePage
-      name mustBe "inEligible"
-    }
-
-  }
+  override def toString: String = "isSection3Completed"
 }

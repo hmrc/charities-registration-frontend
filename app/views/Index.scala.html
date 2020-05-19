@@ -22,11 +22,118 @@
     h1: components.h1
 )
 
-@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(result: List[TaskListSection])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @main_template(Some(titleNoForm("index.title")), timeout = false) {
 
     @h1(messages("index.heading"))
 
-    <p>@messages("index.guidance")</p>
+<p class="govuk-body">@messages("index.guidance1") <b>@messages("index.guidance2")</b> @messages("index.guidance3")</p>
+    <p><br/></p>
+
+    <ol class="app-task-list">
+        <li>
+            <h2 class="app-task-list__section">
+                <span class="app-task-list__section-number">@messages("index.section.numbers1") </span> @messages("index.section1.label")
+            </h2>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{result.head.spokes.head.url}"aria-describedby="charity-info-completed">
+                      @messages("index.section1.spoke1.label")
+                    </a>
+                  </span>
+                    <strong id="charity-info-completed" class='@if(result.head.spokes.head.status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result.head.spokes.head.status)</strong>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <h2 class="app-task-list__section">
+                <span class="app-task-list__section-number">@messages("index.section.numbers2") </span> @messages("index.section2.label")
+            </h2>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="name-regulator-completed">
+                      @messages("index.section2.spoke1.label")
+                    </a>
+                  </span>
+                    <strong id="name-regulator-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="governing-doc-info-completed">
+                      @messages("index.section2.spoke2.label")
+                    </a>
+                  </span>
+                    <strong id="governing-doc-info-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <h2 class="app-task-list__section">
+                <span class="app-task-list__section-number">@messages("index.section.numbers3") </span> @messages("index.section3.label")
+            </h2>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="charity-objective-completed">
+                      @messages("index.section3.spoke1.label")
+                    </a>
+                  </span>
+                    <strong id="charity-objective-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="fundraising-info-completed">
+                      @messages("index.section3.spoke2.label")
+                    </a>
+                  </span>
+                    <strong id="fundraising-info-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="bank-details-completed">
+                      @messages("index.section3.spoke3.label")
+                    </a>
+                  </span>
+                    <strong id="bank-details-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <h2 class="app-task-list__section">
+                <span class="app-task-list__section-number">@messages("index.section.numbers4") </span> @messages("index.section4.label")
+            </h2>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="authorised-officials-completed">
+                      @messages("index.section4.spoke1.label")
+                    </a>
+                  </span>
+                    <strong id="authorised-officials-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="other-officials-completed">
+                      @messages("index.section4.spoke2.label")
+                    </a>
+                  </span>
+                    <strong id="other-officials-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="nominee-info-completed">
+                      @messages("index.section4.spoke3.label")
+                    </a>
+                  </span>
+                    <strong id="nominee-info-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <div class="govuk-inset-text">
+        @messages("index.section.note.label")
+    </div>
 }

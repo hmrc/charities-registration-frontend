@@ -15,12 +15,9 @@
  */
 
 package pages.checkEligibility
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import pages.Page
 
-case object InEligiblePage extends QuestionPage[Boolean] {
-
-  override def path: JsPath = JsPath \ toString
+case object InEligiblePage extends Page {
 
   override def toString: String = "inEligible"
 }

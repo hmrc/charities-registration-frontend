@@ -43,7 +43,7 @@ class CharityUKAddressViewSpec extends QuestionViewBehaviours[CharityUKAddress] 
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
 
-      behave like pageWithHyperLink(applyView(form), "address-outsideUK", "/hmrc-register-charity-registration", linkText = messages(s"$messageKeyPrefix.officialAddress.outsideUK.link"))
+      behave like pageWithHyperLink(applyView(form), "address-outsideUK", "/hmrc-register-charity-registration/task-list", linkText = messages(s"$messageKeyPrefix.officialAddress.outsideUK.link"))
 
     }
   }

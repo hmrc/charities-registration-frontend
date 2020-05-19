@@ -33,7 +33,6 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(IsEligibleLocationPage.type, JsValue)] ::
     arbitrary[(IsEligibleLocationOtherPage.type, JsValue)] ::
     arbitrary[(IsEligibleAccountPage.type, JsValue)] ::
-    arbitrary[(InEligiblePage.type, JsValue)] ::
     arbitrary[(IsEligiblePurposePage.type, JsValue)] ::
       Nil
 

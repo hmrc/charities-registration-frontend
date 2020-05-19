@@ -23,6 +23,7 @@ import forms.charityInformation.CharityUKAddressFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.CharityInformationNavigator
+import pages.Section1Page
 import pages.charityInformation.CharityUKAddressPage
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -60,7 +61,7 @@ class CharityUKAddressController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityUKAddressPage, value))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityUKAddressPage, value).flatMap(_.set(Section1Page, true)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(CharityUKAddressPage, mode, updatedAnswers))
     )

@@ -23,25 +23,26 @@ import models._
 import pages.Page
 import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage, IsCharityOfficialAddressInUKPage}
 import play.api.mvc.Call
+import controllers.charityInformation.{routes => charityInfoRoutes}
 
 
 class CharityInformationNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
-      case Some(_) => controllers.charityInformation.routes.CharityContactDetailsController.onPageLoad(NormalMode)
+      case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()
+      case Some(_) => charityInfoRoutes.IsCharityOfficialAddressInUKController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case IsCharityOfficialAddressInUKPage => userAnswers: UserAnswers => userAnswers.get(IsCharityOfficialAddressInUKPage) match {
+      case Some(_) => charityInfoRoutes.CharityUKAddressController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityUKAddressPage => userAnswers: UserAnswers => userAnswers.get(CharityUKAddressPage) match {
       case Some(_) => routes.IndexController.onPageLoad() // TODO Add next page controller once it is created
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-    case IsCharityOfficialAddressInUKPage => userAnswers: UserAnswers => userAnswers.get(IsCharityOfficialAddressInUKPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case _ => _ => routes.IndexController.onPageLoad()

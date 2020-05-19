@@ -1,0 +1,80 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.charityInformation.routes._
+@import models.Mode
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    button: components.button,
+    inputText: components.inputText,
+    h1: components.h1,
+    fieldset: components.fieldset,
+    link: components.link,
+    subheading: components.subheading
+)
+
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, "charityContactDetails.title", Some("contactDetail.section")))) {
+
+    @formHelper(action = CharityContactDetailsController.onSubmit(mode)) {
+
+
+        <fieldset class="govuk-fieldset">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                @h1("charityContactDetails.heading")
+            </legend>
+
+            @errorSummary(form.errors)
+
+            @inputText(
+                form,
+                id = "mainPhoneNumber",
+                name = "mainPhoneNumber",
+                label = "charityContactDetails.mainPhoneNumber.label",
+                isPageHeading = false,
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
+
+            @inputText(
+                form,
+                id = "alternativePhoneNumber",
+                name = "alternativePhoneNumber",
+                label = "charityContactDetails.alternativePhoneNumber.label",
+                isPageHeading = false,
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
+
+            @inputText(
+                form,
+                id = "emailAddress",
+                name = "emailAddress",
+                label = "charityContactDetails.emailAddress.label",
+                isPageHeading = false,
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
+
+        </fieldset>
+
+        @button("site.continue")
+    }
+}

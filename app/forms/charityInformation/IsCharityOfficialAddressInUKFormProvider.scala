@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package navigation
+package forms.charityInformation
 
-import base.SpecBase
-import config.FrontendAppConfig
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-object FakeNavigators extends SpecBase {
+class IsCharityOfficialAddressInUKFormProvider @Inject() extends Mappings {
 
-  trait FakeMainNavigator extends BaseNavigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
-  }
-
-  object FakeEligibilityNavigator extends EligibilityNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
-
-  object FakeCharityInformationNavigator extends CharityInformationNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("isCharityOfficialAddressInUK.error.required")
+    )
 }

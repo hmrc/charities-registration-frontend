@@ -18,14 +18,17 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
+import controllers.charityInformation.{routes => charityInfoRoutes}
 import javax.inject.Inject
-import models.UserAnswers
+import models.{NormalMode, Spoke, TaskListSection, UserAnswers}
+import pages.{Section1Page, Section2Page, Section3Page, Section4Page}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import views.html.Index
 
 
-class IndexController @Inject()(identify: AuthIdentifierAction,
+class IndexController @Inject()(
+    identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     userAnswerRepository: UserAnswerRepository,
     view: Index,
@@ -35,7 +38,28 @@ class IndexController @Inject()(identify: AuthIdentifierAction,
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
     userAnswerRepository.set(userAnswers).map { _ =>
-      Ok(view())
+
+      val section1 = TaskListSection(List(
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section1Page)))))
+
+      val section2 = TaskListSection(List(
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page))),
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page)))))
+
+      val section3 = TaskListSection(List(
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section3Page))),
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section3Page))),
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section3Page)))))
+
+      val section4 = TaskListSection(List(
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section4Page))),
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section4Page))),
+        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section4Page)))))
+
+      val result = List(section1, section2, section3, section4)
+
+
+      Ok(view(result))
     }
   }
 
@@ -43,6 +67,14 @@ class IndexController @Inject()(identify: AuthIdentifierAction,
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
     userAnswerRepository.set(userAnswers).map { _ =>
       NoContent
+    }
+  }
+  
+  private def getStatus(status : Option[Boolean]) : String = {
+    status match {
+      case Some(true) => "index.section.completed"
+      case Some(false) => "index.section.inpProgress"
+      case _ => "index.section.notStarted"
     }
   }
 }

@@ -50,7 +50,7 @@ lazy val root = (project in file("."))
       "models.Mode",
       "controllers.routes._"
     ),
-    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*models.Mode*;.*filters.*;.*handlers.*;.*components.*;.*repositories.*;" +
+    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*models.Mode*;.*filters.*;.*handlers.*;.*components.*;.*repositories.*;.*pages.*;" +
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;" +
       ".*ControllerConfiguration;.*LanguageSwitchController;.*testonly.*;",
     ScoverageKeys.coverageMinimum := 80,

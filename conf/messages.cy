@@ -99,9 +99,32 @@ main.checkYourAnswers.title = Check your answers
 main.checkYourAnswers.heading = Check your answers
 main.checkYourAnswers.subheading = Main section
 
-index.title = Register your charity''s details with HMRC
-index.heading = Register your charity''s details with HMRC
-index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
+index.title = Register your charity
+index.heading = Register your charity
+index.guidance1 = Your answers will be saved for
+index.guidance2 = 28 days
+index.guidance3 = from the date you first start your application.
+index.section.numbers1 = 1.
+index.section1.label = Contact details
+index.section1.spoke1.label= Add charity’s information
+index.section.numbers2 = 2.
+index.section2.label = Regulators and documents
+index.section2.spoke1.label = Name regulator
+index.section2.spoke2.label = Add governing document information
+index.section.numbers3 = 3.
+index.section3.label = Operations and funds
+index.section3.spoke1.label = Provide charity’s objectives
+index.section3.spoke2.label = Give fundraising information
+index.section3.spoke3.label = Supply bank details
+index.section.numbers4 = 4.
+index.section4.label = Officials and nominee
+index.section4.spoke1.label = Name authorised officials
+index.section4.spoke2.label = Add other officials
+index.section4.spoke3.label = Give nominee information
+index.section.note.label = Once you have completed every section, you will be asked to sign a declaration and submit the application.
+index.section.notStarted = Not started
+index.section.inpProgress = In progress
+index.section.completed = Completed
 
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------
@@ -178,10 +201,9 @@ charityContactDetails.mainPhoneNumber.error.required = Enter your charity''s mai
 charityContactDetails.alternativePhoneNumber.label = Alternative phone number (optional)
 charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 charityContactDetails.emailAddress.label = Email address
-charityContactDetails.emailAddress.error.required = Enter your charity''s email address
 charityContactDetails.emailAddress.error.format = Enter your charity's email address in the correct format, like name@example.com
+charityContactDetails.emailAddress.error.required = Enter your charity''s email address
 charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
-
 
 # Enter UK Address Messages
 #------------------------------------------------------------
@@ -191,13 +213,13 @@ charityUKAddress.checkYourAnswersLabel = Charity''s UK address
 charityUKAddress.addressLine1.label = Address line 1
 charityUKAddress.addressLine1.required = Enter the first line of your charity''s address
 charityUKAddress.addressLine1.error.format = The Address line 1 of your charity must not include the following characters: @ & ( ) :
-charityUKAddress.addressLine1.error.length = The Address line 1 of your charity''s address must be 35 characters or fewer.
+charityUKAddress.addressLine1.error.length = The first line of your charity''s address must be 35 characters or fewer.
 charityUKAddress.addressLine2.label = Address line 2 (optional)
 charityUKAddress.addressLine2.error.format = The Address line 2 of your charity must not include the following characters: @ & ( ) :
-charityUKAddress.addressLine2.error.length = The Address line 2 of your charity''s address must be 35 characters or fewer.
+charityUKAddress.addressLine2.error.length = The second line of your charity''s address must be 35 characters or fewer.
 charityUKAddress.addressLine3.label = Address line 3 (optional)
 charityUKAddress.addressLine3.error.format = The Address line 3 of your charity must not include the following characters: @ & ( ) :
-charityUKAddress.addressLine3.error.length = The Address line 3 of your charity''s address must be 35 characters or fewer.
+charityUKAddress.addressLine3.error.length = The third line of your charity''s address must be 35 characters or fewer.
 charityUKAddress.townCity.label = Town or City
 charityUKAddress.townCity.required = Enter your charity''s town or city
 charityUKAddress.townCity.error.format = The Town or City of your charity must not include the following characters: @ & ( ) :
@@ -205,7 +227,7 @@ charityUKAddress.townCity.error.length = Your charity''s town or city must be 35
 charityUKAddress.postcode.label = Postcode or Zipcode
 charityUKAddress.postcode.hint = For example, L69 9AZ or NE98 1ZZ.
 charityUKAddress.postcode.required = Enter your charity''s UK postcode
-charityUKAddress.postcode.error.format = The Postcode of your charity is invalid
+charityUKAddress.postcode.error.format = Enter a real postcode
 charityUKAddress.officialAddress.outsideUK.link = Charity’s official address is outside the UK
 
 

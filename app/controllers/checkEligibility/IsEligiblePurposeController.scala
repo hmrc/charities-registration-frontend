@@ -25,7 +25,7 @@ import models.{Mode, UserAnswers}
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligiblePurposePage
 import play.api.mvc._
-import repositories.{SessionRepository, SessionRepositoryImpl}
+import repositories.SessionRepositoryImpl
 import views.html.checkEligibility.IsEligiblePurposeView
 
 import scala.concurrent.Future

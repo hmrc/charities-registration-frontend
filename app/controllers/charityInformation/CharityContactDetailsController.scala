@@ -24,6 +24,7 @@ import javax.inject.Inject
 import models.Mode
 import navigation.CharityInformationNavigator
 import pages.charityInformation.CharityContactDetailsPage
+import pages.Section1Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.charityInformation.CharityContactDetailsView
@@ -60,7 +61,7 @@ class CharityContactDetailsController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityContactDetailsPage, value))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityContactDetailsPage, value).flatMap(_.set(Section1Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(CharityContactDetailsPage, mode, updatedAnswers))
     )

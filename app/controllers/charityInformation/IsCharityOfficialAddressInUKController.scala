@@ -23,6 +23,7 @@ import forms.charityInformation.IsCharityOfficialAddressInUKFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.CharityInformationNavigator
+import pages.Section1Page
 import pages.charityInformation.IsCharityOfficialAddressInUKPage
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -61,7 +62,7 @@ class IsCharityOfficialAddressInUKController @Inject()(
 
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(IsCharityOfficialAddressInUKPage, value))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(IsCharityOfficialAddressInUKPage, value).flatMap(_.set(Section1Page, false)))
             _              <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(IsCharityOfficialAddressInUKPage, mode, updatedAnswers))
       )

@@ -109,7 +109,7 @@ isEligiblePurpose.title = Is your charity for charitable purposes only?
 isEligiblePurpose.heading = Is your charity for charitable purposes only?
 isEligiblePurpose.section = Check if you can register
 isEligiblePurpose.help = What are charitable purposes
-isEligiblePurpose.hint = Charitable purposes include things that contribute to education, animal welfare and relieving poverty.
+isEligiblePurpose.hint = Charitable purposes include things that contribute to education, animal welfare and relieving poverty
 isEligiblePurpose.checkYourAnswersLabel = Is your charity for charitable purposes only?
 isEligiblePurpose.error.required = Select yes if your charity is for charitable purposes only
 
@@ -135,7 +135,7 @@ isEligibleLocationOther.title = Is your charity based in the European Union, Ice
 isEligibleLocationOther.heading = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 isEligibleLocationOther.section = Check if you can register
 isEligibleLocationOther.help = Countries in the European Union
-isEligibleLocationOther.hint = Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden.
+isEligibleLocationOther.hint = Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden
 isEligibleLocationOther.checkYourAnswersLabel = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 isEligibleLocationOther.error.required = Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway
 
@@ -163,7 +163,7 @@ charityName.fullName.error.required = Enter full name of your charity
 charityName.fullName.error.length = Charity''s name must be 160 characters or less
 charityName.fullName.error.format = The full name of your charity must not include the following characters: & ( ) : @
 charityName.operatingName.label = Operating name of your charity (optional)
-charityName.operatingName.hint = The working name or acronym by which your charity is known.
+charityName.operatingName.hint = The working name or acronym by which your charity is known
 charityName.operatingName.error.length = Operating name must be 160 characters or less
 charityName.operatingName.error.format = The operating name of your charity must not include the following characters: & ( ) : @
 
@@ -203,7 +203,7 @@ charityUKAddress.townCity.required = Enter your charity''s town or city
 charityUKAddress.townCity.error.format = The Town or City of your charity must not include the following characters: @ & ( ) :
 charityUKAddress.townCity.error.length = Your charity''s town or city must be 35 characters or fewer.
 charityUKAddress.postcode.label = Postcode or Zipcode
-charityUKAddress.postcode.hint = For example, L69 9AZ or NE98 1ZZ.
+charityUKAddress.postcode.hint = For example, L69 9AZ or NE98 1ZZ
 charityUKAddress.postcode.required = Enter your charity''s UK postcode
 charityUKAddress.postcode.error.format = Enter a real postcode
 charityUKAddress.officialAddress.outsideUK.link = Charity’s official address is outside the UK

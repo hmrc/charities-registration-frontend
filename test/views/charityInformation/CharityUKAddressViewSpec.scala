@@ -37,7 +37,7 @@ class CharityUKAddressViewSpec extends QuestionViewBehaviours[CharityUKAddress] 
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages(s"$messageKeyPrefix.section")))
+      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("contactDetail.section")))
 
       behave like pageWithBackLink(applyView(form))
 

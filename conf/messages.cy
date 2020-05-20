@@ -173,18 +173,19 @@ charityContactDetails.title = Charity''s contact details
 charityContactDetails.heading = Charity''s contact details
 charityContactDetails.checkYourAnswersLabel = Charity''s contact details
 charityContactDetails.mainPhoneNumber.label = Main phone number
-charityContactDetails.mainPhoneNumber.error.format = Enter your charity''s daytime phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
-charityContactDetails.mainPhoneNumber.error.required = Enter your charity''s daytime telephone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.mainPhoneNumber.error.format = Enter your charity''s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.mainPhoneNumber.error.required = Enter your charity''s main phone number
 charityContactDetails.alternativePhoneNumber.label = Alternative phone number (optional)
-charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s mobile phone number, like 07700 900 982
+charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 charityContactDetails.emailAddress.label = Email address
-charityContactDetails.emailAddress.error.required = Enter your charity''s email address, like name@example.com
+charityContactDetails.emailAddress.error.required = Enter your charity''s email address
+charityContactDetails.emailAddress.error.format = Enter your charity's email address in the correct format, like name@example.com
 charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
+
 
 # Enter UK Address Messages
 #------------------------------------------------------------
 charityUKAddress.title = What is your charity''s UK address?
-charityUKAddress.section = Charity Information
 charityUKAddress.heading = What is your charity''s UK address?
 charityUKAddress.checkYourAnswersLabel = Charity''s UK address
 charityUKAddress.addressLine1.label = Address line 1

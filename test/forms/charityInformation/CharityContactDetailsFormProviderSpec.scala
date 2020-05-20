@@ -124,7 +124,7 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
     }
   }
 
-  "emailAddressPattern" must {
+  "emailAddress" must {
 
     "valid for abc@gmail.com" in {
 

@@ -73,7 +73,7 @@ class AuthActionSpec extends SpecBase {
 
     "the user doesn't have sufficient enrolments" must {
 
-      "redirect the user to the unauthorised page" in {
+      "redirect the user to the incorrect Details page" in {
 
         val application = applicationBuilder().build()
 
@@ -85,13 +85,13 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
       }
     }
 
     "the user doesn't have sufficient confidence level" must {
 
-      "redirect the user to the unauthorised page" in {
+      "redirect the user to the incorrect Details page" in {
 
         val application = applicationBuilder().build()
 
@@ -103,13 +103,13 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
       }
     }
 
     "the user used an unaccepted auth provider" must {
 
-      "redirect the user to the unauthorised page" in {
+      "redirect the user to the incorrect Details page" in {
 
         val application = applicationBuilder().build()
 
@@ -121,13 +121,13 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
       }
     }
 
     "the user has an unsupported affinity group" must {
 
-      "redirect the user to the unauthorised page" in {
+      "redirect the user to the incorrect Details page" in {
 
         val application = applicationBuilder().build()
 
@@ -139,13 +139,13 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
       }
     }
 
     "the user has an unsupported credential role" must {
 
-      "redirect the user to the unauthorised page" in {
+      "redirect the user to the incorrect Details page" in {
 
         val application = applicationBuilder().build()
 
@@ -157,7 +157,7 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
       }
     }
 

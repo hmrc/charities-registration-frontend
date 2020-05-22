@@ -70,10 +70,15 @@ session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
 
-# Unauthorised Error
+# Incorrect Details Error
 # ----------------------------------------------------------
-unauthorised.title = You can''t access this service with this account
-unauthorised.heading = You can''t access this service with this account
+incorrect-details.title = You cannot sign in with these details
+incorrect-details.heading = You cannot sign in with these details
+incorrect-details.notAnOrganisation.p1 = You must
+incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using your charity''s sign-in details.
+incorrect-details.notAnOrganisation.p2 = If you do not have these already, you can
+incorrect-details.notAnOrganisation.p2.link = set up a Government Gateway account for your charity.
+
 
 # Timeout Messages
 # ----------------------------------------------------------
@@ -202,7 +207,7 @@ charityContactDetails.alternativePhoneNumber.label = Alternative phone number (o
 charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 charityContactDetails.emailAddress.label = Email address
 charityContactDetails.emailAddress.error.required = Enter your charity''s email address
-charityContactDetails.emailAddress.error.format = Enter your charity's email address in the correct format, like name@example.com
+charityContactDetails.emailAddress.error.format = Enter your charity''s email address in the correct format, like name@example.com
 charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
 
 

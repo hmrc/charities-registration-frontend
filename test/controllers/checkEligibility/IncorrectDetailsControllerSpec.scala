@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package controllers.errors
+package controllers.checkEligibility
 
 import base.SpecBase
 import play.api.test.Helpers._
-import views.html.errors.UnauthorisedView
+import views.html.checkEligibility.IncorrectDetailsView
 
-class UnauthorisedControllerSpec extends SpecBase {
+class IncorrectDetailsControllerSpec extends SpecBase {
 
-  val view: UnauthorisedView = inject[UnauthorisedView]
+  val view: IncorrectDetailsView = inject[IncorrectDetailsView]
 
-  object Controller extends UnauthorisedController (
+  object Controller extends IncorrectDetailsController (
     controllerComponents = messagesControllerComponents,
     view = view
   )

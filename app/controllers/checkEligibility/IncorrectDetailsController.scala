@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package controllers.errors
+package controllers.checkEligibility
 
 import config.FrontendAppConfig
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.errors.UnauthorisedView
+import views.html.checkEligibility.IncorrectDetailsView
 
 
-class UnauthorisedController @Inject()(val controllerComponents: MessagesControllerComponents,
-                                       view: UnauthorisedView
+class IncorrectDetailsController @Inject()(val controllerComponents: MessagesControllerComponents,
+                                           view: IncorrectDetailsView
                                       )(implicit appConfig: FrontendAppConfig) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>

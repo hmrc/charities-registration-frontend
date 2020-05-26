@@ -43,7 +43,7 @@ class IndexController @Inject()(
         Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section1Page)))))
 
       val section2 = TaskListSection(List(
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page))),
+        Spoke(controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page))),
         Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page)))))
 
       val section3 = TaskListSection(List(

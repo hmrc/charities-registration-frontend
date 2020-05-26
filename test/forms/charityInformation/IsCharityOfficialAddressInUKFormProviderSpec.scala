@@ -19,7 +19,7 @@ package forms.charityInformation
 import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class IsCharityOfficialAddressInUKPageFormProviderSpec extends BooleanFieldBehaviours {
+class IsCharityOfficialAddressInUKFormProviderSpec extends BooleanFieldBehaviours {
 
   val formProvider = new IsCharityOfficialAddressInUKFormProvider()
   val form = formProvider()

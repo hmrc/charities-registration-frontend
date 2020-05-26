@@ -1,16 +1,24 @@
 # microservice specific routes
 
 ->         /govuk-frontend                              govuk.Routes
-
-->         /check-eligibility                           checkEligibility.Routes
-
-->         /charity-information                         charityInformation.Routes
-
 GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 GET        /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)
 
+### Index Controller
+### ----------------
+
 GET        /task-list                                   controllers.IndexController.onPageLoad
 GET        /keepalive                                   controllers.IndexController.keepalive
+
+### Section Routes
+### ----------------
+
+->         /check-eligibility                           checkEligibility.Routes
+->         /charity-information                         charityInformation.Routes
+->         /regulators-and-documents                    regulatorsAndDocuments.Routes
+
+### SignOut/Session Expired
+### -----------------------
 
 GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
 GET        /sign-out                                    controllers.SignOutController.signOut

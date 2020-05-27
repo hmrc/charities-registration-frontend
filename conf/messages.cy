@@ -75,7 +75,7 @@ session_expired.guidance = The details you have given have been deleted because 
 incorrect-details.title = You cannot sign in with these details
 incorrect-details.heading = You cannot sign in with these details
 incorrect-details.notAnOrganisation.p1 = You must
-incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using your charity’s sign-in details.
+incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using your charity''s sign-in details.
 incorrect-details.notAnOrganisation.p2 = If you do not have these already, you can
 incorrect-details.notAnOrganisation.p2.link = set up a Government Gateway account for your charity.
 
@@ -179,9 +179,12 @@ inEligible.l3 = be based in either the UK, country in the European Union or in I
 inEligible.p3 = For help with tax,
 inEligible.p3.link = check the HMRC charities and tax guidance (opens in new window).
 
-# CharityNamePage Messages
+# Section1 - Charity Information
 # ----------------------------------------------------------
 contactDetail.section = Charity Information
+
+# CharityNamePage Messages
+# ----------------------------------------------------------
 charityName.title = Charity''s name
 charityName.heading = Charity''s name
 charityName.checkYourAnswersLabel = Charity''s name
@@ -206,9 +209,10 @@ charityContactDetails.mainPhoneNumber.error.required = Enter your charity''s mai
 charityContactDetails.alternativePhoneNumber.label = Alternative phone number (optional)
 charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 charityContactDetails.emailAddress.label = Email address
-charityContactDetails.emailAddress.error.format = Enter your charity''s email address in the correct format, like name@example.com
 charityContactDetails.emailAddress.error.required = Enter your charity''s email address
+charityContactDetails.emailAddress.error.format = Enter your charity''s email address in the correct format, like name@example.com
 charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
+
 
 # Enter UK Address Messages
 #------------------------------------------------------------
@@ -241,3 +245,15 @@ charityUKAddress.officialAddress.outsideUK.link = Charity’s official address i
 isCharityOfficialAddressInUK.title = Is your charity''s official address in the UK?
 isCharityOfficialAddressInUK.heading = Is your charity''s official address in the UK?
 isCharityOfficialAddressInUK.error.required = Select yes if your charity’s official address is in the UK
+
+# Section2 - Regulators and documents
+# ----------------------------------------------------------
+charityRegulator.section = Regulators and documents
+
+# IsCharityRegulatorPage Messages
+# ----------------------------------------------------------
+isCharityRegulator.title = Is your charity registered with a charity regulator?
+isCharityRegulator.heading = Is your charity registered with a charity regulator?
+isCharityRegulator.help = What is a charity regulator
+isCharityRegulator.hint = A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.
+isCharityRegulator.error.required = Select yes if your charity is registered with a charity regulator

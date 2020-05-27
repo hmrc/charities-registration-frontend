@@ -1,0 +1,5 @@
+
+GET        /charity-regulator                         controllers.regulatorsAndDocuments.IsCharityRegulatorController.onPageLoad(mode: Mode = NormalMode)
+POST       /charity-regulator                         controllers.regulatorsAndDocuments.IsCharityRegulatorController.onSubmit(mode: Mode = NormalMode)
+GET        /charity-regulator/change                  controllers.regulatorsAndDocuments.IsCharityRegulatorController.onPageLoad(mode: Mode = CheckMode)
+POST       /charity-regulator/change                  controllers.regulatorsAndDocuments.IsCharityRegulatorController.onSubmit(mode: Mode = CheckMode)

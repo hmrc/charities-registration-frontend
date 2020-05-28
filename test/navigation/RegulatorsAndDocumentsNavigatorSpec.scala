@@ -17,11 +17,9 @@
 package navigation
 
 import base.SpecBase
-import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import models._
-import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage, IsCharityOfficialAddressInUKPage}
-import pages.regulatorsAndDocuments.IsCharityRegulatorPage
+import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, IsCharityRegulatorPage}
 import pages.{IndexPage, QuestionPage}
 
 class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
@@ -50,6 +48,19 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the CharityCommissionRegistrationNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IndexController page when clicked continue button" in {
+          navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {

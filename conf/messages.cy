@@ -237,7 +237,7 @@ charityUKAddress.postcode.label = Postcode or Zipcode
 charityUKAddress.postcode.hint = For example, L69 9AZ or NE98 1ZZ
 charityUKAddress.postcode.required = Enter your charity''s UK postcode
 charityUKAddress.postcode.error.format = Enter a real postcode
-charityUKAddress.officialAddress.outsideUK.link = Charity’s official address is outside the UK
+charityUKAddress.officialAddress.outsideUK.link = Charity''s official address is outside the UK
 
 
 # CharityContactAddressChoicePage Messages
@@ -257,3 +257,13 @@ isCharityRegulator.heading = Is your charity registered with a charity regulator
 isCharityRegulator.help = What is a charity regulator
 isCharityRegulator.hint = A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.
 isCharityRegulator.error.required = Select yes if your charity is registered with a charity regulator
+
+# CharityCommissionRegistrationNumberPage Messages
+# ----------------------------------------------------------
+charityCommissionRegistrationNumber.title = What is your Charity Commission for England and Wales registration number?
+charityCommissionRegistrationNumber.heading = What is your Charity Commission for England and Wales registration number?
+charityCommissionRegistrationNumber.error.required = Enter your charity''s registration number
+charityCommissionRegistrationNumber.error.format = Registration number must be 6 or 7 numbers, like 123456 or 1234567
+charityCommissionRegistrationNumber.hint = For example, 123456 or 1234567
+charityCommissionRegistrationNumber.help = Where to find the registration number?
+charityCommissionRegistrationNumber.hintText = The registration number will be on any mail the regulator has sent you.

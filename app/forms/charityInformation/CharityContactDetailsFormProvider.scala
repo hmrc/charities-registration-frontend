@@ -24,7 +24,7 @@ import play.api.data.Forms._
 
 class CharityContactDetailsFormProvider @Inject() extends Mappings {
 
-  val validateTelephoneNumber = """^\+?[0-9 ]{10,30}$"""
+  val validateTelephoneNumber = """^\+?(?:\s*\d){10,13}$"""
   val emailAddressPattern = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
 
   def apply(): Form[CharityContactDetails] =

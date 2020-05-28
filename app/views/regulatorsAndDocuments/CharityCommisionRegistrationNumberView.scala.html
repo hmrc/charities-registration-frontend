@@ -1,0 +1,68 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.regulatorsAndDocuments.routes._
+@import models.Mode
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    button: components.button,
+    inputText: components.inputText,
+    h1: components.h1,
+    fieldset: components.fieldset,
+    subheading: components.subheading
+)
+
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, "charityCommissionRegistrationNumber.title",Some("charityRegulator.section")))) {
+
+    @formHelper(action = CharityCommissionRegistrationNumberController.onSubmit(mode)) {
+
+
+        <fieldset class="govuk-fieldset">
+
+            @errorSummary(form.errors)
+
+             @inputText(
+                form,
+                id = "registrationNumber",
+                name = "registrationNumber",
+                isPageHeading = true,
+                label=messages("charityCommissionRegistrationNumber.heading"),
+                hint = Some(Html(messages("charityCommissionRegistrationNumber.hint"))),
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
+
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                              @messages("charityCommissionRegistrationNumber.help")
+                            </span>
+                </summary>
+                <div class="govuk-details__text">
+                    @messages("charityCommissionRegistrationNumber.hintText")
+                </div>
+            </details>
+        </fieldset>
+
+        @button("site.continue")
+    }
+}

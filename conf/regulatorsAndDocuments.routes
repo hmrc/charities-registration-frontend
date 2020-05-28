@@ -1,5 +1,10 @@
 
-GET        /charity-regulator                         controllers.regulatorsAndDocuments.IsCharityRegulatorController.onPageLoad(mode: Mode = NormalMode)
-POST       /charity-regulator                         controllers.regulatorsAndDocuments.IsCharityRegulatorController.onSubmit(mode: Mode = NormalMode)
-GET        /charity-regulator/change                  controllers.regulatorsAndDocuments.IsCharityRegulatorController.onPageLoad(mode: Mode = CheckMode)
-POST       /charity-regulator/change                  controllers.regulatorsAndDocuments.IsCharityRegulatorController.onSubmit(mode: Mode = CheckMode)
+GET        /charity-regulator                                                   controllers.regulatorsAndDocuments.IsCharityRegulatorController.onPageLoad(mode: Mode = NormalMode)
+POST       /charity-regulator                                                   controllers.regulatorsAndDocuments.IsCharityRegulatorController.onSubmit(mode: Mode = NormalMode)
+GET        /charity-regulator/change                                            controllers.regulatorsAndDocuments.IsCharityRegulatorController.onPageLoad(mode: Mode = CheckMode)
+POST       /charity-regulator/change                                            controllers.regulatorsAndDocuments.IsCharityRegulatorController.onSubmit(mode: Mode = CheckMode)
+
+GET        /enter-charity-commission-registration-number                        controllers.regulatorsAndDocuments.CharityCommissionRegistrationNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-charity-commission-registration-number                        controllers.regulatorsAndDocuments.CharityCommissionRegistrationNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-charity-commission-registration-number/change                 controllers.regulatorsAndDocuments.CharityCommissionRegistrationNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-charity-commission-registration-number/change                 controllers.regulatorsAndDocuments.CharityCommissionRegistrationNumberController.onSubmit(mode: Mode = CheckMode)

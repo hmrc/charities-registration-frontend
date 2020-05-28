@@ -21,7 +21,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.regulatorsAndDocuments.IsCharityRegulatorPage
+import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, IsCharityRegulatorPage}
 import play.api.mvc.Call
 
 
@@ -32,6 +32,11 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       case Some(true) => routes.IndexController.onPageLoad()  // TODO modify once next page created
       case Some(false) => routes.IndexController.onPageLoad() // TODO modify once next page created
       case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers => userAnswers.get(CharityCommissionRegistrationNumberPage) match {
+      case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
+      case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

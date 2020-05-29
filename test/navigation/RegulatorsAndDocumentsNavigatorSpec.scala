@@ -17,9 +17,11 @@
 package navigation
 
 import base.SpecBase
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import models._
-import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, IsCharityRegulatorPage}
+import models.regulators.CharityRegulator
+import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityRegulatorPage, IsCharityRegulatorPage}
 import pages.{IndexPage, QuestionPage}
 
 class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
@@ -38,12 +40,26 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
 
         "go to the EnterCharityRegulator page when yes is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnsewers(IsCharityRegulatorPage, true)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once next page created
+          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, true)) mustBe
+            regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode) // TODO modify once next page created
         }
 
         "go to the SelectWhyNoRegulator page when No is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnsewers(IsCharityRegulatorPage, false)) mustBe
+          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, false)) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once next page created
+        }
+      }
+
+      "from the CharityRegulatorPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityRegulatorPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the EnterCharityRegistrationPage page when click Continue button" in {
+          navigator.nextPage(CharityRegulatorPage, NormalMode,
+            emptyUserAnswers.set(CharityRegulatorPage, Set(CharityRegulator.values.head)).getOrElse(emptyUserAnswers)) mustBe
             routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }
@@ -81,7 +97,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
       }
     }
 
-    def userAnsewers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
+    def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
       emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
     }
   }

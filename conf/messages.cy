@@ -258,6 +258,17 @@ isCharityRegulator.help = What is a charity regulator
 isCharityRegulator.hint = A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.
 isCharityRegulator.error.required = Select yes if your charity is registered with a charity regulator
 
+# Enter Charity Regulator Messages
+# ----------------------------------------------------------
+charityRegulator.title = Who is your charity’s regulator?
+charityRegulator.heading = Who is your charity’s regulator?
+charityRegulator.hint = Select all that apply
+charityRegulator.error.required = Select your charity’s regulator or regulators
+charityRegulator.ccew = Charity Commission for England and Wales
+charityRegulator.oscr = Office of the Scottish Charity Regulator
+charityRegulator.ccni = Charity Commission for Northern Ireland
+charityRegulator.other = Other
+
 # CharityCommissionRegistrationNumberPage Messages
 # ----------------------------------------------------------
 charityCommissionRegistrationNumber.title = What is your Charity Commission for England and Wales registration number?

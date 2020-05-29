@@ -17,33 +17,33 @@
 package views.regulatorsAndDocuments
 
 import assets.messages.BaseMessages
-import controllers.regulatorsAndDocuments.routes
-import forms.regulatorsAndDocuments.IsCharityRegulatorFormProvider
+import forms.regulatorsAndDocuments.CharityRegulatorFormProvider
 import models.NormalMode
+import models.regulators.CharityRegulator
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.YesNoViewBehaviours
-import views.html.regulatorsAndDocuments.IsCharityRegulatorView
+import views.behaviours.CheckboxViewBehaviours
+import views.html.regulatorsAndDocuments.CharityRegulatorView
 
 
-class IsCharityRegulatorViewSpec extends YesNoViewBehaviours  {
+class CharityRegulatorViewSpec extends CheckboxViewBehaviours[CharityRegulator]  {
 
-  val messageKeyPrefix = "isCharityRegulator"
-  val section = Some(messages("charityRegulator.section"))
-  val form = new IsCharityRegulatorFormProvider()()
+  val messageKeyPrefix: String = "charityRegulator"
+  val section: String = messages("charityRegulator.section")
+  val form = new CharityRegulatorFormProvider()()
 
-    "IsCharityRegulatorView" must {
+    "CharityRegulatorView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[IsCharityRegulatorView](Some(emptyUserAnswers))
+      def applyView(form: Form[Set[CharityRegulator]]): HtmlFormat.Appendable = {
+          val view = viewFor[CharityRegulatorView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsCharityRegulatorController.onSubmit(NormalMode).url, section = section)
+      behave like checkboxPage(form, applyView, messageKeyPrefix, CharityRegulator.options(form), section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
   }}

@@ -23,3 +23,8 @@ GET        /enter-scottish-regulator-registration-number                        
 POST       /enter-scottish-regulator-registration-number                        controllers.regulatorsAndDocuments.ScottishRegulatorRegNumberController.onSubmit(mode: Mode = NormalMode)
 GET        /enter-scottish-regulator-registration-number/change                 controllers.regulatorsAndDocuments.ScottishRegulatorRegNumberController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-scottish-regulator-registration-number/change                 controllers.regulatorsAndDocuments.ScottishRegulatorRegNumberController.onSubmit(mode: Mode = CheckMode)
+
+GET        /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onPageLoad(mode: Mode = NormalMode)
+POST       /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onSubmit(mode: Mode = NormalMode)
+GET        /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onPageLoad(mode: Mode = CheckMode)
+POST       /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onSubmit(mode: Mode = CheckMode)

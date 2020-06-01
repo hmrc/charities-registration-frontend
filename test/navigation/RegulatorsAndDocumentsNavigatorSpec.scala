@@ -20,8 +20,8 @@ import base.SpecBase
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import models._
-import models.regulators.CharityRegulator
-import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityRegulatorPage, IsCharityRegulatorPage,CharityOtherRegulatorDetailsPage, ScottishRegulatorRegNumberPage}
+import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
+import pages.regulatorsAndDocuments._
 import pages.{IndexPage, QuestionPage}
 
 class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
@@ -41,12 +41,12 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the EnterCharityRegulator page when yes is selected" in {
           navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, true)) mustBe
-            regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode) // TODO modify once next page created
+            regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode)
         }
 
         "go to the SelectWhyNoRegulator page when No is selected" in {
           navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, false)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once next page created
+            regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(NormalMode)
         }
       }
 
@@ -74,21 +74,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the IndexController page when clicked continue button" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
             emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad()
-        }
-      }
-
-      "from the CharityOtherRegulatorDetailsPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the IndexController page when clicked continue button" in {
-          navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
-            emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }
 
@@ -102,7 +88,42 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the IndexController page when clicked continue button" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, ScottishRegulatorRegNumber("registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad() // TODO modify once next page created
+        }
+      }
+
+      "from the CharityOtherRegulatorDetailsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IndexController page when clicked continue button" in {
+          navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
+            emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once next page created
+        }
+      }
+
+      "from the SelectWhyNoRegulator" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the CharityNotRegisterdReason page when Other is selected" in {
+
+          navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode,
+            emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once next page created
+        }
+
+        "go to the Summary page when other then Other is selected" in {
+          navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode,
+            emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }
 
@@ -113,8 +134,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.IndexController.onPageLoad()
         }
       }
+    }
 
-      "in Check mode" when {
+    "in Check mode" when {
 
         "from any UnKnownPage" must {
 
@@ -123,7 +145,6 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
               routes.IndexController.onPageLoad()
           }
         }
-      }
     }
 
     def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {

@@ -279,6 +279,21 @@ charityCommissionRegistrationNumber.hint = For example, 123456 or 1234567
 charityCommissionRegistrationNumber.help = Where to find the registration number?
 charityCommissionRegistrationNumber.hintText = The registration number will be on any mail the regulator has sent you.
 
+# CharityOtherRegulatorDetailsPage Messages
+# ----------------------------------------------------------
+charityOtherRegulatorDetails.title = Your charity''s regulator details
+charityOtherRegulatorDetails.heading = Your charity''s regulator details
+charityOtherRegulatorDetails.regulatorName.label = Name of your charity''s regulator
+charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of your charity''s regulator
+charityOtherRegulatorDetails.regulatorName.error.format = The name of your charity''s regulator must not include the following characters: & ( ) : @
+charityOtherRegulatorDetails.regulatorName.error.length = Your charity''s regulator name should be 100 characters or fewer
+charityOtherRegulatorDetails.registrationNumber.label = Registration number
+charityOtherRegulatorDetails.registrationNumber.error.required = Enter your charity''s registration number
+charityOtherRegulatorDetails.registrationNumber.error.format = Your charity''s registration number must not include the following characters: & ( ) : @
+charityOtherRegulatorDetails.registrationNumber.error.length = Your charity''s registration number should be 20 characters or fewer
+charityOtherRegulatorDetails.help = Where to find the registration number?
+charityOtherRegulatorDetails.hintText = The registration number will be on any mail the regulator has sent you.
+
 # ScottishRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
 scottishRegulatorRegNumber.title = What is your Office of the Scottish Charity Regulator registration number?

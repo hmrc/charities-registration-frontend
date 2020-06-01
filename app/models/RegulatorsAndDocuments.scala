@@ -28,6 +28,16 @@ object CharityCommissionRegistrationNumber {
 
 }
 
+case class CharityOtherRegulatorDetails(regulatorName:String, registrationNumber:String)
+
+object CharityOtherRegulatorDetails {
+
+  implicit val formats = Json.format[CharityOtherRegulatorDetails]
+
+  override def toString: String = "charityOtherRegulatorDetails"
+
+}
+
 case class ScottishRegulatorRegNumber(registrationNumber:String)
 
 object ScottishRegulatorRegNumber {

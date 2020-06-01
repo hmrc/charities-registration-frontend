@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package models
+package pages.regulatorsAndDocuments
 
-import play.api.libs.json.Json
+import models.ScottishRegulatorRegNumber
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-case class CharityCommissionRegistrationNumber(registrationNumber:String)
+case object ScottishRegulatorRegNumberPage extends QuestionPage[ScottishRegulatorRegNumber] {
 
-object CharityCommissionRegistrationNumber {
+  override def path: JsPath = JsPath \ toString
 
-  implicit val formats = Json.format[CharityCommissionRegistrationNumber]
-
-  override def toString: String = "charityCommissionRegistrationNumberDetails"
-
-}
-
-case class ScottishRegulatorRegNumber(registrationNumber:String)
-
-object ScottishRegulatorRegNumber {
-
-  implicit val formats = Json.format[ScottishRegulatorRegNumber]
-
-  override def toString: String = "scottishRegulatorRegNumberDetails"
-
+  override def toString: String = "scottishRegulatorRegNumber"
 }

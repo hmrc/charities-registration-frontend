@@ -16,24 +16,24 @@
 
 package pages.regulatorsAndDocuments
 
-import models.CharityCommissionRegistrationNumber
+import models.ScottishRegulatorRegNumber
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class CharityCommissionRegistrationNumberPageSpec extends PageBehaviours {
+class ScottishRegulatorRegNumberPageSpec extends PageBehaviours {
 
-  "CharityCommissionRegistrationNumberPage" must {
+  "ScottishRegulatorRegNumberPage" must {
 
-    implicit lazy val arbitraryCharityCommissionRegistrationNumber: Arbitrary[CharityCommissionRegistrationNumber] = Arbitrary {
-      CharityCommissionRegistrationNumber(
-        registrationNumber = "1234567"
+    implicit lazy val arbitraryScottishRegulatorRegNumber: Arbitrary[ScottishRegulatorRegNumber] = Arbitrary {
+      ScottishRegulatorRegNumber(
+        registrationNumber = "SC012345"
       )
     }
 
-    beRetrievable[CharityCommissionRegistrationNumber](CharityCommissionRegistrationNumberPage)
+    beRetrievable[ScottishRegulatorRegNumber](ScottishRegulatorRegNumberPage)
 
-    beSettable[CharityCommissionRegistrationNumber](CharityCommissionRegistrationNumberPage)
+    beSettable[ScottishRegulatorRegNumber](ScottishRegulatorRegNumberPage)
 
-    beRemovable[CharityCommissionRegistrationNumber](CharityCommissionRegistrationNumberPage)
+    beRemovable[ScottishRegulatorRegNumber](ScottishRegulatorRegNumberPage)
   }
 }

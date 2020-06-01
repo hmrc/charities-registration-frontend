@@ -278,3 +278,13 @@ charityCommissionRegistrationNumber.error.format = Registration number must be 6
 charityCommissionRegistrationNumber.hint = For example, 123456 or 1234567
 charityCommissionRegistrationNumber.help = Where to find the registration number?
 charityCommissionRegistrationNumber.hintText = The registration number will be on any mail the regulator has sent you.
+
+# ScottishRegulatorRegNumberPage Messages
+# ----------------------------------------------------------
+scottishRegulatorRegNumber.title = What is your Office of the Scottish Charity Regulator registration number?
+scottishRegulatorRegNumber.heading = What is your Office of the Scottish Charity Regulator registration number?
+scottishRegulatorRegNumber.error.required = Enter your charity''s registration number
+scottishRegulatorRegNumber.error.format = Registration number is SC then 0 and 5 numbers, like SC012345
+scottishRegulatorRegNumber.hint = For example, SC012345
+scottishRegulatorRegNumber.help = Where to find the registration number?
+scottishRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.

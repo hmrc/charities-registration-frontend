@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityRegulatorPage, IsCharityRegulatorPage}
+import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityRegulatorPage, IsCharityRegulatorPage, ScottishRegulatorRegNumberPage}
 import play.api.mvc.Call
 
 
@@ -40,6 +40,11 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
         }
 
         case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers => userAnswers.get(CharityCommissionRegistrationNumberPage) match {
+          case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
+          case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
+        }
+
+        case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(ScottishRegulatorRegNumberPage) match {
           case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
           case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
         }

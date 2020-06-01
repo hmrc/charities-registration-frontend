@@ -14,6 +14,11 @@ POST       /enter-charity-commission-registration-number                        
 GET        /enter-charity-commission-registration-number/change                 controllers.regulatorsAndDocuments.CharityCommissionRegistrationNumberController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-charity-commission-registration-number/change                 controllers.regulatorsAndDocuments.CharityCommissionRegistrationNumberController.onSubmit(mode: Mode = CheckMode)
 
+GET        /enter-other-regulator-details                                       controllers.regulatorsAndDocuments.CharityOtherRegulatorDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-other-regulator-details                                       controllers.regulatorsAndDocuments.CharityOtherRegulatorDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-other-regulator-details/change                                controllers.regulatorsAndDocuments.CharityOtherRegulatorDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-other-regulator-details/change                                controllers.regulatorsAndDocuments.CharityOtherRegulatorDetailsController.onSubmit(mode: Mode = CheckMode)
+
 GET        /enter-scottish-regulator-registration-number                        controllers.regulatorsAndDocuments.ScottishRegulatorRegNumberController.onPageLoad(mode: Mode = NormalMode)
 POST       /enter-scottish-regulator-registration-number                        controllers.regulatorsAndDocuments.ScottishRegulatorRegNumberController.onSubmit(mode: Mode = NormalMode)
 GET        /enter-scottish-regulator-registration-number/change                 controllers.regulatorsAndDocuments.ScottishRegulatorRegNumberController.onPageLoad(mode: Mode = CheckMode)

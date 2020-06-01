@@ -21,7 +21,7 @@ import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import models._
 import models.regulators.CharityRegulator
-import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityRegulatorPage, IsCharityRegulatorPage, ScottishRegulatorRegNumberPage}
+import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityRegulatorPage, IsCharityRegulatorPage,CharityOtherRegulatorDetailsPage, ScottishRegulatorRegNumberPage}
 import pages.{IndexPage, QuestionPage}
 
 class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
@@ -74,6 +74,20 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the IndexController page when clicked continue button" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
             emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
+
+      "from the CharityOtherRegulatorDetailsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IndexController page when clicked continue button" in {
+          navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
+            emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
             routes.IndexController.onPageLoad()
         }
       }

@@ -19,33 +19,33 @@ package controllers.regulatorsAndDocuments
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.regulatorsAndDocuments.CharityCommissionRegistrationNumberFormProvider
+import forms.regulatorsAndDocuments.NIRegulatorRegNumberFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.RegulatorsAndDocumentsNavigator
 import pages.Section2Page
-import pages.regulatorsAndDocuments.CharityCommissionRegistrationNumberPage
+import pages.regulatorsAndDocuments.NIRegulatorRegNumberPage
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
+import views.html.regulatorsAndDocuments.NIRegulatorRegNumberView
 
 import scala.concurrent.Future
 
-class CharityCommissionRegistrationNumberController @Inject()(
+class NIRegulatorRegNumberController @Inject()(
    val sessionRepository: UserAnswerRepository,
    val navigator: RegulatorsAndDocumentsNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,
    requireData: DataRequiredAction,
-   formProvider: CharityCommissionRegistrationNumberFormProvider,
+   formProvider: NIRegulatorRegNumberFormProvider,
    val controllerComponents: MessagesControllerComponents,
-   view: CharityCommissionRegistrationNumberView
+   view: NIRegulatorRegNumberView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val preparedForm = request.userAnswers.get(CharityCommissionRegistrationNumberPage) match {
+    val preparedForm = request.userAnswers.get(NIRegulatorRegNumberPage) match {
       case None => form
       case Some(value) => form.fill(value)
     }
@@ -61,9 +61,9 @@ class CharityCommissionRegistrationNumberController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityCommissionRegistrationNumberPage, value).flatMap(_.set(Section2Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(NIRegulatorRegNumberPage, value).flatMap(_.set(Section2Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(CharityCommissionRegistrationNumberPage, mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(NIRegulatorRegNumberPage, mode, updatedAnswers))
     )
   }
 }

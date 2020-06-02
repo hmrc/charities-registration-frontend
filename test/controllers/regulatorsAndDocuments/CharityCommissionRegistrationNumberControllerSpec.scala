@@ -30,7 +30,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.regulatorsAndDocuments.CharityCommisionRegistrationNumberView
+import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
 
 import scala.concurrent.Future
 
@@ -51,7 +51,7 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
     reset(mockUserAnswerRepository)
   }
 
-  val view: CharityCommisionRegistrationNumberView = injector.instanceOf[CharityCommisionRegistrationNumberView]
+  val view: CharityCommissionRegistrationNumberView = injector.instanceOf[CharityCommissionRegistrationNumberView]
   val formProvider: CharityCommissionRegistrationNumberFormProvider = injector.instanceOf[CharityCommissionRegistrationNumberFormProvider]
   val form = formProvider()
 
@@ -59,7 +59,7 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
 
   val requestArgs = Seq("registrationNumber" -> "1234567")
 
-  "CharityCommisionRegistrationNumber Controller " must {
+  "CharityCommissionRegistrationNumber Controller " must {
 
     "return OK and the correct view for a GET" in {
 

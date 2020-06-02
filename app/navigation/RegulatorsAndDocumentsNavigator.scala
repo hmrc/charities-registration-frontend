@@ -51,6 +51,11 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
+    case NIRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(NIRegulatorRegNumberPage) match {
+      case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
+      case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
+    }
+
     case CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityOtherRegulatorDetailsPage) match {
       case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
       case _ => routes.SessionExpiredController.onPageLoad()

@@ -92,6 +92,20 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the NIRegulatorRegNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(NIRegulatorRegNumberPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IndexController page when clicked continue button" in {
+          navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, NIRegulatorRegNumber("nIRegistrationNumber")).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
+
       "from the CharityOtherRegulatorDetailsPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -102,7 +116,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the IndexController page when clicked continue button" in {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once next page created
+            routes.IndexController.onPageLoad()
         }
       }
 
@@ -113,7 +127,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the CharityNotRegisterdReason page when Other is selected" in {
+        "go to the CharityNotRegisteredReason page when Other is selected" in {
 
           navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).getOrElse(emptyUserAnswers)) mustBe
@@ -138,13 +152,13 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
     "in Check mode" when {
 
-        "from any UnKnownPage" must {
+      "from any UnKnownPage" must {
 
-          "go to the IndexController page when user answer is empty" in {
-            navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-              routes.IndexController.onPageLoad()
-          }
+        "go to the IndexController page when user answer is empty" in {
+          navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
         }
+      }
     }
 
     def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {

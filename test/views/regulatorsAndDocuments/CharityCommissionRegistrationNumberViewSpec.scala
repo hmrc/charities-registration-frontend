@@ -22,7 +22,7 @@ import models.{CharityCommissionRegistrationNumber, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.regulatorsAndDocuments.CharityCommisionRegistrationNumberView
+import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
 
 
 
@@ -34,7 +34,7 @@ class CharityCommissionRegistrationNumberViewSpec extends QuestionViewBehaviours
     "CharityCommissionRegistrationNumberView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[CharityCommisionRegistrationNumberView](Some(emptyUserAnswers))
+          val view = viewFor[CharityCommissionRegistrationNumberView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 

@@ -21,6 +21,8 @@ import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models._
+import models.regulators.CharityRegulator
+import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Scottish, Other => OtherRegulator}
 import models.regulators.SelectWhyNoRegulator._
 import pages.Page
 import pages.regulatorsAndDocuments._
@@ -37,37 +39,35 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     }
 
     case CharityRegulatorPage => userAnswers: UserAnswers => userAnswers.get(CharityRegulatorPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()  // TODO modify once next page created
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case Some(items) if items.contains(EnglandWales) =>
+        regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(NormalMode)
+      case result => englandWalesRegulatorNavigation(result)
     }
 
     case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers => userAnswers.get(CharityCommissionRegistrationNumberPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
+      case Some(_) => englandWalesRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(ScottishRegulatorRegNumberPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
+      case Some(_) => scottishRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case NIRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(NIRegulatorRegNumberPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
-      case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
+      case Some(_) => niRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityOtherRegulatorDetailsPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
+      case Some(_) => otherRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
-      case Some(Other) => routes.IndexController.onPageLoad() // TODO modify once next page created
-      case Some(EnglandWalesUnderThreshold | ExemptOrExcepted | NoRegulatorInCountry | ParochialChurchCouncils | UninformedYouthGroup)
-            => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once next page created
       case _ => routes.SessionExpiredController.onPageLoad()
     }
-
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
@@ -80,5 +80,28 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       normalRoutes(page)(userAnswers)
     case CheckMode =>
       checkRouteMap(page)(userAnswers)
+  }
+
+  private def englandWalesRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
+    case Some(items) if items.contains(Scottish) =>
+      regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(NormalMode)
+    case _ => scottishRegulatorNavigation(result)
+  }
+
+  private def scottishRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
+    case Some(items) if items.contains(NorthernIreland) =>
+      regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(NormalMode)
+    case _ => niRegulatorNavigation(result)
+  }
+
+  private def niRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
+    case Some(items) if items.contains(OtherRegulator) =>
+      regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
+    case _ => otherRegulatorNavigation(result)
+  }
+
+  private def otherRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
+    case Some(_) => routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
+    case _ => routes.SessionExpiredController.onPageLoad()
   }
 }

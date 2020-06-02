@@ -17,6 +17,8 @@
 package models.regulators
 
 import models.{Enumerable, WithName}
+import pages.QuestionPage
+import pages.regulatorsAndDocuments._
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
@@ -33,6 +35,13 @@ object CharityRegulator extends Enumerable.Implicits {
 
   val values: Seq[CharityRegulator] = Seq(
     EnglandWales, Scottish, NorthernIreland, Other
+  )
+
+  val pageMap: Map[CharityRegulator, QuestionPage[_]] = Map(
+    EnglandWales -> CharityCommissionRegistrationNumberPage,
+    Scottish -> ScottishRegulatorRegNumberPage,
+    NorthernIreland -> NIRegulatorRegNumberPage,
+    Other -> CharityOtherRegulatorDetailsPage
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.map {

@@ -260,8 +260,8 @@ isCharityRegulator.error.required = Select yes if your charity is registered wit
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = Who is your charity’s regulator?
-charityRegulator.heading = Who is your charity’s regulator?
+charityRegulator.title = Who are your charity’s regulator?
+charityRegulator.heading = Who are your charity’s regulator?
 charityRegulator.hint = Select all that apply
 charityRegulator.error.required = Select your charity’s regulator or regulators
 charityRegulator.ccew = Charity Commission for England and Wales
@@ -303,3 +303,15 @@ scottishRegulatorRegNumber.error.format = Registration number is SC then 0 and 5
 scottishRegulatorRegNumber.hint = For example, SC012345
 scottishRegulatorRegNumber.help = Where to find the registration number?
 scottishRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.
+
+# Select why no regulator Messages
+# ----------------------------------------------------------
+selectWhyNoRegulator.title = Why have you not registered with a charity regulator?
+selectWhyNoRegulator.heading = Why have you not registered with a charity regulator?
+selectWhyNoRegulator.error.required = Select why you have not registered with a regulator
+selectWhyNoRegulator.englandWalesUnderThreshold = Established in England and/or Wales and under gross income threshold
+selectWhyNoRegulator.exemptOrExcepted = Exempt or excepted
+selectWhyNoRegulator.noRegulatorInCountry = No regulator in country of establishment
+selectWhyNoRegulator.parochialChurchCouncils = Parochial Church Councils under gross income threshold
+selectWhyNoRegulator.uninformedYouthGroup = Uniformed youth groups
+selectWhyNoRegulator.other = Other

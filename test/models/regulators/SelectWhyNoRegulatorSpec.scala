@@ -16,47 +16,47 @@
 
 package models.regulators
 
-import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
 
-class CharityRegulatorSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues with ModelGenerators {
+class SelectWhyNoRegulatorSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
 
-  "CharityRegulator" must {
+  "SelectWhyNoRegulator" must {
 
     "deserialise valid values" in {
 
-      val gen = arbitrary[CharityRegulator]
+      val gen = Gen.oneOf(SelectWhyNoRegulator.values)
 
       forAll(gen) {
-        charityRegulatorCheckbox =>
+        selectWhyNoRegulator =>
 
-          JsString(charityRegulatorCheckbox.toString).validate[CharityRegulator].asOpt.value mustEqual charityRegulatorCheckbox
+          JsString(selectWhyNoRegulator.toString).validate[SelectWhyNoRegulator].asOpt.value mustEqual selectWhyNoRegulator
       }
     }
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!CharityRegulator.values.map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!SelectWhyNoRegulator.values.map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
 
-          JsString(invalidValue).validate[CharityRegulator] mustEqual JsError("error.invalid")
+          JsString(invalidValue).validate[SelectWhyNoRegulator] mustEqual JsError("error.invalid")
       }
     }
 
     "serialise" in {
 
-      val gen = arbitrary[CharityRegulator]
+      val gen = Gen.oneOf(SelectWhyNoRegulator.values)
 
       forAll(gen) {
-        charityRegulatorCheckbox =>
+        selectWhyNoRegulator =>
 
-          Json.toJson(charityRegulatorCheckbox) mustEqual JsString(charityRegulatorCheckbox.toString)
+          Json.toJson(selectWhyNoRegulator) mustEqual JsString(selectWhyNoRegulator.toString)
       }
     }
   }

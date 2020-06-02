@@ -21,39 +21,49 @@ import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models._
+import models.regulators.SelectWhyNoRegulator._
 import pages.Page
-import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityRegulatorPage, IsCharityRegulatorPage, CharityOtherRegulatorDetailsPage, ScottishRegulatorRegNumberPage}
+import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
 
 
 class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-        case IsCharityRegulatorPage => userAnswers: UserAnswers => userAnswers.get(IsCharityRegulatorPage) match {
-          case Some(true) => regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode)  // TODO modify once next page created
-          case Some(false) => routes.IndexController.onPageLoad() // TODO modify once next page created
-          case _ => routes.SessionExpiredController.onPageLoad()
-        }
-        case CharityRegulatorPage => userAnswers: UserAnswers => userAnswers.get(CharityRegulatorPage) match {
-          case Some(_) => routes.IndexController.onPageLoad()  // TODO modify once next page created
-          case _ => routes.SessionExpiredController.onPageLoad()
-        }
+    case IsCharityRegulatorPage => userAnswers: UserAnswers => userAnswers.get(IsCharityRegulatorPage) match {
+      case Some(true) => regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode)
+      case Some(false) => regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case CharityRegulatorPage => userAnswers: UserAnswers => userAnswers.get(CharityRegulatorPage) match {
+      case Some(_) => routes.IndexController.onPageLoad()  // TODO modify once next page created
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
 
     case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers => userAnswers.get(CharityCommissionRegistrationNumberPage) match {
       case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
-      case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(ScottishRegulatorRegNumberPage) match {
+      case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityOtherRegulatorDetailsPage) match {
       case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
-      case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
-        case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(ScottishRegulatorRegNumberPage) match {
-          case Some(_) => routes.IndexController.onPageLoad()        // TODO modify once next page created
-          case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
-        }
 
-        case _ => _ => routes.IndexController.onPageLoad()
+    case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
+      case Some(Other) => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case Some(EnglandWalesUnderThreshold | ExemptOrExcepted | NoRegulatorInCountry | ParochialChurchCouncils | UninformedYouthGroup)
+            => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case _ => _ => routes.IndexController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {

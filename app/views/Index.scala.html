@@ -24,7 +24,7 @@
 
 @(result: List[TaskListSection])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@main_template(Some(titleNoForm("index.title")), timeout = false) {
+@main_template(Some(titleNoForm("index.title"))) {
 
     @h1(messages("index.heading"))
 

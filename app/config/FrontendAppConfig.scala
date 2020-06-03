@@ -45,19 +45,13 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
     case "transitional" => Some("GTM-TSFTCWZ")
   }) getOrElse(None)
 
-
   private def requestUri(implicit request: RequestHeader): String = SafeRedirectUrl(host + request.uri).encodedUrl
   def feedbackUrl(implicit request: RequestHeader): String =
     s"$contactHost/contact/beta-feedback"
 
-
-  private lazy val exitSurveyBaseUrl = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
-  lazy val exitSurveyUrl = s"$exitSurveyBaseUrl/$contactFormServiceIdentifier"
-
   lazy val loginUrl: String = servicesConfig.getString("urls.login")
   lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")
   lazy val loginContinueUrl: String = servicesConfig.getString("urls.loginContinue")
-  lazy val appSgnOutUrl: String = host + controllers.routes.SignOutController.signOutNoSurvey().url
 
   lazy val timeout: Int = servicesConfig.getInt("timeout.timeout")
   lazy val countdown: Int = servicesConfig.getInt("timeout.countdown")

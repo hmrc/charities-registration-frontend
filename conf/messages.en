@@ -82,7 +82,7 @@ incorrect-details.notAnOrganisation.p2.link = set up a Government Gateway accoun
 
 # Timeout Messages
 # ----------------------------------------------------------
-timeout.title = You''re about to be signed out
+timeout.title = You are about to be signed out
 timeout.message = For security reasons, you will be signed out of this service in
 timeout.keepAlive = Stay signed in
 timeout.signOut = Sign out

@@ -18,14 +18,14 @@ package views.regulatorsAndDocuments
 
 import assets.messages.BaseMessages
 import forms.regulatorsAndDocuments.ScottishRegulatorRegNumberFormProvider
-import models.{ScottishRegulatorRegNumber, NormalMode}
+import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.ScottishRegulatorRegNumberView
 
 
-class ScottishRegulatorRegNumberViewSpec extends QuestionViewBehaviours[ScottishRegulatorRegNumber]  {
+class ScottishRegulatorRegNumberViewSpec extends QuestionViewBehaviours[String]  {
 
   val messageKeyPrefix = "scottishRegulatorRegNumber"
   val form = new ScottishRegulatorRegNumberFormProvider()()

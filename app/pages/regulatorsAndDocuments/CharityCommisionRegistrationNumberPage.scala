@@ -16,11 +16,10 @@
 
 package pages.regulatorsAndDocuments
 
-import models.CharityCommissionRegistrationNumber
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object CharityCommissionRegistrationNumberPage extends QuestionPage[CharityCommissionRegistrationNumber] {
+case object CharityCommissionRegistrationNumberPage extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString
 

@@ -17,7 +17,6 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.StringFieldBehaviours
-import models.ScottishRegulatorRegNumber
 import play.api.data.FormError
 
 class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
@@ -48,22 +47,22 @@ class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   "ScottishRegulatorRegNumberFormProvider" must {
 
-    val scottishRegulatorRegNumber = ScottishRegulatorRegNumber("SC045673")
+    val scottishRegulatorRegNumber = "SC045673"
 
     "apply ScottishRegulatorRegNumber correctly" in {
 
       val details = form.bind(
         Map(
-          "registrationNumber" -> scottishRegulatorRegNumber.registrationNumber,
+          "registrationNumber" -> scottishRegulatorRegNumber,
         )
       ).get
 
-      details.registrationNumber mustBe scottishRegulatorRegNumber.registrationNumber
+      details mustBe scottishRegulatorRegNumber
     }
 
     "unapply ScottishRegulatorRegNumber correctly" in {
    val filled = form.fill(scottishRegulatorRegNumber)
-      filled("registrationNumber").value.value mustBe scottishRegulatorRegNumber.registrationNumber
+      filled("registrationNumber").value.value mustBe scottishRegulatorRegNumber
     }
   }
 

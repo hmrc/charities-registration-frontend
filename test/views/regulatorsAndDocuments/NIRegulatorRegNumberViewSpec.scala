@@ -18,15 +18,15 @@ package views.regulatorsAndDocuments
 
 import assets.messages.BaseMessages
 import forms.regulatorsAndDocuments.NIRegulatorRegNumberFormProvider
-import models.{NIRegulatorRegNumber, NormalMode}
+import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.NIRegulatorRegNumberView
 
-class NIRegulatorRegNumberViewSpec extends QuestionViewBehaviours[NIRegulatorRegNumber] {
+class NIRegulatorRegNumberViewSpec extends QuestionViewBehaviours[String] {
 
-  val messageKeyPrefix = "NIRegulatorRegNumber"
+  val messageKeyPrefix = "nIRegulatorRegNumber"
   val form = new NIRegulatorRegNumberFormProvider()()
 
   "NIRegulatorRegNumberView" must {

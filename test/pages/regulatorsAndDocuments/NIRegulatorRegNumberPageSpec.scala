@@ -16,24 +16,13 @@
 
 package pages.regulatorsAndDocuments
 
-import models.NIRegulatorRegNumber
-import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
 class NIRegulatorRegNumberPageSpec extends PageBehaviours {
 
-  "NIRegulatorRegNumberPage" must {
+    beRetrievable[String](NIRegulatorRegNumberPage)
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[NIRegulatorRegNumber] = Arbitrary {
-      NIRegulatorRegNumber(
-        nIRegistrationNumber = "123456"
-      )
-    }
+    beSettable[String](NIRegulatorRegNumberPage)
 
-    beRetrievable[NIRegulatorRegNumber](NIRegulatorRegNumberPage)
-
-    beSettable[NIRegulatorRegNumber](NIRegulatorRegNumberPage)
-
-    beRemovable[NIRegulatorRegNumber](NIRegulatorRegNumberPage)
-  }
+    beRemovable[String](NIRegulatorRegNumberPage)
 }

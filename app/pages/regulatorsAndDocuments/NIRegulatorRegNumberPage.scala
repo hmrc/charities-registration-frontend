@@ -19,11 +19,10 @@ package pages.regulatorsAndDocuments
 class NIRegulatorRegNumberPage {
 
 }
-import models.NIRegulatorRegNumber
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object NIRegulatorRegNumberPage extends QuestionPage[NIRegulatorRegNumber] {
+case object NIRegulatorRegNumberPage extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString
 

@@ -30,7 +30,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "NIRegulatorRegNumber.title",Some("charityRegulator.section")))) {
+@govukLayout(pageTitle = Some(title(form, "nIRegulatorRegNumber.title",Some("charityRegulator.section")))) {
 
     @formHelper(action = NIRegulatorRegNumberController.onSubmit(mode)) {
 
@@ -44,19 +44,19 @@
                 id = "nIRegistrationNumber",
                 name = "nIRegistrationNumber",
                 isPageHeading = true,
-                label=messages("NIRegulatorRegNumber.heading"),
-                hint = Some(Html(messages("NIRegulatorRegNumber.hint"))),
+                label=messages("nIRegulatorRegNumber.heading"),
+                hint = Some(Html(messages("nIRegulatorRegNumber.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
 
             <details class="govuk-details" data-module="govuk-details">
                 <summary class="govuk-details__summary">
                             <span class="govuk-details__summary-text">
-                             @messages("NIRegulatorRegNumber.help")
+                             @messages("nIRegulatorRegNumber.help")
                             </span>
              </summary>
                 <div class="govuk-details__text">
-                     @messages("NIRegulatorRegNumber.hintText")
+                     @messages("nIRegulatorRegNumber.hintText")
                 </div>
             </details>
         </fieldset>

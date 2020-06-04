@@ -76,7 +76,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(NormalMode)
         }
 
-        "go to the CharityOtherRegulatorDetailsPage when user answer has NorthernIreland selected and click Continue button" in {
+        "go to the CharityOtherRegulatorDetailsPage when user answer has Other selected and click Continue button" in {
           navigator.nextPage(CharityRegulatorPage, NormalMode,
             emptyUserAnswers.set(CharityRegulatorPage, Set[CharityRegulator](Other)).success.value) mustBe
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
@@ -92,28 +92,28 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when clicked continue button" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
-            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber"))
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
             routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
         }
 
         "go to the ScottishRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
-            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber"))
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish))).success.value) mustBe
             regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(NormalMode)
         }
 
         "go to the NIRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
-            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber"))
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, NorthernIreland))).success.value) mustBe
             regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(NormalMode)
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
-            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber"))
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Other))).success.value) mustBe
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
         }
@@ -128,7 +128,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when clicked continue button" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
-            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, ScottishRegulatorRegNumber("registrationNumber"))
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish))).success.value) mustBe
             routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
         }
@@ -136,21 +136,21 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the NIRegulatorRegNumberPage page when user answer has NorthernIreland selected and click Continue button" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
-            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, ScottishRegulatorRegNumber("registrationNumber"))
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, NorthernIreland))).success.value) mustBe
             regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(NormalMode)
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
-            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, ScottishRegulatorRegNumber("registrationNumber"))
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Other))).success.value) mustBe
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
         }
 
         "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
-            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, ScottishRegulatorRegNumber("registrationNumber")).success.value) mustBe
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
       }
@@ -164,21 +164,21 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when clicked continue button" in {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
-            emptyUserAnswers.set(NIRegulatorRegNumberPage, NIRegulatorRegNumber("nIRegistrationNumber"))
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland))).success.value) mustBe
             routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
-            emptyUserAnswers.set(NIRegulatorRegNumberPage, NIRegulatorRegNumber("registrationNumber"))
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Other))).success.value) mustBe
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
         }
 
         "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
-            emptyUserAnswers.set(NIRegulatorRegNumberPage, NIRegulatorRegNumber("ORegulatorName", "registrationNumber")).success.value) mustBe
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
       }
@@ -218,9 +218,17 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.IndexController.onPageLoad() // TODO modify once next page created
         }
 
-        "go to the Summary page when other then Other is selected" in {
+        "go to the Summary page when other than Other is selected" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the Summary page" must {
+
+        "go to the Task List page when click continue button" in {
+          navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }

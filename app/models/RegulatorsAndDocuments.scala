@@ -18,36 +18,6 @@ package models
 
 import play.api.libs.json.Json
 
-case class CharityCommissionRegistrationNumber(registrationNumber:String)
-
-object CharityCommissionRegistrationNumber {
-
-  implicit val formats = Json.format[CharityCommissionRegistrationNumber]
-
-  override def toString: String = "charityCommissionRegistrationNumberDetails"
-
-}
-
-case class ScottishRegulatorRegNumber(registrationNumber:String)
-
-object ScottishRegulatorRegNumber {
-
-  implicit val formats = Json.format[ScottishRegulatorRegNumber]
-
-  override def toString: String = "scottishRegulatorRegNumberDetails"
-
-}
-
-case class NIRegulatorRegNumber(nIRegistrationNumber: String)
-
-object NIRegulatorRegNumber{
-
-  implicit val formats = Json.format[NIRegulatorRegNumber]
-
-
-  override def toString: String = "nIRegulatorRegNumberDetails"
-}
-
 case class CharityOtherRegulatorDetails(regulatorName:String, registrationNumber:String)
 
 object CharityOtherRegulatorDetails {

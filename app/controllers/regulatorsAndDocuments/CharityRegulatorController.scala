@@ -65,8 +65,9 @@ class CharityRegulatorController @Inject()(
       value =>
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityRegulatorPage, value).flatMap(_.set(Section2Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(CharityRegulatorPage, mode, updatedAnswers))
+          updatedAnswerAfterDataReset <- Future.fromTry(updatedAnswers.remove(CharityRegulator.pageMap.filterNot(p => value.contains(p._1)).values.toSeq))
+          _              <- sessionRepository.set(updatedAnswerAfterDataReset)
+        } yield Redirect(navigator.nextPage(CharityRegulatorPage, mode, updatedAnswerAfterDataReset))
     )
   }
 }

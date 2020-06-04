@@ -19,17 +19,19 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.CharityRegulatorFormProvider
-import models.{NormalMode, UserAnswers}
-import models.regulators.{CharityRegulator, CharityRegulatorSpec}
+import models.regulators.CharityRegulator
+import models.{CharityCommissionRegistrationNumber, CharityOtherRegulatorDetails, NIRegulatorRegNumber, NormalMode, ScottishRegulatorRegNumber, UserAnswers}
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.{CharityRegulatorPage, IsCharityRegulatorPage}
+import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityOtherRegulatorDetailsPage, CharityRegulatorPage, NIRegulatorRegNumberPage, ScottishRegulatorRegNumberPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.json.Json
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.CharityRegulatorView
@@ -99,6 +101,39 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerRepository, times(1)).set(any())
     }
 
+    "redirect to the next page when valid data is submitted after changing the selection" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", CharityRegulator.values.head.toString))
+      val userAnswer = emptyUserAnswers.set(CharityRegulatorPage, CharityRegulator.values.toSet)
+        .flatMap(_.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber"))
+        .flatMap(_.set(ScottishRegulatorRegNumberPage, ScottishRegulatorRegNumber("registrationNumber")))
+        .flatMap(_.set(NIRegulatorRegNumberPage, NIRegulatorRegNumber("registrationNumber")))
+        .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567")))
+        ).success.value
+
+      when(mockUserAnswerRepository.get(meq("id"))).thenReturn(Future.successful(Some(userAnswer)))
+      when(mockUserAnswerRepository.set(any[UserAnswers])).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit(NormalMode)(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(meq("id"))
+
+      theUserAnswers.id mustBe "id"
+      theUserAnswers.data mustBe Json.parse(
+        """{"isSection2Completed":false,
+          |"charityRegulator":["ccew"],
+          |"charityCommissionRegistrationNumber":{"registrationNumber":"registrationNumber"}
+          |}""".stripMargin)
+
+      def theUserAnswers: UserAnswers = {
+        val captor: ArgumentCaptor[UserAnswers] = ArgumentCaptor.forClass(classOf[UserAnswers])
+        verify(mockUserAnswerRepository).set(captor.capture())
+        captor.getValue
+      }
+    }
+
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody()
@@ -111,6 +146,7 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, never).set(any())
     }
+
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))

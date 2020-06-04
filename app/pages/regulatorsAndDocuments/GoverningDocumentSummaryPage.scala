@@ -16,16 +16,12 @@
 
 package pages.regulatorsAndDocuments
 
-import pages.behaviours.PageBehaviours
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-class CharityCommissionRegistrationNumberPageSpec extends PageBehaviours {
+case object GoverningDocumentSummaryPage extends QuestionPage[String] {
 
-  "CharityCommissionRegistrationNumberPage" must {
+  override def path: JsPath = JsPath \ toString
 
-    beRetrievable[String](CharityCommissionRegistrationNumberPage)
-
-    beSettable[String](CharityCommissionRegistrationNumberPage)
-
-    beRemovable[String](CharityCommissionRegistrationNumberPage)
-  }
+  override def toString: String = "governingDocumentSummary"
 }

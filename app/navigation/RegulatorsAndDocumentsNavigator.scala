@@ -65,9 +65,14 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     }
 
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
+      case Some(EnglandWalesUnderThreshold | ExemptOrExcepted | NoRegulatorInCountry | ParochialChurchCouncils | UninformedYouthGroup)
+            => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
       case Some(_) => routes.IndexController.onPageLoad() // TODO modify once next page created
       case _ => routes.SessionExpiredController.onPageLoad()
     }
+
+    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

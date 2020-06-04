@@ -20,14 +20,14 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.CharityRegulatorFormProvider
 import models.regulators.CharityRegulator
-import models.{CharityCommissionRegistrationNumber, CharityOtherRegulatorDetails, NIRegulatorRegNumber, NormalMode, ScottishRegulatorRegNumber, UserAnswers}
+import models.{CharityOtherRegulatorDetails, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityOtherRegulatorDetailsPage, CharityRegulatorPage, NIRegulatorRegNumberPage, ScottishRegulatorRegNumberPage}
+import pages.regulatorsAndDocuments._
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -105,9 +105,9 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value[0]", CharityRegulator.values.head.toString))
       val userAnswer = emptyUserAnswers.set(CharityRegulatorPage, CharityRegulator.values.toSet)
-        .flatMap(_.set(CharityCommissionRegistrationNumberPage, CharityCommissionRegistrationNumber("registrationNumber"))
-        .flatMap(_.set(ScottishRegulatorRegNumberPage, ScottishRegulatorRegNumber("registrationNumber")))
-        .flatMap(_.set(NIRegulatorRegNumberPage, NIRegulatorRegNumber("registrationNumber")))
+        .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+        .flatMap(_.set(ScottishRegulatorRegNumberPage, "registrationNumber"))
+        .flatMap(_.set(NIRegulatorRegNumberPage, "registrationNumber"))
         .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567")))
         ).success.value
 
@@ -124,7 +124,7 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
       theUserAnswers.data mustBe Json.parse(
         """{"isSection2Completed":false,
           |"charityRegulator":["ccew"],
-          |"charityCommissionRegistrationNumber":{"registrationNumber":"registrationNumber"}
+          |"charityCommissionRegistrationNumber":"registrationNumber"
           |}""".stripMargin)
 
       def theUserAnswers: UserAnswers = {

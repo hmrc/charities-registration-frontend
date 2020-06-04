@@ -18,15 +18,13 @@ package views.regulatorsAndDocuments
 
 import assets.messages.BaseMessages
 import forms.regulatorsAndDocuments.CharityCommissionRegistrationNumberFormProvider
-import models.{CharityCommissionRegistrationNumber, NormalMode}
+import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
 
-
-
-class CharityCommissionRegistrationNumberViewSpec extends QuestionViewBehaviours[CharityCommissionRegistrationNumber]  {
+class CharityCommissionRegistrationNumberViewSpec extends QuestionViewBehaviours[String]  {
 
   val messageKeyPrefix = "charityCommissionRegistrationNumber"
   val form = new CharityCommissionRegistrationNumberFormProvider()()

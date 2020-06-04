@@ -16,24 +16,16 @@
 
 package pages.regulatorsAndDocuments
 
-import models.ScottishRegulatorRegNumber
-import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
 class ScottishRegulatorRegNumberPageSpec extends PageBehaviours {
 
   "ScottishRegulatorRegNumberPage" must {
 
-    implicit lazy val arbitraryScottishRegulatorRegNumber: Arbitrary[ScottishRegulatorRegNumber] = Arbitrary {
-      ScottishRegulatorRegNumber(
-        registrationNumber = "SC012345"
-      )
-    }
+    beRetrievable[String](ScottishRegulatorRegNumberPage)
 
-    beRetrievable[ScottishRegulatorRegNumber](ScottishRegulatorRegNumberPage)
+    beSettable[String](ScottishRegulatorRegNumberPage)
 
-    beSettable[ScottishRegulatorRegNumber](ScottishRegulatorRegNumberPage)
-
-    beRemovable[ScottishRegulatorRegNumber](ScottishRegulatorRegNumberPage)
+    beRemovable[String](ScottishRegulatorRegNumberPage)
   }
 }

@@ -19,7 +19,7 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.NIRegulatorRegNumberFormProvider
-import models.{NIRegulatorRegNumber, NormalMode}
+import models.NormalMode
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -75,7 +75,7 @@ class NIRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAfterEac
 
       "populate the view correctly on a GET when the question has previously been answered" in {
 
-        val userAnswers = emptyUserAnswers.set(NIRegulatorRegNumberPage, NIRegulatorRegNumber("123456")).success.value
+        val userAnswers = emptyUserAnswers.set(NIRegulatorRegNumberPage, "123456").success.value
 
         when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 

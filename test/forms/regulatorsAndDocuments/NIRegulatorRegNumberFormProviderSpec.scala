@@ -17,7 +17,6 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.StringFieldBehaviours
-import models.NIRegulatorRegNumber
 import play.api.data.FormError
 
 class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
@@ -47,22 +46,22 @@ class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   "NIRegulatorRegNumberFormProvider" must {
 
-    val nIRegulatorRegNumber = NIRegulatorRegNumber("123456")
+    val nIRegulatorRegNumber = "123456"
 
     "apply NIRegulatorRegNumber correctly" in {
 
       val details = form.bind(
         Map(
-          "nIRegistrationNumber" -> nIRegulatorRegNumber.nIRegistrationNumber,
+          "nIRegistrationNumber" -> nIRegulatorRegNumber,
         )
       ).get
 
-      details.nIRegistrationNumber mustBe nIRegulatorRegNumber.nIRegistrationNumber
+      details mustBe nIRegulatorRegNumber
     }
 
     "unapply NIRegulatorRegNumber correctly" in {
       val filled = form.fill(nIRegulatorRegNumber)
-      filled("nIRegistrationNumber").value.value mustBe nIRegulatorRegNumber.nIRegistrationNumber
+      filled("nIRegistrationNumber").value.value mustBe nIRegulatorRegNumber
     }
   }
 

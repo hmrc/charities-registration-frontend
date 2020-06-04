@@ -17,19 +17,17 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.StringFieldBehaviours
-import models.CharityCommissionRegistrationNumber
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBehaviours {
 
 
   val formProvider = new CharityCommissionRegistrationNumberFormProvider()
-  val form = formProvider()
+  val form: Form[String] = formProvider()
 
   ".registrationNumber" must {
 
     val requiredKey = "charityCommissionRegistrationNumber.error.required"
-
 
     val fieldName = "registrationNumber"
 
@@ -48,22 +46,22 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
 
   "CharityCommissionRegistrationNumberFormProvider" must {
 
-    val charityCommissionRegistrationNumber = CharityCommissionRegistrationNumber("1234567")
+    val charityCommissionRegistrationNumber = "1234567"
 
     "apply CharityCommissionRegistrationNumber correctly" in {
 
       val details = form.bind(
         Map(
-          "registrationNumber" -> charityCommissionRegistrationNumber.registrationNumber,
+          "registrationNumber" -> charityCommissionRegistrationNumber,
         )
       ).get
 
-      details.registrationNumber mustBe charityCommissionRegistrationNumber.registrationNumber
+      details mustBe charityCommissionRegistrationNumber
     }
 
     "unapply CharityCommissionRegistrationNumber correctly" in {
       val filled = form.fill(charityCommissionRegistrationNumber)
-      filled("registrationNumber").value.value mustBe charityCommissionRegistrationNumber.registrationNumber
+      filled("registrationNumber").value.value mustBe charityCommissionRegistrationNumber
     }
   }
 
@@ -79,7 +77,5 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
       "01632 960" mustNot fullyMatch regex formProvider.validateRegistrationNumber
     }
   }
-
-
 
 }

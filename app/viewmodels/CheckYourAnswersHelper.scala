@@ -27,10 +27,9 @@ import utils.{CurrencyFormatter, ImplicitDateFormatter}
 
 trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHelper with CurrencyFormatter {
 
-  val request: DataRequest[_]
   implicit val messages: Messages
 
-  val userAnswers: UserAnswers = request.userAnswers
+  val userAnswers: UserAnswers
 
   def answer[A](page: QuestionPage[A],
                 changeLinkCall: Call,

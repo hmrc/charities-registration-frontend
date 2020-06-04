@@ -18,20 +18,16 @@ package forms.regulatorsAndDocuments
 
 import forms.mappings.Mappings
 import javax.inject.Inject
-import models.CharityCommissionRegistrationNumber
 import play.api.data.Form
-import play.api.data.Forms._
 
 class CharityCommissionRegistrationNumberFormProvider @Inject() extends Mappings {
 
   val validateRegistrationNumber = """^[0-9]{6,7}$"""
 
-  def apply(): Form[CharityCommissionRegistrationNumber] =
+  def apply(): Form[String] =
     Form(
-      mapping(
       "registrationNumber" -> text("charityCommissionRegistrationNumber.error.required")
         .verifying(regexp(validateRegistrationNumber,"charityCommissionRegistrationNumber.error.format"))
-      )(CharityCommissionRegistrationNumber.apply)(CharityCommissionRegistrationNumber.unapply)
     )
 }
 

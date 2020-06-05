@@ -106,7 +106,7 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
   }
 
   private def otherRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
-    case Some(_) => routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
+    case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 }

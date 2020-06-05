@@ -94,7 +94,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
             emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
 
         "go to the ScottishRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
@@ -130,7 +130,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish))).success.value) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
 
 
@@ -166,7 +166,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland))).success.value) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
@@ -194,7 +194,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber"))
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other))).success.value) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once check your answer page is added
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
 
         "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {

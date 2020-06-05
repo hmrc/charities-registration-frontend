@@ -325,3 +325,12 @@ selectWhyNoRegulator.noRegulatorInCountry = No regulator in country of establish
 selectWhyNoRegulator.parochialChurchCouncils = Parochial Church Councils under gross income threshold
 selectWhyNoRegulator.uninformedYouthGroup = Uniformed youth groups
 selectWhyNoRegulator.other = Other
+
+# WhyNotRegisteredWithCharityPage Messages
+# ----------------------------------------------------------
+whyNotRegisteredWithCharity.title = Why has your charity not registered with a charity regulator?
+whyNotRegisteredWithCharity.heading = Why has your charity not registered with a charity regulator?
+whyNotRegisteredWithCharity.error.required = Enter why you have not registered with a regulator
+whyNotRegisteredWithCharity.error.format = Your answer must not include the following characters: & ( ) : @
+whyNotRegisteredWithCharity.error.length = Your answer must be 100 characters or fewer
+whyNotRegisteredWithCharity.hint = Using 100 characters or less (including spaces).

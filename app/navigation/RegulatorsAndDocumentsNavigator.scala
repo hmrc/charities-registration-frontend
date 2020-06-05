@@ -67,11 +67,17 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
       case Some(EnglandWalesUnderThreshold | ExemptOrExcepted | NoRegulatorInCountry | ParochialChurchCouncils | UninformedYouthGroup)
             => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case Some(_) => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
+
+
+    case WhyNotRegisteredWithCharityPage => userAnswers: UserAnswers => userAnswers.get(WhyNotRegisteredWithCharityPage) match {
+      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()     // TODO modify once next page created
+    }
 
     case _ => _ => routes.IndexController.onPageLoad()
   }

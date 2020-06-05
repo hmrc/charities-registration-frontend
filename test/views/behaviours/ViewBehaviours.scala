@@ -230,6 +230,4 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
-
 }
-

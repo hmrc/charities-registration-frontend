@@ -215,7 +215,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
           navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once next page created
+            regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(NormalMode)
         }
 
         "go to the Summary page when other than Other is selected" in {
@@ -233,6 +233,19 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the WhyNotRegisteredWithCharityPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhyNotRegisteredWithCharityPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Summary page when clicked continue button" in {
+          navigator.nextPage(WhyNotRegisteredWithCharityPage, NormalMode,
+            emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, "reason").getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {

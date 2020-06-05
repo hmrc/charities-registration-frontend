@@ -19,21 +19,20 @@ package views.behaviours
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 
-trait StringViewBehaviours extends QuestionViewBehaviours[String] {
+trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
 
   val answer = "answer"
 
 
-  def stringPage(form: Form[String],
+  def textAreaPage(form: Form[String],
                  createView: Form[String] => HtmlFormat.Appendable,
                  messageKeyPrefix: String,
-                 expectedFormAction: String,
                  expectedHintKey: Option[String] = None,
                  section: Option[String] = None,
                  headingArgs: Seq[String] = Seq()
                 ) = {
 
-    "behave like a page with a string value field" when {
+    "behave like a page with a text area field" when {
 
       "rendered" must {
 
@@ -49,6 +48,12 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
           val doc = asDocument(createView(form))
           assertRenderedById(doc, "value")
         }
+
+        "contain character count message" in {
+
+          val doc = asDocument(createView(form))
+          assertRenderedById(doc, "value-info")
+        }
       }
 
       "rendered with a valid form" must {
@@ -56,7 +61,7 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
         "include the form's value in the value input" in {
 
           val doc = asDocument(createView(form.fill(answer)))
-          doc.getElementById("value").attr("value") mustBe answer
+          doc.getElementById("value").text() mustBe answer
         }
       }
 

@@ -29,7 +29,7 @@
 
 @()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("inEligible.title", None))) {
+@govukLayout(pageTitle = Some(titleNoForm("inEligible.title", None)), signout = false) {
 
     @h1(messages("inEligible.heading"))
 

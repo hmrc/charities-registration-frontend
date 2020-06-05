@@ -27,7 +27,7 @@
     gtmSnippet: GtmSnippet
 )
 
-@(pageTitle: Option[String] = None, timeout: Boolean = false, js: Option[Html] = None, backLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(pageTitle: Option[String] = None, signout: Boolean = true, js: Option[Html] = None, backLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @head = {
     @gtmSnippet()
@@ -40,7 +40,7 @@
     <script src='@controllers.routes.Assets.versioned("javascripts/application.min.js")'></script>
     <script>window.GOVUKFrontend.initAll();</script>
     <script>
-        if (@timeout) {
+        if (@signout) {
             timeoutDialog({
                 title: '@messages("timeout.title")',
                 message: '@messages("timeout.message")',
@@ -49,7 +49,7 @@
                 timeout: @{appConfig.timeout},
                 countdown: @{appConfig.countdown},
                 keepAliveUrl: '@{controllers.routes.IndexController.keepalive().url}',
-                signOutUrl: '@{controllers.routes.SignOutController.signOutNoSurvey().url}'
+                signOutUrl: '@{controllers.routes.SignOutController.signOut().url}'
             });
         };
     </script>
@@ -88,6 +88,6 @@
   beforeContentBlock = Some(beforeContentBlock),
   bodyEndBlock = None,
   scriptsBlock = Some(scripts),
-  headerBlock = Some(siteHeader(timeout)),
+  headerBlock = Some(siteHeader(signout)),
   footerItems = FooterLinks.items
 )(content)

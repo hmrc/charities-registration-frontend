@@ -24,7 +24,7 @@
 
 @()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@main_template(Some(titleNoForm("session_expired.title")), timeout = false) {
+@main_template(Some(titleNoForm("session_expired.title")), signout = false) {
 
     @h1(messages("session_expired.heading"))
 

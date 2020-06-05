@@ -31,7 +31,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "isEligiblePurpose.title", None))) {
+@govukLayout(pageTitle = Some(title(form, "isEligiblePurpose.title", None)), signout = false) {
 
 
     @formHelper(action = IsEligiblePurposeController.onSubmit()) {

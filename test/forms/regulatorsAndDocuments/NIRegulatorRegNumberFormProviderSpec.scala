@@ -26,7 +26,7 @@ class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   ".nIRegistrationNumber" must {
 
-    val requiredKey = "NIRegulatorRegNumber.error.required"
+    val requiredKey = "nIRegulatorRegNumber.error.required"
 
 
     val fieldName = "nIRegistrationNumber"

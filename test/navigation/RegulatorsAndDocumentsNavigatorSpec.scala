@@ -41,12 +41,12 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
 
         "go to the EnterCharityRegulator page when yes is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, true)) mustBe
+          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, value = true)) mustBe
             regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode)
         }
 
         "go to the SelectWhyNoRegulator page when No is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, false)) mustBe
+          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, value = false)) mustBe
             regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(NormalMode)
         }
       }
@@ -90,7 +90,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the IndexController page when clicked continue button" in {
+        "go to the Governing Document Summary page when clicked continue button" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
             emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
@@ -126,7 +126,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the IndexController page when clicked continue button" in {
+        "go to the Governing Document Summary page when clicked continue button" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish))).success.value) mustBe
@@ -162,7 +162,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the IndexController page when clicked continue button" in {
+        "go to the Governing Document Summary page when clicked continue button" in {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland))).success.value) mustBe
@@ -190,7 +190,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the IndexController page when clicked continue button" in {
+        "go to the Governing Document Summary page when clicked continue button" in {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber"))
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other))).success.value) mustBe
@@ -218,18 +218,10 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(NormalMode)
         }
 
-        "go to the Summary page when other than Other is selected" in {
+        "go to the Governing Document Summary page when other than Other is selected" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold).getOrElse(emptyUserAnswers)) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-        }
-      }
-
-      "from the Summary page" must {
-
-        "go to the Task List page when click continue button" in {
-          navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }
 
@@ -246,6 +238,15 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }
+
+      "from the Governing Document Summary page" must {
+
+        "go to the Task List page when click continue button" in {
+          navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
+
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {
@@ -256,6 +257,66 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
     }
 
     "in Check mode" when {
+
+      "from the CharityCommissionRegistrationNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityCommissionRegistrationNumberPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document Summary page when clicked continue button" in {
+          navigator.nextPage(CharityCommissionRegistrationNumberPage, CheckMode,
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the ScottishRegulatorRegNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(ScottishRegulatorRegNumberPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document Summary page when clicked continue button" in {
+          navigator.nextPage(ScottishRegulatorRegNumberPage, CheckMode,
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish))).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the NIRegulatorRegNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(NIRegulatorRegNumberPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document Summary page when clicked continue button" in {
+          navigator.nextPage(NIRegulatorRegNumberPage, CheckMode,
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland))).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the CharityOtherRegulatorDetailsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityOtherRegulatorDetailsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document Summary page when clicked continue button" in {
+          navigator.nextPage(CharityOtherRegulatorDetailsPage, CheckMode,
+            emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber"))
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other))).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
 
       "from any UnKnownPage" must {
 

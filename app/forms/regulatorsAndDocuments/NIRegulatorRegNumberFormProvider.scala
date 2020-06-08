@@ -26,8 +26,8 @@ class NIRegulatorRegNumberFormProvider @Inject() extends Mappings {
 
   def apply(): Form[String] =
     Form(
-        "nIRegistrationNumber" -> text("NIRegulatorRegNumber.error.required")
-          .verifying(regexp(validateRegistrationNumberNI,"NIRegulatorRegNumber.error.format"))
+        "nIRegistrationNumber" -> text("nIRegulatorRegNumber.error.required")
+          .verifying(regexp(validateRegistrationNumberNI,"nIRegulatorRegNumber.error.format"))
     )
 }
 

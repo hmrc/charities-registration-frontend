@@ -291,13 +291,13 @@ scottishRegulatorRegNumber.hintText = The registration number will be on any mai
 
 # NIRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-NIRegulatorRegNumber.title = What is your Charity Commission for Northern Ireland registration number?W
-NIRegulatorRegNumber.heading = What is your Charity Commission for Northern Ireland registration number?W
-NIRegulatorRegNumber.error.required = Enter your charity''s registration numberW
-NIRegulatorRegNumber.error.format = Registration number is 6 numbers, like 123456W
-NIRegulatorRegNumber.hint = For example, 123456W
-NIRegulatorRegNumber.help = Where to find the registration number?W
-NIRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.W
+nIRegulatorRegNumber.title = What is your Charity Commission for Northern Ireland registration number?W
+nIRegulatorRegNumber.heading = What is your Charity Commission for Northern Ireland registration number?W
+nIRegulatorRegNumber.error.required = Enter your charity''s registration numberW
+nIRegulatorRegNumber.error.format = Registration number is 6 numbers, like 123456W
+nIRegulatorRegNumber.hint = For example, 123456W
+nIRegulatorRegNumber.help = Where to find the registration number?W
+nIRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.W
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------

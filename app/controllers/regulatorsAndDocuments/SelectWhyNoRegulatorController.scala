@@ -24,8 +24,8 @@ import javax.inject.Inject
 import models.Mode
 import models.regulators.SelectWhyNoRegulator
 import navigation.RegulatorsAndDocumentsNavigator
-import pages.Section2Page
 import pages.regulatorsAndDocuments.SelectWhyNoRegulatorPage
+import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository

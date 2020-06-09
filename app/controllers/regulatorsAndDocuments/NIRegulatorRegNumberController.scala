@@ -23,8 +23,8 @@ import forms.regulatorsAndDocuments.NIRegulatorRegNumberFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.RegulatorsAndDocumentsNavigator
-import pages.Section2Page
 import pages.regulatorsAndDocuments.NIRegulatorRegNumberPage
+import pages.sections.Section2Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.NIRegulatorRegNumberView

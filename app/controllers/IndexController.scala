@@ -21,7 +21,7 @@ import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import controllers.charityInformation.{routes => charityInfoRoutes}
 import javax.inject.Inject
 import models.{NormalMode, Spoke, TaskListSection, UserAnswers}
-import pages.{Section1Page, Section2Page, Section3Page, Section4Page}
+import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import views.html.Index

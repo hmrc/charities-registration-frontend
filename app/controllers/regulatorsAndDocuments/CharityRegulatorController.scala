@@ -24,8 +24,8 @@ import javax.inject.Inject
 import models.Mode
 import models.regulators.CharityRegulator
 import navigation.RegulatorsAndDocumentsNavigator
-import pages.Section2Page
 import pages.regulatorsAndDocuments.CharityRegulatorPage
+import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -65,9 +65,8 @@ class CharityRegulatorController @Inject()(
       value =>
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityRegulatorPage, value).flatMap(_.set(Section2Page, false)))
-          updatedAnswerAfterDataReset <- Future.fromTry(updatedAnswers.remove(CharityRegulator.pageMap.filterNot(p => value.contains(p._1)).values.toSeq))
-          _              <- sessionRepository.set(updatedAnswerAfterDataReset)
-        } yield Redirect(navigator.nextPage(CharityRegulatorPage, mode, updatedAnswerAfterDataReset))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(CharityRegulatorPage, mode, updatedAnswers))
     )
   }
 }

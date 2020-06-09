@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.Mode
 import navigation.CharityInformationNavigator
 import pages.charityInformation.CharityContactDetailsPage
-import pages.Section1Page
+import pages.sections.Section1Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.charityInformation.CharityContactDetailsView

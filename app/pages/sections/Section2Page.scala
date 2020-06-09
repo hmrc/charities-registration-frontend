@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections
 
+import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object Section4Page extends QuestionPage[Boolean] {
+case object Section2Page extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "isSection4Completed"
+  override def toString: String = "isSection2Completed"
 }

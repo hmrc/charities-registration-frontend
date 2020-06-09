@@ -22,9 +22,9 @@ import controllers.actions._
 import forms.charityInformation.CharityNameFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.Section1Page
 import navigation.CharityInformationNavigator
 import pages.charityInformation.CharityNamePage
+import pages.sections.Section1Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.charityInformation.CharityNameView

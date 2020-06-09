@@ -37,6 +37,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
     .set(NIRegulatorRegNumberPage, "123456").get
     .set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("test", "123423")).get
     .set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.values.head).get
+    .set(WhyNotRegisteredWithCharityPage, "office closed").get
   )
 
   val newLine = "<br>"
@@ -134,6 +135,19 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages(s"selectWhyNoRegulator.$EnglandWalesUnderThreshold"),
           Some(messages("selectWhyNoRegulator.checkYourAnswersLabel")),
           regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the WhyNotRegisteredWithCharity answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.whyNotRegsiteredCharityRow mustBe Some(summaryListRow(
+          messages("whyNotRegisteredWithCharity.checkYourAnswersLabel"),
+          "office closed",
+          Some(messages("whyNotRegisteredWithCharity.checkYourAnswersLabel")),
+          regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

@@ -52,6 +52,9 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
   def selectWhyNoRegulatorRow: Option[SummaryListRow] =
     answer(SelectWhyNoRegulatorPage, regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode), true)
 
+  def whyNotRegsiteredCharityRow: Option[SummaryListRow] =
+    answer(WhyNotRegisteredWithCharityPage, regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode))
+
 
   private def answerOtherRegulator[A](page: QuestionPage[CharityOtherRegulatorDetails],
                               changeLinkCall: Call)
@@ -87,7 +90,8 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
     scottishRegulatorRegRow,
     nIRegulatorRegRow,
     charityOtherRegulatorRow,
-    selectWhyNoRegulatorRow
+    selectWhyNoRegulatorRow,
+    whyNotRegsiteredCharityRow
   ).flatten
 
 }

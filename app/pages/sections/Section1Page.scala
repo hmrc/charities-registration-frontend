@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections
 
+import pages.QuestionPage
 import play.api.libs.json.JsPath
 
 case object Section1Page extends QuestionPage[Boolean] {

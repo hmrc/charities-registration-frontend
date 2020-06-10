@@ -22,53 +22,24 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import models.regulators.CharityRegulator
-import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Scottish, Other => OtherRegulator}
 import models.regulators.SelectWhyNoRegulator._
-import pages.Page
+import pages.{Page, QuestionPage}
 import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
 
-
 class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  private val normalRoutes: Page => UserAnswers => Call = {
-    case IsCharityRegulatorPage => userAnswers: UserAnswers => userAnswers.get(IsCharityRegulatorPage) match {
-      case Some(true) => regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode)
-      case Some(false) => regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
+  private val normalRoutes: Page => UserAnswers => Call =  {
+    case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorPageNav(NormalMode, userAnswers)
 
-    case CharityRegulatorPage => userAnswers: UserAnswers => userAnswers.get(CharityRegulatorPage) match {
-      case Some(items) if items.contains(EnglandWales) =>
-        regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(NormalMode)
-      case result => englandWalesRegulatorNavigation(result)
-    }
+    case CharityRegulatorPage | CharityCommissionRegistrationNumberPage | ScottishRegulatorRegNumberPage
+         | NIRegulatorRegNumberPage | CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers  =>
+      userAnswers.get(CharityRegulatorPage) match {
+        case Some(items) => nextNav(CharityRegulator.pageMap.filter(p => items.contains(p._1)).values.toSeq, userAnswers, NormalMode)
+        case _ => routes.SessionExpiredController.onPageLoad()
+      }
 
-    case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers => userAnswers.get(CharityCommissionRegistrationNumberPage) match {
-      case Some(_) => englandWalesRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-
-    case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(ScottishRegulatorRegNumberPage) match {
-      case Some(_) => scottishRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-
-    case NIRegulatorRegNumberPage => userAnswers: UserAnswers => userAnswers.get(NIRegulatorRegNumberPage) match {
-      case Some(_) => niRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-
-    case CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityOtherRegulatorDetailsPage) match {
-      case Some(_) => otherRegulatorNavigation(userAnswers.get(CharityRegulatorPage))
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-
-    case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
-      case Some(Other) => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(NormalMode)
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
+    case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => selectWhyNoRegulatorPageNav(userAnswers, NormalMode)
 
     case WhyNotRegisteredWithCharityPage => userAnswers: UserAnswers => userAnswers.get(WhyNotRegisteredWithCharityPage) match {
       case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
@@ -81,26 +52,18 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
+    case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorPageNav(CheckMode, userAnswers)
 
-    case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers => userAnswers.get(CharityCommissionRegistrationNumberPage) match {
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
+    case CharityRegulatorPage | CharityCommissionRegistrationNumberPage | ScottishRegulatorRegNumberPage
+         | NIRegulatorRegNumberPage | CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers  =>
+      userAnswers.get(CharityRegulatorPage) match {
+        case Some(items) => nextNav(CharityRegulator.pageMap.filter{ case(key, _) => items.contains(key)}.values.toSeq, userAnswers, CheckMode)
+        case _ => routes.SessionExpiredController.onPageLoad()
+      }
 
-    case ScottishRegulatorRegNumberPage => userAnswers : UserAnswers => userAnswers.get(ScottishRegulatorRegNumberPage) match {
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
+    case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => selectWhyNoRegulatorPageNav(userAnswers, CheckMode)
 
-    case NIRegulatorRegNumberPage => userAnswers : UserAnswers => userAnswers.get(NIRegulatorRegNumberPage) match {
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-
-    case CharityOtherRegulatorDetailsPage => userAnswers : UserAnswers => userAnswers.get(CharityOtherRegulatorDetailsPage) match {
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
+    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
   }
@@ -112,26 +75,40 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       checkRouteMap(page)(userAnswers)
   }
 
-  private def englandWalesRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
-    case Some(items) if items.contains(Scottish) =>
-      regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(NormalMode)
-    case _ => scottishRegulatorNavigation(result)
+  private def isCharityRegulatorPageNav(mode: Mode, userAnswers: UserAnswers): Call = userAnswers.get(IsCharityRegulatorPage) match {
+    case Some(true) => regulatorDocsRoutes.CharityRegulatorController.onPageLoad(mode)
+    case Some(false) => regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(mode)
+    case _ => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def scottishRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
-    case Some(items) if items.contains(NorthernIreland) =>
-      regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(NormalMode)
-    case _ => niRegulatorNavigation(result)
-  }
-
-  private def niRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
-    case Some(items) if items.contains(OtherRegulator) =>
-      regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
-    case _ => otherRegulatorNavigation(result)
-  }
-
-  private def otherRegulatorNavigation(result: Option[Set[CharityRegulator]]): Call = result match {
+  private def selectWhyNoRegulatorPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectWhyNoRegulatorPage) match {
+    case Some(Other) => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(mode)
     case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def nextNav(res: Seq[QuestionPage[_]], userAnswers: UserAnswers, mode: Mode): Call ={
+
+    def checkNextNav(seqPages: Seq[QuestionPage[_]]): Call ={
+      if(seqPages.isEmpty){
+        regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      } else {
+        seqPages.head match {
+          case CharityCommissionRegistrationNumberPage => userAnswers.get(CharityCommissionRegistrationNumberPage).fold(
+            regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(mode)
+          )(_ => checkNextNav(seqPages.tail))
+          case ScottishRegulatorRegNumberPage  => userAnswers.get(ScottishRegulatorRegNumberPage).fold(
+            regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(mode)
+          )(_ => checkNextNav(seqPages.tail))
+          case NIRegulatorRegNumberPage  => userAnswers.get(NIRegulatorRegNumberPage).fold(
+            regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(mode)
+          )(_ => checkNextNav(seqPages.tail))
+          case CharityOtherRegulatorDetailsPage  => userAnswers.get(CharityOtherRegulatorDetailsPage).fold(
+            regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(mode)
+          )(_ => checkNextNav(seqPages.tail))
+        }
+      }
+    }
+    checkNextNav(res)
   }
 }

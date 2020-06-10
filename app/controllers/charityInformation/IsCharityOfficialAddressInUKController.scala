@@ -23,8 +23,8 @@ import forms.charityInformation.IsCharityOfficialAddressInUKFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.CharityInformationNavigator
-import pages.Section1Page
 import pages.charityInformation.IsCharityOfficialAddressInUKPage
+import pages.sections.Section1Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.charityInformation.IsCharityOfficialAddressInUKView

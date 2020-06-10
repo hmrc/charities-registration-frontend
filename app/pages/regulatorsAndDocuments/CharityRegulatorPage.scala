@@ -16,13 +16,23 @@
 
 package pages.regulatorsAndDocuments
 
+import models.UserAnswers
 import models.regulators.CharityRegulator
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object CharityRegulatorPage extends QuestionPage[Set[CharityRegulator]] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "charityRegulator"
+
+  override def cleanup(value: Option[Set[CharityRegulator]], userAnswers: UserAnswers): Try[UserAnswers] = value match {
+    case Some(value) => {
+      userAnswers.remove(CharityRegulator.pageMap.filterNot(p => value.contains(p._1)).values.toSeq)
+    }
+    case _ => super.cleanup(value, userAnswers)
+  }
 }

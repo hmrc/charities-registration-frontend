@@ -22,8 +22,8 @@ import controllers.LocalBaseController
 import controllers.actions._
 import models.NormalMode
 import navigation.RegulatorsAndDocumentsNavigator
-import pages.Section2Page
 import pages.regulatorsAndDocuments.GoverningDocumentSummaryPage
+import pages.sections.Section2Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper

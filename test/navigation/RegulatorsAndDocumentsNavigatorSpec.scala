@@ -41,12 +41,12 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
 
         "go to the EnterCharityRegulator page when yes is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, value = true)) mustBe
+          navigator.nextPage(IsCharityRegulatorPage, NormalMode, emptyUserAnswers.set(IsCharityRegulatorPage, true).success.value) mustBe
             regulatorDocsRoutes.CharityRegulatorController.onPageLoad(NormalMode)
         }
 
         "go to the SelectWhyNoRegulator page when No is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, NormalMode, userAnswers(IsCharityRegulatorPage, value = false)) mustBe
+          navigator.nextPage(IsCharityRegulatorPage, NormalMode, emptyUserAnswers.set(IsCharityRegulatorPage, false).success.value) mustBe
             regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(NormalMode)
         }
       }
@@ -264,13 +264,27 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the EnterCharityRegulator page when yes is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, CheckMode, userAnswers(IsCharityRegulatorPage, value = true)) mustBe
+        "go to the Summary page when yes is selected and an answer exists for the CharityRegulator page" in {
+
+          navigator.nextPage(IsCharityRegulatorPage, CheckMode, emptyUserAnswers.set(IsCharityRegulatorPage, true)
+            .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+
+        "go to the Summary page when no is selected and an answer exists for the SelectWhyNoRegulator page" in {
+
+          navigator.nextPage(IsCharityRegulatorPage, CheckMode, emptyUserAnswers.set(IsCharityRegulatorPage, false)
+            .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+
+        "go to the EnterCharityRegulator page when yes is selected no data exists for the CharityRegulator page" in {
+          navigator.nextPage(IsCharityRegulatorPage, CheckMode, emptyUserAnswers.set(IsCharityRegulatorPage, true).success.value) mustBe
             regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode)
         }
 
-        "go to the SelectWhyNoRegulator page when No is selected" in {
-          navigator.nextPage(IsCharityRegulatorPage, CheckMode, userAnswers(IsCharityRegulatorPage, value = false)) mustBe
+        "go to the SelectWhyNoRegulator page when No is selected and no data exists for the SelectWhyNoRegulator page" in {
+          navigator.nextPage(IsCharityRegulatorPage, CheckMode, emptyUserAnswers.set(IsCharityRegulatorPage, false).success.value) mustBe
             regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode)
         }
       }
@@ -305,7 +319,6 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(CharityRegulatorPage, Set[CharityRegulator](Other)).success.value) mustBe
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode)
         }
-      }
 
       "from the CharityCommissionRegistrationNumberPage" must {
 
@@ -356,7 +369,6 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish))).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
-
 
         "go to the NIRegulatorRegNumberPage page when user answer has NorthernIreland selected and click Continue button" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, CheckMode,
@@ -466,9 +478,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
       }
     }
 
-    def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
-      emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
+      def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
+        emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
+      }
     }
   }
-
 }

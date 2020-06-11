@@ -52,7 +52,7 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
-    case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorPageNav(CheckMode, userAnswers)
+    case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorCheckNav(CheckMode, userAnswers)
 
     case CharityRegulatorPage | CharityCommissionRegistrationNumberPage | ScottishRegulatorRegNumberPage
          | NIRegulatorRegNumberPage | CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers  =>
@@ -80,6 +80,14 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     case Some(false) => regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(mode)
     case _ => routes.SessionExpiredController.onPageLoad()
   }
+
+  private def isCharityRegulatorCheckNav (mode: Mode, userAnswers: UserAnswers): Call =
+    (userAnswers.get(IsCharityRegulatorPage), userAnswers.get(CharityRegulatorPage), userAnswers.get(SelectWhyNoRegulatorPage)) match {
+      case (Some(true), None, _) => regulatorDocsRoutes.CharityRegulatorController.onPageLoad(mode)
+      case (Some(false), _, None) => regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(mode)
+      case (None, _, _) => routes.SessionExpiredController.onPageLoad()
+      case _ => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+    }
 
   private def selectWhyNoRegulatorPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectWhyNoRegulatorPage) match {
     case Some(Other) => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(mode)

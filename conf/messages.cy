@@ -348,3 +348,15 @@ whyNotRegisteredWithCharity.checkYourAnswersLabel = Other reason for not registe
 regulatorsSummary.checkYourAnswers.title = Check your charity''s regulator details
 regulatorsSummary.checkYourAnswers.heading = Check your charity''s regulator details
 regulatorsSummary.section = Regulators and documents
+
+# Select Governing Document Messages
+# ----------------------------------------------------------
+selectGoverningDocument.title = What governing document was used to set up and run your charity?
+selectGoverningDocument.heading = What governing document was used to set up and run your charity?
+selectGoverningDocument.error.required = Select the type of governing document that was used to set up and run your charity
+selectGoverningDocument.memorandumArticlesAssociation = Memorandum and articles of association
+selectGoverningDocument.royalCharacter = Royal Charter
+selectGoverningDocument.rulesConstitution = Rules or constitution
+selectGoverningDocument.trustDeed = Trust deed
+selectGoverningDocument.will = Will
+selectGoverningDocument.other = Other

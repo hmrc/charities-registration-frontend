@@ -61,9 +61,21 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
         case _ => routes.SessionExpiredController.onPageLoad()
       }
 
-    case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => selectWhyNoRegulatorPageNav(userAnswers, CheckMode)
-
     case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
+
+    case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
+      case Some(Other) =>  userAnswers.get(WhyNotRegisteredWithCharityPage) match {
+        case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        case _ => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode)
+      }
+      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case WhyNotRegisteredWithCharityPage => userAnswers: UserAnswers => userAnswers.get(WhyNotRegisteredWithCharityPage) match {
+      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
 
     case _ => _ => routes.IndexController.onPageLoad()
   }

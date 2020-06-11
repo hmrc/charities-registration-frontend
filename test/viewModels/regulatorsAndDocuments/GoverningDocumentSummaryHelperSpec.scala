@@ -30,17 +30,16 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
 
   val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
-    .set(IsCharityRegulatorPage, true).get
-    .set(CharityRegulatorPage, CharityRegulator.values.toSet).get
-    .set(CharityCommissionRegistrationNumberPage, "123456").get
-    .set(ScottishRegulatorRegNumberPage, "SC123456").get
-    .set(NIRegulatorRegNumberPage, "123456").get
-    .set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("test", "123423")).get
-    .set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.values.head).get
-    .set(WhyNotRegisteredWithCharityPage, "office closed").get
+    .set(IsCharityRegulatorPage, true).flatMap
+     (_.set(CharityRegulatorPage, CharityRegulator.values.toSet)).flatMap
+     (_.set(CharityCommissionRegistrationNumberPage, "123456")).flatMap
+     (_.set(ScottishRegulatorRegNumberPage, "SC123456")).flatMap
+     (_.set(NIRegulatorRegNumberPage, "123456")).flatMap
+     (_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("test", "123423"))).flatMap
+     (_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.values.head)).flatMap
+     (_.set(WhyNotRegisteredWithCharityPage,"office closed")).success.value
   )
 
-  val newLine = "<br>"
   val englandAndWales = CharityRegulator.EnglandWales
   val scottish = CharityRegulator.Scottish
   val northernIreland = CharityRegulator.NorthernIreland
@@ -67,7 +66,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.charityRegulatorRow mustBe Some(summaryListRow(
           messages("charityRegulator.checkYourAnswersLabel"),
-          s"""${messages(s"charityRegulator.$englandAndWales")}$newLine${messages(s"charityRegulator.$scottish")}$newLine${messages(s"charityRegulator.$northernIreland")}$newLine${messages(s"charityRegulator.$other")}$newLine""",
+          s"""<div>${messages(s"charityRegulator.$englandAndWales")}</div><div>${messages(s"charityRegulator.$scottish")}</div><div>${messages(s"charityRegulator.$northernIreland")}</div><div>${messages(s"charityRegulator.$other")}</div>""",
           Some(messages("charityRegulator.checkYourAnswersLabel")),
           regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -119,7 +118,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.charityOtherRegulatorRow mustBe Some(summaryListRow(
           messages("charityOtherRegulatorDetails.checkYourAnswersLabel"),
-          s"test$newLine$newLine${"123423"}",
+          s"test<div>${"123423"}</div>",
           Some(messages("charityOtherRegulatorDetails.checkYourAnswersLabel")),
           regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))

@@ -16,9 +16,11 @@
 
 package pages.regulatorsAndDocuments
 
+import models.UserAnswers
 import models.regulators.SelectWhyNoRegulator
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
+import play.api.libs.json.Json
 
 class SelectWhyNoRegulatorPageSpec extends PageBehaviours{
 
@@ -33,6 +35,26 @@ class SelectWhyNoRegulatorPageSpec extends PageBehaviours{
     beSettable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)
 
     beRemovable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)
-  }
 
+    "cleanup" when {
+      val userAnswer = UserAnswers("id", Json.obj()).set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
+          .flatMap(_.set(WhyNotRegisteredWithCharityPage,"office closed")
+        ).success.value
+
+      "setting SelectWhyNoRegulator to ExemptOrExcepted" must {
+
+        val result = userAnswer.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.ExemptOrExcepted).success.value
+
+        "remove WhyNotRegisteredWithCharityPage" in {
+
+          result.get(WhyNotRegisteredWithCharityPage) mustNot be(defined)
+        }
+
+        "not remove SelectWhyNoRegulatorPage" in {
+
+          result.get(SelectWhyNoRegulatorPage) must be(defined)
+        }
+      }
+      }
+  }
 }

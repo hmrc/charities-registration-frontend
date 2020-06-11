@@ -62,7 +62,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
     userAnswers.get(page) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel"),
-        value = ans.regulatorName + "<br><br>" + ans.registrationNumber,
+        value = ans.regulatorName + "<div>" + ans.registrationNumber + "</div>",
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -76,7 +76,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
 
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel"),
-        ans.foldLeft("")((accumulator,item) => accumulator + messages(s"$page.$item") + "<br>"),
+        ans.foldLeft("")((accumulator,item) => accumulator +"<div>"+ messages(s"$page.$item") + "</div>"),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

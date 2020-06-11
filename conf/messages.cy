@@ -343,8 +343,8 @@ whyNotRegisteredWithCharity.error.length = Your answer must be 100 characters or
 whyNotRegisteredWithCharity.hint = Using 100 characters or less (including spaces).
 whyNotRegisteredWithCharity.checkYourAnswersLabel = Other reason for not registering
 
-# Governing Document Summary page
+# Regulators Summary page
 # ----------------------------------------------------------
-governingDocumentSummary.checkYourAnswers.title = Check your governing document details
-governingDocumentSummary.checkYourAnswers.heading = Check your charity''s regulator details
-governingDocumentSummary.section = Regulators and documents
+regulatorsSummary.checkYourAnswers.title = Check your charity''s regulator details
+regulatorsSummary.checkYourAnswers.heading = Check your charity''s regulator details
+regulatorsSummary.section = Regulators and documents

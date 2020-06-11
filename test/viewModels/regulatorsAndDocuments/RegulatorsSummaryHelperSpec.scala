@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package utils
+package viewModels.regulatorsAndDocuments
 
 import assets.messages.BaseMessages
 import base.SpecBase
@@ -23,13 +23,14 @@ import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{CharityOtherRegulatorDetails, CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
+import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
-import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
+import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 
-class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
 
-  val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
+  val helper = new RegulatorsSummaryHelper(UserAnswers("id")
     .set(IsCharityRegulatorPage, true).flatMap
      (_.set(CharityRegulatorPage, CharityRegulator.values.toSet)).flatMap
      (_.set(CharityCommissionRegistrationNumberPage, "123456")).flatMap

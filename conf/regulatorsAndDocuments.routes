@@ -34,8 +34,8 @@ POST       /select-why-no-regulator                                             
 GET        /select-why-no-regulator/change                                      controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-why-no-regulator/change                                      controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onSubmit(mode: Mode = CheckMode)
 
-GET        /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onPageLoad()
-POST       /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onSubmit()
+GET        /regulators-summary                                                  controllers.regulatorsAndDocuments.RegulatorsSummaryController.onPageLoad()
+POST       /regulators-summary                                                  controllers.regulatorsAndDocuments.RegulatorsSummaryController.onSubmit()
 
 GET        /enter-why-no-regulator                                              controllers.regulatorsAndDocuments.WhyNotRegisteredWithCharityController.onPageLoad(mode: Mode = NormalMode)
 POST       /enter-why-no-regulator                                              controllers.regulatorsAndDocuments.WhyNotRegisteredWithCharityController.onSubmit(mode: Mode = NormalMode)

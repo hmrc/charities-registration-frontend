@@ -18,14 +18,14 @@ package pages.regulatorsAndDocuments
 
 import pages.behaviours.PageBehaviours
 
-class GoverningDocumentSummaryPageSpec extends PageBehaviours {
+class RegulatorsSummaryPageSpec extends PageBehaviours {
 
   "NIRegulatorRegNumberPage" must {
 
-    beRetrievable[String](GoverningDocumentSummaryPage)
+    beRetrievable[String](RegulatorsSummaryPage)
 
-    beSettable[String](GoverningDocumentSummaryPage)
+    beSettable[String](RegulatorsSummaryPage)
 
-    beRemovable[String](GoverningDocumentSummaryPage)
+    beRemovable[String](RegulatorsSummaryPage)
   }
 }

@@ -22,16 +22,16 @@ import controllers.LocalBaseController
 import controllers.actions._
 import models.NormalMode
 import navigation.RegulatorsAndDocumentsNavigator
-import pages.regulatorsAndDocuments.GoverningDocumentSummaryPage
+import pages.regulatorsAndDocuments.RegulatorsSummaryPage
 import pages.sections.Section2Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
-import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
+import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
-class GoverningDocumentSummaryController @Inject()(
+class RegulatorsSummaryController @Inject()(
     val sessionRepository: UserAnswerRepository,
     val navigator: RegulatorsAndDocumentsNavigator,
     identify: AuthIdentifierAction,
@@ -43,10 +43,10 @@ class GoverningDocumentSummaryController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val governingDocAnswersHelper = new GoverningDocumentSummaryHelper(request.userAnswers)
+    val regulatorsAnswersHelper = new RegulatorsSummaryHelper(request.userAnswers)
 
-    Ok(view(governingDocAnswersHelper.rows, GoverningDocumentSummaryPage,
-      controllers.regulatorsAndDocuments.routes.GoverningDocumentSummaryController.onSubmit()))
+    Ok(view(regulatorsAnswersHelper.rows, RegulatorsSummaryPage,
+      controllers.regulatorsAndDocuments.routes.RegulatorsSummaryController.onSubmit()))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -54,7 +54,7 @@ class GoverningDocumentSummaryController @Inject()(
     for {
       updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section2Page, true))
       _              <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, updatedAnswers))
+    } yield Redirect(navigator.nextPage(RegulatorsSummaryPage, NormalMode, updatedAnswers))
 
   }
 }

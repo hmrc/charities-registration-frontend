@@ -30,7 +30,7 @@ import repositories.UserAnswerRepository
 
 import scala.concurrent.Future
 
-class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
+class RegulatorsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers = Some(emptyUserAnswers)
 
@@ -47,9 +47,9 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
     reset(mockUserAnswerRepository)
   }
 
-  val controller: GoverningDocumentSummaryController = inject[GoverningDocumentSummaryController]
+  val controller: RegulatorsSummaryController = inject[RegulatorsSummaryController]
 
-  "GoverningDocumentSummary Controller" must {
+  "Regulators Controller" must {
 
     "return OK and the correct view for a GET" in {
 

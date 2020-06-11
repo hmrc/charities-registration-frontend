@@ -23,13 +23,15 @@ import models.regulators.SelectWhyNoRegulator
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.SelectWhyNoRegulatorPage
+import pages.regulatorsAndDocuments.{SelectWhyNoRegulatorPage, WhyNotRegisteredWithCharityPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.json.Json
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.SelectWhyNoRegulatorView
@@ -96,6 +98,31 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
+    }
+
+    "redirect to the next page when valid data is submitted after changing the selection" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", SelectWhyNoRegulator.ExemptOrExcepted.toString))
+      val userAnswer =  emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).success.value
+      when(mockUserAnswerRepository.get(meq("id"))).thenReturn(Future.successful(Some(userAnswer)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit(NormalMode)(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(meq("id"))
+      theUserAnswers.id mustBe "id"
+      theUserAnswers.data mustBe Json.parse(
+        """{"isSection2Completed" : false,
+          |"selectWhyNoRegulator" : "exemptOrExcepted"
+          |}""".stripMargin)
+      def theUserAnswers: UserAnswers = {
+        val captor: ArgumentCaptor[UserAnswers] = ArgumentCaptor.forClass(classOf[UserAnswers])
+        verify(mockUserAnswerRepository).set(captor.capture())
+        captor.getValue
+      }
       verify(mockUserAnswerRepository, times(1)).set(any())
     }
 

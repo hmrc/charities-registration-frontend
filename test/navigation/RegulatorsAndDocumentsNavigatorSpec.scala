@@ -476,6 +476,43 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             routes.IndexController.onPageLoad()
         }
       }
+      "from SelectWhyNoRegulator " must {
+
+        "go to the GoverningDocumentSummaryController page when Other is not selected" in {
+
+          navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
+            emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+
+        "go to the WhyNotRegisteredWithCharityController page when Other is selected" in {
+
+          navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
+            emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode)
+        }
+
+        "go to the  GoverningDocumentSummaryController page when Other was selected and we did not change the answer and hit continue" in {
+          navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
+            emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from WhyNotRegisteredWithCharityRegulator " must {
+
+        "go to the GoverningDocumentSummaryController page When answer is provided" in {
+
+          navigator.nextPage(WhyNotRegisteredWithCharityPage, CheckMode,
+            emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhyNotRegisteredWithCharityPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+      }
     }
 
       def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {

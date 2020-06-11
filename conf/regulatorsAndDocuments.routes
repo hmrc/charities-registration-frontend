@@ -31,8 +31,8 @@ POST       /enter-other-regulator-details/change                                
 
 GET        /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onPageLoad(mode: Mode = NormalMode)
 POST       /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onSubmit(mode: Mode = NormalMode)
-GET        /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onPageLoad(mode: Mode = CheckMode)
-POST       /select-why-no-regulator                                             controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onSubmit(mode: Mode = CheckMode)
+GET        /select-why-no-regulator/change                                      controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onPageLoad(mode: Mode = CheckMode)
+POST       /select-why-no-regulator/change                                      controllers.regulatorsAndDocuments.SelectWhyNoRegulatorController.onSubmit(mode: Mode = CheckMode)
 
 GET        /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onPageLoad()
 POST       /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onSubmit()

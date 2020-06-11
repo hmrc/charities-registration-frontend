@@ -18,14 +18,11 @@ package controllers.regulatorsAndDocuments
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.regulators.CharityRegulator
-import models.{CharityContactDetails, CharityName, NormalMode}
-import navigation.{CharityInformationNavigator, RegulatorsAndDocumentsNavigator}
-import navigation.FakeNavigators.{FakeCharityInformationNavigator, FakeRegulatorsAndDocumentsNavigator}
+import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
+import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}

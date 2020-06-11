@@ -42,11 +42,11 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => selectWhyNoRegulatorPageNav(userAnswers, NormalMode)
 
     case WhyNotRegisteredWithCharityPage => userAnswers: UserAnswers => userAnswers.get(WhyNotRegisteredWithCharityPage) match {
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
+    case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
   }
@@ -61,19 +61,19 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
         case _ => routes.SessionExpiredController.onPageLoad()
       }
 
-    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
+    case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
       case Some(Other) =>  userAnswers.get(WhyNotRegisteredWithCharityPage) match {
-        case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         case _ => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode)
       }
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case WhyNotRegisteredWithCharityPage => userAnswers: UserAnswers => userAnswers.get(WhyNotRegisteredWithCharityPage) match {
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -98,12 +98,12 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       case (Some(true), None, _) => regulatorDocsRoutes.CharityRegulatorController.onPageLoad(mode)
       case (Some(false), _, None) => regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(mode)
       case (None, _, _) => routes.SessionExpiredController.onPageLoad()
-      case _ => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _ => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
     }
 
   private def selectWhyNoRegulatorPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectWhyNoRegulatorPage) match {
     case Some(Other) => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(mode)
-    case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+    case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
@@ -111,7 +111,7 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
 
     def checkNextNav(seqPages: Seq[QuestionPage[_]]): Call ={
       if(seqPages.isEmpty){
-        regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
       } else {
         seqPages.head match {
           case CharityCommissionRegistrationNumberPage => userAnswers.get(CharityCommissionRegistrationNumberPage).fold(

@@ -27,8 +27,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
-                                    (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
+class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
+                             (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper with CurrencyFormatter {
 
   def isCharityRegulatorRow: Option[SummaryListRow] =

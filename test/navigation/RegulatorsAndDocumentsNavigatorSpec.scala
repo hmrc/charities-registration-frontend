@@ -94,7 +94,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
             emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the ScottishRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
@@ -130,7 +130,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
 
@@ -166,7 +166,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
@@ -194,7 +194,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber"))
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
@@ -221,14 +221,14 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when other than Other is selected" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold).getOrElse(emptyUserAnswers)) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
       }
 
       "from the Summary page" must {
 
         "go to the Task List page when click continue button" in {
-          navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(RegulatorsSummaryPage, NormalMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }
@@ -243,7 +243,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           navigator.nextPage(WhyNotRegisteredWithCharityPage, NormalMode,
             emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, "reason").getOrElse(emptyUserAnswers)) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
       }
       "from any UnKnownPage" must {
@@ -268,14 +268,14 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
           navigator.nextPage(IsCharityRegulatorPage, CheckMode, emptyUserAnswers.set(IsCharityRegulatorPage, true)
             .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the Summary page when no is selected and an answer exists for the SelectWhyNoRegulator page" in {
 
           navigator.nextPage(IsCharityRegulatorPage, CheckMode, emptyUserAnswers.set(IsCharityRegulatorPage, false)
             .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the EnterCharityRegulator page when yes is selected no data exists for the CharityRegulator page" in {
@@ -331,7 +331,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, CheckMode,
             emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the ScottishRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
@@ -367,7 +367,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(ScottishRegulatorRegNumberPage, CheckMode,
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the NIRegulatorRegNumberPage page when user answer has NorthernIreland selected and click Continue button" in {
@@ -402,7 +402,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(NIRegulatorRegNumberPage, CheckMode,
             emptyUserAnswers.set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
@@ -430,7 +430,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, CheckMode,
             emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber"))
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other))).success.value) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
@@ -457,14 +457,14 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when other than Other is selected" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold).getOrElse(emptyUserAnswers)) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
       }
 
       "from the Summary page" must {
 
         "go to the Task List page when click continue button" in {
-          navigator.nextPage(GoverningDocumentSummaryPage, CheckMode, emptyUserAnswers) mustBe
+          navigator.nextPage(RegulatorsSummaryPage, CheckMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad()
         }
       }
@@ -478,11 +478,11 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
       }
       "from SelectWhyNoRegulator " must {
 
-        "go to the GoverningDocumentSummaryController page when Other is not selected" in {
+        "go to the RegulatorsSummaryController page when Other is not selected" in {
 
           navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold).getOrElse(emptyUserAnswers)) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the WhyNotRegisteredWithCharityController page when Other is selected" in {
@@ -492,20 +492,20 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode)
         }
 
-        "go to the  GoverningDocumentSummaryController page when Other was selected and we did not change the answer and hit continue" in {
+        "go to the  RegulatorsSummaryController page when Other was selected and we did not change the answer and hit continue" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).getOrElse(emptyUserAnswers)) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
       }
 
       "from WhyNotRegisteredWithCharityRegulator " must {
 
-        "go to the GoverningDocumentSummaryController page When answer is provided" in {
+        "go to the RegulatorsSummaryController page When answer is provided" in {
 
           navigator.nextPage(WhyNotRegisteredWithCharityPage, CheckMode,
             emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
-            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
         "go to the SessionExpiredController page when user answer is empty" in {

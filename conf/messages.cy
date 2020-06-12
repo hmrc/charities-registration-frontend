@@ -213,39 +213,6 @@ charityContactDetails.emailAddress.error.required = Enter your charity''s email 
 charityContactDetails.emailAddress.error.format = Enter your charity''s email address in the correct format, like name@example.com
 charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
 
-
-# Enter UK Address Messages
-#------------------------------------------------------------
-charityUKAddress.title = What is your charity''s UK address?
-charityUKAddress.heading = What is your charity''s UK address?
-charityUKAddress.checkYourAnswersLabel = Charity''s UK address
-charityUKAddress.addressLine1.label = Address line 1
-charityUKAddress.addressLine1.required = Enter the first line of your charity''s address
-charityUKAddress.addressLine1.error.format = The Address line 1 of your charity must not include the following characters: @ & ( ) :
-charityUKAddress.addressLine1.error.length = The first line of your charity''s address must be 35 characters or fewer.
-charityUKAddress.addressLine2.label = Address line 2 (optional)
-charityUKAddress.addressLine2.error.format = The Address line 2 of your charity must not include the following characters: @ & ( ) :
-charityUKAddress.addressLine2.error.length = The second line of your charity''s address must be 35 characters or fewer.
-charityUKAddress.addressLine3.label = Address line 3 (optional)
-charityUKAddress.addressLine3.error.format = The Address line 3 of your charity must not include the following characters: @ & ( ) :
-charityUKAddress.addressLine3.error.length = The third line of your charity''s address must be 35 characters or fewer.
-charityUKAddress.townCity.label = Town or City
-charityUKAddress.townCity.required = Enter your charity''s town or city
-charityUKAddress.townCity.error.format = The Town or City of your charity must not include the following characters: @ & ( ) :
-charityUKAddress.townCity.error.length = Your charity''s town or city must be 35 characters or fewer.
-charityUKAddress.postcode.label = Postcode or Zipcode
-charityUKAddress.postcode.hint = For example, L69 9AZ or NE98 1ZZ
-charityUKAddress.postcode.required = Enter your charity''s UK postcode
-charityUKAddress.postcode.error.format = Enter a real postcode
-charityUKAddress.officialAddress.outsideUK.link = Charity''s official address is outside the UK
-
-
-# CharityContactAddressChoicePage Messages
-# ----------------------------------------------------------
-isCharityOfficialAddressInUK.title = Is your charity''s official address in the UK?
-isCharityOfficialAddressInUK.heading = Is your charity''s official address in the UK?
-isCharityOfficialAddressInUK.error.required = Select yes if your charity’s official address is in the UK
-
 # Section2 - Regulators and documents
 # ----------------------------------------------------------
 charityRegulator.section = Regulators and documents

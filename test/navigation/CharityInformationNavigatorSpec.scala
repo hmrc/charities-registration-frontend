@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
-import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage, IsCharityOfficialAddressInUKPage}
+import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
 import pages.{IndexPage, QuestionPage}
 import controllers.charityInformation.{routes => charityInfoRoutes}
 
@@ -52,41 +52,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the IsCharityOfficialAddressInUKController page when clicked continue button" in {
+        "go to the Index  page when clicked continue button" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
-            charityInfoRoutes.IsCharityOfficialAddressInUKController.onPageLoad(NormalMode)
-        }
-      }
-
-      "from the IsCharityOfficialAddressInUKPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the CharityUKAddressController page when yes is selected" in {
-          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, true)) mustBe
-            charityInfoRoutes.CharityUKAddressController.onPageLoad(NormalMode)
-        }
-
-        "go to the CharityUKAddressController page when No is selected" in {
-          navigator.nextPage(IsCharityOfficialAddressInUKPage, NormalMode, userAnsewers(IsCharityOfficialAddressInUKPage, false)) mustBe
-            charityInfoRoutes.CharityUKAddressController.onPageLoad(NormalMode)
-        }
-      }
-
-      "from the CharityUKAddressPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(CharityUKAddressPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the CharityUKAddressController page when clicked continue button" in {
-          navigator.nextPage(CharityUKAddressPage, NormalMode,
-            emptyUserAnswers.set(CharityUKAddressPage, CharityUKAddress("123, Morrison St", None, None, "Edinburgh", "EH12 5WU")).getOrElse(emptyUserAnswers)) mustBe
             routes.IndexController.onPageLoad()
         }
       }

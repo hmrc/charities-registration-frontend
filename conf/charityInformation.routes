@@ -8,13 +8,3 @@ GET        /contact-details                          controllers.charityInformat
 POST       /contact-details                          controllers.charityInformation.CharityContactDetailsController.onSubmit(mode: Mode = NormalMode)
 GET        /contact-details/change                   controllers.charityInformation.CharityContactDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /contact-details/change                   controllers.charityInformation.CharityContactDetailsController.onSubmit(mode: Mode = CheckMode)
-
-GET        /enter-uk-address                         controllers.charityInformation.CharityUKAddressController.onPageLoad(mode: Mode = NormalMode)
-POST       /enter-uk-address                         controllers.charityInformation.CharityUKAddressController.onSubmit(mode: Mode = NormalMode)
-GET        /enter-uk-address/change                  controllers.charityInformation.CharityUKAddressController.onPageLoad(mode: Mode = CheckMode)
-POST       /enter-uk-address/change                  controllers.charityInformation.CharityUKAddressController.onSubmit(mode: Mode = CheckMode)
-
-GET        /official-address                         controllers.charityInformation.IsCharityOfficialAddressInUKController.onPageLoad(mode: Mode = NormalMode)
-POST       /official-address                         controllers.charityInformation.IsCharityOfficialAddressInUKController.onSubmit(mode: Mode = NormalMode)
-GET        /official-address/change                  controllers.charityInformation.IsCharityOfficialAddressInUKController.onPageLoad(mode: Mode = CheckMode)
-POST       /official-address/change                  controllers.charityInformation.IsCharityOfficialAddressInUKController.onSubmit(mode: Mode = CheckMode)

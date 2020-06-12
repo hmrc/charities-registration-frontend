@@ -37,13 +37,3 @@ object CharityContactDetails {
   override def toString: String = "charityContactDetails"
 
 }
-
-case  class CharityUKAddress(addressLine1:String, addressLine2:Option[String], addressLine3:Option[String], townCity:String, postcode:String)
-
-object CharityUKAddress {
-
-  implicit val formats = Json.format[CharityUKAddress]
-
-  override def toString: String = "charityUKAddress"
-
-}

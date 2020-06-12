@@ -21,7 +21,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage, CharityUKAddressPage, IsCharityOfficialAddressInUKPage}
+import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
 import play.api.mvc.Call
 import controllers.charityInformation.{routes => charityInfoRoutes}
 
@@ -34,15 +34,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => charityInfoRoutes.IsCharityOfficialAddressInUKController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-    case IsCharityOfficialAddressInUKPage => userAnswers: UserAnswers => userAnswers.get(IsCharityOfficialAddressInUKPage) match {
-      case Some(_) => charityInfoRoutes.CharityUKAddressController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-    case CharityUKAddressPage => userAnswers: UserAnswers => userAnswers.get(CharityUKAddressPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO Add next page controller once it is created
+      case Some(_) => routes.IndexController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case _ => _ => routes.IndexController.onPageLoad()

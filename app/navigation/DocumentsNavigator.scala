@@ -31,6 +31,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, NormalMode)
 
+    case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => IsApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
@@ -51,4 +53,11 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
     case Some(_) => routes.IndexController.onPageLoad()  // TODO modify once Governing Document approved page is created
     case _ => routes.SessionExpiredController.onPageLoad()
   }
+
+  private def IsApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
+    case Some(true) => routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
+    case Some(false) => routes.IndexController.onPageLoad()  // TODO modify once Governing Document approved page is created
+    case _ => routes.SessionExpiredController.onPageLoad()
+  }
+
 }

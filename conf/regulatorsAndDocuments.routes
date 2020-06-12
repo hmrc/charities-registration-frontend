@@ -46,3 +46,8 @@ GET        /select-governing-document                                           
 POST       /select-governing-document                                           controllers.regulatorsAndDocuments.SelectGoverningDocumentController.onSubmit(mode: Mode = NormalMode)
 GET        /select-governing-document/change                                    controllers.regulatorsAndDocuments.SelectGoverningDocumentController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-governing-document/change                                    controllers.regulatorsAndDocuments.SelectGoverningDocumentController.onSubmit(mode: Mode = CheckMode)
+
+GET        /approved-governing-document                                         controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onPageLoad(mode: Mode = NormalMode)
+POST       /approved-governing-document                                         controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onSubmit(mode: Mode = NormalMode)
+GET        /approved-governing-document/change                                  controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onPageLoad(mode: Mode = CheckMode)
+POST       /approved-governing-document/change                                  controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onSubmit(mode: Mode = CheckMode)

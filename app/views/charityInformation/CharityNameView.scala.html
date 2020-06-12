@@ -52,7 +52,7 @@
                 name = "fullName",
                 label = "charityName.fullName.label",
                 isPageHeading = false,
-                hint = Some(Html(fullNameHint)),
+                hint = Some(Html(messages("charityName.fullName.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
 
@@ -62,7 +62,7 @@
                 name = "operatingName",
                 label = "charityName.operatingName.label",
                 isPageHeading = false,
-                hint = Some(Html(operatingNameHint)),
+                hint = Some(Html(messages("charityName.operatingName.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
 
@@ -70,13 +70,4 @@
 
         @button("site.continue")
     }
-}
-
-
-@fullNameHint = {
-    <span id="fullName-hint" class="govuk-hint">@messages("charityName.fullName.hint")</span>
-}
-
-@operatingNameHint = {
-    <span id="operatingName-hint" class="govuk-hint">@messages("charityName.operatingName.hint")</span>
 }

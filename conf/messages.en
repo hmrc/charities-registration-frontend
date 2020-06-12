@@ -360,3 +360,10 @@ selectGoverningDocument.rulesConstitution = Rules or constitution
 selectGoverningDocument.trustDeed = Trust deed
 selectGoverningDocument.will = Will
 selectGoverningDocument.other = Other
+
+
+# IsApprovedGoverningDocument Messages
+# ----------------------------------------------------------
+isApprovedGoverningDocument.title = Is the governing document approved by a national organisation, parent body or principle regulator?
+isApprovedGoverningDocument.heading = Is the governing document approved by a national organisation, parent body or principle regulator?
+isApprovedGoverningDocument.error.required = Select yes if the governing document is approved by a national organisation, parent body or principle regulator

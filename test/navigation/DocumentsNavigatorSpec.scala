@@ -25,6 +25,7 @@ import models._
 import models.regulators.SelectGoverningDocument
 import pages.regulatorsAndDocuments._
 import pages.{IndexPage, QuestionPage}
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 
 class DocumentsNavigatorSpec extends SpecBase {
 
@@ -71,6 +72,34 @@ class DocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(WhenGoverningDocumentApprovedPage, NormalMode,
             emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers)) mustBe
             regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IsApprovedGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Index Controller page  when yes is selected" in {
+
+          navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,
+            emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
+        }
+        "go to the Governing Document summary page when no is selected" in {
+          navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,
+            emptyUserAnswers.set(IsApprovedGoverningDocumentPage, false).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the Summary page" must {
+
+        "go to the Task List page when click continue button" in {
+          navigator.nextPage(, NormalMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }
 

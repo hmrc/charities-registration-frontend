@@ -26,7 +26,6 @@ import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 
-
 class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call =  {
@@ -37,10 +36,14 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
 
+    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
+
+    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
   }
@@ -65,7 +68,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
   private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
     case Some(true) => routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
-    case Some(false) => routes.IndexController.onPageLoad()  // TODO modify once Changed Governing Document page is created
+    case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 

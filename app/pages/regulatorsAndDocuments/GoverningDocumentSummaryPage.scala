@@ -19,9 +19,9 @@ package pages.regulatorsAndDocuments
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object IsApprovedGoverningDocumentPage extends QuestionPage[Boolean] {
+case object GoverningDocumentSummaryPage extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "isApprovedGoverningDocument"
+  override def toString: String = "governingDocumentSummary"
 }

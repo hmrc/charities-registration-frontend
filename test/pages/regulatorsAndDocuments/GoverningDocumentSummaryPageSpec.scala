@@ -16,12 +16,16 @@
 
 package pages.regulatorsAndDocuments
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import pages.behaviours.PageBehaviours
 
-case object IsApprovedGoverningDocumentPage extends QuestionPage[Boolean] {
+class GoverningDocumentSummaryPageSpec extends PageBehaviours {
 
-  override def path: JsPath = JsPath \ toString
+  "GoverningDocumentSummaryPage" must {
 
-  override def toString: String = "isApprovedGoverningDocument"
+    beRetrievable[String](GoverningDocumentSummaryPage)
+
+    beSettable[String](GoverningDocumentSummaryPage)
+
+    beRemovable[String](GoverningDocumentSummaryPage)
+  }
 }

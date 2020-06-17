@@ -57,3 +57,5 @@ POST       /approved-governing-document                                         
 GET        /approved-governing-document/change                                  controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onPageLoad(mode: Mode = CheckMode)
 POST       /approved-governing-document/change                                  controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onSubmit(mode: Mode = CheckMode)
 
+GET        /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onPageLoad()
+POST       /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onSubmit()

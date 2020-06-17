@@ -334,3 +334,16 @@ selectGoverningDocument.other = Other
 isApprovedGoverningDocument.title = Is the governing document approved by a national organisation, parent body or principle regulator?
 isApprovedGoverningDocument.heading = Is the governing document approved by a national organisation, parent body or principle regulator?
 isApprovedGoverningDocument.error.required = Select yes if the governing document is approved by a national organisation, parent body or principle regulator
+
+# whenGoverningDocumentApproved Messages
+# ----------------------------------------------------------
+whenGoverningDocumentApproved.title = When was the governing document approved?
+whenGoverningDocumentApproved.heading = When was the governing document approved?
+WhenGoverningDocumentApproved.p1 = This is the date when the commission approved the governing document. If your charity is a CIO (Charitable Incorporated Organisation), it is the date you were accepted onto the regulators register.
+WhenGoverningDocumentApproved.hint = For example, 27 3 2007
+whenGoverningDocumentApproved.error.invalid = The date when the governing document was approved must be a real date.
+whenGoverningDocumentApproved.error.required.all = Enter the date when the governing document was approved
+whenGoverningDocumentApproved.error.required.two = Enter the {0} and the {1} when the governing document was approved
+whenGoverningDocumentApproved.error.required = Enter the {0} when the governing document was approved
+whenGoverningDocumentApproved.error.future = The date when the governing document was approved must be today or in the past.
+

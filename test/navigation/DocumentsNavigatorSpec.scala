@@ -16,8 +16,11 @@
 
 package navigation
 
+import java.time.LocalDate
+
 import base.SpecBase
 import controllers.routes
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import models._
 import models.regulators.SelectGoverningDocument
 import pages.regulatorsAndDocuments._
@@ -48,7 +51,26 @@ class DocumentsNavigatorSpec extends SpecBase {
         "go to the Governing Document approved page when other than Other is selected" in {
           navigator.nextPage(SelectGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once Governing Document approved page is created
+            regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the WhenGoverningDocumentApproved" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhenGoverningDocumentApprovedPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Is Governing Document approved page when a date is submitted" in {
+
+          val year = 2020
+          val month = 1
+          val dayOfMonth = 1
+
+          navigator.nextPage(WhenGoverningDocumentApprovedPage, NormalMode,
+            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(NormalMode)
         }
       }
 

@@ -19,13 +19,12 @@ package navigation
 import java.time.LocalDate
 
 import base.SpecBase
-import controllers.routes
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
+import controllers.routes
 import models._
 import models.regulators.SelectGoverningDocument
 import pages.regulatorsAndDocuments._
 import pages.{IndexPage, QuestionPage}
-import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 
 class DocumentsNavigatorSpec extends SpecBase {
 

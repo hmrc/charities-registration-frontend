@@ -25,7 +25,7 @@ import models.Mode
 import models.regulators.SelectGoverningDocument
 import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.SelectGoverningDocumentPage
-import pages.sections.Section2Page
+import pages.sections.{Section2Page, Section3Page}
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -64,7 +64,7 @@ class SelectGoverningDocumentController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(SelectGoverningDocumentPage, value).flatMap(_.set(Section2Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(SelectGoverningDocumentPage, value).flatMap(_.set(Section3Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(SelectGoverningDocumentPage, mode, updatedAnswers))
     )

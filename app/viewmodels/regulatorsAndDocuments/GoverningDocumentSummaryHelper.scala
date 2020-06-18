@@ -32,7 +32,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
     answer(SelectGoverningDocumentPage, regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),true)
 
   def dateApprovedGoverningDocumentRow: Option[SummaryListRow] =
-    answer(IsApprovedGoverningDocumentPage, regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode))
+    answer(WhenGoverningDocumentApprovedPage, regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))
 
   def isApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(IsApprovedGoverningDocumentPage, regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode))

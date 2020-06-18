@@ -16,6 +16,8 @@
 
 package viewModels.regulatorsAndDocuments
 
+import java.time.LocalDate
+
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
@@ -32,7 +34,8 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
   val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
     .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head).flatMap
-     (_.set(IsApprovedGoverningDocumentPage,true)).success.value
+    (_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2))).flatMap
+    (_.set(IsApprovedGoverningDocumentPage,true)).success.value
   )
 
   "Check Your Answers Helper" must {
@@ -46,6 +49,18 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages(s"selectGoverningDocument.$MemorandumArticlesAssociation"),
           Some(messages("selectGoverningDocument.checkYourAnswersLabel")),
           regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+    "For the WhenGoverningDocumentApproved answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.dateApprovedGoverningDocumentRow mustBe Some(summaryListRow(
+          messages("whenGoverningDocumentApproved.checkYourAnswersLabel"),
+          "2 January 2000",
+          Some(messages("whenGoverningDocumentApproved.checkYourAnswersLabel")),
+          regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

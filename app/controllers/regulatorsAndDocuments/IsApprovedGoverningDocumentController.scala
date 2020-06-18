@@ -22,9 +22,9 @@ import controllers.actions._
 import forms.regulatorsAndDocuments.IsApprovedGoverningDocumentFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.RegulatorsAndDocumentsNavigator
+import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.IsApprovedGoverningDocumentPage
-import pages.sections.Section2Page
+import pages.sections.Section3Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.IsApprovedGoverningDocumentView
@@ -33,7 +33,7 @@ import scala.concurrent.Future
 
 class IsApprovedGoverningDocumentController @Inject()(
     sessionRepository: UserAnswerRepository,
-    navigator: RegulatorsAndDocumentsNavigator,
+    navigator: DocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
@@ -62,7 +62,7 @@ class IsApprovedGoverningDocumentController @Inject()(
 
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(IsApprovedGoverningDocumentPage, value).flatMap(_.set(Section2Page, false)))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(IsApprovedGoverningDocumentPage, value).flatMap(_.set(Section3Page, false)))
             _              <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(IsApprovedGoverningDocumentPage, mode, updatedAnswers))
       )

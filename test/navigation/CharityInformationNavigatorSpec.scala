@@ -17,11 +17,13 @@
 package navigation
 
 import base.SpecBase
+import controllers.charityInformation.{routes => charityInfoRoutes}
 import controllers.routes
 import models._
+import models.addressLookup.{AddressModel, CountryModel}
+import pages.IndexPage
+import pages.addressLookup.CharityInformationAddressLookupPage
 import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
-import pages.{IndexPage, QuestionPage}
-import controllers.charityInformation.{routes => charityInfoRoutes}
 
 class CharityInformationNavigatorSpec extends SpecBase {
 
@@ -52,10 +54,25 @@ class CharityInformationNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Index  page when clicked continue button" in {
+        "go to the CharityInformationAddressLookupController page when clicked continue button" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad()
+            controllers.addressLookup.routes.CharityInformationAddressLookupController.initializeJourney()
+        }
+      }
+
+      "from the CharityInformationAddressLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityInformationAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Send letters page when clicked continue button" in {
+          navigator.nextPage(CharityInformationAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityInformationAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad() // TODO once send letter page created
         }
       }
 
@@ -79,8 +96,5 @@ class CharityInformationNavigatorSpec extends SpecBase {
       }
     }
 
-    def userAnsewers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
-      emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
-    }
   }
 }

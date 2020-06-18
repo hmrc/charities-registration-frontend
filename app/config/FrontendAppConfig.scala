@@ -56,7 +56,12 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
   lazy val timeout: Int = servicesConfig.getInt("timeout.timeout")
   lazy val countdown: Int = servicesConfig.getInt("timeout.countdown")
 
+  // Address lookup
   lazy val addressLookupFrontend: String = servicesConfig.baseUrl("address-lookup-frontend")
+  lazy val retrieveAddressUrl: String =  addressLookupFrontend + "/api/confirmed"
+
+  def feedbackUrlAddressLookup: String =
+    s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
 
   //Footer Links
   lazy val cookies: String = host + servicesConfig.getString("urls.footer.cookies")

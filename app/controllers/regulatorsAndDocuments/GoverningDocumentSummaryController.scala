@@ -43,9 +43,9 @@ class GoverningDocumentSummaryController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val GoverningDocumentAnswersHelper = new GoverningDocumentSummaryHelper(request.userAnswers)
+    val governingDocumentAnswersHelper = new GoverningDocumentSummaryHelper(request.userAnswers)
 
-    Ok(view(GoverningDocumentAnswersHelper.rows, GoverningDocumentSummaryPage,
+    Ok(view(governingDocumentAnswersHelper.rows, GoverningDocumentSummaryPage,
       controllers.regulatorsAndDocuments.routes.GoverningDocumentSummaryController.onSubmit()))
   }
 

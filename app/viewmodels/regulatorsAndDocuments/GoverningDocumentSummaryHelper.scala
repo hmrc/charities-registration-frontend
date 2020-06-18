@@ -16,20 +16,20 @@
 
 package viewmodels.regulatorsAndDocuments
 
-import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 
 class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
                                     (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper with CurrencyFormatter {
 
   def selectGoverningDocumentRow: Option[SummaryListRow] =
-    answer(SelectGoverningDocumentPage, regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),true)
+    answer(SelectGoverningDocumentPage, regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode))
 
   def dateApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(WhenGoverningDocumentApprovedPage, regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))
@@ -40,7 +40,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
   val rows: Seq[SummaryListRow] = Seq(
     selectGoverningDocumentRow,
     dateApprovedGoverningDocumentRow,
-    isApprovedGoverningDocumentRow,
+    isApprovedGoverningDocumentRow
   ).flatten
 
 }

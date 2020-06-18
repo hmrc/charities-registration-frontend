@@ -24,6 +24,8 @@ import models.regulators.SelectGoverningDocument.Other
 import pages.Page
 import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
+
 
 class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
@@ -31,7 +33,9 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, NormalMode)
 
-    case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => IsApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
+    case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, NormalMode)
+
+    case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
 
     case _ => _ => routes.IndexController.onPageLoad()
   }
@@ -50,13 +54,18 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
   private def selectGoverningDocumentPagePageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectGoverningDocumentPage) match {
     case Some(Other) => routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
-    case Some(_) => routes.IndexController.onPageLoad()  // TODO modify once Governing Document approved page is created
+    case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def IsApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
+  private def whenGoverningDocumentApprovedPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(WhenGoverningDocumentApprovedPage) match {
+    case Some(_) => regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(mode)
+    case _ => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
     case Some(true) => routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
-    case Some(false) => routes.IndexController.onPageLoad()  // TODO modify once Governing Document approved page is created
+    case Some(false) => routes.IndexController.onPageLoad()  // TODO modify once Changed Governing Document page is created
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 

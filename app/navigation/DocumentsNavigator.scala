@@ -17,6 +17,7 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models._
@@ -24,8 +25,6 @@ import models.regulators.SelectGoverningDocument.Other
 import pages.Page
 import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
-import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
-
 
 class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
@@ -36,6 +35,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
     case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, NormalMode)
 
     case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
+
+    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
   }
@@ -64,8 +65,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
-    case Some(true) => routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
-    case Some(false) => routes.IndexController.onPageLoad()  // TODO modify once Changed Governing Document page is created
+    case Some(true) => routes.IndexController.onPageLoad() // TODO modify once Have you changed governing document page is created
+    case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 

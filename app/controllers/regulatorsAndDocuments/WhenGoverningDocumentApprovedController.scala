@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.Mode
 import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.WhenGoverningDocumentApprovedPage
-import pages.sections.Section2Page
+import pages.sections.Section3Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
@@ -32,15 +32,15 @@ import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 import scala.concurrent.Future
 
 class WhenGoverningDocumentApprovedController @Inject()(
-                                                val sessionRepository: UserAnswerRepository,
-                                                val navigator: DocumentsNavigator,
-                                                identify: AuthIdentifierAction,
-                                                getData: UserDataRetrievalAction,
-                                                requireData: DataRequiredAction,
-                                                formProvider: WhenGoverningDocumentApprovedFormProvider,
-                                                val controllerComponents: MessagesControllerComponents,
-                                                view: WhenGoverningDocumentApprovedView
-                                              )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    val sessionRepository: UserAnswerRepository,
+    val navigator: DocumentsNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: WhenGoverningDocumentApprovedFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: WhenGoverningDocumentApprovedView
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
@@ -61,7 +61,7 @@ class WhenGoverningDocumentApprovedController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(WhenGoverningDocumentApprovedPage, value).flatMap(_.set(Section2Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(WhenGoverningDocumentApprovedPage, value).flatMap(_.set(Section3Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(WhenGoverningDocumentApprovedPage, mode, updatedAnswers))
     )

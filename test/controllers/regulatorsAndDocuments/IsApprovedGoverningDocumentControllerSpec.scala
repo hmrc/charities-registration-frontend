@@ -20,8 +20,8 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.IsApprovedGoverningDocumentFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
-import navigation.RegulatorsAndDocumentsNavigator
+import navigation.DocumentsNavigator
+import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
@@ -42,7 +42,7 @@ class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndA
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-        bind[RegulatorsAndDocumentsNavigator].toInstance(FakeRegulatorsAndDocumentsNavigator),
+        bind[DocumentsNavigator].toInstance(FakeDocumentsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 

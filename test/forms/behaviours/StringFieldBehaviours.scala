@@ -25,17 +25,27 @@ trait StringFieldBehaviours extends FieldBehaviours {
                          maxLength: Int,
                          lengthError: FormError): Unit = {
 
-    s"not bind strings longer than $maxLength characters" in {
-
-      forAll(stringsLongerThan(maxLength) -> "longString") {
-        string =>
-          val result = form.bind(Map(fieldName -> string)).apply(fieldName)
-          result.errors.headOption mustEqual Some(lengthError)
+    forAll(stringsLongerThan(maxLength) -> "longString") {
+      string =>
+      s"not bind strings longer than $maxLength characters for $string" in {
+        val result = form.bind(Map(fieldName -> string)).apply(fieldName)
+        result.errors.headOption mustEqual Some(lengthError)
       }
     }
   }
 
-  def bindValidValues(form: Form[String], fieldName: String)(values: String*) = {
+  def fieldWithRegex(form: Form[_],
+                     fieldName: String,
+                     invalidString: String,
+                     error: FormError): Unit = {
+
+    s"not bind $invalidString invalidated by regex" in {
+      val result = form.bind(Map(fieldName -> invalidString)).apply(fieldName)
+      result.errors mustEqual Seq(error)
+    }
+  }
+
+  def bindValidValues(form: Form[String], fieldName: String)(values: String*): Unit = {
     values.foreach { value =>
       s"bind valid value $value" in {
         form.bind(Map(fieldName -> value)).hasErrors mustBe false
@@ -43,7 +53,7 @@ trait StringFieldBehaviours extends FieldBehaviours {
     }
   }
 
-  def notBindInvalidValues(form: Form[String], fieldName: String, error: String, args: Any*)(values: String*) = {
+  def notBindInvalidValues(form: Form[String], fieldName: String, error: String, args: Any*)(values: String*): Unit = {
     values.foreach { value =>
       s"not bind invalid value $value" in {
         val result = form.bind(Map(fieldName -> value))

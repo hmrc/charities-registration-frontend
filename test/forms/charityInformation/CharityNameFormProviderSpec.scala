@@ -22,24 +22,21 @@ import play.api.data.FormError
 
 class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
-  val maxLength = 160
-
-val formProvider = new CharityNameFormProvider()
-  val form = formProvider()
-
+  private val maxLength = 160
+  private val formProvider = new CharityNameFormProvider()
+  private val form = formProvider()
 
   ".fullName" must {
 
+    val fieldName = "fullName"
     val requiredKey = "charityName.fullName.error.required"
     val lengthKey = "charityName.fullName.error.length"
-
-
-    val fieldName = "fullName"
+    val invalidKey = "charityName.fullName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
       fieldName,
-      stringsWithMaxLength(maxLength)
+      nonEmptyString
     )
 
     behave like fieldWithMaxLength(
@@ -54,18 +51,25 @@ val formProvider = new CharityNameFormProvider()
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "()invalidName",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+    )
   }
 
   ".operatingName" must {
 
     val fieldName = "operatingName"
-
     val lengthKey = "charityName.operatingName.error.length"
+    val invalidKey = "charityName.operatingName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
       fieldName,
-      stringsWithMaxLength(maxLength)
+      nonEmptyString
     )
 
     behave like fieldWithMaxLength(
@@ -73,6 +77,13 @@ val formProvider = new CharityNameFormProvider()
       fieldName,
       maxLength = maxLength,
       lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+    )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "CName&",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
     )
   }
 

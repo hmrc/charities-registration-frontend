@@ -32,6 +32,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
     val fieldName = "regulatorName"
     val requiredKey = "charityOtherRegulatorDetails.regulatorName.error.required"
     val lengthKey = "charityOtherRegulatorDetails.regulatorName.error.length"
+    val invalidKey = "charityOtherRegulatorDetails.regulatorName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -51,6 +52,13 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       maxLength = maxLengthRegulatorName,
       lengthError = FormError(fieldName, lengthKey, Seq(maxLengthRegulatorName))
     )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "123456&",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+    )
   }
 
   ".registrationNumber" must {
@@ -58,6 +66,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
     val fieldName = "registrationNumber"
     val requiredKey = "charityOtherRegulatorDetails.registrationNumber.error.required"
     val lengthKey = "charityOtherRegulatorDetails.registrationNumber.error.length"
+    val invalidKey = "charityOtherRegulatorDetails.registrationNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -76,6 +85,13 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       fieldName,
       maxLength = maxLengthRegistrationNumber,
       lengthError = FormError(fieldName, lengthKey, Seq(maxLengthRegistrationNumber))
+    )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "123456&",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
     )
   }
 

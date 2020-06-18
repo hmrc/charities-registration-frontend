@@ -29,21 +29,17 @@ class OptionFieldBehaviours extends FieldBehaviours {
     "bind all valid values" in {
 
       for(value <- validValues) {
-
         val result = form.bind(Map(fieldName -> value.toString)).apply(fieldName)
         result.value.value mustEqual value.toString
       }
     }
 
-    "not bind invalid values" in {
-
-      val generator = stringsExceptSpecificValues(validValues.map(_.toString))
-
-      forAll(generator -> "invalidValue") {
-        value =>
-
-          val result = form.bind(Map(fieldName -> value)).apply(fieldName)
-          result.errors mustEqual Seq(invalidError)
+    val generator = stringsExceptSpecificValues(validValues.map(_.toString))
+    forAll(generator -> "invalidValue") {
+      value =>
+      s"not bind invalid values like $value" in {
+        val result = form.bind(Map(fieldName -> value)).apply(fieldName)
+        result.errors mustEqual Seq(invalidError)
       }
     }
   }

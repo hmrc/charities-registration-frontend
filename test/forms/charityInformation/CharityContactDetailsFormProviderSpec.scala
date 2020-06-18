@@ -17,7 +17,7 @@
 package forms.charityInformation
 
 import forms.behaviours.StringFieldBehaviours
-import models.{CharityContactDetails, CharityName}
+import models.CharityContactDetails
 import play.api.data.FormError
 
 class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
@@ -29,7 +29,7 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
   ".mainPhoneNumber" must {
 
     val requiredKey = "charityContactDetails.mainPhoneNumber.error.required"
-
+    val invalidKey = "charityContactDetails.mainPhoneNumber.error.format"
 
     val fieldName = "mainPhoneNumber"
 
@@ -44,11 +44,19 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "invalidPhone",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateTelephoneNumber))
+    )
   }
 
   ".alternativePhoneNumber" must {
 
     val fieldName = "alternativePhoneNumber"
+    val invalidKey = "charityContactDetails.alternativePhoneNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -56,13 +64,22 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
       nonEmptyString
     )
 
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "invalidPhone",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateTelephoneNumber))
+    )
+
   }
+
   ".emailAddress" must {
 
     val fieldName = "emailAddress"
 
     val lengthKey = "charityContactDetails.emailAddress.error.length"
     val requiredKey = "charityContactDetails.emailAddress.error.required"
+    val invalidKey = "charityContactDetails.emailAddress.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -81,6 +98,13 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
       fieldName,
       maxLength = maxLength,
       lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+    )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "invalidEmail",
+      FormError(fieldName, invalidKey, Seq(formProvider.emailAddressPattern))
     )
   }
 

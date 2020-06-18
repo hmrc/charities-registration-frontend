@@ -21,10 +21,11 @@ import controllers.LocalBaseController
 import controllers.actions._
 import forms.charityInformation.CharityContactDetailsFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{CharityContactDetails, Mode}
 import navigation.CharityInformationNavigator
 import pages.charityInformation.CharityContactDetailsPage
 import pages.sections.Section1Page
+import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.charityInformation.CharityContactDetailsView
@@ -41,7 +42,8 @@ class CharityContactDetailsController @Inject()(
     val controllerComponents: MessagesControllerComponents,
     view: CharityContactDetailsView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
+
+  val form: Form[CharityContactDetails] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 

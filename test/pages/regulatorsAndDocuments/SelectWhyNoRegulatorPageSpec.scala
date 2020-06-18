@@ -18,7 +18,7 @@ package pages.regulatorsAndDocuments
 
 import models.UserAnswers
 import models.regulators.SelectWhyNoRegulator
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 
@@ -27,7 +27,7 @@ class SelectWhyNoRegulatorPageSpec extends PageBehaviours{
   "SelectWhyNoRegulatorPage" must {
 
     implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectWhyNoRegulator] = Arbitrary {
-      SelectWhyNoRegulator.values.head
+      Gen.oneOf(SelectWhyNoRegulator.values)
     }
 
     beRetrievable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)

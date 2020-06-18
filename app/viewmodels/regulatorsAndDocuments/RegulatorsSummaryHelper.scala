@@ -50,7 +50,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     answerOtherRegulator(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
 
   def selectWhyNoRegulatorRow: Option[SummaryListRow] =
-    answer(SelectWhyNoRegulatorPage, regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode), true)
+    answer(SelectWhyNoRegulatorPage, regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode), answerIsMsgKey = true)
 
   def whyNotRegsiteredCharityRow: Option[SummaryListRow] =
     answer(WhyNotRegisteredWithCharityPage, regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode))
@@ -76,7 +76,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
 
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel"),
-        ans.foldLeft("")((accumulator,item) => accumulator +"<div>"+ messages(s"$page.$item") + "</div>"),
+        ans.foldLeft("")((accumulator,item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>"),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

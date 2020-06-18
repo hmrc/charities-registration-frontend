@@ -24,40 +24,35 @@ trait IntFieldBehaviours extends FieldBehaviours {
                fieldName: String,
                nonNumericError: FormError,
                wholeNumberError: FormError): Unit = {
-
-    "not bind non-numeric numbers" in {
-
-      forAll(nonNumerics -> "nonNumeric") {
-        nonNumeric =>
-          val result = form.bind(Map(fieldName -> nonNumeric)).apply(fieldName)
-          result.errors mustEqual Seq(nonNumericError)
+    forAll(nonNumerics -> "nonNumeric") {
+      nonNumeric =>
+      s"not bind non-numeric numbers value $nonNumeric" in {
+        val result = form.bind(Map(fieldName -> nonNumeric)).apply(fieldName)
+        result.errors mustEqual Seq(nonNumericError)
       }
     }
 
-    "not bind decimals" in {
-
-      forAll(decimals -> "decimal") {
-        decimal =>
-          val result = form.bind(Map(fieldName -> decimal)).apply(fieldName)
-          result.errors mustEqual Seq(wholeNumberError)
+    forAll(decimals -> "decimal") {
+      decimal =>
+      s"not bind decimals value $decimal" in {
+        val result = form.bind(Map(fieldName -> decimal)).apply(fieldName)
+        result.errors mustEqual Seq(wholeNumberError)
       }
     }
 
-    "not bind integers larger than Int.MaxValue" in {
-
-      forAll(intsLargerThanMaxValue -> "massiveInt") {
-        num: BigInt =>
-          val result = form.bind(Map(fieldName -> num.toString)).apply(fieldName)
-          result.errors mustEqual Seq(nonNumericError)
+    forAll(intsLargerThanMaxValue -> "massiveInt") {
+      num: BigInt =>
+      s"not bind integers larger than Int.MaxValue value $num" in {
+        val result = form.bind(Map(fieldName -> num.toString)).apply(fieldName)
+        result.errors mustEqual Seq(nonNumericError)
       }
     }
 
-    "not bind integers smaller than Int.MinValue" in {
-
-      forAll(intsSmallerThanMinValue -> "massivelySmallInt") {
-        num: BigInt =>
-          val result = form.bind(Map(fieldName -> num.toString)).apply(fieldName)
-          result.errors mustEqual Seq(nonNumericError)
+    forAll(intsSmallerThanMinValue -> "massivelySmallInt") {
+      num: BigInt =>
+      s"not bind integers smaller than Int.MinValue with $num" in {
+        val result = form.bind(Map(fieldName -> num.toString)).apply(fieldName)
+        result.errors mustEqual Seq(nonNumericError)
       }
     }
   }
@@ -67,12 +62,11 @@ trait IntFieldBehaviours extends FieldBehaviours {
                           minimum: Int,
                           expectedError: FormError): Unit = {
 
-    s"not bind integers below $minimum" in {
-
-      forAll(intsBelowValue(minimum) -> "intBelowMin") {
-        number: Int =>
-          val result = form.bind(Map(fieldName -> number.toString)).apply(fieldName)
-          result.errors mustEqual Seq(expectedError)
+    forAll(intsBelowValue(minimum) -> "intBelowMin") {
+      number: Int =>
+      s"not bind integers below $minimum value $number" in {
+        val result = form.bind(Map(fieldName -> number.toString)).apply(fieldName)
+        result.errors mustEqual Seq(expectedError)
       }
     }
   }
@@ -82,10 +76,9 @@ trait IntFieldBehaviours extends FieldBehaviours {
                           maximum: Int,
                           expectedError: FormError): Unit = {
 
-    s"not bind integers above $maximum" in {
-
-      forAll(intsAboveValue(maximum) -> "intAboveMax") {
-        number: Int =>
+    forAll(intsAboveValue(maximum) -> "intAboveMax") {
+      number: Int =>
+      s"not bind integers above $maximum value $number" in {
           val result = form.bind(Map(fieldName -> number.toString)).apply(fieldName)
           result.errors mustEqual Seq(expectedError)
       }
@@ -98,12 +91,11 @@ trait IntFieldBehaviours extends FieldBehaviours {
                         maximum: Int,
                         expectedError: FormError): Unit = {
 
-    s"not bind integers outside the range $minimum to $maximum" in {
-
-      forAll(intsOutsideRange(minimum, maximum) -> "intOutsideRange") {
-        number =>
-          val result = form.bind(Map(fieldName -> number.toString)).apply(fieldName)
-          result.errors mustEqual Seq(expectedError)
+    forAll(intsOutsideRange(minimum, maximum) -> "intOutsideRange") {
+      number =>
+      s"not bind integers outside the range $minimum to $maximum value $number" in {
+        val result = form.bind(Map(fieldName -> number.toString)).apply(fieldName)
+        result.errors mustEqual Seq(expectedError)
       }
     }
   }

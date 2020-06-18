@@ -28,6 +28,7 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
   ".registrationNumber" must {
 
     val requiredKey = "charityCommissionRegistrationNumber.error.required"
+    val invalidKey = "charityCommissionRegistrationNumber.error.format"
 
     val fieldName = "registrationNumber"
 
@@ -41,6 +42,13 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
+    )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "invalidRegistrationNumber",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateRegistrationNumber))
     )
   }
 

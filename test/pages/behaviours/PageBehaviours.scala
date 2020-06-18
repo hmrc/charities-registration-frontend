@@ -16,7 +16,6 @@
 
 package pages.behaviours
 
-import generators.Generators
 import models.UserAnswers
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
@@ -24,6 +23,7 @@ import org.scalatest.{MustMatchers, OptionValues, TryValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import pages.QuestionPage
 import play.api.libs.json._
+import utils.Generators
 
 trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with Generators with OptionValues with TryValues {
 
@@ -34,16 +34,14 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
 
         "being retrieved from UserAnswers" when {
 
-          "the question has not been answered" in {
+          val gen = for {
+            page        <- genP
+            userAnswers <- arbitrary[UserAnswers]
+          } yield (page, userAnswers.remove(page).success.value)
 
-            val gen = for {
-              page        <- genP
-              userAnswers <- arbitrary[UserAnswers]
-            } yield (page, userAnswers.remove(page).success.value)
-
-            forAll(gen) {
-              case (page, userAnswers) =>
-
+          forAll(gen) {
+            case (page, userAnswers) =>
+              s"the question has not been answered $page" in {
                 userAnswers.get(page) must be(empty)
             }
           }
@@ -53,18 +51,15 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
       "return the saved value" when {
 
         "being retrieved from UserAnswers" when {
+          val gen = for {
+            page        <- genP
+            savedValue  <- arbitrary[A]
+            userAnswers <- arbitrary[UserAnswers]
+          } yield (page, savedValue, userAnswers.set(page, savedValue).success.value)
 
-          "the question has been answered" in {
-
-            val gen = for {
-              page        <- genP
-              savedValue  <- arbitrary[A]
-              userAnswers <- arbitrary[UserAnswers]
-            } yield (page, savedValue, userAnswers.set(page, savedValue).success.value)
-
-            forAll(gen) {
-              case (page, savedValue, userAnswers) =>
-
+          forAll(gen) {
+            case (page, savedValue, userAnswers) =>
+              s"the question has been answered $page and $savedValue" in {
                 userAnswers.get(page).value mustEqual savedValue
             }
           }
@@ -76,17 +71,15 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
   class BeSettable[A] {
     def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A]): Unit = {
 
-      "be able to be set on UserAnswers" in {
+      val gen = for {
+        page        <- genP
+        newValue    <- arbitrary[A]
+        userAnswers <- arbitrary[UserAnswers]
+      } yield (page, newValue, userAnswers)
 
-        val gen = for {
-          page        <- genP
-          newValue    <- arbitrary[A]
-          userAnswers <- arbitrary[UserAnswers]
-        } yield (page, newValue, userAnswers)
-
-        forAll(gen) {
-          case (page, newValue, userAnswers) =>
-
+      forAll(gen) {
+        case (page, newValue, userAnswers) =>
+          s"be able to be set on UserAnswers $page and $newValue" in {
             val updatedAnswers = userAnswers.set(page, newValue).success.value
             updatedAnswers.get(page).value mustEqual newValue
         }
@@ -96,18 +89,15 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
 
   class BeRemovable[A] {
     def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A]): Unit = {
+      val gen = for {
+        page        <- genP
+        savedValue  <- arbitrary[A]
+        userAnswers <- arbitrary[UserAnswers]
+      } yield (page, userAnswers.set(page, savedValue).success.value)
 
-      "be able to be removed from UserAnswers" in {
-
-        val gen = for {
-          page        <- genP
-          savedValue  <- arbitrary[A]
-          userAnswers <- arbitrary[UserAnswers]
-        } yield (page, userAnswers.set(page, savedValue).success.value)
-
-        forAll(gen) {
-          case (page, userAnswers) =>
-
+      forAll(gen) {
+        case (page, userAnswers) =>
+          s"be able to be removed from UserAnswers $page" in {
             val updatedAnswers = userAnswers.remove(page).success.value
             updatedAnswers.get(page) must be(empty)
         }

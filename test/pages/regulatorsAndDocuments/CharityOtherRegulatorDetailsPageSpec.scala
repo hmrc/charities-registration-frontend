@@ -17,7 +17,7 @@
 package pages.regulatorsAndDocuments
 
 import models.CharityOtherRegulatorDetails
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
 class CharityOtherRegulatorDetailsPageSpec extends PageBehaviours {
@@ -25,10 +25,7 @@ class CharityOtherRegulatorDetailsPageSpec extends PageBehaviours {
   "CharityOtherRegulatorDetailsPage" must {
 
     implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityOtherRegulatorDetails] = Arbitrary {
-      CharityOtherRegulatorDetails(
-        regulatorName = "ORegulatorName",
-        registrationNumber = "1234567"
-      )
+      CharityOtherRegulatorDetails(regulatorName = "ORegulatorName", registrationNumber = "1234567")
     }
 
     beRetrievable[CharityOtherRegulatorDetails](CharityOtherRegulatorDetailsPage)

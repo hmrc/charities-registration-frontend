@@ -17,20 +17,19 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.StringFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
 
   val formProvider = new ScottishRegulatorRegNumberFormProvider()
-  val form = formProvider()
+  val form: Form[String] = formProvider()
 
   ".registrationNumber" must {
 
-    val requiredKey = "scottishRegulatorRegNumber.error.required"
-
-
     val fieldName = "registrationNumber"
+    val requiredKey = "scottishRegulatorRegNumber.error.required"
+    val invalidKey = "scottishRegulatorRegNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -42,6 +41,13 @@ class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
+    )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "123456&",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateRegistrationNumber))
     )
   }
 

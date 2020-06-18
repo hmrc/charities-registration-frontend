@@ -24,7 +24,7 @@ import play.api.data.Forms._
 
 class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
 
-  val validateFields = "^[^@&:)(]+$"
+  val validateFields = """^[^@&:)(]+$"""
 
   def apply(): Form[CharityOtherRegulatorDetails] =
     Form(

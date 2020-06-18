@@ -16,7 +16,6 @@
 
 package pages.checkEligibility
 
-import pages.IndexPage
 import pages.behaviours.PageBehaviours
 
 class InEligiblePageSpec extends PageBehaviours {

@@ -14,17 +14,46 @@
  * limitations under the License.
  */
 
-package generators
+package utils
 
+import java.nio.charset.StandardCharsets
 import java.time.{Instant, LocalDate, ZoneOffset}
 
+import models.UserAnswers
 import org.scalacheck.Arbitrary._
 import org.scalacheck.Gen._
-import org.scalacheck.{Gen, Shrink}
+import org.scalacheck.{Arbitrary, Gen, Shrink}
+import org.scalatest.TryValues
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
+import pages.QuestionPage
+import play.api.libs.json.{JsValue, Json}
 
-trait Generators extends UserAnswersGenerator with PageGenerators with ModelGenerators with UserAnswersEntryGenerators {
+import scala.collection.immutable.NumericRange
+
+trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
+
+  implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
+    PropertyCheckConfiguration(minSuccessful = 1)
 
   implicit val dontShrink: Shrink[String] = Shrink.shrinkAny
+
+  implicit lazy val arbitraryUserData: Arbitrary[UserAnswers] = {
+
+    import models._
+
+    Arbitrary {
+      for {
+        id <- nonEmptyString
+        data <- Gen.const(Map[QuestionPage[_], JsValue]())
+      } yield UserAnswers(
+        id = id,
+        data = data.foldLeft(Json.obj()) {
+          case (obj, (path, value)) =>
+            obj.setObject(path.path, value).get
+        }
+      )
+    }
+  }
 
   def genIntersperseString(gen: Gen[String],
                            value: String,
@@ -63,7 +92,7 @@ trait Generators extends UserAnswersGenerator with PageGenerators with ModelGene
     arbitrary[BigInt] suchThat(x => x < Int.MinValue)
 
   def nonNumerics: Gen[String] =
-    alphaStr suchThat(_.size > 0)
+    alphaStr suchThat(_.nonEmpty)
 
   def decimals: Gen[String] =
     arbitrary[BigDecimal]
@@ -81,24 +110,26 @@ trait Generators extends UserAnswersGenerator with PageGenerators with ModelGene
     arbitrary[Int] suchThat(x => x < min || x > max)
 
   def nonBooleans: Gen[String] =
-    arbitrary[String]
+    nonEmptyString
       .suchThat (_.nonEmpty)
       .suchThat (_ != "true")
       .suchThat (_ != "false")
 
-  def nonEmptyString: Gen[String] =
-    arbitrary[String] suchThat (_.nonEmpty)
+  def nonEmptyString: Gen[String] = for {
+    length    <- Gen.chooseNum(1, 10)
+    chars     <- listOfN(length,  randomChar)
+  } yield chars.mkString
 
   def stringsWithMaxLength(maxLength: Int): Gen[String] =
     for {
       length <- choose(1, maxLength)
-      chars <- listOfN(length, arbitrary[Char])
+      chars <- listOfN(length,  randomChar)
     } yield chars.mkString
 
   def stringsLongerThan(minLength: Int): Gen[String] = for {
     maxLength <- (minLength * 2).max(100)
     length    <- Gen.chooseNum(minLength + 1, maxLength)
-    chars     <- listOfN(length, arbitrary[Char])
+    chars     <- listOfN(length,  randomChar)
   } yield chars.mkString
 
   def stringsExceptSpecificValues(excluded: Seq[String]): Gen[String] =
@@ -122,4 +153,12 @@ trait Generators extends UserAnswersGenerator with PageGenerators with ModelGene
         Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
     }
   }
+
+  private val unicodeCapitalEnglish: NumericRange.Inclusive[Char] = '\u0041' to '\u005A'
+  private val unicodeLowerEnglish: NumericRange.Inclusive[Char] = '\u0061' to '\u007A'
+  private val unicodeNumbers: NumericRange.Inclusive[Char] = '\u0030' to '\u0039'
+  private val specialCharacters: List[Char] = """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~""".getBytes(
+    StandardCharsets.UTF_8).map(_.toChar).toList
+  def randomChar: Gen[Char] = Gen.oneOf(specialCharacters ++ List(unicodeCapitalEnglish,
+    unicodeLowerEnglish, unicodeNumbers).flatten)
 }

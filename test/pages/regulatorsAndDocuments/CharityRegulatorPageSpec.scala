@@ -17,11 +17,17 @@
 package pages.regulatorsAndDocuments
 
 import models.regulators.CharityRegulator
+import org.scalacheck.{Arbitrary, Gen}
 import models.{CharityOtherRegulatorDetails, UserAnswers}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 
 class CharityRegulatorPageSpec extends PageBehaviours{
+
+  implicit lazy val arbitraryCharityRegulatorCheckbox: Arbitrary[CharityRegulator] =
+    Arbitrary {
+      Gen.oneOf(CharityRegulator.values)
+    }
 
   "CharityRegulatorPage" must {
 

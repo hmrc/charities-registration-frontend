@@ -17,15 +17,15 @@
 package pages.regulatorsAndDocuments
 
 import models.regulators.SelectGoverningDocument
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
 class SelectGoverningDocumentPageSpec extends PageBehaviours{
 
   "SelectGoverningDocument" must {
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectGoverningDocument] = Arbitrary {
-      SelectGoverningDocument.values.head
+    implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectGoverningDocument] =  Arbitrary {
+      Gen.oneOf(SelectGoverningDocument.values)
     }
 
     beRetrievable[SelectGoverningDocument](SelectGoverningDocumentPage)

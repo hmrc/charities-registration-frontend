@@ -17,7 +17,7 @@
 package pages.charityInformation
 
 import models.CharityName
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
 class CharityNamePageSpec extends PageBehaviours {

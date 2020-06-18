@@ -17,18 +17,18 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.StringFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours {
 
-
   val formProvider = new WhyNotRegisteredWithCharityFormProvider()
-  val form = formProvider()
+  val form: Form[String] = formProvider()
 
   ".value" must {
 
     val requiredKey = "whyNotRegisteredWithCharity.error.required"
     val lengthKey = "whyNotRegisteredWithCharity.error.length"
+    val invalidKey = "whyNotRegisteredWithCharity.error.format"
     val maxLength = 100
     val fieldName = "value"
 
@@ -49,6 +49,13 @@ class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours 
       fieldName,
       maxLength = maxLength,
       lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+    )
+
+    behave like fieldWithRegex(
+      form,
+      fieldName,
+      "abc@&",
+      FormError(fieldName, invalidKey, Seq(formProvider.validateReason))
     )
   }
 

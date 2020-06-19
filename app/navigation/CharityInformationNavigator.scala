@@ -17,13 +17,14 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.charityInformation.{routes => charityInfoRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
+import pages.addressLookup.CharityInformationAddressLookupPage
 import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
 import play.api.mvc.Call
-import controllers.charityInformation.{routes => charityInfoRoutes}
 
 
 class CharityInformationNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -34,9 +35,14 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => routes.IndexController.onPageLoad()
+      case Some(_) => controllers.addressLookup.routes.CharityInformationAddressLookupController.initializeJourney()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
+    case CharityInformationAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityInformationAddressLookupPage) match {
+      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once send letters page is created
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

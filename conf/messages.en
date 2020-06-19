@@ -131,6 +131,43 @@ index.section.notStarted = Not started
 index.section.inpProgress = In progress
 index.section.completed = Completed
 
+# AddressLookup Messages
+# ----------------------------------------------------------
+addressLookup.lookupPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
+addressLookup.lookupPage.heading = What is your charity''s address?
+addressLookup.lookupPage.filterLabel = Property name or number (optional)
+addressLookup.LookupPage.postcodeLabel = Postcode search
+addressLookup.lookupPage.submitLabel = Find address
+addressLookup.lookupPage.noResultsFoundMessage =
+addressLookup.lookupPage.resultLimitExceededMessage =
+addressLookup.lookupPage.manualAddressLinkText = Charity''s address does not have a UK postcode
+
+addressLookup.selectPage.title = Select your charity''s official address - Charity Information - Register your charity''s details with HMRC - GOV.UK
+addressLookup.selectPage.heading = What is your charity''s full address?
+addressLookup.selectPage.headingWithPostcode = Postcode search
+addressLookup.selectPage.proposalListLabel =
+addressLookup.selectPage.submitLabel = Continue
+addressLookup.selectPage.searchAgainLinkText =
+addressLookup.selectPage.editAddressLinkText = Enter charity''s address manually
+
+addressLookup.editPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
+addressLookup.editPage.heading = What is your charity''s full address?
+addressLookup.editPage.line1Label = Address line 1
+addressLookup.editPage.line2Label = Address line 2 (optional)
+addressLookup.editPage.line3Label = Address line 3 (optional)
+addressLookup.editPage.townLabel = Town or city
+addressLookup.editPage.postcodeLabel = Postcode or Zipcode (optional)
+addressLookup.editPage.submitLabel = Continue
+
+addressLookup.confirmPage.title = Confirm your charity''s address - Charity Information - Register your charity''s details with HMRC - GOV.UK
+addressLookup.confirmPage.heading = Confirm your charity''s address
+addressLookup.confirmPage.infoMessage =
+addressLookup.confirmPage.infoSubheading = Your selected address
+addressLookup.confirmPage.submitLabel = Confirm and continue
+addressLookup.confirmPage.searchAgainLinkText =
+addressLookup.confirmPage.changeLinkText = Change charity’s address
+addressLookup.confirmPage.confirmChangeText =
+
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------
 isEligiblePurpose.title = Is your charity for charitable purposes only?

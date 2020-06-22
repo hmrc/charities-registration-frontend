@@ -23,7 +23,7 @@ import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import pages.IndexPage
 import pages.addressLookup.CharityInformationAddressLookupPage
-import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
+import pages.charityInformation.{CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 
 class CharityInformationNavigatorSpec extends SpecBase {
 
@@ -72,7 +72,15 @@ class CharityInformationNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityInformationAddressLookupPage, NormalMode,
             emptyUserAnswers.set(CharityInformationAddressLookupPage,
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO once send letter page created
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()// TODO once send letter page created
+        }
+      }
+
+      "from the Summary page" must {
+
+        "go to the Task List page when click continue button" in {
+          navigator.nextPage(CharityInformationSummaryPage, NormalMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
         }
       }
 

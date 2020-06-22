@@ -25,6 +25,7 @@ import models.Mode
 import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.IsApprovedGoverningDocumentPage
 import pages.sections.Section3Page
+import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.IsApprovedGoverningDocumentView
@@ -41,7 +42,8 @@ class IsApprovedGoverningDocumentController @Inject()(
     val controllerComponents: MessagesControllerComponents,
     view: IsApprovedGoverningDocumentView
  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
+
+  val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>

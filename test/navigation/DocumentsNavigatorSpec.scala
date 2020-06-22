@@ -97,7 +97,7 @@ class DocumentsNavigatorSpec extends SpecBase {
       "from the Summary page" must {
 
         "go to the Task List page when click continue button" in {
-          navigator.nextPage(RegulatorsSummaryPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad() // TODO modify once next page created
         }
       }

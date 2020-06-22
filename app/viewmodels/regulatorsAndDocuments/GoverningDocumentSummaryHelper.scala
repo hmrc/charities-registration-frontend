@@ -29,7 +29,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
   with SummaryListRowHelper with CurrencyFormatter {
 
   def selectGoverningDocumentRow: Option[SummaryListRow] =
-    answer(SelectGoverningDocumentPage, regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode))
+    answer(SelectGoverningDocumentPage, regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),answerIsMsgKey = true)
 
   def dateApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(WhenGoverningDocumentApprovedPage, regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))

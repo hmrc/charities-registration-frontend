@@ -25,7 +25,7 @@ import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.IsCharityRegulatorPage
+import pages.regulatorsAndDocuments.IsApprovedGoverningDocumentPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -57,7 +57,7 @@ class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndA
 
   val controller: IsApprovedGoverningDocumentController = inject[IsApprovedGoverningDocumentController]
 
-  "IsCharityRegulator Controller " must {
+  "IsApprovedGoverningDocumentController Controller " must {
 
     "return OK and the correct view for a GET" in {
 
@@ -74,7 +74,7 @@ class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndA
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(IsCharityRegulatorPage, true).getOrElse(emptyUserAnswers))))
+        set(IsApprovedGoverningDocumentPage, true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

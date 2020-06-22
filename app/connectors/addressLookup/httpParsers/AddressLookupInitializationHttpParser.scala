@@ -38,7 +38,7 @@ object AddressLookupInitializationHttpParser {
               Left(NoLocationHeaderReturned)
           }
         case status =>
-          Logger.warn(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
+          Logger.error(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
           Left(DefaultedUnexpectedFailure(status))
       }
     }

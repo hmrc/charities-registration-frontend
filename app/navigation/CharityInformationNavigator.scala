@@ -23,7 +23,7 @@ import javax.inject.Inject
 import models._
 import pages.Page
 import pages.addressLookup.CharityInformationAddressLookupPage
-import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
+import pages.charityInformation.{CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 import play.api.mvc.Call
 
 
@@ -39,9 +39,11 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityInformationAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityInformationAddressLookupPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once send letters page is created
+      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad() // TODO modify once send letters page is created
       case _ => routes.SessionExpiredController.onPageLoad()
     }
+
+    case CharityInformationSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
   }

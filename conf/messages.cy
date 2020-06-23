@@ -234,6 +234,8 @@ charityName.operatingName.label = Operating name of your charity (optional)
 charityName.operatingName.hint = The working name or acronym by which your charity is known
 charityName.operatingName.error.length = Operating name must be 160 characters or less
 charityName.operatingName.error.format = The operating name of your charity must not include the following characters: & ( ) : @
+charityName.fullName.checkYourAnswersLabel = Charity''s full name
+charityName.operatingName.checkYourAnswersLabel = Operating name of your charity (optional)
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
@@ -249,6 +251,16 @@ charityContactDetails.emailAddress.label = Email address
 charityContactDetails.emailAddress.error.required = Enter your charity''s email address
 charityContactDetails.emailAddress.error.format = Enter your charity''s email address in the correct format, like name@example.com
 charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
+charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
+charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number (optional)
+charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
+
+# CharityInformation Summary page
+# ----------------------------------------------------------
+charityInformationSummary.checkYourAnswers.title = Check your charity''s contact details
+charityInformationSummary.checkYourAnswers.heading = Check your charity''s contact details
+charityInformationSummary.section = Charity information
+charityInformation.addressLookup.checkYourAnswersLabel = Official address
 
 # Section2 - Regulators and documents
 # ----------------------------------------------------------

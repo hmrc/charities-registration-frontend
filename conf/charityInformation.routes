@@ -9,5 +9,11 @@ POST       /contact-details                          controllers.charityInformat
 GET        /contact-details/change                   controllers.charityInformation.CharityContactDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /contact-details/change                   controllers.charityInformation.CharityContactDetailsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /send-letters                             controllers.charityInformation.CanWeSendToThisAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /send-letters                             controllers.charityInformation.CanWeSendToThisAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /send-letters/change                      controllers.charityInformation.CanWeSendToThisAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /send-letters/change                      controllers.charityInformation.CanWeSendToThisAddressController.onSubmit(mode: Mode = CheckMode)
+
 GET        /summary                                  controllers.charityInformation.CharityInformationSummaryController.onPageLoad()
 POST       /summary                                  controllers.charityInformation.CharityInformationSummaryController.onSubmit()
+

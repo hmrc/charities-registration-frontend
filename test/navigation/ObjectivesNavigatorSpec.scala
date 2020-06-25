@@ -20,15 +20,30 @@ import base.SpecBase
 import controllers.routes
 import models._
 import pages.IndexPage
+import pages.operationsAndFunds.CharitableObjectivesPage
 import pages.operationsAndFunds.PublicBenefitsPage
 
-class OperationsAndFundsNavigatorSpec extends SpecBase {
+class ObjectivesNavigatorSpec extends SpecBase {
 
-  val navigator = new OperationsAndFundsNavigator()
+  val navigator = new ObjectivesNavigator()
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {
+
+      "from the CharitableObjectivesPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharitableObjectivesPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the CharitablePurposes page when clicked button" in {
+          navigator.nextPage(CharitableObjectivesPage, NormalMode,
+            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once Charitable purposes page is created
+        }
+      }
 
       "from the PublicBenefits page" must {
 

@@ -19,35 +19,33 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.operationsAndFunds.PublicBenefitsFormProvider
+import forms.operationsAndFunds.CharitableObjectivesFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.ObjectivesNavigator
-import pages.operationsAndFunds.PublicBenefitsPage
+import pages.operationsAndFunds.CharitableObjectivesPage
 import pages.sections.Section4Page
-import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.operationsAndFunds.PublicBenefitsView
+import views.html.operationsAndFunds.CharitableObjectivesView
 
 import scala.concurrent.Future
 
-class PublicBenefitsController @Inject()(
+class CharitableObjectivesController @Inject()(
   val sessionRepository: UserAnswerRepository,
   val navigator: ObjectivesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,
-  formProvider: PublicBenefitsFormProvider,
+  formProvider: CharitableObjectivesFormProvider,
   val controllerComponents: MessagesControllerComponents,
-  view: PublicBenefitsView
+  view: CharitableObjectivesView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-
-  val form: Form[String] = formProvider()
+  val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val preparedForm = request.userAnswers.get(PublicBenefitsPage) match {
+    val preparedForm = request.userAnswers.get(CharitableObjectivesPage) match {
       case None => form
       case Some(value) => form.fill(value)
     }
@@ -63,9 +61,9 @@ class PublicBenefitsController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(PublicBenefitsPage, value).flatMap(_.set(Section4Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharitableObjectivesPage, value).flatMap(_.set(Section4Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(PublicBenefitsPage, mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(CharitableObjectivesPage, mode, updatedAnswers))
     )
   }
 }

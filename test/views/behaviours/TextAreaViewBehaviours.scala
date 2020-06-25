@@ -29,7 +29,8 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
                  messageKeyPrefix: String,
                  expectedHintKey: Option[String] = None,
                  section: Option[String] = None,
-                 headingArgs: Seq[String] = Seq()
+                 headingArgs: Seq[String] = Seq(),
+                 isPageHeading: Boolean = true
                 ) = {
 
     "behave like a page with a text area field" when {
@@ -40,7 +41,7 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
 
           val doc = asDocument(createView(form))
           val expectedHintText = expectedHintKey map (k => messages(k))
-          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.heading", headingArgs:_*), expectedHintText)
+          assertContainsLabel(doc, "value", messages(if(isPageHeading)s"$messageKeyPrefix.heading" else s"$messageKeyPrefix.label", headingArgs:_*), expectedHintText)
         }
 
         "contain an input for the value" in {

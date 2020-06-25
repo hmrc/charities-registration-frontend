@@ -1,0 +1,5 @@
+
+GET        /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onSubmit(mode: Mode = CheckMode)

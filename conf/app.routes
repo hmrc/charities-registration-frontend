@@ -17,6 +17,7 @@ GET        /keepalive                                   controllers.IndexControl
 ->         /charity-information                         charityInformation.Routes
 ->         /regulators-and-documents                    regulatorsAndDocuments.Routes
 ->         /address                                     address.Routes
+->         /operations-and-funds                        operationsAndFunds.Routes
 
 ### SignOut/Session Expired
 ### -----------------------

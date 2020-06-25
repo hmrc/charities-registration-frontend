@@ -255,14 +255,7 @@ charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number (optional)
 charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
 
-# CharityInformation Summary page
-# ----------------------------------------------------------
-charityInformationSummary.checkYourAnswers.title = Check your charity''s contact details
-charityInformationSummary.checkYourAnswers.heading = Check your charity''s contact details
-charityInformationSummary.section = Charity information
-charityInformation.addressLookup.checkYourAnswersLabel = Official address
-
-# CanWeSendToThisAddressPage Messages
+# CanWeSendLettersToThisAddressPage Messages
 # ----------------------------------------------------------
 
 canWeSendLettersToThisAddress.title = Can we send letters to this address?
@@ -270,6 +263,13 @@ canWeSendLettersToThisAddress.heading = Can we send letters to this address?
 canWeSendLettersToThisAddress.error.required = Select yes if we can send letters to this address
 canWeSendLettersToThisAddress.no.hint = I want to enter another address
 canWeSendLettersToThisAddress.checkYourAnswersLabel = Send letters to this address
+
+# CharityInformation Summary page
+# ----------------------------------------------------------
+charityInformationSummary.checkYourAnswers.title = Check your charity''s contact details
+charityInformationSummary.checkYourAnswers.heading = Check your charity''s contact details
+charityInformationSummary.section = Charity information
+charityInformation.addressLookup.checkYourAnswersLabel = Official address
 
 # Section2 - Regulators and documents
 # ----------------------------------------------------------
@@ -374,6 +374,9 @@ regulatorsSummary.checkYourAnswers.title = Check your charity''s regulator detai
 regulatorsSummary.checkYourAnswers.heading = Check your charity''s regulator details
 regulatorsSummary.section = Regulators and documents
 
+# Section3 - Documents
+# ----------------------------------------------------------
+
 # Select Governing Document Messages
 # ----------------------------------------------------------
 selectGoverningDocument.title = What governing document was used to set up and run your charity?
@@ -412,3 +415,16 @@ isApprovedGoverningDocument.checkYourAnswersLabel = Governing document has been 
 governingDocumentSummary.checkYourAnswers.title = Check your governing document details
 governingDocumentSummary.checkYourAnswers.heading = Check your governing document details
 governingDocumentSummary.section = Regulators and documents
+
+# Section4 - Operations and Funds
+# ----------------------------------------------------------
+operationsAndFunds.section = Operations and funds
+
+# Enter Public Benefits Messages
+# ----------------------------------------------------------
+publicBenefits.title = How does your charity benefit the public?
+publicBenefits.heading = How does your charity benefit the public?
+publicBenefits.error.required = Enter how your charity benefits the public
+publicBenefits.error.format = Your answer must not include the following characters: & ( ) : @
+publicBenefits.error.length = Your answer must be 255 characters or fewer
+publicBenefits.hint = Using 255 characters or less (including spaces).

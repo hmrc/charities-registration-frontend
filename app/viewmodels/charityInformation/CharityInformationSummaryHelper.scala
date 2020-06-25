@@ -19,7 +19,7 @@ package viewmodels.charityInformation
 import models.addressLookup.AddressModel
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
 import pages.addressLookup.CharityInformationAddressLookupPage
-import pages.charityInformation.{CharityContactDetailsPage, CharityNamePage}
+import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
@@ -44,6 +44,11 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
   def officialAddressRow: Seq[SummaryListRow] =
     userAnswers.get(CharityInformationAddressLookupPage).map{ address =>
       answerOfficialAddress(address, controllers.addressLookup.routes.CharityInformationAddressLookupController.initializeJourney())
+    }.fold(List[SummaryListRow]())(_.toList)
+
+  def canWeSendToThisAddressRow: Seq[SummaryListRow] =
+    userAnswers.get(CanWeSendToThisAddressPage).map{ boolean =>
+      answerCanWeSendToThisAddress(boolean, controllers.charityInformation.routes.CanWeSendToThisAddressController.onPageLoad(CheckMode))
     }.fold(List[SummaryListRow]())(_.toList)
 
   private def answerCharityName(charityName: CharityName,
@@ -114,11 +119,40 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
     )
   ).flatten
 
+  private def answerCanWeSendToThisAddress(canWeSendToThisAddress: Boolean,
+                                    changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
+
+    canWeSendToThisAddress match {
+      case true => userAnswers.get(CharityInformationAddressLookupPage).map { address =>
+        summaryListRow(
+          label = messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
+          value = s"${messages("site.yes")}<div>${
+                  Seq(Some(address.lines.mkString(", ")),
+                    address.postcode,
+                    Some(address.country.name)).flatten.mkString(", ")}</div>",
+          visuallyHiddenText = Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+        )
+      }
+
+      case _ =>
+        Some(
+          summaryListRow(
+            label = messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
+            value = s"${messages("site.no")}<div>${messages("canWeSendLettersToThisAddress.no.hint")}</div>",
+            visuallyHiddenText = Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
+            changeLinkCall -> messages("site.edit")
+          )
+        )
+    }
+
+  ).flatten
 
   val rows: Seq[SummaryListRow] = Seq(
     charityNameRows,
     charityContactDetailsRows,
-    officialAddressRow
+    officialAddressRow,
+    canWeSendToThisAddressRow
   ).flatten
 
 }

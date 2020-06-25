@@ -81,7 +81,7 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Index Controller page  when yes is selected" in {
+        "go to the Index Controller page when yes is selected" in {
 
           navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe

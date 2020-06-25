@@ -262,6 +262,15 @@ charityInformationSummary.checkYourAnswers.heading = Check your charity''s conta
 charityInformationSummary.section = Charity information
 charityInformation.addressLookup.checkYourAnswersLabel = Official address
 
+# CanWeSendToThisAddressPage Messages
+# ----------------------------------------------------------
+
+canWeSendLettersToThisAddress.title = Can we send letters to this address?
+canWeSendLettersToThisAddress.heading = Can we send letters to this address?
+canWeSendLettersToThisAddress.error.required = Select yes if we can send letters to this address
+canWeSendLettersToThisAddress.no.hint = I want to enter another address
+canWeSendLettersToThisAddress.checkYourAnswersLabel = Send letters to this address
+
 # Section2 - Regulators and documents
 # ----------------------------------------------------------
 charityRegulator.section = Regulators and documents
@@ -378,19 +387,6 @@ selectGoverningDocument.will = Will
 selectGoverningDocument.other = Other
 selectGoverningDocument.checkYourAnswersLabel = Governing document name
 
-# IsApprovedGoverningDocument Messages
-# ----------------------------------------------------------
-isApprovedGoverningDocument.title = Is the governing document approved by a national organisation, parent body or principle regulator?
-isApprovedGoverningDocument.heading = Is the governing document approved by a national organisation, parent body or principle regulator?
-isApprovedGoverningDocument.error.required = Select yes if the governing document is approved by a national organisation, parent body or principle regulator
-isApprovedGoverningDocument.checkYourAnswersLabel = Governing document has been approved by a charity regulator
-
-# GoverningDocument Summary page
-# ----------------------------------------------------------
-governingDocumentSummary.checkYourAnswers.title = Check your governing document details
-governingDocumentSummary.checkYourAnswers.heading = Check your governing document details
-governingDocumentSummary.section = Regulators and documents
-
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
 whenGoverningDocumentApproved.title = When was the governing document approved?
@@ -403,3 +399,16 @@ whenGoverningDocumentApproved.error.required.two = Enter the {0} and the {1} whe
 whenGoverningDocumentApproved.error.required = Enter the {0} when the governing document was approved
 whenGoverningDocumentApproved.error.future = The date when the governing document was approved must be today or in the past.
 whenGoverningDocumentApproved.checkYourAnswersLabel = Date governing document was approved
+
+# IsApprovedGoverningDocument Messages
+# ----------------------------------------------------------
+isApprovedGoverningDocument.title = Is the governing document approved by a national organisation, parent body or principle regulator?
+isApprovedGoverningDocument.heading = Is the governing document approved by a national organisation, parent body or principle regulator?
+isApprovedGoverningDocument.error.required = Select yes if the governing document is approved by a national organisation, parent body or principle regulator
+isApprovedGoverningDocument.checkYourAnswersLabel = Governing document has been approved by a charity regulator
+
+# GoverningDocument Summary page
+# ----------------------------------------------------------
+governingDocumentSummary.checkYourAnswers.title = Check your governing document details
+governingDocumentSummary.checkYourAnswers.heading = Check your governing document details
+governingDocumentSummary.section = Regulators and documents

@@ -23,7 +23,7 @@ import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import pages.IndexPage
 import pages.addressLookup.CharityInformationAddressLookupPage
-import pages.charityInformation.{CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
+import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 
 class CharityInformationNavigatorSpec extends SpecBase {
 
@@ -72,7 +72,27 @@ class CharityInformationNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityInformationAddressLookupPage, NormalMode,
             emptyUserAnswers.set(CharityInformationAddressLookupPage,
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
-            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()// TODO once send letter page created
+            charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the CanWeSendToThisAddressPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when yes is selected" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage,true).success.value) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+        }
+
+        "go to the Postal Address Lookup flow when no is selected" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage,false).success.value) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad() //TODO modify once Postal Address Lookup flow is created
         }
       }
 

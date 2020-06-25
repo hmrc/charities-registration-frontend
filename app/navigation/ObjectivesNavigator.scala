@@ -22,11 +22,17 @@ import javax.inject.Inject
 import models._
 import pages.Page
 import pages.operationsAndFunds.PublicBenefitsPage
+import pages.operationsAndFunds.CharitableObjectivesPage
 import play.api.mvc.Call
 
-class OperationsAndFundsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call =  {
+
+    case CharitableObjectivesPage => userAnswers: UserAnswers => userAnswers.get(CharitableObjectivesPage) match {
+      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once Charitable purposes page is created
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
 
     case PublicBenefitsPage => userAnswers: UserAnswers => userAnswers.get(PublicBenefitsPage) match {
       case Some(_) => routes.IndexController.onPageLoad() // TODO modify once summary page created

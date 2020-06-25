@@ -1,4 +1,9 @@
 
+GET        /charitable-objectives                                     controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = NormalMode)
+POST       /charitable-objectives                                     controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = NormalMode)
+GET        /charitable-objectives/change                              controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = CheckMode)
+POST       /charitable-objectives/change                              controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = CheckMode)
+
 GET        /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = NormalMode)
 POST       /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onSubmit(mode: Mode = NormalMode)
 GET        /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = CheckMode)

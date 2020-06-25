@@ -18,24 +18,23 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.operationsAndFunds.PublicBenefitsFormProvider
+import forms.operationsAndFunds.CharitableObjectivesFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeOperationsAndFundsNavigator
 import navigation.ObjectivesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.operationsAndFunds.PublicBenefitsPage
-import play.api.data.Form
+import pages.operationsAndFunds.CharitableObjectivesPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.operationsAndFunds.PublicBenefitsView
+import views.html.operationsAndFunds.CharitableObjectivesView
 
 import scala.concurrent.Future
 
-class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
+class CharitableObjectivesControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers = Some(emptyUserAnswers)
 
@@ -52,15 +51,15 @@ class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: PublicBenefitsView = injector.instanceOf[PublicBenefitsView]
-  val formProvider: PublicBenefitsFormProvider = injector.instanceOf[PublicBenefitsFormProvider]
-  val form: Form[String] = formProvider()
+  val view: CharitableObjectivesView = injector.instanceOf[CharitableObjectivesView]
+  val formProvider: CharitableObjectivesFormProvider = injector.instanceOf[CharitableObjectivesFormProvider]
+  val form = formProvider()
 
-  val controller: PublicBenefitsController = inject[PublicBenefitsController]
+  val controller: CharitableObjectivesController = inject[CharitableObjectivesController]
 
-  val requestArgs = Seq("value" -> "FreeEducation")
+  val requestArgs = Seq("value" -> "abcd")
 
-  "PublicBenefits Controller " must {
+  "CharitableObjectives Controller " must {
 
     "return OK and the correct view for a GET" in {
 
@@ -76,7 +75,7 @@ class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").success.value
+      val userAnswers = emptyUserAnswers.set(CharitableObjectivesPage, "abcd").success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 

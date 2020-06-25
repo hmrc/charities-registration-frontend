@@ -85,13 +85,13 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the Charity Details Summary page when yes is selected" in {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage,true).success.value) mustBe
+            emptyUserAnswers.set(CanWeSendToThisAddressPage, true).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
 
         "go to the Postal Address Lookup flow when no is selected" in {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage,false).success.value) mustBe
+            emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad() //TODO modify once Postal Address Lookup flow is created
         }
       }
@@ -111,18 +111,84 @@ class CharityInformationNavigatorSpec extends SpecBase {
             routes.IndexController.onPageLoad()
         }
       }
-
-      "in Check mode" when {
-
-        "from any UnKnownPage" must {
-
-          "go to the IndexController page when user answer is empty" in {
-            navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-              routes.IndexController.onPageLoad()
-          }
-        }
-      }
     }
 
+    "in Check mode" when {
+
+      "from any UnKnownPage" must {
+
+        "go to the IndexController page when user answer is empty" in {
+          navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
+
+      "from the CharityNamePage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityNamePage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when an answer is given" in {
+
+          navigator.nextPage(CharityNamePage, CheckMode,
+            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
+              charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+        }
+      }
+
+      "from the CharityContactDetailsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityContactDetailsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when an answer is given" in {
+
+          navigator.nextPage(CharityContactDetailsPage, CheckMode,
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+        }
+      }
+
+      "from the CharityInformationAddressLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityInformationAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Send letters page when clicked continue button" in {
+          navigator.nextPage(CharityInformationAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(CharityInformationAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+        }
+      }
+
+      "from the CanWeSendToThisAddressPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when yes is selected" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage,true).success.value) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+        }
+
+        "go to the Postal Address Lookup flow when no is selected" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage,false).success.value) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          //TODO if no is selected once the postal address page is created, it should redirect to that flow
+        }
+      }
+
+    }
   }
 }

@@ -42,7 +42,6 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case Some(_) => charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
-
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
       case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad() // TODO requires previous Address Lookup data
       case Some(false) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad() // TODO modify once Postal Address Lookup flow is created
@@ -55,6 +54,26 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
+
+    case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
+      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
+      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CharityInformationAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityInformationAddressLookupPage) match {
+      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
+      case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      //TODO Logic needs to be created here for when the postal address lookup pages are implemented
+      case Some(false) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

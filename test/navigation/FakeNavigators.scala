@@ -35,4 +35,6 @@ object FakeNavigators extends SpecBase {
   object FakeRegulatorsAndDocumentsNavigator extends RegulatorsAndDocumentsNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
 
   object FakeDocumentsNavigator extends DocumentsNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
+
+  object FakeOperationsAndFundsNavigator extends OperationsAndFundsNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
 }

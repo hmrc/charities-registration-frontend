@@ -451,7 +451,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
           navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
             emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).getOrElse(emptyUserAnswers)) mustBe
-            regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode) // TODO modify once next page created
+            regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode)
         }
 
         "go to the Summary page when other than Other is selected" in {
@@ -494,7 +494,8 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the  RegulatorsSummaryController page when Other was selected and we did not change the answer and hit continue" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode,
-            emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
+              .flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).getOrElse(emptyUserAnswers)) mustBe
             regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
       }

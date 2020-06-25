@@ -22,7 +22,7 @@ import controllers.actions._
 import forms.operationsAndFunds.PublicBenefitsFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.ObjectivesNavigator
+import navigation.OperationsAndFundsNavigator
 import pages.operationsAndFunds.PublicBenefitsPage
 import pages.sections.Section4Page
 import play.api.data.Form
@@ -33,14 +33,14 @@ import views.html.operationsAndFunds.PublicBenefitsView
 import scala.concurrent.Future
 
 class PublicBenefitsController @Inject()(
-  val sessionRepository: UserAnswerRepository,
-  val navigator: ObjectivesNavigator,
-  identify: AuthIdentifierAction,
-  getData: UserDataRetrievalAction,
-  requireData: DataRequiredAction,
-  formProvider: PublicBenefitsFormProvider,
-  val controllerComponents: MessagesControllerComponents,
-  view: PublicBenefitsView
+   val sessionRepository: UserAnswerRepository,
+   val navigator: OperationsAndFundsNavigator,
+   identify: AuthIdentifierAction,
+   getData: UserDataRetrievalAction,
+   requireData: DataRequiredAction,
+   formProvider: PublicBenefitsFormProvider,
+   val controllerComponents: MessagesControllerComponents,
+   view: PublicBenefitsView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   val form: Form[String] = formProvider()

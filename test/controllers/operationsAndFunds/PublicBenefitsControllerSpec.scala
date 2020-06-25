@@ -21,7 +21,7 @@ import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.PublicBenefitsFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeOperationsAndFundsNavigator
-import navigation.ObjectivesNavigator
+import navigation.OperationsAndFundsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
@@ -43,7 +43,7 @@ class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-        bind[ObjectivesNavigator].toInstance(FakeOperationsAndFundsNavigator),
+        bind[OperationsAndFundsNavigator].toInstance(FakeOperationsAndFundsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 

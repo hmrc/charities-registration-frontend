@@ -17,12 +17,12 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.operationsAndFunds.{routes => operations}
 import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.operationsAndFunds.PublicBenefitsPage
-import pages.operationsAndFunds.CharitableObjectivesPage
+import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
 import play.api.mvc.Call
 
 class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -30,7 +30,12 @@ class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfi
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case CharitableObjectivesPage => userAnswers: UserAnswers => userAnswers.get(CharitableObjectivesPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once Charitable purposes page is created
+      case Some(_) => operations.CharitablePurposesController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case CharitablePurposesPage => userAnswers: UserAnswers => userAnswers.get(CharitablePurposesPage) match {
+      case Some(_) => operations.PublicBenefitsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

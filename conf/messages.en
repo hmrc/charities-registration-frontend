@@ -453,3 +453,23 @@ selectFundRaising.tradingIncome = Trading income
 selectFundRaising.tradingSubsidiaries = Trading subsidiaries
 selectFundRaising.investmentIncome = Investment income
 selectFundRaising.other = Other
+
+# CharitablePurposesPage Messages
+# ----------------------------------------------------------
+charitablePurposes.title = What are your charity''s charitable purposes?
+charitablePurposes.heading = What are your charity''s charitable purposes?
+charitablePurposes.hint = Select all that apply
+charitablePurposes.error.required = Select your charity''s charitable purposes
+charitablePurposes.amateurSport = Amateur sport
+charitablePurposes.animalWelfare = Animal welfare
+charitablePurposes.artsCultureOrScience = Arts, culture, heritage or science
+charitablePurposes.citizenshipOrCommunityDevelopment = Citizenship or community development
+charitablePurposes.education = Education
+charitablePurposes.environmentalProtection = Environmental protection or improvement
+charitablePurposes.healthOrSavingOfLives = Health or saving of lives
+charitablePurposes.humanRights = Human Rights
+charitablePurposes.armedForcesOfTheCrown = Promotion of efficiency in armed forces, police, fire and rescue service
+charitablePurposes.reliefOfPoverty = Relief of poverty
+charitablePurposes.reliefOfYouthAge = Relief of those in need
+charitablePurposes.religion = Religion
+charitablePurposes.other = Other

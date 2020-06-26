@@ -27,7 +27,7 @@
     gtmSnippet: GtmSnippet
 )
 
-@(pageTitle: Option[String] = None, signout: Boolean = true, js: Option[Html] = None, backLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(pageTitle: Option[String] = None, signOut: Boolean = true, js: Option[Html] = None, backLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @head = {
     @gtmSnippet()
@@ -40,7 +40,7 @@
     <script src='@controllers.routes.Assets.versioned("javascripts/application.min.js")'></script>
     <script>window.GOVUKFrontend.initAll();</script>
     <script>
-        if (@signout) {
+        if (@signOut) {
             timeoutDialog({
                 title: '@messages("timeout.title")',
                 message: '@messages("timeout.message")',
@@ -58,7 +58,7 @@
 
 @beforeContentBlock = {
 
-    @phaseBanner("beta")
+    @phaseBanner("beta", signOut)
 
     @if(backLink == true) {
         @govukBackLink(BackLink(href = "#", content = Text("Back"), attributes = Map("id" -> "back-link")))
@@ -88,6 +88,6 @@
   beforeContentBlock = Some(beforeContentBlock),
   bodyEndBlock = None,
   scriptsBlock = Some(scripts),
-  headerBlock = Some(siteHeader(signout)),
+  headerBlock = Some(siteHeader(signOut)),
   footerItems = FooterLinks.items
 )(content)

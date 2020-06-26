@@ -31,7 +31,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "isEligibleAccount.title", None)), signout = false) {
+@govukLayout(pageTitle = Some(title(form, "isEligibleAccount.title", None)), signOut = false) {
 
     @formHelper(action = IsEligibleAccountController.onSubmit()) {
 

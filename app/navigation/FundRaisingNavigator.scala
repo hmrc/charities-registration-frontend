@@ -17,11 +17,12 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.operationsAndFunds.FundRaisingPage
+import pages.operationsAndFunds.{FundRaisingPage, OperatingLocationPage}
 import play.api.mvc.Call
 
 class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -29,9 +30,15 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
+
+    case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
+      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once prepared financial accounts page created
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

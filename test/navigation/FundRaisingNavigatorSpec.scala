@@ -17,11 +17,12 @@
 package navigation
 
 import base.SpecBase
+import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models._
-import models.operations.FundRaisingOptions
+import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import pages.IndexPage
-import pages.operationsAndFunds.FundRaisingPage
+import pages.operationsAndFunds.{FundRaisingPage, OperatingLocationPage}
 
 class FundRaisingNavigatorSpec extends SpecBase {
 
@@ -41,7 +42,21 @@ class FundRaisingNavigatorSpec extends SpecBase {
         "go to the Where does your charity operate page when clicked continue button" in {
           navigator.nextPage(FundRaisingPage, NormalMode,
             emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other)).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once created Where does your charity operate page
+            operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the OperatingLocationPage page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OperatingLocationPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Has your charity prepared financial accounts page when clicked continue button" in {
+          navigator.nextPage(OperatingLocationPage, NormalMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once prepared financial accounts page created
         }
       }
 

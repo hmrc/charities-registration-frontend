@@ -4,6 +4,11 @@ POST       /charitable-objectives                          controllers.operation
 GET        /charitable-objectives/change                   controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = CheckMode)
 POST       /charitable-objectives/change                   controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = CheckMode)
 
+GET        /charitable-purposes                            controllers.operationsAndFunds.CharitablePurposesController.onPageLoad(mode: Mode = NormalMode)
+POST       /charitable-purposes                            controllers.operationsAndFunds.CharitablePurposesController.onSubmit(mode: Mode = NormalMode)
+GET        /charitable-purposes/change                     controllers.operationsAndFunds.CharitablePurposesController.onPageLoad(mode: Mode = CheckMode)
+POST       /charitable-purposes/change                     controllers.operationsAndFunds.CharitablePurposesController.onSubmit(mode: Mode = CheckMode)
+
 GET        /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = NormalMode)
 POST       /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onSubmit(mode: Mode = NormalMode)
 GET        /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = CheckMode)
@@ -14,7 +19,7 @@ POST       /select-fundraising                             controllers.operation
 GET        /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onSubmit(mode: Mode = CheckMode)
 
-GET        /charitable-purposes                            controllers.operationsAndFunds.CharitablePurposesController.onPageLoad(mode: Mode = NormalMode)
-POST       /charitable-purposes                            controllers.operationsAndFunds.CharitablePurposesController.onSubmit(mode: Mode = NormalMode)
-GET        /charitable-purposes/change                     controllers.operationsAndFunds.CharitablePurposesController.onPageLoad(mode: Mode = CheckMode)
-POST       /charitable-purposes/change                     controllers.operationsAndFunds.CharitablePurposesController.onSubmit(mode: Mode = CheckMode)
+GET        /select-operating-location                      controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = NormalMode)
+POST       /select-operating-location                      controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = NormalMode)
+GET        /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = CheckMode)
+POST       /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = CheckMode)

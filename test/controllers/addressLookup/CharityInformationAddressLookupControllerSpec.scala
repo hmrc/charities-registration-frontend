@@ -20,7 +20,7 @@ import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
 import connectors.addressLookup.AddressLookupConnector
 import connectors.addressLookup.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
-import connectors.addressLookup.httpParsers.NoLocationHeaderReturned
+import connectors.addressLookup.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, FakeAuthIdentifierAction, UserDataRetrievalAction}
 import models.UserAnswers
 import navigation.CharityInformationNavigator
@@ -126,10 +126,23 @@ class CharityInformationAddressLookupControllerSpec extends SpecBase with Before
 
                 status(result) mustEqual SEE_OTHER
                 redirectLocation(result) mustBe Some(onwardRoute.url)
+                verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
               }
             }
 
             "an address is not retrieved successfully" must {
+
+              "render ISE for invalid address" in {
+
+                when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+                when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Left(AddressMalformed)))
+
+                val result = controller.callback(Some("id"))(fakeDataRequest)
+
+                status(result) mustEqual INTERNAL_SERVER_ERROR
+                contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+                verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
+              }
 
               "render ISE" in {
 
@@ -140,7 +153,6 @@ class CharityInformationAddressLookupControllerSpec extends SpecBase with Before
 
                 status(result) mustEqual INTERNAL_SERVER_ERROR
                 contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
-
                 verify(mockAddressLookupConnector, never()).retrieveAddress(any())(any(), any())
               }
             }

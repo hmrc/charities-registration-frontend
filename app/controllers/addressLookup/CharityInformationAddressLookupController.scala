@@ -62,6 +62,9 @@ class CharityInformationAddressLookupController @Inject()(
                 updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityInformationAddressLookupPage, address).flatMap(_.set(Section1Page, false)))
                 _              <- sessionRepository.set(updatedAnswers)
               } yield Redirect(navigator.nextPage(CharityInformationAddressLookupPage, NormalMode, updatedAnswers))
+            case _ =>
+              Logger.error("[AddressLookupController][callback] error was returned on callback from address lookup")
+              Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
           }
       case _ =>
         Logger.error("[AddressLookupController][callback] No ID was returned on callback from address lookup")

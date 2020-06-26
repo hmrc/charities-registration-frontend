@@ -19,9 +19,11 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
+import models.operations.CharitablePurposes
+import models.operations.CharitablePurposes.AmateurSport
 import pages.IndexPage
-import pages.operationsAndFunds.CharitableObjectivesPage
-import pages.operationsAndFunds.PublicBenefitsPage
+import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
+import controllers.operationsAndFunds.{routes => operations}
 
 class ObjectivesNavigatorSpec extends SpecBase {
 
@@ -41,7 +43,21 @@ class ObjectivesNavigatorSpec extends SpecBase {
         "go to the CharitablePurposes page when clicked button" in {
           navigator.nextPage(CharitableObjectivesPage, NormalMode,
             emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once Charitable purposes page is created
+            operations.CharitablePurposesController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the CharitablePurposesPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharitablePurposesPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
+          navigator.nextPage(CharitablePurposesPage, NormalMode,
+            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value) mustBe
+            operations.PublicBenefitsController.onPageLoad(NormalMode)
         }
       }
 

@@ -438,3 +438,18 @@ charitableObjectives.error.format = Your answer must not include the following c
 charitableObjectives.error.length = Your answer must be 255 characters or fewer
 charitableObjectives.hint = Using 255 characters or less (including spaces).
 charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.
+
+# How will your charity raise funds
+# ----------------------------------------------------------
+selectFundRaising.title = How will your charity raise funds?
+selectFundRaising.heading = How will your charity raise funds?
+selectFundRaising.hint = Select all that apply
+selectFundRaising.error.required = Select how your charity will raise funds
+selectFundRaising.donations = Donations
+selectFundRaising.fundraising = Fundraising
+selectFundRaising.grants = Grants
+selectFundRaising.membershipSubscriptions = Membership subscriptions
+selectFundRaising.tradingIncome = Trading income
+selectFundRaising.tradingSubsidiaries = Trading subsidiaries
+selectFundRaising.investmentIncome = Investment income
+selectFundRaising.other = Other

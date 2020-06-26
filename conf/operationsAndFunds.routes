@@ -1,10 +1,15 @@
 
-GET        /charitable-objectives                                     controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = NormalMode)
-POST       /charitable-objectives                                     controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = NormalMode)
-GET        /charitable-objectives/change                              controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = CheckMode)
-POST       /charitable-objectives/change                              controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = CheckMode)
+GET        /charitable-objectives                          controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = NormalMode)
+POST       /charitable-objectives                          controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = NormalMode)
+GET        /charitable-objectives/change                   controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = CheckMode)
+POST       /charitable-objectives/change                   controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = CheckMode)
 
 GET        /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = NormalMode)
 POST       /enter-public-benefits                          controllers.operationsAndFunds.PublicBenefitsController.onSubmit(mode: Mode = NormalMode)
 GET        /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /select-fundraising                             controllers.operationsAndFunds.FundRaisingController.onPageLoad(mode: Mode = NormalMode)
+POST       /select-fundraising                             controllers.operationsAndFunds.FundRaisingController.onSubmit(mode: Mode = NormalMode)
+GET        /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onPageLoad(mode: Mode = CheckMode)
+POST       /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onSubmit(mode: Mode = CheckMode)

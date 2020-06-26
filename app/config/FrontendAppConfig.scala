@@ -47,7 +47,10 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
 
   private def requestUri(implicit request: RequestHeader): String = SafeRedirectUrl(host + request.uri).encodedUrl
   def feedbackUrl(implicit request: RequestHeader): String =
-    s"$contactHost/contact/beta-feedback"
+    s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
+
+  def feedbackUnauthenticatedUrl(implicit request: RequestHeader): String =
+    s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier"
 
   lazy val loginUrl: String = servicesConfig.getString("urls.login")
   lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")

@@ -46,6 +46,13 @@ class PhaseBannerSpec extends SpecBase {
       document.select(Selectors.link).text mustBe PhaseBannerMessages.link
     }
 
+    "Have a unauthenticated link to the contact-frontend service" in {
+      lazy val html: Html = phaseBannerView("alpha", false)(fakeRequest, messages, frontendAppConfig)
+      lazy val document = Jsoup.parse(html.toString)
+      document.select(Selectors.link).attr("href") mustBe frontendAppConfig.feedbackUnauthenticatedUrl(fakeRequest)
+      document.select(Selectors.link).text mustBe PhaseBannerMessages.link
+    }
+
     "Have the correct message for the content of the banner" in {
       document.select(Selectors.content).text mustBe PhaseBannerMessages.content
     }

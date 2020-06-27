@@ -116,7 +116,7 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
       theUserAnswers.id mustBe "id"
       theUserAnswers.data mustBe Json.parse(
         """{"isSection2Completed" : false,
-          |"selectWhyNoRegulator" : "exemptOrExcepted"
+          |"selectWhyNoRegulator" : "5"
           |}""".stripMargin)
       def theUserAnswers: UserAnswers = {
         val captor: ArgumentCaptor[UserAnswers] = ArgumentCaptor.forClass(classOf[UserAnswers])

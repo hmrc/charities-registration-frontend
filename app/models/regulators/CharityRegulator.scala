@@ -31,7 +31,7 @@ object CharityRegulator extends Enumerable.Implicits {
   case object EnglandWales extends WithName("ccew") with CharityRegulator
   case object Scottish extends WithName("oscr") with CharityRegulator
   case object NorthernIreland extends WithName("ccni") with CharityRegulator
-  case object Other extends WithName("other") with CharityRegulator
+  case object Other extends WithName("otherRegulator") with CharityRegulator
 
   val values: Seq[CharityRegulator] = Seq(
     EnglandWales, Scottish, NorthernIreland, Other

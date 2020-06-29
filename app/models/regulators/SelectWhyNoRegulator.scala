@@ -26,12 +26,12 @@ sealed trait SelectWhyNoRegulator
 
 object SelectWhyNoRegulator extends Enumerable.Implicits {
 
-  case object EnglandWalesUnderThreshold extends WithName("englandWalesUnderThreshold") with SelectWhyNoRegulator
-  case object ExemptOrExcepted extends WithName("exemptOrExcepted") with SelectWhyNoRegulator
-  case object NoRegulatorInCountry extends WithName("noRegulatorInCountry") with SelectWhyNoRegulator
-  case object ParochialChurchCouncils extends WithName("parochialChurchCouncils") with SelectWhyNoRegulator
-  case object UninformedYouthGroup extends WithName("uninformedYouthGroup") with SelectWhyNoRegulator
-  case object Other extends WithName("other") with SelectWhyNoRegulator
+  case object EnglandWalesUnderThreshold extends WithName("1") with SelectWhyNoRegulator
+  case object ExemptOrExcepted extends WithName("5") with SelectWhyNoRegulator
+  case object NoRegulatorInCountry extends WithName("4") with SelectWhyNoRegulator
+  case object ParochialChurchCouncils extends WithName("2") with SelectWhyNoRegulator
+  case object UninformedYouthGroup extends WithName("3") with SelectWhyNoRegulator
+  case object Other extends WithName("7") with SelectWhyNoRegulator
 
   val values: Seq[SelectWhyNoRegulator] = Seq(
     EnglandWalesUnderThreshold, ExemptOrExcepted, NoRegulatorInCountry, ParochialChurchCouncils, UninformedYouthGroup, Other

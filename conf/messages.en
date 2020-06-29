@@ -293,7 +293,7 @@ charityRegulator.error.required = Select your charity’s regulator or regulator
 charityRegulator.ccew = Charity Commission for England and Wales
 charityRegulator.oscr = Office of the Scottish Charity Regulator
 charityRegulator.ccni = Charity Commission for Northern Ireland
-charityRegulator.other = Other
+charityRegulator.otherRegulator = Other
 charityRegulator.checkYourAnswersLabel = Charity''s regulators
 
 # CharityCommissionRegistrationNumberPage Messages
@@ -350,12 +350,12 @@ charityOtherRegulatorDetails.checkYourAnswersLabel = Other Charity''s regulator 
 selectWhyNoRegulator.title = Why have you not registered with a charity regulator?
 selectWhyNoRegulator.heading = Why have you not registered with a charity regulator?
 selectWhyNoRegulator.error.required = Select why you have not registered with a regulator
-selectWhyNoRegulator.englandWalesUnderThreshold = Established in England and/or Wales and under gross income threshold
-selectWhyNoRegulator.exemptOrExcepted = Exempt or excepted
-selectWhyNoRegulator.noRegulatorInCountry = No regulator in country of establishment
-selectWhyNoRegulator.parochialChurchCouncils = Parochial Church Councils under gross income threshold
-selectWhyNoRegulator.uninformedYouthGroup = Uniformed youth groups
-selectWhyNoRegulator.other = Other
+selectWhyNoRegulator.1 = Established in England and/or Wales and under gross income threshold
+selectWhyNoRegulator.5 = Exempt or excepted
+selectWhyNoRegulator.4 = No regulator in country of establishment
+selectWhyNoRegulator.2 = Parochial Church Councils under gross income threshold
+selectWhyNoRegulator.3 = Uniformed youth groups
+selectWhyNoRegulator.7 = Other
 selectWhyNoRegulator.checkYourAnswersLabel = Reason for not registering
 
 # WhyNotRegisteredWithCharityPage Messages

@@ -19,6 +19,11 @@ POST       /select-fundraising                             controllers.operation
 GET        /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onSubmit(mode: Mode = CheckMode)
 
+GET        /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = NormalMode)
+POST       /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = NormalMode)
+GET        /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = CheckMode)
+POST       /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = CheckMode)
+
 GET        /select-operating-location                      controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = NormalMode)
 POST       /select-operating-location                      controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = NormalMode)
 GET        /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = CheckMode)

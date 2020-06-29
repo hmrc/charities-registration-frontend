@@ -474,6 +474,13 @@ selectFundRaising.tradingSubsidiaries = Trading subsidiaries
 selectFundRaising.investmentIncome = Investment income
 selectFundRaising.other = Other
 
+# Has your charity prepared financial accounts Messages
+# ----------------------------------------------------------
+isFinancialAccounts.title = Has your charity prepared financial accounts?
+isFinancialAccounts.heading = Has your charity prepared financial accounts?
+isFinancialAccounts.error.required = Select yes if your charity has prepared financial accounts
+isFinancialAccounts.hint = If your charity has a set of prepared financial accounts, you will need to post us a copy to support your application.
+
 # Select Operating Location Messages
 # ----------------------------------------------------------
 operatingLocation.title = Where does your charity operate?

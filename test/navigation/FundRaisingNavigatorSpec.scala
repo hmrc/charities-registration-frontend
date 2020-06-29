@@ -22,7 +22,7 @@ import controllers.routes
 import models._
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import pages.IndexPage
-import pages.operationsAndFunds.{FundRaisingPage, OperatingLocationPage}
+import pages.operationsAndFunds.{FundRaisingPage, IsFinancialAccountsPage, OperatingLocationPage}
 
 class FundRaisingNavigatorSpec extends SpecBase {
 
@@ -56,9 +56,31 @@ class FundRaisingNavigatorSpec extends SpecBase {
         "go to Has your charity prepared financial accounts page when clicked continue button" in {
           navigator.nextPage(OperatingLocationPage, NormalMode,
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once prepared financial accounts page created
+            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
         }
       }
+
+      "from the IsFinancialAccountsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsFinancialAccountsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Does your charity have bank statements for the last 3 months of operation? when yes is selected" in {
+          navigator.nextPage(IsFinancialAccountsPage, NormalMode,
+            emptyUserAnswers.set(IsFinancialAccountsPage,true).success.value) mustBe
+            routes.IndexController.onPageLoad()
+        }
+
+        "go to the Task list page when no is selected" in {
+          navigator.nextPage(IsFinancialAccountsPage, NormalMode,
+            emptyUserAnswers.set(IsFinancialAccountsPage, false).success.value) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
+
+
 
       "from any UnKnownPage" must {
 

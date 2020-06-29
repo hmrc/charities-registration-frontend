@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.operationsAndFunds.{FundRaisingPage, OperatingLocationPage}
+import pages.operationsAndFunds.{FundRaisingPage, IsFinancialAccountsPage, OperatingLocationPage}
 import play.api.mvc.Call
 
 class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -35,9 +35,15 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
 
     case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once prepared financial accounts page created
+      case Some(_) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
+
+    case IsFinancialAccountsPage => userAnswers: UserAnswers => userAnswers.get(IsFinancialAccountsPage) match {
+      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once bank statements page is created
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
 
     case _ => _ => routes.IndexController.onPageLoad()
   }

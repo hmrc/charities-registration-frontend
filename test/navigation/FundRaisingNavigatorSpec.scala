@@ -22,7 +22,7 @@ import controllers.routes
 import models._
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import pages.IndexPage
-import pages.operationsAndFunds.{FundRaisingPage, IsFinancialAccountsPage, OperatingLocationPage}
+import pages.operationsAndFunds.{FundRaisingPage, IsBankStatementsPage, IsFinancialAccountsPage, OperatingLocationPage}
 
 class FundRaisingNavigatorSpec extends SpecBase {
 
@@ -70,17 +70,23 @@ class FundRaisingNavigatorSpec extends SpecBase {
         "go to Does your charity have bank statements for the last 3 months of operation? when yes is selected" in {
           navigator.nextPage(IsFinancialAccountsPage, NormalMode,
             emptyUserAnswers.set(IsFinancialAccountsPage,true).success.value) mustBe
-            routes.IndexController.onPageLoad()
-        }
-
-        "go to the Task list page when no is selected" in {
-          navigator.nextPage(IsFinancialAccountsPage, NormalMode,
-            emptyUserAnswers.set(IsFinancialAccountsPage, false).success.value) mustBe
-            routes.IndexController.onPageLoad()
+            operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
         }
       }
 
+      "from the IsBankStatements page" must {
 
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsBankStatementsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to accounting period end date page when clicked continue button" in {
+          navigator.nextPage(IsBankStatementsPage, NormalMode,
+            emptyUserAnswers.set(IsBankStatementsPage, true).getOrElse(emptyUserAnswers)) mustBe
+            routes.IndexController.onPageLoad() // TODO modify once accounting period end date page created
+        }
+      }
 
       "from any UnKnownPage" must {
 

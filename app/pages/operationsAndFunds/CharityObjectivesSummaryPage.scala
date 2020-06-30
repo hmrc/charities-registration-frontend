@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package pages.regulatorsAndDocuments
+package pages.operationsAndFunds
 
-import pages.behaviours.PageBehaviours
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-class RegulatorsSummaryPageSpec extends PageBehaviours {
+case object CharityObjectivesSummaryPage  extends QuestionPage[String] {
 
-  "RegulatorsSummaryPage" must {
+  override def path: JsPath = JsPath \ toString
 
-    beRetrievable[String](RegulatorsSummaryPage)
-
-    beSettable[String](RegulatorsSummaryPage)
-
-    beRemovable[String](RegulatorsSummaryPage)
-  }
+  override def toString: String = "charityObjectivesSummary"
 }

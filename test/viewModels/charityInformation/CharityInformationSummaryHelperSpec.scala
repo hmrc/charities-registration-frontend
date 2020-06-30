@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels.regulatorsAndDocuments
+package viewModels.charityInformation
 
 import assets.constants.ConfirmedAddressConstants
 import assets.messages.BaseMessages

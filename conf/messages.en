@@ -429,6 +429,7 @@ charitableObjectives.error.format = Your answer must not include the following c
 charitableObjectives.error.length = Your answer must be 255 characters or fewer
 charitableObjectives.hint = Using 255 characters or less (including spaces).
 charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.
+charitableObjectives.checkYourAnswersLabel = Charity''s charitable objectives
 
 # CharitablePurposesPage Messages
 # ----------------------------------------------------------
@@ -449,6 +450,7 @@ charitablePurposes.reliefOfPoverty = Relief of poverty
 charitablePurposes.reliefOfYouthAge = Relief of those in need
 charitablePurposes.religion = Religion
 charitablePurposes.other = Other
+charitablePurposes.checkYourAnswersLabel = Charity''s charitable purposes
 
 # Enter Public Benefits Messages
 # ----------------------------------------------------------
@@ -458,6 +460,16 @@ publicBenefits.error.required = Enter how your charity benefits the public
 publicBenefits.error.format = Your answer must not include the following characters: & ( ) : @
 publicBenefits.error.length = Your answer must be 255 characters or fewer
 publicBenefits.hint = Using 255 characters or less (including spaces).
+publicBenefits.checkYourAnswersLabel = How your charity benefits the public
+
+# Charity Objectives Summary page
+# ----------------------------------------------------------
+charityObjectivesSummary.checkYourAnswers.title = Check your charity''s objectives details
+charityObjectivesSummary.checkYourAnswers.heading = Check your charity''s objectives details
+charityObjectivesSummary.section = Operations and funds
+
+# Section5 - Fundraising Information
+# ----------------------------------------------------------
 
 # How will your charity raise funds
 # ----------------------------------------------------------

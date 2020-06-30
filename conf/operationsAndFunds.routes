@@ -14,6 +14,9 @@ POST       /enter-public-benefits                          controllers.operation
 GET        /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-public-benefits/change                   controllers.operationsAndFunds.PublicBenefitsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /objectives-summary                             controllers.operationsAndFunds.CharityObjectivesSummaryController.onPageLoad()
+POST       /objectives-summary                             controllers.operationsAndFunds.CharityObjectivesSummaryController.onSubmit()
+
 GET        /select-fundraising                             controllers.operationsAndFunds.FundRaisingController.onPageLoad(mode: Mode = NormalMode)
 POST       /select-fundraising                             controllers.operationsAndFunds.FundRaisingController.onSubmit(mode: Mode = NormalMode)
 GET        /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onPageLoad(mode: Mode = CheckMode)

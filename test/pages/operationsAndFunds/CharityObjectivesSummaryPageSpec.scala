@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package pages.regulatorsAndDocuments
+package pages.operationsAndFunds
 
 import pages.behaviours.PageBehaviours
 
-class RegulatorsSummaryPageSpec extends PageBehaviours {
+class CharityObjectivesSummaryPageSpec extends PageBehaviours {
 
-  "RegulatorsSummaryPage" must {
+  "CharityObjectivesSummaryPage" must {
 
-    beRetrievable[String](RegulatorsSummaryPage)
+    beRetrievable[String](CharityObjectivesSummaryPage)
 
-    beSettable[String](RegulatorsSummaryPage)
+    beSettable[String](CharityObjectivesSummaryPage)
 
-    beRemovable[String](RegulatorsSummaryPage)
+    beRemovable[String](CharityObjectivesSummaryPage)
   }
 }

@@ -40,7 +40,7 @@ class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfi
     }
 
     case PublicBenefitsPage => userAnswers: UserAnswers => userAnswers.get(PublicBenefitsPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once summary page created
+      case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -48,6 +48,21 @@ class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfi
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
+
+    case CharitableObjectivesPage => userAnswers: UserAnswers => userAnswers.get(CharitableObjectivesPage) match {
+      case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case CharitablePurposesPage => userAnswers: UserAnswers => userAnswers.get(CharitablePurposesPage) match {
+      case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case PublicBenefitsPage => userAnswers: UserAnswers => userAnswers.get(PublicBenefitsPage) match {
+      case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
 
     case _ => _ => routes.IndexController.onPageLoad()
   }

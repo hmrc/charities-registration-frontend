@@ -22,7 +22,7 @@ import models._
 import models.operations.CharitablePurposes
 import models.operations.CharitablePurposes.AmateurSport
 import pages.IndexPage
-import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
+import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, CharityObjectivesSummaryPage, PublicBenefitsPage}
 import controllers.operationsAndFunds.{routes => operations}
 
 class ObjectivesNavigatorSpec extends SpecBase {
@@ -71,7 +71,15 @@ class ObjectivesNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           navigator.nextPage(PublicBenefitsPage, NormalMode,
             emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once summary page created
+            operations.CharityObjectivesSummaryController.onPageLoad()
+        }
+      }
+
+      "from the Summary page" must {
+
+        "go to the Task List page when click continue button" in {
+          navigator.nextPage(CharityObjectivesSummaryPage, NormalMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
         }
       }
 
@@ -85,6 +93,46 @@ class ObjectivesNavigatorSpec extends SpecBase {
     }
 
     "in Check mode" when {
+
+      "from the CharitableObjectivesPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharitableObjectivesPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the CharitablePurposes page when clicked button" in {
+          navigator.nextPage(CharitableObjectivesPage, CheckMode,
+            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
+            operations.CharityObjectivesSummaryController.onPageLoad()        }
+      }
+
+      "from the CharitablePurposesPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharitablePurposesPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
+          navigator.nextPage(CharitablePurposesPage, CheckMode,
+            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value) mustBe
+            operations.CharityObjectivesSummaryController.onPageLoad()        }
+      }
+
+      "from the PublicBenefits page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(PublicBenefitsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Summary page when clicked continue button" in {
+          navigator.nextPage(PublicBenefitsPage, CheckMode,
+            emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)) mustBe
+            operations.CharityObjectivesSummaryController.onPageLoad()
+        }
+      }
 
       "from any UnKnownPage" must {
 

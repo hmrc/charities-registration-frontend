@@ -28,3 +28,8 @@ GET        /select-operating-location                      controllers.operation
 POST       /select-operating-location                      controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = NormalMode)
 GET        /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = CheckMode)
+
+GET        /bank-statements                                controllers.operationsAndFunds.IsBankStatementsController.onPageLoad(mode: Mode = NormalMode)
+POST       /bank-statements                                controllers.operationsAndFunds.IsBankStatementsController.onSubmit(mode: Mode = NormalMode)
+GET        /bank-statements/change                         controllers.operationsAndFunds.IsBankStatementsController.onPageLoad(mode: Mode = CheckMode)
+POST       /bank-statements/change                         controllers.operationsAndFunds.IsBankStatementsController.onSubmit(mode: Mode = CheckMode)

@@ -36,3 +36,8 @@ GET        /bank-statements                                controllers.operation
 POST       /bank-statements                                controllers.operationsAndFunds.IsBankStatementsController.onSubmit(mode: Mode = NormalMode)
 GET        /bank-statements/change                         controllers.operationsAndFunds.IsBankStatementsController.onPageLoad(mode: Mode = CheckMode)
 POST       /bank-statements/change                         controllers.operationsAndFunds.IsBankStatementsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /enter-accounting-end-date                      controllers.operationsAndFunds.AccountingPeriodEndDateController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-accounting-end-date                      controllers.operationsAndFunds.AccountingPeriodEndDateController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-accounting-end-date/change               controllers.operationsAndFunds.AccountingPeriodEndDateController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-accounting-end-date/change               controllers.operationsAndFunds.AccountingPeriodEndDateController.onSubmit(mode: Mode = CheckMode)

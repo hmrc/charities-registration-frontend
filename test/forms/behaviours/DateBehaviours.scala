@@ -19,6 +19,7 @@ package forms.behaviours
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+import org.joda.time.{MonthDay, LocalDate => JodaLocalDate}
 import org.scalacheck.Gen
 import play.api.data.{Form, FormError}
 
@@ -36,9 +37,24 @@ class DateBehaviours extends FieldBehaviours {
           )
 
           val result = form.bind(data)
-
           result.value.value mustEqual date
       }
+    }
+  }
+
+  def dayMonthField(form: Form[_], key: String, validData: Gen[JodaLocalDate]): Unit = {
+
+    forAll(validData -> "valid date") {
+      date =>
+        s"bind valid data for $date" in {
+          val data = Map(
+            s"$key.day"   -> date.getDayOfMonth.toString,
+            s"$key.month" -> date.getMonthOfYear.toString
+          )
+
+          val result = form.bind(data)
+          result.value.value mustEqual MonthDay.fromDateFields(date.toDate)
+        }
     }
   }
 

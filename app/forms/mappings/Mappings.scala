@@ -19,6 +19,7 @@ package forms.mappings
 import java.time.LocalDate
 
 import models.Enumerable
+import org.joda.time.MonthDay
 import play.api.data.FieldMapping
 import play.api.data.Forms.of
 
@@ -53,4 +54,11 @@ trait Mappings extends Formatters with Constraints {
                            requiredKey: String,
                            args: Seq[String] = Seq.empty): FieldMapping[LocalDate] =
     of(new LocalDateFormatter(invalidKey, allRequiredKey, twoRequiredKey, requiredKey, args))
+
+  protected def localDateDayMonth(
+                           invalidKey: String,
+                           allRequiredKey: String,
+                           requiredKey: String,
+                           args: Seq[String] = Seq.empty): FieldMapping[MonthDay] =
+    of(new LocalDateFormatterDayMonth(invalidKey, allRequiredKey, requiredKey, args))
 }

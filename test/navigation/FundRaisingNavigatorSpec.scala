@@ -21,9 +21,9 @@ import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models._
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
+import org.joda.time.{LocalDate, MonthDay}
 import pages.IndexPage
-import pages.operationsAndFunds.{FundRaisingPage, IsBankStatementsPage, IsFinancialAccountsPage, OperatingLocationPage}
-
+import pages.operationsAndFunds.{FundRaisingPage, IsBankStatementsPage, IsFinancialAccountsPage, OperatingLocationPage, AccountingPeriodEndDatePage}
 class FundRaisingNavigatorSpec extends SpecBase {
 
   val navigator = new FundRaisingNavigator()
@@ -84,10 +84,24 @@ class FundRaisingNavigatorSpec extends SpecBase {
         "go to accounting period end date page when clicked continue button" in {
           navigator.nextPage(IsBankStatementsPage, NormalMode,
             emptyUserAnswers.set(IsBankStatementsPage, true).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once accounting period end date page created
+           operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
         }
       }
 
+      "from the AccountingPeriodEndDdate page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AccountingPeriodEndDatePage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+       "go to the summary page when clicked continue button" in {
+         navigator.nextPage(AccountingPeriodEndDatePage, NormalMode, emptyUserAnswers.set(AccountingPeriodEndDatePage,
+           MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))
+         (MongoDateTimeFormats.localDayMonthWrite).success.value) mustBe
+              routes.IndexController.onPageLoad() //TO be changed when summary page is created
+        }
+      }
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {
@@ -109,5 +123,4 @@ class FundRaisingNavigatorSpec extends SpecBase {
     }
 
   }
-
 }

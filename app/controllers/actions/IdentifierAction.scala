@@ -30,11 +30,11 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 import scala.concurrent.{ExecutionContext, Future}
 
 class AuthenticatedIdentifierAction @Inject()(
-                                               override val authConnector: AuthConnector,
-                                               config: FrontendAppConfig,
-                                               val parser: BodyParsers.Default
-                                             )
-                                             (implicit val executionContext: ExecutionContext) extends AuthIdentifierAction with AuthorisedFunctions {
+   override val authConnector: AuthConnector,
+   config: FrontendAppConfig,
+   val parser: BodyParsers.Default
+  )
+  (implicit val executionContext: ExecutionContext) extends AuthIdentifierAction with AuthorisedFunctions {
 
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
 
@@ -57,10 +57,9 @@ trait AuthIdentifierAction extends ActionBuilder[IdentifierRequest, AnyContent] 
 
 
 class SessionIdentifierAction @Inject()(
-                                         config: FrontendAppConfig,
-                                         val parser: BodyParsers.Default
-                                       )
-                                       (implicit val executionContext: ExecutionContext) extends IdentifierAction {
+   val parser: BodyParsers.Default
+ )
+ (implicit val executionContext: ExecutionContext) extends IdentifierAction {
 
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
 

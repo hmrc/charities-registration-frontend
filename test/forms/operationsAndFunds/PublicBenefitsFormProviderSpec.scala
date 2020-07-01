@@ -21,8 +21,8 @@ import play.api.data.{Form, FormError}
 
 class PublicBenefitsFormProviderSpec extends StringFieldBehaviours {
 
-  val formProvider = new PublicBenefitsFormProvider()
-  val form: Form[String] = formProvider()
+  private val formProvider: PublicBenefitsFormProvider = inject[PublicBenefitsFormProvider]
+  private val form: Form[String] = formProvider()
 
   ".value" must {
 

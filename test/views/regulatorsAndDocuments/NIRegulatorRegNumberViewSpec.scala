@@ -26,8 +26,8 @@ import views.html.regulatorsAndDocuments.NIRegulatorRegNumberView
 
 class NIRegulatorRegNumberViewSpec extends QuestionViewBehaviours[String] {
 
-  val messageKeyPrefix = "nIRegulatorRegNumber"
-  val form = new NIRegulatorRegNumberFormProvider()()
+  private val messageKeyPrefix = "nIRegulatorRegNumber"
+  val form: Form[String] = inject[NIRegulatorRegNumberFormProvider].apply()
 
   "NIRegulatorRegNumberView" must {
 

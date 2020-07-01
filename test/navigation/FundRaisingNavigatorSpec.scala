@@ -26,7 +26,7 @@ import pages.IndexPage
 import pages.operationsAndFunds.{FundRaisingPage, IsBankStatementsPage, IsFinancialAccountsPage, OperatingLocationPage, AccountingPeriodEndDatePage}
 class FundRaisingNavigatorSpec extends SpecBase {
 
-  val navigator = new FundRaisingNavigator()
+  val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

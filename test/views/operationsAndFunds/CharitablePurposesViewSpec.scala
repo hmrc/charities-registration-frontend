@@ -28,9 +28,9 @@ import views.html.operationsAndFunds.CharitablePurposesView
 
 class CharitablePurposesViewSpec extends CheckboxViewBehaviours[CharitablePurposes]  {
 
-  val messageKeyPrefix: String = "charitablePurposes"
-  val section: String = messages("operationsAndFunds.section")
-  val form = new CharitablePurposesFormProvider()()
+  private val messageKeyPrefix: String = "charitablePurposes"
+  private val section: String = messages("operationsAndFunds.section")
+  val form: Form[Set[CharitablePurposes]] = inject[CharitablePurposesFormProvider].apply()
 
     "CharitablePurposesView" must {
 

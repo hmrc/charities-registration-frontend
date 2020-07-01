@@ -17,14 +17,15 @@
 package forms.operationsAndFunds
 
 import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class IsFinancialAccountsFormProviderSpec extends BooleanFieldBehaviours {
 
-  val formProvider = new IsFinancialAccountsFormProvider()
-  val form = formProvider()
-  val requiredKey = "isFinancialAccounts.error.required"
-  val invalidKey = "error.boolean"
+  private val formProvider: IsFinancialAccountsFormProvider = inject[IsFinancialAccountsFormProvider]
+  private val form: Form[Boolean] = formProvider()
+  private val requiredKey = "isFinancialAccounts.error.required"
+  private val invalidKey = "error.boolean"
+
   ".value" must {
 
     val fieldName = "value"

@@ -32,7 +32,7 @@ import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
 
-  val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
+  private val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
     .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head).flatMap
   (_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2))).flatMap
   (_.set(IsApprovedGoverningDocumentPage,true)).success.value

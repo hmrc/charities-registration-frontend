@@ -29,7 +29,7 @@ import viewmodels.charityInformation.CharityInformationSummaryHelper
 
 class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
-  val officialAddress = emptyUserAnswers
+  private val officialAddress: UserAnswers = emptyUserAnswers
     .set(CharityNamePage, CharityName(fullName = "Believe",
                                       operatingName = Some("Original Charity"))).success.value
     .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
@@ -38,7 +38,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .set(CharityInformationAddressLookupPage, ConfirmedAddressConstants.address).success.value
     .set(CanWeSendToThisAddressPage, true).success.value
 
-  val postalAnswers = emptyUserAnswers
+  private val postalAnswers: UserAnswers = emptyUserAnswers
     .set(CharityNamePage, CharityName(fullName = "Believe",
       operatingName = Some("Original Charity"))).success.value
     .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",

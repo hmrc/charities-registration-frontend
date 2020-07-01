@@ -17,14 +17,15 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class IsApprovedGoverningDocumentFormProviderSpec extends BooleanFieldBehaviours {
 
-  val formProvider = new IsApprovedGoverningDocumentFormProvider()
-  val form = formProvider()
-  val requiredKey = "isApprovedGoverningDocument.error.required"
-  val invalidKey = "error.boolean"
+  private val formProvider: IsApprovedGoverningDocumentFormProvider = inject[IsApprovedGoverningDocumentFormProvider]
+  private val form: Form[Boolean] = formProvider()
+  private val requiredKey = "isApprovedGoverningDocument.error.required"
+  private val invalidKey = "error.boolean"
+
   ".value" must {
 
     val fieldName = "value"

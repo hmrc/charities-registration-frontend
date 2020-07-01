@@ -21,8 +21,8 @@ import play.api.data.{Form, FormError}
 
 class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours {
 
-  val formProvider = new WhyNotRegisteredWithCharityFormProvider()
-  val form: Form[String] = formProvider()
+  private val formProvider: WhyNotRegisteredWithCharityFormProvider = inject[WhyNotRegisteredWithCharityFormProvider]
+  private val form: Form[String] = formProvider()
 
   ".value" must {
 

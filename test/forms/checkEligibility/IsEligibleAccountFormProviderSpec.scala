@@ -17,14 +17,13 @@
 package forms.checkEligibility
 
 import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class IsEligibleAccountFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "isEligibleAccount.error.required"
-  val invalidKey = "error.boolean"
-
-  val form = new IsEligibleAccountFormProvider()()
+  private val requiredKey = "isEligibleAccount.error.required"
+  private val invalidKey = "error.boolean"
+  private val form: Form[Boolean] = inject[IsEligibleAccountFormProvider].apply()
 
   ".value" must {
 

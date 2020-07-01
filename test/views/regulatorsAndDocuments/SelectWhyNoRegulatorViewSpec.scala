@@ -25,12 +25,11 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.regulatorsAndDocuments.SelectWhyNoRegulatorView
 
-
 class SelectWhyNoRegulatorViewSpec extends ViewBehaviours  {
 
-  val messageKeyPrefix: String = "selectWhyNoRegulator"
-  val section: String = messages("charityRegulator.section")
-  val form = new SelectWhyNoRegulatorFormProvider()()
+  private val messageKeyPrefix: String = "selectWhyNoRegulator"
+  private val section: String = messages("charityRegulator.section")
+  val form: Form[SelectWhyNoRegulator] = inject[SelectWhyNoRegulatorFormProvider].apply()
 
     "CharityRegulatorView" must {
 

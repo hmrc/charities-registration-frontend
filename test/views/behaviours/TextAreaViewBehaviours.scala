@@ -23,7 +23,6 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
 
   val answer = "answer"
 
-
   def textAreaPage(form: Form[String],
                  createView: Form[String] => HtmlFormat.Appendable,
                  messageKeyPrefix: String,
@@ -31,7 +30,7 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
                  section: Option[String] = None,
                  headingArgs: Seq[String] = Seq(),
                  isPageHeading: Boolean = true
-                ) = {
+                ): Unit = {
 
     "behave like a page with a text area field" when {
 

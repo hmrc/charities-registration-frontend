@@ -17,14 +17,15 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class IsCharityRegulatorFormProviderSpec extends BooleanFieldBehaviours {
 
-  val formProvider = new IsCharityRegulatorFormProvider()
-  val form = formProvider()
-  val requiredKey = "isCharityRegulator.error.required"
-  val invalidKey = "error.boolean"
+  private val formProvider: IsCharityRegulatorFormProvider = inject[IsCharityRegulatorFormProvider]
+  private val form: Form[Boolean] = formProvider()
+  private val requiredKey = "isCharityRegulator.error.required"
+  private val invalidKey = "error.boolean"
+
   ".value" must {
 
     val fieldName = "value"

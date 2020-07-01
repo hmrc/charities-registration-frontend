@@ -19,8 +19,8 @@ package controllers.charityInformation
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.charityInformation.CanWeSendToThisAddressFormProvider
-import models.addressLookup.{AddressModel, CountryModel}
 import models.NormalMode
+import models.addressLookup.{AddressModel, CountryModel}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any

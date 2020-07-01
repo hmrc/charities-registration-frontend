@@ -20,15 +20,14 @@ import forms.behaviours.DateBehaviours
 import org.joda.time.{LocalDate, MonthDay}
 import play.api.data.Form
 
-
 class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
-  val form: Form[MonthDay] = inject[AccountingPeriodEndDateFormProvider].apply()
+  private val form: Form[MonthDay] = inject[AccountingPeriodEndDateFormProvider].apply()
 
   ".value" should {
 
     val validData = daysBetween(
-      min = new LocalDate(2000,1,31),
+      min = new LocalDate(2000,1,1),
       max = new LocalDate(2000,12,31)
     )
 

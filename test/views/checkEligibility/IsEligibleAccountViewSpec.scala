@@ -27,8 +27,8 @@ import views.html.checkEligibility.IsEligibleAccountView
 
 class IsEligibleAccountViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "isEligibleAccount"
-  val form = new IsEligibleAccountFormProvider()()
+  private val messageKeyPrefix = "isEligibleAccount"
+  val form: Form[Boolean] = inject[IsEligibleAccountFormProvider].apply()
 
     "IsEligibleAccountView" must {
 

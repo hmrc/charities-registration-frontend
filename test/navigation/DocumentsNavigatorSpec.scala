@@ -28,7 +28,7 @@ import pages.{IndexPage, QuestionPage}
 
 class DocumentsNavigatorSpec extends SpecBase {
 
-  val navigator = new DocumentsNavigator()
+  val navigator: DocumentsNavigator = inject[DocumentsNavigator]
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

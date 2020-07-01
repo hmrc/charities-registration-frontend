@@ -18,11 +18,11 @@ package forms.operationsAndFunds
 
 import forms.behaviours.CheckboxFieldBehaviours
 import models.operations.OperatingLocationOptions
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class OperatingLocationFormProviderSpec extends CheckboxFieldBehaviours {
 
-  val form = new OperatingLocationFormProvider()()
+  private val form: Form[Set[OperatingLocationOptions]] = inject[OperatingLocationFormProvider].apply()
 
   ".value" must {
 

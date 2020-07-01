@@ -24,7 +24,7 @@ class ErrorTemplateViewSpec extends ViewBehaviours {
 
   "Error Template view" must {
 
-    val view = app.injector.instanceOf[ErrorTemplate]
+    val view = inject[ErrorTemplate]
 
     val applyView = view.apply("title","heading","content")(fakeRequest, messages, frontendAppConfig)
     lazy val document = Jsoup.parse(applyView.toString)

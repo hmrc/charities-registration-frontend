@@ -25,7 +25,7 @@ import pages.{IndexPage, QuestionPage}
 
 class EligibilityNavigatorSpec extends SpecBase{
 
-  val navigator = new EligibilityNavigator()
+  val navigator: EligibilityNavigator = inject[EligibilityNavigator]
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

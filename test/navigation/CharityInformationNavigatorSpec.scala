@@ -27,7 +27,7 @@ import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetai
 
 class CharityInformationNavigatorSpec extends SpecBase {
 
-  val navigator = new CharityInformationNavigator()
+  val navigator: CharityInformationNavigator = inject[CharityInformationNavigator]
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

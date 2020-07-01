@@ -27,8 +27,8 @@ import views.html.checkEligibility.IsEligiblePurposeView
 
 class IsEligiblePurposeViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "isEligiblePurpose"
-  val form = new IsEligiblePurposeFormProvider()()
+  private val messageKeyPrefix = "isEligiblePurpose"
+  val form: Form[Boolean] = inject[IsEligiblePurposeFormProvider].apply()
 
     "IsEligiblePurposeView" must {
 

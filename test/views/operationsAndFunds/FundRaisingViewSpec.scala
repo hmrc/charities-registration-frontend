@@ -28,9 +28,9 @@ import views.html.operationsAndFunds.FundRaisingView
 
 class FundRaisingViewSpec extends CheckboxViewBehaviours[FundRaisingOptions]  {
 
-  val messageKeyPrefix: String = "selectFundRaising"
-  val section: String = messages("operationsAndFunds.section")
-  val form = new FundRaisingFormProvider()()
+  private val messageKeyPrefix: String = "selectFundRaising"
+  private val section: String = messages("operationsAndFunds.section")
+  val form: Form[Set[FundRaisingOptions]] = inject[FundRaisingFormProvider].apply()
 
     "SelectFundRaisingView" must {
 

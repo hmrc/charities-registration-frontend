@@ -17,12 +17,12 @@
 package forms.regulatorsAndDocuments
 
 import forms.behaviours.CheckboxFieldBehaviours
-import models.regulators.{CharityRegulator, CharityRegulatorSpec}
-import play.api.data.FormError
+import models.regulators.CharityRegulator
+import play.api.data.{Form, FormError}
 
 class CharityRegulatorFormProviderSpec extends CheckboxFieldBehaviours {
 
-  val form = new CharityRegulatorFormProvider()()
+  private val form: Form[Set[CharityRegulator]] = inject[CharityRegulatorFormProvider].apply()
 
   ".value" must {
 

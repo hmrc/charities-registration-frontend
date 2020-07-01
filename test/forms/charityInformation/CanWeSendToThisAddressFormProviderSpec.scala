@@ -17,14 +17,15 @@
 package forms.charityInformation
 
 import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class CanWeSendToThisAddressFormProviderSpec extends BooleanFieldBehaviours {
 
-  val formProvider = new CanWeSendToThisAddressFormProvider()
-  val form = formProvider()
-  val requiredKey = "canWeSendLettersToThisAddress.error.required"
-  val invalidKey = "error.boolean"
+  private val formProvider: CanWeSendToThisAddressFormProvider = inject[CanWeSendToThisAddressFormProvider]
+  private val form: Form[Boolean] = formProvider()
+  private val requiredKey = "canWeSendLettersToThisAddress.error.required"
+  private val invalidKey = "error.boolean"
+
   ".value" must {
 
     val fieldName = "value"

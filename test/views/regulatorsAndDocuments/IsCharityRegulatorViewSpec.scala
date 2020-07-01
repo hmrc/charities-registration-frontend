@@ -25,12 +25,11 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.regulatorsAndDocuments.IsCharityRegulatorView
 
-
 class IsCharityRegulatorViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "isCharityRegulator"
-  val section = Some(messages("charityRegulator.section"))
-  val form = new IsCharityRegulatorFormProvider()()
+  private val messageKeyPrefix = "isCharityRegulator"
+  private val section: Some[String] = Some(messages("charityRegulator.section"))
+  val form: Form[Boolean] = inject[IsCharityRegulatorFormProvider].apply()
 
     "IsCharityRegulatorView" must {
 

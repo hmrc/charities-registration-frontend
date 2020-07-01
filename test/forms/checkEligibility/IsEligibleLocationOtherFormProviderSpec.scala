@@ -17,14 +17,13 @@
 package forms.checkEligibility
 
 import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class IsEligibleLocationOtherFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "isEligibleLocationOther.error.required"
-  val invalidKey = "error.boolean"
-
-  val form = new IsEligibleLocationOtherFormProvider()()
+  private val requiredKey = "isEligibleLocationOther.error.required"
+  private val invalidKey = "error.boolean"
+  private val form: Form[Boolean] = inject[IsEligibleLocationOtherFormProvider].apply()
 
   ".value" must {
 

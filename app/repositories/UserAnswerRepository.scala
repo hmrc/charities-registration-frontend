@@ -16,6 +16,7 @@
 
 package repositories
 
+import java.time.{LocalDateTime, ZoneOffset}
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
 import play.modules.reactivemongo.ReactiveMongoApi
@@ -25,9 +26,12 @@ class UserAnswerRepositoryImpl @Inject()(
    override val mongo: ReactiveMongoApi,
    appConfig: FrontendAppConfig) extends UserAnswerRepository {
 
-  override val collectionName: String = "user-answers"
+  override lazy val collectionName: String = "user-answers"
 
-  override val timeToLive: Int = appConfig.servicesConfig.getConfInt("mongodb.user-answers.timeToLiveInDays", 0)
+  override lazy val timeToLive: Int = appConfig.servicesConfig.getInt("mongodb.user-answers.timeToLiveInDays")
+
+  override def calculateExpiryTime: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC).plusDays(timeToLive + 1)
+    .withHour(0).withMinute(0).withSecond(0).withNano(0)
 }
 
 trait UserAnswerRepository extends AbstractRepository

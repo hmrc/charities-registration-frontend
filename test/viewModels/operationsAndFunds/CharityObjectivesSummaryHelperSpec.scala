@@ -28,25 +28,25 @@ import viewmodels.operationsAndFunds.CharityObjectivesSummaryHelper
 class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
 
-  val helper = new CharityObjectivesSummaryHelper(UserAnswers("id")
+  private val helper = new CharityObjectivesSummaryHelper(UserAnswers("id")
     .set(CharitableObjectivesPage, "Charitable Objectives").flatMap
   (_.set(CharitablePurposesPage, CharitablePurposes.values.toSet)).flatMap
   (_.set(PublicBenefitsPage,"Public Benefits")).success.value
   )
 
-  val amateurSport = CharitablePurposes.AmateurSport
-  val animalWelfare = CharitablePurposes.AnimalWelfare
-  val artsCultureOrScience = CharitablePurposes.ArtsCultureHeritageScience
-  val citizenshipOrCommunityDevelopment = CharitablePurposes.CitizenshipCommunity
-  val education = CharitablePurposes.Education
-  val environmentalProtection = CharitablePurposes.EnvironmentalProtection
-  val healthOrSavingOfLives = CharitablePurposes.Health
-  val humanRights = CharitablePurposes.HumanRights
-  val armedForcesOfTheCrown = CharitablePurposes.PromotionOfEfficiency
-  val reliefOfPoverty = CharitablePurposes.ReliefOfPoverty
-  val reliefOfYouthAge = CharitablePurposes.ReliefOfThoseInNeed
-  val religion = CharitablePurposes.Religion
-  val other = CharitablePurposes.Other
+  private val amateurSport = CharitablePurposes.AmateurSport
+  private val animalWelfare = CharitablePurposes.AnimalWelfare
+  private val artsCultureOrScience = CharitablePurposes.ArtsCultureHeritageScience
+  private val citizenshipOrCommunityDevelopment = CharitablePurposes.CitizenshipCommunity
+  private val education = CharitablePurposes.Education
+  private val environmentalProtection = CharitablePurposes.EnvironmentalProtection
+  private val healthOrSavingOfLives = CharitablePurposes.Health
+  private val humanRights = CharitablePurposes.HumanRights
+  private val armedForcesOfTheCrown = CharitablePurposes.PromotionOfEfficiency
+  private val reliefOfPoverty = CharitablePurposes.ReliefOfPoverty
+  private val reliefOfYouthAge = CharitablePurposes.ReliefOfThoseInNeed
+  private val religion = CharitablePurposes.Religion
+  private val other = CharitablePurposes.Other
 
   "Check your answers helper" must {
 

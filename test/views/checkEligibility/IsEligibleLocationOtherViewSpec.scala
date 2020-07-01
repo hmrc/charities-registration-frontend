@@ -27,8 +27,8 @@ import views.html.checkEligibility.IsEligibleLocationOtherView
 
 class IsEligibleLocationOtherViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "isEligibleLocationOther"
-  val form = new IsEligibleLocationOtherFormProvider()()
+  private val messageKeyPrefix = "isEligibleLocationOther"
+  val form: Form[Boolean] = inject[IsEligibleLocationOtherFormProvider].apply()
 
     "IsEligibleLocationOtherView" must {
 

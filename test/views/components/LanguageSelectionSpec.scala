@@ -23,7 +23,7 @@ import views.html.components.languageSelection
 
 class LanguageSelectionSpec extends SpecBase {
 
-  lazy val languageSelectionView: languageSelection = app.injector.instanceOf[languageSelection]
+  lazy val languageSelectionView: languageSelection = inject[languageSelection]
 
   object Selectors {
     val welshLink = "a#cymraeg-switch"

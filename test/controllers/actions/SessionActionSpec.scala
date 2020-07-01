@@ -17,9 +17,8 @@
 package controllers.actions
 
 import base.SpecBase
-import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.{BodyParsers, Results}
+import play.api.mvc.{Action, AnyContent, BodyParsers, Results}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.SessionKeys
@@ -27,7 +26,7 @@ import uk.gov.hmrc.http.SessionKeys
 class SessionActionSpec extends SpecBase {
 
   class Harness(action: SessionIdentifierAction) {
-    def onPageLoad() = action { request => Results.Ok }
+    def onPageLoad(): Action[AnyContent] = action { _ => Results.Ok }
   }
 
   "Session Action" when {
@@ -43,7 +42,7 @@ class SessionActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val sessionAction = new SessionIdentifierAction(frontendAppConfig, bodyParsers)
+        val sessionAction = new SessionIdentifierAction(bodyParsers)
 
         val controller = new Harness(sessionAction)
 
@@ -62,7 +61,7 @@ class SessionActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val sessionAction = new SessionIdentifierAction(frontendAppConfig, bodyParsers)
+        val sessionAction = new SessionIdentifierAction(bodyParsers)
 
         val controller = new Harness(sessionAction)
 

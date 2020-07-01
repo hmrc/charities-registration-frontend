@@ -22,8 +22,8 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeDocumentsNavigator
 import navigation.DocumentsNavigator
+import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach

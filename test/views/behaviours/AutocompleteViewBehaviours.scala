@@ -30,7 +30,7 @@ trait AutocompleteViewBehaviours extends QuestionViewBehaviours[String] {
                  expectedHintKey: Option[String] = None,
                  section: Option[String] = None,
                  headingArgs: Seq[String] = Seq()
-                ) = {
+                ): Unit = {
 
     "behave like a page with a string value field" when {
 

@@ -28,9 +28,9 @@ import views.html.operationsAndFunds.OperatingLocationView
 
 class OperatingLocationViewSpec extends CheckboxViewBehaviours[OperatingLocationOptions]  {
 
-  val messageKeyPrefix: String = "operatingLocation"
-  val section: String = messages("operationsAndFunds.section")
-  val form = new OperatingLocationFormProvider()()
+  private val messageKeyPrefix: String = "operatingLocation"
+  private val section: String = messages("operationsAndFunds.section")
+  val form: Form[Set[OperatingLocationOptions]] = inject[OperatingLocationFormProvider].apply()
 
     "OperatingLocationView" must {
 

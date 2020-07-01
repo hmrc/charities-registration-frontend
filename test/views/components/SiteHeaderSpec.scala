@@ -24,7 +24,7 @@ import views.html.components.siteHeader
 
 class SiteHeaderSpec extends SpecBase {
 
-  lazy val siteHeader: siteHeader = app.injector.instanceOf[siteHeader]
+  lazy val siteHeader: siteHeader = inject[siteHeader]
   lazy val html: Html = siteHeader()(messages)
 
   object Selectors {

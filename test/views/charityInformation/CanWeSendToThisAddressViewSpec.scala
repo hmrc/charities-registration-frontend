@@ -27,9 +27,9 @@ import views.html.charityInformation.CanWeSendToThisAddressView
 
 class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "canWeSendLettersToThisAddress"
-  val section = Some(messages("contactDetail.section"))
-  val form = new CanWeSendToThisAddressFormProvider()()
+  private val messageKeyPrefix = "canWeSendLettersToThisAddress"
+  private val section: Some[String] = Some(messages("contactDetail.section"))
+  val form: Form[Boolean] = inject[CanWeSendToThisAddressFormProvider].apply()
 
   "CanWeSendToThisAddressViewView" must {
 

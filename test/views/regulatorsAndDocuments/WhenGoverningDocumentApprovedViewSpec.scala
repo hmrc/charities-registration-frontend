@@ -23,15 +23,13 @@ import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import utils.TimeMachine
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 
 class WhenGoverningDocumentApprovedViewSpec extends QuestionViewBehaviours[LocalDate] {
 
-  val messageKeyPrefix = "whenGoverningDocumentApproved"
-
-  val form = new WhenGoverningDocumentApprovedFormProvider(timeMachine = new TimeMachine)()
+  private val messageKeyPrefix = "whenGoverningDocumentApproved"
+  val form: Form[LocalDate] = inject[WhenGoverningDocumentApprovedFormProvider].apply()
 
   "WhenGoverningDocumentApprovedView view" must {
 

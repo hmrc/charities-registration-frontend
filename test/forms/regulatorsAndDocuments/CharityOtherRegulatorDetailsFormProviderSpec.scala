@@ -18,14 +18,14 @@ package forms.regulatorsAndDocuments
 
 import forms.behaviours.StringFieldBehaviours
 import models.CharityOtherRegulatorDetails
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours {
 
-  val maxLengthRegulatorName = 100
-  val maxLengthRegistrationNumber = 20
-  val formProvider = new CharityOtherRegulatorDetailsFormProvider()
-  val form = formProvider()
+  private val maxLengthRegulatorName = 100
+  private val maxLengthRegistrationNumber = 20
+  private val formProvider: CharityOtherRegulatorDetailsFormProvider = inject[CharityOtherRegulatorDetailsFormProvider]
+  private val form: Form[CharityOtherRegulatorDetails] = formProvider()
 
   ".regulatorName" must {
 

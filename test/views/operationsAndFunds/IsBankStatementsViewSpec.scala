@@ -28,9 +28,9 @@ import views.html.operationsAndFunds.IsBankStatementsView
 
 class IsBankStatementsViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "isBankStatements"
-  val section: Option[String] = Some(messages("operationsAndFunds.section"))
-  val form = new IsBankStatementsFormProvider()()
+  private val messageKeyPrefix = "isBankStatements"
+  private val section: Option[String] = Some(messages("operationsAndFunds.section"))
+  val form: Form[Boolean] = inject[IsBankStatementsFormProvider].apply()
 
     "IsBankStatementsView" must {
 

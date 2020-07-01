@@ -22,7 +22,7 @@ import views.html.checkEligibility.InEligibleView
 
 class InEligibleViewSpec extends ViewBehaviours  {
 
-  val messageKeyPrefix = "inEligible"
+  private val messageKeyPrefix = "inEligible"
 
     "InEligibleView" must {
 

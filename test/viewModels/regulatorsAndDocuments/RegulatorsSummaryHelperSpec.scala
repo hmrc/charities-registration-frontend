@@ -30,7 +30,7 @@ import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
 
-  val helper = new RegulatorsSummaryHelper(UserAnswers("id")
+  private val helper = new RegulatorsSummaryHelper(UserAnswers("id")
     .set(IsCharityRegulatorPage, true).flatMap
      (_.set(CharityRegulatorPage, CharityRegulator.values.toSet)).flatMap
      (_.set(CharityCommissionRegistrationNumberPage, "123456")).flatMap
@@ -41,10 +41,10 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper wit
      (_.set(WhyNotRegisteredWithCharityPage,"office closed")).success.value
   )
 
-  val englandAndWales = CharityRegulator.EnglandWales
-  val scottish = CharityRegulator.Scottish
-  val northernIreland = CharityRegulator.NorthernIreland
-  val other = CharityRegulator.Other
+  private val englandAndWales = CharityRegulator.EnglandWales
+  private val scottish = CharityRegulator.Scottish
+  private val northernIreland = CharityRegulator.NorthernIreland
+  private val other = CharityRegulator.Other
 
   "Check Your Answers Helper" must {
 

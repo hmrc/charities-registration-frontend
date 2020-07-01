@@ -18,13 +18,13 @@ package forms.charityInformation
 
 import forms.behaviours.StringFieldBehaviours
 import models.CharityName
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
   private val maxLength = 160
-  private val formProvider = new CharityNameFormProvider()
-  private val form = formProvider()
+  private val formProvider: CharityNameFormProvider = inject[CharityNameFormProvider]
+  private val form: Form[CharityName] = formProvider()
 
   ".fullName" must {
 

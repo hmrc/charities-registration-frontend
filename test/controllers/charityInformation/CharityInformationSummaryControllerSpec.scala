@@ -26,7 +26,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.UserAnswerRepository
+import repositories.{SessionRepository, UserAnswerRepository}
 
 import scala.concurrent.Future
 
@@ -38,6 +38,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[SessionRepository].toInstance(mockSessionRepository),
         bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )

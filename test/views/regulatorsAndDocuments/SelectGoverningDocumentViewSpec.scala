@@ -25,12 +25,11 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.regulatorsAndDocuments.SelectGoverningDocumentView
 
-
 class SelectGoverningDocumentViewSpec extends ViewBehaviours  {
 
-  val messageKeyPrefix: String = "selectGoverningDocument"
-  val section: String = messages("charityRegulator.section")
-  val form = new SelectGoverningDocumentFormProvider()()
+  private val messageKeyPrefix: String = "selectGoverningDocument"
+  private val section: String = messages("charityRegulator.section")
+  val form: Form[SelectGoverningDocument] = inject[SelectGoverningDocumentFormProvider].apply()
 
     "CharityRegulatorView" must {
 

@@ -18,11 +18,11 @@ package forms.regulatorsAndDocuments
 
 import forms.behaviours.OptionFieldBehaviours
 import models.regulators.SelectGoverningDocument
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class SelectGoverningDocumentFormProviderSpec extends OptionFieldBehaviours {
 
-  val form = new SelectGoverningDocumentFormProvider()()
+  private val form: Form[SelectGoverningDocument] = inject[SelectGoverningDocumentFormProvider].apply()
 
   ".value" must {
 

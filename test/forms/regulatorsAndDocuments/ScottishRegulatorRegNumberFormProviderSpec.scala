@@ -21,9 +21,8 @@ import play.api.data.{Form, FormError}
 
 class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
-
-  val formProvider = new ScottishRegulatorRegNumberFormProvider()
-  val form: Form[String] = formProvider()
+  private val formProvider: ScottishRegulatorRegNumberFormProvider = inject[ScottishRegulatorRegNumberFormProvider]
+  private val form: Form[String] = formProvider()
 
   ".registrationNumber" must {
 

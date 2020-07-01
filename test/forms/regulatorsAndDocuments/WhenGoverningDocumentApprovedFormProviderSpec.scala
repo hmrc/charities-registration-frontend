@@ -19,20 +19,17 @@ package forms.regulatorsAndDocuments
 import java.time.LocalDate
 
 import forms.behaviours.DateBehaviours
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 import utils.TimeMachine
 
 class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
 
-  val timeMachine: TimeMachine = new TimeMachine {
-  }
-
-  val form = new WhenGoverningDocumentApprovedFormProvider(timeMachine = new TimeMachine)()
-
-  val year: Int = 1000
-  val month: Int = 1
-  val dayOfMonth: Int = 1
-  val fakeNow: LocalDate = timeMachine.now()
+  private val timeMachine: TimeMachine = inject[TimeMachine]
+  private val form: Form[LocalDate] = inject[WhenGoverningDocumentApprovedFormProvider].apply()
+  private val year: Int = 1000
+  private val month: Int = 1
+  private val dayOfMonth: Int = 1
+  private val fakeNow: LocalDate = timeMachine.now()
 
   ".value" should {
 

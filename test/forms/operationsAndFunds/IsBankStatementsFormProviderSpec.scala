@@ -21,10 +21,11 @@ import play.api.data.{Form, FormError}
 
 class IsBankStatementsFormProviderSpec extends BooleanFieldBehaviours {
 
-  val formProvider = new IsBankStatementsFormProvider()
-  val form: Form[Boolean] = formProvider()
-  val requiredKey = "isBankStatements.error.required"
-  val invalidKey = "error.boolean"
+  private val formProvider: IsBankStatementsFormProvider = inject[IsBankStatementsFormProvider]
+  private val form: Form[Boolean] = formProvider()
+  private val requiredKey = "isBankStatements.error.required"
+  private val invalidKey = "error.boolean"
+
   ".value" must {
 
     val fieldName = "value"

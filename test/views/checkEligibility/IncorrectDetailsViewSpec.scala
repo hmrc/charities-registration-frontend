@@ -22,7 +22,7 @@ import views.html.checkEligibility.IncorrectDetailsView
 
 class IncorrectDetailsViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "incorrect-details"
+  private val messageKeyPrefix = "incorrect-details"
 
   "IncorrectDetails view" must {
 

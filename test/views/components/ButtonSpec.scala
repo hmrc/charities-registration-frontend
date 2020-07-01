@@ -23,7 +23,7 @@ import views.html.components.button
 
 class ButtonSpec extends SpecBase {
 
-  lazy val buttonComponent: button = app.injector.instanceOf[button]
+  lazy val buttonComponent: button = inject[button]
   lazy val html: Html = buttonComponent("site.continue")
 
   object Selectors {

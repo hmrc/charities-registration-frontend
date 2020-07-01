@@ -18,11 +18,11 @@ package forms.regulatorsAndDocuments
 
 import forms.behaviours.OptionFieldBehaviours
 import models.regulators.SelectWhyNoRegulator
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class SelectWhyNoRegulatorFormProviderSpec extends OptionFieldBehaviours {
 
-  val form = new SelectWhyNoRegulatorFormProvider()()
+  private val form: Form[SelectWhyNoRegulator] = inject[SelectWhyNoRegulatorFormProvider].apply()
 
   ".value" must {
 

@@ -24,11 +24,10 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.ScottishRegulatorRegNumberView
 
-
 class ScottishRegulatorRegNumberViewSpec extends QuestionViewBehaviours[String]  {
 
-  val messageKeyPrefix = "scottishRegulatorRegNumber"
-  val form = new ScottishRegulatorRegNumberFormProvider()()
+  private val messageKeyPrefix = "scottishRegulatorRegNumber"
+  val form: Form[String] = inject[ScottishRegulatorRegNumberFormProvider].apply()
 
     "ScottishRegulatorRegNumberView" must {
 

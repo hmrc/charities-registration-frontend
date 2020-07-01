@@ -29,28 +29,38 @@ import reactivemongo.play.json.collection.JSONCollection
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
 trait AbstractRepository {
 
   val mongo: ReactiveMongoApi
-
   val collectionName: String
-
   val timeToLive: Int
+  def calculateExpiryTime: LocalDateTime
 
   private def collection: Future[JSONCollection] =
     mongo.database.map(_.collection[JSONCollection](collectionName))
 
   private val lastUpdatedIndex = Index(
-    key = Seq("expireAt" -> IndexType.Ascending),
-    name = Some("dataExpiry"),
-    options = BSONDocument("expireAfterSeconds" -> timeToLive)
+    key     = Seq("expiresAt" -> IndexType.Ascending),
+    name    = Some("dataExpiry"),
+    options = BSONDocument("expireAfterSeconds" -> 0)
   )
 
+  def ensureTtlIndex(collection: JSONCollection): Future[Unit] = {
+    collection.indexesManager.ensure(lastUpdatedIndex) flatMap {
+      newlyCreated =>
+        if (!newlyCreated) {
+          for {
+            _ <- collection.indexesManager.drop("expiresAt")
+            _ <- collection.indexesManager.ensure(lastUpdatedIndex)
+          } yield ()
+        } else {
+          Future.successful(())
+        }
+    }
+  }
+
   val started: Future[Unit] =
-    collection.flatMap {
-      _.indexesManager.ensure(lastUpdatedIndex)
-    }.map(_ => ())
+    collection.flatMap(ensureTtlIndex).map(_ => ())
 
   def get(id: String): Future[Option[UserAnswers]] =
     collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])
@@ -62,7 +72,7 @@ trait AbstractRepository {
     )
 
     val modifier = Json.obj(
-      "$set" -> userAnswers.copy(lastUpdated  = LocalDateTime.now)
+      "$set" -> userAnswers.copy(lastUpdated  = LocalDateTime.now, expiresAt = calculateExpiryTime)
     )
 
     collection.flatMap {

@@ -27,9 +27,9 @@ import views.html.operationsAndFunds.AccountingPeriodEndDateView
 
 class AccountingPeriodEndDateViewSpec extends QuestionViewBehaviours[MonthDay] {
 
-  val messageKeyPrefix = "accountingPeriodEndDate"
+  private val messageKeyPrefix = "accountingPeriodEndDate"
 
-  val form = new AccountingPeriodEndDateFormProvider()()
+  val form: Form[MonthDay] = inject[AccountingPeriodEndDateFormProvider].apply()
 
   "AccountingPeriodEndDate view" must {
 

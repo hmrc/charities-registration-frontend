@@ -24,11 +24,10 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.CharityOtherRegulatorDetailsView
 
-
 class CharityOtherRegulatorDetailsViewSpec extends QuestionViewBehaviours[CharityOtherRegulatorDetails]  {
 
-  val messageKeyPrefix = "charityOtherRegulatorDetails"
-  val form = new CharityOtherRegulatorDetailsFormProvider()()
+  private val messageKeyPrefix = "charityOtherRegulatorDetails"
+  val form: Form[CharityOtherRegulatorDetails] = inject[CharityOtherRegulatorDetailsFormProvider].apply()
 
     "CharityOtherRegulatorDetailsView" must {
 

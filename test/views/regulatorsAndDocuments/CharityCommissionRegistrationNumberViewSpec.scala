@@ -26,8 +26,8 @@ import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
 
 class CharityCommissionRegistrationNumberViewSpec extends QuestionViewBehaviours[String]  {
 
-  val messageKeyPrefix = "charityCommissionRegistrationNumber"
-  val form = new CharityCommissionRegistrationNumberFormProvider()()
+  private val messageKeyPrefix = "charityCommissionRegistrationNumber"
+  val form: Form[String] = inject[CharityCommissionRegistrationNumberFormProvider].apply()
 
     "CharityCommissionRegistrationNumberView" must {
 

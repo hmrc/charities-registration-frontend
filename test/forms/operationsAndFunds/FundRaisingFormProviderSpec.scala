@@ -18,11 +18,11 @@ package forms.operationsAndFunds
 
 import forms.behaviours.CheckboxFieldBehaviours
 import models.operations.FundRaisingOptions
-import play.api.data.FormError
+import play.api.data.{Form, FormError}
 
 class FundRaisingFormProviderSpec extends CheckboxFieldBehaviours {
 
-  val form = new FundRaisingFormProvider()()
+  private val form: Form[Set[FundRaisingOptions]] = inject[FundRaisingFormProvider].apply()
 
   ".value" must {
 

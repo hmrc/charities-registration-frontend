@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets
 import java.time.{Instant, LocalDate, ZoneOffset}
 
 import models.UserAnswers
+import org.joda.time.{LocalDate => JodaLocalDate}
 import org.scalacheck.Arbitrary._
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen, Shrink}
@@ -151,6 +152,14 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
     Gen.choose(toMillis(min), toMillis(max)).map {
       millis =>
         Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
+    }
+  }
+
+  def daysBetween(min: JodaLocalDate, max: JodaLocalDate): Gen[JodaLocalDate] = {
+    Gen.choose(min.toDateTimeAtStartOfDay().getMillis, max.toDateTimeAtStartOfDay.getMillis).map {
+      millis =>
+       val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
+        new JodaLocalDate(date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant.toEpochMilli)
     }
   }
 

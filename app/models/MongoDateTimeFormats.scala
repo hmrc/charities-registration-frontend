@@ -18,9 +18,20 @@ package models
 
 import java.time.{Instant, LocalDateTime, ZoneOffset}
 
+import org.joda.time.MonthDay
 import play.api.libs.json._
 
 trait MongoDateTimeFormats {
+
+  implicit val localDayMonthRead: Reads[MonthDay] =
+    (__).read[String].map {
+      dayMonth=>
+        MonthDay.parse(dayMonth)
+    }
+
+  implicit val localDayMonthWrite: Writes[MonthDay] = new Writes[MonthDay] {
+    def writes(dayMonth: MonthDay): JsValue = JsString(dayMonth.toString)
+  }
 
   implicit val localDateTimeRead: Reads[LocalDateTime] =
     (__ \ "$date").read[Long].map {

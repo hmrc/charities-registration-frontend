@@ -511,3 +511,12 @@ isBankStatements.title = Does your charity have bank statements for the last 3 m
 isBankStatements.heading = Does your charity have bank statements for the last 3 months of operation?
 isBankStatements.hint = If the account has been open for less than 3 months, you will need to provide evidence from the bank that the account is open.
 isBankStatements.error.required = Select yes if your charity has bank statements for the last 3 months of operation
+
+# AccountingEndDatePage Messages
+# -------------------------------------  ---------------------
+accountingPeriodEndDate.title = What is your accounting period end date?
+accountingPeriodEndDate.heading = What is your accounting period end date?
+accountingPeriodEndDate.error.required.all = Enter the accounting period end date
+accountingPeriodEndDate.error.required = Enter the accounting period end {0}
+accountingPeriodEndDate.error.invalid = The accounting period end date must be a real date
+accountingPeriodEndDate.p1 = This is the date to which your charity prepares its financial accounts.

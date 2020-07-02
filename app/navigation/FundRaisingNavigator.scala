@@ -23,7 +23,7 @@ import javax.inject.Inject
 import models.MongoDateTimeFormats.localDayMonthRead
 import models._
 import pages.Page
-import pages.operationsAndFunds.{FundRaisingPage, IsBankStatementsPage, IsFinancialAccountsPage, OperatingLocationPage,AccountingPeriodEndDatePage}
+import pages.operationsAndFunds._
 import play.api.mvc.Call
 
 class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -51,9 +51,12 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
 
     case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
+    case OperationsFundsSummaryPage => _ => routes.IndexController.onPageLoad()
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

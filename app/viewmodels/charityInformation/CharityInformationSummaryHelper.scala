@@ -23,12 +23,12 @@ import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetai
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import utils.{CurrencyFormatter, ImplicitDateFormatter}
+import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
 class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
                                      (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper with CurrencyFormatter {
+  with SummaryListRowHelper {
 
 
   def charityNameRows: Seq[SummaryListRow] =

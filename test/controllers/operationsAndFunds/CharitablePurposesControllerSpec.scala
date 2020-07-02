@@ -21,7 +21,7 @@ import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.CharitablePurposesFormProvider
 import models.operations.CharitablePurposes
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeOperationsAndFundsNavigator
+import navigation.FakeNavigators.FakeObjectivesNavigator
 import navigation.ObjectivesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
@@ -44,7 +44,7 @@ class CharitablePurposesControllerSpec extends SpecBase with BeforeAndAfterEach 
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-        bind[ObjectivesNavigator].toInstance(FakeOperationsAndFundsNavigator),
+        bind[ObjectivesNavigator].toInstance(FakeObjectivesNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 

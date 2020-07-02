@@ -23,11 +23,10 @@ import controllers.charityInformation.{routes => charityInfoRoutes}
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
 import pages.addressLookup.CharityInformationAddressLookupPage
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
-import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
 import viewmodels.charityInformation.CharityInformationSummaryHelper
 
-class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val officialAddress: UserAnswers = emptyUserAnswers
     .set(CharityNamePage, CharityName(fullName = "Believe",

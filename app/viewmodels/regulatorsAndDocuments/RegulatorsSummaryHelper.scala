@@ -24,18 +24,18 @@ import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import utils.{CurrencyFormatter, ImplicitDateFormatter}
+import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
 class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
                              (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper with CurrencyFormatter {
+  with SummaryListRowHelper {
 
   def isCharityRegulatorRow: Option[SummaryListRow] =
     answer(IsCharityRegulatorPage, regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(CheckMode))
 
   def charityRegulatorRow: Option[SummaryListRow] =
-    answerCharityRegulator(CharityRegulatorPage, regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode))
+    multiAnswer(CharityRegulatorPage, regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode))
 
   def charityCommissionRegRow: Option[SummaryListRow] =
     answer(CharityCommissionRegistrationNumberPage, regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(CheckMode))
@@ -67,21 +67,6 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
         changeLinkCall -> messages("site.edit")
       )
     }
-
-
-  private def answerCharityRegulator[CharityRegulator](page: QuestionPage[Set[CharityRegulator]],
-                changeLinkCall: Call)
-               (implicit reads: Reads[CharityRegulator], conversion: CharityRegulator => String): Option[SummaryListRow] =
-    userAnswers.get(page).map { ans =>
-
-      summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel"),
-        ans.foldLeft("")((accumulator,item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>"),
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    }
-
 
   val rows: Seq[SummaryListRow] = Seq(
     isCharityRegulatorRow,

@@ -485,6 +485,7 @@ selectFundRaising.tradingIncome = Trading income
 selectFundRaising.tradingSubsidiaries = Trading subsidiaries
 selectFundRaising.investmentIncome = Investment income
 selectFundRaising.other = Other
+selectFundRaising.checkYourAnswersLabel = How your charity raises funds
 
 # Select Operating Location Messages
 # ----------------------------------------------------------
@@ -497,6 +498,7 @@ operatingLocation.scotland = Scotland
 operatingLocation.northernIreland = Northern Ireland
 operatingLocation.ukWide = Across the UK
 operatingLocation.overseas = Overseas
+operatingLocation.checkYourAnswersLabel = Where your charity operates
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
@@ -504,6 +506,7 @@ isFinancialAccounts.title = Has your charity prepared financial accounts?
 isFinancialAccounts.heading = Has your charity prepared financial accounts?
 isFinancialAccounts.error.required = Select yes if your charity has prepared financial accounts
 isFinancialAccounts.hint = If your charity has a set of prepared financial accounts, you will need to post us a copy to support your application.
+isFinancialAccounts.checkYourAnswersLabel = Your charity has financial accounts
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
@@ -511,6 +514,7 @@ isBankStatements.title = Does your charity have bank statements for the last 3 m
 isBankStatements.heading = Does your charity have bank statements for the last 3 months of operation?
 isBankStatements.hint = If the account has been open for less than 3 months, you will need to provide evidence from the bank that the account is open.
 isBankStatements.error.required = Select yes if your charity has bank statements for the last 3 months of operation
+isBankStatements.checkYourAnswersLabel = Your charity has bank statements for the last 3 months
 
 # AccountingEndDatePage Messages
 # -------------------------------------  ---------------------
@@ -520,3 +524,10 @@ accountingPeriodEndDate.error.required.all = Enter the accounting period end dat
 accountingPeriodEndDate.error.required = Enter the accounting period end {0}
 accountingPeriodEndDate.error.invalid = The accounting period end date must be a real date
 accountingPeriodEndDate.p1 = This is the date to which your charity prepares its financial accounts.
+accountingPeriodEndDate.checkYourAnswersLabel = When your accounting period ends
+
+# Operations and Funds Summary page
+# ----------------------------------------------------------
+operationsFundsSummary.checkYourAnswers.title = Check your charity’s operations and funds details
+operationsFundsSummary.checkYourAnswers.heading = Check your charity’s operations and funds details
+operationsFundsSummary.section = Operations and funds

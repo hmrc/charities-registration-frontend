@@ -22,15 +22,15 @@ POST       /select-fundraising                             controllers.operation
 GET        /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-fundraising/change                      controllers.operationsAndFunds.FundRaisingController.onSubmit(mode: Mode = CheckMode)
 
-GET        /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = NormalMode)
-POST       /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = NormalMode)
-GET        /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = CheckMode)
-POST       /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = CheckMode)
-
 GET        /select-operating-location                      controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = NormalMode)
 POST       /select-operating-location                      controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = NormalMode)
 GET        /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = CheckMode)
+
+GET        /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = NormalMode)
+POST       /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = NormalMode)
+GET        /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = CheckMode)
+POST       /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = CheckMode)
 
 GET        /bank-statements                                controllers.operationsAndFunds.IsBankStatementsController.onPageLoad(mode: Mode = NormalMode)
 POST       /bank-statements                                controllers.operationsAndFunds.IsBankStatementsController.onSubmit(mode: Mode = NormalMode)
@@ -41,3 +41,6 @@ GET        /enter-accounting-end-date                      controllers.operation
 POST       /enter-accounting-end-date                      controllers.operationsAndFunds.AccountingPeriodEndDateController.onSubmit(mode: Mode = NormalMode)
 GET        /enter-accounting-end-date/change               controllers.operationsAndFunds.AccountingPeriodEndDateController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-accounting-end-date/change               controllers.operationsAndFunds.AccountingPeriodEndDateController.onSubmit(mode: Mode = CheckMode)
+
+GET        /operations-and-funds-summary                   controllers.operationsAndFunds.OperationsFundsSummaryController.onPageLoad()
+POST       /operations-and-funds-summary                   controllers.operationsAndFunds.OperationsFundsSummaryController.onSubmit()

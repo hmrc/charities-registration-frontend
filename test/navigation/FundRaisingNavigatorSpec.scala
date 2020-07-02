@@ -23,7 +23,7 @@ import models._
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import org.joda.time.{LocalDate, MonthDay}
 import pages.IndexPage
-import pages.operationsAndFunds.{FundRaisingPage, IsBankStatementsPage, IsFinancialAccountsPage, OperatingLocationPage, AccountingPeriodEndDatePage}
+import pages.operationsAndFunds._
 class FundRaisingNavigatorSpec extends SpecBase {
 
   val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
@@ -99,9 +99,18 @@ class FundRaisingNavigatorSpec extends SpecBase {
          navigator.nextPage(AccountingPeriodEndDatePage, NormalMode, emptyUserAnswers.set(AccountingPeriodEndDatePage,
            MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))
          (MongoDateTimeFormats.localDayMonthWrite).success.value) mustBe
-              routes.IndexController.onPageLoad() //TO be changed when summary page is created
+           operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }
+
+      "from the Summary page" must {
+
+        "go to the Task List page when click continue button" in {
+          navigator.nextPage(OperationsFundsSummaryPage, NormalMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
+        }
+      }
+
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {

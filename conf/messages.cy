@@ -128,7 +128,7 @@ index.section4.spoke2.label = Add other officials
 index.section4.spoke3.label = Give nominee information
 index.section.note.label = Once you have completed every section, you will be asked to sign a declaration and submit the application.
 index.section.notStarted = Not started
-index.section.inpProgress = In progress
+index.section.inProgress = In progress
 index.section.completed = Completed
 
 # AddressLookup Messages

@@ -16,7 +16,7 @@
 
 package views
 
-import models.{NormalMode, Spoke, TaskListSection}
+import models.{NormalMode, TaskListSection}
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.Index
@@ -27,13 +27,25 @@ class IndexViewSpec extends ViewBehaviours  {
 
     "Index View" must {
 
-      val section1 = TaskListSection(List(
-        Spoke(controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "index.section.notStarted")))
+      val section1 = TaskListSection(
+        controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "index.section.notStarted")
+
+      val section2 = TaskListSection(
+        controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, "index.section.notStarted")
+
+      val section3 = TaskListSection(
+        controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, "index.section.notStarted")
+
+      val section4 = TaskListSection(
+        controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url, "index.section.notStarted")
+
+      val section5 = TaskListSection(
+        controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url, "index.section.notStarted")
 
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[Index](Some(emptyUserAnswers))
-        view.apply(List(section1))(fakeRequest, messages, frontendAppConfig)
+        view.apply(List(section1, section2, section3, section4, section5))(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)

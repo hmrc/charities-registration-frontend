@@ -17,6 +17,4 @@
 package models
 
 
-case class TaskListSection(spokes: List[Spoke])
-
-case class Spoke(url: String, status: String)
+case class TaskListSection(url: String, status: String)

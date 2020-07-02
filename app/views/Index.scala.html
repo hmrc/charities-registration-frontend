@@ -39,11 +39,11 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result.head.spokes.head.url}"aria-describedby="charity-info-completed">
+                    <a href="@{result.head.url}"aria-describedby="charity-info-completed">
                       @messages("index.section1.spoke1.label")
                     </a>
                   </span>
-                    <strong id="charity-info-completed" class='@if(result.head.spokes.head.status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result.head.spokes.head.status)</strong>
+                    <strong id="charity-info-completed" class='@if(result.head.status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result.head.status)</strong>
                 </li>
             </ul>
         </li>
@@ -54,19 +54,19 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url}"aria-describedby="name-regulator-completed">
+                    <a href="@{result(1).url}"aria-describedby="name-regulator-completed">
                       @messages("index.section2.spoke1.label")
                     </a>
                   </span>
-                    <strong id="name-regulator-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="name-regulator-completed" class='@if(result(1).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(1).status)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url}"aria-describedby="governing-doc-info-completed">
+                    <a href="@{result(2).url}"aria-describedby="governing-doc-info-completed">
                       @messages("index.section2.spoke2.label")
                     </a>
                   </span>
-                    <strong id="governing-doc-info-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="governing-doc-info-completed" class='@if(result(2).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(2).status)</strong>
                 </li>
             </ul>
         </li>
@@ -77,19 +77,19 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url}"aria-describedby="charity-objective-completed">
+                    <a href="@{result(3).url}"aria-describedby="charity-objective-completed">
                       @messages("index.section3.spoke1.label")
                     </a>
                   </span>
-                    <strong id="charity-objective-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="charity-objective-completed" class='@if(result(3).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(3).status)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url}"aria-describedby="fundraising-info-completed">
+                    <a href="@{result(4).url}"aria-describedby="fundraising-info-completed">
                       @messages("index.section3.spoke2.label")
                     </a>
                   </span>
-                    <strong id="fundraising-info-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="fundraising-info-completed" class='@if(result(4).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(4).status)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">

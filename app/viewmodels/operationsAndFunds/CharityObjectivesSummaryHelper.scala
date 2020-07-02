@@ -16,45 +16,28 @@
 
 package viewmodels.operationsAndFunds
 
+import controllers.operationsAndFunds.{routes => operations}
 import models.{CheckMode, UserAnswers}
-import pages.QuestionPage
 import pages.operationsAndFunds._
 import play.api.i18n.Messages
-import play.api.libs.json.Reads
-import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import utils.{CurrencyFormatter, ImplicitDateFormatter}
+import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
-import controllers.operationsAndFunds.{routes => operations}
 
 class CharityObjectivesSummaryHelper(override val userAnswers: UserAnswers)
                                     (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-    with SummaryListRowHelper with CurrencyFormatter {
+    with SummaryListRowHelper {
 
     def charitableObjectivesRow: Option[SummaryListRow] =
       answer(CharitableObjectivesPage, operations.CharitableObjectivesController.onPageLoad(CheckMode))
 
     def charitablePurposesRow: Option[SummaryListRow] =
-      answerCharitablePurpose(CharitablePurposesPage, operations.CharitablePurposesController.onPageLoad(CheckMode))
+      multiAnswer(CharitablePurposesPage, operations.CharitablePurposesController.onPageLoad(CheckMode))
 
     //TODO Add other Charitable Purposes row once page is created
 
     def publicBenefitsRow: Option[SummaryListRow] =
       answer(PublicBenefitsPage, operations.PublicBenefitsController.onPageLoad(CheckMode))
-
-    private def answerCharitablePurpose[CharitablePurposes](page: QuestionPage[Set[CharitablePurposes]],
-                                                         changeLinkCall: Call)
-                                                        (implicit reads: Reads[CharitablePurposes],
-                                                         conversion: CharitablePurposes => String): Option[SummaryListRow] =
-      userAnswers.get(page).map { ans =>
-
-        summaryListRow(
-          label = messages(s"$page.checkYourAnswersLabel"),
-          ans.foldLeft("")((accumulator,item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>"),
-          visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
-          changeLinkCall -> messages("site.edit")
-        )
-      }
 
     val rows: Seq[SummaryListRow] = Seq(
       charitableObjectivesRow,

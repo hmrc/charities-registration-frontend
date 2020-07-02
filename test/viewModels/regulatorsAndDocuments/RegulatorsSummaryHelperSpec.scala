@@ -23,11 +23,10 @@ import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{CharityOtherRegulatorDetails, CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
-import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
 import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 
-class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
 
   private val helper = new RegulatorsSummaryHelper(UserAnswers("id")

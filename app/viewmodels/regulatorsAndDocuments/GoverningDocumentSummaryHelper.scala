@@ -16,17 +16,17 @@
 
 package viewmodels.regulatorsAndDocuments
 
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import utils.{CurrencyFormatter, ImplicitDateFormatter}
+import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
-import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 
 class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
                                     (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper with CurrencyFormatter {
+  with SummaryListRowHelper {
 
   def selectGoverningDocumentRow: Option[SummaryListRow] =
     answer(SelectGoverningDocumentPage, regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),answerIsMsgKey = true)

@@ -17,7 +17,6 @@
 package viewmodels
 
 import models.UserAnswers
-import models.requests.DataRequest
 import pages.QuestionPage
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -76,8 +75,23 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
+  def multiAnswer[A](page: QuestionPage[Set[A]],
+                               changeLinkCall: Call)
+                              (implicit reads: Reads[A],
+                               conversion: A => String): Option[SummaryListRow] =
+    userAnswers.get(page).map { ans =>
+
+      summaryListRow(
+        label = messages(s"$page.checkYourAnswersLabel"),
+        ans.foldLeft("")((accumulator,item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>"),
+        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
   implicit val yesNoValue: Boolean => String = {
     case true => messages("site.yes")
     case _ => messages("site.no")
   }
+
 }

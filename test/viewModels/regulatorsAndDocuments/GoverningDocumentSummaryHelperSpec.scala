@@ -25,11 +25,10 @@ import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
-import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 
-class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
 
   private val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")

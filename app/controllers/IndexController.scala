@@ -19,9 +19,11 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import controllers.charityInformation.{routes => charityInfoRoutes}
+import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
+import controllers.operationsAndFunds.{routes => opsAndFundsRoutes}
 import javax.inject.Inject
-import models.{NormalMode, Spoke, TaskListSection, UserAnswers}
-import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page}
+import models.{NormalMode, TaskListSection, UserAnswers}
+import pages.sections._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import views.html.Index
@@ -39,25 +41,22 @@ class IndexController @Inject()(
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
     userAnswerRepository.set(userAnswers).map { _ =>
 
-      val section1 = TaskListSection(List(
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section1Page)))))
+      val section1 = TaskListSection(
+        charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section1Page)))
 
-      val section2 = TaskListSection(List(
-        Spoke(controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page))),
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page)))))
+      val section2 = TaskListSection(
+        regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section2Page)))
 
-      val section3 = TaskListSection(List(
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section3Page))),
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section3Page))),
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section3Page)))))
+      val section3 = TaskListSection(
+        regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section3Page)))
 
-      val section4 = TaskListSection(List(
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section4Page))),
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section4Page))),
-        Spoke(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section4Page)))))
+      val section4 = TaskListSection(
+        opsAndFundsRoutes.CharitableObjectivesController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section4Page)))
 
-      val result = List(section1, section2, section3, section4)
+      val section5 = TaskListSection(
+        opsAndFundsRoutes.FundRaisingController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section5Page)))
 
+      val result = List(section1, section2, section3, section4, section5)
 
       Ok(view(result))
     }
@@ -73,8 +72,9 @@ class IndexController @Inject()(
   private def getStatus(status : Option[Boolean]) : String = {
     status match {
       case Some(true) => "index.section.completed"
-      case Some(false) => "index.section.inpProgress"
+      case Some(false) => "index.section.inProgress"
       case _ => "index.section.notStarted"
     }
   }
+
 }

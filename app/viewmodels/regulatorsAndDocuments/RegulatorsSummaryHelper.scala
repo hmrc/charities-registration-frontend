@@ -46,8 +46,11 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
   def nIRegulatorRegRow: Option[SummaryListRow] =
     answer(NIRegulatorRegNumberPage, regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(CheckMode))
 
-  def charityOtherRegulatorRow: Option[SummaryListRow] =
-    answerOtherRegulator(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
+  def RegulatorNameRow: Option[SummaryListRow] =
+    answerRegistrationName(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
+
+  def RegulatorRegistrationNumberRow: Option[SummaryListRow] =
+    answerRegistrationNumber(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
 
   def selectWhyNoRegulatorRow: Option[SummaryListRow] =
     answer(SelectWhyNoRegulatorPage, regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode), answerIsMsgKey = true)
@@ -56,14 +59,28 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     answer(WhyNotRegisteredWithCharityPage, regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode))
 
 
-  private def answerOtherRegulator[A](page: QuestionPage[CharityOtherRegulatorDetails],
-                              changeLinkCall: Call)
-                             (implicit reads: Reads[CharityOtherRegulatorDetails], conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
+  private def answerRegistrationName[A](page: QuestionPage[CharityOtherRegulatorDetails],
+                                        changeLinkCall: Call)
+                                       (implicit reads: Reads[CharityOtherRegulatorDetails], conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
+
       summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel"),
-        value = ans.regulatorName + "<div>" + ans.registrationNumber + "</div>",
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
+        label = messages(s"$page.name.checkYourAnswersLabel"),
+        value = ans.regulatorName,
+        visuallyHiddenText = Some(messages(s"$page.name.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  private def answerRegistrationNumber[A](page: QuestionPage[CharityOtherRegulatorDetails],
+                                          changeLinkCall: Call)
+                                         (implicit reads: Reads[CharityOtherRegulatorDetails], conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
+    userAnswers.get(page) map { ans =>
+
+      summaryListRow(
+        label = messages(s"$page.registrationNumber.checkYourAnswersLabel"),
+        value = ans.registrationNumber,
+        visuallyHiddenText = Some(messages(s"$page.registrationNumber.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
     }
@@ -74,7 +91,8 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     charityCommissionRegRow,
     scottishRegulatorRegRow,
     nIRegulatorRegRow,
-    charityOtherRegulatorRow,
+    RegulatorNameRow,
+    RegulatorRegistrationNumberRow,
     selectWhyNoRegulatorRow,
     whyNotRegsiteredCharityRow
   ).flatten

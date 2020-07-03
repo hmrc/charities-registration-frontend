@@ -343,7 +343,8 @@ charityOtherRegulatorDetails.registrationNumber.error.format = Your charity''s r
 charityOtherRegulatorDetails.registrationNumber.error.length = Your charity''s registration number should be 20 characters or fewer
 charityOtherRegulatorDetails.help = Where to find the registration number?
 charityOtherRegulatorDetails.hintText = The registration number will be on any mail the regulator has sent you.
-charityOtherRegulatorDetails.checkYourAnswersLabel = Other Charity''s regulator details
+charityOtherRegulatorDetails.name.checkYourAnswersLabel = Name of your other charity''s regulator
+charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number of your other charity''s regulator
 
 # Select why no regulator Messages
 # ----------------------------------------------------------

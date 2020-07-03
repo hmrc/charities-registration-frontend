@@ -114,12 +114,22 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
     "For the CharityOtherRegulatorDetails answer" must {
 
-      "have a correctly formatted summary list row" in {
+      "have a correctly formatted summary list row for Registration Name" in {
 
-        helper.charityOtherRegulatorRow mustBe Some(summaryListRow(
-          messages("charityOtherRegulatorDetails.checkYourAnswersLabel"),
-          s"test<div>${"123423"}</div>",
-          Some(messages("charityOtherRegulatorDetails.checkYourAnswersLabel")),
+        helper.RegulatorNameRow mustBe Some(summaryListRow(
+          messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel"),
+          s"test",
+          Some(messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel")),
+          regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+
+      "have a correctly formatted summary list row for Registration Number" in {
+
+        helper.RegulatorRegistrationNumberRow mustBe Some(summaryListRow(
+          messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel"),
+          s"${"123423"}",
+          Some(messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel")),
           regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }

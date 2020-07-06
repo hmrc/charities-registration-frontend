@@ -169,7 +169,9 @@ trait ViewBehaviours extends ViewSpecBase {
       s"have a warning message '$msg'" in {
 
         val doc = asDocument(view)
-        assertEqualsMessage(doc, "#main-content > div > div > div > form > div > strong > span.govuk-\\!-font-weight-bold > div:nth-child(1)", msg)
+
+        assert(doc.getElementsByClass("govuk-warning-text__assistive").first.text == msg,
+          s"\n Warning message did not contain text ${msg}")
       }
     }
   }

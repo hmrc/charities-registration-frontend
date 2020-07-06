@@ -43,7 +43,7 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.notProvided = Not Provided
 site.incomplete = Incomplete
-site.warning = Warning:
+site.warning = Warning
 site.opensInNewWindowOrTab = (opens in a new window or tab)
 site.change = Change
 site.logOut = log out
@@ -111,14 +111,14 @@ index.guidance2 = 28 days
 index.guidance3 = from the date you first start your application.
 index.section.numbers1 = 1.
 index.section1.label = Contact details
-index.section1.spoke1.label= Add charity’s information
+index.section1.spoke1.label= Add charity''s information
 index.section.numbers2 = 2.
 index.section2.label = Regulators and documents
 index.section2.spoke1.label = Name regulator
 index.section2.spoke2.label = Add governing document information
 index.section.numbers3 = 3.
 index.section3.label = Operations and funds
-index.section3.spoke1.label = Provide charity’s objectives
+index.section3.spoke1.label = Provide charity''s objectives
 index.section3.spoke2.label = Give fundraising information
 index.section3.spoke3.label = Supply bank details
 index.section.numbers4 = 4.
@@ -287,10 +287,10 @@ isCharityRegulator.checkYourAnswersLabel = Registered with a charity regulator
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = Who are your charity’s regulator?
-charityRegulator.heading = Who are your charity’s regulator?
+charityRegulator.title = Who are your charity''s regulator?
+charityRegulator.heading = Who are your charity''s regulator?
 charityRegulator.hint = Select all that apply
-charityRegulator.error.required = Select your charity’s regulator or regulators
+charityRegulator.error.required = Select your charity''s regulator or regulators
 charityRegulator.ccew = Charity Commission for England and Wales
 charityRegulator.oscr = Office of the Scottish Charity Regulator
 charityRegulator.ccni = Charity Commission for Northern Ireland
@@ -533,3 +533,32 @@ accountingPeriodEndDate.checkYourAnswersLabel = When your accounting period ends
 operationsFundsSummary.checkYourAnswers.title = Check your charity’s operations and funds details
 operationsFundsSummary.checkYourAnswers.heading = Check your charity’s operations and funds details
 operationsFundsSummary.section = Operations and funds
+
+# Section6 - Supply bank details
+# ----------------------------------------------------------
+
+# charity''s bank account details Page Messages
+# -------------------------------------  ---------------------
+bankDetails.title = What are your charity''s bank account details?
+bankDetails.heading = What are your charity''s bank account details?
+bankDetails.p1 = We need your bank details to pay Gift Aid and other tax repayments.
+bankDetails.accountName = Charity''s account name
+bankDetails.accountName.hint = As shown on your charity''s account statements
+bankDetails.accountName.error.length = Your charity''s account name must be 60 characters or fewer
+bankDetails.accountName.error.required = Enter your charity''s account name
+bankDetails.accountName.error.format = Your charity''s account name must not include the following characters: & ( ) : @
+bankDetails.sortCode = Charity''s sort code
+bankDetails.sortCode.hint = Must be 6 digits long
+bankDetails.sortCode.error.length = You charity''s sort code must be 6 digits
+bankDetails.sortCode.error.required = Enter your charity’s sort code
+bankDetails.sortCode.error.format = Enter a valid sort code like 309430
+bankDetails.accountNumber = Charity''s account number
+bankDetails.accountNumber.hint = Must be between 6 and 8 digits long
+bankDetails.accountNumber.error.length = You charity''s account number must be between 6 and 8 digits
+bankDetails.accountNumber.error.required = Enter your charity''s account number
+bankDetails.accountNumber.error.format = Enter a valid account number like 00733445
+bankDetails.rollNumber = Building society roll number (if you have one)
+bankDetails.rollNumber.hint = You can find it on your charity''s bank card, statement or passbook
+bankDetails.rollNumber.error.length = You charity''s building society roll number must be between 1 and 18 characters
+bankDetails.rollNumber.error.format = 'Your charity''s building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
+bankDetails.basc.warning = We will send repayments using BACS. You should make sure your charity can receive BACS payments.

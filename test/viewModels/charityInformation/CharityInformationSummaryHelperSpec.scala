@@ -21,7 +21,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.charityInformation.{routes => charityInfoRoutes}
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
-import pages.addressLookup.CharityInformationAddressLookupPage
+import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import viewmodels.SummaryListRowHelper
 import viewmodels.charityInformation.CharityInformationSummaryHelper
@@ -34,7 +34,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
                                                           mobilePhone = Some("07700 900 982"),
                                                           emailAddress = "japan@china.com")).success.value
-    .set(CharityInformationAddressLookupPage, ConfirmedAddressConstants.address).success.value
+    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address).success.value
     .set(CanWeSendToThisAddressPage, true).success.value
 
   private val postalAnswers: UserAnswers = emptyUserAnswers
@@ -43,7 +43,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
       mobilePhone = Some("07700 900 982"),
       emailAddress = "japan@china.com")).success.value
-    .set(CharityInformationAddressLookupPage, ConfirmedAddressConstants.address).success.value
+    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address).success.value
     .set(CanWeSendToThisAddressPage, false).success.value
 
   def helper(userAnswers: UserAnswers = officialAddress) =   new CharityInformationSummaryHelper(userAnswers)
@@ -104,10 +104,10 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
 
         helper().officialAddressRow mustBe Seq(
           summaryListRow(
-            messages("charityInformation.addressLookup.checkYourAnswersLabel"),
+            messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel"),
             "Test 1, Test 2, AA00 0AA, United Kingdom",
-            Some(messages("charityInformation.addressLookup.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.CharityInformationAddressLookupController.initializeJourney() -> BaseMessages.changeLink
+            Some(messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel")),
+            controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney() -> BaseMessages.changeLink
           )
         )
       }

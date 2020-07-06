@@ -25,7 +25,7 @@ import models.Mode
 import models.requests.DataRequest
 import navigation.CharityInformationNavigator
 import pages.charityInformation.CanWeSendToThisAddressPage
-import pages.addressLookup.CharityInformationAddressLookupPage
+import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.sections.Section1Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -83,7 +83,7 @@ class CanWeSendToThisAddressController  @Inject()(sessionRepository: UserAnswerR
     private def getCharityInformationAddressLookup(block: String => Future[Result])
                                           (implicit request: DataRequest[AnyContent]): Future[Result] = {
 
-    request.userAnswers.get(CharityInformationAddressLookupPage).map {
+    request.userAnswers.get(CharityOfficialAddressLookupPage).map {
       charityInformationAddressLookup =>
 
         val addressList = charityInformationAddressLookup.lines

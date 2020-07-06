@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.addressLookup.CharityInformationAddressLookupPage
+import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 import play.api.mvc.Call
 
@@ -35,10 +35,10 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => controllers.addressLookup.routes.CharityInformationAddressLookupController.initializeJourney()
+      case Some(_) => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
-    case CharityInformationAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityInformationAddressLookupPage) match {
+    case CharityOfficialAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityOfficialAddressLookupPage) match {
       case Some(_) => charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -63,7 +63,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
-    case CharityInformationAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityInformationAddressLookupPage) match {
+    case CharityOfficialAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityOfficialAddressLookupPage) match {
       case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }

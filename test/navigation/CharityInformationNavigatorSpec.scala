@@ -22,7 +22,7 @@ import controllers.routes
 import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import pages.IndexPage
-import pages.addressLookup.CharityInformationAddressLookupPage
+import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 
 class CharityInformationNavigatorSpec extends SpecBase {
@@ -57,20 +57,20 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the CharityInformationAddressLookupController page when clicked continue button" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
-            controllers.addressLookup.routes.CharityInformationAddressLookupController.initializeJourney()
+            controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
         }
       }
 
       "from the CharityInformationAddressLookupPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(CharityInformationAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to the Send letters page when clicked continue button" in {
-          navigator.nextPage(CharityInformationAddressLookupPage, NormalMode,
-            emptyUserAnswers.set(CharityInformationAddressLookupPage,
+          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
         }
@@ -156,13 +156,13 @@ class CharityInformationNavigatorSpec extends SpecBase {
       "from the CharityInformationAddressLookupPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(CharityInformationAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
+          navigator.nextPage(CharityOfficialAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to the Send letters page when clicked continue button" in {
-          navigator.nextPage(CharityInformationAddressLookupPage, CheckMode,
-            emptyUserAnswers.set(CharityInformationAddressLookupPage,
+          navigator.nextPage(CharityOfficialAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }

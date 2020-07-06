@@ -26,7 +26,7 @@ import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.addressLookup.CharityInformationAddressLookupPage
+import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.charityInformation.CanWeSendToThisAddressPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -63,7 +63,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
 
   val addressLookupDataParsed = "4 Other Place, Some District, Anytown, ZZ1 1ZZ, United Kingdom"
 
-  val addressUserAnswers = Some(emptyUserAnswers.set(CharityInformationAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))
+  val addressUserAnswers = Some(emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))
 
   val controller: CanWeSendToThisAddressController = inject[CanWeSendToThisAddressController]
 
@@ -83,7 +83,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
     "return OK and the correct view for a GET with no postcode in the address model" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(CharityInformationAddressLookupPage, AddressModel(Seq("4 Other Place", "Some District", "Anytown"), None, country)).getOrElse(emptyUserAnswers))))
+        set(CharityOfficialAddressLookupPage, AddressModel(Seq("4 Other Place", "Some District", "Anytown"), None, country)).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -99,7 +99,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
       val userAnswers = emptyUserAnswers.set(CanWeSendToThisAddressPage, true).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers.
-        set(CharityInformationAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))))
+        set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

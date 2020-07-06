@@ -37,7 +37,7 @@ import viewmodels.ErrorHandler
 
 import scala.concurrent.Future
 
-class CharityInformationAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach{
+class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   private val mockAddressLookupConnector : AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]
@@ -55,7 +55,7 @@ class CharityInformationAddressLookupControllerSpec extends SpecBase with Before
     reset(mockUserAnswerRepository, mockAddressLookupConnector)
   }
 
-  lazy val controller: CharityInformationAddressLookupController = new CharityInformationAddressLookupController(mockUserAnswerRepository,
+  lazy val controller: CharityOfficialAddressLookupController = new CharityOfficialAddressLookupController(mockUserAnswerRepository,
     FakeCharityInformationNavigator, inject[FakeAuthIdentifierAction], inject[UserDataRetrievalAction], inject[DataRequiredAction],
     mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
 
@@ -70,7 +70,7 @@ class CharityInformationAddressLookupControllerSpec extends SpecBase with Before
           "redirect to the on ramp" in {
 
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-            when(mockAddressLookupConnector.initialize()(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
+            when(mockAddressLookupConnector.initialize(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
             val result = controller.initializeJourney()(fakeDataRequest)
 
@@ -84,7 +84,7 @@ class CharityInformationAddressLookupControllerSpec extends SpecBase with Before
           "render ISE" in {
 
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-            when(mockAddressLookupConnector.initialize()(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
+            when(mockAddressLookupConnector.initialize(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
             val result = controller.initializeJourney()(fakeDataRequest)
 

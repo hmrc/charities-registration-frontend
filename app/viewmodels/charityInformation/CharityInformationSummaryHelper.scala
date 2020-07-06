@@ -18,7 +18,7 @@ package viewmodels.charityInformation
 
 import models.addressLookup.AddressModel
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
-import pages.addressLookup.CharityInformationAddressLookupPage
+import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import play.api.i18n.Messages
 import play.api.mvc.Call
@@ -42,8 +42,8 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
     }.fold(List[SummaryListRow]())(_.toList)
 
   def officialAddressRow: Seq[SummaryListRow] =
-    userAnswers.get(CharityInformationAddressLookupPage).map{ address =>
-      answerOfficialAddress(address, controllers.addressLookup.routes.CharityInformationAddressLookupController.initializeJourney())
+    userAnswers.get(CharityOfficialAddressLookupPage).map{ address =>
+      answerOfficialAddress(address, controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney())
     }.fold(List[SummaryListRow]())(_.toList)
 
   def canWeSendToThisAddressRow: Seq[SummaryListRow] =
@@ -109,11 +109,11 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
 
     Some(
       summaryListRow(
-        label = messages("charityInformation.addressLookup.checkYourAnswersLabel"),
+        label = messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel"),
         value = Seq(Some(addressModel.lines.mkString(", ")),
                     addressModel.postcode,
                     Some(addressModel.country.name)).flatten.mkString(", "),
-        visuallyHiddenText = Some(messages("charityInformation.addressLookup.checkYourAnswersLabel")),
+        visuallyHiddenText = Some(messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel")),
         actions = changeLinkCall -> messages("site.edit")
       )
     )
@@ -123,7 +123,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
                                     changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
 
     canWeSendToThisAddress match {
-      case true => userAnswers.get(CharityInformationAddressLookupPage).map { address =>
+      case true => userAnswers.get(CharityOfficialAddressLookupPage).map { address =>
         summaryListRow(
           label = messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
           value = s"${messages("site.yes")}<div>${

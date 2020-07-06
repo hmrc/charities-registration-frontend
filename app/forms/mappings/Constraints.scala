@@ -81,12 +81,41 @@ trait Constraints extends InputFilter{
         }
     }
 
+  protected def sortCodeLength(length: Int, errorKey: String): Constraint[String] =
+    Constraint {
+      input =>
+        if (input.filter(_.isDigit).length == length) {
+          Valid
+        } else {
+          Invalid(errorKey, length)
+        }
+    }
+
+  protected def accountNumberLength(minimum: Int, maximum: Int, errorKey: String): Constraint[String] =
+    Constraint {
+      input =>
+        val len = input.filter(_.isDigit).length
+        if (len >= minimum && len <= maximum) {
+          Valid
+        } else {
+          Invalid(errorKey, minimum, maximum)
+        }
+    }
+
   protected def regexp(regex: String, errorKey: String): Constraint[String] =
     Constraint {
       case str if str.matches(regex) =>
         Valid
       case _ =>
         Invalid(errorKey, regex)
+    }
+
+  protected def minLength(minimum: Int, errorKey: String): Constraint[String] =
+    Constraint {
+      case str if str.length >= minimum =>
+        Valid
+      case _ =>
+        Invalid(errorKey, minimum)
     }
 
   protected def maxLength(maximum: Int, errorKey: String): Constraint[String] =

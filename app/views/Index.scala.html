@@ -93,11 +93,11 @@
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="bank-details-completed">
+                    <a href="@{result(5).url}"aria-describedby="bank-details-completed">
                       @messages("index.section3.spoke3.label")
                     </a>
                   </span>
-                    <strong id="bank-details-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="bank-details-completed" class='@if(result(5).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(5).status)</strong>
                 </li>
             </ul>
         </li>

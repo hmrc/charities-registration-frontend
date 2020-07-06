@@ -42,10 +42,13 @@ class IndexViewSpec extends ViewBehaviours  {
       val section5 = TaskListSection(
         controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url, "index.section.notStarted")
 
+      val section6 = TaskListSection(
+        controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, "index.section.notStarted")
+
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[Index](Some(emptyUserAnswers))
-        view.apply(List(section1, section2, section3, section4, section5))(fakeRequest, messages, frontendAppConfig)
+        view.apply(List(section1, section2, section3, section4, section5, section6))(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)

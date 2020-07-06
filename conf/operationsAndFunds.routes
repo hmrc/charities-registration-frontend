@@ -44,3 +44,8 @@ POST       /enter-accounting-end-date/change               controllers.operation
 
 GET        /operations-and-funds-summary                   controllers.operationsAndFunds.OperationsFundsSummaryController.onPageLoad()
 POST       /operations-and-funds-summary                   controllers.operationsAndFunds.OperationsFundsSummaryController.onSubmit()
+
+GET        /enter-bank-details                             controllers.operationsAndFunds.BankDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-bank-details                             controllers.operationsAndFunds.BankDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-bank-details/change                      controllers.operationsAndFunds.BankDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-bank-details/change                      controllers.operationsAndFunds.BankDetailsController.onSubmit(mode: Mode = CheckMode)

@@ -56,7 +56,10 @@ class IndexController @Inject()(
       val section5 = TaskListSection(
         opsAndFundsRoutes.FundRaisingController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section5Page)))
 
-      val result = List(section1, section2, section3, section4, section5)
+      val section6 = TaskListSection(
+        opsAndFundsRoutes.BankDetailsController.onPageLoad(NormalMode).url, getStatus(userAnswers.get(Section6Page)))
+
+      val result = List(section1, section2, section3, section4, section5, section6)
 
       Ok(view(result))
     }

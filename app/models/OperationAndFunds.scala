@@ -16,13 +16,30 @@
 
 package models
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json._
 
 case class BankDetails(accountName: String, sortCode: String, accountNumber: String, rollNumber: Option[String])
 
 object BankDetails {
 
-  implicit val formats: OFormat[BankDetails] = Json.format[BankDetails]
+  implicit lazy val writes: OWrites[BankDetails] = {
+
+    import play.api.libs.functional.syntax._
+    (
+      (__ \ "accountName").write[String] and
+      (__ \ "sortCode").write[String] and
+      (__ \ "accountNumber").write[String] and
+      (__ \ "rollNumber").writeNullable[String]
+    )(
+      bankDetails => (
+        bankDetails.accountName,
+        bankDetails.sortCode.filter(_.isDigit).mkString,
+        bankDetails.accountNumber.filter(_.isDigit).mkString,
+        bankDetails.rollNumber)
+      )
+  }
+
+  implicit val formats: Reads[BankDetails] = Json.format[BankDetails]
 
   override def toString: String = "bankDetail"
 

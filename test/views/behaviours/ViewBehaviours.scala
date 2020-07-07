@@ -111,7 +111,7 @@ trait ViewBehaviours extends ViewSpecBase {
       s"have a button with message '$msg'" in {
 
         val doc = asDocument(view)
-        assertEqualsMessage(doc, "#main-content > div > div > div > form > button", msg)
+        assertEqualsMessage(doc, "#main-content > div > div > form > button", msg)
       }
     }
   }

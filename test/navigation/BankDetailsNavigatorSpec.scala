@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.routes
 import models._
 import pages.IndexPage
-import pages.operationsAndFunds.BankDetailsPage
+import pages.operationsAndFunds.{BankDetailsPage, BankDetailsSummaryPage}
 
 class BankDetailsNavigatorSpec extends SpecBase {
 
@@ -47,7 +47,15 @@ class BankDetailsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           navigator.nextPage(BankDetailsPage, NormalMode,
             emptyUserAnswers.set(BankDetailsPage, bankDetails).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() //TODO when summary page created
+            controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
+        }
+      }
+
+      "from the Summary page" must {
+
+        "go to the Task List page when click continue button" in {
+          navigator.nextPage(BankDetailsSummaryPage, NormalMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
         }
       }
 
@@ -72,7 +80,7 @@ class BankDetailsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           navigator.nextPage(BankDetailsPage, CheckMode,
             emptyUserAnswers.set(BankDetailsPage, bankDetails).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() //TODO when summary page created
+            controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
         }
       }
 

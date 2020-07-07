@@ -562,3 +562,13 @@ bankDetails.rollNumber.hint = You can find it on your charity''s bank card, stat
 bankDetails.rollNumber.error.length = You charity''s building society roll number must be between 1 and 18 characters
 bankDetails.rollNumber.error.format = 'Your charity''s building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
 bankDetails.basc.warning = We will send repayments using BACS. You should make sure your charity can receive BACS payments.
+bankDetails.accountName.checkYourAnswersLabel = Account name
+bankDetails.sortCode.checkYourAnswersLabel = Sort code
+bankDetails.accountNumber.checkYourAnswersLabel = Account number
+bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if you have one)
+
+# Operations and Funds Summary page
+# ----------------------------------------------------------
+bankDetailsSummary.checkYourAnswers.title = Check your charity’s bank details
+bankDetailsSummary.checkYourAnswers.heading = Check your charity’s bank details
+bankDetailsSummary.section = Operations and funds

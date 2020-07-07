@@ -29,9 +29,11 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case BankDetailsPage => userAnswers: UserAnswers => userAnswers.get(BankDetailsPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
+    case BankDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
   }
@@ -39,7 +41,7 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
   private val checkRouteMap: Page => UserAnswers => Call = {
 
     case BankDetailsPage => userAnswers: UserAnswers => userAnswers.get(BankDetailsPage) match {
-      case Some(_) => routes.IndexController.onPageLoad() // TODO modify once next page created
+      case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

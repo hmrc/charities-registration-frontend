@@ -17,41 +17,72 @@
 package controllers
 
 import base.SpecBase
+import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, times, verify, when}
 import org.scalatest.BeforeAndAfterEach
+import pages.sections.{Section1Page, Section2Page}
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
+import repositories.UserAnswerRepository
 
 import scala.concurrent.Future
 
 class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  val controller: IndexController = inject[IndexController]
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+
+  override def applicationBuilder(): GuiceApplicationBuilder =
+    new GuiceApplicationBuilder()
+      .overrides(
+        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+      )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     reset(mockUserAnswerRepository)
   }
 
+  private val controller: IndexController = inject[IndexController]
+
   "Index Controller" must {
 
     "Set answers and redirect to the next page (start of journey page)" in {
-
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
+    }
+
+    "Fetch user answers and redirect to the next page (start of journey page)" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
+        set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, times(1)).set(any())
     }
 
     "For keepalive" in {
 
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.keepalive()(fakeRequest)
 
       status(result) mustEqual NO_CONTENT
+      verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, times(1)).set(any())
     }
   }

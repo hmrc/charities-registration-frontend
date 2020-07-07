@@ -252,7 +252,7 @@ charityOfficialAddress.confirmPage.infoMessage =
 charityOfficialAddress.confirmPage.infoSubheading = Your selected address
 charityOfficialAddress.confirmPage.submitLabel = Confirm and continue
 charityOfficialAddress.confirmPage.searchAgainLinkText =
-charityOfficialAddress.confirmPage.changeLinkText = Change charity’s address
+charityOfficialAddress.confirmPage.changeLinkText = Change charity''s address
 charityOfficialAddress.confirmPage.confirmChangeText =
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Official address
@@ -530,15 +530,15 @@ accountingPeriodEndDate.checkYourAnswersLabel = When your accounting period ends
 
 # Operations and Funds Summary page
 # ----------------------------------------------------------
-operationsFundsSummary.checkYourAnswers.title = Check your charity’s operations and funds details
-operationsFundsSummary.checkYourAnswers.heading = Check your charity’s operations and funds details
+operationsFundsSummary.checkYourAnswers.title = Check your charity''s operations and funds details
+operationsFundsSummary.checkYourAnswers.heading = Check your charity''s operations and funds details
 operationsFundsSummary.section = Operations and funds
 
 # Section6 - Supply bank details
 # ----------------------------------------------------------
 
-# charity''s bank account details Page Messages
-# -------------------------------------  ---------------------
+# Charity's bank account details Page Messages
+# ----------------------------------------------------------
 bankDetails.title = What are your charity''s bank account details?
 bankDetails.heading = What are your charity''s bank account details?
 bankDetails.p1 = We need your bank details to pay Gift Aid and other tax repayments.
@@ -550,7 +550,7 @@ bankDetails.accountName.error.format = Your charity''s account name must not inc
 bankDetails.sortCode = Charity''s sort code
 bankDetails.sortCode.hint = Must be 6 digits long
 bankDetails.sortCode.error.length = You charity''s sort code must be 6 digits
-bankDetails.sortCode.error.required = Enter your charity’s sort code
+bankDetails.sortCode.error.required = Enter your charity''s sort code
 bankDetails.sortCode.error.format = Enter a valid sort code like 309430
 bankDetails.accountNumber = Charity''s account number
 bankDetails.accountNumber.hint = Must be between 6 and 8 digits long
@@ -567,7 +567,7 @@ bankDetails.sortCode.checkYourAnswersLabel = Sort code
 bankDetails.accountNumber.checkYourAnswersLabel = Account number
 bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if you have one)
 
-# Operations and Funds Summary page
+# Charity's bank account details Page Messages
 # ----------------------------------------------------------
 bankDetailsSummary.checkYourAnswers.title = Check your charity''s bank details
 bankDetailsSummary.checkYourAnswers.heading = Check your charity''s bank details

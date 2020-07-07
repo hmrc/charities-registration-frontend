@@ -1,574 +1,574 @@
-service.name = Register your charity''s details with HMRC
+service.name = (W)Register your charity''s details with HMRC(W)
 
-date.day = Day
-date.month = Month
-date.year = Year
+date.day = (W)Day(W)
+date.month = (W)Month(W)
+date.year = (W)Year(W)
 
-error.browser.title.prefix = Error:
-error.boolean = Please give an answer
-error.invalid_date = Give a correct date
-error.date.day_blank = Enter a day
-error.date.day_invalid = Give a correct day using numbers 1 to 31
-error.date.month_blank = Enter a month
-error.date.month_invalid = Give a correct month using numbers 1 to 12
-error.date.year_blank = Enter a year
-error.date.year_invalid = Give a correct year
-error.integer = Give an answer in whole numbers
-error.non_numeric = Give a value using only numbers
-error.number = Enter a valid number
-error.required = Enter a value
-error.summary.title = There is a problem
+error.browser.title.prefix = (W)Error:(W)
+error.boolean = (W)Please give an answer(W)
+error.invalid_date = (W)Give a correct date(W)
+error.date.day_blank = (W)Enter a day(W)
+error.date.day_invalid = (W)Give a correct day using numbers 1 to 31(W)
+error.date.month_blank = (W)Enter a month(W)
+error.date.month_invalid = (W)Give a correct month using numbers 1 to 12(W)
+error.date.year_blank = (W)Enter a year(W)
+error.date.year_invalid = (W)Give a correct year(W)
+error.integer = (W)Give an answer in whole numbers(W)
+error.non_numeric = (W)Give a value using only numbers(W)
+error.number = (W)Enter a valid number(W)
+error.required = (W)Enter a value(W)
+error.summary.title = (W)There is a problem(W)
 
 
 # Sitewide Messages
 # ----------------------------------------------------------
-site.back = Back
-site.saveForLater = Save and come back later
-site.review = Review
-site.delete = Delete
-site.edit = Change
-site.hidden-delete = Delete {0}
-site.hidden-edit = Change {0}
-site.no = No
-site.yes = Yes
-site.continue = Continue
-site.confirm = Confirm
-site.saveAndContinue = Save and continue
-site.submitAndContinue = Submit and continue
-site.acceptAndContinue = Accept and continue
-site.confirmAndSubmit = Confirm and submit
-site.textarea.char_limit = (Limit is {0} characters)
-site.govuk = GOV.UK
-site.signOut = Sign out
-site.getHelpWithThisPage = Get help with this page
-site.notProvided = Not Provided
-site.incomplete = Incomplete
-site.warning = Warning
-site.opensInNewWindowOrTab = (opens in a new window or tab)
-site.change = Change
-site.logOut = log out
-site.empref = Employer PAYE reference: {0}
+site.back = (W)Back(W)
+site.saveForLater = (W)Save and come back later(W)
+site.review = (W)Review(W)
+site.delete = (W)Delete(W)
+site.edit = (W)Change(W)
+site.hidden-delete = (W)Delete {0}(W)
+site.hidden-edit = (W)Change {0}(W)
+site.no = (W)No(W)
+site.yes = (W)Yes(W)
+site.continue = (W)Continue(W)
+site.confirm = (W)Confirm(W)
+site.saveAndContinue = (W)Save and continue(W)
+site.submitAndContinue = (W)Submit and continue(W)
+site.acceptAndContinue = (W)Accept and continue(W)
+site.confirmAndSubmit = (W)Confirm and submit(W)
+site.textarea.char_limit = (W)(Limit is {0} characters)(W)
+site.govuk = (W)GOV.UK(W)
+site.signOut = (W)Sign out(W)
+site.getHelpWithThisPage = (W)Get help with this page(W)
+site.notProvided = (W)Not Provided(W)
+site.incomplete = (W)Incomplete(W)
+site.warning = (W)Warning:(W)
+site.opensInNewWindowOrTab = (W)(opens in a new window or tab)(W)
+site.change = (W)Change(W)
+site.logOut = (W)log out(W)
+site.empref = (W)Employer PAYE reference: {0}(W)
 
-footer.cookies         = Cookies
-footer.privacy         = Privacy policy
-footer.termsConditions = Terms and conditions
-footer.govukHelp       = Help using GOV.UK
+footer.cookies         = (W)Cookies(W)
+footer.privacy         = (W)Privacy policy(W)
+footer.termsConditions = (W)Terms and conditions(W)
+footer.govukHelp       = (W)Help using GOV.UK(W)
 
 
 # Internal Server Error pages
 # ----------------------------------------------------------
-error.submissionError.title = Something has gone wrong
-error.submissionError.heading = Something has gone wrong
-error.submissionError.content = Your claim submission has failed. You need to
-error.submissionError.link = start your claim again
+error.submissionError.title = (W)Something has gone wrong(W)
+error.submissionError.heading = (W)Something has gone wrong(W)
+error.submissionError.content = (W)Your claim submission has failed. You need to(W)
+error.submissionError.link = (W)start your claim again(W)
 
 
 # Session Expired
 # ----------------------------------------------------------
-session_expired.title = For your security, this service has been reset
-session_expired.heading = For your security, this service has been reset
-session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
+session_expired.title = (W)For your security, this service has been reset(W)
+session_expired.heading = (W)For your security, this service has been reset(W)
+session_expired.guidance = (W)The details you have given have been deleted because you did not continue the service for 15 minutes.(W)
 
 
 # Incorrect Details Error
 # ----------------------------------------------------------
-incorrect-details.title = You cannot sign in with these details
-incorrect-details.heading = You cannot sign in with these details
-incorrect-details.notAnOrganisation.p1 = You must
-incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using your charity''s sign-in details.
-incorrect-details.notAnOrganisation.p2 = If you do not have these already, you can
-incorrect-details.notAnOrganisation.p2.link = set up a Government Gateway account for your charity.
+incorrect-details.title = (W)You cannot sign in with these details(W)
+incorrect-details.heading = (W)You cannot sign in with these details(W)
+incorrect-details.notAnOrganisation.p1 = (W)You must(W)
+incorrect-details.notAnOrganisation.p1.link = (W)sign into Government Gateway using your charity''s sign-in details.(W)
+incorrect-details.notAnOrganisation.p2 = (W)If you do not have these already, you can(W)
+incorrect-details.notAnOrganisation.p2.link = (W)set up a Government Gateway account for your charity.(W)
 
 
 # Timeout Messages
 # ----------------------------------------------------------
-timeout.title = You are about to be signed out
-timeout.message = For security reasons, you will be signed out of this service in
-timeout.keepAlive = Stay signed in
-timeout.signOut = Sign out
+timeout.title = (W)You are about to be signed out(W)
+timeout.message = (W)For security reasons, you will be signed out of this service in(W)
+timeout.keepAlive = (W)Stay signed in(W)
+timeout.signOut = (W)Sign out(W)
 
 
 # Sections
 # ----------------------------------------------------------
-section.main = Main section
+section.main = (W)Main section(W)
 
 # BETA Banner
 # ----------------------------------------------------------
-feedback.before = This is a new service - your
-feedback.link = feedback
-feedback.after = will help us to improve it.
+feedback.before = (W)This is a new service - your(W)
+feedback.link = (W)feedback(W)
+feedback.after = (W)will help us to improve it.(W)
 
 # CheckAnswersPage Messages
 # ----------------------------------------------------------
-main.checkYourAnswers.title = Check your answers
-main.checkYourAnswers.heading = Check your answers
-main.checkYourAnswers.subheading = Main section
+main.checkYourAnswers.title = (W)Check your answers(W)
+main.checkYourAnswers.heading = (W)Check your answers(W)
+main.checkYourAnswers.subheading = (W)Main section(W)
 
-index.title = Register your charity
-index.heading = Register your charity
-index.guidance1 = Your answers will be saved for
-index.guidance2 = 28 days
-index.guidance3 = from the date you first start your application.
-index.section.numbers1 = 1.
-index.section1.label = Contact details
-index.section1.spoke1.label= Add charity''s information
-index.section.numbers2 = 2.
-index.section2.label = Regulators and documents
-index.section2.spoke1.label = Name regulator
-index.section2.spoke2.label = Add governing document information
-index.section.numbers3 = 3.
-index.section3.label = Operations and funds
-index.section3.spoke1.label = Provide charity''s objectives
-index.section3.spoke2.label = Give fundraising information
-index.section3.spoke3.label = Supply bank details
-index.section.numbers4 = 4.
-index.section4.label = Officials and nominee
-index.section4.spoke1.label = Name authorised officials
-index.section4.spoke2.label = Add other officials
-index.section4.spoke3.label = Give nominee information
-index.section.note.label = Once you have completed every section, you will be asked to sign a declaration and submit the application.
-index.section.notStarted = Not started
-index.section.inProgress = In progress
-index.section.completed = Completed
+index.title = (W)Register your charity(W)
+index.heading = (W)Register your charity(W)
+index.guidance1 = (W)Your answers will be saved for(W)
+index.guidance2 = (W)28 days(W)
+index.guidance3 = (W)from the date you first start your application.(W)
+index.section.numbers1 = (W)1.(W)
+index.section1.label = (W)Contact details(W)
+index.section1.spoke1.label= (W)Add charity''s information(W)
+index.section.numbers2 = (W)2.(W)
+index.section2.label = (W)Regulators and documents(W)
+index.section2.spoke1.label = (W)Name regulator(W)
+index.section2.spoke2.label = (W)Add governing document information(W)
+index.section.numbers3 = (W)3.(W)
+index.section3.label = (W)Operations and funds(W)
+index.section3.spoke1.label = (W)Provide charity''s objectives(W)
+index.section3.spoke2.label = (W)Give fundraising information(W)
+index.section3.spoke3.label = (W)Supply bank details(W)
+index.section.numbers4 = (W)4.(W)
+index.section4.label = (W)Officials and nominee(W)
+index.section4.spoke1.label = (W)Name authorised officials(W)
+index.section4.spoke2.label = (W)Add other officials(W)
+index.section4.spoke3.label = (W)Give nominee information(W)
+index.section.note.label = (W)Once you have completed every section, you will be asked to sign a declaration and submit the application.(W)
+index.section.notStarted = (W)Not started(W)
+index.section.inProgress = (W)In progress(W)
+index.section.completed = (W)Completed(W)
 
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------
-isEligiblePurpose.title = Is your charity for charitable purposes only?
-isEligiblePurpose.heading = Is your charity for charitable purposes only?
-isEligiblePurpose.section = Check if you can register
-isEligiblePurpose.help = What are charitable purposes
-isEligiblePurpose.hint = Charitable purposes include things that contribute to education, animal welfare and relieving poverty
-isEligiblePurpose.checkYourAnswersLabel = Is your charity for charitable purposes only?
-isEligiblePurpose.error.required = Select yes if your charity is for charitable purposes only
+isEligiblePurpose.title = (W)Is your charity for charitable purposes only?(W)
+isEligiblePurpose.heading = (W)Is your charity for charitable purposes only?(W)
+isEligiblePurpose.section = (W)Check if you can register(W)
+isEligiblePurpose.help = (W)What are charitable purposes(W)
+isEligiblePurpose.hint = (W)Charitable purposes include things that contribute to education, animal welfare and relieving poverty(W)
+isEligiblePurpose.checkYourAnswersLabel = (W)Is your charity for charitable purposes only?(W)
+isEligiblePurpose.error.required = (W)Select yes if your charity is for charitable purposes only(W)
 
 # IsEligibleAccountPage Messages
 # ----------------------------------------------------------
-isEligibleAccount.title = Does your charity have a UK bank, building society or credit union account?
-isEligibleAccount.heading = Does your charity have a UK bank, building society or credit union account?
-isEligibleAccount.section = Check if you can register
-isEligibleAccount.checkYourAnswersLabel = Does your charity have a UK bank, building society or credit union account?
-isEligibleAccount.error.required = Select yes if your charity have a UK bank, building society or credit union account
+isEligibleAccount.title = (W)Does your charity have a UK bank, building society or credit union account?(W)
+isEligibleAccount.heading = (W)Does your charity have a UK bank, building society or credit union account?(W)
+isEligibleAccount.section = (W)Check if you can register(W)
+isEligibleAccount.checkYourAnswersLabel = (W)Does your charity have a UK bank, building society or credit union account?(W)
+isEligibleAccount.error.required = (W)Select yes if your charity have a UK bank, building society or credit union account(W)
 
 # IsEligibleLocationPage Messages
 # ----------------------------------------------------------
-isEligibleLocation.title = Is your charity based in the UK?
-isEligibleLocation.heading = Is your charity based in the UK?
-isEligibleLocation.section = Check if you can register
-isEligibleLocation.checkYourAnswersLabel = Is your charity based in the UK?
-isEligibleLocation.error.required = Select yes if your charity is based in the UK
+isEligibleLocation.title = (W)Is your charity based in the UK?(W)
+isEligibleLocation.heading = (W)Is your charity based in the UK?(W)
+isEligibleLocation.section = (W)Check if you can register(W)
+isEligibleLocation.checkYourAnswersLabel = (W)Is your charity based in the UK?(W)
+isEligibleLocation.error.required = (W)Select yes if your charity is based in the UK(W)
 
 # IsEligibleLocationOtherPage Messages
 # ----------------------------------------------------------
-isEligibleLocationOther.title = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.heading = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.section = Check if you can register
-isEligibleLocationOther.help = Countries in the European Union
-isEligibleLocationOther.hint = Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden
-isEligibleLocationOther.checkYourAnswersLabel = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.error.required = Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway
+isEligibleLocationOther.title = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
+isEligibleLocationOther.heading = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
+isEligibleLocationOther.section = (W)Check if you can register(W)
+isEligibleLocationOther.help = (W)Countries in the European Union(W)
+isEligibleLocationOther.hint = (W)Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden(W)
+isEligibleLocationOther.checkYourAnswersLabel = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
+isEligibleLocationOther.error.required = (W)Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway(W)
 
 # InEligiblePage Messages
 # ----------------------------------------------------------
-inEligible.title = You cannot use this service
-inEligible.heading = You cannot use this service
-inEligible.p1 = If things change, you should check back to see if you need to register your charity with HMRC.
-inEligible.p2 = To use this service your charity must:
-inEligible.l1 = be established for charitable purposes only, like animal welfare or relieving poverty
-inEligible.l2 = have a UK bank, building society or credit union account
-inEligible.l3 = be based in either the UK, country in the European Union or in Iceland, Liechtenstein or Norway
-inEligible.p3 = For help with tax,
-inEligible.p3.link = check the HMRC charities and tax guidance (opens in new window).
+inEligible.title = (W)You cannot use this service(W)
+inEligible.heading = (W)You cannot use this service(W)
+inEligible.p1 = (W)If things change, you should check back to see if you need to register your charity with HMRC.(W)
+inEligible.p2 = (W)To use this service your charity must:(W)
+inEligible.l1 = (W)be established for charitable purposes only, like animal welfare or relieving poverty(W)
+inEligible.l2 = (W)have a UK bank, building society or credit union account(W)
+inEligible.l3 = (W)be based in either the UK, country in the European Union or in Iceland, Liechtenstein or Norway(W)
+inEligible.p3 = (W)For help with tax,(W)
+inEligible.p3.link = (W)check the HMRC charities and tax guidance (opens in new window).(W)
 
 # Section1 - Charity Information
 # ----------------------------------------------------------
-contactDetail.section = Charity Information
+contactDetail.section = (W)Charity Information(W)
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = Charity''s name
-charityName.heading = Charity''s name
-charityName.checkYourAnswersLabel = Charity''s name
-charityName.fullName.label = Full name of your charity
-charityName.fullName.hint = As shown on your charity''s governing document
-charityName.fullName.error.required = Enter full name of your charity
-charityName.fullName.error.length = Charity''s name must be 160 characters or less
-charityName.fullName.error.format = The full name of your charity must not include the following characters: & ( ) : @
-charityName.operatingName.label = Operating name of your charity (optional)
-charityName.operatingName.hint = The working name or acronym by which your charity is known
-charityName.operatingName.error.length = Operating name must be 160 characters or less
-charityName.operatingName.error.format = The operating name of your charity must not include the following characters: & ( ) : @
-charityName.fullName.checkYourAnswersLabel = Charity''s full name
-charityName.operatingName.checkYourAnswersLabel = Operating name of your charity (optional)
+charityName.title = (W)Charity''s name(W)
+charityName.heading = (W)Charity''s name(W)
+charityName.checkYourAnswersLabel = (W)Charity''s name(W)
+charityName.fullName.label = (W)Full name of your charity(W)
+charityName.fullName.hint = (W)As shown on your charity''s governing document(W)
+charityName.fullName.error.required = (W)Enter full name of your charity(W)
+charityName.fullName.error.length = (W)Charity''s name must be 160 characters or less(W)
+charityName.fullName.error.format = (W)The full name of your charity must not include the following characters: & ( ) : @(W)
+charityName.operatingName.label = (W)Operating name of your charity (optional)(W)
+charityName.operatingName.hint = (W)The working name or acronym by which your charity is known(W)
+charityName.operatingName.error.length = (W)Operating name must be 160 characters or less(W)
+charityName.operatingName.error.format = (W)The operating name of your charity must not include the following characters: & ( ) : @(W)
+charityName.fullName.checkYourAnswersLabel = (W)Charity''s full name(W)
+charityName.operatingName.checkYourAnswersLabel = (W)Operating name of your charity (optional)(W)
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
-charityContactDetails.title = Charity''s contact details
-charityContactDetails.heading = Charity''s contact details
-charityContactDetails.checkYourAnswersLabel = Charity''s contact details
-charityContactDetails.mainPhoneNumber.label = Main phone number
-charityContactDetails.mainPhoneNumber.error.format = Enter your charity''s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
-charityContactDetails.mainPhoneNumber.error.required = Enter your charity''s main phone number
-charityContactDetails.alternativePhoneNumber.label = Alternative phone number (optional)
-charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
-charityContactDetails.emailAddress.label = Email address
-charityContactDetails.emailAddress.error.required = Enter your charity''s email address
-charityContactDetails.emailAddress.error.format = Enter your charity''s email address in the correct format, like name@example.com
-charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
-charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
-charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number (optional)
-charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
+charityContactDetails.title = (W)Charity''s contact details(W)
+charityContactDetails.heading = (W)Charity''s contact details(W)
+charityContactDetails.checkYourAnswersLabel = (W)Charity''s contact details(W)
+charityContactDetails.mainPhoneNumber.label = (W)Main phone number(W)
+charityContactDetails.mainPhoneNumber.error.format = (W)Enter your charity''s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
+charityContactDetails.mainPhoneNumber.error.required = (W)Enter your charity''s main phone number(W)
+charityContactDetails.alternativePhoneNumber.label = (W)Alternative phone number (optional)(W)
+charityContactDetails.alternativePhoneNumber.error.format = (W)Enter your charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
+charityContactDetails.emailAddress.label = (W)Email address(W)
+charityContactDetails.emailAddress.error.required = (W)Enter your charity''s email address(W)
+charityContactDetails.emailAddress.error.format = (W)Enter your charity''s email address in the correct format, like name@example.com(W)
+charityContactDetails.emailAddress.error.length = (W)Your charity''s email address must be 160 characters or fewer(W)
+charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
+charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number (optional)(W)
+charityContactDetails.emailAddress.checkYourAnswersLabel = (W)Email address(W)
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
-charityOfficialAddress.lookupPage.heading = What is your charity''s address?
-charityOfficialAddress.lookupPage.filterLabel = Property name or number (optional)
-charityOfficialAddress.LookupPage.postcodeLabel = Postcode search
-charityOfficialAddress.lookupPage.submitLabel = Find address
+charityOfficialAddress.lookupPage.title = (W)What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.lookupPage.heading = (W)What is your charity''s address?(W)
+charityOfficialAddress.lookupPage.filterLabel = (W)Property name or number (optional)(W)
+charityOfficialAddress.LookupPage.postcodeLabel = (W)Postcode search(W)
+charityOfficialAddress.lookupPage.submitLabel = (W)Find address(W)
 charityOfficialAddress.lookupPage.noResultsFoundMessage =
 charityOfficialAddress.lookupPage.resultLimitExceededMessage =
-charityOfficialAddress.lookupPage.manualAddressLinkText = Charity''s address does not have a UK postcode
+charityOfficialAddress.lookupPage.manualAddressLinkText = (W)Charity''s address does not have a UK postcode(W)
 
-charityOfficialAddress.selectPage.title = Select your charity''s official address - Charity Information - Register your charity''s details with HMRC - GOV.UK
-charityOfficialAddress.selectPage.heading = What is your charity''s full address?
-charityOfficialAddress.selectPage.headingWithPostcode = Postcode search
+charityOfficialAddress.selectPage.title = (W)Select your charity''s official address - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.selectPage.heading = (W)What is your charity''s full address?(W)
+charityOfficialAddress.selectPage.headingWithPostcode = (W)Postcode search(W)
 charityOfficialAddress.selectPage.proposalListLabel =
-charityOfficialAddress.selectPage.submitLabel = Continue
+charityOfficialAddress.selectPage.submitLabel = (W)Continue(W)
 charityOfficialAddress.selectPage.searchAgainLinkText =
-charityOfficialAddress.selectPage.editAddressLinkText = Enter charity''s address manually
+charityOfficialAddress.selectPage.editAddressLinkText = (W)Enter charity''s address manually(W)
 
-charityOfficialAddress.editPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
-charityOfficialAddress.editPage.heading = What is your charity''s full address?
-charityOfficialAddress.editPage.line1Label = Address line 1
-charityOfficialAddress.editPage.line2Label = Address line 2 (optional)
-charityOfficialAddress.editPage.line3Label = Address line 3 (optional)
-charityOfficialAddress.editPage.townLabel = Town or city
-charityOfficialAddress.editPage.postcodeLabel = Postcode or Zipcode (optional)
-charityOfficialAddress.editPage.submitLabel = Continue
+charityOfficialAddress.editPage.title = (W)What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.editPage.heading = (W)What is your charity''s full address?(W)
+charityOfficialAddress.editPage.line1Label = (W)Address line 1(W)
+charityOfficialAddress.editPage.line2Label = (W)Address line 2 (optional)(W)
+charityOfficialAddress.editPage.line3Label = (W)Address line 3 (optional)(W)
+charityOfficialAddress.editPage.townLabel = (W)Town or city(W)
+charityOfficialAddress.editPage.postcodeLabel = (W)Postcode or Zipcode (optional)(W)
+charityOfficialAddress.editPage.submitLabel = (W)Continue(W)
 
-charityOfficialAddress.confirmPage.title = Confirm your charity''s address - Charity Information - Register your charity''s details with HMRC - GOV.UK
-charityOfficialAddress.confirmPage.heading = Confirm your charity''s address
+charityOfficialAddress.confirmPage.title = (W)Confirm your charity''s address - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.confirmPage.heading = (W)Confirm your charity''s address(W)
 charityOfficialAddress.confirmPage.infoMessage =
-charityOfficialAddress.confirmPage.infoSubheading = Your selected address
-charityOfficialAddress.confirmPage.submitLabel = Confirm and continue
+charityOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
+charityOfficialAddress.confirmPage.submitLabel = (W)Confirm and continue(W)
 charityOfficialAddress.confirmPage.searchAgainLinkText =
-charityOfficialAddress.confirmPage.changeLinkText = Change charity’s address
+charityOfficialAddress.confirmPage.changeLinkText = (W)Change charity''s address(W)
 charityOfficialAddress.confirmPage.confirmChangeText =
 
-charityOfficialAddress.addressLookup.checkYourAnswersLabel = Official address
+charityOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Official address(W)
 
 # CanWeSendLettersToThisAddressPage Messages
 # ----------------------------------------------------------
 
-canWeSendLettersToThisAddress.title = Can we send letters to this address?
-canWeSendLettersToThisAddress.heading = Can we send letters to this address?
-canWeSendLettersToThisAddress.error.required = Select yes if we can send letters to this address
-canWeSendLettersToThisAddress.no.hint = I want to enter another address
-canWeSendLettersToThisAddress.checkYourAnswersLabel = Send letters to this address
+canWeSendLettersToThisAddress.title = (W)Can we send letters to this address?(W)
+canWeSendLettersToThisAddress.heading = (W)Can we send letters to this address?(W)
+canWeSendLettersToThisAddress.error.required = (W)Select yes if we can send letters to this address(W)
+canWeSendLettersToThisAddress.no.hint = (W)I want to enter another address(W)
+canWeSendLettersToThisAddress.checkYourAnswersLabel = (W)Send letters to this address(W)
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
-charityInformationSummary.checkYourAnswers.title = Check your charity''s contact details
-charityInformationSummary.checkYourAnswers.heading = Check your charity''s contact details
-charityInformationSummary.section = Charity information
+charityInformationSummary.checkYourAnswers.title = (W)Check your charity''s contact details(W)
+charityInformationSummary.checkYourAnswers.heading = (W)Check your charity''s contact details(W)
+charityInformationSummary.section = (W)Charity information(W)
 
 # Section2 - Regulators and documents
 # ----------------------------------------------------------
-charityRegulator.section = Regulators and documents
+charityRegulator.section = (W)Regulators and documents(W)
 
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
-isCharityRegulator.title = Is your charity registered with a charity regulator?
-isCharityRegulator.heading = Is your charity registered with a charity regulator?
-isCharityRegulator.help = What is a charity regulator
-isCharityRegulator.hint = A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.
-isCharityRegulator.error.required = Select yes if your charity is registered with a charity regulator
-isCharityRegulator.checkYourAnswersLabel = Registered with a charity regulator
+isCharityRegulator.title = (W)Is your charity registered with a charity regulator?(W)
+isCharityRegulator.heading = (W)Is your charity registered with a charity regulator?(W)
+isCharityRegulator.help = (W)What is a charity regulator(W)
+isCharityRegulator.hint = (W)A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.(W)
+isCharityRegulator.error.required = (W)Select yes if your charity is registered with a charity regulator(W)
+isCharityRegulator.checkYourAnswersLabel = (W)Registered with a charity regulator(W)
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = Who are your charity''s regulator?
-charityRegulator.heading = Who are your charity''s regulator?
-charityRegulator.hint = Select all that apply
-charityRegulator.error.required = Select your charity''s regulator or regulators
-charityRegulator.ccew = Charity Commission for England and Wales
-charityRegulator.oscr = Office of the Scottish Charity Regulator
-charityRegulator.ccni = Charity Commission for Northern Ireland
-charityRegulator.otherRegulator = Other
-charityRegulator.checkYourAnswersLabel = Charity''s regulators
+charityRegulator.title = (W)Who are your charity''s regulator?(W)
+charityRegulator.heading = (W)Who are your charity''s regulator?(W)
+charityRegulator.hint = (W)Select all that apply(W)
+charityRegulator.error.required = (W)Select your charity''s regulator or regulators(W)
+charityRegulator.ccew = (W)Charity Commission for England and Wales(W)
+charityRegulator.oscr = (W)Office of the Scottish Charity Regulator(W)
+charityRegulator.ccni = (W)Charity Commission for Northern Ireland(W)
+charityRegulator.otherRegulator = (W)Other(W)
+charityRegulator.checkYourAnswersLabel = (W)Charity''s regulators(W)
 
 # CharityCommissionRegistrationNumberPage Messages
 # ----------------------------------------------------------
-charityCommissionRegistrationNumber.title = What is your Charity Commission for England and Wales registration number?
-charityCommissionRegistrationNumber.heading = What is your Charity Commission for England and Wales registration number?
-charityCommissionRegistrationNumber.error.required = Enter your charity''s registration number
-charityCommissionRegistrationNumber.error.format = Registration number must be 6 or 7 numbers, like 123456 or 1234567
-charityCommissionRegistrationNumber.hint = For example, 123456 or 1234567
-charityCommissionRegistrationNumber.help = Where to find the registration number?
-charityCommissionRegistrationNumber.hintText = The registration number will be on any mail the regulator has sent you.
-charityCommissionRegistrationNumber.checkYourAnswersLabel = Charity Commission for England and Wales registration number
+charityCommissionRegistrationNumber.title = (W)What is your Charity Commission for England and Wales registration number?(W)
+charityCommissionRegistrationNumber.heading = (W)What is your Charity Commission for England and Wales registration number?(W)
+charityCommissionRegistrationNumber.error.required = (W)Enter your charity''s registration number(W)
+charityCommissionRegistrationNumber.error.format = (W)Registration number must be 6 or 7 numbers, like 123456 or 1234567(W)
+charityCommissionRegistrationNumber.hint = (W)For example, 123456 or 1234567(W)
+charityCommissionRegistrationNumber.help = (W)Where to find the registration number?(W)
+charityCommissionRegistrationNumber.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+charityCommissionRegistrationNumber.checkYourAnswersLabel = (W)Charity Commission for England and Wales registration number(W)
 
 # ScottishRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-scottishRegulatorRegNumber.title = What is your Office of the Scottish Charity Regulator registration number?
-scottishRegulatorRegNumber.heading = What is your Office of the Scottish Charity Regulator registration number?
-scottishRegulatorRegNumber.error.required = Enter your charity''s registration number
-scottishRegulatorRegNumber.error.format = Registration number is SC then 0 and 5 numbers, like SC012345
-scottishRegulatorRegNumber.hint = For example, SC012345
-scottishRegulatorRegNumber.help = Where to find the registration number?
-scottishRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.
-scottishRegulatorRegNumber.checkYourAnswersLabel = Office of the Scottish Charity Regulator registration number
+scottishRegulatorRegNumber.title = (W)What is your Office of the Scottish Charity Regulator registration number?(W)
+scottishRegulatorRegNumber.heading = (W)What is your Office of the Scottish Charity Regulator registration number?(W)
+scottishRegulatorRegNumber.error.required = (W)Enter your charity''s registration number(W)
+scottishRegulatorRegNumber.error.format = (W)Registration number is SC then 0 and 5 numbers, like SC012345(W)
+scottishRegulatorRegNumber.hint = (W)For example, SC012345(W)
+scottishRegulatorRegNumber.help = (W)Where to find the registration number?(W)
+scottishRegulatorRegNumber.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+scottishRegulatorRegNumber.checkYourAnswersLabel = (W)Office of the Scottish Charity Regulator registration number(W)
 
 # NIRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-nIRegulatorRegNumber.title = What is your Charity Commission for Northern Ireland registration number?
-nIRegulatorRegNumber.heading = What is your Charity Commission for Northern Ireland registration number?
-nIRegulatorRegNumber.error.required = Enter your charity''s registration number
-nIRegulatorRegNumber.error.format = Registration number is 6 numbers, like 123456
-nIRegulatorRegNumber.hint = For example, 123456
-nIRegulatorRegNumber.help = Where to find the registration number?
-nIRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.
-nIRegulatorRegNumber.checkYourAnswersLabel = Charity Commission for Northern Ireland registration number
+nIRegulatorRegNumber.title = (W)What is your Charity Commission for Northern Ireland registration number?(W)
+nIRegulatorRegNumber.heading = (W)What is your Charity Commission for Northern Ireland registration number?(W)
+nIRegulatorRegNumber.error.required = (W)Enter your charity''s registration number(W)
+nIRegulatorRegNumber.error.format = (W)Registration number is 6 numbers, like 123456(W)
+nIRegulatorRegNumber.hint = (W)For example, 123456(W)
+nIRegulatorRegNumber.help = (W)Where to find the registration number?(W)
+nIRegulatorRegNumber.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+nIRegulatorRegNumber.checkYourAnswersLabel = (W)Charity Commission for Northern Ireland registration number(W)
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------
-charityOtherRegulatorDetails.title = Your charity''s regulator details
-charityOtherRegulatorDetails.heading = Your charity''s regulator details
-charityOtherRegulatorDetails.regulatorName.label = Name of your charity''s regulator
-charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of your charity''s regulator
-charityOtherRegulatorDetails.regulatorName.error.format = The name of your charity''s regulator must not include the following characters: & ( ) : @
-charityOtherRegulatorDetails.regulatorName.error.length = Your charity''s regulator name should be 100 characters or fewer
-charityOtherRegulatorDetails.registrationNumber.label = Registration number
-charityOtherRegulatorDetails.registrationNumber.error.required = Enter your charity''s registration number
-charityOtherRegulatorDetails.registrationNumber.error.format = Your charity''s registration number must not include the following characters: & ( ) : @
-charityOtherRegulatorDetails.registrationNumber.error.length = Your charity''s registration number should be 20 characters or fewer
-charityOtherRegulatorDetails.help = Where to find the registration number?
-charityOtherRegulatorDetails.hintText = The registration number will be on any mail the regulator has sent you.
-charityOtherRegulatorDetails.name.checkYourAnswersLabel = Name of your other charity''s regulator
-charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number of your other charity''s regulator
+charityOtherRegulatorDetails.title = (W)Your charity''s regulator details(W)
+charityOtherRegulatorDetails.heading = (W)Your charity''s regulator details(W)
+charityOtherRegulatorDetails.regulatorName.label = (W)Name of your charity''s regulator(W)
+charityOtherRegulatorDetails.regulatorName.error.required = (W)Enter the name of your charity''s regulator(W)
+charityOtherRegulatorDetails.regulatorName.error.format = (W)The name of your charity''s regulator must not include the following characters: & ( ) : @(W)
+charityOtherRegulatorDetails.regulatorName.error.length = (W)Your charity''s regulator name should be 100 characters or fewer(W)
+charityOtherRegulatorDetails.registrationNumber.label = (W)Registration number(W)
+charityOtherRegulatorDetails.registrationNumber.error.required = (W)Enter your charity''s registration number(W)
+charityOtherRegulatorDetails.registrationNumber.error.format = (W)Your charity''s registration number must not include the following characters: & ( ) : @(W)
+charityOtherRegulatorDetails.registrationNumber.error.length = (W)Your charity''s registration number should be 20 characters or fewer(W)
+charityOtherRegulatorDetails.help = (W)Where to find the registration number?(W)
+charityOtherRegulatorDetails.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+charityOtherRegulatorDetails.name.checkYourAnswersLabel = (W)Name of your other charity''s regulator(W)
+charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = (W)Registration number of your other charity''s regulator(W)
 
 # Select why no regulator Messages
 # ----------------------------------------------------------
-selectWhyNoRegulator.title = Why have you not registered with a charity regulator?
-selectWhyNoRegulator.heading = Why have you not registered with a charity regulator?
-selectWhyNoRegulator.error.required = Select why you have not registered with a regulator
-selectWhyNoRegulator.1 = Established in England and/or Wales and under gross income threshold
-selectWhyNoRegulator.5 = Exempt or excepted
-selectWhyNoRegulator.4 = No regulator in country of establishment
-selectWhyNoRegulator.2 = Parochial Church Councils under gross income threshold
-selectWhyNoRegulator.3 = Uniformed youth groups
-selectWhyNoRegulator.7 = Other
-selectWhyNoRegulator.checkYourAnswersLabel = Reason for not registering
+selectWhyNoRegulator.title = (W)Why have you not registered with a charity regulator?(W)
+selectWhyNoRegulator.heading = (W)Why have you not registered with a charity regulator?(W)
+selectWhyNoRegulator.error.required = (W)Select why you have not registered with a regulator(W)
+selectWhyNoRegulator.1 = (W)Established in England and/or Wales and under gross income threshold(W)
+selectWhyNoRegulator.5 = (W)Exempt or excepted(W)
+selectWhyNoRegulator.4 = (W)No regulator in country of establishment(W)
+selectWhyNoRegulator.2 = (W)Parochial Church Councils under gross income threshold(W)
+selectWhyNoRegulator.3 = (W)Uniformed youth groups(W)
+selectWhyNoRegulator.7 = (W)Other(W)
+selectWhyNoRegulator.checkYourAnswersLabel = (W)Reason for not registering(W)
 
 # WhyNotRegisteredWithCharityPage Messages
 # ----------------------------------------------------------
-whyNotRegisteredWithCharity.title = Why has your charity not registered with a charity regulator?
-whyNotRegisteredWithCharity.heading = Why has your charity not registered with a charity regulator?
-whyNotRegisteredWithCharity.error.required = Enter why you have not registered with a regulator
-whyNotRegisteredWithCharity.error.format = Your answer must not include the following characters: & ( ) : @
-whyNotRegisteredWithCharity.error.length = Your answer must be 100 characters or fewer
-whyNotRegisteredWithCharity.hint = Using 100 characters or less (including spaces).
-whyNotRegisteredWithCharity.checkYourAnswersLabel = Other reason for not registering
+whyNotRegisteredWithCharity.title = (W)Why has your charity not registered with a charity regulator?(W)
+whyNotRegisteredWithCharity.heading = (W)Why has your charity not registered with a charity regulator?(W)
+whyNotRegisteredWithCharity.error.required = (W)Enter why you have not registered with a regulator(W)
+whyNotRegisteredWithCharity.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
+whyNotRegisteredWithCharity.error.length = (W)Your answer must be 100 characters or fewer(W)
+whyNotRegisteredWithCharity.hint = (W)Using 100 characters or less (including spaces).(W)
+whyNotRegisteredWithCharity.checkYourAnswersLabel = (W)Other reason for not registering(W)
 
 # Regulators Summary page
 # ----------------------------------------------------------
-regulatorsSummary.checkYourAnswers.title = Check your charity''s regulator details
-regulatorsSummary.checkYourAnswers.heading = Check your charity''s regulator details
-regulatorsSummary.section = Regulators and documents
+regulatorsSummary.checkYourAnswers.title = (W)Check your charity''s regulator details(W)
+regulatorsSummary.checkYourAnswers.heading = (W)Check your charity''s regulator details(W)
+regulatorsSummary.section = (W)Regulators and documents(W)
 
 # Section3 - Documents
 # ----------------------------------------------------------
 
 # Select Governing Document Messages
 # ----------------------------------------------------------
-selectGoverningDocument.title = What governing document was used to set up and run your charity?
-selectGoverningDocument.heading = What governing document was used to set up and run your charity?
-selectGoverningDocument.error.required = Select the type of governing document that was used to set up and run your charity
-selectGoverningDocument.memorandumArticlesAssociation = Memorandum and articles of association
-selectGoverningDocument.royalCharacter = Royal Charter
-selectGoverningDocument.rulesConstitution = Rules or constitution
-selectGoverningDocument.trustDeed = Trust deed
-selectGoverningDocument.will = Will
-selectGoverningDocument.other = Other
-selectGoverningDocument.checkYourAnswersLabel = Governing document name
+selectGoverningDocument.title = (W)What governing document was used to set up and run your charity?(W)
+selectGoverningDocument.heading = (W)What governing document was used to set up and run your charity?(W)
+selectGoverningDocument.error.required = (W)Select the type of governing document that was used to set up and run your charity(W)
+selectGoverningDocument.memorandumArticlesAssociation = (W)Memorandum and articles of association(W)
+selectGoverningDocument.royalCharacter = (W)Royal Charter(W)
+selectGoverningDocument.rulesConstitution = (W)Rules or constitution(W)
+selectGoverningDocument.trustDeed = (W)Trust deed(W)
+selectGoverningDocument.will = (W)Will(W)
+selectGoverningDocument.other = (W)Other(W)
+selectGoverningDocument.checkYourAnswersLabel = (W)Governing document name(W)
 
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
-whenGoverningDocumentApproved.title = When was the governing document approved?
-whenGoverningDocumentApproved.heading = When was the governing document approved?
-WhenGoverningDocumentApproved.p1 = This is the date when the commission approved the governing document. If your charity is a CIO (Charitable Incorporated Organisation), it is the date you were accepted onto the regulators register.
-WhenGoverningDocumentApproved.hint = For example, 27 3 2007
-whenGoverningDocumentApproved.error.invalid = The date when the governing document was approved must be a real date.
-whenGoverningDocumentApproved.error.required.all = Enter the date when the governing document was approved
-whenGoverningDocumentApproved.error.required.two = Enter the {0} and the {1} when the governing document was approved
-whenGoverningDocumentApproved.error.required = Enter the {0} when the governing document was approved
-whenGoverningDocumentApproved.error.future = The date when the governing document was approved must be today or in the past.
-whenGoverningDocumentApproved.checkYourAnswersLabel = Date governing document was approved
+whenGoverningDocumentApproved.title = (W)When was the governing document approved?(W)
+whenGoverningDocumentApproved.heading = (W)When was the governing document approved?(W)
+WhenGoverningDocumentApproved.p1 = (W)This is the date when the commission approved the governing document. If your charity is a CIO (Charitable Incorporated Organisation), it is the date you were accepted onto the regulators register.(W)
+WhenGoverningDocumentApproved.hint = (W)For example, 27 3 2007(W)
+whenGoverningDocumentApproved.error.invalid = (W)The date when the governing document was approved must be a real date.(W)
+whenGoverningDocumentApproved.error.required.all = (W)Enter the date when the governing document was approved(W)
+whenGoverningDocumentApproved.error.required.two = (W)Enter the {0} and the {1} when the governing document was approved(W)
+whenGoverningDocumentApproved.error.required = (W)Enter the {0} when the governing document was approved(W)
+whenGoverningDocumentApproved.error.future = (W)The date when the governing document was approved must be today or in the past.(W)
+whenGoverningDocumentApproved.checkYourAnswersLabel = (W)Date governing document was approved(W)
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = Is the governing document approved by a national organisation, parent body or principle regulator?
-isApprovedGoverningDocument.heading = Is the governing document approved by a national organisation, parent body or principle regulator?
-isApprovedGoverningDocument.error.required = Select yes if the governing document is approved by a national organisation, parent body or principle regulator
-isApprovedGoverningDocument.checkYourAnswersLabel = Governing document has been approved by a charity regulator
+isApprovedGoverningDocument.title = (W)Is the governing document approved by a national organisation, parent body or principle regulator?(W)
+isApprovedGoverningDocument.heading = (W)Is the governing document approved by a national organisation, parent body or principle regulator?(W)
+isApprovedGoverningDocument.error.required = (W)Select yes if the governing document is approved by a national organisation, parent body or principle regulator(W)
+isApprovedGoverningDocument.checkYourAnswersLabel = (W)Governing document has been approved by a charity regulator(W)
 
 # GoverningDocument Summary page
 # ----------------------------------------------------------
-governingDocumentSummary.checkYourAnswers.title = Check your governing document details
-governingDocumentSummary.checkYourAnswers.heading = Check your governing document details
-governingDocumentSummary.section = Regulators and documents
+governingDocumentSummary.checkYourAnswers.title = (W)Check your governing document details(W)
+governingDocumentSummary.checkYourAnswers.heading = (W)Check your governing document details(W)
+governingDocumentSummary.section = (W)Regulators and documents(W)
 
 # Section4 - Operations and Funds
 # ----------------------------------------------------------
-operationsAndFunds.section = Operations and funds
+operationsAndFunds.section = (W)Operations and funds(W)
 
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
-charitableObjectives.title = What are your charity''s charitable objectives?
-charitableObjectives.heading = What are your charity''s charitable objectives?
-charitableObjectives.error.required = Enter your charity''s charitable objectives
-charitableObjectives.error.format = Your answer must not include the following characters: & () : @
-charitableObjectives.error.length = Your answer must be 255 characters or fewer
-charitableObjectives.hint = Using 255 characters or less (including spaces).
-charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.
-charitableObjectives.checkYourAnswersLabel = Charity''s charitable objectives
+charitableObjectives.title = (W)What are your charity''s charitable objectives?(W)
+charitableObjectives.heading = (W)What are your charity''s charitable objectives?(W)
+charitableObjectives.error.required = (W)Enter your charity''s charitable objectives(W)
+charitableObjectives.error.format = (W)Your answer must not include the following characters: & () : @(W)
+charitableObjectives.error.length = (W)Your answer must be 255 characters or fewer(W)
+charitableObjectives.hint = (W)Using 255 characters or less (including spaces).(W)
+charitableObjectives.label = (W)Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.(W)
+charitableObjectives.checkYourAnswersLabel = (W)Charity''s charitable objectives(W)
 
 # CharitablePurposesPage Messages
 # ----------------------------------------------------------
-charitablePurposes.title = What are your charity''s charitable purposes?
-charitablePurposes.heading = What are your charity''s charitable purposes?
-charitablePurposes.hint = Select all that apply
-charitablePurposes.error.required = Select your charity''s charitable purposes
-charitablePurposes.amateurSport = Amateur sport
-charitablePurposes.animalWelfare = Animal welfare
-charitablePurposes.artsCultureOrScience = Arts, culture, heritage or science
-charitablePurposes.citizenshipOrCommunityDevelopment = Citizenship or community development
-charitablePurposes.education = Education
-charitablePurposes.environmentalProtection = Environmental protection or improvement
-charitablePurposes.healthOrSavingOfLives = Health or saving of lives
-charitablePurposes.humanRights = Human Rights
-charitablePurposes.armedForcesOfTheCrown = Promotion of efficiency in armed forces, police, fire and rescue service
-charitablePurposes.reliefOfPoverty = Relief of poverty
-charitablePurposes.reliefOfYouthAge = Relief of those in need
-charitablePurposes.religion = Religion
-charitablePurposes.other = Other
-charitablePurposes.checkYourAnswersLabel = Charity''s charitable purposes
+charitablePurposes.title = (W)What are your charity''s charitable purposes?(W)
+charitablePurposes.heading = (W)What are your charity''s charitable purposes?(W)
+charitablePurposes.hint = (W)Select all that apply(W)
+charitablePurposes.error.required = (W)Select your charity''s charitable purposes(W)
+charitablePurposes.amateurSport = (W)Amateur sport(W)
+charitablePurposes.animalWelfare = (W)Animal welfare(W)
+charitablePurposes.artsCultureOrScience = (W)Arts, culture, heritage or science(W)
+charitablePurposes.citizenshipOrCommunityDevelopment = (W)Citizenship or community development(W)
+charitablePurposes.education = (W)Education(W)
+charitablePurposes.environmentalProtection = (W)Environmental protection or improvement(W)
+charitablePurposes.healthOrSavingOfLives = (W)Health or saving of lives(W)
+charitablePurposes.humanRights = (W)Human Rights(W)
+charitablePurposes.armedForcesOfTheCrown = (W)Promotion of efficiency in armed forces, police, fire and rescue service(W)
+charitablePurposes.reliefOfPoverty = (W)Relief of poverty(W)
+charitablePurposes.reliefOfYouthAge = (W)Relief of those in need(W)
+charitablePurposes.religion = (W)Religion(W)
+charitablePurposes.other = (W)Other(W)
+charitablePurposes.checkYourAnswersLabel = (W)Charity''s charitable purposes(W)
 
 # Enter Public Benefits Messages
 # ----------------------------------------------------------
-publicBenefits.title = How does your charity benefit the public?
-publicBenefits.heading = How does your charity benefit the public?
-publicBenefits.error.required = Enter how your charity benefits the public
-publicBenefits.error.format = Your answer must not include the following characters: & ( ) : @
-publicBenefits.error.length = Your answer must be 255 characters or fewer
-publicBenefits.hint = Using 255 characters or less (including spaces).
-publicBenefits.checkYourAnswersLabel = How your charity benefits the public
+publicBenefits.title = (W)How does your charity benefit the public?(W)
+publicBenefits.heading = (W)How does your charity benefit the public?(W)
+publicBenefits.error.required = (W)Enter how your charity benefits the public(W)
+publicBenefits.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
+publicBenefits.error.length = (W)Your answer must be 255 characters or fewer(W)
+publicBenefits.hint = (W)Using 255 characters or less (including spaces).(W)
+publicBenefits.checkYourAnswersLabel = (W)How your charity benefits the public(W)
 
 # Charity Objectives Summary page
 # ----------------------------------------------------------
-charityObjectivesSummary.checkYourAnswers.title = Check your charity''s objectives details
-charityObjectivesSummary.checkYourAnswers.heading = Check your charity''s objectives details
-charityObjectivesSummary.section = Operations and funds
+charityObjectivesSummary.checkYourAnswers.title = (W)Check your charity''s objectives details(W)
+charityObjectivesSummary.checkYourAnswers.heading = (W)Check your charity''s objectives details(W)
+charityObjectivesSummary.section = (W)Operations and funds(W)
 
 # Section5 - Fundraising Information
 # ----------------------------------------------------------
 
 # How will your charity raise funds
 # ----------------------------------------------------------
-selectFundRaising.title = How will your charity raise funds?
-selectFundRaising.heading = How will your charity raise funds?
-selectFundRaising.hint = Select all that apply
-selectFundRaising.error.required = Select how your charity will raise funds
-selectFundRaising.donations = Donations
-selectFundRaising.fundraising = Fundraising
-selectFundRaising.grants = Grants
-selectFundRaising.membershipSubscriptions = Membership subscriptions
-selectFundRaising.tradingIncome = Trading income
-selectFundRaising.tradingSubsidiaries = Trading subsidiaries
-selectFundRaising.investmentIncome = Investment income
-selectFundRaising.other = Other
-selectFundRaising.checkYourAnswersLabel = How your charity raises funds
+selectFundRaising.title = (W)How will your charity raise funds?(W)
+selectFundRaising.heading = (W)How will your charity raise funds?(W)
+selectFundRaising.hint = (W)Select all that apply(W)
+selectFundRaising.error.required = (W)Select how your charity will raise funds(W)
+selectFundRaising.donations = (W)Donations(W)
+selectFundRaising.fundraising = (W)Fundraising(W)
+selectFundRaising.grants = (W)Grants(W)
+selectFundRaising.membershipSubscriptions = (W)Membership subscriptions(W)
+selectFundRaising.tradingIncome = (W)Trading income(W)
+selectFundRaising.tradingSubsidiaries = (W)Trading subsidiaries(W)
+selectFundRaising.investmentIncome = (W)Investment income(W)
+selectFundRaising.other = (W)Other(W)
+selectFundRaising.checkYourAnswersLabel = (W)How your charity raises funds(W)
 
 # Select Operating Location Messages
 # ----------------------------------------------------------
-operatingLocation.title = Where does your charity operate?
-operatingLocation.heading = Where does your charity operate?
-operatingLocation.hint = Select all that apply
-operatingLocation.error.required = Select where your charity operates
-operatingLocation.englandAndWales = England and Wales
-operatingLocation.scotland = Scotland
-operatingLocation.northernIreland = Northern Ireland
-operatingLocation.ukWide = Across the UK
-operatingLocation.overseas = Overseas
-operatingLocation.checkYourAnswersLabel = Where your charity operates
+operatingLocation.title = (W)Where does your charity operate?(W)
+operatingLocation.heading = (W)Where does your charity operate?(W)
+operatingLocation.hint = (W)Select all that apply(W)
+operatingLocation.error.required = (W)Select where your charity operates(W)
+operatingLocation.englandAndWales = (W)England and Wales(W)
+operatingLocation.scotland = (W)Scotland(W)
+operatingLocation.northernIreland = (W)Northern Ireland(W)
+operatingLocation.ukWide = (W)Across the UK(W)
+operatingLocation.overseas = (W)Overseas(W)
+operatingLocation.checkYourAnswersLabel = (W)Where your charity operates(W)
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
-isFinancialAccounts.title = Has your charity prepared financial accounts?
-isFinancialAccounts.heading = Has your charity prepared financial accounts?
-isFinancialAccounts.error.required = Select yes if your charity has prepared financial accounts
-isFinancialAccounts.hint = If your charity has a set of prepared financial accounts, you will need to post us a copy to support your application.
-isFinancialAccounts.checkYourAnswersLabel = Your charity has financial accounts
+isFinancialAccounts.title = (W)Has your charity prepared financial accounts?(W)
+isFinancialAccounts.heading = (W)Has your charity prepared financial accounts?(W)
+isFinancialAccounts.error.required = (W)Select yes if your charity has prepared financial accounts(W)
+isFinancialAccounts.hint = (W)If your charity has a set of prepared financial accounts, you will need to post us a copy to support your application.(W)
+isFinancialAccounts.checkYourAnswersLabel = (W)Your charity has financial accounts(W)
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
-isBankStatements.title = Does your charity have bank statements for the last 3 months of operation?
-isBankStatements.heading = Does your charity have bank statements for the last 3 months of operation?
-isBankStatements.hint = If the account has been open for less than 3 months, you will need to provide evidence from the bank that the account is open.
-isBankStatements.error.required = Select yes if your charity has bank statements for the last 3 months of operation
-isBankStatements.checkYourAnswersLabel = Your charity has bank statements for the last 3 months
+isBankStatements.title = (W)Does your charity have bank statements for the last 3 months of operation?(W)
+isBankStatements.heading = (W)Does your charity have bank statements for the last 3 months of operation?(W)
+isBankStatements.hint = (W)If the account has been open for less than 3 months, you will need to provide evidence from the bank that the account is open.(W)
+isBankStatements.error.required = (W)Select yes if your charity has bank statements for the last 3 months of operation(W)
+isBankStatements.checkYourAnswersLabel = (W)Your charity has bank statements for the last 3 months(W)
 
 # AccountingEndDatePage Messages
-# -------------------------------------  ---------------------
-accountingPeriodEndDate.title = What is your accounting period end date?
-accountingPeriodEndDate.heading = What is your accounting period end date?
-accountingPeriodEndDate.error.required.all = Enter the accounting period end date
-accountingPeriodEndDate.error.required = Enter the accounting period end {0}
-accountingPeriodEndDate.error.invalid = The accounting period end date must be a real date
-accountingPeriodEndDate.p1 = This is the date to which your charity prepares its financial accounts.
-accountingPeriodEndDate.checkYourAnswersLabel = When your accounting period ends
+# ----------------------------------------------------------
+accountingPeriodEndDate.title = (W)What is your accounting period end date?(W)
+accountingPeriodEndDate.heading = (W)What is your accounting period end date?(W)
+accountingPeriodEndDate.error.required.all = (W)Enter the accounting period end date(W)
+accountingPeriodEndDate.error.required = (W)Enter the accounting period end {0}(W)
+accountingPeriodEndDate.error.invalid = (W)The accounting period end date must be a real date(W)
+accountingPeriodEndDate.p1 = (W)This is the date to which your charity prepares its financial accounts.(W)
+accountingPeriodEndDate.checkYourAnswersLabel = (W)When your accounting period ends(W)
 
 # Operations and Funds Summary page
 # ----------------------------------------------------------
-operationsFundsSummary.checkYourAnswers.title = Check your charity’s operations and funds details
-operationsFundsSummary.checkYourAnswers.heading = Check your charity’s operations and funds details
-operationsFundsSummary.section = Operations and funds
+operationsFundsSummary.checkYourAnswers.title = (W)Check your charity''s operations and funds details(W)
+operationsFundsSummary.checkYourAnswers.heading = (W)Check your charity''s operations and funds details(W)
+operationsFundsSummary.section = (W)Operations and funds(W)
 
 # Section6 - Supply bank details
 # ----------------------------------------------------------
 
-# charity''s bank account details Page Messages
-# -------------------------------------  ---------------------
-bankDetails.title = What are your charity''s bank account details?
-bankDetails.heading = What are your charity''s bank account details?
-bankDetails.p1 = We need your bank details to pay Gift Aid and other tax repayments.
-bankDetails.accountName = Charity''s account name
-bankDetails.accountName.hint = As shown on your charity''s account statements
-bankDetails.accountName.error.length = Your charity''s account name must be 60 characters or fewer
-bankDetails.accountName.error.required = Enter your charity''s account name
-bankDetails.accountName.error.format = Your charity''s account name must not include the following characters: & ( ) : @
-bankDetails.sortCode = Charity''s sort code
-bankDetails.sortCode.hint = Must be 6 digits long
-bankDetails.sortCode.error.length = You charity''s sort code must be 6 digits
-bankDetails.sortCode.error.required = Enter your charity’s sort code
-bankDetails.sortCode.error.format = Enter a valid sort code like 309430
-bankDetails.accountNumber = Charity''s account number
-bankDetails.accountNumber.hint = Must be between 6 and 8 digits long
-bankDetails.accountNumber.error.length = You charity''s account number must be between 6 and 8 digits
-bankDetails.accountNumber.error.required = Enter your charity''s account number
-bankDetails.accountNumber.error.format = Enter a valid account number like 00733445
-bankDetails.rollNumber = Building society roll number (if you have one)
-bankDetails.rollNumber.hint = You can find it on your charity''s bank card, statement or passbook
-bankDetails.rollNumber.error.length = You charity''s building society roll number must be between 1 and 18 characters
-bankDetails.rollNumber.error.format = 'Your charity''s building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
-bankDetails.basc.warning = We will send repayments using BACS. You should make sure your charity can receive BACS payments.
-bankDetails.accountName.checkYourAnswersLabel = Account name
-bankDetails.sortCode.checkYourAnswersLabel = Sort code
-bankDetails.accountNumber.checkYourAnswersLabel = Account number
-bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if you have one)
-
-# Operations and Funds Summary page
+# Charity's bank account details Page Messages
 # ----------------------------------------------------------
-bankDetailsSummary.checkYourAnswers.title = Check your charity’s bank details
-bankDetailsSummary.checkYourAnswers.heading = Check your charity’s bank details
-bankDetailsSummary.section = Operations and funds
+bankDetails.title = (W)What are your charity''s bank account details?(W)
+bankDetails.heading = (W)What are your charity''s bank account details?(W)
+bankDetails.p1 = (W)We need your bank details to pay Gift Aid and other tax repayments.(W)
+bankDetails.accountName = (W)Charity''s account name(W)
+bankDetails.accountName.hint = (W)As shown on your charity''s account statements(W)
+bankDetails.accountName.error.length = (W)Your charity''s account name must be 60 characters or fewer(W)
+bankDetails.accountName.error.required = (W)Enter your charity''s account name(W)
+bankDetails.accountName.error.format = (W)Your charity''s account name must not include the following characters: & ( ) : @(W)
+bankDetails.sortCode = (W)Charity''s sort code(W)
+bankDetails.sortCode.hint = (W)Must be 6 digits long(W)
+bankDetails.sortCode.error.length = (W)You charity''s sort code must be 6 digits(W)
+bankDetails.sortCode.error.required = (W)Enter your charity''s sort code(W)
+bankDetails.sortCode.error.format = (W)Enter a valid sort code like 309430(W)
+bankDetails.accountNumber = (W)Charity''s account number(W)
+bankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
+bankDetails.accountNumber.error.length = (W)You charity''s account number must be between 6 and 8 digits(W)
+bankDetails.accountNumber.error.required = (W)Enter your charity''s account number(W)
+bankDetails.accountNumber.error.format = (W)Enter a valid account number like 00733445(W)
+bankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
+bankDetails.rollNumber.hint = (W)You can find it on your charity''s bank card, statement or passbook(W)
+bankDetails.rollNumber.error.length = (W)You charity''s building society roll number must be between 1 and 18 characters(W)
+bankDetails.rollNumber.error.format = (W)'Your charity''s building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
+bankDetails.basc.warning = (W)We will send repayments using BACS. You should make sure your charity can receive BACS payments.(W)
+bankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
+bankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
+bankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)
+bankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number (if you have one)(W)
+
+# Charity's bank account details Page Messages
+# ----------------------------------------------------------
+bankDetailsSummary.checkYourAnswers.title = (W)Check your charity''s bank details(W)
+bankDetailsSummary.checkYourAnswers.heading = (W)Check your charity''s bank details(W)
+bankDetailsSummary.section = (W)Operations and funds(W)

@@ -42,7 +42,7 @@ class AddressLookupConfiguration @Inject()(callbackUrl: String,
         showBackButtons = true,
         includeHMRCBranding = false,
         ukMode = false,
-        disableTranslations = true,
+        disableTranslations = false,
         selectPageConfig = AddressLookupSelectConfigModel (
           showSearchAgainLink = true
         ),

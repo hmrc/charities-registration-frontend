@@ -19,13 +19,13 @@ package views
 import models.{NormalMode, TaskListSection}
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.Index
+import views.html.TaskList
 
-class IndexViewSpec extends ViewBehaviours  {
+class TaskListViewSpec extends ViewBehaviours  {
 
   val messageKeyPrefix = "index"
 
-    "Index View" must {
+    "TaskList View" must {
 
       val section1 = TaskListSection(
         controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "index.section.notStarted")
@@ -47,7 +47,7 @@ class IndexViewSpec extends ViewBehaviours  {
 
 
       def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[Index](Some(emptyUserAnswers))
+        val view = viewFor[TaskList](Some(emptyUserAnswers))
         view.apply(List(section1, section2, section3, section4, section5, section6))(fakeRequest, messages, frontendAppConfig)
       }
 

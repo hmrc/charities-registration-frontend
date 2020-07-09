@@ -572,3 +572,23 @@ bankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number (
 bankDetailsSummary.checkYourAnswers.title = (W)Check your charity''s bank details(W)
 bankDetailsSummary.checkYourAnswers.heading = (W)Check your charity''s bank details(W)
 bankDetailsSummary.section = (W)Operations and funds(W)
+
+# Section7 - Name authorised officials
+# ----------------------------------------------------------
+officialsAndNominees.section = (W)Officials and nominees(W)
+
+# CharityNamePage Messages
+# ----------------------------------------------------------
+authorisedOfficialsName.title = (W)What is the authorised official''s name?(W)
+authorisedOfficialsName.heading = (W)What is the authorised official''s name?(W)
+authorisedOfficialsName.firstName.label = (W)First name(W)
+authorisedOfficialsName.firstName.error.required = (W)Enter the authorised official''s first name(W)
+authorisedOfficialsName.firstName.error.length = (W)The authorised official''s first name must be 100 characters or fewer(W)
+authorisedOfficialsName.firstName.error.format = (W)The authorised official''s first name must not include the following characters: & ( ) : @(W)
+authorisedOfficialsName.middleName.label = (W)Middle name (optional)(W)
+authorisedOfficialsName.middleName.error.length = (W)The authorised official''s middle name must be 100 characters or fewer(W)
+authorisedOfficialsName.middleName.error.format = (W)The authorised official''s middle name must not include the following characters: & ( ) : @(W)
+authorisedOfficialsName.lastName.label = (W)Last name(W)
+authorisedOfficialsName.lastName.error.required = (W)Enter the authorised official''s last name(W)
+authorisedOfficialsName.lastName.error.length = (W)The authorised official''s last name must be 100 characters or fewer(W)
+authorisedOfficialsName.lastName.error.format = (W)The authorised official''s last name must not include the following characters: & ( ) : @(W)

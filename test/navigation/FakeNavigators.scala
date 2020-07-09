@@ -41,4 +41,6 @@ object FakeNavigators extends SpecBase {
   object FakeFundRaisingNavigator extends FundRaisingNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
 
   object FakeBankDetailsNavigator extends BankDetailsNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
+
+  object FakeAuthorisedOfficialsNavigator extends AuthorisedOfficialsNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
 }

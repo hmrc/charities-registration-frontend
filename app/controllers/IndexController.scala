@@ -27,13 +27,13 @@ import pages.QuestionPage
 import pages.sections._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
-import views.html.Index
+import views.html.TaskList
 
 class IndexController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     userAnswerRepository: UserAnswerRepository,
-    view: Index,
+    view: TaskList,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 

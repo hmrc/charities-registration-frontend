@@ -580,3 +580,23 @@ bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if 
 bankDetailsSummary.checkYourAnswers.title = Check your charity''s bank details
 bankDetailsSummary.checkYourAnswers.heading = Check your charity''s bank details
 bankDetailsSummary.section = Operations and funds
+
+# Section7 - Name authorised officials
+# ----------------------------------------------------------
+officialsAndNominees.section =  Officials and nominees
+
+# CharityNamePage Messages
+# ----------------------------------------------------------
+authorisedOfficialsName.title = What is the authorised official''s name?
+authorisedOfficialsName.heading = What is the authorised official''s name?
+authorisedOfficialsName.firstName.label = First name
+authorisedOfficialsName.firstName.error.required = Enter the authorised official''s first name
+authorisedOfficialsName.firstName.error.length = The authorised official''s first name must be 100 characters or fewer
+authorisedOfficialsName.firstName.error.format = The authorised official''s first name must not include the following characters: & ( ) : @
+authorisedOfficialsName.middleName.label = Middle name (optional)
+authorisedOfficialsName.middleName.error.length = The authorised official''s middle name must be 100 characters or fewer
+authorisedOfficialsName.middleName.error.format = The authorised official''s middle name must not include the following characters: & ( ) : @
+authorisedOfficialsName.lastName.label = Last name
+authorisedOfficialsName.lastName.error.required = 'Enter the authorised official''s last name
+authorisedOfficialsName.lastName.error.length = The authorised official''s last name must be 100 characters or fewer
+authorisedOfficialsName.lastName.error.format = The authorised official''s last name must not include the following characters: & ( ) : @

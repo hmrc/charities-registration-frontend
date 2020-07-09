@@ -45,7 +45,7 @@ class DocumentsNavigatorSpec extends SpecBase {
 
           navigator.nextPage(SelectGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
+            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
         }
 
         "go to the Governing Document approved page when other than Other is selected" in {
@@ -85,7 +85,7 @@ class DocumentsNavigatorSpec extends SpecBase {
 
           navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
+            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
         }
         "go to the Governing Document summary page when no is selected" in {
           navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,

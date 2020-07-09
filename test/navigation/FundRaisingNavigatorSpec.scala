@@ -39,10 +39,16 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Where does your charity operate page when clicked continue button" in {
+        "go to the Where does your charity operate page when user answers other than the Other when clicked continue button" in {
+          navigator.nextPage(FundRaisingPage, NormalMode,
+            emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+        }
+
+        "go to the Where does your charity operate page when user answer has other and clicked continue button" in {
           navigator.nextPage(FundRaisingPage, NormalMode,
             emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other)).getOrElse(emptyUserAnswers)) mustBe
-            operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+            routes.DeadEndController.onPageLoad()
         }
       }
 
@@ -53,10 +59,16 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to Has your charity prepared financial accounts page when clicked continue button" in {
+        "go to Has your charity prepared financial accounts page when user answers other than the Other when clicked continue button" in {
+          navigator.nextPage(OperatingLocationPage, NormalMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales)).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+        }
+
+        "go to Has your charity prepared financial accounts page when user answer has other and clicked continue button" in {
           navigator.nextPage(OperatingLocationPage, NormalMode,
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
-            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+            routes.DeadEndController.onPageLoad()
         }
       }
 
@@ -72,6 +84,12 @@ class FundRaisingNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(IsFinancialAccountsPage,true).success.value) mustBe
             operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
         }
+
+        "go to DeadEnd page when no is selected" in {
+          navigator.nextPage(IsFinancialAccountsPage, NormalMode,
+            emptyUserAnswers.set(IsFinancialAccountsPage,false).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
       }
 
       "from the IsBankStatements page" must {
@@ -81,10 +99,16 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to accounting period end date page when clicked continue button" in {
+        "go to accounting period end date page when yes is selected" in {
           navigator.nextPage(IsBankStatementsPage, NormalMode,
             emptyUserAnswers.set(IsBankStatementsPage, true).getOrElse(emptyUserAnswers)) mustBe
            operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
+        }
+
+        "go to DeadEnd page when no is selected" in {
+          navigator.nextPage(IsBankStatementsPage, NormalMode,
+            emptyUserAnswers.set(IsBankStatementsPage, false).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad()
         }
       }
 

@@ -44,7 +44,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     }
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
       case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad() // TODO requires previous Address Lookup data
-      case Some(false) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad() // TODO modify once Postal Address Lookup flow is created
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO modify once Postal Address Lookup flow is created
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

@@ -21,6 +21,7 @@ import java.time.LocalDate
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
+import controllers.routes
 import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.{CheckMode, UserAnswers}
@@ -47,7 +48,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages("selectGoverningDocument.checkYourAnswersLabel"),
           messages(s"selectGoverningDocument.$MemorandumArticlesAssociation"),
           Some(messages("selectGoverningDocument.checkYourAnswersLabel")),
-          regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
         ))
       }
     }
@@ -59,7 +60,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages("whenGoverningDocumentApproved.checkYourAnswersLabel"),
           "2 January 2000",
           Some(messages("whenGoverningDocumentApproved.checkYourAnswersLabel")),
-          regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
         ))
       }
     }
@@ -72,7 +73,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages("isApprovedGoverningDocument.checkYourAnswersLabel"),
           BaseMessages.yes,
           Some(messages("isApprovedGoverningDocument.checkYourAnswersLabel")),
-          regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
         ))
       }
     }

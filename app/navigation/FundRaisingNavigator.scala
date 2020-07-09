@@ -22,6 +22,8 @@ import controllers.routes
 import javax.inject.Inject
 import models.MongoDateTimeFormats.localDayMonthRead
 import models._
+import models.operations.FundRaisingOptions.Other
+import models.operations.OperatingLocationOptions.Overseas
 import pages.Page
 import pages.operationsAndFunds._
 import play.api.mvc.Call
@@ -31,22 +33,26 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
+      case Some(items) if items.toSeq.equals(Seq(Other)) => routes.DeadEndController.onPageLoad()
       case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
+      case Some(items) if items.toSeq.equals(Seq(Overseas)) => routes.DeadEndController.onPageLoad()
       case Some(_) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsFinancialAccountsPage => userAnswers: UserAnswers => userAnswers.get(IsFinancialAccountsPage) match {
-      case Some(_) => operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
+      case Some(true) => operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
+      case Some(false) => routes.DeadEndController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsBankStatementsPage => userAnswers: UserAnswers => userAnswers.get(IsBankStatementsPage) match {
-      case Some(_) => operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
+      case Some(true) => operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
+      case Some(false) => routes.DeadEndController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

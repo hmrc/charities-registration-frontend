@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.routes
 import models._
 import models.operations.CharitablePurposes
-import models.operations.CharitablePurposes.AmateurSport
+import models.operations.CharitablePurposes.{AmateurSport, Other}
 import pages.IndexPage
 import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, CharityObjectivesSummaryPage, PublicBenefitsPage}
 import controllers.operationsAndFunds.{routes => operations}
@@ -54,10 +54,16 @@ class ObjectivesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
+        "go to How does your charity benefit the public? page when selected any option other than the other and clicked continue" in {
           navigator.nextPage(CharitablePurposesPage, NormalMode,
             emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value) mustBe
             operations.PublicBenefitsController.onPageLoad(NormalMode)
+        }
+
+        "go to How does your charity benefit the public? page when selected other option and clicked continue" in {
+          navigator.nextPage(CharitablePurposesPage, NormalMode,
+            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](Other)).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
         }
       }
 

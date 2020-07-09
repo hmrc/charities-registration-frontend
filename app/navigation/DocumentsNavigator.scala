@@ -54,7 +54,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def selectGoverningDocumentPagePageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectGoverningDocumentPage) match {
-    case Some(Other) => routes.IndexController.onPageLoad() // TODO modify once Governing Document name page is created
+    case Some(Other) => routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
     case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
     case _ => routes.SessionExpiredController.onPageLoad()
   }
@@ -65,7 +65,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
-    case Some(true) => routes.IndexController.onPageLoad() // TODO modify once Have you changed governing document page is created
+    case Some(true) => routes.DeadEndController.onPageLoad() // TODO modify once Have you changed governing document page is created
     case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }

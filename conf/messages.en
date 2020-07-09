@@ -48,6 +48,7 @@ site.opensInNewWindowOrTab = (opens in a new window or tab)
 site.change = Change
 site.logOut = log out
 site.empref = Employer PAYE reference: {0}
+site.gotoTaskList = Go to task list
 
 footer.cookies         = Cookies
 footer.privacy         = Privacy policy
@@ -130,6 +131,13 @@ index.section.note.label = Once you have completed every section, you will be as
 index.section.notStarted = Not started
 index.section.inProgress = In progress
 index.section.completed = Completed
+
+# Dead End page Messages
+# ----------------------------------------------------------
+deadEnd.title = Sorry, this page is still in development
+deadEnd.heading = Sorry, this page is still in development
+deadEnd.p1 = Please go back and select another option.
+deadEnd.p2 = You can also visit the task list to see the section status change from ‘Not started’ to ‘In progress’ or ‘Completed’.
 
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------

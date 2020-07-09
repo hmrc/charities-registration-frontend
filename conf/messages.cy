@@ -48,6 +48,7 @@ site.opensInNewWindowOrTab = (W)(opens in a new window or tab)(W)
 site.change = (W)Change(W)
 site.logOut = (W)log out(W)
 site.empref = (W)Employer PAYE reference: {0}(W)
+site.gotoTaskList = (W)Go to task list(W)
 
 footer.cookies         = (W)Cookies(W)
 footer.privacy         = (W)Privacy policy(W)
@@ -130,6 +131,13 @@ index.section.note.label = (W)Once you have completed every section, you will be
 index.section.notStarted = (W)Not started(W)
 index.section.inProgress = (W)In progress(W)
 index.section.completed = (W)Completed(W)
+
+# Dead End page Messages
+# ----------------------------------------------------------
+deadEnd.title = (W)Sorry, this page is still in development(W)
+deadEnd.heading = (W)Sorry, this page is still in development(W)
+deadEnd.p1 = (W)Please go back and select another option.(W)
+deadEnd.p2 = (W)You can also visit the task list to see the section status change from ‘Not started’ to ‘In progress’ or ‘Completed’.(W)
 
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------

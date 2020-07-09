@@ -19,6 +19,7 @@ package viewModels.operationsAndFunds
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
+import controllers.routes
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
@@ -72,7 +73,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("selectFundRaising.checkYourAnswersLabel"),
             fundRaisingList,
             Some(messages("selectFundRaising.checkYourAnswersLabel")),
-            operationFundsRoutes.FundRaisingController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
           )
         )
       }
@@ -93,7 +94,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("operatingLocation.checkYourAnswersLabel"),
             operatingLocationList,
             Some(messages("operatingLocation.checkYourAnswersLabel")),
-            operationFundsRoutes.OperatingLocationController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
           )
         )
       }
@@ -108,7 +109,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("isFinancialAccounts.checkYourAnswersLabel"),
             messages("site.yes"),
             Some(messages("isFinancialAccounts.checkYourAnswersLabel")),
-            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
           )
         )
       }
@@ -123,7 +124,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("isBankStatements.checkYourAnswersLabel"),
             messages("site.yes"),
             Some(messages("isBankStatements.checkYourAnswersLabel")),
-            operationFundsRoutes.IsBankStatementsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
           )
         )
       }
@@ -138,7 +139,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("accountingPeriodEndDate.checkYourAnswersLabel"),
             "01 October",
             Some(messages("accountingPeriodEndDate.checkYourAnswersLabel")),
-            operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
           )
         )
       }

@@ -92,7 +92,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Postal Address Lookup flow when no is selected" in {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
             emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value) mustBe
-            charityInfoRoutes.CharityInformationSummaryController.onPageLoad() //TODO modify once Postal Address Lookup flow is created
+            routes.DeadEndController.onPageLoad() //TODO modify once Postal Address Lookup flow is created
         }
       }
 

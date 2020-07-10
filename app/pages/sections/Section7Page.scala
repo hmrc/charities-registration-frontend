@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package pages.sections
 
-@(
-link: String,
-messageKey: String,
-id: Option[String] = None,
-)(implicit messages: Messages)
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-<a href="@link" role="button" class="govuk-button govuk-button" @id.map(x => s"id=$x")>
-    @messages(messageKey)
-</a>
+case object Section7Page extends QuestionPage[Boolean] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "isSection7Completed"
+}

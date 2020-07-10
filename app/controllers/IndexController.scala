@@ -20,9 +20,10 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import controllers.charityInformation.{routes => charityInfoRoutes}
 import controllers.operationsAndFunds.{routes => opsAndFundsRoutes}
+import controllers.authorisedOfficials.{routes => authOfficialsRoutes}
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import javax.inject.Inject
-import models.{NormalMode, TaskListSection, UserAnswers}
+import models.{Index, NormalMode, TaskListSection, UserAnswers}
 import pages.QuestionPage
 import pages.sections._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -59,7 +60,10 @@ class IndexController @Inject()(
       val section6 = getSection(opsAndFundsRoutes.BankDetailsController.onPageLoad(NormalMode).url,
         opsAndFundsRoutes.BankDetailsSummaryController.onPageLoad().url, userAnswers, Section6Page)
 
-      val result = List(section1, section2, section3, section4, section5, section6)
+      val section7 = getSection(authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url,
+        authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url, userAnswers, Section7Page)
+
+      val result = List(section1, section2, section3, section4, section5, section6, section7)
 
       Ok(view(result))
     }

@@ -45,10 +45,12 @@ class TaskListViewSpec extends ViewBehaviours  {
       val section6 = TaskListSection(
         controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, "index.section.notStarted")
 
+      val section7 = TaskListSection(
+        controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad().url, "index.section.notStarted")
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[TaskList](Some(emptyUserAnswers))
-        view.apply(List(section1, section2, section3, section4, section5, section6))(fakeRequest, messages, frontendAppConfig)
+        view.apply(List(section1, section2, section3, section4, section5, section6, section7))(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)

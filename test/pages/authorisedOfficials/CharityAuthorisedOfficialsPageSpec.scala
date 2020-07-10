@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package pages.authorisedOfficials
 
-@(
-link: String,
-messageKey: String,
-id: Option[String] = None,
-)(implicit messages: Messages)
+import pages.behaviours.PageBehaviours
 
-<a href="@link" role="button" class="govuk-button govuk-button" @id.map(x => s"id=$x")>
-    @messages(messageKey)
-</a>
+class CharityAuthorisedOfficialsPageSpec extends PageBehaviours {
+
+  "CharityAuthorisedOfficialsPage" must {
+
+    "Have the correct name" in {
+      val name: String = CharityAuthorisedOfficialsPage
+      name mustBe "charityAuthorisedOfficials"
+    }
+
+  }
+}

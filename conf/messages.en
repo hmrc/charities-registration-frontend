@@ -600,3 +600,12 @@ authorisedOfficialsName.lastName.label = Last name
 authorisedOfficialsName.lastName.error.required = 'Enter the authorised official''s last name
 authorisedOfficialsName.lastName.error.length = The authorised official''s last name must be 100 characters or fewer
 authorisedOfficialsName.lastName.error.format = The authorised official''s last name must not include the following characters: & ( ) : @
+
+# Authorised Officials Page Messages
+# ----------------------------------------------------------
+charityAuthorisedOfficials.title = Your charity''s authorised officials
+charityAuthorisedOfficials.heading = Your charity''s authorised officials
+charityAuthorisedOfficials.p1 = You need to add 1 or 2 authorised officials.
+charityAuthorisedOfficials.p2 = An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.
+charityAuthorisedOfficials.p3 = We will contact them if we have any questions about your charity.
+charityAuthorisedOfficials.p4 = Adding information about authorised officials takes around 5 minutes.

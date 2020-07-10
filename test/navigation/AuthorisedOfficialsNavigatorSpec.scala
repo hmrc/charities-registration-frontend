@@ -41,9 +41,9 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
 
         "go to the What is [Full name]'s date of birth? when clicked continue button" in {
-          navigator.nextPage(BankDetailsPage, NormalMode,
+          navigator.nextPage(AuthorisedOfficialsNamePage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO when next page is ready
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 
@@ -69,7 +69,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the summary page clicked continue button" in {
           navigator.nextPage(AuthorisedOfficialsNamePage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName).getOrElse(emptyUserAnswers)) mustBe
-            routes.IndexController.onPageLoad() // TODO when next page is ready
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 

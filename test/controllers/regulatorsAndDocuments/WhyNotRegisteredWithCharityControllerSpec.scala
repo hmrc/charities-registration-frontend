@@ -19,13 +19,14 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.WhyNotRegisteredWithCharityFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.WhyNotRegisteredWithCharityPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class WhyNotRegisteredWithCharityControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,13 +52,13 @@ class WhyNotRegisteredWithCharityControllerSpec extends SpecBase with BeforeAndA
     reset(mockUserAnswerRepository)
   }
 
-  val view: WhyNotRegisteredWithCharityView = injector.instanceOf[WhyNotRegisteredWithCharityView]
-  val formProvider: WhyNotRegisteredWithCharityFormProvider = injector.instanceOf[WhyNotRegisteredWithCharityFormProvider]
-  val form = formProvider()
+  private val view: WhyNotRegisteredWithCharityView = injector.instanceOf[WhyNotRegisteredWithCharityView]
+  private val formProvider: WhyNotRegisteredWithCharityFormProvider = injector.instanceOf[WhyNotRegisteredWithCharityFormProvider]
+  private val form: Form[String] = formProvider()
 
-  val controller: WhyNotRegisteredWithCharityController = inject[WhyNotRegisteredWithCharityController]
+  private val controller: WhyNotRegisteredWithCharityController = inject[WhyNotRegisteredWithCharityController]
 
-  val requestArgs = Seq("value" -> "abcd")
+  private val requestArgs = Seq("value" -> "abcd")
 
   "WhyNotRegisteredWithCharity Controller " must {
 

@@ -24,26 +24,32 @@ import play.api.data.Forms.{mapping, optional}
 
 class BankDetailsFormProvider @Inject() extends Mappings {
 
-  val validateFields: String = "^[^@&:)(]+$".r.anchored.toString
-  val sortCodePattern: String = "^[ -]*(?:\\d[ -]*){6,6}$".r.anchored.toString
-  val accountNumberPattern: String = "^[ -]*(?:\\d[ -]*){6,8}$".r.anchored.toString
-  val rollNumberPattern: String = "^[a-zA-Z0-9,. -]*$".r.anchored.toString
+  private[operationsAndFunds] val validateFields: String = "^[^@&:)(]+$".r.anchored.toString
+  private[operationsAndFunds] val sortCodePattern: String = "^[ -]*(?:\\d[ -]*){6,6}$".r.anchored.toString
+  private[operationsAndFunds] val accountNumberPattern: String = "^[ -]*(?:\\d[ -]*){6,8}$".r.anchored.toString
+  private[operationsAndFunds] val rollNumberPattern: String = "^[a-zA-Z0-9,. -]*$".r.anchored.toString
+
+  private[operationsAndFunds] val maxLengthAccountName = 60
+  private[operationsAndFunds] val maxLengthSortCode = 6
+  private[operationsAndFunds] val minLengthAccountNumber = 6
+  private[operationsAndFunds] val maxLengthAccountNumber = 8
+  private[operationsAndFunds] val maxLengthRollNumber = 18
 
 
   def apply(): Form[BankDetails] =
     Form(
       mapping(
         "accountName" -> text("bankDetails.accountName.error.required")
-          .verifying(maxLength(60, "bankDetails.accountName.error.length"))
+          .verifying(maxLength(maxLengthAccountName, "bankDetails.accountName.error.length"))
           .verifying(regexp(validateFields,"bankDetails.accountName.error.format")),
         "sortCode" -> text("bankDetails.sortCode.error.required")
-          .verifying(sortCodeLength(6, "bankDetails.sortCode.error.length"))
+          .verifying(sortCodeLength(maxLengthSortCode, "bankDetails.sortCode.error.length"))
           .verifying(regexp(sortCodePattern,"bankDetails.sortCode.error.format")),
         "accountNumber" -> text("bankDetails.accountNumber.error.required")
-          .verifying(accountNumberLength(6, 8, "bankDetails.accountNumber.error.length"))
+          .verifying(accountNumberLength(minLengthAccountNumber, maxLengthAccountNumber, "bankDetails.accountNumber.error.length"))
           .verifying(regexp(accountNumberPattern,"bankDetails.accountNumber.error.format")),
         "rollNumber" -> optional(text()
-          .verifying(maxLength(18, "bankDetails.rollNumber.error.length")).
+          .verifying(maxLength(maxLengthRollNumber, "bankDetails.rollNumber.error.length")).
           verifying(regexp(rollNumberPattern,"bankDetails.rollNumber.error.format")))
       )(BankDetails.apply)(BankDetails.unapply)
     )

@@ -19,13 +19,14 @@ package controllers.checkEligibility
 import base.SpecBase
 import controllers.actions.{FakeIdentifierAction, IdentifierAction}
 import forms.checkEligibility.IsEligibleAccountFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.EligibilityNavigator
 import navigation.FakeNavigators.FakeEligibilityNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.checkEligibility.IsEligibleAccountPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class IsEligibleAccountControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,11 +52,11 @@ class IsEligibleAccountControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockSessionRepository)
   }
 
-  val view: IsEligibleAccountView = injector.instanceOf[IsEligibleAccountView]
-  val formProvider: IsEligibleAccountFormProvider = injector.instanceOf[IsEligibleAccountFormProvider]
-  val form = formProvider()
+  private val view: IsEligibleAccountView = injector.instanceOf[IsEligibleAccountView]
+  private val formProvider: IsEligibleAccountFormProvider = injector.instanceOf[IsEligibleAccountFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  val controller: IsEligibleAccountController = inject[IsEligibleAccountController]
+  private val controller: IsEligibleAccountController = inject[IsEligibleAccountController]
 
   "IsEligibleAccount Controller" must {
 

@@ -27,7 +27,7 @@ import controllers.operationsAndFunds.{routes => operations}
 
 class ObjectivesNavigatorSpec extends SpecBase {
 
-  val navigator: ObjectivesNavigator = inject[ObjectivesNavigator]
+  private val navigator: ObjectivesNavigator = inject[ObjectivesNavigator]
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

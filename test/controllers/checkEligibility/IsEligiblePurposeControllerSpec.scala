@@ -26,6 +26,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.checkEligibility.IsEligiblePurposePage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -49,11 +50,11 @@ class IsEligiblePurposeControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockSessionRepository)
   }
 
-  val view: IsEligiblePurposeView = injector.instanceOf[IsEligiblePurposeView]
-  val formProvider: IsEligiblePurposeFormProvider = injector.instanceOf[IsEligiblePurposeFormProvider]
-  val form = formProvider()
+  private val view: IsEligiblePurposeView = injector.instanceOf[IsEligiblePurposeView]
+  private val formProvider: IsEligiblePurposeFormProvider = injector.instanceOf[IsEligiblePurposeFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  val controller: IsEligiblePurposeController = inject[IsEligiblePurposeController]
+  private val controller: IsEligiblePurposeController = inject[IsEligiblePurposeController]
 
   "IsEligiblePurpose Controller" must {
 

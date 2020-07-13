@@ -35,7 +35,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     answer(IsCharityRegulatorPage, regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(CheckMode))
 
   def charityRegulatorRow: Option[SummaryListRow] =
-    multiAnswer(CharityRegulatorPage, regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode))
+    multiLineAnswer(CharityRegulatorPage, regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode))
 
   def charityCommissionRegRow: Option[SummaryListRow] =
     answer(CharityCommissionRegistrationNumberPage, regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(CheckMode))
@@ -46,10 +46,10 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
   def nIRegulatorRegRow: Option[SummaryListRow] =
     answer(NIRegulatorRegNumberPage, regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(CheckMode))
 
-  def RegulatorNameRow: Option[SummaryListRow] =
+  def regulatorNameRow: Option[SummaryListRow] =
     answerRegistrationName(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
 
-  def RegulatorRegistrationNumberRow: Option[SummaryListRow] =
+  def regulatorRegistrationNumberRow: Option[SummaryListRow] =
     answerRegistrationNumber(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
 
   def selectWhyNoRegulatorRow: Option[SummaryListRow] =
@@ -61,7 +61,8 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
 
   private def answerRegistrationName[A](page: QuestionPage[CharityOtherRegulatorDetails],
                                         changeLinkCall: Call)
-                                       (implicit reads: Reads[CharityOtherRegulatorDetails], conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
+                                       (implicit reads: Reads[CharityOtherRegulatorDetails],
+                                        conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
 
       summaryListRow(
@@ -74,7 +75,8 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
 
   private def answerRegistrationNumber[A](page: QuestionPage[CharityOtherRegulatorDetails],
                                           changeLinkCall: Call)
-                                         (implicit reads: Reads[CharityOtherRegulatorDetails], conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
+                                         (implicit reads: Reads[CharityOtherRegulatorDetails],
+                                          conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
 
       summaryListRow(
@@ -91,8 +93,8 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     charityCommissionRegRow,
     scottishRegulatorRegRow,
     nIRegulatorRegRow,
-    RegulatorNameRow,
-    RegulatorRegistrationNumberRow,
+    regulatorNameRow,
+    regulatorRegistrationNumberRow,
     selectWhyNoRegulatorRow,
     whyNotRegsiteredCharityRow
   ).flatten

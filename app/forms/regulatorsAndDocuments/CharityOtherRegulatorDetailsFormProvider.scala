@@ -24,17 +24,19 @@ import play.api.data.Forms._
 
 class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
 
-  val validateFields = """^[^@&:)(]+$"""
+  private[regulatorsAndDocuments] val validateFields = """^[^@&:)(]+$"""
+  private[regulatorsAndDocuments] val maxLengthRegulatorName = 100
+  private[regulatorsAndDocuments] val maxLengthRegistrationNumber = 20
 
   def apply(): Form[CharityOtherRegulatorDetails] =
     Form(
       mapping(
         "regulatorName" -> text("charityOtherRegulatorDetails.regulatorName.error.required")
-          .verifying(maxLength(100, "charityOtherRegulatorDetails.regulatorName.error.length"))
+          .verifying(maxLength(maxLengthRegulatorName, "charityOtherRegulatorDetails.regulatorName.error.length"))
           .verifying(regexp(validateFields,"charityOtherRegulatorDetails.regulatorName.error.format")),
 
       "registrationNumber" -> text("charityOtherRegulatorDetails.registrationNumber.error.required")
-        .verifying(maxLength(20, "charityOtherRegulatorDetails.registrationNumber.error.length"))
+        .verifying(maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length"))
         .verifying(regexp(validateFields,"charityOtherRegulatorDetails.registrationNumber.error.format"))
       )(CharityOtherRegulatorDetails.apply)(CharityOtherRegulatorDetails.unapply))
 

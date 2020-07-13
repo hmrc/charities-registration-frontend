@@ -19,13 +19,14 @@ package controllers.charityInformation
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.charityInformation.CharityContactDetailsFormProvider
-import models.{CharityContactDetails, NormalMode}
+import models.{CharityContactDetails, NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.charityInformation.CharityContactDetailsPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,13 +52,13 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
     reset(mockUserAnswerRepository)
   }
 
-  val view: CharityContactDetailsView = injector.instanceOf[CharityContactDetailsView]
-  val formProvider: CharityContactDetailsFormProvider = injector.instanceOf[CharityContactDetailsFormProvider]
-  val form = formProvider()
+  private val view: CharityContactDetailsView = injector.instanceOf[CharityContactDetailsView]
+  private val formProvider: CharityContactDetailsFormProvider = injector.instanceOf[CharityContactDetailsFormProvider]
+  private val form: Form[CharityContactDetails] = formProvider()
 
-  val controller: CharityContactDetailsController = inject[CharityContactDetailsController]
+  private val controller: CharityContactDetailsController = inject[CharityContactDetailsController]
 
-  val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982","alternativePhoneNumber"->"07700 900 982", "emailAddress" -> "abc@gmail.com")
+  private val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982","alternativePhoneNumber"->"07700 900 982", "emailAddress" -> "abc@gmail.com")
 
   "CharityContactDetails Controller " must {
 

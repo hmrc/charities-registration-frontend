@@ -24,8 +24,8 @@ import play.api.data.Forms._
 
 class AuthorisedOfficialsNameFormProvider @Inject() extends Mappings {
 
-  val validateFields = "^[^@&:)(]+$"
-  val maxLength = 100
+  private[authorisedOfficials] val validateFields = "^[^@&:)(]+$"
+  private[authorisedOfficials] val maxLength = 100
 
   def apply(): Form[AuthorisedOfficialsName] =
     Form(

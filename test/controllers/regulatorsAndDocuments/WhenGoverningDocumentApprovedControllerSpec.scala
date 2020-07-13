@@ -21,13 +21,14 @@ import java.time.LocalDate
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.DocumentsNavigator
 import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.WhenGoverningDocumentApprovedPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -38,7 +39,7 @@ import scala.concurrent.Future
 
 class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -53,19 +54,17 @@ class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAn
     reset(mockUserAnswerRepository)
   }
 
-  val view: WhenGoverningDocumentApprovedView = inject[WhenGoverningDocumentApprovedView]
-  val formProvider: WhenGoverningDocumentApprovedFormProvider = inject[WhenGoverningDocumentApprovedFormProvider]
-  val form = formProvider()
+  private val view: WhenGoverningDocumentApprovedView = inject[WhenGoverningDocumentApprovedView]
+  private val formProvider: WhenGoverningDocumentApprovedFormProvider = inject[WhenGoverningDocumentApprovedFormProvider]
+  private val form: Form[LocalDate] = formProvider()
 
-  val controller: WhenGoverningDocumentApprovedController = inject[WhenGoverningDocumentApprovedController]
+  private val controller: WhenGoverningDocumentApprovedController = inject[WhenGoverningDocumentApprovedController]
 
-  val year = 2020
-  val month = 1
-  val dayOfMonth = 1
+  private val year = 2020
+  private val month = 1
+  private val dayOfMonth = 1
 
-  val requestArgs = Seq("date.year" -> year.toString,
-                        "date.month" -> month.toString,
-                        "date.day" -> dayOfMonth.toString)
+  private val requestArgs = Seq("date.year" -> year.toString, "date.month" -> month.toString, "date.day" -> dayOfMonth.toString)
 
   "WhenGoverningDocumentApproved Controller " must {
 

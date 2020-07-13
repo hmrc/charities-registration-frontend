@@ -53,11 +53,11 @@ class FundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: FundRaisingView = inject[FundRaisingView]
-  val formProvider: FundRaisingFormProvider = inject[FundRaisingFormProvider]
-  val form: Form[Set[FundRaisingOptions]] = formProvider()
+  private val view: FundRaisingView = inject[FundRaisingView]
+  private val formProvider: FundRaisingFormProvider = inject[FundRaisingFormProvider]
+  private val form: Form[Set[FundRaisingOptions]] = formProvider()
 
-  val controller: FundRaisingController = inject[FundRaisingController]
+  private val controller: FundRaisingController = inject[FundRaisingController]
 
   "SelectFundRaising Controller " must {
 

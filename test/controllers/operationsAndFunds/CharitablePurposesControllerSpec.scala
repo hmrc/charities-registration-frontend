@@ -53,11 +53,11 @@ class CharitablePurposesControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockUserAnswerRepository)
   }
 
-  val view: CharitablePurposesView = inject[CharitablePurposesView]
-  val formProvider: CharitablePurposesFormProvider = inject[CharitablePurposesFormProvider]
-  val form: Form[Set[CharitablePurposes]] = formProvider()
+  private val view: CharitablePurposesView = inject[CharitablePurposesView]
+  private val formProvider: CharitablePurposesFormProvider = inject[CharitablePurposesFormProvider]
+  private val form: Form[Set[CharitablePurposes]] = formProvider()
 
-  val controller: CharitablePurposesController = inject[CharitablePurposesController]
+  private val controller: CharitablePurposesController = inject[CharitablePurposesController]
 
   "CharitablePurposes Controller " must {
 

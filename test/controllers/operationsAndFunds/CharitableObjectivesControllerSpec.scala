@@ -19,13 +19,14 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.CharitableObjectivesFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeObjectivesNavigator
 import navigation.ObjectivesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.CharitableObjectivesPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class CharitableObjectivesControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,13 +52,13 @@ class CharitableObjectivesControllerSpec extends SpecBase with BeforeAndAfterEac
     reset(mockUserAnswerRepository)
   }
 
-  val view: CharitableObjectivesView = injector.instanceOf[CharitableObjectivesView]
-  val formProvider: CharitableObjectivesFormProvider = injector.instanceOf[CharitableObjectivesFormProvider]
-  val form = formProvider()
+  private val view: CharitableObjectivesView = injector.instanceOf[CharitableObjectivesView]
+  private val formProvider: CharitableObjectivesFormProvider = injector.instanceOf[CharitableObjectivesFormProvider]
+  private val form: Form[String] = formProvider()
 
-  val controller: CharitableObjectivesController = inject[CharitableObjectivesController]
+  private val controller: CharitableObjectivesController = inject[CharitableObjectivesController]
 
-  val requestArgs = Seq("value" -> "abcd")
+  private val requestArgs = Seq("value" -> "abcd")
 
   "CharitableObjectives Controller " must {
 

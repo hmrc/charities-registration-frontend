@@ -34,9 +34,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
                 changeLinkCall: Call,
                 answerIsMsgKey: Boolean = false,
                 headingMessageArgs: Seq[String] = Seq(),
-                answerIsMonetary: Boolean = false,
-                idx: Option[Int] = None,
-                isReview: Boolean = false)
+                idx: Option[Int] = None)
                (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
@@ -47,37 +45,9 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def monetaryAnswer(page: QuestionPage[BigDecimal],
-                     changeLinkCall: Call,
-                     headingMessageArgs: Seq[String] = Seq(),
-                     idx: Option[Int] = None)
-                    (implicit messages: Messages): Option[SummaryListRow] =
-    userAnswers.get(page, idx) map { ans =>
-      summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
-        value = currencyFormat(ans),
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
-        changeLinkCall -> messages("site.edit")
-      )
-    }
-
-  def percentageAnswer(page: QuestionPage[BigDecimal],
-                       changeLinkCall: Call,
-                       headingMessageArgs: Seq[String] = Seq(),
-                       idx: Option[Int] = None)
-                      (implicit messages: Messages): Option[SummaryListRow] =
-    userAnswers.get(page, idx) map { ans =>
-      summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
-        value = s"$ans%",
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
-        changeLinkCall -> messages("site.edit")
-      )
-    }
-
-  def multiAnswer[A](page: QuestionPage[Set[A]],
-                               changeLinkCall: Call)
-                              (implicit reads: Reads[A],
+  def multiLineAnswer[A](page: QuestionPage[Set[A]],
+                         changeLinkCall: Call)
+                        (implicit reads: Reads[A],
                                conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page).map { ans =>
 

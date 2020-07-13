@@ -22,12 +22,13 @@ import play.api.data.Form
 
 class WhyNotRegisteredWithCharityFormProvider @Inject() extends Mappings {
 
-  val validateReason = """^[a-zA-Z0-9 ][^@&:)(]*$"""
+  private[regulatorsAndDocuments] val validateReason = """^[a-zA-Z0-9 ][^@&:)(]*$"""
+  private[regulatorsAndDocuments] val maxLength = 100
 
   def apply(): Form[String] =
     Form(
       "value" -> text("whyNotRegisteredWithCharity.error.required")
-         .verifying(maxLength(100, "whyNotRegisteredWithCharity.error.length"))
+         .verifying(maxLength(maxLength, "whyNotRegisteredWithCharity.error.length"))
         .verifying(regexp(validateReason,"whyNotRegisteredWithCharity.error.format"))
       )
 }

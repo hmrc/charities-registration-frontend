@@ -85,5 +85,17 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, times(1)).set(any())
     }
+
+    "For keepalive no UserAnswer" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.keepalive()(fakeRequest)
+
+      status(result) mustEqual NO_CONTENT
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
+    }
   }
 }

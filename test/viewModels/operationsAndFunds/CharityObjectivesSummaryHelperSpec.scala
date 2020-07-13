@@ -27,7 +27,6 @@ import viewmodels.operationsAndFunds.CharityObjectivesSummaryHelper
 
 class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-
   private val helper = new CharityObjectivesSummaryHelper(UserAnswers("id")
     .set(CharitableObjectivesPage, "Charitable Objectives").flatMap
   (_.set(CharitablePurposesPage, CharitablePurposes.values.toSet)).flatMap

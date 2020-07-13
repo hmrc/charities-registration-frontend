@@ -19,13 +19,14 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.ScottishRegulatorRegNumberFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.ScottishRegulatorRegNumberPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,13 +52,13 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
     reset(mockUserAnswerRepository)
   }
 
-  val view: ScottishRegulatorRegNumberView = injector.instanceOf[ScottishRegulatorRegNumberView]
-  val formProvider: ScottishRegulatorRegNumberFormProvider = injector.instanceOf[ScottishRegulatorRegNumberFormProvider]
-  val form = formProvider()
+  private val view: ScottishRegulatorRegNumberView = injector.instanceOf[ScottishRegulatorRegNumberView]
+  private val formProvider: ScottishRegulatorRegNumberFormProvider = injector.instanceOf[ScottishRegulatorRegNumberFormProvider]
+  private val form: Form[String] = formProvider()
 
-  val controller: ScottishRegulatorRegNumberController = inject[ScottishRegulatorRegNumberController]
+  private val controller: ScottishRegulatorRegNumberController = inject[ScottishRegulatorRegNumberController]
 
-  val requestArgs = Seq("registrationNumber" -> "SC034567")
+  private val requestArgs = Seq("registrationNumber" -> "SC034567")
 
   "ScottishRegulatorRegNumber Controller " must {
 

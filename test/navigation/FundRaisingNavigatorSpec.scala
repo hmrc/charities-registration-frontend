@@ -26,7 +26,7 @@ import pages.IndexPage
 import pages.operationsAndFunds._
 class FundRaisingNavigatorSpec extends SpecBase {
 
-  val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
+  private val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

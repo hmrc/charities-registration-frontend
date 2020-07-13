@@ -19,13 +19,14 @@ package controllers.checkEligibility
 import base.SpecBase
 import controllers.actions._
 import forms.checkEligibility.IsEligibleLocationFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.EligibilityNavigator
 import navigation.FakeNavigators.FakeEligibilityNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.checkEligibility.IsEligibleLocationPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,11 +52,11 @@ class IsEligibleLocationControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockSessionRepository)
   }
 
-  val view: IsEligibleLocationView = injector.instanceOf[IsEligibleLocationView]
-  val formProvider: IsEligibleLocationFormProvider = injector.instanceOf[IsEligibleLocationFormProvider]
-  val form = formProvider()
+  private val view: IsEligibleLocationView = injector.instanceOf[IsEligibleLocationView]
+  private val formProvider: IsEligibleLocationFormProvider = injector.instanceOf[IsEligibleLocationFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  val controller: IsEligibleLocationController = inject[IsEligibleLocationController]
+  private val controller: IsEligibleLocationController = inject[IsEligibleLocationController]
 
   "IsEligibleLocation Controller" must {
 

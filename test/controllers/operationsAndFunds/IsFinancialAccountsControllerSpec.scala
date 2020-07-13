@@ -19,13 +19,14 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.IsFinancialAccountsFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.IsFinancialAccountsPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class IsFinancialAccountsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,11 +52,11 @@ class IsFinancialAccountsControllerSpec extends SpecBase with BeforeAndAfterEach
     reset(mockUserAnswerRepository)
   }
 
-  val view: IsFinancialAccountsView = inject[IsFinancialAccountsView]
-  val formProvider: IsFinancialAccountsFormProvider = inject[IsFinancialAccountsFormProvider]
-  val form = formProvider()
+  private val view: IsFinancialAccountsView = inject[IsFinancialAccountsView]
+  private val formProvider: IsFinancialAccountsFormProvider = inject[IsFinancialAccountsFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  val controller: IsFinancialAccountsController = inject[IsFinancialAccountsController]
+  private val controller: IsFinancialAccountsController = inject[IsFinancialAccountsController]
 
   "IsFinancialAccounts Controller " must {
 

@@ -53,11 +53,11 @@ class SelectGoverningDocumentControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerRepository)
   }
 
-  val view: SelectGoverningDocumentView = inject[SelectGoverningDocumentView]
-  val formProvider: SelectGoverningDocumentFormProvider = inject[SelectGoverningDocumentFormProvider]
-  val form: Form[SelectGoverningDocument] = formProvider()
+  private val view: SelectGoverningDocumentView = inject[SelectGoverningDocumentView]
+  private val formProvider: SelectGoverningDocumentFormProvider = inject[SelectGoverningDocumentFormProvider]
+  private val form: Form[SelectGoverningDocument] = formProvider()
 
-  val controller: SelectGoverningDocumentController = inject[SelectGoverningDocumentController]
+  private val controller: SelectGoverningDocumentController = inject[SelectGoverningDocumentController]
 
   "SelectGoverningDocument Controller " must {
 

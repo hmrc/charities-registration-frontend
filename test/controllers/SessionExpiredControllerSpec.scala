@@ -24,7 +24,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.{SessionRepository, SessionRepositoryImpl, UserAnswerRepositoryImpl}
+import repositories.SessionRepository
 import views.html.errors.SessionExpiredView
 
 import scala.concurrent.Future
@@ -43,9 +43,9 @@ class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockSessionRepository)
   }
 
-  val view: SessionExpiredView = inject[SessionExpiredView]
+  private val view: SessionExpiredView = inject[SessionExpiredView]
 
-  val controller = inject[SessionExpiredController]
+  private val controller: SessionExpiredController = inject[SessionExpiredController]
 
   "SessionExpired Controller" when {
 

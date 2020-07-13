@@ -18,6 +18,7 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
@@ -31,7 +32,7 @@ import scala.concurrent.Future
 
 class DeadEndControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -45,9 +46,9 @@ class DeadEndControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: DeadEndView = injector.instanceOf[DeadEndView]
+  private val view: DeadEndView = injector.instanceOf[DeadEndView]
 
-  val controller: DeadEndController = inject[DeadEndController]
+  private val controller: DeadEndController = inject[DeadEndController]
 
   "DeadEnd Controller" must {
 

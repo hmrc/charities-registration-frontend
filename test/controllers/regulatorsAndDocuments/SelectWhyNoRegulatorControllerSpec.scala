@@ -55,11 +55,11 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
     reset(mockUserAnswerRepository)
   }
 
-  val view: SelectWhyNoRegulatorView = inject[SelectWhyNoRegulatorView]
-  val formProvider: SelectWhyNoRegulatorFormProvider = inject[SelectWhyNoRegulatorFormProvider]
-  val form: Form[SelectWhyNoRegulator] = formProvider()
+  private val view: SelectWhyNoRegulatorView = inject[SelectWhyNoRegulatorView]
+  private val formProvider: SelectWhyNoRegulatorFormProvider = inject[SelectWhyNoRegulatorFormProvider]
+  private val form: Form[SelectWhyNoRegulator] = formProvider()
 
-  val controller: SelectWhyNoRegulatorController = inject[SelectWhyNoRegulatorController]
+  private val controller: SelectWhyNoRegulatorController = inject[SelectWhyNoRegulatorController]
 
   "SelectWhyNoRegulator Controller " must {
 

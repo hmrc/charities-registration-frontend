@@ -33,10 +33,10 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
     with SummaryListRowHelper with CurrencyFormatter {
 
     def fundRaisingRow: Option[SummaryListRow] =
-      multiAnswer(FundRaisingPage, routes.DeadEndController.onPageLoad())
+      multiLineAnswer(FundRaisingPage, routes.DeadEndController.onPageLoad())
 
     def operatingLocationRow: Option[SummaryListRow] =
-      multiAnswer(OperatingLocationPage, routes.DeadEndController.onPageLoad())
+      multiLineAnswer(OperatingLocationPage, routes.DeadEndController.onPageLoad())
 
     def isFinancialAccountsRow: Option[SummaryListRow] =
       answer(IsFinancialAccountsPage, routes.DeadEndController.onPageLoad())

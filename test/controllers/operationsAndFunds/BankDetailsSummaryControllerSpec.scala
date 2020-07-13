@@ -18,6 +18,7 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.UserAnswers
 import navigation.BankDetailsNavigator
 import navigation.FakeNavigators.FakeBankDetailsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -32,7 +33,7 @@ import scala.concurrent.Future
 
 class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -48,7 +49,7 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockUserAnswerRepository)
   }
 
-  val controller: BankDetailsSummaryController = inject[BankDetailsSummaryController]
+  private val controller: BankDetailsSummaryController = inject[BankDetailsSummaryController]
 
   "BankDetailsSummaryController Controller" must {
 

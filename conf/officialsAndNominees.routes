@@ -5,3 +5,8 @@ GET        /:index/authorised-official-name                          controllers
 POST       /:index/authorised-official-name                          controllers.authorisedOfficials.AuthorisedOfficialsNameController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-name/change                   controllers.authorisedOfficials.AuthorisedOfficialsNameController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-name/change                   controllers.authorisedOfficials.AuthorisedOfficialsNameController.onSubmit(mode: Mode = CheckMode, index: Index)
+
+GET        /:index/authorised-official-date-of-birth                 controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/authorised-official-date-of-birth                 controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/authorised-official-date-of-birth/change          controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/authorised-official-date-of-birth/change          controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onSubmit(mode: Mode = CheckMode, index: Index)

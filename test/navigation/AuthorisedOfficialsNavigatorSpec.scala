@@ -16,12 +16,14 @@
 
 package navigation
 
+import java.time.LocalDate
+
 import base.SpecBase
+import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models._
 import pages.IndexPage
-import pages.authorisedOfficials.AuthorisedOfficialsNamePage
-import pages.operationsAndFunds.BankDetailsPage
+import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage}
 
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
@@ -43,6 +45,21 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [Full name]'s date of birth? when clicked continue button" in {
           navigator.nextPage(AuthorisedOfficialsNamePage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName).getOrElse(emptyUserAnswers)) mustBe
+            authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(NormalMode, 0)
+        }
+      }
+
+      "from the AuthorisedOfficialsDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsDOBPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]'s phone number? when clicked continue button" in {
+          val minYear = 16
+          navigator.nextPage(AuthorisedOfficialsDOBPage(0), NormalMode,
+            emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
@@ -54,7 +71,6 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             routes.IndexController.onPageLoad()
         }
       }
-
     }
 
     "in Check mode" when {
@@ -69,6 +85,21 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the summary page clicked continue button" in {
           navigator.nextPage(AuthorisedOfficialsNamePage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the AuthorisedOfficialsDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsDOBPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]'s phone number? when clicked continue button" in {
+          val minYear = 16
+          navigator.nextPage(AuthorisedOfficialsDOBPage(0), CheckMode,
+            emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

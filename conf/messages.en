@@ -575,7 +575,7 @@ bankDetails.sortCode.checkYourAnswersLabel = Sort code
 bankDetails.accountNumber.checkYourAnswersLabel = Account number
 bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if you have one)
 
-# Charity's bank account details Page Messages
+# Charity's Bank Details Summary Page Messages
 # ----------------------------------------------------------
 bankDetailsSummary.checkYourAnswers.title = Check your charity''s bank details
 bankDetailsSummary.checkYourAnswers.heading = Check your charity''s bank details
@@ -585,7 +585,16 @@ bankDetailsSummary.section = Operations and funds
 # ----------------------------------------------------------
 officialsAndNominees.section =  Officials and nominees
 
-# CharityNamePage Messages
+# Authorised Officials Page Messages
+# ----------------------------------------------------------
+charityAuthorisedOfficials.title = Your charity''s authorised officials
+charityAuthorisedOfficials.heading = Your charity''s authorised officials
+charityAuthorisedOfficials.p1 = You need to add 1 or 2 authorised officials.
+charityAuthorisedOfficials.p2 = An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.
+charityAuthorisedOfficials.p3 = We will contact them if we have any questions about your charity.
+charityAuthorisedOfficials.p4 = Adding information about authorised officials takes around 5 minutes.
+
+# Authorised Officials Name Page Messages
 # ----------------------------------------------------------
 authorisedOfficialsName.title = What is the authorised official''s name?
 authorisedOfficialsName.heading = What is the authorised official''s name?
@@ -601,11 +610,13 @@ authorisedOfficialsName.lastName.error.required = 'Enter the authorised official
 authorisedOfficialsName.lastName.error.length = The authorised official''s last name must be 100 characters or fewer
 authorisedOfficialsName.lastName.error.format = The authorised official''s last name must not include the following characters: & ( ) : @
 
-# Authorised Officials Page Messages
+# Authorised Official Date of birth Messages
 # ----------------------------------------------------------
-charityAuthorisedOfficials.title = Your charity''s authorised officials
-charityAuthorisedOfficials.heading = Your charity''s authorised officials
-charityAuthorisedOfficials.p1 = You need to add 1 or 2 authorised officials.
-charityAuthorisedOfficials.p2 = An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.
-charityAuthorisedOfficials.p3 = We will contact them if we have any questions about your charity.
-charityAuthorisedOfficials.p4 = Adding information about authorised officials takes around 5 minutes.
+authorisedOfficialsDOB.title = What is the authorised official''s date of birth?
+authorisedOfficialsDOB.heading = What is {0}''s date of birth?
+authorisedOfficialsDOB.hint = For example, 27 3 1980
+authorisedOfficialsDOB.error.required.all = Enter their date of birth
+authorisedOfficialsDOB.error.required.two = Enter their {0} and {1} of birth
+authorisedOfficialsDOB.error.required.one = Enter their {0} of birth
+authorisedOfficialsDOB.error.invalid = Their birth date must be a real date.
+authorisedOfficialsDOB.error.minimum = Authorised officials must be at least 16 years old

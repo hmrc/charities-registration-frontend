@@ -585,7 +585,16 @@ bankDetailsSummary.section = (W)Operations and funds(W)
 # ----------------------------------------------------------
 officialsAndNominees.section = (W)Officials and nominees(W)
 
-# CharityNamePage Messages
+# Authorised Officials Page Messages
+# ----------------------------------------------------------
+charityAuthorisedOfficials.title = (W)Your charity''s authorised officials(W)
+charityAuthorisedOfficials.heading = (W)Your charity''s authorised officials(W)
+charityAuthorisedOfficials.p1 = (W)You need to add 1 or 2 authorised officials.(W)
+charityAuthorisedOfficials.p2 = (W)An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.(W)
+charityAuthorisedOfficials.p3 = (W)We will contact them if we have any questions about your charity.(W)
+charityAuthorisedOfficials.p4 = (W)Adding information about authorised officials takes around 5 minutes.(W)
+
+# Authorised Officials Name Page Messages
 # ----------------------------------------------------------
 authorisedOfficialsName.title = (W)What is the authorised official''s name?(W)
 authorisedOfficialsName.heading = (W)What is the authorised official''s name?(W)
@@ -601,11 +610,14 @@ authorisedOfficialsName.lastName.error.required = (W)Enter the authorised offici
 authorisedOfficialsName.lastName.error.length = (W)The authorised official''s last name must be 100 characters or fewer(W)
 authorisedOfficialsName.lastName.error.format = (W)The authorised official''s last name must not include the following characters: & ( ) : @(W)
 
-# Authorised Officials Page Messages
+# Authorised Official Date of birth Messages
 # ----------------------------------------------------------
-charityAuthorisedOfficials.title = (W)Your charity''s authorised officials(W)
-charityAuthorisedOfficials.heading = (W)Your charity''s authorised officials(W)
-charityAuthorisedOfficials.p1 = (W)You need to add 1 or 2 authorised officials.(W)
-charityAuthorisedOfficials.p2 = (W)An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.(W)
-charityAuthorisedOfficials.p3 = (W)We will contact them if we have any questions about your charity.(W)
-charityAuthorisedOfficials.p4 = (W)Adding information about authorised officials takes around 5 minutes.(W)
+authorisedOfficialsDOB.title = (W)What is the authorised official''s date of birth?(W)
+authorisedOfficialsDOB.heading = (W)What is {0}''s date of birth?(W)
+authorisedOfficialsDOB.hint = (W)For example, 27 3 1980(W)
+authorisedOfficialsDOB.error.required.all = (W)Enter their date of birth(W)
+authorisedOfficialsDOB.error.required.two = (W)Enter their {0} and {1} of birth(W)
+authorisedOfficialsDOB.error.required.one = (W)Enter their {0} of birth(W)
+authorisedOfficialsDOB.error.invalid = (W)Their birth date must be a real date.(W)
+authorisedOfficialsDOB.error.minimum = (W)Authorised officials must be at least 16 years old(W)
+

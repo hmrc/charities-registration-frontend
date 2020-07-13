@@ -17,11 +17,12 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, UserAnswers}
 import pages.Page
-import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage}
 import play.api.mvc.Call
 
 class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -29,6 +30,11 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case AuthorisedOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
+      case Some(_) => authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(NormalMode, index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -40,6 +46,11 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

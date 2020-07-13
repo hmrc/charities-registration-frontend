@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package models
+package pages.authorisedOfficials
 
-import play.api.libs.json.Json
+import java.time.LocalDate
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
+case class AuthorisedOfficialsDOBPage(index: Int)  extends QuestionPage[LocalDate] {
 
-case class AuthorisedOfficialsName(firstName: String, middleName: Option[String], lastName: String)
+  override def path: JsPath =  AuthorisedOfficialsId(index).path \ AuthorisedOfficialsDOBPage.toString
+}
 
-object AuthorisedOfficialsName {
-
-  implicit val formats = Json.format[AuthorisedOfficialsName]
-
-  override def toString: String = "authorisedOfficialsName"
+object AuthorisedOfficialsDOBPage {
+  override lazy val toString: String = "authorisedOfficialsDOB"
 }

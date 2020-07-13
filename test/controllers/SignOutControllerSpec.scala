@@ -18,11 +18,10 @@ package controllers
 
 import base.SpecBase
 import play.api.test.Helpers._
-import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
 class SignOutControllerSpec extends SpecBase {
 
-  val controller: SignOutController = inject[SignOutController]
+  private val controller: SignOutController = inject[SignOutController]
 
   "SignOut Controller" when {
 

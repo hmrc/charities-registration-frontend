@@ -18,6 +18,7 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.UserAnswers
 import navigation.FakeNavigators.FakeObjectivesNavigator
 import navigation.ObjectivesNavigator
 import org.mockito.ArgumentMatchers.any
@@ -32,7 +33,7 @@ import scala.concurrent.Future
 
 class CharityObjectivesSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -47,7 +48,7 @@ class CharityObjectivesSummaryControllerSpec extends SpecBase with BeforeAndAfte
     reset(mockUserAnswerRepository)
   }
 
-  val controller: CharityObjectivesSummaryController = inject[CharityObjectivesSummaryController]
+  private val controller: CharityObjectivesSummaryController = inject[CharityObjectivesSummaryController]
 
   "Charity Objectives Summary Controller" must {
 

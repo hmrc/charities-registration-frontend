@@ -24,6 +24,7 @@ import play.api.libs.json._
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
+//scalastyle:off magic.number
 final case class UserAnswers(
                               id: String,
                               data: JsObject = Json.obj(),

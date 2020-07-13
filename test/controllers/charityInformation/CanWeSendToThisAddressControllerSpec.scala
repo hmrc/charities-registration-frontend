@@ -19,7 +19,7 @@ package controllers.charityInformation
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.charityInformation.CanWeSendToThisAddressFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import models.addressLookup.{AddressModel, CountryModel}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
@@ -28,6 +28,7 @@ import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.charityInformation.CanWeSendToThisAddressPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -38,7 +39,7 @@ import scala.concurrent.Future
 
 class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -53,19 +54,19 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
     reset(mockUserAnswerRepository)
   }
 
-  val view: CanWeSendToThisAddressView = inject[CanWeSendToThisAddressView]
-  val formProvider: CanWeSendToThisAddressFormProvider = inject[CanWeSendToThisAddressFormProvider]
-  val form = formProvider()
+  private val view: CanWeSendToThisAddressView = inject[CanWeSendToThisAddressView]
+  private val formProvider: CanWeSendToThisAddressFormProvider = inject[CanWeSendToThisAddressFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  val country = new CountryModel("UK", "United Kingdom")
+  private val country = new CountryModel("UK", "United Kingdom")
 
-  val addressLookupData = AddressModel(Seq("4 Other Place", "Some District", "Anytown"),Some("ZZ1 1ZZ"), country)
+  private val addressLookupData: AddressModel = AddressModel(Seq("4 Other Place", "Some District", "Anytown"),Some("ZZ1 1ZZ"), country)
 
-  val addressLookupDataParsed = "4 Other Place, Some District, Anytown, ZZ1 1ZZ, United Kingdom"
+  private val addressLookupDataParsed = "4 Other Place, Some District, Anytown, ZZ1 1ZZ, United Kingdom"
 
-  val addressUserAnswers = Some(emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))
+  private val addressUserAnswers: Some[UserAnswers] = Some(emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))
 
-  val controller: CanWeSendToThisAddressController = inject[CanWeSendToThisAddressController]
+  private val controller: CanWeSendToThisAddressController = inject[CanWeSendToThisAddressController]
 
   "CanWeSendToThisAddress Controller " must {
 

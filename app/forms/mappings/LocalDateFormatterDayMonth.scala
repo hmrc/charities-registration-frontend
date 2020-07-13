@@ -22,7 +22,6 @@ import play.api.data.format.Formatter
 
 import scala.util.{Failure, Success, Try}
 
-
 private[mappings] class LocalDateFormatterDayMonth(
                                             invalidKey: String,
                                             allRequiredKey: String,
@@ -33,7 +32,7 @@ private[mappings] class LocalDateFormatterDayMonth(
   private val fieldKeys: List[String] = List("day", "month")
 
   private def toDate(key: String, day: Int, month: Int): Either[Seq[FormError], MonthDay] =
-   Try(MonthDay.fromDateFields(new LocalDate(2020, month, day).toDate)) match {
+   Try(MonthDay.fromDateFields(new LocalDate(LocalDate.now().getYear, month, day).toDate)) match {
       case Success(date) =>
         Right(date)
       case Failure(_) =>

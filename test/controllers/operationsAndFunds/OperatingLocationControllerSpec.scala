@@ -53,11 +53,11 @@ class OperatingLocationControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: OperatingLocationView = inject[OperatingLocationView]
-  val formProvider: OperatingLocationFormProvider = inject[OperatingLocationFormProvider]
-  val form: Form[Set[OperatingLocationOptions]] = formProvider()
+  private val view: OperatingLocationView = inject[OperatingLocationView]
+  private val formProvider: OperatingLocationFormProvider = inject[OperatingLocationFormProvider]
+  private val form: Form[Set[OperatingLocationOptions]] = formProvider()
 
-  val controller: OperatingLocationController = inject[OperatingLocationController]
+  private val controller: OperatingLocationController = inject[OperatingLocationController]
 
   "OperatingLocation Controller " must {
 

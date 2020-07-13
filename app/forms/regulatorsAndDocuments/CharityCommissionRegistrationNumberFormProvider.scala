@@ -22,7 +22,7 @@ import play.api.data.Form
 
 class CharityCommissionRegistrationNumberFormProvider @Inject() extends Mappings {
 
-  val validateRegistrationNumber = """^[0-9]{6,7}$"""
+  private[regulatorsAndDocuments] val validateRegistrationNumber = """^[0-9]{6,7}$"""
 
   def apply(): Form[String] =
     Form(

@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.IsBankStatementsFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class IsBankStatementsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -52,11 +52,11 @@ class IsBankStatementsControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: IsBankStatementsView = inject[IsBankStatementsView]
-  val formProvider: IsBankStatementsFormProvider = inject[IsBankStatementsFormProvider]
-  val form: Form[Boolean] = formProvider()
+  private val view: IsBankStatementsView = inject[IsBankStatementsView]
+  private val formProvider: IsBankStatementsFormProvider = inject[IsBankStatementsFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  val controller: IsBankStatementsController = inject[IsBankStatementsController]
+  private val controller: IsBankStatementsController = inject[IsBankStatementsController]
 
   "IsBankStatements Controller " must {
 

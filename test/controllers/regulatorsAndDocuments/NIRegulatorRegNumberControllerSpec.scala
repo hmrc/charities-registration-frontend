@@ -19,13 +19,14 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.NIRegulatorRegNumberFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.NIRegulatorRegNumberPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class NIRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-    override lazy val userAnswers = Some(emptyUserAnswers)
+    override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
     override def applicationBuilder(): GuiceApplicationBuilder =
       new GuiceApplicationBuilder()
@@ -51,13 +52,13 @@ class NIRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAfterEac
       reset(mockUserAnswerRepository)
     }
 
-    val view: NIRegulatorRegNumberView = injector.instanceOf[NIRegulatorRegNumberView]
-    val formProvider: NIRegulatorRegNumberFormProvider = injector.instanceOf[NIRegulatorRegNumberFormProvider]
-    val form = formProvider()
+    private val view: NIRegulatorRegNumberView = injector.instanceOf[NIRegulatorRegNumberView]
+    private val formProvider: NIRegulatorRegNumberFormProvider = injector.instanceOf[NIRegulatorRegNumberFormProvider]
+    private val form: Form[String] = formProvider()
 
-    val controller: NIRegulatorRegNumberController = inject[NIRegulatorRegNumberController]
+    private val controller: NIRegulatorRegNumberController = inject[NIRegulatorRegNumberController]
 
-    val requestArgs = Seq("nIRegistrationNumber" -> "123456")
+    private val requestArgs = Seq("nIRegistrationNumber" -> "123456")
 
     "NIRegulatorRegNumber Controller " must {
 

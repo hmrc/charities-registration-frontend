@@ -19,13 +19,14 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.IsApprovedGoverningDocumentFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.DocumentsNavigator
 import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.IsApprovedGoverningDocumentPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,11 +52,11 @@ class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndA
     reset(mockUserAnswerRepository)
   }
 
-  val view: IsApprovedGoverningDocumentView = inject[IsApprovedGoverningDocumentView]
-  val formProvider: IsApprovedGoverningDocumentFormProvider = inject[IsApprovedGoverningDocumentFormProvider]
-  val form = formProvider()
+  private val view: IsApprovedGoverningDocumentView = inject[IsApprovedGoverningDocumentView]
+  private val formProvider: IsApprovedGoverningDocumentFormProvider = inject[IsApprovedGoverningDocumentFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  val controller: IsApprovedGoverningDocumentController = inject[IsApprovedGoverningDocumentController]
+  private val controller: IsApprovedGoverningDocumentController = inject[IsApprovedGoverningDocumentController]
 
   "IsApprovedGoverningDocumentController Controller " must {
 

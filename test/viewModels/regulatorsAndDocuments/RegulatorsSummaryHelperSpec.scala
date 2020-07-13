@@ -28,7 +28,6 @@ import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 
 class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-
   private val helper = new RegulatorsSummaryHelper(UserAnswers("id")
     .set(IsCharityRegulatorPage, true).flatMap
      (_.set(CharityRegulatorPage, CharityRegulator.values.toSet)).flatMap
@@ -116,7 +115,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row for Registration Name" in {
 
-        helper.RegulatorNameRow mustBe Some(summaryListRow(
+        helper.regulatorNameRow mustBe Some(summaryListRow(
           messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel"),
           s"test",
           Some(messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel")),
@@ -126,7 +125,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row for Registration Number" in {
 
-        helper.RegulatorRegistrationNumberRow mustBe Some(summaryListRow(
+        helper.regulatorRegistrationNumberRow mustBe Some(summaryListRow(
           messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel"),
           s"${"123423"}",
           Some(messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel")),

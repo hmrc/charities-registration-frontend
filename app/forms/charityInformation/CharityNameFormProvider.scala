@@ -24,16 +24,17 @@ import play.api.data.Forms._
 
 class CharityNameFormProvider @Inject() extends Mappings {
 
-  val validateFields = "^[^@&:)(]+$"
+  private[charityInformation] val validateFields = "^[^@&:)(]+$"
+  private[charityInformation] val maxLength = 160
 
   def apply(): Form[CharityName] =
     Form(
       mapping(
       "fullName" -> text("charityName.fullName.error.required")
-        .verifying(maxLength(160, "charityName.fullName.error.length"))
+        .verifying(maxLength(maxLength, "charityName.fullName.error.length"))
         .verifying(regexp(validateFields,"charityName.fullName.error.format")),
       "operatingName" -> optional(text()
-        .verifying(maxLength(160, "charityName.operatingName.error.length")).
+        .verifying(maxLength(maxLength, "charityName.operatingName.error.length")).
         verifying(regexp(validateFields,"charityName.operatingName.error.format")))
       )(CharityName.apply)(CharityName.unapply)
     )

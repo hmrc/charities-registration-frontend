@@ -31,7 +31,6 @@ import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 
 class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-
   private val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
     .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head).flatMap
   (_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2))).flatMap

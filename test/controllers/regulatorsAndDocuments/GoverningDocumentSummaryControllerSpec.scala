@@ -18,6 +18,7 @@ package controllers.regulatorsAndDocuments
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.UserAnswers
 import navigation.DocumentsNavigator
 import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -32,7 +33,7 @@ import scala.concurrent.Future
 
 class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -47,7 +48,7 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
     reset(mockUserAnswerRepository)
   }
 
-  val controller: GoverningDocumentSummaryController = inject[GoverningDocumentSummaryController]
+  private val controller: GoverningDocumentSummaryController = inject[GoverningDocumentSummaryController]
 
   "Regulators Controller" must {
 

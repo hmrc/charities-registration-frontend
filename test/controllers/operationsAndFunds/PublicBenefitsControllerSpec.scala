@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.PublicBenefitsFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeObjectivesNavigator
 import navigation.ObjectivesNavigator
 import org.mockito.ArgumentMatchers.any
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -52,13 +52,13 @@ class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: PublicBenefitsView = injector.instanceOf[PublicBenefitsView]
-  val formProvider: PublicBenefitsFormProvider = injector.instanceOf[PublicBenefitsFormProvider]
-  val form: Form[String] = formProvider()
+  private val view: PublicBenefitsView = injector.instanceOf[PublicBenefitsView]
+  private val formProvider: PublicBenefitsFormProvider = injector.instanceOf[PublicBenefitsFormProvider]
+  private val form: Form[String] = formProvider()
 
-  val controller: PublicBenefitsController = inject[PublicBenefitsController]
+  private val controller: PublicBenefitsController = inject[PublicBenefitsController]
 
-  val requestArgs = Seq("value" -> "FreeEducation")
+  private val requestArgs = Seq("value" -> "FreeEducation")
 
   "PublicBenefits Controller " must {
 

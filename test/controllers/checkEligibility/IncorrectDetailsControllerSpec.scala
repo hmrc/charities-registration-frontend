@@ -22,7 +22,7 @@ import views.html.checkEligibility.IncorrectDetailsView
 
 class IncorrectDetailsControllerSpec extends SpecBase {
 
-  val view: IncorrectDetailsView = inject[IncorrectDetailsView]
+  private val view: IncorrectDetailsView = inject[IncorrectDetailsView]
 
   object Controller extends IncorrectDetailsController (
     controllerComponents = messagesControllerComponents,

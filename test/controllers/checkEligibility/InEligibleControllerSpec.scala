@@ -18,7 +18,7 @@ package controllers.checkEligibility
 
 import base.SpecBase
 import controllers.actions.{FakeIdentifierAction, IdentifierAction}
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.EligibilityNavigator
 import navigation.FakeNavigators.FakeEligibilityNavigator
 import org.mockito.ArgumentMatchers.any
@@ -34,7 +34,7 @@ import scala.concurrent.Future
 
 class InEligibleControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -49,9 +49,9 @@ class InEligibleControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockSessionRepository)
   }
 
-  val view: InEligibleView = injector.instanceOf[InEligibleView]
+  private val view: InEligibleView = injector.instanceOf[InEligibleView]
 
-  val controller: InEligibleController = inject[InEligibleController]
+  private val controller: InEligibleController = inject[InEligibleController]
 
   "InEligible Controller" must {
 

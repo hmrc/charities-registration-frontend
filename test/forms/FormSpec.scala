@@ -29,7 +29,7 @@ trait FormSpec extends SpecBase with OptionValues {
         for (error <- expectedErrors) formWithErrors.errors must contain(FormError(error.key, error.message, error.args))
         formWithErrors.errors.size mustBe expectedErrors.size
       },
-      form => {
+      _ => {
         fail("Expected a validation error when binding the form, but it was bound successfully.")
       }
     )

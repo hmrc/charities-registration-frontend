@@ -19,13 +19,14 @@ package controllers.charityInformation
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.charityInformation.CharityNameFormProvider
-import models.{CharityName, NormalMode}
+import models.{CharityName, NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.charityInformation.CharityNamePage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,11 +52,11 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  val view: CharityNameView = injector.instanceOf[CharityNameView]
-  val formProvider: CharityNameFormProvider = injector.instanceOf[CharityNameFormProvider]
-  val form = formProvider()
+  private val view: CharityNameView = injector.instanceOf[CharityNameView]
+  private val formProvider: CharityNameFormProvider = injector.instanceOf[CharityNameFormProvider]
+  private val form: Form[CharityName] = formProvider()
 
-  val controller: CharityNameController = inject[CharityNameController]
+  private val controller: CharityNameController = inject[CharityNameController]
 
   "CharityName Controller" must {
 

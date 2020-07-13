@@ -53,15 +53,15 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerRepository)
   }
 
-  val view: AccountingPeriodEndDateView = inject[AccountingPeriodEndDateView]
-  val formProvider: AccountingPeriodEndDateFormProvider = inject[AccountingPeriodEndDateFormProvider]
-  val form: Form[MonthDay] = formProvider()
+  private val view: AccountingPeriodEndDateView = inject[AccountingPeriodEndDateView]
+  private val formProvider: AccountingPeriodEndDateFormProvider = inject[AccountingPeriodEndDateFormProvider]
+  private val form: Form[MonthDay] = formProvider()
 
-  val controller: AccountingPeriodEndDateController = inject[AccountingPeriodEndDateController]
+  private val controller: AccountingPeriodEndDateController = inject[AccountingPeriodEndDateController]
 
-  val year = 2000
-  val month = 10
-  val dayOfMonth = 1
+  private val year = 2000
+  private val month = 10
+  private val dayOfMonth = 1
 
   val requestArgs = Seq(
     "date.day" -> dayOfMonth.toString,

@@ -19,13 +19,14 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.CharityCommissionRegistrationNumberFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.CharityCommissionRegistrationNumberPage
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -36,7 +37,7 @@ import scala.concurrent.Future
 
 class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,13 +52,13 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
     reset(mockUserAnswerRepository)
   }
 
-  val view: CharityCommissionRegistrationNumberView = injector.instanceOf[CharityCommissionRegistrationNumberView]
-  val formProvider: CharityCommissionRegistrationNumberFormProvider = injector.instanceOf[CharityCommissionRegistrationNumberFormProvider]
-  val form = formProvider()
+  private val view: CharityCommissionRegistrationNumberView = injector.instanceOf[CharityCommissionRegistrationNumberView]
+  private val formProvider: CharityCommissionRegistrationNumberFormProvider = injector.instanceOf[CharityCommissionRegistrationNumberFormProvider]
+  private val form: Form[String] = formProvider()
 
-  val controller: CharityCommissionRegistrationNumberController = inject[CharityCommissionRegistrationNumberController]
+  private val controller: CharityCommissionRegistrationNumberController = inject[CharityCommissionRegistrationNumberController]
 
-  val requestArgs = Seq("registrationNumber" -> "1234567")
+  private val requestArgs = Seq("registrationNumber" -> "1234567")
 
   "CharityCommissionRegistrationNumber Controller " must {
 

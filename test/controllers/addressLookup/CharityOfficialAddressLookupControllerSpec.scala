@@ -55,7 +55,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
     reset(mockUserAnswerRepository, mockAddressLookupConnector)
   }
 
-  lazy val controller: CharityOfficialAddressLookupController = new CharityOfficialAddressLookupController(mockUserAnswerRepository,
+  private lazy val controller: CharityOfficialAddressLookupController = new CharityOfficialAddressLookupController(mockUserAnswerRepository,
     FakeCharityInformationNavigator, inject[FakeAuthIdentifierAction], inject[UserDataRetrievalAction], inject[DataRequiredAction],
     mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
 

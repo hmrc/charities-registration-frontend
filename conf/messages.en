@@ -594,7 +594,7 @@ charityAuthorisedOfficials.p2 = An authorised official can deal with your tax af
 charityAuthorisedOfficials.p3 = We will contact them if we have any questions about your charity.
 charityAuthorisedOfficials.p4 = Adding information about authorised officials takes around 5 minutes.
 
-# Authorised Officials Name Page Messages
+# Authorised Officials Name Messages
 # ----------------------------------------------------------
 authorisedOfficialsName.title = What is the authorised official''s name?
 authorisedOfficialsName.heading = What is the authorised official''s name?
@@ -620,3 +620,15 @@ authorisedOfficialsDOB.error.required.two = Enter their {0} and {1} of birth
 authorisedOfficialsDOB.error.required.one = Enter their {0} of birth
 authorisedOfficialsDOB.error.invalid = Their birth date must be a real date.
 authorisedOfficialsDOB.error.minimum = Authorised officials must be at least 16 years old
+
+# Authorised Officials Phone Number Messages
+# ----------------------------------------------------------
+authorisedOfficialsPhoneNumber.title = What is the authorised official''s phone number?
+authorisedOfficialsPhoneNumber.heading = What is {0}''s phone number?
+authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
+authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number (optional)
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
+authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number (optional)

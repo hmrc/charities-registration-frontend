@@ -32,3 +32,13 @@ object AuthorisedOfficialsName {
 
   override def toString: String = "authorisedOfficialsName"
 }
+
+case class AuthorisedOfficialsPhoneNumber(daytimePhone: String, mobilePhone: Option[String])
+
+object AuthorisedOfficialsPhoneNumber {
+
+  implicit val formats = Json.format[AuthorisedOfficialsPhoneNumber]
+
+  override def toString: String = "authorisedOfficialsPhoneNumber"
+}
+

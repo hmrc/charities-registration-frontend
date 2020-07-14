@@ -20,25 +20,25 @@
 @import config.FrontendAppConfig
 
 @this(
-govukLayout: templates.GovukLayoutWrapper,
-h1: components.h1,
-link: components.linkAsButton
+    govukLayout: templates.GovukLayoutWrapper,
+    h1: components.h1,
+    link: components.linkAsButton
 )
 
 @(index: Index)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(titleNoForm("charityAuthorisedOfficials.title", Some("officialsAndNominees.section")))) {
 
-@h1(messages("charityAuthorisedOfficials.heading"))
+    @h1(messages("charityAuthorisedOfficials.heading"))
 
-<p class="govuk-body">@messages("charityAuthorisedOfficials.p1")</p>
+    <p class="govuk-body">@messages("charityAuthorisedOfficials.p1")</p>
 
-<p class="govuk-body">@messages("charityAuthorisedOfficials.p2")</p>
+    <p class="govuk-body">@messages("charityAuthorisedOfficials.p2")</p>
 
-<p class="govuk-body">@messages("charityAuthorisedOfficials.p3")</p>
+    <p class="govuk-body">@messages("charityAuthorisedOfficials.p3")</p>
 
-<p class="govuk-body">@messages("charityAuthorisedOfficials.p4")</p>
+    <p class="govuk-body">@messages("charityAuthorisedOfficials.p4")</p>
 
-@link(controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode,Index(0)).url, "site.continue",Some("linkButton"))
+    @link(controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode,Index(0)).url, "site.continue",Some("linkButton"))
 
 }

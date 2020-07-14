@@ -610,12 +610,6 @@ authorisedOfficialsName.lastName.error.required = (W)Enter the authorised offici
 authorisedOfficialsName.lastName.error.length = (W)The authorised official''s last name must be 100 characters or fewer(W)
 authorisedOfficialsName.lastName.error.format = (W)The authorised official''s last name must not include the following characters: & ( ) : @(W)
 
-# Authorised official position Page Messages
-# ----------------------------------------------------------
-isAuthorisedOfficialPosition.title = (W)Does the authorised official have a national insurance number?(W)
-isAuthorisedOfficialPosition.heading = (W)Does the authorised official have a national insurance number?(W)
-isAuthorisedOfficialPosition.error.required = (W)Select yes if they have a National Insurance number(W)
-
 # Authorised Official Date of birth Messages
 # ----------------------------------------------------------
 authorisedOfficialsDOB.title = (W)What is the authorised official''s date of birth?(W)
@@ -668,3 +662,17 @@ authorisedOfficialsPosition.20 = (W)Treasurer(W)
 authorisedOfficialsPosition.21 = (W)Assistant Treasurer(W)
 authorisedOfficialsPosition.22 = (W)Trustee(W)
 authorisedOfficialsPosition.23 = (W)UK Agent(W)
+
+# Authorised official has national insurance Page Messages
+# ----------------------------------------------------------
+isAuthorisedOfficialPosition.title = (W)Does the authorised official have a national insurance number?(W)
+isAuthorisedOfficialPosition.heading = (W)Does the authorised official have a national insurance number?(W)
+isAuthorisedOfficialPosition.error.required = (W)Select yes if they have a National Insurance number(W)
+
+# Authorised Official National Insurance Number messages
+# ----------------------------------------------------------
+authorisedOfficialsNINO.title = (W)What is the authorised official''s national insurance number?(W)
+authorisedOfficialsNINO.heading = (W)What is {0}''s National Insurance number?(W)
+authorisedOfficialsNINO.hint = (W)For example, QQ 12 34 56 C(W)
+authorisedOfficialsNINO.error.required = (W)Enter their National Insurance number(W)
+authorisedOfficialsNINO.error.format = (W)Enter a National Insurance number in the correct format(W)

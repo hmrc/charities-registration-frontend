@@ -104,13 +104,27 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [full name]’s National Insurance number? when yes is selected" in {
           navigator.nextPage(IsAuthorisedOfficialPositionPage(0), NormalMode,
             emptyUserAnswers.set(IsAuthorisedOfficialPositionPage(0),true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            authOfficialRoutes.AuthorisedOfficialsNINOController.onPageLoad(NormalMode, 0) // TODO when next page is ready
         }
 
         "go to the DeadEnd page when no is selected" in {
           navigator.nextPage(IsAuthorisedOfficialPositionPage(0), NormalMode,
             emptyUserAnswers.set(IsAuthorisedOfficialPositionPage(0),false).success.value) mustBe
             routes.DeadEndController.onPageLoad()
+        }
+      }
+
+      "from the AuthorisedOfficialsNINOPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsNINOPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [Full name]’s home address? when clicked continue button" in {
+          navigator.nextPage(AuthorisedOfficialsNINOPage(0), NormalMode,
+            emptyUserAnswers.set(AuthorisedOfficialsNINOPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 
@@ -178,6 +192,34 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(AuthorisedOfficialsPositionPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsPositionPage(0), AuthorisedOfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IsAuthorisedOfficialPositionPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsAuthorisedOfficialPositionPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(IsAuthorisedOfficialPositionPage(0), CheckMode,
+            emptyUserAnswers.set(IsAuthorisedOfficialPositionPage(0), true).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the AuthorisedOfficialsNINOPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsNINOPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [Full name]’s home address? when clicked continue button" in {
+          navigator.nextPage(AuthorisedOfficialsNINOPage(0), CheckMode,
+            emptyUserAnswers.set(AuthorisedOfficialsNINOPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

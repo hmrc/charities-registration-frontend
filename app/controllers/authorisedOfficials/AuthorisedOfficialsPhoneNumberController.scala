@@ -16,47 +16,46 @@
 
 package controllers.authorisedOfficials
 
-import java.time.LocalDate
-
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialsDOBFormProvider
+import forms.authorisedOfficials.AuthorisedOfficialsPhoneNumberFormProvider
 import javax.inject.Inject
+import models.AuthorisedOfficialsPhoneNumber
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AuthorisedOfficialsDOBPage
+import pages.authorisedOfficials.AuthorisedOfficialsPhoneNumberPage
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsDOBView
+import views.html.authorisedOfficials.AuthorisedOfficialsPhoneNumberView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialsDOBController @Inject()(
-    val sessionRepository: UserAnswerRepository,
-    val navigator: AuthorisedOfficialsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: AuthorisedOfficialsDOBFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: AuthorisedOfficialsDOBView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class AuthorisedOfficialsPhoneNumberController @Inject()(
+                                                  val sessionRepository: UserAnswerRepository,
+                                                  val navigator: AuthorisedOfficialsNavigator,
+                                                  identify: AuthIdentifierAction,
+                                                  getData: UserDataRetrievalAction,
+                                                  requireData: DataRequiredAction,
+                                                  formProvider: AuthorisedOfficialsPhoneNumberFormProvider,
+                                                  val controllerComponents: MessagesControllerComponents,
+                                                  view: AuthorisedOfficialsPhoneNumberView
+                                                )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  val form: Form[LocalDate] = formProvider()
+  val form: Form[AuthorisedOfficialsPhoneNumber] = formProvider()
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     getAuthorisedOfficialName(index) {
-      val preparedForm = request.userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
+      val preparedForm = request.userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
         case None => form
         case Some(value) => form.fill(value)
       }
       authorisedOfficialsName =>
         Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
-      }
+    }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -70,9 +69,9 @@ class AuthorisedOfficialsDOBController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsDOBPage(index), value).flatMap(_.set(Section7Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsPhoneNumberPage(index), value).flatMap(_.set(Section7Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AuthorisedOfficialsDOBPage(index), mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), mode, updatedAnswers))
     )
   }
 }

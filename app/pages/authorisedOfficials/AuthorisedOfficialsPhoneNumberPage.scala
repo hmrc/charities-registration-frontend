@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package models
+package pages.authorisedOfficials
 
-import play.api.libs.json.Json
+import models.AuthorisedOfficialsPhoneNumber
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-case class CharityName(fullName: String, operatingName: Option[String])
+case class AuthorisedOfficialsPhoneNumberPage(index:Int) extends QuestionPage[AuthorisedOfficialsPhoneNumber] {
 
-object CharityName {
-
-  implicit val formats = Json.format[CharityName]
-
-  override def toString: String = "charityNamesDetail"
-
+  override def path: JsPath =  AuthorisedOfficialsId(index).path \ AuthorisedOfficialsPhoneNumberPage.toString
 }
 
-case class CharityContactDetails(daytimePhone:String,mobilePhone:Option[String],emailAddress:String)
+object AuthorisedOfficialsPhoneNumberPage {
 
-object CharityContactDetails {
-
-  implicit val formats = Json.format[CharityContactDetails]
-
-  override def toString: String = "charityContactDetails"
-
+  override lazy val toString: String = "authorisedOfficialsPhoneNumber"
 }

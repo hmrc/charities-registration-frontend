@@ -10,3 +10,8 @@ GET        /:index/authorised-official-date-of-birth                 controllers
 POST       /:index/authorised-official-date-of-birth                 controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-date-of-birth/change          controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-date-of-birth/change          controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onSubmit(mode: Mode = CheckMode, index: Index)
+
+GET        /:index/authorised-official-contact-details               controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/authorised-official-contact-details               controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/authorised-official-contact-details/change        controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/authorised-official-contact-details/change        controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onSubmit(mode: Mode = CheckMode, index: Index)

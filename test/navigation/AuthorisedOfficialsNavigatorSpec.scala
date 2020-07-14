@@ -22,14 +22,16 @@ import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models._
+import models.AuthorisedOfficialsPhoneNumber
 import pages.IndexPage
-import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage}
+import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage}
 
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: AuthorisedOfficialsNavigator = inject[AuthorisedOfficialsNavigator]
 
   private val authorisedOfficialsName: AuthorisedOfficialsName = AuthorisedOfficialsName("FName", Some("MName"), "lName")
+  private val authorisedOfficialsPhoneNumber: AuthorisedOfficialsPhoneNumber = AuthorisedOfficialsPhoneNumber("07700 900 982", Some("07700 900 982"))
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -56,10 +58,24 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the What is [full name]'s phone number? when clicked continue button" in {
+        "go to the What is [full name]'s phone number? page when clicked continue button" in {
           val minYear = 16
           navigator.nextPage(AuthorisedOfficialsDOBPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
+            authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(NormalMode, 0)
+        }
+      }
+
+      "from the AuthorisedOfficialsPhoneNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]'s position in charity? page when clicked continue button" in {
+          navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(0), NormalMode,
+            emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
@@ -82,7 +98,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the summary page clicked continue button" in {
+        "go to the summary page when continue button is clicked" in {
           navigator.nextPage(AuthorisedOfficialsNamePage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
@@ -96,10 +112,24 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the What is [full name]'s phone number? when clicked continue button" in {
+        "go to the summary page when continue button is clicked" in {
           val minYear = 16
           navigator.nextPage(AuthorisedOfficialsDOBPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the AuthorisedOfficialsPhoneNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(0), CheckMode,
+            emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

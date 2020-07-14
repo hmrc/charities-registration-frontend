@@ -16,21 +16,31 @@
 
 package models.operations
 
-import models.{Enumerable, WithName}
+import models.{Enumerable, WithName, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-sealed trait OperatingLocationOptions
+sealed trait OperatingLocationOptions extends WithOrder
 
 object OperatingLocationOptions extends Enumerable.Implicits {
 
-  case object EnglandAndWales extends WithName("englandAndWales") with OperatingLocationOptions
-  case object Scotland extends WithName("scotland") with OperatingLocationOptions
-  case object NorthernIreland extends WithName("northernIreland") with OperatingLocationOptions
-  case object UKWide extends WithName("ukWide") with OperatingLocationOptions
-  case object Overseas extends WithName("overseas") with OperatingLocationOptions
+  case object EnglandAndWales extends WithName("englandAndWales") with OperatingLocationOptions {
+    override val order: Int = 1
+  }
+  case object Scotland extends WithName("scotland") with OperatingLocationOptions {
+    override val order: Int = 2
+  }
+  case object NorthernIreland extends WithName("northernIreland") with OperatingLocationOptions {
+    override val order: Int = 3
+  }
+  case object UKWide extends WithName("ukWide") with OperatingLocationOptions {
+    override val order: Int = 4
+  }
+  case object Overseas extends WithName("overseas") with OperatingLocationOptions {
+    override val order: Int = 5
+  }
 
   val values: Seq[OperatingLocationOptions] = Seq(
     EnglandAndWales, Scotland, NorthernIreland, UKWide, Overseas

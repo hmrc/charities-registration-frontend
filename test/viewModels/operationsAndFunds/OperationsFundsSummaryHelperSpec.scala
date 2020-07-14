@@ -20,7 +20,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
-import models.operations.{FundRaisingOptions, OperatingLocationOptions}
+import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
 import pages.operationsAndFunds._
@@ -39,34 +39,14 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
     MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite)).success.value
   )
 
-  private val donations = FundRaisingOptions.Donations
-  private val fundraising = FundRaisingOptions.Fundraising
-  private val grants = FundRaisingOptions.Grants
-  private val membershipSubscriptions = FundRaisingOptions.MembershipSubscriptions
-  private val tradingIncome = FundRaisingOptions.TradingIncome
-  private val tradingSubsidiaries = FundRaisingOptions.TradingSubsidiaries
-  private val investmentIncome = FundRaisingOptions.InvestmentIncome
-  private val other = FundRaisingOptions.Other
-
-  private val englandWales = OperatingLocationOptions.EnglandAndWales
-  private val scotland = OperatingLocationOptions.Scotland
-  private val northernIreland = OperatingLocationOptions.NorthernIreland
-  private val acrossUK = OperatingLocationOptions.UKWide
-  private val overseas = OperatingLocationOptions.Overseas
-
   "Check your answers helper" must {
 
     "For the Charity raise funds answer" must {
 
       "have a correctly formatted summary list row" in {
 
-        val fundRaisingList =
-          s"""<div>${messages(s"selectFundRaising.$other")}</div><div>${messages(
-            s"selectFundRaising.$donations")}</div><div>${messages(s"selectFundRaising.$tradingSubsidiaries")}</div><div>${messages(
-            s"selectFundRaising.$tradingIncome")}</div><div>${messages(s"selectFundRaising.$fundraising")}</div><div>${messages(
-            s"selectFundRaising.$grants")}</div><div>${messages(s"selectFundRaising.$membershipSubscriptions")}</div><div>${messages(
-            s"selectFundRaising.$investmentIncome")}</div>"""
-            .stripMargin
+        val fundRaisingList = FundRaisingOptions.values.sortBy(_.order).foldLeft("")(
+          (str, key) => str + s"""<div>${messages(s"selectFundRaising.${key.toString}")}</div>""")
 
         helper.fundRaisingRow mustBe Some(
           summaryListRow(
@@ -83,11 +63,8 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
       "have a correctly formatted summary list row" in {
 
-        val operatingLocationList =
-          s"""<div>${messages(s"operatingLocation.$northernIreland")}</div><div>${messages(
-            s"operatingLocation.$overseas")}</div><div>${messages(s"operatingLocation.$scotland")}</div><div>${messages(
-            s"operatingLocation.$englandWales")}</div><div>${messages(s"operatingLocation.$acrossUK")}</div>"""
-            .stripMargin
+        val operatingLocationList = OperatingLocationOptions.values.sortBy(_.order).foldLeft("")(
+          (str, key) => str + s"""<div>${messages(s"operatingLocation.${key.toString}")}</div>""")
 
         helper.operatingLocationRow mustBe Some(
           summaryListRow(

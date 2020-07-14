@@ -59,5 +59,10 @@ class CharityRegulatorSpec extends WordSpec with MustMatchers with ScalaCheckPro
           Json.toJson(charityRegulatorCheckbox) mustEqual JsString(charityRegulatorCheckbox.toString)
       }
     }
+
+    "order" in {
+
+      CharityRegulator.values.sortBy(_.order) mustBe CharityRegulator.values
+    }
   }
 }

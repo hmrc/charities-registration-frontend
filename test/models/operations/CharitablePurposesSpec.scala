@@ -59,5 +59,10 @@ class CharitablePurposesSpec extends WordSpec with MustMatchers with ScalaCheckP
           Json.toJson(charitablePurposesCheckbox) mustEqual JsString(charitablePurposesCheckbox.toString)
       }
     }
+
+    "order" in {
+
+      CharitablePurposes.values.sortBy(_.order) mustBe CharitablePurposes.values
+    }
   }
 }

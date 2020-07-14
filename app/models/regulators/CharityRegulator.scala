@@ -16,7 +16,7 @@
 
 package models.regulators
 
-import models.{Enumerable, WithName}
+import models.{Enumerable, WithName, WithOrder}
 import pages.QuestionPage
 import pages.regulatorsAndDocuments._
 import play.api.data.Form
@@ -24,14 +24,22 @@ import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-sealed trait CharityRegulator
+sealed trait CharityRegulator extends WithOrder
 
 object CharityRegulator extends Enumerable.Implicits {
 
-  case object EnglandWales extends WithName("ccew") with CharityRegulator
-  case object Scottish extends WithName("oscr") with CharityRegulator
-  case object NorthernIreland extends WithName("ccni") with CharityRegulator
-  case object Other extends WithName("otherRegulator") with CharityRegulator
+  case object EnglandWales extends WithName("ccew") with CharityRegulator {
+    override val order: Int = 1
+  }
+  case object Scottish extends WithName("oscr") with CharityRegulator {
+    override val order: Int = 2
+  }
+  case object NorthernIreland extends WithName("ccni") with CharityRegulator {
+    override val order: Int = 3
+  }
+  case object Other extends WithName("otherRegulator") with CharityRegulator {
+    override val order: Int = 4
+  }
 
   val values: Seq[CharityRegulator] = Seq(
     EnglandWales, Scottish, NorthernIreland, Other

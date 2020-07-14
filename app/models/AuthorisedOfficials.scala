@@ -41,4 +41,3 @@ object AuthorisedOfficialsPhoneNumber {
 
   override def toString: String = "authorisedOfficialsPhoneNumber"
 }
-

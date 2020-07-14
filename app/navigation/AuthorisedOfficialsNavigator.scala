@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, UserAnswers}
 import pages.Page
-import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, IsAuthorisedOfficialPositionPage}
+import pages.authorisedOfficials._
 import play.api.mvc.Call
 
 class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -40,7 +40,12 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(NormalMode, index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
+      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPositionController.onPageLoad(NormalMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -67,6 +72,11 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case AuthorisedOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

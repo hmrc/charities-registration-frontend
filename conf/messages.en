@@ -638,3 +638,33 @@ authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone 
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number (optional)
+
+# Authorised Official Position  Messages
+# ----------------------------------------------------------
+authorisedOfficialsPosition.title = What is the authorised official''s position in your charity?
+authorisedOfficialsPosition.heading = What is {0}''s position in your charity?
+authorisedOfficialsPosition.error.required = Select their position in your charity
+authorisedOfficialsPosition.hint = Select one option
+authorisedOfficialsPosition.01 = Board member
+authorisedOfficialsPosition.02 = Bursar
+authorisedOfficialsPosition.03 = Chairman
+authorisedOfficialsPosition.04 = Chief executive
+authorisedOfficialsPosition.05 = Director
+authorisedOfficialsPosition.06 = Employee
+authorisedOfficialsPosition.07 = Finance manager
+authorisedOfficialsPosition.08 = Financial accountant
+authorisedOfficialsPosition.09 = Gift aid secretary
+authorisedOfficialsPosition.10 = Governor (Schools and Academies)
+authorisedOfficialsPosition.11 = Head teacher
+authorisedOfficialsPosition.12 = Assistant head teacher
+authorisedOfficialsPosition.13 = Human resources manager
+authorisedOfficialsPosition.14 = Information officer
+authorisedOfficialsPosition.15 = Minister of religion
+authorisedOfficialsPosition.16 = Principal
+authorisedOfficialsPosition.17 = Secretary
+authorisedOfficialsPosition.18 = Assistant secretary
+authorisedOfficialsPosition.19 = Teacher
+authorisedOfficialsPosition.20 = Treasurer
+authorisedOfficialsPosition.21 = Assistant Treasurer
+authorisedOfficialsPosition.22 = Trustee
+authorisedOfficialsPosition.23 = UK Agent

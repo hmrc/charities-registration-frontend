@@ -24,7 +24,7 @@ import controllers.routes
 import models._
 import models.AuthorisedOfficialsPhoneNumber
 import pages.IndexPage
-import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage}
+import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, IsAuthorisedOfficialPositionPage}
 
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
@@ -77,6 +77,26 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IsAuthorisedOfficialPositionPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsAuthorisedOfficialPositionPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]’s National Insurance number? when yes is selected" in {
+          navigator.nextPage(IsAuthorisedOfficialPositionPage(0), NormalMode,
+            emptyUserAnswers.set(IsAuthorisedOfficialPositionPage(0),true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the DeadEnd page when no is selected" in {
+          navigator.nextPage(IsAuthorisedOfficialPositionPage(0), NormalMode,
+            emptyUserAnswers.set(IsAuthorisedOfficialPositionPage(0),false).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
         }
       }
 

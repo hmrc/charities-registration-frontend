@@ -610,6 +610,12 @@ authorisedOfficialsName.lastName.error.required = 'Enter the authorised official
 authorisedOfficialsName.lastName.error.length = The authorised official''s last name must be 100 characters or fewer
 authorisedOfficialsName.lastName.error.format = The authorised official''s last name must not include the following characters: & ( ) : @
 
+# Authorised official position Page Messages
+# ----------------------------------------------------------
+isAuthorisedOfficialPosition.title = Does the authorised official have a national insurance number?
+isAuthorisedOfficialPosition.heading = Does {0} have a national insurance number?
+isAuthorisedOfficialPosition.error.required = Select yes if they have a National Insurance number
+
 # Authorised Official Date of birth Messages
 # ----------------------------------------------------------
 authorisedOfficialsDOB.title = What is the authorised official''s date of birth?

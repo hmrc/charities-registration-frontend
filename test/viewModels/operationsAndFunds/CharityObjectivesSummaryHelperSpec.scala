@@ -33,20 +33,6 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
   (_.set(PublicBenefitsPage,"Public Benefits")).success.value
   )
 
-  private val amateurSport = CharitablePurposes.AmateurSport
-  private val animalWelfare = CharitablePurposes.AnimalWelfare
-  private val artsCultureOrScience = CharitablePurposes.ArtsCultureHeritageScience
-  private val citizenshipOrCommunityDevelopment = CharitablePurposes.CitizenshipCommunity
-  private val education = CharitablePurposes.Education
-  private val environmentalProtection = CharitablePurposes.EnvironmentalProtection
-  private val healthOrSavingOfLives = CharitablePurposes.Health
-  private val humanRights = CharitablePurposes.HumanRights
-  private val armedForcesOfTheCrown = CharitablePurposes.PromotionOfEfficiency
-  private val reliefOfPoverty = CharitablePurposes.ReliefOfPoverty
-  private val reliefOfYouthAge = CharitablePurposes.ReliefOfThoseInNeed
-  private val religion = CharitablePurposes.Religion
-  private val other = CharitablePurposes.Other
-
   "Check your answers helper" must {
 
     "For the Charitable Objectives answer" must {
@@ -68,15 +54,8 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row" in {
 
-        val purposeList =
-          s"""<div>${messages(s"charitablePurposes.$other")}</div><div>${messages(
-            s"charitablePurposes.$armedForcesOfTheCrown")}</div><div>${messages(s"charitablePurposes.$animalWelfare")}</div><div>${messages(
-            s"charitablePurposes.$religion")}</div><div>${messages(s"charitablePurposes.$humanRights")}</div><div>${messages(
-            s"charitablePurposes.$healthOrSavingOfLives")}</div><div>${messages(s"charitablePurposes.$citizenshipOrCommunityDevelopment")}</div><div>${messages(
-            s"charitablePurposes.$environmentalProtection")}</div><div>${messages(s"charitablePurposes.$reliefOfPoverty")}</div><div>${messages(
-            s"charitablePurposes.$artsCultureOrScience")}</div><div>${messages(s"charitablePurposes.$education")}</div><div>${messages(
-            s"charitablePurposes.$reliefOfYouthAge")}</div><div>${messages(s"charitablePurposes.$amateurSport")}</div>"""
-            .stripMargin
+        val purposeList = CharitablePurposes.values.sortBy(_.order).foldLeft("")(
+          (str, key) => str + s"""<div>${messages(s"charitablePurposes.${key.toString}")}</div>""")
 
         helper.charitablePurposesRow mustBe Some(
           summaryListRow(

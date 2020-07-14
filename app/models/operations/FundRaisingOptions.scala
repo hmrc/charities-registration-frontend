@@ -16,25 +16,40 @@
 
 package models.operations
 
-import models.{Enumerable, WithName}
+import models.{Enumerable, WithName, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
-import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
-sealed trait FundRaisingOptions
+sealed trait FundRaisingOptions extends WithOrder
 
 object FundRaisingOptions extends Enumerable.Implicits {
 
-  case object Donations extends WithName("donations") with FundRaisingOptions
-  case object Fundraising extends WithName("fundraising") with FundRaisingOptions
-  case object Grants extends WithName("grants") with FundRaisingOptions
-  case object MembershipSubscriptions extends WithName("membershipSubscriptions") with FundRaisingOptions
-  case object TradingIncome extends WithName("tradingIncome") with FundRaisingOptions
-  case object TradingSubsidiaries extends WithName("tradingSubsidiaries") with FundRaisingOptions
-  case object InvestmentIncome extends WithName("investmentIncome") with FundRaisingOptions
-  case object Other extends WithName("other") with FundRaisingOptions
+  case object Donations extends WithName("donations") with FundRaisingOptions {
+    override val order: Int = 1
+  }
+  case object Fundraising extends WithName("fundraising") with FundRaisingOptions {
+    override val order: Int = 2
+  }
+  case object Grants extends WithName("grants") with FundRaisingOptions {
+    override val order: Int = 3
+  }
+  case object MembershipSubscriptions extends WithName("membershipSubscriptions") with FundRaisingOptions {
+    override val order: Int = 4
+  }
+  case object TradingIncome extends WithName("tradingIncome") with FundRaisingOptions {
+    override val order: Int = 5
+  }
+  case object TradingSubsidiaries extends WithName("tradingSubsidiaries") with FundRaisingOptions {
+    override val order: Int = 6
+  }
+  case object InvestmentIncome extends WithName("investmentIncome") with FundRaisingOptions {
+    override val order: Int = 7
+  }
+  case object Other extends WithName("other") with FundRaisingOptions {
+    override val order: Int = 8
+  }
 
   val values: Seq[FundRaisingOptions] = Seq(
     Donations, Fundraising, Grants, MembershipSubscriptions, TradingIncome, TradingSubsidiaries, InvestmentIncome, Other

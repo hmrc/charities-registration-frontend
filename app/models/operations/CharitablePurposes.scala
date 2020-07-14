@@ -16,29 +16,67 @@
 
 package models.operations
 
-import models.{Enumerable, WithName}
+import models.{Enumerable, WithName, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
-sealed trait CharitablePurposes
+sealed trait CharitablePurposes extends WithOrder
 
 object CharitablePurposes extends Enumerable.Implicits {
 
-  case object AmateurSport extends WithName("amateurSport") with CharitablePurposes
-  case object AnimalWelfare extends WithName("animalWelfare") with CharitablePurposes
-  case object ArtsCultureHeritageScience extends WithName("artsCultureOrScience") with CharitablePurposes
-  case object CitizenshipCommunity  extends WithName("citizenshipOrCommunityDevelopment") with CharitablePurposes
-  case object Education  extends WithName("education") with CharitablePurposes
-  case object EnvironmentalProtection  extends WithName("environmentalProtection") with CharitablePurposes
-  case object Health  extends WithName("healthOrSavingOfLives") with CharitablePurposes
-  case object HumanRights  extends WithName("humanRights") with CharitablePurposes
-  case object PromotionOfEfficiency  extends WithName("armedForcesOfTheCrown") with CharitablePurposes
-  case object ReliefOfPoverty  extends WithName("reliefOfPoverty") with CharitablePurposes
-  case object ReliefOfThoseInNeed  extends WithName("reliefOfYouthAge") with CharitablePurposes
-  case object Religion  extends WithName("religion") with CharitablePurposes
-  case object Other extends WithName("other") with CharitablePurposes
+  case object AmateurSport extends WithName("amateurSport") with CharitablePurposes {
+    override val order: Int = 1
+  }
+
+  case object AnimalWelfare extends WithName("animalWelfare") with CharitablePurposes {
+    override val order: Int = 2
+  }
+
+  case object ArtsCultureHeritageScience extends WithName("artsCultureOrScience") with CharitablePurposes {
+    override val order: Int = 3
+  }
+
+  case object CitizenshipCommunity extends WithName("citizenshipOrCommunityDevelopment") with CharitablePurposes {
+    override val order: Int = 4
+  }
+
+  case object Education extends WithName("education") with CharitablePurposes {
+    override val order: Int = 5
+  }
+
+  case object EnvironmentalProtection extends WithName("environmentalProtection") with CharitablePurposes {
+    override val order: Int = 6
+  }
+
+  case object Health extends WithName("healthOrSavingOfLives") with CharitablePurposes {
+    override val order: Int = 7
+  }
+
+  case object HumanRights extends WithName("humanRights") with CharitablePurposes {
+    override val order: Int = 8
+  }
+
+  case object PromotionOfEfficiency extends WithName("armedForcesOfTheCrown") with CharitablePurposes {
+    override val order: Int = 9
+  }
+
+  case object ReliefOfPoverty extends WithName("reliefOfPoverty") with CharitablePurposes {
+    override val order: Int = 10
+  }
+
+  case object ReliefOfThoseInNeed extends WithName("reliefOfYouthAge") with CharitablePurposes {
+    override val order: Int = 11
+  }
+
+  case object Religion extends WithName("religion") with CharitablePurposes {
+    override val order: Int = 12
+  }
+
+  case object Other extends WithName("other") with CharitablePurposes {
+    override val order: Int = 13
+  }
 
   val values: Seq[CharitablePurposes] = Seq(
     AmateurSport, AnimalWelfare, ArtsCultureHeritageScience, CitizenshipCommunity, Education, EnvironmentalProtection,

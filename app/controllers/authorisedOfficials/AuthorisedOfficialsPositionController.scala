@@ -19,37 +19,37 @@ package controllers.authorisedOfficials
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialsPhoneNumberFormProvider
+import forms.authorisedOfficials.AuthorisedOfficialsPositionFormProvider
 import javax.inject.Inject
-import models.AuthorisedOfficialsPhoneNumber
+import models.AuthOfficials.AuthorisedOfficialsPosition
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AuthorisedOfficialsPhoneNumberPage
+import pages.authorisedOfficials.AuthorisedOfficialsPositionPage
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsPhoneNumberView
+import views.html.authorisedOfficials.AuthorisedOfficialsPositionView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialsPhoneNumberController @Inject()(
-   val sessionRepository: UserAnswerRepository,
-   val navigator: AuthorisedOfficialsNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: AuthorisedOfficialsPhoneNumberFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: AuthorisedOfficialsPhoneNumberView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class AuthorisedOfficialsPositionController @Inject()(
+    sessionRepository: UserAnswerRepository,
+    navigator: AuthorisedOfficialsNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: AuthorisedOfficialsPositionFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: AuthorisedOfficialsPositionView
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  val form: Form[AuthorisedOfficialsPhoneNumber] = formProvider()
+  val form: Form[AuthorisedOfficialsPosition] = formProvider()
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     getAuthorisedOfficialName(index) {
-      val preparedForm = request.userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
+      val preparedForm = request.userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
         case None => form
         case Some(value) => form.fill(value)
       }
@@ -69,9 +69,9 @@ class AuthorisedOfficialsPhoneNumberController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsPhoneNumberPage(index), value).flatMap(_.set(Section7Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsPositionPage(index), value).flatMap(_.set(Section7Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(AuthorisedOfficialsPositionPage(index), mode, updatedAnswers))
     )
   }
 }

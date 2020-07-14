@@ -21,10 +21,10 @@ import java.time.LocalDate
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
-import models._
-import models.AuthorisedOfficialsPhoneNumber
+import models.AuthOfficials.AuthorisedOfficialsPosition
+import models.{AuthorisedOfficialsName, AuthorisedOfficialsPhoneNumber, CheckMode, Index, NormalMode}
 import pages.IndexPage
-import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, IsAuthorisedOfficialPositionPage}
+import pages.authorisedOfficials._
 
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
@@ -76,7 +76,21 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [full name]'s position in charity? page when clicked continue button" in {
           navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+           authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(NormalMode, Index(0))
+        }
+      }
+
+      "from the AuthorisedOfficialsPositionPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsPositionPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Does [Full name] have a National Insurance number? when clicked continue button" in {
+          navigator.nextPage(AuthorisedOfficialsPositionPage(0), NormalMode,
+            emptyUserAnswers.set(AuthorisedOfficialsPositionPage(0), AuthorisedOfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
+           authOfficialRoutes.IsAuthorisedOfficialPositionController.onPageLoad(NormalMode, Index(0))
         }
       }
 
@@ -150,6 +164,20 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the AuthorisedOfficialsPositionPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsPositionPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(AuthorisedOfficialsPositionPage(0), CheckMode,
+            emptyUserAnswers.set(AuthorisedOfficialsPositionPage(0), AuthorisedOfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

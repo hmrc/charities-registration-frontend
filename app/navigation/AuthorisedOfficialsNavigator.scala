@@ -17,11 +17,14 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, UserAnswers}
 import pages.Page
+import pages.addressLookup.AuthorisedOfficialAddressLookupPage
+import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage}
 import pages.authorisedOfficials._
 import play.api.mvc.Call
 
@@ -56,8 +59,13 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialsNINOPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index) // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -93,6 +101,11 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case AuthorisedOfficialsNINOPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

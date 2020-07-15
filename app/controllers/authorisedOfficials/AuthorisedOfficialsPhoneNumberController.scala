@@ -47,13 +47,14 @@ class AuthorisedOfficialsPhoneNumberController @Inject()(
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getAuthorisedOfficialName(index) {
+    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+
       val preparedForm = request.userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      authorisedOfficialsName =>
-        Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
+
+      Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
     }
   }
 

@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.IsAuthorisedOfficialPositionPage
-import pages.sections.Section1Page
+import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -69,7 +69,7 @@ class IsAuthorisedOfficialPositionController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(IsAuthorisedOfficialPositionPage(index), value).flatMap(_.set(Section1Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(IsAuthorisedOfficialPositionPage(index), value).flatMap(_.set(Section7Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(IsAuthorisedOfficialPositionPage(index), mode, updatedAnswers))
     )

@@ -676,3 +676,9 @@ authorisedOfficialsNINO.heading = (W)What is {0}''s National Insurance number?(W
 authorisedOfficialsNINO.hint = (W)For example, QQ 12 34 56 C(W)
 authorisedOfficialsNINO.error.required = (W)Enter their National Insurance number(W)
 authorisedOfficialsNINO.error.format = (W)Enter a National Insurance number in the correct format(W)
+
+# Authorised Officials Previous Address Page Messages
+# ----------------------------------------------------------
+authorisedOfficialPreviousAddress.title = (W)Has the authorised official''s address changed in the last 12 months?(W)
+authorisedOfficialPreviousAddress.heading = (W)Has {0}''s address changed in the last 12 months?(W)
+authorisedOfficialPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)

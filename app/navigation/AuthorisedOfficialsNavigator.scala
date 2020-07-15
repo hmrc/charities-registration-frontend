@@ -60,6 +60,12 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case AuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
@@ -92,6 +98,12 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialsNINOPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

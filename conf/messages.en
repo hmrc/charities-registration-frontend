@@ -132,6 +132,31 @@ index.section.notStarted = Not started
 index.section.inProgress = In progress
 index.section.completed = Completed
 
+# Common Address Lookup Frontend Messages
+# ----------------------------------------------------------
+commonAddress.lookupPage.filterLabel = Property name or number (optional)
+commonAddress.LookupPage.postcodeLabel = Postcode search
+commonAddress.lookupPage.submitLabel = Find address
+commonAddress.lookupPage.noResultsFoundMessage =
+commonAddress.lookupPage.resultLimitExceededMessage =
+
+commonAddress.selectPage.headingWithPostcode = Postcode search
+commonAddress.selectPage.proposalListLabel =
+commonAddress.selectPage.submitLabel = Continue
+commonAddress.selectPage.searchAgainLinkText =
+
+commonAddress.editPage.line1Label = Address line 1
+commonAddress.editPage.line2Label = Address line 2 (optional)
+commonAddress.editPage.line3Label = Address line 3 (optional)
+commonAddress.editPage.townLabel = Town or city
+commonAddress.editPage.postcodeLabel = Postcode or Zipcode (optional)
+commonAddress.editPage.submitLabel = Continue
+
+commonAddress.confirmPage.infoMessage =
+commonAddress.confirmPage.submitLabel = Confirm and continue
+commonAddress.confirmPage.searchAgainLinkText =
+commonAddress.confirmPage.confirmChangeText =
+
 # Dead End page Messages
 # ----------------------------------------------------------
 deadEnd.title = Sorry, this page is still in development
@@ -230,38 +255,19 @@ charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
 # ----------------------------------------------------------
 charityOfficialAddress.lookupPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
 charityOfficialAddress.lookupPage.heading = What is your charity''s address?
-charityOfficialAddress.lookupPage.filterLabel = Property name or number (optional)
-charityOfficialAddress.LookupPage.postcodeLabel = Postcode search
-charityOfficialAddress.lookupPage.submitLabel = Find address
-charityOfficialAddress.lookupPage.noResultsFoundMessage =
-charityOfficialAddress.lookupPage.resultLimitExceededMessage =
 charityOfficialAddress.lookupPage.manualAddressLinkText = Charity''s address does not have a UK postcode
 
 charityOfficialAddress.selectPage.title = Select your charity''s official address - Charity Information - Register your charity''s details with HMRC - GOV.UK
 charityOfficialAddress.selectPage.heading = What is your charity''s full address?
-charityOfficialAddress.selectPage.headingWithPostcode = Postcode search
-charityOfficialAddress.selectPage.proposalListLabel =
-charityOfficialAddress.selectPage.submitLabel = Continue
-charityOfficialAddress.selectPage.searchAgainLinkText =
 charityOfficialAddress.selectPage.editAddressLinkText = Enter charity''s address manually
 
 charityOfficialAddress.editPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
 charityOfficialAddress.editPage.heading = What is your charity''s full address?
-charityOfficialAddress.editPage.line1Label = Address line 1
-charityOfficialAddress.editPage.line2Label = Address line 2 (optional)
-charityOfficialAddress.editPage.line3Label = Address line 3 (optional)
-charityOfficialAddress.editPage.townLabel = Town or city
-charityOfficialAddress.editPage.postcodeLabel = Postcode or Zipcode (optional)
-charityOfficialAddress.editPage.submitLabel = Continue
 
 charityOfficialAddress.confirmPage.title = Confirm your charity''s address - Charity Information - Register your charity''s details with HMRC - GOV.UK
 charityOfficialAddress.confirmPage.heading = Confirm your charity''s address
-charityOfficialAddress.confirmPage.infoMessage =
 charityOfficialAddress.confirmPage.infoSubheading = Your selected address
-charityOfficialAddress.confirmPage.submitLabel = Confirm and continue
-charityOfficialAddress.confirmPage.searchAgainLinkText =
 charityOfficialAddress.confirmPage.changeLinkText = Change charity''s address
-charityOfficialAddress.confirmPage.confirmChangeText =
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Official address
 
@@ -676,3 +682,24 @@ authorisedOfficialsNINO.heading = What is {0}''s National Insurance number?
 authorisedOfficialsNINO.hint = For example, QQ 12 34 56 C
 authorisedOfficialsNINO.error.required = Enter their National Insurance number
 authorisedOfficialsNINO.error.format = Enter a National Insurance number in the correct format
+
+# Authorised  Official Address Messages
+# ----------------------------------------------------------
+authorisedOfficialAddress.lookupPage.title = What is the authorised official''s address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.lookupPage.heading = What is {0}''s home address?
+authorisedOfficialAddress.lookupPage.manualAddressLinkText = Authorised official''s home address does not have a UK postcode
+
+authorisedOfficialAddress.selectPage.title = What is the authorised official''s full address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.selectPage.heading = What is {0}''s full home address?
+authorisedOfficialAddress.selectPage.editAddressLinkText = Enter authorised official''s home address manually
+
+authorisedOfficialAddress.editPage.title = What is the authorised official''s full address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.editPage.heading = What is {0}''s full home address?
+
+authorisedOfficialAddress.confirmPage.title = Confirm the authorised official''s address - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.confirmPage.heading = Confirm {0}''s address
+authorisedOfficialAddress.confirmPage.infoSubheading = Your selected address
+authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised official''s home address
+
+authorisedOfficialAddress.addressLookup.checkYourAnswersLabel = Authorised Official address
+

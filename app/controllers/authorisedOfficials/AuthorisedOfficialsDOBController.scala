@@ -49,12 +49,13 @@ class AuthorisedOfficialsDOBController @Inject()(
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getAuthorisedOfficialName(index) {
-      val preparedForm = request.userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      authorisedOfficialsName =>
+    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+
+        val preparedForm = request.userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
+          case None => form
+          case Some(value) => form.fill(value)
+        }
+
         Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
       }
   }

@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 
 case class AuthorisedOfficialsName(firstName: String, middleName: Option[String], lastName: String) {
@@ -28,7 +28,7 @@ case class AuthorisedOfficialsName(firstName: String, middleName: Option[String]
 
 object AuthorisedOfficialsName {
 
-  implicit val formats = Json.format[AuthorisedOfficialsName]
+  implicit val formats: OFormat[AuthorisedOfficialsName] = Json.format[AuthorisedOfficialsName]
 
   override def toString: String = "authorisedOfficialsName"
 }
@@ -37,7 +37,9 @@ case class AuthorisedOfficialsPhoneNumber(daytimePhone: String, mobilePhone: Opt
 
 object AuthorisedOfficialsPhoneNumber {
 
-  implicit val formats = Json.format[AuthorisedOfficialsPhoneNumber]
+  implicit val formats: OFormat[AuthorisedOfficialsPhoneNumber] = Json.format[AuthorisedOfficialsPhoneNumber]
 
   override def toString: String = "authorisedOfficialsPhoneNumber"
 }
+
+

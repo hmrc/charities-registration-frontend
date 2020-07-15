@@ -19,42 +19,42 @@ package controllers.authorisedOfficials
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialsPhoneNumberFormProvider
+import forms.authorisedOfficials.AuthorisedOfficialsNINOFormProvider
 import javax.inject.Inject
-import models.{AuthorisedOfficialsPhoneNumber, Index, Mode}
+import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AuthorisedOfficialsPhoneNumberPage
+import pages.authorisedOfficials.AuthorisedOfficialsNINOPage
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsPhoneNumberView
+import views.html.authorisedOfficials.AuthorisedOfficialsNINOView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialsPhoneNumberController @Inject()(
-   val sessionRepository: UserAnswerRepository,
-   val navigator: AuthorisedOfficialsNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: AuthorisedOfficialsPhoneNumberFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: AuthorisedOfficialsPhoneNumberView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class AuthorisedOfficialsNINOController @Inject()(
+    val sessionRepository: UserAnswerRepository,
+    val navigator: AuthorisedOfficialsNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: AuthorisedOfficialsNINOFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: AuthorisedOfficialsNINOView
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  val form: Form[AuthorisedOfficialsPhoneNumber] = formProvider()
+  val form: Form[String] = formProvider()
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     getAuthorisedOfficialName(index) {
-      val preparedForm = request.userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
+      val preparedForm = request.userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
         case None => form
         case Some(value) => form.fill(value)
       }
       authorisedOfficialsName =>
         Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
-    }
+      }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -68,9 +68,29 @@ class AuthorisedOfficialsPhoneNumberController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsPhoneNumberPage(index), value).flatMap(_.set(Section7Page, false)))
+          updatedAnswers <-
+            Future.fromTry(request.userAnswers.set(AuthorisedOfficialsNINOPage(index), transformNino(value.filterNot(_.isWhitespace))).flatMap(_.set(Section7Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(AuthorisedOfficialsNINOPage(index), mode, updatedAnswers))
     )
+  }
+
+  private def transformNino(nino: String): String = {
+
+    def iteration(accumulator: String, itr: List[Char], index: Int): String = {
+      itr match {
+        case head :: Nil => accumulator + head.toString
+        case head :: tail =>
+          if(index % 2 == 0) {
+            iteration(accumulator + head.toString + " ", tail, index + 1)
+          }
+          else {
+            iteration(accumulator + head.toString, tail, index + 1)
+          }
+        case _ => accumulator
+      }
+    }
+    iteration("", nino.toList, 1)
+
   }
 }

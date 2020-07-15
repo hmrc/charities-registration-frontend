@@ -50,7 +50,13 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case IsAuthorisedOfficialPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialPositionPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNINOController.onPageLoad(NormalMode, index)
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsNINOPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -75,6 +81,16 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IsAuthorisedOfficialPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialPositionPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsNINOPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

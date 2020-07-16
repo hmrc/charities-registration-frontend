@@ -17,11 +17,30 @@
 package utils
 
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
+import com.ibm.icu.text.SimpleDateFormat
+import com.ibm.icu.util.{TimeZone, ULocale}
+import org.joda.time.{MonthDay, LocalDate => JLocalDate}
+import play.api.i18n.Messages
 
 import scala.language.implicitConversions
 
 trait ImplicitDateFormatter {
-  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
-  implicit def dateToString(date:LocalDate): String = dateFormatter.format(date)
+
+  implicit def dateToString(date:LocalDate)(implicit messages: Messages): String = createDateFormatForPattern(
+    "d MMMM yyyy").format(new JLocalDate(date.getYear, date.getMonthValue, date.getDayOfMonth).toDate)
+
+  implicit def monthToString(monthDay: MonthDay)(implicit messages: Messages): String = createDateFormatForPattern(
+    "d MMMM").format(new JLocalDate(LocalDate.now().getYear, monthDay.getMonthOfYear, monthDay.getDayOfMonth).toDate)
+
+  private val defaultTimeZone: TimeZone = TimeZone.getTimeZone("Europe/London")
+
+  private def createDateFormatForPattern(pattern: String)(implicit messages: Messages): SimpleDateFormat = {
+    val uLocale = new ULocale(messages.lang.code)
+    val validLang: Boolean = ULocale.getAvailableLocales.contains(uLocale)
+    val locale: ULocale = if (validLang) uLocale else ULocale.getDefault
+    val sdf = new SimpleDateFormat(pattern, locale)
+    sdf.setTimeZone(defaultTimeZone)
+    sdf
+  }
 }

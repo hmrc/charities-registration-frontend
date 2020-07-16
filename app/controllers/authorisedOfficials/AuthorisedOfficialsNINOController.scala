@@ -69,7 +69,8 @@ class AuthorisedOfficialsNINOController @Inject()(
       value =>
         for {
           updatedAnswers <-
-            Future.fromTry(request.userAnswers.set(AuthorisedOfficialsNINOPage(index), transformNino(value.filterNot(_.isWhitespace))).flatMap(_.set(Section7Page, false)))
+            Future.fromTry(request.userAnswers.set(AuthorisedOfficialsNINOPage(index), transformNino(
+              value.filterNot(_.isWhitespace))).flatMap(_.set(Section7Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(AuthorisedOfficialsNINOPage(index), mode, updatedAnswers))
     )
@@ -77,6 +78,7 @@ class AuthorisedOfficialsNINOController @Inject()(
 
   private def transformNino(nino: String): String = {
 
+    @scala.annotation.tailrec
     def iteration(accumulator: String, itr: List[Char], index: Int): String = {
       itr match {
         case head :: Nil => accumulator + head.toString

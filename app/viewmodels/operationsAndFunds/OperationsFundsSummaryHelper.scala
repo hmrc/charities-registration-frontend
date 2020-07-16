@@ -52,7 +52,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
       userAnswers.get(page).map{ ans =>
         summaryListRow(
           label = messages(s"$page.checkYourAnswersLabel"),
-          value = ans.toString("dd MMMM"),
+          value = ans,
           visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )

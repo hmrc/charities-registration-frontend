@@ -31,4 +31,9 @@ POST       /:index/authorised-official-enter-national-insurance                 
 GET        /:index/authorised-official-enter-national-insurance/change          controllers.authorisedOfficials.AuthorisedOfficialsNINOController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-enter-national-insurance/change          controllers.authorisedOfficials.AuthorisedOfficialsNINOController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /:index/authorised-official-changed-address                          controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/authorised-official-changed-address                          controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()

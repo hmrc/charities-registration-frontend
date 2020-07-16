@@ -16,6 +16,7 @@
 
 package views
 
+import controllers.routes
 import models.{NormalMode, TaskListSection}
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
@@ -48,9 +49,15 @@ class TaskListViewSpec extends ViewBehaviours  {
       val section7 = TaskListSection(
         controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad().url, "index.section.notStarted")
 
+      val section8 = TaskListSection(
+        routes.IndexController.onPageLoad().url, "index.section.notStarted")
+
+      val section9 = TaskListSection(
+        controllers.nominees.routes.CharityNomineeController.onPageLoad().url, "index.section.notStarted")
+
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[TaskList](Some(emptyUserAnswers))
-        view.apply(List(section1, section2, section3, section4, section5, section6, section7))(fakeRequest, messages, frontendAppConfig)
+        view.apply(List(section1, section2, section3, section4, section5, section6, section7, section8, section9))(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)

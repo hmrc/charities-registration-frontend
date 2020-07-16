@@ -703,3 +703,12 @@ authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised officia
 
 authorisedOfficialAddress.addressLookup.checkYourAnswersLabel = Authorised Official address
 
+
+# Charity Nominee messages
+# ----------------------------------------------------------
+charityNominee.title = Charity''s nominee
+charityNominee.heading = Your charity''s nominee
+charityNominee.p1 = You now have the option of adding a nominee.
+charityNominee.p2 = A nominee is a person or an organisation from outside your charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.
+charityNominee.p3 = Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if you appoint a nominee or that nominee changes.
+charityNominee.p4 = Adding information about a nominee takes around 5 minutes.

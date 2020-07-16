@@ -18,12 +18,13 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
-import controllers.charityInformation.{routes => charityInfoRoutes}
-import controllers.operationsAndFunds.{routes => opsAndFundsRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialsRoutes}
+import controllers.charityInformation.{routes => charityInfoRoutes}
+import controllers.nominees.{routes => charityNomineeRoutes}
+import controllers.operationsAndFunds.{routes => opsAndFundsRoutes}
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import javax.inject.Inject
-import models.{Index, NormalMode, TaskListSection, UserAnswers}
+import models.{NormalMode, TaskListSection, UserAnswers}
 import pages.QuestionPage
 import pages.sections._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -63,7 +64,13 @@ class IndexController @Inject()(
       val section7 = getSection(authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url,
         authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url, userAnswers, Section7Page)
 
-      val result = List(section1, section2, section3, section4, section5, section6, section7)
+      val section8 = getSection(routes.IndexController.onPageLoad().url,
+        routes.IndexController.onPageLoad().url, userAnswers, Section8Page) //To Do once pages for section 8 are created
+
+      val section9 = getSection(charityNomineeRoutes.CharityNomineeController.onPageLoad().url,
+        charityNomineeRoutes.CharityNomineeController.onPageLoad().url, userAnswers, Section9Page)
+
+      val result = List(section1, section2, section3, section4, section5, section6, section7, section8, section9)
 
       Ok(view(result))
     }

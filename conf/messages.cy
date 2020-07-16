@@ -683,6 +683,12 @@ authorisedOfficialsNINO.hint = (W)For example, QQ 12 34 56 C(W)
 authorisedOfficialsNINO.error.required = (W)Enter their National Insurance number(W)
 authorisedOfficialsNINO.error.format = (W)Enter a National Insurance number in the correct format(W)
 
+# Do you want to add another Authorised official Page Messages
+# ----------------------------------------------------------
+isAddAnotherAuthorisedOfficial.title = (W)Do you want to add another authorised official?(W)
+isAddAnotherAuthorisedOfficial.heading = (W)Do you want to add another authorised official?(W)
+isAddAnotherAuthorisedOfficial.error.required = (W)Select yes if you want to add another authorised official(W)
+
 # Authorised  Official Address Messages
 # ----------------------------------------------------------
 authorisedOfficialAddress.lookupPage.title = (W)What is the authorised official''s address? - Officials and nominees(W)

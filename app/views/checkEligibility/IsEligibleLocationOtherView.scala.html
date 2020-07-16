@@ -39,18 +39,7 @@
 
         @subheading("isEligibleLocationOther.section")
 
-        @yesNoRadio(form, "isEligibleLocationOther.heading")
-
-        <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                      @messages("isEligibleLocationOther.help")
-                    </span>
-            </summary>
-            <div class="govuk-details__text">
-                @messages("isEligibleLocationOther.hint")
-            </div>
-        </details>
+        @yesNoRadio(form, "isEligibleLocationOther.heading", Some(Html(messages("isEligibleLocationOther.hint"))))
 
         @button("site.continue")
 

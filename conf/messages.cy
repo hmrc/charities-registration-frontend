@@ -169,7 +169,6 @@ deadEnd.p2 = (W)You can also visit the task list to see the section status chang
 isEligiblePurpose.title = (W)Is your charity for charitable purposes only?(W)
 isEligiblePurpose.heading = (W)Is your charity for charitable purposes only?(W)
 isEligiblePurpose.section = (W)Check if you can register(W)
-isEligiblePurpose.help = (W)What are charitable purposes(W)
 isEligiblePurpose.hint = (W)Charitable purposes include things that contribute to education, animal welfare and relieving poverty(W)
 isEligiblePurpose.checkYourAnswersLabel = (W)Is your charity for charitable purposes only?(W)
 isEligiblePurpose.error.required = (W)Select yes if your charity is for charitable purposes only(W)
@@ -195,8 +194,7 @@ isEligibleLocation.error.required = (W)Select yes if your charity is based in th
 isEligibleLocationOther.title = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.heading = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.section = (W)Check if you can register(W)
-isEligibleLocationOther.help = (W)Countries in the European Union(W)
-isEligibleLocationOther.hint = (W)Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden(W)
+isEligibleLocationOther.hint = (W)Countries in the European Union are Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden(W)
 isEligibleLocationOther.checkYourAnswersLabel = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.error.required = (W)Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway(W)
 
@@ -294,7 +292,6 @@ charityRegulator.section = (W)Regulators and documents(W)
 # ----------------------------------------------------------
 isCharityRegulator.title = (W)Is your charity registered with a charity regulator?(W)
 isCharityRegulator.heading = (W)Is your charity registered with a charity regulator?(W)
-isCharityRegulator.help = (W)What is a charity regulator(W)
 isCharityRegulator.hint = (W)A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.(W)
 isCharityRegulator.error.required = (W)Select yes if your charity is registered with a charity regulator(W)
 isCharityRegulator.checkYourAnswersLabel = (W)Registered with a charity regulator(W)
@@ -317,9 +314,7 @@ charityCommissionRegistrationNumber.title = (W)What is your Charity Commission f
 charityCommissionRegistrationNumber.heading = (W)What is your Charity Commission for England and Wales registration number?(W)
 charityCommissionRegistrationNumber.error.required = (W)Enter your charity''s registration number(W)
 charityCommissionRegistrationNumber.error.format = (W)Registration number must be 6 or 7 numbers, like 123456 or 1234567(W)
-charityCommissionRegistrationNumber.hint = (W)For example, 123456 or 1234567(W)
-charityCommissionRegistrationNumber.help = (W)Where to find the registration number?(W)
-charityCommissionRegistrationNumber.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+charityCommissionRegistrationNumber.hint = (W)The registration number will be on any mail the regulator has sent you. For example, 123456 or 1234567(W)
 charityCommissionRegistrationNumber.checkYourAnswersLabel = (W)Charity Commission for England and Wales registration number(W)
 
 # ScottishRegulatorRegNumberPage Messages
@@ -328,9 +323,7 @@ scottishRegulatorRegNumber.title = (W)What is your Office of the Scottish Charit
 scottishRegulatorRegNumber.heading = (W)What is your Office of the Scottish Charity Regulator registration number?(W)
 scottishRegulatorRegNumber.error.required = (W)Enter your charity''s registration number(W)
 scottishRegulatorRegNumber.error.format = (W)Registration number is SC then 0 and 5 numbers, like SC012345(W)
-scottishRegulatorRegNumber.hint = (W)For example, SC012345(W)
-scottishRegulatorRegNumber.help = (W)Where to find the registration number?(W)
-scottishRegulatorRegNumber.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+scottishRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent you. For example, SC012345(W)
 scottishRegulatorRegNumber.checkYourAnswersLabel = (W)Office of the Scottish Charity Regulator registration number(W)
 
 # NIRegulatorRegNumberPage Messages
@@ -339,9 +332,7 @@ nIRegulatorRegNumber.title = (W)What is your Charity Commission for Northern Ire
 nIRegulatorRegNumber.heading = (W)What is your Charity Commission for Northern Ireland registration number?(W)
 nIRegulatorRegNumber.error.required = (W)Enter your charity''s registration number(W)
 nIRegulatorRegNumber.error.format = (W)Registration number is 6 numbers, like 123456(W)
-nIRegulatorRegNumber.hint = (W)For example, 123456(W)
-nIRegulatorRegNumber.help = (W)Where to find the registration number?(W)
-nIRegulatorRegNumber.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+nIRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent you. For example, 123456(W)
 nIRegulatorRegNumber.checkYourAnswersLabel = (W)Charity Commission for Northern Ireland registration number(W)
 
 # CharityOtherRegulatorDetailsPage Messages
@@ -356,8 +347,7 @@ charityOtherRegulatorDetails.registrationNumber.label = (W)Registration number(W
 charityOtherRegulatorDetails.registrationNumber.error.required = (W)Enter your charity''s registration number(W)
 charityOtherRegulatorDetails.registrationNumber.error.format = (W)Your charity''s registration number must not include the following characters: & ( ) : @(W)
 charityOtherRegulatorDetails.registrationNumber.error.length = (W)Your charity''s registration number should be 20 characters or fewer(W)
-charityOtherRegulatorDetails.help = (W)Where to find the registration number?(W)
-charityOtherRegulatorDetails.hintText = (W)The registration number will be on any mail the regulator has sent you.(W)
+charityOtherRegulatorDetails.hint = (W)The registration number will be on any mail the regulator has sent you.(W)
 charityOtherRegulatorDetails.name.checkYourAnswersLabel = (W)Name of your other charity''s regulator(W)
 charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = (W)Registration number of your other charity''s regulator(W)
 

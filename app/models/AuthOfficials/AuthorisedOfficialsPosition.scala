@@ -51,8 +51,9 @@ object AuthorisedOfficialsPosition extends Enumerable.Implicits {
   case object UKAgent extends WithName("23") with AuthorisedOfficialsPosition
 
   val values: Seq[AuthorisedOfficialsPosition] = Seq(
-    BoardMember, Bursar, Chairman, ChiefExecutive, Director, Employee, FinanceManager, FinancialAccountant, GiftAidSecretary, Governor, HeadTeacher, AssistantHeadTeacher,
-     HumanResourcesManager, InformationOfficer, MinisterOfReligion, Principal, Secretary, AssistantSecretary, Teacher, Treasurer, AssistantTreasurer, Trustee, UKAgent
+    BoardMember, Bursar, Chairman, ChiefExecutive, Director, Employee, FinanceManager, FinancialAccountant,
+    GiftAidSecretary, Governor, HeadTeacher, AssistantHeadTeacher, HumanResourcesManager, InformationOfficer,
+    MinisterOfReligion, Principal, Secretary, AssistantSecretary, Teacher, Treasurer, AssistantTreasurer, Trustee, UKAgent
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {

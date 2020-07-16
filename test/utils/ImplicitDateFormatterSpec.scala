@@ -20,7 +20,15 @@ import base.SpecBase
 import java.time.format.DateTimeFormatter
 import java.time.{LocalDate, ZonedDateTime}
 
+import org.joda.time.{LocalDate=>JLocalDate, MonthDay}
+import play.api.Play
+import play.api.i18n.Messages
+import play.api.mvc.Cookie
+import play.api.test.FakeRequest
+
 class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
+
+  //scalastyle:off magic.number
 
   "The implicit date formatter" should {
 
@@ -43,5 +51,41 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
       val result: String = "1 April 2017"
       dateToString(ZonedDateTime.parse("2017-04-01T11:23:45.123Z", DateTimeFormatter.ISO_ZONED_DATE_TIME).toLocalDate) mustBe result
     }
+  }
+
+  "The implicit date formatter for Welsh" should {
+
+    implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+    implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
+
+    "format dates with single digit values in correct style" in {
+      val result: String = "1 Ebrill 2017"
+      dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
+    }
+
+    "format months in correct style" in {
+      val result: String = "30 Mehefin 2017"
+      dateToString(LocalDate.of(2017, 6, 30))(localMessages) mustBe result
+    }
+
+    "format MonthDay in correct style" in {
+      val result: String = "30 Mehefin"
+      monthToString(MonthDay.fromDateFields(
+        new JLocalDate(2017, 6, 30).toDate))(localMessages) mustBe result
+    }
+
+    "format MonthDay with single digit values in correct style" in {
+      val result: String = "1 Tachwedd"
+      monthToString(MonthDay.fromDateFields(
+        new JLocalDate(2017, 11, 1).toDate))(localMessages) mustBe result
+    }
+
+    "for invalid lang" in {
+      implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "QQ"))
+      implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
+      val result: String = "1 April 2017"
+      dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
+    }
+
   }
 }

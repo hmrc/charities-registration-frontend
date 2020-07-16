@@ -114,7 +114,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.accountingPeriodRow mustBe Some(
           summaryListRow(
             messages("accountingPeriodEndDate.checkYourAnswersLabel"),
-            "01 October",
+            "1 October",
             Some(messages("accountingPeriodEndDate.checkYourAnswersLabel")),
             routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
           )

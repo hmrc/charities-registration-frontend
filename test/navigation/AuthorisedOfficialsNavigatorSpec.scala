@@ -144,6 +144,26 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(AuthorisedOfficialAddressLookupPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0),
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+            authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, 0)
+        }
+      }
+
+      "from the AuthorisedOfficialPreviousAddressPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Previous Address Lookup flow when yes is selected" in {
+          navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), NormalMode,
+            emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0),true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the You have added one authorised official page when no is selected" in {
+          navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), NormalMode,
+            emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0),false).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
@@ -257,6 +277,29 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
+      }
+
+      "from the AuthorisedOfficialPreviousAddressPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Previous Address Lookup flow when yes is selected" in {
+          navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), CheckMode,
+            emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0),true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the You have added one authorised official page when no is selected" in {
+          navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), CheckMode,
+            emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0),false).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        //TODO Further cases depending on existing Address data/cleanup
+
       }
 
       "from any UnKnownPage" must {

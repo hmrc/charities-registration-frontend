@@ -703,6 +703,14 @@ authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised officia
 
 authorisedOfficialAddress.addressLookup.checkYourAnswersLabel = Authorised Official address
 
+# Authorised Officials Previous Address Page Messages
+# ----------------------------------------------------------
+authorisedOfficialPreviousAddress.title = Has the authorised official''s address changed in the last 12 months?
+authorisedOfficialPreviousAddress.heading = Has {0}''s address changed in the last 12 months?
+authorisedOfficialPreviousAddress.error.required = Select yes if their address has changed in the last 12 months
+
+# Section9 - Name nominees
+# ----------------------------------------------------------
 
 # Charity Nominee messages
 # ----------------------------------------------------------

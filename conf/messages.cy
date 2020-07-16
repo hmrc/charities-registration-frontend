@@ -267,6 +267,7 @@ charityOfficialAddress.editPage.heading = (W)What is your charity''s full addres
 charityOfficialAddress.confirmPage.title = (W)Confirm your charity''s address - Charity Information(W)
 charityOfficialAddress.confirmPage.heading = (W)Confirm your charity''s address(W)
 charityOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
+charityOfficialAddress.confirmPage.changeLinkText = (W)Change charity''s address(W)
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Official address(W)
 
@@ -701,6 +702,15 @@ authorisedOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(
 authorisedOfficialAddress.confirmPage.changeLinkText = (W)Change authorised official''s home address (W)
 
 authorisedOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Authorised Official address(W)
+
+# Authorised Officials Previous Address Page Messages
+# ----------------------------------------------------------
+authorisedOfficialPreviousAddress.title = (W)Has the authorised official''s address changed in the last 12 months?(W)
+authorisedOfficialPreviousAddress.heading = (W)Has {0}''s address changed in the last 12 months?(W)
+authorisedOfficialPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+
+# Section9 - Name nominees
+# ----------------------------------------------------------
 
 # Charity Nominee messages
 # ----------------------------------------------------------

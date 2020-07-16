@@ -253,18 +253,18 @@ charityContactDetails.emailAddress.checkYourAnswersLabel = (W)Email address(W)
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = (W)What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.lookupPage.title = (W)What is your charity''s address? - Charity Information(W)
 charityOfficialAddress.lookupPage.heading = (W)What is your charity''s address?(W)
 charityOfficialAddress.lookupPage.manualAddressLinkText = (W)Charity''s address does not have a UK postcode(W)
 
-charityOfficialAddress.selectPage.title = (W)Select your charity''s official address - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.selectPage.title = (W)Select your charity''s official address - Charity Information(W)
 charityOfficialAddress.selectPage.heading = (W)What is your charity''s full address?(W)
 charityOfficialAddress.selectPage.editAddressLinkText = (W)Enter charity''s address manually(W)
 
-charityOfficialAddress.editPage.title = (W)What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.editPage.title = (W)What is your charity''s address? - Charity Information(W)
 charityOfficialAddress.editPage.heading = (W)What is your charity''s full address?(W)
 
-charityOfficialAddress.confirmPage.title = (W)Confirm your charity''s address - Charity Information - Register your charity''s details with HMRC - GOV.UK(W)
+charityOfficialAddress.confirmPage.title = (W)Confirm your charity''s address - Charity Information(W)
 charityOfficialAddress.confirmPage.heading = (W)Confirm your charity''s address(W)
 charityOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
 
@@ -684,18 +684,18 @@ authorisedOfficialsNINO.error.format = (W)Enter a National Insurance number in t
 
 # Authorised  Official Address Messages
 # ----------------------------------------------------------
-authorisedOfficialAddress.lookupPage.title = (W)What is the authorised official''s address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK(W)
+authorisedOfficialAddress.lookupPage.title = (W)What is the authorised official''s address? - Officials and nominees(W)
 authorisedOfficialAddress.lookupPage.heading = (W)What is {0}''s home address?(W)
 authorisedOfficialAddress.lookupPage.manualAddressLinkText = (W)Authorised official''s home address does not have a UK postcode(W)
 
-authorisedOfficialAddress.selectPage.title = (W)What is the authorised official''s full address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK(W)
+authorisedOfficialAddress.selectPage.title = (W)What is the authorised official''s full address? - Officials and nominees(W)
 authorisedOfficialAddress.selectPage.heading = (W)What is {0}''s full home address?(W)
 authorisedOfficialAddress.selectPage.editAddressLinkText = (W)Enter authorised official''s home address manually(W)
 
-authorisedOfficialAddress.editPage.title = (W)What is the authorised official''s full address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK(W)
+authorisedOfficialAddress.editPage.title = (W)What is the authorised official''s full address? - Officials and nominees(W)
 authorisedOfficialAddress.editPage.heading = (W)What is {0}''s full home address?(W)
 
-authorisedOfficialAddress.confirmPage.title = (W)Confirm the authorised official''s address - Officials and nominees - Register your charity''s details with HMRC - GOV.UK(W)
+authorisedOfficialAddress.confirmPage.title = (W)Confirm the authorised official''s address - Officials and nominees(W)
 authorisedOfficialAddress.confirmPage.heading = (W)Confirm {0}''s address(W)
 authorisedOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
 authorisedOfficialAddress.confirmPage.changeLinkText = (W)Change authorised official''s home address (W)

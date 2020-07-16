@@ -253,18 +253,18 @@ charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
+charityOfficialAddress.lookupPage.title = What is your charity''s address? - Charity Information
 charityOfficialAddress.lookupPage.heading = What is your charity''s address?
 charityOfficialAddress.lookupPage.manualAddressLinkText = Charity''s address does not have a UK postcode
 
-charityOfficialAddress.selectPage.title = Select your charity''s official address - Charity Information - Register your charity''s details with HMRC - GOV.UK
+charityOfficialAddress.selectPage.title = Select your charity''s official address - Charity Information
 charityOfficialAddress.selectPage.heading = What is your charity''s full address?
 charityOfficialAddress.selectPage.editAddressLinkText = Enter charity''s address manually
 
-charityOfficialAddress.editPage.title = What is your charity''s address? - Charity Information - Register your charity''s details with HMRC - GOV.UK
+charityOfficialAddress.editPage.title = What is your charity''s address? - Charity Information
 charityOfficialAddress.editPage.heading = What is your charity''s full address?
 
-charityOfficialAddress.confirmPage.title = Confirm your charity''s address - Charity Information - Register your charity''s details with HMRC - GOV.UK
+charityOfficialAddress.confirmPage.title = Confirm your charity''s address - Charity Information
 charityOfficialAddress.confirmPage.heading = Confirm your charity''s address
 charityOfficialAddress.confirmPage.infoSubheading = Your selected address
 charityOfficialAddress.confirmPage.changeLinkText = Change charity''s address
@@ -685,18 +685,18 @@ authorisedOfficialsNINO.error.format = Enter a National Insurance number in the 
 
 # Authorised  Official Address Messages
 # ----------------------------------------------------------
-authorisedOfficialAddress.lookupPage.title = What is the authorised official''s address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.lookupPage.title = What is the authorised official''s address? - Officials and nominees
 authorisedOfficialAddress.lookupPage.heading = What is {0}''s home address?
 authorisedOfficialAddress.lookupPage.manualAddressLinkText = Authorised official''s home address does not have a UK postcode
 
-authorisedOfficialAddress.selectPage.title = What is the authorised official''s full address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.selectPage.title = What is the authorised official''s full address? - Officials and nominees
 authorisedOfficialAddress.selectPage.heading = What is {0}''s full home address?
 authorisedOfficialAddress.selectPage.editAddressLinkText = Enter authorised official''s home address manually
 
-authorisedOfficialAddress.editPage.title = What is the authorised official''s full address? - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.editPage.title = What is the authorised official''s full address? - Officials and nominees
 authorisedOfficialAddress.editPage.heading = What is {0}''s full home address?
 
-authorisedOfficialAddress.confirmPage.title = Confirm the authorised official''s address - Officials and nominees - Register your charity''s details with HMRC - GOV.UK
+authorisedOfficialAddress.confirmPage.title = Confirm the authorised official''s address - Officials and nominees
 authorisedOfficialAddress.confirmPage.heading = Confirm {0}''s address
 authorisedOfficialAddress.confirmPage.infoSubheading = Your selected address
 authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised official''s home address

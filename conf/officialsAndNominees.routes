@@ -31,3 +31,4 @@ POST       /:index/authorised-official-enter-national-insurance                 
 GET        /:index/authorised-official-enter-national-insurance/change          controllers.authorisedOfficials.AuthorisedOfficialsNINOController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-enter-national-insurance/change          controllers.authorisedOfficials.AuthorisedOfficialsNINOController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()

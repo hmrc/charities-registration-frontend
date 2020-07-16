@@ -19,17 +19,15 @@ package navigation
 import java.time.LocalDate
 
 import base.SpecBase
-import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.addressLookup.{routes => addressLookupRoutes}
+import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models.AuthOfficials.AuthorisedOfficialsPosition
-import models.{AuthorisedOfficialsName, AuthorisedOfficialsPhoneNumber, CheckMode, Index, NormalMode}
-import models.{AuthorisedOfficialsPhoneNumber, _}
 import models.addressLookup.{AddressModel, CountryModel}
+import models.{AuthorisedOfficialsName, AuthorisedOfficialsPhoneNumber, CheckMode, Index, NormalMode}
 import pages.IndexPage
-import pages.authorisedOfficials._
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
-import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage}
+import pages.authorisedOfficials._
 
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
@@ -168,6 +166,20 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IsAddAnotherAuthorisedOfficialPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the DeadEnd page when clicked continue button" in {
+          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode,
+            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {
@@ -260,6 +272,20 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [Full name]’s home address? when clicked continue button" in {
           navigator.nextPage(AuthorisedOfficialsNINOPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsNINOPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IsAddAnotherAuthorisedOfficialPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the DeadEnd page when clicked continue button" in {
+          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode,
+            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

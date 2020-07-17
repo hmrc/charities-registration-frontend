@@ -42,3 +42,8 @@ GET        /add-another-authorised-official/change                              
 POST       /add-another-authorised-official/change                              controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onSubmit(mode: Mode = CheckMode)
 
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
+
+GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)
+POST       /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onSubmit(mode: Mode = NormalMode)
+GET        /authorise-nominee/change                                            controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = CheckMode)
+POST       /authorise-nominee/change                                            controllers.nominees.IsAuthoriseNomineeController.onSubmit(mode: Mode = CheckMode)

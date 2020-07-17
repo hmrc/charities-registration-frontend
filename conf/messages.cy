@@ -714,3 +714,9 @@ charityNominee.p1 = (W)You now have the option of adding a nominee.(W)
 charityNominee.p2 = (W)A nominee is a person or an organisation from outside your charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.(W)
 charityNominee.p3 = (W)Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if you appoint a nominee or that nominee changes.(W)
 charityNominee.p4 = (W)Adding information about a nominee takes around 5 minutes.(W)
+
+# Do you want to add a nominee Page Messages
+# ----------------------------------------------------------
+isAuthoriseNominee.title = (W)Do you want to authorise a nominee from outside your charity?(W)
+isAuthoriseNominee.heading = (W)Do you want to authorise a nominee from outside your charity?(W)
+isAuthoriseNominee.error.required = (W)Select yes if you want to add a nominee(W)

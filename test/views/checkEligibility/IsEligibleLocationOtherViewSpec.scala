@@ -41,7 +41,7 @@ class IsEligibleLocationOtherViewSpec extends YesNoViewBehaviours  {
 
       behave like pageWithSubHeading(applyView(form), "Check if you can register")
 
-      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "help", "hint")
+      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "hint")
 
       behave like pageWithBackLink(applyView(form))
 

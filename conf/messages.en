@@ -169,7 +169,6 @@ deadEnd.p2 = You can also visit the task list to see the section status change f
 isEligiblePurpose.title = Is your charity for charitable purposes only?
 isEligiblePurpose.heading = Is your charity for charitable purposes only?
 isEligiblePurpose.section = Check if you can register
-isEligiblePurpose.help = What are charitable purposes
 isEligiblePurpose.hint = Charitable purposes include things that contribute to education, animal welfare and relieving poverty
 isEligiblePurpose.checkYourAnswersLabel = Is your charity for charitable purposes only?
 isEligiblePurpose.error.required = Select yes if your charity is for charitable purposes only
@@ -195,8 +194,7 @@ isEligibleLocation.error.required = Select yes if your charity is based in the U
 isEligibleLocationOther.title = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 isEligibleLocationOther.heading = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 isEligibleLocationOther.section = Check if you can register
-isEligibleLocationOther.help = Countries in the European Union
-isEligibleLocationOther.hint = Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden
+isEligibleLocationOther.hint = Countries in the European Union are Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden
 isEligibleLocationOther.checkYourAnswersLabel = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 isEligibleLocationOther.error.required = Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway
 
@@ -294,7 +292,6 @@ charityRegulator.section = Regulators and documents
 # ----------------------------------------------------------
 isCharityRegulator.title = Is your charity registered with a charity regulator?
 isCharityRegulator.heading = Is your charity registered with a charity regulator?
-isCharityRegulator.help = What is a charity regulator
 isCharityRegulator.hint = A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.
 isCharityRegulator.error.required = Select yes if your charity is registered with a charity regulator
 isCharityRegulator.checkYourAnswersLabel = Registered with a charity regulator
@@ -317,9 +314,7 @@ charityCommissionRegistrationNumber.title = What is your Charity Commission for 
 charityCommissionRegistrationNumber.heading = What is your Charity Commission for England and Wales registration number?
 charityCommissionRegistrationNumber.error.required = Enter your charity''s registration number
 charityCommissionRegistrationNumber.error.format = Registration number must be 6 or 7 numbers, like 123456 or 1234567
-charityCommissionRegistrationNumber.hint = For example, 123456 or 1234567
-charityCommissionRegistrationNumber.help = Where to find the registration number?
-charityCommissionRegistrationNumber.hintText = The registration number will be on any mail the regulator has sent you.
+charityCommissionRegistrationNumber.hint = The registration number will be on any mail the regulator has sent you. For example, 123456 or 1234567
 charityCommissionRegistrationNumber.checkYourAnswersLabel = Charity Commission for England and Wales registration number
 
 # ScottishRegulatorRegNumberPage Messages
@@ -328,9 +323,7 @@ scottishRegulatorRegNumber.title = What is your Office of the Scottish Charity R
 scottishRegulatorRegNumber.heading = What is your Office of the Scottish Charity Regulator registration number?
 scottishRegulatorRegNumber.error.required = Enter your charity''s registration number
 scottishRegulatorRegNumber.error.format = Registration number is SC then 0 and 5 numbers, like SC012345
-scottishRegulatorRegNumber.hint = For example, SC012345
-scottishRegulatorRegNumber.help = Where to find the registration number?
-scottishRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.
+scottishRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent you. For example, SC012345
 scottishRegulatorRegNumber.checkYourAnswersLabel = Office of the Scottish Charity Regulator registration number
 
 # NIRegulatorRegNumberPage Messages
@@ -339,9 +332,7 @@ nIRegulatorRegNumber.title = What is your Charity Commission for Northern Irelan
 nIRegulatorRegNumber.heading = What is your Charity Commission for Northern Ireland registration number?
 nIRegulatorRegNumber.error.required = Enter your charity''s registration number
 nIRegulatorRegNumber.error.format = Registration number is 6 numbers, like 123456
-nIRegulatorRegNumber.hint = For example, 123456
-nIRegulatorRegNumber.help = Where to find the registration number?
-nIRegulatorRegNumber.hintText = The registration number will be on any mail the regulator has sent you.
+nIRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent you. For example, 123456
 nIRegulatorRegNumber.checkYourAnswersLabel = Charity Commission for Northern Ireland registration number
 
 # CharityOtherRegulatorDetailsPage Messages
@@ -356,8 +347,7 @@ charityOtherRegulatorDetails.registrationNumber.label = Registration number
 charityOtherRegulatorDetails.registrationNumber.error.required = Enter your charity''s registration number
 charityOtherRegulatorDetails.registrationNumber.error.format = Your charity''s registration number must not include the following characters: & ( ) : @
 charityOtherRegulatorDetails.registrationNumber.error.length = Your charity''s registration number should be 20 characters or fewer
-charityOtherRegulatorDetails.help = Where to find the registration number?
-charityOtherRegulatorDetails.hintText = The registration number will be on any mail the regulator has sent you.
+charityOtherRegulatorDetails.hint = The registration number will be on any mail the regulator has sent you.
 charityOtherRegulatorDetails.name.checkYourAnswersLabel = Name of your other charity''s regulator
 charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number of your other charity''s regulator
 
@@ -683,11 +673,6 @@ authorisedOfficialsNINO.hint = For example, QQ 12 34 56 C
 authorisedOfficialsNINO.error.required = Enter their National Insurance number
 authorisedOfficialsNINO.error.format = Enter a National Insurance number in the correct format
 
-# Do you want to add another Authorised official Page Messages
-# ----------------------------------------------------------
-isAddAnotherAuthorisedOfficial.title = Do you want to add another authorised official?
-isAddAnotherAuthorisedOfficial.heading = Do you want to add another authorised official?
-isAddAnotherAuthorisedOfficial.error.required = Select yes if you want to add another authorised official
 # Authorised  Official Address Messages
 # ----------------------------------------------------------
 authorisedOfficialAddress.lookupPage.title = What is the authorised official''s address? - Officials and nominees
@@ -714,6 +699,12 @@ authorisedOfficialPreviousAddress.title = Has the authorised official''s address
 authorisedOfficialPreviousAddress.heading = Has {0}''s address changed in the last 12 months?
 authorisedOfficialPreviousAddress.error.required = Select yes if their address has changed in the last 12 months
 
+# Do you want to add another Authorised official Page Messages
+# ----------------------------------------------------------
+isAddAnotherAuthorisedOfficial.title = Do you want to add another authorised official?
+isAddAnotherAuthorisedOfficial.heading = Do you want to add another authorised official?
+isAddAnotherAuthorisedOfficial.error.required = Select yes if you want to add another authorised official
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 
@@ -725,4 +716,3 @@ charityNominee.p1 = You now have the option of adding a nominee.
 charityNominee.p2 = A nominee is a person or an organisation from outside your charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.
 charityNominee.p3 = Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if you appoint a nominee or that nominee changes.
 charityNominee.p4 = Adding information about a nominee takes around 5 minutes.
-

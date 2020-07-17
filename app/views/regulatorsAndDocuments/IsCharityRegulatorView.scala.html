@@ -38,18 +38,7 @@
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "isCharityRegulator.heading")
-
-        <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                            <span class="govuk-details__summary-text">
-                              @messages("isCharityRegulator.help")
-                            </span>
-            </summary>
-            <div class="govuk-details__text">
-                @messages("isCharityRegulator.hint")
-            </div>
-        </details>
+        @yesNoRadio(form, "isCharityRegulator.heading", Some(Html(messages("isCharityRegulator.hint"))))
 
         @button("site.continue")
 

@@ -40,18 +40,7 @@
 
         @subheading("isEligiblePurpose.section")
 
-        @yesNoRadio(form, "isEligiblePurpose.heading")
-
-        <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                      @messages("isEligiblePurpose.help")
-                    </span>
-            </summary>
-            <div class="govuk-details__text">
-                @messages("isEligiblePurpose.hint")
-            </div>
-        </details>
+        @yesNoRadio(form, "isEligiblePurpose.heading", Some(Html(messages("isEligiblePurpose.hint"))))
 
         @button("site.continue")
 

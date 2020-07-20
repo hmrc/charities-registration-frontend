@@ -14,28 +14,31 @@
  * limitations under the License.
  *@
 
+@import controllers.nominees.routes._
 @import models.Mode
 @import views.ViewUtils._
 @import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
-    h1: components.h1,
-    link: components.linkAsButton,
-    p : components.p
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    yesNoRadio: components.yesNoRadio,
+    button: components.button,
 )
 
-@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("charityNominee.title", Some("officialsAndNominees.section")))) {
+@govukLayout(pageTitle = Some(title(form, "isAuthoriseNominee.title", Some("officialsAndNominees.section")))) {
 
-    @h1(messages("charityNominee.heading"))
+    @formHelper(action = IsAuthoriseNomineeController.onSubmit(mode)) {
 
-    @p(Html(messages("charityNominee.p1")))
-    @p(Html(messages("charityNominee.p2")))
-    @p(Html(messages("charityNominee.p3")))
-    @p(Html(messages("charityNominee.p4")))
+    @errorSummary(form.errors)
 
-    @link(controllers.nominees.routes.IsAuthoriseNomineeController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))
+    @yesNoRadio(form, "isAuthoriseNominee.heading")
+
+    @button("site.saveAndContinue")
+
+   }
 
 }

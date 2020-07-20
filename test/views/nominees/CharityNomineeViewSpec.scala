@@ -17,6 +17,8 @@
 package views.nominees
 
 import assets.messages.BaseMessages
+import controllers.nominees.routes
+import models.NormalMode
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.nominees.CharityNomineeView
@@ -39,7 +41,7 @@ class CharityNomineeViewSpec extends ViewBehaviours  {
 
       behave like pageWithBackLink(applyView())
 
-      behave like pageWithHyperLink(applyView(), "linkButton",controllers.routes.DeadEndController.onPageLoad().url,BaseMessages.continue)
+      behave like pageWithHyperLink(applyView(), "linkButton",routes.IsAuthoriseNomineeController.onSubmit(NormalMode).url,BaseMessages.continue)
 
     }
   }

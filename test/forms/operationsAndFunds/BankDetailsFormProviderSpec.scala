@@ -65,7 +65,6 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     val fieldName = "sortCode"
     val requiredKey = "bankDetails.sortCode.error.required"
-    val lengthKey = "bankDetails.sortCode.error.length"
     val invalidKey = "bankDetails.sortCode.error.format"
 
     val validSortCodeGen = for {
@@ -116,19 +115,19 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "not bind sort codes with characters" in {
       val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
-      val expectedError = FormError(fieldName, lengthKey, Seq(formProvider.sortCodePattern))
+      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind sort codes with less than 6 digit" in {
       val result = form.bind(Map(fieldName -> "12   34  5")).apply(fieldName)
-      val expectedError = FormError(fieldName, lengthKey, Seq(formProvider.sortCodePattern))
+      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind sort codes with more than 6 digit" in {
       val result = form.bind(Map(fieldName -> "12   34  5678")).apply(fieldName)
-      val expectedError = FormError(fieldName, lengthKey, Seq(formProvider.sortCodePattern))
+      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
       result.errors.head.key mustEqual expectedError.key
     }
   }
@@ -137,7 +136,6 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     val fieldName = "accountNumber"
     val requiredKey = "bankDetails.accountNumber.error.required"
-    val lengthKey = "bankDetails.accountNumber.error.length"
     val invalidKey = "bankDetails.accountNumber.error.format"
     val minLength = 6
     val maxLength = 8
@@ -173,19 +171,19 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "not bind strings with characters" in {
       val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
-      val expectedError = FormError(fieldName, "bankDetails.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind strings with less than 6 digit" in {
       val result = form.bind(Map(fieldName -> "12 34   5")).apply(fieldName)
-      val expectedError = FormError(fieldName, "bankDetails.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind strings with more than 8 digit" in {
       val result = form.bind(Map(fieldName -> "12 34 56 789")).apply(fieldName)
-      val expectedError = FormError(fieldName, "bankDetails.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
   }

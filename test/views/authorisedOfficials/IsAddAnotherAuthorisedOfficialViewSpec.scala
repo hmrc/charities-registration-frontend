@@ -38,7 +38,7 @@ class IsAddAnotherAuthorisedOfficialViewSpec extends YesNoViewBehaviours  {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, Seq("test"), section = section)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 

@@ -298,8 +298,8 @@ isCharityRegulator.checkYourAnswersLabel = (W)Registered with a charity regulato
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = (W)Who are your charity''s regulator?(W)
-charityRegulator.heading = (W)Who are your charity''s regulator?(W)
+charityRegulator.title = (W)What are your charity''s regulator?(W)
+charityRegulator.heading = (W)What are your charity''s regulator?(W)
 charityRegulator.hint = (W)Select all that apply(W)
 charityRegulator.error.required = (W)Select your charity''s regulator or regulators(W)
 charityRegulator.ccew = (W)Charity Commission for England and Wales(W)

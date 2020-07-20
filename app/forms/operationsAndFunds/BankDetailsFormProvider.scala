@@ -30,9 +30,6 @@ class BankDetailsFormProvider @Inject() extends Mappings {
   private[operationsAndFunds] val rollNumberPattern: String = "^[a-zA-Z0-9,. -]*$".r.anchored.toString
 
   private[operationsAndFunds] val maxLengthAccountName = 60
-  private[operationsAndFunds] val maxLengthSortCode = 6
-  private[operationsAndFunds] val minLengthAccountNumber = 6
-  private[operationsAndFunds] val maxLengthAccountNumber = 8
   private[operationsAndFunds] val maxLengthRollNumber = 18
 
 
@@ -43,14 +40,12 @@ class BankDetailsFormProvider @Inject() extends Mappings {
           .verifying(maxLength(maxLengthAccountName, "bankDetails.accountName.error.length"))
           .verifying(regexp(validateFields,"bankDetails.accountName.error.format")),
         "sortCode" -> text("bankDetails.sortCode.error.required")
-          .verifying(sortCodeLength(maxLengthSortCode, "bankDetails.sortCode.error.length"))
           .verifying(regexp(sortCodePattern,"bankDetails.sortCode.error.format")),
         "accountNumber" -> text("bankDetails.accountNumber.error.required")
-          .verifying(accountNumberLength(minLengthAccountNumber, maxLengthAccountNumber, "bankDetails.accountNumber.error.length"))
           .verifying(regexp(accountNumberPattern,"bankDetails.accountNumber.error.format")),
         "rollNumber" -> optional(text()
-          .verifying(maxLength(maxLengthRollNumber, "bankDetails.rollNumber.error.length")).
-          verifying(regexp(rollNumberPattern,"bankDetails.rollNumber.error.format")))
+          .verifying(maxLength(maxLengthRollNumber, "bankDetails.rollNumber.error.length"))
+          .verifying(regexp(rollNumberPattern,"bankDetails.rollNumber.error.format")))
       )(BankDetails.apply)(BankDetails.unapply)
     )
 }

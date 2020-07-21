@@ -21,7 +21,7 @@ import java.time.LocalDate
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import models.AuthOfficials.OfficialsPosition
 import models.addressLookup.AddressModel
-import models.{CheckMode, Index, Name, UserAnswers}
+import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
 import play.api.i18n.Messages
@@ -42,6 +42,11 @@ class AddedOneAuthorisedOfficialHelper(index: Index) (override val userAnswers: 
   def authOfficialDobRows: List[SummaryListRow] =
     userAnswers.get(AuthorisedOfficialsDOBPage(index)).map{ LocalDate =>
       answerAuthOfficialsDOB(LocalDate, authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(CheckMode, index))
+    }.fold(List[SummaryListRow]())(_.toList)
+
+  def authorisedOfficialsPhoneNumberRow: List[SummaryListRow] =
+    userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)).map{ contact =>
+      answerOfficialsPhoneNumber(contact, authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, index))
     }.fold(List[SummaryListRow]())(_.toList)
 
   def authOfficialPositionRows: List[SummaryListRow] =
@@ -88,6 +93,28 @@ class AddedOneAuthorisedOfficialHelper(index: Index) (override val userAnswers: 
         label = messages("authorisedOfficialsDOB.checkYourAnswersLabel"),
         value = authorisedOfficialsDOB,
         visuallyHiddenText = Some(messages("authorisedOfficialsDOB.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    )
+  ).flatten
+
+  private def answerOfficialsPhoneNumber(authorisedOfficialsPhoneNumber: PhoneNumber,
+                                         changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
+
+    Some(
+      summaryListRow(
+        label = messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
+        value = authorisedOfficialsPhoneNumber.daytimePhone,
+        visuallyHiddenText = Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    ),
+
+    authorisedOfficialsPhoneNumber.mobilePhone.map( mobilePhone =>
+      summaryListRow(
+        label = messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
+        value = mobilePhone,
+        visuallyHiddenText = Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
     )
@@ -158,6 +185,7 @@ class AddedOneAuthorisedOfficialHelper(index: Index) (override val userAnswers: 
   val rows: Seq[SummaryListRow] = Seq(
     authOfficialNamesRows,
     authOfficialDobRows,
+    authorisedOfficialsPhoneNumberRow,
     authOfficialPositionRows,
     authOfficialHasNINORow,
     authOfficialNINoRows,

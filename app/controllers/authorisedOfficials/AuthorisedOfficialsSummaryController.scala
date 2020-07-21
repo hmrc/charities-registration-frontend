@@ -14,47 +14,47 @@
  * limitations under the License.
  */
 
-package controllers.nominees
+package controllers.authorisedOfficials
 
-import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import models.NormalMode
-import navigation.NomineesNavigator
-import pages.nominees.NomineeDetailsSummaryPage
-import pages.sections.Section9Page
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import javax.inject.Inject
+import models.{Index, NormalMode}
+import navigation.AuthorisedOfficialsNavigator
+import pages.authorisedOfficials.AuthorisedOfficialsSummaryPage
+import pages.sections.Section7Page
+import play.api.mvc._
 import repositories.UserAnswerRepository
-import viewmodels.nominees.NomineeDetailsSummaryHelper
+import viewmodels.authorisedOfficials.AuthorisedOfficialsSummaryHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
-class NomineeDetailsSummaryController @Inject()(
+class AuthorisedOfficialsSummaryController @Inject()(
     val sessionRepository: UserAnswerRepository,
-    val navigator: NomineesNavigator,
+    val navigator: AuthorisedOfficialsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
     view: CheckYourAnswersView,
     val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+)(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val nomineeSummaryHelper = new NomineeDetailsSummaryHelper(request.userAnswers)
+    val authorisedOfficialsSummaryHelper = new AuthorisedOfficialsSummaryHelper(Index(0))(request.userAnswers)
 
-    Ok(view(nomineeSummaryHelper.rows, NomineeDetailsSummaryPage,
-      controllers.nominees.routes.NomineeDetailsSummaryController.onSubmit(), h2Required = true))
+    Ok(view(authorisedOfficialsSummaryHelper.rows, AuthorisedOfficialsSummaryPage,
+    controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit(), h2Required = true))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section9Page, true))
-      _              <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(NomineeDetailsSummaryPage, NormalMode, updatedAnswers))
+    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section7Page, true))
+    _              <- sessionRepository.set(updatedAnswers)
+    } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, updatedAnswers))
 
   }
 }

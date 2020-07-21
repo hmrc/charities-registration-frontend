@@ -181,10 +181,10 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the DeadEnd page when clicked continue button" in {
+        "go to the summary page when clicked continue button" in {
           navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode,
             emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
 

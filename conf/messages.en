@@ -628,7 +628,7 @@ authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number (optional)
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number (optional)
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 
 authorisedOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
 
@@ -720,6 +720,14 @@ addedOneAuthorisedOfficial.checkYourAnswers.heading = Check the authorised offic
 isAddAnotherAuthorisedOfficial.title = Do you want to add another authorised official?
 isAddAnotherAuthorisedOfficial.heading = Do you want to add another authorised official?
 isAddAnotherAuthorisedOfficial.error.required = Select yes if you want to add another authorised official
+isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = Add another authorised official
+
+# Authorised Officials Summary page
+# ----------------------------------------------------------
+authorisedOfficialsSummary.checkYourAnswers.title = Check the charity''s authorised official details
+authorisedOfficialsSummary.checkYourAnswers.heading = Check the charity''s authorised official details
+authorisedOfficialsSummary.checkYourAnswers.h2 = Authorised charity''s official
+authorisedOfficialsSummary.section = Officials and nominees
 
 # Section9 - Name nominees
 # ----------------------------------------------------------
@@ -744,4 +752,5 @@ isAuthoriseNominee.checkYourAnswersLabel = Authorise a nominee
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity''s nominee details
 nomineeDetailsSummary.checkYourAnswers.heading = Check the charity''s nominee details
+nomineeDetailsSummary.checkYourAnswers.h2 = Authorise a nominee
 nomineeDetailsSummary.section = Operations and funds

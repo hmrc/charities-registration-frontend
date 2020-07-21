@@ -628,7 +628,7 @@ authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = (W)Enter their m
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = (W)Alternative phone number (optional)(W)
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number (optional)(W)
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
 
 authorisedOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
 
@@ -720,6 +720,14 @@ addedOneAuthorisedOfficial.checkYourAnswers.heading = (W)Check the authorised of
 isAddAnotherAuthorisedOfficial.title = (W)Do you want to add another authorised official?(W)
 isAddAnotherAuthorisedOfficial.heading = (W)Do you want to add another authorised official?(W)
 isAddAnotherAuthorisedOfficial.error.required = (W)Select yes if you want to add another authorised official(W)
+isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = (W)Add another authorised official(W)
+
+# Authorised Officials Summary page
+# ----------------------------------------------------------
+authorisedOfficialsSummary.checkYourAnswers.title = (W)Check the charity''s authorised official details(W)
+authorisedOfficialsSummary.checkYourAnswers.heading = (W)Check the charity''s authorised official details(W)
+authorisedOfficialsSummary.checkYourAnswers.h2 = (W)Authorised charity''s official(W)
+authorisedOfficialsSummary.section = (W)Officials and nominees(W)
 
 # Section9 - Name nominees
 # ----------------------------------------------------------
@@ -744,4 +752,5 @@ isAuthoriseNominee.checkYourAnswersLabel = (W)Authorise a nominee(W)
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity''s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity''s nominee details(W)
+nomineeDetailsSummary.checkYourAnswers.h2 = (W)Authorise a nominee(W)
 nomineeDetailsSummary.section = (W)Operations and funds(W)

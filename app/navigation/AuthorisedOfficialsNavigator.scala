@@ -76,7 +76,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case AddedOneAuthorisedOfficialPage(index) => _ => authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
 
     case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

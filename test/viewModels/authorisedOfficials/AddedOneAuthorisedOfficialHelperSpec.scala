@@ -24,7 +24,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.AuthOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, UserAnswers}
+import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
 import viewmodels.SummaryListRowHelper
@@ -39,6 +39,8 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
   private val authorisedOfficialDetails: UserAnswers = emptyUserAnswers
     .set(AuthorisedOfficialsNamePage(0), Name(firstName = "John", None, lastName = "Jones")).success.value
     .set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
+    .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
+                                             mobilePhone = Some("07700 900 982"))).success.value
     .set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head).success.value
     .set(IsAuthorisedOfficialNinoPage(0), true).success.value
     .set(AuthorisedOfficialsNinoPage(0), "AA123456A").success.value
@@ -77,6 +79,26 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             authOfficials.AuthorisedOfficialsDOBController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
+      }
+    }
+
+    "For the AuthorisedOfficialsPhoneNumber answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper(authorisedOfficialDetails, 0).authorisedOfficialsPhoneNumberRow mustBe Seq(
+          summaryListRow(
+            messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
+            "07700 900 982",
+            Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          ),
+          summaryListRow(
+            messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
+            "07700 900 982",
+            Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          ))
       }
     }
 

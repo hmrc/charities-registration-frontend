@@ -738,3 +738,10 @@ charityNominee.p4 = Adding information about a nominee takes around 5 minutes.
 isAuthoriseNominee.title = Do you want to authorise a nominee from outside your charity?
 isAuthoriseNominee.heading = Do you want to authorise a nominee from outside your charity?
 isAuthoriseNominee.error.required = Select yes if you want to add a nominee
+isAuthoriseNominee.checkYourAnswersLabel = Authorise a nominee
+
+# Charity's Nominee Details Summary Page Messages
+# ----------------------------------------------------------
+nomineeDetailsSummary.checkYourAnswers.title = Check the charity''s nominee details
+nomineeDetailsSummary.checkYourAnswers.heading = Check the charity''s nominee details
+nomineeDetailsSummary.section = Operations and funds

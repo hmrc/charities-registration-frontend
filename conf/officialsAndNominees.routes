@@ -50,3 +50,6 @@ GET        /authorise-nominee                                                   
 POST       /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onSubmit(mode: Mode = NormalMode)
 GET        /authorise-nominee/change                                            controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = CheckMode)
 POST       /authorise-nominee/change                                            controllers.nominees.IsAuthoriseNomineeController.onSubmit(mode: Mode = CheckMode)
+
+GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
+POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

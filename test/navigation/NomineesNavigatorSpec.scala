@@ -18,9 +18,10 @@ package navigation
 
 import base.SpecBase
 import controllers.routes
+import controllers.nominees.{routes => nomineesRoutes}
 import models._
 import pages.IndexPage
-import pages.nominees.IsAuthoriseNomineePage
+import pages.nominees.{IsAuthoriseNomineePage, NomineeDetailsSummaryPage}
 
 class NomineesNavigatorSpec extends SpecBase {
 
@@ -37,10 +38,24 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
+        "go to the NomineeDetailsSummar page when No selected and clicked continue button" in {
+          navigator.nextPage(IsAuthoriseNomineePage, NormalMode,
+            emptyUserAnswers.set(IsAuthoriseNomineePage, false).success.value) mustBe
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
+        }
+
         "go to the DeadEnd page when clicked continue button" in {
           navigator.nextPage(IsAuthoriseNomineePage, NormalMode,
             emptyUserAnswers.set(IsAuthoriseNomineePage, true).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the NomineeDetailsSummaryPage" must {
+
+        "go to the TaskList page when clicked continue button" in {
+          navigator.nextPage(NomineeDetailsSummaryPage, CheckMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
         }
       }
 
@@ -58,14 +73,28 @@ class NomineesNavigatorSpec extends SpecBase {
       "from the IsAuthoriseNomineePage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsAuthoriseNomineePage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(IsAuthoriseNomineePage, CheckMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
+        "go to the NomineeDetailsSummar page when No selected and clicked continue button" in {
+          navigator.nextPage(IsAuthoriseNomineePage, CheckMode,
+            emptyUserAnswers.set(IsAuthoriseNomineePage, false).success.value) mustBe
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
+        }
+
         "go to the DeadEnd page when clicked continue button" in {
-          navigator.nextPage(IsAuthoriseNomineePage, NormalMode,
+          navigator.nextPage(IsAuthoriseNomineePage, CheckMode,
             emptyUserAnswers.set(IsAuthoriseNomineePage, true).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the NomineeDetailsSummaryPage" must {
+
+        "go to the TaskList page when clicked continue button" in {
+          navigator.nextPage(NomineeDetailsSummaryPage, CheckMode, emptyUserAnswers) mustBe
+            routes.IndexController.onPageLoad()
         }
       }
 

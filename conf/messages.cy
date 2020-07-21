@@ -738,3 +738,10 @@ charityNominee.p4 = (W)Adding information about a nominee takes around 5 minutes
 isAuthoriseNominee.title = (W)Do you want to authorise a nominee from outside your charity?(W)
 isAuthoriseNominee.heading = (W)Do you want to authorise a nominee from outside your charity?(W)
 isAuthoriseNominee.error.required = (W)Select yes if you want to add a nominee(W)
+isAuthoriseNominee.checkYourAnswersLabel = (W)Authorise a nominee(W)
+
+# Charity's Nominee Details Summary Page Messages
+# ----------------------------------------------------------
+nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity''s nominee details(W)
+nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity''s nominee details(W)
+nomineeDetailsSummary.section = (W)Operations and funds(W)

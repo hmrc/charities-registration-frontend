@@ -55,7 +55,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
   def selectWhyNoRegulatorRow: Option[SummaryListRow] =
     answer(SelectWhyNoRegulatorPage, regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode), answerIsMsgKey = true)
 
-  def whyNotRegsiteredCharityRow: Option[SummaryListRow] =
+  def whyNotRegisteredCharityRow: Option[SummaryListRow] =
     answer(WhyNotRegisteredWithCharityPage, regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode))
 
 
@@ -96,7 +96,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     regulatorNameRow,
     regulatorRegistrationNumberRow,
     selectWhyNoRegulatorRow,
-    whyNotRegsiteredCharityRow
+    whyNotRegisteredCharityRow
   ).flatten
 
 }

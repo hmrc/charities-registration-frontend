@@ -39,12 +39,12 @@ class EligibilityNavigatorSpec extends SpecBase{
         }
 
         "go to the IsEligibleAccountController page when yes is selected" in {
-          navigator.nextPage(IsEligiblePurposePage, NormalMode, userAnsewers(IsEligiblePurposePage, true)) mustBe
+          navigator.nextPage(IsEligiblePurposePage, NormalMode, userAnswers(IsEligiblePurposePage, true)) mustBe
             elroutes.IsEligibleAccountController.onPageLoad()
         }
 
         "go to the InEligibleController page when No is selected" in {
-          navigator.nextPage(IsEligiblePurposePage, NormalMode, userAnsewers(IsEligiblePurposePage, false)) mustBe
+          navigator.nextPage(IsEligiblePurposePage, NormalMode, userAnswers(IsEligiblePurposePage, false)) mustBe
             elroutes.InEligibleController.onPageLoad()
         }
       }
@@ -57,12 +57,12 @@ class EligibilityNavigatorSpec extends SpecBase{
         }
 
         "go to the IsEligibleLocationController page when yes is selected" in {
-          navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnsewers(IsEligibleAccountPage, true)) mustBe
+          navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnswers(IsEligibleAccountPage, true)) mustBe
             elroutes.IsEligibleLocationController.onPageLoad()
         }
 
         "go to the InEligibleController page when No is selected" in {
-          navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnsewers(IsEligibleAccountPage, false)) mustBe
+          navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnswers(IsEligibleAccountPage, false)) mustBe
             elroutes.InEligibleController.onPageLoad()
         }
       }
@@ -75,12 +75,12 @@ class EligibilityNavigatorSpec extends SpecBase{
         }
 
         "go to the IndexController page when yes is selected" in {
-          navigator.nextPage(IsEligibleLocationPage, NormalMode, userAnsewers(IsEligibleLocationPage, true)) mustBe
+          navigator.nextPage(IsEligibleLocationPage, NormalMode, userAnswers(IsEligibleLocationPage, true)) mustBe
             routes.IndexController.onPageLoad()
         }
 
         "go to the IsEligibleLocationOtherController page when No is selected" in {
-          navigator.nextPage(IsEligibleLocationPage, NormalMode, userAnsewers(IsEligibleLocationPage, false)) mustBe
+          navigator.nextPage(IsEligibleLocationPage, NormalMode, userAnswers(IsEligibleLocationPage, false)) mustBe
             elroutes.IsEligibleLocationOtherController.onPageLoad()
         }
       }
@@ -93,12 +93,12 @@ class EligibilityNavigatorSpec extends SpecBase{
         }
 
         "go to the IndexController page when yes is selected" in {
-          navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnsewers(IsEligibleLocationOtherPage, true)) mustBe
+          navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnswers(IsEligibleLocationOtherPage, true)) mustBe
             routes.IndexController.onPageLoad()
         }
 
         "go to the InEligibleController page when No is selected" in {
-          navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnsewers(IsEligibleLocationOtherPage, false)) mustBe
+          navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnswers(IsEligibleLocationOtherPage, false)) mustBe
             elroutes.InEligibleController.onPageLoad()
         }
       }
@@ -124,7 +124,7 @@ class EligibilityNavigatorSpec extends SpecBase{
     }
   }
   
-  def userAnsewers(page: QuestionPage[Boolean], value : Boolean): UserAnswers ={
+  def userAnswers(page: QuestionPage[Boolean], value : Boolean): UserAnswers ={
     emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
   }
 }

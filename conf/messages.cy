@@ -666,19 +666,19 @@ authorisedOfficialsPosition.checkYourAnswersLabel = (W)Position(W)
 
 # Authorised official has national insurance Page Messages
 # ----------------------------------------------------------
-isAuthorisedOfficialPosition.title = (W)Does the authorised official have a national insurance number?(W)
-isAuthorisedOfficialPosition.heading = (W)Does the authorised official have a national insurance number?(W)
-isAuthorisedOfficialPosition.error.required = (W)Select yes if they have a National Insurance number(W)
+isAuthorisedOfficialNino.title = (W)Does the authorised official have a national insurance number?(W)
+isAuthorisedOfficialNino.heading = (W)Does the authorised official have a national insurance number?(W)
+isAuthorisedOfficialNino.error.required = (W)Select yes if they have a National Insurance number(W)
 
 isAuthorisedOfficialPosition.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
-authorisedOfficialsNINO.title = (W)What is the authorised official''s national insurance number?(W)
-authorisedOfficialsNINO.heading = (W)What is {0}''s National Insurance number?(W)
-authorisedOfficialsNINO.hint = (W)For example, QQ 12 34 56 C(W)
-authorisedOfficialsNINO.error.required = (W)Enter their National Insurance number(W)
-authorisedOfficialsNINO.error.format = (W)Enter a National Insurance number in the correct format(W)
+authorisedOfficialsNino.title = (W)What is the authorised official''s national insurance number?(W)
+authorisedOfficialsNino.heading = (W)What is {0}''s National Insurance number?(W)
+authorisedOfficialsNino.hint = (W)For example, QQ 12 34 56 C(W)
+authorisedOfficialsNino.error.required = (W)Enter their National Insurance number(W)
+authorisedOfficialsNino.error.format = (W)Enter a National Insurance number in the correct format(W)
 
 authorisedOfficialsNINO.checkYourAnswersLabel = (W)National Insurance number(W)
 

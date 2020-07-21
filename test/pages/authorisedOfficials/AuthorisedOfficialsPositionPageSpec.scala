@@ -16,7 +16,7 @@
 
 package pages.authorisedOfficials
 
-import models.AuthOfficials.AuthorisedOfficialsPosition
+import models.AuthOfficials.OfficialsPosition
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
@@ -24,15 +24,15 @@ class AuthorisedOfficialsPositionPageSpec extends PageBehaviours{
 
   "AuthorisedOfficialsPosition" must {
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[AuthorisedOfficialsPosition] =  Arbitrary {
-      Gen.oneOf(AuthorisedOfficialsPosition.values)
+    implicit lazy val arbitraryCharityContactDetails: Arbitrary[OfficialsPosition] =  Arbitrary {
+      Gen.oneOf(OfficialsPosition.values)
     }
 
-    beRetrievable[AuthorisedOfficialsPosition](AuthorisedOfficialsPositionPage(0))
+    beRetrievable[OfficialsPosition](AuthorisedOfficialsPositionPage(0))
 
-    beSettable[AuthorisedOfficialsPosition](AuthorisedOfficialsPositionPage(0))
+    beSettable[OfficialsPosition](AuthorisedOfficialsPositionPage(0))
 
-    beRemovable[AuthorisedOfficialsPosition](AuthorisedOfficialsPositionPage(0))
+    beRemovable[OfficialsPosition](AuthorisedOfficialsPositionPage(0))
   }
 
 }

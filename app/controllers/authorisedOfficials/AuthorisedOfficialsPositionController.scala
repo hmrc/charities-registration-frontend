@@ -17,11 +17,11 @@
 package controllers.authorisedOfficials
 
 import config.FrontendAppConfig
-import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialsPositionFormProvider
+import controllers.common.OfficialsPositionController
+import forms.common.OfficialsPositionFormProvider
 import javax.inject.Inject
-import models.AuthOfficials.AuthorisedOfficialsPosition
+import models.AuthOfficials.OfficialsPosition
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.AuthorisedOfficialsPositionPage
@@ -29,49 +29,41 @@ import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsPositionView
+import views.html.common.OfficialsPositionView
 
 import scala.concurrent.Future
 
 class AuthorisedOfficialsPositionController @Inject()(
-    sessionRepository: UserAnswerRepository,
-    navigator: AuthorisedOfficialsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: AuthorisedOfficialsPositionFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: AuthorisedOfficialsPositionView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+   val identify: AuthIdentifierAction,
+   val getData: UserDataRetrievalAction,
+   val requireData: DataRequiredAction,
+   val formProvider: OfficialsPositionFormProvider,
+   override val sessionRepository: UserAnswerRepository,
+   override val navigator: AuthorisedOfficialsNavigator,
+   override val controllerComponents: MessagesControllerComponents,
+   override val view: OfficialsPositionView
+ )(implicit appConfig: FrontendAppConfig) extends OfficialsPositionController {
 
-  val form: Form[AuthorisedOfficialsPosition] = formProvider()
+  override val messagePrefix: String = "authorisedOfficialsPosition"
+  private val form: Form[OfficialsPosition] = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
 
-    getAuthorisedOfficialName(index) {
-      val preparedForm = request.userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
-        case None => form
-        case Some(value) => form.fill(value)
+      getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+
+        Future.successful(getView(AuthorisedOfficialsPositionPage(index), form, authorisedOfficialsName,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialsPositionController.onSubmit(mode, index)))
       }
-      authorisedOfficialsName =>
-        Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
-    }
   }
 
-  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
 
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        getAuthorisedOfficialName(index) {
-          authorisedOfficialsName =>
-            Future.successful(BadRequest(view(formWithErrors, mode, index, authorisedOfficialsName)))
-        },
+      getAuthorisedOfficialName(index) { authorisedOfficialsName =>
 
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsPositionPage(index), value).flatMap(_.set(Section7Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AuthorisedOfficialsPositionPage(index), mode, updatedAnswers))
-    )
+        postView(mode, AuthorisedOfficialsPositionPage(index), form, authorisedOfficialsName, Section7Page,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialsPositionController.onSubmit(mode, index))
+      }
   }
 }

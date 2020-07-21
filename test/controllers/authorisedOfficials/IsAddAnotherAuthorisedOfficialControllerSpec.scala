@@ -18,7 +18,7 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.authorisedOfficials.IsAddAnotherAuthorisedOfficialFormProvider
+import forms.common.IsAddAnotherFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
@@ -31,7 +31,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.IsAddAnotherAuthorisedOfficialView
+import views.html.common.IsAddAnotherView
 
 import scala.concurrent.Future
 
@@ -52,9 +52,10 @@ class IsAddAnotherAuthorisedOfficialControllerSpec extends SpecBase with BeforeA
     reset(mockUserAnswerRepository)
   }
 
-  private val view: IsAddAnotherAuthorisedOfficialView = injector.instanceOf[IsAddAnotherAuthorisedOfficialView]
-  private val formProvider: IsAddAnotherAuthorisedOfficialFormProvider = injector.instanceOf[IsAddAnotherAuthorisedOfficialFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val messageKeyPrefix = "isAddAnotherAuthorisedOfficial"
+  private val view: IsAddAnotherView = injector.instanceOf[IsAddAnotherView]
+  private val formProvider: IsAddAnotherFormProvider = injector.instanceOf[IsAddAnotherFormProvider]
+  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: IsAddAnotherAuthorisedOfficialController = inject[IsAddAnotherAuthorisedOfficialController]
 
@@ -67,7 +68,9 @@ class IsAddAnotherAuthorisedOfficialControllerSpec extends SpecBase with BeforeA
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, messageKeyPrefix,
+        controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(NormalMode))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

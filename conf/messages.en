@@ -666,19 +666,19 @@ authorisedOfficialsPosition.checkYourAnswersLabel = Position
 
 # Authorised official has national insurance Page Messages
 # ----------------------------------------------------------
-isAuthorisedOfficialPosition.title = Does the authorised official have a national insurance number?
-isAuthorisedOfficialPosition.heading = Does {0} have a national insurance number?
-isAuthorisedOfficialPosition.error.required = Select yes if they have a National Insurance number
+isAuthorisedOfficialNino.title = Does the authorised official have a national insurance number?
+isAuthorisedOfficialNino.heading = Does {0} have a national insurance number?
+isAuthorisedOfficialNino.error.required = Select yes if they have a National Insurance number
 
 isAuthorisedOfficialPosition.checkYourAnswersLabel = Has a National Insurance number
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
-authorisedOfficialsNINO.title = What is the authorised official''s national insurance number?
-authorisedOfficialsNINO.heading = What is {0}''s National Insurance number?
-authorisedOfficialsNINO.hint = For example, QQ 12 34 56 C
-authorisedOfficialsNINO.error.required = Enter their National Insurance number
-authorisedOfficialsNINO.error.format = Enter a National Insurance number in the correct format
+authorisedOfficialsNino.title = What is the authorised official''s national insurance number?
+authorisedOfficialsNino.heading = What is {0}''s National Insurance number?
+authorisedOfficialsNino.hint = For example, QQ 12 34 56 C
+authorisedOfficialsNino.error.required = Enter their National Insurance number
+authorisedOfficialsNino.error.format = Enter a National Insurance number in the correct format
 
 authorisedOfficialsNINO.checkYourAnswersLabel = National Insurance number
 

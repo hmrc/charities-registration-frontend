@@ -17,55 +17,45 @@
 package controllers.authorisedOfficials
 
 import config.FrontendAppConfig
-import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialsNameFormProvider
+import controllers.common.NameController
+import forms.common.NameFormProvider
 import javax.inject.Inject
-import models.{AuthorisedOfficialsName, Index, Mode}
+import models.{Index, Mode, Name}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsNameView
-
-import scala.concurrent.Future
+import views.html.common.NameView
 
 class AuthorisedOfficialsNameController @Inject()(
-  val sessionRepository: UserAnswerRepository,
-  val navigator: AuthorisedOfficialsNavigator,
-  identify: AuthIdentifierAction,
-  getData: UserDataRetrievalAction,
-  requireData: DataRequiredAction,
-  formProvider: AuthorisedOfficialsNameFormProvider,
-  val controllerComponents: MessagesControllerComponents,
-  view: AuthorisedOfficialsNameView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: NameFormProvider,
+  override val sessionRepository: UserAnswerRepository,
+  override val navigator: AuthorisedOfficialsNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: NameView
+  )(implicit appConfig: FrontendAppConfig) extends NameController {
 
-  val form: Form[AuthorisedOfficialsName] = formProvider()
+  override val messagePrefix: String = "authorisedOfficialsName"
+  private val form: Form[Name] = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request =>
 
-    val preparedForm = request.userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
-      case None => form
-      case Some(value) => form.fill(value)
-    }
-
-    Ok(view(preparedForm, mode, index))
+      getView(AuthorisedOfficialsNamePage(index), form,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index))
   }
 
-  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
 
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, index))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsNamePage(index), value).flatMap(_.set(Section7Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AuthorisedOfficialsNamePage(index), mode, updatedAnswers))
-    )
+      postView(mode, AuthorisedOfficialsNamePage(index), form, Section7Page,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index))
   }
+
 }

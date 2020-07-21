@@ -18,9 +18,8 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.authorisedOfficials.AuthorisedOfficialsPhoneNumberFormProvider
-import models.{AuthorisedOfficialsName, Index, NormalMode, UserAnswers}
-import models.AuthorisedOfficialsPhoneNumber
+import forms.common.PhoneNumberFormProvider
+import models.{Index, Name, NormalMode, PhoneNumber, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -32,7 +31,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsPhoneNumberView
+import views.html.common.PhoneNumberView
 
 import scala.concurrent.Future
 
@@ -53,15 +52,16 @@ class AuthorisedOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeA
     reset(mockUserAnswerRepository)
   }
 
-  private val view: AuthorisedOfficialsPhoneNumberView = inject[AuthorisedOfficialsPhoneNumberView]
-  private val formProvider: AuthorisedOfficialsPhoneNumberFormProvider = inject[AuthorisedOfficialsPhoneNumberFormProvider]
-  private val form: Form[AuthorisedOfficialsPhoneNumber] = formProvider()
+  private val messageKeyPrefix = "authorisedOfficialsPhoneNumber"
+  private val view: PhoneNumberView = inject[PhoneNumberView]
+  private val formProvider: PhoneNumberFormProvider = inject[PhoneNumberFormProvider]
+  private val form: Form[PhoneNumber] = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialsPhoneNumberController = inject[AuthorisedOfficialsPhoneNumberController]
 
   private val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982","alternativePhoneNumber"->"07700 900 982")
     private val localUserAnswers: UserAnswers =
-      emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), AuthorisedOfficialsName("Jim", Some("John"), "Jones")).success.value
+      emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
 
 
   "AuthorisedOfficialsPhoneNumberController Controller " must {
@@ -72,14 +72,16 @@ class AuthorisedOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeA
       val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0), "Jim John Jones")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsPhoneNumberController.onSubmit(NormalMode, Index(0)))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
-        AuthorisedOfficialsPhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
+        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -90,10 +92,12 @@ class AuthorisedOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeA
     }
 
     "redirect to the next page when valid data is submitted" in {
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
+        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
 
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
@@ -116,6 +120,7 @@ class AuthorisedOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeA
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, never).set(any())
     }
+
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))

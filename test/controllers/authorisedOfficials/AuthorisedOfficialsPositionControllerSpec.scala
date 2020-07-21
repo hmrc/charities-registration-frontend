@@ -18,9 +18,9 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.authorisedOfficials.AuthorisedOfficialsPositionFormProvider
-import models.AuthOfficials.AuthorisedOfficialsPosition
-import models.{AuthorisedOfficialsName, Index, NormalMode, UserAnswers}
+import forms.common.OfficialsPositionFormProvider
+import models.AuthOfficials.OfficialsPosition
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -32,7 +32,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsPositionView
+import views.html.common.OfficialsPositionView
 
 import scala.concurrent.Future
 
@@ -53,14 +53,15 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
     reset(mockUserAnswerRepository)
   }
 
-  private val view: AuthorisedOfficialsPositionView = injector.instanceOf[AuthorisedOfficialsPositionView]
-  private val formProvider: AuthorisedOfficialsPositionFormProvider = injector.instanceOf[AuthorisedOfficialsPositionFormProvider]
-  private val form: Form[AuthorisedOfficialsPosition] = formProvider()
+  private val messageKeyPrefix: String = "authorisedOfficialsPosition"
+  private val view: OfficialsPositionView = injector.instanceOf[OfficialsPositionView]
+  private val formProvider: OfficialsPositionFormProvider = injector.instanceOf[OfficialsPositionFormProvider]
+  private val form: Form[OfficialsPosition] = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialsPositionController = inject[AuthorisedOfficialsPositionController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), AuthorisedOfficialsName("FName", Some("MName"), "LName")).success.value
+    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
 
   "AuthorisedOfficialsPosition Controller" must {
 
@@ -71,14 +72,16 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
       val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0), "FName MName LName")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsPositionController.onSubmit(NormalMode, Index(0)))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(AuthorisedOfficialsPositionPage(0),  AuthorisedOfficialsPosition.UKAgent).getOrElse(emptyUserAnswers))))
+        set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -88,9 +91,9 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", AuthorisedOfficialsPosition.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", OfficialsPosition.values.head.toString))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)

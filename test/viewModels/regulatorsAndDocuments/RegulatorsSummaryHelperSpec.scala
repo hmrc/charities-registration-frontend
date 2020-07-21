@@ -151,7 +151,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper.whyNotRegsiteredCharityRow mustBe Some(summaryListRow(
+        helper.whyNotRegisteredCharityRow mustBe Some(summaryListRow(
           messages("whyNotRegisteredWithCharity.checkYourAnswersLabel"),
           "office closed",
           Some(messages("whyNotRegisteredWithCharity.checkYourAnswersLabel")),

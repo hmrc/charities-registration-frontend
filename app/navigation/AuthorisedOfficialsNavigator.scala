@@ -69,9 +69,11 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad(index) // TODO redirect to next page once created
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
+    case AddedOneAuthorisedOfficialPage(index) => _ => authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
 
     case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page

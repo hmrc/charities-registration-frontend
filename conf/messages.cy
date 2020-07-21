@@ -37,6 +37,7 @@ site.saveAndContinue = (W)Save and continue(W)
 site.submitAndContinue = (W)Submit and continue(W)
 site.acceptAndContinue = (W)Accept and continue(W)
 site.confirmAndSubmit = (W)Confirm and submit(W)
+site.confirmAndContinue = (W)Confirm and continue(W)
 site.textarea.char_limit = (W)(Limit is {0} characters)(W)
 site.govuk = (W)GOV.UK(W)
 site.signOut = (W)Sign out(W)
@@ -602,6 +603,8 @@ authorisedOfficialsName.lastName.error.required = (W)Enter the authorised offici
 authorisedOfficialsName.lastName.error.length = (W)The authorised official''s last name must be 100 characters or fewer(W)
 authorisedOfficialsName.lastName.error.format = (W)The authorised official''s last name must not include the following characters: & ( ) : @(W)
 
+authorisedOfficialsName.checkYourAnswersLabel = (W)Full name(W)
+
 # Authorised Official Date of birth Messages
 # ----------------------------------------------------------
 authorisedOfficialsDOB.title = (W)What is the authorised official''s date of birth?(W)
@@ -612,6 +615,8 @@ authorisedOfficialsDOB.error.required.two = (W)Enter their {0} and {1} of birth(
 authorisedOfficialsDOB.error.required.one = (W)Enter their {0} of birth(W)
 authorisedOfficialsDOB.error.invalid = (W)Their birth date must be a real date.(W)
 authorisedOfficialsDOB.error.minimum = (W)Authorised officials must be at least 16 years old(W)
+
+authorisedOfficialsDOB.checkYourAnswersLabel = (W)Date of birth(W)
 
 # Authorised Officials Phone Number Messages
 # ----------------------------------------------------------
@@ -624,6 +629,8 @@ authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = (W)Alternative pho
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number (optional)(W)
+
+authorisedOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
 
 # Authorised Official Position  Messages
 # ----------------------------------------------------------
@@ -655,11 +662,15 @@ authorisedOfficialsPosition.21 = (W)Assistant Treasurer(W)
 authorisedOfficialsPosition.22 = (W)Trustee(W)
 authorisedOfficialsPosition.23 = (W)UK Agent(W)
 
+authorisedOfficialsPosition.checkYourAnswersLabel = (W)Position(W)
+
 # Authorised official has national insurance Page Messages
 # ----------------------------------------------------------
 isAuthorisedOfficialPosition.title = (W)Does the authorised official have a national insurance number?(W)
 isAuthorisedOfficialPosition.heading = (W)Does the authorised official have a national insurance number?(W)
 isAuthorisedOfficialPosition.error.required = (W)Select yes if they have a National Insurance number(W)
+
+isAuthorisedOfficialPosition.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
@@ -669,11 +680,7 @@ authorisedOfficialsNINO.hint = (W)For example, QQ 12 34 56 C(W)
 authorisedOfficialsNINO.error.required = (W)Enter their National Insurance number(W)
 authorisedOfficialsNINO.error.format = (W)Enter a National Insurance number in the correct format(W)
 
-# Do you want to add another Authorised official Page Messages
-# ----------------------------------------------------------
-isAddAnotherAuthorisedOfficial.title = (W)Do you want to add another authorised official?(W)
-isAddAnotherAuthorisedOfficial.heading = (W)Do you want to add another authorised official?(W)
-isAddAnotherAuthorisedOfficial.error.required = (W)Select yes if you want to add another authorised official(W)
+authorisedOfficialsNINO.checkYourAnswersLabel = (W)National Insurance number(W)
 
 # Authorised  Official Address Messages
 # ----------------------------------------------------------
@@ -693,13 +700,26 @@ authorisedOfficialAddress.confirmPage.heading = (W)Confirm {0}''s address(W)
 authorisedOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
 authorisedOfficialAddress.confirmPage.changeLinkText = (W)Change authorised official''s home address (W)
 
-authorisedOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Authorised Official address(W)
+authorisedOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
 
 # Authorised Officials Previous Address Page Messages
 # ----------------------------------------------------------
 authorisedOfficialPreviousAddress.title = (W)Has the authorised official''s address changed in the last 12 months?(W)
 authorisedOfficialPreviousAddress.heading = (W)Has {0}''s address changed in the last 12 months?(W)
 authorisedOfficialPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+
+authorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+
+# You have added one Authorised Official Page Messages
+# ----------------------------------------------------------
+addedOneAuthorisedOfficial.checkYourAnswers.title = (W)You have added one authorised official(W)
+addedOneAuthorisedOfficial.checkYourAnswers.heading = (W)Check the authorised official''s details(W)
+
+# Do you want to add another Authorised official Page Messages
+# ----------------------------------------------------------
+isAddAnotherAuthorisedOfficial.title = (W)Do you want to add another authorised official?(W)
+isAddAnotherAuthorisedOfficial.heading = (W)Do you want to add another authorised official?(W)
+isAddAnotherAuthorisedOfficial.error.required = (W)Select yes if you want to add another authorised official(W)
 
 # Section9 - Name nominees
 # ----------------------------------------------------------

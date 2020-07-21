@@ -36,6 +36,9 @@ POST       /:index/authorised-official-changed-address                          
 GET        /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /:index/added-one-authorised-official                                controllers.authorisedOfficials.AddedOneAuthorisedOfficialController.onPageLoad(index: Index)
+POST       /:index/added-one-authorised-official                                controllers.authorisedOfficials.AddedOneAuthorisedOfficialController.onSubmit(index: Index)
+
 GET        /add-another-authorised-official                                     controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onPageLoad(mode: Mode = NormalMode)
 POST       /add-another-authorised-official                                     controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onSubmit(mode: Mode = NormalMode)
 GET        /add-another-authorised-official/change                              controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onPageLoad(mode: Mode = CheckMode)

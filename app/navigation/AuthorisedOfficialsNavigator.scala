@@ -47,17 +47,17 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
-      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPositionController.onPageLoad(NormalMode, index)
+      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialNinoController.onPageLoad(NormalMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IsAuthorisedOfficialPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialPositionPage(index)) match {
-      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNINOController.onPageLoad(NormalMode, index)
+    case IsAuthorisedOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
+      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(NormalMode, index)
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case AuthorisedOfficialsNINOPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
+    case AuthorisedOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
       case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index) // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -105,12 +105,12 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IsAuthorisedOfficialPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialPositionPage(index)) match {
+    case IsAuthorisedOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case AuthorisedOfficialsNINOPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNINOPage(index)) match {
+    case AuthorisedOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

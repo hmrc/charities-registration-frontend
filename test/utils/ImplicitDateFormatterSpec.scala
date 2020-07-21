@@ -87,5 +87,12 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
       dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
     }
 
+    "for no lang" in {
+      implicit val localRequest: FakeRequest[_] = FakeRequest()
+      implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
+      val result: String = "1 April 2017"
+      dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
+    }
+
   }
 }

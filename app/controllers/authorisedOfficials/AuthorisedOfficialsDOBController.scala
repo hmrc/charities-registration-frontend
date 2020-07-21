@@ -19,9 +19,9 @@ package controllers.authorisedOfficials
 import java.time.LocalDate
 
 import config.FrontendAppConfig
-import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialsDOBFormProvider
+import controllers.common.DateOfBirthController
+import forms.common.DateOfBirthFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
@@ -30,50 +30,42 @@ import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsDOBView
+import views.html.common.DateOfBirthView
 
 import scala.concurrent.Future
 
 class AuthorisedOfficialsDOBController @Inject()(
-    val sessionRepository: UserAnswerRepository,
-    val navigator: AuthorisedOfficialsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: AuthorisedOfficialsDOBFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: AuthorisedOfficialsDOBView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: DateOfBirthFormProvider,
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: AuthorisedOfficialsNavigator,
+    override val controllerComponents: MessagesControllerComponents,
+    override val view: DateOfBirthView
+  )(implicit appConfig: FrontendAppConfig) extends DateOfBirthController {
 
-  val form: Form[LocalDate] = formProvider()
+  override val messagePrefix: String = "authorisedOfficialsDOB"
+  private val form: Form[LocalDate] = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
 
-    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+      getAuthorisedOfficialName(index) { authorisedOfficialsName =>
 
-        val preparedForm = request.userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
-          case None => form
-          case Some(value) => form.fill(value)
-        }
-
-        Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
+        Future.successful(getView(AuthorisedOfficialsDOBPage(index), form, authorisedOfficialsName,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialsDOBController.onSubmit(mode, index)))
       }
   }
 
-  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
 
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        getAuthorisedOfficialName(index) {
-          authorisedOfficialsName =>
-            Future.successful(BadRequest(view(formWithErrors, mode, index, authorisedOfficialsName)))
-        },
+      getAuthorisedOfficialName(index) { authorisedOfficialsName =>
 
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsDOBPage(index), value).flatMap(_.set(Section7Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AuthorisedOfficialsDOBPage(index), mode, updatedAnswers))
-    )
+        postView(mode, AuthorisedOfficialsDOBPage(index), form, authorisedOfficialsName, Section7Page,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialsDOBController.onSubmit(mode, index))
+      }
   }
+
 }

@@ -18,8 +18,8 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.authorisedOfficials.AuthorisedOfficialsNameFormProvider
-import models.{AuthorisedOfficialsName, Index, NormalMode, UserAnswers}
+import forms.common.NameFormProvider
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -31,7 +31,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsNameView
+import views.html.common.NameView
 
 import scala.concurrent.Future
 
@@ -52,9 +52,10 @@ class AuthorisedOfficialsNameControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerRepository)
   }
 
-  private val view: AuthorisedOfficialsNameView = injector.instanceOf[AuthorisedOfficialsNameView]
-  private val formProvider: AuthorisedOfficialsNameFormProvider = injector.instanceOf[AuthorisedOfficialsNameFormProvider]
-  private val form: Form[AuthorisedOfficialsName] = formProvider()
+  private val messageKeyPrefix = "authorisedOfficialsName"
+  private val view: NameView = injector.instanceOf[NameView]
+  private val formProvider: NameFormProvider = injector.instanceOf[NameFormProvider]
+  private val form: Form[Name] = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialsNameController = inject[AuthorisedOfficialsNameController]
 
@@ -67,14 +68,16 @@ class AuthorisedOfficialsNameControllerSpec extends SpecBase with BeforeAndAfter
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(NormalMode, Index(0)))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), AuthorisedOfficialsName("FName", Some("MName"), "LName")).success.value
+      val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 

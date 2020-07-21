@@ -16,11 +16,11 @@
 
 package pages.authorisedOfficials
 
-import models.AuthOfficials.AuthorisedOfficialsPosition
+import models.AuthOfficials.OfficialsPosition
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class AuthorisedOfficialsPositionPage(index:Int) extends QuestionPage[AuthorisedOfficialsPosition] {
+case class AuthorisedOfficialsPositionPage(index:Int) extends QuestionPage[OfficialsPosition] {
 
   override def path: JsPath =  AuthorisedOfficialsId(index).path \ AuthorisedOfficialsPositionPage.toString
 

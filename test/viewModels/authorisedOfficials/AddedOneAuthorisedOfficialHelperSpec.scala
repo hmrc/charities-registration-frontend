@@ -17,15 +17,16 @@
 package viewModels.authorisedOfficials
 
 
+import java.time.LocalDate
+
 import assets.constants.ConfirmedAddressConstants
-import controllers.authorisedOfficials.{routes => authOfficials}
-import models.{AuthorisedOfficialsName, CheckMode, Index, UserAnswers}
-import models.AuthOfficials.AuthorisedOfficialsPosition
 import assets.messages.BaseMessages
 import base.SpecBase
-import java.time.LocalDate
-import pages.authorisedOfficials._
+import controllers.authorisedOfficials.{routes => authOfficials}
+import models.AuthOfficials.OfficialsPosition
+import models.{CheckMode, Index, Name, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
+import pages.authorisedOfficials._
 import viewmodels.SummaryListRowHelper
 import viewmodels.authorisedOfficials.AddedOneAuthorisedOfficialHelper
 
@@ -36,11 +37,11 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
   private val dayOfMonth = 2
 
   private val authorisedOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), AuthorisedOfficialsName(firstName = "John", None, lastName = "Jones")).success.value
+    .set(AuthorisedOfficialsNamePage(0), Name(firstName = "John", None, lastName = "Jones")).success.value
     .set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
-    .set(AuthorisedOfficialsPositionPage(0), AuthorisedOfficialsPosition.values.head).success.value
-    .set(IsAuthorisedOfficialPositionPage(0), true).success.value
-    .set(AuthorisedOfficialsNINOPage(0), "AA123456A").success.value
+    .set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head).success.value
+    .set(IsAuthorisedOfficialNinoPage(0), true).success.value
+    .set(AuthorisedOfficialsNinoPage(0), "AA123456A").success.value
     .set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
     .set(AuthorisedOfficialPreviousAddressPage(0), false).success.value
 
@@ -103,7 +104,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("isAuthorisedOfficialPosition.checkYourAnswersLabel"),
             s"${messages("site.yes")}",
             Some(messages("isAuthorisedOfficialPosition.checkYourAnswersLabel")),
-            authOfficials.IsAuthorisedOfficialPositionController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.IsAuthorisedOfficialNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -118,7 +119,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsNINO.checkYourAnswersLabel"),
             "AA123456A",
             Some(messages("authorisedOfficialsNINO.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsNINOController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
       }

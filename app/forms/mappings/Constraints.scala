@@ -81,27 +81,6 @@ trait Constraints extends InputFilter{
         }
     }
 
-  protected def sortCodeLength(length: Int, errorKey: String): Constraint[String] =
-    Constraint {
-      input =>
-        if (input.filter(_.isDigit).length == length) {
-          Valid
-        } else {
-          Invalid(errorKey, length)
-        }
-    }
-
-  protected def accountNumberLength(minimum: Int, maximum: Int, errorKey: String): Constraint[String] =
-    Constraint {
-      input =>
-        val len = input.filter(_.isDigit).length
-        if (len >= minimum && len <= maximum) {
-          Valid
-        } else {
-          Invalid(errorKey, minimum, maximum)
-        }
-    }
-
   protected def regexp(regex: String, errorKey: String): Constraint[String] =
     Constraint {
       case str if str.matches(regex) =>
@@ -160,21 +139,5 @@ trait Constraints extends InputFilter{
         Valid
       case _ =>
         Invalid(errorKey)
-    }
-
-  protected def amountCheck(minimum: BigDecimal, maximum: BigDecimal, minimumErrorKey: String, rangeErrorKey: String)
-                                        (implicit ev: Ordering[BigDecimal]): Constraint[BigDecimal] =
-    Constraint {
-      input =>
-
-        import ev._
-
-        if (input < minimum) {
-          Invalid(minimumErrorKey, minimum)
-        } else if(input > maximum){
-          Invalid(rangeErrorKey, minimum, maximum)
-        } else {
-          Valid
-        }
     }
 }

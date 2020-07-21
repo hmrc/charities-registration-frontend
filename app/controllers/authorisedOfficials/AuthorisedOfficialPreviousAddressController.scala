@@ -17,9 +17,9 @@
 package controllers.authorisedOfficials
 
 import config.FrontendAppConfig
-import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialPreviousAddressFormProvider
+import controllers.common.IsPreviousAddressController
+import forms.common.IsPreviousAddressFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
@@ -28,49 +28,41 @@ import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialPreviousAddressView
+import views.html.common.IsPreviousAddressView
 
 import scala.concurrent.Future
 
 class AuthorisedOfficialPreviousAddressController @Inject()(
-      val sessionRepository: UserAnswerRepository,
-      val navigator: AuthorisedOfficialsNavigator,
-      identify: AuthIdentifierAction,
-      getData: UserDataRetrievalAction,
-      requireData: DataRequiredAction,
-      formProvider: AuthorisedOfficialPreviousAddressFormProvider,
-      val controllerComponents: MessagesControllerComponents,
-      view: AuthorisedOfficialPreviousAddressView
-    )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+   val identify: AuthIdentifierAction,
+   val getData: UserDataRetrievalAction,
+   val requireData: DataRequiredAction,
+   val formProvider: IsPreviousAddressFormProvider,
+   override val sessionRepository: UserAnswerRepository,
+   override val navigator: AuthorisedOfficialsNavigator,
+   override val controllerComponents: MessagesControllerComponents,
+   override val view: IsPreviousAddressView
+ )(implicit appConfig: FrontendAppConfig) extends IsPreviousAddressController {
 
-    val form: Form[Boolean] = formProvider()
+  override val messagePrefix: String = "authorisedOfficialPreviousAddress"
+  private val form: Form[Boolean] = formProvider(messagePrefix)
 
-    def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
 
-      getAuthorisedOfficialName(index) {
-        authorisedOfficialsName =>
-          val preparedForm = request.userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
-            case None => form
-            case Some(value) => form.fill(value)
-          }
-        Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
+      getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+
+        Future.successful(getView(AuthorisedOfficialPreviousAddressPage(index), form, authorisedOfficialsName,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialPreviousAddressController.onSubmit(mode, index)))
       }
-    }
-
-    def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          getAuthorisedOfficialName(index) {
-            authorisedOfficialsName =>
-              Future.successful(BadRequest(view(formWithErrors, mode, index, authorisedOfficialsName)))
-          },
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialPreviousAddressPage(index), value).flatMap(_.set(Section7Page, false)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AuthorisedOfficialPreviousAddressPage(index), mode, updatedAnswers))
-      )
-    }
   }
+
+  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+
+      getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+
+        postView(mode, AuthorisedOfficialPreviousAddressPage(index), form, authorisedOfficialsName, Section7Page,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialPreviousAddressController.onSubmit(mode, index))
+      }
+  }
+}

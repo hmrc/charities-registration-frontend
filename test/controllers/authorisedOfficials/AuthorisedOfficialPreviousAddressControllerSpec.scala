@@ -18,20 +18,20 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.authorisedOfficials.AuthorisedOfficialPreviousAddressFormProvider
-import models.{AuthorisedOfficialsName, Index, NormalMode, UserAnswers}
+import forms.common.IsPreviousAddressFormProvider
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialPreviousAddressPage}
+import pages.authorisedOfficials.{AuthorisedOfficialPreviousAddressPage, AuthorisedOfficialsNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialPreviousAddressView
+import views.html.common.IsPreviousAddressView
 
 import scala.concurrent.Future
 
@@ -51,15 +51,15 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
     super.beforeEach()
     reset(mockUserAnswerRepository)
   }
-
-  private val view: AuthorisedOfficialPreviousAddressView = injector.instanceOf[AuthorisedOfficialPreviousAddressView]
-  private val formProvider: AuthorisedOfficialPreviousAddressFormProvider = injector.instanceOf[AuthorisedOfficialPreviousAddressFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val messageKeyPrefix = "authorisedOfficialPreviousAddress"
+  private val view: IsPreviousAddressView = injector.instanceOf[IsPreviousAddressView]
+  private val formProvider: IsPreviousAddressFormProvider = injector.instanceOf[IsPreviousAddressFormProvider]
+  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialPreviousAddressController = inject[AuthorisedOfficialPreviousAddressController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), AuthorisedOfficialsName("FName", Some("MName"), "LName")).success.value
+    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
 
   "AuthorisedOfficialPreviousAddress Controller" must {
 
@@ -70,7 +70,9 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0),"FName MName LName")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form,"FName MName LName", messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialPreviousAddressController.onSubmit(NormalMode, Index(0)))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
@@ -89,7 +91,7 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)

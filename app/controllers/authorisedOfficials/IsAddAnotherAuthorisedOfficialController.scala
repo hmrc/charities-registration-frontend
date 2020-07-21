@@ -17,9 +17,9 @@
 package controllers.authorisedOfficials
 
 import config.FrontendAppConfig
-import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.IsAddAnotherAuthorisedOfficialFormProvider
+import controllers.common.IsAddAnotherController
+import forms.common.IsAddAnotherFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AuthorisedOfficialsNavigator
@@ -28,45 +28,33 @@ import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.IsAddAnotherAuthorisedOfficialView
+import views.html.common.IsAddAnotherView
 
-import scala.concurrent.Future
+class IsAddAnotherAuthorisedOfficialController  @Inject()(
+   val identify: AuthIdentifierAction,
+   val getData: UserDataRetrievalAction,
+   val requireData: DataRequiredAction,
+   val formProvider: IsAddAnotherFormProvider,
+   override val sessionRepository: UserAnswerRepository,
+   override val navigator: AuthorisedOfficialsNavigator,
+   override val controllerComponents: MessagesControllerComponents,
+   override val view: IsAddAnotherView
+ )(implicit appConfig: FrontendAppConfig) extends IsAddAnotherController {
 
-class IsAddAnotherAuthorisedOfficialController @Inject()(
-  val sessionRepository: UserAnswerRepository,
-  val navigator: AuthorisedOfficialsNavigator,
-  identify: AuthIdentifierAction,
-  getData: UserDataRetrievalAction,
-  requireData: DataRequiredAction,
-  formProvider: IsAddAnotherAuthorisedOfficialFormProvider,
-  val controllerComponents: MessagesControllerComponents,
-  view: IsAddAnotherAuthorisedOfficialView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-
-  val form: Form[Boolean] = formProvider()
+  override val messagePrefix: String = "isAddAnotherAuthorisedOfficial"
+  private val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
 
-      val preparedForm = request.userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm, mode))
+      getView(IsAddAnotherAuthorisedOfficialPage, form,
+        controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(IsAddAnotherAuthorisedOfficialPage, value).flatMap(_.set(Section7Page, false)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, mode, updatedAnswers))
-      )
+      postView(mode, IsAddAnotherAuthorisedOfficialPage, form, Section7Page,
+        controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(mode))
   }
 }

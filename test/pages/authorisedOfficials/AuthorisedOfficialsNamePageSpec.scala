@@ -16,7 +16,7 @@
 
 package pages.authorisedOfficials
 
-import models.AuthorisedOfficialsName
+import models.Name
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
@@ -24,14 +24,14 @@ class AuthorisedOfficialsNamePageSpec extends PageBehaviours {
 
   "AuthorisedOfficialsNamePage" must {
 
-    implicit lazy val arbitraryAuthorisedOfficialsName: Arbitrary[AuthorisedOfficialsName] = Arbitrary {
-      AuthorisedOfficialsName("FName", Some("MName"), "LName")
+    implicit lazy val arbitraryAuthorisedOfficialsName: Arbitrary[Name] = Arbitrary {
+      Name("FName", Some("MName"), "LName")
     }
 
-    beRetrievable[AuthorisedOfficialsName](AuthorisedOfficialsNamePage(0))
+    beRetrievable[Name](AuthorisedOfficialsNamePage(0))
 
-    beSettable[AuthorisedOfficialsName](AuthorisedOfficialsNamePage(0))
+    beSettable[Name](AuthorisedOfficialsNamePage(0))
 
-    beRemovable[AuthorisedOfficialsName](AuthorisedOfficialsNamePage(0))
+    beRemovable[Name](AuthorisedOfficialsNamePage(0))
   }
 }

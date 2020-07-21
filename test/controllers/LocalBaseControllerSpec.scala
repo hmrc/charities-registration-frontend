@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import javax.inject.Inject
 import models.requests.DataRequest
-import models.{AuthorisedOfficialsName, Index, UserAnswers}
+import models.{Index, Name, UserAnswers}
 import org.mockito.Mockito.reset
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
@@ -50,7 +50,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
   }
 
   private def block(test: String): Future[Result] = {
-    Future.successful(Results.Ok("input"))
+    Future.successful(Results.Ok(test))
   }
 
   class TestAuthorisedOfficialsController @Inject()(
@@ -59,7 +59,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private lazy val controller: TestAuthorisedOfficialsController = new TestAuthorisedOfficialsController(messagesControllerComponents)
   private val addressUserAnswers: UserAnswers = emptyUserAnswers.set(
-    AuthorisedOfficialsNamePage(0), AuthorisedOfficialsName("FName", Some("MName"), "LName")
+    AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")
   ).success.value
 
   "LocalBase Controller" must {

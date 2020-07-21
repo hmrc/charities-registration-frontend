@@ -20,8 +20,8 @@ import java.time.LocalDate
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.authorisedOfficials.AuthorisedOfficialsDOBFormProvider
-import models.{AuthorisedOfficialsName, Index, NormalMode, UserAnswers}
+import forms.common.DateOfBirthFormProvider
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -33,7 +33,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsDOBView
+import views.html.common.DateOfBirthView
 
 import scala.concurrent.Future
 
@@ -54,9 +54,10 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
     reset(mockUserAnswerRepository)
   }
 
-  private val view: AuthorisedOfficialsDOBView = inject[AuthorisedOfficialsDOBView]
-  private val formProvider: AuthorisedOfficialsDOBFormProvider = inject[AuthorisedOfficialsDOBFormProvider]
-  private val form: Form[LocalDate] = formProvider()
+  private val messageKeyPrefix = "authorisedOfficialsDOB"
+  private val view: DateOfBirthView = inject[DateOfBirthView]
+  private val formProvider: DateOfBirthFormProvider = inject[DateOfBirthFormProvider]
+  private val form: Form[LocalDate] = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialsDOBController = inject[AuthorisedOfficialsDOBController]
 
@@ -64,7 +65,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
                         "date.month" -> "1",
                         "date.day" -> "1")
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), AuthorisedOfficialsName("FName", Some("MName"), "LName")).success.value
+    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
 
 
   "AuthorisedOfficialsDOBController Controller " must {
@@ -75,7 +76,9 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
       val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0), "FName MName LName")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsDOBController.onSubmit(NormalMode, Index(0)))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
@@ -95,7 +98,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
 
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)

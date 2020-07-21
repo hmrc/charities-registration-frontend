@@ -17,61 +17,50 @@
 package controllers.authorisedOfficials
 
 import config.FrontendAppConfig
-import controllers.LocalBaseController
 import controllers.actions._
-import forms.authorisedOfficials.AuthorisedOfficialsPhoneNumberFormProvider
+import controllers.common.PhoneNumberController
+import forms.common.PhoneNumberFormProvider
 import javax.inject.Inject
-import models.{AuthorisedOfficialsPhoneNumber, Index, Mode}
+import models.{Index, Mode, PhoneNumber}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.AuthorisedOfficialsPhoneNumberPage
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.authorisedOfficials.AuthorisedOfficialsPhoneNumberView
+import views.html.common.PhoneNumberView
 
 import scala.concurrent.Future
 
 class AuthorisedOfficialsPhoneNumberController @Inject()(
-   val sessionRepository: UserAnswerRepository,
-   val navigator: AuthorisedOfficialsNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: AuthorisedOfficialsPhoneNumberFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: AuthorisedOfficialsPhoneNumberView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: PhoneNumberFormProvider,
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: AuthorisedOfficialsNavigator,
+    override val controllerComponents: MessagesControllerComponents,
+    override val view: PhoneNumberView
+  )(implicit appConfig: FrontendAppConfig) extends PhoneNumberController {
 
-  val form: Form[AuthorisedOfficialsPhoneNumber] = formProvider()
+  override val messagePrefix: String = "authorisedOfficialsPhoneNumber"
+  private val form: Form[PhoneNumber] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     getAuthorisedOfficialName(index) { authorisedOfficialsName =>
 
-      val preparedForm = request.userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-
-      Future.successful(Ok(view(preparedForm, mode, index, authorisedOfficialsName)))
+      Future.successful(getView(AuthorisedOfficialsPhoneNumberPage(index), form, authorisedOfficialsName,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsPhoneNumberController.onSubmit(mode, index)))
     }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        getAuthorisedOfficialName(index) {
-          authorisedOfficialsName =>
-            Future.successful(BadRequest(view(formWithErrors, mode, index, authorisedOfficialsName)))
-        },
+    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
 
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AuthorisedOfficialsPhoneNumberPage(index), value).flatMap(_.set(Section7Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), mode, updatedAnswers))
-    )
+      postView(mode, AuthorisedOfficialsPhoneNumberPage(index), form, authorisedOfficialsName, Section7Page,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsPhoneNumberController.onSubmit(mode, index))
+    }
   }
 }

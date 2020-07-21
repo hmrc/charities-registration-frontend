@@ -16,8 +16,7 @@
 
 package pages.authorisedOfficials
 
-import models.Index
-import models.AuthorisedOfficialsPhoneNumber
+import models.{Index, PhoneNumber}
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
@@ -25,17 +24,17 @@ class AuthorisedOfficialsPhoneNumberPageSpec extends PageBehaviours {
 
   "AuthorisedOfficialsPhoneNumber Page" must {
 
-    implicit lazy val arbitraryAuthorisedOfficialsPhoneNumber: Arbitrary[AuthorisedOfficialsPhoneNumber] = Arbitrary {
-      AuthorisedOfficialsPhoneNumber(
+    implicit lazy val arbitraryAuthorisedOfficialsPhoneNumber: Arbitrary[PhoneNumber] = Arbitrary {
+      PhoneNumber(
         daytimePhone = "07700 900 982",
         mobilePhone = Some("07700 900 982")
       )
     }
 
-    beRetrievable[AuthorisedOfficialsPhoneNumber](AuthorisedOfficialsPhoneNumberPage(Index(0)))
+    beRetrievable[PhoneNumber](AuthorisedOfficialsPhoneNumberPage(Index(0)))
 
-    beSettable[AuthorisedOfficialsPhoneNumber](AuthorisedOfficialsPhoneNumberPage(Index(0)))
+    beSettable[PhoneNumber](AuthorisedOfficialsPhoneNumberPage(Index(0)))
 
-    beRemovable[AuthorisedOfficialsPhoneNumber](AuthorisedOfficialsPhoneNumberPage(Index(0)))
+    beRemovable[PhoneNumber](AuthorisedOfficialsPhoneNumberPage(Index(0)))
   }
 }

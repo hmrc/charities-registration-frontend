@@ -28,8 +28,7 @@
 
     @h1(messages("index.heading"))
 
-<p class="govuk-body">@messages("index.guidance1") <b>@messages("index.guidance2")</b> @messages("index.guidance3")</p>
-    <p><br/></p>
+<p class="govuk-body govuk-!-margin-bottom-7">@messages("index.guidance")</p>
 
     <ol class="app-task-list">
         <li>
@@ -39,7 +38,7 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result.head.url}"aria-describedby="charity-info-completed">
+                    <a href="@{result.head.url}" aria-describedby="charity-info-completed">
                       @messages("index.section1.spoke1.label")
                     </a>
                   </span>
@@ -54,7 +53,7 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(1).url}"aria-describedby="name-regulator-completed">
+                    <a href="@{result(1).url}" aria-describedby="name-regulator-completed">
                       @messages("index.section2.spoke1.label")
                     </a>
                   </span>
@@ -62,7 +61,7 @@
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(2).url}"aria-describedby="governing-doc-info-completed">
+                    <a href="@{result(2).url}" aria-describedby="governing-doc-info-completed">
                       @messages("index.section2.spoke2.label")
                     </a>
                   </span>
@@ -77,7 +76,7 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(3).url}"aria-describedby="charity-objective-completed">
+                    <a href="@{result(3).url}" aria-describedby="charity-objective-completed">
                       @messages("index.section3.spoke1.label")
                     </a>
                   </span>
@@ -85,7 +84,7 @@
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(4).url}"aria-describedby="fundraising-info-completed">
+                    <a href="@{result(4).url}" aria-describedby="fundraising-info-completed">
                       @messages("index.section3.spoke2.label")
                     </a>
                   </span>
@@ -93,7 +92,7 @@
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(5).url}"aria-describedby="bank-details-completed">
+                    <a href="@{result(5).url}" aria-describedby="bank-details-completed">
                       @messages("index.section3.spoke3.label")
                     </a>
                   </span>
@@ -108,7 +107,7 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(6).url}"aria-describedby="authorised-officials-completed">
+                    <a href="@{result(6).url}" aria-describedby="authorised-officials-completed">
                       @messages("index.section4.spoke1.label")
                     </a>
                   </span>
@@ -116,7 +115,7 @@
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{controllers.routes.IndexController.onPageLoad().url}"aria-describedby="other-officials-completed">
+                    <a href="@{controllers.routes.IndexController.onPageLoad().url}" aria-describedby="other-officials-completed">
                       @messages("index.section4.spoke2.label")
                     </a>
                   </span>
@@ -124,7 +123,7 @@
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(8).url}"aria-describedby="nominee-info-completed">
+                    <a href="@{result(8).url}" aria-describedby="nominee-info-completed">
                       @messages("index.section4.spoke3.label")
                     </a>
                   </span>

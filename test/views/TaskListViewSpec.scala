@@ -63,7 +63,7 @@ class TaskListViewSpec extends ViewBehaviours  {
       behave like normalPage(applyView(), messageKeyPrefix)
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "guidance1", "guidance2", "guidance3",
+        "guidance",
         "section.numbers1", "section.numbers2", "section.numbers3", "section.numbers4",
         "section1.label", "section1.spoke1.label",
         "section2.label", "section2.spoke1.label", "section2.spoke2.label",

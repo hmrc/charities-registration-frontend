@@ -19,6 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import controllers.authorisedOfficials.{routes => authOfficialsRoutes}
+import controllers.otherOfficials.{routes => otherOfficialsRoutes}
 import controllers.charityInformation.{routes => charityInfoRoutes}
 import controllers.nominees.{routes => charityNomineeRoutes}
 import controllers.operationsAndFunds.{routes => opsAndFundsRoutes}
@@ -64,7 +65,7 @@ class IndexController @Inject()(
       val section7 = getSection(authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url,
         authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url, userAnswers, Section7Page)
 
-      val section8 = getSection(routes.IndexController.onPageLoad().url,
+      val section8 = getSection(otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad().url,
         routes.IndexController.onPageLoad().url, userAnswers, Section8Page) //To Do once pages for section 8 are created
 
       val section9 = getSection(charityNomineeRoutes.CharityNomineeController.onPageLoad().url,

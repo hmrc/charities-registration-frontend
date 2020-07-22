@@ -725,6 +725,18 @@ authorisedOfficialsSummary.checkYourAnswers.heading = (W)Check the charity''s au
 authorisedOfficialsSummary.checkYourAnswers.h2 = (W)Authorised charity''s official(W)
 authorisedOfficialsSummary.section = (W)Officials and nominees(W)
 
+# Section8 - Other Officials
+# ----------------------------------------------------------
+
+# charity’s other officials messages
+# ----------------------------------------------------------
+charityOtherOfficials.title = (W)Your charity''s other officials(W)
+charityOtherOfficials.heading = (W)The charity''s other officials(W)
+charityOtherOfficials.p1 = (W)You need to add 2 other officials but you can add up to 3.(W)
+charityOtherOfficials.p2 = (W)Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.(W)
+charityOtherOfficials.p3 = (W)They will normally be the trustees or directors of the charity (if the charity is a company), or community amateur sports club (CASC) officials.(W)
+charityOtherOfficials.p4 = (W)Adding information about other officials takes around 5 minutes.(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

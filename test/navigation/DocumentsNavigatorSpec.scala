@@ -23,12 +23,16 @@ import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import models._
 import models.regulators.SelectGoverningDocument
+import pages.IndexPage
 import pages.regulatorsAndDocuments._
-import pages.{IndexPage, QuestionPage}
 
 class DocumentsNavigatorSpec extends SpecBase {
 
   private val navigator: DocumentsNavigator = inject[DocumentsNavigator]
+
+  private val year = 2020
+  private val month = 1
+  private val dayOfMonth = 1
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -64,10 +68,6 @@ class DocumentsNavigatorSpec extends SpecBase {
 
         "go to the Is Governing Document approved page when a date is submitted" in {
 
-          val year = 2020
-          val month = 1
-          val dayOfMonth = 1
-
           navigator.nextPage(WhenGoverningDocumentApprovedPage, NormalMode,
             emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers)) mustBe
             regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(NormalMode)
@@ -81,7 +81,7 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Index Controller page when yes is selected" in {
+        "go to the DeadEnd page when yes is selected" in {
 
           navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe
@@ -113,6 +113,22 @@ class DocumentsNavigatorSpec extends SpecBase {
 
     "in Check mode" when {
 
+
+      "from the WhenGoverningDocumentApproved" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhenGoverningDocumentApprovedPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Is Governing Document approved page when a date is submitted" in {
+
+          navigator.nextPage(WhenGoverningDocumentApprovedPage, CheckMode,
+            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {
@@ -120,10 +136,6 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.IndexController.onPageLoad()
         }
       }
-    }
-
-    def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
-      emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
     }
   }
 

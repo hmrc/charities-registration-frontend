@@ -73,7 +73,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages("isApprovedGoverningDocument.checkYourAnswersLabel"),
           BaseMessages.yes,
           Some(messages("isApprovedGoverningDocument.checkYourAnswersLabel")),
-          routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+          regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

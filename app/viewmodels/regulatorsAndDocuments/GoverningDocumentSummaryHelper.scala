@@ -36,7 +36,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
     answer(WhenGoverningDocumentApprovedPage, documentsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))
 
   def isApprovedGoverningDocumentRow: Option[SummaryListRow] =
-    answer(IsApprovedGoverningDocumentPage, routes.DeadEndController.onPageLoad())
+    answer(IsApprovedGoverningDocumentPage, documentsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode))
 
   val rows: Seq[SummaryListRow] = Seq(
     selectGoverningDocumentRow,

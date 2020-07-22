@@ -149,6 +149,26 @@ class DocumentsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IsApprovedGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Dead End page when yes is selected" in {
+
+          navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+        }
+        "go to the Governing Document summary page when no is selected" in {
+          navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(IsApprovedGoverningDocumentPage, false).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {

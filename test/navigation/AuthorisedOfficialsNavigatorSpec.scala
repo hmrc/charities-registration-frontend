@@ -107,7 +107,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [full name]’s National Insurance number? when yes is selected" in {
           navigator.nextPage(IsAuthorisedOfficialNinoPage(0), NormalMode,
             emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0),true).success.value) mustBe
-            authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(NormalMode, 0) // TODO when next page is ready
+            authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(NormalMode, 0)
         }
 
         "go to the DeadEnd page when no is selected" in {
@@ -127,7 +127,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [Full name]’s home address? when clicked continue button" in {
           navigator.nextPage(AuthorisedOfficialsNinoPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
-            addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(Index(0)) // TODO when next page is ready
+            addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(Index(0))
         }
       }
 
@@ -162,7 +162,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the You have added one authorised official page when no is selected" in {
           navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0),false).success.value) mustBe
-            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad(0) // TODO when next page is ready
+            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad(0)
         }
       }
 
@@ -170,7 +170,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the DoYouWantToAddAnotherAuthorisedOfficial page when user answer is empty" in {
           navigator.nextPage(AddedOneAuthorisedOfficialPage(0), NormalMode, emptyUserAnswers) mustBe
-            authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)// TODO when next page is ready
+            authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
         }
       }
 
@@ -181,9 +181,15 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the summary page when clicked continue button" in {
+        "go to the DeadEnd page when yes is selected" in {
           navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode,
             emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
+
+        "go to the summary page when no is selected" in {
+          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode,
+            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, false).success.value) mustBe
             authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
@@ -284,20 +290,6 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the IsAddAnotherAuthorisedOfficialPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the DeadEnd page when clicked continue button" in {
-          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode,
-            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-        }
-      }
-
       "from the AuthorisedOfficialAddressLookupPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -334,6 +326,20 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         //TODO Further cases depending on existing Address data/cleanup
 
+      }
+
+      "from the IsAddAnotherAuthorisedOfficialPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the DeadEnd page when clicked continue button" in {
+          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode,
+            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
       }
 
       "from any UnKnownPage" must {

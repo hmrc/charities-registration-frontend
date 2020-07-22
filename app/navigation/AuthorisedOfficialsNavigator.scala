@@ -58,25 +58,26 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
-      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index) // TODO next page
+      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index) // TODO next page
+      case Some(_) => authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case AuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
-      case Some(false) => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad(index) // TODO redirect to next page once created
+      case Some(false) => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case AddedOneAuthorisedOfficialPage(index) => _ => authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
 
     case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

@@ -28,18 +28,18 @@
 
 @(index: Index)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("charityAuthorisedOfficials.title", Some("officialsAndNominees.section")))) {
+@govukLayout(pageTitle = Some(titleNoForm("charityOtherOfficials.title", Some("officialsAndNominees.section")))) {
 
-    @h1(messages("charityAuthorisedOfficials.heading"))
+    @h1(messages("charityOtherOfficials.heading"))
 
-    @p(Html(messages("charityAuthorisedOfficials.p1")))
+    @p(Html(messages("charityOtherOfficials.p1")))
 
-    @p(Html(messages("charityAuthorisedOfficials.p2")))
+    @p(Html(messages("charityOtherOfficials.p2")))
 
-    @p(Html(messages("charityAuthorisedOfficials.p3")))
+    @p(Html(messages("charityOtherOfficials.p3")))
 
-    @p(Html(messages("charityAuthorisedOfficials.p4")))
+    @p(Html(messages("charityOtherOfficials.p4")))
 
-    @link(controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode,Index(0)).url, "site.continue",Some("linkButton"))
+    @link(controllers.routes.DeadEndController.onPageLoad().url, "site.continue",Some("linkButton"))
 
 }

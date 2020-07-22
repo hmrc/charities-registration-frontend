@@ -167,7 +167,6 @@ deadEnd.p2 = You can also visit the task list to see the section status change f
 # ----------------------------------------------------------
 isEligiblePurpose.title = Is your charity for charitable purposes only?
 isEligiblePurpose.heading = Is your charity for charitable purposes only?
-isEligiblePurpose.section = Check if you can register
 isEligiblePurpose.hint = Charitable purposes include things that contribute to education, animal welfare and relieving poverty
 isEligiblePurpose.checkYourAnswersLabel = Is your charity for charitable purposes only?
 isEligiblePurpose.error.required = Select yes if your charity is for charitable purposes only
@@ -176,7 +175,6 @@ isEligiblePurpose.error.required = Select yes if your charity is for charitable 
 # ----------------------------------------------------------
 isEligibleAccount.title = Does your charity have a UK bank, building society or credit union account?
 isEligibleAccount.heading = Does your charity have a UK bank, building society or credit union account?
-isEligibleAccount.section = Check if you can register
 isEligibleAccount.checkYourAnswersLabel = Does your charity have a UK bank, building society or credit union account?
 isEligibleAccount.error.required = Select yes if your charity have a UK bank, building society or credit union account
 
@@ -184,7 +182,6 @@ isEligibleAccount.error.required = Select yes if your charity have a UK bank, bu
 # ----------------------------------------------------------
 isEligibleLocation.title = Is your charity based in the UK?
 isEligibleLocation.heading = Is your charity based in the UK?
-isEligibleLocation.section = Check if you can register
 isEligibleLocation.checkYourAnswersLabel = Is your charity based in the UK?
 isEligibleLocation.error.required = Select yes if your charity is based in the UK
 
@@ -192,7 +189,6 @@ isEligibleLocation.error.required = Select yes if your charity is based in the U
 # ----------------------------------------------------------
 isEligibleLocationOther.title = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 isEligibleLocationOther.heading = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.section = Check if you can register
 isEligibleLocationOther.hint = Countries in the European Union are Austria, Belgium, Bulgaria, Croatia, Republic of Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain and Sweden
 isEligibleLocationOther.checkYourAnswersLabel = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
 isEligibleLocationOther.error.required = Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway

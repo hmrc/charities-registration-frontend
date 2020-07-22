@@ -39,8 +39,6 @@ class IsEligibleLocationViewSpec extends YesNoViewBehaviours  {
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 
-      behave like pageWithSubHeading(applyView(form), "Check if you can register")
-
       behave like pageWithBackLink(applyView(form))
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsEligibleLocationController.onSubmit().url)

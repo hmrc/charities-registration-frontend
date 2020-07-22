@@ -39,8 +39,6 @@ class IsEligiblePurposeViewSpec extends YesNoViewBehaviours  {
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 
-      behave like pageWithSubHeading(applyView(form), "Check if you can register")
-
       behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "hint")
 
       behave like pageWithBackLink(applyView(form))

@@ -20,7 +20,6 @@ import java.time.LocalDate
 
 import assets.messages.BaseMessages
 import forms.common.DateOfBirthFormProvider
-import models.{Index, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours

@@ -113,6 +113,26 @@ class DocumentsNavigatorSpec extends SpecBase {
 
     "in Check mode" when {
 
+      "from the SelectGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(SelectGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the dead-end page when Other is selected" in {
+          navigator.nextPage(SelectGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO modify once Other journey is created
+        }
+
+        "go to the Governing Document summary page when other than Other is selected" in {
+          navigator.nextPage(SelectGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
 
       "from the WhenGoverningDocumentApproved" must {
 
@@ -121,7 +141,7 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Is Governing Document approved page when a date is submitted" in {
+        "go to the Is Governing Document summary page when a date is submitted" in {
 
           navigator.nextPage(WhenGoverningDocumentApprovedPage, CheckMode,
             emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers)) mustBe

@@ -43,6 +43,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
   private val checkRouteMap: Page => UserAnswers => Call = {
 
+    case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
@@ -60,6 +62,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def whenGoverningDocumentApprovedPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(WhenGoverningDocumentApprovedPage) match {
+    case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(mode)
     case _ => routes.SessionExpiredController.onPageLoad()
   }

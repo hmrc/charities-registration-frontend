@@ -17,7 +17,8 @@
 package viewmodels.regulatorsAndDocuments
 
 import controllers.routes
-import models.UserAnswers
+import controllers.regulatorsAndDocuments.{routes => documentsRoutes}
+import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
@@ -32,7 +33,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
     answer(SelectGoverningDocumentPage, routes.DeadEndController.onPageLoad(),answerIsMsgKey = true)
 
   def dateApprovedGoverningDocumentRow: Option[SummaryListRow] =
-    answer(WhenGoverningDocumentApprovedPage, routes.DeadEndController.onPageLoad())
+    answer(WhenGoverningDocumentApprovedPage, documentsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))
 
   def isApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(IsApprovedGoverningDocumentPage, routes.DeadEndController.onPageLoad())

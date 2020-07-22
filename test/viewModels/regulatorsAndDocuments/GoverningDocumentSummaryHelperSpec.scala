@@ -51,6 +51,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
         ))
       }
     }
+
     "For the WhenGoverningDocumentApproved answer" must {
 
       "have a correctly formatted summary list row" in {
@@ -59,7 +60,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages("whenGoverningDocumentApproved.checkYourAnswersLabel"),
           "2 January 2000",
           Some(messages("whenGoverningDocumentApproved.checkYourAnswersLabel")),
-          routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+          regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

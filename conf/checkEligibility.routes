@@ -1,4 +1,6 @@
 
+GET        /register-the-charity                     controllers.checkEligibility.CheckIfCanRegisterController.onPageLoad(mode: Mode = NormalMode)
+
 GET        /charitable-purposes                      controllers.checkEligibility.IsEligiblePurposeController.onPageLoad(mode: Mode = NormalMode)
 POST       /charitable-purposes                      controllers.checkEligibility.IsEligiblePurposeController.onSubmit(mode: Mode = NormalMode)
 

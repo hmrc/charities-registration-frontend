@@ -45,6 +45,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
 
+    case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
@@ -56,7 +58,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def selectGoverningDocumentPagePageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectGoverningDocumentPage) match {
-    case Some(Other) => routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+    case Some(Other) => routes.DeadEndController.onPageLoad() // TODO modify once Other journey is created
+    case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
     case _ => routes.SessionExpiredController.onPageLoad()
   }

@@ -18,7 +18,7 @@ package views.common
 
 import assets.messages.BaseMessages
 import forms.common.PhoneNumberFormProvider
-import models.{Index, NormalMode, PhoneNumber}
+import models.PhoneNumber
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours

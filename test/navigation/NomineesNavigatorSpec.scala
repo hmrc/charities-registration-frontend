@@ -17,8 +17,8 @@
 package navigation
 
 import base.SpecBase
-import controllers.routes
 import controllers.nominees.{routes => nomineesRoutes}
+import controllers.routes
 import models._
 import pages.IndexPage
 import pages.nominees.{IsAuthoriseNomineePage, NomineeDetailsSummaryPage}
@@ -38,7 +38,7 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the NomineeDetailsSummar page when No selected and clicked continue button" in {
+        "go to the NomineeDetailsSummary page when No selected and clicked continue button" in {
           navigator.nextPage(IsAuthoriseNomineePage, NormalMode,
             emptyUserAnswers.set(IsAuthoriseNomineePage, false).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -54,7 +54,7 @@ class NomineesNavigatorSpec extends SpecBase {
       "from the NomineeDetailsSummaryPage" must {
 
         "go to the TaskList page when clicked continue button" in {
-          navigator.nextPage(NomineeDetailsSummaryPage, CheckMode, emptyUserAnswers) mustBe
+          navigator.nextPage(NomineeDetailsSummaryPage, NormalMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad()
         }
       }
@@ -77,7 +77,7 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the NomineeDetailsSummar page when No selected and clicked continue button" in {
+        "go to the NomineeDetailsSummary page when No selected and clicked continue button" in {
           navigator.nextPage(IsAuthoriseNomineePage, CheckMode,
             emptyUserAnswers.set(IsAuthoriseNomineePage, false).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()

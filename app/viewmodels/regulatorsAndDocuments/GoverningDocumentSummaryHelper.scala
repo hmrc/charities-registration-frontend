@@ -16,8 +16,8 @@
 
 package viewmodels.regulatorsAndDocuments
 
-import controllers.routes
 import controllers.regulatorsAndDocuments.{routes => documentsRoutes}
+import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
@@ -30,7 +30,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
   with SummaryListRowHelper {
 
   def selectGoverningDocumentRow: Option[SummaryListRow] =
-    answer(SelectGoverningDocumentPage, routes.DeadEndController.onPageLoad(),answerIsMsgKey = true)
+    answer(SelectGoverningDocumentPage, documentsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),answerIsMsgKey = true)
 
   def dateApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(WhenGoverningDocumentApprovedPage, documentsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))

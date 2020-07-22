@@ -18,7 +18,6 @@ package views.common
 
 import assets.messages.BaseMessages
 import forms.common.NinoFormProvider
-import models.{Index, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours

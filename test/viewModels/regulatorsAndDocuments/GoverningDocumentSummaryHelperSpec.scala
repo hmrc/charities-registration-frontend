@@ -47,7 +47,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages("selectGoverningDocument.checkYourAnswersLabel"),
           messages(s"selectGoverningDocument.$MemorandumArticlesAssociation"),
           Some(messages("selectGoverningDocument.checkYourAnswersLabel")),
-          routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+          regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

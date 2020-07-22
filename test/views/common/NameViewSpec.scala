@@ -18,7 +18,7 @@ package views.common
 
 import assets.messages.BaseMessages
 import forms.common.NameFormProvider
-import models.{Index, Name, NormalMode}
+import models.Name
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours

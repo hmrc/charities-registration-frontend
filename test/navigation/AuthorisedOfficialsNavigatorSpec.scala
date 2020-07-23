@@ -35,6 +35,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
   private val authorisedOfficialsName: Name = Name("FName", Some("MName"), "lName")
   private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
+  private val minYear = 16
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -62,7 +63,6 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
 
         "go to the What is [full name]'s phone number? page when clicked continue button" in {
-          val minYear = 16
           navigator.nextPage(AuthorisedOfficialsDOBPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
             authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(NormalMode, 0)
@@ -227,7 +227,6 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
 
         "go to the summary page when continue button is clicked" in {
-          val minYear = 16
           navigator.nextPage(AuthorisedOfficialsDOBPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready

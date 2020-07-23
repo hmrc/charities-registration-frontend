@@ -16,18 +16,21 @@
 
 package navigation
 
+import java.time.LocalDate
+
 import base.SpecBase
 import controllers.routes
-import models.{CheckMode, Name, NormalMode}
+import controllers.otherOfficials.{routes => otherOfficialRoutes}
+import models.{CheckMode, Index, Name, NormalMode}
 import pages.IndexPage
-import pages.authorisedOfficials._
-import pages.otherOfficials.OtherOfficialsNamePage
+import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage}
 
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: OtherOfficialsNavigator = inject[OtherOfficialsNavigator]
 
   private val otherOfficialsName: Name = Name("FName", Some("MName"), "lName")
+  private val minYear = 16
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -43,6 +46,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [Full name]'s date of birth? when save and continue button clicked" in {
           navigator.nextPage(OtherOfficialsNamePage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).getOrElse(emptyUserAnswers)) mustBe
+            otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, Index(0))
+        }
+      }
+
+      "from the OtherOfficialsDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsDOBPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]'s phone number? when save and continue button clicked" in {
+          navigator.nextPage(OtherOfficialsDOBPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // Todo Other Officials DOB page is ready
         }
       }
@@ -68,6 +85,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the dead-end when save and continue button is clicked" in {
           navigator.nextPage(OtherOfficialsNamePage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when summary page is ready
+        }
+      }
+
+      "from the OtherOfficialsDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsDOBPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]'s phone number? when save and continue button clicked" in {
+          navigator.nextPage(OtherOfficialsDOBPage(0), CheckMode,
+            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }

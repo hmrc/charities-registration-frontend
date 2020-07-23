@@ -43,11 +43,14 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
   private val checkRouteMap: Page => UserAnswers => Call = {
 
+    case IsApprovedGoverningDocumentPage  => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
+
     case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
 
     case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
 
     case _ => _ => routes.IndexController.onPageLoad()
+
   }
 
   override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {

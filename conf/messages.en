@@ -768,6 +768,19 @@ otherOfficialsName.lastName.error.required = Enter the other official''s last na
 otherOfficialsName.lastName.error.length = The other official''s last name must be 100 characters or fewer
 otherOfficialsName.lastName.error.format = The other official''s last name must not include the following characters: & ( ) : @
 
+# Other Official Date of birth Messages
+# ----------------------------------------------------------
+otherOfficialsDOB.title = What is the other official''s date of birth?
+otherOfficialsDOB.heading = What is {0}''s date of birth?
+otherOfficialsDOB.hint = For example, 27 3 1980
+otherOfficialsDOB.error.required.all = Enter their date of birth
+otherOfficialsDOB.error.required.two = Enter their {0} and {1} of birth
+otherOfficialsDOB.error.required.one = Enter their {0} of birth
+otherOfficialsDOB.error.invalid = Their birth date must be a real date.
+otherOfficialsDOB.error.minimum = Other officials must be at least 16 years old
+
+otherOfficialsDOB.checkYourAnswersLabel = Date of birth
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

@@ -111,7 +111,7 @@
                       @messages("index.section4.spoke1.label")
                     </a>
                   </span>
-                    <strong id="authorised-officials-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="authorised-officials-completed" class='@if(result(6).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(6).status)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
@@ -119,7 +119,7 @@
                       @messages("index.section4.spoke2.label")
                     </a>
                   </span>
-                    <strong id="other-officials-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="other-officials-completed" class='@if(result(7).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(7).status)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
@@ -127,7 +127,7 @@
                       @messages("index.section4.spoke3.label")
                     </a>
                   </span>
-                    <strong id="nominee-info-completed" class="govuk-tag govuk-tag--grey app-task-list__task-completed">@messages("index.section.notStarted")</strong>
+                    <strong id="nominee-info-completed" class='@if(result(8).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(8).status)</strong>
                 </li>
             </ul>
         </li>

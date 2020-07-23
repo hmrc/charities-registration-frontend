@@ -16,15 +16,29 @@
 
 package pages.otherOfficials
 
-import models.Name
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import java.time.LocalDate
+import models.Index
+import org.scalacheck.Arbitrary
+import pages.behaviours.PageBehaviours
 
-case class OtherOfficialsNamePage(index:Int) extends QuestionPage[Name] {
+class OtherOfficialsDOBPageSpec extends PageBehaviours{
 
-  override def path: JsPath =  OtherOfficialsId(index).path \ OtherOfficialsNamePage.toString
-}
+  private val year = 2002
+  private val month = 1
+  private val dayInMonth = 1
 
-object OtherOfficialsNamePage {
-  override lazy val toString: String = "otherOfficialsName"
+  implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
+    LocalDate.of(year, month, dayInMonth)
+  }
+
+
+  "OtherOfficialsDOBPage" must {
+
+    beRetrievable[LocalDate](OtherOfficialsDOBPage(Index(0)))
+
+    beSettable[LocalDate](OtherOfficialsDOBPage(Index(0)))
+
+    beRemovable[LocalDate](OtherOfficialsDOBPage(Index(0)))
+  }
+
 }

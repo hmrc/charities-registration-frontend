@@ -16,15 +16,18 @@
 
 package pages.otherOfficials
 
-import models.Name
+import java.time.LocalDate
+
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class OtherOfficialsNamePage(index:Int) extends QuestionPage[Name] {
+case class OtherOfficialsDOBPage(index: Int)  extends QuestionPage[LocalDate] {
 
-  override def path: JsPath =  OtherOfficialsId(index).path \ OtherOfficialsNamePage.toString
+  override def path: JsPath =  OtherOfficialsId(index).path \ OtherOfficialsDOBPage.toString
 }
 
-object OtherOfficialsNamePage {
-  override lazy val toString: String = "otherOfficialsName"
+object OtherOfficialsDOBPage {
+  override lazy val toString: String = "otherOfficialsDOB"
 }
+
+

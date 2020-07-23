@@ -211,6 +211,15 @@ inEligible.l3 = (W)be based in either the UK, country in the European Union or i
 inEligible.p3 = (W)For help with tax,(W)
 inEligible.p3.link = (W)check the HMRC charities and tax guidance (opens in new window).(W)
 
+# InEligibleCharitablePurposes Page Messages
+# ----------------------------------------------------------
+inEligibleCharitablePurposes.title = (W)You cannot register the charity with HMRC(W)
+inEligibleCharitablePurposes.heading = (W) You cannot register the charity with HMRC(W)
+inEligibleCharitablePurposes.p1 = (W)To use this service the charity must be established for charitable purposes only.(W)
+inEligibleCharitablePurposes.p2 = (W) If things change, you should check back to see if you can register the charity with HMRC.(W)
+inEligibleCharitablePurposes.p3 = (W)For more information,(W)
+inEligibleCharitablePurposes.p3.link = (W) check the guidance on charitable purposes (opens in a new tab or window).(W)
+
 # Section1 - Charity Information
 # ----------------------------------------------------------
 contactDetail.section = (W)Charity Information(W)

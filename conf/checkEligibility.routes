@@ -16,3 +16,5 @@ POST       /eea-based                                controllers.checkEligibilit
 GET        /not-eligible                             controllers.checkEligibility.InEligibleController.onPageLoad(mode: Mode = NormalMode)
 
 GET        /incorrect-details                        controllers.checkEligibility.IncorrectDetailsController.onPageLoad
+
+GET        /not-eligible-charitable-purposes         controllers.checkEligibility.InEligibleCharitablePurposesController.onPageLoad()

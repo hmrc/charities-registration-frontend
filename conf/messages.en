@@ -182,7 +182,7 @@ isEligiblePurpose.error.required = Select yes if your charity is for charitable 
 isEligibleAccount.title = Does your charity have a UK bank, building society or credit union account?
 isEligibleAccount.heading = Does your charity have a UK bank, building society or credit union account?
 isEligibleAccount.checkYourAnswersLabel = Does your charity have a UK bank, building society or credit union account?
-isEligibleAccount.error.required = Select yes if your charity have a UK bank, building society or credit union account
+isEligibleAccount.error.required = Select yes if your charity has a UK bank, building society or credit union account
 
 # IsEligibleLocationPage Messages
 # ----------------------------------------------------------

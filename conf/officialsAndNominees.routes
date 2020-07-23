@@ -49,6 +49,11 @@ POST       /authorised-official-summary                                         
 
 GET        /other-officials                                                     controllers.otherOfficials.CharityOtherOfficialsController.onPageLoad()
 
+GET        /:index/other-official-namee                                         controllers.otherOfficials.OtherOfficialsNameController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/other-official-name                                          controllers.otherOfficials.OtherOfficialsNameController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/other-official-name/change                                   controllers.otherOfficials.OtherOfficialsNameController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/other-official-name/change                                   controllers.otherOfficials.OtherOfficialsNameController.onSubmit(mode: Mode = CheckMode, index: Index)
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
 
 GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)

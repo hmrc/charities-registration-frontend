@@ -14,33 +14,24 @@
  * limitations under the License.
  */
 
-package models
+package pages.otherOfficials
 
-import play.api.libs.json.{Json, OFormat}
+import models.Name
+import org.scalacheck.Arbitrary
+import pages.behaviours.PageBehaviours
 
+class OtherOfficialsNamePageSpec extends PageBehaviours {
 
-case class Name(firstName: String, middleName: Option[String], lastName: String) {
+  "OtherOfficialsNamePage" must {
 
-  def getFullName: String = {
-     Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
+    implicit lazy val arbitraryAuthorisedOfficialsName: Arbitrary[Name] = Arbitrary {
+      Name("FName", Some("MName"), "LName")
+    }
+
+    beRetrievable[Name](OtherOfficialsNamePage(0))
+
+    beSettable[Name](OtherOfficialsNamePage(0))
+
+    beRemovable[Name](OtherOfficialsNamePage(0))
   }
 }
-
-object Name {
-
-  implicit val formats: OFormat[Name] = Json.format[Name]
-
-  override def toString: String = "name"
-}
-
-case class PhoneNumber(daytimePhone: String, mobilePhone: Option[String])
-
-object PhoneNumber {
-
-  implicit val formats: OFormat[PhoneNumber] = Json.format[PhoneNumber]
-
-  override def toString: String = "phoneNumber"
-}
-
-
-

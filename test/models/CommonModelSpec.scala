@@ -29,7 +29,7 @@ class CommonModelSpec extends WordSpec with MustMatchers with OptionValues {
         middleName = Some("and"),
         lastName = "Jill")
 
-      authorisedOfficialsName.fullName mustBe "Jack and Jill"
+      authorisedOfficialsName.getFullName mustBe "Jack and Jill"
 
     }
 
@@ -40,7 +40,7 @@ class CommonModelSpec extends WordSpec with MustMatchers with OptionValues {
         middleName = None,
         lastName = "Jill")
 
-      authorisedOfficialsName.fullName mustBe "Jack Jill"
+      authorisedOfficialsName.getFullName mustBe "Jack Jill"
 
     }
 

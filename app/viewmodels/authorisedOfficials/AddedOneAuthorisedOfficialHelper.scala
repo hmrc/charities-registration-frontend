@@ -79,7 +79,7 @@ class AddedOneAuthorisedOfficialHelper(index: Index) (override val userAnswers: 
     Some(
       summaryListRow(
         label = messages("authorisedOfficialsName.checkYourAnswersLabel"),
-        value = authorisedOfficialsName.fullName,
+        value = authorisedOfficialsName.getFullName,
         visuallyHiddenText = Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

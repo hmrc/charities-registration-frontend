@@ -14,33 +14,19 @@
  * limitations under the License.
  */
 
-package models
+package pages.otherOfficials
 
-import play.api.libs.json.{Json, OFormat}
+import pages.QuestionPage
+import play.api.libs.json.{JsPath, __}
 
+case class OtherOfficialsId(index: Int) extends QuestionPage[Nothing] {
 
-case class Name(firstName: String, middleName: Option[String], lastName: String) {
-
-  def getFullName: String = {
-     Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
-  }
+  override def path: JsPath = __ \ OtherOfficialsId.toString \ index
 }
 
-object Name {
+object OtherOfficialsId {
 
-  implicit val formats: OFormat[Name] = Json.format[Name]
-
-  override def toString: String = "name"
+  override def toString: String = "otherOfficials"
 }
-
-case class PhoneNumber(daytimePhone: String, mobilePhone: Option[String])
-
-object PhoneNumber {
-
-  implicit val formats: OFormat[PhoneNumber] = Json.format[PhoneNumber]
-
-  override def toString: String = "phoneNumber"
-}
-
 
 

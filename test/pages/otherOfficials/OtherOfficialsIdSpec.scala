@@ -14,33 +14,18 @@
  * limitations under the License.
  */
 
-package models
+package pages.otherOfficials
 
-import play.api.libs.json.{Json, OFormat}
+import pages.behaviours.PageBehaviours
 
+class OtherOfficialsIdSpec extends PageBehaviours {
 
-case class Name(firstName: String, middleName: Option[String], lastName: String) {
+  "OtherOfficialsId" must {
 
-  def getFullName: String = {
-     Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
+    "have correct information" in {
+      val pageId = OtherOfficialsId(0)
+      pageId.path.toString mustBe "/otherOfficials(0)"
+      pageId.index mustBe 0
+    }
   }
 }
-
-object Name {
-
-  implicit val formats: OFormat[Name] = Json.format[Name]
-
-  override def toString: String = "name"
-}
-
-case class PhoneNumber(daytimePhone: String, mobilePhone: Option[String])
-
-object PhoneNumber {
-
-  implicit val formats: OFormat[PhoneNumber] = Json.format[PhoneNumber]
-
-  override def toString: String = "phoneNumber"
-}
-
-
-

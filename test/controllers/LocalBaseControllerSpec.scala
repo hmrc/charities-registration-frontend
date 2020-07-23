@@ -67,7 +67,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     "calling the .getAuthorisedOfficialName() is successful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, addressUserAnswers)
-      val result = controller.getAuthorisedOfficialName(Index(0))(block)(request)
+      val result = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
 
       status(result) mustEqual OK
     }
@@ -75,7 +75,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     "calling the .getAuthorisedOfficialName() is unsuccessful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
-      val result = controller.getAuthorisedOfficialName(Index(0))(block)(request)
+      val result = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)

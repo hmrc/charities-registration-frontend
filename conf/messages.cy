@@ -163,6 +163,12 @@ deadEnd.heading = (W)Sorry, this page is still in development(W)
 deadEnd.p1 = (W)Please go back and select another option.(W)
 deadEnd.p2 = (W)You can also visit the task list to see the section status change from ‘Not started’ to ‘In progress’ or ‘Completed’.(W)
 
+# CheckIfCanRegisterPage Messages
+# ----------------------------------------------------------
+checkIfYouCanRegister.title = (W)Check if you can register the charity(W)
+checkIfYouCanRegister.heading = (W)Check if you can register the charity(W)
+checkIfYouCanRegister.p1 = (W)Use this service to check if the charity can register for tax purposes.(W)
+
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------
 isEligiblePurpose.title = (W)Is your charity for charitable purposes only?(W)

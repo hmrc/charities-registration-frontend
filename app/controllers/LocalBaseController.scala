@@ -19,7 +19,7 @@ package controllers
 
 import models._
 import models.requests.DataRequest
-import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.QuestionPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
@@ -30,12 +30,13 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
 
   implicit lazy val ec: ExecutionContext = controllerComponents.executionContext
 
-  def getAuthorisedOfficialName(index: Index)(block: String => Future[Result])
-                                       (implicit request: DataRequest[AnyContent]): Future[Result] = {
+  def getFullName(page: QuestionPage[Name])(block: String => Future[Result])
+                               (implicit request: DataRequest[AnyContent]): Future[Result] = {
 
-    request.userAnswers.get(AuthorisedOfficialsNamePage(index)).map {
-      authorisedOfficialsName =>
-        block(authorisedOfficialsName.fullName)
+    request.userAnswers.get(page).map {
+      fullName =>
+        block(fullName.getFullName)
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
+
 }

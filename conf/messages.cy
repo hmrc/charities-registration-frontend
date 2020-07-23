@@ -752,6 +752,22 @@ charityOtherOfficials.p2 = (W)Other officials are people in the charity who can 
 charityOtherOfficials.p3 = (W)They will normally be the trustees or directors of the charity (if the charity is a company), or community amateur sports club (CASC) officials.(W)
 charityOtherOfficials.p4 = (W)Adding information about other officials takes around 5 minutes.(W)
 
+# Other Officials Name Messages
+# ----------------------------------------------------------
+otherOfficialsName.title = (W)What is the other official''s name?(W)
+otherOfficialsName.heading = (W)What is the other official''s name?(W)
+otherOfficialsName.firstName.label = (W)First name(W)
+otherOfficialsName.firstName.error.required = (W)Enter the other official''s first name(W)
+otherOfficialsName.firstName.error.length = (W)The other official''s first name must be 100 characters or fewer(W)
+otherOfficialsName.firstName.error.format = (W)The other official''s first name must not include the following characters: & ( ) : @(W)
+otherOfficialsName.middleName.label = (W)Middle name (optional)(W)
+otherOfficialsName.middleName.error.length = (W)The other official''s middle name must be 100 characters or fewer(W)
+otherOfficialsName.middleName.error.format = (W)The other official''s middle name must not include the following characters: & ( ) : @(W)
+otherOfficialsName.lastName.label = (W)Last name(W)
+otherOfficialsName.lastName.error.required = (W)Enter the other official''s last name(W)
+otherOfficialsName.lastName.error.length = (W)The other official''s last name must be 100 characters or fewer(W)
+otherOfficialsName.lastName.error.format = (W)The other official''s last name must not include the following characters: & ( ) : @(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

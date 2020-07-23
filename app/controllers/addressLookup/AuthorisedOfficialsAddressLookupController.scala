@@ -23,6 +23,7 @@ import javax.inject.Inject
 import models.Index
 import navigation.AuthorisedOfficialsNavigator
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
+import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.sections.Section7Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -41,7 +42,7 @@ class AuthorisedOfficialsAddressLookupController @Inject()(
 
   def initializeJourney(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+      getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
         val callBack: String = controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.callback(index).url
 

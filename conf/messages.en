@@ -752,6 +752,22 @@ charityOtherOfficials.p2 = Other officials are people in the charity who can tel
 charityOtherOfficials.p3 = They will normally be the trustees or directors of the charity (if the charity is a company), or community amateur sports club (CASC) officials.
 charityOtherOfficials.p4 = Adding information about other officials takes around 5 minutes.
 
+# Other Officials Name Messages
+# ----------------------------------------------------------
+otherOfficialsName.title = What is the other official''s name?
+otherOfficialsName.heading = What is the other official''s name?
+otherOfficialsName.firstName.label = First name
+otherOfficialsName.firstName.error.required = Enter the other official''s first name
+otherOfficialsName.firstName.error.length = The other official''s first name must be 100 characters or fewer
+otherOfficialsName.firstName.error.format = The other official''s first name must not include the following characters: & ( ) : @
+otherOfficialsName.middleName.label = Middle name (optional)
+otherOfficialsName.middleName.error.length = The other official''s middle name must be 100 characters or fewer
+otherOfficialsName.middleName.error.format = The other official''s middle name must not include the following characters: & ( ) : @
+otherOfficialsName.lastName.label = Last name
+otherOfficialsName.lastName.error.required = Enter the other official''s last name
+otherOfficialsName.lastName.error.length = The other official''s last name must be 100 characters or fewer
+otherOfficialsName.lastName.error.format = The other official''s last name must not include the following characters: & ( ) : @
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

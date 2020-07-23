@@ -23,7 +23,7 @@ import forms.common.PhoneNumberFormProvider
 import javax.inject.Inject
 import models.{Index, Mode, PhoneNumber}
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AuthorisedOfficialsPhoneNumberPage
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage}
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
@@ -48,7 +48,7 @@ class AuthorisedOfficialsPhoneNumberController @Inject()(
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+    getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
       Future.successful(getView(AuthorisedOfficialsPhoneNumberPage(index), form, authorisedOfficialsName,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsPhoneNumberController.onSubmit(mode, index)))
@@ -57,7 +57,7 @@ class AuthorisedOfficialsPhoneNumberController @Inject()(
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+    getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
       postView(mode, AuthorisedOfficialsPhoneNumberPage(index), form, authorisedOfficialsName, Section7Page,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsPhoneNumberController.onSubmit(mode, index))

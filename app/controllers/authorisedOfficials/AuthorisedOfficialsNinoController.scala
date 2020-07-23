@@ -23,7 +23,7 @@ import forms.common.NinoFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AuthorisedOfficialsNinoPage
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsNinoPage}
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
@@ -48,7 +48,7 @@ class AuthorisedOfficialsNinoController @Inject()(
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+    getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
       Future.successful(getView(AuthorisedOfficialsNinoPage(index), form, authorisedOfficialsName,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsNinoController.onSubmit(mode, index)))
@@ -57,7 +57,7 @@ class AuthorisedOfficialsNinoController @Inject()(
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getAuthorisedOfficialName(index) { authorisedOfficialsName =>
+    getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
       postView(mode, AuthorisedOfficialsNinoPage(index), form, authorisedOfficialsName, Section7Page,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsNinoController.onSubmit(mode, index))

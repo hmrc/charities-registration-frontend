@@ -17,7 +17,7 @@
 package views.otherOfficials
 
 import assets.messages.BaseMessages
-import models.Index
+import models.{Index, NormalMode}
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.otherOfficials.CharityOtherOfficialsView
@@ -40,7 +40,7 @@ class CharityOtherOfficialsViewSpec extends ViewBehaviours  {
 
       behave like pageWithBackLink(applyView())
 
-      behave like pageWithHyperLink(applyView(), "linkButton",controllers.routes.DeadEndController.onPageLoad().url,BaseMessages.continue)
+      behave like pageWithHyperLink(applyView(), "linkButton",controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, Index(0)).url,BaseMessages.continue)
 
 
     }

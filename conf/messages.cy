@@ -45,7 +45,7 @@ site.getHelpWithThisPage = (W)Get help with this page(W)
 site.notProvided = (W)Not Provided(W)
 site.incomplete = (W)Incomplete(W)
 site.warning = (W)Warning:(W)
-site.opensInNewWindowOrTab = (W)(opens in a new window or tab)(W)
+site.opensInNewWindowOrTab = (W)(opens in a new tab or window).(W)
 site.change = (W)Change(W)
 site.logOut = (W)log out(W)
 site.empref = (W)Employer PAYE reference: {0}(W)
@@ -218,7 +218,7 @@ inEligibleCharitablePurposes.heading = (W) You cannot register the charity with 
 inEligibleCharitablePurposes.p1 = (W)To use this service the charity must be established for charitable purposes only.(W)
 inEligibleCharitablePurposes.p2 = (W) If things change, you should check back to see if you can register the charity with HMRC.(W)
 inEligibleCharitablePurposes.p3 = (W)For more information,(W)
-inEligibleCharitablePurposes.p3.link = (W) check the guidance on charitable purposes (opens in a new tab or window).(W)
+inEligibleCharitablePurposes.p3.link = (W) check the guidance on charitable purposes(W)
 
 # Section1 - Charity Information
 # ----------------------------------------------------------

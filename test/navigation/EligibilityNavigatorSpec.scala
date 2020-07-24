@@ -61,9 +61,9 @@ class EligibilityNavigatorSpec extends SpecBase{
             elroutes.IsEligibleLocationController.onPageLoad()
         }
 
-        "go to the InEligibleController page when No is selected" in {
+        "go to the InEligibleBankController page when No is selected" in {
           navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnswers(IsEligibleAccountPage, false)) mustBe
-            elroutes.InEligibleController.onPageLoad()
+            elroutes.InEligibleBankController.onPageLoad()
         }
       }
 

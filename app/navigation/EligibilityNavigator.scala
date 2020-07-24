@@ -37,7 +37,7 @@ class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case IsEligibleAccountPage => userAnswers: UserAnswers => navigate(
       userAnswers.get(IsEligibleAccountPage),
       elroutes.IsEligibleLocationController.onPageLoad(),
-      elroutes.InEligibleController.onPageLoad()
+      elroutes.InEligibleBankController.onPageLoad()
     )
     case IsEligibleLocationPage => userAnswers: UserAnswers => navigate(
       userAnswers.get(IsEligibleLocationPage),

@@ -220,6 +220,18 @@ inEligibleCharitablePurposes.p2 = If things change, you should check back to see
 inEligibleCharitablePurposes.p3 = For more information,
 inEligibleCharitablePurposes.p3.link =  check the guidance on charitable purposes
 
+# InEligible Page Messages
+# ----------------------------------------------------------
+notEligible.title = You cannot register the charity with HMRC
+notEligible.heading = You cannot register the charity with HMRC
+notEligible.p2 = If things change, you should check back to see if you can register the charity with HMRC.
+notEligible.p3 = For more information,
+notEligible.p3.link =  check the guidance on charitable purposes
+
+# InEligibleBank Page Messages
+# ----------------------------------------------------------
+notEligible.bank.p1 = To use this service the charity must have a UK bank, building society or credit union account.
+
 # Section1 - Charity Information
 # ----------------------------------------------------------
 contactDetail.section = Charity Information

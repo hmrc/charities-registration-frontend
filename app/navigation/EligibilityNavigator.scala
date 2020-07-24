@@ -47,7 +47,7 @@ class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case IsEligibleLocationOtherPage =>  userAnswers: UserAnswers => navigate(
         userAnswers.get(IsEligibleLocationOtherPage),
         routes.IndexController.onPageLoad(),
-        elroutes.InEligibleController.onPageLoad()
+        elroutes.InEligibleLocationOtherController.onPageLoad()
       )
     case _ => _ => routes.IndexController.onPageLoad()
   }

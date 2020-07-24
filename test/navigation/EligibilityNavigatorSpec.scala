@@ -97,9 +97,9 @@ class EligibilityNavigatorSpec extends SpecBase{
             routes.IndexController.onPageLoad()
         }
 
-        "go to the InEligibleController page when No is selected" in {
+        "go to the InEligibleLocationOtherController page when No is selected" in {
           navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnswers(IsEligibleLocationOtherPage, false)) mustBe
-            elroutes.InEligibleController.onPageLoad()
+            elroutes.InEligibleLocationOtherController.onPageLoad()
         }
       }
 

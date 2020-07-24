@@ -792,6 +792,20 @@ otherOfficialsDOB.error.minimum = Other officials must be at least 16 years old
 
 otherOfficialsDOB.checkYourAnswersLabel = Date of birth
 
+# Other Officials Phone Number Messages
+# ----------------------------------------------------------
+otherOfficialsPhoneNumber.title = What is the other official''s phone number?
+otherOfficialsPhoneNumber.heading = What is {0}''s phone number?
+otherOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
+otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
+otherOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number (optional)
+otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
+otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
+otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
+
+otherOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
+
 # Other Official Position  Messages
 # ----------------------------------------------------------
 otherOfficialsPosition.title = What is the other official''s position in your charity?

@@ -33,7 +33,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: AuthorisedOfficialsNavigator = inject[AuthorisedOfficialsNavigator]
 
-  private val authorisedOfficialsName: Name = Name("FName", Some("MName"), "lName")
+  private val authorisedOfficialsName: Name = Name("Jim", Some("John"), "Jones")
   private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
   private val minYear = 16
 

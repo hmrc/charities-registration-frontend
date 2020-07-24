@@ -124,7 +124,7 @@ class NameFormProviderSpec extends StringFieldBehaviours {
   
   "AuthorisedOfficialsNameFormProvider" must {
 
-    val authorisedOfficialsName = Name("FName", Some("MName"), "lName")
+    val authorisedOfficialsName = Name("Jim", Some("John"), "Jones")
 
     "apply AuthorisedOfficialsName correctly" in {
 

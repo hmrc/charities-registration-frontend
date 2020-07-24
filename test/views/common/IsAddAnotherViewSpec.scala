@@ -44,7 +44,7 @@ class IsAddAnotherViewSpec extends YesNoViewBehaviours  {
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsAddAnotherAuthorisedOfficialController.onSubmit(NormalMode).url, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     }
   }

@@ -46,7 +46,7 @@ class IsOfficialsNinoViewSpec extends YesNoViewBehaviours  {
       behave like yesNoPage(form, applyView, messageKeyPrefix,
         routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode,Index(0) ).url, Seq("test"), section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     }
   }

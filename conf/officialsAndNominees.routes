@@ -59,6 +59,11 @@ POST       /:index/other-official-date-of-birth                                 
 GET        /:index/other-official-date-of-birth/change                          controllers.otherOfficials.OtherOfficialsDOBController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/other-official-date-of-birth/change                          controllers.otherOfficials.OtherOfficialsDOBController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /:index/other-official-position                                      controllers.otherOfficials.OtherOfficialsPositionController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/other-official-position                                      controllers.otherOfficials.OtherOfficialsPositionController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/other-official-position/change                               controllers.otherOfficials.OtherOfficialsPositionController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/other-official-position/change                               controllers.otherOfficials.OtherOfficialsPositionController.onSubmit(mode: Mode = CheckMode, index: Index)
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
 
 GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)

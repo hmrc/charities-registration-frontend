@@ -46,7 +46,7 @@ class IsPreviousAddressViewSpec extends YesNoViewBehaviours {
     behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AuthorisedOfficialPreviousAddressController
       .onSubmit(NormalMode, Index(0)).url, Seq("Jim Jones"), section = section)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }
 

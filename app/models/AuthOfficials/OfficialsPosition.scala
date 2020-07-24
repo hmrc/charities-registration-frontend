@@ -60,7 +60,7 @@ object OfficialsPosition extends Enumerable.Implicits {
     value =>
       RadioItem(
         value = Some(value.toString),
-        content = Text(messages(s"authorisedOfficialsPosition.${value.toString}")),
+        content = Text(messages(s"officialsPosition.${value.toString}")),
         checked = form("value").value.contains(value.toString)
       )
   }

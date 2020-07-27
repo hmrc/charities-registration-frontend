@@ -211,15 +211,6 @@ inEligible.l3 = (W)be based in either the UK, country in the European Union or i
 inEligible.p3 = (W)For help with tax,(W)
 inEligible.p3.link = (W)check the HMRC charities and tax guidance (opens in new window).(W)
 
-# InEligibleCharitablePurposes Page Messages
-# ----------------------------------------------------------
-inEligibleCharitablePurposes.title = (W)You cannot register the charity with HMRC(W)
-inEligibleCharitablePurposes.heading = (W)You cannot register the charity with HMRC(W)
-inEligibleCharitablePurposes.p1 = (W)To use this service the charity must be established for charitable purposes only.(W)
-inEligibleCharitablePurposes.p2 = (W)If things change, you should check back to see if you can register the charity with HMRC.(W)
-inEligibleCharitablePurposes.p3 = (W)For more information,(W)
-inEligibleCharitablePurposes.p3.link =  (W)check the guidance on charitable purposes(W)
-
 # InEligible Page Messages
 # ----------------------------------------------------------
 notEligible.title = (W)You cannot register the charity with HMRC(W)
@@ -227,6 +218,14 @@ notEligible.heading = (W)You cannot register the charity with HMRC(W)
 notEligible.p2 = (W)If things change, you should check back to see if you can register the charity with HMRC.(W)
 notEligible.p3 = (W)For more information,(W)
 notEligible.p3.link = (W)check the guidance on charitable purposes(W)
+
+# InEligibleCharitablePurposes Page Messages
+# ----------------------------------------------------------
+notEligible.charitablePurposes.p1 = (W)To use this service the charity must be established for charitable purposes only.(W)
+
+# InEligibleLocationOther Page Messages
+# ----------------------------------------------------------
+notEligible.locationOther.p1 = (W)To use this service the charity must be based in the UK, European Union, Iceland, Liechtenstein or Norway.(W)
 
 # InEligibleBank Page Messages
 # ----------------------------------------------------------

@@ -84,6 +84,8 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
 
   lazy val encryptionKey: String = servicesConfig.getString("mongodb.encryption.key")
 
+  lazy val getRecognition: String = servicesConfig.getString("urls.getRecognition")
+
   object GovukGuidance {
     val supportForBusiness: String = servicesConfig.getString("urls.govukGuidance.supportForBusiness")
   }

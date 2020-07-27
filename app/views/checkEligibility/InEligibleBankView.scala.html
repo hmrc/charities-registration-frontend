@@ -35,6 +35,6 @@
     @p(Html(messages("notEligible.p2")))
     @p{
         @messages("notEligible.p3")
-        @link("https://www.gov.uk/charities-and-tax/get-recognition",messages("notEligible.p3.link"), isExternal = true)
+        @link(appConfig.getRecognition, messages("notEligible.p3.link"), Some("link"), isExternal = true)
       }
 }

@@ -20,3 +20,5 @@ GET        /incorrect-details                        controllers.checkEligibilit
 GET        /not-eligible-charitable-purposes         controllers.checkEligibility.InEligibleCharitablePurposesController.onPageLoad()
 
 GET        /not-eligible-bank                        controllers.checkEligibility.InEligibleBankController.onPageLoad()
+
+GET        /not-eligible-location                    controllers.checkEligibility.InEligibleLocationOtherController.onPageLoad()

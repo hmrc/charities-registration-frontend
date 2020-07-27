@@ -674,17 +674,17 @@ officialsPosition.23 = (W)UK Agent(W)
 
 authorisedOfficialsPosition.checkYourAnswersLabel = (W)Position(W)
 
-# Authorised official has national insurance Page Messages
+# Authorised official has National Insurance Page Messages
 # ----------------------------------------------------------
-isAuthorisedOfficialNino.title = (W)Does the authorised official have a national insurance number?(W)
-isAuthorisedOfficialNino.heading = (W)Does the authorised official have a national insurance number?(W)
+isAuthorisedOfficialNino.title = (W)Does the authorised official have a National Insurance number?(W)
+isAuthorisedOfficialNino.heading = (W)Does {0} have a National Insurance number?(W)
 isAuthorisedOfficialNino.error.required = (W)Select yes if they have a National Insurance number(W)
 
 isAuthorisedOfficialPosition.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
-authorisedOfficialsNino.title = (W)What is the authorised official''s national insurance number?(W)
+authorisedOfficialsNino.title = (W)What is the authorised official''s National Insurance number?(W)
 authorisedOfficialsNino.heading = (W)What is {0}''s National Insurance number?(W)
 authorisedOfficialsNino.hint = (W)For example, QQ 12 34 56 C(W)
 authorisedOfficialsNino.error.required = (W)Enter their National Insurance number(W)
@@ -792,7 +792,7 @@ otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their a
 otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
 otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
 
-otherOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
+otherOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
 
 # Other Official Position  Messages
 # ----------------------------------------------------------
@@ -802,6 +802,14 @@ otherOfficialsPosition.error.required = (W)Select their position in your charity
 otherOfficialsPosition.hint = (W)Select one option(W)
 
 otherOfficialsPosition.checkYourAnswersLabel = (W)Position(W)
+
+# Other official has National Insurance Page Messages
+# ----------------------------------------------------------
+isOtherOfficialNino.title = (W)Does the other official have a National Insurance number?(W)
+isOtherOfficialNino.heading = (W)Does {0} have a National Insurance number?(W)
+isOtherOfficialNino.error.required = (W)Select yes if they have a National Insurance number(W)
+
+isOtherOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
 # Other Official Nino  Messages
 # ----------------------------------------------------------

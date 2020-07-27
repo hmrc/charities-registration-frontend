@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package controllers.authorisedOfficials
+package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.IsOfficialsNinoFormProvider
 import models.{Index, Name, NormalMode, UserAnswers}
-import navigation.AuthorisedOfficialsNavigator
-import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
+import navigation.FakeNavigators.FakeOtherOfficialsNavigator
+import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialNinoPage}
+import pages.otherOfficials.{IsOtherOfficialNinoPage, OtherOfficialsNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -35,7 +35,7 @@ import views.html.common.IsOfficialsNinoView
 
 import scala.concurrent.Future
 
-class IsAuthorisedOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach {
+class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -43,7 +43,7 @@ class IsAuthorisedOfficialNinoControllerSpec extends SpecBase with BeforeAndAfte
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-        bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
+        bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
@@ -52,17 +52,17 @@ class IsAuthorisedOfficialNinoControllerSpec extends SpecBase with BeforeAndAfte
     reset(mockUserAnswerRepository)
   }
 
-  private val messageKeyPrefix: String = "isAuthorisedOfficialNino"
+  private val messageKeyPrefix: String = "isOtherOfficialNino"
   private val view: IsOfficialsNinoView = injector.instanceOf[IsOfficialsNinoView]
   private val formProvider: IsOfficialsNinoFormProvider = injector.instanceOf[IsOfficialsNinoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
-  private val controller: IsAuthorisedOfficialNinoController = inject[IsAuthorisedOfficialNinoController]
+  private val controller: IsOtherOfficialNinoController = inject[IsOtherOfficialNinoController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
 
-  "IsAuthorisedOfficialPosition Controller" must {
+  "IsOtherOfficialPosition Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -72,7 +72,7 @@ class IsAuthorisedOfficialNinoControllerSpec extends SpecBase with BeforeAndAfte
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
-        controllers.authorisedOfficials.routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode, Index(0)))(
+        controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(NormalMode, Index(0)))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
@@ -80,7 +80,7 @@ class IsAuthorisedOfficialNinoControllerSpec extends SpecBase with BeforeAndAfte
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsAuthorisedOfficialNinoPage(0), true).getOrElse(emptyUserAnswers))))
+        set(IsOtherOfficialNinoPage(0), true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

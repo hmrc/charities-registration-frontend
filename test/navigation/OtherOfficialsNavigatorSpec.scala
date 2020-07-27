@@ -89,7 +89,27 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to Does [Full name] have a National Insurance number? when clicked continue button" in {
           navigator.nextPage(OtherOfficialsPositionPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
+            otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(NormalMode, Index(0))
+        }
+      }
+
+      "from the IsOtherOfficialNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsOtherOfficialNinoPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]’s National Insurance number? when yes is selected" in {
+          navigator.nextPage(IsOtherOfficialNinoPage(0), NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialNinoPage(0),true).success.value) mustBe
             otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, Index(0))
+        }
+
+        "go to the DeadEnd page when no is selected" in {
+          navigator.nextPage(IsOtherOfficialNinoPage(0), NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialNinoPage(0),false).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
         }
       }
 
@@ -160,7 +180,6 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-
       "from the OtherOfficialsPositionPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -175,6 +194,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IsOtherOfficialNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsOtherOfficialNinoPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the DeadEnd page when no is selected" in {
+          navigator.nextPage(IsOtherOfficialNinoPage(0), CheckMode,
+            emptyUserAnswers.set(IsOtherOfficialNinoPage(0),false).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
+      }
+
       "from the OtherOfficialsNinoPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -183,7 +216,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
 
         "go to the What is [Full name]’s home address? when clicked continue button" in {
-          navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
+          navigator.nextPage(OtherOfficialsNinoPage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }

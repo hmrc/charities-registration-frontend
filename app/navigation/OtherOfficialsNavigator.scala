@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, UserAnswers}
 import pages.Page
-import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsPositionPage}
+import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsPhoneNumberPage, OtherOfficialsPositionPage}
 import play.api.mvc.Call
 
 class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -30,12 +30,17 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case OtherOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNamePage(index)) match {
-      case Some(_) => otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, index) // Todo OtherOfficialsDOB page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsDOBPage(index)) match {
-      case Some(_) => otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, index) // Todo phone number page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(NormalMode, index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
+      case Some(_) => otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -55,6 +60,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsDOBPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

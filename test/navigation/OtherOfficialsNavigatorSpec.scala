@@ -22,15 +22,15 @@ import base.SpecBase
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.AuthOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, NormalMode}
+import models.{CheckMode, Index, Name, NormalMode, PhoneNumber}
 import pages.IndexPage
-import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsPositionPage}
+import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsPhoneNumberPage, OtherOfficialsPositionPage}
 
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: OtherOfficialsNavigator = inject[OtherOfficialsNavigator]
-
-  private val otherOfficialsName: Name = Name("FName", Some("MName"), "lName")
+  private val otherOfficialsName: Name = Name("Jim", Some("John"), "Jones")
+  private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
   private val minYear = 16
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
@@ -61,11 +61,23 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [full name]'s phone number? when save and continue button clicked" in {
           navigator.nextPage(OtherOfficialsDOBPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
-            otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, Index(0)) // Todo Other Officials phone number page is ready
+            otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(NormalMode, Index(0))
         }
       }
 
+      "from the OtherOfficialsPhoneNumberPage" must {
 
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsPhoneNumberPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [full name]'s position in charity? page when clicked continue button" in {
+          navigator.nextPage(OtherOfficialsPhoneNumberPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
+            otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, Index(0))
+        }
+      }
 
       "from the OtherOfficialsPositionPage" must {
 
@@ -119,6 +131,21 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
+
+      "from the OtherOfficialsPhoneNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsPhoneNumberPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the dead-end when save and continue button is clicked" in {
+          navigator.nextPage(OtherOfficialsPhoneNumberPage(0), CheckMode,
+            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when summary page is ready
+        }
+      }
+
 
       "from the OtherOfficialsPositionPage" must {
 

@@ -199,18 +199,6 @@ isEligibleLocationOther.hint = (W)Countries in the European Union are Austria, B
 isEligibleLocationOther.checkYourAnswersLabel = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.error.required = (W)Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway(W)
 
-# InEligiblePage Messages
-# ----------------------------------------------------------
-inEligible.title = (W)You cannot use this service(W)
-inEligible.heading = (W)You cannot use this service(W)
-inEligible.p1 = (W)If things change, you should check back to see if you need to register your charity with HMRC.(W)
-inEligible.p2 = (W)To use this service your charity must:(W)
-inEligible.l1 = (W)be established for charitable purposes only, like animal welfare or relieving poverty(W)
-inEligible.l2 = (W)have a UK bank, building society or credit union account(W)
-inEligible.l3 = (W)be based in either the UK, country in the European Union or in Iceland, Liechtenstein or Norway(W)
-inEligible.p3 = (W)For help with tax,(W)
-inEligible.p3.link = (W)check the HMRC charities and tax guidance (opens in new window).(W)
-
 # InEligible Page Messages
 # ----------------------------------------------------------
 notEligible.title = (W)You cannot register the charity with HMRC(W)

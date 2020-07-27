@@ -69,6 +69,11 @@ POST       /:index/other-official-position                                      
 GET        /:index/other-official-position/change                               controllers.otherOfficials.OtherOfficialsPositionController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/other-official-position/change                               controllers.otherOfficials.OtherOfficialsPositionController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /:index/other-official-enter-national-insurance                      controllers.otherOfficials.OtherOfficialsNinoController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/other-official-enter-national-insurance                      controllers.otherOfficials.OtherOfficialsNinoController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/other-official-enter-national-insurance/change               controllers.otherOfficials.OtherOfficialsNinoController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/other-official-enter-national-insurance/change               controllers.otherOfficials.OtherOfficialsNinoController.onSubmit(mode: Mode = CheckMode, index: Index)
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
 
 GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)

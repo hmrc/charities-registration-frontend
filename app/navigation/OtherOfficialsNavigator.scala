@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, UserAnswers}
 import pages.Page
-import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsPhoneNumberPage, OtherOfficialsPositionPage}
+import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsNinoPage, OtherOfficialsPositionPage, OtherOfficialsPhoneNumberPage}
 import play.api.mvc.Call
 
 class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -45,7 +45,12 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO National Insurance number page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // Todo AddressLookup page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -70,6 +75,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

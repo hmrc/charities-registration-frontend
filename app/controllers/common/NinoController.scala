@@ -62,5 +62,5 @@ trait NinoController extends LocalBaseController {
     )
   }
 
-  private def transformNino(nino: String): String = nino.filterNot(_.isWhitespace).replaceAll("..", "$0 ")
+  private def transformNino(nino: String): String = nino.filterNot(_.isWhitespace).replaceAll("..", "$0 ").toUpperCase()
 }

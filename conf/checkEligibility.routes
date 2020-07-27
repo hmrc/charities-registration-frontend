@@ -13,8 +13,6 @@ POST       /uk-based                                 controllers.checkEligibilit
 GET        /eea-based                                controllers.checkEligibility.IsEligibleLocationOtherController.onPageLoad(mode: Mode = NormalMode)
 POST       /eea-based                                controllers.checkEligibility.IsEligibleLocationOtherController.onSubmit(mode: Mode = NormalMode)
 
-GET        /not-eligible                             controllers.checkEligibility.InEligibleController.onPageLoad(mode: Mode = NormalMode)
-
 GET        /incorrect-details                        controllers.checkEligibility.IncorrectDetailsController.onPageLoad
 
 GET        /not-eligible-charitable-purposes         controllers.checkEligibility.InEligibleCharitablePurposesController.onPageLoad()

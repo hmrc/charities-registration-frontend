@@ -59,7 +59,7 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
   private val controller: AuthorisedOfficialPreviousAddressController = inject[AuthorisedOfficialPreviousAddressController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
+    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
 
   "AuthorisedOfficialPreviousAddress Controller" must {
 
@@ -70,7 +70,7 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,"FName MName LName", messageKeyPrefix,
+      contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialPreviousAddressController.onSubmit(NormalMode, Index(0)))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())

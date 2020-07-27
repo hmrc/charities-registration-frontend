@@ -63,7 +63,7 @@ class AuthroisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
     mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(
-    AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
+    AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
 
   override lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, localUserAnswers)
 

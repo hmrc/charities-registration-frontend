@@ -16,22 +16,17 @@
 
 package pages.otherOfficials
 
-import models.Name
-import org.scalacheck.Arbitrary
-import pages.behaviours.PageBehaviours
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-class OtherOfficialsNamePageSpec extends PageBehaviours {
+case class IsOtherOfficialNinoPage(index:Int) extends QuestionPage[Boolean] {
 
-  "OtherOfficialsNamePage" must {
-
-    implicit lazy val arbitraryAuthorisedOfficialsName: Arbitrary[Name] = Arbitrary {
-      Name("Jim", Some("John"), "Jones")
-    }
-
-    beRetrievable[Name](OtherOfficialsNamePage(0))
-
-    beSettable[Name](OtherOfficialsNamePage(0))
-
-    beRemovable[Name](OtherOfficialsNamePage(0))
-  }
+  override def path: JsPath =  OtherOfficialsId(index).path \ IsOtherOfficialNinoPage.toString
 }
+
+object IsOtherOfficialNinoPage {
+
+  override lazy val toString: String = "isOtherOfficialNino"
+}
+
+

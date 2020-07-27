@@ -65,7 +65,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
                         "date.month" -> "1",
                         "date.day" -> "1")
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
+    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
 
 
   "AuthorisedOfficialsDOBController Controller " must {
@@ -76,7 +76,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
       val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
+      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsDOBController.onSubmit(NormalMode, Index(0)))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())

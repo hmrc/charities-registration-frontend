@@ -77,7 +77,7 @@ class AuthorisedOfficialsNameControllerSpec extends SpecBase with BeforeAndAfter
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
+      val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 

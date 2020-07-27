@@ -63,7 +63,7 @@ class OtherOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val requestArgs = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
-    Name("FName", Some("MName"), "LName")).success.value
+    Name("Jim", Some("John"), "Jones")).success.value
 
   "OtherOfficialsDOBController Controller " must {
 
@@ -73,7 +73,7 @@ class OtherOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
+      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
         controllers.otherOfficials.routes.OtherOfficialsDOBController.onSubmit(NormalMode, Index(0)))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())

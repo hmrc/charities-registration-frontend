@@ -59,7 +59,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private lazy val controller: TestAuthorisedOfficialsController = new TestAuthorisedOfficialsController(messagesControllerComponents)
   private val addressUserAnswers: UserAnswers = emptyUserAnswers.set(
-    AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")
+    AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")
   ).success.value
 
   "LocalBase Controller" must {

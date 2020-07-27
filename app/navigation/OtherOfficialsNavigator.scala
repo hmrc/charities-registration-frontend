@@ -22,6 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, UserAnswers}
 import pages.Page
+import pages.otherOfficials._
 import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsNinoPage, OtherOfficialsPositionPage, OtherOfficialsPhoneNumberPage}
 import play.api.mvc.Call
 
@@ -45,7 +46,13 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
-      case Some(_) => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, index)
+      case Some(_) => otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(NormalMode, index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
+      case Some(true) => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, index)
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -75,6 +82,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

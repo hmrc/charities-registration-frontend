@@ -16,22 +16,16 @@
 
 package pages.otherOfficials
 
-import models.Name
-import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class OtherOfficialsNamePageSpec extends PageBehaviours {
+class IsOtherOfficialNinoPageSpec extends PageBehaviours {
 
-  "OtherOfficialsNamePage" must {
+  "IsOtherOfficialNinoPage" must {
 
-    implicit lazy val arbitraryAuthorisedOfficialsName: Arbitrary[Name] = Arbitrary {
-      Name("Jim", Some("John"), "Jones")
-    }
+    beRetrievable[Boolean](IsOtherOfficialNinoPage(0))
 
-    beRetrievable[Name](OtherOfficialsNamePage(0))
+    beSettable[Boolean](IsOtherOfficialNinoPage(0))
 
-    beSettable[Name](OtherOfficialsNamePage(0))
-
-    beRemovable[Name](OtherOfficialsNamePage(0))
+    beRemovable[Boolean](IsOtherOfficialNinoPage(0))
   }
 }

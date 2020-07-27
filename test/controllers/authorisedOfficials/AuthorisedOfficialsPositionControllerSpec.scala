@@ -61,7 +61,7 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
   private val controller: AuthorisedOfficialsPositionController = inject[AuthorisedOfficialsPositionController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("FName", Some("MName"), "LName")).success.value
+    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
 
   "AuthorisedOfficialsPosition Controller" must {
 
@@ -72,7 +72,7 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
       val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
+      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsPositionController.onSubmit(NormalMode, Index(0)))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.authorisedOfficials
+package controllers.otherOfficials
 
 import config.FrontendAppConfig
 import controllers.actions._
@@ -22,8 +22,8 @@ import controllers.common.IsOfficialsNinoController
 import forms.common.IsOfficialsNinoFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
-import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialNinoPage}
+import navigation.OtherOfficialsNavigator
+import pages.otherOfficials.{OtherOfficialsNamePage, IsOtherOfficialNinoPage}
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
@@ -32,37 +32,37 @@ import views.html.common.IsOfficialsNinoView
 
 import scala.concurrent.Future
 
-class IsAuthorisedOfficialNinoController @Inject()(
+class IsOtherOfficialNinoController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: IsOfficialsNinoFormProvider,
     override val sessionRepository: UserAnswerRepository,
-    override val navigator: AuthorisedOfficialsNavigator,
+    override val navigator: OtherOfficialsNavigator,
     override val controllerComponents: MessagesControllerComponents,
     override val view: IsOfficialsNinoView
   )(implicit appConfig: FrontendAppConfig) extends IsOfficialsNinoController {
 
-  override val messagePrefix: String = "isAuthorisedOfficialNino"
+  override val messagePrefix: String = "isOtherOfficialNino"
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
 
-        Future.successful(getView(IsAuthorisedOfficialNinoPage(index), form, authorisedOfficialsName,
-          controllers.authorisedOfficials.routes.IsAuthorisedOfficialNinoController.onSubmit(mode, index)))
+        Future.successful(getView(IsOtherOfficialNinoPage(index), form, otherOfficialsName,
+          controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(mode, index)))
       }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
 
-        postView(mode, IsAuthorisedOfficialNinoPage(index), form, authorisedOfficialsName, Section7Page,
-          controllers.authorisedOfficials.routes.IsAuthorisedOfficialNinoController.onSubmit(mode, index))
+        postView(mode, IsOtherOfficialNinoPage(index), form, otherOfficialsName, Section7Page,
+          controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(mode, index))
       }
   }
 }

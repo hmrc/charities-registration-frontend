@@ -674,17 +674,17 @@ officialsPosition.23 = UK Agent
 
 authorisedOfficialsPosition.checkYourAnswersLabel = Position
 
-# Authorised official has national insurance Page Messages
+# Authorised official has National Insurance Page Messages
 # ----------------------------------------------------------
-isAuthorisedOfficialNino.title = Does the authorised official have a national insurance number?
-isAuthorisedOfficialNino.heading = Does {0} have a national insurance number?
+isAuthorisedOfficialNino.title = Does the authorised official have a National Insurance number?
+isAuthorisedOfficialNino.heading = Does {0} have a National Insurance number?
 isAuthorisedOfficialNino.error.required = Select yes if they have a National Insurance number
 
 isAuthorisedOfficialPosition.checkYourAnswersLabel = Has a National Insurance number
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
-authorisedOfficialsNino.title = What is the authorised official''s national insurance number?
+authorisedOfficialsNino.title = What is the authorised official''s National Insurance number?
 authorisedOfficialsNino.heading = What is {0}''s National Insurance number?
 authorisedOfficialsNino.hint = For example, QQ 12 34 56 C
 authorisedOfficialsNino.error.required = Enter their National Insurance number
@@ -802,6 +802,14 @@ otherOfficialsPosition.error.required = Select their position in your charity
 otherOfficialsPosition.hint = Select one option
 
 otherOfficialsPosition.checkYourAnswersLabel = Position
+
+# Other official has National Insurance Page Messages
+# ----------------------------------------------------------
+isOtherOfficialNino.title = Does the other official have a National Insurance number?
+isOtherOfficialNino.heading = Does {0} have a National Insurance number?
+isOtherOfficialNino.error.required = Select yes if they have a National Insurance number
+
+isOtherOfficialNino.checkYourAnswersLabel = Has a National Insurance number
 
 # Other Official Nino  Messages
 # ----------------------------------------------------------

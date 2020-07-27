@@ -24,7 +24,7 @@ import controllers.routes
 import models.AuthOfficials.OfficialsPosition
 import models.{CheckMode, Index, Name, NormalMode, PhoneNumber}
 import pages.IndexPage
-import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsPhoneNumberPage, OtherOfficialsPositionPage}
+import pages.otherOfficials._
 
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
@@ -89,7 +89,21 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to Does [Full name] have a National Insurance number? when clicked continue button" in {
           navigator.nextPage(OtherOfficialsPositionPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad() // Todo Other Officials National Insurance number page is ready
+            otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, Index(0))
+        }
+      }
+
+      "from the OtherOfficialsNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [Full name]’s home address? when clicked continue button" in {
+          navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when address lookup page is ready
         }
       }
 
@@ -157,6 +171,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the dead-end when save and continue button is clicked" in {
           navigator.nextPage(OtherOfficialsPositionPage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when summary page is ready
+        }
+      }
+
+      "from the OtherOfficialsNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsNinoPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [Full name]’s home address? when clicked continue button" in {
+          navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }

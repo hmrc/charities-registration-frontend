@@ -803,6 +803,16 @@ otherOfficialsPosition.hint = (W)Select one option(W)
 
 otherOfficialsPosition.checkYourAnswersLabel = (W)Position(W)
 
+# Other Official Nino  Messages
+# ----------------------------------------------------------
+otherOfficialsNino.title = (W)What is the other official''s National Insurance number(W)
+otherOfficialsNino.heading = (W)What is {0}''s National Insurance number?(W)
+otherOfficialsNino.hint = (W)For example, QQ 12 34 56 C(W)
+otherOfficialsNino.error.required = (W)Enter their National Insurance number(W)
+otherOfficialsNino.error.format = (W)Enter a National Insurance number in the correct format(W)
+
+otherOfficialsNino.checkYourAnswersLabel = (W)National Insurance number(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

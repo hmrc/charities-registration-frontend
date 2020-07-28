@@ -841,6 +841,14 @@ otherOfficialAddress.confirmPage.changeLinkText = (W)Change other official''s ho
 
 otherOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
 
+# Other Official Previous Address Messages
+# ----------------------------------------------------------
+otherOfficialsPreviousAddress.title = (W)Has the other official''s address changed in the last 12 months?(W)
+otherOfficialsPreviousAddress.heading = (W)Has {0}''s home address changed in the last 12 months?(W)
+otherOfficialsPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+
+otherOfficialsPreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

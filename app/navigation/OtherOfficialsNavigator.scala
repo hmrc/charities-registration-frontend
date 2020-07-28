@@ -17,13 +17,14 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, UserAnswers}
 import pages.Page
+import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
-import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage, OtherOfficialsNinoPage, OtherOfficialsPositionPage, OtherOfficialsPhoneNumberPage}
 import play.api.mvc.Call
 
 class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -57,8 +58,13 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // Todo AddressLookup page
+      case Some(_) => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO redirect to address changed in the last 12 months page once created
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -94,6 +100,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

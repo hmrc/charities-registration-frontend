@@ -30,15 +30,17 @@ import repositories.UserAnswerRepository
 import viewmodels.ErrorHandler
 
 class AuthorisedOfficialsAddressLookupController @Inject()(
-  sessionRepository: UserAnswerRepository,
-  navigator: AuthorisedOfficialsNavigator,
+  override val sessionRepository: UserAnswerRepository,
+  override val navigator: AuthorisedOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,
-  addressLookupConnector: AddressLookupConnector,
-  errorHandler: ErrorHandler,
+  override val addressLookupConnector: AddressLookupConnector,
+  override val errorHandler: ErrorHandler,
   val controllerComponents: MessagesControllerComponents
  )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
+
+  override val messagePrefix : String = "authorisedOfficialAddress"
 
   def initializeJourney(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
@@ -46,12 +48,12 @@ class AuthorisedOfficialsAddressLookupController @Inject()(
 
         val callBack: String = controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.callback(index).url
 
-        addressLookupInitialize(addressLookupConnector, errorHandler, callBack, "authorisedOfficialAddress", Some(authorisedOfficialsName))
+        addressLookupInitialize(callBack, Some(authorisedOfficialsName))
       }
   }
 
   def callback(index: Index, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupCallback(addressLookupConnector, errorHandler, sessionRepository, AuthorisedOfficialAddressLookupPage(index), Section7Page, navigator, id)
+      addressLookupCallback(AuthorisedOfficialAddressLookupPage(index), Section7Page, id)
   }
 }

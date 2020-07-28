@@ -5,3 +5,6 @@ GET        /charity-information-callback                 controllers.addressLook
 
 GET        /:index/authorised-official-lookup            controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index)
 GET        /:index/authorised-official-callback          controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, id: Option[String] ?= None)
+
+GET        /:index/other-official-lookup                 controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index)
+GET        /:index/other-official-callback               controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, id: Option[String] ?= None)

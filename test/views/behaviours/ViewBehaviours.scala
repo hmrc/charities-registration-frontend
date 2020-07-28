@@ -53,7 +53,7 @@ trait ViewBehaviours extends ViewSpecBase {
         if (frontendAppConfig.languageTranslationEnabled) {
           "display language toggles" in {
             val doc = asDocument(view)
-            assertRenderedById(doc, "cymraeg-switch")
+            assertRenderedByCssSelector(doc, "nav.hmrc-language-select")
           }
         }
       }

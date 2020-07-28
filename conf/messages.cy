@@ -821,6 +821,26 @@ otherOfficialsNino.error.format = (W)Enter a National Insurance number in the co
 
 otherOfficialsNino.checkYourAnswersLabel = (W)National Insurance number(W)
 
+# Other  Official Address Messages
+# ----------------------------------------------------------
+otherOfficialAddress.lookupPage.title = (W)What is the other official''s home address? - Officials and nominees(W)
+otherOfficialAddress.lookupPage.heading = (W)What is {0}''s home address?(W)
+otherOfficialAddress.lookupPage.manualAddressLinkText = (W)Other official''s home address does not have a UK postcode(W)
+
+otherOfficialAddress.selectPage.title = (W)What is the other official''s full home address? - Officials and nominees(W)
+otherOfficialAddress.selectPage.heading = (W)What is {0}''s full home address?(W)
+otherOfficialAddress.selectPage.editAddressLinkText = (W)Enter other official''s home address manually(W)
+
+otherOfficialAddress.editPage.title = (W)What is the other official''s full home address? - Officials and nominees(W)
+otherOfficialAddress.editPage.heading = (W)What is {0}''s full home address?(W)
+
+otherOfficialAddress.confirmPage.title = (W)Confirm the other official''s home address - Officials and nominees(W)
+otherOfficialAddress.confirmPage.heading = (W)Confirm {0}''s home address(W)
+otherOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
+otherOfficialAddress.confirmPage.changeLinkText = (W)Change other official''s home address(W)
+
+otherOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

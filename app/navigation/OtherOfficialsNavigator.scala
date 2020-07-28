@@ -63,8 +63,13 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO redirect to address changed in the last 12 months page once created
+      case Some(_) => otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad()//TODO redirect to next page once created
+      case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -105,6 +110,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

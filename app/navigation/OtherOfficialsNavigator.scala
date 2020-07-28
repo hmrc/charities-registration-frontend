@@ -68,7 +68,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad()//TODO redirect to next page once created
+      case Some(_) => otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

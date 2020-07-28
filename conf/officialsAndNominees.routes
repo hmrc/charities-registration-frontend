@@ -84,6 +84,8 @@ POST       /:index/other-official-changed-address                               
 GET        /:index/other-official-changed-address/change                        controllers.otherOfficials.OtherOfficialsPreviousAddressController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/other-official-changed-address/change                        controllers.otherOfficials.OtherOfficialsPreviousAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /add-other-official                                                  controllers.otherOfficials.AddSecondOtherOfficialsController.onPageLoad()
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
 
 GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)

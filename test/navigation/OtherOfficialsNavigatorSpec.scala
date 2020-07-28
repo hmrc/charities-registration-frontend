@@ -19,11 +19,14 @@ package navigation
 import java.time.LocalDate
 
 import base.SpecBase
+import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.AuthOfficials.OfficialsPosition
+import models.addressLookup.{AddressModel, CountryModel}
 import models.{CheckMode, Index, Name, NormalMode, PhoneNumber}
 import pages.IndexPage
+import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
 
 class OtherOfficialsNavigatorSpec extends SpecBase {
@@ -31,6 +34,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val navigator: OtherOfficialsNavigator = inject[OtherOfficialsNavigator]
   private val otherOfficialsName: Name = Name("Jim", Some("John"), "Jones")
   private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
+  private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val minYear = 16
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
@@ -123,7 +127,21 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [Full name]’s home address? when clicked continue button" in {
           navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when address lookup page is ready
+            addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0))
+        }
+      }
+      
+      "from the OtherOfficialAddressLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
+          navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO next page
         }
       }
 
@@ -219,6 +237,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(OtherOfficialsNinoPage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
+        }
+      }
+
+      "from the OtherOfficialAddressLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialAddressLookupPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(OtherOfficialAddressLookupPage(0), CheckMode,
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 

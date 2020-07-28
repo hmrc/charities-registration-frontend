@@ -35,6 +35,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
   private val authorisedOfficialsName: Name = Name("Jim", Some("John"), "Jones")
   private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
+  private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val minYear = 16
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
@@ -140,8 +141,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
           navigator.nextPage(AuthorisedOfficialAddressLookupPage(0), NormalMode,
-            emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0), address).getOrElse(emptyUserAnswers)) mustBe
             authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, 0)
         }
       }
@@ -298,8 +298,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(AuthorisedOfficialAddressLookupPage(0), CheckMode,
-            emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0), address).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

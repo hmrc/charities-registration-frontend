@@ -16,6 +16,10 @@
 
 @import views.components.FooterLinks
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.hmrcReportTechnicalIssue
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Header
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcLanguageSelect
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 
 @this(
     govukLayout: GovukLayout,
@@ -23,10 +27,10 @@
     govukBackLink: GovukBackLink,
     siteHeader: components.siteHeader,
     phaseBanner: components.phaseBanner,
-    languageSelection: components.languageSelection,
     link: components.link,
     gtmSnippet: GtmSnippet,
-    hmrcReportTechnicalIssue: hmrcReportTechnicalIssue
+    hmrcReportTechnicalIssue: hmrcReportTechnicalIssue,
+    languageSwitch: HmrcLanguageSelect
 )
 
 @(pageTitle: Option[String] = None, signOut: Boolean = true, js: Option[Html] = None, backLink: Boolean = true, showDeskproLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
@@ -63,14 +67,16 @@
     @phaseBanner("beta", signOut)
 
     @if(backLink == true) {
-        @govukBackLink(BackLink(href = "#", content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))
+        @govukBackLink(BackLink(href = "javascript:history.back()", content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))
     }
 
     @if(appConfig.languageTranslationEnabled) {
-        @languageSelection(
-            appConfig.languageMap,
-            appConfig.routeToSwitchLanguage
-        )
+        @languageSwitch(LanguageSelect(
+            if (messages.lang.code == "cy") Cy else En,
+            (En, controllers.routes.LanguageSwitchController.switchToLanguage("en").url),
+            (Cy, controllers.routes.LanguageSwitchController.switchToLanguage("cy").url)
+        ))
+
     }
 }
 

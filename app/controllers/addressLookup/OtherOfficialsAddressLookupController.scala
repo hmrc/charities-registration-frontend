@@ -20,16 +20,18 @@ import config.FrontendAppConfig
 import connectors.addressLookup.AddressLookupConnector
 import controllers.actions._
 import javax.inject.Inject
-import navigation.CharityInformationNavigator
-import pages.addressLookup.CharityOfficialAddressLookupPage
-import pages.sections.Section1Page
+import models.Index
+import navigation.OtherOfficialsNavigator
+import pages.addressLookup.OtherOfficialAddressLookupPage
+import pages.otherOfficials.OtherOfficialsNamePage
+import pages.sections.Section7Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.ErrorHandler
 
-class CharityOfficialAddressLookupController @Inject()(
+class OtherOfficialsAddressLookupController @Inject()(
   override val sessionRepository: UserAnswerRepository,
-  override val navigator: CharityInformationNavigator,
+  override val navigator: OtherOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,
@@ -38,15 +40,20 @@ class CharityOfficialAddressLookupController @Inject()(
   val controllerComponents: MessagesControllerComponents
  )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
 
-  override val messagePrefix : String = "charityOfficialAddress"
+  override val messagePrefix : String = "otherOfficialAddress"
 
-  def initializeJourney: Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def initializeJourney(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupInitialize(controllers.addressLookup.routes.CharityOfficialAddressLookupController.callback().url)
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
+
+        val callBack: String = controllers.addressLookup.routes.OtherOfficialsAddressLookupController.callback(index).url
+
+        addressLookupInitialize(callBack, Some(otherOfficialsName))
+      }
   }
 
-  def callback(id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def callback(index: Index, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, id)
+      addressLookupCallback(OtherOfficialAddressLookupPage(index), Section7Page, id)
   }
 }

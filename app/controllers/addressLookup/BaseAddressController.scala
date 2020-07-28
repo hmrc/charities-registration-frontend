@@ -32,13 +32,14 @@ import viewmodels.ErrorHandler
 import scala.concurrent.{ExecutionContext, Future}
 
 trait BaseAddressController extends LocalBaseController  {
+  protected val addressLookupConnector: AddressLookupConnector
+  protected val errorHandler: ErrorHandler
+  protected val sessionRepository: UserAnswerRepository
+  protected val navigator: BaseNavigator
+  protected val messagePrefix: String
 
-  def addressLookupInitialize(addressLookupConnector: AddressLookupConnector,
-                 errorHandler: ErrorHandler,
-                 callbackUrl: String,
-                 messagePrefix: String,
-                 fullName: Option[String] = None)
-                (implicit request:  DataRequest[AnyContent], ec: ExecutionContext): Future[Result] = {
+  def addressLookupInitialize(callbackUrl: String, fullName: Option[String] = None)(
+    implicit request:  DataRequest[AnyContent], ec: ExecutionContext): Future[Result] = {
 
     addressLookupConnector.initialize(callbackUrl, messagePrefix, fullName)(hc, ec, messagesApi) map {
       case Right(AddressLookupOnRamp(url)) => Redirect(url)
@@ -46,14 +47,8 @@ trait BaseAddressController extends LocalBaseController  {
     }
   }
 
-  def addressLookupCallback(addressLookupConnector: AddressLookupConnector,
-                            errorHandler: ErrorHandler,
-                            sessionRepository: UserAnswerRepository,
-                            page: QuestionPage[AddressModel],
-                            pageSection: QuestionPage[Boolean],
-                            navigator: BaseNavigator,
-                            id: Option[String])
-                           (implicit request:  DataRequest[AnyContent]): Future[Result] = {
+  def addressLookupCallback(page: QuestionPage[AddressModel], pageSection: QuestionPage[Boolean], id: Option[String])(
+    implicit request:  DataRequest[AnyContent]): Future[Result] = {
 
     id match {
       case Some(addressId) =>

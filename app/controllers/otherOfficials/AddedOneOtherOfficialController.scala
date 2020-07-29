@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package controllers.authorisedOfficials
+package controllers.otherOfficials
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import models.{Index, NormalMode}
-import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AddedOneAuthorisedOfficialPage
-import pages.sections.Section7Page
+import navigation.OtherOfficialsNavigator
+import pages.otherOfficials.AddedOneOtherOfficialPage
+import pages.sections.Section8Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
-import viewmodels.authorisedOfficials.AddedOneAuthorisedOfficialHelper
+import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
 import views.html.common.AddedOfficialsView
 
 import scala.concurrent.Future
 
-class AddedOneAuthorisedOfficialController @Inject()(
+class AddedOneOtherOfficialController @Inject()(
      val sessionRepository: UserAnswerRepository,
-     val navigator: AuthorisedOfficialsNavigator,
+     val navigator: OtherOfficialsNavigator,
      identify: AuthIdentifierAction,
      getData: UserDataRetrievalAction,
      requireData: DataRequiredAction,
@@ -42,20 +42,20 @@ class AddedOneAuthorisedOfficialController @Inject()(
    )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request => {
-    val messagePrefix: String = "addedOneAuthorisedOfficial"
-    val addedOneAuthorisedOfficialHelper = new AddedOneAuthorisedOfficialHelper(Index(0))(request.userAnswers)
+    val messagePrefix: String = "addedOneOtherOfficial"
+    val addedOneOtherOfficialHelper = new AddedOneOtherOfficialHelper(Index(0))(request.userAnswers)
 
-    Ok(view(addedOneAuthorisedOfficialHelper.rows,
-      controllers.authorisedOfficials.routes.AddedOneAuthorisedOfficialController.onSubmit(), messagePrefix))
+    Ok(view(addedOneOtherOfficialHelper.rows,
+      controllers.otherOfficials.routes.AddedOneOtherOfficialController.onSubmit(), messagePrefix))
     }
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section7Page, false))
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page, false))
       _ <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(AddedOneAuthorisedOfficialPage, NormalMode, updatedAnswers))
+    } yield Redirect(navigator.nextPage(AddedOneOtherOfficialPage, NormalMode, updatedAnswers))
 
   }
 }

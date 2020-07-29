@@ -162,14 +162,14 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         "go to the You have added one authorised official page when no is selected" in {
           navigator.nextPage(AuthorisedOfficialPreviousAddressPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0),false).success.value) mustBe
-            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad(0)
+            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
         }
       }
 
       "from the AddedOneAuthorisedOfficialPage" must {
 
         "go to the DoYouWantToAddAnotherAuthorisedOfficial page when user answer is empty" in {
-          navigator.nextPage(AddedOneAuthorisedOfficialPage(0), NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddedOneAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
             authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
         }
       }

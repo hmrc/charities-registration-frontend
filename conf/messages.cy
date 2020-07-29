@@ -672,7 +672,7 @@ officialsPosition.21 = (W)Assistant Treasurer(W)
 officialsPosition.22 = (W)Trustee(W)
 officialsPosition.23 = (W)UK Agent(W)
 
-authorisedOfficialsPosition.checkYourAnswersLabel = (W)Position(W)
+officialsPosition.checkYourAnswersLabel = (W)Position(W)
 
 # Authorised official has National Insurance Page Messages
 # ----------------------------------------------------------
@@ -680,7 +680,7 @@ isAuthorisedOfficialNino.title = (W)Does the authorised official have a National
 isAuthorisedOfficialNino.heading = (W)Does {0} have a National Insurance number?(W)
 isAuthorisedOfficialNino.error.required = (W)Select yes if they have a National Insurance number(W)
 
-isAuthorisedOfficialPosition.checkYourAnswersLabel = (W)Has a National Insurance number(W)
+isAuthorisedOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
@@ -690,7 +690,7 @@ authorisedOfficialsNino.hint = (W)For example, QQ 12 34 56 C(W)
 authorisedOfficialsNino.error.required = (W)Enter their National Insurance number(W)
 authorisedOfficialsNino.error.format = (W)Enter a National Insurance number in the correct format(W)
 
-authorisedOfficialsNINO.checkYourAnswersLabel = (W)National Insurance number(W)
+authorisedOfficialsNino.checkYourAnswersLabel = (W)National Insurance number(W)
 
 # Authorised  Official Address Messages
 # ----------------------------------------------------------
@@ -766,6 +766,8 @@ otherOfficialsName.lastName.label = (W)Last name(W)
 otherOfficialsName.lastName.error.required = (W)Enter the other official''s last name(W)
 otherOfficialsName.lastName.error.length = (W)The other official''s last name must be 100 characters or fewer(W)
 otherOfficialsName.lastName.error.format = (W)The other official''s last name must not include the following characters: & ( ) : @(W)
+
+otherOfficialsName.checkYourAnswersLabel = (W)Full name(W)
 
 # Other Official Date of birth Messages
 # ----------------------------------------------------------
@@ -848,6 +850,11 @@ otherOfficialsPreviousAddress.heading = (W)Has {0}''s home address changed in th
 otherOfficialsPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
 
 otherOfficialsPreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+
+# You have added one Other Official Page Messages
+# ----------------------------------------------------------
+addedOneOtherOfficial.checkYourAnswers.title = (W)You have added one other official(W)
+addedOneOtherOfficial.checkYourAnswers.heading = (W)Check the charity''s other official details(W)
 
 # Add a second other officials messages
 # ----------------------------------------------------------

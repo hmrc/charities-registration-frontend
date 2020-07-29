@@ -22,9 +22,7 @@ import play.api.libs.json.JsPath
 
 case class AuthorisedOfficialsDOBPage(index: Int)  extends QuestionPage[LocalDate] {
 
-  override def path: JsPath =  AuthorisedOfficialsId(index).path \ AuthorisedOfficialsDOBPage.toString
-}
+  override def path: JsPath =  AuthorisedOfficialsId(index).path \ toString
 
-object AuthorisedOfficialsDOBPage {
-  override lazy val toString: String = "authorisedOfficialsDOB"
+  override lazy val toString: String = "officialsDOB"
 }

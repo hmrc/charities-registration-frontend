@@ -16,7 +16,8 @@
 
 package viewmodels
 
-import models.{UserAnswers, WithOrder}
+import models.addressLookup.AddressModel
+import models.{Name, PhoneNumber, UserAnswers, WithOrder}
 import pages.QuestionPage
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -58,6 +59,76 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
         changeLinkCall -> messages("site.edit")
       )
     }
+
+  def answerFullame(page: QuestionPage[Name],
+                    changeLinkCall: Call,
+                    messagePrefix: String) : Option[SummaryListRow] =
+    userAnswers.get(page) map { ans =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = ans.getFullName,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def answerPrefix[A](page: QuestionPage[A],
+                changeLinkCall: Call,
+                answerIsMsgKey: Boolean = false,
+                messagePrefix: String,
+                headingMessageArgs: Seq[String] = Seq(),
+                idx: Option[Int] = None)
+               (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+    userAnswers.get(page, idx) map { ans =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs: _*),
+        value = if (answerIsMsgKey) messages(s"$messagePrefix.$ans") else ans,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs: _*)),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def answerMainPhoneNo(page: QuestionPage[PhoneNumber],
+                        changeLinkCall: Call,
+                        messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).map { contactDetails =>
+        summaryListRow(
+          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+          value = contactDetails.daytimePhone,
+          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+
+      )
+    }
+
+  def answerAlternativePhoneNo(page: QuestionPage[PhoneNumber],
+                               changeLinkCall: Call,
+                               messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).flatMap(_.mobilePhone.map( alternatePhone =>
+        summaryListRow(
+          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+          value = alternatePhone,
+          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+        )
+    ))
+
+   def answerAddress(page: QuestionPage[AddressModel],
+                     changeLinkCall: Call,
+                     messagePrefix: String): Option[SummaryListRow] =
+
+     userAnswers.get(page) map { address =>
+       summaryListRow(
+         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+         value = Seq(Some(address.lines.mkString(", ")),
+                     address.postcode,
+                     Some(address.country.name)).flatten.mkString(", "),
+         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+         changeLinkCall -> messages("site.edit")
+       )
+     }
 
   implicit val yesNoValue: Boolean => String = {
     case true => messages("site.yes")

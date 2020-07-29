@@ -155,7 +155,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to you have added one authorised official when clicked continue button" in {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad() // TODO When next page is created
+            otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad() // TODO When next page is created
         }
       }
 

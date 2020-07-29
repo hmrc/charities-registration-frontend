@@ -849,6 +849,14 @@ otherOfficialsPreviousAddress.error.required = Select yes if their address has c
 
 otherOfficialsPreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
 
+# Add a second other officials messages
+# ----------------------------------------------------------
+addSecondOtherOfficials.title = You will be adding the second official in the next page
+addSecondOtherOfficials.heading = You need to add a second other official
+addSecondOtherOfficials.p1 = Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.
+addSecondOtherOfficials.p2 = They will normally be the trustees or directors of the charity (if your charity is a company), or community amateur sports club (CASC) officials.
+addSecondOtherOfficials.p3 = Adding information about other officials takes around 5 minutes.
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

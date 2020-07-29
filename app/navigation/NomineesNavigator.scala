@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.nominees.{IsAuthoriseNomineePage, NomineeDetailsSummaryPage}
+import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage, NomineeDetailsSummaryPage}
 import play.api.mvc.Call
 
 class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -30,8 +30,13 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case IsAuthoriseNomineePage => userAnswers: UserAnswers => userAnswers.get(IsAuthoriseNomineePage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(true) => nomineeRoutes.ChooseNomineeController.onPageLoad(NormalMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case ChooseNomineePage => userAnswers: UserAnswers => userAnswers.get(ChooseNomineePage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -45,6 +50,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case IsAuthoriseNomineePage => userAnswers: UserAnswers => userAnswers.get(IsAuthoriseNomineePage) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case ChooseNomineePage => userAnswers: UserAnswers => userAnswers.get(ChooseNomineePage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

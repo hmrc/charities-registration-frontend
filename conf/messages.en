@@ -883,6 +883,14 @@ isAuthoriseNominee.heading = Do you want to authorise a nominee from outside you
 isAuthoriseNominee.error.required = Select yes if you want to add a nominee
 isAuthoriseNominee.checkYourAnswersLabel = Authorise a nominee
 
+# Choose Nominee Page Messages
+# ----------------------------------------------------------
+chooseNominee.title = Is the nominee an individual or an organisation?
+chooseNominee.heading = Is the nominee a person or an organisation?
+chooseNominee.error.required = Select if the nominee is a person or an organisation
+chooseNominee.person = Person
+chooseNominee.organisation = Organisation
+
 # Charity's Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity''s nominee details

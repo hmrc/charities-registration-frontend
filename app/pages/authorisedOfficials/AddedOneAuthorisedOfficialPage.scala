@@ -19,12 +19,10 @@ package pages.authorisedOfficials
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class AddedOneAuthorisedOfficialPage(index:Int) extends QuestionPage[String] {
+case object AddedOneAuthorisedOfficialPage extends QuestionPage[String] {
 
-  override def path: JsPath =  AuthorisedOfficialsId(index).path \ AddedOneAuthorisedOfficialPage.toString
-}
-
-object AddedOneAuthorisedOfficialPage {
+  override def path: JsPath = JsPath \ toString
 
   override lazy val toString: String = "addedOneAuthorisedOfficial"
 }
+

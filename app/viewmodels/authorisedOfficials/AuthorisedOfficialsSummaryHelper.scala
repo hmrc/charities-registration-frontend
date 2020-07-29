@@ -30,9 +30,11 @@ class AuthorisedOfficialsSummaryHelper(index: Index)(override val userAnswers: U
 
   val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index)(userAnswers)
 
-  def isAddAnotherAuthorisedOfficialRows: List[SummaryListRow] = answer(IsAddAnotherAuthorisedOfficialPage,
-    authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(CheckMode)).fold(List[SummaryListRow]())(List(_))
+  def isAddAnotherAuthorisedOfficialRow: Option[SummaryListRow] =
+    answerPrefix(IsAddAnotherAuthorisedOfficialPage,
+                 authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(CheckMode),
+                 messagePrefix = "isAddAnotherAuthorisedOfficial")
 
-  val rows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRows
+  val rows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRow
 
 }

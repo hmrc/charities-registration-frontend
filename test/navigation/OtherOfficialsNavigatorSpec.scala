@@ -152,10 +152,24 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to you have added one authorised official when clicked continue button" in {
+        "go to previous address lookup flow when Yes is selected" in {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers)) mustBe
-            otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad() // TODO When next page is created
+            routes.DeadEndController.onPageLoad()
+        }
+
+        "go to you have added one authorised official when No is selected" in {
+          navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), false).getOrElse(emptyUserAnswers)) mustBe
+            otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
+        }
+      }
+
+      "from the AddedOneOtherOfficialPage" must {
+
+        "go to the DoYouWantToAddAnotherAuthorisedOfficial page when user answer is empty" in {
+          navigator.nextPage(AddedOneOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+            otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
         }
       }
 

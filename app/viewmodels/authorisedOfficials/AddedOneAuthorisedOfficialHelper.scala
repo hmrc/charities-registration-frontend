@@ -16,16 +16,11 @@
 
 package viewmodels.authorisedOfficials
 
-import java.time.LocalDate
-
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
-import models.AuthOfficials.OfficialsPosition
-import models.addressLookup.AddressModel
-import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
+import models.{CheckMode, Index, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
 import play.api.i18n.Messages
-import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
@@ -34,161 +29,62 @@ class AddedOneAuthorisedOfficialHelper(index: Index) (override val userAnswers: 
                                      (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
-  def authOfficialNamesRows: List[SummaryListRow] =
-    userAnswers.get(AuthorisedOfficialsNamePage(index)).map{ name =>
-      answerAuthOfficialsName(name, authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(CheckMode, index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialNamesRow: Option[SummaryListRow] =
+    answerFullame(AuthorisedOfficialsNamePage(index),
+                  authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(CheckMode, index),
+                  messagePrefix = "authorisedOfficialsName")
 
-  def authOfficialDobRows: List[SummaryListRow] =
-    userAnswers.get(AuthorisedOfficialsDOBPage(index)).map{ LocalDate =>
-      answerAuthOfficialsDOB(LocalDate, authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(CheckMode, index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialDobRow: Option[SummaryListRow] =
+    answerPrefix(AuthorisedOfficialsDOBPage(index),
+                 authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(CheckMode, index),
+                 messagePrefix = "authorisedOfficialsDOB")
 
-  def authorisedOfficialsPhoneNumberRow: List[SummaryListRow] =
-    userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)).map{ contact =>
-      answerOfficialsPhoneNumber(contact, authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialMainPhoneNoRow: Option[SummaryListRow] =
+    answerMainPhoneNo(AuthorisedOfficialsPhoneNumberPage(index),
+                      authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, index),
+                      messagePrefix = "authorisedOfficialsPhoneNumber.mainPhoneNumber")
 
-  def authOfficialPositionRows: List[SummaryListRow] =
-    userAnswers.get(AuthorisedOfficialsPositionPage(index)).map{ position =>
-      answerAuthOfficialPosition(position, authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(CheckMode, index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialAlternativePhoneNoRow: Option[SummaryListRow] =
+    answerAlternativePhoneNo(AuthorisedOfficialsPhoneNumberPage(index),
+                             authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, index),
+                             messagePrefix = "authorisedOfficialsPhoneNumber.alternativePhoneNumber")
 
-  def authOfficialHasNINORow: List[SummaryListRow] =
-    userAnswers.get(IsAuthorisedOfficialNinoPage(index)).map{ boolean =>
-      answerAuthOfficialHasNINO(boolean, authOfficialRoutes.IsAuthorisedOfficialNinoController.onPageLoad(CheckMode, index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialPositionRow: Option[SummaryListRow] =
+    answerPrefix(AuthorisedOfficialsPositionPage(index),
+                 authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(CheckMode, index),
+                 answerIsMsgKey = true,
+                 messagePrefix = "officialsPosition")
 
-  def authOfficialNINoRows: List[SummaryListRow] =
-    userAnswers.get(AuthorisedOfficialsNinoPage(index)).map{ NINO =>
-      answerAuthOfficialsNINO(NINO, authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialHasNinoRow: Option[SummaryListRow] = {
+    answerPrefix(IsAuthorisedOfficialNinoPage(index),
+                 authOfficialRoutes.IsAuthorisedOfficialNinoController.onPageLoad(CheckMode, index),
+                 messagePrefix = "isAuthorisedOfficialNino")
+  }
 
-  def authOfficialAddressRow: List[SummaryListRow] =
-    userAnswers.get(AuthorisedOfficialAddressLookupPage(index)).map{ address =>
-      answerAuthOfficialAddress(address, controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialNinoRow: Option[SummaryListRow] =
+    answerPrefix(AuthorisedOfficialsNinoPage(index),
+                 authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index),
+                 messagePrefix = "authorisedOfficialsNino")
 
-  def authOfficialHadPreviousAddressRow: List[SummaryListRow] =
-    userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)).map{ boolean =>
-      answerAuthOfficialsPreviousAddress(boolean, authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def authOfficialAddressRow: Option[SummaryListRow] =
+    answerAddress(AuthorisedOfficialAddressLookupPage(index),
+                  controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index),
+                  messagePrefix = "authorisedOfficialAddress")
 
-  private def answerAuthOfficialsName(authorisedOfficialsName: Name,
-                                changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    Some(
-      summaryListRow(
-        label = messages("authorisedOfficialsName.checkYourAnswersLabel"),
-        value = authorisedOfficialsName.getFullName,
-        visuallyHiddenText = Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
+  def authOfficialHadPreviousAddressRow: Option[SummaryListRow] =
+    answerPrefix(AuthorisedOfficialPreviousAddressPage(index),
+                 authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index),
+                 messagePrefix = "authorisedOfficialPreviousAddress")
 
-  private def answerAuthOfficialsDOB(authorisedOfficialsDOB: LocalDate,
-                                     changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    Some(
-      summaryListRow(
-        label = messages("authorisedOfficialsDOB.checkYourAnswersLabel"),
-        value = authorisedOfficialsDOB,
-        visuallyHiddenText = Some(messages("authorisedOfficialsDOB.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
-
-  private def answerOfficialsPhoneNumber(authorisedOfficialsPhoneNumber: PhoneNumber,
-                                         changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
-
-    Some(
-      summaryListRow(
-        label = messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-        value = authorisedOfficialsPhoneNumber.daytimePhone,
-        visuallyHiddenText = Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    ),
-
-    authorisedOfficialsPhoneNumber.mobilePhone.map( mobilePhone =>
-      summaryListRow(
-        label = messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-        value = mobilePhone,
-        visuallyHiddenText = Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
-
-  private def answerAuthOfficialPosition(authorisedOfficialsPosition: OfficialsPosition,
-                                          changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    Some(
-      summaryListRow(
-        label = messages("authorisedOfficialsPosition.checkYourAnswersLabel"),
-        value = messages(s"officialsPosition.$authorisedOfficialsPosition"),
-        visuallyHiddenText = Some(messages("authorisedOfficialsPosition.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
-
-  private def answerAuthOfficialHasNINO(authorisedOfficialHasNino: Boolean,
-                                     changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    Some(
-      summaryListRow(
-        label = messages("isAuthorisedOfficialPosition.checkYourAnswersLabel"),
-        value = authorisedOfficialHasNino,
-        visuallyHiddenText = Some(messages("isAuthorisedOfficialPosition.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
-
-  private def answerAuthOfficialsNINO(authorisedOfficialsNino: String,
-                                        changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    Some(
-      summaryListRow(
-        label = messages("authorisedOfficialsNINO.checkYourAnswersLabel"),
-        value = authorisedOfficialsNino,
-        visuallyHiddenText = Some(messages("authorisedOfficialsNINO.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
-
-  private def answerAuthOfficialAddress(addressModel: AddressModel,
-                                    changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    Some(
-      summaryListRow(
-        label = messages("authorisedOfficialAddress.checkYourAnswersLabel"),
-        value = Seq(Some(addressModel.lines.mkString(", ")),
-          addressModel.postcode,
-          Some(addressModel.country.name)).flatten.mkString(", "),
-        visuallyHiddenText = Some(messages("authorisedOfficialAddress.checkYourAnswersLabel")),
-        actions = changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
-
-  private def answerAuthOfficialsPreviousAddress(authorisedOfficialPreviousAddress: Boolean,
-                                      changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    Some(
-      summaryListRow(
-        label = messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
-        value = authorisedOfficialPreviousAddress,
-        visuallyHiddenText = Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
 
   val rows: Seq[SummaryListRow] = Seq(
-    authOfficialNamesRows,
-    authOfficialDobRows,
-    authorisedOfficialsPhoneNumberRow,
-    authOfficialPositionRows,
-    authOfficialHasNINORow,
-    authOfficialNINoRows,
+    authOfficialNamesRow,
+    authOfficialDobRow,
+    authOfficialMainPhoneNoRow,
+    authOfficialAlternativePhoneNoRow,
+    authOfficialPositionRow,
+    authOfficialHasNinoRow,
+    authOfficialNinoRow,
     authOfficialAddressRow,
     authOfficialHadPreviousAddressRow
   ).flatten

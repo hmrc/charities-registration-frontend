@@ -21,12 +21,9 @@ import play.api.libs.json.JsPath
 
 case class IsOtherOfficialNinoPage(index:Int) extends QuestionPage[Boolean] {
 
-  override def path: JsPath =  OtherOfficialsId(index).path \ IsOtherOfficialNinoPage.toString
-}
+  override def path: JsPath =  OtherOfficialsId(index).path \ toString
 
-object IsOtherOfficialNinoPage {
-
-  override lazy val toString: String = "isOtherOfficialNino"
+  override lazy val toString: String = "isOfficialNino"
 }
 
 

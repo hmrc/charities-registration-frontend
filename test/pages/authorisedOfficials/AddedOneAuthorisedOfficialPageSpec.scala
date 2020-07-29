@@ -20,12 +20,12 @@ import pages.behaviours.PageBehaviours
 
 class AddedOneAuthorisedOfficialPageSpec extends PageBehaviours {
 
-  "AuthorisedOfficialPreviousAddressPage" must {
+  "AddedOneAuthorisedOfficialPage" must {
 
-    beRetrievable[String](AddedOneAuthorisedOfficialPage(0))
+    beRetrievable[String](AddedOneAuthorisedOfficialPage)
 
-    beSettable[String](AddedOneAuthorisedOfficialPage(0))
+    beSettable[String](AddedOneAuthorisedOfficialPage)
 
-    beRemovable[String](AddedOneAuthorisedOfficialPage(0))
+    beRemovable[String](AddedOneAuthorisedOfficialPage)
   }
 }

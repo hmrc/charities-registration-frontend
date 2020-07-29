@@ -57,7 +57,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
       "have a correctly formatted summary list rows" in {
 
-        helper(authorisedOfficialDetails, 0).authOfficialNamesRows mustBe Seq(summaryListRow(
+        helper(authorisedOfficialDetails, 0).authOfficialNamesRow mustBe Some(summaryListRow(
           messages("authorisedOfficialsName.checkYourAnswersLabel"),
           "John Jones",
           Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
@@ -71,7 +71,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
       "have a correctly formatted summary list rows" in {
 
-        helper(authorisedOfficialDetails, 0).authOfficialDobRows mustBe Seq(
+        helper(authorisedOfficialDetails, 0).authOfficialDobRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsDOB.checkYourAnswersLabel"),
             "2 January 2000",
@@ -82,17 +82,26 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
       }
     }
 
-    "For the AuthorisedOfficialsPhoneNumber answer" must {
+    "For the Authorised Official Main Phone Number answer" must {
 
       "have a correctly formatted summary list row" in {
 
-        helper(authorisedOfficialDetails, 0).authorisedOfficialsPhoneNumberRow mustBe Seq(
+        helper(authorisedOfficialDetails, 0).authOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
             "07700 900 982",
             Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-          ),
+          ))
+      }
+    }
+
+
+    "For the Authorised Official Alternative Phone Number answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper(authorisedOfficialDetails, 0).authOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
             "07700 900 982",
@@ -106,11 +115,11 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
       "have a correctly formatted summary list rows" in {
 
-        helper(authorisedOfficialDetails, 0).authOfficialPositionRows mustBe Seq(
+        helper(authorisedOfficialDetails, 0).authOfficialPositionRow mustBe Some(
           summaryListRow(
-            messages("authorisedOfficialsPosition.checkYourAnswersLabel"),
+            messages("officialsPosition.checkYourAnswersLabel"),
             "Board member",
-            Some(messages("authorisedOfficialsPosition.checkYourAnswersLabel")),
+            Some(messages("officialsPosition.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPositionController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
@@ -121,11 +130,11 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
       "have a correctly formatted summary list rows" in {
 
-        helper(authorisedOfficialDetails, 0).authOfficialHasNINORow mustBe Seq(
+        helper(authorisedOfficialDetails, 0).authOfficialHasNinoRow mustBe Some(
           summaryListRow(
-            messages("isAuthorisedOfficialPosition.checkYourAnswersLabel"),
+            messages("isAuthorisedOfficialNino.checkYourAnswersLabel"),
             s"${messages("site.yes")}",
-            Some(messages("isAuthorisedOfficialPosition.checkYourAnswersLabel")),
+            Some(messages("isAuthorisedOfficialNino.checkYourAnswersLabel")),
             authOfficials.IsAuthorisedOfficialNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
@@ -136,11 +145,11 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
       "have a correctly formatted summary list rows" in {
 
-        helper(authorisedOfficialDetails, 0).authOfficialNINoRows mustBe Seq(
+        helper(authorisedOfficialDetails, 0).authOfficialNinoRow mustBe Some(
           summaryListRow(
-            messages("authorisedOfficialsNINO.checkYourAnswersLabel"),
+            messages("authorisedOfficialsNino.checkYourAnswersLabel"),
             "AA123456A",
-            Some(messages("authorisedOfficialsNINO.checkYourAnswersLabel")),
+            Some(messages("authorisedOfficialsNino.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
@@ -151,7 +160,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
       "have a correctly formatted summary list row" in {
 
-        helper(authorisedOfficialDetails, 0).authOfficialAddressRow mustBe Seq(
+        helper(authorisedOfficialDetails, 0).authOfficialAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialAddress.checkYourAnswersLabel"),
             "Test 1, Test 2, AA00 0AA, United Kingdom",
@@ -166,7 +175,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
       "have a correctly formatted summary list row" in {
 
-        helper(authorisedOfficialDetails, 0).authOfficialHadPreviousAddressRow mustBe Seq(
+        helper(authorisedOfficialDetails, 0).authOfficialHadPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
             s"${messages("site.no")}",

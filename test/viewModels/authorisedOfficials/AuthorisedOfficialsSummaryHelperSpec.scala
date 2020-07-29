@@ -36,7 +36,7 @@ class AuthorisedOfficialsSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the isAddAnotherAuthorisedOfficial answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper(authorisedOfficialDetails, 0).isAddAnotherAuthorisedOfficialRows mustBe Seq(summaryListRow(
+        helper(authorisedOfficialDetails, 0).isAddAnotherAuthorisedOfficialRow mustBe Some(summaryListRow(
           messages("isAddAnotherAuthorisedOfficial.checkYourAnswersLabel"),
           BaseMessages.yes,
           Some(messages("isAddAnotherAuthorisedOfficial.checkYourAnswersLabel")),

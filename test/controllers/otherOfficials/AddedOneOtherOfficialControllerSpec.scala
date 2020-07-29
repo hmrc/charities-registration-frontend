@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package controllers.authorisedOfficials
+package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
-import navigation.AuthorisedOfficialsNavigator
-import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
+import navigation.FakeNavigators.FakeOtherOfficialsNavigator
+import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
@@ -31,7 +31,7 @@ import repositories.{SessionRepository, UserAnswerRepository}
 
 import scala.concurrent.Future
 
-class AddedOneAuthorisedOfficialControllerSpec extends SpecBase with BeforeAndAfterEach {
+class AddedOneOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -40,7 +40,7 @@ class AddedOneAuthorisedOfficialControllerSpec extends SpecBase with BeforeAndAf
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
         bind[SessionRepository].toInstance(mockSessionRepository),
-        bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
+        bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
@@ -49,9 +49,9 @@ class AddedOneAuthorisedOfficialControllerSpec extends SpecBase with BeforeAndAf
     reset(mockUserAnswerRepository)
   }
 
-  private val controller: AddedOneAuthorisedOfficialController = inject[AddedOneAuthorisedOfficialController]
+  private val controller: AddedOneOtherOfficialController = inject[AddedOneOtherOfficialController]
 
-  "AddedOneAuthorisedOfficialController Controller" must {
+  "AddedOneOtherOfficialController Controller" must {
 
     "return OK and the correct view for a GET" in {
 

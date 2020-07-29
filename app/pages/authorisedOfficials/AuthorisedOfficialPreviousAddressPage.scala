@@ -21,10 +21,7 @@ import play.api.libs.json.JsPath
 
 case class AuthorisedOfficialPreviousAddressPage(index:Int) extends QuestionPage[Boolean] {
 
-  override def path: JsPath =  AuthorisedOfficialsId(index).path \ AuthorisedOfficialPreviousAddressPage.toString
-}
+  override def path: JsPath =  AuthorisedOfficialsId(index).path \ toString
 
-object AuthorisedOfficialPreviousAddressPage {
-
-  override lazy val toString: String = "previousAddress"
+  override lazy val toString: String = "officialPreviousAddress"
 }

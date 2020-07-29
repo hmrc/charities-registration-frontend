@@ -68,9 +68,12 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
-      case Some(_) => otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
+      case Some(true) => routes.DeadEndController.onPageLoad()
+      case Some(false) => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
+    case AddedOneOtherOfficialPage => _ => otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
   }

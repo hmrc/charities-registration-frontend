@@ -17,26 +17,24 @@
 package config
 
 import com.google.inject.{Inject, Singleton}
-import play.api.Environment
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.util.Try
 
 @Singleton
-class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environment: Environment) {
+class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   lazy val host: String = servicesConfig.getString("host")
   lazy val appName: String = servicesConfig.getString("appName")
+  lazy val govUK: String = servicesConfig.getString("urls.govUK")
 
   private val contactHost: String = servicesConfig.getString("contact-frontend.host")
+
   val contactFormServiceIdentifier: String = "charities"
 
   lazy val contactUrl: String = s"$contactHost/contact/contact-hmrc?service=$contactFormServiceIdentifier"
-
-  lazy val contactHmrcUrl: String = servicesConfig.getString("urls.contactHmrc")
 
   val gtmContainer: Option[String] = (Try {
     servicesConfig.getString("gtm.container")
@@ -45,7 +43,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
     case "transitional" => Some("GTM-TSFTCWZ")
   }) getOrElse(None)
 
-  private def requestUri(implicit request: RequestHeader): String = SafeRedirectUrl(host + request.uri).encodedUrl
   def feedbackUrl(implicit request: RequestHeader): String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
 
@@ -74,16 +71,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
 
   def languageTranslationEnabled: Boolean = servicesConfig.getBoolean("features.welshLanguage")
 
-  def languageMap: Map[String, Lang] = Map(
-    "en" -> Lang("en"),
-    "cy" -> Lang("cy")
-  )
-
-  lazy val encryptionKey: String = servicesConfig.getString("mongodb.encryption.key")
+  def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
 
   lazy val getRecognition: String = servicesConfig.getString("urls.getRecognition")
-
-  object GovukGuidance {
-    val supportForBusiness: String = servicesConfig.getString("urls.govukGuidance.supportForBusiness")
-  }
 }

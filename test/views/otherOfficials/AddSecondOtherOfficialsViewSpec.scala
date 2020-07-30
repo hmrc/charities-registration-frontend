@@ -17,30 +17,30 @@
 package views.otherOfficials
 
 import assets.messages.BaseMessages
-import models.Index
+import models.{Index, NormalMode}
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.otherOfficials.AddSecondOtherOfficialsView
 
-class AddOtherOfficialsViewSpec extends ViewBehaviours  {
+class AddSecondOtherOfficialsViewSpec extends ViewBehaviours  {
 
   private val messageKeyPrefix = "addSecondOtherOfficials"
 
-    "AddOtherOfficialsView" must {
+    "AddSecondOtherOfficialsView" must {
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[AddSecondOtherOfficialsView](Some(emptyUserAnswers))
-        view.apply(Index(0))(fakeRequest, messages, frontendAppConfig)
+        view.apply(Index(1))(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
 
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2", "p3")
+      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,"p1", "p2", "p3")
 
       behave like pageWithBackLink(applyView())
 
-      behave like pageWithHyperLink(applyView(), "linkButton", controllers.routes.DeadEndController.onPageLoad().url,BaseMessages.continue)
+      behave like pageWithHyperLink(applyView(), "linkButton",
+        controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, Index(1)).url, BaseMessages.continue)
 
     }
   }

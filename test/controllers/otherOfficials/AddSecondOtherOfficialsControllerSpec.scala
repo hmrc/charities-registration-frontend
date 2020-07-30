@@ -59,7 +59,7 @@ class AddSecondOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfter
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(Index(0))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(Index(1))(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

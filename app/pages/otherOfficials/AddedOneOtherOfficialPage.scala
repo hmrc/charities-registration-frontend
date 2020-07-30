@@ -23,6 +23,6 @@ case object AddedOneOtherOfficialPage extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString
 
-  override val toString: String = "addedOneOtherdOfficial"
+  override val toString: String = "addedOneOtherOfficial"
 }
 

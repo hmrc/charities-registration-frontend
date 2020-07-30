@@ -1,0 +1,40 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    govukSummaryList: GovukSummaryList,
+    h1: components.h1,
+    p: components.p,
+    warning: components.warning,
+    link: components.linkAsButton
+)
+
+@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(titleNoForm("declaration.title", None))) {
+
+    @h1(messages("declaration.heading"))
+
+    @warning{@messages("declaration.warning")}
+    @p{@messages("declaration.p1")}
+    @link(controllers.routes.DeadEndController.onPageLoad().url, "site.confirmAndSend", id=Some("linkButton"))
+
+}

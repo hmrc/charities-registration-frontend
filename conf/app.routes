@@ -30,3 +30,8 @@ GET        /sign-out                                    controllers.SignOutContr
 ### ----------------
 
 GET       /in-development                               controllers.DeadEndController.onPageLoad
+
+### Declaration Page route
+### ----------------
+
+GET       /declaration                                  controllers.DeclarationController.onPageLoad

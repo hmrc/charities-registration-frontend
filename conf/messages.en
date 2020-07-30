@@ -38,6 +38,7 @@ site.submitAndContinue = Submit and continue
 site.acceptAndContinue = Accept and continue
 site.confirmAndSubmit = Confirm and submit
 site.confirmAndContinue = Confirm and continue
+site.confirmAndSend = Confirm and send
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
@@ -162,6 +163,13 @@ deadEnd.title = Sorry, this page is still in development
 deadEnd.heading = Sorry, this page is still in development
 deadEnd.p1 = Please go back and select another option.
 deadEnd.p2 = You can also visit the task list to see the section status change from ‘Not started’ to ‘In progress’ or ‘Completed’.
+
+# Declaration page Messages
+# ----------------------------------------------------------
+declaration.title = Declaration
+declaration.heading = Declaration
+declaration.warning = You can be prosecuted for knowingly providing false or misleading information on your application.
+declaration.p1 = By sending this application, I confirm that the information I have provided is true to the best of my knowledge.
 
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------

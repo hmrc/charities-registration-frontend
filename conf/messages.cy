@@ -38,6 +38,7 @@ site.submitAndContinue = (W)Submit and continue(W)
 site.acceptAndContinue = (W)Accept and continue(W)
 site.confirmAndSubmit = (W)Confirm and submit(W)
 site.confirmAndContinue = (W)Confirm and continue(W)
+site.confirmAndSend = (W)Confirm and send(W)
 site.textarea.char_limit = (W)(Limit is {0} characters)(W)
 site.govuk = (W)GOV.UK(W)
 site.signOut = (W)Sign out(W)
@@ -162,6 +163,13 @@ deadEnd.title = (W)Sorry, this page is still in development(W)
 deadEnd.heading = (W)Sorry, this page is still in development(W)
 deadEnd.p1 = (W)Please go back and select another option.(W)
 deadEnd.p2 = (W)You can also visit the task list to see the section status change from ‘Not started’ to ‘In progress’ or ‘Completed’.(W)
+
+# Declaration page Messages
+# ----------------------------------------------------------
+declaration.title = (W)Declaration(W)
+declaration.heading = Declaration(W)
+declaration.warning = (W)You can be prosecuted for knowingly providing false or misleading information on your application.(W)
+declaration.p1 = (W)By sending this application, I confirm that the information I have provided is true to the best of my knowledge.(W)
 
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------

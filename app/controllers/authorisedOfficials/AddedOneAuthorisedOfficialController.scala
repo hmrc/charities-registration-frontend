@@ -42,11 +42,10 @@ class AddedOneAuthorisedOfficialController @Inject()(
    )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request => {
-    val messagePrefix: String = "addedOneAuthorisedOfficial"
     val addedOneAuthorisedOfficialHelper = new AddedOneAuthorisedOfficialHelper(Index(0))(request.userAnswers)
 
     Ok(view(addedOneAuthorisedOfficialHelper.rows,
-      controllers.authorisedOfficials.routes.AddedOneAuthorisedOfficialController.onSubmit(), messagePrefix))
+      controllers.authorisedOfficials.routes.AddedOneAuthorisedOfficialController.onSubmit(), AddedOneAuthorisedOfficialPage))
     }
   }
 

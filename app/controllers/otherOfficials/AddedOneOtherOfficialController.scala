@@ -42,11 +42,10 @@ class AddedOneOtherOfficialController @Inject()(
    )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request => {
-    val messagePrefix: String = "addedOneOtherOfficial"
     val addedOneOtherOfficialHelper = new AddedOneOtherOfficialHelper(Index(0))(request.userAnswers)
 
     Ok(view(addedOneOtherOfficialHelper.rows,
-      controllers.otherOfficials.routes.AddedOneOtherOfficialController.onSubmit(), messagePrefix))
+      controllers.otherOfficials.routes.AddedOneOtherOfficialController.onSubmit(), AddedOneOtherOfficialPage))
     }
   }
 

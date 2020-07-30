@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.authorisedOfficials.routes._
+@import controllers.otherOfficials.routes._
 @import models.Mode
 @import views.ViewUtils._
 @import config.FrontendAppConfig
@@ -38,6 +38,6 @@
 
     @p(Html(messages("addSecondOtherOfficials.p3")))
 
-    @link(controllers.routes.DeadEndController.onPageLoad().url, "site.continue",Some("linkButton"))
+    @link(OtherOfficialsNameController.onPageLoad(NormalMode, index).url, "site.continue",Some("linkButton"))
 
 }

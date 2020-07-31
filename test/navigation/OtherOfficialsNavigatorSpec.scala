@@ -167,15 +167,23 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to you have added two other official when No is selected and index is 1" in {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(1), NormalMode,
             emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap(_.set(OtherOfficialsPreviousAddressPage(1), false)).success.value) mustBe
-            routes.DeadEndController.onPageLoad()
+            otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
         }
       }
 
       "from the AddedOneOtherOfficialPage" must {
 
-        "go to the DoYouWantToAddAnotherAuthorisedOfficial page when user answer is empty" in {
+        "go to the AddSecondOtherofficials page when user answer is empty" in {
           navigator.nextPage(AddedOneOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
             otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
+        }
+      }
+
+      "from the AddedSecondOtherOfficialPage" must {
+
+        "go to the DoYouWantToAddAnotherOtherOfficial page when user answer is empty" in {
+          navigator.nextPage(AddedSecondOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+            routes.DeadEndController.onPageLoad()
         }
       }
 

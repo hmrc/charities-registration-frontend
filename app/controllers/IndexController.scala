@@ -63,13 +63,13 @@ class IndexController @Inject()(
         opsAndFundsRoutes.BankDetailsSummaryController.onPageLoad().url, userAnswers, Section6Page)
 
       val section7 = getSection(authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url,
-        authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url, userAnswers, Section7Page)
+        authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad().url, userAnswers, Section7Page)
 
       val section8 = getSection(otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad().url,
         routes.IndexController.onPageLoad().url, userAnswers, Section8Page) //To Do once pages for section 8 are created
 
       val section9 = getSection(charityNomineeRoutes.CharityNomineeController.onPageLoad().url,
-        charityNomineeRoutes.CharityNomineeController.onPageLoad().url, userAnswers, Section9Page)
+        charityNomineeRoutes.NomineeDetailsSummaryController.onPageLoad().url, userAnswers, Section9Page)
 
       val result = List(section1, section2, section3, section4, section5, section6, section7, section8, section9)
 

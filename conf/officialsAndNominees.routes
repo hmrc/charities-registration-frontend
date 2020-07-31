@@ -89,6 +89,9 @@ POST       /added-one-other-official                                            
 
 GET        /add-other-official                                                  controllers.otherOfficials.AddSecondOtherOfficialsController.onPageLoad()
 
+GET        /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onPageLoad()
+POST       /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onSubmit()
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
 
 GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)

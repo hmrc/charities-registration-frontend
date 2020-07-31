@@ -17,6 +17,7 @@
 @import views.components.FooterLinks
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.hmrcReportTechnicalIssue
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Header
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcLanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
@@ -30,7 +31,8 @@
     link: components.link,
     gtmSnippet: GtmSnippet,
     hmrcReportTechnicalIssue: hmrcReportTechnicalIssue,
-    languageSwitch: HmrcLanguageSelect
+    languageSwitch: HmrcLanguageSelect,
+    header: HmrcHeader
 )
 
 @(pageTitle: Option[String] = None, signOut: Boolean = true, js: Option[Html] = None, backLink: Boolean = true, showDeskproLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
@@ -95,9 +97,14 @@
 @govukLayout(
   pageTitle = pageTitle,
   headBlock = Some(head),
+  headerBlock = Some(header(Header(
+    signOutHref = if(signOut) Some(controllers.routes.SignOutController.signOut().url) else None,
+    homepageUrl = appConfig.govUK,
+    serviceName = Some(messages("service.name")),
+    serviceUrl = if(signOut) controllers.routes.IndexController.onPageLoad().url else controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url
+  ))),
   beforeContentBlock = Some(beforeContentBlock),
   bodyEndBlock = None,
   scriptsBlock = Some(scripts),
-  headerBlock = Some(siteHeader(signOut)),
   footerItems = FooterLinks.items
 )(content)

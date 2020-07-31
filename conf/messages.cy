@@ -872,6 +872,11 @@ addSecondOtherOfficials.p1 = (W)Other officials are people in the charity who ca
 addSecondOtherOfficials.p2 = (W)They will normally be the trustees or directors of the charity (if your charity is a company), or community amateur sports club (CASC) officials.(W)
 addSecondOtherOfficials.p3 = (W)Adding information about other officials takes around 5 minutes.(W)
 
+# Check the second Other Official Page Messages
+# ----------------------------------------------------------
+addedSecondOtherOfficial.checkYourAnswers.title = (W)Check the second other official''s details(W)
+addedSecondOtherOfficial.checkYourAnswers.heading = (W)Check the second other official''s details(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

@@ -22,32 +22,32 @@ import controllers.actions._
 import controllers.common.AddedOfficialController
 import models.Index
 import navigation.OtherOfficialsNavigator
-import pages.otherOfficials.AddedOneOtherOfficialPage
+import pages.otherOfficials.AddedSecondOtherOfficialPage
 import pages.sections.Section8Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import views.html.common.AddedOfficialsView
 
-class AddedOneOtherOfficialController @Inject()(
-   override val sessionRepository: UserAnswerRepository,
-   override val navigator: OtherOfficialsNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   override val view: AddedOfficialsView,
-   override val controllerComponents: MessagesControllerComponents
- )(implicit appConfig: FrontendAppConfig) extends AddedOfficialController {
+class AddedSecondOtherOfficialController @Inject()(
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: OtherOfficialsNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    override val view: AddedOfficialsView,
+    override val controllerComponents: MessagesControllerComponents
+  )(implicit appConfig: FrontendAppConfig) extends AddedOfficialController {
 
-  override val messagePrefix: String = "addedOneOtherOfficial"
+  override val messagePrefix: String = "addedSecondOtherOfficial"
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    getView(Index(0), controllers.otherOfficials.routes.AddedOneOtherOfficialController.onSubmit())
+    getView(Index(1), controllers.otherOfficials.routes.AddedSecondOtherOfficialController.onSubmit())
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    postView(AddedOneOtherOfficialPage, Section8Page)
+    postView(AddedSecondOtherOfficialPage, Section8Page)
   }
 }
 

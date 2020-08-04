@@ -16,7 +16,6 @@
 
 package views
 
-import controllers.routes
 import models.{NormalMode, TaskListSection}
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
@@ -32,10 +31,10 @@ class TaskListViewSpec extends ViewBehaviours  {
         controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "index.section.notStarted")
 
       val section2 = TaskListSection(
-        controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, "index.section.notStarted")
+        controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, "index.section.completed")
 
       val section3 = TaskListSection(
-        controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, "index.section.notStarted")
+        controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, "index.section.inProgress")
 
       val section4 = TaskListSection(
         controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url, "index.section.notStarted")
@@ -44,16 +43,16 @@ class TaskListViewSpec extends ViewBehaviours  {
         controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url, "index.section.notStarted")
 
       val section6 = TaskListSection(
-        controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, "index.section.notStarted")
+        controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, "index.section.completed")
 
       val section7 = TaskListSection(
         controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad().url, "index.section.notStarted")
 
       val section8 = TaskListSection(
-        routes.IndexController.onPageLoad().url, "index.section.notStarted")
+        controllers.otherOfficials.routes.CharityOtherOfficialsController.onPageLoad().url, "index.section.notStarted")
 
       val section9 = TaskListSection(
-        controllers.nominees.routes.CharityNomineeController.onPageLoad().url, "index.section.notStarted")
+        controllers.nominees.routes.CharityNomineeController.onPageLoad().url, "index.section.inProgress")
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[TaskList](Some(emptyUserAnswers))
@@ -71,6 +70,49 @@ class TaskListViewSpec extends ViewBehaviours  {
         "section4.label", "section4.spoke1.label", "section4.spoke2.label", "section4.spoke3.label",
         "section.note.label"
       )
+
+      "Charity contact details row" must {
+        behave like pageWithHyperLink(applyView(),
+          "charity-info", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "Charity's contact details")
+      }
+
+      "Regulator row" must {
+        behave like pageWithHyperLink(applyView(),
+          "name-regulator",controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url,"Regulator")
+      }
+
+      "Governing document row" must {
+        behave like pageWithHyperLink(applyView(),
+          "governing-doc-info", controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, "Governing document")
+      }
+      "Objectives row" must {
+        behave like pageWithHyperLink(applyView(),
+          "charity-objective", controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url, "Objectives")
+      }
+
+      "Fundraising information row" must {
+        behave like pageWithHyperLink(applyView(),
+          "fundraising-info", controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url, "Fundraising information")
+      }
+      "Bank details row" must {
+        behave like pageWithHyperLink(applyView(),
+          "bank-details", controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, "Bank details")
+      }
+
+      "Authorised officials row" must {
+        behave like pageWithHyperLink(applyView(),
+          "authorised-officials", controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad().url, "Authorised officials")
+      }
+
+      "Other officials row" must {
+        behave like pageWithHyperLink(applyView(),
+          "other-officials", controllers.otherOfficials.routes.CharityOtherOfficialsController.onPageLoad().url, "Other officials")
+      }
+
+      "Nominee row" must {
+        behave like pageWithHyperLink(applyView(),
+          "nominee-info",controllers.nominees.routes.CharityNomineeController.onPageLoad().url,"Nominee")
+      }
 
     }
   }

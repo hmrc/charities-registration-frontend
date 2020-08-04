@@ -166,8 +166,17 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to you have added two other official when No is selected and index is 1" in {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(1), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap(_.set(OtherOfficialsPreviousAddressPage(1), false)).success.value) mustBe
+            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap
+            (_.set(OtherOfficialsPreviousAddressPage(1), false)).success.value) mustBe
             otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
+        }
+
+        "go to you have added three other official when No is selected and index is 2" in {
+          navigator.nextPage(OtherOfficialsPreviousAddressPage(2), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap
+            (_.set(OtherOfficialsPreviousAddressPage(1), true)).flatMap
+            (_.set(OtherOfficialsPreviousAddressPage(2), false)).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO three summary page
         }
       }
 

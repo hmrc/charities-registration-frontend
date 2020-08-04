@@ -38,11 +38,11 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result.head.url}" aria-describedby="charity-info-completed">
+                    <a href="@{result.head.url}" aria-describedby="charity-info-completed" id="charity-info">
                       @messages("index.section1.spoke1.label")
                     </a>
                   </span>
-                    <strong id="charity-info-completed" class='@if(result.head.status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result.head.status)</strong>
+                    <span class="hmrc-status-tag" id="charity-info-completed">@messages(result.head.status)</span>
                 </li>
             </ul>
         </li>
@@ -53,19 +53,19 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(1).url}" aria-describedby="name-regulator-completed">
+                    <a href="@{result(1).url}" aria-describedby="name-regulator-completed" id="name-regulator">
                       @messages("index.section2.spoke1.label")
                     </a>
                   </span>
-                    <strong id="name-regulator-completed" class='@if(result(1).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(1).status)</strong>
+                  <span class="hmrc-status-tag" id="name-regulator-completed">@messages(result(1).status)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(2).url}" aria-describedby="governing-doc-info-completed">
+                    <a href="@{result(2).url}" aria-describedby="governing-doc-info-completed" id="governing-doc-info">
                       @messages("index.section2.spoke2.label")
                     </a>
                   </span>
-                    <strong id="governing-doc-info-completed" class='@if(result(2).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(2).status)</strong>
+                  <span class="hmrc-status-tag" id="governing-doc-info-completed">@messages(result(2).status)</span>
                 </li>
             </ul>
         </li>
@@ -76,27 +76,27 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(3).url}" aria-describedby="charity-objective-completed">
+                    <a href="@{result(3).url}" aria-describedby="charity-objective-completed" id="charity-objective">
                       @messages("index.section3.spoke1.label")
                     </a>
                   </span>
-                    <strong id="charity-objective-completed" class='@if(result(3).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(3).status)</strong>
+                  <span class="hmrc-status-tag" id="charity-objective-completed">@messages(result(3).status)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(4).url}" aria-describedby="fundraising-info-completed">
+                    <a href="@{result(4).url}" aria-describedby="fundraising-info-completed" id="fundraising-info">
                       @messages("index.section3.spoke2.label")
                     </a>
                   </span>
-                    <strong id="fundraising-info-completed" class='@if(result(4).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(4).status)</strong>
+                  <span class="hmrc-status-tag" id="fundraising-info-completed">@messages(result(4).status)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(5).url}" aria-describedby="bank-details-completed">
+                    <a href="@{result(5).url}" aria-describedby="bank-details-completed" id="bank-details">
                       @messages("index.section3.spoke3.label")
                     </a>
                   </span>
-                    <strong id="bank-details-completed" class='@if(result(5).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(5).status)</strong>
+                  <span class="hmrc-status-tag" id="bank-details-completed">@messages(result(5).status)</span>
                 </li>
             </ul>
         </li>
@@ -107,27 +107,27 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(6).url}" aria-describedby="authorised-officials-completed">
+                    <a href="@{result(6).url}" aria-describedby="authorised-officials-completed" id="authorised-officials">
                       @messages("index.section4.spoke1.label")
                     </a>
                   </span>
-                    <strong id="authorised-officials-completed" class='@if(result(6).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(6).status)</strong>
+                  <span class="hmrc-status-tag" id="authorised-officials-completed">@messages(result(6).status)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(7).url}" aria-describedby="other-officials-completed">
+                    <a href="@{result(7).url}" aria-describedby="other-officials-completed" id="other-officials">
                       @messages("index.section4.spoke2.label")
                     </a>
                   </span>
-                    <strong id="other-officials-completed" class='@if(result(7).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(7).status)</strong>
+                  <span class="hmrc-status-tag" id="other-officials-completed">@messages(result(7).status)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(8).url}" aria-describedby="nominee-info-completed">
+                    <a href="@{result(8).url}" aria-describedby="nominee-info-completed" id="nominee-info">
                       @messages("index.section4.spoke3.label")
                     </a>
                   </span>
-                    <strong id="nominee-info-completed" class='@if(result(8).status.contains("completed")) {govuk-tag app-task-list__task-completed} else { govuk-tag govuk-tag--grey app-task-list__task-completed } '>@messages(result(8).status)</strong>
+                  <span class="hmrc-status-tag" id="nominee-info-completed">@messages(result(8).status)</span>
                 </li>
             </ul>
         </li>

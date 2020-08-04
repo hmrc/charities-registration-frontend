@@ -192,7 +192,21 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the DoYouWantToAddAnotherOtherOfficial page when user answer is empty" in {
           navigator.nextPage(AddedSecondOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
-            routes.DeadEndController.onPageLoad()
+            otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AddAnotherOtherOfficialsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Dead End controller when clicked continue button" in {
+          navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode,
+            emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 
@@ -316,6 +330,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is created
+        }
+      }
+
+      "from the AddAnotherOtherOfficialsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when clicked continue button" in {
+          navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode,
+            emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
 

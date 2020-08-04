@@ -877,6 +877,13 @@ addSecondOtherOfficials.p3 = Adding information about other officials takes arou
 addedSecondOtherOfficial.checkYourAnswers.title = Check the second other official''s details
 addedSecondOtherOfficial.checkYourAnswers.heading = Check the second other official''s details
 
+# Add another other Official Page Messages
+# ----------------------------------------------------------
+addAnotherOtherOfficial.title = Do you want to add another other official?
+addAnotherOtherOfficial.heading = Do you want to add a third other official?
+addAnotherOtherOfficial.hint = You have already provided details for {0} and {1}.
+addAnotherOtherOfficial.error.required = Select yes if you want to add another other official
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

@@ -92,6 +92,11 @@ GET        /add-other-official                                                  
 GET        /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onPageLoad()
 POST       /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onSubmit()
 
+GET        /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onSubmit(mode: Mode = NormalMode)
+GET        /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
 
 GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)

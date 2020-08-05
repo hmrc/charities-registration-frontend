@@ -141,7 +141,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
           navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).getOrElse(emptyUserAnswers)) mustBe
-            otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(NormalMode, Index(0)) // TODO when address lookup page is ready
+            otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(NormalMode, Index(0))
         }
       }
 
@@ -203,10 +203,16 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Dead End controller when clicked continue button" in {
+        "go to the DeadEnd page when yes is selected" in {
           navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode,
-            emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
+
+        "go to the summary page when no is selected" in {
+          navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode,
+            emptyUserAnswers.set(AddAnotherOtherOfficialPage, false).success.value) mustBe
+            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
         }
       }
 

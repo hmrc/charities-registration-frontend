@@ -24,8 +24,7 @@ import javax.inject.Inject
 import models.{Index, Mode, PhoneNumber}
 import navigation.OtherOfficialsNavigator
 import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPhoneNumberPage}
-import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPhoneNumberPage}
-import pages.sections.Section7Page
+import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -60,7 +59,7 @@ class OtherOfficialsPhoneNumberController @Inject()(
 
     getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
 
-      postView(mode, OtherOfficialsPhoneNumberPage(index), form, otherOfficialsName, Section7Page,
+      postView(mode, OtherOfficialsPhoneNumberPage(index), form, otherOfficialsName, Section8Page,
         controllers.otherOfficials.routes.OtherOfficialsPhoneNumberController.onSubmit(mode, index))
     }
   }

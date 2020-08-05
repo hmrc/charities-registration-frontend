@@ -4,6 +4,12 @@ date.day = (W)Day(W)
 date.month = (W)Month(W)
 date.year = (W)Year(W)
 
+individual.1of2 = (W)(1 of 2)(W)
+individual.2of2 = (W)(2 of 2)(W)
+individual.1of3 = (W)(1 of 3)(W)
+individual.2of3 = (W)(2 of 3)(W)
+individual.3of3 = (W)(3 of 3)(W)
+
 error.browser.title.prefix = (W)Error:(W)
 error.boolean = (W)Please give an answer(W)
 error.invalid_date = (W)Give a correct date(W)
@@ -884,6 +890,15 @@ addAnotherOtherOfficial.heading = (W)Do you want to add a third other official?(
 addAnotherOtherOfficial.hint = (W)You have already provided details for {0} and {1}.(W)
 addAnotherOtherOfficial.error.required = (W)Select yes if you want to add another other official(W)
 
+addAnotherOtherOfficial.checkYourAnswersLabel = (W)Add another other official(W)
+
+# Charity's Other Officials Details Summary Page Messages
+# ----------------------------------------------------------
+otherOfficialsSummary.checkYourAnswers.title = (W)Check your charity''s other officials details(W)
+otherOfficialsSummary.checkYourAnswers.heading = (W)Check your charity''s other officials details(W)
+otherOfficialsSummary.checkYourAnswers.h2 = (W)Charity''s other official(W)
+otherOfficialsSummary.section = (W)Officials and nominees(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 
@@ -916,4 +931,4 @@ chooseNominee.organisation = (W)Organisation(W)
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity''s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity''s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.h2 = (W)Authorise a nominee(W)
-nomineeDetailsSummary.section = (W)Operations and funds(W)
+nomineeDetailsSummary.section = (W)Officials and nominees(W)

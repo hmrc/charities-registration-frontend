@@ -19,17 +19,22 @@ package viewModels.authorisedOfficials
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
+import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{CheckMode, Index, UserAnswers}
 import pages.authorisedOfficials._
+import pages.otherOfficials._
 import viewmodels.SummaryListRowHelper
-import viewmodels.authorisedOfficials.AuthorisedOfficialsSummaryHelper
+import viewmodels.authorisedOfficials.AddedOfficialsSummaryHelper
 
-class AuthorisedOfficialsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
+class AddedOfficialsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val authorisedOfficialDetails: UserAnswers = emptyUserAnswers
   .set(IsAddAnotherAuthorisedOfficialPage, true).success.value
 
-  def helper(userAnswers: UserAnswers = authorisedOfficialDetails, index: Index) =   new AuthorisedOfficialsSummaryHelper(index)(userAnswers)
+  private val otherOfficialDetails: UserAnswers = emptyUserAnswers
+  .set(AddAnotherOtherOfficialPage, false).success.value
+
+  def helper(userAnswers: UserAnswers, index: Index) = new AddedOfficialsSummaryHelper(index)(userAnswers)
 
   "Check Your Answers Helper" must {
 
@@ -41,6 +46,18 @@ class AuthorisedOfficialsSummaryHelperSpec extends SpecBase with SummaryListRowH
           BaseMessages.yes,
           Some(messages("isAddAnotherAuthorisedOfficial.checkYourAnswersLabel")),
           authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the addedAnotherOtherOfficial answer" must {
+
+      "have a correctly formatted summary list row" in {
+        helper(otherOfficialDetails, 1).addedAnotherOtherOfficialRow mustBe Some(summaryListRow(
+          messages("addAnotherOtherOfficial.checkYourAnswersLabel"),
+          BaseMessages.no,
+          Some(messages("addAnotherOtherOfficial.checkYourAnswersLabel")),
+          otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

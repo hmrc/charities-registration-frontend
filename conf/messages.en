@@ -4,6 +4,12 @@ date.day = Day
 date.month = Month
 date.year = Year
 
+individual.1of2 = (1 of 2)
+individual.2of2 = (2 of 2)
+individual.1of3 = (1 of 3)
+individual.2of3 = (2 of 3)
+individual.3of3 = (3 of 3)
+
 error.browser.title.prefix = Error:
 error.boolean = Please give an answer
 error.invalid_date = Give a correct date
@@ -884,6 +890,15 @@ addAnotherOtherOfficial.heading = Do you want to add a third other official?
 addAnotherOtherOfficial.hint = You have already provided details for {0} and {1}.
 addAnotherOtherOfficial.error.required = Select yes if you want to add another other official
 
+addAnotherOtherOfficial.checkYourAnswersLabel = Add another other official
+
+# Charity's Other Officials Details Summary Page Messages
+# ----------------------------------------------------------
+otherOfficialsSummary.checkYourAnswers.title = Check your charity''s other officials details
+otherOfficialsSummary.checkYourAnswers.heading = Check your charity''s other officials details
+otherOfficialsSummary.checkYourAnswers.h2 = Charity''s other official
+otherOfficialsSummary.section = Officials and nominees
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 
@@ -916,4 +931,4 @@ chooseNominee.organisation = Organisation
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity''s nominee details
 nomineeDetailsSummary.checkYourAnswers.heading = Check the charity''s nominee details
 nomineeDetailsSummary.checkYourAnswers.h2 = Authorise a nominee
-nomineeDetailsSummary.section = Operations and funds
+nomineeDetailsSummary.section = Officials and nominees

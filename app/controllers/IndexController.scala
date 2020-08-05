@@ -18,62 +18,33 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
-import controllers.authorisedOfficials.{routes => authOfficialsRoutes}
-import controllers.otherOfficials.{routes => otherOfficialsRoutes}
-import controllers.charityInformation.{routes => charityInfoRoutes}
-import controllers.nominees.{routes => charityNomineeRoutes}
-import controllers.operationsAndFunds.{routes => opsAndFundsRoutes}
-import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import javax.inject.Inject
-import models.{NormalMode, TaskListSection, UserAnswers}
-import pages.QuestionPage
-import pages.sections._
+import models.UserAnswers
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
+import utils.TaskListHelper
 import views.html.TaskList
 
 class IndexController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     userAnswerRepository: UserAnswerRepository,
+    taskListHelper: TaskListHelper,
     view: TaskList,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
+
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+
     userAnswerRepository.set(userAnswers).map { _ =>
 
-      val section1 = getSection(charityInfoRoutes.CharityNameController.onPageLoad(NormalMode).url,
-        charityInfoRoutes.CharityInformationSummaryController.onPageLoad().url, userAnswers, Section1Page)
+      val result = taskListHelper.getTaskListRow(userAnswers)
 
-      val section2 = getSection(regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(NormalMode).url,
-        regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad().url, userAnswers, Section2Page)
+      val completed = result.forall(_.state.equals("index.section.completed"))
 
-      val section3 = getSection(regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(NormalMode).url,
-        regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad().url, userAnswers, Section3Page)
-
-      val section4 = getSection(opsAndFundsRoutes.CharitableObjectivesController.onPageLoad(NormalMode).url,
-        opsAndFundsRoutes.CharityObjectivesSummaryController.onPageLoad().url, userAnswers, Section4Page)
-
-      val section5 = getSection(opsAndFundsRoutes.FundRaisingController.onPageLoad(NormalMode).url,
-        opsAndFundsRoutes.OperationsFundsSummaryController.onPageLoad().url, userAnswers, Section5Page)
-
-      val section6 = getSection(opsAndFundsRoutes.BankDetailsController.onPageLoad(NormalMode).url,
-        opsAndFundsRoutes.BankDetailsSummaryController.onPageLoad().url, userAnswers, Section6Page)
-
-      val section7 = getSection(authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad().url,
-        authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad().url, userAnswers, Section7Page)
-
-      val section8 = getSection(otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad().url,
-        routes.IndexController.onPageLoad().url, userAnswers, Section8Page) //To Do once pages for section 8 are created
-
-      val section9 = getSection(charityNomineeRoutes.CharityNomineeController.onPageLoad().url,
-        charityNomineeRoutes.NomineeDetailsSummaryController.onPageLoad().url, userAnswers, Section9Page)
-
-      val result = List(section1, section2, section3, section4, section5, section6, section7, section8, section9)
-
-      Ok(view(result))
+      Ok(view(result, status = completed))
     }
   }
 
@@ -84,11 +55,4 @@ class IndexController @Inject()(
     }
   }
 
-  private def getSection(normalUrl:String, changeUrl: String,  userAnswers: UserAnswers, sectionId : QuestionPage[Boolean]) : TaskListSection = {
-    userAnswers.get(sectionId) match {
-      case Some(true) => TaskListSection(changeUrl, "index.section.completed")
-      case Some(false) => TaskListSection(normalUrl, "index.section.inProgress")
-      case _ => TaskListSection(normalUrl, "index.section.notStarted")
-    }
-  }
 }

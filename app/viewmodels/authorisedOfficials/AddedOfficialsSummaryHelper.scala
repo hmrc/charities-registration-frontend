@@ -17,24 +17,34 @@
 package viewmodels.authorisedOfficials
 
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
+import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{CheckMode, Index, UserAnswers}
 import pages.authorisedOfficials._
+import pages.otherOfficials._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
+import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AuthorisedOfficialsSummaryHelper(index: Index)(override val userAnswers: UserAnswers)
-                                      (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
+class AddedOfficialsSummaryHelper(index: Index)(override val userAnswers: UserAnswers)
+                                 (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
   val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index)(userAnswers)
+  val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index)(userAnswers)
 
   def isAddAnotherAuthorisedOfficialRow: Option[SummaryListRow] =
     answerPrefix(IsAddAnotherAuthorisedOfficialPage,
                  authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(CheckMode),
                  messagePrefix = "isAddAnotherAuthorisedOfficial")
 
-  val rows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRow
+  def addedAnotherOtherOfficialRow: Option[SummaryListRow] =
+    answerPrefix(AddAnotherOtherOfficialPage,
+                 otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(CheckMode),
+                 messagePrefix = "addAnotherOtherOfficial")
 
+  val authorisedRows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRow
+  val otherRows: Seq[SummaryListRow] = addedOneOtherOfficial.rows
+  val otherRowsAddAnother: Seq[SummaryListRow] = addedOneOtherOfficial.rows ++ addedAnotherOtherOfficialRow
 }

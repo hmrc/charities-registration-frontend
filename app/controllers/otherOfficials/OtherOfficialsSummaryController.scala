@@ -14,47 +14,48 @@
  * limitations under the License.
  */
 
-package controllers.authorisedOfficials
+package controllers.otherOfficials
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import javax.inject.Inject
 import models.{Index, NormalMode}
-import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AuthorisedOfficialsSummaryPage
-import pages.sections.Section7Page
+import navigation.OtherOfficialsNavigator
+import pages.otherOfficials.OtherOfficialsSummaryPage
+import pages.sections.Section8Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.authorisedOfficials.AddedOfficialsSummaryHelper
-import views.html.CheckYourAnswersView
+import views.html.otherOfficials.OtherOfficialsSummaryView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialsSummaryController @Inject()(
+class OtherOfficialsSummaryController @Inject()(
     val sessionRepository: UserAnswerRepository,
-    val navigator: AuthorisedOfficialsNavigator,
+    val navigator: OtherOfficialsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
-    view: CheckYourAnswersView,
+    view: OtherOfficialsSummaryView,
     val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val authorisedOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(0))(request.userAnswers)
+    val firstOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(0))(request.userAnswers)
+    val secondOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(1))(request.userAnswers)
 
-    Ok(view(authorisedOfficialsSummaryHelper.authorisedRows, AuthorisedOfficialsSummaryPage,
-    controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit(), h2Required = true))
+    Ok(view(firstOtherOfficialsSummaryHelper.otherRows, secondOtherOfficialsSummaryHelper.otherRowsAddAnother,
+      OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit(), h2Required = true))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section7Page, true))
+    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page, true))
     _              <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, updatedAnswers))
+    } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, updatedAnswers))
 
   }
 }

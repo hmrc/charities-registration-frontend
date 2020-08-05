@@ -177,6 +177,30 @@ declaration.heading = Declaration
 declaration.warning = You can be prosecuted for knowingly providing false or misleading information on your application.
 declaration.p1 = By sending this application, I confirm that the information I have provided is true to the best of my knowledge.
 
+# Registration sent page Messages
+# ----------------------------------------------------------
+registrationSent.title = Registration Sent
+registrationSent.heading = Registration Sent
+registrationSent.h2 = What to do next
+registrationSent.h2a = Post copies of the documents by [date]
+registrationSent.h2b = How long do applications take
+registrationSent.p1 = You reference number
+registrationSent.p2 = 0123 4567 8901
+registrationSent.p3 = You need to make copies and add your reference number 0123 4567 8901 to:
+registrationSent.p4 = You have until [date] to send copies of the documents to:
+registrationSent.p5 = Charities, Savings & International 2
+registrationSent.p6 = HMRC
+registrationSent.p7 = BX9 1BU
+registrationSent.p8 = It can take up to 6 weeks to process your registration.
+registrationSent.p9 = (takes 30 seconds).
+registrationSent.l1 = notification of registration
+registrationSent.l2 = financial accounts
+registrationSent.l3 = evidence of activities
+registrationSent.l4 = governing documents and proposed changes
+registrationSent.l5 = identity details for all officials
+registrationSent.warning = Do not send original documents
+registrationSent.link = What do you think of this service?
+
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
 checkIfYouCanRegister.title = Check if you can register the charity

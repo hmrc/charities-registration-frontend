@@ -18,30 +18,34 @@ package views
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.DeclarationView
+import views.html.RegistrationSentView
 
-class DeclarationViewSpec extends ViewBehaviours  {
+class RegistrationSentViewSpec extends ViewBehaviours  {
 
-  private val messageKeyPrefix = "declaration"
+  private val messageKeyPrefix = "registrationSent"
 
-    "declarationView" must {
+    "RegistrationSentView" must {
 
       def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[DeclarationView](Some(emptyUserAnswers))
+        val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
         view.apply()(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1")
+        "p1", "p2" , "p3", "p4", "p8", "p9")
 
-      behave like pageWithBackLink(applyView())
+      behave like pageWithWarningText(applyView(), messages("registrationSent.warning"))
 
-      behave like pageWithWarningText(applyView(), messages("declaration.warning"))
+      behave like pageWithHyperLink(applyView(), "link",frontendAppConfig.feedbackUrl(fakeRequest), messages("registrationSent.link"))
 
-      behave like pageWithHyperLink(applyView(), "linkButton",
-        controllers.routes.RegistrationSentController.onPageLoad().url, messages("site.confirmAndSend"))
+      "Contains the address" in{
+       val doc = asDocument(applyView())
+        assertContainsText(doc,"Charities, Savings &amp; International 2")
+        assertContainsText(doc,"HMRC")
+        assertContainsText(doc,"BX9 1BU")
+      }
 
     }
   }

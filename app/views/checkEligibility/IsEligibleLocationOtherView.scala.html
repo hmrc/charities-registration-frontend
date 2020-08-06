@@ -24,9 +24,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
-    button: components.button,
-    subheading: components.subheading,
-    link: components.link
+    button: components.button
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -37,7 +35,46 @@
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "isEligibleLocationOther.heading", Some(Html(messages("isEligibleLocationOther.hint"))))
+        @yesNoRadio(form, "isEligibleLocationOther.heading")
+
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  @messages("isEligibleLocationOther.details")
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <ul>
+                    <li>@messages("isEligibleLocationOther.austria")</li>
+                    <li>@messages("isEligibleLocationOther.belgium")</li>
+                    <li>@messages("isEligibleLocationOther.bulgaria")</li>
+                    <li>@messages("isEligibleLocationOther.croatia")</li>
+                    <li>@messages("isEligibleLocationOther.republicOfCyprus")</li>
+                    <li>@messages("isEligibleLocationOther.czechRepublic")</li>
+                    <li>@messages("isEligibleLocationOther.denmark")</li>
+                    <li>@messages("isEligibleLocationOther.estonia")</li>
+                    <li>@messages("isEligibleLocationOther.finland")</li>
+                    <li>@messages("isEligibleLocationOther.france")</li>
+                    <li>@messages("isEligibleLocationOther.germany")</li>
+                    <li>@messages("isEligibleLocationOther.greece")</li>
+                    <li>@messages("isEligibleLocationOther.hungary")</li>
+                    <li>@messages("isEligibleLocationOther.ireland")</li>
+                    <li>@messages("isEligibleLocationOther.italy")</li>
+                    <li>@messages("isEligibleLocationOther.latvia")</li>
+                    <li>@messages("isEligibleLocationOther.lithuania")</li>
+                    <li>@messages("isEligibleLocationOther.luxembourg")</li>
+                    <li>@messages("isEligibleLocationOther.malta")</li>
+                    <li>@messages("isEligibleLocationOther.netherlands")</li>
+                    <li>@messages("isEligibleLocationOther.poland")</li>
+                    <li>@messages("isEligibleLocationOther.portugal")</li>
+                    <li>@messages("isEligibleLocationOther.romania")</li>
+                    <li>@messages("isEligibleLocationOther.slovakia")</li>
+                    <li>@messages("isEligibleLocationOther.slovenia")</li>
+                    <li>@messages("isEligibleLocationOther.spain")</li>
+                    <li>@messages("isEligibleLocationOther.sweden")</li>
+                </ul>
+            </div>
+        </details>
 
         @button("site.continue")
 

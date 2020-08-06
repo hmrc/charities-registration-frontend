@@ -20,7 +20,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
-import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
+import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
 import pages.operationsAndFunds._
@@ -53,7 +53,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("selectFundRaising.checkYourAnswersLabel"),
             fundRaisingList,
             Some(messages("selectFundRaising.checkYourAnswersLabel")),
-            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+            operationFundsRoutes.FundRaisingController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -71,7 +71,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("operatingLocation.checkYourAnswersLabel"),
             operatingLocationList,
             Some(messages("operatingLocation.checkYourAnswersLabel")),
-            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+            operationFundsRoutes.OperatingLocationController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -116,7 +116,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("accountingPeriodEndDate.checkYourAnswersLabel"),
             "1 October",
             Some(messages("accountingPeriodEndDate.checkYourAnswersLabel")),
-            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+            operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }

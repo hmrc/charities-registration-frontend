@@ -16,9 +16,10 @@
 
 package viewmodels.operationsAndFunds
 
+import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models.MongoDateTimeFormats._
-import models.UserAnswers
+import models.{CheckMode, UserAnswers}
 import org.joda.time.MonthDay
 import pages.QuestionPage
 import pages.operationsAndFunds._
@@ -33,10 +34,10 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
     with SummaryListRowHelper with CurrencyFormatter {
 
     def fundRaisingRow: Option[SummaryListRow] =
-      multiLineAnswer(FundRaisingPage, routes.DeadEndController.onPageLoad())
+      multiLineAnswer(FundRaisingPage, operationFundsRoutes.FundRaisingController.onPageLoad(CheckMode))
 
     def operatingLocationRow: Option[SummaryListRow] =
-      multiLineAnswer(OperatingLocationPage, routes.DeadEndController.onPageLoad())
+      multiLineAnswer(OperatingLocationPage, operationFundsRoutes.OperatingLocationController.onPageLoad(CheckMode))
 
     def isFinancialAccountsRow: Option[SummaryListRow] =
       answer(IsFinancialAccountsPage, routes.DeadEndController.onPageLoad())
@@ -45,7 +46,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
       answer(IsBankStatementsPage, routes.DeadEndController.onPageLoad())
 
     def accountingPeriodRow: Option[SummaryListRow] =
-      answerAccountingPeriod(AccountingPeriodEndDatePage, routes.DeadEndController.onPageLoad())
+      answerAccountingPeriod(AccountingPeriodEndDatePage, operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(CheckMode))
 
     private def answerAccountingPeriod[A](page: QuestionPage[MonthDay],
                                         changeLinkCall: Call) : Option[SummaryListRow] =

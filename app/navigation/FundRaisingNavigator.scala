@@ -68,6 +68,23 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
   private val checkRouteMap: Page => UserAnswers => Call = {
 
+    case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
+      case Some(items) if items.toSeq.equals(Seq(Other)) =>  routes.DeadEndController.onPageLoad()
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
+      case Some(items) if items.toSeq.equals(Seq(Overseas)) =>  routes.DeadEndController.onPageLoad()
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

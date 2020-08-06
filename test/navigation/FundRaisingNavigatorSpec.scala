@@ -146,6 +146,61 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
     "in Check mode" when {
 
+      "from the FundRaisingPage page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(FundRaisingPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when an answer is given" in {
+          navigator.nextPage(FundRaisingPage, CheckMode,
+            emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+
+        "go to the Where does your charity operate page when user answer has other and clicked continue button" in {
+          navigator.nextPage(FundRaisingPage, CheckMode,
+            emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other)).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
+      }
+
+      "from the OperatingLocationPage page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OperatingLocationPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when an answer is given" in {
+          navigator.nextPage(OperatingLocationPage, CheckMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales)).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+
+        "go to Has your charity prepared financial accounts page when user answer has other and clicked continue button" in {
+          navigator.nextPage(OperatingLocationPage, CheckMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
+      }
+
+      "from the AccountingPeriodEndDdate page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AccountingPeriodEndDatePage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when an answer is given" in {
+          navigator.nextPage(AccountingPeriodEndDatePage, CheckMode, emptyUserAnswers.set(AccountingPeriodEndDatePage,
+            MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))
+          (MongoDateTimeFormats.localDayMonthWrite).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
+
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {

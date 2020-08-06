@@ -342,12 +342,12 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       "from the AddAnotherOtherOfficialsPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddAnotherOtherOfficialPage, CheckMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to the summary page when clicked continue button" in {
-          navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode,
+          navigator.nextPage(AddAnotherOtherOfficialPage, CheckMode,
             emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }

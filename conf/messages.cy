@@ -565,7 +565,7 @@ selectFundRaising.tradingIncome = (W)Trading income(W)
 selectFundRaising.tradingSubsidiaries = (W)Trading subsidiaries(W)
 selectFundRaising.investmentIncome = (W)Investment income(W)
 selectFundRaising.other = (W)Other(W)
-selectFundRaising.checkYourAnswersLabel = (W)How your charity raises funds(W)
+selectFundRaising.checkYourAnswersLabel = (W)Fundraising methods(W)
 
 # Select Operating Location Messages
 # ----------------------------------------------------------
@@ -578,7 +578,7 @@ operatingLocation.scotland = (W)Scotland(W)
 operatingLocation.northernIreland = (W)Northern Ireland(W)
 operatingLocation.ukWide = (W)Across the UK(W)
 operatingLocation.overseas = (W)Overseas(W)
-operatingLocation.checkYourAnswersLabel = (W)Where your charity operates(W)
+operatingLocation.checkYourAnswersLabel = (W)Operating locations(W)
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
@@ -586,7 +586,7 @@ isFinancialAccounts.title = (W)Has your charity prepared financial accounts?(W)
 isFinancialAccounts.heading = (W)Has your charity prepared financial accounts?(W)
 isFinancialAccounts.error.required = (W)Select yes if your charity has prepared financial accounts(W)
 isFinancialAccounts.hint = (W)If your charity has a set of prepared financial accounts, you will need to post us a copy to support your application.(W)
-isFinancialAccounts.checkYourAnswersLabel = (W)Your charity has financial accounts(W)
+isFinancialAccounts.checkYourAnswersLabel = (W)Financial accounts(W)
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
@@ -594,7 +594,7 @@ isBankStatements.title = (W)Does your charity have bank statements for the last 
 isBankStatements.heading = (W)Does your charity have bank statements for the last 3 months of operation?(W)
 isBankStatements.hint = (W)If the account has been open for less than 3 months, you will need to provide evidence from the bank that the account is open.(W)
 isBankStatements.error.required = (W)Select yes if your charity has bank statements for the last 3 months of operation(W)
-isBankStatements.checkYourAnswersLabel = (W)Your charity has bank statements for the last 3 months(W)
+isBankStatements.checkYourAnswersLabel = (W)Bank statements for the last 3 months(W)
 
 # AccountingEndDatePage Messages
 # ----------------------------------------------------------
@@ -604,12 +604,12 @@ accountingPeriodEndDate.error.required.all = (W)Enter the accounting period end 
 accountingPeriodEndDate.error.required = (W)Enter the accounting period end {0}(W)
 accountingPeriodEndDate.error.invalid = (W)The accounting period end date must be a real date(W)
 accountingPeriodEndDate.p1 = (W)This is the date to which your charity prepares its financial accounts.(W)
-accountingPeriodEndDate.checkYourAnswersLabel = (W)When your accounting period ends(W)
+accountingPeriodEndDate.checkYourAnswersLabel = (W)Accounting period end date(W)
 
 # Operations and Funds Summary page
 # ----------------------------------------------------------
-operationsFundsSummary.checkYourAnswers.title = (W)Check your charity''s operations and funds details(W)
-operationsFundsSummary.checkYourAnswers.heading = (W)Check your charity''s operations and funds details(W)
+operationsFundsSummary.checkYourAnswers.title = (W)Check the charity''s operations and funds details(W)
+operationsFundsSummary.checkYourAnswers.heading = (W)Check the charity''s operations and funds details(W)
 operationsFundsSummary.section = (W)Operations and funds(W)
 
 # Section6 - Supply bank details

@@ -35,3 +35,8 @@ GET       /in-development                               controllers.DeadEndContr
 ### ----------------
 
 GET       /declaration                                  controllers.DeclarationController.onPageLoad
+
+### Registration Sent Page route
+### ----------------
+
+GET       /registration-sent                            controllers.RegistrationSentController.onPageLoad

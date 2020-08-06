@@ -177,6 +177,30 @@ declaration.heading = Declaration(W)
 declaration.warning = (W)You can be prosecuted for knowingly providing false or misleading information on your application.(W)
 declaration.p1 = (W)By sending this application, I confirm that the information I have provided is true to the best of my knowledge.(W)
 
+# Registration sent page Messages
+# ----------------------------------------------------------
+registrationSent.title = (W)Registration Sent(W)
+registrationSent.heading = (W)Registration Sent(W)
+registrationSent.h2 = (W)What to do next(W)
+registrationSent.h2a = (W)Post copies of the documents by [date](W)
+registrationSent.h2b = (W)How long do applications take(W)
+registrationSent.p1 = (W)You reference number(W)
+registrationSent.p2 = (W)0123 4567 8901(W)
+registrationSent.p3 = (W)You need to make copies and add your reference number 0123 4567 8901 to:(W)
+registrationSent.p4 = (W)You have until [date] to send copies of the documents to:(W)
+registrationSent.p5 = (W)Charities, Savings & International 2(W)
+registrationSent.p6 = (W)HMRC(W)
+registrationSent.p7 = (W)BX9 1BU(W)
+registrationSent.p8 = (W)It can take up to 6 weeks to process your registration.(W)
+registrationSent.p9 = (W)(takes 30 seconds).(W)
+registrationSent.l1 = (W)notification of registration(W)
+registrationSent.l2 = (W)financial accounts(W)
+registrationSent.l3 = (W)evidence of activities(W)
+registrationSent.l4 = (W)governing documents and proposed changes(W)
+registrationSent.l5 = (W)identity details for all officials(W)
+registrationSent.warning = (W)Do not send original documents(W)
+registrationSent.link = (W)What do you think of this service?(W)
+
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
 checkIfYouCanRegister.title = (W)Check if you can register the charity(W)

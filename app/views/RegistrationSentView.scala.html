@@ -1,0 +1,80 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    govukSummaryList: GovukSummaryList,
+    h1: components.h1,
+    h2: components.h2,
+    p: components.p,
+    warning: components.warning,
+    link: components.link
+)
+
+@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(titleNoForm("registrationSent.title", None)), backLink=false) {
+
+
+    <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+        @messages("registrationSent.heading")
+        </h1>
+    <div class="govuk-panel__body">
+        <div>@messages("registrationSent.p1")</div>
+        <div>@messages("registrationSent.p2")</div>
+        <strong></strong>
+        </div>
+    </div>
+
+    @h2(messages("registrationSent.h2"))
+
+    <p class="govuk-body">
+        <p class="govuk-body">@messages("registrationSent.p3")</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>@messages("registrationSent.l1")</li>
+            <li>@messages("registrationSent.l2")</li>
+            <li>@messages("registrationSent.l3")</li>
+            <li>@messages("registrationSent.l4")</li>
+            <li>@messages("registrationSent.l5")</li>
+        </ul>
+    </p>
+
+    @h2(messages("registrationSent.h2a"))
+    @p{@messages("registrationSent.p4")}
+
+    @p{
+        <span class="govuk-body" id="line1">@messages("registrationSent.p5")</span>
+        <br>
+        <span class="govuk-body" id="line2">@messages("registrationSent.p6")</span>
+        <br>
+        <span class="govuk-body" id="line3">@messages("registrationSent.p7")</span>
+    }
+
+    @warning{@messages("registrationSent.warning")}
+
+    @h2(messages("registrationSent.h2b"))
+    @p{@messages("registrationSent.p8")}
+
+    @p{
+        @link(appConfig.feedbackUrl, "registrationSent.link",Some("link"))
+        @messages("registrationSent.p9")
+    }
+}

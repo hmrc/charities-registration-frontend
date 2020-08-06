@@ -15,14 +15,16 @@
  *@
 
 @import views.ViewUtils._
+@import viewmodels.TaskListRow
 @import config.FrontendAppConfig
 
 @this(
     main_template: templates.GovukLayoutWrapper,
-    h1: components.h1
+    h1: components.h1,
+    link: components.linkAsButton
 )
 
-@(result: List[TaskListSection])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(result: List[TaskListRow], status:Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @main_template(Some(titleNoForm("index.title"))) {
 
@@ -38,11 +40,11 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result.head.url}" aria-describedby="charity-info-completed" id="charity-info">
-                      @messages("index.section1.spoke1.label")
+                    <a href="@{result.head.link.url}" aria-describedby="charity-info-completed" id="charity-info">
+                      @messages(result.head.name)
                     </a>
                   </span>
-                    <span class="hmrc-status-tag" id="charity-info-completed">@messages(result.head.status)</span>
+                    <span class="hmrc-status-tag" id="charity-info-completed">@messages(result.head.state)</span>
                 </li>
             </ul>
         </li>
@@ -53,19 +55,19 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(1).url}" aria-describedby="name-regulator-completed" id="name-regulator">
-                      @messages("index.section2.spoke1.label")
+                    <a href="@{result(1).link.url}" aria-describedby="name-regulator-completed" id="name-regulator">
+                      @messages(result(1).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="name-regulator-completed">@messages(result(1).status)</span>
+                  <span class="hmrc-status-tag" id="name-regulator-completed">@messages(result(1).state)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(2).url}" aria-describedby="governing-doc-info-completed" id="governing-doc-info">
-                      @messages("index.section2.spoke2.label")
+                    <a href="@{result(2).link.url}" aria-describedby="governing-doc-info-completed" id="governing-doc-info">
+                      @messages(result(2).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="governing-doc-info-completed">@messages(result(2).status)</span>
+                  <span class="hmrc-status-tag" id="governing-doc-info-completed">@messages(result(2).state)</span>
                 </li>
             </ul>
         </li>
@@ -76,27 +78,27 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(3).url}" aria-describedby="charity-objective-completed" id="charity-objective">
-                      @messages("index.section3.spoke1.label")
+                    <a href="@{result(3).link.url}" aria-describedby="charity-objective-completed" id="charity-objective">
+                      @messages(result(3).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="charity-objective-completed">@messages(result(3).status)</span>
+                  <span class="hmrc-status-tag" id="charity-objective-completed">@messages(result(3).state)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(4).url}" aria-describedby="fundraising-info-completed" id="fundraising-info">
-                      @messages("index.section3.spoke2.label")
+                    <a href="@{result(4).link.url}" aria-describedby="fundraising-info-completed" id="fundraising-info">
+                      @messages(result(4).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="fundraising-info-completed">@messages(result(4).status)</span>
+                  <span class="hmrc-status-tag" id="fundraising-info-completed">@messages(result(4).state)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(5).url}" aria-describedby="bank-details-completed" id="bank-details">
-                      @messages("index.section3.spoke3.label")
+                    <a href="@{result(5).link.url}" aria-describedby="bank-details-completed" id="bank-details">
+                      @messages(result(5).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="bank-details-completed">@messages(result(5).status)</span>
+                  <span class="hmrc-status-tag" id="bank-details-completed">@messages(result(5).state)</span>
                 </li>
             </ul>
         </li>
@@ -107,32 +109,36 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(6).url}" aria-describedby="authorised-officials-completed" id="authorised-officials">
-                      @messages("index.section4.spoke1.label")
+                    <a href="@{result(6).link.url}" aria-describedby="authorised-officials-completed" id="authorised-officials">
+                      @messages(result(6).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="authorised-officials-completed">@messages(result(6).status)</span>
+                  <span class="hmrc-status-tag" id="authorised-officials-completed">@messages(result(6).state)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(7).url}" aria-describedby="other-officials-completed" id="other-officials">
-                      @messages("index.section4.spoke2.label")
+                    <a href="@{result(7).link.url}" aria-describedby="other-officials-completed" id="other-officials">
+                      @messages(result(7).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="other-officials-completed">@messages(result(7).status)</span>
+                  <span class="hmrc-status-tag" id="other-officials-completed">@messages(result(7).state)</span>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(8).url}" aria-describedby="nominee-info-completed" id="nominee-info">
-                      @messages("index.section4.spoke3.label")
+                    <a href="@{result(8).link.url}" aria-describedby="nominee-info-completed" id="nominee-info">
+                      @messages(result(8).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="nominee-info-completed">@messages(result(8).status)</span>
+                  <span class="hmrc-status-tag" id="nominee-info-completed">@messages(result(8).state)</span>
                 </li>
             </ul>
         </li>
     </ol>
-    <div class="govuk-inset-text">
-        @messages("index.section.note.label")
-    </div>
+
+    @if(status) {
+        @link(controllers.routes.DeclarationController.onPageLoad().url, "site.continue", id=Some("declaration"))
+    } else {
+        <div class="govuk-inset-text"> @messages("index.section.note.label") </div>
+    }
+
 }

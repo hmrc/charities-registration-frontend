@@ -41,7 +41,7 @@ class CharityContactDetailsViewSpec extends QuestionViewBehaviours[CharityContac
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     }
   }

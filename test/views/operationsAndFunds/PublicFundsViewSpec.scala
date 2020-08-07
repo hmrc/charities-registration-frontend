@@ -40,7 +40,7 @@ class PublicFundsViewSpec extends TextAreaViewBehaviours  {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("operationsAndFunds.section")))
     }

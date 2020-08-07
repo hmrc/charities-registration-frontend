@@ -45,6 +45,6 @@ class IsFinancialAccountsViewSpec extends YesNoViewBehaviours  {
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsFinancialAccountsController.onSubmit(NormalMode).url, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

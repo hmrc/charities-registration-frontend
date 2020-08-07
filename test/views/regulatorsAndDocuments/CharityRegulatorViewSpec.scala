@@ -44,5 +44,5 @@ class CharityRegulatorViewSpec extends CheckboxViewBehaviours[CharityRegulator] 
 
       behave like checkboxPage(form, applyView, messageKeyPrefix, CharityRegulator.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }}

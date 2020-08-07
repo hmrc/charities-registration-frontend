@@ -45,6 +45,6 @@ class OperatingLocationViewSpec extends CheckboxViewBehaviours[OperatingLocation
 
       behave like checkboxPage(form, applyView, messageKeyPrefix, OperatingLocationOptions.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

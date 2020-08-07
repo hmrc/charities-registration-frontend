@@ -43,7 +43,7 @@ class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
 
       behave like pageWithWarningText(applyView(form), messages("bankDetails.basc.warning"))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     }
   }

@@ -45,6 +45,6 @@ class FundRaisingViewSpec extends CheckboxViewBehaviours[FundRaisingOptions]  {
 
       behave like checkboxPage(form, applyView, messageKeyPrefix, FundRaisingOptions.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

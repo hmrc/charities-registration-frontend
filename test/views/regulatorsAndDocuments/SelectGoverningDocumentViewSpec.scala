@@ -42,7 +42,7 @@ class SelectGoverningDocumentViewSpec extends ViewBehaviours  {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       SelectGoverningDocument.options(form).zipWithIndex.foreach { case (option, i) =>
 

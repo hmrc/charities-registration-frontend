@@ -45,5 +45,5 @@ class CharitablePurposesViewSpec extends CheckboxViewBehaviours[CharitablePurpos
 
       behave like checkboxPage(form, applyView, messageKeyPrefix, CharitablePurposes.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }}

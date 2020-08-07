@@ -46,5 +46,5 @@ class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours  {
 
     behave like yesNoPage(form, applyView, messageKeyPrefix, routes.CanWeSendToThisAddressController.onSubmit(NormalMode).url, Seq(charityInformationAddressLookup), section = section)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }}

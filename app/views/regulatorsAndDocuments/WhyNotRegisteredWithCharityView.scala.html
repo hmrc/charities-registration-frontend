@@ -34,8 +34,7 @@
 
     @formHelper(action = WhyNotRegisteredWithCharityController.onSubmit(mode)) {
 
-
-        <fieldset class="govuk-fieldset">
+        @fieldset("whyNotRegisteredWithCharity.heading") {
 
             @errorSummary(form.errors)
 
@@ -46,14 +45,14 @@
                 rows = 5,
                 value = Some("value"),
                 maxLength = Some(100),
-                isPageHeading = true,
+                isPageHeading = false,
                 label = messages("whyNotRegisteredWithCharity.heading"),
                 hint = Some(Html(messages("whyNotRegisteredWithCharity.hint"))),
                 countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
             )
-
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

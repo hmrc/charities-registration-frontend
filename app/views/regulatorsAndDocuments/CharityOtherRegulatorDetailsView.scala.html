@@ -36,11 +36,7 @@
 
     @formHelper(action = CharityOtherRegulatorDetailsController.onSubmit(mode)) {
 
-        <fieldset class="govuk-fieldset">
-
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                @h1("charityOtherRegulatorDetails.heading")
-            </legend>
+        @fieldset("charityOtherRegulatorDetails.heading") {
 
             @p(Html(messages("charityOtherRegulatorDetails.hint")))
 
@@ -63,8 +59,9 @@
                 isPageHeading = false,
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

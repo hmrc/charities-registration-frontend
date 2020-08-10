@@ -34,12 +34,7 @@
 
     @formHelper(action = submitCall) {
 
-
-        <fieldset class="govuk-fieldset">
-
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                @h1(messages(s"$messagePrefix.heading", fullName))
-            </legend>
+        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(fullName)) {
 
             @errorSummary(form.errors)
 
@@ -60,9 +55,9 @@
                 isPageHeading = false,
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
-
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

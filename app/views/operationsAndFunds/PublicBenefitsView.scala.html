@@ -34,8 +34,7 @@
 
     @formHelper(action = PublicBenefitsController.onSubmit(mode)) {
 
-
-        <fieldset class="govuk-fieldset">
+        @fieldset("publicBenefits.heading") {
 
             @errorSummary(form.errors)
 
@@ -46,14 +45,14 @@
                 rows = 5,
                 value = Some("value"),
                 maxLength = Some(255),
-                isPageHeading = true,
+                isPageHeading = false,
                 label = messages("publicBenefits.heading"),
                 hint = Some(Html(messages("publicBenefits.hint"))),
                 countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
             )
-
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

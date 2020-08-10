@@ -28,7 +28,9 @@
     subheading: components.subheading,
     h1: components.h1,
     p: components.p,
-    link: components.link
+    link: components.link,
+    fieldset: components.fieldset
+
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -37,11 +39,9 @@
 
     @formHelper(action = WhenGoverningDocumentApprovedController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-        <fieldset class="govuk-fieldset">
+        @fieldset("whenGoverningDocumentApproved.heading") {
 
             @errorSummary(form.errors)
-
-            @h1(messages("whenGoverningDocumentApproved.heading"))
 
             @p{@messages("WhenGoverningDocumentApproved.p1")}
 
@@ -52,10 +52,9 @@
                 hintText = Some(messages("WhenGoverningDocumentApproved.hint")),
                 legendAsPageHeading = false,
             )
+        }
 
-        </fieldset>
-
-    @button("site.saveAndContinue")
+        @button("site.saveAndContinue")
 
     }
 }

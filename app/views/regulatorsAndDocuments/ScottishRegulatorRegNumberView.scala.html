@@ -34,22 +34,22 @@
 
     @formHelper(action = ScottishRegulatorRegNumberController.onSubmit(mode)) {
 
-
-        <fieldset class="govuk-fieldset">
+        @fieldset("scottishRegulatorRegNumber.heading") {
 
             @errorSummary(form.errors)
 
-             @inputText(
+            @inputText(
                 form,
                 id = "registrationNumber",
                 name = "registrationNumber",
-                isPageHeading = true,
+                isPageHeading = false,
                 label=messages("scottishRegulatorRegNumber.heading"),
                 hint = Some(Html(messages("scottishRegulatorRegNumber.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

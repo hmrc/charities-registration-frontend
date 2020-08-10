@@ -1,3 +1,4 @@
+GET        /start-name                               controllers.charityInformation.CharityInformationController.onPageLoad()
 
 GET        /name                                     controllers.charityInformation.CharityNameController.onPageLoad(mode: Mode = NormalMode)
 POST       /name                                     controllers.charityInformation.CharityNameController.onSubmit(mode: Mode = NormalMode)

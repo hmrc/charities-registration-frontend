@@ -288,6 +288,16 @@ notEligible.bank.p1 =(W)To use this service the charity must have a UK bank, bui
 # ----------------------------------------------------------
 contactDetail.section = (W)Charity Information(W)
 
+# CharityInformationPage Messages
+# ----------------------------------------------------------
+charityInformation.title = (W)The charity''s information(W)
+charityInformation.heading = (W)The charity''s information(W)
+charityInformation.p1 = (W)You need to add the charity''s:(W)
+charityInformation.b1 = (W)name and operating name(W)
+charityInformation.b2 = (W)address(W)
+charityInformation.b3 = (W)postal address(W)
+charityInformation.p2 = (W)Adding the charity''s information takes around 5 minutes.(W)
+
 # CharityNamePage Messages
 # ----------------------------------------------------------
 charityName.title = (W)Charity''s name(W)

@@ -36,8 +36,7 @@
 
     @formHelper(action = CharityCommissionRegistrationNumberController.onSubmit(mode)) {
 
-
-        <fieldset class="govuk-fieldset">
+        @fieldset("charityCommissionRegistrationNumber.heading") {
 
             @errorSummary(form.errors)
 
@@ -45,13 +44,14 @@
                 form,
                 id = "registrationNumber",
                 name = "registrationNumber",
-                isPageHeading = true,
+                isPageHeading = false,
                 label=messages("charityCommissionRegistrationNumber.heading"),
                 hint = Some(Html(messages("charityCommissionRegistrationNumber.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

@@ -1,4 +1,4 @@
-### Charity AddresLookup Controller
+### Charity AddressLookup Controller
 ### ----------------------------------------
 GET        /charity-information-lookup                   controllers.addressLookup.CharityOfficialAddressLookupController.initializeJourney
 GET        /charity-information-callback                 controllers.addressLookup.CharityOfficialAddressLookupController.callback(id: Option[String] ?= None)

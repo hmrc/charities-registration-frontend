@@ -34,8 +34,7 @@
 
     @formHelper(action = NIRegulatorRegNumberController.onSubmit(mode)) {
 
-
-        <fieldset class="govuk-fieldset">
+        @fieldset("nIRegulatorRegNumber.heading") {
 
             @errorSummary(form.errors)
 
@@ -43,13 +42,14 @@
                 form,
                 id = "nIRegistrationNumber",
                 name = "nIRegistrationNumber",
-                isPageHeading = true,
+                isPageHeading = false,
                 label=messages("nIRegulatorRegNumber.heading"),
                 hint = Some(Html(messages("nIRegulatorRegNumber.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

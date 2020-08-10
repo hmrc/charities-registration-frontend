@@ -37,12 +37,7 @@
 
     @formHelper(action = CharityNameController.onSubmit(mode)) {
 
-
-        <fieldset class="govuk-fieldset">
-
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                @h1("charityName.heading")
-            </legend>
+        @fieldset("charityName.heading") {
 
             @errorSummary(form.errors)
 
@@ -65,9 +60,9 @@
                 hint = Some(Html(messages("charityName.operatingName.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
-
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

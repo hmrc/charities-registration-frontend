@@ -33,64 +33,60 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-    @govukLayout(pageTitle = Some(title(form, "bankDetails.title", Some("operationsAndFunds.section")))) {
+@govukLayout(pageTitle = Some(title(form, "bankDetails.title", Some("operationsAndFunds.section")))) {
 
-        @formHelper(action = BankDetailsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+    @formHelper(action = BankDetailsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-            <fieldset class="govuk-fieldset">
+        @fieldset("bankDetails.heading") {
 
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                    @h1("bankDetails.heading")
-                </legend>
+            @errorSummary(form.errors)
 
-                @errorSummary(form.errors)
+            @p{@messages("bankDetails.p1")}
 
-                @p{@messages("bankDetails.p1")}
+            @inputText(
+                form,
+                id = "accountName",
+                name = "accountName",
+                label = "bankDetails.accountName",
+                isPageHeading = false,
+                hint = Some(Html(messages("bankDetails.accountName.hint"))),
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
 
-                @inputText(
-                    form,
-                    id = "accountName",
-                    name = "accountName",
-                    label = "bankDetails.accountName",
-                    isPageHeading = false,
-                    hint = Some(Html(messages("bankDetails.accountName.hint"))),
-                    classes = Some("govuk-input govuk-!-width-one-half")
-                )
+            @inputText(
+                form,
+                id = "sortCode",
+                name = "sortCode",
+                label = "bankDetails.sortCode",
+                isPageHeading = false,
+                hint = Some(Html(messages("bankDetails.sortCode.hint"))),
+                classes = Some("govuk-input govuk-input--width-5")
+            )
 
-                @inputText(
-                    form,
-                    id = "sortCode",
-                    name = "sortCode",
-                    label = "bankDetails.sortCode",
-                    isPageHeading = false,
-                    hint = Some(Html(messages("bankDetails.sortCode.hint"))),
-                    classes = Some("govuk-input govuk-input--width-5")
-                )
+            @inputText(
+                form,
+                id = "accountNumber",
+                name = "accountNumber",
+                label = "bankDetails.accountNumber",
+                isPageHeading = false,
+                hint = Some(Html(messages("bankDetails.accountNumber.hint"))),
+                classes = Some("govuk-input govuk-input govuk-input--width-10")
+            )
 
-                @inputText(
-                    form,
-                    id = "accountNumber",
-                    name = "accountNumber",
-                    label = "bankDetails.accountNumber",
-                    isPageHeading = false,
-                    hint = Some(Html(messages("bankDetails.accountNumber.hint"))),
-                    classes = Some("govuk-input govuk-input govuk-input--width-10")
-                )
-
-                @inputText(
-                    form,
-                    id = "rollNumber",
-                    name = "rollNumber",
-                    label = "bankDetails.rollNumber",
-                    isPageHeading = false,
-                    hint = Some(Html(messages("bankDetails.rollNumber.hint"))),
-                    classes = Some("govuk-input govuk-!-width-one-half")
-                )
-
-        </fieldset>
+            @inputText(
+                form,
+                id = "rollNumber",
+                name = "rollNumber",
+                label = "bankDetails.rollNumber",
+                isPageHeading = false,
+                hint = Some(Html(messages("bankDetails.rollNumber.hint"))),
+                classes = Some("govuk-input govuk-!-width-one-half")
+            )
+        }
 
         @warning{@messages("bankDetails.basc.warning")}
 
         @button("site.saveAndContinue")
+
     }
 }

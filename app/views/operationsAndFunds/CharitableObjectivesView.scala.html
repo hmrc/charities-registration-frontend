@@ -35,11 +35,7 @@
 
     @formHelper(action = CharitableObjectivesController.onSubmit(mode)) {
 
-
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                @h1("charitableObjectives.heading")
-            </legend>
+        @fieldset("charitableObjectives.heading"){
 
             @errorSummary(form.errors)
 
@@ -55,9 +51,9 @@
                 hint = Some(Html(messages("charitableObjectives.hint"))),
                 countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
             )
-
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

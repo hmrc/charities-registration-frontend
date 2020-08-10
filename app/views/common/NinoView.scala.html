@@ -33,8 +33,7 @@
 
     @formHelper(action = submitCall) {
 
-
-        <fieldset class="govuk-fieldset">
+        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(fullName)) {
 
             @errorSummary(form.errors)
 
@@ -42,14 +41,14 @@
                 form,
                 id = "nino",
                 name = "nino",
-                isPageHeading = true,
+                isPageHeading = false,
                 label=messages(s"$messagePrefix.heading", fullName),
                 hint = Some(Html(messages(s"$messagePrefix.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
-
-        </fieldset>
+        }
 
         @button("site.saveAndContinue")
+
     }
 }

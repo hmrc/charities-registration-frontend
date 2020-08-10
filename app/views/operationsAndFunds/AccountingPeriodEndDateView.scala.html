@@ -28,7 +28,8 @@
     subheading: components.subheading,
     h1: components.h1,
     p: components.p,
-    link: components.link
+    link: components.link,
+    fieldset: components.fieldset
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -37,11 +38,9 @@
 
     @formHelper(action = AccountingPeriodEndDateController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-        <fieldset class="govuk-fieldset">
+        @fieldset("accountingPeriodEndDate.heading") {
 
             @errorSummary(form.errors)
-
-            @h1(messages("accountingPeriodEndDate.heading"))
 
             @p{@messages("accountingPeriodEndDate.p1")}
 
@@ -51,10 +50,9 @@
                 legendClasses = "govuk-visually-hidden",
                 legendAsPageHeading = false,
             )
+        }
 
-        </fieldset>
-
-    @button("site.saveAndContinue")
+        @button("site.saveAndContinue")
 
     }
 }

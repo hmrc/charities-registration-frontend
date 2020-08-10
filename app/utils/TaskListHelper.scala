@@ -33,7 +33,7 @@ class TaskListHelper {
   def getTaskListRow(implicit userAnswers: UserAnswers): List[TaskListRow] = {
 
     val section1 = getSection("index.section1.spoke1.label",
-      charityInfoRoutes.CharityNameController.onPageLoad(NormalMode),
+      charityInfoRoutes.CharityInformationController.onPageLoad(),
       charityInfoRoutes.CharityInformationSummaryController.onPageLoad(),
       Section1Page)
 

@@ -26,7 +26,7 @@ class TaskListHelperSpec extends SpecBase {
   private val helper = new TaskListHelper
 
   private val section1 = TaskListRow("index.section1.spoke1.label",
-    controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode),
+    controllers.charityInformation.routes.CharityInformationController.onPageLoad(),
     "index.section.notStarted")
 
   private val section1Competed = TaskListRow("index.section1.spoke1.label",

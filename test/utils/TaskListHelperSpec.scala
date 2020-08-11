@@ -34,11 +34,11 @@ class TaskListHelperSpec extends SpecBase {
     "index.section.completed")
 
   private val section2 = TaskListRow("index.section2.spoke1.label",
-    controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode),
+    controllers.regulatorsAndDocuments.routes.StartCharityRegulatorController.onPageLoad(),
     "index.section.notStarted")
 
   private val section2InProgress = TaskListRow("index.section2.spoke1.label",
-    controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode),
+    controllers.regulatorsAndDocuments.routes.StartCharityRegulatorController.onPageLoad(),
     "index.section.inProgress")
 
   private val section3 = TaskListRow("index.section2.spoke2.label",

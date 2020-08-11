@@ -372,6 +372,15 @@ charityInformationSummary.section = (W)Charity information(W)
 # ----------------------------------------------------------
 charityRegulator.section = (W)Regulators and documents(W)
 
+# StartCharityRegulatorPage Messages
+# ----------------------------------------------------------
+startCharityRegulator.title = (W)The charity''s regulators(W)
+startCharityRegulator.heading = (W)The charity''s regulators(W)
+startCharityRegulator.p1 = (W)You need to add the charity''s:(W)
+startCharityRegulator.b1 = (W)regulators(W)
+startCharityRegulator.b2 = (W)regulator registration numbers(W)
+startCharityRegulator.p2 = (W)Adding regulator information takes around 5 minutes.(W)
+
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
 isCharityRegulator.title = (W)Is your charity registered with a charity regulator?(W)

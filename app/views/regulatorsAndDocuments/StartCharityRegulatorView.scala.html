@@ -27,14 +27,14 @@
 
 @()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("charityInformation.title", Some("contactDetail.section")))) {
+@govukLayout(pageTitle = Some(titleNoForm("startCharityRegulator.title", Some("charityRegulator.section")))) {
 
-    @h1(messages("charityInformation.heading"))
+    @h1(messages("startCharityRegulator.heading"))
 
-    @p(Html(messages("charityInformation.p1")))
-    @bullets("charityInformation.b1", "charityInformation.b2", "charityInformation.b3")
-    @p(Html(messages("charityInformation.p2")))
+    @p(Html(messages("startCharityRegulator.p1")))
+    @bullets("startCharityRegulator.b1", "startCharityRegulator.b2")
+    @p(Html(messages("startCharityRegulator.p2")))
 
-    @link(controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))
+    @link(controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))
 
 }

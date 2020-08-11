@@ -32,9 +32,7 @@
     @h1(messages("charityInformation.heading"))
 
     @p(Html(messages("charityInformation.p1")))
-    @bullets("charityInformation.b1")
-    @bullets("charityInformation.b2")
-    @bullets("charityInformation.b3")
+    @bullets("charityInformation.b1", "charityInformation.b2", "charityInformation.b3")
     @p(Html(messages("charityInformation.p2")))
 
     @link(controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))

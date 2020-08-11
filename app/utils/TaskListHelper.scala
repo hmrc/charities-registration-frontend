@@ -38,7 +38,7 @@ class TaskListHelper {
       Section1Page)
 
     val section2 = getSection("index.section2.spoke1.label",
-      regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(NormalMode),
+      regulatorDocsRoutes.StartCharityRegulatorController.onPageLoad(),
       regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad(),
       Section2Page)
 

@@ -48,7 +48,7 @@ class TaskListHelper {
       Section3Page)
 
     val section4 = getSection("index.section3.spoke1.label",
-      opsAndFundsRoutes.CharitableObjectivesController.onPageLoad(NormalMode),
+      opsAndFundsRoutes.StartCharitableObjectivesController.onPageLoad(),
       opsAndFundsRoutes.CharityObjectivesSummaryController.onPageLoad(),
       Section4Page)
 

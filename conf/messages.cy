@@ -546,6 +546,16 @@ governingDocumentSummary.section = (W)Regulators and documents(W)
 # ----------------------------------------------------------
 operationsAndFunds.section = (W)Operations and funds(W)
 
+# StartCharitableObjectivesPage Messages
+# ----------------------------------------------------------
+startCharitableObjectives.title = (W)The charity''s objectives and purposes(W)
+startCharitableObjectives.heading = (W)The charity''s objectives and purposes(W)
+startCharitableObjectives.p1 = (W)You need to add the charity''s:(W)
+startCharitableObjectives.b1 = (W)charitable objectives(W)
+startCharitableObjectives.b2 = (W)charitable purposes(W)
+startCharitableObjectives.b3 = (W)benefit to the public(W)
+startCharitableObjectives.p2 = (W)Adding information about objectives and purposes takes around 5 minutes.(W)
+
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
 charitableObjectives.title = (W)What are your charity''s charitable objectives?(W)

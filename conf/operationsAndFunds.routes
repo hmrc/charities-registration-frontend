@@ -1,4 +1,6 @@
 
+GET        /start-charitable-objectives                    controllers.operationsAndFunds.StartCharitableObjectivesController.onPageLoad()
+
 GET        /charitable-objectives                          controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = NormalMode)
 POST       /charitable-objectives                          controllers.operationsAndFunds.CharitableObjectivesController.onSubmit(mode: Mode = NormalMode)
 GET        /charitable-objectives/change                   controllers.operationsAndFunds.CharitableObjectivesController.onPageLoad(mode: Mode = CheckMode)

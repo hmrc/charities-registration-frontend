@@ -46,7 +46,7 @@ class TaskListHelperSpec extends SpecBase {
     "index.section.notStarted")
 
   private val section4 = TaskListRow("index.section3.spoke1.label",
-    controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode),
+    controllers.operationsAndFunds.routes.StartCharitableObjectivesController.onPageLoad(),
     "index.section.notStarted")
 
   private val section5 = TaskListRow("index.section3.spoke2.label",

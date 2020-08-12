@@ -348,7 +348,6 @@ charityOfficialAddress.editPage.heading = What is your charity''s full address?
 
 charityOfficialAddress.confirmPage.title = Confirm your charity''s address - Charity Information
 charityOfficialAddress.confirmPage.heading = Confirm your charity''s address
-charityOfficialAddress.confirmPage.infoSubheading = Your selected address
 charityOfficialAddress.confirmPage.changeLinkText = Change charity''s address
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Official address
@@ -361,6 +360,25 @@ canWeSendLettersToThisAddress.heading = Can we send letters to this address?
 canWeSendLettersToThisAddress.error.required = Select yes if we can send letters to this address
 canWeSendLettersToThisAddress.no.hint = I want to enter another address
 canWeSendLettersToThisAddress.checkYourAnswersLabel = Send letters to this address
+
+# Charity Postal Address Messages
+# ----------------------------------------------------------
+charityPostalAddress.lookupPage.title = What is the charity''s postal address? - Charity Information
+charityPostalAddress.lookupPage.heading = What is the charity''s postal address?
+charityPostalAddress.lookupPage.manualAddressLinkText = Charity''s postal address does not have a UK postcode
+
+charityPostalAddress.selectPage.title = What is the charity's full postal address? - Charity Information
+charityPostalAddress.selectPage.heading = What is the charity''s full postal address?
+charityPostalAddress.selectPage.editAddressLinkText = Enter charity''s postal address manually
+
+charityPostalAddress.editPage.title = What is the charity's full postal address? - Charity Information
+charityPostalAddress.editPage.heading = What is the charity''s full postal address?
+
+charityPostalAddress.confirmPage.title = Confirm the charity''s postal address - Charity Information
+charityPostalAddress.confirmPage.heading = Confirm the charity''s postal address
+charityPostalAddress.confirmPage.changeLinkText = Change charity''s postal address
+
+charityPostalAddress.addressLookup.checkYourAnswersLabel = Postal address
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
@@ -800,7 +818,6 @@ authorisedOfficialAddress.editPage.heading = What is {0}''s full home address?
 
 authorisedOfficialAddress.confirmPage.title = Confirm the authorised official''s address - Officials and nominees
 authorisedOfficialAddress.confirmPage.heading = Confirm {0}''s address
-authorisedOfficialAddress.confirmPage.infoSubheading = Your selected address
 authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised official''s home address
 
 authorisedOfficialAddress.checkYourAnswersLabel = Home address
@@ -931,7 +948,6 @@ otherOfficialAddress.editPage.heading = What is {0}''s full home address?
 
 otherOfficialAddress.confirmPage.title = Confirm the other official''s home address - Officials and nominees
 otherOfficialAddress.confirmPage.heading = Confirm {0}''s home address
-otherOfficialAddress.confirmPage.infoSubheading = Your selected address
 otherOfficialAddress.confirmPage.changeLinkText = Change other official''s home address
 
 otherOfficialAddress.checkYourAnswersLabel = Home address

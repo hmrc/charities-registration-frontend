@@ -16,7 +16,11 @@
 
 package pages.charityInformation
 
+import models.UserAnswers
+import models.addressLookup.{AddressModel, CountryModel}
+import pages.addressLookup.CharityPostalAddressLookupPage
 import pages.behaviours.PageBehaviours
+import play.api.libs.json.Json
 
 class CanWeSendToThisAddressPageSpec  extends PageBehaviours {
 
@@ -27,5 +31,32 @@ class CanWeSendToThisAddressPageSpec  extends PageBehaviours {
     beSettable[Boolean](CanWeSendToThisAddressPage)
 
     beRemovable[Boolean](CanWeSendToThisAddressPage)
+
+    "cleanup" when {
+
+      val userAnswer = UserAnswers("id", Json.obj()).set(CharityPostalAddressLookupPage,
+        AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value
+
+
+      "setting CanWeSendLettersToThisAddress to true" must {
+
+        val result = userAnswer.set(CanWeSendToThisAddressPage, true).success.value
+
+        "remove CharityPostalAddressLookupPage" in {
+
+          result.get(CharityPostalAddressLookupPage) mustNot be(defined)
+        }
+      }
+
+      "setting CanWeSendLettersToThisAddress to false" must {
+
+        val result = userAnswer.set(CanWeSendToThisAddressPage, false).success.value
+
+        "not remove CharityPostalAddressLookupPage" in {
+
+          result.get(CharityPostalAddressLookupPage) must be(defined)
+        }
+      }
+    }
   }
 }

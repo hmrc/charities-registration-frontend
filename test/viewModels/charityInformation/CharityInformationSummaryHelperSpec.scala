@@ -21,7 +21,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.charityInformation.{routes => charityInfoRoutes}
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
-import pages.addressLookup.CharityOfficialAddressLookupPage
+import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import viewmodels.SummaryListRowHelper
 import viewmodels.charityInformation.CharityInformationSummaryHelper
@@ -41,10 +41,11 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .set(CharityNamePage, CharityName(fullName = "Believe",
       operatingName = Some("Original Charity"))).success.value
     .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
-      mobilePhone = Some("07700 900 982"),
-      emailAddress = "japan@china.com")).success.value
+                                                          mobilePhone = Some("07700 900 982"),
+                                                          emailAddress = "japan@china.com")).success.value
     .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address).success.value
     .set(CanWeSendToThisAddressPage, false).success.value
+    .set(CharityPostalAddressLookupPage, ConfirmedAddressConstants.address).success.value
 
   def helper(userAnswers: UserAnswers = officialAddress) =   new CharityInformationSummaryHelper(userAnswers)
 
@@ -138,6 +139,21 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
             s"${messages("site.no")}<div>${messages("canWeSendLettersToThisAddress.no.hint")}</div>",
             Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
+      }
+    }
+
+    "For the Charity postal address answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper(postalAnswers).postalAddressRow mustBe Seq(
+          summaryListRow(
+            messages("charityPostalAddress.addressLookup.checkYourAnswersLabel"),
+            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Some(messages("charityPostalAddress.addressLookup.checkYourAnswersLabel")),
+            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney() -> BaseMessages.changeLink
           )
         )
       }

@@ -40,9 +40,9 @@ class AuthenticatedIdentifierAction @Inject()(
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-    authorised(AffinityGroup.Organisation).retrieve(Retrievals.internalId) {
+    authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {
       _.map {
-        internalId => block(IdentifierRequest(request, internalId))
+        credentials => block(IdentifierRequest(request, credentials.providerId))
       }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
     } recover {
       case _: NoActiveSession =>

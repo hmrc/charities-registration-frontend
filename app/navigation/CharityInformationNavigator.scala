@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.addressLookup.CharityOfficialAddressLookupPage
+import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 import play.api.mvc.Call
 
@@ -43,8 +43,12 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
-      case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad() // TODO requires previous Address Lookup data
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO modify once Postal Address Lookup flow is created
+      case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      case Some(false) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {
+      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -70,7 +74,11 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
       case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       //TODO Logic needs to be created here for when the postal address lookup pages are implemented
-      case Some(false) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      case Some(false) => controllers.routes.DeadEndController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+    case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {
+      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

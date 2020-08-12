@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-package pages.charityInformation
+package pages.addressLookup
 
-import models.UserAnswers
+import models.addressLookup.AddressModel
 import pages.QuestionPage
-import pages.addressLookup.CharityPostalAddressLookupPage
 import play.api.libs.json.JsPath
 
-import scala.util.Try
-
-object CanWeSendToThisAddressPage extends QuestionPage[Boolean] {
+case object CharityPostalAddressLookupPage extends QuestionPage[AddressModel] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "CanWeSendLettersToThisAddress"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
-    value match {
-      case Some(true)  => userAnswers.remove(CharityPostalAddressLookupPage)
-      case _ => super.cleanup(value, userAnswers)
-    }
+  override def toString: String = "charityPostalAddress"
 }

@@ -22,7 +22,7 @@ import controllers.routes
 import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import pages.IndexPage
-import pages.addressLookup.CharityOfficialAddressLookupPage
+import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 
 class CharityInformationNavigatorSpec extends SpecBase {
@@ -68,7 +68,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Send letters page when clicked continue button" in {
+        "go to the Send letters page when clicked Confirm and continue button" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
             emptyUserAnswers.set(CharityOfficialAddressLookupPage,
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
@@ -92,7 +92,22 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Postal Address Lookup flow when no is selected" in {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
             emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad() //TODO modify once Postal Address Lookup flow is created
+            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+        }
+      }
+
+      "from the CharityInformationPostalAddressLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityPostalAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when clicked Confirm and continue button" in {
+          navigator.nextPage(CharityPostalAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityPostalAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
 
@@ -184,8 +199,23 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Postal Address Lookup flow when no is selected" in {
           navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
             emptyUserAnswers.set(CanWeSendToThisAddressPage,false).success.value) mustBe
-            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+            controllers.routes.DeadEndController.onPageLoad()
           //TODO if no is selected once the postal address page is created, it should redirect to that flow
+        }
+      }
+
+      "from the CharityInformationPostalAddressLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityPostalAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Charity Details Summary page when clicked Confirm and continue button" in {
+          navigator.nextPage(CharityPostalAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(CharityPostalAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
 

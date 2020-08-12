@@ -3,6 +3,9 @@
 GET        /charity-information-lookup                   controllers.addressLookup.CharityOfficialAddressLookupController.initializeJourney
 GET        /charity-information-callback                 controllers.addressLookup.CharityOfficialAddressLookupController.callback(id: Option[String] ?= None)
 
+GET        /charity-information-postal-lookup            controllers.addressLookup.CharityPostalAddressLookupController.initializeJourney
+GET        /charity-information-postal-callback          controllers.addressLookup.CharityPostalAddressLookupController.callback(id: Option[String] ?= None)
+
 GET        /:index/authorised-official-lookup            controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index)
 GET        /:index/authorised-official-callback          controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, id: Option[String] ?= None)
 

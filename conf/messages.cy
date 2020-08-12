@@ -348,7 +348,6 @@ charityOfficialAddress.editPage.heading = (W)What is your charity''s full addres
 
 charityOfficialAddress.confirmPage.title = (W)Confirm your charity''s address - Charity Information(W)
 charityOfficialAddress.confirmPage.heading = (W)Confirm your charity''s address(W)
-charityOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
 charityOfficialAddress.confirmPage.changeLinkText = (W)Change charity''s address(W)
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Official address(W)
@@ -361,6 +360,25 @@ canWeSendLettersToThisAddress.heading = (W)Can we send letters to this address?(
 canWeSendLettersToThisAddress.error.required = (W)Select yes if we can send letters to this address(W)
 canWeSendLettersToThisAddress.no.hint = (W)I want to enter another address(W)
 canWeSendLettersToThisAddress.checkYourAnswersLabel = (W)Send letters to this address(W)
+
+# Charity Postal Address Messages
+# ----------------------------------------------------------
+charityPostalAddress.lookupPage.title = (W)What is the charity''s postal address? - Charity Information(W)
+charityPostalAddress.lookupPage.heading = (W)What is the charity''s postal address?(W)
+charityPostalAddress.lookupPage.manualAddressLinkText = (W)Charity''s postal address does not have a UK postcode(W)
+
+charityPostalAddress.selectPage.title = (W)What is the charity's full postal address? - Charity Information(W)
+charityPostalAddress.selectPage.heading = (W)What is the charity''s full postal address?(W)
+charityPostalAddress.selectPage.editAddressLinkText = (W)Enter charity''s postal address manually(W)
+
+charityPostalAddress.editPage.title = (W)What is the charity's full postal address? - Charity Information(W)
+charityPostalAddress.editPage.heading = (W)What is the charity''s full postal address?(W)
+
+charityPostalAddress.confirmPage.title = (W)Confirm the charity''s postal address - Charity Information(W)
+charityPostalAddress.confirmPage.heading = (W)Confirm the charity''s postal address(W)
+charityPostalAddress.confirmPage.changeLinkText = (W)Change charity''s postal address(W)
+
+charityPostalAddress.addressLookup.checkYourAnswersLabel = (W)Postal address(W)
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
@@ -800,7 +818,6 @@ authorisedOfficialAddress.editPage.heading = (W)What is {0}''s full home address
 
 authorisedOfficialAddress.confirmPage.title = (W)Confirm the authorised official''s address - Officials and nominees(W)
 authorisedOfficialAddress.confirmPage.heading = (W)Confirm {0}''s address(W)
-authorisedOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
 authorisedOfficialAddress.confirmPage.changeLinkText = (W)Change authorised official''s home address (W)
 
 authorisedOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
@@ -931,7 +948,6 @@ otherOfficialAddress.editPage.heading = (W)What is {0}''s full home address?(W)
 
 otherOfficialAddress.confirmPage.title = (W)Confirm the other official''s home address - Officials and nominees(W)
 otherOfficialAddress.confirmPage.heading = (W)Confirm {0}''s home address(W)
-otherOfficialAddress.confirmPage.infoSubheading = (W)Your selected address(W)
 otherOfficialAddress.confirmPage.changeLinkText = (W)Change other official''s home address(W)
 
 otherOfficialAddress.checkYourAnswersLabel = (W)Home address(W)

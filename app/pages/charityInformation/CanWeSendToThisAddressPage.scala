@@ -27,7 +27,7 @@ object CanWeSendToThisAddressPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "CanWeSendLettersToThisAddress"
+  override def toString: String = "canWeSendLettersToThisAddress"
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {

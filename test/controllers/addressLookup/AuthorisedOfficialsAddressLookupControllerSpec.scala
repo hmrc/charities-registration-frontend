@@ -40,7 +40,7 @@ import viewmodels.ErrorHandler
 
 import scala.concurrent.Future
 
-class AuthroisedOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
+class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   private val mockAddressLookupConnector : AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]

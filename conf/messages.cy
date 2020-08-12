@@ -288,15 +288,15 @@ notEligible.bank.p1 =(W)To use this service the charity must have a UK bank, bui
 # ----------------------------------------------------------
 contactDetail.section = (W)Charity Information(W)
 
-# CharityInformationPage Messages
+# StartInformationPage Messages
 # ----------------------------------------------------------
-charityInformation.title = (W)The charity''s information(W)
-charityInformation.heading = (W)The charity''s information(W)
-charityInformation.p1 = (W)You need to add the charity''s:(W)
-charityInformation.b1 = (W)name and operating name(W)
-charityInformation.b2 = (W)address(W)
-charityInformation.b3 = (W)postal address(W)
-charityInformation.p2 = (W)Adding the charity''s information takes around 5 minutes.(W)
+startInformation.title = (W)The charity''s information(W)
+startInformation.heading = (W)The charity''s information(W)
+startInformation.p1 = (W)You need to add the charity''s:(W)
+startInformation.b1 = (W)name and operating name(W)
+startInformation.b2 = (W)address(W)
+startInformation.b3 = (W)postal address(W)
+startInformation.p2 = (W)Adding the charity''s information takes around 5 minutes.(W)
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
@@ -475,6 +475,15 @@ regulatorsSummary.section = (W)Regulators and documents(W)
 
 # Section3 - Documents
 # ----------------------------------------------------------
+
+# StartGoverningDocument Page Messages
+# ----------------------------------------------------------
+startGoverningDocument.title = (W)The charity''s governing document(W)
+startGoverningDocument.heading = (W)The charity''s governing document(W)
+startGoverningDocument.p1 = (W)You need to add the charity''s:(W)
+startGoverningDocument.b1 = (W)governing document type(W)
+startGoverningDocument.b2 = (W)governing document approval date(W)
+startGoverningDocument.p2 = (W)Adding governing document information takes around 5 minutes.(W)
 
 # Select Governing Document Messages
 # ----------------------------------------------------------

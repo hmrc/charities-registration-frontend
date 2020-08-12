@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-package views.charityInformation
+package views.regulatorsAndDocuments
 
 import models.NormalMode
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.charityInformation.CharityInformationView
+import views.html.regulatorsAndDocuments.StartGoverningDocumentView
 
-class CharityInformationViewSpec extends ViewBehaviours  {
+class StartGoverningDocumentViewSpec extends ViewBehaviours  {
 
-  private val messageKeyPrefix = "charityInformation"
-  private val section: String = messages("contactDetail.section")
+  private val messageKeyPrefix = "startGoverningDocument"
 
-    "CharityInformationView" must {
+
+    "StartGoverningDocumentView" must {
 
       def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[CharityInformationView](Some(emptyUserAnswers))
+        val view = viewFor[StartGoverningDocumentView](Some(emptyUserAnswers))
         view.apply()(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
+      behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("regulatorsSummary.section")))
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "b1", "b2", "b3","p2")
+        "p1", "b1", "b2","p2")
 
-      behave like pageWithHyperLink(applyView(), "linkButton", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, messages("site.continue"))
+      behave like pageWithHyperLink(applyView(), "linkButton", controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, messages("site.continue"))
 
     }
   }

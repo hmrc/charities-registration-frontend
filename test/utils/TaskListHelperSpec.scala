@@ -26,7 +26,7 @@ class TaskListHelperSpec extends SpecBase {
   private val helper = new TaskListHelper
 
   private val section1 = TaskListRow("index.section1.spoke1.label",
-    controllers.charityInformation.routes.CharityInformationController.onPageLoad(),
+    controllers.charityInformation.routes.StartInformationController.onPageLoad(),
     "index.section.notStarted")
 
   private val section1Competed = TaskListRow("index.section1.spoke1.label",
@@ -42,7 +42,7 @@ class TaskListHelperSpec extends SpecBase {
     "index.section.inProgress")
 
   private val section3 = TaskListRow("index.section2.spoke2.label",
-    controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode),
+    controllers.regulatorsAndDocuments.routes.StartGoverningDocumentController.onPageLoad(),
     "index.section.notStarted")
 
   private val section4 = TaskListRow("index.section3.spoke1.label",

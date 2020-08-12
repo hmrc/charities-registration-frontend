@@ -22,16 +22,16 @@ import controllers.actions._
 import javax.inject.Inject
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.charityInformation.CharityInformationView
+import views.html.charityInformation.StartInformationView
 
 
-class CharityInformationController @Inject()(
+class StartInformationController @Inject()(
     val userAnswerRepository: UserAnswerRepository,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
     val controllerComponents: MessagesControllerComponents,
-    view: CharityInformationView
+    view: StartInformationView
    )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

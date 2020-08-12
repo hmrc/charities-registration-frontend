@@ -27,13 +27,13 @@
 
 @()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("charityInformation.title", Some("contactDetail.section")))) {
+@govukLayout(pageTitle = Some(titleNoForm("startInformation.title", Some("contactDetail.section")))) {
 
-    @h1(messages("charityInformation.heading"))
+    @h1(messages("startInformation.heading"))
 
-    @p(Html(messages("charityInformation.p1")))
-    @bullets("charityInformation.b1", "charityInformation.b2", "charityInformation.b3")
-    @p(Html(messages("charityInformation.p2")))
+    @p(Html(messages("startInformation.p1")))
+    @bullets("startInformation.b1", "startInformation.b2", "startInformation.b3")
+    @p(Html(messages("startInformation.p2")))
 
     @link(controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))
 

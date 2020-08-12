@@ -25,11 +25,11 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.charityInformation.CharityInformationView
+import views.html.charityInformation.StartInformationView
 
 import scala.concurrent.Future
 
-class CharityInformationControllerSpec extends SpecBase with BeforeAndAfterEach {
+class StartInformationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers = Some(emptyUserAnswers)
 
@@ -45,11 +45,11 @@ class CharityInformationControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockUserAnswerRepository)
   }
 
-  private val view: CharityInformationView = injector.instanceOf[CharityInformationView]
+  private val view: StartInformationView = injector.instanceOf[StartInformationView]
 
-  private val controller: CharityInformationController = inject[CharityInformationController]
+  private val controller: StartInformationController = inject[StartInformationController]
 
-  "CharityInformation Controller" must {
+  "StartInformation Controller" must {
 
     "return OK and the correct view for a GET" in {
 

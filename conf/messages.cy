@@ -607,6 +607,16 @@ charityObjectivesSummary.section = (W)Operations and funds(W)
 # Section5 - Fundraising Information
 # ----------------------------------------------------------
 
+# StartFundraisingPage Messages
+# ----------------------------------------------------------
+startFundraising.title = (W)The charity''s fundraising and operations(W)
+startFundraising.heading = (W)The charity''s fundraising and operations(W)
+startFundraising.p1 = (W)You need to add the charity''s:(W)
+startFundraising.b1 = (W)fundraising activities(W)
+startFundraising.b2 = (W)operating locations(W)
+startFundraising.b3 = (W)accounting period end date(W)
+startFundraising.p2 = (W)Adding information about fundraising and operations takes around 5 minutes.(W)
+
 # How will your charity raise funds
 # ----------------------------------------------------------
 selectFundRaising.title = (W)How will your charity raise funds?(W)

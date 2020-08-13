@@ -156,7 +156,7 @@ object ConfirmPageMessagesModel {
       title = MessageOption(s"$messagePrefix.confirmPage.title", lang),
       heading = MessageOption(s"$messagePrefix.confirmPage.heading", lang, fullName.getOrElse("")),
       infoMessage = Some(""),
-      infoSubheading = MessageOption(s"$messagePrefix..confirmPage.infoSubheading", lang, fullName.getOrElse("")),
+      infoSubheading = Some(""),
       submitLabel = MessageOption(s"commonAddress.confirmPage.submitLabel", lang),
       searchAgainLinkText = MessageOption(s"commonAddress.confirmPage.searchAgainLinkText", lang),
       changeLinkText = MessageOption(s"$messagePrefix.confirmPage.changeLinkText", lang, fullName.getOrElse("")),

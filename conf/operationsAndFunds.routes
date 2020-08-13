@@ -1,3 +1,4 @@
+GET        /start-fundraising                              controllers.operationsAndFunds.StartFundraisingController.onPageLoad()
 
 GET        /start-charitable-objectives                    controllers.operationsAndFunds.StartCharitableObjectivesController.onPageLoad()
 

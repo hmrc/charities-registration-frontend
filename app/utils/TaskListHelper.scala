@@ -53,7 +53,7 @@ class TaskListHelper {
       Section4Page)
 
     val section5 = getSection("index.section3.spoke2.label",
-      opsAndFundsRoutes.FundRaisingController.onPageLoad(NormalMode),
+      opsAndFundsRoutes.StartFundraisingController.onPageLoad(),
       opsAndFundsRoutes.OperationsFundsSummaryController.onPageLoad(),
       Section5Page)
 

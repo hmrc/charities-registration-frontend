@@ -19,8 +19,8 @@ package controllers.addressLookup
 import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
 import connectors.addressLookup.AddressLookupConnector
-import connectors.addressLookup.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
-import connectors.addressLookup.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
+import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
+import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, FakeAuthIdentifierAction, UserDataRetrievalAction}
 import models.requests.DataRequest
 import models.{Index, Name, UserAnswers}

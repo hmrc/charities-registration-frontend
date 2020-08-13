@@ -17,7 +17,7 @@
 package controllers.addressLookup
 
 import connectors.addressLookup.AddressLookupConnector
-import connectors.addressLookup.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
+import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import controllers.LocalBaseController
 import models.NormalMode
 import models.addressLookup.AddressModel

@@ -1,0 +1,253 @@
+{
+  "charityRegistration": {
+    "common": {
+      "admin": {
+        "applicationDate": "2014-06-16",
+        "welshIndicator": false,
+        "credentialID": "12345678901234567890123456789012345678",
+        "sessionID": "12345678901234567890123456789012345678901234567890",
+        "acknowledgmentReference": "ABCDEF123456789"
+      },
+      "organisation": {
+        "applicationType": "0",
+        "orgName": "This is my Charity",
+        "operatingName": "",
+        "telephoneNumber": "0121 123 4567",
+        "mobileNumber": "",
+        "emailAddress": "",
+        "websiteAddress": "",
+        "utr": "",
+        "crn": "",
+        "vatNo": "",
+        "payeAORef": "",
+        "countryEstd": "1"
+      },
+      "addressDetails": {
+        "officialAddress": {
+          "nonUKAddress": false,
+          "addressLine1": "This is addressLine1",
+          "addressLine2": "This is addressLine2",
+          "addressLine3": "",
+          "addressLine4": "",
+          "postcode": "TF1 AB6",
+          "nonUKCountry": ""
+        },
+        "differentCorrespondence": false,
+        "correspondenceAddress": {
+          "nonUKAddress": false,
+          "addressLine1": "This is correspondence addressLine1",
+          "addressLine2": "This is addressLine2",
+          "addressLine3": "",
+          "addressLine4": "",
+          "postcode": "TF1 AB6",
+          "nonUKCountry": ""
+        }
+      },
+      "bankDetails": {
+        "accountName": "Test Account Name",
+        "accountNumber": 11223456,
+        "sortCode": 123456,
+        "rollNumber": "606060"
+      },
+      "declarationInfo": {
+        "name": {
+          "title": "0001",
+          "firstName": "Other Official 1 forename",
+          "middleName": "Middle Name",
+          "lastName": "Surname"
+        },
+        "position": "",
+        "postcode": "TF6 2LB",
+        "overseas": false,
+        "telephoneNumber": "",
+        "declaration": true
+      }
+    },
+    "charity": {
+      "charityOrganisation": {
+        "registeredRegulator": true,
+        "regulator": {
+          "CCEW": true,
+          "CCEWRegistrationNumber": "1234567890",
+          "OSCR": false,
+          "OSCRRegistrationNumber": "",
+          "CCNI": true,
+          "CCNIRegistrationNumber": "",
+          "otherRegulator": true,
+          "otherRegulatorName": "",
+          "otherRegulatorRegistrationNumber": ""
+        },
+        "otherReason": ""
+      },
+      "aboutOrganisation": {
+        "aboutOrgCommon": {
+          "otherDocument": "",
+          "effectiveDate": "2013-06-21"
+        },
+        "documentEnclosed": "1",
+        "governingApprovedDoc": true,
+        "governingApprovedWords": true,
+        "governingApprovedChanges": "",
+        "governingApprovedChangesB": ""
+      },
+      "operationAndFunds": {
+        "operationAndFundsCommon": {
+          "accountPeriodEnd": "2206",
+          "financialAccounts": true,
+          "noBankStatements": "",
+          "noBankStatementsB": ""
+        },
+        "estimatedGrossIncome": 20.35,
+        "incomeReceivedToDate": 25.3,
+        "futureFunds": "Future funds shall be raised through 1 charity event each month",
+        "futureFundsB": "",
+        "otherAreaOperation": false,
+        "englandAndWales": false,
+        "scotland": true,
+        "northernIreland": true,
+        "ukWide": false,
+        "overseas": false
+      },
+      "orgPurpose": {
+        "charitableObjectives": {
+          "objectivesA": "Objectives of the charity",
+          "objectivesB": "",
+          "objectivesC": "",
+          "objectivesD": "",
+          "objectivesE": "",
+          "objectivesF": "",
+          "objectivesG": "",
+          "objectivesH": "",
+          "objectivesI": "",
+          "objectivesJ": ""
+        },
+        "charitablePurposes": {
+          "reliefOfPoverty": true,
+          "education": false,
+          "religion": false,
+          "healthOrSavingOfLives": false,
+          "citizenshipOrCommunityDevelopment": false,
+          "artsCultureOrScience": false,
+          "amateurSport": false,
+          "humanRights": false,
+          "environmentalProtection": false,
+          "reliefOfYouthAge": false,
+          "animalWelfare": false,
+          "armedForcesOfTheCrown": false,
+          "other": false
+        },
+        "publicBenefit": {
+          "publicBenefitA": "Description of benefits to charity",
+          "publicBenefitB": "",
+          "publicBenefitC": "",
+          "publicBenefitD": "",
+          "publicBenefitE": "",
+          "publicBenefitF": "",
+          "publicBenefitG": "",
+          "publicBenefitH": "",
+          "publicBenefitI": "",
+          "publicBenefitJ": ""
+        }
+      }
+    },
+    "partner": [
+      {
+        "responsiblePerson": {
+          "action": "1",
+          "relation": "1"
+        },
+        "addPartner": {
+          "charityAgentOrNomineeRef": ""
+        },
+        "amendRemovePartner": {
+          "searchIndividual": {
+            "firstName": "",
+            "lastName": "",
+            "postcode": "",
+            "canr": ""
+          },
+          "searchOrganisationName": "",
+          "searchOrganisationCANR": ""
+        },
+        "type": "3",
+        "orgDetails": {
+          "orgName": "Organisation name of the CorporateTrustee",
+          "telephoneNumber": "0121 456 7890",
+          "emailAddress": "corporatetrustee@charitiesrus.co.uk",
+          "utr": "",
+          "crn": "",
+          "vatNo": "",
+          "payeAORef": ""
+        },
+        "individualDetails": {
+          "name": {
+            "title": "0001",
+            "firstName": "Other Official 1 forename",
+            "middleName": "Middle Name",
+            "lastName": "Surname"
+          },
+          "nameChangeReasonOther": "",
+          "position": "01",
+          "dateOfBirth": "1978-03-12",
+          "dayPhoneNumber": "0121 123 4567",
+          "mobilePhone": "",
+          "emailAddress": "abc@gmail.com",
+          "nino": "NM789012A",
+          "nationalIdentityNumber": "",
+          "nationalIDCardIssuingCountry": ""
+        },
+        "addressDetails": {
+          "currentAddress": {
+            "nonUKAddress": true,
+            "addressLine1": "Address1",
+            "addressLine2": "Address2",
+            "addressLine3": "Address3",
+            "addressLine4": "Address4",
+            "postcode": "",
+            "nonUKCountry": "UK"
+          },
+          "previousAddress": {
+            "nonUKAddress": true,
+            "addressLine1": "Address1",
+            "addressLine2": "Address2",
+            "addressLine3": "Address3",
+            "addressLine4": "Address4",
+            "postcode": "",
+            "nonUKCountry": "UK"
+          }
+        },
+        "collectionAgentDetails": {
+          "collectionAgent1": {
+            "agentName": "Agent Test",
+            "agentNumber": 2003463745
+          },
+          "collectionAgent2": {
+            "agentName": "Agent Test",
+            "agentNumber": 2003463745
+          },
+          "collectionAgent3": {
+            "agentName": "Agent Test",
+            "agentNumber": 2003463745
+          },
+          "collectionAgent4": {
+            "agentName": "Agent Test",
+            "agentNumber": 2003463745
+          },
+          "collectionAgent5": {
+            "agentName": "Agent Test",
+            "agentNumber": 2003463745
+          }
+        },
+        "paymentDetails": {
+          "authorisedPayments": false,
+          "bankDetails": {
+            "accountName": "Test Account Name",
+            "accountNumber": 11223456,
+            "sortCode": 123456,
+            "rollNumber": "606060"
+          }
+        }
+      }
+    ]
+  }
+}

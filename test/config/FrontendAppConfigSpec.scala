@@ -120,6 +120,12 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.getRecognition mustBe "https://www.gov.uk/charities-and-tax/get-recognition"
       }
 
+      "getCharitiesBackend" in {
+        frontendAppConfig.getCharitiesBackend mustBe "http://localhost:9329"
+      }
+
+
+
     }
   }
 

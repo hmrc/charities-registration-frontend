@@ -17,8 +17,8 @@
 package connectors.addressLookup
 
 import config.FrontendAppConfig
-import connectors.addressLookup.httpParsers.AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupInitializationResponse}
-import connectors.addressLookup.httpParsers.ConfirmedAddressHttpParser.{ConfirmedAddressReads, ConfirmedAddressResponse}
+import connectors.httpParsers.AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupInitializationResponse}
+import connectors.httpParsers.ConfirmedAddressHttpParser.{ConfirmedAddressReads, ConfirmedAddressResponse}
 import javax.inject.Inject
 import models.addressLookup.AddressLookupConfigurationModel
 import play.api.i18n.MessagesApi

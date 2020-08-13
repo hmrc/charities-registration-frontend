@@ -74,4 +74,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
 
   lazy val getRecognition: String = servicesConfig.getString("urls.getRecognition")
+
+  lazy val getCharitiesBackend: String = servicesConfig.baseUrl("charities")
 }

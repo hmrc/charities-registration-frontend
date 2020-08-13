@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package connectors.addressLookup.httpParsers
+package connectors.httpParsers
 
 import play.api.Logger
 import play.api.http.HeaderNames

@@ -21,8 +21,8 @@ import base.SpecBase
 import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
 import connectors.WireMockHelper
-import connectors.addressLookup.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
-import connectors.addressLookup.httpParsers.{AddressMalformed, AddressNotFound, DefaultedUnexpectedFailure, NoLocationHeaderReturned}
+import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
+import connectors.httpParsers.{AddressMalformed, AddressNotFound, DefaultedUnexpectedFailure, NoLocationHeaderReturned}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar

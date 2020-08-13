@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package connectors.addressLookup.httpParsers
+package connectors.httpParsers
 
 import base.SpecBase
-import connectors.addressLookup.httpParsers.AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupOnRamp}
+import AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupOnRamp}
 import play.api.http.{HeaderNames, Status}
 import uk.gov.hmrc.http.HttpResponse
 

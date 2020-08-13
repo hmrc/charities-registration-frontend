@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package connectors.addressLookup.httpParsers
+package connectors.httpParsers
 
 import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
-import connectors.addressLookup.httpParsers.ConfirmedAddressHttpParser.ConfirmedAddressReads
+import ConfirmedAddressHttpParser.ConfirmedAddressReads
 import play.api.http.Status
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpResponse

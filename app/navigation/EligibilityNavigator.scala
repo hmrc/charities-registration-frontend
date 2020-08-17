@@ -41,14 +41,14 @@ class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     )
     case IsEligibleLocationPage => userAnswers: UserAnswers => navigate(
       userAnswers.get(IsEligibleLocationPage),
-      routes.IndexController.onPageLoad(),
+      elroutes.EligibleCharityController.onPageLoad(),
       elroutes.IsEligibleLocationOtherController.onPageLoad()
     )
     case IsEligibleLocationOtherPage =>  userAnswers: UserAnswers => navigate(
-        userAnswers.get(IsEligibleLocationOtherPage),
-        routes.IndexController.onPageLoad(),
-        elroutes.InEligibleLocationOtherController.onPageLoad()
-      )
+      userAnswers.get(IsEligibleLocationOtherPage),
+      elroutes.EligibleCharityController.onPageLoad(),
+      elroutes.InEligibleLocationOtherController.onPageLoad()
+    )
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

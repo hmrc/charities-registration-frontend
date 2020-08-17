@@ -16,7 +16,7 @@
 
 package connectors.httpParsers
 
-import play.api.http.Status.{BAD_REQUEST, CONFLICT, INTERNAL_SERVER_ERROR, NOT_FOUND, NOT_ACCEPTABLE}
+import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_ACCEPTABLE, NOT_FOUND}
 
 trait ErrorResponse {
   val status: Int
@@ -42,11 +42,6 @@ object AddressMalformed extends ErrorResponse {
 object NoLocationHeaderReturned extends ErrorResponse {
   override val status: Int = INTERNAL_SERVER_ERROR
   override val body: String = "Address Lookup returned ACCEPTED (202) but did not provide a Location header"
-}
-
-object Conflict extends ErrorResponse {
-  override val status: Int = CONFLICT
-  override val body: String = "Charities returned conflict entries in ETMP after 3 attempts"
 }
 
 object EtmpFailed extends ErrorResponse {

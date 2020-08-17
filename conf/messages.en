@@ -115,7 +115,7 @@ main.checkYourAnswers.subheading = Main section
 
 index.title = Add information about the charity
 index.heading = Add information about the charity
-index.guidance = Your answers will be saved for 28 days from the date you first start your application.
+index.guidance = The information you enter will be saved as you progress. If you close the page, the information you have already entered will be saved for 28 days. After that time you will need to enter all the information again.
 index.section.numbers1 = 1.
 index.section1.label = Contact details
 index.section1.spoke1.label= Charity''s contact details

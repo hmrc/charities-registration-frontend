@@ -24,7 +24,7 @@ import models.Index
 import navigation.OtherOfficialsNavigator
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
-import pages.sections.Section7Page
+import pages.sections.Section8Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.ErrorHandler
@@ -54,6 +54,6 @@ class OtherOfficialsAddressLookupController @Inject()(
 
   def callback(index: Index, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupCallback(OtherOfficialAddressLookupPage(index), Section7Page, id)
+      addressLookupCallback(OtherOfficialAddressLookupPage(index), Section8Page, id)
   }
 }

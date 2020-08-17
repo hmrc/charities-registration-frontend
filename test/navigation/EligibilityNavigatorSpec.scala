@@ -76,7 +76,7 @@ class EligibilityNavigatorSpec extends SpecBase{
 
         "go to the IndexController page when yes is selected" in {
           navigator.nextPage(IsEligibleLocationPage, NormalMode, userAnswers(IsEligibleLocationPage, true)) mustBe
-            routes.IndexController.onPageLoad()
+            elroutes.EligibleCharityController.onPageLoad()
         }
 
         "go to the IsEligibleLocationOtherController page when No is selected" in {
@@ -94,7 +94,7 @@ class EligibilityNavigatorSpec extends SpecBase{
 
         "go to the IndexController page when yes is selected" in {
           navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnswers(IsEligibleLocationOtherPage, true)) mustBe
-            routes.IndexController.onPageLoad()
+            elroutes.EligibleCharityController.onPageLoad()
         }
 
         "go to the InEligibleLocationOtherController page when No is selected" in {

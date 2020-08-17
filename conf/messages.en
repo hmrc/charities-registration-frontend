@@ -284,6 +284,12 @@ notEligible.locationOther.p1 = To use this service the charity must be based in 
 # ----------------------------------------------------------
 notEligible.bank.p1 = To use this service the charity must have a UK bank, building society or credit union account.
 
+# EligibleCharity Page Messages
+# ----------------------------------------------------------
+eligibleCharity.title = The charity is eligible for this service
+eligibleCharity.heading = The charity is eligible for this service
+eligibleCharity.p1 = The information you enter will be saved as you progress. If you close the page, the information you have already entered will be saved for 28 days. After that time you will need to enter all the information again.
+
 # Section1 - Charity Information
 # ----------------------------------------------------------
 contactDetail.section = Charity Information

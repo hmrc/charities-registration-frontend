@@ -308,7 +308,6 @@ startInformation.p2 = (W)Adding the charity''s information takes around 5 minute
 # ----------------------------------------------------------
 charityName.title = (W)Charity''s name(W)
 charityName.heading = (W)Charity''s name(W)
-charityName.checkYourAnswersLabel = (W)Charity''s name(W)
 charityName.fullName.label = (W)Full name of your charity(W)
 charityName.fullName.hint = (W)As shown on your charity''s governing document(W)
 charityName.fullName.error.required = (W)Enter full name of your charity(W)
@@ -318,8 +317,8 @@ charityName.operatingName.label = (W)Operating name of your charity (optional)(W
 charityName.operatingName.hint = (W)The working name or acronym by which your charity is known(W)
 charityName.operatingName.error.length = (W)Operating name must be 160 characters or less(W)
 charityName.operatingName.error.format = (W)The operating name of your charity must not include the following characters: & ( ) : @(W)
-charityName.fullName.checkYourAnswersLabel = (W)Charity''s full name(W)
-charityName.operatingName.checkYourAnswersLabel = (W)Operating name of your charity (optional)(W)
+charityName.fullName.checkYourAnswersLabel = (W)Full name(W)
+charityName.operatingName.checkYourAnswersLabel = (W)Operating name(W)
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
@@ -336,7 +335,7 @@ charityContactDetails.emailAddress.error.required = (W)Enter your charity''s ema
 charityContactDetails.emailAddress.error.format = (W)Enter your charity''s email address in the correct format, like name@example.com(W)
 charityContactDetails.emailAddress.error.length = (W)Your charity''s email address must be 160 characters or fewer(W)
 charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
-charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number (optional)(W)
+charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
 charityContactDetails.emailAddress.checkYourAnswersLabel = (W)Email address(W)
 
 # Charity Official Address Messages
@@ -356,7 +355,7 @@ charityOfficialAddress.confirmPage.title = (W)Confirm your charity''s address - 
 charityOfficialAddress.confirmPage.heading = (W)Confirm your charity''s address(W)
 charityOfficialAddress.confirmPage.changeLinkText = (W)Change charity''s address(W)
 
-charityOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Official address(W)
+charityOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Address(W)
 
 # CanWeSendLettersToThisAddressPage Messages
 # ----------------------------------------------------------
@@ -388,8 +387,8 @@ charityPostalAddress.addressLookup.checkYourAnswersLabel = (W)Postal address(W)
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
-charityInformationSummary.checkYourAnswers.title = (W)Check your charity''s contact details(W)
-charityInformationSummary.checkYourAnswers.heading = (W)Check your charity''s contact details(W)
+charityInformationSummary.checkYourAnswers.title = (W)Check the charity''s contact details(W)
+charityInformationSummary.checkYourAnswers.heading = (W)Check the charity''s contact details(W)
 charityInformationSummary.section = (W)Charity information(W)
 
 # Section2 - Regulators and documents

@@ -209,30 +209,30 @@ checkIfYouCanRegister.p1 = (W)Use this service to check if the charity can regis
 
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------
-isEligiblePurpose.title = (W)Is your charity for charitable purposes only?(W)
-isEligiblePurpose.heading = (W)Is your charity for charitable purposes only?(W)
-isEligiblePurpose.hint = (W)Charitable purposes include things that contribute to education, animal welfare and relieving poverty(W)
+isEligiblePurpose.title = (W)Is the charity for charitable purposes only?(W)
+isEligiblePurpose.heading = (W)Is the charity for charitable purposes only?(W)
+isEligiblePurpose.p = (W)Charitable purposes include things that contribute to education, animal welfare and relieving poverty.(W)
 isEligiblePurpose.checkYourAnswersLabel = (W)Is your charity for charitable purposes only?(W)
-isEligiblePurpose.error.required = (W)Select yes if your charity is for charitable purposes only(W)
+isEligiblePurpose.error.required = (W)Select yes if the charity is for charitable purposes only(W)
 
 # IsEligibleAccountPage Messages
 # ----------------------------------------------------------
-isEligibleAccount.title = (W)Does your charity have a UK bank, building society or credit union account?(W)
-isEligibleAccount.heading = (W)Does your charity have a UK bank, building society or credit union account?(W)
+isEligibleAccount.title = (W)Does the charity have a UK bank, building society or credit union account?(W)
+isEligibleAccount.heading = (W)Does the charity have a UK bank, building society or credit union account?(W)
 isEligibleAccount.checkYourAnswersLabel = (W)Does your charity have a UK bank, building society or credit union account?(W)
-isEligibleAccount.error.required = (W)Select yes if your charity has a UK bank, building society or credit union account(W)
+isEligibleAccount.error.required = (W)Select yes if the charity has a UK bank, building society or credit union account(W)
 
 # IsEligibleLocationPage Messages
 # ----------------------------------------------------------
-isEligibleLocation.title = (W)Is your charity based in the UK?(W)
-isEligibleLocation.heading = (W)Is your charity based in the UK?(W)
+isEligibleLocation.title = (W)Is the charity based in the UK?(W)
+isEligibleLocation.heading = (W)Is the charity based in the UK?(W)
 isEligibleLocation.checkYourAnswersLabel = (W)Is your charity based in the UK?(W)
-isEligibleLocation.error.required = (W)Select yes if your charity is based in the UK(W)
+isEligibleLocation.error.required = (W)Select yes if the charity is based in the UK(W)
 
 # IsEligibleLocationOtherPage Messages
 # ----------------------------------------------------------
-isEligibleLocationOther.title = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
-isEligibleLocationOther.heading = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
+isEligibleLocationOther.title = (W)Is the charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
+isEligibleLocationOther.heading = (W)Is the charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.details = (W)Countries in the European Union(W)
 isEligibleLocationOther.austria =  (W)Austria(W)
 isEligibleLocationOther.belgium =  (W)Belgium(W)
@@ -262,7 +262,7 @@ isEligibleLocationOther.slovenia =  (W)Slovenia(W)
 isEligibleLocationOther.spain =  (W)Spain(W)
 isEligibleLocationOther.sweden =  (W)Sweden(W)
 isEligibleLocationOther.checkYourAnswersLabel = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
-isEligibleLocationOther.error.required = (W)Select yes if your charity is based in the European Union, Iceland, Liechtenstein or Norway(W)
+isEligibleLocationOther.error.required = (W)Select yes if the charity is based in the European Union, Iceland, Liechtenstein or Norway(W)
 
 # InEligible Page Messages
 # ----------------------------------------------------------

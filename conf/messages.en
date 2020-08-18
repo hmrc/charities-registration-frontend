@@ -340,19 +340,19 @@ charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = What is your charity''s address? - Charity Information
-charityOfficialAddress.lookupPage.heading = What is your charity''s address?
+charityOfficialAddress.lookupPage.title = What is the charity''s address? - Charity Information
+charityOfficialAddress.lookupPage.heading = What is the charity''s address?
 charityOfficialAddress.lookupPage.manualAddressLinkText = Charity''s address does not have a UK postcode
 
-charityOfficialAddress.selectPage.title = Select your charity''s official address - Charity Information
-charityOfficialAddress.selectPage.heading = What is your charity''s full address?
+charityOfficialAddress.selectPage.title = What is the charity''s full address? - Charity Information
+charityOfficialAddress.selectPage.heading = What is the charity''s full address?
 charityOfficialAddress.selectPage.editAddressLinkText = Enter charity''s address manually
 
-charityOfficialAddress.editPage.title = What is your charity''s address? - Charity Information
-charityOfficialAddress.editPage.heading = What is your charity''s full address?
+charityOfficialAddress.editPage.title = What is the charity''s full address? - Charity Information
+charityOfficialAddress.editPage.heading = What is the charity''s full address?
 
-charityOfficialAddress.confirmPage.title = Confirm your charity''s address - Charity Information
-charityOfficialAddress.confirmPage.heading = Confirm your charity''s address
+charityOfficialAddress.confirmPage.title = Confirm the charity''s address - Charity Information
+charityOfficialAddress.confirmPage.heading = Confirm the charity''s address
 charityOfficialAddress.confirmPage.changeLinkText = Change charity''s address
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Address

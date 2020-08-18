@@ -24,10 +24,10 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
-    button: components.button,
-    subheading: components.subheading,
-    link: components.link
+    h1: components.h1,
+    button: components.button
 )
+
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
@@ -37,8 +37,8 @@
     @formHelper(action = IsEligiblePurposeController.onSubmit()) {
 
         @errorSummary(form.errors)
-
-        @yesNoRadio(form, "isEligiblePurpose.heading", Some(Html(messages("isEligiblePurpose.hint"))))
+        @h1(messages("isEligiblePurpose.heading"))
+        @yesNoRadio(form, "isEligiblePurpose.p", isPageHeading = false, classes = "govuk-body")
 
         @button("site.continue")
 

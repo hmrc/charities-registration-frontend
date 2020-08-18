@@ -340,19 +340,19 @@ charityContactDetails.emailAddress.checkYourAnswersLabel = (W)Email address(W)
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = (W)What is your charity''s address? - Charity Information(W)
-charityOfficialAddress.lookupPage.heading = (W)What is your charity''s address?(W)
+charityOfficialAddress.lookupPage.title = (W)What is the charity''s address? - Charity Information(W)
+charityOfficialAddress.lookupPage.heading = (W)What is the charity''s address?(W)
 charityOfficialAddress.lookupPage.manualAddressLinkText = (W)Charity''s address does not have a UK postcode(W)
 
-charityOfficialAddress.selectPage.title = (W)Select your charity''s official address - Charity Information(W)
-charityOfficialAddress.selectPage.heading = (W)What is your charity''s full address?(W)
+charityOfficialAddress.selectPage.title = (W)What is the charity''s full address? - Charity Information(W)
+charityOfficialAddress.selectPage.heading = (W)What is the charity''s full address?(W)
 charityOfficialAddress.selectPage.editAddressLinkText = (W)Enter charity''s address manually(W)
 
-charityOfficialAddress.editPage.title = (W)What is your charity''s address? - Charity Information(W)
-charityOfficialAddress.editPage.heading = (W)What is your charity''s full address?(W)
+charityOfficialAddress.editPage.title = (W)What is the charity''s full address? - Charity Information(W)
+charityOfficialAddress.editPage.heading = (W)What is the charity''s full address?(W)
 
-charityOfficialAddress.confirmPage.title = (W)Confirm your charity''s address - Charity Information(W)
-charityOfficialAddress.confirmPage.heading = (W)Confirm your charity''s address(W)
+charityOfficialAddress.confirmPage.title = (W)Confirm the charity''s address - Charity Information(W)
+charityOfficialAddress.confirmPage.heading = (W)Confirm the charity''s address(W)
 charityOfficialAddress.confirmPage.changeLinkText = (W)Change charity''s address(W)
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Address(W)

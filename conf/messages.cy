@@ -306,17 +306,17 @@ startInformation.p2 = (W)Adding the charity''s information takes around 5 minute
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = (W)Charity''s name(W)
-charityName.heading = (W)Charity''s name(W)
-charityName.fullName.label = (W)Full name of your charity(W)
-charityName.fullName.hint = (W)As shown on your charity''s governing document(W)
-charityName.fullName.error.required = (W)Enter full name of your charity(W)
-charityName.fullName.error.length = (W)Charity''s name must be 160 characters or less(W)
-charityName.fullName.error.format = (W)The full name of your charity must not include the following characters: & ( ) : @(W)
-charityName.operatingName.label = (W)Operating name of your charity (optional)(W)
-charityName.operatingName.hint = (W)The working name or acronym by which your charity is known(W)
-charityName.operatingName.error.length = (W)Operating name must be 160 characters or less(W)
-charityName.operatingName.error.format = (W)The operating name of your charity must not include the following characters: & ( ) : @(W)
+charityName.title = (W)What is the charity''s name?(W)
+charityName.heading = (W)What is the charity''s name?(W)
+charityName.fullName.label = (W)Full name of the charity(W)
+charityName.fullName.hint = (W)As shown on the charity''s governing document(W)
+charityName.fullName.error.required = (W)Enter the full name of the charity(W)
+charityName.fullName.error.length = (W)Enter a charity name that is 160 characters or fewer(W)
+charityName.fullName.error.format = (W)The full name of the charity must not include the following characters: & ( ) : @(W)
+charityName.operatingName.label = (W)Operating name of the charity (optional)(W)
+charityName.operatingName.hint = (W)The working name or acronym by which the charity is known(W)
+charityName.operatingName.error.length = (W)Enter an operating name that is 160 characters or fewer(W)
+charityName.operatingName.error.format = (W)The operating name of the charity must not include the following characters: & ( ) : @(W)
 charityName.fullName.checkYourAnswersLabel = (W)Full name(W)
 charityName.operatingName.checkYourAnswersLabel = (W)Operating name(W)
 

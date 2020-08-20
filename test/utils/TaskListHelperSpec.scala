@@ -17,7 +17,7 @@
 package utils
 
 import base.SpecBase
-import models.{NormalMode, UserAnswers}
+import models.UserAnswers
 import pages.sections.{Section1Page, Section2Page}
 import viewmodels.TaskListRow
 
@@ -54,7 +54,7 @@ class TaskListHelperSpec extends SpecBase {
     "index.section.notStarted")
 
   private val section6 = TaskListRow("index.section3.spoke3.label",
-    controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode),
+    controllers.operationsAndFunds.routes.StartBankDetailsController.onPageLoad(),
     "index.section.notStarted")
 
   private val section7 = TaskListRow("index.section4.spoke1.label",

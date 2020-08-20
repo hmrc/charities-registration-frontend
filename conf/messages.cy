@@ -686,6 +686,13 @@ operationsFundsSummary.section = (W)Operations and funds(W)
 # Section6 - Supply bank details
 # ----------------------------------------------------------
 
+# Charity's start bank account details Page Messages
+# ----------------------------------------------------------
+startBankDetails.title = (W)The charity''s bank details(W)
+startBankDetails.heading = (W)The charity''s bank details(W)
+startBankDetails.p1 = (W)You need to add the charity''s bank account details.(W)
+startBankDetails.p2 = (W)Adding bank details takes around 5 minutes.(W)
+
 # Charity's bank account details Page Messages
 # ----------------------------------------------------------
 bankDetails.title = (W)What are your charity''s bank account details?(W)

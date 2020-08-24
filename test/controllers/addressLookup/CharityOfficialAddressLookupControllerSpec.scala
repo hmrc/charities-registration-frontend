@@ -70,7 +70,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
           "redirect to the on ramp" in {
 
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
             val result = controller.initializeJourney()(fakeDataRequest)
 
@@ -84,7 +84,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
           "render ISE" in {
 
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
             val result = controller.initializeJourney()(fakeDataRequest)
 

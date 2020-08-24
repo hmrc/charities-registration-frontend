@@ -42,7 +42,9 @@ class CharityOfficialAddressLookupController @Inject()(
 
   def initializeJourney: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupInitialize(controllers.addressLookup.routes.CharityOfficialAddressLookupController.callback().url)
+      addressLookupInitialize(controllers.addressLookup.routes.CharityOfficialAddressLookupController.callback().url, None,
+        Option(Set("AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IS",
+          "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO", "SK", "SI", "ES", "SE")))
   }
 
   def callback(id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {

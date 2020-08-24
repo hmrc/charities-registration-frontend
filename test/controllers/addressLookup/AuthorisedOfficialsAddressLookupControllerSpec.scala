@@ -79,7 +79,7 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
           "redirect to the on ramp" in {
 
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
             val result = controller.initializeJourney(Index(0))(fakeDataRequest)
 
@@ -93,7 +93,7 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
           "render ISE" in {
 
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
             val result = controller.initializeJourney(Index(0))(fakeDataRequest)
 

@@ -16,7 +16,7 @@
 
 package pages.authorisedOfficials
 
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 

@@ -16,7 +16,7 @@
 
 package pages.authorisedOfficials
 
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 

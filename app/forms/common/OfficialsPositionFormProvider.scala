@@ -18,7 +18,7 @@ package forms.common
 
 import forms.mappings.Mappings
 import javax.inject.Inject
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import play.api.data.Form
 
 class OfficialsPositionFormProvider @Inject() extends Mappings {

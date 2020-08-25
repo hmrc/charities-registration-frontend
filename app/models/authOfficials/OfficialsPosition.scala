@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.AuthOfficials
+package models.authOfficials
 
 import models.{Enumerable, WithName}
 import play.api.data.Form

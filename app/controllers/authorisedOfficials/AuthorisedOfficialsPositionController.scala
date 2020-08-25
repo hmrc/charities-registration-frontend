@@ -21,7 +21,7 @@ import controllers.actions._
 import controllers.common.OfficialsPositionController
 import forms.common.OfficialsPositionFormProvider
 import javax.inject.Inject
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPositionPage}

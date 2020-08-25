@@ -44,7 +44,7 @@ class CharityOfficialAddressLookupController @Inject()(
     implicit request =>
       addressLookupInitialize(controllers.addressLookup.routes.CharityOfficialAddressLookupController.callback().url, None,
         Option(Set("AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IS",
-          "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO", "SK", "SI", "ES", "SE")))
+          "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "GB")))
   }
 
   def callback(id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {

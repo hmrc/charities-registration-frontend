@@ -28,10 +28,10 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   ".mainPhoneNumber" must {
 
+    val fieldName = "mainPhoneNumber"
+
     val requiredKey = "charityContactDetails.mainPhoneNumber.error.required"
     val invalidKey = "charityContactDetails.mainPhoneNumber.error.format"
-
-    val fieldName = "mainPhoneNumber"
 
     behave like fieldThatBindsValidData(
       form,
@@ -56,12 +56,20 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
   ".alternativePhoneNumber" must {
 
     val fieldName = "alternativePhoneNumber"
+
+    val requiredKey = "charityContactDetails.alternativePhoneNumber.error.required"
     val invalidKey = "charityContactDetails.alternativePhoneNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
       fieldName,
       nonEmptyString
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
     )
 
     behave like fieldWithRegex(
@@ -110,14 +118,14 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "CharityContactDetailsFormProvider" must {
 
-    val charityContactDetails = CharityContactDetails("01632 960 001",Some("01632 960 001"),"abc@gmail.com")
+    val charityContactDetails = CharityContactDetails("01632 960 001", "01632 960 001", "abc@gmail.com")
 
     "apply CharityContactDetails correctly" in {
 
       val details = form.bind(
         Map(
           "mainPhoneNumber" -> charityContactDetails.daytimePhone,
-          "alternativePhoneNumber" -> charityContactDetails.mobilePhone.getOrElse(""),
+          "alternativePhoneNumber" -> charityContactDetails.mobilePhone,
           "emailAddress"-> charityContactDetails.emailAddress
         )
       ).get
@@ -130,7 +138,7 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
     "unapply CharityContactDetails correctly" in {
       val filled = form.fill(charityContactDetails)
       filled("mainPhoneNumber").value.value mustBe charityContactDetails.daytimePhone
-      filled("alternativePhoneNumber").value.value mustBe charityContactDetails.mobilePhone.get
+      filled("alternativePhoneNumber").value.value mustBe charityContactDetails.mobilePhone
       filled("emailAddress").value.value mustBe charityContactDetails.emailAddress
     }
   }

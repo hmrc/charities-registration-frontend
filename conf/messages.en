@@ -322,18 +322,18 @@ charityName.operatingName.checkYourAnswersLabel = Operating name
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
-charityContactDetails.title = Charity''s contact details
-charityContactDetails.heading = Charity''s contact details
-charityContactDetails.checkYourAnswersLabel = Charity''s contact details
+charityContactDetails.title = What are the charity''s contact details?
+charityContactDetails.heading = What are the charity''s contact details?
 charityContactDetails.mainPhoneNumber.label = Main phone number
-charityContactDetails.mainPhoneNumber.error.format = Enter your charity''s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
-charityContactDetails.mainPhoneNumber.error.required = Enter your charity''s main phone number
-charityContactDetails.alternativePhoneNumber.label = Alternative phone number (optional)
-charityContactDetails.alternativePhoneNumber.error.format = Enter your charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.mainPhoneNumber.error.format = Enter the charity''s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.mainPhoneNumber.error.required = Enter the charity''s main phone number
+charityContactDetails.alternativePhoneNumber.label = Alternative phone number
+charityContactDetails.alternativePhoneNumber.error.format = Enter the charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.alternativePhoneNumber.error.required = Enter the charity''s alternative phone number
 charityContactDetails.emailAddress.label = Email address
-charityContactDetails.emailAddress.error.required = Enter your charity''s email address
-charityContactDetails.emailAddress.error.format = Enter your charity''s email address in the correct format, like name@example.com
-charityContactDetails.emailAddress.error.length = Your charity''s email address must be 160 characters or fewer
+charityContactDetails.emailAddress.error.required = Enter the charity''s email address
+charityContactDetails.emailAddress.error.format = Enter the charity''s email address in the correct format, like name@example.com
+charityContactDetails.emailAddress.error.length = The charity''s email address must be 160 characters or fewer
 charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 charityContactDetails.emailAddress.checkYourAnswersLabel = Email address

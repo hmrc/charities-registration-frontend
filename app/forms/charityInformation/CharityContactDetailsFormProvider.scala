@@ -33,7 +33,8 @@ class CharityContactDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "mainPhoneNumber" -> text("charityContactDetails.mainPhoneNumber.error.required")
           .verifying(regexp(validateTelephoneNumber,"charityContactDetails.mainPhoneNumber.error.format")),
-        "alternativePhoneNumber" -> optional(text().verifying(regexp(validateTelephoneNumber,"charityContactDetails.alternativePhoneNumber.error.format"))),
+        "alternativePhoneNumber" -> text("charityContactDetails.alternativePhoneNumber.error.required")
+          .verifying(regexp(validateTelephoneNumber,"charityContactDetails.alternativePhoneNumber.error.format")),
         "emailAddress" -> text("charityContactDetails.emailAddress.error.required")
           .verifying(maxLength(maxLength, "charityContactDetails.emailAddress.error.length"))
           .verifying(regexp(emailAddressPattern, "charityContactDetails.emailAddress.error.format")))

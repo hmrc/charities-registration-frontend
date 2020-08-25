@@ -38,10 +38,10 @@ trait BaseAddressController extends LocalBaseController  {
   protected val navigator: BaseNavigator
   protected val messagePrefix: String
 
-  def addressLookupInitialize(callbackUrl: String, fullName: Option[String] = None)(
+  def addressLookupInitialize(callbackUrl: String, fullName: Option[String] = None, allowedCountryCodes: Option[Set[String]] = None)(
     implicit request:  DataRequest[AnyContent], ec: ExecutionContext): Future[Result] = {
 
-    addressLookupConnector.initialize(callbackUrl, messagePrefix, fullName)(hc, ec, messagesApi) map {
+    addressLookupConnector.initialize(callbackUrl, messagePrefix, fullName, allowedCountryCodes)(hc, ec, messagesApi) map {
       case Right(AddressLookupOnRamp(url)) => Redirect(url)
       case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
@@ -67,6 +67,5 @@ trait BaseAddressController extends LocalBaseController  {
         Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
   }
-
 
 }

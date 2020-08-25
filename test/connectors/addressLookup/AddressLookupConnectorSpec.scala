@@ -55,14 +55,14 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
         "return a Right(Success response)" in {
 
           stubFor(post(urlEqualTo("/api/v2/init"))
-            .withRequestBody(equalToJson(Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz")).apply).toString()))
+            .withRequestBody(equalToJson(Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz"), None).apply).toString()))
             .willReturn(aResponse().withHeader(HeaderNames.LOCATION, "/foo")
               .withStatus(ACCEPTED)
             )
           )
 
           val expectedResult = Right(AddressLookupOnRamp("/foo"))
-          val actualResult = await(addressLookupConnector.initialize("/url/test", "test", Some("xyz"))(hc, ec, messagesApi))
+          val actualResult = await(addressLookupConnector.initialize("/url/test", "test", Some("xyz"), None)(hc, ec, messagesApi))
 
           actualResult mustBe expectedResult
 
@@ -75,14 +75,14 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
         "return a Left(Invalid) when no location returns" in {
 
           stubFor(post(urlEqualTo("/api/v2/init"))
-            .withRequestBody(equalToJson(Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz")).apply).toString()))
+            .withRequestBody(equalToJson(Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz"), None).apply).toString()))
             .willReturn(aResponse()
               .withStatus(ACCEPTED)
             )
           )
 
           val expectedResult = Left(NoLocationHeaderReturned)
-          val actualResult = await(addressLookupConnector.initialize("/url/test", "test", Some("xyz"))(hc, ec, messagesApi))
+          val actualResult = await(addressLookupConnector.initialize("/url/test", "test", Some("xyz"), None)(hc, ec, messagesApi))
 
           actualResult mustBe expectedResult
 
@@ -92,14 +92,14 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
         "return a Left(DefaultedUnexpectedFailure) when unexpected response" in {
 
           stubFor(post(urlEqualTo("/api/v2/init"))
-            .withRequestBody(equalToJson(Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz")).apply).toString()))
+            .withRequestBody(equalToJson(Json.toJson(new AddressLookupConfiguration("/url/test", "test", Some("xyz"), None).apply).toString()))
             .willReturn(aResponse()
               .withStatus(INTERNAL_SERVER_ERROR)
             )
           )
 
           val expectedResult = Left(DefaultedUnexpectedFailure(INTERNAL_SERVER_ERROR))
-          val actualResult = await(addressLookupConnector.initialize("/url/test", "test", Some("xyz"))(hc, ec, messagesApi))
+          val actualResult = await(addressLookupConnector.initialize("/url/test", "test", Some("xyz"), None)(hc, ec, messagesApi))
 
           actualResult mustBe expectedResult
 

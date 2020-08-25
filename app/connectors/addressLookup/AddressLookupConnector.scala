@@ -31,9 +31,9 @@ class AddressLookupConnector @Inject()(httpClient: HttpClient, implicit val appC
 
   private[connectors] lazy val addressLookupInitUrl: String = s"${appConfig.addressLookupFrontend}/api/v2/init"
 
-  def initialize(callbackUrl: String, messagePrefix: String, fullName: Option[String])
+  def initialize(callbackUrl: String, messagePrefix: String, fullName: Option[String], allowedCountryCodes: Option[Set[String]])
                 (implicit hc: HeaderCarrier, ec: ExecutionContext, messages: MessagesApi): Future[AddressLookupInitializationResponse] = {
-    httpClient.POST(addressLookupInitUrl, new AddressLookupConfiguration(callbackUrl, messagePrefix, fullName).apply)(
+    httpClient.POST(addressLookupInitUrl, new AddressLookupConfiguration(callbackUrl, messagePrefix, fullName, allowedCountryCodes).apply)(
       AddressLookupConfigurationModel.writes, AddressLookupInitializationReads, hc, ec
     )
   }

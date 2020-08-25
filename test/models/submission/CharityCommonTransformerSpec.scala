@@ -66,7 +66,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct organisation" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"),"abc@gmail.com"))
+        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
           .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName")))).success.value
 
         val expectedJson =
@@ -90,7 +90,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       }
 
       "convert the correct organisation with mandatory fields only" in {
-        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982",None,"abc@gmail.com"))
+        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None))).success.value
 
         val expectedJson =
@@ -102,7 +102,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        "emailAddress": "abc@gmail.com",
             |        "countryEstd": "1",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982"
+            |        "telephoneNumber": "07700 900 982",
+            |        "mobileNumber": "07700 000 111"
             |      }
             |    }
             |  }
@@ -346,7 +347,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CanWeSendToThisAddressPage, false)))
           .flatMap(_.set(CharityCorrespondenceAddressLookupPage,
             AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("UK", "United Kingdom"))))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"),"abc@gmail.com"))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 
         val expectedJson =
@@ -424,7 +425,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(_.set(CharityCorrespondenceAddressLookupPage,
             AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"),"abc@gmail.com"))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 
         val expectedJson =
@@ -502,7 +503,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CharityOfficialAddressLookupPage,
             AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com")))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", None))).success.value
 
         val expectedJson =
@@ -536,7 +537,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        "emailAddress": "abc@gmail.com",
             |        "countryEstd": "1",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982"
+            |        "telephoneNumber": "07700 900 982",
+            |        "mobileNumber": "07700 000 111"
             |      },
             |      "addressDetails": {
             |        "differentCorrespondence": false,

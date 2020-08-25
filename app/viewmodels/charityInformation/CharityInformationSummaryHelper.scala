@@ -91,10 +91,10 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       )
     ),
 
-    charityContactDetails.mobilePhone.map( alternativePhone =>
+    Some(
       summaryListRow(
         label = messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel"),
-        value = alternativePhone,
+        value = charityContactDetails.mobilePhone,
         visuallyHiddenText = Some(messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

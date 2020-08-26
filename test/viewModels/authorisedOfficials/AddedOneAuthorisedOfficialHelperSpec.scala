@@ -23,7 +23,7 @@ import assets.constants.ConfirmedAddressConstants
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficials}
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._

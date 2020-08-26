@@ -17,7 +17,7 @@
 package forms.common
 
 import forms.behaviours.OptionFieldBehaviours
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import play.api.data.{Form, FormError}
 
 class OfficialsPositionFormProviderSpec extends OptionFieldBehaviours {

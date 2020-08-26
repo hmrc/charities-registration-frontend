@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.AuthOfficials
+package models.authOfficials
 
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen

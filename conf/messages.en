@@ -513,12 +513,12 @@ startGoverningDocument.p2 = Adding governing document information takes around 5
 selectGoverningDocument.title = What governing document was used to set up and run your charity?
 selectGoverningDocument.heading = What governing document was used to set up and run your charity?
 selectGoverningDocument.error.required = Select the type of governing document that was used to set up and run your charity
-selectGoverningDocument.memorandumArticlesAssociation = Memorandum and articles of association
-selectGoverningDocument.royalCharacter = Royal Charter
-selectGoverningDocument.rulesConstitution = Rules or constitution
-selectGoverningDocument.trustDeed = Trust deed
-selectGoverningDocument.will = Will
-selectGoverningDocument.other = Other
+selectGoverningDocument.1 = Memorandum and articles of association
+selectGoverningDocument.2 = Royal Charter
+selectGoverningDocument.3 = Rules or constitution
+selectGoverningDocument.4 = Trust deed
+selectGoverningDocument.5 = Will
+selectGoverningDocument.6 = Other
 selectGoverningDocument.checkYourAnswersLabel = Governing document name
 
 # whenGoverningDocumentApproved Messages
@@ -644,11 +644,11 @@ operatingLocation.title = Where does your charity operate?
 operatingLocation.heading = Where does your charity operate?
 operatingLocation.hint = Select all that apply
 operatingLocation.error.required = Select where your charity operates
-operatingLocation.englandAndWales = England and Wales
-operatingLocation.scotland = Scotland
-operatingLocation.northernIreland = Northern Ireland
-operatingLocation.ukWide = Across the UK
-operatingLocation.overseas = Overseas
+operatingLocation.1 = England and Wales
+operatingLocation.2 = Scotland
+operatingLocation.3 = Northern Ireland
+operatingLocation.4 = Across the UK
+operatingLocation.5 = Overseas
 operatingLocation.checkYourAnswersLabel = Operating locations
 
 # Has your charity prepared financial accounts Messages

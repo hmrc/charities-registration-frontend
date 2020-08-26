@@ -22,7 +22,7 @@ import base.SpecBase
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import models.addressLookup.{AddressModel, CountryModel}
 import models.{CheckMode, Index, Name, NormalMode, PhoneNumber}
 import pages.IndexPage

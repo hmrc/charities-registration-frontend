@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.OfficialsPositionFormProvider
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator

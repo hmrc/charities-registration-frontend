@@ -17,11 +17,11 @@
 package models.submission
 
 import base.SpecBase
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import models.{BankDetails, CharityContactDetails, CharityName, Name}
 import models.addressLookup.{AddressModel, CountryModel}
 import pages.QuestionPage
-import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage}
+import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPositionPage}
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import pages.operationsAndFunds.BankDetailsPage
@@ -30,12 +30,6 @@ import play.api.libs.json.{JsPath, Json, __}
 class CharityCommonTransformerSpec extends SpecBase {
 
   val jsonTransformer: CharityCommonTransformer = new CharityCommonTransformer
-
-  //TODO remove this once CharityCorrespondenceAddressLookupPage id created
-  case object CharityCorrespondenceAddressLookupPage extends QuestionPage[AddressModel] {
-    override def path: JsPath = JsPath \ toString
-    override def toString: String = "charityCorrespondenceAddress"
-  }
 
   "CharityCommonTransformer" when {
 
@@ -149,7 +143,7 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
           AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
-          .flatMap(_.set(CharityCorrespondenceAddressLookupPage,
+          .flatMap(_.set(CharityPostalAddressLookupPage,
           AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("UK", "United Kingdom")))).success.value
 
         val expectedJson =
@@ -188,7 +182,7 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
           AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
-          .flatMap(_.set(CharityCorrespondenceAddressLookupPage,
+          .flatMap(_.set(CharityPostalAddressLookupPage,
             AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value
 
         val expectedJson =
@@ -345,7 +339,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CharityOfficialAddressLookupPage,
           AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))
           .flatMap(_.set(CanWeSendToThisAddressPage, false)))
-          .flatMap(_.set(CharityCorrespondenceAddressLookupPage,
+          .flatMap(_.set(CharityPostalAddressLookupPage,
             AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("UK", "United Kingdom"))))
           .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
@@ -423,7 +417,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CharityOfficialAddressLookupPage,
             AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
-          .flatMap(_.set(CharityCorrespondenceAddressLookupPage,
+          .flatMap(_.set(CharityPostalAddressLookupPage,
             AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
           .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value

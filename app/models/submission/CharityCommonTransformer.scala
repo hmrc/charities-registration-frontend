@@ -46,7 +46,7 @@ class CharityCommonTransformer extends JsonTransformer {
   def userAnswersToAddressDetailsCommon : Reads[JsObject] = {
 
     val differentCorrespondenceAddress = (__ \ 'canWeSendLettersToThisAddress).read[Boolean].flatMap { isDiff =>
-      getOptionalAddress(localPath \ 'addressDetails \ 'correspondenceAddress, __ \ 'charityCorrespondenceAddress).flatMap {
+      getOptionalAddress(localPath \ 'addressDetails \ 'correspondenceAddress, __ \ 'charityPostalAddress).flatMap {
         correspondenceAddress =>
           getAddress(localPath \ 'addressDetails \ 'officialAddress, __ \ 'charityOfficialAddress).map { officialAddress =>
             val result = for{
@@ -60,7 +60,7 @@ class CharityCommonTransformer extends JsonTransformer {
 
     (getAddress(localPath \ 'addressDetails\ 'officialAddress, __ \ 'charityOfficialAddress) and
       (localPath \ 'addressDetails\ 'differentCorrespondence).json.copyFrom(differentCorrespondenceAddress) and
-      getOptionalAddress(localPath \ 'addressDetails\ 'correspondenceAddress, __ \ 'charityCorrespondenceAddress)).reduce
+      getOptionalAddress(localPath \ 'addressDetails\ 'correspondenceAddress, __ \ 'charityPostalAddress)).reduce
   }
 
   def userAnswersToBankDetails : Reads[JsObject] = {

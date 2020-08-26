@@ -26,19 +26,19 @@ sealed trait OperatingLocationOptions extends WithOrder
 
 object OperatingLocationOptions extends Enumerable.Implicits {
 
-  case object EnglandAndWales extends WithName("englandAndWales") with OperatingLocationOptions {
+  case object EnglandAndWales extends WithName("1") with OperatingLocationOptions {
     override val order: Int = 1
   }
-  case object Scotland extends WithName("scotland") with OperatingLocationOptions {
+  case object Scotland extends WithName("2") with OperatingLocationOptions {
     override val order: Int = 2
   }
-  case object NorthernIreland extends WithName("northernIreland") with OperatingLocationOptions {
+  case object NorthernIreland extends WithName("3") with OperatingLocationOptions {
     override val order: Int = 3
   }
-  case object UKWide extends WithName("ukWide") with OperatingLocationOptions {
+  case object UKWide extends WithName("4") with OperatingLocationOptions {
     override val order: Int = 4
   }
-  case object Overseas extends WithName("overseas") with OperatingLocationOptions {
+  case object Overseas extends WithName("5") with OperatingLocationOptions {
     override val order: Int = 5
   }
 

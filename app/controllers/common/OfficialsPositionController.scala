@@ -18,7 +18,7 @@ package controllers.common
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
-import models.AuthOfficials.OfficialsPosition
+import models.authOfficials.OfficialsPosition
 import models.Mode
 import models.requests.DataRequest
 import navigation.BaseNavigator

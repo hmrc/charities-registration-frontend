@@ -27,7 +27,7 @@ trait JsonTransformer {
   def getAddress(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
 
     val isNonUK = (userAnswerPath \ 'country \ 'code).read[String].map{
-      code => JsBoolean(code!="UK")
+      code => JsBoolean(code!="GB")
     }
 
     ((submissionPath \ 'nonUKAddress).json.copyFrom(isNonUK) and

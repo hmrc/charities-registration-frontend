@@ -17,15 +17,14 @@
 package models.submission
 
 import base.SpecBase
+import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.{BankDetails, CharityContactDetails, CharityName, Name}
-import models.addressLookup.{AddressModel, CountryModel}
-import pages.QuestionPage
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPositionPage}
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import pages.operationsAndFunds.BankDetailsPage
-import play.api.libs.json.{JsPath, Json, __}
+import play.api.libs.json.Json
 
 class CharityCommonTransformerSpec extends SpecBase {
 
@@ -112,7 +111,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct AddressDetailsCommon without charityCorrespondenceAddress" in {
 
         val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))
+          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
           .flatMap(_.set(CanWeSendToThisAddressPage, true)).success.value
 
         val expectedJson =
@@ -141,10 +140,10 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct AddressDetailsCommon with charityCorrespondenceAddress" in {
 
         val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))
+          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(_.set(CharityPostalAddressLookupPage,
-          AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("UK", "United Kingdom")))).success.value
+          AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom")))).success.value
 
         val expectedJson =
           """{
@@ -180,10 +179,10 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct AddressDetailsCommon with charityCorrespondenceAddress and both addresses are same" in {
 
         val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))
+          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(_.set(CharityPostalAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value
+            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))).success.value
 
         val expectedJson =
           """{
@@ -271,7 +270,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
         val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
+            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent)).success.value
 
         val expectedJson =
@@ -333,14 +332,14 @@ class CharityCommonTransformerSpec extends SpecBase {
 
         val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
+            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))
           .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
           .flatMap(_.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom")))
+          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
           .flatMap(_.set(CanWeSendToThisAddressPage, false)))
           .flatMap(_.set(CharityPostalAddressLookupPage,
-            AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("UK", "United Kingdom"))))
+            AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 
@@ -411,14 +410,14 @@ class CharityCommonTransformerSpec extends SpecBase {
 
         val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
+            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))
           .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
           .flatMap(_.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
+            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(_.set(CharityPostalAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom"))))
+            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 

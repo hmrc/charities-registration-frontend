@@ -74,7 +74,7 @@ class CharityCommonTransformer extends JsonTransformer {
   def userAnswersToIndDeclarationInfo : Reads[JsObject] = {
 
     val isNonUK = (__ \ 'authorisedOfficials \ 0  \ 'officialAddress \ 'country \ 'code).read[String].map{
-      code => JsBoolean(code!="UK")
+      code => JsBoolean(code!="GB")
     }
 
     (getName(localPath \ 'declarationInfo \ 'name, __ \ 'authorisedOfficials \ 0 \ 'officialsName) and

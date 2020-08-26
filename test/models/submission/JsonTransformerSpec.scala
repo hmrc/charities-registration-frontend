@@ -34,7 +34,7 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct AddressModel" in {
 
         val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value
+          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))).success.value
 
         val expectedJson =
           """{
@@ -94,7 +94,7 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct OptionalAddress" in {
 
         val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value
+          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))).success.value
 
         val expectedJson =
           """{

@@ -406,18 +406,19 @@ startCharityRegulator.p2 = (W)Adding regulator information takes around 5 minute
 
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
-isCharityRegulator.title = (W)Is your charity registered with a charity regulator?(W)
-isCharityRegulator.heading = (W)Is your charity registered with a charity regulator?(W)
+isCharityRegulator.title = (W)Is the charity registered with a charity regulator?(W)
+isCharityRegulator.heading = (W)Is the charity registered with a charity regulator?(W)
+isCharityRegulator.details = (W)What is a charity regulator(W)
 isCharityRegulator.hint = (W)A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.(W)
-isCharityRegulator.error.required = (W)Select yes if your charity is registered with a charity regulator(W)
+isCharityRegulator.error.required = (W)Select yes if the charity is registered with a charity regulator(W)
 isCharityRegulator.checkYourAnswersLabel = (W)Registered with a charity regulator(W)
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = (W)What are your charity''s regulator?(W)
-charityRegulator.heading = (W)What are your charity''s regulator?(W)
+charityRegulator.title = (W)Who are the charity''s regulators?(W)
+charityRegulator.heading = (W)Who are the charity''s regulators?(W)
 charityRegulator.hint = (W)Select all that apply(W)
-charityRegulator.error.required = (W)Select your charity''s regulator or regulators(W)
+charityRegulator.error.required = (W)Select the charity''s regulators(W)
 charityRegulator.ccew = (W)Charity Commission for England and Wales(W)
 charityRegulator.oscr = (W)Office of the Scottish Charity Regulator(W)
 charityRegulator.ccni = (W)Charity Commission for Northern Ireland(W)
@@ -426,52 +427,52 @@ charityRegulator.checkYourAnswersLabel = (W)Charity''s regulators(W)
 
 # CharityCommissionRegistrationNumberPage Messages
 # ----------------------------------------------------------
-charityCommissionRegistrationNumber.title = (W)What is your Charity Commission for England and Wales registration number?(W)
-charityCommissionRegistrationNumber.heading = (W)What is your Charity Commission for England and Wales registration number?(W)
-charityCommissionRegistrationNumber.error.required = (W)Enter your charity''s registration number(W)
+charityCommissionRegistrationNumber.title = (W)What is the Charity Commission for England and Wales registration number?(W)
+charityCommissionRegistrationNumber.heading = (W)What is the Charity Commission for England and Wales registration number?(W)
+charityCommissionRegistrationNumber.error.required = (W)Enter the charity''s registration number(W)
 charityCommissionRegistrationNumber.error.format = (W)Registration number must be 6 or 7 numbers, like 123456 or 1234567(W)
-charityCommissionRegistrationNumber.hint = (W)The registration number will be on any mail the regulator has sent you. For example, 123456 or 1234567(W)
+charityCommissionRegistrationNumber.hint = (W)The registration number will be on any mail the regulator has sent the charity. For example, 123456 or 1234567(W)
 charityCommissionRegistrationNumber.checkYourAnswersLabel = (W)Charity Commission for England and Wales registration number(W)
 
 # ScottishRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-scottishRegulatorRegNumber.title = (W)What is your Office of the Scottish Charity Regulator registration number?(W)
-scottishRegulatorRegNumber.heading = (W)What is your Office of the Scottish Charity Regulator registration number?(W)
-scottishRegulatorRegNumber.error.required = (W)Enter your charity''s registration number(W)
+scottishRegulatorRegNumber.title = (W)What is the Office of the Scottish Charity Regulator (OSCR) registration number?(W)
+scottishRegulatorRegNumber.heading = (W)What is the Office of the Scottish Charity Regulator (OSCR) registration number?(W)
+scottishRegulatorRegNumber.error.required = (W)Enter the charity''s registration number(W)
 scottishRegulatorRegNumber.error.format = (W)Registration number is SC then 0 and 5 numbers, like SC012345(W)
-scottishRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent you. For example, SC012345(W)
+scottishRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent the charity. For example, SC012345(W)
 scottishRegulatorRegNumber.checkYourAnswersLabel = (W)Office of the Scottish Charity Regulator registration number(W)
 
 # NIRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-nIRegulatorRegNumber.title = (W)What is your Charity Commission for Northern Ireland registration number?(W)
-nIRegulatorRegNumber.heading = (W)What is your Charity Commission for Northern Ireland registration number?(W)
-nIRegulatorRegNumber.error.required = (W)Enter your charity''s registration number(W)
+nIRegulatorRegNumber.title = (W)What is the Charity Commission for Northern Ireland registration number?(W)
+nIRegulatorRegNumber.heading = (W)What is the Charity Commission for Northern Ireland registration number?(W)
+nIRegulatorRegNumber.error.required = (W)Enter the charity''s registration number(W)
 nIRegulatorRegNumber.error.format = (W)Registration number is 6 numbers, like 123456(W)
-nIRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent you. For example, 123456(W)
+nIRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent the charity. For example, 123456(W)
 nIRegulatorRegNumber.checkYourAnswersLabel = (W)Charity Commission for Northern Ireland registration number(W)
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------
-charityOtherRegulatorDetails.title = (W)Your charity''s regulator details(W)
-charityOtherRegulatorDetails.heading = (W)Your charity''s regulator details(W)
+charityOtherRegulatorDetails.title = (W)What are the charity''s regulator details(W)
+charityOtherRegulatorDetails.heading = (W)What are the charity''s regulator details(W)
 charityOtherRegulatorDetails.regulatorName.label = (W)Name of your charity''s regulator(W)
-charityOtherRegulatorDetails.regulatorName.error.required = (W)Enter the name of your charity''s regulator(W)
+charityOtherRegulatorDetails.regulatorName.error.required = (W)Enter the name of the charity''s regulator(W)
 charityOtherRegulatorDetails.regulatorName.error.format = (W)The name of your charity''s regulator must not include the following characters: & ( ) : @(W)
 charityOtherRegulatorDetails.regulatorName.error.length = (W)Your charity''s regulator name should be 100 characters or fewer(W)
 charityOtherRegulatorDetails.registrationNumber.label = (W)Registration number(W)
-charityOtherRegulatorDetails.registrationNumber.error.required = (W)Enter your charity''s registration number(W)
+charityOtherRegulatorDetails.registrationNumber.error.required = (W)Enter the charity''s registration number(W)
 charityOtherRegulatorDetails.registrationNumber.error.format = (W)Your charity''s registration number must not include the following characters: & ( ) : @(W)
 charityOtherRegulatorDetails.registrationNumber.error.length = (W)Your charity''s registration number should be 20 characters or fewer(W)
-charityOtherRegulatorDetails.hint = (W)The registration number will be on any mail the regulator has sent you.(W)
-charityOtherRegulatorDetails.name.checkYourAnswersLabel = (W)Name of your other charity''s regulator(W)
-charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = (W)Registration number of your other charity''s regulator(W)
+charityOtherRegulatorDetails.hint = (W)The registration number will be on any mail the regulator has sent the charity.(W)
+charityOtherRegulatorDetails.name.checkYourAnswersLabel = (W)Charity''s other regulator(W)
+charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = (W)Registration number for the charity''s regulator(W)
 
 # Select why no regulator Messages
 # ----------------------------------------------------------
-selectWhyNoRegulator.title = (W)Why have you not registered with a charity regulator?(W)
-selectWhyNoRegulator.heading = (W)Why have you not registered with a charity regulator?(W)
-selectWhyNoRegulator.error.required = (W)Select why you have not registered with a regulator(W)
+selectWhyNoRegulator.title = (W)Why has the charity not registered with a regulator?(W)
+selectWhyNoRegulator.heading = (W)Why has the charity not registered with a regulator?(W)
+selectWhyNoRegulator.error.required = (W)Select why the charity has not registered with a regulator(W)
 selectWhyNoRegulator.1 = (W)Established in England and/or Wales and under gross income threshold(W)
 selectWhyNoRegulator.5 = (W)Exempt or excepted(W)
 selectWhyNoRegulator.4 = (W)No regulator in country of establishment(W)
@@ -482,12 +483,11 @@ selectWhyNoRegulator.checkYourAnswersLabel = (W)Reason for not registering(W)
 
 # WhyNotRegisteredWithCharityPage Messages
 # ----------------------------------------------------------
-whyNotRegisteredWithCharity.title = (W)Why has your charity not registered with a charity regulator?(W)
-whyNotRegisteredWithCharity.heading = (W)Why has your charity not registered with a charity regulator?(W)
-whyNotRegisteredWithCharity.error.required = (W)Enter why you have not registered with a regulator(W)
+whyNotRegisteredWithCharity.title = (W)What is the other reason why the charity not registered with a regulator?(W)
+whyNotRegisteredWithCharity.heading = (W)What is the other reason why the charity not registered with a regulator?(W)
+whyNotRegisteredWithCharity.error.required = (W)Enter why the charity has not registered with a regulator(W)
 whyNotRegisteredWithCharity.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
 whyNotRegisteredWithCharity.error.length = (W)Your answer must be 100 characters or fewer(W)
-whyNotRegisteredWithCharity.hint = (W)Using 100 characters or less (including spaces).(W)
 whyNotRegisteredWithCharity.checkYourAnswersLabel = (W)Other reason for not registering(W)
 
 # Regulators Summary page

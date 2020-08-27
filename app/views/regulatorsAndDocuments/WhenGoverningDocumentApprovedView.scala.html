@@ -25,21 +25,18 @@
     errorSummary: components.errorSummary,
     inputDate: components.inputDate,
     button: components.button,
-    subheading: components.subheading,
-    h1: components.h1,
     p: components.p,
-    link: components.link,
     fieldset: components.fieldset
 
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, documentName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "whenGoverningDocumentApproved.title", Some("charityRegulator.section")))) {
 
     @formHelper(action = WhenGoverningDocumentApprovedController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-        @fieldset("whenGoverningDocumentApproved.heading") {
+        @fieldset("whenGoverningDocumentApproved.heading", headingMessageArgs = Seq(messages(s"selectGoverningDocument.$documentName"))) {
 
             @errorSummary(form.errors)
 

@@ -519,32 +519,32 @@ selectGoverningDocument.3 = (W)Rules or constitution(W)
 selectGoverningDocument.4 = (W)Trust deed(W)
 selectGoverningDocument.5 = (W)Will(W)
 selectGoverningDocument.6 = (W)Other(W)
-selectGoverningDocument.checkYourAnswersLabel = (W)Governing document name(W)
+selectGoverningDocument.checkYourAnswersLabel = (W)Name(W)
 
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
-whenGoverningDocumentApproved.title = (W)When was the governing document approved?(W)
-whenGoverningDocumentApproved.heading = (W)When was the governing document approved?(W)
+whenGoverningDocumentApproved.title = (W)What date did the governing document become effective?(W)
+whenGoverningDocumentApproved.heading = (W)What date did the [name of governing document] become effective?(W)
 WhenGoverningDocumentApproved.p1 = (W)This is the date when the commission approved the governing document. If your charity is a CIO (Charitable Incorporated Organisation), it is the date you were accepted onto the regulators register.(W)
 WhenGoverningDocumentApproved.hint = (W)For example, 27 3 2007(W)
 whenGoverningDocumentApproved.error.invalid = (W)The date when the governing document was approved must be a real date.(W)
-whenGoverningDocumentApproved.error.required.all = (W)Enter the date when the governing document was approved(W)
-whenGoverningDocumentApproved.error.required.two = (W)Enter the {0} and the {1} when the governing document was approved(W)
-whenGoverningDocumentApproved.error.required = (W)Enter the {0} when the governing document was approved(W)
+whenGoverningDocumentApproved.error.required.all = (W)Enter the date when the governing document became effective(W)
+whenGoverningDocumentApproved.error.required.two = (W)Enter the {0} and the {1} when the governing document became effective(W)
+whenGoverningDocumentApproved.error.required = (W)Enter the {0} when the governing document became effective(W)
 whenGoverningDocumentApproved.error.future = (W)The date when the governing document was approved must be today or in the past.(W)
-whenGoverningDocumentApproved.checkYourAnswersLabel = (W)Date governing document was approved(W)
+whenGoverningDocumentApproved.checkYourAnswersLabel = (W)Effective date(W)
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = (W)Is the governing document approved by a national organisation, parent body or principle regulator?(W)
-isApprovedGoverningDocument.heading = (W)Is the governing document approved by a national organisation, parent body or principle regulator?(W)
-isApprovedGoverningDocument.error.required = (W)Select yes if the governing document is approved by a national organisation, parent body or principle regulator(W)
-isApprovedGoverningDocument.checkYourAnswersLabel = (W)Governing document has been approved by a charity regulator(W)
+isApprovedGoverningDocument.title = (W)Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?(W)
+isApprovedGoverningDocument.heading = (W)Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?(W)
+isApprovedGoverningDocument.error.required = (W)Select yes if the charity is using a form of governing document that is approved by a national organisation, parent body or principle regulator(W)
+isApprovedGoverningDocument.checkYourAnswersLabel = (W)Approved by a regulator(W)
 
 # GoverningDocument Summary page
 # ----------------------------------------------------------
-governingDocumentSummary.checkYourAnswers.title = (W)Check your governing document details(W)
-governingDocumentSummary.checkYourAnswers.heading = (W)Check your governing document details(W)
+governingDocumentSummary.checkYourAnswers.title = (W)Check the governing document details(W)
+governingDocumentSummary.checkYourAnswers.heading = (W)Check the governing document details(W)
 governingDocumentSummary.section = (W)Regulators and documents(W)
 
 # Section4 - Operations and Funds

@@ -42,7 +42,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the CharityContactDetailsController page when clicked continue button" in {
           navigator.nextPage(CharityNamePage, NormalMode,
-            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value) mustBe
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
         }
       }
@@ -56,7 +56,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the CharityInformationAddressLookupController page when clicked continue button" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).success.value) mustBe
             controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
         }
       }
@@ -71,7 +71,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Send letters page when clicked Confirm and continue button" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
             emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
         }
       }
@@ -106,7 +106,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Charity Details Summary page when clicked Confirm and continue button" in {
           navigator.nextPage(CharityPostalAddressLookupPage, NormalMode,
             emptyUserAnswers.set(CharityPostalAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -148,7 +148,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Charity Details Summary page when an answer is given" in {
 
           navigator.nextPage(CharityNamePage, CheckMode,
-            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value) mustBe
               charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -163,7 +163,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Charity Details Summary page when an answer is given" in {
 
           navigator.nextPage(CharityContactDetailsPage, CheckMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -178,7 +178,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Send letters page when clicked continue button" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, CheckMode,
             emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -196,11 +196,17 @@ class CharityInformationNavigatorSpec extends SpecBase {
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
 
-        "go to the Postal Address Lookup flow when no is selected" in {
+        "go to the Postal Address Lookup flow when no is selected and postal address in not defined" in {
           navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
             emptyUserAnswers.set(CanWeSendToThisAddressPage,false).success.value) mustBe
-            controllers.routes.DeadEndController.onPageLoad()
-          //TODO if no is selected once the postal address page is created, it should redirect to that flow
+            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+        }
+
+        "go to the Postal Address Lookup flow when no is selected and address is defined" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage,false).flatMap(_.set(CharityPostalAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
 
@@ -214,7 +220,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Charity Details Summary page when clicked Confirm and continue button" in {
           navigator.nextPage(CharityPostalAddressLookupPage, CheckMode,
             emptyUserAnswers.set(CharityPostalAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).getOrElse(emptyUserAnswers)) mustBe
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }

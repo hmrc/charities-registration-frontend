@@ -406,18 +406,19 @@ startCharityRegulator.p2 = Adding regulator information takes around 5 minutes.
 
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
-isCharityRegulator.title = Is your charity registered with a charity regulator?
-isCharityRegulator.heading = Is your charity registered with a charity regulator?
+isCharityRegulator.title = Is the charity registered with a charity regulator?
+isCharityRegulator.heading = Is the charity registered with a charity regulator?
+isCharityRegulator.details = What is a charity regulator
 isCharityRegulator.hint = A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.
-isCharityRegulator.error.required = Select yes if your charity is registered with a charity regulator
+isCharityRegulator.error.required = Select yes if the charity is registered with a charity regulator
 isCharityRegulator.checkYourAnswersLabel = Registered with a charity regulator
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = What are your charity''s regulator?
-charityRegulator.heading = What are your charity''s regulator?
+charityRegulator.title = Who are the charity''s regulators?
+charityRegulator.heading = Who are the charity''s regulators?
 charityRegulator.hint = Select all that apply
-charityRegulator.error.required = Select your charity''s regulator or regulators
+charityRegulator.error.required = Select the charity''s regulators
 charityRegulator.ccew = Charity Commission for England and Wales
 charityRegulator.oscr = Office of the Scottish Charity Regulator
 charityRegulator.ccni = Charity Commission for Northern Ireland
@@ -426,52 +427,52 @@ charityRegulator.checkYourAnswersLabel = Charity''s regulators
 
 # CharityCommissionRegistrationNumberPage Messages
 # ----------------------------------------------------------
-charityCommissionRegistrationNumber.title = What is your Charity Commission for England and Wales registration number?
-charityCommissionRegistrationNumber.heading = What is your Charity Commission for England and Wales registration number?
-charityCommissionRegistrationNumber.error.required = Enter your charity''s registration number
+charityCommissionRegistrationNumber.title = What is the Charity Commission for England and Wales registration number?
+charityCommissionRegistrationNumber.heading = What is the Charity Commission for England and Wales registration number?
+charityCommissionRegistrationNumber.error.required = Enter the charity''s registration number
 charityCommissionRegistrationNumber.error.format = Registration number must be 6 or 7 numbers, like 123456 or 1234567
-charityCommissionRegistrationNumber.hint = The registration number will be on any mail the regulator has sent you. For example, 123456 or 1234567
+charityCommissionRegistrationNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, 123456 or 1234567
 charityCommissionRegistrationNumber.checkYourAnswersLabel = Charity Commission for England and Wales registration number
 
 # ScottishRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-scottishRegulatorRegNumber.title = What is your Office of the Scottish Charity Regulator registration number?
-scottishRegulatorRegNumber.heading = What is your Office of the Scottish Charity Regulator registration number?
-scottishRegulatorRegNumber.error.required = Enter your charity''s registration number
+scottishRegulatorRegNumber.title = What is the Office of the Scottish Charity Regulator (OSCR) registration number?
+scottishRegulatorRegNumber.heading = What is the Office of the Scottish Charity Regulator (OSCR) registration number?
+scottishRegulatorRegNumber.error.required = Enter the charity''s registration number
 scottishRegulatorRegNumber.error.format = Registration number is SC then 0 and 5 numbers, like SC012345
-scottishRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent you. For example, SC012345
+scottishRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, SC012345
 scottishRegulatorRegNumber.checkYourAnswersLabel = Office of the Scottish Charity Regulator registration number
 
 # NIRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-nIRegulatorRegNumber.title = What is your Charity Commission for Northern Ireland registration number?
-nIRegulatorRegNumber.heading = What is your Charity Commission for Northern Ireland registration number?
-nIRegulatorRegNumber.error.required = Enter your charity''s registration number
+nIRegulatorRegNumber.title = What is the Charity Commission for Northern Ireland registration number?
+nIRegulatorRegNumber.heading = What is the Charity Commission for Northern Ireland registration number?
+nIRegulatorRegNumber.error.required = Enter the charity''s registration number
 nIRegulatorRegNumber.error.format = Registration number is 6 numbers, like 123456
-nIRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent you. For example, 123456
+nIRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, 123456
 nIRegulatorRegNumber.checkYourAnswersLabel = Charity Commission for Northern Ireland registration number
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------
-charityOtherRegulatorDetails.title = Your charity''s regulator details
-charityOtherRegulatorDetails.heading = Your charity''s regulator details
+charityOtherRegulatorDetails.title = What are the charity''s regulator details
+charityOtherRegulatorDetails.heading = What are the charity''s regulator details
 charityOtherRegulatorDetails.regulatorName.label = Name of your charity''s regulator
-charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of your charity''s regulator
+charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of the charity''s regulator
 charityOtherRegulatorDetails.regulatorName.error.format = The name of your charity''s regulator must not include the following characters: & ( ) : @
 charityOtherRegulatorDetails.regulatorName.error.length = Your charity''s regulator name should be 100 characters or fewer
 charityOtherRegulatorDetails.registrationNumber.label = Registration number
-charityOtherRegulatorDetails.registrationNumber.error.required = Enter your charity''s registration number
+charityOtherRegulatorDetails.registrationNumber.error.required = Enter the charity''s registration number
 charityOtherRegulatorDetails.registrationNumber.error.format = Your charity''s registration number must not include the following characters: & ( ) : @
 charityOtherRegulatorDetails.registrationNumber.error.length = Your charity''s registration number should be 20 characters or fewer
-charityOtherRegulatorDetails.hint = The registration number will be on any mail the regulator has sent you.
-charityOtherRegulatorDetails.name.checkYourAnswersLabel = Name of your other charity''s regulator
-charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number of your other charity''s regulator
+charityOtherRegulatorDetails.hint = The registration number will be on any mail the regulator has sent the charity.
+charityOtherRegulatorDetails.name.checkYourAnswersLabel = Charity''s other regulator
+charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number for the charity''s regulator
 
 # Select why no regulator Messages
 # ----------------------------------------------------------
-selectWhyNoRegulator.title = Why have you not registered with a charity regulator?
-selectWhyNoRegulator.heading = Why have you not registered with a charity regulator?
-selectWhyNoRegulator.error.required = Select why you have not registered with a regulator
+selectWhyNoRegulator.title = Why has the charity not registered with a regulator?
+selectWhyNoRegulator.heading = Why has the charity not registered with a regulator?
+selectWhyNoRegulator.error.required = Select why the charity has not registered with a regulator
 selectWhyNoRegulator.1 = Established in England and/or Wales and under gross income threshold
 selectWhyNoRegulator.5 = Exempt or excepted
 selectWhyNoRegulator.4 = No regulator in country of establishment
@@ -482,18 +483,17 @@ selectWhyNoRegulator.checkYourAnswersLabel = Reason for not registering
 
 # WhyNotRegisteredWithCharityPage Messages
 # ----------------------------------------------------------
-whyNotRegisteredWithCharity.title = Why has your charity not registered with a charity regulator?
-whyNotRegisteredWithCharity.heading = Why has your charity not registered with a charity regulator?
-whyNotRegisteredWithCharity.error.required = Enter why you have not registered with a regulator
+whyNotRegisteredWithCharity.title = What is the other reason why the charity not registered with a regulator?
+whyNotRegisteredWithCharity.heading = What is the other reason why the charity not registered with a regulator?
+whyNotRegisteredWithCharity.error.required = Enter why the charity has not registered with a regulator
 whyNotRegisteredWithCharity.error.format = Your answer must not include the following characters: & ( ) : @
 whyNotRegisteredWithCharity.error.length = Your answer must be 100 characters or fewer
-whyNotRegisteredWithCharity.hint = Using 100 characters or less (including spaces).
 whyNotRegisteredWithCharity.checkYourAnswersLabel = Other reason for not registering
 
 # Regulators Summary page
 # ----------------------------------------------------------
-regulatorsSummary.checkYourAnswers.title = Check your charity''s regulator details
-regulatorsSummary.checkYourAnswers.heading = Check your charity''s regulator details
+regulatorsSummary.checkYourAnswers.title = Check the charity''s regulator details
+regulatorsSummary.checkYourAnswers.heading = Check the charity''s regulator details
 regulatorsSummary.section = Regulators and documents
 
 # Section3 - Documents

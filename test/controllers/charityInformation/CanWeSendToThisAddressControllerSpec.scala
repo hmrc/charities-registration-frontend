@@ -62,7 +62,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
 
   private val addressLookupData: AddressModel = AddressModel(Seq("4 Other Place", "Some District", "Anytown"),Some("ZZ1 1ZZ"), country)
 
-  private val addressLookupDataParsed = "4 Other Place, Some District, Anytown, ZZ1 1ZZ, United Kingdom"
+  private val addressLookupDataParsed = List("4 Other Place", "Some District", "Anytown", "ZZ1 1ZZ", "United Kingdom")
 
   private val addressUserAnswers: Some[UserAnswers] = Some(emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))
 
@@ -72,13 +72,13 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
 
       "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(addressUserAnswers))
+        when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(addressUserAnswers))
 
-      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+        val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, addressLookupDataParsed)(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerRepository, times(1)).get(any())
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual view(form, NormalMode, addressLookupDataParsed)(fakeRequest, messages, frontendAppConfig).toString
+        verify(mockUserAnswerRepository, times(1)).get(any())
       }
 
     "return OK and the correct view for a GET with no postcode in the address model" in {
@@ -90,7 +90,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
-        form, NormalMode, "4 Other Place, Some District, Anytown, United Kingdom"
+        form, NormalMode, List("4 Other Place", "Some District", "Anytown", "United Kingdom")
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }

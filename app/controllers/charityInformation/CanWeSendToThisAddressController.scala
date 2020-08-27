@@ -33,15 +33,16 @@ import views.html.charityInformation.CanWeSendToThisAddressView
 
 import scala.concurrent.Future
 
-class CanWeSendToThisAddressController  @Inject()(sessionRepository: UserAnswerRepository,
-                                                  navigator: CharityInformationNavigator,
-                                                  identify: AuthIdentifierAction,
-                                                  getData: UserDataRetrievalAction,
-                                                  requireData: DataRequiredAction,
-                                                  formProvider: CanWeSendToThisAddressFormProvider,
-                                                  val controllerComponents: MessagesControllerComponents,
-                                                  view: CanWeSendToThisAddressView
-                                                 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class CanWeSendToThisAddressController  @Inject()(
+    sessionRepository: UserAnswerRepository,
+    navigator: CharityInformationNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: CanWeSendToThisAddressFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: CanWeSendToThisAddressView
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
@@ -80,7 +81,7 @@ class CanWeSendToThisAddressController  @Inject()(sessionRepository: UserAnswerR
       )
   }
 
-    private def getCharityInformationAddressLookup(block: String => Future[Result])
+    private def getCharityInformationAddressLookup(block: Seq[String] => Future[Result])
                                           (implicit request: DataRequest[AnyContent]): Future[Result] = {
 
     request.userAnswers.get(CharityOfficialAddressLookupPage).map {
@@ -89,7 +90,7 @@ class CanWeSendToThisAddressController  @Inject()(sessionRepository: UserAnswerR
         val addressList = charityInformationAddressLookup.lines
         val postcode = charityInformationAddressLookup.postcode.fold(Seq[String]())(Seq(_))
         val country = Seq(charityInformationAddressLookup.country.name)
-        block(Seq(addressList, postcode, country).flatten.mkString(", "))
+        block(Seq(addressList, postcode, country).flatten)
 
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }

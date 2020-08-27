@@ -33,18 +33,20 @@ class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours  {
 
   "CanWeSendToThisAddressViewView" must {
 
-    val charityInformationAddressLookup = "12, Banner Way ZZ1 1ZZ"
+    val charityInformationAddressLookup = List("12", "Banner Way", "ZZ1 1ZZ")
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[CanWeSendToThisAddressView](Some(emptyUserAnswers))
       view.apply(form, NormalMode, charityInformationAddressLookup)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq(charityInformationAddressLookup), section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, charityInformationAddressLookup, section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.CanWeSendToThisAddressController.onSubmit(NormalMode).url, Seq(charityInformationAddressLookup), section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix,
+      routes.CanWeSendToThisAddressController.onSubmit(NormalMode).url, charityInformationAddressLookup, section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-  }}
+  }
+}

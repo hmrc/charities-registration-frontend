@@ -24,42 +24,29 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
-    inputRadio: components.inputRadio,
-    button: components.button,
-    subheading: components.subheading,
-    link: components.link
+    h1: components.h1,
+    button: components.button
 )
 
-@(form: Form[_], mode: Mode, charityInformationAddressLookup: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, charityInformationAddressLookup: Seq[String])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
     @govukLayout(pageTitle = Some(title(form, "canWeSendLettersToThisAddress.title", Some("contactDetail.section")))) {
-
 
     @formHelper(action = CanWeSendToThisAddressController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @inputRadio(
-            form = form,
-            legend = messages("canWeSendLettersToThisAddress.heading"),
-            items = Seq(
-                RadioItem(id = Some("value"),
-                          value = Some("true"),
-                          content = Text(messages("site.yes")),
-                          checked = form("value").value.contains("true"),
-                          hint = Some(Hint(content=Text(charityInformationAddressLookup)))
-                ),
-
-                RadioItem(id = Some("value-no"),
-                          value = Some("false"),
-                          content = HtmlContent(messages("site.no")),
-                          checked = form("value").value.contains("false"),
-                          hint = Some(Hint(content=Text(messages("canWeSendLettersToThisAddress.no.hint"))))
-                )
-        )
-        )
+        @yesNoRadio(form, "canWeSendLettersToThisAddress.heading", isPageHeading = true, hint = Some(Html(hint)))
 
         @button("site.saveAndContinue")
 
     }
+}
+
+@hint = {
+    <p class="govuk-body govuk-!-margin-top-5">
+        @charityInformationAddressLookup.map { line =>
+            <span class="govuk-body">@line</span><br>
+        }
+    </p>
 }

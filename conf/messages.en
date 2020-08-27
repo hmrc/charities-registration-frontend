@@ -510,9 +510,9 @@ startGoverningDocument.p2 = Adding governing document information takes around 5
 
 # Select Governing Document Messages
 # ----------------------------------------------------------
-selectGoverningDocument.title = What governing document was used to set up and run your charity?
-selectGoverningDocument.heading = What governing document was used to set up and run your charity?
-selectGoverningDocument.error.required = Select the type of governing document that was used to set up and run your charity
+selectGoverningDocument.title = What governing document was used to set up and run the charity?
+selectGoverningDocument.heading = What governing document was used to set up and run the charity?
+selectGoverningDocument.error.required = Select the type of governing document that was used to set up and run the charity
 selectGoverningDocument.1 = Memorandum and articles of association
 selectGoverningDocument.2 = Royal Charter
 selectGoverningDocument.3 = Rules or constitution

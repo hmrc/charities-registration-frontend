@@ -24,8 +24,8 @@ import javax.inject.Inject
 import models.Mode
 import models.requests.DataRequest
 import navigation.CharityInformationNavigator
-import pages.charityInformation.CanWeSendToThisAddressPage
 import pages.addressLookup.CharityOfficialAddressLookupPage
+import pages.charityInformation.CanWeSendToThisAddressPage
 import pages.sections.Section1Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -34,15 +34,15 @@ import views.html.charityInformation.CanWeSendToThisAddressView
 import scala.concurrent.Future
 
 class CanWeSendToThisAddressController  @Inject()(
-    sessionRepository: UserAnswerRepository,
-    navigator: CharityInformationNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: CanWeSendToThisAddressFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: CanWeSendToThisAddressView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+   sessionRepository: UserAnswerRepository,
+   navigator: CharityInformationNavigator,
+   identify: AuthIdentifierAction,
+   getData: UserDataRetrievalAction,
+   requireData: DataRequiredAction,
+   formProvider: CanWeSendToThisAddressFormProvider,
+   val controllerComponents: MessagesControllerComponents,
+   view: CanWeSendToThisAddressView
+ )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

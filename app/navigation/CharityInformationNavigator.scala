@@ -73,8 +73,8 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     }
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
       case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      //TODO Logic needs to be created here for when the postal address lookup pages are implemented
-      case Some(false) => controllers.routes.DeadEndController.onPageLoad()
+      case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      case Some(false) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {

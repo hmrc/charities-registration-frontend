@@ -563,21 +563,20 @@ startCharitableObjectives.p2 = (W)Adding information about objectives and purpos
 
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
-charitableObjectives.title = (W)What are your charity''s charitable objectives?(W)
-charitableObjectives.heading = (W)What are your charity''s charitable objectives?(W)
-charitableObjectives.error.required = (W)Enter your charity''s charitable objectives(W)
+charitableObjectives.title = (W)What are the charity''s charitable objectives?(W)
+charitableObjectives.heading = (W)What are the charity''s charitable objectives?(W)
+charitableObjectives.error.required = (W)Enter the charity''s charitable objectives(W)
 charitableObjectives.error.format = (W)Your answer must not include the following characters: & () : @(W)
 charitableObjectives.error.length = (W)Your answer must be 255 characters or fewer(W)
-charitableObjectives.hint = (W)Using 255 characters or less (including spaces).(W)
 charitableObjectives.label = (W)Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.(W)
-charitableObjectives.checkYourAnswersLabel = (W)Charity''s charitable objectives(W)
+charitableObjectives.checkYourAnswersLabel = (W)Charitable objectives(W)
 
 # CharitablePurposesPage Messages
 # ----------------------------------------------------------
-charitablePurposes.title = (W)What are your charity''s charitable purposes?(W)
-charitablePurposes.heading = (W)What are your charity''s charitable purposes?(W)
+charitablePurposes.title = (W)What are the charity''s charitable purposes?(W)
+charitablePurposes.heading = (W)What are the charity''s charitable purposes?(W)
 charitablePurposes.hint = (W)Select all that apply(W)
-charitablePurposes.error.required = (W)Select your charity''s charitable purposes(W)
+charitablePurposes.error.required = (W)Select the charity''s charitable purposes(W)
 charitablePurposes.amateurSport = (W)Amateur sport(W)
 charitablePurposes.animalWelfare = (W)Animal welfare(W)
 charitablePurposes.artsCultureOrScience = (W)Arts, culture, heritage or science(W)
@@ -597,16 +596,15 @@ charitablePurposes.checkYourAnswersLabel = (W)Charity''s charitable purposes(W)
 # ----------------------------------------------------------
 publicBenefits.title = (W)How does your charity benefit the public?(W)
 publicBenefits.heading = (W)How does your charity benefit the public?(W)
-publicBenefits.error.required = (W)Enter how your charity benefits the public(W)
+publicBenefits.error.required = (W)Enter how the charity benefits the public(W)
 publicBenefits.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
 publicBenefits.error.length = (W)Your answer must be 255 characters or fewer(W)
-publicBenefits.hint = (W)Using 255 characters or less (including spaces).(W)
-publicBenefits.checkYourAnswersLabel = (W)How your charity benefits the public(W)
+publicBenefits.checkYourAnswersLabel = (W)How the charity benefits the public(W)
 
 # Charity Objectives Summary page
 # ----------------------------------------------------------
-charityObjectivesSummary.checkYourAnswers.title = (W)Check your charity''s objectives details(W)
-charityObjectivesSummary.checkYourAnswers.heading = (W)Check your charity''s objectives details(W)
+charityObjectivesSummary.checkYourAnswers.title = (W)Check the charity''s objectives details(W)
+charityObjectivesSummary.checkYourAnswers.heading = (W)Check the charity''s objectives details(W)
 charityObjectivesSummary.section = (W)Operations and funds(W)
 
 # Section5 - Fundraising Information

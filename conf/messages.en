@@ -519,32 +519,32 @@ selectGoverningDocument.3 = Rules or constitution
 selectGoverningDocument.4 = Trust deed
 selectGoverningDocument.5 = Will
 selectGoverningDocument.6 = Other
-selectGoverningDocument.checkYourAnswersLabel = Governing document name
+selectGoverningDocument.checkYourAnswersLabel = Name
 
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
-whenGoverningDocumentApproved.title = When was the governing document approved?
-whenGoverningDocumentApproved.heading = When was the governing document approved?
-WhenGoverningDocumentApproved.p1 = This is the date when the commission approved the governing document. If your charity is a CIO (Charitable Incorporated Organisation), it is the date you were accepted onto the regulators register.
+whenGoverningDocumentApproved.title = What date did the governing document become effective?
+whenGoverningDocumentApproved.heading = What date did the {0} become effective?
+WhenGoverningDocumentApproved.p1 = If the charity is a CIO (Charitable Incorporated Organisation), it is the date the charity was accepted onto the regulator's register.
 WhenGoverningDocumentApproved.hint = For example, 27 3 2007
 whenGoverningDocumentApproved.error.invalid = The date when the governing document was approved must be a real date.
-whenGoverningDocumentApproved.error.required.all = Enter the date when the governing document was approved
-whenGoverningDocumentApproved.error.required.two = Enter the {0} and the {1} when the governing document was approved
-whenGoverningDocumentApproved.error.required = Enter the {0} when the governing document was approved
+whenGoverningDocumentApproved.error.required.all = Enter the date when the governing document became effective
+whenGoverningDocumentApproved.error.required.two = Enter the {0} and the {1} when the governing document became effective
+whenGoverningDocumentApproved.error.required = Enter the {0} when the governing document became effective
 whenGoverningDocumentApproved.error.future = The date when the governing document was approved must be today or in the past.
-whenGoverningDocumentApproved.checkYourAnswersLabel = Date governing document was approved
+whenGoverningDocumentApproved.checkYourAnswersLabel = Effective date
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = Is the governing document approved by a national organisation, parent body or principle regulator?
-isApprovedGoverningDocument.heading = Is the governing document approved by a national organisation, parent body or principle regulator?
-isApprovedGoverningDocument.error.required = Select yes if the governing document is approved by a national organisation, parent body or principle regulator
-isApprovedGoverningDocument.checkYourAnswersLabel = Governing document has been approved by a charity regulator
+isApprovedGoverningDocument.title = Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?
+isApprovedGoverningDocument.heading = Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?
+isApprovedGoverningDocument.error.required = Select yes if the charity is using a form of governing document that is approved by a national organisation, parent body or principle regulator
+isApprovedGoverningDocument.checkYourAnswersLabel = Approved by a regulator
 
 # GoverningDocument Summary page
 # ----------------------------------------------------------
-governingDocumentSummary.checkYourAnswers.title = Check your governing document details
-governingDocumentSummary.checkYourAnswers.heading = Check your governing document details
+governingDocumentSummary.checkYourAnswers.title = Check the governing document details
+governingDocumentSummary.checkYourAnswers.heading = Check the governing document details
 governingDocumentSummary.section = Regulators and documents
 
 # Section4 - Operations and Funds

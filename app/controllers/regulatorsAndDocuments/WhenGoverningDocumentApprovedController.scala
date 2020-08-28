@@ -16,15 +16,21 @@
 
 package controllers.regulatorsAndDocuments
 
+import java.time.LocalDate
+
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
 import javax.inject.Inject
 import models.Mode
+import models.regulators.SelectGoverningDocument
+import models.requests.DataRequest
 import navigation.DocumentsNavigator
-import pages.regulatorsAndDocuments.WhenGoverningDocumentApprovedPage
+import pages.QuestionPage
+import pages.regulatorsAndDocuments.{SelectGoverningDocumentPage, WhenGoverningDocumentApprovedPage}
 import pages.sections.Section3Page
+import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
@@ -41,29 +47,44 @@ class WhenGoverningDocumentApprovedController @Inject()(
     val controllerComponents: MessagesControllerComponents,
     view: WhenGoverningDocumentApprovedView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  val form: Form[LocalDate] = formProvider()
 
-    val preparedForm = request.userAnswers.get(WhenGoverningDocumentApprovedPage) match {
-      case None => form
-      case Some(value) => form.fill(value)
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
+    getDocumentName(SelectGoverningDocumentPage) { documentName =>
+
+      val preparedForm = request.userAnswers.get(WhenGoverningDocumentApprovedPage) match {
+        case None => form
+        case Some(value) => form.fill(value)
+      }
+
+      Future.successful(Ok(view(preparedForm, mode, documentName)))
     }
-
-    Ok(view(preparedForm, mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+    getDocumentName(SelectGoverningDocumentPage) { documentName =>
 
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(WhenGoverningDocumentApprovedPage, value).flatMap(_.set(Section3Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(WhenGoverningDocumentApprovedPage, mode, updatedAnswers))
-    )
+      form.bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(formWithErrors, mode, documentName))),
+
+        value =>
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(WhenGoverningDocumentApprovedPage, value).flatMap(_.set(Section3Page, false)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(WhenGoverningDocumentApprovedPage, mode, updatedAnswers))
+      )
+    }
+  }
+
+  private def getDocumentName(page: QuestionPage[SelectGoverningDocument])(block: String => Future[Result])
+                 (implicit request: DataRequest[AnyContent]): Future[Result] = {
+
+    request.userAnswers.get(page).map {
+      documentName =>  block(documentName)
+    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
 }

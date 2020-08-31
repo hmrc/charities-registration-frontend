@@ -23,7 +23,7 @@ import play.api.data.Form
 class CharitableObjectivesFormProvider @Inject() extends Mappings {
 
   private[operationsAndFunds] val validateReason = """^[a-zA-Z0-9 ][^@&:)(]*$"""
-  private[operationsAndFunds] val maxLength = 255
+  private[operationsAndFunds] val maxLength = 500
 
   def apply(): Form[String] =
     Form(

@@ -24,16 +24,25 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
-    button: components.button,
+    button: components.button
 )
 
 @(form: Form[_], mode: Mode,firstOfficialsName: String, SecondOfficialsName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "addAnotherOtherOfficial.title",Some("officialsAndNominees.section")))) {
-@formHelper(action = AddAnotherOtherOfficialController.onSubmit(mode)) {
-    @errorSummary(form.errors)
-    @yesNoRadio(form, "addAnotherOtherOfficial.heading", Some(Html(messages("addAnotherOtherOfficial.hint", firstOfficialsName, SecondOfficialsName))))
 
-    @button("site.saveAndContinue")
+    @formHelper(action = AddAnotherOtherOfficialController.onSubmit(mode)) {
+
+        @errorSummary(form.errors)
+
+        @yesNoRadio(form, "addAnotherOtherOfficial.heading", isPageHeading = true, hint = Some(Html(hint)))
+
+        @button("site.saveAndContinue")
+    }
 }
+
+@hint = {
+    <p class="govuk-body govuk-!-margin-top-5">
+        <span class="govuk-body">@messages("addAnotherOtherOfficial.hint", firstOfficialsName, SecondOfficialsName)</span>
+    </p>
 }

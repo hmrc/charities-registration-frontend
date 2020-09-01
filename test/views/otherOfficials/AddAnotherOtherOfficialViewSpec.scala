@@ -38,7 +38,7 @@ class AddAnotherOtherOfficialViewSpec extends YesNoViewBehaviours  {
           view.apply(form, NormalMode,"Jim John Jones", "John Jim Jones")(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix,Seq("Jim John Jones", "John Jim Jones"), section = section)
+      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim John Jones", "John Jim Jones"), section = section)
 
       behave like pageWithBackLink(applyView(form))
 

@@ -563,21 +563,20 @@ startCharitableObjectives.p2 = Adding information about objectives and purposes 
 
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
-charitableObjectives.title = What are your charity''s charitable objectives?
-charitableObjectives.heading = What are your charity''s charitable objectives?
-charitableObjectives.error.required = Enter your charity''s charitable objectives
+charitableObjectives.title = What are the charity''s charitable objectives?
+charitableObjectives.heading = What are the charity''s charitable objectives?
+charitableObjectives.error.required = Enter the charity''s charitable objectives
 charitableObjectives.error.format = Your answer must not include the following characters: & () : @
 charitableObjectives.error.length = Your answer must be 255 characters or fewer
-charitableObjectives.hint = Using 255 characters or less (including spaces).
 charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.
-charitableObjectives.checkYourAnswersLabel = Charity''s charitable objectives
+charitableObjectives.checkYourAnswersLabel = Charitable objectives
 
 # CharitablePurposesPage Messages
 # ----------------------------------------------------------
-charitablePurposes.title = What are your charity''s charitable purposes?
-charitablePurposes.heading = What are your charity''s charitable purposes?
+charitablePurposes.title = What are the charity''s charitable purposes?
+charitablePurposes.heading = What are the charity''s charitable purposes?
 charitablePurposes.hint = Select all that apply
-charitablePurposes.error.required = Select your charity''s charitable purposes
+charitablePurposes.error.required = Select the charity''s charitable purposes
 charitablePurposes.amateurSport = Amateur sport
 charitablePurposes.animalWelfare = Animal welfare
 charitablePurposes.artsCultureOrScience = Arts, culture, heritage or science
@@ -595,18 +594,17 @@ charitablePurposes.checkYourAnswersLabel = Charity''s charitable purposes
 
 # Enter Public Benefits Messages
 # ----------------------------------------------------------
-publicBenefits.title = How does your charity benefit the public?
-publicBenefits.heading = How does your charity benefit the public?
-publicBenefits.error.required = Enter how your charity benefits the public
+publicBenefits.title = How does the charity benefit the public?
+publicBenefits.heading = How does the charity benefit the public?
+publicBenefits.error.required = Enter how the charity benefits the public
 publicBenefits.error.format = Your answer must not include the following characters: & ( ) : @
 publicBenefits.error.length = Your answer must be 255 characters or fewer
-publicBenefits.hint = Using 255 characters or less (including spaces).
-publicBenefits.checkYourAnswersLabel = How your charity benefits the public
+publicBenefits.checkYourAnswersLabel = How the charity benefits the public
 
 # Charity Objectives Summary page
 # ----------------------------------------------------------
-charityObjectivesSummary.checkYourAnswers.title = Check your charity''s objectives details
-charityObjectivesSummary.checkYourAnswers.heading = Check your charity''s objectives details
+charityObjectivesSummary.checkYourAnswers.title = Check the charity''s objectives details
+charityObjectivesSummary.checkYourAnswers.heading = Check the charity''s objectives details
 charityObjectivesSummary.section = Operations and funds
 
 # Section5 - Fundraising Information

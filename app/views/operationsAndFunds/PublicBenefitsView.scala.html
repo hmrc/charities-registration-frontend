@@ -24,8 +24,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    inputCharacterCount: components.inputCharacterCount,
-    fieldset: components.fieldset
+    inputCharacterCount: components.inputCharacterCount
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -33,8 +32,6 @@
 @govukLayout(pageTitle = Some(title(form, "publicBenefits.title",Some("operationsAndFunds.section")))) {
 
     @formHelper(action = PublicBenefitsController.onSubmit(mode)) {
-
-        @fieldset("publicBenefits.heading") {
 
             @errorSummary(form.errors)
 
@@ -45,12 +42,10 @@
                 rows = 5,
                 value = Some("value"),
                 maxLength = Some(255),
-                isPageHeading = false,
+                isPageHeading = true,
                 label = messages("publicBenefits.heading"),
-                hint = Some(Html(messages("publicBenefits.hint"))),
                 countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
             )
-        }
 
         @button("site.saveAndContinue")
 

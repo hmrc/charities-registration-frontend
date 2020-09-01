@@ -1029,18 +1029,18 @@ otherOfficialsSummary.section = Officials and nominees
 
 # Charity Nominee messages
 # ----------------------------------------------------------
-charityNominee.title = Charity''s nominee
-charityNominee.heading = Your charity''s nominee
+charityNominee.title = The charity''s nominee
+charityNominee.heading = The charity''s nominee
 charityNominee.p1 = You now have the option of adding a nominee.
-charityNominee.p2 = A nominee is a person or an organisation from outside your charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.
-charityNominee.p3 = Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if you appoint a nominee or that nominee changes.
+charityNominee.p2 = A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.
+charityNominee.p3 = Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.
 charityNominee.p4 = Adding information about a nominee takes around 5 minutes.
 
 # Do you want to add a nominee Page Messages
 # ----------------------------------------------------------
-isAuthoriseNominee.title = Do you want to authorise a nominee from outside your charity?
-isAuthoriseNominee.heading = Do you want to authorise a nominee from outside your charity?
-isAuthoriseNominee.error.required = Select yes if you want to add a nominee
+isAuthoriseNominee.title = Do you want to authorise a nominee from outside the charity?
+isAuthoriseNominee.heading = Do you want to authorise a nominee from outside the charity?
+isAuthoriseNominee.error.required = Select yes if you want to authorise a nominee
 isAuthoriseNominee.checkYourAnswersLabel = Authorise a nominee
 
 # Choose Nominee Page Messages

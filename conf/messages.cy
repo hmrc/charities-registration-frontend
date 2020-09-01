@@ -1029,18 +1029,18 @@ otherOfficialsSummary.section = (W)Officials and nominees(W)
 
 # Charity Nominee messages
 # ----------------------------------------------------------
-charityNominee.title = (W)Charity''s nominee(W)
-charityNominee.heading = (W)Your charity''s nominee(W)
+charityNominee.title = (W)The charity''s nominee(W)
+charityNominee.heading = (W)The charity''s nominee(W)
 charityNominee.p1 = (W)You now have the option of adding a nominee.(W)
-charityNominee.p2 = (W)A nominee is a person or an organisation from outside your charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.(W)
-charityNominee.p3 = (W)Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if you appoint a nominee or that nominee changes.(W)
+charityNominee.p2 = (W)A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.(W)
+charityNominee.p3 = (W)Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.(W)
 charityNominee.p4 = (W)Adding information about a nominee takes around 5 minutes.(W)
 
 # Do you want to add a nominee Page Messages
 # ----------------------------------------------------------
-isAuthoriseNominee.title = (W)Do you want to authorise a nominee from outside your charity?(W)
-isAuthoriseNominee.heading = (W)Do you want to authorise a nominee from outside your charity?(W)
-isAuthoriseNominee.error.required = (W)Select yes if you want to add a nominee(W)
+isAuthoriseNominee.title = (W)Do you want to authorise a nominee from outside the charity?(W)
+isAuthoriseNominee.heading = (W)Do you want to authorise a nominee from outside the charity?(W)
+isAuthoriseNominee.error.required = (W)Select yes if you want to authorise a nominee(W)
 isAuthoriseNominee.checkYourAnswersLabel = (W)Authorise a nominee(W)
 
 # Choose Nominee Page Messages

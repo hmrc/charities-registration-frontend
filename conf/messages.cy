@@ -567,7 +567,7 @@ charitableObjectives.title = (W)What are the charity''s charitable objectives?(W
 charitableObjectives.heading = (W)What are the charity''s charitable objectives?(W)
 charitableObjectives.error.required = (W)Enter the charity''s charitable objectives(W)
 charitableObjectives.error.format = (W)Your answer must not include the following characters: & () : @(W)
-charitableObjectives.error.length = (W)Your answer must be 255 characters or fewer(W)
+charitableObjectives.error.length = (W)Your answer must be 500 characters or fewer(W)
 charitableObjectives.label = (W)Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.(W)
 charitableObjectives.checkYourAnswersLabel = (W)Charitable objectives(W)
 

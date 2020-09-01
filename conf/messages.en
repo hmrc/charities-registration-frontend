@@ -567,7 +567,7 @@ charitableObjectives.title = What are the charity''s charitable objectives?
 charitableObjectives.heading = What are the charity''s charitable objectives?
 charitableObjectives.error.required = Enter the charity''s charitable objectives
 charitableObjectives.error.format = Your answer must not include the following characters: & () : @
-charitableObjectives.error.length = Your answer must be 255 characters or fewer
+charitableObjectives.error.length = Your answer must be 500 characters or fewer
 charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.
 charitableObjectives.checkYourAnswersLabel = Charitable objectives
 

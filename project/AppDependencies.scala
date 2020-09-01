@@ -9,10 +9,10 @@ object AppDependencies {
     "org.reactivemongo"         %% "play2-reactivemongo"            % "0.17.1-play26",
     "uk.gov.hmrc"               %% "logback-json-logger"            % "4.8.0",
     "uk.gov.hmrc"               %% "play-health"                    % "3.15.0-play-26",
-    "uk.gov.hmrc"               %% "play-conditional-form-mapping"  % "1.2.0-play-26",
-    "uk.gov.hmrc"               %% "bootstrap-play-26"              % "1.7.0",
+    "uk.gov.hmrc"               %% "play-conditional-form-mapping"  % "1.3.0-play-26",
+    "uk.gov.hmrc"               %% "bootstrap-play-26"              % "1.14.0",
     "uk.gov.hmrc"               %% "play-frontend-govuk"            % "0.50.0-play-26",
-    "uk.gov.hmrc"               %% "play-frontend-hmrc"             % "0.17.0-play-26",
+    "uk.gov.hmrc"               %% "play-frontend-hmrc"             % "0.18.0-play-26",
     "uk.gov.hmrc"               %% "play-language"                  % "4.3.0-play-26"
   )
 

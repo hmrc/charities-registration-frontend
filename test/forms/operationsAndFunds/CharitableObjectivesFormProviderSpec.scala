@@ -29,7 +29,7 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "charitableObjectives.error.required"
     val lengthKey = "charitableObjectives.error.length"
     val invalidKey = "charitableObjectives.error.format"
-    val maxLength = 255
+    val maxLength = 500
     val fieldName = "value"
 
     behave like fieldThatBindsValidData(

@@ -693,27 +693,27 @@ startBankDetails.p2 = Adding bank details takes around 5 minutes.
 
 # Charity's bank account details Page Messages
 # ----------------------------------------------------------
-bankDetails.title = What are your charity''s bank account details?
-bankDetails.heading = What are your charity''s bank account details?
-bankDetails.p1 = We need your bank details to pay Gift Aid and other tax repayments.
+bankDetails.title = What are the charity''s bank account details?
+bankDetails.heading = What are the charity''s bank account details?
+bankDetails.p1 = We need the charity’s bank details to pay Gift Aid and other tax repayments.
 bankDetails.accountName = Charity''s account name
-bankDetails.accountName.hint = As shown on your charity''s account statements
-bankDetails.accountName.error.length = Your charity''s account name must be 60 characters or fewer
-bankDetails.accountName.error.required = Enter your charity''s account name
-bankDetails.accountName.error.format = Your charity''s account name must not include the following characters: & ( ) : @
+bankDetails.accountName.hint = As shown on the charity''s account statements
+bankDetails.accountName.error.length = The charity''s account name must be 60 characters or fewer
+bankDetails.accountName.error.required = Enter the charity''s account name
+bankDetails.accountName.error.format = The charity''s account name must not include the following characters: & ( ) : @
 bankDetails.sortCode = Charity''s sort code
 bankDetails.sortCode.hint = Must be 6 digits long
-bankDetails.sortCode.error.required = Enter your charity''s sort code
+bankDetails.sortCode.error.required = Enter the charity''s sort code
 bankDetails.sortCode.error.format = Enter a valid sort code like 309430
 bankDetails.accountNumber = Charity''s account number
 bankDetails.accountNumber.hint = Must be between 6 and 8 digits long
-bankDetails.accountNumber.error.required = Enter your charity''s account number
+bankDetails.accountNumber.error.required = Enter the charity''s account number
 bankDetails.accountNumber.error.format = Enter a valid account number like 00733445
 bankDetails.rollNumber = Building society roll number (if you have one)
-bankDetails.rollNumber.hint = You can find it on your charity''s bank card, statement or passbook
+bankDetails.rollNumber.hint = You can find it on the charity''s bank card, statement or passbook
 bankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 bankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
-bankDetails.basc.warning = We will send repayments using BACS. You should make sure your charity can receive BACS payments.
+bankDetails.basc.warning = We will send repayments using BACS. You should make sure the charity can receive BACS payments.
 bankDetails.accountName.checkYourAnswersLabel = Account name
 bankDetails.sortCode.checkYourAnswersLabel = Sort code
 bankDetails.accountNumber.checkYourAnswersLabel = Account number
@@ -721,8 +721,8 @@ bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if 
 
 # Charity's Bank Details Summary Page Messages
 # ----------------------------------------------------------
-bankDetailsSummary.checkYourAnswers.title = Check your charity''s bank details
-bankDetailsSummary.checkYourAnswers.heading = Check your charity''s bank details
+bankDetailsSummary.checkYourAnswers.title = Check the charity''s bank details
+bankDetailsSummary.checkYourAnswers.heading = Check the charity''s bank details
 bankDetailsSummary.section = Operations and funds
 
 # Section7 - Name authorised officials

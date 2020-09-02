@@ -19,13 +19,13 @@ package controllers.authorisedOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.IsAddAnotherFormProvider
-import models.{NormalMode, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.authorisedOfficials.IsAddAnotherAuthorisedOfficialPage
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAddAnotherAuthorisedOfficialPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -59,16 +59,19 @@ class IsAddAnotherAuthorisedOfficialControllerSpec extends SpecBase with BeforeA
 
   private val controller: IsAddAnotherAuthorisedOfficialController = inject[IsAddAnotherAuthorisedOfficialController]
 
+  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
+    Name("Jim", Some("John"), "Jones")).success.value
+
   "IsAddAnotherAuthorisedOfficialController Controller " must {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, messageKeyPrefix,
+      contentAsString(result) mustEqual view(form, "Jim John Jones", "", messageKeyPrefix,
         controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(NormalMode))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
@@ -77,7 +80,7 @@ class IsAddAnotherAuthorisedOfficialControllerSpec extends SpecBase with BeforeA
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers.
         set(IsAddAnotherAuthorisedOfficialPage, true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -90,7 +93,7 @@ class IsAddAnotherAuthorisedOfficialControllerSpec extends SpecBase with BeforeA
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
@@ -105,7 +108,7 @@ class IsAddAnotherAuthorisedOfficialControllerSpec extends SpecBase with BeforeA
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 

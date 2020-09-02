@@ -731,12 +731,11 @@ officialsAndNominees.section =  Officials and nominees
 
 # Authorised Officials Page Messages
 # ----------------------------------------------------------
-charityAuthorisedOfficials.title = Your charity''s authorised officials
-charityAuthorisedOfficials.heading = Your charity''s authorised officials
-charityAuthorisedOfficials.p1 = You need to add 1 or 2 authorised officials.
-charityAuthorisedOfficials.p2 = An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.
-charityAuthorisedOfficials.p3 = We will contact them if we have any questions about your charity.
-charityAuthorisedOfficials.p4 = Adding information about authorised officials takes around 5 minutes.
+charityAuthorisedOfficials.title = The charity''s authorised officials
+charityAuthorisedOfficials.heading = The charity''s authorised officials
+charityAuthorisedOfficials.p1 = You need to add 1 authorised official but you can add up to 2.
+charityAuthorisedOfficials.p2 = An authorised official can deal with the charity''s tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.
+charityAuthorisedOfficials.p3 = Adding information about authorised officials takes around 5 minutes.
 
 # Authorised Officials Name Messages
 # ----------------------------------------------------------
@@ -776,8 +775,9 @@ authorisedOfficialsPhoneNumber.heading = What is {0}''s phone number?
 authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number (optional)
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.required = Enter their alternative phone number
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 
@@ -785,9 +785,9 @@ authorisedOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
 
 # Authorised Official Position  Messages
 # ----------------------------------------------------------
-authorisedOfficialsPosition.title = What is the authorised official''s position in your charity?
-authorisedOfficialsPosition.heading = What is {0}''s position in your charity?
-authorisedOfficialsPosition.error.required = Select their position in your charity
+authorisedOfficialsPosition.title = What is the authorised official''s position in the charity?
+authorisedOfficialsPosition.heading = What is {0}''s position in the charity?
+authorisedOfficialsPosition.error.required = Select their position in the charity
 authorisedOfficialsPosition.hint = Select one option
 officialsPosition.01 = Board member
 officialsPosition.02 = Bursar
@@ -833,7 +833,7 @@ authorisedOfficialsNino.error.format = Enter a National Insurance number in the 
 
 authorisedOfficialsNino.checkYourAnswersLabel = National Insurance number
 
-# Authorised  Official Address Messages
+# Authorised Official Address Messages
 # ----------------------------------------------------------
 authorisedOfficialAddress.lookupPage.title = What is the authorised official''s address? - Officials and nominees
 authorisedOfficialAddress.lookupPage.heading = What is {0}''s home address?
@@ -869,7 +869,9 @@ addedOneAuthorisedOfficial.checkYourAnswers.heading = Check the authorised offic
 # ----------------------------------------------------------
 isAddAnotherAuthorisedOfficial.title = Do you want to add another authorised official?
 isAddAnotherAuthorisedOfficial.heading = Do you want to add another authorised official?
+isAddAnotherAuthorisedOfficial.hint = You have already provided details for {0}.
 isAddAnotherAuthorisedOfficial.error.required = Select yes if you want to add another authorised official
+
 isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = Add another authorised official
 
 # Authorised Officials Summary page
@@ -931,6 +933,7 @@ otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone 
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
 otherOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number
 otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
+otherOfficialsPhoneNumber.alternativePhoneNumber.error.required = Enter their alternative phone number
 otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 

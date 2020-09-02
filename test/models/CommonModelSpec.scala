@@ -56,21 +56,11 @@ class CommonModelSpec extends WordSpec with MustMatchers with OptionValues {
 
       val authorisedOfficialsPhoneNumber = PhoneNumber(
         daytimePhone = "01632 960 001",
-        mobilePhone = Some("01632 960 001"))
+        mobilePhone = "01632 960 001")
 
       authorisedOfficialsPhoneNumber.daytimePhone mustBe "01632 960 001"
-      authorisedOfficialsPhoneNumber.mobilePhone mustBe Some("01632 960 001")
+      authorisedOfficialsPhoneNumber.mobilePhone mustBe "01632 960 001"
 
-    }
-
-    "alternativePhoneNumber is not defined" in {
-
-      val authorisedOfficialsPhoneNumber = PhoneNumber(
-        daytimePhone = "01632 960 001",
-        mobilePhone = None)
-
-      authorisedOfficialsPhoneNumber.daytimePhone mustBe "01632 960 001"
-      authorisedOfficialsPhoneNumber.mobilePhone mustBe None
     }
 
     "toString" in {

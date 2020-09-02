@@ -23,38 +23,46 @@ import forms.common.IsAddAnotherFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.IsAddAnotherAuthorisedOfficialPage
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAddAnotherAuthorisedOfficialPage}
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.common.IsAddAnotherView
 
+import scala.concurrent.Future
+
 class IsAddAnotherAuthorisedOfficialController  @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: IsAddAnotherFormProvider,
-   override val sessionRepository: UserAnswerRepository,
-   override val navigator: AuthorisedOfficialsNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: IsAddAnotherView
- )(implicit appConfig: FrontendAppConfig) extends IsAddAnotherController {
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: IsAddAnotherFormProvider,
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: AuthorisedOfficialsNavigator,
+    override val controllerComponents: MessagesControllerComponents,
+    override val view: IsAddAnotherView
+  )(implicit appConfig: FrontendAppConfig) extends IsAddAnotherController {
 
   override val messagePrefix: String = "isAddAnotherAuthorisedOfficial"
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getView(IsAddAnotherAuthorisedOfficialPage, form,
-        controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(mode))
+      getFullName(AuthorisedOfficialsNamePage(0)) { authorisedOfficialsName =>
+
+        Future.successful(getView(IsAddAnotherAuthorisedOfficialPage, form, authorisedOfficialsName, "",
+          controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(mode)))
+      }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      postView(mode, IsAddAnotherAuthorisedOfficialPage, form, Section7Page,
-        controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(mode))
+      getFullName(AuthorisedOfficialsNamePage(0)) { authorisedOfficialsName =>
+
+        postView(mode, IsAddAnotherAuthorisedOfficialPage, form, authorisedOfficialsName, "",
+          Section7Page, controllers.authorisedOfficials.routes.IsAddAnotherAuthorisedOfficialController.onSubmit(mode))
+      }
   }
 }

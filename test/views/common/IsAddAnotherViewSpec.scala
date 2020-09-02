@@ -29,13 +29,15 @@ class IsAddAnotherViewSpec extends YesNoViewBehaviours  {
 
   private val messageKeyPrefix = "isAddAnotherAuthorisedOfficial"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
+  private val firstOfficialsName = "Jane Johnson"
+  private val secondOfficialsName = "Jeff Jackson"
   val form: Form[Boolean] = inject[IsAddAnotherFormProvider].apply(messageKeyPrefix)
 
     "IsAddAnotherAuthorisedOfficialView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[IsAddAnotherView](Some(emptyUserAnswers))
-        view.apply(form, messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, firstOfficialsName, secondOfficialsName, messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)

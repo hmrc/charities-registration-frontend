@@ -1,4 +1,4 @@
-service.name = Register your charity''s details with HMRC
+service.name = Register your charity’s details with HMRC
 
 date.day = Day
 date.month = Month
@@ -84,7 +84,7 @@ session_expired.guidance = The details you have given have been deleted because 
 incorrect-details.title = You cannot sign in with these details
 incorrect-details.heading = You cannot sign in with these details
 incorrect-details.notAnOrganisation.p1 = You must
-incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using your charity''s sign-in details.
+incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using your charity’s sign-in details.
 incorrect-details.notAnOrganisation.p2 = If you do not have these already, you can
 incorrect-details.notAnOrganisation.p2.link = set up a Government Gateway account for your charity.
 
@@ -118,7 +118,7 @@ index.heading = Add information about the charity
 index.guidance = The information you enter will be saved as you progress. If you close the page, the information you have already entered will be saved for 28 days. After that time you will need to enter all the information again.
 index.section.numbers1 = 1.
 index.section1.label = Contact details
-index.section1.spoke1.label= Charity''s contact details
+index.section1.spoke1.label= Charity’s contact details
 index.section.numbers2 = 2.
 index.section2.label = Regulators and documents
 index.section2.spoke1.label = Regulator
@@ -296,20 +296,20 @@ contactDetail.section = Charity Information
 
 # StartInformationPage Messages
 # ----------------------------------------------------------
-startInformation.title = The charity''s information
-startInformation.heading = The charity''s information
-startInformation.p1 = You need to add the charity''s:
+startInformation.title = The charity’s information
+startInformation.heading = The charity’s information
+startInformation.p1 = You need to add the charity’s:
 startInformation.b1 = name and operating name
 startInformation.b2 = address
 startInformation.b3 = postal address
-startInformation.p2 = Adding the charity''s information takes around 5 minutes.
+startInformation.p2 = Adding the charity’s information takes around 5 minutes.
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = What is the charity''s name?
-charityName.heading = What is the charity''s name?
+charityName.title = What is the charity’s name?
+charityName.heading = What is the charity’s name?
 charityName.fullName.label = Full name of the charity
-charityName.fullName.hint = As shown on the charity''s governing document
+charityName.fullName.hint = As shown on the charity’s governing document
 charityName.fullName.error.required = Enter the full name of the charity
 charityName.fullName.error.length = Enter a charity name that is 160 characters or fewer
 charityName.fullName.error.format = The full name of the charity must not include the following characters: & ( ) : @
@@ -322,38 +322,38 @@ charityName.operatingName.checkYourAnswersLabel = Operating name
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
-charityContactDetails.title = What are the charity''s contact details?
-charityContactDetails.heading = What are the charity''s contact details?
+charityContactDetails.title = What are the charity’s contact details?
+charityContactDetails.heading = What are the charity’s contact details?
 charityContactDetails.mainPhoneNumber.label = Main phone number
-charityContactDetails.mainPhoneNumber.error.format = Enter the charity''s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
-charityContactDetails.mainPhoneNumber.error.required = Enter the charity''s main phone number
+charityContactDetails.mainPhoneNumber.error.format = Enter the charity’s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.mainPhoneNumber.error.required = Enter the charity’s main phone number
 charityContactDetails.alternativePhoneNumber.label = Alternative phone number
-charityContactDetails.alternativePhoneNumber.error.format = Enter the charity''s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
-charityContactDetails.alternativePhoneNumber.error.required = Enter the charity''s alternative phone number
+charityContactDetails.alternativePhoneNumber.error.format = Enter the charity’s alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+charityContactDetails.alternativePhoneNumber.error.required = Enter the charity’s alternative phone number
 charityContactDetails.emailAddress.label = Email address
-charityContactDetails.emailAddress.error.required = Enter the charity''s email address
-charityContactDetails.emailAddress.error.format = Enter the charity''s email address in the correct format, like name@example.com
-charityContactDetails.emailAddress.error.length = The charity''s email address must be 160 characters or fewer
+charityContactDetails.emailAddress.error.required = Enter the charity’s email address
+charityContactDetails.emailAddress.error.format = Enter the charity’s email address in the correct format, like name@example.com
+charityContactDetails.emailAddress.error.length = The charity’s email address must be 160 characters or fewer
 charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = What is the charity''s address? - Charity Information
-charityOfficialAddress.lookupPage.heading = What is the charity''s address?
-charityOfficialAddress.lookupPage.manualAddressLinkText = Charity''s address does not have a UK postcode
+charityOfficialAddress.lookupPage.title = What is the charity’s address? - Charity Information
+charityOfficialAddress.lookupPage.heading = What is the charity’s address?
+charityOfficialAddress.lookupPage.manualAddressLinkText = Charity’s address does not have a UK postcode
 
-charityOfficialAddress.selectPage.title = What is the charity''s full address? - Charity Information
-charityOfficialAddress.selectPage.heading = What is the charity''s full address?
-charityOfficialAddress.selectPage.editAddressLinkText = Enter charity''s address manually
+charityOfficialAddress.selectPage.title = What is the charity’s full address? - Charity Information
+charityOfficialAddress.selectPage.heading = What is the charity’s full address?
+charityOfficialAddress.selectPage.editAddressLinkText = Enter charity’s address manually
 
-charityOfficialAddress.editPage.title = What is the charity''s full address? - Charity Information
-charityOfficialAddress.editPage.heading = What is the charity''s full address?
+charityOfficialAddress.editPage.title = What is the charity’s full address? - Charity Information
+charityOfficialAddress.editPage.heading = What is the charity’s full address?
 
-charityOfficialAddress.confirmPage.title = Confirm the charity''s address - Charity Information
-charityOfficialAddress.confirmPage.heading = Confirm the charity''s address
-charityOfficialAddress.confirmPage.changeLinkText = Change charity''s address
+charityOfficialAddress.confirmPage.title = Confirm the charity’s address - Charity Information
+charityOfficialAddress.confirmPage.heading = Confirm the charity’s address
+charityOfficialAddress.confirmPage.changeLinkText = Change charity’s address
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Address
 
@@ -368,27 +368,27 @@ canWeSendLettersToThisAddress.checkYourAnswersLabel = Send letters to this addre
 
 # Charity Postal Address Messages
 # ----------------------------------------------------------
-charityPostalAddress.lookupPage.title = What is the charity''s postal address? - Charity Information
-charityPostalAddress.lookupPage.heading = What is the charity''s postal address?
-charityPostalAddress.lookupPage.manualAddressLinkText = Charity''s postal address does not have a UK postcode
+charityPostalAddress.lookupPage.title = What is the charity’s postal address? - Charity Information
+charityPostalAddress.lookupPage.heading = What is the charity’s postal address?
+charityPostalAddress.lookupPage.manualAddressLinkText = Charity’s postal address does not have a UK postcode
 
-charityPostalAddress.selectPage.title = What is the charity's full postal address? - Charity Information
-charityPostalAddress.selectPage.heading = What is the charity''s full postal address?
-charityPostalAddress.selectPage.editAddressLinkText = Enter charity''s postal address manually
+charityPostalAddress.selectPage.title = What is the charity’s full postal address? - Charity Information
+charityPostalAddress.selectPage.heading = What is the charity’s full postal address?
+charityPostalAddress.selectPage.editAddressLinkText = Enter charity’s postal address manually
 
-charityPostalAddress.editPage.title = What is the charity's full postal address? - Charity Information
-charityPostalAddress.editPage.heading = What is the charity''s full postal address?
+charityPostalAddress.editPage.title = What is the charity’s full postal address? - Charity Information
+charityPostalAddress.editPage.heading = What is the charity’s full postal address?
 
-charityPostalAddress.confirmPage.title = Confirm the charity''s postal address - Charity Information
-charityPostalAddress.confirmPage.heading = Confirm the charity''s postal address
-charityPostalAddress.confirmPage.changeLinkText = Change charity''s postal address
+charityPostalAddress.confirmPage.title = Confirm the charity’s postal address - Charity Information
+charityPostalAddress.confirmPage.heading = Confirm the charity’s postal address
+charityPostalAddress.confirmPage.changeLinkText = Change charity’s postal address
 
 charityPostalAddress.addressLookup.checkYourAnswersLabel = Postal address
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
-charityInformationSummary.checkYourAnswers.title = Check the charity''s contact details
-charityInformationSummary.checkYourAnswers.heading = Check the charity''s contact details
+charityInformationSummary.checkYourAnswers.title = Check the charity’s contact details
+charityInformationSummary.checkYourAnswers.heading = Check the charity’s contact details
 charityInformationSummary.section = Charity information
 
 # Section2 - Regulators and documents
@@ -397,9 +397,9 @@ charityRegulator.section = Regulators and documents
 
 # StartCharityRegulatorPage Messages
 # ----------------------------------------------------------
-startCharityRegulator.title = The charity''s regulators
-startCharityRegulator.heading = The charity''s regulators
-startCharityRegulator.p1 = You need to add the charity''s:
+startCharityRegulator.title = The charity’s regulators
+startCharityRegulator.heading = The charity’s regulators
+startCharityRegulator.p1 = You need to add the charity’s:
 startCharityRegulator.b1 = regulators
 startCharityRegulator.b2 = regulator registration numbers
 startCharityRegulator.p2 = Adding regulator information takes around 5 minutes.
@@ -415,21 +415,21 @@ isCharityRegulator.checkYourAnswersLabel = Registered with a charity regulator
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = Who are the charity''s regulators?
-charityRegulator.heading = Who are the charity''s regulators?
+charityRegulator.title = Who are the charity’s regulators?
+charityRegulator.heading = Who are the charity’s regulators?
 charityRegulator.hint = Select all that apply
-charityRegulator.error.required = Select the charity''s regulators
+charityRegulator.error.required = Select the charity’s regulators
 charityRegulator.ccew = Charity Commission for England and Wales
 charityRegulator.oscr = Office of the Scottish Charity Regulator
 charityRegulator.ccni = Charity Commission for Northern Ireland
 charityRegulator.otherRegulator = Other
-charityRegulator.checkYourAnswersLabel = Charity''s regulators
+charityRegulator.checkYourAnswersLabel = Charity’s regulators
 
 # CharityCommissionRegistrationNumberPage Messages
 # ----------------------------------------------------------
 charityCommissionRegistrationNumber.title = What is the Charity Commission for England and Wales registration number?
 charityCommissionRegistrationNumber.heading = What is the Charity Commission for England and Wales registration number?
-charityCommissionRegistrationNumber.error.required = Enter the charity''s registration number
+charityCommissionRegistrationNumber.error.required = Enter the charity’s registration number
 charityCommissionRegistrationNumber.error.format = Registration number must be 6 or 7 numbers, like 123456 or 1234567
 charityCommissionRegistrationNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, 123456 or 1234567
 charityCommissionRegistrationNumber.checkYourAnswersLabel = Charity Commission for England and Wales registration number
@@ -438,7 +438,7 @@ charityCommissionRegistrationNumber.checkYourAnswersLabel = Charity Commission f
 # ----------------------------------------------------------
 scottishRegulatorRegNumber.title = What is the Office of the Scottish Charity Regulator (OSCR) registration number?
 scottishRegulatorRegNumber.heading = What is the Office of the Scottish Charity Regulator (OSCR) registration number?
-scottishRegulatorRegNumber.error.required = Enter the charity''s registration number
+scottishRegulatorRegNumber.error.required = Enter the charity’s registration number
 scottishRegulatorRegNumber.error.format = Registration number is SC then 0 and 5 numbers, like SC012345
 scottishRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, SC012345
 scottishRegulatorRegNumber.checkYourAnswersLabel = Office of the Scottish Charity Regulator registration number
@@ -447,26 +447,26 @@ scottishRegulatorRegNumber.checkYourAnswersLabel = Office of the Scottish Charit
 # ----------------------------------------------------------
 nIRegulatorRegNumber.title = What is the Charity Commission for Northern Ireland registration number?
 nIRegulatorRegNumber.heading = What is the Charity Commission for Northern Ireland registration number?
-nIRegulatorRegNumber.error.required = Enter the charity''s registration number
+nIRegulatorRegNumber.error.required = Enter the charity’s registration number
 nIRegulatorRegNumber.error.format = Registration number is 6 numbers, like 123456
 nIRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, 123456
 nIRegulatorRegNumber.checkYourAnswersLabel = Charity Commission for Northern Ireland registration number
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------
-charityOtherRegulatorDetails.title = What are the charity''s regulator details
-charityOtherRegulatorDetails.heading = What are the charity''s regulator details
-charityOtherRegulatorDetails.regulatorName.label = Name of your charity''s regulator
-charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of the charity''s regulator
-charityOtherRegulatorDetails.regulatorName.error.format = The name of your charity''s regulator must not include the following characters: & ( ) : @
-charityOtherRegulatorDetails.regulatorName.error.length = Your charity''s regulator name should be 100 characters or fewer
+charityOtherRegulatorDetails.title = What are the charity’s regulator details
+charityOtherRegulatorDetails.heading = What are the charity’s regulator details
+charityOtherRegulatorDetails.regulatorName.label = Name of your charity’s regulator
+charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of the charity’s regulator
+charityOtherRegulatorDetails.regulatorName.error.format = The name of your charity’s regulator must not include the following characters: & ( ) : @
+charityOtherRegulatorDetails.regulatorName.error.length = Your charity’s regulator name should be 100 characters or fewer
 charityOtherRegulatorDetails.registrationNumber.label = Registration number
-charityOtherRegulatorDetails.registrationNumber.error.required = Enter the charity''s registration number
-charityOtherRegulatorDetails.registrationNumber.error.format = Your charity''s registration number must not include the following characters: & ( ) : @
-charityOtherRegulatorDetails.registrationNumber.error.length = Your charity''s registration number should be 20 characters or fewer
+charityOtherRegulatorDetails.registrationNumber.error.required = Enter the charity’s registration number
+charityOtherRegulatorDetails.registrationNumber.error.format = Your charity’s registration number must not include the following characters: & ( ) : @
+charityOtherRegulatorDetails.registrationNumber.error.length = Your charity’s registration number should be 20 characters or fewer
 charityOtherRegulatorDetails.hint = The registration number will be on any mail the regulator has sent the charity.
-charityOtherRegulatorDetails.name.checkYourAnswersLabel = Charity''s other regulator
-charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number for the charity''s regulator
+charityOtherRegulatorDetails.name.checkYourAnswersLabel = Charity’s other regulator
+charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number for the charity’s regulator
 
 # Select why no regulator Messages
 # ----------------------------------------------------------
@@ -492,8 +492,8 @@ whyNotRegisteredWithCharity.checkYourAnswersLabel = Other reason for not registe
 
 # Regulators Summary page
 # ----------------------------------------------------------
-regulatorsSummary.checkYourAnswers.title = Check the charity''s regulator details
-regulatorsSummary.checkYourAnswers.heading = Check the charity''s regulator details
+regulatorsSummary.checkYourAnswers.title = Check the charity’s regulator details
+regulatorsSummary.checkYourAnswers.heading = Check the charity’s regulator details
 regulatorsSummary.section = Regulators and documents
 
 # Section3 - Documents
@@ -501,9 +501,9 @@ regulatorsSummary.section = Regulators and documents
 
 # StartGoverningDocument Page Messages
 # ----------------------------------------------------------
-startGoverningDocument.title = The charity''s governing document
-startGoverningDocument.heading = The charity''s governing document
-startGoverningDocument.p1 = You need to add the charity''s:
+startGoverningDocument.title = The charity’s governing document
+startGoverningDocument.heading = The charity’s governing document
+startGoverningDocument.p1 = You need to add the charity’s:
 startGoverningDocument.b1 = governing document type
 startGoverningDocument.b2 = governing document approval date
 startGoverningDocument.p2 = Adding governing document information takes around 5 minutes.
@@ -525,7 +525,7 @@ selectGoverningDocument.checkYourAnswersLabel = Name
 # ----------------------------------------------------------
 whenGoverningDocumentApproved.title = What date did the governing document become effective?
 whenGoverningDocumentApproved.heading = What date did the {0} become effective?
-WhenGoverningDocumentApproved.p1 = If the charity is a CIO (Charitable Incorporated Organisation), it is the date the charity was accepted onto the regulator's register.
+WhenGoverningDocumentApproved.p1 = If the charity is a CIO (Charitable Incorporated Organisation), it is the date the charity was accepted onto the regulator’s register.
 WhenGoverningDocumentApproved.hint = For example, 27 3 2007
 whenGoverningDocumentApproved.error.invalid = The date when the governing document was approved must be a real date.
 whenGoverningDocumentApproved.error.required.all = Enter the date when the governing document became effective
@@ -553,9 +553,9 @@ operationsAndFunds.section = Operations and funds
 
 # StartCharitableObjectivesPage Messages
 # ----------------------------------------------------------
-startCharitableObjectives.title = The charity''s objectives and purposes
-startCharitableObjectives.heading = The charity''s objectives and purposes
-startCharitableObjectives.p1 = You need to add the charity''s:
+startCharitableObjectives.title = The charity’s objectives and purposes
+startCharitableObjectives.heading = The charity’s objectives and purposes
+startCharitableObjectives.p1 = You need to add the charity’s:
 startCharitableObjectives.b1 = charitable objectives
 startCharitableObjectives.b2 = charitable purposes
 startCharitableObjectives.b3 = benefit to the public
@@ -563,9 +563,9 @@ startCharitableObjectives.p2 = Adding information about objectives and purposes 
 
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
-charitableObjectives.title = What are the charity''s charitable objectives?
-charitableObjectives.heading = What are the charity''s charitable objectives?
-charitableObjectives.error.required = Enter the charity''s charitable objectives
+charitableObjectives.title = What are the charity’s charitable objectives?
+charitableObjectives.heading = What are the charity’s charitable objectives?
+charitableObjectives.error.required = Enter the charity’s charitable objectives
 charitableObjectives.error.format = Your answer must not include the following characters: & () : @
 charitableObjectives.error.length = Your answer must be 500 characters or fewer
 charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.
@@ -573,10 +573,10 @@ charitableObjectives.checkYourAnswersLabel = Charitable objectives
 
 # CharitablePurposesPage Messages
 # ----------------------------------------------------------
-charitablePurposes.title = What are the charity''s charitable purposes?
-charitablePurposes.heading = What are the charity''s charitable purposes?
+charitablePurposes.title = What are the charity’s charitable purposes?
+charitablePurposes.heading = What are the charity’s charitable purposes?
 charitablePurposes.hint = Select all that apply
-charitablePurposes.error.required = Select the charity''s charitable purposes
+charitablePurposes.error.required = Select the charity’s charitable purposes
 charitablePurposes.amateurSport = Amateur sport
 charitablePurposes.animalWelfare = Animal welfare
 charitablePurposes.artsCultureOrScience = Arts, culture, heritage or science
@@ -590,7 +590,7 @@ charitablePurposes.reliefOfPoverty = Relief of poverty
 charitablePurposes.reliefOfYouthAge = Relief of those in need
 charitablePurposes.religion = Religion
 charitablePurposes.other = Other
-charitablePurposes.checkYourAnswersLabel = Charity''s charitable purposes
+charitablePurposes.checkYourAnswersLabel = Charity’s charitable purposes
 
 # Enter Public Benefits Messages
 # ----------------------------------------------------------
@@ -603,8 +603,8 @@ publicBenefits.checkYourAnswersLabel = How the charity benefits the public
 
 # Charity Objectives Summary page
 # ----------------------------------------------------------
-charityObjectivesSummary.checkYourAnswers.title = Check the charity''s objectives details
-charityObjectivesSummary.checkYourAnswers.heading = Check the charity''s objectives details
+charityObjectivesSummary.checkYourAnswers.title = Check the charity’s objectives details
+charityObjectivesSummary.checkYourAnswers.heading = Check the charity’s objectives details
 charityObjectivesSummary.section = Operations and funds
 
 # Section5 - Fundraising Information
@@ -612,9 +612,9 @@ charityObjectivesSummary.section = Operations and funds
 
 # StartFundraisingPage Messages
 # ----------------------------------------------------------
-startFundraising.title = The charity''s fundraising and operations
-startFundraising.heading = The charity''s fundraising and operations
-startFundraising.p1 = You need to add the charity''s:
+startFundraising.title = The charity’s fundraising and operations
+startFundraising.heading = The charity’s fundraising and operations
+startFundraising.p1 = You need to add the charity’s:
 startFundraising.b1 = fundraising activities
 startFundraising.b2 = operating locations
 startFundraising.b3 = accounting period end date
@@ -677,40 +677,40 @@ accountingPeriodEndDate.checkYourAnswersLabel = Accounting period end date
 
 # Operations and Funds Summary page
 # ----------------------------------------------------------
-operationsFundsSummary.checkYourAnswers.title = Check the charity''s operations and funds details
-operationsFundsSummary.checkYourAnswers.heading = Check the charity''s operations and funds details
+operationsFundsSummary.checkYourAnswers.title = Check the charity’s operations and funds details
+operationsFundsSummary.checkYourAnswers.heading = Check the charity’s operations and funds details
 operationsFundsSummary.section = Operations and funds
 
 # Section6 - Supply bank details
 # ----------------------------------------------------------
 
-# Charity's start bank account details Page Messages
+# Charity’s start bank account details Page Messages
 # ----------------------------------------------------------
-startBankDetails.title = The charity''s bank details
-startBankDetails.heading = The charity''s bank details
-startBankDetails.p1 = You need to add the charity''s bank account details.
+startBankDetails.title = The charity’s bank details
+startBankDetails.heading = The charity’s bank details
+startBankDetails.p1 = You need to add the charity’s bank account details.
 startBankDetails.p2 = Adding bank details takes around 5 minutes.
 
-# Charity's bank account details Page Messages
+# Charity’s bank account details Page Messages
 # ----------------------------------------------------------
-bankDetails.title = What are the charity''s bank account details?
-bankDetails.heading = What are the charity''s bank account details?
+bankDetails.title = What are the charity’s bank account details?
+bankDetails.heading = What are the charity’s bank account details?
 bankDetails.p1 = We need the charity’s bank details to pay Gift Aid and other tax repayments.
-bankDetails.accountName = Charity''s account name
-bankDetails.accountName.hint = As shown on the charity''s account statements
-bankDetails.accountName.error.length = The charity''s account name must be 60 characters or fewer
-bankDetails.accountName.error.required = Enter the charity''s account name
-bankDetails.accountName.error.format = The charity''s account name must not include the following characters: & ( ) : @
-bankDetails.sortCode = Charity''s sort code
+bankDetails.accountName = Charity’s account name
+bankDetails.accountName.hint = As shown on the charity’s account statements
+bankDetails.accountName.error.length = The charity’s account name must be 60 characters or fewer
+bankDetails.accountName.error.required = Enter the charity’s account name
+bankDetails.accountName.error.format = The charity’s account name must not include the following characters: & ( ) : @
+bankDetails.sortCode = Charity’s sort code
 bankDetails.sortCode.hint = Must be 6 digits long
-bankDetails.sortCode.error.required = Enter the charity''s sort code
+bankDetails.sortCode.error.required = Enter the charity’s sort code
 bankDetails.sortCode.error.format = Enter a valid sort code like 309430
-bankDetails.accountNumber = Charity''s account number
+bankDetails.accountNumber = Charity’s account number
 bankDetails.accountNumber.hint = Must be between 6 and 8 digits long
-bankDetails.accountNumber.error.required = Enter the charity''s account number
+bankDetails.accountNumber.error.required = Enter the charity’s account number
 bankDetails.accountNumber.error.format = Enter a valid account number like 00733445
 bankDetails.rollNumber = Building society roll number (if you have one)
-bankDetails.rollNumber.hint = You can find it on the charity''s bank card, statement or passbook
+bankDetails.rollNumber.hint = You can find it on your charity’s bank card, statement or passbook
 bankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 bankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
 bankDetails.basc.warning = We will send repayments using BACS. You should make sure the charity can receive BACS payments.
@@ -719,10 +719,13 @@ bankDetails.sortCode.checkYourAnswersLabel = Sort code
 bankDetails.accountNumber.checkYourAnswersLabel = Account number
 bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if you have one)
 
-# Charity's Bank Details Summary Page Messages
+# Charity’s Bank Details Summary Page Messages
 # ----------------------------------------------------------
-bankDetailsSummary.checkYourAnswers.title = Check the charity''s bank details
-bankDetailsSummary.checkYourAnswers.heading = Check the charity''s bank details
+bankDetailsSummary.checkYourAnswers.title = Check your charity’s bank details
+bankDetailsSummary.checkYourAnswers.heading = Check your charity’s bank details
+bankDetails.rollNumber.hint = You can find it on the charity’s bank card, statement or passbook
+bankDetailsSummary.checkYourAnswers.title = Check the charity’s bank details
+bankDetailsSummary.checkYourAnswers.heading = Check the charity’s bank details
 bankDetailsSummary.section = Operations and funds
 
 # Section7 - Name authorised officials
@@ -731,8 +734,8 @@ officialsAndNominees.section =  Officials and nominees
 
 # Authorised Officials Page Messages
 # ----------------------------------------------------------
-charityAuthorisedOfficials.title = Your charity''s authorised officials
-charityAuthorisedOfficials.heading = Your charity''s authorised officials
+charityAuthorisedOfficials.title = Your charity’s authorised officials
+charityAuthorisedOfficials.heading = Your charity’s authorised officials
 charityAuthorisedOfficials.p1 = You need to add 1 or 2 authorised officials.
 charityAuthorisedOfficials.p2 = An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.
 charityAuthorisedOfficials.p3 = We will contact them if we have any questions about your charity.
@@ -740,26 +743,26 @@ charityAuthorisedOfficials.p4 = Adding information about authorised officials ta
 
 # Authorised Officials Name Messages
 # ----------------------------------------------------------
-authorisedOfficialsName.title = What is the authorised official''s name?
-authorisedOfficialsName.heading = What is the authorised official''s name?
+authorisedOfficialsName.title = What is the authorised official’s name?
+authorisedOfficialsName.heading = What is the authorised official’s name?
 authorisedOfficialsName.firstName.label = First name
-authorisedOfficialsName.firstName.error.required = Enter the authorised official''s first name
-authorisedOfficialsName.firstName.error.length = The authorised official''s first name must be 100 characters or fewer
-authorisedOfficialsName.firstName.error.format = The authorised official''s first name must not include the following characters: & ( ) : @
+authorisedOfficialsName.firstName.error.required = Enter the authorised official’s first name
+authorisedOfficialsName.firstName.error.length = The authorised official’s first name must be 100 characters or fewer
+authorisedOfficialsName.firstName.error.format = The authorised official’s first name must not include the following characters: & ( ) : @
 authorisedOfficialsName.middleName.label = Middle name (optional)
-authorisedOfficialsName.middleName.error.length = The authorised official''s middle name must be 100 characters or fewer
-authorisedOfficialsName.middleName.error.format = The authorised official''s middle name must not include the following characters: & ( ) : @
+authorisedOfficialsName.middleName.error.length = The authorised official’s middle name must be 100 characters or fewer
+authorisedOfficialsName.middleName.error.format = The authorised official’s middle name must not include the following characters: & ( ) : @
 authorisedOfficialsName.lastName.label = Last name
-authorisedOfficialsName.lastName.error.required = 'Enter the authorised official''s last name
-authorisedOfficialsName.lastName.error.length = The authorised official''s last name must be 100 characters or fewer
-authorisedOfficialsName.lastName.error.format = The authorised official''s last name must not include the following characters: & ( ) : @
+authorisedOfficialsName.lastName.error.required = ’Enter the authorised official’s last name
+authorisedOfficialsName.lastName.error.length = The authorised official’s last name must be 100 characters or fewer
+authorisedOfficialsName.lastName.error.format = The authorised official’s last name must not include the following characters: & ( ) : @
 
 authorisedOfficialsName.checkYourAnswersLabel = Full name
 
 # Authorised Official Date of birth Messages
 # ----------------------------------------------------------
-authorisedOfficialsDOB.title = What is the authorised official''s date of birth?
-authorisedOfficialsDOB.heading = What is {0}''s date of birth?
+authorisedOfficialsDOB.title = What is the authorised official’s date of birth?
+authorisedOfficialsDOB.heading = What is {0}’s date of birth?
 authorisedOfficialsDOB.hint = For example, 27 3 1980
 authorisedOfficialsDOB.error.required.all = Enter their date of birth
 authorisedOfficialsDOB.error.required.two = Enter their {0} and {1} of birth
@@ -771,8 +774,8 @@ authorisedOfficialsDOB.checkYourAnswersLabel = Date of birth
 
 # Authorised Officials Phone Number Messages
 # ----------------------------------------------------------
-authorisedOfficialsPhoneNumber.title = What is the authorised official''s phone number?
-authorisedOfficialsPhoneNumber.heading = What is {0}''s phone number?
+authorisedOfficialsPhoneNumber.title = What is the authorised official’s phone number?
+authorisedOfficialsPhoneNumber.heading = What is {0}’s phone number?
 authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
@@ -785,8 +788,8 @@ authorisedOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
 
 # Authorised Official Position  Messages
 # ----------------------------------------------------------
-authorisedOfficialsPosition.title = What is the authorised official''s position in your charity?
-authorisedOfficialsPosition.heading = What is {0}''s position in your charity?
+authorisedOfficialsPosition.title = What is the authorised official’s position in your charity?
+authorisedOfficialsPosition.heading = What is {0}’s position in your charity?
 authorisedOfficialsPosition.error.required = Select their position in your charity
 authorisedOfficialsPosition.hint = Select one option
 officialsPosition.01 = Board member
@@ -825,8 +828,8 @@ isAuthorisedOfficialNino.checkYourAnswersLabel = Has a National Insurance number
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
-authorisedOfficialsNino.title = What is the authorised official''s National Insurance number?
-authorisedOfficialsNino.heading = What is {0}''s National Insurance number?
+authorisedOfficialsNino.title = What is the authorised official’s National Insurance number?
+authorisedOfficialsNino.heading = What is {0}’s National Insurance number?
 authorisedOfficialsNino.hint = For example, QQ 12 34 56 C
 authorisedOfficialsNino.error.required = Enter their National Insurance number
 authorisedOfficialsNino.error.format = Enter a National Insurance number in the correct format
@@ -835,27 +838,27 @@ authorisedOfficialsNino.checkYourAnswersLabel = National Insurance number
 
 # Authorised  Official Address Messages
 # ----------------------------------------------------------
-authorisedOfficialAddress.lookupPage.title = What is the authorised official''s address? - Officials and nominees
-authorisedOfficialAddress.lookupPage.heading = What is {0}''s home address?
-authorisedOfficialAddress.lookupPage.manualAddressLinkText = Authorised official''s home address does not have a UK postcode
+authorisedOfficialAddress.lookupPage.title = What is the authorised official’s address? - Officials and nominees
+authorisedOfficialAddress.lookupPage.heading = What is {0}’s home address?
+authorisedOfficialAddress.lookupPage.manualAddressLinkText = Authorised official’s home address does not have a UK postcode
 
-authorisedOfficialAddress.selectPage.title = What is the authorised official''s full address? - Officials and nominees
-authorisedOfficialAddress.selectPage.heading = What is {0}''s full home address?
-authorisedOfficialAddress.selectPage.editAddressLinkText = Enter authorised official''s home address manually
+authorisedOfficialAddress.selectPage.title = What is the authorised official’s full address? - Officials and nominees
+authorisedOfficialAddress.selectPage.heading = What is {0}’s full home address?
+authorisedOfficialAddress.selectPage.editAddressLinkText = Enter authorised official’s home address manually
 
-authorisedOfficialAddress.editPage.title = What is the authorised official''s full address? - Officials and nominees
-authorisedOfficialAddress.editPage.heading = What is {0}''s full home address?
+authorisedOfficialAddress.editPage.title = What is the authorised official’s full address? - Officials and nominees
+authorisedOfficialAddress.editPage.heading = What is {0}’s full home address?
 
-authorisedOfficialAddress.confirmPage.title = Confirm the authorised official''s address - Officials and nominees
-authorisedOfficialAddress.confirmPage.heading = Confirm {0}''s address
-authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised official''s home address
+authorisedOfficialAddress.confirmPage.title = Confirm the authorised official’s address - Officials and nominees
+authorisedOfficialAddress.confirmPage.heading = Confirm {0}’s address
+authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised official’s home address
 
 authorisedOfficialAddress.checkYourAnswersLabel = Home address
 
 # Authorised Officials Previous Address Page Messages
 # ----------------------------------------------------------
-authorisedOfficialPreviousAddress.title = Has the authorised official''s address changed in the last 12 months?
-authorisedOfficialPreviousAddress.heading = Has {0}''s address changed in the last 12 months?
+authorisedOfficialPreviousAddress.title = Has the authorised official’s address changed in the last 12 months?
+authorisedOfficialPreviousAddress.heading = Has {0}’s address changed in the last 12 months?
 authorisedOfficialPreviousAddress.error.required = Select yes if their address has changed in the last 12 months
 
 authorisedOfficialPreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
@@ -863,7 +866,7 @@ authorisedOfficialPreviousAddress.checkYourAnswersLabel = Address changed in the
 # You have added one Authorised Official Page Messages
 # ----------------------------------------------------------
 addedOneAuthorisedOfficial.checkYourAnswers.title = You have added one authorised official
-addedOneAuthorisedOfficial.checkYourAnswers.heading = Check the authorised official''s details
+addedOneAuthorisedOfficial.checkYourAnswers.heading = Check the authorised official’s details
 
 # Do you want to add another Authorised official Page Messages
 # ----------------------------------------------------------
@@ -874,9 +877,9 @@ isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = Add another authorised of
 
 # Authorised Officials Summary page
 # ----------------------------------------------------------
-authorisedOfficialsSummary.checkYourAnswers.title = Check the charity''s authorised official details
-authorisedOfficialsSummary.checkYourAnswers.heading = Check the charity''s authorised official details
-authorisedOfficialsSummary.checkYourAnswers.h2 = Authorised charity''s official
+authorisedOfficialsSummary.checkYourAnswers.title = Check the charity’s authorised official details
+authorisedOfficialsSummary.checkYourAnswers.heading = Check the charity’s authorised official details
+authorisedOfficialsSummary.checkYourAnswers.h2 = Authorised charity’s official
 authorisedOfficialsSummary.section = Officials and nominees
 
 # Section8 - Other Officials
@@ -884,8 +887,8 @@ authorisedOfficialsSummary.section = Officials and nominees
 
 # charity’s other officials messages
 # ----------------------------------------------------------
-charityOtherOfficials.title = Your charity''s other officials
-charityOtherOfficials.heading = The charity''s other officials
+charityOtherOfficials.title = Your charity’s other officials
+charityOtherOfficials.heading = The charity’s other officials
 charityOtherOfficials.p1 = You need to add 2 other officials but you can add up to 3.
 charityOtherOfficials.p2 = Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.
 charityOtherOfficials.p3 = They will normally be the trustees or directors of the charity (if the charity is a company), or community amateur sports club (CASC) officials.
@@ -893,26 +896,26 @@ charityOtherOfficials.p4 = Adding information about other officials takes around
 
 # Other Officials Name Messages
 # ----------------------------------------------------------
-otherOfficialsName.title = What is the other official''s name?
-otherOfficialsName.heading = What is the other official''s name?
+otherOfficialsName.title = What is the other official’s name?
+otherOfficialsName.heading = What is the other official’s name?
 otherOfficialsName.firstName.label = First name
-otherOfficialsName.firstName.error.required = Enter the other official''s first name
-otherOfficialsName.firstName.error.length = The other official''s first name must be 100 characters or fewer
-otherOfficialsName.firstName.error.format = The other official''s first name must not include the following characters: & ( ) : @
+otherOfficialsName.firstName.error.required = Enter the other official’s first name
+otherOfficialsName.firstName.error.length = The other official’s first name must be 100 characters or fewer
+otherOfficialsName.firstName.error.format = The other official’s first name must not include the following characters: & ( ) : @
 otherOfficialsName.middleName.label = Middle name (optional)
-otherOfficialsName.middleName.error.length = The other official''s middle name must be 100 characters or fewer
-otherOfficialsName.middleName.error.format = The other official''s middle name must not include the following characters: & ( ) : @
+otherOfficialsName.middleName.error.length = The other official’s middle name must be 100 characters or fewer
+otherOfficialsName.middleName.error.format = The other official’s middle name must not include the following characters: & ( ) : @
 otherOfficialsName.lastName.label = Last name
-otherOfficialsName.lastName.error.required = Enter the other official''s last name
-otherOfficialsName.lastName.error.length = The other official''s last name must be 100 characters or fewer
-otherOfficialsName.lastName.error.format = The other official''s last name must not include the following characters: & ( ) : @
+otherOfficialsName.lastName.error.required = Enter the other official’s last name
+otherOfficialsName.lastName.error.length = The other official’s last name must be 100 characters or fewer
+otherOfficialsName.lastName.error.format = The other official’s last name must not include the following characters: & ( ) : @
 
 otherOfficialsName.checkYourAnswersLabel = Full name
 
 # Other Official Date of birth Messages
 # ----------------------------------------------------------
-otherOfficialsDOB.title = What is the other official''s date of birth?
-otherOfficialsDOB.heading = What is {0}''s date of birth?
+otherOfficialsDOB.title = What is the other official’s date of birth?
+otherOfficialsDOB.heading = What is {0}’s date of birth?
 otherOfficialsDOB.hint = For example, 27 3 1980
 otherOfficialsDOB.error.required.all = Enter their date of birth
 otherOfficialsDOB.error.required.two = Enter their {0} and {1} of birth
@@ -924,8 +927,8 @@ otherOfficialsDOB.checkYourAnswersLabel = Date of birth
 
 # Other Officials Phone Number Messages
 # ----------------------------------------------------------
-otherOfficialsPhoneNumber.title = What is the other official''s phone number?
-otherOfficialsPhoneNumber.heading = What is {0}''s phone number?
+otherOfficialsPhoneNumber.title = What is the other official’s phone number?
+otherOfficialsPhoneNumber.heading = What is {0}’s phone number?
 otherOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
 otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
@@ -938,8 +941,8 @@ otherOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
 
 # Other Official Position  Messages
 # ----------------------------------------------------------
-otherOfficialsPosition.title = What is the other official''s position in the charity?
-otherOfficialsPosition.heading = What is {0}''s position in the charity?
+otherOfficialsPosition.title = What is the other official’s position in the charity?
+otherOfficialsPosition.heading = What is {0}’s position in the charity?
 otherOfficialsPosition.error.required = Select their position in the charity
 otherOfficialsPosition.hint = Select one option
 
@@ -955,8 +958,8 @@ isOtherOfficialNino.checkYourAnswersLabel = Has a National Insurance number
 
 # Other Official Nino  Messages
 # ----------------------------------------------------------
-otherOfficialsNino.title = What is the other official''s National Insurance number
-otherOfficialsNino.heading = What is {0}''s National Insurance number?
+otherOfficialsNino.title = What is the other official’s National Insurance number
+otherOfficialsNino.heading = What is {0}’s National Insurance number?
 otherOfficialsNino.hint = For example, QQ 12 34 56 C
 otherOfficialsNino.error.required = Enter their National Insurance number
 otherOfficialsNino.error.format = Enter a National Insurance number in the correct format
@@ -965,27 +968,27 @@ otherOfficialsNino.checkYourAnswersLabel = National Insurance number
 
 # Other  Official Address Messages
 # ----------------------------------------------------------
-otherOfficialAddress.lookupPage.title = What is the other official''s home address? - Officials and nominees
-otherOfficialAddress.lookupPage.heading = What is {0}''s home address?
-otherOfficialAddress.lookupPage.manualAddressLinkText = Other official''s home address does not have a UK postcode
+otherOfficialAddress.lookupPage.title = What is the other official’s home address? - Officials and nominees
+otherOfficialAddress.lookupPage.heading = What is {0}’s home address?
+otherOfficialAddress.lookupPage.manualAddressLinkText = Other official’s home address does not have a UK postcode
 
-otherOfficialAddress.selectPage.title = What is the other official''s full home address? - Officials and nominees
-otherOfficialAddress.selectPage.heading = What is {0}''s full home address?
-otherOfficialAddress.selectPage.editAddressLinkText = Enter other official''s home address manually
+otherOfficialAddress.selectPage.title = What is the other official’s full home address? - Officials and nominees
+otherOfficialAddress.selectPage.heading = What is {0}’s full home address?
+otherOfficialAddress.selectPage.editAddressLinkText = Enter other official’s home address manually
 
-otherOfficialAddress.editPage.title = What is the other official''s full home address? - Officials and nominees
-otherOfficialAddress.editPage.heading = What is {0}''s full home address?
+otherOfficialAddress.editPage.title = What is the other official’s full home address? - Officials and nominees
+otherOfficialAddress.editPage.heading = What is {0}’s full home address?
 
-otherOfficialAddress.confirmPage.title = Confirm the other official''s home address - Officials and nominees
-otherOfficialAddress.confirmPage.heading = Confirm {0}''s home address
-otherOfficialAddress.confirmPage.changeLinkText = Change other official''s home address
+otherOfficialAddress.confirmPage.title = Confirm the other official’s home address - Officials and nominees
+otherOfficialAddress.confirmPage.heading = Confirm {0}’s home address
+otherOfficialAddress.confirmPage.changeLinkText = Change other official’s home address
 
 otherOfficialAddress.checkYourAnswersLabel = Home address
 
 # Other Official Previous Address Messages
 # ----------------------------------------------------------
-otherOfficialsPreviousAddress.title = Has the other official''s address changed in the last 12 months?
-otherOfficialsPreviousAddress.heading = Has {0}''s home address changed in the last 12 months?
+otherOfficialsPreviousAddress.title = Has the other official’s address changed in the last 12 months?
+otherOfficialsPreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
 otherOfficialsPreviousAddress.error.required = Select yes if their address has changed in the last 12 months
 
 otherOfficialsPreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
@@ -993,7 +996,7 @@ otherOfficialsPreviousAddress.checkYourAnswersLabel = Address changed in the las
 # You have added one Other Official Page Messages
 # ----------------------------------------------------------
 addedOneOtherOfficial.checkYourAnswers.title = You have added one other official
-addedOneOtherOfficial.checkYourAnswers.heading = Check the charity''s other official details
+addedOneOtherOfficial.checkYourAnswers.heading = Check the charity’s other official details
 
 # Add a second other officials messages
 # ----------------------------------------------------------
@@ -1005,8 +1008,8 @@ addSecondOtherOfficials.p3 = Adding information about other officials takes arou
 
 # Check the second Other Official Page Messages
 # ----------------------------------------------------------
-addedSecondOtherOfficial.checkYourAnswers.title = Check the second other official''s details
-addedSecondOtherOfficial.checkYourAnswers.heading = Check the second other official''s details
+addedSecondOtherOfficial.checkYourAnswers.title = Check the second other official’s details
+addedSecondOtherOfficial.checkYourAnswers.heading = Check the second other official’s details
 
 # Add another other Official Page Messages
 # ----------------------------------------------------------
@@ -1017,11 +1020,11 @@ addAnotherOtherOfficial.error.required = Select yes if you want to add another o
 
 addAnotherOtherOfficial.checkYourAnswersLabel = Add another other official
 
-# Charity's Other Officials Details Summary Page Messages
+# Charity’s Other Officials Details Summary Page Messages
 # ----------------------------------------------------------
-otherOfficialsSummary.checkYourAnswers.title = Check your charity''s other officials details
-otherOfficialsSummary.checkYourAnswers.heading = Check your charity''s other officials details
-otherOfficialsSummary.checkYourAnswers.h2 = Charity''s other official
+otherOfficialsSummary.checkYourAnswers.title = Check your charity’s other officials details
+otherOfficialsSummary.checkYourAnswers.heading = Check your charity’s other officials details
+otherOfficialsSummary.checkYourAnswers.h2 = Charity’s other official
 otherOfficialsSummary.section = Officials and nominees
 
 # Section9 - Name nominees
@@ -1029,11 +1032,11 @@ otherOfficialsSummary.section = Officials and nominees
 
 # Charity Nominee messages
 # ----------------------------------------------------------
-charityNominee.title = The charity''s nominee
-charityNominee.heading = The charity''s nominee
+charityNominee.title = The charity’s nominee
+charityNominee.heading = The charity’s nominee
 charityNominee.p1 = You now have the option of adding a nominee.
 charityNominee.p2 = A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.
-charityNominee.p3 = Nominees aren''t ''managers'' for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.
+charityNominee.p3 = Nominees aren’t ‘managers’ for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.
 charityNominee.p4 = Adding information about a nominee takes around 5 minutes.
 
 # Do you want to add a nominee Page Messages
@@ -1051,9 +1054,9 @@ chooseNominee.error.required = Select if the nominee is a person or an organisat
 chooseNominee.person = Person
 chooseNominee.organisation = Organisation
 
-# Charity's Nominee Details Summary Page Messages
+# Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
-nomineeDetailsSummary.checkYourAnswers.title = Check the charity''s nominee details
-nomineeDetailsSummary.checkYourAnswers.heading = Check the charity''s nominee details
+nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details
+nomineeDetailsSummary.checkYourAnswers.heading = Check the charity’s nominee details
 nomineeDetailsSummary.checkYourAnswers.h2 = Authorise a nominee
 nomineeDetailsSummary.section = Officials and nominees

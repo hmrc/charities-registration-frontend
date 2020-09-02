@@ -17,7 +17,7 @@
 package connectors.httpParsers
 
 import base.SpecBase
-import AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupOnRamp}
+import connectors.httpParsers.AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupOnRamp}
 import play.api.http.{HeaderNames, Status}
 import uk.gov.hmrc.http.HttpResponse
 
@@ -32,8 +32,8 @@ class AddressLookupInitializationHttpParserSpec extends SpecBase {
         "return a AddressLookupOnRamp with modulusUrl (/foo)" in {
 
           val expectedResult = Right(AddressLookupOnRamp("/foo"))
-          val actualResult = AddressLookupInitializationReads.read("", "", HttpResponse(Status.ACCEPTED, None,
-            responseHeaders = Map(HeaderNames.LOCATION -> Seq("/foo"))))
+          val actualResult = AddressLookupInitializationReads.read("", "", HttpResponse(Status.ACCEPTED, "",
+            headers = Map(HeaderNames.LOCATION -> Seq("/foo"))))
 
           actualResult mustBe expectedResult
         }
@@ -44,7 +44,7 @@ class AddressLookupInitializationHttpParserSpec extends SpecBase {
         "return a ValidClaimPeriodModel with the value false" in {
 
           val expectedResult = Left(NoLocationHeaderReturned)
-          val actualResult = AddressLookupInitializationReads.read("", "", HttpResponse(Status.ACCEPTED, None))
+          val actualResult = AddressLookupInitializationReads.read("", "", HttpResponse(Status.ACCEPTED, ""))
 
           actualResult mustBe expectedResult
         }
@@ -56,7 +56,7 @@ class AddressLookupInitializationHttpParserSpec extends SpecBase {
       "return a Left(UnexpectedFailure)" in {
 
         val expectedResult = Left(DefaultedUnexpectedFailure(status = Status.INTERNAL_SERVER_ERROR))
-        val actualResult = AddressLookupInitializationReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR))
+        val actualResult = AddressLookupInitializationReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR, ""))
 
         actualResult mustBe expectedResult
       }

@@ -31,7 +31,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
-      case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
+        case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {

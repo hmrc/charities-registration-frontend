@@ -35,7 +35,7 @@ class CharitiesRegistrationHttpParserSpec extends SpecBase {
 
           val expectedResult = Right(RegistrationResponse("765432"))
           val actualResult = CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.ACCEPTED,
-            responseJson = Some(Json.parse("""{"acknowledgementReference":"765432"}"""))))
+            json = Json.parse("""{"acknowledgementReference":"765432"}"""), Map.empty))
 
           actualResult mustBe expectedResult
         }
@@ -47,7 +47,7 @@ class CharitiesRegistrationHttpParserSpec extends SpecBase {
 
           intercept[JsResultException] {
             CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.ACCEPTED,
-              responseJson = Some(Json.parse("""{"acknowledgementRef":"765432"}"""))))
+              json = Json.parse("""{"acknowledgementRef":"765432"}"""), Map.empty))
           }
         }
       }
@@ -58,7 +58,7 @@ class CharitiesRegistrationHttpParserSpec extends SpecBase {
       "return a Left(CharitiesInvalidJson)" in {
 
         val expectedResult = Left(CharitiesInvalidJson)
-        val actualResult = CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.NOT_ACCEPTABLE))
+        val actualResult = CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.NOT_ACCEPTABLE, ""))
 
         actualResult mustBe expectedResult
       }
@@ -69,7 +69,7 @@ class CharitiesRegistrationHttpParserSpec extends SpecBase {
       "return a Left(EtmpFailed)" in {
 
         val expectedResult = Left(EtmpFailed)
-        val actualResult = CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.BAD_REQUEST))
+        val actualResult = CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.BAD_REQUEST, ""))
 
         actualResult mustBe expectedResult
       }
@@ -80,7 +80,7 @@ class CharitiesRegistrationHttpParserSpec extends SpecBase {
       "return a Left(DefaultedUnexpectedFailure)" in {
 
         val expectedResult = Left(DefaultedUnexpectedFailure(Status.INTERNAL_SERVER_ERROR))
-        val actualResult = CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR))
+        val actualResult = CharitiesRegistrationResponseReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR, ""))
 
         actualResult mustBe expectedResult
       }

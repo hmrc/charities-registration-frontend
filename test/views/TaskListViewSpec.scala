@@ -85,7 +85,7 @@ class TaskListViewSpec extends ViewBehaviours  {
 
       "Charity contact details row" must {
         behave like pageWithHyperLink(applyView(),
-          "charity-info", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "Charity's contact details")
+          "charity-info", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "Charity’s contact details")
       }
 
       "Regulator row" must {

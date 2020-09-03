@@ -39,7 +39,7 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
     .set(OtherOfficialsNamePage(0), Name(firstName = "John", None, lastName = "Jones")).success.value
     .set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
     .set(OtherOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
-                                             mobilePhone = Some("07700 900 982"))).success.value
+                                             mobilePhone = "07700 900 982")).success.value
     .set(OtherOfficialsPositionPage(0), OfficialsPosition.values.head).success.value
     .set(IsOtherOfficialNinoPage(0), true).success.value
     .set(OtherOfficialsNinoPage(0), "AA123456A").success.value

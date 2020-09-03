@@ -17,8 +17,8 @@
 package controllers.otherOfficials
 
 import config.FrontendAppConfig
-import controllers.LocalBaseController
 import controllers.actions._
+import controllers.common.IsAddAnotherController
 import forms.common.IsAddAnotherFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
@@ -28,58 +28,41 @@ import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.otherOfficials.AddAnotherOtherOfficialView
+import views.html.common.IsAddAnotherView
 
 import scala.concurrent.Future
 
 class AddAnotherOtherOfficialController @Inject()(
-    sessionRepository: UserAnswerRepository,
-    navigator: OtherOfficialsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: IsAddAnotherFormProvider,
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: IsAddAnotherFormProvider,
     val controllerComponents: MessagesControllerComponents,
-    view: AddAnotherOtherOfficialView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: OtherOfficialsNavigator,
+    override val view: IsAddAnotherView
+  )(implicit appConfig: FrontendAppConfig) extends IsAddAnotherController {
 
-   val messagePrefix: String = "addAnotherOtherOfficial"
-   val form: Form[Boolean] = formProvider(messagePrefix)
+  val messagePrefix: String = "addAnotherOtherOfficial"
+  val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      val preparedForm = request.userAnswers.get(AddAnotherOtherOfficialPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
+      getFullName(OtherOfficialsNamePage(Index(0))) { firstOfficialsName =>
+        getFullName(OtherOfficialsNamePage(Index(1))) { secondOfficialsName =>
+          Future.successful(getView(AddAnotherOtherOfficialPage, form, firstOfficialsName, Some(secondOfficialsName),
+            controllers.otherOfficials.routes.AddAnotherOtherOfficialController.onSubmit(mode)))
+        }
       }
-      getFullName(OtherOfficialsNamePage(Index(0))) {
-        firstOfficialsName =>
-          getFullName(OtherOfficialsNamePage(Index(1))) {
-            secondOfficialsName=>
-          Future.successful(Ok(view(preparedForm, mode, firstOfficialsName, secondOfficialsName)))
-      }
-  }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          getFullName(OtherOfficialsNamePage(Index(0))) {
-            firstOfficialsName =>
-              getFullName(OtherOfficialsNamePage(Index(1))) {
-                secondOfficialsName=>
-              Future.successful(BadRequest(view(formWithErrors, mode, firstOfficialsName, secondOfficialsName)))
-          }},
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(AddAnotherOtherOfficialPage, value).flatMap(_.set(Section8Page, false)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AddAnotherOtherOfficialPage, mode, updatedAnswers))
-      )
+      getFullName(OtherOfficialsNamePage(0)) { firstOfficialsName =>
+        getFullName(OtherOfficialsNamePage(1)) { secondOfficialsName =>
+          postView(mode, AddAnotherOtherOfficialPage, form, firstOfficialsName, Some(secondOfficialsName), Section8Page,
+            controllers.otherOfficials.routes.AddAnotherOtherOfficialController.onSubmit(mode))
+        }
+      }
   }
-
 }

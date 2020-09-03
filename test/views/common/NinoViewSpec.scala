@@ -32,11 +32,11 @@ class NinoViewSpec extends QuestionViewBehaviours[String] {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[NinoView](Some(emptyUserAnswers))
-      view.apply(form, "Jack", messageKeyPrefix, onwardRoute)(
+      view.apply(form, "AA123456A", messageKeyPrefix, onwardRoute)(
         fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jack"), section = Some(messages("officialsAndNominees.section")))
+    behave like normalPage(applyView(form), messageKeyPrefix, Seq("AA123456A"), section = Some(messages("officialsAndNominees.section")))
 
     behave like pageWithBackLink(applyView(form))
 

@@ -622,10 +622,10 @@ startFundraising.p2 = (W)Adding information about fundraising and operations tak
 
 # How will your charity raise funds
 # ----------------------------------------------------------
-selectFundRaising.title = (W)How will your charity raise funds?(W)
-selectFundRaising.heading = (W)How will your charity raise funds?(W)
+selectFundRaising.title = (W)How will the charity raise funds?(W)
+selectFundRaising.heading = (W)How will the charity raise funds?(W)
 selectFundRaising.hint = (W)Select all that apply(W)
-selectFundRaising.error.required = (W)Select how your charity will raise funds(W)
+selectFundRaising.error.required = (W)Select how the charity will raise funds(W)
 selectFundRaising.donations = (W)Donations(W)
 selectFundRaising.fundraising = (W)Fundraising(W)
 selectFundRaising.grants = (W)Grants(W)
@@ -638,10 +638,10 @@ selectFundRaising.checkYourAnswersLabel = (W)Fundraising methods(W)
 
 # Select Operating Location Messages
 # ----------------------------------------------------------
-operatingLocation.title = (W)Where does your charity operate?(W)
-operatingLocation.heading = (W)Where does your charity operate?(W)
+operatingLocation.title = (W)Where does the charity operate?(W)
+operatingLocation.heading = (W)Where does the charity operate?(W)
 operatingLocation.hint = (W)Select all that apply(W)
-operatingLocation.error.required = (W)Select where your charity operates(W)
+operatingLocation.error.required = (W)Select where the charity operates(W)
 operatingLocation.1 = (W)England and Wales(W)
 operatingLocation.2 = (W)Scotland(W)
 operatingLocation.3 = (W)Northern Ireland(W)
@@ -651,28 +651,28 @@ operatingLocation.checkYourAnswersLabel = (W)Operating locations(W)
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
-isFinancialAccounts.title = (W)Has your charity prepared financial accounts?(W)
-isFinancialAccounts.heading = (W)Has your charity prepared financial accounts?(W)
-isFinancialAccounts.error.required = (W)Select yes if your charity has prepared financial accounts(W)
-isFinancialAccounts.hint = (W)If your charity has a set of prepared financial accounts, you will need to post us a copy to support your application.(W)
+isFinancialAccounts.title = (W)Has the charity prepared financial accounts?(W)
+isFinancialAccounts.heading = (W)Has the charity prepared financial accounts?(W)
+isFinancialAccounts.error.required = (W)Select yes if the charity has prepared financial accounts(W)
+isFinancialAccounts.hint = (W)If the charity has a set of prepared financial accounts, you will need to post us a copy to support the application.(W)
 isFinancialAccounts.checkYourAnswersLabel = (W)Financial accounts(W)
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
-isBankStatements.title = (W)Does your charity have bank statements for the last 3 months of operation?(W)
-isBankStatements.heading = (W)Does your charity have bank statements for the last 3 months of operation?(W)
-isBankStatements.hint = (W)If the account has been open for less than 3 months, you will need to provide evidence from the bank that the account is open.(W)
-isBankStatements.error.required = (W)Select yes if your charity has bank statements for the last 3 months of operation(W)
+isBankStatements.title = (W)Does the charity have bank statements for the last 3 months of operation?(W)
+isBankStatements.heading = (W)Does the charity have bank statements for the last 3 months of operation?(W)
+isBankStatements.hint = (W)If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.(W)
+isBankStatements.error.required = (W)Select yes if the charity has bank statements for the last 3 months of operation(W)
 isBankStatements.checkYourAnswersLabel = (W)Bank statements for the last 3 months(W)
 
 # AccountingEndDatePage Messages
 # ----------------------------------------------------------
-accountingPeriodEndDate.title = (W)What is your accounting period end date?(W)
-accountingPeriodEndDate.heading = (W)What is your accounting period end date?(W)
+accountingPeriodEndDate.title = (W)What is the charity’s accounting period end date?(W)
+accountingPeriodEndDate.heading = (W)What is the charity’s accounting period end date?(W)
 accountingPeriodEndDate.error.required.all = (W)Enter the accounting period end date(W)
 accountingPeriodEndDate.error.required = (W)Enter the accounting period end {0}(W)
 accountingPeriodEndDate.error.invalid = (W)The accounting period end date must be a real date(W)
-accountingPeriodEndDate.p1 = (W)This is the date to which your charity prepares its financial accounts.(W)
+accountingPeriodEndDate.p1 = (W)This is the date to which the charity prepares its financial accounts.(W)
 accountingPeriodEndDate.checkYourAnswersLabel = (W)Accounting period end date(W)
 
 # Operations and Funds Summary page

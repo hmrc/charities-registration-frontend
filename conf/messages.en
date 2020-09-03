@@ -622,10 +622,10 @@ startFundraising.p2 = Adding information about fundraising and operations takes 
 
 # How will your charity raise funds
 # ----------------------------------------------------------
-selectFundRaising.title = How will your charity raise funds?
-selectFundRaising.heading = How will your charity raise funds?
+selectFundRaising.title = How will the charity raise funds?
+selectFundRaising.heading = How will the charity raise funds?
 selectFundRaising.hint = Select all that apply
-selectFundRaising.error.required = Select how your charity will raise funds
+selectFundRaising.error.required = Select how the charity will raise funds
 selectFundRaising.donations = Donations
 selectFundRaising.fundraising = Fundraising
 selectFundRaising.grants = Grants
@@ -638,10 +638,10 @@ selectFundRaising.checkYourAnswersLabel = Fundraising methods
 
 # Select Operating Location Messages
 # ----------------------------------------------------------
-operatingLocation.title = Where does your charity operate?
-operatingLocation.heading = Where does your charity operate?
+operatingLocation.title = Where does the charity operate?
+operatingLocation.heading = Where does the charity operate?
 operatingLocation.hint = Select all that apply
-operatingLocation.error.required = Select where your charity operates
+operatingLocation.error.required = Select where the charity operates
 operatingLocation.1 = England and Wales
 operatingLocation.2 = Scotland
 operatingLocation.3 = Northern Ireland
@@ -651,28 +651,28 @@ operatingLocation.checkYourAnswersLabel = Operating locations
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
-isFinancialAccounts.title = Has your charity prepared financial accounts?
-isFinancialAccounts.heading = Has your charity prepared financial accounts?
-isFinancialAccounts.error.required = Select yes if your charity has prepared financial accounts
-isFinancialAccounts.hint = If your charity has a set of prepared financial accounts, you will need to post us a copy to support your application.
+isFinancialAccounts.title = Has the charity prepared financial accounts?
+isFinancialAccounts.heading = Has the charity prepared financial accounts?
+isFinancialAccounts.error.required = Select yes if the charity has prepared financial accounts
+isFinancialAccounts.hint = If the charity has a set of prepared financial accounts, you will need to post us a copy to support the application.
 isFinancialAccounts.checkYourAnswersLabel = Financial accounts
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
-isBankStatements.title = Does your charity have bank statements for the last 3 months of operation?
-isBankStatements.heading = Does your charity have bank statements for the last 3 months of operation?
-isBankStatements.hint = If the account has been open for less than 3 months, you will need to provide evidence from the bank that the account is open.
-isBankStatements.error.required = Select yes if your charity has bank statements for the last 3 months of operation
+isBankStatements.title = Does the charity have bank statements for the last 3 months of operation?
+isBankStatements.heading = Does the charity have bank statements for the last 3 months of operation?
+isBankStatements.hint = If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.
+isBankStatements.error.required = Select yes if the charity has bank statements for the last 3 months of operation
 isBankStatements.checkYourAnswersLabel = Bank statements for the last 3 months
 
 # AccountingEndDatePage Messages
 # -------------------------------------  ---------------------
-accountingPeriodEndDate.title = What is your accounting period end date?
-accountingPeriodEndDate.heading = What is your accounting period end date?
+accountingPeriodEndDate.title = What is the charity’s accounting period end date?
+accountingPeriodEndDate.heading = What is the charity’s accounting period end date?
 accountingPeriodEndDate.error.required.all = Enter the accounting period end date
 accountingPeriodEndDate.error.required = Enter the accounting period end {0}
 accountingPeriodEndDate.error.invalid = The accounting period end date must be a real date
-accountingPeriodEndDate.p1 = This is the date to which your charity prepares its financial accounts.
+accountingPeriodEndDate.p1 = This is the date to which the charity prepares its financial accounts.
 accountingPeriodEndDate.checkYourAnswersLabel = Accounting period end date
 
 # Operations and Funds Summary page

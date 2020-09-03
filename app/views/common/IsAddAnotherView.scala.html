@@ -26,7 +26,7 @@
     button: components.button,
 )
 
-@(form: Form[_], messagePrefix: String, submitCall: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], firstOfficialsName: String, secondOfficialsName: Option[String], messagePrefix: String, submitCall: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("officialsAndNominees.section")))) {
 
@@ -34,10 +34,18 @@
 
     @errorSummary(form.errors)
 
-    @yesNoRadio(form, s"$messagePrefix.heading")
+    @yesNoRadio(form, s"$messagePrefix.heading", Some(Html(hint)))
 
     @button("site.saveAndContinue")
 
    }
 
+}
+
+
+@hint = {
+<p class="govuk-body govuk-!-margin-top-5">
+    <span class="govuk-body">@secondOfficialsName.fold(messages(s"$messagePrefix.hint", firstOfficialsName))(
+        name => messages(s"$messagePrefix.hint", firstOfficialsName, name))</span><br>
+</p>
 }

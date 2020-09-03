@@ -36,29 +36,31 @@ trait IsAddAnotherController extends LocalBaseController {
   protected val view: IsAddAnotherView
   protected val messagePrefix: String
 
-  def getView(page: QuestionPage[Boolean], form: Form[Boolean], submitCall: Call)(
-    implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
+  def getView(page: QuestionPage[Boolean], form: Form[Boolean], firstOfficialsName: String,
+              secondOfficialsName: Option[String], submitCall: Call)(
+  implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
 
-      val preparedForm = request.userAnswers.get(page) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
+    val preparedForm = request.userAnswers.get(page) match {
+      case None => form
+      case Some(value) => form.fill(value)
+    }
 
-      Ok(view(preparedForm, messagePrefix, submitCall))
+    Ok(view(preparedForm, firstOfficialsName, secondOfficialsName, messagePrefix, submitCall))
   }
 
-  def postView(mode: Mode, page: QuestionPage[Boolean], form: Form[Boolean], section:QuestionPage[Boolean],
-               submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
+  def postView(mode: Mode, page: QuestionPage[Boolean], form: Form[Boolean], firstOfficialsName: String,
+               secondOfficialsName: Option[String], section: QuestionPage[Boolean], submitCall: Call
+              )(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, messagePrefix, submitCall))),
+    form.bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, firstOfficialsName, secondOfficialsName, messagePrefix, submitCall))),
 
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(page, value).flatMap(_.set(section, false)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
-      )
+      value =>
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(page, value).flatMap(_.set(section, false)))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
+    )
   }
 }

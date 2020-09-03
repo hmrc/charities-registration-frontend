@@ -93,12 +93,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
                         messagePrefix: String): Option[SummaryListRow] =
 
     userAnswers.get(page).map { contactDetails =>
-        summaryListRow(
-          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-          value = contactDetails.daytimePhone,
-          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
-          changeLinkCall -> messages("site.edit")
-
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = contactDetails.daytimePhone,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
       )
     }
 
@@ -106,14 +105,14 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
                                changeLinkCall: Call,
                                messagePrefix: String): Option[SummaryListRow] =
 
-    userAnswers.get(page).flatMap(_.mobilePhone.map( alternatePhone =>
-        summaryListRow(
-          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-          value = alternatePhone,
-          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
-          changeLinkCall -> messages("site.edit")
-        )
-    ))
+    userAnswers.get(page).map { contactDetails =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = contactDetails.mobilePhone,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
 
    def answerAddress(page: QuestionPage[AddressModel],
                      changeLinkCall: Call,

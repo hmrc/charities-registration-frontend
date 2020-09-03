@@ -723,6 +723,7 @@ bankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number (
 # ----------------------------------------------------------
 bankDetailsSummary.checkYourAnswers.title = (W)Check the charity’s bank details(W)
 bankDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s bank details(W)
+bankDetails.rollNumber.hint = (W)You can find it on the charity’s bank card, statement or passbook(W)
 bankDetailsSummary.section = (W)Operations and funds(W)
 
 # Section7 - Name authorised officials
@@ -731,12 +732,11 @@ officialsAndNominees.section = (W)Officials and nominees(W)
 
 # Authorised Officials Page Messages
 # ----------------------------------------------------------
-charityAuthorisedOfficials.title = (W)Your charity’s authorised officials(W)
-charityAuthorisedOfficials.heading = (W)Your charity’s authorised officials(W)
-charityAuthorisedOfficials.p1 = (W)You need to add 1 or 2 authorised officials.(W)
-charityAuthorisedOfficials.p2 = (W)An authorised official can deal with your tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.(W)
-charityAuthorisedOfficials.p3 = (W)We will contact them if we have any questions about your charity.(W)
-charityAuthorisedOfficials.p4 = (W)Adding information about authorised officials takes around 5 minutes.(W)
+charityAuthorisedOfficials.title = (W)The charity’s authorised officials(W)
+charityAuthorisedOfficials.heading = (W)The charity’s authorised officials(W)
+charityAuthorisedOfficials.p1 = (W)You need to add 1 authorised official but you can add up to 2.(W)
+charityAuthorisedOfficials.p2 = (W)An authorised official can deal with the charity’s tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.(W)
+charityAuthorisedOfficials.p3 = (W)Adding information about authorised officials takes around 5 minutes.(W)
 
 # Authorised Officials Name Messages
 # ----------------------------------------------------------
@@ -776,8 +776,9 @@ authorisedOfficialsPhoneNumber.heading = (W)What is {0}’s phone number?(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.label = (W)Main phone number(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = (W)Alternative phone number (optional)(W)
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = (W)Alternative phone number(W)
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019(W)
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.required = (W)Enter their alternative phone number(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
 
@@ -785,9 +786,9 @@ authorisedOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
 
 # Authorised Official Position  Messages
 # ----------------------------------------------------------
-authorisedOfficialsPosition.title = (W)What is the authorised official’s position in your charity?(W)
-authorisedOfficialsPosition.heading = (W)What is {0}’s position in your charity?(W)
-authorisedOfficialsPosition.error.required = (W)Select their position in your charity(W)
+authorisedOfficialsPosition.title = (W)What is the authorised officials position in the charity?(W)
+authorisedOfficialsPosition.heading = (W)What is {0}’s position in the charity?(W)
+authorisedOfficialsPosition.error.required = (W)Select their position in the charity(W)
 authorisedOfficialsPosition.hint = (W)Select one option(W)
 officialsPosition.01 = (W)Board member(W)
 officialsPosition.02 = (W)Bursar(W)
@@ -833,7 +834,7 @@ authorisedOfficialsNino.error.format = (W)Enter a National Insurance number in t
 
 authorisedOfficialsNino.checkYourAnswersLabel = (W)National Insurance number(W)
 
-# Authorised  Official Address Messages
+# Authorised Official Address Messages
 # ----------------------------------------------------------
 authorisedOfficialAddress.lookupPage.title = (W)What is the authorised official’s address? - Officials and nominees(W)
 authorisedOfficialAddress.lookupPage.heading = (W)What is {0}’s home address?(W)
@@ -869,7 +870,9 @@ addedOneAuthorisedOfficial.checkYourAnswers.heading = (W)Check the authorised of
 # ----------------------------------------------------------
 isAddAnotherAuthorisedOfficial.title = (W)Do you want to add another authorised official?(W)
 isAddAnotherAuthorisedOfficial.heading = (W)Do you want to add another authorised official?(W)
+isAddAnotherAuthorisedOfficial.hint = (W)You have already provided details for {0}.(W)
 isAddAnotherAuthorisedOfficial.error.required = (W)Select yes if you want to add another authorised official(W)
+
 isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = (W)Add another authorised official(W)
 
 # Authorised Officials Summary page
@@ -931,12 +934,13 @@ otherOfficialsPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main pho
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
 otherOfficialsPhoneNumber.alternativePhoneNumber.label = (W)Alternative phone number(W)
 otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019(W)
+otherOfficialsPhoneNumber.alternativePhoneNumber.error.required = (W)Enter their alternative phone number(W)
 otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
 otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
 
 otherOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
 
-# Other Official Position  Messages
+# Other Official Position Messages
 # ----------------------------------------------------------
 otherOfficialsPosition.title = (W)What is the other official’s position in the charity?(W)
 otherOfficialsPosition.heading = (W)What is {0}’s position in the charity?(W)
@@ -953,7 +957,7 @@ isOtherOfficialNino.error.required = (W)Select yes if they have a National Insur
 
 isOtherOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
-# Other Official Nino  Messages
+# Other Official Nino Messages
 # ----------------------------------------------------------
 otherOfficialsNino.title = (W)What is the other official’s National Insurance number(W)
 otherOfficialsNino.heading = (W)What is {0}’s National Insurance number?(W)
@@ -963,7 +967,7 @@ otherOfficialsNino.error.format = (W)Enter a National Insurance number in the co
 
 otherOfficialsNino.checkYourAnswersLabel = (W)National Insurance number(W)
 
-# Other  Official Address Messages
+# Other Official Address Messages
 # ----------------------------------------------------------
 otherOfficialAddress.lookupPage.title = (W)What is the other official’s home address? - Officials and nominees(W)
 otherOfficialAddress.lookupPage.heading = (W)What is {0}’s home address?(W)

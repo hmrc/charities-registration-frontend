@@ -31,7 +31,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.otherOfficials.AddAnotherOtherOfficialView
+import views.html.common.IsAddAnotherView
 
 import scala.concurrent.Future
 
@@ -53,7 +53,7 @@ class AddAnotherOtherOfficialControllerSpec extends SpecBase with BeforeAndAfter
   }
 
   private val messageKeyPrefix = "addAnotherOtherOfficial"
-  private val view: AddAnotherOtherOfficialView = inject[AddAnotherOtherOfficialView]
+  private val view: IsAddAnotherView = inject[IsAddAnotherView]
   private val formProvider: IsAddAnotherFormProvider = inject[IsAddAnotherFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
@@ -72,7 +72,9 @@ class AddAnotherOtherOfficialControllerSpec extends SpecBase with BeforeAndAfter
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode,"Jim John Jones", "John Jim Jones")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form,"Jim John Jones", Some("John Jim Jones"), messageKeyPrefix,
+        controllers.otherOfficials.routes.AddAnotherOtherOfficialController.onSubmit(NormalMode))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

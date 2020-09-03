@@ -40,7 +40,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
     .set(AuthorisedOfficialsNamePage(0), Name(firstName = "John", None, lastName = "Jones")).success.value
     .set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
     .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
-                                             mobilePhone = Some("07700 900 982"))).success.value
+                                             mobilePhone = "07700 900 982")).success.value
     .set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head).success.value
     .set(IsAuthorisedOfficialNinoPage(0), true).success.value
     .set(AuthorisedOfficialsNinoPage(0), "AA123456A").success.value

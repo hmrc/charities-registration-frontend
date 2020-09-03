@@ -35,6 +35,7 @@ GET       /in-development                               controllers.DeadEndContr
 ### ----------------
 
 GET       /declaration                                  controllers.DeclarationController.onPageLoad
+POST      /declaration                                  controllers.DeclarationController.onSubmit
 
 ### Registration Sent Page route
 ### ----------------

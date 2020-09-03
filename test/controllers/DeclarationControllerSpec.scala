@@ -16,16 +16,19 @@
 
 package controllers
 
+import audit.AuditService
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
+import uk.gov.hmrc.play.audit.http.connector.AuditResult.Success
 import views.html.DeclarationView
 
 import scala.concurrent.Future
@@ -33,11 +36,13 @@ import scala.concurrent.Future
 class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  lazy val mockAuditService: AuditService = MockitoSugar.mock[AuditService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[AuditService].toInstance(mockAuditService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
@@ -72,6 +77,31 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to the next page after calling send audit event" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
+    }
+
+    "redirect to Session Expired for a POST if no existing data is found" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

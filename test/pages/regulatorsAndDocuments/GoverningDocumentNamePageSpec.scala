@@ -16,24 +16,16 @@
 
 package pages.regulatorsAndDocuments
 
-import models.UserAnswers
-import models.regulators.SelectGoverningDocument
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import pages.behaviours.PageBehaviours
 
-import scala.util.Try
+class GoverningDocumentNamePageSpec extends PageBehaviours {
 
-case object SelectGoverningDocumentPage extends QuestionPage[SelectGoverningDocument] {
+  "GoverningDocumentNamePage" must {
 
-  override def path: JsPath = JsPath \ toString
+    beRetrievable[String](GoverningDocumentNamePage)
 
-  override def toString: String = "selectGoverningDocument"
+    beSettable[String](GoverningDocumentNamePage)
 
-  override def cleanup(value: Option[SelectGoverningDocument], userAnswers: UserAnswers): Try[UserAnswers] =
-    value match {
-      case Some(_)  =>
-        userAnswers.remove(Seq(GoverningDocumentNamePage))
-      case _ =>
-        super.cleanup(value, userAnswers)
-    }
+    beRemovable[String](GoverningDocumentNamePage)
+  }
 }

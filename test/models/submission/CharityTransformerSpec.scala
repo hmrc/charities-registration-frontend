@@ -36,14 +36,6 @@ class CharityTransformerSpec extends SpecBase {
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
   // TODO when page created
-  case object GoverningDocumentNamePage  extends QuestionPage[String] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "governingDocumentName"
-  }
-
-  // TODO when page created
   case object GoverningDocumentChangePage  extends QuestionPage[String] {
 
     override def path: JsPath = JsPath \ toString
@@ -219,7 +211,7 @@ class CharityTransformerSpec extends SpecBase {
 
         val localUserAnswers = emptyUserAnswers.set(IsCharityRegulatorPage, false).flatMap(
           _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(
-          _.set(WhyNotRegisteredWithCharityPage, "notRegisteredReason"))
+            _.set(WhyNotRegisteredWithCharityPage, "notRegisteredReason"))
         ).success.value
 
         val expectedJson =
@@ -274,12 +266,12 @@ class CharityTransformerSpec extends SpecBase {
 
       "convert the correct AboutOrganisation object" in {
 
-        val localUserAnswers = emptyUserAnswers.set(GoverningDocumentNamePage, "Other Documents for Charity").flatMap(
+        val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
-          _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
-          _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(
-          _.set(GoverningDocumentChangePage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
+            _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
+            _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+            _.set(GoverningDocumentChangePage,
+              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
         ).success.value
 
         val expectedJson =
@@ -302,10 +294,10 @@ class CharityTransformerSpec extends SpecBase {
 
       "convert the correct AboutOrganisation object when document is not approved and changes are not defined" in {
 
-        val localUserAnswers = emptyUserAnswers.set(GoverningDocumentNamePage, "Other Documents for Charity").flatMap(
+        val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
-          _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
-          _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation))).success.value
+            _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
+            _.set(GoverningDocumentNamePage, "Other Documents for Charity"))).success.value
 
         val expectedJson =
           """{
@@ -329,10 +321,10 @@ class CharityTransformerSpec extends SpecBase {
       "convert the correct OperationAndFundsCommon object" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(HasFinancialAccountsPage, true).flatMap(
-          _.set(NoBankStatementPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
+            _.set(NoBankStatementPage,
+              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
         ).success.value
 
         val expectedJson =
@@ -351,7 +343,7 @@ class CharityTransformerSpec extends SpecBase {
       "convert the correct OperationAndFundsCommon object with no bank statements" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(HasFinancialAccountsPage, false)).success.value
 
         val expectedJson =
@@ -414,8 +406,8 @@ class CharityTransformerSpec extends SpecBase {
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(HasFinancialAccountsPage, true)).flatMap(
           _.set(NoBankStatementPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900")
-          ).flatMap(
+            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900")
+        ).flatMap(
           _.set(EstimatedIncomePage, 2000.00)).flatMap(
           _.set(GrossIncomePage, 19999.99)).flatMap(
           _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
@@ -622,9 +614,9 @@ class CharityTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers.set(PublicBenefitsPage,
           "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
         ).flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
-         .flatMap(_.set(CharitableObjectivesPage,
-          "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-         )).success.value
+          .flatMap(_.set(CharitableObjectivesPage,
+            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+          )).success.value
 
         val expectedJson =
           """{
@@ -663,9 +655,9 @@ class CharityTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers.set(PublicBenefitsPage,
           "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
         ).flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare)))
-         .flatMap(_.set(CharitableObjectivesPage,
-          "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-        )).success.value
+          .flatMap(_.set(CharitableObjectivesPage,
+            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+          )).success.value
 
         val expectedJson =
           """{
@@ -709,13 +701,13 @@ class CharityTransformerSpec extends SpecBase {
           _.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("Other Regulator Name", "12345678901234567890"))).flatMap(
           _.set(IsCharityRegulatorPage, true)).flatMap(_.set(PublicBenefitsPage,
           "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-          )).flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet)).flatMap(
+        )).flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet)).flatMap(
           _.set(CharitableObjectivesPage,
-          "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-         )).flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity").flatMap(
+            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+          )).flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
             _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
-            _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(
+            _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
             _.set(GoverningDocumentChangePage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
         )).flatMap(_.set(AccountingPeriodEndDatePage,
@@ -824,19 +816,19 @@ class CharityTransformerSpec extends SpecBase {
 
         val localUserAnswers = emptyUserAnswers.set(IsCharityRegulatorPage, false).flatMap(
           _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).flatMap(
-          _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+          _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))).flatMap(
           _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
-          _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(
+          _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
           _.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
-          _.set(HasFinancialAccountsPage, true)).flatMap(
-          _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
-          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales))).flatMap(
-          _.set(PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66")).flatMap(
-          _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
-          _.set(CharitableObjectivesPage,
+            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+            _.set(HasFinancialAccountsPage, true)).flatMap(
+            _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+            _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales))).flatMap(
+            _.set(PublicBenefitsPage,
+              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66")).flatMap(
+            _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
+            _.set(CharitableObjectivesPage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
             ))
         ).success.value

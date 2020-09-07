@@ -21,7 +21,6 @@ import java.time.LocalDate
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
-import controllers.routes
 import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.{CheckMode, UserAnswers}
@@ -33,6 +32,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
   private val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
     .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head).flatMap
+  (_.set(GoverningDocumentNamePage,"will")).flatMap
   (_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2))).flatMap
   (_.set(IsApprovedGoverningDocumentPage,true)).success.value
   )
@@ -48,6 +48,19 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
           messages(s"selectGoverningDocument.$MemorandumArticlesAssociation"),
           Some(messages("selectGoverningDocument.checkYourAnswersLabel")),
           regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the GoverningDocumentName answer" must {
+
+      "have a correctly formatted summary list row when one added" in {
+
+        helper.whatIsTheGoverningDocumentNameRow mustBe Some(summaryListRow(
+          messages("governingDocumentName.checkYourAnswersLabel"),
+          ("will"),
+          Some(messages("governingDocumentName.checkYourAnswersLabel")),
+          regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

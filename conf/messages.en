@@ -521,6 +521,15 @@ selectGoverningDocument.5 = Will
 selectGoverningDocument.6 = Other
 selectGoverningDocument.checkYourAnswersLabel = Name
 
+# governingDocumentName Messages
+# ----------------------------------------------------------
+governingDocumentName.title = What is the name of the governing document that was used to set up and run the charity?
+governingDocumentName.heading = What is the name of the governing document that was used to set up and run the charity?
+governingDocumentName.error.required = Enter the governing document that was used to set up and run the charity
+governingDocumentName.error.length = The name of the governing document must be 50 characters or fewer
+governingDocumentName.error.format = The name of the governing document must not include the following characters: & ( ) : @
+governingDocumentName.checkYourAnswersLabel = Other name
+
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
 whenGoverningDocumentApproved.title = What date did the governing document become effective?

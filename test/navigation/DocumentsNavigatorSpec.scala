@@ -46,15 +46,28 @@ class DocumentsNavigatorSpec extends SpecBase {
         }
 
         "go to the Governing Document name page when Other is selected" in {
-
           navigator.nextPage(SelectGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+            regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(NormalMode)
         }
 
         "go to the Governing Document approved page when other than Other is selected" in {
           navigator.nextPage(SelectGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the NameOfTheGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(GoverningDocumentNamePage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document approved page when Other is selected" in {
+          navigator.nextPage(GoverningDocumentNamePage, NormalMode,
+            emptyUserAnswers.set(GoverningDocumentNamePage, "will").getOrElse(emptyUserAnswers)) mustBe
             regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(NormalMode)
         }
       }
@@ -120,10 +133,10 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the dead-end page when Other is selected" in {
+        "go to the Governing Document name page when Other is selected" in {
           navigator.nextPage(SelectGoverningDocumentPage, CheckMode,
             emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad() // TODO modify once Other journey is created
+            regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode)
         }
 
         "go to the Governing Document summary page when other than Other is selected" in {
@@ -133,6 +146,19 @@ class DocumentsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the NameOfTheGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(GoverningDocumentNamePage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document summary page when a name is submitted" in {
+          navigator.nextPage(GoverningDocumentNamePage, CheckMode,
+            emptyUserAnswers.set(GoverningDocumentNamePage, "will").getOrElse(emptyUserAnswers)) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
 
       "from the WhenGoverningDocumentApproved" must {
 

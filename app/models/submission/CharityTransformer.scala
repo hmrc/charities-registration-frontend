@@ -47,7 +47,7 @@ class CharityTransformer extends JsonTransformer {
       ((__ \ 'regulator \ 'otherRegulatorName).json.copyFrom((__ \ 'charityOtherRegulatorDetails \ 'regulatorName ).json.pick) orElse doNothing) and
       ((__ \ 'regulator \ 'otherRegulatorRegistrationNumber).json.copyFrom(
         (__ \ 'charityOtherRegulatorDetails \ 'registrationNumber ).json.pick) orElse doNothing)
-    ).reduce
+      ).reduce
   }
 
   def userAnswersToCharityOrganisation : Reads[JsObject] = {
@@ -55,114 +55,114 @@ class CharityTransformer extends JsonTransformer {
       (__ \ 'charityRegulator ).read[JsArray].flatMap { _ =>
         (__ \ 'charityOrganisation ).json.copyFrom(userAnswersToRegulator)
       } orElse doNothing  and
-      (__ \ 'charityOrganisation \ 'registeredRegulator).json.copyFrom((__ \ 'isCharityRegulator).json.pick) and
-      ((__ \ 'charityOrganisation \ 'nonRegReason).json.copyFrom((__ \ 'selectWhyNoRegulator).json.pick) orElse doNothing) and
-      ((__ \ 'charityOrganisation \ 'otherReason).json.copyFrom((__ \ 'whyNotRegisteredWithCharity).json.pick) orElse doNothing)
-    ).reduce
+        (__ \ 'charityOrganisation \ 'registeredRegulator).json.copyFrom((__ \ 'isCharityRegulator).json.pick) and
+        ((__ \ 'charityOrganisation \ 'nonRegReason).json.copyFrom((__ \ 'selectWhyNoRegulator).json.pick) orElse doNothing) and
+        ((__ \ 'charityOrganisation \ 'otherReason).json.copyFrom((__ \ 'whyNotRegisteredWithCharity).json.pick) orElse doNothing)
+      ).reduce
   }
 
   def userAnswersToAboutOrganisationCommon : Reads[JsObject] = {
     (
       ((__ \ 'aboutOrgCommon \ 'otherDocument).json.copyFrom((__ \ 'governingDocumentName).json.pick) orElse doNothing) and
-      (__ \ 'aboutOrgCommon \ 'effectiveDate).json.copyFrom((__ \ 'whenGoverningDocumentApproved).json.pick)
-    ).reduce
+        (__ \ 'aboutOrgCommon \ 'effectiveDate).json.copyFrom((__ \ 'whenGoverningDocumentApproved).json.pick)
+      ).reduce
   }
 
   def userAnswersToAboutOrganisation : Reads[JsObject] = {
     (
       ((__ \ 'aboutOrganisation ).json.copyFrom(userAnswersToAboutOrganisationCommon) orElse doNothing) and
-      (__ \ 'aboutOrganisation \ 'documentEnclosed).json.copyFrom((__ \ 'selectGoverningDocument).json.pick) and
-      (__ \ 'aboutOrganisation \ 'governingApprovedDoc).json.copyFrom((__ \ 'isApprovedGoverningDocument).json.pick) and
-      (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.copyFrom((__ \ 'governingDocumentChanges).readNullable[String].map {
-        case Some(changes) if changes.isEmpty => JsBoolean(true)
-        case _ => JsBoolean(false)
-      }) and
-      (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
-        case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes.substring(0,255)))
-        case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes))
-        case _ => doNothing
-      } and
-      (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
-        case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChangesB).json.put(JsString(changes.substring(255)))
-        case _ => doNothing
-      }
-    ).reduce
+        (__ \ 'aboutOrganisation \ 'documentEnclosed).json.copyFrom((__ \ 'selectGoverningDocument).json.pick) and
+        (__ \ 'aboutOrganisation \ 'governingApprovedDoc).json.copyFrom((__ \ 'isApprovedGoverningDocument).json.pick) and
+        (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.copyFrom((__ \ 'governingDocumentChanges).readNullable[String].map {
+          case Some(changes) if changes.isEmpty => JsBoolean(true)
+          case _ => JsBoolean(false)
+        }) and
+        (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
+          case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes.substring(0,255)))
+          case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes))
+          case _ => doNothing
+        } and
+        (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
+          case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChangesB).json.put(JsString(changes.substring(255)))
+          case _ => doNothing
+        }
+      ).reduce
   }
 
   def userAnswersToOperationAndFundsCommon : Reads[JsObject] = {
     (
       (__ \ 'accountingPeriodEndDate).read[String].flatMap(accountPeriod =>
         (__ \ 'operationAndFundsCommon \ 'accountPeriodEnd).json.put(JsString(accountPeriod.replaceAll("-", "")))) and
-      ((__ \ 'operationAndFundsCommon \ 'financialAccounts).json.copyFrom((__ \ 'hasFinancialAccounts).json.pick) orElse doNothing) and
-      (__ \ 'noBankStatement).readNullable[String].flatMap {
-        case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes.substring(0,255)))
-        case Some(changes) => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes))
-        case _ => doNothing
-      } and
-      (__ \ 'noBankStatement).readNullable[String].flatMap {
-        case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatementsB).json.put(JsString(changes.substring(255)))
-        case _ => doNothing
-      }
-    ).reduce
+        ((__ \ 'operationAndFundsCommon \ 'financialAccounts).json.copyFrom((__ \ 'hasFinancialAccounts).json.pick) orElse doNothing) and
+        (__ \ 'noBankStatement).readNullable[String].flatMap {
+          case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes.substring(0,255)))
+          case Some(changes) => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes))
+          case _ => doNothing
+        } and
+        (__ \ 'noBankStatement).readNullable[String].flatMap {
+          case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatementsB).json.put(JsString(changes.substring(255)))
+          case _ => doNothing
+        }
+      ).reduce
   }
 
   def userAnswersToOtherCountriesOfOperation : Reads[JsObject] = {
     (
       ((__ \ 'otherCountriesOfOperation \ 'overseas1 ).json.copyFrom((__ \ 'overseas \ 0 ).json.pick) orElse doNothing) and
-      ((__ \ 'otherCountriesOfOperation \ 'overseas2 ).json.copyFrom((__ \ 'overseas \ 1 ).json.pick) orElse doNothing) and
-      ((__ \ 'otherCountriesOfOperation \ 'overseas3 ).json.copyFrom((__ \ 'overseas \ 2 ).json.pick) orElse doNothing) and
-      ((__ \ 'otherCountriesOfOperation \ 'overseas4 ).json.copyFrom((__ \ 'overseas \ 3 ).json.pick) orElse doNothing) and
-      ((__ \ 'otherCountriesOfOperation \ 'overseas5 ).json.copyFrom((__ \ 'overseas \ 4 ).json.pick) orElse doNothing)
-    ).reduce
+        ((__ \ 'otherCountriesOfOperation \ 'overseas2 ).json.copyFrom((__ \ 'overseas \ 1 ).json.pick) orElse doNothing) and
+        ((__ \ 'otherCountriesOfOperation \ 'overseas3 ).json.copyFrom((__ \ 'overseas \ 2 ).json.pick) orElse doNothing) and
+        ((__ \ 'otherCountriesOfOperation \ 'overseas4 ).json.copyFrom((__ \ 'overseas \ 3 ).json.pick) orElse doNothing) and
+        ((__ \ 'otherCountriesOfOperation \ 'overseas5 ).json.copyFrom((__ \ 'overseas \ 4 ).json.pick) orElse doNothing)
+      ).reduce
   }
 
   def userAnswersToOperationAndFunds : Reads[JsObject] = {
     (
       ((__ \ 'operationAndFunds).json.copyFrom(userAnswersToOperationAndFundsCommon) orElse doNothing) and
-      ((__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.copyFrom((__ \ 'estimatedIncome).json.pick) orElse doNothing) and
-      ((__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'grossIncome).json.pick) orElse doNothing) and
-      (__ \ 'operationAndFunds \ 'futureFunds).json.copyFrom((__ \ 'selectFundRaising).read[JsArray].map(x =>
-        JsString(x.value.map(_.toString()).mkString(", ").replaceAll("\"", "")))) and
-      (__ \ 'operationAndFunds \ 'otherAreaOperation).json.put(JsBoolean(true)) and
-      findNode(__ \ 'operationAndFunds \ 'englandAndWales, __ \ 'operatingLocation, "1") and
-      findNode(__ \ 'operationAndFunds \ 'scotland, __ \ 'operatingLocation, "2") and
-      findNode(__ \ 'operationAndFunds \ 'northernIreland, __ \ 'operatingLocation, "3") and
-      findNode(__ \ 'operationAndFunds \ 'ukWide, __ \ 'operatingLocation, "4") and
-      findNode(__ \ 'operationAndFunds \ 'overseas, __ \ 'operatingLocation, "5") and
-      ((__ \ 'operationAndFunds).json.copyFrom(userAnswersToOtherCountriesOfOperation) orElse doNothing)
-    ).reduce
+        ((__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.copyFrom((__ \ 'estimatedIncome).json.pick) orElse doNothing) and
+        ((__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'grossIncome).json.pick) orElse doNothing) and
+        (__ \ 'operationAndFunds \ 'futureFunds).json.copyFrom((__ \ 'selectFundRaising).read[JsArray].map(x =>
+          JsString(x.value.map(_.toString()).mkString(", ").replaceAll("\"", "")))) and
+        (__ \ 'operationAndFunds \ 'otherAreaOperation).json.put(JsBoolean(true)) and
+        findNode(__ \ 'operationAndFunds \ 'englandAndWales, __ \ 'operatingLocation, "1") and
+        findNode(__ \ 'operationAndFunds \ 'scotland, __ \ 'operatingLocation, "2") and
+        findNode(__ \ 'operationAndFunds \ 'northernIreland, __ \ 'operatingLocation, "3") and
+        findNode(__ \ 'operationAndFunds \ 'ukWide, __ \ 'operatingLocation, "4") and
+        findNode(__ \ 'operationAndFunds \ 'overseas, __ \ 'operatingLocation, "5") and
+        ((__ \ 'operationAndFunds).json.copyFrom(userAnswersToOtherCountriesOfOperation) orElse doNothing)
+      ).reduce
   }
 
   def userAnswersToCharitableObjectives : Reads[JsObject] = {
     (
       (__ \ 'charitableObjectives).readNullable[String].flatMap {
-      case Some(changes) if changes.length > 255 => (__ \ 'charitableObjectives \ 'objectivesA).json.put(JsString(changes.substring(0,255)))
-      case Some(changes) => (__ \ 'charitableObjectives \ 'objectivesA).json.put(JsString(changes))
-      case _ => doNothing
-    } and
-      (__ \ 'charitableObjectives).readNullable[String].flatMap {
-        case Some(changes) if changes.length > 255 => (__ \ 'charitableObjectives \ 'objectivesB).json.put(JsString(changes.substring(255)))
+        case Some(changes) if changes.length > 255 => (__ \ 'charitableObjectives \ 'objectivesA).json.put(JsString(changes.substring(0,255)))
+        case Some(changes) => (__ \ 'charitableObjectives \ 'objectivesA).json.put(JsString(changes))
         case _ => doNothing
-      }
-    ).reduce
+      } and
+        (__ \ 'charitableObjectives).readNullable[String].flatMap {
+          case Some(changes) if changes.length > 255 => (__ \ 'charitableObjectives \ 'objectivesB).json.put(JsString(changes.substring(255)))
+          case _ => doNothing
+        }
+      ).reduce
   }
 
   def userAnswersToCharitablePurposes : Reads[JsObject] = {
     (
       findNode(__ \ 'charitablePurposes \ 'reliefOfPoverty, __ \ 'charitablePurposes, "reliefOfPoverty") and
-      findNode(__ \ 'charitablePurposes \ 'education, __ \ 'charitablePurposes, "education") and
-      findNode(__ \ 'charitablePurposes \ 'religion, __ \ 'charitablePurposes, "religion") and
-      findNode(__ \ 'charitablePurposes \ 'healthOrSavingOfLives, __ \ 'charitablePurposes, "healthOrSavingOfLives") and
-      findNode(__ \ 'charitablePurposes \ 'citizenshipOrCommunityDevelopment, __ \ 'charitablePurposes, "citizenshipOrCommunityDevelopment") and
-      findNode(__ \ 'charitablePurposes \ 'artsCultureOrScience, __ \ 'charitablePurposes, "artsCultureOrScience") and
-      findNode(__ \ 'charitablePurposes \ 'amateurSport, __ \ 'charitablePurposes, "amateurSport") and
-      findNode(__ \ 'charitablePurposes \ 'humanRights, __ \ 'charitablePurposes, "humanRights") and
-      findNode(__ \ 'charitablePurposes \ 'environmentalProtection, __ \ 'charitablePurposes, "environmentalProtection") and
-      findNode(__ \ 'charitablePurposes \ 'reliefOfYouthAge, __ \ 'charitablePurposes, "reliefOfYouthAge") and
-      findNode(__ \ 'charitablePurposes \ 'animalWelfare, __ \ 'charitablePurposes, "animalWelfare") and
-      findNode(__ \ 'charitablePurposes \ 'armedForcesOfTheCrown, __ \ 'charitablePurposes, "armedForcesOfTheCrown") and
-      findNode(__ \ 'charitablePurposes \ 'other, __ \ 'charitablePurposes, "other")
-    ).reduce
+        findNode(__ \ 'charitablePurposes \ 'education, __ \ 'charitablePurposes, "education") and
+        findNode(__ \ 'charitablePurposes \ 'religion, __ \ 'charitablePurposes, "religion") and
+        findNode(__ \ 'charitablePurposes \ 'healthOrSavingOfLives, __ \ 'charitablePurposes, "healthOrSavingOfLives") and
+        findNode(__ \ 'charitablePurposes \ 'citizenshipOrCommunityDevelopment, __ \ 'charitablePurposes, "citizenshipOrCommunityDevelopment") and
+        findNode(__ \ 'charitablePurposes \ 'artsCultureOrScience, __ \ 'charitablePurposes, "artsCultureOrScience") and
+        findNode(__ \ 'charitablePurposes \ 'amateurSport, __ \ 'charitablePurposes, "amateurSport") and
+        findNode(__ \ 'charitablePurposes \ 'humanRights, __ \ 'charitablePurposes, "humanRights") and
+        findNode(__ \ 'charitablePurposes \ 'environmentalProtection, __ \ 'charitablePurposes, "environmentalProtection") and
+        findNode(__ \ 'charitablePurposes \ 'reliefOfYouthAge, __ \ 'charitablePurposes, "reliefOfYouthAge") and
+        findNode(__ \ 'charitablePurposes \ 'animalWelfare, __ \ 'charitablePurposes, "animalWelfare") and
+        findNode(__ \ 'charitablePurposes \ 'armedForcesOfTheCrown, __ \ 'charitablePurposes, "armedForcesOfTheCrown") and
+        findNode(__ \ 'charitablePurposes \ 'other, __ \ 'charitablePurposes, "other")
+      ).reduce
   }
 
   def userAnswersToPublicBenefit : Reads[JsObject] = {
@@ -187,6 +187,6 @@ class CharityTransformer extends JsonTransformer {
     (
       userAnswersToCharityOrganisation and userAnswersToAboutOrganisation and
         userAnswersToOperationAndFunds and userAnswersToOrgPurpose
-    ).reduce
+      ).reduce
   )
 }

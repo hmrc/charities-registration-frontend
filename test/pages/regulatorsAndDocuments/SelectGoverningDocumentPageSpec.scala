@@ -16,23 +16,42 @@
 
 package pages.regulatorsAndDocuments
 
+import models.UserAnswers
 import models.regulators.SelectGoverningDocument
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
+import play.api.libs.json.Json
 
 class SelectGoverningDocumentPageSpec extends PageBehaviours{
-
-  "SelectGoverningDocument" must {
 
     implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectGoverningDocument] =  Arbitrary {
       Gen.oneOf(SelectGoverningDocument.values)
     }
+
+  "SelectGoverningDocument" must {
 
     beRetrievable[SelectGoverningDocument](SelectGoverningDocumentPage)
 
     beSettable[SelectGoverningDocument](SelectGoverningDocumentPage)
 
     beRemovable[SelectGoverningDocument](SelectGoverningDocumentPage)
+
+    "cleanup" when {
+
+      val userAnswer = UserAnswers("id", Json.obj()).set(SelectGoverningDocumentPage,SelectGoverningDocument.values.head)
+        .flatMap(_.set(GoverningDocumentNamePage, "will")
+        ).success.value
+
+      "setting SelectGoverningDocumentPage to other" must {
+
+        val result = userAnswer.set(SelectGoverningDocumentPage,SelectGoverningDocument.values.head).success.value
+
+        "remove GoverningDocumentNamePage" in {
+
+          result.get(GoverningDocumentNamePage) mustNot be(defined)
+        }
+      }
+    }
   }
 
 }

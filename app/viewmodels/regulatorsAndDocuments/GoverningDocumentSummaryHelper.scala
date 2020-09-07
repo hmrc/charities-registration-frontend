@@ -17,7 +17,6 @@
 package viewmodels.regulatorsAndDocuments
 
 import controllers.regulatorsAndDocuments.{routes => documentsRoutes}
-import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
@@ -32,6 +31,9 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
   def selectGoverningDocumentRow: Option[SummaryListRow] =
     answer(SelectGoverningDocumentPage, documentsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),answerIsMsgKey = true)
 
+ def whatIsTheGoverningDocumentNameRow: Option[SummaryListRow] =
+    answer(GoverningDocumentNamePage, documentsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode))
+
   def dateApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(WhenGoverningDocumentApprovedPage, documentsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))
 
@@ -40,6 +42,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
 
   val rows: Seq[SummaryListRow] = Seq(
     selectGoverningDocumentRow,
+    whatIsTheGoverningDocumentNameRow,
     dateApprovedGoverningDocumentRow,
     isApprovedGoverningDocumentRow
   ).flatten

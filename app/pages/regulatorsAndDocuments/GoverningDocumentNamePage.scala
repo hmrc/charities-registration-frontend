@@ -16,24 +16,12 @@
 
 package pages.regulatorsAndDocuments
 
-import models.UserAnswers
-import models.regulators.SelectGoverningDocument
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-import scala.util.Try
-
-case object SelectGoverningDocumentPage extends QuestionPage[SelectGoverningDocument] {
+case object GoverningDocumentNamePage  extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "selectGoverningDocument"
-
-  override def cleanup(value: Option[SelectGoverningDocument], userAnswers: UserAnswers): Try[UserAnswers] =
-    value match {
-      case Some(_)  =>
-        userAnswers.remove(Seq(GoverningDocumentNamePage))
-      case _ =>
-        super.cleanup(value, userAnswers)
-    }
+  override def toString: String = "governingDocumentName"
 }

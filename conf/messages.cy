@@ -521,6 +521,15 @@ selectGoverningDocument.5 = (W)Will(W)
 selectGoverningDocument.6 = (W)Other(W)
 selectGoverningDocument.checkYourAnswersLabel = (W)Name(W)
 
+# governingDocumentName Messages
+# ----------------------------------------------------------
+governingDocumentName.title = (W)What is the name of the governing document that was used to set up and run the charity?(W)
+governingDocumentName.heading = (W)What is the name of the governing document that was used to set up and run the charity?(W)
+governingDocumentName.error.required = (W)Enter the governing document that was used to set up and run the charity(W)
+governingDocumentName.error.length = (W)The name of the governing document must be 50 characters or fewer(W)
+governingDocumentName.error.format = (W)The name of the governing document must not include the following characters: & ( ) : @(W)
+governingDocumentName.checkYourAnswersLabel = (W)Other name(W)
+
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
 whenGoverningDocumentApproved.title = (W)What date did the governing document become effective?(W)

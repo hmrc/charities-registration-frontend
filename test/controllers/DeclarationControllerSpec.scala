@@ -16,10 +16,11 @@
 
 package controllers
 
-import audit.AuditService
 import base.SpecBase
+import controllers.Assets.Redirect
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
+import models.submission.CharityTransformerTodoPages
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
@@ -28,27 +29,28 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import uk.gov.hmrc.play.audit.http.connector.AuditResult.Success
+import service.CharitiesRegistrationService
 import views.html.DeclarationView
 
 import scala.concurrent.Future
 
-class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
+class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerTodoPages{
+  //scalastyle:off magic.number
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockAuditService: AuditService = MockitoSugar.mock[AuditService]
+  lazy val mockCharitiesRegistrationService: CharitiesRegistrationService = MockitoSugar.mock[CharitiesRegistrationService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-        bind[AuditService].toInstance(mockAuditService),
+        bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerRepository, mockCharitiesRegistrationService)
   }
 
   private val view: DeclarationView = injector.instanceOf[DeclarationView]
@@ -80,17 +82,32 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
-    "redirect to the next page after calling send audit event" in {
+    "redirect to the next page after valid transformation" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockCharitiesRegistrationService.register(any())(any(), any(), any())).thenReturn(
+        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad()))
+      )
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
+      verify(mockCharitiesRegistrationService, times(1)).register(any())(any(), any(), any())
+    }
+
+    "redirect to the session expired page for invalid transformation" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -103,6 +120,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
 
   }

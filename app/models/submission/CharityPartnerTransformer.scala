@@ -24,7 +24,7 @@ import play.api.libs.json.{__, _}
 
 class CharityPartnerTransformer extends JsonTransformer {
 
-  val localPath: JsPath = __ \ 'partner
+  val localPath: JsPath = __ \ 'charityRegistration \ 'partner
   private val action = "1"
   private val relationOO = "1"
   private val relationAO = "2"

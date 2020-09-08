@@ -49,7 +49,7 @@ class CharityCommonTransformer extends JsonTransformer {
       getOptionalAddress(localPath \ 'addressDetails \ 'correspondenceAddress, __ \ 'charityPostalAddress).flatMap {
         correspondenceAddress =>
           getAddress(localPath \ 'addressDetails \ 'officialAddress, __ \ 'charityOfficialAddress).map { officialAddress =>
-            val result = for{
+            val result = for {
               v1 <- officialAddress.transform((localPath \ 'addressDetails \ 'officialAddress).json.pick).asOpt
               v2 <- correspondenceAddress.transform((localPath \ 'addressDetails \ 'correspondenceAddress).json.pick).asOpt
             } yield v1!=v2
@@ -64,10 +64,16 @@ class CharityCommonTransformer extends JsonTransformer {
   }
 
   def userAnswersToBankDetails : Reads[JsObject] = {
-    ((localPath \ 'bankDetails \ 'accountName).json.copyFrom((__ \ 'bankDetails \ 'accountName).json.pick) and
-      (localPath \ 'bankDetails \ 'sortCode).json.copyFrom((__ \ 'bankDetails \ 'sortCode).json.pick) and
-      (localPath \ 'bankDetails \ 'accountNumber).json.copyFrom((__ \ 'bankDetails \ 'accountNumber).json.pick) and
-      ((localPath \ 'bankDetails \ 'rollNumber).json.copyFrom((__ \ 'bankDetails \ 'rollNumber).json.pick) orElse doNothing)).reduce
+    (
+      (localPath \ 'bankDetails \ 'accountName).json.copyFrom((__ \ 'bankDetails \ 'accountName).json.pick) and
+      (__ \ 'bankDetails \ 'sortCode).read[String].flatMap { n =>
+        (localPath \ 'bankDetails \ 'sortCode).json.put(JsNumber(n.toInt))
+      } and
+      (__ \ 'bankDetails \ 'accountNumber).read[String].flatMap { n =>
+        (localPath \ 'bankDetails \ 'accountNumber).json.put(JsNumber(n.toInt))
+      } and
+      ((localPath \ 'bankDetails \ 'rollNumber).json.copyFrom((__ \ 'bankDetails \ 'rollNumber).json.pick) orElse doNothing)
+    ).reduce
   }
 
 

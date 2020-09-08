@@ -23,11 +23,10 @@ import play.api.libs.json.Reads.JsObjectReducer
 import play.api.libs.json.{JsObject, Json, Reads}
 
 class CharitySubmissionTransformer @Inject()(
-                                              charityTransformer: CharityTransformer,
-                                              charityPartnerTransformer: CharityPartnerTransformer,
-                                              charityCommonTransformer: CharityCommonTransformer
-                                            )
-  extends JsonTransformer {
+    charityTransformer: CharityTransformer,
+    charityPartnerTransformer: CharityPartnerTransformer,
+    charityCommonTransformer: CharityCommonTransformer
+  ) extends JsonTransformer {
 
   def userAnswersToSubmission(implicit request: DataRequest[_]): Reads[JsObject] = {
 
@@ -35,8 +34,11 @@ class CharitySubmissionTransformer @Inject()(
       charityTransformer.userAnswersToCharity and
       charityPartnerTransformer.userAnswersToPartner).reduce
       .map(jsObj => {
-        Json.parse(jsObj.toString().replaceAll("%", " percent").replaceAllLiterally("\\r", "").replaceAllLiterally("\\n", "")).as[JsObject]
-      }
+        Json.parse(jsObj.toString()
+          .replaceAll("%", " percent")
+          .replaceAllLiterally("\\r", "")
+          .replaceAllLiterally("\\n", "")).as[JsObject]
+        }
       )
   }
 }

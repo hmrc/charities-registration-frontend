@@ -214,40 +214,46 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom")))).success.value
 
         val expectedJson =
-          s"""{"partner":[{
+          s"""{
+             |  "charityRegistration": {
+             |    "partner": [
+             |      {
              |        "responsiblePerson": {
-             |              "action": "1",
-             |              "relation": "2"
+             |          "action": "1",
+             |          "relation": "2"
              |        },
              |        "type": "1",
-             |			   "addPartner": {
-             |              "effectiveDateOfChange": "$date"
+             |        "addPartner": {
+             |          "effectiveDateOfChange": "$date"
              |        },
-             |			   "individualDetails": {
-             |                "name": {
-             |                    "title": "0001",
-             |                    "firstName": "Albert",
-             |                    "middleName": "G",
-             |                    "lastName": "Einstien"
-             |                },
-             |                "position": "02",
-             |                "dateOfBirth": "2000-12-11",
-             |                "dayPhoneNumber": "07700 900 982",
-             |                "mobilePhone": "07700 900 981",
-             |                "nino": "QQ123456C"
+             |        "individualDetails": {
+             |          "name": {
+             |            "title": "0001",
+             |            "firstName": "Albert",
+             |            "middleName": "G",
+             |            "lastName": "Einstien"
+             |          },
+             |          "position": "02",
+             |          "dateOfBirth": "2000-12-11",
+             |          "dayPhoneNumber": "07700 900 982",
+             |          "mobilePhone": "07700 900 981",
+             |          "nino": "QQ123456C"
              |        },
              |        "addressDetails": {
-             |              "currentAddress": {
-             |                    "nonUKAddress": false,
-             |                    "addressLine1": "2",
-             |                    "addressLine2": "Dubai Main Road",
-             |                    "addressLine3": "line3",
-             |                    "addressLine4": "line4",
-             |                    "postcode": "G27JD",
-             |                    "nonUKCountry": "United Kingdom"
-             |               }
+             |          "currentAddress": {
+             |            "nonUKAddress": false,
+             |            "addressLine1": "2",
+             |            "addressLine2": "Dubai Main Road",
+             |            "addressLine3": "line3",
+             |            "addressLine4": "line4",
+             |            "postcode": "G27JD",
+             |            "nonUKCountry": "United Kingdom"
+             |          }
              |        }
-             |  }]}""".stripMargin
+             |      }
+             |    ]
+             |  }
+             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToPartner).asOpt.value mustBe Json.parse(expectedJson)
       }
@@ -413,40 +419,46 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom")))).success.value
 
         val expectedJson =
-          s"""{"partner":[{
+          s"""{
+             |  "charityRegistration": {
+             |    "partner": [
+             |      {
              |        "responsiblePerson": {
-             |              "action": "1",
-             |              "relation": "1"
+             |          "action": "1",
+             |          "relation": "1"
              |        },
              |        "type": "1",
-             |			   "addPartner": {
-             |              "effectiveDateOfChange": "$date"
+             |        "addPartner": {
+             |          "effectiveDateOfChange": "$date"
              |        },
-             |			   "individualDetails": {
-             |                "name": {
-             |                    "title": "0001",
-             |                    "firstName": "Albert",
-             |                    "middleName": "G",
-             |                    "lastName": "Einstien"
-             |                },
-             |                "position": "02",
-             |                "dateOfBirth": "2000-12-11",
-             |                "dayPhoneNumber": "07700 900 982",
-             |                "mobilePhone": "07700 900 981",
-             |                "nino": "QQ123456C"
+             |        "individualDetails": {
+             |          "name": {
+             |            "title": "0001",
+             |            "firstName": "Albert",
+             |            "middleName": "G",
+             |            "lastName": "Einstien"
+             |          },
+             |          "position": "02",
+             |          "dateOfBirth": "2000-12-11",
+             |          "dayPhoneNumber": "07700 900 982",
+             |          "mobilePhone": "07700 900 981",
+             |          "nino": "QQ123456C"
              |        },
              |        "addressDetails": {
-             |              "currentAddress": {
-             |                    "nonUKAddress": false,
-             |                    "addressLine1": "2",
-             |                    "addressLine2": "Dubai Main Road",
-             |                    "addressLine3": "line3",
-             |                    "addressLine4": "line4",
-             |                    "postcode": "G27JD",
-             |                    "nonUKCountry": "United Kingdom"
-             |               }
+             |          "currentAddress": {
+             |            "nonUKAddress": false,
+             |            "addressLine1": "2",
+             |            "addressLine2": "Dubai Main Road",
+             |            "addressLine3": "line3",
+             |            "addressLine4": "line4",
+             |            "postcode": "G27JD",
+             |            "nonUKCountry": "United Kingdom"
+             |          }
              |        }
-             |  }]}""".stripMargin
+             |      }
+             |    ]
+             |  }
+             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToPartner).asOpt.value mustBe Json.parse(expectedJson)
       }
@@ -486,138 +498,142 @@ class CharityPartnerTransformerSpec extends SpecBase {
               AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).success.value
 
         val expectedJson =
-          s"""{"partner":[{
+          s"""{
+             |  "charityRegistration": {
+             |    "partner": [
+             |      {
              |        "responsiblePerson": {
-             |              "action": "1",
-             |              "relation": "2"
+             |          "action": "1",
+             |          "relation": "2"
              |        },
              |        "type": "1",
-             |			   "addPartner": {
-             |              "effectiveDateOfChange": "$date"
+             |        "addPartner": {
+             |          "effectiveDateOfChange": "$date"
              |        },
-             |			   "individualDetails": {
-             |                "name": {
-             |                    "title": "0001",
-             |                    "firstName": "Albert",
-             |                    "middleName": "G",
-             |                    "lastName": "Einstien"
-             |                },
-             |                "position": "02",
-             |                "dateOfBirth": "2000-12-11",
-             |                "dayPhoneNumber": "07700 900 982",
-             |                "mobilePhone": "07700 900 981",
-             |                "nino": "QQ123456C"
+             |        "individualDetails": {
+             |          "name": {
+             |            "title": "0001",
+             |            "firstName": "Albert",
+             |            "middleName": "G",
+             |            "lastName": "Einstien"
+             |          },
+             |          "position": "02",
+             |          "dateOfBirth": "2000-12-11",
+             |          "dayPhoneNumber": "07700 900 982",
+             |          "mobilePhone": "07700 900 981",
+             |          "nino": "QQ123456C"
              |        },
              |        "addressDetails": {
-             |              "currentAddress": {
-             |                    "nonUKAddress": false,
-             |                    "addressLine1": "2",
-             |                    "addressLine2": "Dubai Main Road",
-             |                    "addressLine3": "line3",
-             |                    "addressLine4": "line4",
-             |                    "postcode": "G27JD",
-             |                    "nonUKCountry": "United Kingdom"
-             |               }
+             |          "currentAddress": {
+             |            "nonUKAddress": false,
+             |            "addressLine1": "2",
+             |            "addressLine2": "Dubai Main Road",
+             |            "addressLine3": "line3",
+             |            "addressLine4": "line4",
+             |            "postcode": "G27JD",
+             |            "nonUKCountry": "United Kingdom"
+             |          }
              |        }
-             |  },
-             |  {
+             |      },
+             |      {
              |        "responsiblePerson": {
-             |              "action": "1",
-             |              "relation": "2"
+             |          "action": "1",
+             |          "relation": "2"
              |        },
              |        "type": "1",
-             |			   "addPartner": {
-             |              "effectiveDateOfChange": "$date"
+             |        "addPartner": {
+             |          "effectiveDateOfChange": "$date"
              |        },
-             |			   "individualDetails": {
-             |                "name": {
-             |                    "title": "0001",
-             |                    "firstName": "David",
-             |                    "lastName": "Beckham"
-             |                },
-             |                "position": "05",
-             |                "dateOfBirth": "2000-12-11",
-             |                "dayPhoneNumber": "07700 900 982",
-             |                "mobilePhone": "07700 900 981",
-             |                "nino": "QQ123456A"
+             |        "individualDetails": {
+             |          "name": {
+             |            "title": "0001",
+             |            "firstName": "David",
+             |            "lastName": "Beckham"
+             |          },
+             |          "position": "05",
+             |          "dateOfBirth": "2000-12-11",
+             |          "dayPhoneNumber": "07700 900 982",
+             |          "mobilePhone": "07700 900 981",
+             |          "nino": "QQ123456A"
              |        },
              |        "addressDetails": {
-             |              "currentAddress": {
-             |                    "nonUKAddress": true,
-             |                    "addressLine1": "3",
-             |                    "addressLine2": "Morrison Street",
-             |                    "addressLine3": "Bill Tower",
-             |                    "nonUKCountry": "Italy"
-             |               }
+             |          "currentAddress": {
+             |            "nonUKAddress": true,
+             |            "addressLine1": "3",
+             |            "addressLine2": "Morrison Street",
+             |            "addressLine3": "Bill Tower",
+             |            "nonUKCountry": "Italy"
+             |          }
              |        }
-             |
-             |  },
-             |  {
+             |      },
+             |      {
              |        "responsiblePerson": {
-             |              "action": "1",
-             |              "relation": "1"
+             |          "action": "1",
+             |          "relation": "1"
              |        },
              |        "type": "1",
-             |			   "addPartner": {
-             |              "effectiveDateOfChange": "$date"
+             |        "addPartner": {
+             |          "effectiveDateOfChange": "$date"
              |        },
-             |			   "individualDetails": {
-             |                "name": {
-             |                    "title": "0001",
-             |                    "firstName": "Albert",
-             |                    "middleName": "G",
-             |                    "lastName": "Einstien"
-             |                },
-             |                "position": "02",
-             |                "dateOfBirth": "2000-12-11",
-             |                "dayPhoneNumber": "07700 900 982",
-             |                "mobilePhone": "07700 900 981",
-             |                "nino": "QQ123456C"
+             |        "individualDetails": {
+             |          "name": {
+             |            "title": "0001",
+             |            "firstName": "Albert",
+             |            "middleName": "G",
+             |            "lastName": "Einstien"
+             |          },
+             |          "position": "02",
+             |          "dateOfBirth": "2000-12-11",
+             |          "dayPhoneNumber": "07700 900 982",
+             |          "mobilePhone": "07700 900 981",
+             |          "nino": "QQ123456C"
              |        },
              |        "addressDetails": {
-             |              "currentAddress": {
-             |                    "nonUKAddress": false,
-             |                    "addressLine1": "2",
-             |                    "addressLine2": "Dubai Main Road",
-             |                    "addressLine3": "line3",
-             |                    "addressLine4": "line4",
-             |                    "postcode": "G27JD",
-             |                    "nonUKCountry": "United Kingdom"
-             |               }
+             |          "currentAddress": {
+             |            "nonUKAddress": false,
+             |            "addressLine1": "2",
+             |            "addressLine2": "Dubai Main Road",
+             |            "addressLine3": "line3",
+             |            "addressLine4": "line4",
+             |            "postcode": "G27JD",
+             |            "nonUKCountry": "United Kingdom"
+             |          }
              |        }
-             |  },
-             |  {
+             |      },
+             |      {
              |        "responsiblePerson": {
-             |              "action": "1",
-             |              "relation": "1"
+             |          "action": "1",
+             |          "relation": "1"
              |        },
              |        "type": "1",
-             |			   "addPartner": {
-             |              "effectiveDateOfChange": "$date"
+             |        "addPartner": {
+             |          "effectiveDateOfChange": "$date"
              |        },
-             |			   "individualDetails": {
-             |                "name": {
-             |                    "title": "0001",
-             |                    "firstName": "David",
-             |                    "lastName": "Beckham"
-             |                },
-             |                "position": "05",
-             |                "dateOfBirth": "2000-12-11",
-             |                "dayPhoneNumber": "07700 900 982",
-             |                "mobilePhone": "07700 900 981",
-             |                "nino": "QQ123456A"
+             |        "individualDetails": {
+             |          "name": {
+             |            "title": "0001",
+             |            "firstName": "David",
+             |            "lastName": "Beckham"
+             |          },
+             |          "position": "05",
+             |          "dateOfBirth": "2000-12-11",
+             |          "dayPhoneNumber": "07700 900 982",
+             |          "mobilePhone": "07700 900 981",
+             |          "nino": "QQ123456A"
              |        },
              |        "addressDetails": {
-             |              "currentAddress": {
-             |                    "nonUKAddress": true,
-             |                    "addressLine1": "3",
-             |                    "addressLine2": "Morrison Street",
-             |                    "addressLine3": "Bill Tower",
-             |                    "nonUKCountry": "Italy"
-             |               }
+             |          "currentAddress": {
+             |            "nonUKAddress": true,
+             |            "addressLine1": "3",
+             |            "addressLine2": "Morrison Street",
+             |            "addressLine3": "Bill Tower",
+             |            "nonUKCountry": "Italy"
+             |          }
              |        }
-             |
-             |  }]}""".stripMargin
+             |      }
+             |    ]
+             |  }
+             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToPartner).asOpt.value mustBe Json.parse(expectedJson)
       }

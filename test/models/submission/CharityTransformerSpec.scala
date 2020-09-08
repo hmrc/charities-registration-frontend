@@ -21,19 +21,18 @@ import java.time.LocalDate
 import base.SpecBase
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
-import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats}
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
+import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
-import pages.operationsAndFunds.{AccountingPeriodEndDatePage, CharitableObjectivesPage, CharitablePurposesPage, FundRaisingPage, OperatingLocationPage, PublicBenefitsPage}
+import pages.operationsAndFunds._
 import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
 class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
   //scalastyle:off magic.number
   val jsonTransformer: CharityTransformer = new CharityTransformer
-
 
   "CharityTransformer" when {
 

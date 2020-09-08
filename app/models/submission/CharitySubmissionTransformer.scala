@@ -16,8 +16,27 @@
 
 package models.submission
 
-class CharitySubmissionTransformer extends JsonTransformer {
+import javax.inject.Inject
+import models.requests.DataRequest
+import play.api.libs.functional.syntax.toFunctionalBuilderOps
+import play.api.libs.json.Reads.JsObjectReducer
+import play.api.libs.json.{JsObject, Json, Reads}
 
-  //TODO for complete submission
+class CharitySubmissionTransformer @Inject()(
+                                              charityTransformer: CharityTransformer,
+                                              charityPartnerTransformer: CharityPartnerTransformer,
+                                              charityCommonTransformer: CharityCommonTransformer
+                                            )
+  extends JsonTransformer {
 
+  def userAnswersToSubmission(implicit request: DataRequest[_]): Reads[JsObject] = {
+
+    (charityCommonTransformer.userAnswersToCommon and
+      charityTransformer.userAnswersToCharity and
+      charityPartnerTransformer.userAnswersToPartner).reduce
+      .map(jsObj => {
+        Json.parse(jsObj.toString().replaceAll("%", " percent").replaceAllLiterally("\\r", "").replaceAllLiterally("\\n", "")).as[JsObject]
+      }
+      )
+  }
 }

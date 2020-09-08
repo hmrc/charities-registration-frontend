@@ -26,62 +26,14 @@ import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other,
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
-import pages.QuestionPage
 import pages.operationsAndFunds.{AccountingPeriodEndDatePage, CharitableObjectivesPage, CharitablePurposesPage, FundRaisingPage, OperatingLocationPage, PublicBenefitsPage}
 import pages.regulatorsAndDocuments._
-import play.api.libs.json.{JsPath, Json}
+import play.api.libs.json.Json
 
-class CharityTransformerSpec extends SpecBase {
+class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
   //scalastyle:off magic.number
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
-  // TODO when page created
-  case object GoverningDocumentChangePage  extends QuestionPage[String] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "governingDocumentChanges"
-  }
-
-  // TODO when page created
-  case object HasFinancialAccountsPage  extends QuestionPage[Boolean] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "hasFinancialAccounts"
-  }
-
-  // TODO when page created
-  case object NoBankStatementPage  extends QuestionPage[String] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "noBankStatement"
-  }
-
-  // TODO when page created
-  case class OverseasCountryPage(index: Int) extends QuestionPage[String] {
-
-    override def path: JsPath = JsPath \ toString \ index
-
-    override def toString: String = "overseas"
-  }
-
-  // TODO when page created
-  case object EstimatedIncomePage extends QuestionPage[Double] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "estimatedIncome"
-  }
-
-  // TODO when page created
-  case object GrossIncomePage extends QuestionPage[Double] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "grossIncome"
-  }
 
   "CharityTransformer" when {
 

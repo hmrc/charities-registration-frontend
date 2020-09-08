@@ -24,7 +24,8 @@
     h1: components.h1,
     p: components.p,
     warning: components.warning,
-    link: components.linkAsButton
+    button: components.button,
+    formHelper: FormWithCSRF
 )
 
 @()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -34,7 +35,13 @@
     @h1(messages("declaration.heading"))
 
     @warning{@messages("declaration.warning")}
+
     @p{@messages("declaration.p1")}
-    @link(controllers.routes.RegistrationSentController.onPageLoad().url, "site.confirmAndSend", id=Some("linkButton"))
+
+    @formHelper(action = controllers.routes.DeclarationController.onSubmit(), 'autoComplete -> "off") {
+
+        @button("site.confirmAndSend")
+
+    }
 
 }

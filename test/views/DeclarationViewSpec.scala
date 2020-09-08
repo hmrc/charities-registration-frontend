@@ -40,8 +40,7 @@ class DeclarationViewSpec extends ViewBehaviours  {
 
       behave like pageWithWarningText(applyView(), messages("declaration.warning"))
 
-      behave like pageWithHyperLink(applyView(), "linkButton",
-        controllers.routes.RegistrationSentController.onPageLoad().url, messages("site.confirmAndSend"))
+      behave like pageWithSubmitButton(applyView(), messages("site.confirmAndSend"))
 
     }
   }

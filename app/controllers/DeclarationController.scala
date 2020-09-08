@@ -16,27 +16,31 @@
 
 package controllers
 
+import audit.{AuditService, DeclarationAuditEvent}
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
 import views.html.DeclarationView
 
 import scala.concurrent.Future
 
-
 class DeclarationController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
-    userAnswerRepository: UserAnswerRepository,
     requireData: DataRequiredAction,
+    auditService: AuditService,
     view: DeclarationView,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     Future.successful(Ok(view()))
+  }
+
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    for{
+      _ <- Future(auditService.sendEvent(DeclarationAuditEvent(true)))
+    } yield Redirect(controllers.routes.RegistrationSentController.onPageLoad())
   }
 }

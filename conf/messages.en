@@ -557,6 +557,15 @@ hasCharityChangedPartsOfGoverningDocument.heading = Has the charity changed part
 hasCharityChangedPartsOfGoverningDocument.error.required = Select yes if the charity has changed the governing document since it was approved
 hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = Have sections and clauses changed
 
+# SectionsChangedGoverningDocument Messages
+# ----------------------------------------------------------
+sectionsChangedGoverningDocument.title = What sections and clauses have changed in the governing document and why?
+sectionsChangedGoverningDocument.heading = What sections and clauses have changed in the governing document and why?
+sectionsChangedGoverningDocument.error.required = Enter what sections and clauses have changed in the governing document and why they have changed
+sectionsChangedGoverningDocument.error.length = Your answer must be 350 characters or fewer
+sectionsChangedGoverningDocument.error.format = Your answer must not include the following characters: & () : @
+sectionsChangedGoverningDocument.checkYourAnswersLabel = Sections and clauses that have been changed
+
 # GoverningDocument Summary page
 # ----------------------------------------------------------
 governingDocumentSummary.checkYourAnswers.title = Check the governing document details

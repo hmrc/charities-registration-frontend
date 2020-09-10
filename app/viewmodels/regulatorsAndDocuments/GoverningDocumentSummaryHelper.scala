@@ -43,12 +43,16 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
   def hasCharityChangedPartsOfGoverningDocumentRow: Option[SummaryListRow] =
     answer(HasCharityChangedPartsOfGoverningDocumentPage, documentsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode))
 
+  def sectionsChangedGoverningDocumentRow: Option[SummaryListRow] =
+    answer(SectionsChangedGoverningDocumentPage, documentsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode))
+
   val rows: Seq[SummaryListRow] = Seq(
     selectGoverningDocumentRow,
     whatIsTheGoverningDocumentNameRow,
     dateApprovedGoverningDocumentRow,
     isApprovedGoverningDocumentRow,
-    hasCharityChangedPartsOfGoverningDocumentRow
+    hasCharityChangedPartsOfGoverningDocumentRow,
+    sectionsChangedGoverningDocumentRow
   ).flatten
 
 }

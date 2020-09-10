@@ -44,14 +44,6 @@ trait CharityTransformerTodoPages extends SpecBase{
   private val date = LocalDate.now()
 
   // TODO when page created
-  case object GoverningDocumentChangePage extends QuestionPage[String] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "governingDocumentChanges"
-  }
-
-  // TODO when page created
   case object HasFinancialAccountsPage extends QuestionPage[Boolean] {
 
     override def path: JsPath = JsPath \ toString

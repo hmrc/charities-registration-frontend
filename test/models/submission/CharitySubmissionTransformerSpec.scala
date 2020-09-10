@@ -121,7 +121,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
           _.set(GoverningDocumentNamePage, "Other Documents for Charity%")).flatMap(
           _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
          _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
-          _.set(GoverningDocumentChangePage,
+          _.set(SectionsChangedGoverningDocumentPage,
             "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
       ).flatMap(_.set(AccountingPeriodEndDatePage,
         MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(

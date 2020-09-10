@@ -73,16 +73,13 @@ class CharityTransformer extends JsonTransformer {
       ((__ \ 'aboutOrganisation ).json.copyFrom(userAnswersToAboutOrganisationCommon) orElse doNothing) and
         (__ \ 'aboutOrganisation \ 'documentEnclosed).json.copyFrom((__ \ 'selectGoverningDocument).json.pick) and
         (__ \ 'aboutOrganisation \ 'governingApprovedDoc).json.copyFrom((__ \ 'isApprovedGoverningDocument).json.pick) and
-        (__ \ 'hasCharityChangedPartsOfGoverningDocument).readNullable[Boolean].flatMap{
-          case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(changes))
-          case _ => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(false))
-        } and
-        (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
+        (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.copyFrom((__ \ 'hasCharityChangedPartsOfGoverningDocument).json.pick) and
+        (__ \ 'sectionsChangedGoverningDocument).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes.substring(0,255)))
           case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes))
           case _ => doNothing
         } and
-        (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
+        (__ \ 'sectionsChangedGoverningDocument).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChangesB).json.put(JsString(changes.substring(255)))
           case _ => doNothing
         }

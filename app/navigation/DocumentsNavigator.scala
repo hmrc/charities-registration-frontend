@@ -38,6 +38,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
 
+    case HasCharityChangedPartsOfGoverningDocumentPage => userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, NormalMode)
+
     case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -52,6 +54,8 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
     case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
 
     case GoverningDocumentNamePage => userAnswers: UserAnswers => governingDocumentNamePageNav(userAnswers, CheckMode)
+
+    case HasCharityChangedPartsOfGoverningDocumentPage => userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, CheckMode)
 
     case _ => _ => routes.IndexController.onPageLoad()
 
@@ -85,6 +89,12 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
+    case Some(true) => regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(mode)
+    case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+    case _ => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
     case Some(true) => routes.DeadEndController.onPageLoad() // TODO modify once Have you changed governing document page is created
     case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()

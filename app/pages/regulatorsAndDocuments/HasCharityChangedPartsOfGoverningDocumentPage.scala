@@ -16,23 +16,12 @@
 
 package pages.regulatorsAndDocuments
 
-import models.UserAnswers
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-import scala.util.Try
-
-case object IsApprovedGoverningDocumentPage extends QuestionPage[Boolean] {
+case object HasCharityChangedPartsOfGoverningDocumentPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "isApprovedGoverningDocument"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
-    value match {
-      case Some(_)  =>
-        userAnswers.remove(HasCharityChangedPartsOfGoverningDocumentPage)
-      case _ =>
-        super.cleanup(value, userAnswers)
-    }
+  override def toString: String = "hasCharityChangedPartsOfGoverningDocument"
 }

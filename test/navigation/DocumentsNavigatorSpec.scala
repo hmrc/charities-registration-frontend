@@ -94,15 +94,36 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the DeadEnd page when yes is selected" in {
-
+        "go to the HasCharityChangedPartsofGoverningDocument page when yes is selected" in {
           navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+            regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(NormalMode)
         }
+
         "go to the Governing Document summary page when no is selected" in {
           navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage, false).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the HasCharityChangedPartsofGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the DeadEnd page when yes is selected" in {
+
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, NormalMode,
+            emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage,true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+        }
+
+        "go to the Governing Document summary page when no is selected" in {
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, NormalMode,
+            emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage, false).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }
@@ -182,15 +203,37 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Dead End page when yes is selected" in {
+        "go to the HasCharityChangedPartsofGoverningDocument page when yes is selected" in {
 
           navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+            regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode)
         }
+
         "go to the Governing Document summary page when no is selected" in {
           navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage, false).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the HasCharityChangedPartsofGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the DeadEnd page when yes is selected" in {
+
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage,true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+        }
+
+        "go to the Governing Document summary page when no is selected" in {
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage, false).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }

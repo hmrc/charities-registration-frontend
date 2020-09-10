@@ -16,7 +16,9 @@
 
 package pages.regulatorsAndDocuments
 
+import models.UserAnswers
 import pages.behaviours.PageBehaviours
+import play.api.libs.json.Json
 
 class IsApprovedGoverningDocumentPageSpec extends PageBehaviours {
 
@@ -27,5 +29,22 @@ class IsApprovedGoverningDocumentPageSpec extends PageBehaviours {
     beSettable[Boolean](IsApprovedGoverningDocumentPage)
 
     beRemovable[Boolean](IsApprovedGoverningDocumentPage)
+
+    "cleanup" when {
+
+      val userAnswer = UserAnswers("id", Json.obj()).set(IsApprovedGoverningDocumentPage,true)
+        .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false)
+        ).success.value
+
+      "setting IsApprovedGoverningDocumentPage to HasCharityChangedPartsOfGoverningDocument" must {
+
+        val result = userAnswer.set(IsApprovedGoverningDocumentPage,true).success.value
+
+        "remove HasCharityChangedPartsOfGoverningDocumentPage" in {
+
+          result.get(HasCharityChangedPartsOfGoverningDocumentPage) mustNot be(defined)
+        }
+      }
+    }
   }
 }

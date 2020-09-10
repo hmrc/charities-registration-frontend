@@ -61,6 +61,11 @@ POST       /approved-governing-document                                         
 GET        /approved-governing-document/change                                  controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onPageLoad(mode: Mode = CheckMode)
 POST       /approved-governing-document/change                                  controllers.regulatorsAndDocuments.IsApprovedGoverningDocumentController.onSubmit(mode: Mode = CheckMode)
 
+GET        /changed-governing-document                                          controllers.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(mode: Mode = NormalMode)
+POST       /changed-governing-document                                          controllers.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentController.onSubmit(mode: Mode = NormalMode)
+GET        /changed-governing-document/change                                   controllers.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(mode: Mode = CheckMode)
+POST       /changed-governing-document/change                                   controllers.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentController.onSubmit(mode: Mode = CheckMode)
+
 GET        /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onPageLoad()
 POST       /governing-document-summary                                          controllers.regulatorsAndDocuments.GoverningDocumentSummaryController.onSubmit()
 

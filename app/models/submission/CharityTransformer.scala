@@ -73,10 +73,7 @@ class CharityTransformer extends JsonTransformer {
       ((__ \ 'aboutOrganisation ).json.copyFrom(userAnswersToAboutOrganisationCommon) orElse doNothing) and
         (__ \ 'aboutOrganisation \ 'documentEnclosed).json.copyFrom((__ \ 'selectGoverningDocument).json.pick) and
         (__ \ 'aboutOrganisation \ 'governingApprovedDoc).json.copyFrom((__ \ 'isApprovedGoverningDocument).json.pick) and
-        (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.copyFrom((__ \ 'governingDocumentChanges).readNullable[String].map {
-          case Some(changes) if changes.isEmpty => JsBoolean(true)
-          case _ => JsBoolean(false)
-        }) and
+        (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.copyFrom((__ \ 'hasCharityChangedPartsOfGoverningDocument).json.pick) and
         (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes.substring(0,255)))
           case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes))

@@ -220,8 +220,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
 
         val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
-            _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
             _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+            _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
+            _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
             _.set(GoverningDocumentChangePage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
         ).success.value
@@ -248,8 +249,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
 
         val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
+            _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
             _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
-            _.set(GoverningDocumentNamePage, "Other Documents for Charity"))).success.value
+            _.set(HasCharityChangedPartsOfGoverningDocumentPage, false))).success.value
 
         val expectedJson =
           """{
@@ -658,8 +660,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
             "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
           )).flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
-            _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
             _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+            _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
+            _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
             _.set(GoverningDocumentChangePage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
         )).flatMap(_.set(AccountingPeriodEndDatePage,
@@ -770,8 +773,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
           _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).flatMap(
           _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))).flatMap(
-          _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
           _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+          _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
+          _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
           _.set(AccountingPeriodEndDatePage,
             MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
             _.set(HasFinancialAccountsPage, true)).flatMap(

@@ -34,7 +34,8 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
     .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head).flatMap
   (_.set(GoverningDocumentNamePage,"will")).flatMap
   (_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2))).flatMap
-  (_.set(IsApprovedGoverningDocumentPage,true)).success.value
+  (_.set(IsApprovedGoverningDocumentPage,true)).flatMap
+  (_.set(HasCharityChangedPartsOfGoverningDocumentPage,true)).success.value
   )
 
   "Check Your Answers Helper" must {
@@ -90,5 +91,19 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
         ))
       }
     }
+
+    "For the HasCharityChangedPartsOfGoverningDocument answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.hasCharityChangedPartsOfGoverningDocumentRow  mustBe Some(summaryListRow(
+          messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel"),
+          BaseMessages.yes,
+          Some(messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel")),
+          regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
   }
 }

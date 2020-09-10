@@ -14,25 +14,16 @@
  * limitations under the License.
  */
 
-package pages.regulatorsAndDocuments
+package forms.regulatorsAndDocuments
 
-import models.UserAnswers
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-import scala.util.Try
+class HasCharityChangedPartsOfGoverningDocumentFormProvider @Inject() extends Mappings {
 
-case object IsApprovedGoverningDocumentPage extends QuestionPage[Boolean] {
-
-  override def path: JsPath = JsPath \ toString
-
-  override def toString: String = "isApprovedGoverningDocument"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
-    value match {
-      case Some(_)  =>
-        userAnswers.remove(HasCharityChangedPartsOfGoverningDocumentPage)
-      case _ =>
-        super.cleanup(value, userAnswers)
-    }
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("hasCharityChangedPartsOfGoverningDocument.error.required")
+    )
 }

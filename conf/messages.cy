@@ -550,6 +550,13 @@ isApprovedGoverningDocument.heading = (W)Is the charity using a form of governin
 isApprovedGoverningDocument.error.required = (W)Select yes if the charity is using a form of governing document that is approved by a national organisation, parent body or principle regulator(W)
 isApprovedGoverningDocument.checkYourAnswersLabel = (W)Approved by a regulator(W)
 
+# HasCharityChangedPartsOfGoverningDocument Messages
+# ----------------------------------------------------------
+hasCharityChangedPartsOfGoverningDocument.title = (W)Has the charity changed parts of the governing document since it was approved?(W)
+hasCharityChangedPartsOfGoverningDocument.heading = (W)Has the charity changed parts of the governing document since it was approved?(W)
+hasCharityChangedPartsOfGoverningDocument.error.required = (W)Select yes if the charity has changed the governing document since it was approved(W)
+hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = (W)Have sections and clauses changed(W)
+
 # GoverningDocument Summary page
 # ----------------------------------------------------------
 governingDocumentSummary.checkYourAnswers.title = (W)Check the governing document details(W)

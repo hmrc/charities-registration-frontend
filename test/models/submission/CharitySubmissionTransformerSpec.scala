@@ -99,8 +99,9 @@ class CharitySubmissionTransformerSpec extends SpecBase with CharityTransformerT
           AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))))
         .flatMap(
         _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).flatMap(
-        _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
         _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+        _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
+        _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
         _.set(AccountingPeriodEndDatePage,
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(HasFinancialAccountsPage, true)).flatMap(
@@ -153,8 +154,9 @@ class CharitySubmissionTransformerSpec extends SpecBase with CharityTransformerT
         _.set(CharitableObjectivesPage,
           "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
         )).flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
-          _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
           _.set(GoverningDocumentNamePage, "Other Documents for Charity%")).flatMap(
+          _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
+         _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
           _.set(GoverningDocumentChangePage,
             "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
       ).flatMap(_.set(AccountingPeriodEndDatePage,
@@ -182,8 +184,9 @@ class CharitySubmissionTransformerSpec extends SpecBase with CharityTransformerT
         .flatMap(
         _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).flatMap(
         _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(
-        _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
         _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+        _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
+        _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
         _.set(AccountingPeriodEndDatePage,
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(HasFinancialAccountsPage, true)).flatMap(

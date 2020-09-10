@@ -40,11 +40,15 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
   def isApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(IsApprovedGoverningDocumentPage, documentsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode))
 
+  def hasCharityChangedPartsOfGoverningDocumentRow: Option[SummaryListRow] =
+    answer(HasCharityChangedPartsOfGoverningDocumentPage, documentsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode))
+
   val rows: Seq[SummaryListRow] = Seq(
     selectGoverningDocumentRow,
     whatIsTheGoverningDocumentNameRow,
     dateApprovedGoverningDocumentRow,
-    isApprovedGoverningDocumentRow
+    isApprovedGoverningDocumentRow,
+    hasCharityChangedPartsOfGoverningDocumentRow
   ).flatten
 
 }

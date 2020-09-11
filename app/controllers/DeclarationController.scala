@@ -21,7 +21,7 @@ import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRe
 import javax.inject.Inject
 import models.submission.CharitySubmissionTransformer
 import play.api.Logger
-import play.api.libs.json.Json
+import play.api.libs.json.{JsError, JsSuccess}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.CharitiesRegistrationService
 import views.html.DeclarationView
@@ -45,11 +45,14 @@ class DeclarationController @Inject()(
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    request.userAnswers.data.transform(transformer.userAnswersToSubmission).asOpt match {
-      case Some(requestJson) =>
+
+    request.userAnswers.data.transform(transformer.userAnswersToSubmission) match {
+      case JsSuccess(requestJson,_) =>
+        logger.info("[DeclarationController][onSubmit] userAnswers to submission transformation successful")
         registrationService.register(requestJson)
-      case _ =>
-        logger.error("[DeclarationController][onSubmit] [CharitySubmissionTransformer] Json transformer errors")
+
+      case JsError(err) =>
+        logger.error("[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors : " + err)
         Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
   }

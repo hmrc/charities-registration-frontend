@@ -55,12 +55,14 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.delete(any())).thenReturn(Future.successful(true))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view()(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).delete(any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -73,6 +75,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, never).delete(any())
     }
 
   }

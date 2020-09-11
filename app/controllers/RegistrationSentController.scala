@@ -23,9 +23,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import views.html.RegistrationSentView
 
-import scala.concurrent.Future
-
-
 class RegistrationSentController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
@@ -37,6 +34,8 @@ class RegistrationSentController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    Future.successful(Ok(view()))
+    userAnswerRepository.delete(request.userAnswers).map{ _ =>
+      Ok(view())
+    }
   }
 }

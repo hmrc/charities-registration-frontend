@@ -19,9 +19,12 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
+import pages.AcknowledgementReferencePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import views.html.RegistrationSentView
+
+import scala.concurrent.Future
 
 class RegistrationSentController @Inject()(
     identify: AuthIdentifierAction,
@@ -33,9 +36,11 @@ class RegistrationSentController @Inject()(
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    userAnswerRepository.delete(request.userAnswers).map{ _ =>
-      Ok(view())
+    request.userAnswers.get(AcknowledgementReferencePage) match {
+      case Some(acknowledgementReference) =>  userAnswerRepository.delete(request.userAnswers).map { _ =>
+        Ok(view(acknowledgementReference))
+      }
+      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
   }
 }

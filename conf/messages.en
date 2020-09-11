@@ -185,7 +185,6 @@ registrationSent.h2 = What to do next
 registrationSent.h2a = Post copies of the documents by [date]
 registrationSent.h2b = How long do applications take
 registrationSent.p1 = You reference number
-registrationSent.p2 = 0123 4567 8901
 registrationSent.p3 = You need to make copies and add your reference number 0123 4567 8901 to:
 registrationSent.p4 = You have until [date] to send copies of the documents to:
 registrationSent.p5 = Charities, Savings & International 2

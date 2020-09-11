@@ -94,10 +94,11 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
-    case Some(true) => routes.DeadEndController.onPageLoad() // TODO modify once Have you changed governing document page is created
-    case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad()
+  private def hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = {
+    userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO modify once Have you changed governing document page is created
+      case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
   }
-
 }

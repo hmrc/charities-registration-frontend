@@ -25,6 +25,8 @@ object AddressLookupInitializationHttpParser {
 
   type AddressLookupInitializationResponse = Either[ErrorResponse, AddressLookupOnRamp]
 
+  private val logger = Logger(this.getClass)
+
   implicit object AddressLookupInitializationReads extends HttpReads[AddressLookupInitializationResponse] {
 
     def read(method: String, url: String, response: HttpResponse): AddressLookupInitializationResponse = {
@@ -34,11 +36,11 @@ object AddressLookupInitializationHttpParser {
             case Some(url) =>
               Right(AddressLookupOnRamp(url))
             case None =>
-              Logger.warn(s"[AddressLookupInitializationReads][read]: No Location Header returned from Address Lookup")
+              logger.warn(s"[AddressLookupInitializationReads][read]: No Location Header returned from Address Lookup")
               Left(NoLocationHeaderReturned)
           }
         case status =>
-          Logger.error(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
+          logger.error(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
           Left(DefaultedUnexpectedFailure(status))
       }
     }

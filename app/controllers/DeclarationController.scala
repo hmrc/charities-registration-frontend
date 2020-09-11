@@ -16,11 +16,14 @@
 
 package controllers
 
-import audit.{AuditService, DeclarationAuditEvent}
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
+import models.submission.CharitySubmissionTransformer
+import play.api.Logger
+import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import service.CharitiesRegistrationService
 import views.html.DeclarationView
 
 import scala.concurrent.Future
@@ -29,18 +32,25 @@ class DeclarationController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
-    auditService: AuditService,
+    registrationService: CharitiesRegistrationService,
+    transformer: CharitySubmissionTransformer,
     view: DeclarationView,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+
+  private val logger = Logger(this.getClass)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     Future.successful(Ok(view()))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    for{
-      _ <- Future(auditService.sendEvent(DeclarationAuditEvent(true)))
-    } yield Redirect(controllers.routes.RegistrationSentController.onPageLoad())
+    request.userAnswers.data.transform(transformer.userAnswersToSubmission).asOpt match {
+      case Some(requestJson) =>
+        registrationService.register(requestJson)
+      case _ =>
+        logger.error("[DeclarationController][onSubmit] [CharitySubmissionTransformer] Json transformer errors")
+        Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+    }
   }
 }

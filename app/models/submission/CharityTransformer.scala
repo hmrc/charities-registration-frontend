@@ -73,7 +73,10 @@ class CharityTransformer extends JsonTransformer {
       ((__ \ 'aboutOrganisation ).json.copyFrom(userAnswersToAboutOrganisationCommon) orElse doNothing) and
         (__ \ 'aboutOrganisation \ 'documentEnclosed).json.copyFrom((__ \ 'selectGoverningDocument).json.pick) and
         (__ \ 'aboutOrganisation \ 'governingApprovedDoc).json.copyFrom((__ \ 'isApprovedGoverningDocument).json.pick) and
-        (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.copyFrom((__ \ 'hasCharityChangedPartsOfGoverningDocument).json.pick) and
+        (__ \ 'hasCharityChangedPartsOfGoverningDocument).readNullable[Boolean].flatMap{
+          case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(changes))
+          case _ => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(false))
+        } and
         (__ \ 'governingDocumentChanges).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes.substring(0,255)))
           case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes))
@@ -87,10 +90,14 @@ class CharityTransformer extends JsonTransformer {
   }
 
   def userAnswersToOperationAndFundsCommon : Reads[JsObject] = {
+    val hasFinancialAccounts = (__ \ 'hasFinancialAccounts).readNullable[Boolean].map {
+      case Some(bol) => JsBoolean(bol)
+      case _ => JsBoolean(false)
+    }
     (
       (__ \ 'accountingPeriodEndDate).read[String].flatMap(accountPeriod =>
         (__ \ 'operationAndFundsCommon \ 'accountPeriodEnd).json.put(JsString(accountPeriod.replaceAll("-", "")))) and
-        ((__ \ 'operationAndFundsCommon \ 'financialAccounts).json.copyFrom((__ \ 'hasFinancialAccounts).json.pick) orElse doNothing) and
+        (__ \ 'operationAndFundsCommon \ 'financialAccounts).json.copyFrom(hasFinancialAccounts) and
         (__ \ 'noBankStatement).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes.substring(0,255)))
           case Some(changes) => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes))

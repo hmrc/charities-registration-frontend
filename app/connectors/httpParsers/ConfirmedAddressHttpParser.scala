@@ -26,6 +26,8 @@ object ConfirmedAddressHttpParser {
 
   type ConfirmedAddressResponse = Either[ErrorResponse, AddressModel]
 
+  private val logger = Logger(this.getClass)
+
   implicit object ConfirmedAddressReads extends HttpReads[ConfirmedAddressResponse] {
 
     def read(method: String, url: String, response: HttpResponse): ConfirmedAddressResponse = {
@@ -34,14 +36,14 @@ object ConfirmedAddressHttpParser {
           response.json.validate[AddressModel](AddressModel.responseReads) match {
             case JsSuccess(address, _) => Right(address)
             case JsError(errors) =>
-              Logger.error(s"[ConfirmedAddressReads][read] Json validation errors $errors")
+              logger.error(s"[ConfirmedAddressReads][read] Json validation errors $errors")
               Left(AddressMalformed)
           }
         case NOT_FOUND =>
-          Logger.error(s"[ConfirmedAddressReads][read] Address could not be found")
+          logger.error(s"[ConfirmedAddressReads][read] Address could not be found")
           Left(AddressNotFound)
         case status =>
-          Logger.warn(s"[ConfirmedAddressReads][read]: Unexpected response, status $status returned")
+          logger.warn(s"[ConfirmedAddressReads][read]: Unexpected response, status $status returned")
           Left(DefaultedUnexpectedFailure(status))
       }
     }

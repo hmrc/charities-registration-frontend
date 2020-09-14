@@ -73,3 +73,8 @@ GET        /other-governing-document                                            
 POST       /other-governing-document                                            controllers.regulatorsAndDocuments.GoverningDocumentNameController.onSubmit(mode: Mode = NormalMode)
 GET        /other-governing-document/change                                     controllers.regulatorsAndDocuments.GoverningDocumentNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /other-governing-document/change                                     controllers.regulatorsAndDocuments.GoverningDocumentNameController.onSubmit(mode: Mode = CheckMode)
+
+GET        /sections-changed-governing-document                                 controllers.regulatorsAndDocuments.SectionsChangedGoverningDocumentController.onPageLoad(mode: Mode = NormalMode)
+POST       /sections-changed-governing-document                                 controllers.regulatorsAndDocuments.SectionsChangedGoverningDocumentController.onSubmit(mode: Mode = NormalMode)
+GET        /sections-changed-governing-document/change                          controllers.regulatorsAndDocuments.SectionsChangedGoverningDocumentController.onPageLoad(mode: Mode = CheckMode)
+POST       /sections-changed-governing-document/change                          controllers.regulatorsAndDocuments.SectionsChangedGoverningDocumentController.onSubmit(mode: Mode = CheckMode)

@@ -114,16 +114,30 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the DeadEnd page when yes is selected" in {
+        "go to the SectionsChangedGoverningDocument page when yes is selected" in {
 
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage,true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+            regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(NormalMode)
         }
 
         "go to the Governing Document summary page when no is selected" in {
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, NormalMode,
             emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage, false).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the SectionsChangedGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(SectionsChangedGoverningDocumentPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document summary page when continue is clicked" in {
+          navigator.nextPage(SectionsChangedGoverningDocumentPage, NormalMode,
+            emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }
@@ -224,16 +238,30 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the DeadEnd page when yes is selected" in {
+        "go to the SectionsChangedGoverningDocument page when yes is selected" in {
 
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode,
             emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage,true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO modify once Governing Document name page is created
+            regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode)
         }
 
         "go to the Governing Document summary page when no is selected" in {
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode,
             emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage, false).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+      }
+
+      "from the SectionsChangedGoverningDocument" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(SectionsChangedGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Governing Document summary page when continue is clicked" in {
+          navigator.nextPage(SectionsChangedGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }

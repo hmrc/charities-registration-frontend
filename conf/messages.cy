@@ -557,6 +557,15 @@ hasCharityChangedPartsOfGoverningDocument.heading = (W)Has the charity changed p
 hasCharityChangedPartsOfGoverningDocument.error.required = (W)Select yes if the charity has changed the governing document since it was approved(W)
 hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = (W)Have sections and clauses changed(W)
 
+# SectionsChangedGoverningDocument Messages
+# ----------------------------------------------------------
+sectionsChangedGoverningDocument.title = (W)What sections and clauses have changed in the governing document and why?(W)
+sectionsChangedGoverningDocument.heading = (W)What sections and clauses have changed in the governing document and why?(W)
+sectionsChangedGoverningDocument.error.required = (W)Enter what sections and clauses have changed in the governing document and why they have changed(W)
+sectionsChangedGoverningDocument.error.length = (W)Your answer must be 350 characters or fewer(W)
+sectionsChangedGoverningDocument.error.format = (W)Your answer must not include the following characters: & () : @(W)
+sectionsChangedGoverningDocument.checkYourAnswersLabel = (W)Sections and clauses that have been changed(W)
+
 # GoverningDocument Summary page
 # ----------------------------------------------------------
 governingDocumentSummary.checkYourAnswers.title = (W)Check the governing document details(W)

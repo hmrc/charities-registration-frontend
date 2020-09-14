@@ -136,6 +136,17 @@ class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAn
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
+    "redirect to Session Expired for a GET if no existing data is found for GoverningDocument" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))

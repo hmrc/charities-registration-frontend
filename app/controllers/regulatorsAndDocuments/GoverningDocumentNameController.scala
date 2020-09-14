@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.Mode
 import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.GoverningDocumentNamePage
-import pages.sections.Section2Page
+import pages.sections.Section3Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.regulatorsAndDocuments.GoverningDocumentNameView
@@ -61,7 +61,7 @@ class GoverningDocumentNameController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(GoverningDocumentNamePage, value).flatMap(_.set(Section2Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(GoverningDocumentNamePage, value).flatMap(_.set(Section3Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(GoverningDocumentNamePage, mode, updatedAnswers))
     )

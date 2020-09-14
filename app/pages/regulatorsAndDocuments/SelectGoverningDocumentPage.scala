@@ -18,6 +18,7 @@ package pages.regulatorsAndDocuments
 
 import models.UserAnswers
 import models.regulators.SelectGoverningDocument
+import models.regulators.SelectGoverningDocument.Other
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
@@ -31,7 +32,7 @@ case object SelectGoverningDocumentPage extends QuestionPage[SelectGoverningDocu
 
   override def cleanup(value: Option[SelectGoverningDocument], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(_)  =>
+      case Some(item) if item != Other  =>
         userAnswers.remove(Seq(GoverningDocumentNamePage))
       case _ =>
         super.cleanup(value, userAnswers)

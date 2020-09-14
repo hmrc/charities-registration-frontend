@@ -899,6 +899,11 @@ isAddAnotherAuthorisedOfficial.error.required = Select yes if you want to add an
 
 isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = Add another authorised official
 
+# You have added second Authorised Official Page Messages
+# ----------------------------------------------------------
+addedSecondAuthorisedOfficial.checkYourAnswers.heading = Check the second authorised official’s details
+addedSecondAuthorisedOfficial.checkYourAnswers.title = Check the second authorised official’s details
+
 # Authorised Officials Summary page
 # ----------------------------------------------------------
 authorisedOfficialsSummary.checkYourAnswers.title = Check the charity’s authorised official details

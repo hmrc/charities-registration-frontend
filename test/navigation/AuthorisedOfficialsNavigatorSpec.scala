@@ -186,8 +186,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0), false)
                 .flatMap(_.set(AuthorisedOfficialPreviousAddressPage(index), false))
                 .success.value) mustBe {index match {
-              case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad ()
-              case 1 => routes.DeadEndController.onPageLoad() // TODO must point to summary for 2nd official when ready
+              case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
+              case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
             }}
           }
         }
@@ -198,6 +198,14 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(AddedOneAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
               authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
           }
+      }
+
+      "from the AddedSecondAuthorisedOfficialPage" must {
+
+        "go to the summary page when user answer is empty for 2nd loop" in {
+          navigator.nextPage(AddedSecondAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
+            routes.DeadEndController.onPageLoad() // TODO update once both auth officials summary page is done DDCE-1037
+        }
       }
 
       "from the IsAddAnotherAuthorisedOfficialPage" must {

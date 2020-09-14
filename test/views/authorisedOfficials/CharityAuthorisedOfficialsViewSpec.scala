@@ -25,23 +25,26 @@ import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
 class CharityAuthorisedOfficialsViewSpec extends ViewBehaviours  {
 
   private val messageKeyPrefix = "charityAuthorisedOfficials"
+    List(0,1).foreach(index => {
+    s"CharityAuthorisedOfficialsView for index $index" must {
 
-    "CharityAuthorisedOfficialsView" must {
-
-      def applyView(): HtmlFormat.Appendable = {
+      def applyView(index: Index): HtmlFormat.Appendable = {
         val view = viewFor[CharityAuthorisedOfficialsView](Some(emptyUserAnswers))
-        view.apply(Index(0))(fakeRequest, messages, frontendAppConfig)
+        view.apply(index)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
+        behave like normalPage(applyView(index), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
 
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2", "p3")
+        behave like pageWithAdditionalGuidance(applyView(index), messageKeyPrefix,
+          "p1", "p2", "p3")
 
-      behave like pageWithBackLink(applyView())
+        behave like pageWithBackLink(applyView(index))
 
-      behave like pageWithHyperLink(applyView(), "linkButton",controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode,Index(0)).url,BaseMessages.continue)
+        behave like pageWithHyperLink(applyView(index), "linkButton", controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, index).url, BaseMessages.continue)
+
+
 
 
     }
+    })
   }

@@ -25,7 +25,7 @@ import models.Mode
 import models.regulators.SelectGoverningDocument
 import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.SelectGoverningDocumentPage
-import pages.sections.{Section2Page, Section3Page}
+import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository

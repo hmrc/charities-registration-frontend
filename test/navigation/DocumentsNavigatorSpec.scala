@@ -47,13 +47,13 @@ class DocumentsNavigatorSpec extends SpecBase {
 
         "go to the Governing Document name page when Other is selected" in {
           navigator.nextPage(SelectGoverningDocumentPage, NormalMode,
-            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(NormalMode)
         }
 
         "go to the Governing Document approved page when other than Other is selected" in {
           navigator.nextPage(SelectGoverningDocumentPage, NormalMode,
-            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value) mustBe
             regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(NormalMode)
         }
       }
@@ -67,7 +67,7 @@ class DocumentsNavigatorSpec extends SpecBase {
 
         "go to the Governing Document approved page when Other is selected" in {
           navigator.nextPage(GoverningDocumentNamePage, NormalMode,
-            emptyUserAnswers.set(GoverningDocumentNamePage, "will").getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(GoverningDocumentNamePage, "will").success.value) mustBe
             regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(NormalMode)
         }
       }
@@ -82,7 +82,7 @@ class DocumentsNavigatorSpec extends SpecBase {
         "go to the Is Governing Document approved page when a date is submitted" in {
 
           navigator.nextPage(WhenGoverningDocumentApprovedPage, NormalMode,
-            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).success.value) mustBe
             regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(NormalMode)
         }
       }
@@ -137,7 +137,7 @@ class DocumentsNavigatorSpec extends SpecBase {
 
         "go to the Governing Document summary page when continue is clicked" in {
           navigator.nextPage(SectionsChangedGoverningDocumentPage, NormalMode,
-            emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "abcd").success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }
@@ -168,15 +168,22 @@ class DocumentsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Governing Document name page when Other is selected" in {
+        "go to the Governing Document name page when Other is selected and Name is not defined" in {
           navigator.nextPage(SelectGoverningDocumentPage, CheckMode,
-            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode)
         }
 
-        "go to the Governing Document summary page when other than Other is selected" in {
+        "go to the Governing Document summary page when Other is selected and Name is defined" in {
           navigator.nextPage(SelectGoverningDocumentPage, CheckMode,
-            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).flatMap(
+              _.set(GoverningDocumentNamePage, "other")).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+
+        "go to the Governing Document Name page when other than Other is selected" in {
+          navigator.nextPage(SelectGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }
@@ -190,7 +197,7 @@ class DocumentsNavigatorSpec extends SpecBase {
 
         "go to the Governing Document summary page when a name is submitted" in {
           navigator.nextPage(GoverningDocumentNamePage, CheckMode,
-            emptyUserAnswers.set(GoverningDocumentNamePage, "will").getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(GoverningDocumentNamePage, "will").success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }
@@ -205,7 +212,7 @@ class DocumentsNavigatorSpec extends SpecBase {
         "go to the Is Governing Document summary page when a date is submitted" in {
 
           navigator.nextPage(WhenGoverningDocumentApprovedPage, CheckMode,
-            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }
@@ -222,6 +229,14 @@ class DocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode,
             emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).success.value) mustBe
             regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode)
+        }
+
+        "go to the HasCharityChangedPartsofGoverningDocument page when yes is selected and HasCharityChangedPartsOfGoverningDocumentPage already answered" in {
+
+          navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(IsApprovedGoverningDocumentPage,true).flatMap(
+              _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
 
         "go to the Governing Document summary page when no is selected" in {
@@ -261,7 +276,7 @@ class DocumentsNavigatorSpec extends SpecBase {
 
         "go to the Governing Document summary page when continue is clicked" in {
           navigator.nextPage(SectionsChangedGoverningDocumentPage, CheckMode,
-            emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "abcd").success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }

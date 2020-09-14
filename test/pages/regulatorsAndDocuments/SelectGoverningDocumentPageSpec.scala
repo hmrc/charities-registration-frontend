@@ -18,6 +18,7 @@ package pages.regulatorsAndDocuments
 
 import models.UserAnswers
 import models.regulators.SelectGoverningDocument
+import models.regulators.SelectGoverningDocument.{MemorandumArticlesAssociation, Other}
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
@@ -44,11 +45,21 @@ class SelectGoverningDocumentPageSpec extends PageBehaviours{
 
       "setting SelectGoverningDocumentPage to other" must {
 
-        val result = userAnswer.set(SelectGoverningDocumentPage,SelectGoverningDocument.values.head).success.value
+        val result = userAnswer.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).success.value
 
         "remove GoverningDocumentNamePage" in {
 
           result.get(GoverningDocumentNamePage) mustNot be(defined)
+        }
+      }
+
+      "setting SelectGoverningDocumentPage to other" must {
+
+        val result = userAnswer.set(SelectGoverningDocumentPage, Other).success.value
+
+        "not remove GoverningDocumentNamePage" in {
+
+          result.get(GoverningDocumentNamePage) must be(defined)
         }
       }
     }

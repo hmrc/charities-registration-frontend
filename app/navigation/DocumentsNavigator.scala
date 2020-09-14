@@ -49,13 +49,13 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
   private val checkRouteMap: Page => UserAnswers => Call = {
 
-    case IsApprovedGoverningDocumentPage  => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
-
-    case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
-
     case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
 
     case GoverningDocumentNamePage => userAnswers: UserAnswers => governingDocumentNamePageNav(userAnswers, CheckMode)
+
+    case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
+
+    case IsApprovedGoverningDocumentPage  => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
 
     case HasCharityChangedPartsOfGoverningDocumentPage => userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, CheckMode)
 
@@ -73,6 +73,10 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def selectGoverningDocumentPagePageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectGoverningDocumentPage) match {
+    case Some(Other) if mode == CheckMode => userAnswers.get(GoverningDocumentNamePage) match {
+      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _ => regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(mode)
+    }
     case Some(Other) => regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(mode)
     case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
@@ -85,7 +89,6 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
-
   private def whenGoverningDocumentApprovedPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(WhenGoverningDocumentApprovedPage) match {
     case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(mode)
@@ -93,18 +96,24 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
   }
 
   private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
+    case Some(true) if mode == CheckMode && userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage).isDefined =>
+      regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(true) => regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(mode)
     case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
-    case Some(true) => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
+  private def hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =
+    userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
+    case Some(true) if mode == CheckMode && userAnswers.get(SectionsChangedGoverningDocumentPage).isDefined =>
+      regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+    case Some(true)  => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
     case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def sectionsChangedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SectionsChangedGoverningDocumentPage) match {
+  private def sectionsChangedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =
+    userAnswers.get(SectionsChangedGoverningDocumentPage) match {
     case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()

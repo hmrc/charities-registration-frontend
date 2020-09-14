@@ -28,13 +28,13 @@ class RegistrationSentViewSpec extends ViewBehaviours  {
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
+        view.apply("080582080582")(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2" , "p3", "p4", "p8", "p9")
+        "p1", "p3", "p4", "p8", "p9")
 
       behave like pageWithWarningText(applyView(), messages("registrationSent.warning"))
 
@@ -45,6 +45,11 @@ class RegistrationSentViewSpec extends ViewBehaviours  {
         assertContainsText(doc,"Charities, Savings &amp; International 2")
         assertContainsText(doc,"HMRC")
         assertContainsText(doc,"BX9 1BU")
+      }
+
+      "Contains the reference number" in{
+       val doc = asDocument(applyView())
+        assertContainsText(doc,"080582080582")
       }
 
     }

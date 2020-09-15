@@ -260,6 +260,14 @@ class DocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode)
         }
 
+        "go to the Governing Document summary page when yes is selected and SectionsChangedGoverningDocumentPage has been already answered" in {
+
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode,
+            emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage,true).
+              flatMap(_.set(SectionsChangedGoverningDocumentPage,"Section change")).success.value) mustBe
+            regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+        }
+
         "go to the Governing Document summary page when no is selected" in {
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode,
             emptyUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage, false).success.value) mustBe

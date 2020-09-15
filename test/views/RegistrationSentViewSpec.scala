@@ -16,11 +16,15 @@
 
 package views
 
+import java.time.LocalDate
+
+import javax.inject.Inject
 import play.twirl.api.HtmlFormat
+import utils.{ImplicitDateFormatter, TimeMachine}
 import views.behaviours.ViewBehaviours
 import views.html.RegistrationSentView
 
-class RegistrationSentViewSpec extends ViewBehaviours  {
+class RegistrationSentViewSpec @Inject()(timeMachine: TimeMachine) extends ViewBehaviours with ImplicitDateFormatter  {
 
   private val messageKeyPrefix = "registrationSent"
 
@@ -28,13 +32,14 @@ class RegistrationSentViewSpec extends ViewBehaviours  {
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
-        view.apply("080582080582")(fakeRequest, messages, frontendAppConfig)
+        view.apply("080582080582",dayToString(timeMachine.now().plusDays(28)))(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p3", "p4", "p8", "p9")
+        "p1", "p3", "p8", "p9")
+
 
       behave like pageWithWarningText(applyView(), messages("registrationSent.warning"))
 

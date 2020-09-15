@@ -28,7 +28,7 @@
     link: components.link
 )
 
-@(acknowledgementReference: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(date: String,acknowledgementReference: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(titleNoForm("registrationSent.title", None)), backLink=false) {
 
@@ -57,8 +57,8 @@
         </ul>
     </p>
 
-    @h2(messages("registrationSent.h2a"))
-    @p{@messages("registrationSent.p4")}
+    @h2(messages("registrationSent.h2a",date))
+    @p{@messages("registrationSent.p4",date)}
 
     @p{
         <span class="govuk-body" id="line1">@messages("registrationSent.p5")</span>

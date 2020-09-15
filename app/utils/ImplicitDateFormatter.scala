@@ -33,6 +33,19 @@ trait ImplicitDateFormatter {
   implicit def monthToString(monthDay: MonthDay)(implicit messages: Messages): String = createDateFormatForPattern(
     "d MMMM").format(new JLocalDate(LocalDate.now().getYear, monthDay.getMonthOfYear, monthDay.getDayOfMonth).toDate)
 
+  def dayToString(date:LocalDate)(implicit messages: Messages): String =
+  {
+    val number= if(date.getDayOfMonth<20) {date.getDayOfMonth} else {date.getDayOfMonth%10}
+    val dateSuffix = number match {
+      case 1 =>  "st"
+      case 2 =>  "nd"
+      case 3 =>  "rd"
+      case _ =>  "th"
+    }
+    createDateFormatForPattern(s"EEEE d'$dateSuffix' MMMM yyyy").format(new JLocalDate(date.getYear, date.getMonthValue, date.getDayOfMonth).toDate)
+
+  }
+
   private val defaultTimeZone: TimeZone = TimeZone.getTimeZone("Europe/London")
 
   private def createDateFormatForPattern(pattern: String)(implicit messages: Messages): SimpleDateFormat = {
@@ -43,4 +56,5 @@ trait ImplicitDateFormatter {
     sdf.setTimeZone(defaultTimeZone)
     sdf
   }
+
 }

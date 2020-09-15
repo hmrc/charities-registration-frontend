@@ -16,12 +16,15 @@
 
 package controllers
 
+import java.time.LocalDate
+
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import pages.AcknowledgementReferencePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
+import utils.{ImplicitDateFormatter, TimeMachine}
 import views.html.RegistrationSentView
 
 import scala.concurrent.Future
@@ -32,13 +35,14 @@ class RegistrationSentController @Inject()(
     userAnswerRepository: UserAnswerRepository,
     requireData: DataRequiredAction,
     view: RegistrationSentView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    val controllerComponents: MessagesControllerComponents,
+    timeMachine: TimeMachine
+  )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with  LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case Some(acknowledgementReference) =>  userAnswerRepository.delete(request.userAnswers).map { _ =>
-        Ok(view(acknowledgementReference))
+        Ok(view(dayToString(timeMachine.now().plusDays(28)),acknowledgementReference))
       }
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }

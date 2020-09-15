@@ -95,4 +95,28 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
     }
 
   }
+
+  "The date formatter" should {
+
+    "format dates in correct style" in {
+      val result: String = "Monday 14th September 2020"
+      dayToString(LocalDate.of(2020, 9, 14)) mustBe result
+    }
+
+   "format dates in correct style for day prior to 20" in {
+      val result: String = "Tuesday 1st September 2020"
+      dayToString(LocalDate.of(2020, 9, 1)) mustBe result
+    }
+
+    "format dates in correct style for day after 20" in {
+      val result: String = "Tuesday 22nd September 2020"
+      dayToString(LocalDate.of(2020, 9, 22)) mustBe result
+    }
+
+    "format dates in correct style for day ending with 3" in {
+      val result: String = "Wednesday 23rd September 2020"
+      dayToString(LocalDate.of(2020, 9, 23)) mustBe result
+    }
+
+  }
 }

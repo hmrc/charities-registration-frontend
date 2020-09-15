@@ -203,10 +203,10 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the DeadEnd page when yes is selected" in {
+        "go to the OtherOfficialsNameController page when yes is selected" in {
           navigator.nextPage(AddAnotherOtherOfficialPage, NormalMode,
             emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad()
+            otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode,2)
         }
 
         "go to the summary page when no is selected" in {
@@ -362,5 +362,4 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       }
     }
   }
-
 }

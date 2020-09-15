@@ -899,6 +899,12 @@ isAddAnotherAuthorisedOfficial.error.required = (W)Select yes if you want to add
 
 isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = (W)Add another authorised official(W)
 
+# You have added second Authorised Official Page Messages
+# ----------------------------------------------------------
+addedSecondAuthorisedOfficial.checkYourAnswers.heading = (W)Check the second authorised official’s details(W)
+addedSecondAuthorisedOfficial.checkYourAnswers.title = (W)Check the second authorised official’s details(W)
+
+
 # Authorised Officials Summary page
 # ----------------------------------------------------------
 authorisedOfficialsSummary.checkYourAnswers.title = (W)Check the charity’s authorised official details(W)

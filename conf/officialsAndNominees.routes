@@ -44,6 +44,9 @@ POST       /add-another-authorised-official                                     
 GET        /add-another-authorised-official/change                              controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onPageLoad(mode: Mode = CheckMode)
 POST       /add-another-authorised-official/change                              controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onSubmit(mode: Mode = CheckMode)
 
+GET        /added-two-authorised-officials                                    controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onPageLoad()
+POST       /added-two-authorised-officials                                    controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onSubmit()
+
 GET        /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onPageLoad
 POST       /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onSubmit
 

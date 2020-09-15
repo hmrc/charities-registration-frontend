@@ -40,7 +40,8 @@ class CharityOtherOfficialsViewSpec extends ViewBehaviours  {
 
       behave like pageWithBackLink(applyView())
 
-      behave like pageWithHyperLink(applyView(), "linkButton",controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, Index(0)).url,BaseMessages.continue)
+      behave like pageWithHyperLink(applyView(), "linkButton",
+        controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, Index(0)).url,BaseMessages.continue)
 
 
     }

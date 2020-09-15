@@ -26,7 +26,7 @@
     h2:components.h2,
 )
 
-@(answersOtherOfficial1: Seq[SummaryListRow], answersOtherOfficial2: Seq[SummaryListRow], section: String, postAction: Call, subheadingMsgArgs: Seq[String] = Seq(),
+@(answersOfficial1: Seq[SummaryListRow], answersOfficial2: Seq[SummaryListRow], section: String, postAction: Call, subheadingMsgArgs: Seq[String] = Seq(),
 headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinue", h2Required: Boolean = false, subH2MsgArgs: Seq[String] = Seq()
 )(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
@@ -36,11 +36,11 @@ headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinu
 
     @if(h2Required){@h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*)++ " " ++ messages("individual.1of2"))}
 
-    @govukSummaryList(SummaryList(answersOtherOfficial1))
+    @govukSummaryList(SummaryList(answersOfficial1))
 
     @h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*)++ " " ++ messages("individual.2of2"))
 
-    @govukSummaryList(SummaryList(answersOtherOfficial2))
+    @govukSummaryList(SummaryList(answersOfficial2))
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
 

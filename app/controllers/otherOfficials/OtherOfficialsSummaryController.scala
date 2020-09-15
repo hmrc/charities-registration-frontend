@@ -27,7 +27,7 @@ import pages.sections.Section8Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.authorisedOfficials.AddedOfficialsSummaryHelper
-import views.html.otherOfficials.OtherOfficialsSummaryView
+import views.html.common.OfficialsSummaryView
 
 import scala.concurrent.Future
 
@@ -37,7 +37,7 @@ class OtherOfficialsSummaryController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
-    view: OtherOfficialsSummaryView,
+    view: OfficialsSummaryView,
     val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
 
@@ -47,7 +47,8 @@ class OtherOfficialsSummaryController @Inject()(
     val secondOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(1))(request.userAnswers)
 
     Ok(view(firstOtherOfficialsSummaryHelper.otherRows, secondOtherOfficialsSummaryHelper.otherRowsAddAnother,
-      OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit(), h2Required = true))
+      OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit(),
+      h2Required = true))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

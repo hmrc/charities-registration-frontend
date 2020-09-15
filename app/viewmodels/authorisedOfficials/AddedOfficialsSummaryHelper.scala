@@ -45,6 +45,7 @@ class AddedOfficialsSummaryHelper(index: Index)(override val userAnswers: UserAn
                  messagePrefix = "addAnotherOtherOfficial")
 
   val authorisedRows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRow
+  val authorisedRowsAddAnother: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows
   val otherRows: Seq[SummaryListRow] = addedOneOtherOfficial.rows
   val otherRowsAddAnother: Seq[SummaryListRow] = addedOneOtherOfficial.rows ++ addedAnotherOtherOfficialRow
 }

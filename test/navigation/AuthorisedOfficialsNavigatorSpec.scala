@@ -185,13 +185,26 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(AuthorisedOfficialPreviousAddressPage(index), NormalMode,
               emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0), false)
                 .flatMap(_.set(AuthorisedOfficialPreviousAddressPage(index), false))
-                .success.value) mustBe {index match {
-              case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
-              case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
-            }}
+                .success.value) mustBe {
+                index match {
+                case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
+                case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
+              }
+            }
           }
         }
         })
+
+      s"from the AuthorisedOfficialPreviousAddressPage for index 3" must {
+        "go to the You have added one authorised official page when no is selected" in {
+          navigator.nextPage(AuthorisedOfficialPreviousAddressPage(2), NormalMode,
+            emptyUserAnswers.set(AuthorisedOfficialPreviousAddressPage(0), false)
+              .flatMap(_.set(AuthorisedOfficialPreviousAddressPage(1), false))
+              .flatMap(_.set(AuthorisedOfficialPreviousAddressPage(2), false))
+              .success.value) mustBe routes.SessionExpiredController.onPageLoad()
+        }
+      }
+
       "from the AddedOneAuthorisedOfficialPage" must {
 
           "go to the DoYouWantToAddAnotherAuthorisedOfficial page when user answer is empty for 1st loop" in {
@@ -204,7 +217,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the summary page when user answer is empty for 2nd loop" in {
           navigator.nextPage(AddedSecondAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
-            routes.DeadEndController.onPageLoad() // TODO update once both auth officials summary page is done DDCE-1037
+            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
 

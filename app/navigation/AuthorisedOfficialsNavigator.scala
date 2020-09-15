@@ -71,13 +71,15 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case Some(false) => index match {
         case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
-        case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()}
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+        case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
+        case _ => routes.SessionExpiredController.onPageLoad() // TODO redirect to next page once created
+      }
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case AddedOneAuthorisedOfficialPage => _ => authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
 
-    case AddedSecondAuthorisedOfficialPage => _ => routes.DeadEndController.onPageLoad() // TODO update in DDCE-1037 (summary for both authorised officials)
+    case AddedSecondAuthorisedOfficialPage => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
       case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)

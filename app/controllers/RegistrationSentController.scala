@@ -16,8 +16,6 @@
 
 package controllers
 
-import java.time.LocalDate
-
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
@@ -29,6 +27,7 @@ import views.html.RegistrationSentView
 
 import scala.concurrent.Future
 
+//scalastyle:off magic.number
 class RegistrationSentController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

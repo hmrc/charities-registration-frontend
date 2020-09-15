@@ -16,11 +16,8 @@
 
 package controllers
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import javax.inject.Inject
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
@@ -35,7 +32,7 @@ import views.html.RegistrationSentView
 
 import scala.concurrent.Future
 
-class RegistrationSentControllerSpec @Inject()(timeMachine: TimeMachine) extends SpecBase with ImplicitDateFormatter with BeforeAndAfterEach  {
+class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter with BeforeAndAfterEach  {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -66,7 +63,8 @@ class RegistrationSentControllerSpec @Inject()(timeMachine: TimeMachine) extends
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(dayToString(timeMachine.now().plusDays(28)),"123456789")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(28)),
+        "123456789")(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, times(1)).delete(any())
     }

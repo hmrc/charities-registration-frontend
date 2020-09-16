@@ -48,6 +48,9 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
     def accountingPeriodRow: Option[SummaryListRow] =
       answerAccountingPeriod(AccountingPeriodEndDatePage, operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(CheckMode))
 
+    def otherFundRaisingRow: Option[SummaryListRow] =
+      answer(OtherFundRaisingPage, operationFundsRoutes.OtherFundRaisingController.onPageLoad(CheckMode))
+
     private def answerAccountingPeriod[A](page: QuestionPage[MonthDay],
                                         changeLinkCall: Call) : Option[SummaryListRow] =
       userAnswers.get(page).map{ ans =>
@@ -64,7 +67,8 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
       operatingLocationRow,
       isFinancialAccountsRow,
       isBankStatementsRow,
-      accountingPeriodRow
+      accountingPeriodRow,
+      otherFundRaisingRow
     ).flatten
 
   }

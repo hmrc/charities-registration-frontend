@@ -43,4 +43,5 @@ class FundRaisingFormProviderSpec extends CheckboxFieldBehaviours {
     )
   }
 
+
 }

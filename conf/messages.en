@@ -673,6 +673,16 @@ operatingLocation.4 = Across the UK
 operatingLocation.5 = Overseas
 operatingLocation.checkYourAnswersLabel = Operating locations
 
+# Other FundRaising Messages
+# ----------------------------------------------------------
+otherFundRaising.title = What other way will the charity raise funds?
+otherFundRaising.heading = What other way will the charity raise funds?
+otherFundRaising.checkYourAnswersLabel = Other fundraising methods
+otherFundRaising.error.required = Enter the other way the charity will raise funds
+otherFundRaising.error.format= Your answer must not include the following characters: & ( ) : @
+otherFundRaising.error.length= Your answer must be 95 characters or fewer
+
+
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
 isFinancialAccounts.title = Has the charity prepared financial accounts?

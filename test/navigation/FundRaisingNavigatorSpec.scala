@@ -45,11 +45,27 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
         }
 
-        "go to the Where does your charity operate page when user answer has other and clicked continue button" in {
+        "go to the Where does your other fundraising page when user answer has other and clicked continue button" in {
           navigator.nextPage(FundRaisingPage, NormalMode,
             emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other)).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad()
+            operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
         }
+      }
+
+      "from the SelectOperatingLocation page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherFundRaisingPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to OperatingLocationPage page when user answers and clicked continue button" in {
+          navigator.nextPage(OtherFundRaisingPage, NormalMode,
+            emptyUserAnswers.set(OtherFundRaisingPage, "sdf").getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+        }
+
+
       }
 
       "from the OperatingLocationPage page" must {
@@ -166,6 +182,20 @@ class FundRaisingNavigatorSpec extends SpecBase {
         }
       }
 
+
+      "from the OtherFundRaising page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherFundRaisingPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to OperationsFundsSummaryController Page page when user answers and clicked continue button" in {
+          navigator.nextPage(OtherFundRaisingPage, CheckMode,
+            emptyUserAnswers.set(OtherFundRaisingPage,"123").getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
       "from the OperatingLocationPage page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {

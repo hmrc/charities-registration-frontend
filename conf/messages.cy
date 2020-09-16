@@ -673,6 +673,15 @@ operatingLocation.4 = (W)Across the UK(W)
 operatingLocation.5 = (W)Overseas(W)
 operatingLocation.checkYourAnswersLabel = (W)Operating locations(W)
 
+# Other FundRaising Messages
+# ----------------------------------------------------------
+otherFundRaising.title = (W)What other way will the charity raise funds?(W)
+otherFundRaising.heading = (W)What other way will the charity raise funds?(W)
+otherFundRaising.checkYourAnswersLabel = (W)Other fundraising methods(W)
+otherFundRaising.error.required = (W)Enter the other way the charity will raise funds(W)
+otherFundRaising.error.format= (W)Your answer must not include the following characters: & ( ) : @(W)
+otherFundRaising.error.length= (W)Your answer must be 95 characters or fewer(W)
+
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
 isFinancialAccounts.title = (W)Has the charity prepared financial accounts?(W)

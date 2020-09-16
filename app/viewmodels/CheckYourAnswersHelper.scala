@@ -60,9 +60,9 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerFullame(page: QuestionPage[Name],
-                    changeLinkCall: Call,
-                    messagePrefix: String) : Option[SummaryListRow] =
+  def answerFullName(page: QuestionPage[Name],
+                     changeLinkCall: Call,
+                     messagePrefix: String) : Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),

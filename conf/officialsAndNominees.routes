@@ -95,6 +95,9 @@ GET        /add-other-official                                                  
 GET        /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onPageLoad()
 POST       /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onSubmit()
 
+GET        /added-three-other-officials                                         controllers.otherOfficials.AddedThirdOtherOfficialController.onPageLoad()
+POST       /added-three-other-officials                                         controllers.otherOfficials.AddedThirdOtherOfficialController.onSubmit()
+
 GET        /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = NormalMode)
 POST       /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onSubmit(mode: Mode = NormalMode)
 GET        /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = CheckMode)

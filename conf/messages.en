@@ -1041,6 +1041,11 @@ addSecondOtherOfficials.p3 = Adding information about other officials takes arou
 addedSecondOtherOfficial.checkYourAnswers.title = Check the second other official’s details
 addedSecondOtherOfficial.checkYourAnswers.heading = Check the second other official’s details
 
+# Check the third Other Official Page Messages
+# ----------------------------------------------------------
+addedThirdOtherOfficial.checkYourAnswers.title = Check the third other official’s details
+addedThirdOtherOfficial.checkYourAnswers.heading = Check the third other official’s details
+
 # Add another other Official Page Messages
 # ----------------------------------------------------------
 addAnotherOtherOfficial.title = Do you want to add another other official?

@@ -18,7 +18,7 @@ package viewmodels.authorisedOfficials
 
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
-import models.{CheckMode, Index, UserAnswers}
+import models.{CheckMode, Index, Mode, UserAnswers}
 import pages.authorisedOfficials._
 import pages.otherOfficials._
 import play.api.i18n.Messages
@@ -27,21 +27,21 @@ import utils.ImplicitDateFormatter
 import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOfficialsSummaryHelper(index: Index)(override val userAnswers: UserAnswers)
+class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode)(override val userAnswers: UserAnswers)
                                  (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
-  val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index)(userAnswers)
+  val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index, CheckMode)(userAnswers)
   val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index)(userAnswers)
 
   def isAddAnotherAuthorisedOfficialRow: Option[SummaryListRow] =
     answerPrefix(IsAddAnotherAuthorisedOfficialPage,
-                 authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(CheckMode),
+                 authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(mode),
                  messagePrefix = "isAddAnotherAuthorisedOfficial")
 
   def addedAnotherOtherOfficialRow: Option[SummaryListRow] =
     answerPrefix(AddAnotherOtherOfficialPage,
-                 otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(CheckMode),
+                 otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(mode),
                  messagePrefix = "addAnotherOtherOfficial")
 
   val authorisedRows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRow

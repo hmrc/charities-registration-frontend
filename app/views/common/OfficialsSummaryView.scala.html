@@ -34,13 +34,15 @@ headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinu
 
     @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs:_*))
 
-    @if(h2Required){@h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*)++ " " ++ messages("individual.1of2"))}
+    @if(h2Required){
+        @h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*) ++ {if (answersOfficial2.nonEmpty) (" " ++ messages("individual.1of2")) else ""})
+    }
 
     @govukSummaryList(SummaryList(answersOfficial1))
 
-    @h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*)++ " " ++ messages("individual.2of2"))
+    @(if(answersOfficial2.nonEmpty)h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*)++ " " ++ messages("individual.2of2")))
 
-    @govukSummaryList(SummaryList(answersOfficial2))
+    @(if(answersOfficial2.nonEmpty)govukSummaryList(SummaryList(answersOfficial2)))
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
 

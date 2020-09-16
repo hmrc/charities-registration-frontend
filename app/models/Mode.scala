@@ -23,6 +23,7 @@ sealed trait Mode
 
 case object CheckMode extends Mode
 case object NormalMode extends Mode
+case object PlaybackMode extends Mode
 
 object Mode {
 
@@ -30,11 +31,13 @@ object Mode {
     override def to(value: Mode): String = value match {
       case NormalMode => "\"NormalMode\""
       case CheckMode => "\"CheckMode\""
+      case PlaybackMode => "\"PlaybackMode\""
     }
   }
 
   implicit val writes: Writes[Mode] = Writes {
     case NormalMode => JsString("NormalMode")
     case CheckMode => JsString("CheckMode")
+    case PlaybackMode => JsString("PlaybackMode")
   }
 }

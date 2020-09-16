@@ -21,7 +21,7 @@ import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
-import models.{CheckMode, Mode, NormalMode, UserAnswers}
+import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
@@ -148,5 +148,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       normalRoutes(page)(userAnswers)
     case CheckMode =>
       checkRouteMap(page)(userAnswers)
+    case PlaybackMode =>
+      routes.SessionExpiredController.onPageLoad() // TODO
   }
 }

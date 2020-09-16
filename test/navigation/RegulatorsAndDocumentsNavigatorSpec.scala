@@ -515,10 +515,15 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
       }
     }
-
-      def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers = {
-        emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
+    }
+    "in Playback mode" when {
+      "attempting to go to any site" must {
+        "go to the SessionExpiredController page" in {
+          navigator.nextPage(WhyNotRegisteredWithCharityPage, PlaybackMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
       }
     }
+
   }
 }

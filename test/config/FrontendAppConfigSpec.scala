@@ -85,7 +85,7 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "retrieveAddressUrl" in {
-        frontendAppConfig.retrieveAddressUrl mustBe "http://localhost:9028/api/confirmed"
+        frontendAppConfig.retrieveAddressUrl mustBe "http://localhost:9028/api/v2/confirmed"
       }
 
       "feedbackUrlAddressLookup" in {

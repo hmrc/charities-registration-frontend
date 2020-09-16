@@ -17,7 +17,7 @@
 package viewmodels.authorisedOfficials
 
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
-import models.{CheckMode, Index, UserAnswers}
+import models.{CheckMode, Index, Mode, PlaybackMode, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
 import play.api.i18n.Messages
@@ -25,55 +25,55 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOneAuthorisedOfficialHelper(index: Index) (override val userAnswers: UserAnswers)
+class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode) (override val userAnswers: UserAnswers)
                                      (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
   def authOfficialNamesRow: Option[SummaryListRow] =
     answerFullName(AuthorisedOfficialsNamePage(index),
-                  authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(CheckMode, index),
+                  authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(mode, index),
                   messagePrefix = "authorisedOfficialsName")
 
   def authOfficialDobRow: Option[SummaryListRow] =
     answerPrefix(AuthorisedOfficialsDOBPage(index),
-                 authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(CheckMode, index),
+                 authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(mode, index),
                  messagePrefix = "authorisedOfficialsDOB")
 
   def authOfficialMainPhoneNoRow: Option[SummaryListRow] =
     answerMainPhoneNo(AuthorisedOfficialsPhoneNumberPage(index),
-                      authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, index),
+                      authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(mode, index),
                       messagePrefix = "authorisedOfficialsPhoneNumber.mainPhoneNumber")
 
   def authOfficialAlternativePhoneNoRow: Option[SummaryListRow] =
     answerAlternativePhoneNo(AuthorisedOfficialsPhoneNumberPage(index),
-                             authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, index),
+                             authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(mode, index),
                              messagePrefix = "authorisedOfficialsPhoneNumber.alternativePhoneNumber")
 
   def authOfficialPositionRow: Option[SummaryListRow] =
     answerPrefix(AuthorisedOfficialsPositionPage(index),
-                 authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(CheckMode, index),
+                 authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(mode, index),
                  answerIsMsgKey = true,
                  messagePrefix = "officialsPosition")
 
   def authOfficialHasNinoRow: Option[SummaryListRow] = {
     answerPrefix(IsAuthorisedOfficialNinoPage(index),
-                 authOfficialRoutes.IsAuthorisedOfficialNinoController.onPageLoad(CheckMode, index),
+                 authOfficialRoutes.IsAuthorisedOfficialNinoController.onPageLoad(mode, index),
                  messagePrefix = "isAuthorisedOfficialNino")
   }
 
   def authOfficialNinoRow: Option[SummaryListRow] =
     answerPrefix(AuthorisedOfficialsNinoPage(index),
-                 authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index),
+                 authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(mode, index),
                  messagePrefix = "authorisedOfficialsNino")
 
   def authOfficialAddressRow: Option[SummaryListRow] =
     answerAddress(AuthorisedOfficialAddressLookupPage(index),
-                  controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index),
+                  controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, mode),
                   messagePrefix = "authorisedOfficialAddress")
 
   def authOfficialHadPreviousAddressRow: Option[SummaryListRow] =
     answerPrefix(AuthorisedOfficialPreviousAddressPage(index),
-                 authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index),
+                 authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(mode, index),
                  messagePrefix = "authorisedOfficialPreviousAddress")
 
 

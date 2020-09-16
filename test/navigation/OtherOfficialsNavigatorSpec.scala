@@ -24,7 +24,7 @@ import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.authOfficials.OfficialsPosition
 import models.addressLookup.{AddressModel, CountryModel}
-import models.{CheckMode, Index, Name, NormalMode, PhoneNumber}
+import models.{CheckMode, Index, Name, NormalMode, PhoneNumber, PlaybackMode}
 import pages.IndexPage
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
@@ -375,6 +375,15 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad()
+        }
+      }
+    }
+
+    "in Playback mode" when {
+      "attempting to go to any site" must {
+        "go to the SessionExpiredController page" in {
+          navigator.nextPage(AddAnotherOtherOfficialPage, PlaybackMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
         }
       }
     }

@@ -176,13 +176,22 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap
             (_.set(OtherOfficialsPreviousAddressPage(1), true)).flatMap
             (_.set(OtherOfficialsPreviousAddressPage(2), false)).success.value) mustBe
+            otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
+        }
+
+        "go to you have added three other official when No is selected and index is 3" in {
+          navigator.nextPage(OtherOfficialsPreviousAddressPage(3), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap
+            (_.set(OtherOfficialsPreviousAddressPage(1), true)).flatMap
+            (_.set(OtherOfficialsPreviousAddressPage(2), false)).flatMap
+            (_.set(OtherOfficialsPreviousAddressPage(3), false)).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO three summary page
         }
       }
 
       "from the AddedOneOtherOfficialPage" must {
 
-        "go to the AddSecondOtherofficials page when user answer is empty" in {
+        "go to the AddSecondOtherOfficials page when user answer is empty" in {
           navigator.nextPage(AddedOneOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
             otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
         }
@@ -193,6 +202,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the DoYouWantToAddAnotherOtherOfficial page when user answer is empty" in {
           navigator.nextPage(AddedSecondOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
             otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AddedThirdOtherOfficialPage" must {
+
+        "go to the Summary page when user answer is empty" in {
+          navigator.nextPage(AddedThirdOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+            routes.DeadEndController.onPageLoad()
         }
       }
 

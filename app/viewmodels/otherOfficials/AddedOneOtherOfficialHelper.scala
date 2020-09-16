@@ -30,7 +30,7 @@ class AddedOneOtherOfficialHelper(index: Index)(override val userAnswers: UserAn
   with SummaryListRowHelper {
 
   def otherOfficialNamesRow: Option[SummaryListRow] =
-    answerFullame(OtherOfficialsNamePage(index),
+    answerFullName(OtherOfficialsNamePage(index),
                   otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(CheckMode, index),
                   messagePrefix = "otherOfficialsName")
 

@@ -25,7 +25,7 @@ import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.IsApprovedGoverningDocumentPage
+import pages.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentPage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -75,7 +75,7 @@ class HasCharityChangedPartsOfGoverningDocumentControllerSpec extends SpecBase w
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(IsApprovedGoverningDocumentPage, true).getOrElse(emptyUserAnswers))))
+        set(HasCharityChangedPartsOfGoverningDocumentPage, true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

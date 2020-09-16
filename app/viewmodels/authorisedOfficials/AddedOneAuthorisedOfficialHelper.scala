@@ -30,7 +30,7 @@ class AddedOneAuthorisedOfficialHelper(index: Index) (override val userAnswers: 
   with SummaryListRowHelper {
 
   def authOfficialNamesRow: Option[SummaryListRow] =
-    answerFullame(AuthorisedOfficialsNamePage(index),
+    answerFullName(AuthorisedOfficialsNamePage(index),
                   authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(CheckMode, index),
                   messagePrefix = "authorisedOfficialsName")
 

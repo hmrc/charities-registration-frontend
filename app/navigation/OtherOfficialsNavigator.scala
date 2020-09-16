@@ -72,6 +72,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case Some(false) => index match {
         case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
         case 1 => otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
+        case 2 => otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
         case _ => routes.DeadEndController.onPageLoad() // TODO Summary page
       }
       case _ =>  routes.SessionExpiredController.onPageLoad()
@@ -80,6 +81,8 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     case AddedOneOtherOfficialPage => _ => otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
 
     case AddedSecondOtherOfficialPage => _ => otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(NormalMode)
+
+    case AddedThirdOtherOfficialPage => _ => routes.DeadEndController.onPageLoad()
 
     case AddAnotherOtherOfficialPage => userAnswers: UserAnswers => userAnswers.get(AddAnotherOtherOfficialPage) match {
       case Some(true) => otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode,2)

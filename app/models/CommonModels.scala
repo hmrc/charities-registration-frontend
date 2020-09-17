@@ -17,9 +17,45 @@
 package models
 
 import play.api.libs.json.{Json, OFormat}
+import play.api.data.Form
+import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
+sealed trait SelectTitle
 
-case class Name(firstName: String, middleName: Option[String], lastName: String) {
+object SelectTitle extends Enumerable.Implicits {
+
+  case object Mr extends WithName("0001") with SelectTitle
+  case object Mrs extends WithName("0002") with SelectTitle
+  case object Miss extends WithName("0003") with SelectTitle
+  case object Ms extends WithName("0004") with SelectTitle
+  case object Dr extends WithName("0005") with SelectTitle
+  case object Sir extends WithName("0006") with SelectTitle
+  case object Rev extends WithName("0007") with SelectTitle
+  case object Prof extends WithName("0009") with SelectTitle
+  case object Lord extends WithName("0010") with SelectTitle
+  case object Lady extends WithName("0011") with SelectTitle
+  case object Dame extends WithName("0012") with SelectTitle
+
+  val values: Seq[SelectTitle] = Seq(
+    Mr, Mrs, Miss, Ms, Dr, Sir, Rev, Prof, Lord, Lady, Dame
+  )
+
+  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
+    value =>
+      RadioItem(
+        value = Some(value.toString),
+        content = Text(messages(s"nameTitle.${value.toString}")),
+        checked = form("value").value.contains(value.toString)
+      )
+  }
+
+  implicit val enumerable: Enumerable[SelectTitle] =
+    Enumerable(values.map(v => v.toString -> v): _*)
+}
+
+case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {
 
   def getFullName: String = {
      Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")

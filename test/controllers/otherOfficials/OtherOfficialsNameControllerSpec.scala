@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.NameFormProvider
-import models.{Index, Name, NormalMode, UserAnswers}
+import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -77,7 +77,7 @@ class OtherOfficialsNameControllerSpec extends SpecBase with BeforeAndAfterEach 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
+      val userAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -89,7 +89,7 @@ class OtherOfficialsNameControllerSpec extends SpecBase with BeforeAndAfterEach 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody("firstName" -> "FName", "middleName" -> "MName", "lastName" -> "LName")
+      val request = fakeRequest.withFormUrlEncodedBody(("value", SelectTitle.values.head.toString), "firstName" -> "FName", "middleName" -> "MName", "lastName" -> "LName")
 
      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))

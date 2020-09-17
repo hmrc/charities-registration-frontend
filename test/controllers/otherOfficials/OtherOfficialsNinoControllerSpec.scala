@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.NinoFormProvider
-import models.{Index, Name, NormalMode, UserAnswers}
+import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -60,7 +60,7 @@ class OtherOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfterEach 
   private val controller: OtherOfficialsNinoController = inject[OtherOfficialsNinoController]
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
-    Name("FName", Some("MName"), "LName")).success.value
+    Name(SelectTitle.values.head, "FName", Some("MName"), "LName")).success.value
 
   "OtherOfficialsNinoController Controller " must {
 

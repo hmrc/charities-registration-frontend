@@ -23,7 +23,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
+import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
 import viewmodels.SummaryListRowHelper
@@ -36,7 +36,7 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
   private val dayOfMonth = 2
 
   private val otherOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(OtherOfficialsNamePage(0), Name(firstName = "John", None, lastName = "Jones")).success.value
+    .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).success.value
     .set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
     .set(OtherOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
                                              mobilePhone = "07700 900 982")).success.value

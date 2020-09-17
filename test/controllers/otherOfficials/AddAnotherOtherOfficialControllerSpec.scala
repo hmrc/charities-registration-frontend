@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.IsAddAnotherFormProvider
-import models.{Name, NormalMode, UserAnswers}
+import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -60,8 +60,8 @@ class AddAnotherOtherOfficialControllerSpec extends SpecBase with BeforeAndAfter
   private val controller: AddAnotherOtherOfficialController = inject[AddAnotherOtherOfficialController]
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
-    Name("Jim", Some("John"), "Jones")).flatMap(_.set(OtherOfficialsNamePage(1),
-    Name("John",Some("Jim"), "Jones"))).success.value
+    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).flatMap(_.set(OtherOfficialsNamePage(1),
+    Name(SelectTitle.Mr, "John",Some("Jim"), "Jones"))).success.value
 
 
   "AddAnotherOtherOfficial Controller " must {

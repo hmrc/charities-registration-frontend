@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.OfficialsPositionFormProvider
 import models.authOfficials.OfficialsPosition
-import models.{Index, Name, NormalMode, UserAnswers}
+import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -61,7 +61,7 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
   private val controller: OtherOfficialsPositionController = inject[OtherOfficialsPositionController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   "OtherOfficialsPosition Controller" must {
 

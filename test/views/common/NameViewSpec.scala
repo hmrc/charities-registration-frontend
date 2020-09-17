@@ -18,7 +18,7 @@ package views.common
 
 import assets.messages.BaseMessages
 import forms.common.NameFormProvider
-import models.Name
+import models.{Name, SelectTitle}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
@@ -42,6 +42,28 @@ class NameViewSpec extends QuestionViewBehaviours[Name]  {
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+      SelectTitle.options(form).zipWithIndex.foreach { case (option, i) =>
+
+        val id = if (i == 0) "value" else s"value-${i + 1}"
+
+        s"contain radio buttons for the value '${option.value.get}'" in {
+
+          val doc = asDocument(applyView(form))
+          assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = false)
+        }
+
+        s"rendered with a value of '${option.value.get}'" must {
+
+          s"have the '${option.value.get}' radio button selected" in {
+
+            val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
+            val doc = asDocument(applyView(formWithData))
+
+            assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = true)
+          }
+        }
+      }
 
     }
   }

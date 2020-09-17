@@ -16,16 +16,35 @@
 
 package forms.common
 
-import forms.behaviours.StringFieldBehaviours
-import models.Name
+import forms.behaviours.{OptionFieldBehaviours, StringFieldBehaviours}
+import models.{Name, SelectTitle}
 import play.api.data.{Form, FormError}
 
-class NameFormProviderSpec extends StringFieldBehaviours {
+class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehaviours  {
 
   private val maxLength = 100
   private val messagePrefix: String = "authorisedOfficialsName"
   private val formProvider: NameFormProvider = inject[NameFormProvider]
   private val form: Form[Name] = formProvider(messagePrefix)
+
+  ".value" must {
+
+    val fieldName = "value"
+    val requiredKey = s"$messagePrefix.title.error.required"
+
+    behave like optionsField[SelectTitle](
+      form,
+      fieldName,
+      validValues  = SelectTitle.values,
+      invalidError = FormError(fieldName, "error.invalid")
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 
   ".firstName" must {
 
@@ -124,18 +143,20 @@ class NameFormProviderSpec extends StringFieldBehaviours {
   
   "AuthorisedOfficialsNameFormProvider" must {
 
-    val authorisedOfficialsName = Name("Jim", Some("John"), "Jones")
+    val authorisedOfficialsName = Name(SelectTitle.Mr,"Jim", Some("John"), "Jones")
 
     "apply AuthorisedOfficialsName correctly" in {
 
       val details = form.bind(
         Map(
+          "value" -> SelectTitle.values.head.toString,
           "firstName" -> authorisedOfficialsName.firstName,
           "middleName" -> authorisedOfficialsName.middleName.getOrElse(""),
           "lastName" -> authorisedOfficialsName.lastName
         )
       ).get
 
+      details.title mustBe authorisedOfficialsName.title
       details.firstName mustBe authorisedOfficialsName.firstName
       details.middleName mustBe authorisedOfficialsName.middleName
       details.lastName mustBe authorisedOfficialsName.lastName
@@ -143,6 +164,7 @@ class NameFormProviderSpec extends StringFieldBehaviours {
 
     "unapply AuthorisedOfficialsName correctly" in {
       val filled = form.fill(authorisedOfficialsName)
+      filled("value").value.value mustBe authorisedOfficialsName.title.toString
       filled("firstName").value.value mustBe authorisedOfficialsName.firstName
       filled("middleName").value.value mustBe authorisedOfficialsName.middleName.get
       filled("lastName").value.value mustBe authorisedOfficialsName.lastName

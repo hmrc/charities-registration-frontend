@@ -754,6 +754,19 @@ bankDetailsSummary.section = Operations and funds
 # ----------------------------------------------------------
 officialsAndNominees.section =  Officials and nominees
 
+nameTitle = Title
+nameTitle.0001 = Mr
+nameTitle.0002 = Mrs
+nameTitle.0003 = Miss
+nameTitle.0004 = Ms
+nameTitle.0005 = Dr
+nameTitle.0006 = Sir
+nameTitle.0007 = Rev
+nameTitle.0009 = Prof
+nameTitle.0010 = Lord
+nameTitle.0011 = Lady
+nameTitle.0012 = Dame
+
 # Authorised Officials Page Messages
 # ----------------------------------------------------------
 charityAuthorisedOfficials.title = The charity’s authorised officials
@@ -777,6 +790,7 @@ authorisedOfficialsName.lastName.label = Last name
 authorisedOfficialsName.lastName.error.required = ’Enter the authorised official’s last name
 authorisedOfficialsName.lastName.error.length = The authorised official’s last name must be 100 characters or fewer
 authorisedOfficialsName.lastName.error.format = The authorised official’s last name must not include the following characters: & ( ) : @
+authorisedOfficialsName.title.error.required = Select the authorised official's title
 
 authorisedOfficialsName.checkYourAnswersLabel = Full name
 
@@ -938,6 +952,7 @@ otherOfficialsName.lastName.label = Last name
 otherOfficialsName.lastName.error.required = Enter the other official’s last name
 otherOfficialsName.lastName.error.length = The other official’s last name must be 100 characters or fewer
 otherOfficialsName.lastName.error.format = The other official’s last name must not include the following characters: & ( ) : @
+otherOfficialsName.title.error.required = Select the other official's title
 
 otherOfficialsName.checkYourAnswersLabel = Full name
 

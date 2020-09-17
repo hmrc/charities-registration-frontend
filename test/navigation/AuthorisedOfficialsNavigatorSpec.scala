@@ -24,7 +24,7 @@ import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models.authOfficials.OfficialsPosition
 import models.addressLookup.{AddressModel, CountryModel}
-import models.{CheckMode, Index, Name, NormalMode, PhoneNumber, PlaybackMode}
+import models.{CheckMode, Index, Name, NormalMode, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
@@ -33,7 +33,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: AuthorisedOfficialsNavigator = inject[AuthorisedOfficialsNavigator]
 
-  private val authorisedOfficialsName: Name = Name("Jim", Some("John"), "Jones")
+  private val authorisedOfficialsName: Name = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", "07700 900 982")
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val minYear = 16

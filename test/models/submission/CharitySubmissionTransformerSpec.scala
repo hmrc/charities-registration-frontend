@@ -25,7 +25,7 @@ import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocat
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
-import models.{BankDetails, CharityName, CharityOtherRegulatorDetails, MongoDateTimeFormats, Name, PhoneNumber}
+import models.{BankDetails, CharityName, CharityOtherRegulatorDetails, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.addressLookup._
 import pages.authorisedOfficials._
@@ -46,14 +46,14 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
         .flatMap(
         _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
         .flatMap(
-          _.set(AuthorisedOfficialsNamePage(1), Name("David", None, "Beckham"))).flatMap(
+          _.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
         _.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
         _.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A")).flatMap(
         _.set(AuthorisedOfficialAddressLookupPage(1),
           AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).flatMap(
-        _.set(OtherOfficialsNamePage(1), Name("David", None, "Beckham"))).flatMap(
+        _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
         _.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -91,14 +91,14 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
           AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
         .flatMap(
-        _.set(AuthorisedOfficialsNamePage(1), Name("David", None, "Beckham"))).flatMap(
+        _.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
         _.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
         _.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A")).flatMap(
         _.set(AuthorisedOfficialAddressLookupPage(1),
           AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).flatMap(
-        _.set(OtherOfficialsNamePage(1), Name("David", None, "Beckham"))).flatMap(
+        _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
         _.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(

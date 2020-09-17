@@ -754,6 +754,19 @@ bankDetailsSummary.section = (W)Operations and funds(W)
 # ----------------------------------------------------------
 officialsAndNominees.section = (W)Officials and nominees(W)
 
+nameTitle = (W)Title(W)
+nameTitle.0001 = (W)Mr(W)
+nameTitle.0002 = (W) Mrs(W)
+nameTitle.0003 = (W)Miss(W)
+nameTitle.0004 = (W)Ms(W)
+nameTitle.0005 = (W)Dr(W)
+nameTitle.0006 = (W)Sir(W)
+nameTitle.0007 = (W)Rev(W)
+nameTitle.0009 = (W)Prof(W)
+nameTitle.0010 = (W)Lord(W)
+nameTitle.0011 = (W)Lady(W)
+nameTitle.0012 = (W)Dame(W)
+
 # Authorised Officials Page Messages
 # ----------------------------------------------------------
 charityAuthorisedOfficials.title = (W)The charity’s authorised officials(W)
@@ -777,6 +790,7 @@ authorisedOfficialsName.lastName.label = (W)Last name(W)
 authorisedOfficialsName.lastName.error.required = (W)Enter the authorised official’s last name(W)
 authorisedOfficialsName.lastName.error.length = (W)The authorised official’s last name must be 100 characters or fewer(W)
 authorisedOfficialsName.lastName.error.format = (W)The authorised official’s last name must not include the following characters: & ( ) : @(W)
+authorisedOfficialsName.title.error.required = (W)Select the authorised official's title(W)
 
 authorisedOfficialsName.checkYourAnswersLabel = (W)Full name(W)
 
@@ -939,7 +953,7 @@ otherOfficialsName.lastName.label = (W)Last name(W)
 otherOfficialsName.lastName.error.required = (W)Enter the other official’s last name(W)
 otherOfficialsName.lastName.error.length = (W)The other official’s last name must be 100 characters or fewer(W)
 otherOfficialsName.lastName.error.format = (W)The other official’s last name must not include the following characters: & ( ) : @(W)
-
+otherOfficialsName.title.error.required = (W)Select the other official's title(W)
 otherOfficialsName.checkYourAnswersLabel = (W)Full name(W)
 
 # Other Official Date of birth Messages

@@ -52,11 +52,11 @@ object CharityRegulator extends Enumerable.Implicits {
     Other -> CharityOtherRegulatorDetailsPage
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.map {
-    value =>
+  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
+    case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
-        id = Some(value.toString),
+        id = Some(if(index==0){ "value" } else { "value-" + index.toString }),
         value = value.toString,
         content = Text(messages(s"charityRegulator.${value.toString}")),
         checked = form.data.exists(_._2 == value.toString)

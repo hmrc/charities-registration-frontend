@@ -41,14 +41,14 @@ trait CheckboxViewBehaviours[A] extends ViewBehaviours {
       "contain an input for the value" in {
         val doc = asDocument(createView(form))
         for (option <- options) {
-          assertRenderedById(doc, option.value)
+          assertRenderedById(doc, option.id.getOrElse("value"))
         }
       }
 
       "contain a label for each input" in {
         val doc = asDocument(createView(form))
         for (option <- options) {
-          doc.select(s"label[for=${option.value}]").text mustEqual option.content.text
+          doc.select(s"label[for=${option.id.getOrElse("value")}]").text mustEqual option.content.text
         }
       }
 

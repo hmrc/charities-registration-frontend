@@ -142,6 +142,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case _ => _ => routes.IndexController.onPageLoad()
   }
+
   private val playbackRoute: Page => UserAnswers => Call = {
     case AuthorisedOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)

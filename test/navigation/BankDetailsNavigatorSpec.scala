@@ -93,6 +93,14 @@ class BankDetailsNavigatorSpec extends SpecBase {
       }
     }
 
+    "in Playback mode" when {
+      "attempting to go to any site" must {
+        "go to the SessionExpiredController page" in {
+          navigator.nextPage(BankDetailsPage, PlaybackMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+      }
+    }
   }
 
 }

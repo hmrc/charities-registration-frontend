@@ -19,7 +19,7 @@ package controllers.common
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import models.requests.DataRequest
-import models.{Index, NormalMode}
+import models.{Index, NormalMode, PlaybackMode}
 import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.mvc.{AnyContent, Call, MessagesControllerComponents, Result}
@@ -40,7 +40,7 @@ trait AddedOfficialController extends LocalBaseController {
   def getView(index:Index, submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
 
     val rows = messagePrefix match {
-      case "addedOneAuthorisedOfficial" | "addedSecondAuthorisedOfficial" => new AddedOneAuthorisedOfficialHelper(index)(request.userAnswers).rows
+      case "addedOneAuthorisedOfficial" | "addedSecondAuthorisedOfficial" => new AddedOneAuthorisedOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
       case "addedOneOtherOfficial" | "addedSecondOtherOfficial"| "addedThirdOtherOfficial" => new AddedOneOtherOfficialHelper(index)(request.userAnswers).rows
     }
 

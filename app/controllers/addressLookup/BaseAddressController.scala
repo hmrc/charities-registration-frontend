@@ -19,7 +19,7 @@ package controllers.addressLookup
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import controllers.LocalBaseController
-import models.NormalMode
+import models.{Mode, NormalMode}
 import models.addressLookup.AddressModel
 import models.requests.DataRequest
 import navigation.BaseNavigator
@@ -47,7 +47,7 @@ trait BaseAddressController extends LocalBaseController  {
     }
   }
 
-  def addressLookupCallback(page: QuestionPage[AddressModel], pageSection: QuestionPage[Boolean], id: Option[String])(
+  def addressLookupCallback(page: QuestionPage[AddressModel], pageSection: QuestionPage[Boolean], id: Option[String], mode: Mode = NormalMode)(
     implicit request:  DataRequest[AnyContent]): Future[Result] = {
 
     id match {
@@ -57,7 +57,7 @@ trait BaseAddressController extends LocalBaseController  {
             for {
               updatedAnswers <- Future.fromTry(request.userAnswers.set(page, address).flatMap(_.set(pageSection, false)))
               _              <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(page, NormalMode, updatedAnswers))
+            } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
           case _ =>
             Logger.error(s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup")
             Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))

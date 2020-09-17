@@ -68,5 +68,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       normalRoutes(page)(userAnswers)
     case CheckMode =>
       checkRouteMap(page)(userAnswers)
+    case PlaybackMode =>
+      routes.SessionExpiredController.onPageLoad() // TODO
   }
 }

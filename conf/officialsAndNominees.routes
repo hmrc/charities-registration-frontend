@@ -5,36 +5,50 @@ GET        /:index/authorised-official-name                                     
 POST       /:index/authorised-official-name                                     controllers.authorisedOfficials.AuthorisedOfficialsNameController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-name/change                              controllers.authorisedOfficials.AuthorisedOfficialsNameController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-name/change                              controllers.authorisedOfficials.AuthorisedOfficialsNameController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/authorised-official-name/playback-change                     controllers.authorisedOfficials.AuthorisedOfficialsNameController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/authorised-official-name/playback-change                     controllers.authorisedOfficials.AuthorisedOfficialsNameController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /:index/authorised-official-date-of-birth                            controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-date-of-birth                            controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-date-of-birth/change                     controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-date-of-birth/change                     controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/authorised-official-date-of-birth/playback-change            controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/authorised-official-date-of-birth/playback-change            controllers.authorisedOfficials.AuthorisedOfficialsDOBController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /:index/authorised-official-contact-details                          controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-contact-details                          controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-contact-details/change                   controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-contact-details/change                   controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/authorised-official-contact-details/playback-change          controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/authorised-official-contact-details/playback-change          controllers.authorisedOfficials.AuthorisedOfficialsPhoneNumberController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /:index/authorised-official-position                                 controllers.authorisedOfficials.AuthorisedOfficialsPositionController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-position                                 controllers.authorisedOfficials.AuthorisedOfficialsPositionController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-position/change                          controllers.authorisedOfficials.AuthorisedOfficialsPositionController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-position/change                          controllers.authorisedOfficials.AuthorisedOfficialsPositionController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/authorised-official-position/playback-change                 controllers.authorisedOfficials.AuthorisedOfficialsPositionController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/authorised-official-position/playback-change                 controllers.authorisedOfficials.AuthorisedOfficialsPositionController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /:index/authorised-official-national-insurance                       controllers.authorisedOfficials.IsAuthorisedOfficialNinoController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-national-insurance                       controllers.authorisedOfficials.IsAuthorisedOfficialNinoController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-national-insurance/change                controllers.authorisedOfficials.IsAuthorisedOfficialNinoController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-national-insurance/change                controllers.authorisedOfficials.IsAuthorisedOfficialNinoController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/authorised-official-national-insurance/playback-change       controllers.authorisedOfficials.IsAuthorisedOfficialNinoController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/authorised-official-national-insurance/playback-change       controllers.authorisedOfficials.IsAuthorisedOfficialNinoController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /:index/authorised-official-enter-national-insurance                 controllers.authorisedOfficials.AuthorisedOfficialsNinoController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-enter-national-insurance                 controllers.authorisedOfficials.AuthorisedOfficialsNinoController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-enter-national-insurance/change          controllers.authorisedOfficials.AuthorisedOfficialsNinoController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-enter-national-insurance/change          controllers.authorisedOfficials.AuthorisedOfficialsNinoController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/authorised-official-enter-national-insurance/playback-change controllers.authorisedOfficials.AuthorisedOfficialsNinoController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/authorised-official-enter-national-insurance/playback-change controllers.authorisedOfficials.AuthorisedOfficialsNinoController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /:index/authorised-official-changed-address                          controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-changed-address                          controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/authorised-official-changed-address/playback-change          controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/authorised-official-changed-address/playback-change          controllers.authorisedOfficials.AuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /added-one-authorised-official                                       controllers.authorisedOfficials.AddedOneAuthorisedOfficialController.onPageLoad()
 POST       /added-one-authorised-official                                       controllers.authorisedOfficials.AddedOneAuthorisedOfficialController.onSubmit()
@@ -44,8 +58,8 @@ POST       /add-another-authorised-official                                     
 GET        /add-another-authorised-official/change                              controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onPageLoad(mode: Mode = CheckMode)
 POST       /add-another-authorised-official/change                              controllers.authorisedOfficials.IsAddAnotherAuthorisedOfficialController.onSubmit(mode: Mode = CheckMode)
 
-GET        /added-two-authorised-officials                                    controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onPageLoad()
-POST       /added-two-authorised-officials                                    controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onSubmit()
+GET        /added-two-authorised-officials                                      controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onPageLoad()
+POST       /added-two-authorised-officials                                      controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onSubmit()
 
 GET        /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onPageLoad
 POST       /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onSubmit

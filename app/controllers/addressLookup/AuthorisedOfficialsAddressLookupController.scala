@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import connectors.addressLookup.AddressLookupConnector
 import controllers.actions._
 import javax.inject.Inject
-import models.Index
+import models.{Index, Mode, NormalMode}
 import navigation.AuthorisedOfficialsNavigator
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
@@ -42,18 +42,18 @@ class AuthorisedOfficialsAddressLookupController @Inject()(
 
   override val messagePrefix : String = "authorisedOfficialAddress"
 
-  def initializeJourney(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def initializeJourney(index: Index, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
-        val callBack: String = controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.callback(index).url
+        val callBack: String = controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.callback(index, mode).url
 
         addressLookupInitialize(callBack, Some(authorisedOfficialsName))
       }
   }
 
-  def callback(index: Index, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def callback(index: Index, mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupCallback(AuthorisedOfficialAddressLookupPage(index), Section7Page, id)
+      addressLookupCallback(AuthorisedOfficialAddressLookupPage(index), Section7Page, id, mode)
   }
 }

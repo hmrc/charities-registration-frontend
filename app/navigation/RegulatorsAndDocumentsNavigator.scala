@@ -85,6 +85,8 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       normalRoutes(page)(userAnswers)
     case CheckMode =>
       checkRouteMap(page)(userAnswers)
+    case PlaybackMode =>
+      routes.SessionExpiredController.onPageLoad() // TODO
   }
 
   private def isCharityRegulatorPageNav(mode: Mode, userAnswers: UserAnswers): Call = userAnswers.get(IsCharityRegulatorPage) match {

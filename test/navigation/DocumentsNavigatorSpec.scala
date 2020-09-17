@@ -297,6 +297,15 @@ class DocumentsNavigatorSpec extends SpecBase {
         }
       }
     }
+
+    "in Playback mode" when {
+      "attempting to go to any site" must {
+        "go to the SessionExpiredController page" in {
+          navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, PlaybackMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+      }
+    }
   }
 
 }

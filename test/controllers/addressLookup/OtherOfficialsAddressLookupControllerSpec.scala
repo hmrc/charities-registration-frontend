@@ -23,7 +23,7 @@ import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLooku
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, FakeAuthIdentifierAction, UserDataRetrievalAction}
 import models.requests.DataRequest
-import models.{Index, Name, UserAnswers}
+import models.{Index, Name, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -63,7 +63,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
     mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(
-    OtherOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
+    OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   override lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, localUserAnswers)
 

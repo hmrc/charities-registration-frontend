@@ -19,7 +19,7 @@ package models.submission
 import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
-import models.{BankDetails, CharityContactDetails, CharityName, Name}
+import models.{BankDetails, CharityContactDetails, CharityName, Name, SelectTitle}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPositionPage}
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
@@ -268,7 +268,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct IndDeclarationInfo with UK data" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones"))
+        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
             AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent)).success.value
@@ -297,7 +297,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct IndDeclarationInfo with non UK data" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones"))
+        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
             AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent)).success.value
@@ -330,7 +330,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct Common object with all data" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones"))
+        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
             AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))
@@ -408,7 +408,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct Common object when officialAddress and correspondenceAddress" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", Some("John"), "Jones"))
+        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
             AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))
@@ -488,7 +488,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct Common object with mandatory fields only" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Jim", None, "Jones"))
+        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", None, "Jones"))
           .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
             AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))

@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.IsOfficialsNinoFormProvider
-import models.{Index, Name, NormalMode, UserAnswers}
+import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -60,7 +60,7 @@ class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach
   private val controller: IsOtherOfficialNinoController = inject[IsOtherOfficialNinoController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   "IsOtherOfficialPosition Controller" must {
 

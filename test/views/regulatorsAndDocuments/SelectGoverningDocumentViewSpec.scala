@@ -31,7 +31,7 @@ class SelectGoverningDocumentViewSpec extends ViewBehaviours  {
   private val section: String = messages("charityRegulator.section")
   val form: Form[SelectGoverningDocument] = inject[SelectGoverningDocumentFormProvider].apply()
 
-    "CharityRegulatorView" must {
+    "SelectGoverningDocumentView" must {
 
       def applyView(form: Form[SelectGoverningDocument]): HtmlFormat.Appendable = {
           val view = viewFor[SelectGoverningDocumentView](Some(emptyUserAnswers))

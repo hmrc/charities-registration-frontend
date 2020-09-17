@@ -24,7 +24,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
+import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
 import viewmodels.SummaryListRowHelper
@@ -37,7 +37,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
   private val dayOfMonth = 2
 
   private val authorisedOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(firstName = "John", None, lastName = "Jones")).success.value
+    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).success.value
     .set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
     .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
                                              mobilePhone = "07700 900 982")).success.value

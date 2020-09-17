@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.IsPreviousAddressFormProvider
-import models.{Index, Name, NormalMode, UserAnswers}
+import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -60,7 +60,7 @@ class OtherOfficialsPreviousAddressControllerSpec extends SpecBase with BeforeAn
   private val controller: OtherOfficialsPreviousAddressController = inject[OtherOfficialsPreviousAddressController]
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
-    Name("FName", Some("MName"), "LName")).success.value
+    Name(SelectTitle.values.head, "FName", Some("MName"), "LName")).success.value
 
   "OtherOfficialsPreviousAddress Controller" must {
 

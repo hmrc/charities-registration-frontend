@@ -16,15 +16,56 @@
 
 package models
 
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import play.api.libs.json.{JsError, JsString, Json}
 
-class CommonModelSpec extends WordSpec with MustMatchers with OptionValues {
+class CommonModelSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
+
+  "SelectTitle" must {
+
+    "deserialise valid values" in {
+
+      val gen = Gen.oneOf(SelectTitle.values)
+
+      forAll(gen) {
+        selectTitle =>
+
+          JsString(selectTitle.toString).validate[SelectTitle].asOpt.value mustEqual selectTitle
+      }
+    }
+
+    "fail to deserialise invalid values" in {
+
+      val gen = arbitrary[String] suchThat (!SelectTitle.values.map(_.toString).contains(_))
+
+      forAll(gen) {
+        invalidValue =>
+
+          JsString(invalidValue).validate[SelectTitle] mustEqual JsError("error.invalid")
+      }
+    }
+
+    "serialise" in {
+
+      val gen = Gen.oneOf(SelectTitle.values)
+
+      forAll(gen) {
+        selectTitle =>
+
+          Json.toJson(selectTitle) mustEqual JsString(selectTitle.toString)
+      }
+    }
+  }
 
   "Name object" must {
 
     "all parameters defined" in {
 
       val authorisedOfficialsName = Name(
+        SelectTitle.Mr,
         firstName = "Jack",
         middleName = Some("and"),
         lastName = "Jill")
@@ -36,6 +77,7 @@ class CommonModelSpec extends WordSpec with MustMatchers with OptionValues {
     "middleName is not defined" in {
 
       val authorisedOfficialsName = Name(
+        SelectTitle.Mr,
         firstName = "Jack",
         middleName = None,
         lastName = "Jill")

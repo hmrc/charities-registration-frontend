@@ -19,7 +19,7 @@ package controllers.authorisedOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.IsAddAnotherFormProvider
-import models.{Name, NormalMode, UserAnswers}
+import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -60,7 +60,7 @@ class IsAddAnotherAuthorisedOfficialControllerSpec extends SpecBase with BeforeA
   private val controller: IsAddAnotherAuthorisedOfficialController = inject[IsAddAnotherAuthorisedOfficialController]
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-    Name("Jim", Some("John"), "Jones")).success.value
+    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   "IsAddAnotherAuthorisedOfficialController Controller " must {
 

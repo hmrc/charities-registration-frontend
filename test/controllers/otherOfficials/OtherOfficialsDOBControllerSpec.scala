@@ -21,7 +21,7 @@ import java.time.LocalDate
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
-import models.{Index, Name, NormalMode, UserAnswers}
+import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.OtherOfficialsNavigator
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -63,7 +63,7 @@ class OtherOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val requestArgs = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
-    Name("Jim", Some("John"), "Jones")).success.value
+    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   "OtherOfficialsDOBController Controller " must {
 

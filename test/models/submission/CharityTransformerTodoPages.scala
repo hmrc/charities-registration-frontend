@@ -25,7 +25,7 @@ import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.SelectWhyNoRegulator
-import models.{BankDetails, CharityContactDetails, CharityName, MongoDateTimeFormats, Name, PhoneNumber, UserAnswers}
+import models.{BankDetails, CharityContactDetails, CharityName, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle, UserAnswers}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.QuestionPage
 import pages.addressLookup._
@@ -94,7 +94,7 @@ trait CharityTransformerTodoPages extends SpecBase{
     .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com")))
     .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
     .flatMap(_.set(IsCharityRegulatorPage, false))
-    .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien")))
+    .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
     .flatMap(
       _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
     .flatMap(
@@ -107,7 +107,7 @@ trait CharityTransformerTodoPages extends SpecBase{
       _.set(AuthorisedOfficialAddressLookupPage(0),
         AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))))
     .flatMap(
-      _.set(OtherOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien"))).flatMap(
+      _.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))).flatMap(
     _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
     _.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
     _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -140,7 +140,7 @@ trait CharityTransformerTodoPages extends SpecBase{
       ))
   )
     .flatMap(
-      _.set(OtherOfficialsNamePage(0), Name("David", None, "Beckham"))).flatMap(
+      _.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr,"David", None, "Beckham"))).flatMap(
     _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Director)).flatMap(
     _.set(OtherOfficialAddressLookupPage(0),
       AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).success.value

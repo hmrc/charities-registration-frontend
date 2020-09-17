@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.PhoneNumberFormProvider
-import models.{Index, Name, NormalMode, PhoneNumber, UserAnswers}
+import models.{Index, Name, NormalMode, PhoneNumber, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -60,7 +60,7 @@ class OtherOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeAndAft
   private val controller: OtherOfficialsPhoneNumberController = inject[OtherOfficialsPhoneNumberController]
 
   private val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982","alternativePhoneNumber"->"07700 900 982")
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Jim", Some("John"), "Jones")).success.value
+  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
 
   "OtherOfficialsPhoneNumberController Controller " must {

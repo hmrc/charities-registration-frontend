@@ -18,7 +18,7 @@ package forms.common
 
 import forms.mappings.Mappings
 import javax.inject.Inject
-import models.Name
+import models.{Name, SelectTitle}
 import play.api.data.Form
 import play.api.data.Forms._
 
@@ -30,15 +30,17 @@ class NameFormProvider @Inject() extends Mappings {
   def apply(messagePrefix: String): Form[Name] =
     Form(
       mapping(
-      "firstName" -> text(s"$messagePrefix.firstName.error.required")
-        .verifying(maxLength(maxLength, s"$messagePrefix.firstName.error.length"))
-        .verifying(regexp(validateFields,s"$messagePrefix.firstName.error.format")),
-      "middleName" -> optional(text()
-        .verifying(maxLength(maxLength, s"$messagePrefix.middleName.error.length")).
-        verifying(regexp(validateFields,s"$messagePrefix.middleName.error.format"))),
+
+        "value" -> enumerable[SelectTitle](s"$messagePrefix.title.error.required"),
+        "firstName" -> text(s"$messagePrefix.firstName.error.required")
+              .verifying(maxLength(maxLength, s"$messagePrefix.firstName.error.length"))
+              .verifying(regexp(validateFields,s"$messagePrefix.firstName.error.format")),
+        "middleName" -> optional(text()
+              .verifying(maxLength(maxLength, s"$messagePrefix.middleName.error.length"))
+              .verifying(regexp(validateFields,s"$messagePrefix.middleName.error.format"))),
         "lastName" -> text(s"$messagePrefix.lastName.error.required")
-          .verifying(maxLength(maxLength, s"$messagePrefix.lastName.error.length"))
-          .verifying(regexp(validateFields,s"$messagePrefix.lastName.error.format"))
+              .verifying(maxLength(maxLength, s"$messagePrefix.lastName.error.length"))
+              .verifying(regexp(validateFields,s"$messagePrefix.lastName.error.format"))
       )(Name.apply)(Name.unapply)
     )
 }

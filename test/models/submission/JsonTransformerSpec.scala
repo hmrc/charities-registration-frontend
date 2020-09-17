@@ -17,7 +17,7 @@
 package models.submission
 
 import base.SpecBase
-import models.Name
+import models.{Name, SelectTitle}
 import models.addressLookup.{AddressModel, CountryModel}
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
@@ -135,7 +135,7 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct Name object" in {
 
         val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-          Name("Jim", Some("John"), "Jones")).success.value
+          Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
         val expectedJson =
           """{
@@ -162,7 +162,7 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct AddressModel with mandatory fields only" in {
 
         val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-          Name("Jim", None, "Jones")).success.value
+          Name(SelectTitle.Mr, "Jim", None, "Jones")).success.value
 
         val expectedJson =
           """{

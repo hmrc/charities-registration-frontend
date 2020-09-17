@@ -21,7 +21,7 @@ import java.time.LocalDate
 import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
-import models.{Name, PhoneNumber, UserAnswers}
+import models.{Name, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, OtherOfficialAddressLookupPage}
 import pages.authorisedOfficials._
 import pages.otherOfficials._
@@ -42,7 +42,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
       "convert the correct individualDetails object with all fields" in {
 
-        val localUserAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien")).flatMap(
+        val localUserAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")).flatMap(
           _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
           _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
           _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -71,7 +71,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
       "convert the correct individualDetails object with mandatory fields only" in {
 
-        val localUserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Albert", None, "Einstien")).flatMap(
+        val localUserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", None, "Einstien")).flatMap(
           _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
           _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
           _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -205,7 +205,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
       "convert the correct object for one authorized official" in {
 
-        val localUserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien")).flatMap(
+        val localUserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")).flatMap(
           _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
           _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
           _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -263,7 +263,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
       "convert the correct individualDetails object with all fields" in {
 
-        val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien")).flatMap(
+        val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")).flatMap(
           _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
           _.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
           _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -292,7 +292,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
       "convert the correct individualDetails object with mandatory fields only" in {
 
-        val localUserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Albert", None, "Einstien")).flatMap(
+        val localUserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", None, "Einstien")).flatMap(
           _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
           _.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
           _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -410,7 +410,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
       "convert the correct object for one other official" in {
 
-        val localUserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien")).flatMap(
+        val localUserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")).flatMap(
           _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
           _.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
           _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
@@ -468,28 +468,28 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
       "convert the correct object for two authorized and other officials" in {
 
-        val localUserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien")).flatMap(
+        val localUserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")).flatMap(
           _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
           _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
           _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
           _.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C")).flatMap(
           _.set(AuthorisedOfficialAddressLookupPage(0),
             AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom")))).flatMap(
-            _.set(AuthorisedOfficialsNamePage(1), Name("David", None, "Beckham"))).flatMap(
+            _.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
             _.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
             _.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
             _.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
             _.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A")).flatMap(
             _.set(AuthorisedOfficialAddressLookupPage(1),
               AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).flatMap(
-            _.set(OtherOfficialsNamePage(0), Name("Albert", Some("G"), "Einstien"))).flatMap(
+            _.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))).flatMap(
             _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
             _.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
             _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
             _.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")).flatMap(
             _.set(OtherOfficialAddressLookupPage(0),
               AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom")))).flatMap(
-            _.set(OtherOfficialsNamePage(1), Name("David", None, "Beckham"))).flatMap(
+            _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
             _.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
             _.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
             _.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(

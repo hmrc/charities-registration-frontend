@@ -16,7 +16,7 @@
 
 package service
 
-import audit.AuditService
+import audit.{AuditService, DeclarationAuditEvent, SubmissionAuditEvent}
 import base.SpecBase
 import connectors.CharitiesConnector
 import connectors.httpParsers.CharitiesInvalidJson
@@ -71,7 +71,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerRepository, times(1)).set(any())
-      verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
+
+      verify(mockAuditService, times(2)).sendEvent(any())(any(), any())
+      verify(mockAuditService, atLeastOnce()).sendEvent(any[DeclarationAuditEvent])(any(), any())
+      verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
     }
 
     "redirect to the session expired page if registration connector failed" in {

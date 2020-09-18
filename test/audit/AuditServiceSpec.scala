@@ -27,6 +27,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.json.Json
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
@@ -103,6 +104,23 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
           tag.get("transactionName") mustBe Some("CharityDeclarationSubmission")
           auditType mustBe "Declaration"
           detail mustBe Map("declaration" -> "true")
+      }
+    }
+
+    "successfuly sent SubmissionAuditEvent" in {
+      val templateCaptor = ArgumentCaptor.forClass(classOf[DataEvent])
+
+      when(mockAuditConnector.sendEvent(any())(any(), any())).thenReturn(Future(Success))
+
+      auditService.sendEvent(SubmissionAuditEvent(Json.parse("""{"this": "is a test"}""")))
+      verify(mockAuditConnector, times(1)).sendEvent(templateCaptor.capture())
+
+      inside(templateCaptor.getValue) {
+        case DataEvent(auditSource, auditType, _, tag, detail, _) =>
+          auditSource mustBe frontendAppConfig.appName
+          tag.get("transactionName") mustBe Some("CharityDeclarationSubmission")
+          auditType mustBe "Submission"
+          detail mustBe Map("submission" -> """{"this":"is a test"}""")
       }
     }
 

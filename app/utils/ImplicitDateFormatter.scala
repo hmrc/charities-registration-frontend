@@ -20,18 +20,23 @@ import java.time.LocalDate
 
 import com.ibm.icu.text.SimpleDateFormat
 import com.ibm.icu.util.{TimeZone, ULocale}
-import org.joda.time.{MonthDay, LocalDate => JLocalDate}
+import org.joda.time.MonthDay
 import play.api.i18n.Messages
 
 import scala.language.implicitConversions
 
 trait ImplicitDateFormatter {
-
+  private val midday: Int = 12
   implicit def dateToString(date:LocalDate)(implicit messages: Messages): String = createDateFormatForPattern(
-    "d MMMM yyyy").format(new JLocalDate(date.getYear, date.getMonthValue, date.getDayOfMonth).toDate)
+    "d MMMM yyyy").format {
+    new SimpleDateFormat("yyyy-MM-dd'T'HH")
+      .parse(date.atTime(midday, 0).toString)
+  }
 
   implicit def monthToString(monthDay: MonthDay)(implicit messages: Messages): String = createDateFormatForPattern(
-    "d MMMM").format(new JLocalDate(LocalDate.now().getYear, monthDay.getMonthOfYear, monthDay.getDayOfMonth).toDate)
+    "d MMMM").format(
+    new SimpleDateFormat("yyyy-MM-dd").parse(monthDay.toLocalDate(LocalDate.now().getYear).toString)
+  )
 
   def dayToString(date:LocalDate)(implicit messages: Messages): String =
   {
@@ -42,7 +47,10 @@ trait ImplicitDateFormatter {
       case 3 =>  "rd"
       case _ =>  "th"
     }
-    createDateFormatForPattern(s"EEEE d'$dateSuffix' MMMM yyyy").format(new JLocalDate(date.getYear, date.getMonthValue, date.getDayOfMonth).toDate)
+    createDateFormatForPattern(
+      s"EEEE d'$dateSuffix' MMMM yyyy").format(
+        new SimpleDateFormat("yyyy-MM-dd").parse(date.toString)
+      )
 
   }
 

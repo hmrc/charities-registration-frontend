@@ -37,6 +37,10 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
       dateToString(LocalDate.of(2017, 4, 1)) mustBe result
     }
 
+    "format dates far in the past in the correct style" in {
+      val result: String = "1 January 1111"
+      dateToString(LocalDate.of(1111, 1, 1)) mustBe result
+    }
     "format months with single digit values in correct style" in {
       val result: String = "30 June 2017"
       dateToString(LocalDate.of(2017, 6, 30)) mustBe result

@@ -59,7 +59,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
         helper(authorisedOfficialDetails, 0).authOfficialNamesRow mustBe Some(summaryListRow(
           messages("authorisedOfficialsName.checkYourAnswersLabel"),
-          "John Jones",
+          "Mr John Jones",
           Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
           authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
         )

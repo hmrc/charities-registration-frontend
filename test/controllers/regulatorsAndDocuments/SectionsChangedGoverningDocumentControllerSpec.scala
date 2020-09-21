@@ -25,7 +25,7 @@ import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SectionsChangedGoverningDocumentPage}
+import pages.regulatorsAndDocuments.SectionsChangedGoverningDocumentPage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -78,7 +78,7 @@ class SectionsChangedGoverningDocumentControllerSpec extends SpecBase with Befor
       val userAnswers = emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "Governing document change").success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(IsApprovedGoverningDocumentPage, true).getOrElse(emptyUserAnswers))))
+        set(SectionsChangedGoverningDocumentPage, "Governing document change").getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

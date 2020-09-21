@@ -66,7 +66,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = ans.getFullName,
+        value = ans.getFullNameWithTitle(messages),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

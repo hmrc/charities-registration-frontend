@@ -58,7 +58,7 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
 
         helper(otherOfficialDetails, 0).otherOfficialNamesRow mustBe Some(summaryListRow(
           messages("otherOfficialsName.checkYourAnswersLabel"),
-          "John Jones",
+          "Mr John Jones",
           Some(messages("otherOfficialsName.checkYourAnswersLabel")),
           otherOfficials.OtherOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
         )

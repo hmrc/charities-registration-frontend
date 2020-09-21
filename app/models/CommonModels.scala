@@ -57,9 +57,10 @@ object SelectTitle extends Enumerable.Implicits {
 
 case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {
 
-  def getFullName: String = {
-     Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
-  }
+  def getFullName: String = Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
+
+  def getFullNameWithTitle(implicit messages: Messages): String = messages(s"nameTitle.${title.toString}") + s" $getFullName"
+
 }
 
 object Name {

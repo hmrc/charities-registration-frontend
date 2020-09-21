@@ -16,13 +16,14 @@
 
 package models
 
+import base.SpecBase
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-class CommonModelSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
+class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with OptionValues {
 
   "SelectTitle" must {
 
@@ -61,6 +62,18 @@ class CommonModelSpec extends WordSpec with MustMatchers with ScalaCheckProperty
   }
 
   "Name object" must {
+
+    "get correct Name with Title" in {
+
+      val authorisedOfficialsName = Name(
+        SelectTitle.Mr,
+        firstName = "Jack",
+        middleName = Some("Joe"),
+        lastName = "Jill")
+
+      authorisedOfficialsName.getFullNameWithTitle mustBe "Mr Jack Joe Jill"
+
+    }
 
     "all parameters defined" in {
 

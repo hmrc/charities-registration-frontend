@@ -16,7 +16,7 @@
 
 package service
 
-import audit.{AuditService, DeclarationAuditEvent}
+import audit.{AuditService, DeclarationAuditEvent, SubmissionAuditEvent}
 import connectors.CharitiesConnector
 import javax.inject.Inject
 import models.requests.DataRequest
@@ -47,6 +47,7 @@ class CharitiesRegistrationService @Inject()(
           updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference))
           _ <- userAnswerRepository.set(updatedAnswers)
           _ <- Future.successful(auditService.sendEvent(DeclarationAuditEvent(true)))
+          _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson)))
         } yield
           Redirect(controllers.routes.RegistrationSentController.onPageLoad())
 

@@ -33,7 +33,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
-      case Some(items) if items.toSeq.equals(Seq(Other)) => routes.DeadEndController.onPageLoad()
+      case Some(items) if items.toSeq.contains(Other) => operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
       case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -61,6 +61,11 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case OtherFundRaisingPage => userAnswer:UserAnswers => userAnswer.get(OtherFundRaisingPage) match{
+      case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case OperationsFundsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -83,6 +88,11 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherFundRaisingPage => userAnswers:UserAnswers  => userAnswers.get(OtherFundRaisingPage)match{
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

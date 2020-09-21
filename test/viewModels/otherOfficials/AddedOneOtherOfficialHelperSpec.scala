@@ -47,7 +47,7 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
     .set(OtherOfficialsPreviousAddressPage(0), false).success.value
 
 
-  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOneOtherOfficialHelper(index)(userAnswers)
+  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOneOtherOfficialHelper(index, CheckMode)(userAnswers)
 
 
   "Check Your Answers Helper" must {
@@ -164,7 +164,7 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
             messages("otherOfficialAddress.checkYourAnswersLabel"),
             "Test 1, Test 2, AA00 0AA, United Kingdom",
             Some(messages("otherOfficialAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0) -> BaseMessages.changeLink
+            controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
         )
       }

@@ -17,7 +17,7 @@
 package viewmodels.otherOfficials
 
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
-import models.{CheckMode, Index, UserAnswers}
+import models.{Index, Mode, UserAnswers}
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
 import play.api.i18n.Messages
@@ -25,55 +25,55 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOneOtherOfficialHelper(index: Index)(override val userAnswers: UserAnswers)
+class AddedOneOtherOfficialHelper(index: Index, mode: Mode)(override val userAnswers: UserAnswers)
                                  (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
   def otherOfficialNamesRow: Option[SummaryListRow] =
     answerFullName(OtherOfficialsNamePage(index),
-                  otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(CheckMode, index),
+                  otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(mode, index),
                   messagePrefix = "otherOfficialsName")
 
   def otherOfficialDobRow: Option[SummaryListRow] =
     answerPrefix(OtherOfficialsDOBPage(index),
-                 otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(CheckMode, index),
+                 otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(mode, index),
                  messagePrefix = "otherOfficialsDOB")
 
   def otherOfficialMainPhoneNoRow: Option[SummaryListRow] =
     answerMainPhoneNo(OtherOfficialsPhoneNumberPage(index),
-      otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, index),
+      otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(mode, index),
       messagePrefix = "otherOfficialsPhoneNumber.mainPhoneNumber")
 
   def otherOfficialAlternativePhoneNoRow: Option[SummaryListRow] =
     answerAlternativePhoneNo(OtherOfficialsPhoneNumberPage(index),
-      otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, index),
+      otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(mode, index),
       messagePrefix = "otherOfficialsPhoneNumber.alternativePhoneNumber")
 
   def otherOfficialPositionRow: Option[SummaryListRow] =
     answerPrefix(OtherOfficialsPositionPage(index),
-                 otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(CheckMode, index),
+                 otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(mode, index),
                  answerIsMsgKey = true,
                  messagePrefix = "officialsPosition")
 
   def otherOfficialHasNinoRow: Option[SummaryListRow] = {
     answerPrefix(IsOtherOfficialNinoPage(index),
-                 otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(CheckMode, index),
+                 otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(mode, index),
                  messagePrefix = "isOtherOfficialNino")
   }
 
   def otherOfficialNinoRow: Option[SummaryListRow] =
     answerPrefix(OtherOfficialsNinoPage(index),
-                 otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(CheckMode, index),
+                 otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(mode, index),
                  messagePrefix = "otherOfficialsNino")
 
   def otherOfficialAddressRow: Option[SummaryListRow] =
     answerAddress(OtherOfficialAddressLookupPage(index),
-                  controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index),
+                  controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index, mode),
                   messagePrefix = "otherOfficialAddress")
 
   def otherOfficialHadPreviousAddressRow: Option[SummaryListRow] =
     answerPrefix(OtherOfficialsPreviousAddressPage(index),
-                 otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index),
+                 otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(mode, index),
                  messagePrefix = "otherOfficialsPreviousAddress")
 
 

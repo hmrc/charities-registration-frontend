@@ -23,7 +23,7 @@ import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLooku
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, FakeAuthIdentifierAction, UserDataRetrievalAction}
 import models.requests.DataRequest
-import models.{Index, Name, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -81,7 +81,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
-            val result = controller.initializeJourney(Index(0))(fakeDataRequest)
+            val result = controller.initializeJourney(Index(0), NormalMode)(fakeDataRequest)
 
             status(result) mustEqual SEE_OTHER
             redirectLocation(result) mustBe Some("/foo")
@@ -95,7 +95,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
-            val result = controller.initializeJourney(Index(0))(fakeDataRequest)
+            val result = controller.initializeJourney(Index(0), NormalMode)(fakeDataRequest)
 
             status(result) mustEqual INTERNAL_SERVER_ERROR
             contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
@@ -106,7 +106,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
           when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
 
-          val result = controller.initializeJourney(Index(0))(fakeRequest)
+          val result = controller.initializeJourney(Index(0), NormalMode)(fakeRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
@@ -131,7 +131,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
                 when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
                 when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-                val result = controller.callback(Index(0), Some("id"))(fakeDataRequest)
+                val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
 
                 status(result) mustEqual SEE_OTHER
                 redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -146,7 +146,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
                 when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
                 when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Left(AddressMalformed)))
 
-                val result = controller.callback(Index(0), Some("id"))(fakeDataRequest)
+                val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
 
                 status(result) mustEqual INTERNAL_SERVER_ERROR
                 contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
@@ -158,7 +158,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
                 when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
                 when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-                val result = controller.callback(Index(0), None)(fakeDataRequest)
+                val result = controller.callback(Index(0), NormalMode, None)(fakeDataRequest)
 
                 status(result) mustEqual INTERNAL_SERVER_ERROR
                 contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
@@ -171,7 +171,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
 
             when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
 
-            val result = controller.callback(Index(0), Some("id"))(fakeRequest)
+            val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
             redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)

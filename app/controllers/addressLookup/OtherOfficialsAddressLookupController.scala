@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import connectors.addressLookup.AddressLookupConnector
 import controllers.actions._
 import javax.inject.Inject
-import models.Index
+import models.{Index, Mode}
 import navigation.OtherOfficialsNavigator
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
@@ -42,18 +42,18 @@ class OtherOfficialsAddressLookupController @Inject()(
 
   override val messagePrefix : String = "otherOfficialAddress"
 
-  def initializeJourney(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def initializeJourney(index: Index, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
 
-        val callBack: String = controllers.addressLookup.routes.OtherOfficialsAddressLookupController.callback(index).url
+        val callBack: String = controllers.addressLookup.routes.OtherOfficialsAddressLookupController.callback(index,mode).url
 
         addressLookupInitialize(callBack, Some(otherOfficialsName))
       }
   }
 
-  def callback(index: Index, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def callback(index: Index,mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupCallback(OtherOfficialAddressLookupPage(index), Section8Page, id)
+      addressLookupCallback(OtherOfficialAddressLookupPage(index), Section8Page, id, mode)
   }
 }

@@ -29,6 +29,13 @@ import play.api.mvc.Call
 
 class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
+  def redirectToPlaybackPage(index: Int): Call = index match {
+    case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
+    case 1 => otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
+    case 2 => otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
+    case _ => routes.SessionExpiredController.onPageLoad() // TODO redirect to page if user attempts to use non-0-or-1 index
+  }
+
   private val normalRoutes: Page => UserAnswers => Call =  {
 
     case OtherOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNamePage(index)) match {
@@ -58,7 +65,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
-      case Some(_) => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index)
+      case Some(_) => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -143,12 +150,58 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
+  private val playbackRoute: Page => UserAnswers => Call = {
+    case OtherOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNamePage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsDOBPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+      case Some(_) => otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(PlaybackMode, index)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => redirectToPlaybackPage(index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case _ => _ => routes.IndexController.onPageLoad()
+
+  }
+
   override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode =>
       normalRoutes(page)(userAnswers)
     case CheckMode =>
       checkRouteMap(page)(userAnswers)
     case PlaybackMode =>
-      routes.SessionExpiredController.onPageLoad() // TODO
+      playbackRoute(page)(userAnswers)
   }
 }

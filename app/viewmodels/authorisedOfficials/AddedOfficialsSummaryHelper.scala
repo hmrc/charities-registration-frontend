@@ -32,7 +32,7 @@ class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode)(override
   with SummaryListRowHelper {
 
   val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index, CheckMode)(userAnswers)
-  val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index)(userAnswers)
+  val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index, CheckMode)(userAnswers)
 
   def isAddAnotherAuthorisedOfficialRow: Option[SummaryListRow] =
     answerPrefix(IsAddAnotherAuthorisedOfficialPage,

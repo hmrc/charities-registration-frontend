@@ -427,7 +427,7 @@ trait CharityTransformerTodoPages extends SpecBase{
        |          "firstName": "Albert",
        |          "middleName": "G",
        |          "lastName": "Einstien",
-       |          "title": "0001"
+       |          "title": "0005"
        |        },
        |        "position": "02",
        |        "declaration": true,
@@ -521,7 +521,7 @@ trait CharityTransformerTodoPages extends SpecBase{
        |        },
        |        "individualDetails": {
        |          "name": {
-       |            "title": "0001",
+       |            "title": "0005",
        |            "firstName": "Albert",
        |            "middleName": "G",
        |            "lastName": "Einstien"

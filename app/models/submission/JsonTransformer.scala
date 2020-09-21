@@ -47,7 +47,7 @@ trait JsonTransformer {
 
   def getName(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
 
-      ((submissionPath \ 'title).json.put(JsString("0001")) and
+      ((submissionPath \ 'title).json.copyFrom((userAnswerPath \ 'title).json.pick) and
       (submissionPath \ 'firstName).json.copyFrom((userAnswerPath \ 'firstName).json.pick) and
       ((submissionPath \ 'middleName).json.copyFrom((userAnswerPath \ 'middleName).json.pick) orElse doNothing) and
       (submissionPath \ 'lastName).json.copyFrom((userAnswerPath \ 'lastName).json.pick)).reduce

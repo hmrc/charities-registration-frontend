@@ -51,7 +51,7 @@ site.signOut = (W)Sign out(W)
 site.getHelpWithThisPage = (W)Get help with this page(W)
 site.notProvided = (W)Not Provided(W)
 site.incomplete = (W)Incomplete(W)
-site.warning = (W)Warning:(W)
+site.warning = (W)Warning(W)
 site.opensInNewWindowOrTab = (W)(opens in a new tab or window).(W)
 site.change = (W)Change(W)
 site.logOut = (W)log out(W)
@@ -152,7 +152,7 @@ commonAddress.selectPage.submitLabel = Continue
 commonAddress.selectPage.searchAgainLinkText =
 
 commonAddress.editPage.line1Label = (W)Address line 1(W)
-commonAddress.editPage.line2Label = (W)ddress line 2 (optional)(W)
+commonAddress.editPage.line2Label = (W)Address line 2 (optional)(W)
 commonAddress.editPage.line3Label = (W)Address line 3 (optional)(W)
 commonAddress.editPage.townLabel = (W)Town or city(W)
 commonAddress.editPage.postcodeLabel = (W)Postcode or Zipcode (optional)(W)
@@ -173,7 +173,7 @@ deadEnd.p2 = (W)You can also visit the task list to see the section status chang
 # Declaration page Messages
 # ----------------------------------------------------------
 declaration.title = (W)Declaration(W)
-declaration.heading = Declaration(W)
+declaration.heading = (W)Declaration(W)
 declaration.warning = (W)You can be prosecuted for knowingly providing false or misleading information on your application.(W)
 declaration.p1 = (W)By sending this application, I confirm that the information I have provided is true to the best of my knowledge.(W)
 
@@ -233,33 +233,33 @@ isEligibleLocation.error.required = (W)Select yes if the charity is based in the
 isEligibleLocationOther.title = (W)Is the charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.heading = (W)Is the charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.details = (W)Countries in the European Union(W)
-isEligibleLocationOther.austria =  (W)Austria(W)
-isEligibleLocationOther.belgium =  (W)Belgium(W)
-isEligibleLocationOther.bulgaria =  (W)Bulgaria(W)
-isEligibleLocationOther.croatia =  (W)Croatia(W)
-isEligibleLocationOther.republicOfCyprus =  (W)Republic of Cyprus(W)
-isEligibleLocationOther.czechRepublic =  (W)Czech Republic(W)
-isEligibleLocationOther.denmark =  (W)Denmark(W)
-isEligibleLocationOther.estonia =  (W)Estonia(W)
-isEligibleLocationOther.finland =  (W)Finland(W)
-isEligibleLocationOther.france =  (W)France(W)
-isEligibleLocationOther.germany =  (W)Germany(W)
-isEligibleLocationOther.greece =  (W)Greece(W)
-isEligibleLocationOther.hungary =  (W)Hungary(W)
-isEligibleLocationOther.ireland =  (W)Ireland(W)
-isEligibleLocationOther.italy =  (W)Italy(W)
-isEligibleLocationOther.latvia =  (W)Latvia(W)
-isEligibleLocationOther.lithuania =  (W)Lithuania(W)
-isEligibleLocationOther.luxembourg =  (W)Luxembourg(W)
-isEligibleLocationOther.malta =  (W)Malta(W)
-isEligibleLocationOther.netherlands =  (W)Netherlands(W)
-isEligibleLocationOther.poland =  (W)Poland(W)
-isEligibleLocationOther.portugal =  (W)Portugal(W)
-isEligibleLocationOther.romania =  (W)Romania(W)
-isEligibleLocationOther.slovakia =  (W)Slovakia(W)
-isEligibleLocationOther.slovenia =  (W)Slovenia(W)
-isEligibleLocationOther.spain =  (W)Spain(W)
-isEligibleLocationOther.sweden =  (W)Sweden(W)
+isEligibleLocationOther.austria = (W)Austria(W)
+isEligibleLocationOther.belgium = (W)Belgium(W)
+isEligibleLocationOther.bulgaria = (W)Bulgaria(W)
+isEligibleLocationOther.croatia = (W)Croatia(W)
+isEligibleLocationOther.republicOfCyprus = (W)Republic of Cyprus(W)
+isEligibleLocationOther.czechRepublic = (W)Czech Republic(W)
+isEligibleLocationOther.denmark = (W)Denmark(W)
+isEligibleLocationOther.estonia = (W)Estonia(W)
+isEligibleLocationOther.finland = (W)Finland(W)
+isEligibleLocationOther.france = (W)France(W)
+isEligibleLocationOther.germany = (W)Germany(W)
+isEligibleLocationOther.greece = (W)Greece(W)
+isEligibleLocationOther.hungary = (W)Hungary(W)
+isEligibleLocationOther.ireland = (W)Ireland(W)
+isEligibleLocationOther.italy = (W)Italy(W)
+isEligibleLocationOther.latvia = (W)Latvia(W)
+isEligibleLocationOther.lithuania = (W)Lithuania(W)
+isEligibleLocationOther.luxembourg = (W)Luxembourg(W)
+isEligibleLocationOther.malta = (W)Malta(W)
+isEligibleLocationOther.netherlands = (W)Netherlands(W)
+isEligibleLocationOther.poland = (W)Poland(W)
+isEligibleLocationOther.portugal = (W)Portugal(W)
+isEligibleLocationOther.romania = (W)Romania(W)
+isEligibleLocationOther.slovakia = (W)Slovakia(W)
+isEligibleLocationOther.slovenia = (W)Slovenia(W)
+isEligibleLocationOther.spain = (W)Spain(W)
+isEligibleLocationOther.sweden = (W)Sweden(W)
 isEligibleLocationOther.checkYourAnswersLabel = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
 isEligibleLocationOther.error.required = (W)Select yes if the charity is based in the European Union, Iceland, Liechtenstein or Norway(W)
 
@@ -281,7 +281,7 @@ notEligible.locationOther.p1 = (W)To use this service the charity must be based 
 
 # InEligibleBank Page Messages
 # ----------------------------------------------------------
-notEligible.bank.p1 =(W)To use this service the charity must have a UK bank, building society or credit union account.(W)
+notEligible.bank.p1 = (W)To use this service the charity must have a UK bank, building society or credit union account.(W)
 
 # EligibleCharity Page Messages
 # ----------------------------------------------------------
@@ -491,8 +491,8 @@ whyNotRegisteredWithCharity.checkYourAnswersLabel = (W)Other reason for not regi
 
 # Regulators Summary page
 # ----------------------------------------------------------
-regulatorsSummary.checkYourAnswers.title = (W)Check your charity’s regulator details(W)
-regulatorsSummary.checkYourAnswers.heading = (W)Check your charity’s regulator details(W)
+regulatorsSummary.checkYourAnswers.title = (W)Check the charity’s regulator details(W)
+regulatorsSummary.checkYourAnswers.heading = (W)Check the charity’s regulator details(W)
 regulatorsSummary.section = (W)Regulators and documents(W)
 
 # Section3 - Documents
@@ -532,8 +532,8 @@ governingDocumentName.checkYourAnswersLabel = (W)Other name(W)
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
 whenGoverningDocumentApproved.title = (W)What date did the governing document become effective?(W)
-whenGoverningDocumentApproved.heading = (W)What date did the [name of governing document] become effective?(W)
-WhenGoverningDocumentApproved.p1 = (W)This is the date when the commission approved the governing document. If your charity is a CIO (Charitable Incorporated Organisation), it is the date you were accepted onto the regulators register.(W)
+whenGoverningDocumentApproved.heading = (W)What date did the {0} become effective?(W)
+WhenGoverningDocumentApproved.p1 = (W)If the charity is a CIO (Charitable Incorporated Organisation), it is the date the charity was accepted onto the regulator’s register.(W)
 WhenGoverningDocumentApproved.hint = (W)For example, 27 3 2007(W)
 whenGoverningDocumentApproved.error.invalid = (W)The date when the governing document was approved must be a real date.(W)
 whenGoverningDocumentApproved.error.required.all = (W)Enter the date when the governing document became effective(W)
@@ -618,8 +618,8 @@ charitablePurposes.checkYourAnswersLabel = (W)Charity’s charitable purposes(W)
 
 # Enter Public Benefits Messages
 # ----------------------------------------------------------
-publicBenefits.title = (W)How does your charity benefit the public?(W)
-publicBenefits.heading = (W)How does your charity benefit the public?(W)
+publicBenefits.title = (W)How does the charity benefit the public?(W)
+publicBenefits.heading = (W)How does the charity benefit the public?(W)
 publicBenefits.error.required = (W)Enter how the charity benefits the public(W)
 publicBenefits.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
 publicBenefits.error.length = (W)Your answer must be 255 characters or fewer(W)
@@ -679,8 +679,8 @@ otherFundRaising.title = (W)What other way will the charity raise funds?(W)
 otherFundRaising.heading = (W)What other way will the charity raise funds?(W)
 otherFundRaising.checkYourAnswersLabel = (W)Other fundraising methods(W)
 otherFundRaising.error.required = (W)Enter the other way the charity will raise funds(W)
-otherFundRaising.error.format= (W)Your answer must not include the following characters: & ( ) : @(W)
-otherFundRaising.error.length= (W)Your answer must be 95 characters or fewer(W)
+otherFundRaising.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
+otherFundRaising.error.length = (W)Your answer must be 95 characters or fewer(W)
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
@@ -728,7 +728,7 @@ startBankDetails.p2 = (W)Adding bank details takes around 5 minutes.(W)
 # ----------------------------------------------------------
 bankDetails.title = (W)What are the charity’s bank account details?(W)
 bankDetails.heading = (W)What are the charity’s bank account details?(W)
-bankDetails.p1 = (W)We need the bank details to pay Gift Aid and other tax repayments.(W)
+bankDetails.p1 = (W)We need the charity’s bank details to pay Gift Aid and other tax repayments.(W)
 bankDetails.accountName = (W)Charity’s account name(W)
 bankDetails.accountName.hint = (W)As shown on the charity’s account statements(W)
 bankDetails.accountName.error.length = (W)The charity’s account name must be 60 characters or fewer(W)
@@ -765,7 +765,7 @@ officialsAndNominees.section = (W)Officials and nominees(W)
 
 nameTitle = (W)Title(W)
 nameTitle.0001 = (W)Mr(W)
-nameTitle.0002 = (W) Mrs(W)
+nameTitle.0002 = (W)Mrs(W)
 nameTitle.0003 = (W)Miss(W)
 nameTitle.0004 = (W)Ms(W)
 nameTitle.0005 = (W)Dr(W)
@@ -833,7 +833,7 @@ authorisedOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
 
 # Authorised Official Position  Messages
 # ----------------------------------------------------------
-authorisedOfficialsPosition.title = (W)What is the authorised officials position in the charity?(W)
+authorisedOfficialsPosition.title = (W)What is the authorised official’s position in the charity?(W)
 authorisedOfficialsPosition.heading = (W)What is {0}’s position in the charity?(W)
 authorisedOfficialsPosition.error.required = (W)Select their position in the charity(W)
 authorisedOfficialsPosition.hint = (W)Select one option(W)
@@ -871,6 +871,29 @@ isAuthorisedOfficialNino.error.required = (W)Select yes if they have a National 
 
 isAuthorisedOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
+# Authorised official Passport Page Messages
+# ----------------------------------------------------------
+authorisedOfficialsPassport.title = (W)What are the authorised official’s passport or national identity card details?(W)
+authorisedOfficialsPassport.heading = (W)What are {0}’s passport or national identity card details?(W)
+authorisedOfficialsPassport.passportNumber.label = (W)Passport or national identity card number(W)
+authorisedOfficialsPassport.country.label = (W)Country of issue(W)
+authorisedOfficialsPassport.hint = (W)For example, 21 3 2015.(W)
+authorisedOfficialsPassport.passportNumber.error.format= The authorised official's passport or national identity card number must not include the following characters: & ( ) : @(W)
+authorisedOfficialsPassport.passportNumber.error.length = (W)The authorised official's passport or national identity card number must be 30 characters or fewer(W)
+authorisedOfficialsPassport.passportNumber.error.required = (W)Enter the authorised official's passport or national identity card number(W)
+authorisedOfficialsPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
+authorisedOfficialsPassport.country.error.required = (W)Enter the country of issue(W)
+authorisedOfficialsPassport.expiryDate.label = (W)Expiry date(W)
+authorisedOfficialsPassport.error.minimum = (W)The expiry date must be in the future(W)
+authorisedOfficialsPassport.error.invalid = (W)The expiry date must be a real date(W)
+authorisedOfficialsPassport.error.required.all = (W)Enter the expiry date(W)
+authorisedOfficialsPassport.error.required.two = (W)Enter {0} and {1} of expiry date(W)
+authorisedOfficialsPassport.error.required.one = (W)Enter {0} of expiry date(W)
+
+authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
+authorisedOfficialsPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
+authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
+
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
 authorisedOfficialsNino.title = (W)What is the authorised official’s National Insurance number?(W)
@@ -896,7 +919,7 @@ authorisedOfficialAddress.editPage.heading = (W)What is {0}’s full home addres
 
 authorisedOfficialAddress.confirmPage.title = (W)Confirm the authorised official’s address - Officials and nominees(W)
 authorisedOfficialAddress.confirmPage.heading = (W)Confirm {0}’s address(W)
-authorisedOfficialAddress.confirmPage.changeLinkText = (W)Change authorised official’s home address (W)
+authorisedOfficialAddress.confirmPage.changeLinkText = (W)Change authorised official’s home address(W)
 
 authorisedOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
 

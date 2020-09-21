@@ -24,7 +24,7 @@ import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models.authOfficials.OfficialsPosition
 import models.addressLookup.{AddressModel, CountryModel}
-import models.{CheckMode, Index, Name, NormalMode, PhoneNumber, PlaybackMode, SelectTitle}
+import models.{CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
@@ -127,12 +127,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(NormalMode, index)
           }
 
-          "go to the DeadEnd page when no is selected" in {
+          "go to the Passport page when no is selected" in {
             navigator.nextPage(IsAuthorisedOfficialNinoPage(index), NormalMode,
               emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), false)
                 .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
                 .success.value) mustBe
-              routes.DeadEndController.onPageLoad()
+              authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(NormalMode,index)
           }
         }
 
@@ -149,6 +149,22 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C"))
                 .getOrElse(emptyUserAnswers)) mustBe
               addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(Index(index), NormalMode)
+          }
+        }
+
+        s"from the AuthorisedOfficialsPassportPage for index $index" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(AuthorisedOfficialsPassportPage(index), NormalMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the dead end page when clicked continue button" in {
+            navigator.nextPage(AuthorisedOfficialsPassportPage(index), NormalMode,
+              emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))
+                .getOrElse(emptyUserAnswers)) mustBe
+              addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
           }
         }
 
@@ -338,6 +354,21 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
+      s"from the AuthorisedOfficialsPassportPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsPassportPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the dead end page when clicked continue button" in {
+          navigator.nextPage(AuthorisedOfficialsPassportPage(0), CheckMode,
+            emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+              .getOrElse(emptyUserAnswers)) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
+      }
+
       "from the AuthorisedOfficialAddressLookupPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -496,6 +527,22 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C")
                 .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).getOrElse(emptyUserAnswers)) mustBe
               goToPlaybackPage(index)
+          }
+        }
+
+        s"from the AuthorisedOfficialsPassportPage for index $index" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(AuthorisedOfficialsPassportPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the dead end page when clicked continue button" in {
+            navigator.nextPage(AuthorisedOfficialsPassportPage(index), PlaybackMode,
+              emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))
+                .getOrElse(emptyUserAnswers)) mustBe
+              addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, PlaybackMode)
           }
         }
 

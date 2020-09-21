@@ -24,7 +24,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
+import models.{CheckMode, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
 import viewmodels.SummaryListRowHelper
@@ -44,6 +44,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
     .set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head).success.value
     .set(IsAuthorisedOfficialNinoPage(0), true).success.value
     .set(AuthorisedOfficialsNinoPage(0), "AA123456A").success.value
+    .set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))).success.value
     .set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
     .set(AuthorisedOfficialPreviousAddressPage(0), false).success.value
 
@@ -151,6 +152,45 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             "AA123456A",
             Some(messages("authorisedOfficialsNino.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
+        )
+      }
+    }
+
+    "For the Authorised Official Passport answers" must {
+
+      "have a correctly formatted summary list rows for passport number" in {
+
+        helper(authorisedOfficialDetails, 0).authOfficialPassportNumberRow mustBe Some(
+          summaryListRow(
+            messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel"),
+            "GB12345",
+            Some(messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
+        )
+      }
+
+      "have a correctly formatted summary list rows for country of issue" in {
+
+        helper(authorisedOfficialDetails, 0).authOfficialCountryOfIssueRow mustBe Some(
+          summaryListRow(
+            messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
+            "GB",
+            Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
+        )
+      }
+
+      "have a correctly formatted summary list rows for expiry date" in {
+
+        helper(authorisedOfficialDetails, 0).authOfficialExpiryDateRow mustBe Some(
+          summaryListRow(
+            messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel"),
+            "2 January 2000",
+            Some(messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
       }

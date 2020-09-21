@@ -34,8 +34,8 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
                                (implicit request: DataRequest[AnyContent]): Future[Result] = {
 
     request.userAnswers.get(page).map {
-      fullName =>
-        block(fullName.getFullName)
+      name =>
+        block(name.getFullName)
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
 

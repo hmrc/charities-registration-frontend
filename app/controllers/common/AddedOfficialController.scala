@@ -40,8 +40,10 @@ trait AddedOfficialController extends LocalBaseController {
   def getView(index:Index, submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
 
     val rows = messagePrefix match {
-      case "addedOneAuthorisedOfficial" | "addedSecondAuthorisedOfficial" => new AddedOneAuthorisedOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
-      case "addedOneOtherOfficial" | "addedSecondOtherOfficial"| "addedThirdOtherOfficial" => new AddedOneOtherOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
+      case "addedOneAuthorisedOfficial" | "addedSecondAuthorisedOfficial" =>
+        new AddedOneAuthorisedOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
+      case "addedOneOtherOfficial" | "addedSecondOtherOfficial"| "addedThirdOtherOfficial" =>
+        new AddedOneOtherOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
     }
 
     Ok(view(rows, submitCall, messagePrefix))

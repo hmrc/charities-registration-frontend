@@ -145,7 +145,9 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
 
     "convert with minimum fields" in {
 
-      localUserAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe jsonMinFields
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Dr, "Albert", Some("G"), "Einstien")).success.value
+
+      userAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe jsonMinFields
 
     }
 

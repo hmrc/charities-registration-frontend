@@ -215,7 +215,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
 
     "userAnswersToAboutOrganisation" must {
 
-      "convert the correct AboutOrganisation object" in {
+      "convert the correct AboutOrganisation object and changes are >255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
           _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
@@ -238,6 +238,34 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
             |			"governingApprovedWords": false,
             |			"governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
             |			"governingApprovedChangesB": "11223344556677889900"
+            |		}
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct AboutOrganisation object and changes are <255 characters long" in {
+
+        val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
+          _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
+            _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+            _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
+            _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
+            _.set(SectionsChangedGoverningDocumentPage,
+              "changes are shorter than 255 characters"))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |		"aboutOrganisation": {
+            |			"aboutOrgCommon": {
+            |				"otherDocument": "Other Documents for Charity",
+            |				"effectiveDate": "2014-07-01"
+            |			},
+            |			"documentEnclosed": "1",
+            |			"governingApprovedDoc": true,
+            |			"governingApprovedWords": false,
+            |			"governingApprovedChanges": "changes are shorter than 255 characters"
             |		}
             |}""".stripMargin
 
@@ -271,7 +299,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
 
     "userAnswersToOperationAndFundsCommon" must {
 
-      "convert the correct OperationAndFundsCommon object" in {
+      "convert the correct OperationAndFundsCommon object and changes are >255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
@@ -287,6 +315,27 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
             |     "financialAccounts": true,
             |			"noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
             |			"noBankStatementsB": "11223344556677889900"
+            |   }
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFundsCommon).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct OperationAndFundsCommon object and changes are <255 characters long" in {
+
+        val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          _.set(HasFinancialAccountsPage, true).flatMap(
+            _.set(NoBankStatementPage,
+              "the changes are less than 255 characters long"))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |		"operationAndFundsCommon": {
+            |     "accountPeriodEnd": "0101",
+            |     "financialAccounts": true,
+            |			"noBankStatements": "the changes are less than 255 characters long"
             |   }
             |}""".stripMargin
 

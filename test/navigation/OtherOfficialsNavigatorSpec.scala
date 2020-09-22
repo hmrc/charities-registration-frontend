@@ -28,6 +28,7 @@ import models.{CheckMode, Index, Name, NormalMode, PhoneNumber, PlaybackMode, Se
 import pages.IndexPage
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
+import play.api.mvc.Call
 
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
@@ -127,7 +128,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "go to the What is [Full name]’s home address? when clicked continue button" in {
           navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
-            addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0))
+            addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0), NormalMode)
         }
       }
 
@@ -379,13 +380,158 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       }
     }
 
-    "in Playback mode" when {
-      "attempting to go to any site" must {
-        "go to the SessionExpiredController page" in {
-          navigator.nextPage(AddAnotherOtherOfficialPage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+    def goToPlaybackPage(index: Int): Call = index match {
+      case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
+      case 1 => otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
+      case 2 => otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+     def previousOrSameIndex(index: Int): Int = index match {
+       case nonZero: Int if nonZero > 0 => nonZero - 1
+       case _ => 0
+     }
+
+    List(0,1,2).foreach(index => {
+      s"in Playback mode for index $index" when {
+
+        "from the OtherOfficialsNamePage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(OtherOfficialsNamePage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the summary page when continue button is clicked" in {
+            navigator.nextPage(OtherOfficialsNamePage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName)
+                .flatMap(_.set(OtherOfficialsNamePage(previousOrSameIndex(index)),otherOfficialsName))
+                .flatMap(_.set(OtherOfficialsNamePage(index), otherOfficialsName)).getOrElse(emptyUserAnswers)) mustBe
+              goToPlaybackPage(index)
+          }
+        }
+
+        "from the OtherOfficialsDOBPage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(OtherOfficialsDOBPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the summary page when continue button is clicked" in {
+            navigator.nextPage(OtherOfficialsDOBPage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear))
+                .flatMap(_.set(OtherOfficialsDOBPage(previousOrSameIndex(index)),LocalDate.now().minusYears(minYear)))
+                .flatMap(_.set(OtherOfficialsDOBPage(index), LocalDate.now().minusYears(minYear))).getOrElse(emptyUserAnswers)) mustBe
+              goToPlaybackPage(index)
+          }
+        }
+
+        "from the OtherOfficialsPhoneNumberPage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(OtherOfficialsPhoneNumberPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the summary page when continue button is clicked" in {
+            navigator.nextPage(OtherOfficialsPhoneNumberPage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber)
+                .flatMap(_.set(OtherOfficialsPhoneNumberPage(previousOrSameIndex(index)),otherOfficialsPhoneNumber))
+                .flatMap(_.set(OtherOfficialsPhoneNumberPage(index), otherOfficialsPhoneNumber)).getOrElse(emptyUserAnswers)) mustBe
+              goToPlaybackPage(index)
+          }
+        }
+
+        "from the OtherOfficialsPositionPage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(OtherOfficialsPositionPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the summary page when continue button is clicked" in {
+            navigator.nextPage(OtherOfficialsPositionPage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember)
+                .flatMap(_.set(OtherOfficialsPositionPage(previousOrSameIndex(index)), OfficialsPosition.BoardMember))
+                .flatMap(_.set(OtherOfficialsPositionPage(index), OfficialsPosition.BoardMember)).getOrElse(emptyUserAnswers)) mustBe
+              goToPlaybackPage(index)
+          }
+        }
+
+        "from the IsOtherOfficialNinoPage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(IsOtherOfficialNinoPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the summary page when continue button is clicked" in {
+            navigator.nextPage(IsOtherOfficialNinoPage(index), PlaybackMode,
+              emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true)
+                .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
+                .flatMap(_.set(IsOtherOfficialNinoPage(index), true)).getOrElse(emptyUserAnswers)) mustBe
+              routes.DeadEndController.onPageLoad() // TODO when next page is ready
+          }
+        }
+
+        "from the OtherOfficialsNINOPage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(OtherOfficialsNinoPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the What is [Full name]’s home address? when clicked continue button" in {
+            navigator.nextPage(OtherOfficialsNinoPage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")
+                .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
+                .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).getOrElse(emptyUserAnswers)) mustBe
+              goToPlaybackPage(index)
+          }
+        }
+
+        "from the OtherOfficialAddressLookupPage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(OtherOfficialAddressLookupPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the Have you previously changed your address page when continue button is clicked" in {
+            navigator.nextPage(OtherOfficialAddressLookupPage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address)
+                .flatMap(_.set(OtherOfficialAddressLookupPage(previousOrSameIndex(index)), address))
+                .flatMap(_.set(OtherOfficialAddressLookupPage(index), address)).getOrElse(emptyUserAnswers)) mustBe
+              otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(PlaybackMode, index)
+          }
+        }
+
+        "from the OtherOfficialPreviousAddressPage" must {
+
+          "go to the SessionExpiredController page when user answer is empty" in {
+            navigator.nextPage(OtherOfficialsPreviousAddressPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              routes.SessionExpiredController.onPageLoad()
+          }
+
+          "go to the Previous Address Lookup flow when yes is selected" in {
+            navigator.nextPage(OtherOfficialsPreviousAddressPage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true)
+                .flatMap(_.set(OtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
+                .flatMap(_.set(OtherOfficialsPreviousAddressPage(index), true)).success.value) mustBe
+              routes.DeadEndController.onPageLoad() // TODO when next page is ready
+          }
+
+          "go to the You have added one other official page when no is selected" in {
+            navigator.nextPage(OtherOfficialsPreviousAddressPage(index), PlaybackMode,
+              emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), false)
+                .flatMap(_.set(OtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
+                .flatMap(_.set(OtherOfficialsPreviousAddressPage(index), false)).success.value) mustBe
+              goToPlaybackPage(index)
+          }
+
         }
       }
-    }
+    })
   }
 }

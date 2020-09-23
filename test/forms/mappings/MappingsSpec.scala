@@ -165,4 +165,68 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
       result.errors must contain(FormError("value", "error.required"))
     }
   }
+
+  "currency" must {
+    val testForm = Form(
+      "value" -> currency()
+    )
+
+    "bind a valid option with no decimals" in {
+    val result = testForm.bind(Map("value" -> "123"))
+    result.get mustEqual BigDecimal.valueOf(123)
+    }
+
+    "bind a valid option with decimals" in {
+    val result = testForm.bind(Map("value" -> "123.12"))
+    result.get mustEqual BigDecimal.valueOf(123.12)
+    }
+
+    "bind a valid option with a pound sign at the start" in {
+      val result = testForm.bind(Map("value" -> "£123.12"))
+      result.get mustEqual BigDecimal.valueOf(123.12)
+    }
+
+    "bind a valid option with spaces" in {
+      val result = testForm.bind(Map("value" -> "£123   12 2"))
+      result.get mustEqual BigDecimal.valueOf(123122)
+    }
+
+    "bind a valid option with commas" in {
+      val result = testForm.bind(Map("value" -> "£1,1,123.12"))
+      result.get mustEqual BigDecimal.valueOf(11123.12)
+    }
+
+    "bind a valid option with a pound sign at the end" in {
+      val result = testForm.bind(Map("value" -> "123.12£"))
+      result.get mustEqual BigDecimal.valueOf(123.12)
+    }
+
+    "successfully sanitise input with commas" in {
+      val result = testForm.bind(Map("value" -> "£,123,"))
+      result.get mustEqual BigDecimal.valueOf(123)
+    }
+
+    "fail to bind invalid input with multiple decimal points" in {
+      val result = testForm.bind(Map("value" -> "£123.12.12"))
+      result.errors must contain(FormError("value", "error.invalidNumeric"))
+    }
+    "fail to bind invalid input with pound sign on both ends" in {
+      val result = testForm.bind(Map("value" -> "£123.12£"))
+      result.errors must contain(FormError("value", "error.invalidNumeric"))
+    }
+    "successfully bind the highest number" in {
+      val result = testForm.bind(Map("value" -> "9999999.99"))
+      result.get mustEqual BigDecimal.valueOf(9999999.99)
+    }
+
+    "not bind an empty map" in {
+      val result = testForm.bind(Map.empty[String, String])
+      result.errors must contain(FormError("value", "error.required"))
+    }
+
+    "unbind a valid value" in {
+      val result = testForm.fill(BigDecimal.valueOf(12.12))
+      result.apply("value").value.value mustEqual "12.12"
+    }
+  }
 }

@@ -78,30 +78,29 @@ trait Formatters {
         baseFormatter.unbind(key, value.toString)
     }
 
-  private[mappings] def numericFormatter(requiredKey: String,
-                                         invalidNumericKey: String,
-                                         nonNumericKey: String,
-                                         args: Seq[String] = Seq.empty): Formatter[BigDecimal] =
+  private[mappings] def currencyFormatter(requiredKey: String,
+                                          invalidCurrency: String,
+                                          args: Seq[String] = Seq.empty): Formatter[BigDecimal] =
     new Formatter[BigDecimal] {
 
-      val is2dp = """(^-?\d*$)|(^-?\d*\.\d{1,2}$)"""
-      val validNumeric = """(^-?\d*$)|(^-?\d*\.\d*$)"""
-
+      val upTo2DecimalPlaces = """(^\d*$)|(^\d*\.\d{1,2}$)"""
       private val baseFormatter = stringFormatter(requiredKey)
+      def onlyOnePound: String => Boolean = input =>
+        !List(-1, 0, input.length - 1).contains(input.indexOf("£")) | input.count(_ == '£') > 1
 
       override def bind(key: String, data: Map[String, String]) =
         baseFormatter
           .bind(key, data)
-          .right.map(_.replace(",", ""))
+          .right.map(_.replace(",", "").replace(" ", ""))
           .right.flatMap {
-          case s if !s.matches(validNumeric) =>
-            Left(Seq(FormError(key, nonNumericKey, args)))
-          case s if !s.matches(is2dp) =>
-            Left(Seq(FormError(key, invalidNumericKey, args)))
+          case s if onlyOnePound(s) =>
+            Left(Seq(FormError(key, invalidCurrency, args)))
+          case s if !s.replace("£", "").matches(upTo2DecimalPlaces) =>
+            Left(Seq(FormError(key, invalidCurrency, args)))
           case s =>
             nonFatalCatch
-              .either(BigDecimal(s))
-              .left.map(_ => Seq(FormError(key, nonNumericKey, args)))
+              .either(BigDecimal(s.replace("£", "")))
+              .left.map(_ => Seq(FormError(key, invalidCurrency, args)))
         }
 
       override def unbind(key: String, value: BigDecimal) =

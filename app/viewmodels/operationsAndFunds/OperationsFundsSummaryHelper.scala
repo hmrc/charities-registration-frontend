@@ -42,6 +42,9 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
     def isFinancialAccountsRow: Option[SummaryListRow] =
       answer(IsFinancialAccountsPage, routes.DeadEndController.onPageLoad())
 
+    def estimatedAmountRow: Option[SummaryListRow] =
+      answer(EstimatedIncomePage, routes.DeadEndController.onPageLoad())
+
     def isBankStatementsRow: Option[SummaryListRow] =
       answer(IsBankStatementsPage, routes.DeadEndController.onPageLoad())
 
@@ -66,6 +69,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
       fundRaisingRow,
       operatingLocationRow,
       isFinancialAccountsRow,
+      estimatedAmountRow,
       isBankStatementsRow,
       accountingPeriodRow,
       otherFundRaisingRow

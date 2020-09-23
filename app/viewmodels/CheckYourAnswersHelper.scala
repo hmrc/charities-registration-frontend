@@ -16,6 +16,8 @@
 
 package viewmodels
 
+import java.text.DecimalFormat
+
 import models.addressLookup.AddressModel
 import models.{Name, Passport, PhoneNumber, UserAnswers, WithOrder}
 import pages.QuestionPage
@@ -174,6 +176,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
   implicit val yesNoValue: Boolean => String = {
     case true => messages("site.yes")
     case _ => messages("site.no")
+  }
+
+  implicit def bigDecToString: BigDecimal => String = number => {
+    val format = new DecimalFormat
+    "£" + format.format(number)
   }
 
 }

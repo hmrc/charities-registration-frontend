@@ -18,7 +18,7 @@ package views.common
 
 import assets.messages.BaseMessages
 import forms.common.PassportFormProvider
-import models.{Passport, SelectTitle}
+import models.Passport
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
@@ -33,7 +33,7 @@ class PassportViewSpec extends QuestionViewBehaviours[Passport]  {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
           val view = viewFor[PassportView](Some(emptyUserAnswers))
-          view.apply(form, "Jim John Jones", messageKeyPrefix, onwardRoute)(
+          view.apply(form, "Jim John Jones", messageKeyPrefix, onwardRoute, Seq(("GB", "United Kingdom")))(
             fakeRequest, messages, frontendAppConfig)
         }
 

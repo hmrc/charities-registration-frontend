@@ -26,6 +26,7 @@ import pages.otherOfficials.OtherOfficialsSummaryPage
 import pages.sections.Section8Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
+import service.CountryService
 import viewmodels.authorisedOfficials.AddedOfficialsSummaryHelper
 import views.html.common.OfficialsSummaryView
 
@@ -37,14 +38,15 @@ class OtherOfficialsSummaryController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
+    countryService: CountryService,
     view: OfficialsSummaryView,
     val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val firstOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(0))(request.userAnswers)
-    val secondOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(1))(request.userAnswers)
+    val firstOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(0), countryService = countryService)(request.userAnswers)
+    val secondOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(1), countryService = countryService)(request.userAnswers)
 
     Ok(view(firstOtherOfficialsSummaryHelper.otherRows, secondOtherOfficialsSummaryHelper.otherRowsAddAnother,
       OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit(),

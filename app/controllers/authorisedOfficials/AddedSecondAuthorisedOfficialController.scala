@@ -26,6 +26,7 @@ import pages.authorisedOfficials.AddedSecondAuthorisedOfficialPage
 import pages.sections.Section7Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
+import service.CountryService
 import views.html.common.AddedOfficialsView
 
 class AddedSecondAuthorisedOfficialController @Inject()(
@@ -34,6 +35,7 @@ class AddedSecondAuthorisedOfficialController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
+    override val countryService: CountryService,
     override val view: AddedOfficialsView,
     override val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends AddedOfficialController {

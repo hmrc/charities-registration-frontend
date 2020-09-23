@@ -1,0 +1,64 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.{components => hmrcComponent}
+
+@this(select: GovukSelect)
+
+@(form: Form[_],
+  id: String,
+  name: String,
+  label: String,
+  hint: String,
+  countries: Seq[(String, String)])(implicit messages: Messages)
+
+@select(hmrcComponent.Select(
+    id = id,
+    name = name,
+    label = Label(content = HtmlContent(label)),
+    errorMessage = form("country").error.map(fe ⇒ ErrorMessage(content = HtmlContent(messages(fe.message)))),
+    items = Seq(SelectItem(value = Some(""), text=HtmlContent(hint))) ++ countries.map {
+    case (k,v) ⇒ SelectItem(
+    value = Some(k),
+    text = v,
+    selected = k == form("country").value.getOrElse(""),
+    attributes = Map("id" → s"country-$k"))
+    },
+    formGroupClasses = "govuk-input--width-20"
+))
+
+<script src='@controllers.routes.Assets.versioned("stylesheets/accessible-autocomplete-2.0.2.min.css")' rel="stylesheet" type="text/css"> </script>
+<script src="@controllers.routes.Assets.versioned("javascripts/accessible-autocomplete-2.0.2.min.js")" ></script>
+
+<script>
+    accessibleAutocomplete.enhanceSelectElement({
+        selectElement: document.getElementById("country"),
+        name: 'countryCodeAutocomplete',
+        defaultValue: '',
+        tStatusQueryTooShort: '',
+        @*
+          TF-640: Had to override the onConfirm function to include custom validation for countries because null / undefined values are not handled by the Autocomplete form:
+          https://github.com/alphagov/accessible-autocomplete/issues/260
+          When this is fixed the custom validation / onConfirm bypass can be removed
+        *@
+        onConfirm: () => {
+            const country = $("#country-select > option").filter(function() {
+                return this.text == $("#country").val()
+            }).val();
+            $("#country-select").val(country);
+        }
+    })
+</script>

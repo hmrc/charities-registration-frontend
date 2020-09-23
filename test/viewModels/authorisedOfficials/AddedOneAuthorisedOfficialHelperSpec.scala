@@ -24,9 +24,13 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
+import service.CountryService
 import viewmodels.SummaryListRowHelper
 import viewmodels.authorisedOfficials.AddedOneAuthorisedOfficialHelper
 
@@ -48,8 +52,11 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
     .set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
     .set(AuthorisedOfficialPreviousAddressPage(0), false).success.value
 
+  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  when(mockCountryService.find(any())(any())).thenReturn(Some(Country("GB", "United Kingdom")))
 
-  def helper(userAnswers: UserAnswers = authorisedOfficialDetails, index: Index) =   new AddedOneAuthorisedOfficialHelper(index, CheckMode)(userAnswers)
+  def helper(userAnswers: UserAnswers = authorisedOfficialDetails, index: Index) =  new AddedOneAuthorisedOfficialHelper(
+    index, CheckMode, mockCountryService)(userAnswers)
 
 
   "Check Your Answers Helper" must {
@@ -176,7 +183,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
         helper(authorisedOfficialDetails, 0).authOfficialCountryOfIssueRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
-            "GB",
+            "United Kingdom",
             Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

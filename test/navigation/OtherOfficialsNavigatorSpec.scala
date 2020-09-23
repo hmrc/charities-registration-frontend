@@ -51,7 +51,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the What is [Full name]'s date of birth? when save and continue button clicked" in {
           navigator.nextPage(OtherOfficialsNamePage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).success.value) mustBe
             otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -65,7 +65,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the What is [full name]'s phone number? when save and continue button clicked" in {
           navigator.nextPage(OtherOfficialsDOBPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).success.value) mustBe
             otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -79,7 +79,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the What is [full name]'s position in charity? page when clicked continue button" in {
           navigator.nextPage(OtherOfficialsPhoneNumberPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).success.value) mustBe
             otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -93,7 +93,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to Does [Full name] have a National Insurance number? when clicked continue button" in {
           navigator.nextPage(OtherOfficialsPositionPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).success.value) mustBe
             otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -127,7 +127,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the What is [Full name]’s home address? when clicked continue button" in {
           navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
             addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0), NormalMode)
         }
       }
@@ -141,7 +141,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
           navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).success.value) mustBe
             otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -155,13 +155,13 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to previous address lookup flow when Yes is selected" in {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).success.value) mustBe
             routes.DeadEndController.onPageLoad()
         }
 
         "go to you have added one other official when No is selected and index is 0" in {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), false).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), false).success.value) mustBe
             otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
         }
 
@@ -254,7 +254,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the dead-end when save and continue button is clicked" in {
           navigator.nextPage(OtherOfficialsNamePage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
@@ -268,7 +268,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the dead-end when save and continue button is clicked" in {
           navigator.nextPage(OtherOfficialsDOBPage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
@@ -282,7 +282,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the dead-end when save and continue button is clicked" in {
           navigator.nextPage(OtherOfficialsPhoneNumberPage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
@@ -296,7 +296,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the dead-end when save and continue button is clicked" in {
           navigator.nextPage(OtherOfficialsPositionPage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
@@ -324,7 +324,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the What is [Full name]’s home address? when clicked continue button" in {
           navigator.nextPage(OtherOfficialsNinoPage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
@@ -338,7 +338,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(OtherOfficialAddressLookupPage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
@@ -352,7 +352,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the summary page when clicked continue button" in {
           navigator.nextPage(OtherOfficialsPreviousAddressPage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is created
         }
       }
@@ -366,7 +366,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the summary page when clicked continue button" in {
           navigator.nextPage(AddAnotherOtherOfficialPage, CheckMode,
-            emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(AddAnotherOtherOfficialPage, true).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }
@@ -406,7 +406,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(OtherOfficialsNamePage(index), PlaybackMode,
               emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName)
                 .flatMap(_.set(OtherOfficialsNamePage(previousOrSameIndex(index)),otherOfficialsName))
-                .flatMap(_.set(OtherOfficialsNamePage(index), otherOfficialsName)).getOrElse(emptyUserAnswers)) mustBe
+                .flatMap(_.set(OtherOfficialsNamePage(index), otherOfficialsName)).success.value) mustBe
               goToPlaybackPage(index)
           }
         }
@@ -422,7 +422,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(OtherOfficialsDOBPage(index), PlaybackMode,
               emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear))
                 .flatMap(_.set(OtherOfficialsDOBPage(previousOrSameIndex(index)),LocalDate.now().minusYears(minYear)))
-                .flatMap(_.set(OtherOfficialsDOBPage(index), LocalDate.now().minusYears(minYear))).getOrElse(emptyUserAnswers)) mustBe
+                .flatMap(_.set(OtherOfficialsDOBPage(index), LocalDate.now().minusYears(minYear))).success.value) mustBe
               goToPlaybackPage(index)
           }
         }
@@ -438,7 +438,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(OtherOfficialsPhoneNumberPage(index), PlaybackMode,
               emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber)
                 .flatMap(_.set(OtherOfficialsPhoneNumberPage(previousOrSameIndex(index)),otherOfficialsPhoneNumber))
-                .flatMap(_.set(OtherOfficialsPhoneNumberPage(index), otherOfficialsPhoneNumber)).getOrElse(emptyUserAnswers)) mustBe
+                .flatMap(_.set(OtherOfficialsPhoneNumberPage(index), otherOfficialsPhoneNumber)).success.value) mustBe
               goToPlaybackPage(index)
           }
         }
@@ -454,7 +454,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(OtherOfficialsPositionPage(index), PlaybackMode,
               emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember)
                 .flatMap(_.set(OtherOfficialsPositionPage(previousOrSameIndex(index)), OfficialsPosition.BoardMember))
-                .flatMap(_.set(OtherOfficialsPositionPage(index), OfficialsPosition.BoardMember)).getOrElse(emptyUserAnswers)) mustBe
+                .flatMap(_.set(OtherOfficialsPositionPage(index), OfficialsPosition.BoardMember)).success.value) mustBe
               goToPlaybackPage(index)
           }
         }
@@ -470,7 +470,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(IsOtherOfficialNinoPage(index), PlaybackMode,
               emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true)
                 .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
-                .flatMap(_.set(IsOtherOfficialNinoPage(index), true)).getOrElse(emptyUserAnswers)) mustBe
+                .flatMap(_.set(IsOtherOfficialNinoPage(index), true)).success.value) mustBe
               routes.DeadEndController.onPageLoad() // TODO when next page is ready
           }
         }
@@ -486,7 +486,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(OtherOfficialsNinoPage(index), PlaybackMode,
               emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")
                 .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).getOrElse(emptyUserAnswers)) mustBe
+                .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
               goToPlaybackPage(index)
           }
         }
@@ -502,7 +502,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             navigator.nextPage(OtherOfficialAddressLookupPage(index), PlaybackMode,
               emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address)
                 .flatMap(_.set(OtherOfficialAddressLookupPage(previousOrSameIndex(index)), address))
-                .flatMap(_.set(OtherOfficialAddressLookupPage(index), address)).getOrElse(emptyUserAnswers)) mustBe
+                .flatMap(_.set(OtherOfficialAddressLookupPage(index), address)).success.value) mustBe
               otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(PlaybackMode, index)
           }
         }
@@ -533,5 +533,22 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
     })
+
+    "go to the SessionExpiredController page when continue button is clicked on any of loop page and index is invalid" in {
+      navigator.nextPage(OtherOfficialsNamePage(3), PlaybackMode,
+        emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName)
+          .flatMap(_.set(OtherOfficialsNamePage(1),otherOfficialsName))
+          .flatMap(_.set(OtherOfficialsNamePage(2),otherOfficialsName))
+          .flatMap(_.set(OtherOfficialsNamePage(3), otherOfficialsName)).success.value) mustBe
+        goToPlaybackPage(3)
+    }
+
+    "from any UnKnownPage" must {
+
+      "go to the IndexController page when user answer is empty" in {
+        navigator.nextPage(IndexPage, PlaybackMode, emptyUserAnswers) mustBe
+          routes.IndexController.onPageLoad()
+      }
+    }
   }
 }

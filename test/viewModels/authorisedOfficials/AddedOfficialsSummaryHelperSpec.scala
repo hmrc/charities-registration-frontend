@@ -21,8 +21,12 @@ import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{CheckMode, Index, UserAnswers}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import pages.authorisedOfficials._
 import pages.otherOfficials._
+import service.CountryService
 import viewmodels.SummaryListRowHelper
 import viewmodels.authorisedOfficials.AddedOfficialsSummaryHelper
 
@@ -34,7 +38,10 @@ class AddedOfficialsSummaryHelperSpec extends SpecBase with SummaryListRowHelper
   private val otherOfficialDetails: UserAnswers = emptyUserAnswers
   .set(AddAnotherOtherOfficialPage, false).success.value
 
-  def helper(userAnswers: UserAnswers, index: Index) = new AddedOfficialsSummaryHelper(index)(userAnswers)
+  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+
+  def helper(userAnswers: UserAnswers, index: Index) = new AddedOfficialsSummaryHelper(index, countryService = mockCountryService)(userAnswers)
 
   "Check Your Answers Helper" must {
 

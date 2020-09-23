@@ -26,18 +26,19 @@
     inputText: components.inputText,
     h1: components.h1,
     fieldset: components.fieldset,
-    inputDate: components.inputDate
+    inputDate: components.inputDate,
+    country: components.autocompleteCountryList
 )
 
-@(form: Form[_], fullName:String, messagePrefix: String, submitCall: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], fullName:String, messagePrefix: String, submitCall: Call, countries: Seq[(String, String)])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("officialsAndNominees.section")))) {
 
+    @errorSummary(form.errors)
+
     @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
 
-            @errorSummary(form.errors)
-
-            @h1(messages(s"$messagePrefix.heading", fullName))
+        @fieldset(messages(s"$messagePrefix.heading", fullName)) {
 
             @inputText(
                 form,
@@ -45,17 +46,15 @@
                 name = "passportNumber",
                 label = s"$messagePrefix.passportNumber.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some("govuk-input govuk-input--width-20")
             )
 
-            @inputText(
-                form,
+            @country(form,
                 id = "country",
                 name = "country",
-                label = s"$messagePrefix.country.label",
-                isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
-            )
+                label = messages(s"$messagePrefix.country.label"),
+                hint = messages(s"$messagePrefix.country.hint"),
+                countries = countries)
 
             @inputDate(
                 form,
@@ -65,6 +64,8 @@
                 hintText = Some(messages(s"$messagePrefix.hint")),
                 legendAsPageHeading = false
             )
+
+        }
 
         @button("site.saveAndContinue")
 

@@ -16,6 +16,7 @@
 
 package models
 
+import java.time.LocalDate
 import base.SpecBase
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
@@ -121,6 +122,46 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
     "toString" in {
 
       PhoneNumber.toString mustBe "phoneNumber"
+    }
+  }
+
+  "Passport object" must {
+
+    "all parameters defined" in {
+
+      val authorisedOfficialsPassport = Passport("GB123456", "GB", LocalDate.now)
+
+      authorisedOfficialsPassport.passportNumber mustBe "GB123456"
+      authorisedOfficialsPassport.country mustBe "GB"
+      authorisedOfficialsPassport.expiryDate mustBe LocalDate.now
+
+    }
+
+    "toString" in {
+
+      Passport.toString mustBe "passport"
+    }
+  }
+
+  "Country object" must {
+
+    "all parameters defined" in {
+
+      val country = Country("GB", "United Kingdom")
+
+      country.code mustBe "GB"
+      country.name mustBe "United Kingdom"
+    }
+  }
+
+  "FcoCountry object" must {
+
+    "all parameters defined" in {
+
+      val country = FcoCountry("GB", "United Kingdom")
+
+      country.country mustBe "GB"
+      country.name mustBe "United Kingdom"
     }
   }
 

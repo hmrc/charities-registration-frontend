@@ -24,6 +24,7 @@ import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.mvc.{AnyContent, Call, MessagesControllerComponents, Result}
 import repositories.UserAnswerRepository
+import service.CountryService
 import viewmodels.authorisedOfficials.AddedOneAuthorisedOfficialHelper
 import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
 import views.html.common.AddedOfficialsView
@@ -36,12 +37,13 @@ trait AddedOfficialController extends LocalBaseController {
   protected val view: AddedOfficialsView
   protected val controllerComponents: MessagesControllerComponents
   protected val messagePrefix: String
+  protected val countryService: CountryService
 
   def getView(index:Index, submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
 
     val rows = messagePrefix match {
       case "addedOneAuthorisedOfficial" | "addedSecondAuthorisedOfficial" =>
-        new AddedOneAuthorisedOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
+        new AddedOneAuthorisedOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
       case "addedOneOtherOfficial" | "addedSecondOtherOfficial"| "addedThirdOtherOfficial" =>
         new AddedOneOtherOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
     }

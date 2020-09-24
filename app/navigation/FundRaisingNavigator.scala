@@ -51,7 +51,12 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
 
     case EstimatedIncomePage => userAnswers: UserAnswers => userAnswers.get(EstimatedIncomePage) match {
-      case Some(_) => operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode) // TEMP: make page redirect to ActualIncomePage after it's developed
+      case Some(_) => operationFundsRoutes.ActualIncomeController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case ActualIncomePage => userAnswers: UserAnswers => userAnswers.get(ActualIncomePage) match {
+      case Some(_) => operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -96,6 +101,11 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
 
     case EstimatedIncomePage => userAnswers: UserAnswers => userAnswers.get(EstimatedIncomePage) match {
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case ActualIncomePage => userAnswers: UserAnswers => userAnswers.get(ActualIncomePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }

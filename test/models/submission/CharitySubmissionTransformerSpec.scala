@@ -67,7 +67,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
         _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
         _.set(AccountingPeriodEndDatePage,
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
-          _.set(HasFinancialAccountsPage, true)).flatMap(
+          _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
           _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales))).flatMap(
           _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
@@ -125,12 +125,12 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
             "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
       ).flatMap(_.set(AccountingPeriodEndDatePage,
         MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
-        _.set(HasFinancialAccountsPage, true)).flatMap(
+        _.set(IsFinancialAccountsPage, true)).flatMap(
         _.set(NoBankStatementPage,
           "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900")
       ).flatMap(
-        _.set(EstimatedIncomePage, 2000.00)).flatMap(
-        _.set(GrossIncomePage, 19999.99)).flatMap(
+        _.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00))).flatMap(
+        _.set(ActualIncomePage, BigDecimal.valueOf(19999.99))).flatMap(
         _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
         _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
         _.set(OverseasCountryPage(0), "Country 1")).flatMap(

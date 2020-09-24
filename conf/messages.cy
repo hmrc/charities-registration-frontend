@@ -694,10 +694,20 @@ isFinancialAccounts.checkYourAnswersLabel = (W)Financial accounts(W)
 # ----------------------------------------------------------
 estimatedIncome.title = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
 estimatedIncome.heading = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
-estimatedIncome.p1 = (W)This figure should be your charity's estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
+estimatedIncome.p1 = (W)This figure should be your charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
 estimatedIncome.error.required = (W)Enter your estimated income for the current 12 months of operation(W)
 estimatedIncome.error.format = (W)The charity’s estimated income must be an amount of money, like 100.50 or 110(W)
 estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 months of operation(W)
+
+
+# What is the charity's actual income so far?
+# ----------------------------------------------------------
+actualIncome.title = (W)What is the charity’s actual income so far?(W)
+actualIncome.heading = (W)What is the charity’s actual income so far?(W)
+actualIncome.p1 = (W)This figure should be your actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
+actualIncome.error.required = (W)Enter your actual income so far(W)
+actualIncome.error.format = (W)The charity’s actual income must be an amount of money, like 100.50 or 110(W)
+actualIncome.checkYourAnswersLabel = (W)Actual income so far(W)
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
@@ -808,7 +818,7 @@ authorisedOfficialsName.lastName.label = (W)Last name(W)
 authorisedOfficialsName.lastName.error.required = (W)Enter the authorised official’s last name(W)
 authorisedOfficialsName.lastName.error.length = (W)The authorised official’s last name must be 100 characters or fewer(W)
 authorisedOfficialsName.lastName.error.format = (W)The authorised official’s last name must not include the following characters: & ( ) : @(W)
-authorisedOfficialsName.title.error.required = (W)Select the authorised official's title(W)
+authorisedOfficialsName.title.error.required = (W)Select the authorised official’s title(W)
 
 authorisedOfficialsName.checkYourAnswersLabel = (W)Full name(W)
 
@@ -887,9 +897,9 @@ authorisedOfficialsPassport.heading = (W)What are {0}’s passport or national i
 authorisedOfficialsPassport.passportNumber.label = (W)Passport or national identity card number(W)
 authorisedOfficialsPassport.country.label = (W)Country of issue(W)
 authorisedOfficialsPassport.hint = (W)For example, 21 3 2015.(W)
-authorisedOfficialsPassport.passportNumber.error.format= The authorised official's passport or national identity card number must not include the following characters: & ( ) : @(W)
-authorisedOfficialsPassport.passportNumber.error.length = (W)The authorised official's passport or national identity card number must be 30 characters or fewer(W)
-authorisedOfficialsPassport.passportNumber.error.required = (W)Enter the authorised official's passport or national identity card number(W)
+authorisedOfficialsPassport.passportNumber.error.format= The authorised official’s passport or national identity card number must not include the following characters: & ( ) : @(W)
+authorisedOfficialsPassport.passportNumber.error.length = (W)The authorised official’s passport or national identity card number must be 30 characters or fewer(W)
+authorisedOfficialsPassport.passportNumber.error.required = (W)Enter the authorised official’s passport or national identity card number(W)
 authorisedOfficialsPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
 authorisedOfficialsPassport.country.error.required = (W)Enter the country of issue(W)
 authorisedOfficialsPassport.expiryDate.label = (W)Expiry date(W)
@@ -994,7 +1004,7 @@ otherOfficialsName.lastName.label = (W)Last name(W)
 otherOfficialsName.lastName.error.required = (W)Enter the other official’s last name(W)
 otherOfficialsName.lastName.error.length = (W)The other official’s last name must be 100 characters or fewer(W)
 otherOfficialsName.lastName.error.format = (W)The other official’s last name must not include the following characters: & ( ) : @(W)
-otherOfficialsName.title.error.required = (W)Select the other official's title(W)
+otherOfficialsName.title.error.required = (W)Select the other official’s title(W)
 otherOfficialsName.checkYourAnswersLabel = (W)Full name(W)
 
 # Other Official Date of birth Messages

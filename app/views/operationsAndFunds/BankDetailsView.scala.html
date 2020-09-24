@@ -37,9 +37,9 @@
 
     @formHelper(action = BankDetailsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-        @fieldset("bankDetails.heading") {
+        @errorSummary(form.errors)
 
-            @errorSummary(form.errors)
+        @fieldset("bankDetails.heading") {
 
             @p{@messages("bankDetails.p1")}
 

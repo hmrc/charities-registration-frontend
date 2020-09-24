@@ -35,6 +35,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
   (_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap
   (_.set(IsFinancialAccountsPage, true)).flatMap
   (_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap
+  (_.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).flatMap
   (_.set(IsBankStatementsPage, true)).flatMap
   (_.set(AccountingPeriodEndDatePage,
     MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite)).success.value
@@ -102,6 +103,21 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("estimatedIncome.checkYourAnswersLabel"),
             "£1,123.12",
             Some(messages("estimatedIncome.checkYourAnswersLabel")),
+            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+          )
+        )
+      }
+    }
+
+    "For Charity's actual income" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.actualAmountRow mustBe Some(
+          summaryListRow(
+            messages("actualIncome.checkYourAnswersLabel"),
+            "£11,123.12",
+            Some(messages("actualIncome.checkYourAnswersLabel")),
             routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
           )
         )

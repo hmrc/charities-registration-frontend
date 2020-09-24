@@ -35,9 +35,9 @@
 
     @formHelper(action = CharitableObjectivesController.onSubmit(mode)) {
 
-        @fieldset("charitableObjectives.heading"){
+        @errorSummary(form.errors)
 
-            @errorSummary(form.errors)
+        @fieldset("charitableObjectives.heading"){
 
              @inputCharacterCount(
                 form,

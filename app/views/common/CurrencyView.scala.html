@@ -35,18 +35,18 @@
 
     @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
 
+        @errorSummary(form.errors)
+
         @fieldset(s"$messagePrefix.heading") {
 
-            @errorSummary(form.errors)
-
-            @p{@messages(s"$messagePrefix.p1")}
 
             @inputCurrency(
                 form,
                 id = "amount",
                 name = "amount",
                 isPageHeading = false,
-                label = messages(s"$messagePrefix.heading")
+                label = messages(s"$messagePrefix.heading"),
+                hint = Some(Html(hint))
 
             )
         }
@@ -55,3 +55,8 @@
 
     }
 }
+    @hint = {
+        <p class="govuk-body">
+            <span class="govuk-body">@{messages(s"$messagePrefix.p1")}</span><br>
+        </p>
+    }

@@ -36,11 +36,11 @@
 
     @formHelper(action = CharityOtherRegulatorDetailsController.onSubmit(mode)) {
 
+        @errorSummary(form.errors)
+
         @fieldset("charityOtherRegulatorDetails.heading") {
 
             @p(Html(messages("charityOtherRegulatorDetails.hint")))
-
-            @errorSummary(form.errors)
 
             @inputText(
                 form,

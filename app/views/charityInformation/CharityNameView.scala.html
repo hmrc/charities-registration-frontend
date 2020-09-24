@@ -37,9 +37,10 @@
 
     @formHelper(action = CharityNameController.onSubmit(mode)) {
 
+        @errorSummary(form.errors)
+
         @fieldset("charityName.heading") {
 
-            @errorSummary(form.errors)
 
             @inputText(
                 form,

@@ -695,10 +695,19 @@ isFinancialAccounts.checkYourAnswersLabel = Financial accounts
 # ----------------------------------------------------------
 estimatedIncome.title = What is the charity’s estimated income for its current 12 months of operation?
 estimatedIncome.heading = What is the charity’s estimated income for its current 12 months of operation?
-estimatedIncome.p1 = This figure should be your charity's estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
+estimatedIncome.p1 = This figure should be your charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 estimatedIncome.error.required = Enter your estimated income for the current 12 months of operation
 estimatedIncome.error.format = The charity’s estimated income must be an amount of money, like 100.50 or 110
 estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 months of operation
+
+# What is the charity's actual income so far?
+# ----------------------------------------------------------
+actualIncome.title = What is the charity’s actual income so far?
+actualIncome.heading = What is the charity’s actual income so far?
+actualIncome.p1 = This figure should be your actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
+actualIncome.error.required = Enter your actual income so far
+actualIncome.error.format = The charity’s actual income must be an amount of money, like 100.50 or 110
+actualIncome.checkYourAnswersLabel = Actual income so far
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
@@ -809,7 +818,7 @@ authorisedOfficialsName.lastName.label = Last name
 authorisedOfficialsName.lastName.error.required = Enter the authorised official’s last name
 authorisedOfficialsName.lastName.error.length = The authorised official’s last name must be 100 characters or fewer
 authorisedOfficialsName.lastName.error.format = The authorised official’s last name must not include the following characters: & ( ) : @
-authorisedOfficialsName.title.error.required = Select the authorised official's title
+authorisedOfficialsName.title.error.required = Select the authorised official’s title
 
 authorisedOfficialsName.checkYourAnswersLabel = Full name
 
@@ -888,9 +897,9 @@ authorisedOfficialsPassport.heading = What are {0}’s passport or national iden
 authorisedOfficialsPassport.passportNumber.label = Passport or national identity card number
 authorisedOfficialsPassport.country.label = Country of issue
 authorisedOfficialsPassport.hint = For example, 21 3 2015.
-authorisedOfficialsPassport.passportNumber.error.format= The authorised official's passport or national identity card number must not include the following characters: & ( ) : @
-authorisedOfficialsPassport.passportNumber.error.length = The authorised official's passport or national identity card number must be 30 characters or fewer
-authorisedOfficialsPassport.passportNumber.error.required = Enter the authorised official's passport or national identity card number
+authorisedOfficialsPassport.passportNumber.error.format= The authorised official’s passport or national identity card number must not include the following characters: & ( ) : @
+authorisedOfficialsPassport.passportNumber.error.length = The authorised official’s passport or national identity card number must be 30 characters or fewer
+authorisedOfficialsPassport.passportNumber.error.required = Enter the authorised official’s passport or national identity card number
 authorisedOfficialsPassport.country.error.length = The country of issue must be 50 characters or fewer
 authorisedOfficialsPassport.country.error.required = Enter the country of issue
 authorisedOfficialsPassport.expiryDate.label = Expiry date
@@ -994,7 +1003,7 @@ otherOfficialsName.lastName.label = Last name
 otherOfficialsName.lastName.error.required = Enter the other official’s last name
 otherOfficialsName.lastName.error.length = The other official’s last name must be 100 characters or fewer
 otherOfficialsName.lastName.error.format = The other official’s last name must not include the following characters: & ( ) : @
-otherOfficialsName.title.error.required = Select the other official's title
+otherOfficialsName.title.error.required = Select the other official’s title
 
 otherOfficialsName.checkYourAnswersLabel = Full name
 

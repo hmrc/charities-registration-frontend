@@ -44,14 +44,6 @@ trait CharityTransformerTodoPages extends SpecBase{
   private val date = LocalDate.now()
 
   // TODO when page created
-  case object HasFinancialAccountsPage extends QuestionPage[Boolean] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "hasFinancialAccounts"
-  }
-
-  // TODO when page created
   case object NoBankStatementPage extends QuestionPage[String] {
 
     override def path: JsPath = JsPath \ toString
@@ -65,22 +57,6 @@ trait CharityTransformerTodoPages extends SpecBase{
     override def path: JsPath = JsPath \ toString \ index
 
     override def toString: String = "overseas"
-  }
-
-  // TODO when page created
-  case object EstimatedIncomePage extends QuestionPage[Double] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "estimatedIncome"
-  }
-
-  // TODO when page created
-  case object GrossIncomePage extends QuestionPage[Double] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "grossIncome"
   }
 
   val day: Int = 11
@@ -131,7 +107,7 @@ trait CharityTransformerTodoPages extends SpecBase{
     _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
     _.set(AccountingPeriodEndDatePage,
       MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
-      _.set(HasFinancialAccountsPage, true)).flatMap(
+      _.set(IsFinancialAccountsPage, true)).flatMap(
       _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
       _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales))).flatMap(
       _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(

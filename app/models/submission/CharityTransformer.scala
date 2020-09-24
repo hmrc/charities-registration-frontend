@@ -90,7 +90,7 @@ class CharityTransformer extends JsonTransformer {
   }
 
   def userAnswersToOperationAndFundsCommon : Reads[JsObject] = {
-    val hasFinancialAccounts = (__ \ 'hasFinancialAccounts).readNullable[Boolean].map {
+    val hasFinancialAccounts = (__ \ 'isFinancialAccounts).readNullable[Boolean].map {
       case Some(bol) => JsBoolean(bol)
       case _ => JsBoolean(false)
     }
@@ -124,7 +124,7 @@ class CharityTransformer extends JsonTransformer {
     (
       ((__ \ 'operationAndFunds).json.copyFrom(userAnswersToOperationAndFundsCommon) orElse doNothing) and
         ((__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.copyFrom((__ \ 'estimatedIncome).json.pick) orElse doNothing) and
-        ((__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'grossIncome).json.pick) orElse doNothing) and
+        ((__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'actualIncome).json.pick) orElse doNothing) and
         (__ \ 'operationAndFunds \ 'futureFunds).json.copyFrom((__ \ 'selectFundRaising).read[JsArray].map(x =>
           JsString(x.value.map(_.toString()).mkString(", ").replaceAll("\"", "")))) and
         (__ \ 'operationAndFunds \ 'otherAreaOperation).json.put(JsBoolean(true)) and

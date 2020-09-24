@@ -25,22 +25,34 @@ import views.html.common.CurrencyView
 
 class CurrencyViewSpec extends QuestionViewBehaviours[BigDecimal] {
 
-  private val messageKeyPrefix = "estimatedIncome"
-  val form: Form[BigDecimal] = inject[CurrencyFormProvider].apply(messageKeyPrefix)
+  private lazy val estimatedIncomePrefix = "estimatedIncome"
+  private lazy val actualIncomePrefix = "actualIncome"
+  val form: Form[BigDecimal] = inject[CurrencyFormProvider].apply(estimatedIncomePrefix)
+  val formActual: Form[BigDecimal] = inject[CurrencyFormProvider].apply(actualIncomePrefix)
+
+  def applyView(form: Form[_], prefix: String): HtmlFormat.Appendable = {
+    val view = viewFor[CurrencyView](Some(emptyUserAnswers))
+    view.apply(form, prefix, onwardRoute)(
+      fakeRequest, messages, frontendAppConfig)
+  }
 
   "Charity's Estimated income view" must {
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[CurrencyView](Some(emptyUserAnswers))
-      view.apply(form, messageKeyPrefix, onwardRoute)(
-        fakeRequest, messages, frontendAppConfig)
-    }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+    behave like normalPage(applyView(form, estimatedIncomePrefix), estimatedIncomePrefix, section = Some(messages("operationsAndFunds.section")))
 
-    behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form, estimatedIncomePrefix))
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form, estimatedIncomePrefix), BaseMessages.saveAndContinue)
+  }
+
+  "Charity's Actual income view" must {
+
+    behave like normalPage(applyView(formActual, actualIncomePrefix), actualIncomePrefix, section = Some(messages("operationsAndFunds.section")))
+
+    behave like pageWithBackLink(applyView(formActual, actualIncomePrefix))
+
+    behave like pageWithSubmitButton(applyView(formActual, actualIncomePrefix), BaseMessages.saveAndContinue)
   }
 
 }

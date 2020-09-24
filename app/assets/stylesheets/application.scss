@@ -11,3 +11,10 @@ $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
 @import "task-list";
 @import "summary-list";
 @import "language-switch";
+
+.govuk-fieldset__heading, .govuk-label-wrapper {
+  padding-bottom: 20px;
+  @include govuk-media-query($from: 40.0625em) {
+    padding-bottom: 40px;
+  }
+}

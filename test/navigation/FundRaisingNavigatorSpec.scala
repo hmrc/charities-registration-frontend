@@ -115,9 +115,22 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to Has bank statements page when a number is provided" in {
+        "go to ActualIncome page when a number is provided" in {
           navigator.nextPage(EstimatedIncomePage, NormalMode,
             emptyUserAnswers.set(EstimatedIncomePage, BigDecimal.valueOf(123.12)).success.value) mustBe
+            operationFundsRoutes.ActualIncomeController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the ActualIncome page" must {
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(ActualIncomePage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to ActualIncome page when a number is provided" in {
+          navigator.nextPage(ActualIncomePage, NormalMode,
+            emptyUserAnswers.set(ActualIncomePage, BigDecimal.valueOf(123.12)).success.value) mustBe
             operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
         }
       }
@@ -237,13 +250,27 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to Has bank statements page when a number is provided" in {
+        "go to Summary page when a number is provided" in {
           navigator.nextPage(EstimatedIncomePage, CheckMode,
             emptyUserAnswers.set(EstimatedIncomePage, BigDecimal.valueOf(123.12)).success.value) mustBe
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }
-      "from the AccountingPeriodEndDdate page" must {
+
+      "from the ActualIncome page" must {
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(ActualIncomePage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Summary page when a number is provided" in {
+          navigator.nextPage(ActualIncomePage, CheckMode,
+            emptyUserAnswers.set(ActualIncomePage, BigDecimal.valueOf(123.12)).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
+
+      "from the AccountingPeriodEndDate page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
           navigator.nextPage(AccountingPeriodEndDatePage, CheckMode, emptyUserAnswers) mustBe

@@ -25,11 +25,13 @@ import pages.QuestionPage
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
+import service.CountryService
 import views.html.common.PassportView
 
 import scala.concurrent.Future
 
 trait PassportController extends LocalBaseController {
+  protected val countryService: CountryService
   protected val sessionRepository: UserAnswerRepository
   protected val navigator: BaseNavigator
   protected val controllerComponents: MessagesControllerComponents
@@ -44,7 +46,7 @@ trait PassportController extends LocalBaseController {
       case Some(value) => form.fill(value)
     }
 
-    Ok(view(preparedForm, fullName, messagePrefix, submitCall))
+    Ok(view(preparedForm, fullName, messagePrefix, submitCall, countryService.countries()))
   }
 
   def postView(mode: Mode, page: QuestionPage[Passport], form: Form[Passport], fullName: String, section:QuestionPage[Boolean], submitCall: Call)(
@@ -52,7 +54,7 @@ trait PassportController extends LocalBaseController {
 
     form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, fullName, messagePrefix, submitCall))),
+        Future.successful(BadRequest(view(formWithErrors, fullName, messagePrefix, submitCall, countryService.countries()))),
 
       value =>
         for {

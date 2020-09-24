@@ -24,6 +24,7 @@ import pages.QuestionPage
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 
@@ -147,12 +148,13 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   def answerCountryOfIssue(page: QuestionPage[Passport],
                        changeLinkCall: Call,
-                       messagePrefix: String): Option[SummaryListRow] = {
+                       messagePrefix: String,
+                       countryService: CountryService): Option[SummaryListRow] = {
 
     userAnswers.get(page).map { passport =>
       summaryListRow(
         label = messages(s"$messagePrefix.country.checkYourAnswersLabel"),
-        value = passport.country,
+        value = countryService.find(passport.country).fold(passport.country)(_.name),
         visuallyHiddenText = Some(messages(s"$messagePrefix.country.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

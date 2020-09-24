@@ -90,5 +90,14 @@ object Passport {
   override def toString: String = "passport"
 }
 
+case class Country(code: String, name: String)
 
+object Country {
+  implicit val formats: OFormat[Country] = Json.format[Country]
+}
 
+case class FcoCountry(country: String, name: String)
+
+object FcoCountry {
+  implicit val formats: OFormat[FcoCountry] = Json.format[FcoCountry]
+}

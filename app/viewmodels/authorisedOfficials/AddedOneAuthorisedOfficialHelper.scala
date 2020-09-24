@@ -17,15 +17,16 @@
 package viewmodels.authorisedOfficials
 
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
-import models.{CheckMode, Index, Mode, PlaybackMode, UserAnswers}
+import models.{Index, Mode, UserAnswers}
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials._
 import play.api.i18n.Messages
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode) (override val userAnswers: UserAnswers)
+class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode, countryService: CountryService) (override val userAnswers: UserAnswers)
                                      (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
@@ -74,7 +75,8 @@ class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode) (override val u
   def authOfficialCountryOfIssueRow: Option[SummaryListRow] =
     answerCountryOfIssue(AuthorisedOfficialsPassportPage(index),
                 authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(mode, index),
-                messagePrefix = "authorisedOfficialsPassport")
+                messagePrefix = "authorisedOfficialsPassport",
+                countryService)
 
   def authOfficialExpiryDateRow: Option[SummaryListRow] =
     answerExpiryDate(AuthorisedOfficialsPassportPage(index),

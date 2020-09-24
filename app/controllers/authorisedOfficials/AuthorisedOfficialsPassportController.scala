@@ -28,6 +28,7 @@ import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
+import service.CountryService
 import views.html.common.PassportView
 
 import scala.concurrent.Future
@@ -37,6 +38,7 @@ class AuthorisedOfficialsPassportController @Inject()(
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
   val formProvider: PassportFormProvider,
+  override val countryService: CountryService,
   override val sessionRepository: UserAnswerRepository,
   override val navigator: AuthorisedOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,

@@ -22,16 +22,17 @@ import models.{CheckMode, Index, Mode, UserAnswers}
 import pages.authorisedOfficials._
 import pages.otherOfficials._
 import play.api.i18n.Messages
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode)(override val userAnswers: UserAnswers)
+class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode, countryService: CountryService)(override val userAnswers: UserAnswers)
                                  (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
-  val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index, CheckMode)(userAnswers)
+  val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index, CheckMode, countryService)(userAnswers)
   val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index, CheckMode)(userAnswers)
 
   def isAddAnotherAuthorisedOfficialRow: Option[SummaryListRow] =

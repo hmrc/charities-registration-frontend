@@ -62,7 +62,12 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
     case IsBankStatementsPage => userAnswers: UserAnswers => userAnswers.get(IsBankStatementsPage) match {
       case Some(true) => operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
-      case Some(false) => routes.DeadEndController.onPageLoad()
+      case Some(false) => operationFundsRoutes.WhyNoBankStatementController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case WhyNoBankStatementPage => userAnswers: UserAnswers => userAnswers.get(IsBankStatementsPage) match {
+      case Some(_) => operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

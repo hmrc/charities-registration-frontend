@@ -36,9 +36,9 @@
 
     @formHelper(action = WhenGoverningDocumentApprovedController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-        @fieldset("whenGoverningDocumentApproved.heading", headingMessageArgs = Seq(messages(s"selectGoverningDocument.$documentName"))) {
+        @errorSummary(form.errors)
 
-            @errorSummary(form.errors)
+        @fieldset("whenGoverningDocumentApproved.heading", headingMessageArgs = Seq(messages(s"selectGoverningDocument.$documentName"))) {
 
             @p{@messages("WhenGoverningDocumentApproved.p1")}
 

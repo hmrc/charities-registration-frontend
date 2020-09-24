@@ -35,9 +35,10 @@
 
     @formHelper(action = submitCall) {
 
+            @errorSummary(form.errors)
+
             @h1(messages(s"$messagePrefix.heading"))
 
-            @errorSummary(form.errors)
 
             @inputRadio(
             form = form,

@@ -34,9 +34,9 @@
 
     @formHelper(action = submitCall) {
 
-        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(fullName)) {
+        @errorSummary(form.errors)
 
-            @errorSummary(form.errors)
+        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(fullName)) {
 
             @inputText(
                 form,

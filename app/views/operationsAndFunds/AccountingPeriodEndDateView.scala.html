@@ -38,9 +38,9 @@
 
     @formHelper(action = AccountingPeriodEndDateController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-        @fieldset("accountingPeriodEndDate.heading") {
+        @errorSummary(form.errors)
 
-            @errorSummary(form.errors)
+        @fieldset("accountingPeriodEndDate.heading") {
 
             @p{@messages("accountingPeriodEndDate.p1")}
 

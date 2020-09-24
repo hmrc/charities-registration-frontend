@@ -691,6 +691,15 @@ isFinancialAccounts.error.required = Select yes if the charity has prepared fina
 isFinancialAccounts.hint = If the charity has a set of prepared financial accounts, you will need to post us a copy to support the application.
 isFinancialAccounts.checkYourAnswersLabel = Financial accounts
 
+# What is the charity's estimated income for its current 12 months of operation?
+# ----------------------------------------------------------
+estimatedIncome.title = What is the charity’s estimated income for its current 12 months of operation?
+estimatedIncome.heading = What is the charity’s estimated income for its current 12 months of operation?
+estimatedIncome.p1 = This figure should be your charity's estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
+estimatedIncome.error.required = Enter your estimated income for the current 12 months of operation
+estimatedIncome.error.format = The charity’s estimated income must be an amount of money, like 100.50 or 110
+estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 months of operation
+
 # Does your charity have bank statements
 # ----------------------------------------------------------
 isBankStatements.title = Does the charity have bank statements for the last 3 months of operation?

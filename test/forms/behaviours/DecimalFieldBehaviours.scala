@@ -18,25 +18,29 @@ package forms.behaviours
 
 import play.api.data.{Form, FormError}
 
-trait DecimalFieldBehaviours extends FieldBehaviours {
+class DecimalFieldBehaviours extends FieldBehaviours {
 
   def decimalField(form: Form[BigDecimal],
                    fieldName: String,
-                   nonNumericError: FormError,
-                   invalidNumericError: FormError): Unit = {
+                   invalidCurrencyError: FormError): Unit = {
 
     "not bind non-numeric numbers" in {
 
       forAll(nonNumerics -> "nonNumeric") {
         nonNumeric =>
           val result = form.bind(Map(fieldName -> nonNumeric)).apply(fieldName)
-          result.errors mustEqual Seq(nonNumericError)
+          result.errors mustEqual Seq(invalidCurrencyError)
       }
     }
 
     "not bind invalid decimals (over 2dp)" in {
       val result = form.bind(Map(fieldName -> "12.123")).apply(fieldName)
-      result.errors mustEqual Seq(invalidNumericError)
+      result.errors mustEqual Seq(invalidCurrencyError)
+    }
+
+    "not bind numbers with £ on either side" in {
+      val result = form.bind(Map(fieldName -> "£123.12£")).apply(fieldName)
+      result.errors mustEqual Seq(invalidCurrencyError)
     }
   }
 

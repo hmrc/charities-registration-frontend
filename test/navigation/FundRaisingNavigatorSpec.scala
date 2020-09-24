@@ -95,16 +95,30 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to Does your charity have bank statements for the last 3 months of operation? when yes is selected" in {
+        "go to Estimated income page when yes is selected" in {
           navigator.nextPage(IsFinancialAccountsPage, NormalMode,
             emptyUserAnswers.set(IsFinancialAccountsPage,true).success.value) mustBe
-            operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
+            operationFundsRoutes.EstimatedIncomeController.onPageLoad(NormalMode)
         }
 
-        "go to DeadEnd page when no is selected" in {
+        "go to Estimated income page when no is selected" in {
           navigator.nextPage(IsFinancialAccountsPage, NormalMode,
             emptyUserAnswers.set(IsFinancialAccountsPage,false).success.value) mustBe
-            routes.DeadEndController.onPageLoad()
+            operationFundsRoutes.EstimatedIncomeController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the EstimatedIncome page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(EstimatedIncomePage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Has bank statements page when a number is provided" in {
+          navigator.nextPage(EstimatedIncomePage, NormalMode,
+            emptyUserAnswers.set(EstimatedIncomePage, BigDecimal.valueOf(123.12)).success.value) mustBe
+            operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
         }
       }
 
@@ -216,6 +230,19 @@ class FundRaisingNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the EstimatedIncome page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(EstimatedIncomePage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Has bank statements page when a number is provided" in {
+          navigator.nextPage(EstimatedIncomePage, CheckMode,
+            emptyUserAnswers.set(EstimatedIncomePage, BigDecimal.valueOf(123.12)).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
       "from the AccountingPeriodEndDdate page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {

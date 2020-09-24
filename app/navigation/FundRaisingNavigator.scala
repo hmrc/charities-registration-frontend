@@ -45,8 +45,13 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
 
     case IsFinancialAccountsPage => userAnswers: UserAnswers => userAnswers.get(IsFinancialAccountsPage) match {
-      case Some(true) => operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
-      case Some(false) => routes.DeadEndController.onPageLoad()
+      case Some(true) => operationFundsRoutes.EstimatedIncomeController.onPageLoad(NormalMode)
+      case Some(false) => operationFundsRoutes.EstimatedIncomeController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case EstimatedIncomePage => userAnswers: UserAnswers => userAnswers.get(EstimatedIncomePage) match {
+      case Some(_) => operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode) // TEMP: make page redirect to ActualIncomePage after it's developed
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -88,6 +93,11 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case EstimatedIncomePage => userAnswers: UserAnswers => userAnswers.get(EstimatedIncomePage) match {
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherFundRaisingPage => userAnswers:UserAnswers  => userAnswers.get(OtherFundRaisingPage)match{

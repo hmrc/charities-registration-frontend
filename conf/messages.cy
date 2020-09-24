@@ -690,6 +690,15 @@ isFinancialAccounts.error.required = (W)Select yes if the charity has prepared f
 isFinancialAccounts.hint = (W)If the charity has a set of prepared financial accounts, you will need to post us a copy to support the application.(W)
 isFinancialAccounts.checkYourAnswersLabel = (W)Financial accounts(W)
 
+# What is the charity's estimated income for its current 12 months of operation?
+# ----------------------------------------------------------
+estimatedIncome.title = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
+estimatedIncome.heading = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
+estimatedIncome.p1 = (W)This figure should be your charity's estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
+estimatedIncome.error.required = (W)Enter your estimated income for the current 12 months of operation(W)
+estimatedIncome.error.format = (W)The charity’s estimated income must be an amount of money, like 100.50 or 110(W)
+estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 months of operation(W)
+
 # Does your charity have bank statements
 # ----------------------------------------------------------
 isBankStatements.title = (W)Does the charity have bank statements for the last 3 months of operation?(W)

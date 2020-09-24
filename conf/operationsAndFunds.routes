@@ -37,6 +37,11 @@ POST       /financial-accounts                             controllers.operation
 GET        /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = CheckMode)
 POST       /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /enter-estimated-income                         controllers.operationsAndFunds.EstimatedIncomeController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-estimated-income                         controllers.operationsAndFunds.EstimatedIncomeController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-estimated-income/change                  controllers.operationsAndFunds.EstimatedIncomeController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-estimated-income/change                  controllers.operationsAndFunds.EstimatedIncomeController.onSubmit(mode: Mode = CheckMode)
+
 GET        /bank-statements                                controllers.operationsAndFunds.IsBankStatementsController.onPageLoad(mode: Mode = NormalMode)
 POST       /bank-statements                                controllers.operationsAndFunds.IsBankStatementsController.onSubmit(mode: Mode = NormalMode)
 GET        /bank-statements/change                         controllers.operationsAndFunds.IsBankStatementsController.onPageLoad(mode: Mode = CheckMode)

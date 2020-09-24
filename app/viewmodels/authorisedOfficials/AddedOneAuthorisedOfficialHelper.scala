@@ -66,6 +66,21 @@ class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode) (override val u
                  authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(mode, index),
                  messagePrefix = "authorisedOfficialsNino")
 
+  def authOfficialPassportNumberRow: Option[SummaryListRow] =
+    answerPassportNo(AuthorisedOfficialsPassportPage(index),
+                authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(mode, index),
+                messagePrefix = "authorisedOfficialsPassport")
+
+  def authOfficialCountryOfIssueRow: Option[SummaryListRow] =
+    answerCountryOfIssue(AuthorisedOfficialsPassportPage(index),
+                authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(mode, index),
+                messagePrefix = "authorisedOfficialsPassport")
+
+  def authOfficialExpiryDateRow: Option[SummaryListRow] =
+    answerExpiryDate(AuthorisedOfficialsPassportPage(index),
+                authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(mode, index),
+                messagePrefix = "authorisedOfficialsPassport")
+
   def authOfficialAddressRow: Option[SummaryListRow] =
     answerAddress(AuthorisedOfficialAddressLookupPage(index),
                   controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, mode),
@@ -85,6 +100,9 @@ class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode) (override val u
     authOfficialPositionRow,
     authOfficialHasNinoRow,
     authOfficialNinoRow,
+    authOfficialPassportNumberRow,
+    authOfficialCountryOfIssueRow,
+    authOfficialExpiryDateRow,
     authOfficialAddressRow,
     authOfficialHadPreviousAddressRow
   ).flatten

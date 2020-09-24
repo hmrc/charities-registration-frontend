@@ -17,7 +17,7 @@
 package viewmodels
 
 import models.addressLookup.AddressModel
-import models.{Name, PhoneNumber, UserAnswers, WithOrder}
+import models.{Name, Passport, PhoneNumber, UserAnswers, WithOrder}
 import pages.QuestionPage
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -128,6 +128,48 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
          changeLinkCall -> messages("site.edit")
        )
      }
+
+  def answerPassportNo(page: QuestionPage[Passport],
+                       changeLinkCall: Call,
+                       messagePrefix: String): Option[SummaryListRow] = {
+
+    userAnswers.get(page).map { passport =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.passportNumber.checkYourAnswersLabel"),
+        value = passport.passportNumber,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.passportNumber.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+  }
+
+  def answerCountryOfIssue(page: QuestionPage[Passport],
+                       changeLinkCall: Call,
+                       messagePrefix: String): Option[SummaryListRow] = {
+
+    userAnswers.get(page).map { passport =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.country.checkYourAnswersLabel"),
+        value = passport.country,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.country.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+  }
+
+  def answerExpiryDate(page: QuestionPage[Passport],
+                       changeLinkCall: Call,
+                       messagePrefix: String): Option[SummaryListRow] = {
+
+    userAnswers.get(page).map { passport =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.expiryDate.checkYourAnswersLabel"),
+        value = passport.expiryDate,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.expiryDate.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+  }
 
   implicit val yesNoValue: Boolean => String = {
     case true => messages("site.yes")

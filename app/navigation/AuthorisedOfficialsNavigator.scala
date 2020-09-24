@@ -59,11 +59,16 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case IsAuthorisedOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
       case Some(true) => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(NormalMode, index)
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(NormalMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case AuthorisedOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
+      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
       case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -124,6 +129,11 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case AuthorisedOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ => routes.SessionExpiredController.onPageLoad()
@@ -171,6 +181,11 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
+      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, PlaybackMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

@@ -16,6 +16,8 @@
 
 package models
 
+import java.time.LocalDate
+
 import play.api.libs.json.{Json, OFormat}
 import play.api.data.Form
 import play.api.i18n.Messages
@@ -77,6 +79,15 @@ object PhoneNumber {
   implicit val formats: OFormat[PhoneNumber] = Json.format[PhoneNumber]
 
   override def toString: String = "phoneNumber"
+}
+
+case class Passport(passportNumber: String, country: String, expiryDate: LocalDate)
+
+object Passport {
+
+  implicit val formats: OFormat[Passport] = Json.format[Passport]
+
+  override def toString: String = "passport"
 }
 
 

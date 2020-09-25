@@ -28,6 +28,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
   private val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
 
+
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {
@@ -148,14 +149,29 @@ class FundRaisingNavigatorSpec extends SpecBase {
            operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
         }
 
-        "go to DeadEnd page when no is selected" in {
+        "go to Why No Bank Statement page when no is selected" in {
           navigator.nextPage(IsBankStatementsPage, NormalMode,
             emptyUserAnswers.set(IsBankStatementsPage, false).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad()
+            operationFundsRoutes.WhyNoBankStatementController.onPageLoad(NormalMode)
         }
       }
 
-      "from the AccountingPeriodEndDdate page" must {
+      "from the WhyNoBankStatement page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhyNoBankStatementPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Charity Period End Date" in {
+          navigator.nextPage(WhyNoBankStatementPage, NormalMode,
+            emptyUserAnswers.set(IsBankStatementsPage, false).flatMap(
+          _.set(WhyNoBankStatementPage,"something")).getOrElse(emptyUserAnswers)) mustBe
+          operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AccountingPeriodEndDate page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
           navigator.nextPage(AccountingPeriodEndDatePage, NormalMode, emptyUserAnswers) mustBe

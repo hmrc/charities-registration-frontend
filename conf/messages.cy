@@ -717,6 +717,17 @@ isBankStatements.hint = (W)If the account has been open for less than 3 months, 
 isBankStatements.error.required = (W)Select yes if the charity has bank statements for the last 3 months of operation(W)
 isBankStatements.checkYourAnswersLabel = (W)Bank statements for the last 3 months(W)
 
+# Why does the charity not have a bank statement
+# ----------------------------------------------------------
+whyNoBankStatement.title = (W)Why does the charity not have bank statements for the last 3 months of operation?(W)
+whyNoBankStatement.heading = (W)Why does the charity not have bank statements for the last 3 months of operation?(W)
+whyNoBankStatement.hint = (W)If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.(W)
+whyNoBankStatement.checkYourAnswersLabel = (W)Why you do not have bank statements for the last 3 months(W)
+whyNoBankStatement.error.required = (W)Enter why the charity does not have bank statements for the last 3 months of operation(W)
+whyNoBankStatement.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
+whyNoBankStatement.error.length = (W)Your answer must be 350 characters or fewer(W)
+
+
 # AccountingEndDatePage Messages
 # ----------------------------------------------------------
 accountingPeriodEndDate.title = (W)What is the charity’s accounting period end date?(W)

@@ -45,6 +45,9 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
     def estimatedAmountRow: Option[SummaryListRow] =
       answer(EstimatedIncomePage, routes.DeadEndController.onPageLoad())
 
+  def whyNoBankStatementRow: Option[SummaryListRow] =
+    answer(WhyNoBankStatementPage, routes.DeadEndController.onPageLoad())
+
     def actualAmountRow: Option[SummaryListRow] =
       answer(ActualIncomePage, routes.DeadEndController.onPageLoad())
 
@@ -70,13 +73,14 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
 
     val rows: Seq[SummaryListRow] = Seq(
       fundRaisingRow,
+      otherFundRaisingRow,
       operatingLocationRow,
       isFinancialAccountsRow,
       estimatedAmountRow,
       actualAmountRow,
       isBankStatementsRow,
-      accountingPeriodRow,
-      otherFundRaisingRow
+      whyNoBankStatementRow,
+      accountingPeriodRow
     ).flatten
 
   }

@@ -26,6 +26,7 @@ import pages.operationsAndFunds.OperationsFundsSummaryPage
 import pages.sections.Section5Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
+import service.CountryService
 import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 import views.html.CheckYourAnswersView
 
@@ -37,13 +38,14 @@ class OperationsFundsSummaryController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
+    countryService: CountryService,
     view: CheckYourAnswersView,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val operationsFundsSummaryHelper = new OperationsFundsSummaryHelper(request.userAnswers)
+    val operationsFundsSummaryHelper = new OperationsFundsSummaryHelper(request.userAnswers, countryService)
 
     Ok(view(operationsFundsSummaryHelper.rows, OperationsFundsSummaryPage,
       controllers.operationsAndFunds.routes.OperationsFundsSummaryController.onSubmit()))

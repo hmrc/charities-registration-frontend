@@ -19,21 +19,25 @@ package viewmodels.operationsAndFunds
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models.MongoDateTimeFormats._
-import models.{CheckMode, UserAnswers}
+import models.{CheckMode, Index, UserAnswers}
 import org.joda.time.MonthDay
 import pages.QuestionPage
 import pages.operationsAndFunds._
 import play.api.i18n.Messages
 import play.api.mvc.Call
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
+class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countryService: CountryService)
                                   (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
     with SummaryListRowHelper with CurrencyFormatter {
 
-    def fundRaisingRow: Option[SummaryListRow] =
+
+  val overseasOperatingLocationSummaryHelper = new OverseasOperatingLocationSummaryHelper(userAnswers, countryService)
+
+  def fundRaisingRow: Option[SummaryListRow] =
       multiLineAnswer(FundRaisingPage, operationFundsRoutes.FundRaisingController.onPageLoad(CheckMode))
 
     def operatingLocationRow: Option[SummaryListRow] =
@@ -71,11 +75,16 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers)
         )
       }
 
+    val overseasOperatingLocationRow: Option[SummaryListRow] = overseasOperatingLocationSummaryHelper.overseasOperatingLocationSummaryCYARow(
+      WhatCountryDoesTheCharityOperateInPage(Index(0)),
+      operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode))
+
     val rows: Seq[SummaryListRow] = Seq(
       fundRaisingRow,
       otherFundRaisingRow,
       operatingLocationRow,
       isFinancialAccountsRow,
+      overseasOperatingLocationRow,
       estimatedAmountRow,
       actualAmountRow,
       isBankStatementsRow,

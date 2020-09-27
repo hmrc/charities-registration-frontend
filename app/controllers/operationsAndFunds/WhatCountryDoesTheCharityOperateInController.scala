@@ -23,7 +23,7 @@ import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.FundRaisingNavigator
-import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
+import pages.operationsAndFunds.{WhatCountryDoesTheCharityOperateInDeletePage, WhatCountryDoesTheCharityOperateInPage}
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
@@ -45,7 +45,7 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  val form: Form[String] = formProvider()
+  private val form: Form[String] = formProvider()
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
@@ -69,5 +69,14 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index), mode, updatedAnswers))
     )
+  }
+
+  def onRemove(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
+    for {
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.remove(
+        WhatCountryDoesTheCharityOperateInDeletePage(index)).flatMap(_.set(Section5Page, false)))
+      _              <- sessionRepository.set(updatedAnswers)
+    } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index), mode, updatedAnswers))
   }
 }

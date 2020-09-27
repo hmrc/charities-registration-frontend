@@ -52,11 +52,10 @@
     selected = k == form("country").value.getOrElse(""),
     attributes = Map("id" → s"country-$k"))
     },
-    formGroupClasses = "govuk-input--width-20"
+    formGroupClasses = "form-field-group"
 ))
 
-<script src='@controllers.routes.Assets.versioned("stylesheets/accessible-autocomplete-2.0.2.min.css")' rel="stylesheet" type="text/css"> </script>
-<script src="@controllers.routes.Assets.versioned("javascripts/accessible-autocomplete-2.0.2.min.js")" ></script>
+<script src="@controllers.routes.Assets.versioned("javascripts/autocomplete.js")" ></script>
 
 <script>
     accessibleAutocomplete.enhanceSelectElement({

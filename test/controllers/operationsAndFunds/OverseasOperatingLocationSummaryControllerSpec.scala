@@ -18,26 +18,27 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
-import models.{Index, NormalMode, UserAnswers}
+import forms.operationsAndFunds.{OperatingLocationFormProvider, OverseasOperatingLocationSummaryFormProvider}
+import models.operations.OperatingLocationOptions
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
-import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
+import pages.operationsAndFunds.OperatingLocationPage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
 import service.CountryService
-import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
+import views.html.operationsAndFunds.{OperatingLocationView, OverseasOperatingLocationSummaryView}
 
 import scala.concurrent.Future
 
-class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with BeforeAndAfterEach {
+class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
@@ -53,51 +54,48 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository, mockCountryService)
+    reset(mockUserAnswerRepository)
   }
 
-  private val view: WhatCountryDoesTheCharityOperateInView = inject[WhatCountryDoesTheCharityOperateInView]
-  private val formProvider: WhatCountryDoesTheCharityOperateInFormProvider = inject[WhatCountryDoesTheCharityOperateInFormProvider]
-  private val form: Form[String] = formProvider()
+  private val view: OverseasOperatingLocationSummaryView = inject[OverseasOperatingLocationSummaryView]
+  private val formProvider: OverseasOperatingLocationSummaryFormProvider = inject[OverseasOperatingLocationSummaryFormProvider]
+  private val form: Form[Boolean] = formProvider()
 
-  private val controller: WhatCountryDoesTheCharityOperateInController = inject[WhatCountryDoesTheCharityOperateInController]
+  private val controller: OverseasOperatingLocationSummaryController = inject[OverseasOperatingLocationSummaryController]
 
-  "WhatCountryDoesTheCharityOperateIn Controller " must {
+  "OverseasOperatingLocationSummary Controller " must {
 
     "return OK and the correct view for a GET" in {
 
-    when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
-      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(("TH", "Thai")))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, Seq())(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockCountryService, times(1)).countries()(any())
     }
 
+
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0) ,"United Kingdom").success.value
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
+        set(OperatingLocationPage, OperatingLocationOptions.values.toSet).getOrElse(emptyUserAnswers))))
 
-      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockCountryService, times(1)).countries()(any())
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("country", "United Kingdom"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
-      val result = controller.onSubmit(NormalMode, Index(0))(request)
+
+      val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -105,14 +103,16 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       verify(mockUserAnswerRepository, times(1)).set(any())
     }
 
-    "delete the country when the request is sent" in {
+    "redirect to the next page when valid data is submitted and overseas country limit is reached" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody()
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
-      val result = controller.onRemove(NormalMode, Index(0))(request)
+      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai"),("IN", "INDIA"),
+        ("PT", "Portugal"),("PY", "Paraguay"),("AF", "Afghanistan")))
+
+      val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -125,21 +125,19 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
 
-      val result = controller.onSubmit(NormalMode, Index(0))(request)
+      val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, never).set(any())
-      verify(mockCountryService, times(1)).countries()(any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
 
-      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
@@ -152,7 +150,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
 
-      val result = controller.onSubmit(NormalMode, Index(0))(request)
+      val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

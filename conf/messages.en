@@ -31,7 +31,7 @@ error.summary.title = There is a problem
 site.back = Back
 site.saveForLater = Save and come back later
 site.review = Review
-site.delete = Delete
+site.delete = Remove
 site.edit = Change
 site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
@@ -681,6 +681,17 @@ whatCountryDoesTheCharityOperateIn.hint = If your charity operates in more than 
 whatCountryDoesTheCharityOperateIn.error.required = Enter the country that the charity operates in
 whatCountryDoesTheCharityOperateIn.error.length = The country that the charity operates in must be 50 characters or fewer
 whatCountryDoesTheCharityOperateIn.error.format = The Country that the charity operates in must not include the following characters: & ( ) : @
+
+# Select Overseas Operating Location Summary page
+# ----------------------------------------------------------
+overseasOperatingLocationSummary.checkYourAnswers.title = Check the charity’s operating country details
+overseasOperatingLocationSummary.checkYourAnswers.heading = Check the charity’s operating country details
+overseasOperatingLocationSummary.addAnotherCountry.h2 = Do you want to add another country?
+overseasOperatingLocationSummary.addAnotherCountry.hint = You can add up to 5 countries
+overseasOperatingLocationSummary.addAnotherCountry.warn = You cannot add another operating country.
+overseasOperatingLocationSummary.addAnotherCountry.error.required = Select yes to add another country
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = Operating country {0}
+overseasOperatingLocationSummary.checkYourAnswersLabel = Overseas operating locations
 
 # Other FundRaising Messages
 # ----------------------------------------------------------

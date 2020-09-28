@@ -25,6 +25,7 @@ import models.{Index, Mode}
 import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import pages.sections.Section5Page
+import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import service.CountryService
@@ -44,7 +45,7 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  val form = formProvider()
+  val form: Form[String] = formProvider()
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
@@ -52,14 +53,15 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
       case None => form
       case Some(value) => form.fill(value)
     }
-    Ok(view(preparedForm, mode,index, countryService.countries()))
+    Ok(view(preparedForm, mode,index, countryService.countries().filter(country => country._1 != "GB")))
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode,index, countryService.countries()))),
+        Future.successful(BadRequest(view(formWithErrors, mode,index, countryService.countries()
+          .filter(country => country._1 != "GB")))),
 
       value =>
         for {

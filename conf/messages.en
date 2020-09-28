@@ -673,6 +673,15 @@ operatingLocation.4 = Across the UK
 operatingLocation.5 = Overseas
 operatingLocation.checkYourAnswersLabel = Operating locations
 
+# What Country Does The Charity Operate Messages
+# ----------------------------------------------------------
+whatCountryDoesTheCharityOperateIn.title = What country does the charity operate in?
+whatCountryDoesTheCharityOperateIn.heading = What country does the charity operate in?
+whatCountryDoesTheCharityOperateIn.hint = If your charity operates in more than one country, you can add more countries on the next page.
+whatCountryDoesTheCharityOperateIn.error.required = Enter the country that the charity operates in
+whatCountryDoesTheCharityOperateIn.error.length = The country that the charity operates in must be 50 characters or fewer
+whatCountryDoesTheCharityOperateIn.error.format = The Country that the charity operates in must not include the following characters: & ( ) : @
+
 # Other FundRaising Messages
 # ----------------------------------------------------------
 otherFundRaising.title = What other way will the charity raise funds?

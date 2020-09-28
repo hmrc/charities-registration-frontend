@@ -32,6 +32,11 @@ POST       /select-operating-location                      controllers.operation
 GET        /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onPageLoad(mode: Mode = CheckMode)
 POST       /select-operating-location/change               controllers.operationsAndFunds.OperatingLocationController.onSubmit(mode: Mode = CheckMode)
 
+GET       /:index/select-overseas-operating-location        controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST      /:index/select-overseas-operating-location        controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET       /:index/select-overseas-operating-location/change controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST      /:index/select-overseas-operating-location/change controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onSubmit(mode: Mode = CheckMode, index: Index)
+
 GET        /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = NormalMode)
 POST       /financial-accounts                             controllers.operationsAndFunds.IsFinancialAccountsController.onSubmit(mode: Mode = NormalMode)
 GET        /financial-accounts/change                      controllers.operationsAndFunds.IsFinancialAccountsController.onPageLoad(mode: Mode = CheckMode)

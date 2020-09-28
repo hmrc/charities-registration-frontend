@@ -25,7 +25,6 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    fieldset: components.fieldset,
     country: components.autocompleteCountryList
 )
 
@@ -33,21 +32,23 @@
 
 @govukLayout(pageTitle = Some(title(form, "whatCountryDoesTheCharityOperateIn.title", Some("operationsAndFunds.section")))) {
 
-    @errorSummary(form.errors)
+
 
     @formHelper(action = WhatCountryDoesTheCharityOperateInController.onSubmit(mode, index)) {
 
-        @fieldset(messages(s"whatCountryDoesTheCharityOperateIn.heading")) {
+    @errorSummary(form.errors)
 
-            @country(form,
-            id = "country",
-            name = "country",
-            label = None,
-            isPageHint = true,
-            hint = messages("whatCountryDoesTheCharityOperateIn.hint"),
-            countries = countries)
+    @country(form,
+        id = "country",
+        name = "country",
+        isPageHint = true,
+        isPageHeading = true,
+        label = messages("whatCountryDoesTheCharityOperateIn.heading"),
+        hint = messages("whatCountryDoesTheCharityOperateIn.hint"),
+        countries = countries
+    )
 
-        }
-            @button("site.saveAndContinue")
+    @button("site.saveAndContinue")
+
     }
 }

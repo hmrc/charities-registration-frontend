@@ -52,7 +52,8 @@
             @country(form,
                 id = "country",
                 name = "country",
-                label = messages(s"$messagePrefix.country.label"),
+                isPageHint = false,
+                label = Some(messages(s"$messagePrefix.country.label")),
                 hint = messages(s"$messagePrefix.country.hint"),
                 countries = countries)
 

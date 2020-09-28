@@ -65,8 +65,6 @@ class FundRaisingNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OtherFundRaisingPage, "sdf").getOrElse(emptyUserAnswers)) mustBe
             operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
         }
-
-
       }
 
       "from the OperatingLocationPage page" must {
@@ -82,10 +80,24 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
         }
 
-        "go to Has your charity prepared financial accounts page when user answer has other and clicked continue button" in {
+        "go to WhatCountryDoesTheCharityOperateIn Page when selected overseas and clicked continue button" in {
           navigator.nextPage(OperatingLocationPage, NormalMode,
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad()
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode,Index(0))
+        }
+      }
+
+      "from the WhatCountryDoesTheCharityOperateInPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Has your charity prepared financial accounts page when country is entered and clicked continute " in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), NormalMode,
+            emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0),"united kingdom").success.value) mustBe
+            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
         }
       }
 

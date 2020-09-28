@@ -39,7 +39,12 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
 
     case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
-      case Some(items) if items.toSeq.equals(Seq(Overseas)) => routes.DeadEndController.onPageLoad()
+      case Some(items) if items.toSeq.contains(Overseas) => operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
+      case Some(_) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case WhatCountryDoesTheCharityOperateInPage(index) => userAnswers: UserAnswers => userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)) match {
       case Some(_) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }

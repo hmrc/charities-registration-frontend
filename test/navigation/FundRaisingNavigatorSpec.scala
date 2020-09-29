@@ -85,6 +85,13 @@ class FundRaisingNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
             operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode,Index(0))
         }
+
+        "go to the WhatCountryDoesTheCharityOperateIn summary page when answers already exist" in {
+          navigator.nextPage(OperatingLocationPage, NormalMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).success.value) mustBe
+              operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
+        }
       }
 
       "from the WhatCountryDoesTheCharityOperateInPage" must {
@@ -94,11 +101,54 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to Has your charity prepared financial accounts page when country is entered and clicked continute " in {
+        "go to What countries does the charity operate in summary page when country is entered and clicked continue when summary wasn't visited before" in {
           navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), NormalMode,
-            emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0),"united kingdom").success.value) mustBe
+            emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0),"PL").success.value) mustBe
+            operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
+        }
+
+        "go to What countries does the charity operate in summary page when country is entered and clicked continue when summary was visited before" in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), NormalMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true)
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0),"PL")).success.value) mustBe
+            operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
+
+        }
+      }
+
+      "from the OverseasOperatingLocationSummaryPage" must {
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IsFinancialAccounts page when user selects No" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, false).success.value) mustBe
             operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
         }
+
+        "go to the IsFinancialAccounts page when user clicks Continue after selecting 5 countries" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true)
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "US"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), "DE"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), "IE"))
+              .success.value) mustBe
+            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+        }
+
+        "go to the WhatCountryDoesCharityOperateIn page when user selects Yes with fewer than 5 countries selected" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true)
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+              .success.value) mustBe
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, 2)
+        }
+
       }
 
       "from the IsFinancialAccountsPage" must {
@@ -268,6 +318,53 @@ class FundRaisingNavigatorSpec extends SpecBase {
           navigator.nextPage(OperatingLocationPage, CheckMode,
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
             routes.DeadEndController.onPageLoad()
+        }
+      }
+
+      "from the WhatCountryDoesTheCharityOperateIn page" must {
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the OverseasOperationLocationSummary page when user inputs a country" in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), CheckMode,
+            emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "PL").success.value) mustBe
+            operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
+        }
+      }
+
+      "from the OverseasOperatingLocationSummaryPage" must {
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the IsFinancialAccounts page when user selects No" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, false).success.value) mustBe
+            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode)
+        }
+
+        "go to the IsFinancialAccounts page when user clicks Continue after selecting 5 countries" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true)
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "US"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), "DE"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), "IE"))
+              .success.value) mustBe
+            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode)
+        }
+
+        "go to the WhatCountryDoesCharityOperateIn page when user selects Yes with fewer than 5 countries selected" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true)
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+              .success.value) mustBe
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, 2)
         }
       }
 

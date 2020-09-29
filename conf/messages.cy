@@ -31,7 +31,7 @@ error.summary.title = (W)There is a problem(W)
 site.back = (W)Back(W)
 site.saveForLater = (W)Save and come back later(W)
 site.review = (W)Review(W)
-site.delete = (W)Delete(W)
+site.delete = (W)Remove(W)
 site.edit = (W)Change(W)
 site.hidden-delete = (W)Delete {0}(W)
 site.hidden-edit = (W)Change {0}(W)
@@ -681,6 +681,17 @@ whatCountryDoesTheCharityOperateIn.hint = (W)If your charity operates in more th
 whatCountryDoesTheCharityOperateIn.error.required = (W)Enter the country that the charity operates in(W)
 whatCountryDoesTheCharityOperateIn.error.length = (W)The country that the charity operates in must be 50 characters or fewer(W)
 whatCountryDoesTheCharityOperateIn.error.format= (W)The Country that the charity operates in must not include the following characters: & ( ) : @(W)
+
+# Select Overseas Operating Location Summary page
+# ----------------------------------------------------------
+overseasOperatingLocationSummary.checkYourAnswers.title = (W)Check the charity’s operating country details(W)
+overseasOperatingLocationSummary.checkYourAnswers.heading = (W)Check the charity’s operating country details(W)
+overseasOperatingLocationSummary.addAnotherCountry.h2 = (W)Do you want to add another country?(W)
+overseasOperatingLocationSummary.addAnotherCountry.hint = (W)You can add up to 5 countries(W)
+overseasOperatingLocationSummary.addAnotherCountry.warn = (W)You cannot add another operating country.(W)
+overseasOperatingLocationSummary.addAnotherCountry.error.required = (W)Select yes to add another country(W)
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = (W)Operating country {0}(W)
+overseasOperatingLocationSummary.checkYourAnswersLabel = (W)Overseas operating locations(W)
 
 # Other FundRaising Messages
 # ----------------------------------------------------------

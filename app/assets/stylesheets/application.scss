@@ -29,3 +29,8 @@ $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
   line-height: 1.25;
   color: #0b0c0c;
 }
+
+
+.autocomplete__wrapper{
+  max-width: 52ex + 1ex;
+}

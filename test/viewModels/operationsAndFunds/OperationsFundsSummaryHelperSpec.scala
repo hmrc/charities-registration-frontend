@@ -23,12 +23,16 @@ import controllers.routes
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
+import org.scalatestplus.mockito.MockitoSugar
 import pages.operationsAndFunds._
+import service.CountryService
 import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
 import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 
 class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+
+  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
 
   private val helper = new OperationsFundsSummaryHelper(UserAnswers("id")
     .set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap
@@ -38,7 +42,8 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
   (_.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).flatMap
   (_.set(IsBankStatementsPage, true)).flatMap
   (_.set(AccountingPeriodEndDatePage,
-    MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite)).success.value
+    MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite)).success.value,
+    mockCountryService
   )
 
   "Check your answers helper" must {

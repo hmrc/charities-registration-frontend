@@ -23,7 +23,7 @@ import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
-import pages.addressLookup.OtherOfficialAddressLookupPage
+import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
 import play.api.mvc.Call
 
@@ -75,19 +75,19 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
-      case Some(_) => otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
+      case Some(_) => otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
-      case Some(true) => routes.DeadEndController.onPageLoad()
-      case Some(false) => index match {
-        case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
-        case 1 => otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
-        case 2 => otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
-        case _ => routes.DeadEndController.onPageLoad() // TODO Summary page
-      }
+      case Some(true) => addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
+      case Some(false) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case AddedOneOtherOfficialPage => _ => otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
@@ -147,6 +147,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case AddAnotherOtherOfficialPage => userAnswers: UserAnswers => userAnswers.get(AddAnotherOtherOfficialPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad()// TODO summary page
       case _ => routes.SessionExpiredController.onPageLoad()
@@ -187,7 +192,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
-      case Some(_) => otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(PlaybackMode, index)
+      case Some(_) => otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(PlaybackMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -195,6 +200,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case Some(false) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

@@ -28,7 +28,7 @@ import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTit
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import pages.addressLookup.AuthorisedOfficialAddressLookupPage
+import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
 import service.CountryService
 import viewmodels.SummaryListRowHelper
@@ -242,6 +242,22 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             s"${messages("site.no")}",
             Some(messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel")),
             authOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
+        )
+      }
+    }
+
+    "For the Authorised Official previous address answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper(authorisedOfficialDetails.set(AuthorisedOfficialPreviousAddressLookupPage(0),
+          ConfirmedAddressConstants.address).success.value, 0).authOfficialPreviousAddressRow mustBe Some(
+          summaryListRow(
+            messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
+            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
+            controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
         )
       }

@@ -35,7 +35,7 @@ import views.html.common.IsPreviousAddressView
 
 import scala.concurrent.Future
 
-class OtherOfficialsPreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
+class IsOtherOfficialsPreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -52,12 +52,12 @@ class OtherOfficialsPreviousAddressControllerSpec extends SpecBase with BeforeAn
     reset(mockUserAnswerRepository)
   }
 
-  private val messageKeyPrefix = "otherOfficialsPreviousAddress"
+  private val messageKeyPrefix = "isOtherOfficialsPreviousAddress"
   private val view: IsPreviousAddressView = inject[IsPreviousAddressView]
   private val formProvider: IsPreviousAddressFormProvider = inject[IsPreviousAddressFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
-  private val controller: OtherOfficialsPreviousAddressController = inject[OtherOfficialsPreviousAddressController]
+  private val controller: IsOtherOfficialsPreviousAddressController = inject[IsOtherOfficialsPreviousAddressController]
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
     Name(SelectTitle.values.head, "FName", Some("MName"), "LName")).success.value
@@ -71,7 +71,7 @@ class OtherOfficialsPreviousAddressControllerSpec extends SpecBase with BeforeAn
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
-        controllers.otherOfficials.routes.OtherOfficialsPreviousAddressController.onSubmit(NormalMode, Index(0)))(
+        controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onSubmit(NormalMode, Index(0)))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }

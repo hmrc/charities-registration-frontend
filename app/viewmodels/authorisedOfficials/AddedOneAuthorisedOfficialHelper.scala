@@ -95,7 +95,7 @@ class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode, countryService:
 
   def authOfficialPreviousAddressRow: Option[SummaryListRow] =
     answerAddress(AuthorisedOfficialPreviousAddressLookupPage(index),
-      controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, mode),
+      controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, mode),
       messagePrefix = "authorisedOfficialPreviousAddress")
 
 

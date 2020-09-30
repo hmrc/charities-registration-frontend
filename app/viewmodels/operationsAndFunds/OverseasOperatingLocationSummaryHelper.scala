@@ -30,9 +30,9 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
                                             (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
     with SummaryListRowHelper with CurrencyFormatter {
 
-    def overseasOperatingLocationSummaryRow(page: WhatCountryDoesTheCharityOperateInPage, index: Int,
-                                            changeLinkCall: Call): Option[SummaryListRow] = {
-      userAnswers.get(page).map{ code =>
+    def overseasOperatingLocationSummaryRow(index: Int, changeLinkCall: Call): Option[SummaryListRow] = {
+
+      userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)).map{ code =>
         summaryListRow(
           label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", index + 1),
           value = countryService.find(code).fold(code)(_.name),
@@ -44,20 +44,18 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
 
     lazy val rows: Seq[SummaryListRow] = {
       val result = for(i <- 0 to 4) yield  {
-        overseasOperatingLocationSummaryRow(WhatCountryDoesTheCharityOperateInPage(i), i,
-          operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(i)))
+        overseasOperatingLocationSummaryRow(i, operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(i)))
       }
       result.flatten
     }
 
 
-  def overseasOperatingLocationSummaryCYARow(page: WhatCountryDoesTheCharityOperateInPage,
-                                          changeLinkCall: Call): Option[SummaryListRow] = {
+  def overseasOperatingLocationSummaryCYARow(changeLinkCall: Call): Option[SummaryListRow] = {
 
     val result1 = for(i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
     val ans = result1.filter(_.nonEmpty).flatten
 
-    userAnswers.get(page).map{ _ =>
+    userAnswers.get(WhatCountryDoesTheCharityOperateInPage(0)).map{ _ =>
       summaryListRow(
         label = messages("overseasOperatingLocationSummary.checkYourAnswersLabel"),
         value = ans.foldLeft("")(

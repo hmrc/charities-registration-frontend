@@ -18,23 +18,22 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.operationsAndFunds.{OperatingLocationFormProvider, OverseasOperatingLocationSummaryFormProvider}
-import models.operations.OperatingLocationOptions
-import models.{NormalMode, UserAnswers}
+import forms.operationsAndFunds.OverseasOperatingLocationSummaryFormProvider
+import models.{Country, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
-import pages.operationsAndFunds.OperatingLocationPage
+import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
 import service.CountryService
-import views.html.operationsAndFunds.{OperatingLocationView, OverseasOperatingLocationSummaryView}
+import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
 
 import scala.concurrent.Future
 
@@ -80,7 +79,7 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(OperatingLocationPage, OperatingLocationOptions.values.toSet).getOrElse(emptyUserAnswers))))
+        set(OverseasOperatingLocationSummaryPage, true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -107,7 +106,20 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0) ,"TH").flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(1) ,"IN")).flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(2) ,"PT")).flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(3) ,"PY")).flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(4) ,"AF")
+      ).success.value
+
+      when(mockCountryService.find(meq("TH"))(any())).thenReturn(Some(Country("TH", "Thai")))
+      when(mockCountryService.find(meq("IN"))(any())).thenReturn(Some(Country("IN", "India")))
+      when(mockCountryService.find(meq("PT"))(any())).thenReturn(Some(Country("PT", "Portugal")))
+      when(mockCountryService.find(meq("PY"))(any())).thenReturn(Some(Country("PY", "Paraguay")))
+      when(mockCountryService.find(meq("AF"))(any())).thenReturn(Some(Country("AF", "Afghanistan")))
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai"),("IN", "INDIA"),
         ("PT", "Portugal"),("PY", "Paraguay"),("AF", "Afghanistan")))
@@ -117,7 +129,7 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockUserAnswerRepository, never).set(any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

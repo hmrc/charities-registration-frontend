@@ -25,7 +25,7 @@ import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
@@ -53,7 +53,8 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
     .set(AuthorisedOfficialPreviousAddressPage(0), false).success.value
 
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
-  when(mockCountryService.find(any())(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
   def helper(userAnswers: UserAnswers = authorisedOfficialDetails, index: Index) =  new AddedOneAuthorisedOfficialHelper(
     index, CheckMode, mockCountryService)(userAnswers)
@@ -184,6 +185,19 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
           summaryListRow(
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
             "United Kingdom",
+            Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
+        )
+      }
+
+      "have a correctly formatted summary list rows for country of issue if code is Unknown" in {
+
+        helper(authorisedOfficialDetails.set(AuthorisedOfficialsPassportPage(0),
+          Passport("GB12345", "Unknown", LocalDate.of(year, month, dayOfMonth))).success.value, 0).authOfficialCountryOfIssueRow mustBe Some(
+          summaryListRow(
+            messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
+            "Unknown",
             Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

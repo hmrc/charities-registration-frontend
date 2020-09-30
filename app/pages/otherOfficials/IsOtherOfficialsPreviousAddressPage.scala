@@ -19,9 +19,9 @@ package pages.otherOfficials
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class OtherOfficialsPreviousAddressPage(index:Int) extends QuestionPage[Boolean] {
+case class IsOtherOfficialsPreviousAddressPage(index:Int) extends QuestionPage[Boolean] {
 
   override def path: JsPath =  OtherOfficialsId(index).path \ toString
 
-  override lazy val toString: String = "officialsPreviousAddress"
+  override lazy val toString: String = "isOfficialsPreviousAddress"
 }

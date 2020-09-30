@@ -23,7 +23,7 @@ import forms.common.IsPreviousAddressFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.{AuthorisedOfficialPreviousAddressPage, AuthorisedOfficialsNamePage}
+import pages.authorisedOfficials.{IsAuthorisedOfficialPreviousAddressPage, AuthorisedOfficialsNamePage}
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
@@ -32,7 +32,7 @@ import views.html.common.IsPreviousAddressView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialPreviousAddressController @Inject()(
+class IsAuthorisedOfficialPreviousAddressController @Inject()(
    val identify: AuthIdentifierAction,
    val getData: UserDataRetrievalAction,
    val requireData: DataRequiredAction,
@@ -43,7 +43,7 @@ class AuthorisedOfficialPreviousAddressController @Inject()(
    override val view: IsPreviousAddressView
  )(implicit appConfig: FrontendAppConfig) extends IsPreviousAddressController {
 
-  override val messagePrefix: String = "authorisedOfficialPreviousAddress"
+  override val messagePrefix: String = "isAuthorisedOfficialPreviousAddress"
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
@@ -51,8 +51,8 @@ class AuthorisedOfficialPreviousAddressController @Inject()(
 
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
-        Future.successful(getView(AuthorisedOfficialPreviousAddressPage(index), form, authorisedOfficialsName,
-          controllers.authorisedOfficials.routes.AuthorisedOfficialPreviousAddressController.onSubmit(mode, index)))
+        Future.successful(getView(IsAuthorisedOfficialPreviousAddressPage(index), form, authorisedOfficialsName,
+          controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController.onSubmit(mode, index)))
       }
   }
 
@@ -61,8 +61,8 @@ class AuthorisedOfficialPreviousAddressController @Inject()(
 
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
-        postView(mode, AuthorisedOfficialPreviousAddressPage(index), form, authorisedOfficialsName, Section7Page,
-          controllers.authorisedOfficials.routes.AuthorisedOfficialPreviousAddressController.onSubmit(mode, index))
+        postView(mode, IsAuthorisedOfficialPreviousAddressPage(index), form, authorisedOfficialsName, Section7Page,
+          controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController.onSubmit(mode, index))
       }
   }
 }

@@ -18,7 +18,7 @@ package viewmodels.authorisedOfficials
 
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import models.{Index, Mode, UserAnswers}
-import pages.addressLookup.AuthorisedOfficialAddressLookupPage
+import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
 import play.api.i18n.Messages
 import service.CountryService
@@ -89,9 +89,14 @@ class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode, countryService:
                   messagePrefix = "authorisedOfficialAddress")
 
   def authOfficialHadPreviousAddressRow: Option[SummaryListRow] =
-    answerPrefix(AuthorisedOfficialPreviousAddressPage(index),
-                 authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(mode, index),
-                 messagePrefix = "authorisedOfficialPreviousAddress")
+    answerPrefix(IsAuthorisedOfficialPreviousAddressPage(index),
+                 authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(mode, index),
+                 messagePrefix = "isAuthorisedOfficialPreviousAddress")
+
+  def authOfficialPreviousAddressRow: Option[SummaryListRow] =
+    answerAddress(AuthorisedOfficialPreviousAddressLookupPage(index),
+      controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, mode),
+      messagePrefix = "authorisedOfficialPreviousAddress")
 
 
   val rows: Seq[SummaryListRow] = Seq(
@@ -106,7 +111,8 @@ class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode, countryService:
     authOfficialCountryOfIssueRow,
     authOfficialExpiryDateRow,
     authOfficialAddressRow,
-    authOfficialHadPreviousAddressRow
+    authOfficialHadPreviousAddressRow,
+    authOfficialPreviousAddressRow
   ).flatten
 
 }

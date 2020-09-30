@@ -25,7 +25,7 @@ import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPreviousAddressPage}
+import pages.otherOfficials.{OtherOfficialsNamePage, IsOtherOfficialsPreviousAddressPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -79,7 +79,7 @@ class OtherOfficialsPreviousAddressControllerSpec extends SpecBase with BeforeAn
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(OtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))))
+        set(IsOtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

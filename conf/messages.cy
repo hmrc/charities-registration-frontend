@@ -976,11 +976,30 @@ authorisedOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
 
 # Authorised Officials Previous Address Page Messages
 # ----------------------------------------------------------
-authorisedOfficialPreviousAddress.title = (W)Has the authorised official’s address changed in the last 12 months?(W)
-authorisedOfficialPreviousAddress.heading = (W)Has {0}’s address changed in the last 12 months?(W)
-authorisedOfficialPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+isAuthorisedOfficialPreviousAddress.title = (W)Has the authorised official’s address changed in the last 12 months?(W)
+isAuthorisedOfficialPreviousAddress.heading = (W)Has {0}’s address changed in the last 12 months?(W)
+isAuthorisedOfficialPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
 
-authorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+
+# Authorised Official Previous Address Messages
+# ----------------------------------------------------------
+authorisedOfficialPreviousAddress.lookupPage.title = (W)What is the authorised official’s previous home address? - Officials and nominees(W)
+authorisedOfficialPreviousAddress.lookupPage.heading = (W)What is {0}’s previous home address?(W)
+authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = (W)Authorised official’s previous home address does not have a UK postcode(W)
+
+authorisedOfficialPreviousAddress.selectPage.title = (W)What is the authorised official’s full previous home address? - Officials and nominees(W)
+authorisedOfficialPreviousAddress.selectPage.heading = (W)What is {0}’s full previous home address?(W)
+authorisedOfficialPreviousAddress.selectPage.editAddressLinkText = (W)Enter authorised official’s full previous home address manually(W)
+
+authorisedOfficialPreviousAddress.editPage.title = (W)What is the authorised official’s full previous home address? - Officials and nominees(W)
+authorisedOfficialPreviousAddress.editPage.heading = (W)What is {0}’s full previous home address?
+
+authorisedOfficialPreviousAddress.confirmPage.title = (W)Confirm the authorised official’s previous home address - Officials and nominees(W)
+authorisedOfficialPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous home address(W)
+authorisedOfficialPreviousAddress.confirmPage.changeLinkText = (W)Change authorised official’s previous home address(W)
+
+authorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
 
 # You have added one Authorised Official Page Messages
 # ----------------------------------------------------------

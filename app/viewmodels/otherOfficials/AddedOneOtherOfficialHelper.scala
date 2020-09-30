@@ -72,7 +72,7 @@ class AddedOneOtherOfficialHelper(index: Index, mode: Mode)(override val userAns
                   messagePrefix = "otherOfficialAddress")
 
   def otherOfficialHadPreviousAddressRow: Option[SummaryListRow] =
-    answerPrefix(OtherOfficialsPreviousAddressPage(index),
+    answerPrefix(IsOtherOfficialsPreviousAddressPage(index),
                  otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(mode, index),
                  messagePrefix = "otherOfficialsPreviousAddress")
 

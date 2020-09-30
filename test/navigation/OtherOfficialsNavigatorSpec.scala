@@ -146,46 +146,46 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the OtherOfficialsPreviousAddress Page" must {
+      "from the IsOtherOfficialsPreviousAddressPage Page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(0), NormalMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to previous address lookup flow when Yes is selected" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).success.value) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(0), NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true).success.value) mustBe
             routes.DeadEndController.onPageLoad()
         }
 
         "go to you have added one other official when No is selected and index is 0" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), false).success.value) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(0), NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), false).success.value) mustBe
             otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
         }
 
         "go to you have added two other official when No is selected and index is 1" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(1), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap
-            (_.set(OtherOfficialsPreviousAddressPage(1), false)).success.value) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(1), NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true).flatMap
+            (_.set(IsOtherOfficialsPreviousAddressPage(1), false)).success.value) mustBe
             otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
         }
 
         "go to you have added three other official when No is selected and index is 2" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(2), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap
-            (_.set(OtherOfficialsPreviousAddressPage(1), true)).flatMap
-            (_.set(OtherOfficialsPreviousAddressPage(2), false)).success.value) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(2), NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true).flatMap
+            (_.set(IsOtherOfficialsPreviousAddressPage(1), true)).flatMap
+            (_.set(IsOtherOfficialsPreviousAddressPage(2), false)).success.value) mustBe
             otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
         }
 
         "go to you have added three other official when No is selected and index is 3" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(3), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).flatMap
-            (_.set(OtherOfficialsPreviousAddressPage(1), true)).flatMap
-            (_.set(OtherOfficialsPreviousAddressPage(2), false)).flatMap
-            (_.set(OtherOfficialsPreviousAddressPage(3), false)).success.value) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(3), NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true).flatMap
+            (_.set(IsOtherOfficialsPreviousAddressPage(1), true)).flatMap
+            (_.set(IsOtherOfficialsPreviousAddressPage(2), false)).flatMap
+            (_.set(IsOtherOfficialsPreviousAddressPage(3), false)).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO three summary page
         }
       }
@@ -346,13 +346,13 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       "from the OtherOfficialsPreviousAddress Page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(0), CheckMode, emptyUserAnswers) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(0), CheckMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to the summary page when clicked continue button" in {
-          navigator.nextPage(OtherOfficialsPreviousAddressPage(0), CheckMode,
-            emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true).success.value) mustBe
+          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(0), CheckMode,
+            emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is created
         }
       }
@@ -510,23 +510,23 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         "from the OtherOfficialPreviousAddressPage" must {
 
           "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(OtherOfficialsPreviousAddressPage(index), PlaybackMode, emptyUserAnswers) mustBe
+            navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), PlaybackMode, emptyUserAnswers) mustBe
               routes.SessionExpiredController.onPageLoad()
           }
 
           "go to the Previous Address Lookup flow when yes is selected" in {
-            navigator.nextPage(OtherOfficialsPreviousAddressPage(index), PlaybackMode,
-              emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), true)
-                .flatMap(_.set(OtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
-                .flatMap(_.set(OtherOfficialsPreviousAddressPage(index), true)).success.value) mustBe
+            navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), PlaybackMode,
+              emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true)).success.value) mustBe
               routes.DeadEndController.onPageLoad() // TODO when next page is ready
           }
 
           "go to the You have added one other official page when no is selected" in {
-            navigator.nextPage(OtherOfficialsPreviousAddressPage(index), PlaybackMode,
-              emptyUserAnswers.set(OtherOfficialsPreviousAddressPage(0), false)
-                .flatMap(_.set(OtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
-                .flatMap(_.set(OtherOfficialsPreviousAddressPage(index), false)).success.value) mustBe
+            navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), PlaybackMode,
+              emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), false)
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), false)).success.value) mustBe
               goToPlaybackPage(index)
           }
 

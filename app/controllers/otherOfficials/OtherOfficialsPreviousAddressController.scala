@@ -23,7 +23,7 @@ import forms.common.IsPreviousAddressFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.OtherOfficialsNavigator
-import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPreviousAddressPage}
+import pages.otherOfficials.{OtherOfficialsNamePage, IsOtherOfficialsPreviousAddressPage}
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
@@ -51,7 +51,7 @@ class OtherOfficialsPreviousAddressController @Inject()(
 
       getFullName(OtherOfficialsNamePage(index)) { officialsName =>
 
-        Future.successful(getView(OtherOfficialsPreviousAddressPage(index), form, officialsName,
+        Future.successful(getView(IsOtherOfficialsPreviousAddressPage(index), form, officialsName,
           controllers.otherOfficials.routes.OtherOfficialsPreviousAddressController.onSubmit(mode, index)))
       }
   }
@@ -61,7 +61,7 @@ class OtherOfficialsPreviousAddressController @Inject()(
 
       getFullName(OtherOfficialsNamePage(index)) { officialsName =>
 
-        postView(mode, OtherOfficialsPreviousAddressPage(index), form, officialsName, Section8Page,
+        postView(mode, IsOtherOfficialsPreviousAddressPage(index), form, officialsName, Section8Page,
           controllers.otherOfficials.routes.OtherOfficialsPreviousAddressController.onSubmit(mode, index))
       }
   }

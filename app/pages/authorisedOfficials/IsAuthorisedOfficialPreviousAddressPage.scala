@@ -16,12 +16,22 @@
 
 package pages.authorisedOfficials
 
+import models.UserAnswers
 import pages.QuestionPage
+import pages.addressLookup.AuthorisedOfficialPreviousAddressLookupPage
 import play.api.libs.json.JsPath
 
-case class AuthorisedOfficialPreviousAddressPage(index:Int) extends QuestionPage[Boolean] {
+import scala.util.Try
+
+case class IsAuthorisedOfficialPreviousAddressPage(index:Int) extends QuestionPage[Boolean] {
 
   override def path: JsPath =  AuthorisedOfficialsId(index).path \ toString
 
-  override lazy val toString: String = "officialPreviousAddress"
+  override lazy val toString: String = "isOfficialPreviousAddress"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
+    value match {
+      case Some(false)  => userAnswers.remove(AuthorisedOfficialPreviousAddressLookupPage(index))
+      case _ => super.cleanup(value, userAnswers)
+    }
 }

@@ -23,7 +23,7 @@ import controllers.routes
 import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
-import pages.addressLookup.AuthorisedOfficialAddressLookupPage
+import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
 import play.api.mvc.Call
 
@@ -74,13 +74,19 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index)
+      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+    case IsAuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
+      case Some(true) => addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
       case Some(false) => redirectToPlaybackPage(index)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
+      userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -139,10 +145,16 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
+    case IsAuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
+      userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
@@ -190,14 +202,20 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialPreviousAddressController.onPageLoad(PlaybackMode, index)
+      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(PlaybackMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(AuthorisedOfficialPreviousAddressPage(index)) match {
+    case IsAuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case Some(false) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
+      userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

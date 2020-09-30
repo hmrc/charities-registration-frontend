@@ -19,7 +19,7 @@ package viewmodels.operationsAndFunds
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models.MongoDateTimeFormats._
-import models.{CheckMode, Index, UserAnswers}
+import models.{CheckMode, UserAnswers}
 import org.joda.time.MonthDay
 import pages.QuestionPage
 import pages.operationsAndFunds._
@@ -76,7 +76,6 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
       }
 
     val overseasOperatingLocationRow: Option[SummaryListRow] = overseasOperatingLocationSummaryHelper.overseasOperatingLocationSummaryCYARow(
-      WhatCountryDoesTheCharityOperateInPage(Index(0)),
       operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode))
 
     val rows: Seq[SummaryListRow] = Seq(

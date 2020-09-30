@@ -30,12 +30,12 @@ import play.api.mvc.Call
 
 class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  def overseasRedirector(userAnswers: UserAnswers): Call = {
+  def overseasRedirect(userAnswers: UserAnswers, mode: Mode): Call = {
     val result = for(i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
     if(result.filter(_.nonEmpty).flatten.nonEmpty) {
-      operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
+      operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(mode)
     } else {
-      operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
+      operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(mode, Index(0))
     }
   }
 
@@ -49,13 +49,13 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
     case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
       case Some(items) if !items.toSeq.contains(Overseas) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
-      case Some(_) => overseasRedirector(userAnswers)
+      case Some(_) => overseasRedirect(userAnswers, NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case WhatCountryDoesTheCharityOperateInPage(_) => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
       case Some(_) =>
-        overseasRedirector(userAnswers)
+        overseasRedirect(userAnswers, NormalMode)
       case _ if userAnswers.get(WhatCountryDoesTheCharityOperateInPage(Index(0))).isDefined =>
         operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
       case _=> routes.SessionExpiredController.onPageLoad()
@@ -141,9 +141,9 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
         if(result.flatten.length < 5) {
           operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(result.flatten.length))
         } else {
-          operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode)
+          operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
-      case Some(false) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode)
+      case Some(false) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

@@ -24,10 +24,10 @@ import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import org.joda.time.{LocalDate, MonthDay}
 import pages.IndexPage
 import pages.operationsAndFunds._
+
 class FundRaisingNavigatorSpec extends SpecBase {
 
   private val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
-
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -340,13 +340,13 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the IsFinancialAccounts page when user selects No" in {
+        "go to the Operations Funds Summary page when user selects No" in {
           navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode,
             emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, false).success.value) mustBe
-            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode)
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
 
-        "go to the IsFinancialAccounts page when user clicks Continue after selecting 5 countries" in {
+        "go to the Operations Funds Summary page when user clicks Continue after selecting 5 countries" in {
           navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode,
             emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true)
               .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
@@ -355,7 +355,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
               .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), "DE"))
               .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), "IE"))
               .success.value) mustBe
-            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode)
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
 
         "go to the WhatCountryDoesCharityOperateIn page when user selects Yes with fewer than 5 countries selected" in {

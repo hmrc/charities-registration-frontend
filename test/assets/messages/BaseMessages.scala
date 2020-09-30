@@ -29,7 +29,7 @@ object BaseMessages {
   val no = "No"
   val incomplete = "Incomplete"
   val review = "Review"
-  val delete = "Delete"
+  val delete = "Remove"
   val day = "Day"
   val month = "Month"
   val year = "Year"

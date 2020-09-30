@@ -1187,6 +1187,23 @@ chooseNominee.error.required = Select if the nominee is a person or an organisat
 chooseNominee.person = Person
 chooseNominee.organisation = Organisation
 
+# Charity Nominee Individual Name Page Messages
+# ----------------------------------------------------------
+individualNomineeName.title = What is the nominee’s name?
+individualNomineeName.heading = What is the nominee’s name?
+individualNomineeName.firstName.label = First name
+individualNomineeName.firstName.error.required = Enter the nominee’s first name
+individualNomineeName.firstName.error.length = The nominee’s first name must be 100 characters or fewer
+individualNomineeName.firstName.error.format = The nominee’s first name must not include the following characters: & ( ) : @
+individualNomineeName.middleName.label = Middle name (optional)
+individualNomineeName.middleName.error.length = The nominee’s middle name must be 100 characters or fewer
+individualNomineeName.middleName.error.format = The nominee’s middle name must not include the following characters: & ( ) : @
+individualNomineeName.lastName.label = Last name
+individualNomineeName.lastName.error.required = Enter the nominee’s last name
+individualNomineeName.lastName.error.length = The nominee’s last name must be 100 characters or fewer
+individualNomineeName.lastName.error.format = The nominee’s last name must not include the following characters: & ( ) : @
+individualNomineeName.title.error.required = Select the nominee’s title
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details

@@ -21,11 +21,12 @@ import controllers.nominees.{routes => nomineesRoutes}
 import controllers.routes
 import models._
 import pages.IndexPage
-import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage, NomineeDetailsSummaryPage}
+import pages.nominees.{ChooseNomineePage, IndividualNomineeNamePage, IsAuthoriseNomineePage, NomineeDetailsSummaryPage}
 
 class NomineesNavigatorSpec extends SpecBase {
 
   private val navigator: NomineesNavigator = inject[NomineesNavigator]
+  private val nomineeName: Name = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -61,6 +62,20 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to What is the nominee's name page when clicked continue button" in {
           navigator.nextPage(ChooseNomineePage, NormalMode,
             emptyUserAnswers.set(ChooseNomineePage, true).success.value) mustBe
+            nomineesRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IndividualNomineeNamePage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineeNamePage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to What is the nominee's date of birth page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineeNamePage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineeNamePage, nomineeName).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
@@ -114,6 +129,20 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(ChooseNomineePage, CheckMode,
             emptyUserAnswers.set(ChooseNomineePage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IndividualNomineeNamePage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineeNamePage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(IndividualNomineeNamePage, CheckMode,
+            emptyUserAnswers.set(IndividualNomineeNamePage, nomineeName).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

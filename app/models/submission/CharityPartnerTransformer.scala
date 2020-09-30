@@ -28,6 +28,7 @@ class CharityPartnerTransformer extends JsonTransformer {
   private val action = "1"
   private val relationOO = "1"
   private val relationAO = "2"
+  private val relationNominee = "3"
   private val partnerTypeIndividual = "1"
 
   def userAnswersToIndividualDetails : Reads[JsObject] = {

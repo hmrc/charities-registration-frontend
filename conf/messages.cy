@@ -1187,6 +1187,24 @@ chooseNominee.error.required = (W)Select if the nominee is a person or an organi
 chooseNominee.person = (W)Person(W)
 chooseNominee.organisation = (W)Organisation(W)
 
+# Charity Nominee Individual Name Page Messages
+# ----------------------------------------------------------
+individualNomineeName.title = (W)What is the nominee’s name?(W)
+individualNomineeName.heading = (W)What is the nominee’s name?(W)
+individualNomineeName.firstName.label = (W)First name(W)
+individualNomineeName.firstName.error.required = (W)Enter the nominee’s first name(W)
+individualNomineeName.firstName.error.length = (W)The nominee’s first name must be 100 characters or fewer(W)
+individualNomineeName.firstName.error.format = (W)The nominee’s first name must not include the following characters: & ( ) : @(W)
+individualNomineeName.middleName.label = (W)Middle name (optional)(W)
+individualNomineeName.middleName.error.length = (W)The nominee’s middle name must be 100 characters or fewer(W)
+individualNomineeName.middleName.error.format = (W)The nominee’s middle name must not include the following characters: & ( ) : @(W)
+individualNomineeName.lastName.label = (W)Last name(W)
+individualNomineeName.lastName.error.required = (W)Enter the nominee’s last name(W)
+individualNomineeName.lastName.error.length = (W)The nominee’s last name must be 100 characters or fewer(W)
+individualNomineeName.lastName.error.format = (W)The nominee’s last name must not include the following characters: & ( ) : @(W)
+individualNomineeName.title.error.required = (W)Select the nominee’s title(W)
+
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)

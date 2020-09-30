@@ -37,45 +37,45 @@
 
             @errorSummary(form.errors)
 
-            @h1(messages(s"$messagePrefix.heading"))
+            @fieldset(s"$messagePrefix.heading") {
 
 
-            @inputRadio(
-            form = form,
-            legend = messages("nameTitle"),
-            items = SelectTitle.options(form),
-            legendAsHeading =false,
-            buttonSmall =true,
-            classes = "govuk-fieldset__legend govuk-fieldset__legend--m"
-            )
+                @inputRadio(
+                    form = form,
+                    legend = messages("nameTitle"),
+                    items = SelectTitle.options(form),
+                    legendAsHeading = false,
+                    buttonSmall = true,
+                    classes = "govuk-fieldset__legend govuk-fieldset__legend--m"
+                )
 
-            @inputText(
-                form,
-                id = "firstName",
-                name = "firstName",
-                label = s"$messagePrefix.firstName.label",
-                isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
-            )
+                @inputText(
+                    form,
+                    id = "firstName",
+                    name = "firstName",
+                    label = s"$messagePrefix.firstName.label",
+                    isPageHeading = false,
+                    classes = Some("govuk-input govuk-!-width-one-half")
+                )
 
-            @inputText(
-                form,
-                id = "middleName",
-                name = "middleName",
-                label = s"$messagePrefix.middleName.label",
-                isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
-            )
+                @inputText(
+                    form,
+                    id = "middleName",
+                    name = "middleName",
+                    label = s"$messagePrefix.middleName.label",
+                    isPageHeading = false,
+                    classes = Some("govuk-input govuk-!-width-one-half")
+                )
 
-            @inputText(
-                form,
-                id = "lastName",
-                name = "lastName",
-                label = s"$messagePrefix.lastName.label",
-                isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
-            )
-
+                @inputText(
+                    form,
+                    id = "lastName",
+                    name = "lastName",
+                    label = s"$messagePrefix.lastName.label",
+                    isPageHeading = false,
+                    classes = Some("govuk-input govuk-!-width-one-half")
+                )
+            }
         @button("site.saveAndContinue")
 
     }

@@ -16,13 +16,25 @@
 
 package pages.nominees
 
-import models.Name
-import pages.QuestionPage
-import play.api.libs.json.{JsPath, __}
+import models.PhoneNumber
+import org.scalacheck.Arbitrary
+import pages.behaviours.PageBehaviours
 
-case object IndividualNomineeNamePage extends QuestionPage[Name] {
+class IndividualNomineePhoneNumberPageSpec extends PageBehaviours{
 
-  override def path: JsPath =  NomineeId.path \ toString
+  "IndividualNomineePhoneNumberPage" must {
 
-  override lazy val toString: String = "individualName"
+    implicit lazy val arbitraryPhoneNumber: Arbitrary[PhoneNumber] = Arbitrary {
+      PhoneNumber(
+        daytimePhone = "07700 900 982",
+        mobilePhone = "07700 900 982"
+      )
+    }
+
+    beRetrievable[PhoneNumber](IndividualNomineesPhoneNumberPage)
+
+    beSettable[PhoneNumber](IndividualNomineesPhoneNumberPage)
+
+    beRemovable[PhoneNumber](IndividualNomineesPhoneNumberPage)
+  }
 }

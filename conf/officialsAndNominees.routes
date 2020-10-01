@@ -168,5 +168,10 @@ POST       /nominee-date-of-birth                                               
 GET        /nominee-date-of-birth/change                                        controllers.nominees.IndividualNomineeDOBController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-date-of-birth/change                                        controllers.nominees.IndividualNomineeDOBController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-contact-details                                             controllers.nominees.IndividualNomineesPhoneNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-contact-details                                             controllers.nominees.IndividualNomineesPhoneNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-contact-details/change                                      controllers.nominees.IndividualNomineesPhoneNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-contact-details/change                                      controllers.nominees.IndividualNomineesPhoneNumberController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

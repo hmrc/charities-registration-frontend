@@ -50,7 +50,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
     .set(AuthorisedOfficialsNinoPage(0), "AA123456A").success.value
     .set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))).success.value
     .set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
-    .set(AuthorisedOfficialPreviousAddressPage(0), false).success.value
+    .set(IsAuthorisedOfficialPreviousAddressPage(0), false).success.value
 
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
   when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
@@ -238,10 +238,10 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
 
         helper(authorisedOfficialDetails, 0).authOfficialHadPreviousAddressRow mustBe Some(
           summaryListRow(
-            messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
+            messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel"),
             s"${messages("site.no")}",
-            Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            Some(messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel")),
+            authOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
       }

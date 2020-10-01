@@ -25,7 +25,7 @@ import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.authorisedOfficials.{AuthorisedOfficialPreviousAddressPage, AuthorisedOfficialsNamePage}
+import pages.authorisedOfficials.{IsAuthorisedOfficialPreviousAddressPage, AuthorisedOfficialsNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -35,7 +35,7 @@ import views.html.common.IsPreviousAddressView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
+class IsAuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -51,12 +51,12 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
     super.beforeEach()
     reset(mockUserAnswerRepository)
   }
-  private val messageKeyPrefix = "authorisedOfficialPreviousAddress"
+  private val messageKeyPrefix = "isAuthorisedOfficialPreviousAddress"
   private val view: IsPreviousAddressView = injector.instanceOf[IsPreviousAddressView]
   private val formProvider: IsPreviousAddressFormProvider = injector.instanceOf[IsPreviousAddressFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
-  private val controller: AuthorisedOfficialPreviousAddressController = inject[AuthorisedOfficialPreviousAddressController]
+  private val controller: IsAuthorisedOfficialPreviousAddressController = inject[IsAuthorisedOfficialPreviousAddressController]
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
@@ -71,7 +71,7 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialPreviousAddressController.onSubmit(NormalMode, Index(0)))(
+        controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController.onSubmit(NormalMode, Index(0)))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
@@ -79,7 +79,7 @@ class AuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Befo
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(AuthorisedOfficialPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))))
+        set(IsAuthorisedOfficialPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

@@ -74,7 +74,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case OtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
+    case IsOtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
       case Some(true) => routes.DeadEndController.onPageLoad()
       case Some(false) => index match {
         case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
@@ -137,7 +137,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case OtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
+    case IsOtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -186,7 +186,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case OtherOfficialsPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(OtherOfficialsPreviousAddressPage(index)) match {
+    case IsOtherOfficialsPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
       case Some(false) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()

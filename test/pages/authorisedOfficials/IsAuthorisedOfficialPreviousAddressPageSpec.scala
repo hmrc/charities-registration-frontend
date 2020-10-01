@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package pages.addressLookup
+package pages.authorisedOfficials
 
-import models.addressLookup.{AddressModel, CountryModel}
-import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class AuthorisedOfficialsAddressPageSpec extends PageBehaviours {
+class IsAuthorisedOfficialPreviousAddressPageSpec extends PageBehaviours {
 
-  "AuthorisedOfficialsAddressPageSpec" must {
+  "IsAuthorisedOfficialPreviousAddressPage" must {
 
-    implicit lazy val arbitraryAddressModel: Arbitrary[AddressModel] = Arbitrary {
-      AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-    }
+    beRetrievable[Boolean](IsAuthorisedOfficialPreviousAddressPage(0))
 
-    beRetrievable[AddressModel](AuthorisedOfficialAddressLookupPage(0))
+    beSettable[Boolean](IsAuthorisedOfficialPreviousAddressPage(0))
 
-    beSettable[AddressModel](AuthorisedOfficialAddressLookupPage(0))
-
-    beRemovable[AddressModel](AuthorisedOfficialAddressLookupPage(0))
+    beRemovable[Boolean](IsAuthorisedOfficialPreviousAddressPage(0))
   }
 }

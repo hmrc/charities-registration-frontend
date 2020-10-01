@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package pages.authorisedOfficials
+package pages.addressLookup
 
-import pages.behaviours.PageBehaviours
+import models.addressLookup.AddressModel
+import pages.QuestionPage
+import pages.authorisedOfficials.AuthorisedOfficialsId
+import play.api.libs.json.JsPath
 
-class AuthorisedOfficialPreviousAddressPageSpec extends PageBehaviours {
+case class AuthorisedOfficialPreviousAddressLookupPage(index: Int) extends QuestionPage[AddressModel] {
 
-  "AuthorisedOfficialPreviousAddressPage" must {
+  override def path: JsPath =  AuthorisedOfficialsId(index).path \ toString
 
-    beRetrievable[Boolean](AuthorisedOfficialPreviousAddressPage(0))
-
-    beSettable[Boolean](AuthorisedOfficialPreviousAddressPage(0))
-
-    beRemovable[Boolean](AuthorisedOfficialPreviousAddressPage(0))
-  }
+  override lazy val toString: String = "officialPreviousAddress"
 }

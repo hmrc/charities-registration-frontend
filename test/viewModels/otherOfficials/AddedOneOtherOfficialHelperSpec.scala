@@ -44,7 +44,7 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
     .set(IsOtherOfficialNinoPage(0), true).success.value
     .set(OtherOfficialsNinoPage(0), "AA123456A").success.value
     .set(OtherOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
-    .set(OtherOfficialsPreviousAddressPage(0), false).success.value
+    .set(IsOtherOfficialsPreviousAddressPage(0), false).success.value
 
 
   def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOneOtherOfficialHelper(index, CheckMode)(userAnswers)

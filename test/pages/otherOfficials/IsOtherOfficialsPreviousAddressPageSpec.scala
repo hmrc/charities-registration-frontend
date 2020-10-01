@@ -18,14 +18,14 @@ package pages.otherOfficials
 
 import pages.behaviours.PageBehaviours
 
-class OtherOfficialsPreviousAddressPageSpec extends PageBehaviours {
+class IsOtherOfficialsPreviousAddressPageSpec extends PageBehaviours {
 
-  "OtherOfficialsPreviousAddress Page" must {
+  "IsOtherOfficialsPreviousAddressPage" must {
 
-    beRetrievable[Boolean](OtherOfficialsPreviousAddressPage(0))
+    beRetrievable[Boolean](IsOtherOfficialsPreviousAddressPage(0))
 
-    beSettable[Boolean](OtherOfficialsPreviousAddressPage(0))
+    beSettable[Boolean](IsOtherOfficialsPreviousAddressPage(0))
 
-    beRemovable[Boolean](OtherOfficialsPreviousAddressPage(0))
+    beRemovable[Boolean](IsOtherOfficialsPreviousAddressPage(0))
   }
 }

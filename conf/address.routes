@@ -1,21 +1,28 @@
 ### Charity AddressLookup Controller
 ### ----------------------------------------
-GET        /charity-information-lookup                                   controllers.addressLookup.CharityOfficialAddressLookupController.initializeJourney
-GET        /charity-information-callback                                 controllers.addressLookup.CharityOfficialAddressLookupController.callback(id: Option[String] ?= None)
+GET        /charity-information-address-lookup                                   controllers.addressLookup.CharityOfficialAddressLookupController.initializeJourney
+GET        /charity-information-address-callback                                 controllers.addressLookup.CharityOfficialAddressLookupController.callback(id: Option[String] ?= None)
 
-GET        /charity-information-postal-lookup                            controllers.addressLookup.CharityPostalAddressLookupController.initializeJourney
-GET        /charity-information-postal-callback                          controllers.addressLookup.CharityPostalAddressLookupController.callback(id: Option[String] ?= None)
+GET        /charity-information-postal-address-lookup                            controllers.addressLookup.CharityPostalAddressLookupController.initializeJourney
+GET        /charity-information-postal-address-callback                          controllers.addressLookup.CharityPostalAddressLookupController.callback(id: Option[String] ?= None)
 
-GET        /:index/authorised-official-lookup                            controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = NormalMode)
-GET        /:index/authorised-official-callback                          controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, mode: Mode = NormalMode, id: Option[String] ?= None)
-GET        /:index/authorised-official-lookup/playback-change            controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = PlaybackMode)
-GET        /:index/authorised-official-callback/playback-change          controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
-GET        /:index/authorised-official-lookup/change                     controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
-GET        /:index/authorised-official-callback/change                   controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)
+GET        /:index/authorised-official-address-lookup                            controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = NormalMode)
+GET        /:index/authorised-official-address-callback                          controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, mode: Mode = NormalMode, id: Option[String] ?= None)
+GET        /:index/authorised-official-address-lookup/playback-change            controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = PlaybackMode)
+GET        /:index/authorised-official-address-callback/playback-change          controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
+GET        /:index/authorised-official-address-lookup/change                     controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
+GET        /:index/authorised-official-address-callback/change                   controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)
 
-GET        /:index/other-official-lookup                                 controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = NormalMode)
-GET        /:index/other-official-callback                               controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = NormalMode, id: Option[String] ?= None)
-GET        /:index/other-official-lookup/playback-change                 controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = PlaybackMode)
-GET        /:index/other-official-callback/playback-change               controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
-GET        /:index/other-official-lookup/change                          controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
-GET        /:index/other-official-callback/change                        controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)
+GET        /:index/authorised-previous-address-lookup                            controllers.addressLookup.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index: Index, mode: Mode = NormalMode)
+GET        /:index/authorised-previous-address-callback                          controllers.addressLookup.AuthorisedOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = NormalMode, id: Option[String] ?= None)
+GET        /:index/authorised-previous-address-lookup/playback-change            controllers.addressLookup.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index: Index, mode: Mode = PlaybackMode)
+GET        /:index/authorised-previous-address-callback/playback-change          controllers.addressLookup.AuthorisedOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
+GET        /:index/authorised-previous-address-lookup/change                     controllers.addressLookup.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
+GET        /:index/authorised-previous-address-callback/change                   controllers.addressLookup.AuthorisedOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)
+
+GET        /:index/other-official-address-lookup                                 controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = NormalMode)
+GET        /:index/other-official-address-callback                               controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = NormalMode, id: Option[String] ?= None)
+GET        /:index/other-official-address-lookup/playback-change                 controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = PlaybackMode)
+GET        /:index/other-official-address-callback/playback-change               controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
+GET        /:index/other-official-address-lookup/change                          controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
+GET        /:index/other-official-address-callback/change                        controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)

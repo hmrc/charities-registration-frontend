@@ -1204,6 +1204,13 @@ individualNomineeName.lastName.error.length = (W)The nominee’s last name must 
 individualNomineeName.lastName.error.format = (W)The nominee’s last name must not include the following characters: & ( ) : @(W)
 individualNomineeName.title.error.required = (W)Select the nominee’s title(W)
 
+# What is the name of the organisation Page Messages
+# ----------------------------------------------------------
+nameOfOrganisation.title = (W)What is the name of the organisation?(W)
+nameOfOrganisation.heading = (W)What is the name of the organisation?(W)
+nameOfOrganisation.error.required = (W)Enter the name of the organisation(W)
+nameOfOrganisation.error.length = (W)The name of the organisation must be 160 characters or fewer(W)
+nameOfOrganisation.error.format = (W)The name of the organisation must not include the following characters: & ( ) : @(W)
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

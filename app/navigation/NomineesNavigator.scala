@@ -22,7 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.nominees.{ChooseNomineePage, IndividualNomineeNamePage, IsAuthoriseNomineePage, NomineeDetailsSummaryPage}
+import pages.nominees.{ChooseNomineePage, IndividualNomineeNamePage, IsAuthoriseNomineePage, NomineeDetailsSummaryPage, WhatIsTheNameOfOrganisationPage}
 import play.api.mvc.Call
 
 class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -36,11 +36,17 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case ChooseNomineePage => userAnswers: UserAnswers => userAnswers.get(ChooseNomineePage) match {
-      case Some(_) => nomineeRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
+      case Some(true) => nomineeRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
+      case Some(false) => nomineeRoutes.WhatIsTheNameOfTheOrganisationController.onPageLoad(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeNamePage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad()
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -64,6 +70,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IndividualNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeNamePage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

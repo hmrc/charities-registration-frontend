@@ -1231,6 +1231,17 @@ nameOfOrganisation.error.required = Enter the name of the organisation
 nameOfOrganisation.error.length = The name of the organisation must be 160 characters or fewer
 nameOfOrganisation.error.format = The name of the organisation must not include the following characters: & ( ) : @
 
+# Charity Nominee Individual DOB Page Messages
+# ----------------------------------------------------------
+individualNomineeDOB.title = What is the nominee’s date of birth?
+individualNomineeDOB.heading = What is {0}’s date of birth?
+individualNomineeDOB.hint = For example, 27 3 1980
+individualNomineeDOB.error.required.all = Enter their date of birth
+individualNomineeDOB.error.required.two = Enter their {0} and {1} of birth
+individualNomineeDOB.error.required.one = Enter their {0} of birth
+individualNomineeDOB.error.invalid = Their birth date must be a real date.
+individualNomineeDOB.error.minimum = The nominee must be at least 16 years old
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details

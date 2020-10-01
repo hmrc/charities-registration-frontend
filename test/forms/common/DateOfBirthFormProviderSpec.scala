@@ -32,7 +32,7 @@ class DateOfBirthFormProviderSpec extends DateBehaviours {
 
     behave like dateField(form, "date", validDate)
 
-    behave like mandatoryDateField(form, "date", s"$messagePrefix.error.required.all")
+    behave like mandatoryDateField(form, "date", s"$messagePrefix.error.required.all", Seq("day", "month", "year"))
 
     behave like dateFieldWithMax(form, "date",
       max = validDate,

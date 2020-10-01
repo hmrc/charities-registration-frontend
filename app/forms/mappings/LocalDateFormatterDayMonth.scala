@@ -27,16 +27,16 @@ private[mappings] class LocalDateFormatterDayMonth(
                                             allRequiredKey: String,
                                             requiredKey: String,
                                             args: Seq[String] = Seq.empty
-                                          ) extends Formatter[MonthDay] with Formatters with Constraints {
+                                          ) extends Formatter[MonthDay] with GenericDateFormatter {
 
-  private val fieldKeys: List[String] = List("day", "month")
+  val fieldKeys: List[String] = List("day", "month")
 
   private def toDate(key: String, day: Int, month: Int): Either[Seq[FormError], MonthDay] =
    Try(MonthDay.fromDateFields(new LocalDate(LocalDate.now().getYear, month, day).toDate)) match {
       case Success(date) =>
         Right(date)
       case Failure(_) =>
-        Left(Seq(FormError(key, invalidKey, args)))
+        Left(Seq(FormError(keyWithError(key, "day"), invalidKey, args)))
     }
 
   private def formatDate(key: String, data: Map[String, String]): Either[Seq[FormError], MonthDay] = {
@@ -57,25 +57,17 @@ private[mappings] class LocalDateFormatterDayMonth(
 
   override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], MonthDay] = {
 
-    val fields = fieldKeys.map {
-      field =>
-        field -> data.get(s"$key.$field").filter(_.nonEmpty).map(f => filter(f))
-    }.toMap
-
-    lazy val missingFields = fields
-      .withFilter(_._2.isEmpty)
-      .map(_._1)
-      .toList
-
-    fields.count(_._2.isDefined) match {
+    fields(key, data).count(_._2.isDefined) match {
       case 2 =>
-        formatDate(key, data).left.map {
-          _.map(_.copy(key = key, args = args))
+        if (illegalFields(key, data).nonEmpty) {
+          Left(List() ++ illegalErrors(key, data, invalidKey, args))
+        } else {
+          formatDate(key, data)
         }
       case 1 =>
-        Left(List(FormError(key, requiredKey, missingFields ++ args)))
+        leftErrors(key, data, requiredKey, invalidKey, args)
       case _ =>
-        Left(List(FormError(key, allRequiredKey, args)))
+        leftErrors(key, data, allRequiredKey, invalidKey, args)
     }
   }
 

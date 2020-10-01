@@ -30,16 +30,16 @@ private[mappings] class LocalDateFormatter(
                                             twoRequiredKey: String,
                                             requiredKey: String,
                                             args: Seq[String] = Seq.empty
-                                          ) extends Formatter[LocalDate] with Formatters with Constraints {
+                                          ) extends Formatter[LocalDate] with GenericDateFormatter {
 
-  private val fieldKeys: List[String] = List("day", "month", "year")
+  val fieldKeys: List[String] = List("day", "month", "year")
 
   private def toDate(key: String, day: Int, month: Int, year: Int): Either[Seq[FormError], LocalDate] =
     Try(LocalDate.of(year, month, day)) match {
       case Success(date) =>
         Right(date)
       case Failure(_) =>
-        Left(Seq(FormError(key, invalidKey, args)))
+        Left(Seq(FormError(keyWithError(key, "day"), invalidKey, args)))
     }
 
   private def formatDate(key: String, data: Map[String, String]): Either[Seq[FormError], LocalDate] = {
@@ -61,28 +61,21 @@ private[mappings] class LocalDateFormatter(
 
   override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], LocalDate] = {
 
-    val fields = fieldKeys.map {
-      field =>
-        field -> data.get(s"$key.$field").filter(_.nonEmpty).map(f => filter(f))
-    }.toMap
-
-    lazy val missingFields = fields
-      .withFilter(_._2.isEmpty)
-      .map(_._1)
-      .toList
-
-    fields.count(_._2.isDefined) match {
+    fields(key, data).count(_._2.isDefined) match {
       case 3 =>
-        formatDate(key, data).left.map {
-          _.map(_.copy(key = key, args = args))
+        if (illegalFields(key, data).nonEmpty) {
+          Left(List() ++ illegalErrors(key, data, invalidKey, args))
+        } else {
+          formatDate(key, data)
         }
       case 2 =>
-        Left(List(FormError(key, requiredKey, missingFields ++ args)))
+       leftErrors(key, data, requiredKey, invalidKey, args)
       case 1 =>
-        Left(List(FormError(key, twoRequiredKey, missingFields ++ args)))
+        leftErrors(key, data, twoRequiredKey, invalidKey, args)
       case _ =>
-        Left(List(FormError(key, allRequiredKey, args)))
+        leftErrors(key, data, allRequiredKey, invalidKey, args)
     }
+
   }
 
   override def unbind(key: String, value: LocalDate): Map[String, String] =

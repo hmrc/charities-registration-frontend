@@ -96,13 +96,13 @@ class DateBehaviours extends FieldBehaviours {
     }
   }
 
-  def mandatoryDateField(form: Form[_], key: String, requiredAllKey: String, errorArgs: Seq[String] = Seq.empty): Unit = {
+  def mandatoryDateField(form: Form[_], key: String, requiredAllKey: String, errorArgs: Seq[String] = Seq("day", "month", "year")): Unit = {
 
     "fail to bind an empty date" in {
 
       val result = form.bind(Map.empty[String, String])
 
-      result.errors must contain only FormError(key, requiredAllKey, errorArgs)
+      result.errors must contain only FormError(s"$key.day", requiredAllKey, errorArgs)
     }
   }
 }

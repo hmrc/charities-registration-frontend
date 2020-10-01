@@ -35,7 +35,7 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
       behave like dayMonthField(form, "date", validData)
 
-      behave like mandatoryDateField(form, "date", "accountingPeriodEndDate.error.required.all")
+      behave like mandatoryDateField(form, "date", "accountingPeriodEndDate.error.required.all", Seq("day", "month"))
 
     }
   }

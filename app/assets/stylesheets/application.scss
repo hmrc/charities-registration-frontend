@@ -34,3 +34,7 @@ $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
 .autocomplete__wrapper{
   max-width: 52ex + 1ex;
 }
+
+.govuk-form-group--error .autocomplete__input {
+  border: 2px solid #d4351c;
+}

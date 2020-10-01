@@ -1103,6 +1103,30 @@ isOtherOfficialNino.error.required = Select yes if they have a National Insuranc
 
 isOtherOfficialNino.checkYourAnswersLabel = Has a National Insurance number
 
+# Other official Passport Page Messages
+# ----------------------------------------------------------
+otherOfficialsPassport.title = What are the other official’s passport or national identity card details?
+otherOfficialsPassport.heading = What are {0}’s passport or national identity card details?
+otherOfficialsPassport.passportNumber.label = Passport or national identity card number
+otherOfficialsPassport.hint = For example, 21 3 2015.
+otherOfficialsPassport.passportNumber.error.format = The other official’s passport or national identity card number must not include the following characters: & ( ) : @
+otherOfficialsPassport.passportNumber.error.length = The other official’s passport or national identity card number must be 30 characters or fewer
+otherOfficialsPassport.passportNumber.error.required = Enter the other official’s passport or national identity card number
+otherOfficialsPassport.country.label = Country of issue
+otherOfficialsPassport.country.hint = Select a country of issue
+otherOfficialsPassport.country.error.length = The country of issue must be 50 characters or fewer
+otherOfficialsPassport.country.error.required = Enter the country of issue
+otherOfficialsPassport.expiryDate.label = Expiry date
+otherOfficialsPassport.error.minimum = The expiry date must be in the future
+otherOfficialsPassport.error.invalid = The expiry date must be a real date
+otherOfficialsPassport.error.required.all = Enter the expiry date
+otherOfficialsPassport.error.required.two = Enter {0} and {1} of expiry date
+otherOfficialsPassport.error.required.one = Enter {0} of expiry date
+
+otherOfficialsPassport.passportNumber.checkYourAnswersLabel = Passport or national identity card number
+otherOfficialsPassport.country.checkYourAnswersLabel = Country of issue
+otherOfficialsPassport.expiryDate.checkYourAnswersLabel = Expiry date
+
 # Other Official Nino Messages
 # ----------------------------------------------------------
 otherOfficialsNino.title = What is the other official’s National Insurance number

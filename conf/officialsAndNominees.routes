@@ -158,6 +158,11 @@ POST       /nominee-name                                                        
 GET        /nominee-name/change                                                 controllers.nominees.IndividualNomineeNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-name/change                                                 controllers.nominees.IndividualNomineeNameController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-organisation-name                                           controllers.nominees.WhatIsTheNameOfTheOrganisationController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-organisation-name                                           controllers.nominees.WhatIsTheNameOfTheOrganisationController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-organisation-name/change                                    controllers.nominees.WhatIsTheNameOfTheOrganisationController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-organisation-name/change                                    controllers.nominees.WhatIsTheNameOfTheOrganisationController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()
 

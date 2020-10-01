@@ -16,14 +16,27 @@
 
 package pages.nominees
 
-import models.Name
-import pages.QuestionPage
-import play.api.libs.json.{JsPath, __}
+import java.time.LocalDate
 
-case object IndividualNomineeNamePage extends QuestionPage[Name] {
+import org.scalacheck.Arbitrary
+import pages.behaviours.PageBehaviours
 
-  override def path: JsPath =  NomineeId.path \ toString
+class IndividualNomineeDOBPageSpec extends PageBehaviours{
 
-  override lazy val toString: String = "individualName"
+  private val year = 2002
+  private val month = 1
+  private val dayInMonth = 1
+
+  implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
+    LocalDate.of(year, month, dayInMonth)
+  }
+
+  "IndividualNomineeDOBPage" must {
+
+    beRetrievable[LocalDate](IndividualNomineeDOBPage)
+
+    beSettable[LocalDate](IndividualNomineeDOBPage)
+
+    beRemovable[LocalDate](IndividualNomineeDOBPage)
+  }
 }
-

@@ -16,17 +16,20 @@
 
 package navigation
 
+import java.time.LocalDate
+
 import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
 import controllers.routes
 import models._
 import pages.IndexPage
-import pages.nominees.{ChooseNomineePage, IndividualNomineeNamePage, IsAuthoriseNomineePage, NomineeDetailsSummaryPage, WhatIsTheNameOfOrganisationPage}
+import pages.nominees._
 
 class NomineesNavigatorSpec extends SpecBase {
 
   private val navigator: NomineesNavigator = inject[NomineesNavigator]
   private val nomineeName: Name = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+  private val minYear = 16
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -83,6 +86,21 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to What is the nominee's date of birth page when clicked continue button" in {
           navigator.nextPage(IndividualNomineeNamePage, NormalMode,
             emptyUserAnswers.set(IndividualNomineeNamePage, nomineeName).success.value) mustBe
+            nomineesRoutes.IndividualNomineeDOBController.onPageLoad(NormalMode)
+
+        }
+      }
+
+      "from the IndividualNomineeDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineeDOBPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to What is the nominee's phone number page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineeDOBPage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineeDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
 
         }
@@ -166,6 +184,21 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(IndividualNomineeNamePage, CheckMode,
             emptyUserAnswers.set(IndividualNomineeNamePage, nomineeName).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IndividualNomineeDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineeDOBPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to What is the nominee's phone number page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineeDOBPage, CheckMode,
+            emptyUserAnswers.set(IndividualNomineeDOBPage,LocalDate.now().minusYears(minYear)).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+
         }
       }
 

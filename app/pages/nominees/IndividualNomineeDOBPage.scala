@@ -16,14 +16,14 @@
 
 package pages.nominees
 
-import models.Name
-import pages.QuestionPage
-import play.api.libs.json.{JsPath, __}
+import java.time.LocalDate
 
-case object IndividualNomineeNamePage extends QuestionPage[Name] {
+import pages.QuestionPage
+import play.api.libs.json.JsPath
+
+case object IndividualNomineeDOBPage extends QuestionPage[LocalDate] {
 
   override def path: JsPath =  NomineeId.path \ toString
 
-  override lazy val toString: String = "individualName"
+  override lazy val toString: String = "individualDOB"
 }
-

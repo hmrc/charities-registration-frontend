@@ -1223,14 +1223,6 @@ individualNomineeName.lastName.error.length = The nominee’s last name must be 
 individualNomineeName.lastName.error.format = The nominee’s last name must not include the following characters: & ( ) : @
 individualNomineeName.title.error.required = Select the nominee’s title
 
-# What is the name of the organisation Page Messages
-# ----------------------------------------------------------
-nameOfOrganisation.title = What is the name of the organisation?
-nameOfOrganisation.heading = What is the name of the organisation?
-nameOfOrganisation.error.required = Enter the name of the organisation
-nameOfOrganisation.error.length = The name of the organisation must be 160 characters or fewer
-nameOfOrganisation.error.format = The name of the organisation must not include the following characters: & ( ) : @
-
 # Charity Nominee Individual DOB Page Messages
 # ----------------------------------------------------------
 individualNomineeDOB.title = What is the nominee’s date of birth?
@@ -1241,6 +1233,25 @@ individualNomineeDOB.error.required.two = Enter their {0} and {1} of birth
 individualNomineeDOB.error.required.one = Enter their {0} of birth
 individualNomineeDOB.error.invalid = Their birth date must be a real date.
 individualNomineeDOB.error.minimum = The nominee must be at least 16 years old
+
+# Charity Nominee Individual Phone number Page Messages
+# ----------------------------------------------------------
+individualNomineesPhoneNumber.title = What is the nominee’s phone number?
+individualNomineesPhoneNumber.heading = What is {0}’s phone number?
+individualNomineesPhoneNumber.mainPhoneNumber.label = Main phone number
+individualNomineesPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+individualNomineesPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
+individualNomineesPhoneNumber.alternativePhoneNumber.label = Alternative phone number
+individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
+individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Enter their alternative phone number
+
+# What is the name of the organisation Page Messages
+# ----------------------------------------------------------
+nameOfOrganisation.title = What is the name of the organisation?
+nameOfOrganisation.heading = What is the name of the organisation?
+nameOfOrganisation.error.required = Enter the name of the organisation
+nameOfOrganisation.error.length = The name of the organisation must be 160 characters or fewer
+nameOfOrganisation.error.format = The name of the organisation must not include the following characters: & ( ) : @
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

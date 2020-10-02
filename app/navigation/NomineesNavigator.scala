@@ -46,12 +46,17 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
+    case IndividualNomineeDOBPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeDOBPage) match {
+      case Some(_) => nomineeRoutes.IndividualNomineesPhoneNumberController.onPageLoad(NormalMode)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IndividualNomineesPhoneNumberPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPhoneNumberPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IndividualNomineeDOBPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeDOBPage) match {
+    case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -79,12 +84,17 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
+    case IndividualNomineeDOBPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeDOBPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IndividualNomineeDOBPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeDOBPage) match {
+    case IndividualNomineesPhoneNumberPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPhoneNumberPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

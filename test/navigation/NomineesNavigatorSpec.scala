@@ -29,6 +29,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
   private val navigator: NomineesNavigator = inject[NomineesNavigator]
   private val nomineeName: Name = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+  private val IndividualNomineePhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", "07700 900 982")
   private val minYear = 16
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
@@ -101,7 +102,22 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to What is the nominee's phone number page when clicked continue button" in {
           navigator.nextPage(IndividualNomineeDOBPage, NormalMode,
             emptyUserAnswers.set(IndividualNomineeDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IndividualNomineesPhoneNumberController.onPageLoad(NormalMode)
+
+        }
+      }
+
+      "from the IndividualNomineePhoneNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineesPhoneNumberPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Does the nominee have national insurance page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineesPhoneNumberPage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineesPhoneNumberPage, IndividualNomineePhoneNumber).success.value) mustBe
+           routes.DeadEndController.onPageLoad()
 
         }
       }
@@ -198,6 +214,21 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(IndividualNomineeDOBPage, CheckMode,
             emptyUserAnswers.set(IndividualNomineeDOBPage,LocalDate.now().minusYears(minYear)).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
+
+        }
+      }
+
+      "from the IndividualNomineePhoneNumberPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineesPhoneNumberPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Does the nominee have national insurance page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineesPhoneNumberPage, CheckMode,
+            emptyUserAnswers.set(IndividualNomineesPhoneNumberPage, IndividualNomineePhoneNumber).success.value) mustBe
+            routes.DeadEndController.onPageLoad()
 
         }
       }

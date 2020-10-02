@@ -60,7 +60,12 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
 
     case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
       case Some(true) => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, index)
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(NormalMode, index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPassportPage(index)) match {
+      case Some(_) => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

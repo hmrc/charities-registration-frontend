@@ -24,7 +24,7 @@ import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.authOfficials.OfficialsPosition
 import models.addressLookup.{AddressModel, CountryModel}
-import models.{CheckMode, Index, Name, NormalMode, PhoneNumber, PlaybackMode, SelectTitle}
+import models.{CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials._
@@ -111,10 +111,26 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, Index(0))
         }
 
-        "go to the DeadEnd page when no is selected" in {
+        "go to the OtherOfficialsPassport page when no is selected" in {
           navigator.nextPage(IsOtherOfficialNinoPage(0), NormalMode,
             emptyUserAnswers.set(IsOtherOfficialNinoPage(0),false).success.value) mustBe
-            routes.DeadEndController.onPageLoad()
+            otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(NormalMode, Index(0))
+        }
+      }
+
+      "from the OtherOfficialsPassportPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsPassportPage(0), NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [Full name]’s home address? when clicked continue button" in {
+          navigator.nextPage(OtherOfficialsPassportPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+              .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("1223", "gb", LocalDate.now())))
+              .success.value) mustBe
+            addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode)
         }
       }
 

@@ -159,7 +159,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               routes.SessionExpiredController.onPageLoad()
           }
 
-          "go to the dead end page when clicked continue button" in {
+          "go to the AddressLookup page when clicked continue button" in {
             navigator.nextPage(AuthorisedOfficialsPassportPage(index), NormalMode,
               emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
                 .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))

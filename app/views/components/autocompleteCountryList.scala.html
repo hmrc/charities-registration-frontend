@@ -30,7 +30,7 @@
 
 @if(isPageHeading) {
     <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--xl" for=@name>
+        <label class="govuk-label govuk-label--xl govuk-input--error" for=@name>
             @messages(label, headingMessageArgs: _*)
         </label>
     </h1>
@@ -40,7 +40,6 @@
     </label>
 }
 @if(isPageHint){<span id="@id-hint" class="govuk-hint">@hint</span>}
-
 @select(hmrcComponent.Select(
     id = id,
     name = name,

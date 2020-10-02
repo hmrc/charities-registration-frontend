@@ -1103,6 +1103,30 @@ isOtherOfficialNino.error.required = (W)Select yes if they have a National Insur
 
 isOtherOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
+# Other official Passport Page Messages
+# ----------------------------------------------------------
+otherOfficialsPassport.title = (W)What are the other official’s passport or national identity card details?(W)
+otherOfficialsPassport.heading = (W)What are {0}’s passport or national identity card details?(W)
+otherOfficialsPassport.passportNumber.label = (W)Passport or national identity card number(W)
+otherOfficialsPassport.hint = (W)For example, 21 3 2015.(W)
+otherOfficialsPassport.passportNumber.error.format= (W)The other official’s passport or national identity card number must not include the following characters: & ( ) : @(W)
+otherOfficialsPassport.passportNumber.error.length = (W)The other official’s passport or national identity card number must be 30 characters or fewer(W)
+otherOfficialsPassport.passportNumber.error.required = (W)Enter the other official’s passport or national identity card number(W)
+otherOfficialsPassport.country.label = (W)Country of issue(W)
+otherOfficialsPassport.country.hint = (W)Select a country of issue(W)
+otherOfficialsPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
+otherOfficialsPassport.country.error.required = (W)Enter the country of issue(W)
+otherOfficialsPassport.expiryDate.label = (W)Expiry date(W)
+otherOfficialsPassport.error.minimum = (W)The expiry date must be in the future(W)
+otherOfficialsPassport.error.invalid = (W)The expiry date must be a real date(W)
+otherOfficialsPassport.error.required.all = (W)Enter the expiry date(W)
+otherOfficialsPassport.error.required.two = (W)Enter {0} and {1} of expiry date(W)
+otherOfficialsPassport.error.required.one = (W)Enter {0} of expiry date(W)
+
+otherOfficialsPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
+otherOfficialsPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
+otherOfficialsPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
+
 # Other Official Nino Messages
 # ----------------------------------------------------------
 otherOfficialsNino.title = (W)What is the other official’s National Insurance number(W)

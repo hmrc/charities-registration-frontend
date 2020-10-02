@@ -117,8 +117,28 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to Does the nominee have national insurance page when clicked continue button" in {
           navigator.nextPage(IndividualNomineesPhoneNumberPage, NormalMode,
             emptyUserAnswers.set(IndividualNomineesPhoneNumberPage, IndividualNomineePhoneNumber).success.value) mustBe
-           routes.DeadEndController.onPageLoad()
+            nomineesRoutes.IsIndividualNomineeNinoController.onPageLoad(NormalMode)
 
+        }
+      }
+
+      "from the IsIndividualNomineeNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Nominee National insurance number page when yes selected" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, NormalMode,
+            emptyUserAnswers.set(IsIndividualNomineeNinoPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the nominee passport or national identity card details page when No is selected" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, NormalMode,
+            emptyUserAnswers.set(IsIndividualNomineeNinoPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 
@@ -230,6 +250,26 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(IndividualNomineesPhoneNumberPage, IndividualNomineePhoneNumber).success.value) mustBe
             routes.DeadEndController.onPageLoad()
 
+        }
+      }
+
+      "from the IsIndividualNomineeNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Nominee National insurance number page when yes selected" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineeNinoPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the nominee passport or national identity card details page when No is selected" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineeNinoPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 

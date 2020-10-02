@@ -16,7 +16,11 @@
 
 package pages.authorisedOfficials
 
+import java.time.LocalDate
+
+import models.{Passport, UserAnswers}
 import pages.behaviours.PageBehaviours
+import play.api.libs.json.Json
 
 class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
@@ -28,4 +32,33 @@ class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
     beRemovable[Boolean](IsAuthorisedOfficialNinoPage(0))
   }
+
+  "cleanup" when {
+
+    val userAnswer = UserAnswers("id", Json.obj()).set(IsAuthorisedOfficialNinoPage(0),true)
+      .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123123", "UK", LocalDate.now())))
+      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AB111111A")).success.value
+
+    "setting IsAuthorisedOfficialNinoPage to false" must {
+
+      val result = userAnswer.set(IsAuthorisedOfficialNinoPage(0),false).success.value
+
+
+      "remove AuthorisedOfficialsNinoPage" in {
+
+        result.get(AuthorisedOfficialsNinoPage(0)) mustNot be(defined)
+      }
+    }
+
+    "setting IsAuthorisedOfficialNinoPage to true" must {
+
+      val result = userAnswer.set(IsAuthorisedOfficialNinoPage(0),true).success.value
+
+      "remove AuthorisedOfficialsPassportPage" in {
+
+        result.get(AuthorisedOfficialsPassportPage(0)) mustNot be(defined)
+      }
+    }
+  }
+
 }

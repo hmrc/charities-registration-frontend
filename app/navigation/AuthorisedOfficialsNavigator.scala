@@ -187,7 +187,10 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case IsAuthorisedOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(true) if userAnswers.get(AuthorisedOfficialsNinoPage(index)).isDefined => redirectToPlaybackPage(index)
+      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(PlaybackMode, index)
+      case Some(false) if userAnswers.get(AuthorisedOfficialsPassportPage(index)).isDefined => redirectToPlaybackPage(index)
+      case Some(false) => authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -197,7 +200,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
-      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, PlaybackMode)
+      case Some(_) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -207,7 +210,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case IsAuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(true) => addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, PlaybackMode)
       case Some(false) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

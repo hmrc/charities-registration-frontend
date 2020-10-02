@@ -14,26 +14,14 @@
  * limitations under the License.
  */
 
-package pages.otherOfficials
+package pages.nominees
 
-import java.time.LocalDate
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import models.Passport
-import org.scalacheck.Arbitrary
-import pages.behaviours.PageBehaviours
+case object IndividualNomineesNinoPage extends QuestionPage[String] {
 
-class OtherOfficialsPassportPageSpec extends PageBehaviours {
+  override def path: JsPath =  NomineeId.path \ toString
 
-  "OtherOfficialsPassportPage" must {
-
-    implicit lazy val arbitraryOtherOfficialsPassport: Arbitrary[Passport] = Arbitrary {
-      Passport("123", "gb", LocalDate.now())
-    }
-
-    beRetrievable[Passport](OtherOfficialsPassportPage(0))
-
-    beSettable[Passport](OtherOfficialsPassportPage(0))
-
-    beRemovable[Passport](OtherOfficialsPassportPage(0))
-  }
+  override lazy val toString: String = "individualNino"
 }

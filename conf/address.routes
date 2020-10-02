@@ -26,3 +26,10 @@ GET        /:index/other-official-address-lookup/playback-change                
 GET        /:index/other-official-address-callback/playback-change               controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
 GET        /:index/other-official-address-lookup/change                          controllers.addressLookup.OtherOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
 GET        /:index/other-official-address-callback/change                        controllers.addressLookup.OtherOfficialsAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)
+
+GET        /:index/other-previous-address-lookup                                 controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.initializeJourney(index: Index, mode: Mode = NormalMode)
+GET        /:index/other-previous-address-callback                               controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = NormalMode, id: Option[String] ?= None)
+GET        /:index/other-previous-address-lookup/playback-change                 controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.initializeJourney(index: Index, mode: Mode = PlaybackMode)
+GET        /:index/other-previous-address-callback/playback-change               controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
+GET        /:index/other-previous-address-lookup/change                          controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
+GET        /:index/other-previous-address-callback/change                        controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)

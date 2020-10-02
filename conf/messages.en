@@ -1001,6 +1001,25 @@ authorisedOfficialPreviousAddress.confirmPage.changeLinkText = Change authorised
 
 authorisedOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
 
+# Authorised Official Previous Address Messages
+# ----------------------------------------------------------
+authorisedOfficialPreviousAddress.lookupPage.title = What is the authorised official’s previous home address? - Officials and nominees
+authorisedOfficialPreviousAddress.lookupPage.heading = What is {0}’s previous home address?
+authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = Authorised official’s previous home address does not have a UK postcode
+
+authorisedOfficialPreviousAddress.selectPage.title = What is the authorised official’s full previous home address? - Officials and nominees
+authorisedOfficialPreviousAddress.selectPage.heading = What is {0}’s full previous home address?
+authorisedOfficialPreviousAddress.selectPage.editAddressLinkText = Enter authorised official’s full previous home address manually
+
+authorisedOfficialPreviousAddress.editPage.title = What is the authorised official’s full previous home address? - Officials and nominees
+authorisedOfficialPreviousAddress.editPage.heading = What is {0}’s full previous home address?
+
+authorisedOfficialPreviousAddress.confirmPage.title = Confirm the authorised official’s previous home address - Officials and nominees
+authorisedOfficialPreviousAddress.confirmPage.heading = Confirm {0}’s previous home address
+authorisedOfficialPreviousAddress.confirmPage.changeLinkText = Change authorised official’s previous home address
+
+authorisedOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
+
 # You have added one Authorised Official Page Messages
 # ----------------------------------------------------------
 addedOneAuthorisedOfficial.checkYourAnswers.title = You have added one authorised official
@@ -1158,11 +1177,30 @@ otherOfficialAddress.checkYourAnswersLabel = Home address
 
 # Other Official Previous Address Messages
 # ----------------------------------------------------------
-otherOfficialsPreviousAddress.title = Has the other official’s address changed in the last 12 months?
-otherOfficialsPreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
-otherOfficialsPreviousAddress.error.required = Select yes if their address has changed in the last 12 months
+isOtherOfficialsPreviousAddress.title = Has the other official’s address changed in the last 12 months?
+isOtherOfficialsPreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
+isOtherOfficialsPreviousAddress.error.required = Select yes if their address has changed in the last 12 months
 
-otherOfficialsPreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
+isOtherOfficialsPreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
+
+# Other Official Previous Address Messages
+# ----------------------------------------------------------
+otherOfficialPreviousAddress.lookupPage.title = What is the other official’s previous home address? - Officials and nominees
+otherOfficialPreviousAddress.lookupPage.heading = What is {0}’s previous home address?
+otherOfficialPreviousAddress.lookupPage.manualAddressLinkText = Other official’s previous home address does not have a UK postcode
+
+otherOfficialPreviousAddress.selectPage.title = What is the other official’s full previous home address? - Officials and nominees
+otherOfficialPreviousAddress.selectPage.heading = What is {0}’s full previous home address?
+otherOfficialPreviousAddress.selectPage.editAddressLinkText = Enter other official’s full previous home address manually
+
+otherOfficialPreviousAddress.editPage.title = What is the other official’s full previous home address? - Officials and nominees
+otherOfficialPreviousAddress.editPage.heading = What is {0}’s full previous home address?
+
+otherOfficialPreviousAddress.confirmPage.title = Confirm the other official’s previous home address - Officials and nominees
+otherOfficialPreviousAddress.confirmPage.heading = Confirm {0}’s previous home address
+otherOfficialPreviousAddress.confirmPage.changeLinkText = Change other official’s previous home address
+
+otherOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
 
 # You have added one Other Official Page Messages
 # ----------------------------------------------------------

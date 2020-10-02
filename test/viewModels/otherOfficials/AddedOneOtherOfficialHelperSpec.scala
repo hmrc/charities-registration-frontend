@@ -24,7 +24,7 @@ import base.SpecBase
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
-import pages.addressLookup.OtherOfficialAddressLookupPage
+import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
 import viewmodels.SummaryListRowHelper
 import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
@@ -176,10 +176,26 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
 
         helper(otherOfficialDetails, 0).otherOfficialHadPreviousAddressRow mustBe Some(
           summaryListRow(
-            messages("otherOfficialsPreviousAddress.checkYourAnswersLabel"),
+            messages("isOtherOfficialsPreviousAddress.checkYourAnswersLabel"),
             s"${messages("site.no")}",
-            Some(messages("otherOfficialsPreviousAddress.checkYourAnswersLabel")),
-            otherOfficials.OtherOfficialsPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            Some(messages("isOtherOfficialsPreviousAddress.checkYourAnswersLabel")),
+            otherOfficials.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
+        )
+      }
+    }
+
+    "For the Other Official previous address answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper(otherOfficialDetails.set(OtherOfficialPreviousAddressLookupPage(0),
+          ConfirmedAddressConstants.address).success.value, 0).otherOfficialPreviousAddressRow mustBe Some(
+          summaryListRow(
+            messages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
+            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Some(messages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
+            controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
         )
       }

@@ -32,7 +32,7 @@ import views.html.common.IsPreviousAddressView
 
 import scala.concurrent.Future
 
-class OtherOfficialsPreviousAddressController @Inject()(
+class IsOtherOfficialsPreviousAddressController @Inject()(
    val identify: AuthIdentifierAction,
    val getData: UserDataRetrievalAction,
    val requireData: DataRequiredAction,
@@ -43,7 +43,7 @@ class OtherOfficialsPreviousAddressController @Inject()(
    override val view: IsPreviousAddressView
  )(implicit appConfig: FrontendAppConfig) extends IsPreviousAddressController {
 
-  override val messagePrefix: String = "otherOfficialsPreviousAddress"
+  override val messagePrefix: String = "isOtherOfficialsPreviousAddress"
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
@@ -52,7 +52,7 @@ class OtherOfficialsPreviousAddressController @Inject()(
       getFullName(OtherOfficialsNamePage(index)) { officialsName =>
 
         Future.successful(getView(IsOtherOfficialsPreviousAddressPage(index), form, officialsName,
-          controllers.otherOfficials.routes.OtherOfficialsPreviousAddressController.onSubmit(mode, index)))
+          controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onSubmit(mode, index)))
       }
   }
 
@@ -62,7 +62,7 @@ class OtherOfficialsPreviousAddressController @Inject()(
       getFullName(OtherOfficialsNamePage(index)) { officialsName =>
 
         postView(mode, IsOtherOfficialsPreviousAddressPage(index), form, officialsName, Section8Page,
-          controllers.otherOfficials.routes.OtherOfficialsPreviousAddressController.onSubmit(mode, index))
+          controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onSubmit(mode, index))
       }
   }
 }

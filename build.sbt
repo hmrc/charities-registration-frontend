@@ -5,21 +5,6 @@ import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 lazy val appName: String = "charities-registration-frontend"
 
-val akkaVersion     = "2.5.23"
-val akkaHttpVersion = "10.0.15"
-
-dependencyOverrides += "com.typesafe.akka" %% "akka-stream"    % akkaVersion
-
-dependencyOverrides += "com.typesafe.akka" %% "akka-protobuf"  % akkaVersion
-
-dependencyOverrides += "com.typesafe.akka" %% "akka-slf4j"     % akkaVersion
-
-dependencyOverrides += "com.typesafe.akka" %% "akka-actor"     % akkaVersion
-
-dependencyOverrides += "com.typesafe.akka" %% "akka-http-core" % akkaHttpVersion
-
-resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/"
-
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin, SbtArtifactory)
   .disablePlugins(JUnitXmlReportPlugin)
@@ -38,7 +23,7 @@ lazy val root = (project in file("."))
   )
   .settings(majorVersion := 0)
   .settings(
-    scalaVersion := "2.12.10",
+    scalaVersion := "2.12.12",
     name := appName,
     RoutesKeys.routesImport += "models._",
     PlayKeys.playDefaultPort := 9457,
@@ -62,8 +47,10 @@ lazy val root = (project in file("."))
     retrieveManaged := true,
     evictionWarningOptions in update :=
       EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
-    resolvers ++= Seq(
+    resolvers := Seq(
       Resolver.bintrayRepo("hmrc", "releases"),
+      Resolver.bintrayRepo("hmrc", "release-candidates"),
+      Resolver.typesafeRepo("releases"),
       Resolver.jcenterRepo
     ),
     Concat.groups := Seq(

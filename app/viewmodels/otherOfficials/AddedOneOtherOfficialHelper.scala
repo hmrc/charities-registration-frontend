@@ -18,7 +18,7 @@ package viewmodels.otherOfficials
 
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{Index, Mode, UserAnswers}
-import pages.addressLookup.OtherOfficialAddressLookupPage
+import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
@@ -73,8 +73,13 @@ class AddedOneOtherOfficialHelper(index: Index, mode: Mode)(override val userAns
 
   def otherOfficialHadPreviousAddressRow: Option[SummaryListRow] =
     answerPrefix(IsOtherOfficialsPreviousAddressPage(index),
-                 otherOfficialRoutes.OtherOfficialsPreviousAddressController.onPageLoad(mode, index),
-                 messagePrefix = "otherOfficialsPreviousAddress")
+                 otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(mode, index),
+                 messagePrefix = "isOtherOfficialsPreviousAddress")
+
+  def otherOfficialPreviousAddressRow: Option[SummaryListRow] =
+    answerAddress(OtherOfficialPreviousAddressLookupPage(index),
+      controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, mode),
+      messagePrefix = "otherOfficialPreviousAddress")
 
 
   val rows: Seq[SummaryListRow] = Seq(
@@ -86,7 +91,8 @@ class AddedOneOtherOfficialHelper(index: Index, mode: Mode)(override val userAns
     otherOfficialHasNinoRow,
     otherOfficialNinoRow,
     otherOfficialAddressRow,
-    otherOfficialHadPreviousAddressRow
+    otherOfficialHadPreviousAddressRow,
+    otherOfficialPreviousAddressRow
   ).flatten
 
 }

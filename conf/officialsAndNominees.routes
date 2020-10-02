@@ -185,5 +185,10 @@ POST       /nominee-contact-details                                             
 GET        /nominee-contact-details/change                                      controllers.nominees.IndividualNomineesPhoneNumberController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-contact-details/change                                      controllers.nominees.IndividualNomineesPhoneNumberController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-enter-national-insurance                                    controllers.nominees.IndividualNomineesNinoController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-enter-national-insurance                                    controllers.nominees.IndividualNomineesNinoController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-enter-national-insurance/change                             controllers.nominees.IndividualNomineesNinoController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-enter-national-insurance/change                             controllers.nominees.IndividualNomineesNinoController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

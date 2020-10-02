@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package pages.otherOfficials
+package pages.nominees
 
-import java.time.LocalDate
-
-import models.Passport
-import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class OtherOfficialsPassportPageSpec extends PageBehaviours {
+class IndividualNomineerNinoPageSpec extends PageBehaviours{
 
-  "OtherOfficialsPassportPage" must {
+  "IndividualNomineeNinoPage" must {
 
-    implicit lazy val arbitraryOtherOfficialsPassport: Arbitrary[Passport] = Arbitrary {
-      Passport("123", "gb", LocalDate.now())
-    }
+    beRetrievable[String](IndividualNomineesNinoPage)
 
-    beRetrievable[Passport](OtherOfficialsPassportPage(0))
+    beSettable[String](IndividualNomineesNinoPage)
 
-    beSettable[Passport](OtherOfficialsPassportPage(0))
-
-    beRemovable[Passport](OtherOfficialsPassportPage(0))
+    beRemovable[String](IndividualNomineesNinoPage)
   }
 }

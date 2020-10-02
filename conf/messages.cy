@@ -1308,6 +1308,22 @@ individualNomineesPhoneNumber.alternativePhoneNumber.label = (W)Alternative phon
 individualNomineesPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019(W)
 individualNomineesPhoneNumber.alternativePhoneNumber.error.required = (W)Enter their alternative phone number(W)
 
+# Charity Nominee Individual Nino Page Messages
+# ----------------------------------------------------------
+isIndividualNomineeNino.title = (W)Does the nominee have a National Insurance number?(W)
+isIndividualNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
+isIndividualNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
+
+# Charity Nominee Individual Nino Messages
+# ----------------------------------------------------------
+individualNomineesNino.title = (W)What is the nominee’s national insurance number?(W)
+individualNomineesNino.heading = (W)What is {0}’s National Insurance number?(W)
+individualNomineesNino.hint = (W)For example, QQ 12 34 56 C(W)
+individualNomineesNino.error.required = (W)Enter their National Insurance number(W)
+individualNomineesNino.error.format = (W)Enter a National Insurance number in the correct format(W)
+
+individualNomineesNino.checkYourAnswersLabel = National Insurance number
+
 # What is the name of the organisation Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = (W)What is the name of the organisation?(W)
@@ -1315,12 +1331,6 @@ nameOfOrganisation.heading = (W)What is the name of the organisation?(W)
 nameOfOrganisation.error.required = (W)Enter the name of the organisation(W)
 nameOfOrganisation.error.length = (W)The name of the organisation must be 160 characters or fewer(W)
 nameOfOrganisation.error.format = (W)The name of the organisation must not include the following characters: & ( ) : @(W)
-
-# Charity Nominee Individual Nino Page Messages
-# ----------------------------------------------------------
-isIndividualNomineeNino.title = (W)Does the nominee have a National Insurance number?(W)
-isIndividualNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
-isIndividualNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

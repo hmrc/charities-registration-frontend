@@ -1307,6 +1307,22 @@ individualNomineesPhoneNumber.alternativePhoneNumber.label = Alternative phone n
 individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
 individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Enter their alternative phone number
 
+# Charity Nominee Individual Nino Page Messages
+# ----------------------------------------------------------
+isIndividualNomineeNino.title = Does the nominee have a National Insurance number?
+isIndividualNomineeNino.heading = Does {0} have a National Insurance number?
+isIndividualNomineeNino.error.required = Select yes if they have a National Insurance number
+
+# Charity Nominee Individual Nino Messages
+# ----------------------------------------------------------
+individualNomineesNino.title = What is the nominee’s national insurance number?
+individualNomineesNino.heading = What is {0}’s National Insurance number?
+individualNomineesNino.hint = For example, QQ 12 34 56 C
+individualNomineesNino.error.required = Enter their National Insurance number
+individualNomineesNino.error.format = Enter a National Insurance number in the correct format
+
+individualNomineesNino.checkYourAnswersLabel = National Insurance number
+
 # What is the name of the organisation Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = What is the name of the organisation?
@@ -1314,12 +1330,6 @@ nameOfOrganisation.heading = What is the name of the organisation?
 nameOfOrganisation.error.required = Enter the name of the organisation
 nameOfOrganisation.error.length = The name of the organisation must be 160 characters or fewer
 nameOfOrganisation.error.format = The name of the organisation must not include the following characters: & ( ) : @
-
-# Charity Nominee Individual Nino Page Messages
-# ----------------------------------------------------------
-isIndividualNomineeNino.title = Does the nominee have a National Insurance number?
-isIndividualNomineeNino.heading = Does {0} have a National Insurance number?
-isIndividualNomineeNino.error.required = Select yes if they have a National Insurance number
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

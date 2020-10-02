@@ -16,12 +16,21 @@
 
 package pages.authorisedOfficials
 
+import models.UserAnswers
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case class IsAuthorisedOfficialNinoPage(index:Int) extends QuestionPage[Boolean] {
 
   override def path: JsPath =  AuthorisedOfficialsId(index).path \ toString
 
   override lazy val toString: String = "isOfficialNino"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
+    value match {
+      case Some(true)  => userAnswers.remove(AuthorisedOfficialsPassportPage(index))
+      case _ => userAnswers.remove(AuthorisedOfficialsNinoPage(index))
+    }
 }

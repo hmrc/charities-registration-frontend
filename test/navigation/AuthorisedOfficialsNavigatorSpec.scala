@@ -539,11 +539,40 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 routes.SessionExpiredController.onPageLoad()
             }
 
-            "go to the summary page when continue button is clicked" in {
+            "go to the AuthorisedOfficialsNINOPage if Yes is selected and previously the user's passport details were provided" in {
               navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true)
-                  .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true)).success.value) mustBe
-                routes.DeadEndController.onPageLoad() // TODO when next page is ready
+                  .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+                authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(PlaybackMode, index)
+            }
+
+            "go to the AuthorisedOfficialsPassportPage if No is selected and previously the user's NINO details were provided" in {
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), false)
+                  .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
+                authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, index)
+            }
+
+            "go to the Playback page when Yes is selected and previously the user's NINO details were provided" in {
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true)
+                  .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
+                goToPlaybackPage(index)
+            }
+
+            "go to the Playback page when No is selected and previously the user's passport details were provided" in {
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), false)
+                  .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+                goToPlaybackPage(index)
             }
           }
 
@@ -569,12 +598,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 routes.SessionExpiredController.onPageLoad()
             }
 
-            "go to the dead end page when clicked continue button" in {
+            "go to the Playback page when new passport is provided" in {
               navigator.nextPage(AuthorisedOfficialsPassportPage(index), PlaybackMode,
                 emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
                   .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))
                   .success.value) mustBe
-                addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, PlaybackMode)
+                goToPlaybackPage(index)
             }
           }
 
@@ -604,7 +633,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), PlaybackMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), true)
                   .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true)).success.value) mustBe
-                routes.DeadEndController.onPageLoad() // TODO when next page is ready
+                addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, PlaybackMode)
             }
 
             "go to the You have added one authorised official page when no is selected" in {

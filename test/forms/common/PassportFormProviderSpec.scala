@@ -108,14 +108,14 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
 
     behave like mandatoryField(
       form,
-      fieldName,
-      requiredError = FormError(fieldName, s"$messagePrefix.error.required.all"))
+      s"$fieldName.day",
+      requiredError = FormError(s"$fieldName.day", s"$messagePrefix.error.required.all", Seq("day", "month", "year")))
 
     "fail to bind an empty date" in {
 
       val result = form.bind(Map("passportNumber" -> "GB123456", "country" -> "GB"))
 
-      result.errors must contain only FormError(fieldName, s"$messagePrefix.error.required.all", Seq())
+      result.errors must contain only FormError(s"$fieldName.day", s"$messagePrefix.error.required.all", Seq("day", "month", "year"))
     }
 
     s"fail to bind a today's date" in {

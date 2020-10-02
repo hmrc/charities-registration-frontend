@@ -16,6 +16,7 @@
 
 @import play.api.mvc.Call
 @import views.ViewUtils._
+@import scala.util.Try
 @import config.FrontendAppConfig
 
 @this(
@@ -35,7 +36,7 @@
 
     @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
 
-        @errorSummary(form.errors)
+        @errorSummary(form.errors, Try(form.error("date").get.args.head.toString).toOption)
 
         @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(fullName)) {
 

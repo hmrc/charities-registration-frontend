@@ -17,6 +17,7 @@
 @import play.api.mvc.Call
 @import views.ViewUtils._
 @import config.FrontendAppConfig
+@import scala.util.Try
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -34,7 +35,7 @@
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("officialsAndNominees.section")))) {
 
-    @errorSummary(form.errors)
+    @errorSummary(form.errors, Try(form.error("expiryDate").get.args.head.toString).toOption)
 
     @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
 

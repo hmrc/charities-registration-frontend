@@ -40,7 +40,7 @@ class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
 
     behave like dateField(form, "date", validData)
 
-    behave like mandatoryDateField(form, "date", "whenGoverningDocumentApproved.error.required.all")
+    behave like mandatoryDateField(form, "date", "whenGoverningDocumentApproved.error.required.all", Seq("day", "month", "year"))
 
     behave like dateFieldWithMax(form, "date",
       max = fakeNow,

@@ -52,12 +52,18 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IndividualNomineesPhoneNumberPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPhoneNumberPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.IsIndividualNomineeNinoController.onPageLoad(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IsIndividualNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineeNinoPage) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -96,6 +102,12 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case WhatIsTheNameOfOrganisationPage => userAnswers: UserAnswers => userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IsIndividualNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineeNinoPage) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

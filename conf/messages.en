@@ -1253,6 +1253,12 @@ nameOfOrganisation.error.required = Enter the name of the organisation
 nameOfOrganisation.error.length = The name of the organisation must be 160 characters or fewer
 nameOfOrganisation.error.format = The name of the organisation must not include the following characters: & ( ) : @
 
+# Charity Nominee Individual Nino Page Messages
+# ----------------------------------------------------------
+isIndividualNomineeNino.title = Does the nominee have a National Insurance number?
+isIndividualNomineeNino.heading = Does {0} have a National Insurance number?
+isIndividualNomineeNino.error.required = Select yes if they have a National Insurance number
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details

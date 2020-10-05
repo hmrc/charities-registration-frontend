@@ -1,0 +1,112 @@
+{
+  "charityContactDetails" : {
+    "daytimePhone" : "07700 900 982",
+    "mobilePhone" : "07700 000 111",
+    "emailAddress" : "abc@gmail.com"
+  },
+  "authorisedOfficials" : [
+    {
+      "officialsPosition" : "02",
+      "officialsPhoneNumber" : {
+        "daytimePhone" : "07700 900 982",
+        "mobilePhone" : "07700 900 981"
+      },
+      "officialsDOB" : "2000-12-11",
+      "officialAddress" : {
+        "lines" : [
+          "2",
+          "Dubai Main Road",
+          "line3",
+          "line4"
+        ],
+        "postcode" : "G27JD",
+        "country" : {
+          "code" : "GB",
+          "name" : "United Kingdom"
+        }
+      },
+      "officialsName" : {
+        "title" : "0001",
+        "firstName" : "Albert",
+        "middleName" : "G",
+        "lastName" : "Einstien"
+      },
+      "officialsNino" : "QQ 12 34 56 C"
+    }
+  ],
+  "whenGoverningDocumentApproved" : "2014-07-01",
+  "charitablePurposes" : [
+    "amateurSport",
+    "animalWelfare"
+  ],
+  "hasCharityChangedPartsOfGoverningDocument" : false,
+  "isCharityRegulator" : false,
+  "selectWhyNoRegulator" : "1",
+  "governingDocumentName" : "Other Documents for Charity",
+  "charityName" : {
+    "fullName" : "ABC"
+  },
+  "accountingPeriodEndDate" : "--01-01",
+  "bankDetails" : {
+    "accountName" : "fullName",
+    "sortCode" : "123456",
+    "accountNumber" : "12345678"
+  },
+  "charityOfficialAddress" : {
+    "lines" : [
+      "7",
+      "Morrison street"
+    ],
+    "country" : {
+      "code" : "IN",
+      "name" : "India"
+    }
+  },
+  "publicBenefits" : "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66",
+  "isApprovedGoverningDocument" : false,
+  "operatingLocation" : [
+    "1"
+  ],
+  "selectFundRaising" : [
+    "other",
+    "donations",
+    "tradingSubsidiaries",
+    "tradingIncome",
+    "fundraising",
+    "grants",
+    "membershipSubscriptions",
+    "investmentIncome"
+  ],
+  "selectGoverningDocument" : "1",
+  "charitableObjectives" : "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66",
+  "canWeSendLettersToThisAddress" : true,
+  "otherOfficials" : [
+    {
+      "officialsPosition" : "05",
+      "officialsPhoneNumber" : {
+        "daytimePhone" : "07700 900 982",
+        "mobilePhone" : "07700 900 981"
+      },
+      "officialsDOB" : "2000-12-11",
+      "officialAddress" : {
+        "lines" : [
+          "3",
+          "Morrison Street",
+          "Bill Tower"
+        ],
+        "country" : {
+          "code" : "IT",
+          "name" : "Italy"
+        }
+      },
+      "officialsName" : {
+        "title" : "0001",
+        "firstName" : "David",
+        "lastName" : "Beckham"
+      },
+      "officialsNino" : "QQ 12 34 56 C"
+    }
+  ],
+  "acknowledgementReference" : "765432",
+  "isFinancialAccounts" : true
+}

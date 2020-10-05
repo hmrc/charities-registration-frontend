@@ -22,6 +22,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
+import pages.addressLookup.NomineeIndividualAddressLookupPage
 import pages.nominees._
 import play.api.mvc.Call
 
@@ -63,9 +64,15 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IndividualNomineesNinoPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesNinoPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
+    case NomineeIndividualAddressLookupPage => userAnswers: UserAnswers =>
+      userAnswers.get(NomineeIndividualAddressLookupPage) match {
+        case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+        case _ => routes.SessionExpiredController.onPageLoad()
+      }
 
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
       case Some(_) => nomineeRoutes.OrganisationNomineeContactDetailsController.onPageLoad(NormalMode)

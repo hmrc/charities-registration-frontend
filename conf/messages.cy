@@ -1323,6 +1323,25 @@ individualNomineesNino.error.format = (W)Enter a National Insurance number in th
 
 individualNomineesNino.checkYourAnswersLabel = National Insurance number
 
+# Nominee Individual Address Messages
+# ----------------------------------------------------------
+nomineeIndividualAddress.lookupPage.title = (W)What is the nominee’s address?  - Officials and nominees(W)
+nomineeIndividualAddress.lookupPage.heading = (W)What is {0}’s full home address?(W)
+nomineeIndividualAddress.lookupPage.manualAddressLinkText = (W)Nominee’s address does not have a UK postcode(W)
+
+nomineeIndividualAddress.selectPage.title = (W)What is the nominee’s full address? - Officials and nominees(W)
+nomineeIndividualAddress.selectPage.heading = (W)What is {0}’s full home address?(W)
+nomineeIndividualAddress.selectPage.editAddressLinkText = (W)Enter nominee’s home address manually(W)
+
+nomineeIndividualAddress.editPage.title = (W)What is the nominees’s full address? - Officials and nominees(W)
+nomineeIndividualAddress.editPage.heading = (W)What is {0}’s full home address?(W)
+
+nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s address - Officials and nominees(W)
+nomineeIndividualAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
+nomineeIndividualAddress.confirmPage.changeLinkText = (W)Change nominee’s home address(W)
+
+nomineeIndividualAddress.checkYourAnswersLabel = (W)Home address(W)
+
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = (W)What is the name of the organisation?(W)

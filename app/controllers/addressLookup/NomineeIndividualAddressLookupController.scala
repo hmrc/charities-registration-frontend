@@ -20,18 +20,18 @@ import config.FrontendAppConfig
 import connectors.addressLookup.AddressLookupConnector
 import controllers.actions._
 import javax.inject.Inject
-import models.{Index, Mode}
-import navigation.AuthorisedOfficialsNavigator
-import pages.addressLookup.AuthorisedOfficialAddressLookupPage
-import pages.authorisedOfficials.AuthorisedOfficialsNamePage
-import pages.sections.Section7Page
+import models.Mode
+import navigation.NomineesNavigator
+import pages.addressLookup.NomineeIndividualAddressLookupPage
+import pages.nominees.IndividualNomineeNamePage
+import pages.sections.Section9Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.ErrorHandler
 
-class AuthorisedOfficialsAddressLookupController @Inject()(
+class NomineeIndividualAddressLookupController @Inject()(
   override val sessionRepository: UserAnswerRepository,
-  override val navigator: AuthorisedOfficialsNavigator,
+  override val navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,
@@ -40,20 +40,20 @@ class AuthorisedOfficialsAddressLookupController @Inject()(
   val controllerComponents: MessagesControllerComponents
  )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
 
-  override val messagePrefix : String = "authorisedOfficialAddress"
+  override val messagePrefix : String = "nomineeIndividualAddress"
 
-  def initializeJourney(index: Index, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def initializeJourney(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
+      getFullName(IndividualNomineeNamePage) { authorisedOfficialsName =>
 
-        val callBack: String = controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.callback(index, mode).url
+        val callBack: String = controllers.addressLookup.routes.NomineeIndividualAddressLookupController.callback(mode).url
 
         addressLookupInitialize(callBack, Some(authorisedOfficialsName))
       }
   }
 
-  def callback(index: Index, mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def callback(mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupCallback(AuthorisedOfficialAddressLookupPage(index), Section7Page, id, mode)
+      addressLookupCallback(NomineeIndividualAddressLookupPage, Section9Page, id, mode)
   }
 }

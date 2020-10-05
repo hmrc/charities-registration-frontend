@@ -33,3 +33,8 @@ GET        /:index/other-previous-address-lookup/playback-change                
 GET        /:index/other-previous-address-callback/playback-change               controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = PlaybackMode, id: Option[String] ?= None)
 GET        /:index/other-previous-address-lookup/change                          controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.initializeJourney(index: Index, mode: Mode = CheckMode)
 GET        /:index/other-previous-address-callback/change                        controllers.addressLookup.OtherOfficialsPreviousAddressLookupController.callback(index: Index, mode: Mode = CheckMode, id: Option[String] ?= None)
+
+GET        /individual-nominee-address-lookup                                    controllers.addressLookup.NomineeIndividualAddressLookupController.initializeJourney(mode: Mode = NormalMode)
+GET        /individual-nominee-address-callback                                  controllers.addressLookup.NomineeIndividualAddressLookupController.callback(mode: Mode = NormalMode, id: Option[String] ?= None)
+GET        /individual-nominee-address-lookup/change                             controllers.addressLookup.NomineeIndividualAddressLookupController.initializeJourney(mode: Mode = CheckMode)
+GET        /individual-nominee-address-callback/change                           controllers.addressLookup.NomineeIndividualAddressLookupController.callback(mode: Mode = CheckMode, id: Option[String] ?= None)

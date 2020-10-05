@@ -17,12 +17,14 @@
 package navigation
 
 import config.FrontendAppConfig
+import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.nominees.{routes => nomineeRoutes}
 import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
 import pages.addressLookup.NomineeIndividualAddressLookupPage
+import pages.addressLookup.OrganisationNomineeAddressLookupPage
 import pages.nominees._
 import play.api.mvc.Call
 
@@ -74,19 +76,24 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
         case _ => routes.SessionExpiredController.onPageLoad()
       }
 
+    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
+      case Some(true) => routes.DeadEndController.onPageLoad()
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
       case Some(_) => nomineeRoutes.OrganisationNomineeContactDetailsController.onPageLoad(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeContactDetailsPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad()
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+    case OrganisationNomineeAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeAddressLookupPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -134,6 +141,12 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
@@ -144,12 +157,10 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+    case OrganisationNomineeAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeAddressLookupPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
-
 
     case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
 

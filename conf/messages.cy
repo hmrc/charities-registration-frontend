@@ -1376,6 +1376,25 @@ organisationContactDetails.email.error.required = (W)Enter the organisation’s 
 organisationContactDetails.phoneNumber.checkYourAnswersLabel = (W)Phone number(W)
 organisationContactDetails.email.checkYourAnswersLabel = (W)Email address(W)
 
+# Charity Nominee Organisation Address Lookup Page Messages
+# ----------------------------------------------------------
+organisationNomineeAddress.lookupPage.title = (W)What is the nominee organisation’s address? - Officials and nominees(W)
+organisationNomineeAddress.lookupPage.heading = (W)What is {0}’s address?(W)
+organisationNomineeAddress.lookupPage.manualAddressLinkText = (W)Organisation’s address does not have a UK postcode(W)
+
+organisationNomineeAddress.selectPage.title = (W)What is the nominee organisation’s full address? - Officials and nominees(W)
+organisationNomineeAddress.selectPage.heading = (W)What is {0}’s full address?(W)
+organisationNomineeAddress.selectPage.editAddressLinkText = (W)Enter organisation’s address manually(W)
+
+organisationNomineeAddress.editPage.title = (W)What is the nominee organisation’s full address? - Officials and nominees(W)
+organisationNomineeAddress.editPage.heading = (W)What is {0}’s full address?(W)
+
+organisationNomineeAddress.confirmPage.title = (W)Confirm the nominee organisation’s address - Officials and nominees(W)
+organisationNomineeAddress.confirmPage.heading = (W)Confirm {0}’s address(W)
+organisationNomineeAddress.confirmPage.changeLinkText = (W)Change organisation’s address(W)
+
+organisationNomineeAddress.checkYourAnswersLabel = (W)Address(W)
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)

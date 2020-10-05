@@ -186,6 +186,26 @@ class NomineesNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IsIndividualNomineePaymentsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsIndividualNomineePaymentsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Bank account details page when yes selected" in {
+          navigator.nextPage(IsIndividualNomineePaymentsPage, NormalMode,
+            emptyUserAnswers.set(IsIndividualNomineePaymentsPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the Check your charity`s nominee details page when No is selected" in {
+          navigator.nextPage(IsIndividualNomineePaymentsPage, NormalMode,
+            emptyUserAnswers.set(IsIndividualNomineePaymentsPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
       "from the NomineeDetailsSummaryPage" must {
 
         "go to the TaskList page when clicked continue button" in {
@@ -345,6 +365,27 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
+
+      "from the IsIndividualNomineePaymentsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsIndividualNomineePaymentsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Bank account details page when yes selected" in {
+          navigator.nextPage(IsIndividualNomineePaymentsPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineePaymentsPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the Check your charity`s nominee details page when No is selected" in {
+          navigator.nextPage(IsIndividualNomineePaymentsPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineePaymentsPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
 
       "from the NomineeDetailsSummaryPage" must {
 

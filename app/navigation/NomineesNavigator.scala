@@ -77,6 +77,12 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
+      case Some(true) => routes.DeadEndController.onPageLoad()
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
     case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -130,6 +136,13 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
+    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
+      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
 
     case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
 

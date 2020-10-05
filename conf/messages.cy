@@ -1331,6 +1331,18 @@ nameOfOrganisation.error.required = (W)Enter the name of the organisation(W)
 nameOfOrganisation.error.length = (W)The name of the organisation must be 160 characters or fewer(W)
 nameOfOrganisation.error.format = (W)The name of the organisation must not include the following characters: & ( ) : @(W)
 
+# Charity Nominee Individual Nino Page Messages
+# ----------------------------------------------------------
+isIndividualNomineeNino.title = (W)Does the nominee have a National Insurance number?(W)
+isIndividualNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
+isIndividualNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
+
+# Is Charity Nominee authorised to receive payments Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePayments.title = (W)Is the nominee authorised to receive payments for your charity?(W)
+isIndividualNomineePayments.heading = (W)Is {0} authorised to receive payments for your charity?(W)
+isIndividualNomineePayments.error.required = (W)Select yes if the nominee is authorised to receive payments(W)
+
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
 organisationContactDetails.title = (W)What are the nominee organisation’s contact details?(W)

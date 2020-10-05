@@ -19,33 +19,33 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.nominees.WhatIsTheNameOfOrganisationFormProvider
+import forms.nominees.OrganisationNomineeNameFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
-import pages.nominees.WhatIsTheNameOfOrganisationPage
+import pages.nominees.OrganisationNomineeNamePage
 import pages.sections.Section9Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.nominees.WhatIsTheNameOfTheOrganisationView
+import views.html.nominees.OrganisationNomineeNameView
 
 import scala.concurrent.Future
 
-class WhatIsTheNameOfTheOrganisationController @Inject()(
-   val sessionRepository: UserAnswerRepository,
-   val navigator: NomineesNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: WhatIsTheNameOfOrganisationFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: WhatIsTheNameOfTheOrganisationView
+class OrganisationNomineeNameController @Inject()(
+    val sessionRepository: UserAnswerRepository,
+    val navigator: NomineesNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: OrganisationNomineeNameFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: OrganisationNomineeNameView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val preparedForm = request.userAnswers.get(WhatIsTheNameOfOrganisationPage) match {
+    val preparedForm = request.userAnswers.get(OrganisationNomineeNamePage) match {
       case None => form
       case Some(value) => form.fill(value)
     }
@@ -61,9 +61,9 @@ class WhatIsTheNameOfTheOrganisationController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(WhatIsTheNameOfOrganisationPage, value).flatMap(_.set(Section9Page, false)))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(OrganisationNomineeNamePage, value).flatMap(_.set(Section9Page, false)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(WhatIsTheNameOfOrganisationPage, mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(OrganisationNomineeNamePage, mode, updatedAnswers))
     )
   }
 }

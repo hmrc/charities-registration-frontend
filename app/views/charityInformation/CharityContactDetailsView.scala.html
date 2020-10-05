@@ -35,7 +35,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "charityContactDetails.title",Some("contactDetail.section")))) {
 
-    @formHelper(action = CharityContactDetailsController.onSubmit(mode)) {
+    @formHelper(action = CharityContactDetailsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
@@ -66,7 +66,8 @@
                 name = "emailAddress",
                 label = "charityContactDetails.emailAddress.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some("govuk-input govuk-!-width-one-half"),
+                inputType = "email"
             )
         }
 

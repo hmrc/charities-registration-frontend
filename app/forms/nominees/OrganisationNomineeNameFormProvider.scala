@@ -20,7 +20,7 @@ import forms.mappings.Mappings
 import javax.inject.Inject
 import play.api.data.Form
 
-class WhatIsTheNameOfOrganisationFormProvider @Inject() extends Mappings {
+class OrganisationNomineeNameFormProvider @Inject() extends Mappings {
 
   private[nominees] val validateReason = "^[^@&:)(]+$"
   private[nominees] val maxLength = 160

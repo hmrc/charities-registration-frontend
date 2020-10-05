@@ -22,6 +22,7 @@ import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
 import controllers.routes
 import models._
+import models.nominees.OrganisationNomineeContactDetails
 import pages.IndexPage
 import pages.nominees._
 
@@ -72,7 +73,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to What is the name of Organisation page when selected Organisation and clicked continue button" in {
           navigator.nextPage(ChooseNomineePage, NormalMode,
             emptyUserAnswers.set(ChooseNomineePage, false).success.value) mustBe
-            nomineesRoutes.WhatIsTheNameOfTheOrganisationController.onPageLoad(NormalMode)
+            nomineesRoutes.OrganisationNomineeNameController.onPageLoad(NormalMode)
         }
 
       }
@@ -157,17 +158,31 @@ class NomineesNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the WhatIsTheNameOfOrganisation page" must {
+      "from the  OrganisationNomineeName page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(WhatIsTheNameOfOrganisationPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(OrganisationNomineeNamePage, NormalMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to What is the name of Organisation page when clicked continue button" in {
-          navigator.nextPage(WhatIsTheNameOfOrganisationPage, NormalMode,
-            emptyUserAnswers.set(WhatIsTheNameOfOrganisationPage, "abc").success.value) mustBe
-           routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        "go to Organisation Nominee Contact Details page when clicked continue button" in {
+          navigator.nextPage(OrganisationNomineeNamePage, NormalMode,
+            emptyUserAnswers.set(OrganisationNomineeNamePage, "abc").success.value) mustBe
+            nomineesRoutes.OrganisationNomineeContactDetailsController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the OrganisationNomineeContactDetails page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationNomineeContactDetailsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Organisation Nominee Address Lookup page when clicked continue button" in {
+          navigator.nextPage(OrganisationNomineeContactDetailsPage, NormalMode,
+            emptyUserAnswers.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com")).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 
@@ -303,16 +318,30 @@ class NomineesNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the WhatIsTheNameOfOrganisation page" must {
+      "from the  OrganisationNomineeName page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(WhatIsTheNameOfOrganisationPage, CheckMode, emptyUserAnswers) mustBe
+          navigator.nextPage(OrganisationNomineeNamePage, CheckMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
-          navigator.nextPage(WhatIsTheNameOfOrganisationPage, CheckMode,
-            emptyUserAnswers.set(WhatIsTheNameOfOrganisationPage, "abc").success.value) mustBe
+          navigator.nextPage(OrganisationNomineeNamePage, CheckMode,
+            emptyUserAnswers.set(OrganisationNomineeNamePage, "abc").success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the OrganisationNomineeContactDetails page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationNomineeContactDetailsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(OrganisationNomineeContactDetailsPage, CheckMode,
+            emptyUserAnswers.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com")).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

@@ -31,7 +31,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "nameOfOrganisation.title",Some("officialsAndNominees.section")))) {
 
-    @formHelper(action = WhatIsTheNameOfTheOrganisationController.onSubmit(mode)) {
+    @formHelper(action = OrganisationNomineeNameController.onSubmit(mode)) {
 
             @errorSummary(form.errors)
 

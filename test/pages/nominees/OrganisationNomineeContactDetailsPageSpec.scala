@@ -16,16 +16,22 @@
 
 package pages.nominees
 
+import models.nominees.OrganisationNomineeContactDetails
+import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class WhatIsTheNameOfOrganisationPageSpec extends PageBehaviours {
+class OrganisationNomineeContactDetailsPageSpec extends PageBehaviours {
 
-  "WhatIsTheNameOfOrganisationPage" must {
+  implicit lazy val arbitraryContactDetails: Arbitrary[OrganisationNomineeContactDetails] = Arbitrary {
+    OrganisationNomineeContactDetails("0123123123", "email@email.com")
+  }
 
-    beRetrievable[String](WhatIsTheNameOfOrganisationPage)
+  "OrganisationNomineeContactDetailsPage" must {
 
-    beSettable[String](WhatIsTheNameOfOrganisationPage)
+    beRetrievable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
 
-    beRemovable[String](WhatIsTheNameOfOrganisationPage)
+    beSettable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
+
+    beRemovable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
   }
 }

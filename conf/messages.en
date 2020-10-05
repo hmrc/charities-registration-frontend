@@ -1323,13 +1323,27 @@ individualNomineesNino.error.format = Enter a National Insurance number in the c
 
 individualNomineesNino.checkYourAnswersLabel = National Insurance number
 
-# What is the name of the organisation Page Messages
+# Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = What is the name of the organisation?
 nameOfOrganisation.heading = What is the name of the organisation?
 nameOfOrganisation.error.required = Enter the name of the organisation
 nameOfOrganisation.error.length = The name of the organisation must be 160 characters or fewer
 nameOfOrganisation.error.format = The name of the organisation must not include the following characters: & ( ) : @
+
+# Charity Nominee Organisation Contact Details Page Messages
+# ----------------------------------------------------------
+organisationContactDetails.title = What are the nominee organisation’s contact details?
+organisationContactDetails.heading = What are {0}’s contact details?
+organisationContactDetails.phoneNumber.label = Phone number
+organisationContactDetails.phoneNumber.error.format = Enter the organisation’s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
+organisationContactDetails.phoneNumber.error.required = Enter the organisation’s phone number
+organisationContactDetails.email.label = Email address
+organisationContactDetails.email.error.format = Enter your charity’s email address in the correct format, like name@example.com
+organisationContactDetails.email.error.length = The organisation’s email address must be 160 characters or fewer.
+organisationContactDetails.email.error.required = Enter the organisation’s email address
+organisationContactDetails.phoneNumber.checkYourAnswersLabel = Phone number
+organisationContactDetails.email.checkYourAnswersLabel = Email address
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

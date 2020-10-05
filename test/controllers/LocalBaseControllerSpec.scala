@@ -25,6 +25,7 @@ import models.{Index, Name, SelectTitle, UserAnswers}
 import org.mockito.Mockito.reset
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.nominees.OrganisationNomineeNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Result, Results}
@@ -62,6 +63,10 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   ).success.value
 
+  private val contactDetailsNominee: UserAnswers = emptyUserAnswers.set(
+    OrganisationNomineeNamePage, "testName"
+  ).success.value
+
   "LocalBase Controller" must {
 
     "calling the .getAuthorisedOfficialName() is successful" in {
@@ -76,6 +81,23 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
       val result = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+    }
+
+    "calling the .getOrganisationName() is successful" in {
+
+      val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, contactDetailsNominee)
+      val result = controller.getOrganisationName(OrganisationNomineeNamePage)(block)(request)
+
+      status(result) mustEqual OK
+    }
+
+    "calling the .getOrganisationName() is unsuccessful" in {
+
+      val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
+      val result = controller.getOrganisationName(OrganisationNomineeNamePage)(block)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)

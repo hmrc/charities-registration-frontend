@@ -18,6 +18,7 @@ package controllers
 
 
 import models._
+import models.nominees.OrganisationNomineeContactDetails
 import models.requests.DataRequest
 import pages.QuestionPage
 import play.api.i18n.I18nSupport
@@ -36,6 +37,15 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     request.userAnswers.get(page).map {
       name =>
         block(name.getFullName)
+    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
+  }
+
+  def getOrganisationName(page: QuestionPage[String])(block: String => Future[Result])
+                 (implicit request: DataRequest[AnyContent]): Future[Result] = {
+
+    request.userAnswers.get(page).map {
+      name =>
+        block(name)
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
 

@@ -19,9 +19,9 @@ package forms.nominees
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
-class WhatIsTheNameOfOrganisationFormProviderSpec extends StringFieldBehaviours {
+class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
 
-  private val formProvider: WhatIsTheNameOfOrganisationFormProvider = inject[WhatIsTheNameOfOrganisationFormProvider]
+  private val formProvider: OrganisationNomineeNameFormProvider = inject[OrganisationNomineeNameFormProvider]
   private val form: Form[String] = formProvider()
 
   ".name" must {
@@ -59,7 +59,7 @@ class WhatIsTheNameOfOrganisationFormProviderSpec extends StringFieldBehaviours 
     )
   }
 
-  "WhatIsTheNameOfOrganisationFormProvider" must {
+  "OrganisationNomineeNameFormProvider" must {
 
     val organisationName = "abc"
 

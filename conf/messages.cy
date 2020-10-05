@@ -1202,7 +1202,6 @@ otherOfficialPreviousAddress.confirmPage.changeLinkText = (W)Change other offici
 
 otherOfficialPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
 
-
 # You have added one Other Official Page Messages
 # ----------------------------------------------------------
 addedOneOtherOfficial.checkYourAnswers.title = (W)You have added one other official(W)
@@ -1324,13 +1323,27 @@ individualNomineesNino.error.format = (W)Enter a National Insurance number in th
 
 individualNomineesNino.checkYourAnswersLabel = National Insurance number
 
-# What is the name of the organisation Page Messages
+# Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = (W)What is the name of the organisation?(W)
 nameOfOrganisation.heading = (W)What is the name of the organisation?(W)
 nameOfOrganisation.error.required = (W)Enter the name of the organisation(W)
 nameOfOrganisation.error.length = (W)The name of the organisation must be 160 characters or fewer(W)
 nameOfOrganisation.error.format = (W)The name of the organisation must not include the following characters: & ( ) : @(W)
+
+# Charity Nominee Organisation Contact Details Page Messages
+# ----------------------------------------------------------
+organisationContactDetails.title = (W)What are the nominee organisation’s contact details?(W)
+organisationContactDetails.heading = (W)What are {0}’s contact details?(W)
+organisationContactDetails.phoneNumber.label = (W)Phone number(W)
+organisationContactDetails.phoneNumber.error.format = (W)Enter the organisation’s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
+organisationContactDetails.phoneNumber.error.required = (W)Enter the organisation’s phone number(W)
+organisationContactDetails.email.label = (W)Email address(W)
+organisationContactDetails.email.error.format = (W)Enter your charity’s email address in the correct format, like name@example.com(W)
+organisationContactDetails.email.error.length = (W)The organisation’s email address must be 160 characters or fewer.(W)
+organisationContactDetails.email.error.required = (W)Enter the organisation’s email address(W)
+organisationContactDetails.phoneNumber.checkYourAnswersLabel = (W)Phone number(W)
+organisationContactDetails.email.checkYourAnswersLabel = (W)Email address(W)
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

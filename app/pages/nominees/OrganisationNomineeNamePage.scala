@@ -19,7 +19,7 @@ package pages.nominees
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object WhatIsTheNameOfOrganisationPage  extends QuestionPage[String] {
+case object OrganisationNomineeNamePage extends QuestionPage[String] {
 
   override def path: JsPath =  NomineeId.path \ toString
 

@@ -17,22 +17,22 @@
 package views.nominees
 
 import assets.messages.BaseMessages
-import forms.nominees.WhatIsTheNameOfOrganisationFormProvider
+import forms.nominees.OrganisationNomineeNameFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.nominees.WhatIsTheNameOfTheOrganisationView
+import views.html.nominees.OrganisationNomineeNameView
 
-class WhatIsTheNameOfTheOrganisationViewSpec extends QuestionViewBehaviours[String]  {
+class OrganisationNomineeNameViewSpec extends QuestionViewBehaviours[String]  {
 
   private val messageKeyPrefix = "nameOfOrganisation"
-  val form: Form[String] = inject[WhatIsTheNameOfOrganisationFormProvider].apply()
+  val form: Form[String] = inject[OrganisationNomineeNameFormProvider].apply()
 
-    "WhatIsTheNameOfOrganisationView" must {
+    " OrganisationNomineeNameView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[WhatIsTheNameOfTheOrganisationView](Some(emptyUserAnswers))
+          val view = viewFor[OrganisationNomineeNameView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 

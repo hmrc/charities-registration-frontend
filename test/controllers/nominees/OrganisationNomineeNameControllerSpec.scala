@@ -18,7 +18,7 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.nominees.WhatIsTheNameOfOrganisationFormProvider
+import forms.nominees.OrganisationNomineeNameFormProvider
 import forms.regulatorsAndDocuments.GoverningDocumentNameFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
@@ -26,17 +26,17 @@ import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.nominees.WhatIsTheNameOfOrganisationPage
+import pages.nominees.OrganisationNomineeNamePage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.nominees.WhatIsTheNameOfTheOrganisationView
+import views.html.nominees.OrganisationNomineeNameView
 
 import scala.concurrent.Future
 
-class WhatIsTheNameOfOrganisationControllerSpec extends SpecBase with BeforeAndAfterEach {
+class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -53,15 +53,15 @@ class WhatIsTheNameOfOrganisationControllerSpec extends SpecBase with BeforeAndA
     reset(mockUserAnswerRepository)
   }
 
-  private val view: WhatIsTheNameOfTheOrganisationView = injector.instanceOf[WhatIsTheNameOfTheOrganisationView]
-  private val formProvider: WhatIsTheNameOfOrganisationFormProvider = injector.instanceOf[WhatIsTheNameOfOrganisationFormProvider]
+  private val view: OrganisationNomineeNameView = injector.instanceOf[OrganisationNomineeNameView]
+  private val formProvider: OrganisationNomineeNameFormProvider = injector.instanceOf[OrganisationNomineeNameFormProvider]
   private val form: Form[String] = formProvider()
 
-  private val controller: WhatIsTheNameOfTheOrganisationController = inject[WhatIsTheNameOfTheOrganisationController]
+  private val controller: OrganisationNomineeNameController = inject[OrganisationNomineeNameController]
 
   private val requestArgs = Seq("name" -> "abc")
 
-  "WhatIsTheNameOfTheOrganisation Controller" must {
+  " OrganisationNomineeName Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -77,7 +77,7 @@ class WhatIsTheNameOfOrganisationControllerSpec extends SpecBase with BeforeAndA
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(WhatIsTheNameOfOrganisationPage, "abc").success.value
+      val userAnswers = emptyUserAnswers.set(OrganisationNomineeNamePage, "abc").success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 

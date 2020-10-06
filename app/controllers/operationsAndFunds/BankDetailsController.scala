@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.operationsAndFunds.BankDetailsFormProvider
+import forms.common
 import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.BankDetailsNavigator
@@ -33,17 +33,18 @@ import views.html.operationsAndFunds.BankDetailsView
 import scala.concurrent.Future
 
 class BankDetailsController @Inject()(
-   val sessionRepository: UserAnswerRepository,
-   val navigator: BankDetailsNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: BankDetailsFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view:  BankDetailsView
+    val sessionRepository: UserAnswerRepository,
+    val navigator: BankDetailsNavigator,
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: common.BankDetailsFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view:  BankDetailsView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  val form: Form[BankDetails] = formProvider()
+  val messagePrefix: String = "bankDetails"
+  val form: Form[BankDetails] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 

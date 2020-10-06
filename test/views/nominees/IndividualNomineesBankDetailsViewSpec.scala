@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.operationsAndFunds
+package views.nominees
 
 import assets.messages.BaseMessages
 import forms.common.BankDetailsFormProvider
@@ -22,26 +22,26 @@ import models.{BankDetails, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.operationsAndFunds.BankDetailsView
+import views.html.nominees.IndividualNomineesBankAccountDetailsView
 
 
-class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
+class IndividualNomineesBankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
 
-  private val messageKeyPrefix = "bankDetails"
+  private val messageKeyPrefix = "individualNomineesBankDetails"
   val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
 
-    "BankDetailsView" must {
+    "IndividualNomineesBankDetailsView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[BankDetailsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+          val view = viewFor[IndividualNomineesBankAccountDetailsView](Some(emptyUserAnswers))
+          view.apply(form, NormalMode,"Jim Jam")(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jam"), section = Some(messages("officialsAndNominees.section")))
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithWarningText(applyView(form), messages("bankDetails.basc.warning"))
+      behave like pageWithWarningText(applyView(form), messages("individualNomineesBankDetails.basc.warning"))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

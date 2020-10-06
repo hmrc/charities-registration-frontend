@@ -70,17 +70,22 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
+      case Some(true) => nomineeRoutes.IndividualNomineesBankAccountDetailsController.onPageLoad(NormalMode)
+      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IndividualNomineesBankAccountDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankAccountDetailsPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
     case NomineeIndividualAddressLookupPage => userAnswers: UserAnswers =>
       userAnswers.get(NomineeIndividualAddressLookupPage) match {
         case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
         case _ => routes.SessionExpiredController.onPageLoad()
       }
-
-    case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad()
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
 
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
       case Some(_) => nomineeRoutes.OrganisationNomineeContactDetailsController.onPageLoad(NormalMode)
@@ -144,6 +149,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IndividualNomineesBankAccountDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankAccountDetailsPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

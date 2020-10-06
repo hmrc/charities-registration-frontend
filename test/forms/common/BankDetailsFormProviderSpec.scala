@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package forms.operationsAndFunds
+package forms.common
 
 import forms.behaviours.StringFieldBehaviours
 import models.BankDetails
@@ -23,16 +23,17 @@ import play.api.data.{Form, FormError}
 
 class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
+  val messagePrefix: String = "individualNomineesBankDetails"
   private val formProvider: BankDetailsFormProvider = inject[BankDetailsFormProvider]
-  private val form: Form[BankDetails] = formProvider()
+  private val form: Form[BankDetails] = formProvider(messagePrefix)
 
   ".accountName" must {
 
     val fieldName = "accountName"
     val maxLength = 60
-    val requiredKey = "bankDetails.accountName.error.required"
-    val lengthKey = "bankDetails.accountName.error.length"
-    val invalidKey = "bankDetails.accountName.error.format"
+    val requiredKey = s"$messagePrefix.accountName.error.required"
+    val lengthKey = s"$messagePrefix.accountName.error.length"
+    val invalidKey = s"$messagePrefix.accountName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -64,8 +65,8 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   ".sortCode" must {
 
     val fieldName = "sortCode"
-    val requiredKey = "bankDetails.sortCode.error.required"
-    val invalidKey = "bankDetails.sortCode.error.format"
+    val requiredKey = s"$messagePrefix.sortCode.error.required"
+    val invalidKey = s"$messagePrefix.sortCode.error.format"
 
     val validSortCodeGen = for {
       firstDigits     <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
@@ -135,8 +136,8 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   ".accountNumber" must {
 
     val fieldName = "accountNumber"
-    val requiredKey = "bankDetails.accountNumber.error.required"
-    val invalidKey = "bankDetails.accountNumber.error.format"
+    val requiredKey = s"$messagePrefix.accountNumber.error.required"
+    val invalidKey = s"$messagePrefix.accountNumber.error.format"
     val minLength = 6
     val maxLength = 8
 
@@ -192,8 +193,8 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     val maxLength = 18
     val fieldName = "rollNumber"
-    val lengthKey = "bankDetails.rollNumber.error.length"
-    val invalidKey = "bankDetails.rollNumber.error.format"
+    val lengthKey = s"$messagePrefix.rollNumber.error.length"
+    val invalidKey = s"$messagePrefix.rollNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -222,13 +223,13 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "not bind strings with characters any other character apart from letters a to z, numbers, hyphens, spaces and full stops" in {
       val result = form.bind(Map(fieldName -> "roll-Number, .!?")).apply(fieldName)
-      val expectedError = FormError(fieldName, "bankDetails.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+      val expectedError = FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind strings with more than 18 characters" in {
       val result = form.bind(Map(fieldName -> "01234567890123456789")).apply(fieldName)
-      val expectedError = FormError(fieldName, "bankDetails.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+      val expectedError = FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
   }

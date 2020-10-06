@@ -1321,7 +1321,30 @@ individualNomineesNino.hint = (W)For example, QQ 12 34 56 C(W)
 individualNomineesNino.error.required = (W)Enter their National Insurance number(W)
 individualNomineesNino.error.format = (W)Enter a National Insurance number in the correct format(W)
 
-individualNomineesNino.checkYourAnswersLabel = National Insurance number
+individualNomineesNino.checkYourAnswersLabel = (W)National Insurance number(W)
+
+# Charity Nominee Individual Bank details Messages
+# ----------------------------------------------------------
+individualNomineesBankDetails.title = (W)Nominee’s bank details(W)
+individualNomineesBankDetails.heading = (W){0}’s bank details(W)
+individualNomineesBankDetails.accountName = (W)Name on the account(W)
+individualNomineesBankDetails.accountName.hint = (W)As shown on nominee’s account statements(W)
+individualNomineesBankDetails.accountName.error.length = (W)The nominee’s account name must be 60 characters or fewer(W)
+individualNomineesBankDetails.accountName.error.required = (W)Enter the nominee’s account name(W)
+individualNomineesBankDetails.accountName.error.format = (W)The nominee’s account name must not include the following characters: & ( ) : @(W)
+individualNomineesBankDetails.sortCode = (W)Nominee’s sort code(W)
+individualNomineesBankDetails.sortCode.hint = (W)Must be 6 digits long(W)
+individualNomineesBankDetails.sortCode.error.required = (W)Enter the nominee’s sort code(W)
+individualNomineesBankDetails.sortCode.error.format = (W)Enter a valid sort code like 309430(W)
+individualNomineesBankDetails.accountNumber = (W)Nominee’s account number(W)
+individualNomineesBankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
+individualNomineesBankDetails.accountNumber.error.required = (W)Enter the nominee’s account number(W)
+individualNomineesBankDetails.accountNumber.error.format = (W)Enter a valid account number like 00733445(W)
+individualNomineesBankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
+individualNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
+individualNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
+individualNomineesBankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
+individualNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
 
 # Nominee Individual Address Messages
 # ----------------------------------------------------------

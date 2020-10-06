@@ -1342,6 +1342,29 @@ nomineeIndividualAddress.confirmPage.changeLinkText = Change nominee’s home ad
 
 nomineeIndividualAddress.checkYourAnswersLabel = Home address
 
+# Charity Nominee Individual Bank details Messages
+# ----------------------------------------------------------
+individualNomineesBankDetails.title = Nominee’s bank details
+individualNomineesBankDetails.heading = {0}’s bank details
+individualNomineesBankDetails.accountName = Name on the account
+individualNomineesBankDetails.accountName.hint = As shown on nominee’s account statements
+individualNomineesBankDetails.accountName.error.length = The nominee’s account name must be 60 characters or fewer
+individualNomineesBankDetails.accountName.error.required = Enter the nominee’s account name
+individualNomineesBankDetails.accountName.error.format = The nominee’s account name must not include the following characters: & ( ) : @
+individualNomineesBankDetails.sortCode = Nominee’s sort code
+individualNomineesBankDetails.sortCode.hint = Must be 6 digits long
+individualNomineesBankDetails.sortCode.error.required = Enter the nominee’s sort code
+individualNomineesBankDetails.sortCode.error.format = Enter a valid sort code like 309430
+individualNomineesBankDetails.accountNumber = Nominee’s account number
+individualNomineesBankDetails.accountNumber.hint = Must be between 6 and 8 digits long
+individualNomineesBankDetails.accountNumber.error.required = Enter the nominee’s account number
+individualNomineesBankDetails.accountNumber.error.format = Enter a valid account number like 00733445
+individualNomineesBankDetails.rollNumber = Building society roll number (if you have one)
+individualNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
+individualNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
+individualNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
+individualNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
+
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = What is the name of the organisation?

@@ -200,5 +200,10 @@ POST       /nominee-payments                                                    
 GET        /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

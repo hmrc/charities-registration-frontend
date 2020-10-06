@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package models
-
+import models.BankDetails
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import play.api.libs.json.Json
 
-class OperationAndFundsSpec extends WordSpec with MustMatchers with OptionValues {
+class BankDetailsSpec extends WordSpec with MustMatchers with OptionValues {
 
   "A Bank details object" should {
 

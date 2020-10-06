@@ -37,6 +37,13 @@ class NomineesNavigatorSpec extends SpecBase {
   private val minYear = 16
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
+  private val bankDetails =  BankDetails(
+    accountName = "fullName",
+    sortCode = "123456",
+    accountNumber = "12345678",
+    rollNumber = Some("operatingName")
+  )
+
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {
@@ -191,12 +198,26 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the Bank account details page when yes selected" in {
           navigator.nextPage(IsIndividualNomineePaymentsPage, NormalMode,
             emptyUserAnswers.set(IsIndividualNomineePaymentsPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IndividualNomineesBankAccountDetailsController.onPageLoad(NormalMode)
         }
 
         "go to the Check your charity`s nominee details page when No is selected" in {
           navigator.nextPage(IsIndividualNomineePaymentsPage, NormalMode,
             emptyUserAnswers.set(IsIndividualNomineePaymentsPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IndividualNomineesBankContactDetails page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineesBankAccountDetailsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to summary page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineesBankAccountDetailsPage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineesBankAccountDetailsPage, bankDetails).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
@@ -245,7 +266,6 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
-
 
       "from the NomineeDetailsSummaryPage" must {
 
@@ -402,6 +422,20 @@ class NomineesNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IndividualNomineesBankContactDetails page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineesBankAccountDetailsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to summary page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineesBankAccountDetailsPage, CheckMode,
+            emptyUserAnswers.set(IndividualNomineesBankAccountDetailsPage, bankDetails).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
       // Organisation nominee
       // ----------------------------------------------------------------------------------------------
 
@@ -463,7 +497,6 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
-
 
       "from the NomineeDetailsSummaryPage" must {
 

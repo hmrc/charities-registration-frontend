@@ -1376,6 +1376,25 @@ organisationContactDetails.email.error.required = Enter the organisation’s ema
 organisationContactDetails.phoneNumber.checkYourAnswersLabel = Phone number
 organisationContactDetails.email.checkYourAnswersLabel = Email address
 
+# Charity Nominee Organisation Address Lookup Page Messages
+# ----------------------------------------------------------
+organisationNomineeAddress.lookupPage.title = What is the nominee organisation’s address? - Officials and nominees
+organisationNomineeAddress.lookupPage.heading = What is {0}’s address?
+organisationNomineeAddress.lookupPage.manualAddressLinkText = Organisation’s address does not have a UK postcode
+
+organisationNomineeAddress.selectPage.title = What is the nominee organisation’s full address? - Officials and nominees
+organisationNomineeAddress.selectPage.heading = What is {0}’s full address?
+organisationNomineeAddress.selectPage.editAddressLinkText = Enter organisation’s address manually
+
+organisationNomineeAddress.editPage.title = What is the nominee organisation’s full address? - Officials and nominees
+organisationNomineeAddress.editPage.heading = What is {0}’s full address?
+
+organisationNomineeAddress.confirmPage.title = Confirm the nominee organisation’s address - Officials and nominees
+organisationNomineeAddress.confirmPage.heading = Confirm {0}’s address
+organisationNomineeAddress.confirmPage.changeLinkText = Change organisation’s address
+
+organisationNomineeAddress.checkYourAnswersLabel = Address
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details

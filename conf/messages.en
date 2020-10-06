@@ -666,10 +666,10 @@ operatingLocation.title = Where does the charity operate?
 operatingLocation.heading = Where does the charity operate?
 operatingLocation.hint = Select all that apply
 operatingLocation.error.required = Select where the charity operates
-operatingLocation.1 = England and Wales
-operatingLocation.2 = Scotland
-operatingLocation.3 = Northern Ireland
-operatingLocation.4 = Across the UK
+operatingLocation.1 = England
+operatingLocation.2 = Wales
+operatingLocation.3 = Scotland
+operatingLocation.4 = Northern Ireland
 operatingLocation.5 = Overseas
 operatingLocation.checkYourAnswersLabel = Operating locations
 

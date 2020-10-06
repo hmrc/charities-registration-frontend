@@ -69,7 +69,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
-          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales))).flatMap(
+          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
           _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
           _.set(CharitableObjectivesPage,
             "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"

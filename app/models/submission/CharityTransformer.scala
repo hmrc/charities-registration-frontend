@@ -35,7 +35,6 @@ class CharityTransformer extends JsonTransformer {
   private def findNode(locationPath: JsPath, readPath: JsPath, index: String): Reads[JsObject] ={
     locationPath.json.copyFrom(readPath.read[JsArray].map(x => JsBoolean(x.value.contains(JsString(index)))))
   }
-
   def userAnswersToRegulator: Reads[JsObject] = {
     ( getRegulator("ccew") and
       ((__ \ 'regulator \ 'ccewRegistrationNumber).json.copyFrom((__ \ 'charityCommissionRegistrationNumber).json.pick) orElse doNothing) and
@@ -128,10 +127,19 @@ class CharityTransformer extends JsonTransformer {
         (__ \ 'operationAndFunds \ 'futureFunds).json.copyFrom((__ \ 'selectFundRaising).read[JsArray].map(x =>
           JsString(x.value.map(_.toString()).mkString(", ").replaceAll("\"", "")))) and
         (__ \ 'operationAndFunds \ 'otherAreaOperation).json.put(JsBoolean(true)) and
-        findNode(__ \ 'operationAndFunds \ 'englandAndWales, __ \ 'operatingLocation, "1") and
-        findNode(__ \ 'operationAndFunds \ 'scotland, __ \ 'operatingLocation, "2") and
-        findNode(__ \ 'operationAndFunds \ 'northernIreland, __ \ 'operatingLocation, "3") and
-        findNode(__ \ 'operationAndFunds \ 'ukWide, __ \ 'operatingLocation, "4") and
+        (__ \ 'operationAndFunds \ 'englandAndWales).json.copyFrom((__ \ 'operatingLocation).read[JsArray]
+          .map(countriesOfOperation => JsBoolean(
+            countriesOfOperation.value.map(_.as[String]).exists(countries => countries == "1" || countries == "2")
+          ))) and
+        findNode(__ \ 'operationAndFunds \ 'scotland, __ \ 'operatingLocation, "3") and
+        findNode(__ \ 'operationAndFunds \ 'northernIreland, __ \ 'operatingLocation, "4") and
+        (__ \ 'operationAndFunds \ 'ukWide).json.copyFrom((__ \ 'operatingLocation).read[JsArray]
+          .map(x => JsBoolean(Seq("3", "4")
+            .forall(country => x.value.map(_.as[String]) match {
+              case allOverUk if allOverUk.contains(country) && allOverUk.exists(country => country == "1" || country == "2") => true
+              case _ => false
+            }
+             )))) and
         findNode(__ \ 'operationAndFunds \ 'overseas, __ \ 'operatingLocation, "5") and
         ((__ \ 'operationAndFunds).json.copyFrom(userAnswersToOtherCountriesOfOperation) orElse doNothing)
       ).reduce

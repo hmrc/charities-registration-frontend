@@ -26,16 +26,16 @@ sealed trait OperatingLocationOptions extends WithOrder
 
 object OperatingLocationOptions extends Enumerable.Implicits {
 
-  case object EnglandAndWales extends WithName("1") with OperatingLocationOptions {
+  case object England extends WithName("1") with OperatingLocationOptions {
     override val order: Int = 1
   }
-  case object Scotland extends WithName("2") with OperatingLocationOptions {
+  case object Wales extends WithName("2") with OperatingLocationOptions {
     override val order: Int = 2
   }
-  case object NorthernIreland extends WithName("3") with OperatingLocationOptions {
+  case object Scotland extends WithName("3") with OperatingLocationOptions {
     override val order: Int = 3
   }
-  case object UKWide extends WithName("4") with OperatingLocationOptions {
+  case object NorthernIreland extends WithName("4") with OperatingLocationOptions {
     override val order: Int = 4
   }
   case object Overseas extends WithName("5") with OperatingLocationOptions {
@@ -43,7 +43,7 @@ object OperatingLocationOptions extends Enumerable.Implicits {
   }
 
   val values: Seq[OperatingLocationOptions] = Seq(
-    EnglandAndWales, Scotland, NorthernIreland, UKWide, Overseas
+    England, Wales, Scotland, NorthernIreland, Overseas
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {

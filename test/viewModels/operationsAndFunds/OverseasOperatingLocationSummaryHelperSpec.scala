@@ -19,7 +19,7 @@ package viewModels.operationsAndFunds
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
-import models.operations.OperatingLocationOptions.{EnglandAndWales, Overseas}
+import models.operations.OperatingLocationOptions.{England, Overseas}
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import models.{Country, Index, MongoDateTimeFormats, NormalMode, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
@@ -38,7 +38,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
 
   private val helper = new OverseasOperatingLocationSummaryHelper(UserAnswers("id")
     .set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap
-  (_.set(OperatingLocationPage, Set[OperatingLocationOptions](EnglandAndWales, Overseas))).flatMap
+  (_.set(OperatingLocationPage, Set[OperatingLocationOptions](England, Overseas))).flatMap
   (_.set(IsFinancialAccountsPage, true)).flatMap
   (_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap
   (_.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).flatMap

@@ -18,12 +18,15 @@ package navigation
 
 import java.time.LocalDate
 
+import controllers.addressLookup.{routes => addressLookupRoutes}
 import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
 import controllers.routes
 import models._
 import models.nominees.OrganisationNomineeContactDetails
+import models.addressLookup.{AddressModel, CountryModel}
 import pages.IndexPage
+import pages.addressLookup.NomineeIndividualAddressLookupPage
 import pages.nominees._
 
 class NomineesNavigatorSpec extends SpecBase {
@@ -32,6 +35,8 @@ class NomineesNavigatorSpec extends SpecBase {
   private val nomineeName: Name = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   private val IndividualNomineePhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", "07700 900 982")
   private val minYear = 16
+  private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -153,8 +158,24 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to Does the nominee have national insurance page when clicked continue button" in {
           navigator.nextPage(IndividualNomineesNinoPage, NormalMode,
             emptyUserAnswers.set(IndividualNomineesNinoPage, "QQ 12 34 56 C").success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is created
+            addressLookupRoutes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
 
+        }
+      }
+
+      "from the IndividualNomineeLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, address)
+              .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
+              .success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
 
@@ -351,6 +372,23 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
+
+      "from the IndividualNomineeLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, address)
+              .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
+              .success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
 
       "from the OrganisationNomineeContactDetails page" must {
 

@@ -1424,3 +1424,9 @@ nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee 
 nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.h2 = (W)Authorise a nominee(W)
 nomineeDetailsSummary.section = (W)Officials and nominees(W)
+
+# Charity Nominee Individual Previous Address Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePreviousAddress.title = (W)Has the nominee’s address changed in the last 12 months?(W)
+isIndividualNomineePreviousAddress.heading = (W)Has {0}’s home address changed in the last 12 months?(W)
+isIndividualNomineePreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)

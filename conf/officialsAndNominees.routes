@@ -210,5 +210,10 @@ POST       /nominee-organisation-contact-details                                
 GET        /nominee-organisation-contact-details/change                         controllers.nominees.OrganisationNomineeContactDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-organisation-contact-details/change                         controllers.nominees.OrganisationNomineeContactDetailsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-organisation-changed-address                                controllers.nominees.IsOrganisationNomineePreviousAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-organisation-changed-address                                controllers.nominees.IsOrganisationNomineePreviousAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-organisation-changed-address/change                         controllers.nominees.IsOrganisationNomineePreviousAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-organisation-changed-address/change                         controllers.nominees.IsOrganisationNomineePreviousAddressController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

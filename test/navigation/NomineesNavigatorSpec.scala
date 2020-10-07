@@ -283,6 +283,22 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the Has the address changed page when continue button is clicked" in {
           navigator.nextPage(OrganisationNomineeAddressLookupPage, NormalMode,
             emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, address).success.value) mustBe
+            nomineesRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IsOrganisationNomineePreviousAddress page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Has the address changed page when continue button is clicked" in {
+          navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode,
+            emptyUserAnswers.set(IsOrganisationNomineePreviousAddressPage, true)
+              .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, true))
+              .success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }

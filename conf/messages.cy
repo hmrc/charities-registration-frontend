@@ -1418,6 +1418,12 @@ organisationNomineeAddress.confirmPage.changeLinkText = (W)Change organisation�
 
 organisationNomineeAddress.checkYourAnswersLabel = (W)Address(W)
 
+# Charity Nominee Organisation Change Address Page Messages
+# ----------------------------------------------------------
+isOrganisationNomineePreviousAddress.title = (W)Has the nominee organisation’s address changed in the last 12 months? - Officials and nominees(W)
+isOrganisationNomineePreviousAddress.heading = (W)Has {0}’s address changed in the last 12 months?(W)
+isOrganisationNomineePreviousAddress.error.required = (W)Select yes if the organisation's address has changed in the last 12 months(W)
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)

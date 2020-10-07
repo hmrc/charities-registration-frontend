@@ -1382,7 +1382,7 @@ isIndividualNomineeNino.error.required = Select yes if they have a National Insu
 # Is Charity Nominee authorised to receive payments Page Messages
 # ----------------------------------------------------------
 isIndividualNomineePayments.title = Is the nominee authorised to receive payments for your charity?
-isIndividualNomineePayments.heading = Is {0} authorised to receive payments for your charity?
+isIndividualNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isIndividualNomineePayments.error.required = Select yes if the nominee is authorised to receive payments
 
 # Charity Nominee Organisation Contact Details Page Messages
@@ -1423,6 +1423,12 @@ organisationNomineeAddress.checkYourAnswersLabel = Address
 isOrganisationNomineePreviousAddress.title = Has the nominee organisation’s address changed in the last 12 months? - Officials and nominees
 isOrganisationNomineePreviousAddress.heading = Has {0}’s address changed in the last 12 months?
 isOrganisationNomineePreviousAddress.error.required = Select yes if the organisation's address has changed in the last 12 months
+
+# Is Charity Nominee Organisation authorised to receive payments Page Messages
+# ----------------------------------------------------------
+isOrganisationNomineePayments.title = Is the nominee organisation authorised to receive payments for your charity?
+isOrganisationNomineePayments.heading = Is {0} authorised to receive payments for the charity?
+isOrganisationNomineePayments.error.required = Select yes if the organisation is authorised to receive payments
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

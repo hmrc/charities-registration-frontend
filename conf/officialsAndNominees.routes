@@ -215,5 +215,15 @@ POST       /nominee-organisation-changed-address                                
 GET        /nominee-organisation-changed-address/change                         controllers.nominees.IsOrganisationNomineePreviousAddressController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-organisation-changed-address/change                         controllers.nominees.IsOrganisationNomineePreviousAddressController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /nominee-organisation-payments                                       controllers.nominees.IsOrganisationNomineePaymentsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-organisation-payments                                       controllers.nominees.IsOrganisationNomineePaymentsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-organisation-payments/change                                controllers.nominees.IsOrganisationNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-organisation-payments/change                                controllers.nominees.IsOrganisationNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

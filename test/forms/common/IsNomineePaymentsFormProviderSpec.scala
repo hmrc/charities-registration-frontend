@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package forms.nominees
+package forms.common
 
 import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.{Form, FormError}
 
-class IsIndividualNomineePaymentsFormProviderSpec extends BooleanFieldBehaviours {
+class IsNomineePaymentsFormProviderSpec extends BooleanFieldBehaviours {
 
-  private val formProvider: IsIndividualNomineePaymentsFormProvider = inject[IsIndividualNomineePaymentsFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  val messagePrefix: String = "isIndividualNomineePayments"
+  private val formProvider: IsNomineePaymentsFormProvider = inject[IsNomineePaymentsFormProvider]
+  private val form: Form[Boolean] = formProvider(messagePrefix)
   private val requiredKey = "isIndividualNomineePayments.error.required"
   private val invalidKey = "error.boolean"
 

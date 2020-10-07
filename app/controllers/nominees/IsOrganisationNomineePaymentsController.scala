@@ -23,7 +23,7 @@ import forms.common.IsNomineePaymentsFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
-import pages.nominees.{IndividualNomineeNamePage, IsIndividualNomineePaymentsPage}
+import pages.nominees.{IsOrganisationNomineePaymentsPage, OrganisationNomineeNamePage}
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
@@ -32,38 +32,38 @@ import views.html.common.IsNomineePaymentsView
 
 import scala.concurrent.Future
 
+class IsOrganisationNomineePaymentsController @Inject()(
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: IsNomineePaymentsFormProvider,
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: NomineesNavigator,
+    override val controllerComponents: MessagesControllerComponents,
+    override val view: IsNomineePaymentsView
+   )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
 
-class IsIndividualNomineePaymentsController @Inject()(
-     val identify: AuthIdentifierAction,
-     val getData: UserDataRetrievalAction,
-     val requireData: DataRequiredAction,
-     val formProvider: IsNomineePaymentsFormProvider,
-     val sessionRepository: UserAnswerRepository,
-     val navigator: NomineesNavigator,
-     override val controllerComponents: MessagesControllerComponents,
-     val view: IsNomineePaymentsView
-     )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
-
-  val messagePrefix: String = "isIndividualNomineePayments"
+  override val messagePrefix: String = "isOrganisationNomineePayments"
   private val form: Form[Boolean] = formProvider(messagePrefix)
+
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-        getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+      getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
 
-          Future.successful(getView(IsIndividualNomineePaymentsPage, form, individualNomineeName,
-            controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(mode)))
-        }
+        Future.successful(getView(IsOrganisationNomineePaymentsPage, form, organisationNomineeName,
+          controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(mode)))
+      }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+      getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
 
-        postView(mode, IsIndividualNomineePaymentsPage, form, individualNomineeName, Section9Page,
-          controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(mode))
+        postView(mode, IsOrganisationNomineePaymentsPage, form, organisationNomineeName, Section9Page,
+          controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(mode))
       }
   }
 }

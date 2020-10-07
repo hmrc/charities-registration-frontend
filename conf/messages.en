@@ -1365,6 +1365,31 @@ individualNomineesBankDetails.rollNumber.error.length = Building society roll nu
 individualNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
 individualNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
 
+
+# Charity Nominee Organisation Bank details Messages
+# ----------------------------------------------------------
+organisationNomineesBankDetails.title = Nominee organisation’s bank details
+organisationNomineesBankDetails.heading = {0}’s bank details
+organisationNomineesBankDetails.accountName = Organisation’s account name
+organisationNomineesBankDetails.accountName.hint = As shown on organisation’s account statements
+organisationNomineesBankDetails.accountName.error.length = Organisation’s account name must be 60 characters or fewer
+organisationNomineesBankDetails.accountName.error.required = Enter the organisation’s account name
+organisationNomineesBankDetails.accountName.error.format = The organisation’s account name must not include the following characters: & ( ) : @
+organisationNomineesBankDetails.sortCode = Organisation’s sort code
+organisationNomineesBankDetails.sortCode.hint = Must be 6 digits long
+organisationNomineesBankDetails.sortCode.error.required = Enter the organisation’s sort code
+organisationNomineesBankDetails.sortCode.error.format = Enter a valid sort code like 309430
+organisationNomineesBankDetails.accountNumber = Organisation’s account number
+organisationNomineesBankDetails.accountNumber.hint = Must be between 6 and 8 digits long
+organisationNomineesBankDetails.accountNumber.error.required = Enter the organisation’s account number
+organisationNomineesBankDetails.accountNumber.error.format = Enter a valid account number like 00733445
+organisationNomineesBankDetails.rollNumber = Building society roll number (if you have one)
+organisationNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
+organisationNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
+organisationNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
+organisationNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
+
+
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = What is the name of the organisation?

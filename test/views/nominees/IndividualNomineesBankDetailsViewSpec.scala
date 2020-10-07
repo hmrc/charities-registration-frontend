@@ -22,19 +22,20 @@ import models.{BankDetails, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.nominees.IndividualNomineesBankAccountDetailsView
-
+import views.html.common.BankAccountDetailsView
 
 class IndividualNomineesBankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
 
   private val messageKeyPrefix = "individualNomineesBankDetails"
+  private val sectionName: String = "officialsAndNominees.section"
   val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
 
     "IndividualNomineesBankDetailsView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[IndividualNomineesBankAccountDetailsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode,"Jim Jam")(fakeRequest, messages, frontendAppConfig)
+          val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
+          view.apply(form, controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
+            messageKeyPrefix, sectionName, Some("Jim Jam"))(fakeRequest, messages, frontendAppConfig)
         }
 
       behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jam"), section = Some(messages("officialsAndNominees.section")))

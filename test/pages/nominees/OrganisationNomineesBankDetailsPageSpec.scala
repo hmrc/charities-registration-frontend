@@ -20,9 +20,9 @@ import models.BankDetails
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class IndividualNomineesBankAccountDetailsPageSpec extends PageBehaviours{
+class OrganisationNomineesBankDetailsPageSpec extends PageBehaviours{
 
-  "IndividualNomineesBankAccountDetailsPage" must {
+  "OrganisationNomineesBankAccountDetailsPage" must {
 
     implicit lazy val arbitraryBankDetails: Arbitrary[BankDetails] = Arbitrary {
       BankDetails(
@@ -33,10 +33,10 @@ class IndividualNomineesBankAccountDetailsPageSpec extends PageBehaviours{
       )
     }
 
-    beRetrievable[BankDetails](IndividualNomineesBankAccountDetailsPage)
+    beRetrievable[BankDetails](OrganisationNomineesBankDetailsPage)
 
-    beSettable[BankDetails](IndividualNomineesBankAccountDetailsPage)
+    beSettable[BankDetails](OrganisationNomineesBankDetailsPage)
 
-    beRemovable[BankDetails](IndividualNomineesBankAccountDetailsPage)
+    beRemovable[BankDetails](OrganisationNomineesBankDetailsPage)
   }
 }

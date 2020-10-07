@@ -23,16 +23,16 @@ import forms.common.BankDetailsFormProvider
 import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.NomineesNavigator
-import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesBankAccountDetailsPage}
+import pages.nominees.{OrganisationNomineeNamePage, OrganisationNomineesBankDetailsPage}
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.nominees.IndividualNomineesBankAccountDetailsView
+import views.html.common.BankAccountDetailsView
 
 import scala.concurrent.Future
 
-class IndividualNomineesBankAccountDetailsController @Inject()(
+class OrganisationNomineesBankDetailsController @Inject()(
     val sessionRepository: UserAnswerRepository,
     val navigator: NomineesNavigator,
     identify: AuthIdentifierAction,
@@ -40,23 +40,26 @@ class IndividualNomineesBankAccountDetailsController @Inject()(
     requireData: DataRequiredAction,
     formProvider: BankDetailsFormProvider,
     val controllerComponents: MessagesControllerComponents,
-    view: IndividualNomineesBankAccountDetailsView
+    view: BankAccountDetailsView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-   val messagePrefix: String = "individualNomineesBankDetails"
+  private val messagePrefix: String = "organisationNomineesBankDetails"
+  private val sectionName: String = "officialsAndNominees.section"
   private val form: Form[BankDetails] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      val preparedForm = request.userAnswers.get(IndividualNomineesBankAccountDetailsPage) match {
+      val preparedForm = request.userAnswers.get(OrganisationNomineesBankDetailsPage) match {
         case None => form
         case Some(value) => form.fill(value)
       }
 
-      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+      getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
 
-        Future.successful(Ok(view(preparedForm, mode, individualNomineeName)))
+        Future.successful(Ok(view(preparedForm,
+          controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(mode),
+          messagePrefix, sectionName, Some(organisationNomineeName))))
       }
   }
 
@@ -65,15 +68,17 @@ class IndividualNomineesBankAccountDetailsController @Inject()(
 
       form.bindFromRequest().fold(
         formWithErrors =>
-          getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-            Future.successful(BadRequest(view(formWithErrors, mode, individualNomineeName)))
+          getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
+            Future.successful(BadRequest(view(formWithErrors,
+              controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(mode),
+              messagePrefix, sectionName, Some(organisationNomineeName))))
           },
 
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(IndividualNomineesBankAccountDetailsPage, value).flatMap(_.set(Section9Page, false)))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(OrganisationNomineesBankDetailsPage, value).flatMap(_.set(Section9Page, false)))
             _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(IndividualNomineesBankAccountDetailsPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(OrganisationNomineesBankDetailsPage, mode, updatedAnswers))
       )
   }
 }

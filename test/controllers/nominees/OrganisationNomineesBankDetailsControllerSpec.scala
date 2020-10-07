@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package controllers.operationsAndFunds
+package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.BankDetailsFormProvider
 import models.{BankDetails, NormalMode, UserAnswers}
-import navigation.BankDetailsNavigator
-import navigation.FakeNavigators.FakeBankDetailsNavigator
+import navigation.FakeNavigators.FakeNomineesNavigator
+import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.operationsAndFunds.BankDetailsPage
+import pages.nominees.{OrganisationNomineeNamePage, OrganisationNomineesBankDetailsPage}
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -34,7 +35,7 @@ import views.html.common.BankAccountDetailsView
 
 import scala.concurrent.Future
 
-class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
+class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -42,7 +43,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-        bind[BankDetailsNavigator].toInstance(FakeBankDetailsNavigator),
+        bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
@@ -51,13 +52,12 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerRepository)
   }
 
-  private val messagePrefix: String = "bankDetails"
-  private val sectionName: String = "operationsAndFunds.section"
+  val messagePrefix: String = "organisationNomineesBankDetails"
   private val view: BankAccountDetailsView = injector.instanceOf[BankAccountDetailsView]
   private val formProvider: BankDetailsFormProvider = injector.instanceOf[BankDetailsFormProvider]
-  private val form = formProvider(messagePrefix)
+  private val form: Form[BankDetails] = formProvider(messagePrefix)
 
-  private val controller: BankDetailsController = inject[BankDetailsController]
+  private val controller: OrganisationNomineesBankDetailsController = inject[OrganisationNomineesBankDetailsController]
 
   private val bankDetails =  BankDetails(
     accountName = "fullName",
@@ -66,24 +66,29 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
     rollNumber = Some("operatingName")
   )
 
-  "BankDetails Controller" must {
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(OrganisationNomineeNamePage, "TESCO").success.value
+
+  "OrganisationNomineesBankDetails Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
-        messagePrefix, sectionName, None)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form,controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
+        messagePrefix, "officialsAndNominees.section", Some("TESCO"))(
+        fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(BankDetailsPage, bankDetails).success.value
+      val userAnswers = localUserAnswers.set(OrganisationNomineesBankDetailsPage,
+        bankDetails).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -98,7 +103,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
       val request = fakeRequest.withFormUrlEncodedBody("accountName" -> "fullName", "sortCode" -> "123456",
         "accountNumber" -> "12345678", "rollNumber" -> "operatingName")
 
-     when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
@@ -111,9 +116,9 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody()
 
-     when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -131,6 +136,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, never).set(any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {

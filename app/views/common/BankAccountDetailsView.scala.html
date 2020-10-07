@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.operationsAndFunds.routes._
+@import controllers.nominees.routes._
 @import models.Mode
 @import views.ViewUtils._
 @import config.FrontendAppConfig
@@ -25,31 +25,33 @@
     errorSummary: components.errorSummary,
     button: components.button,
     inputText: components.inputText,
-    h1: components.h1,
     p: components.p,
     warning: components.warning,
     fieldset: components.fieldset
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], submitCall: Call, messagePrefix: String, sectionName: String, nomineeName: Option[String])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "bankDetails.title", Some("operationsAndFunds.section")))) {
+@govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some(sectionName)))) {
 
-    @formHelper(action = BankDetailsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+    @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
-        @fieldset("bankDetails.heading") {
+        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(nomineeName.getOrElse(""))) {
 
-            @p{@messages("bankDetails.p1")}
+
+            @if(nomineeName.isEmpty){
+                @p{@messages("bankDetails.p1")}
+            }
 
             @inputText(
                 form,
                 id = "accountName",
                 name = "accountName",
-                label = "bankDetails.accountName",
+                label = s"$messagePrefix.accountName",
                 isPageHeading = false,
-                hint = Some(Html(messages("bankDetails.accountName.hint"))),
+                hint = Some(Html(messages(s"$messagePrefix.accountName.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
 
@@ -57,9 +59,9 @@
                 form,
                 id = "sortCode",
                 name = "sortCode",
-                label = "bankDetails.sortCode",
+                label = s"$messagePrefix.sortCode",
                 isPageHeading = false,
-                hint = Some(Html(messages("bankDetails.sortCode.hint"))),
+                hint = Some(Html(messages(s"$messagePrefix.sortCode.hint"))),
                 classes = Some("govuk-input govuk-input--width-5")
             )
 
@@ -67,9 +69,9 @@
                 form,
                 id = "accountNumber",
                 name = "accountNumber",
-                label = "bankDetails.accountNumber",
+                label = s"$messagePrefix.accountNumber",
                 isPageHeading = false,
-                hint = Some(Html(messages("bankDetails.accountNumber.hint"))),
+                hint = Some(Html(messages(s"$messagePrefix.accountNumber.hint"))),
                 classes = Some("govuk-input govuk-input govuk-input--width-10")
             )
 
@@ -77,14 +79,14 @@
                 form,
                 id = "rollNumber",
                 name = "rollNumber",
-                label = "bankDetails.rollNumber",
+                label = s"$messagePrefix.rollNumber",
                 isPageHeading = false,
-                hint = Some(Html(messages("bankDetails.rollNumber.hint"))),
+                hint = Some(Html(messages(s"$messagePrefix.rollNumber.hint"))),
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
         }
 
-        @warning{@messages("bankDetails.basc.warning")}
+        @warning{@messages(s"$messagePrefix.basc.warning")}
 
         @button("site.saveAndContinue")
 

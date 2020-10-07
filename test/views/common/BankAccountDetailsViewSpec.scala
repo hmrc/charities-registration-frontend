@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.operationsAndFunds
+package views.common
 
 import assets.messages.BaseMessages
 import forms.common.BankDetailsFormProvider
@@ -24,31 +24,27 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.BankAccountDetailsView
 
+class BankAccountDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
 
-class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
-
-  private val messageKeyPrefix = "bankDetails"
-  private val sectionName: String = "operationsAndFunds.section"
+  private val messageKeyPrefix = "organisationNomineesBankDetails"
+  private val sectionName: String = "officialsAndNominees.section"
   val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
 
-    "BankDetailsView" must {
+    "BankAccountDetailsView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
           val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
-          view.apply(form, controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode),
-            messageKeyPrefix, sectionName, None)(fakeRequest, messages, frontendAppConfig)
+          view.apply(form, controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
+            messageKeyPrefix, sectionName, Some("Jim Jam"))(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jam"), section = Some(messages("officialsAndNominees.section")))
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithWarningText(applyView(form), messages("bankDetails.basc.warning"))
+      behave like pageWithWarningText(applyView(form), messages("organisationNomineesBankDetails.basc.warning"))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
-      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix,
-        "p1")
 
     }
   }

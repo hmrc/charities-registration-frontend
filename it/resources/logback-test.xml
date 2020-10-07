@@ -50,7 +50,11 @@
 
     <logger name="uk.gov" level="OFF"/>
 
-    <logger name="application" level="ERROR"/>
+    <logger name="application" level="OFF"/>
+
+    <logger name="wiremock.org" level="OFF"/>
+
+    <logger name="reactivemongo" level="OFF"/>
 
     <logger name="com.github.tomakehurst.wiremock" level="WARN"/>
     <logger name="wiremock.org" level="ERROR"/>
@@ -62,7 +66,7 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <root level="ERROR">
+    <root level="WARN">
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </root>

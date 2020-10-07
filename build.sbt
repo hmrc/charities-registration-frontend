@@ -1,6 +1,7 @@
 import play.sbt.routes.RoutesKeys
 import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings
+import uk.gov.hmrc.DefaultBuildSettings.addTestReportOption
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 lazy val appName: String = "charities-registration-frontend"
@@ -13,13 +14,17 @@ lazy val root = (project in file("."))
   .settings(DefaultBuildSettings.defaultSettings(): _*)
   .settings(SbtDistributablesPlugin.publishingSettings: _*)
   .settings(inConfig(Test)(testSettings): _*)
+  .settings(HeaderPlugin.autoImport.headerSettings(IntegrationTest))
   .configs(IntegrationTest)
-  .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
+  .settings(inConfig(IntegrationTest)(Defaults.itSettings ++
+    AutomateHeaderPlugin.autoImport.automateHeaderSettings(IntegrationTest)): _*)
   .settings(
-    Keys.fork in IntegrationTest := false,
+    javaOptions += "-Dlogger.resource=logback-test.xml",
     unmanagedSourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest)(base => Seq(base / "it")).value,
+    resourceDirectory in IntegrationTest :=(baseDirectory in IntegrationTest)(base => base / "it" / "resources").value,
     parallelExecution in IntegrationTest := false,
-    javaOptions += "-Dlogger.resource=logback-test.xml"
+    Keys.fork in IntegrationTest := true,
+    addTestReportOption(IntegrationTest, "int-test-reports")
   )
   .settings(majorVersion := 0)
   .settings(
@@ -76,3 +81,4 @@ lazy val testSettings: Seq[Def.Setting[_]] = Seq(
     "-Dlogger.resource=logback-test.xml"
   )
 )
+

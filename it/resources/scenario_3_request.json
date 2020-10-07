@@ -1,0 +1,263 @@
+{
+  "authorisedOfficials" : [
+    {
+      "isOfficialPreviousAddress" : true,
+      "officialsPhoneNumber" : {
+        "daytimePhone" : "+44 0808 157 1111",
+        "mobilePhone" : "+44 0808 157 2222"
+      },
+      "officialsPosition" : "01",
+      "officialsDOB" : "2001-01-11",
+      "isOfficialNino" : false,
+      "officialAddress" : {
+        "lines" : [
+          "9 Other Place",
+          "Some District",
+          "Anytown"
+        ],
+        "postcode" : "ZZ1 1ZZ",
+        "country" : {
+          "code" : "GB",
+          "name" : "United Kingdom"
+        }
+      },
+      "officialsName" : {
+        "title" : "0001",
+        "firstName" : "Steve",
+        "lastName" : "Waugh"
+      },
+      "officialPreviousAddress" : {
+        "lines" : [
+          "6 Other Place",
+          "Some District",
+          "Anytown"
+        ],
+        "postcode" : "ZZ1 1ZZ",
+        "country" : {
+          "code" : "GB",
+          "name" : "United Kingdom"
+        }
+      },
+      "officialsPassport" : {
+        "passportNumber" : "UK12345",
+        "country" : "SE",
+        "expiryDate" : "2099-11-11"
+      }
+    },
+    {
+      "isOfficialPreviousAddress" : false,
+      "officialsPhoneNumber" : {
+        "daytimePhone" : "+44 0808 157 2222",
+        "mobilePhone" : "+44 0808 157 3333"
+      },
+      "officialsPosition" : "23",
+      "officialsDOB" : "2002-02-02",
+      "isOfficialNino" : false,
+      "officialAddress" : {
+        "lines" : [
+          "Flat 2",
+          "7 Other Place",
+          "Some District",
+          "Anytown"
+        ],
+        "postcode" : "ZZ1 1ZZ",
+        "country" : {
+          "code" : "GB",
+          "name" : "United Kingdom"
+        }
+      },
+      "officialsName" : {
+        "title" : "0001",
+        "firstName" : "Mark",
+        "lastName" : "Waugh"
+      },
+      "officialsPassport" : {
+        "passportNumber" : "AT12345",
+        "country" : "FR",
+        "expiryDate" : "2099-09-23"
+      }
+    }
+  ],
+  "whenGoverningDocumentApproved" : "2001-11-11",
+  "isSection2Completed" : true,
+  "charitablePurposes" : [
+    "other",
+    "armedForcesOfTheCrown",
+    "animalWelfare",
+    "religion",
+    "humanRights",
+    "healthOrSavingOfLives",
+    "citizenshipOrCommunityDevelopment",
+    "environmentalProtection",
+    "reliefOfPoverty",
+    "artsCultureOrScience",
+    "education",
+    "reliefOfYouthAge",
+    "amateurSport"
+  ],
+  "isAddAnotherOfficial" : true,
+  "charityRegulator" : [
+    "otherRegulator"
+  ],
+  "hasCharityChangedPartsOfGoverningDocument" : true,
+  "isSection5Completed" : true,
+  "actualIncome" : 100.0,
+  "charityOtherRegulatorDetails" : {
+    "regulatorName" : "John",
+    "registrationNumber" : "Ceana"
+  },
+  "charityOfficialAddress" : {
+    "lines" : [
+      "Flat 1",
+      "7 Other Place",
+      "Some District",
+      "Anytown"
+    ],
+    "postcode" : "ZZ1 1ZZ",
+    "country" : {
+      "code" : "GB",
+      "name" : "United Kingdom"
+    }
+  },
+  "publicBenefits" : "Test",
+  "bankDetails" : {
+    "accountName" : "account name",
+    "sortCode" : "123456",
+    "accountNumber" : "12121212",
+    "rollNumber" : "roll number"
+  },
+  "isSection3Completed" : true,
+  "isApprovedGoverningDocument" : true,
+  "operatingLocation" : [
+    "1",
+    "2",
+    "5"
+  ],
+  "selectFundRaising" : [
+    "donations",
+    "fundraising"
+  ],
+  "charitableObjectives" : "Test",
+  "isSection8Completed" : true,
+  "charityContactDetails" : {
+    "daytimePhone" : "+44 0808 157 1111",
+    "mobilePhone" : "+44 0808 157 2222",
+    "emailAddress" : "a@b.com"
+  },
+  "isCharityRegulator" : true,
+  "sectionsChangedGoverningDocument" : "Test",
+  "isSection7Completed" : true,
+  "isAuthoriseNominee" : false,
+  "isBankStatements" : true,
+  "charityName" : {
+    "fullName" : "Just a Drop",
+    "operatingName" : "Operation Smile"
+  },
+  "whyNoBankStatement" : "Test",
+  "accountingPeriodEndDate" : "--11-11",
+  "isSection6Completed" : true,
+  "addAnotherOtherOfficial" : false,
+  "charityPostalAddress" : {
+    "lines" : [
+      "4 Other Place",
+      "Some District",
+      "Anytown"
+    ],
+    "postcode" : "ZZ1 1ZZ",
+    "country" : {
+      "code" : "GB",
+      "name" : "United Kingdom"
+    }
+  },
+  "isSection9Completed" : true,
+  "isSection4Completed" : true,
+  "whatCountryDoesTheCharityOperateIn" : [
+    {
+      "country" : "IN"
+    },
+    {
+      "country" : "BG"
+    }
+  ],
+  "anotherCountry" : false,
+  "isSection1Completed" : true,
+  "selectGoverningDocument" : "1",
+  "canWeSendLettersToThisAddress" : false,
+  "estimatedIncome" : 100.0,
+  "otherOfficials" : [
+    {
+      "officialsPhoneNumber" : {
+        "daytimePhone" : "+44 0808 157 2222",
+        "mobilePhone" : "+44 0808 157 1111"
+      },
+      "officialsPosition" : "02",
+      "officialsDOB" : "2001-01-11",
+      "isOfficialNino" : false,
+      "officialAddress" : {
+        "lines" : [
+          "9 Other Place",
+          "Some District",
+          "Anytown"
+        ],
+        "postcode" : "ZZ1 1ZZ",
+        "country" : {
+          "code" : "GB",
+          "name" : "United Kingdom"
+        }
+      },
+      "officialsName" : {
+        "title" : "0001",
+        "firstName" : "Mark",
+        "lastName" : "Waugh"
+      },
+      "isOfficialsPreviousAddress" : true,
+      "officialPreviousAddress" : {
+        "lines" : [
+          "6 Other Place",
+          "Some District",
+          "Anytown"
+        ],
+        "postcode" : "ZZ1 1ZZ",
+        "country" : {
+          "code" : "GB",
+          "name" : "United Kingdom"
+        }
+      },
+      "officialsNino" : "CS 70 01 00 A",
+      "officialsPassport" : {
+        "passportNumber" : "UK12345",
+        "country" : "FR",
+        "expiryDate" : "2099-11-11"
+      }
+    },
+    {
+      "officialsPhoneNumber" : {
+        "daytimePhone" : "+44 0808 157 2222",
+        "mobilePhone" : "+44 0808 157 3333"
+      },
+      "officialsPosition" : "03",
+      "officialsDOB" : "2001-02-02",
+      "isOfficialNino" : true,
+      "officialAddress" : {
+        "lines" : [
+          "8 Other Place",
+          "Some District",
+          "Anytown"
+        ],
+        "postcode" : "ZZ1 1ZZ",
+        "country" : {
+          "code" : "GB",
+          "name" : "United Kingdom"
+        }
+      },
+      "officialsName" : {
+        "title" : "0001",
+        "firstName" : "Steve",
+        "lastName" : "Waugh"
+      },
+      "isOfficialsPreviousAddress" : false,
+      "officialsNino" : "CS 70 03 00 A"
+    }
+  ],
+  "isFinancialAccounts" : true
+}

@@ -185,6 +185,21 @@ POST       /nominee-enter-national-insurance                                    
 GET        /nominee-enter-national-insurance/change                             controllers.nominees.IndividualNomineesNinoController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-enter-national-insurance/change                             controllers.nominees.IndividualNomineesNinoController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /nominee-changed-address                                             controllers.nominees.IsIndividualNomineePreviousAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-changed-address                                             controllers.nominees.IsIndividualNomineePreviousAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-changed-address/change                                      controllers.nominees.IsIndividualNomineePreviousAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-changed-address/change                                      controllers.nominees.IsIndividualNomineePreviousAddressController.onSubmit(mode: Mode = CheckMode)
+
+GET        /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-organisation-name                                           controllers.nominees.OrganisationNomineeNameController.onPageLoad(mode: Mode = NormalMode)
 POST       /nominee-organisation-name                                           controllers.nominees.OrganisationNomineeNameController.onSubmit(mode: Mode = NormalMode)
 GET        /nominee-organisation-name/change                                    controllers.nominees.OrganisationNomineeNameController.onPageLoad(mode: Mode = CheckMode)
@@ -194,16 +209,6 @@ GET        /nominee-organisation-contact-details                                
 POST       /nominee-organisation-contact-details                                controllers.nominees.OrganisationNomineeContactDetailsController.onSubmit(mode: Mode = NormalMode)
 GET        /nominee-organisation-contact-details/change                         controllers.nominees.OrganisationNomineeContactDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-organisation-contact-details/change                         controllers.nominees.OrganisationNomineeContactDetailsController.onSubmit(mode: Mode = CheckMode)
-
-GET        /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = NormalMode)
-POST       /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = NormalMode)
-GET        /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
-POST       /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
-
-GET        /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = NormalMode)
-POST       /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = NormalMode)
-GET        /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = CheckMode)
-POST       /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = CheckMode)
 
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

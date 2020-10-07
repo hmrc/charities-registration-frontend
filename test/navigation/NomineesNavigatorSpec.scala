@@ -294,12 +294,41 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Has the address changed page when continue button is clicked" in {
+        "go to the Orgnisation previous address page when continue button is clicked" in {
           navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineePreviousAddressPage, true)
               .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, true))
               .success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            routes.DeadEndController.onPageLoad()//TODO when next page created
+
+        }
+
+        "go to the Has the address changed page when continue button is clicked" in {
+          navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode,
+            emptyUserAnswers.set(IsOrganisationNomineePreviousAddressPage, false)
+              .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
+              .success.value) mustBe
+          nomineesRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IsOrganisationNomineePayments Page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsOrganisationNomineePaymentsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What are Organisation's bank account details page when selected yes and clicked continue" in {
+          navigator.nextPage(IsOrganisationNomineePaymentsPage, NormalMode,
+            emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page created
+        }
+
+        "go to the Adding Authorised person from organisation page when selected no and continue button is clicked" in {
+          navigator.nextPage(IsOrganisationNomineePaymentsPage, NormalMode,
+            emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page created
         }
       }
 
@@ -549,6 +578,26 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(OrganisationNomineeAddressLookupPage, CheckMode,
             emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, address).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IsOrganisationNomineePayments Page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsOrganisationNomineePaymentsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What are Organisation's bank account details page when selected yes and clicked continue" in {
+          navigator.nextPage(IsOrganisationNomineePaymentsPage, CheckMode,
+            emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page created
+        }
+
+        "go to the Adding Authorised person from organisation page when selected no and continue button is clicked" in {
+          navigator.nextPage(IsOrganisationNomineePaymentsPage, CheckMode,
+            emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page created
         }
       }
 

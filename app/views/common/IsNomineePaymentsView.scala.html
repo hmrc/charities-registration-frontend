@@ -14,8 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.nominees.routes._
-@import models.Mode
+@import play.api.mvc.Call
 @import views.ViewUtils._
 @import config.FrontendAppConfig
 
@@ -27,15 +26,15 @@
     button: components.button,
 )
 
-@(form: Form[_], mode: Mode, individualNomineeName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], fullName: String, messagePrefix: String, submitCall: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "isIndividualNomineePayments.title", Some("officialsAndNominees.section")))) {
+@govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("officialsAndNominees.section")))) {
 
-    @formHelper(action = IsIndividualNomineePaymentsController.onSubmit(mode)) {
+    @formHelper(action = submitCall) {
 
     @errorSummary(form.errors)
 
-    @yesNoRadio(form, "isIndividualNomineePayments.heading", headingMessageArgs = Seq(individualNomineeName))
+    @yesNoRadio(form, s"$messagePrefix.heading", headingMessageArgs = Seq(fullName))
 
     @button("site.saveAndContinue")
 

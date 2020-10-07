@@ -14,37 +14,38 @@
  * limitations under the License.
  */
 
-package views.nominees
+package views.common
 
 import assets.messages.BaseMessages
-import controllers.nominees.routes
-import forms.nominees.IsIndividualNomineePaymentsFormProvider
+import forms.common.IsNomineePaymentsFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
-import views.html.nominees.IsIndividualNomineePaymentsView
+import views.html.common.IsNomineePaymentsView
 
-class IsIndividualNomineePaymentsViewSpec extends YesNoViewBehaviours  {
+class IsNomineePaymentsViewSpec extends YesNoViewBehaviours  {
 
   private val messageKeyPrefix = "isIndividualNomineePayments"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[IsIndividualNomineePaymentsFormProvider].apply()
-  private val individualNomineeName = "Jane Johnson"
+  val form: Form[Boolean] = inject[IsNomineePaymentsFormProvider].apply(messageKeyPrefix)
 
   "IsIndividualNomineePaymentsView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[IsIndividualNomineePaymentsView](Some(emptyUserAnswers))
-      view.apply(form,NormalMode,individualNomineeName)(fakeRequest, messages, frontendAppConfig)
+      val view = viewFor[IsNomineePaymentsView](Some(emptyUserAnswers))
+      view.apply(form,"Jim Jam", messageKeyPrefix, onwardRoute)(
+        fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq(individualNomineeName),section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jam"), section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsIndividualNomineePaymentsController.onSubmit(NormalMode).url, Seq(individualNomineeName), section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix,
+      controllers.nominees.routes.IsIndividualNomineeNinoController.onSubmit(NormalMode).url, Seq("Jim Jam"), section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
 }

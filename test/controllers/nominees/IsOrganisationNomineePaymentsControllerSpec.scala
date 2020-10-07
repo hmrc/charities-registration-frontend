@@ -19,13 +19,13 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.IsNomineePaymentsFormProvider
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.nominees.{IndividualNomineeNamePage, IsIndividualNomineePaymentsPage}
+import pages.nominees.{IsIndividualNomineePaymentsPage, OrganisationNomineeNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -35,7 +35,7 @@ import views.html.common.IsNomineePaymentsView
 
 import scala.concurrent.Future
 
-class IsIndividualNomineePaymentsControllerSpec extends SpecBase with BeforeAndAfterEach {
+class IsOrganisationNomineePaymentsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers = Some(emptyUserAnswers)
 
@@ -51,18 +51,17 @@ class IsIndividualNomineePaymentsControllerSpec extends SpecBase with BeforeAndA
     super.beforeEach()
     reset(mockUserAnswerRepository)
   }
-
-  val messagePrefix: String = "isIndividualNomineePayments"
+  val messagePrefix: String = "isOrganisationNomineePayments"
   private val view: IsNomineePaymentsView = injector.instanceOf[IsNomineePaymentsView]
   private val formProvider: IsNomineePaymentsFormProvider = injector.instanceOf[IsNomineePaymentsFormProvider]
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
-  private val controller: IsIndividualNomineePaymentsController = inject[IsIndividualNomineePaymentsController]
+  private val controller: IsOrganisationNomineePaymentsController = inject[IsOrganisationNomineePaymentsController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OrganisationNomineeNamePage, "Jim").success.value
 
-  "IsIndividualNomineePayments Controller " must {
+  "IsOrganisationNomineePayments Controller " must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -70,8 +69,8 @@ class IsIndividualNomineePaymentsControllerSpec extends SpecBase with BeforeAndA
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messagePrefix,
-        controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(NormalMode))(
+      contentAsString(result) mustEqual view(form, "Jim", messagePrefix,
+        controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(NormalMode))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }

@@ -458,7 +458,123 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
-          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales))
+          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |		"operationAndFunds": {
+            |			"operationAndFundsCommon": {
+            |       "accountPeriodEnd": "0101",
+            |       "financialAccounts": true
+            |			},
+            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |			"otherAreaOperation": true,
+            |			"englandAndWales": true,
+            |			"scotland": false,
+            |			"northernIreland": false,
+            |			"ukWide": false,
+            |			"overseas": false
+            |		}
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct OperationAndFunds object with Wales, Scotland and Northern Ireland" in {
+
+        val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          _.set(IsFinancialAccountsPage, true)).flatMap(
+          _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Wales, OperatingLocationOptions.Scotland, OperatingLocationOptions.NorthernIreland))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |		"operationAndFunds": {
+            |			"operationAndFundsCommon": {
+            |       "accountPeriodEnd": "0101",
+            |       "financialAccounts": true
+            |			},
+            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |			"otherAreaOperation": true,
+            |			"englandAndWales": true,
+            |			"scotland": true,
+            |			"northernIreland": true,
+            |			"ukWide": true,
+            |			"overseas": false
+            |		}
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct OperationAndFunds object with England, Scotland and Northern Ireland" in {
+
+        val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          _.set(IsFinancialAccountsPage, true)).flatMap(
+          _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England, OperatingLocationOptions.Scotland, OperatingLocationOptions.NorthernIreland))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |		"operationAndFunds": {
+            |			"operationAndFundsCommon": {
+            |       "accountPeriodEnd": "0101",
+            |       "financialAccounts": true
+            |			},
+            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |			"otherAreaOperation": true,
+            |			"englandAndWales": true,
+            |			"scotland": true,
+            |			"northernIreland": true,
+            |			"ukWide": true,
+            |			"overseas": false
+            |		}
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct OperationAndFunds object with England and Northern Ireland" in {
+
+        val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          _.set(IsFinancialAccountsPage, true)).flatMap(
+          _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England, OperatingLocationOptions.NorthernIreland))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |		"operationAndFunds": {
+            |			"operationAndFundsCommon": {
+            |       "accountPeriodEnd": "0101",
+            |       "financialAccounts": true
+            |			},
+            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |			"otherAreaOperation": true,
+            |			"englandAndWales": true,
+            |			"scotland": false,
+            |			"northernIreland": true,
+            |			"ukWide": false,
+            |			"overseas": false
+            |		}
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct OperationAndFunds object with England and Wales" in {
+
+        val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          _.set(IsFinancialAccountsPage, true)).flatMap(
+          _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England, OperatingLocationOptions.Wales))
         ).success.value
 
         val expectedJson =
@@ -828,7 +944,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerTodoPages {
             MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
             _.set(IsFinancialAccountsPage, true)).flatMap(
             _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
-            _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales))).flatMap(
+            _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
             _.set(PublicBenefitsPage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66")).flatMap(
             _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(

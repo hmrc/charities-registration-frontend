@@ -76,7 +76,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
         "go to Has your charity prepared financial accounts page when user answers other than the Other when clicked continue button" in {
           navigator.nextPage(OperatingLocationPage, NormalMode,
-            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales)).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)).getOrElse(emptyUserAnswers)) mustBe
             operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
         }
 
@@ -310,7 +310,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
         "go to the Charity Details Summary page when an answer is given" in {
           navigator.nextPage(OperatingLocationPage, CheckMode,
-            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.EnglandAndWales)).getOrElse(emptyUserAnswers)) mustBe
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)).getOrElse(emptyUserAnswers)) mustBe
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
 

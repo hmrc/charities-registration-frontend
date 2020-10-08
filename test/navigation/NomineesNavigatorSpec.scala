@@ -328,7 +328,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the Adding Authorised person from organisation page when selected no and continue button is clicked" in {
           navigator.nextPage(IsOrganisationNomineePaymentsPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad()//TODO when next page created
+            nomineesRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()//TODO when next page created
         }
       }
 

@@ -1323,6 +1323,25 @@ individualNomineesNino.error.format = (W)Enter a National Insurance number in th
 
 individualNomineesNino.checkYourAnswersLabel = (W)National Insurance number(W)
 
+# Nominee Individual Address Messages
+# ----------------------------------------------------------
+nomineeIndividualAddress.lookupPage.title = (W)What is the nominee’s address?  - Officials and nominees(W)
+nomineeIndividualAddress.lookupPage.heading = (W)What is {0}’s full home address?(W)
+nomineeIndividualAddress.lookupPage.manualAddressLinkText = (W)Nominee’s address does not have a UK postcode(W)
+
+nomineeIndividualAddress.selectPage.title = (W)What is the nominee’s full address? - Officials and nominees(W)
+nomineeIndividualAddress.selectPage.heading = (W)What is {0}’s full home address?(W)
+nomineeIndividualAddress.selectPage.editAddressLinkText = (W)Enter nominee’s home address manually(W)
+
+nomineeIndividualAddress.editPage.title = (W)What is the nominees’s full address? - Officials and nominees(W)
+nomineeIndividualAddress.editPage.heading = (W)What is {0}’s full home address?(W)
+
+nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s address - Officials and nominees(W)
+nomineeIndividualAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
+nomineeIndividualAddress.confirmPage.changeLinkText = (W)Change nominee’s home address(W)
+
+nomineeIndividualAddress.checkYourAnswersLabel = (W)Home address(W)
+
 # Charity Nominee Individual Bank details Messages
 # ----------------------------------------------------------
 individualNomineesBankDetails.title = (W)Nominee’s bank details(W)
@@ -1345,6 +1364,31 @@ individualNomineesBankDetails.rollNumber.hint = (W)They can find it on their ban
 individualNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
 individualNomineesBankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
 individualNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+
+
+# Charity Nominee Organisation Bank details Messages
+# ----------------------------------------------------------
+organisationNomineesBankDetails.title = (W)Nominee organisation’s bank details(W)
+organisationNomineesBankDetails.heading = (W){0}’s bank details(W)
+organisationNomineesBankDetails.accountName = (W)Organisation’s account name(W)
+organisationNomineesBankDetails.accountName.hint = (W)As shown on organisation’s account statements(W)
+organisationNomineesBankDetails.accountName.error.length = (W)Organisation’s account name must be 60 characters or fewer(W)
+organisationNomineesBankDetails.accountName.error.required = (W)Enter the organisation’s account name(W)
+organisationNomineesBankDetails.accountName.error.format = (W)The organisation’s account name must not include the following characters: & ( ) : @(W)
+organisationNomineesBankDetails.sortCode = (W)Organisation’s sort code(W)
+organisationNomineesBankDetails.sortCode.hint = (W)Must be 6 digits long(W)
+organisationNomineesBankDetails.sortCode.error.required = (W)Enter the organisation’s sort code(W)
+organisationNomineesBankDetails.sortCode.error.format = (W)Enter a valid sort code like 309430(W)
+organisationNomineesBankDetails.accountNumber = (W)Organisation’s account number(W)
+organisationNomineesBankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
+organisationNomineesBankDetails.accountNumber.error.required = (W)Enter the organisation’s account number(W)
+organisationNomineesBankDetails.accountNumber.error.format = (W)Enter a valid account number like 00733445(W)
+organisationNomineesBankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
+organisationNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
+organisationNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
+organisationNomineesBankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
+organisationNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+
 
 # Nominee Individual Address Messages
 # ----------------------------------------------------------

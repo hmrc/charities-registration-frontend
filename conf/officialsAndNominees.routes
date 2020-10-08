@@ -195,10 +195,15 @@ POST       /nominee-changed-address                                             
 GET        /nominee-changed-address/change                                      controllers.nominees.IsIndividualNomineePreviousAddressController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-changed-address/change                                      controllers.nominees.IsIndividualNomineePreviousAddressController.onSubmit(mode: Mode = CheckMode)
 
-GET        /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = NormalMode)
-POST       /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = NormalMode)
-GET        /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onPageLoad(mode: Mode = CheckMode)
-POST       /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankAccountDetailsController.onSubmit(mode: Mode = CheckMode)
+GET        /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankDetailsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /nominee-organisation-bank-details                                   controllers.nominees.OrganisationNomineesBankDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-organisation-bank-details                                   controllers.nominees.OrganisationNomineesBankDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-organisation-bank-details/change                            controllers.nominees.OrganisationNomineesBankDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-organisation-bank-details/change                            controllers.nominees.OrganisationNomineesBankDetailsController.onSubmit(mode: Mode = CheckMode)
 
 GET        /nominee-organisation-name                                           controllers.nominees.OrganisationNomineeNameController.onPageLoad(mode: Mode = NormalMode)
 POST       /nominee-organisation-name                                           controllers.nominees.OrganisationNomineeNameController.onSubmit(mode: Mode = NormalMode)

@@ -25,13 +25,13 @@ import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesBankAccountDetailsPage}
+import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesBankDetailsPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.nominees.IndividualNomineesBankAccountDetailsView
+import views.html.common.BankAccountDetailsView
 
 import scala.concurrent.Future
 
@@ -53,11 +53,11 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
   }
 
   val messagePrefix: String = "individualNomineesBankDetails"
-  private val view: IndividualNomineesBankAccountDetailsView = injector.instanceOf[IndividualNomineesBankAccountDetailsView]
+  private val view: BankAccountDetailsView = injector.instanceOf[BankAccountDetailsView]
   private val formProvider: BankDetailsFormProvider = injector.instanceOf[BankDetailsFormProvider]
   private val form: Form[BankDetails] = formProvider(messagePrefix)
 
-  private val controller: IndividualNomineesBankAccountDetailsController = inject[IndividualNomineesBankAccountDetailsController]
+  private val controller: IndividualNomineesBankDetailsController = inject[IndividualNomineesBankDetailsController]
 
   private val bankDetails =  BankDetails(
     accountName = "fullName",
@@ -69,7 +69,7 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
-  "IndividualNomineesBankAccountDetails Controller" must {
+  "IndividualNomineesBankDetails Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -78,7 +78,8 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,NormalMode, "Jim John Jones")(
+      contentAsString(result) mustEqual view(form,controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
+        messagePrefix, "officialsAndNominees.section", Some("Jim John Jones"))(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
@@ -86,7 +87,7 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(IndividualNomineesBankAccountDetailsPage,
+      val userAnswers = localUserAnswers.set(IndividualNomineesBankDetailsPage,
         bankDetails).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))

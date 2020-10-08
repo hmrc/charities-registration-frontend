@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.common
+import forms.common.BankDetailsFormProvider
 import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.BankDetailsNavigator
@@ -28,7 +28,7 @@ import pages.sections.Section6Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.operationsAndFunds.BankDetailsView
+import views.html.common.BankAccountDetailsView
 
 import scala.concurrent.Future
 
@@ -38,29 +38,32 @@ class BankDetailsController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
-    formProvider: common.BankDetailsFormProvider,
+    formProvider: BankDetailsFormProvider,
     val controllerComponents: MessagesControllerComponents,
-    view:  BankDetailsView
+    view: BankAccountDetailsView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   val messagePrefix: String = "bankDetails"
+  val sectionName: String = "operationsAndFunds.section"
   val form: Form[BankDetails] = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     val preparedForm = request.userAnswers.get(BankDetailsPage) match {
       case None => form
       case Some(value) => form.fill(value)
     }
 
-    Ok(view(preparedForm, mode))
+    Future.successful(Ok(view(preparedForm, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
+      messagePrefix, sectionName, None)))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
+          messagePrefix, sectionName, None))),
 
       value =>
         for {

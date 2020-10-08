@@ -70,12 +70,12 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
-      case Some(true) => nomineeRoutes.IndividualNomineesBankAccountDetailsController.onPageLoad(NormalMode)
+      case Some(true) => nomineeRoutes.IndividualNomineesBankDetailsController.onPageLoad(NormalMode)
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IndividualNomineesBankAccountDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankAccountDetailsPage) match {
+    case IndividualNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankDetailsPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -114,8 +114,13 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IsOrganisationNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePaymentsPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(true) => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode) // TODO next page
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineesBankDetailsPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -175,7 +180,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
-    case IndividualNomineesBankAccountDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankAccountDetailsPage) match {
+    case IndividualNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankDetailsPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -210,6 +215,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case IsOrganisationNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePaymentsPage) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineesBankDetailsPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

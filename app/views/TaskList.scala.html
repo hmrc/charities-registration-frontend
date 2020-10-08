@@ -18,20 +18,24 @@
 @import viewmodels.TaskListRow
 @import config.FrontendAppConfig
 
+
 @this(
     main_template: templates.GovukLayoutWrapper,
     h1: components.h1,
-    link: components.linkAsButton
+    link: components.linkAsButton,
+    p: components.p
 )
 
 @(result: List[TaskListRow], status:Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
 
 @main_template(Some(titleNoForm("index.title"))) {
 
     @h1(messages("index.heading"))
 
-    <p class="govuk-body govuk-!-margin-bottom-7">@messages("index.guidance")</p>
+    <p class="govuk-body">@messages("index.guidance")</p>
 
+    <p class="govuk-body"><br></p>
     <ol class="app-task-list">
         <li>
             <h2 class="app-task-list__section">
@@ -40,11 +44,11 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result.head.link.url}" aria-describedby="charity-info-completed" id="charity-info">
+                    <a href="@{result.head.link.url}" id="charity-info">
                       @messages(result.head.name)
                     </a>
                   </span>
-                    <span class="hmrc-status-tag" id="charity-info-completed">@messages(result.head.state)</span>
+                    <strong class="@getTagClass(result.head)" id="charity-info-completed">@messages(result.head.state)</strong>
                 </li>
             </ul>
         </li>
@@ -55,19 +59,19 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(1).link.url}" aria-describedby="name-regulator-completed" id="name-regulator">
+                    <a href="@{result(1).link.url}" id="name-regulator">
                       @messages(result(1).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="name-regulator-completed">@messages(result(1).state)</span>
+                  <strong class="@getTagClass(result(1))" id="name-regulator-completed">@messages(result(1).state)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(2).link.url}" aria-describedby="governing-doc-info-completed" id="governing-doc-info">
+                    <a href="@{result(2).link.url}" id="governing-doc-info">
                       @messages(result(2).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="governing-doc-info-completed">@messages(result(2).state)</span>
+                    <strong class="@getTagClass(result(2))" id="governing-doc-info-completed">@messages(result(2).state)</strong>
                 </li>
             </ul>
         </li>
@@ -78,27 +82,27 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(3).link.url}" aria-describedby="charity-objective-completed" id="charity-objective">
+                    <a href="@{result(3).link.url}" id="charity-objective">
                       @messages(result(3).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="charity-objective-completed">@messages(result(3).state)</span>
+                  <strong class="@getTagClass(result(3))" id="charity-objective-completed">@messages(result(3).state)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(4).link.url}" aria-describedby="fundraising-info-completed" id="fundraising-info">
+                    <a href="@{result(4).link.url}" id="fundraising-info">
                       @messages(result(4).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="fundraising-info-completed">@messages(result(4).state)</span>
+                  <strong class="@getTagClass(result(4))" id="fundraising-info-completed">@messages(result(4).state)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(5).link.url}" aria-describedby="bank-details-completed" id="bank-details">
+                    <a href="@{result(5).link.url}" id="bank-details">
                       @messages(result(5).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="bank-details-completed">@messages(result(5).state)</span>
+                  <strong class="@getTagClass(result(5))" id="bank-details-completed">@messages(result(5).state)</strong>
                 </li>
             </ul>
         </li>
@@ -109,35 +113,47 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(6).link.url}" aria-describedby="authorised-officials-completed" id="authorised-officials">
+                    <a href="@{result(6).link.url}" id="authorised-officials">
                       @messages(result(6).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="authorised-officials-completed">@messages(result(6).state)</span>
+                  <strong class="@getTagClass(result(6))" id="authorised-officials-completed">@messages(result(6).state)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(7).link.url}" aria-describedby="other-officials-completed" id="other-officials">
+                    <a href="@{result(7).link.url}" id="other-officials">
                       @messages(result(7).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="other-officials-completed">@messages(result(7).state)</span>
+                  <strong class="@getTagClass(result(7))" id="other-officials-completed">@messages(result(7).state)</strong>
                 </li>
                 <li class="app-task-list__item">
                   <span class="app-task-list__task-name">
-                    <a href="@{result(8).link.url}" aria-describedby="nominee-info-completed" id="nominee-info">
+                    <a href="@{result(8).link.url}" id="nominee-info">
                       @messages(result(8).name)
                     </a>
                   </span>
-                  <span class="hmrc-status-tag" id="nominee-info-completed">@messages(result(8).state)</span>
+                  <strong class="@getTagClass(result(8))" id="nominee-info-completed">@messages(result(8).state)</strong>
                 </li>
             </ul>
         </li>
     </ol>
 
     @if(status) {
+        <h2 class="app-task-list__section">
+            @messages("index.complete.h2")
+        </h2>
+            @p(Html(messages("index.complete.p")))
+
         @link(controllers.routes.DeclarationController.onPageLoad().url, "site.continue", id=Some("declaration"))
     } else {
         <p class="govuk-body govuk-!-margin-bottom-7">@messages("index.section.note.label")</p>
     }
 }
+
+    @getTagClass(taskListRow: TaskListRow) = @{taskListRow.state match {
+            case "index.section.completed" => "hmrc-status-tag govuk-tag govuk-tag--turquoise"
+            case "index.section.inProgress" => "hmrc-status-tag govuk-tag govuk-tag--yellow"
+            case _ => "hmrc-status-tag govuk-tag govuk-tag--grey"
+        }
+    }

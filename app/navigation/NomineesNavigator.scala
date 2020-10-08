@@ -115,7 +115,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case IsOrganisationNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePaymentsPage) match {
       case Some(true) => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode) // TODO next page
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

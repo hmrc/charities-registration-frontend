@@ -1467,3 +1467,9 @@ nomineeDetailsSummary.section = Officials and nominees
 isIndividualNomineePreviousAddress.title = Has the nominee’s address changed in the last 12 months?
 isIndividualNomineePreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
 isIndividualNomineePreviousAddress.error.required = Select yes if their address has changed in the last 12 months
+
+# Charity Nominee Organisation Authorised Person messages
+# ----------------------------------------------------------
+organisationNomineeAuthorisedPerson.title = Authorised person
+organisationNomineeAuthorisedPerson.heading = You need to add an authorised person from {0}
+organisationNomineeAuthorisedPerson.p1 = This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf

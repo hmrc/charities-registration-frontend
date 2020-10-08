@@ -1370,7 +1370,7 @@ individualNomineesBankDetails.basc.warning = (W)We will send repayments using BA
 # ----------------------------------------------------------
 organisationNomineesBankDetails.title = (W)Nominee organisation’s bank details(W)
 organisationNomineesBankDetails.heading = (W){0}’s bank details(W)
-organisationNomineesBankDetails.accountName = (W)Organisation’s account name(W)
+organisationNomineesBankDetails.accountName = (W)Name on the account(W)
 organisationNomineesBankDetails.accountName.hint = (W)As shown on organisation’s account statements(W)
 organisationNomineesBankDetails.accountName.error.length = (W)Organisation’s account name must be 60 characters or fewer(W)
 organisationNomineesBankDetails.accountName.error.required = (W)Enter the organisation’s account name(W)

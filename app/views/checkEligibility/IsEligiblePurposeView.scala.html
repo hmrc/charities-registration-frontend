@@ -24,8 +24,8 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
-    h1: components.h1,
-    button: components.button
+    button: components.button,
+    pAsHint: components.pAsHint
 )
 
 
@@ -37,8 +37,7 @@
     @formHelper(action = IsEligiblePurposeController.onSubmit()) {
 
         @errorSummary(form.errors)
-        @h1(messages("isEligiblePurpose.heading"))
-        @yesNoRadio(form, "isEligiblePurpose.p", isPageHeading = false, classes = "govuk-body")
+        @yesNoRadio(form, "isEligiblePurpose.heading", hint = Some(Html(pAsHint("isEligiblePurpose", "p"))))
 
         @button("site.continue")
 

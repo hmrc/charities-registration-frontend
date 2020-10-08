@@ -43,7 +43,7 @@ class IsEligiblePurposeViewSpec extends YesNoViewBehaviours  {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsEligiblePurposeController.onSubmit().url, legendKey = Some("p"))
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsEligiblePurposeController.onSubmit().url, legendKey = Some("heading"))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
 

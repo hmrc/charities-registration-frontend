@@ -33,6 +33,6 @@
 
     @p(Html(messages("organisationNomineeAuthorisedPerson.p1")))
 
-    @link(controllers.routes.DeadEndController.onPageLoad().url, "site.continue",Some("linkButton"))
+    @link(controllers.nominees.routes.OrganisationAuthorisedPersonNameController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))
 
 }

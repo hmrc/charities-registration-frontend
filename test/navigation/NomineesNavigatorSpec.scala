@@ -339,10 +339,24 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to summary page when clicked continue button" in {
+        "go to Intro to Authorised Person page when clicked continue button" in {
           navigator.nextPage(OrganisationNomineesBankDetailsPage, NormalMode,
             emptyUserAnswers.set(OrganisationNomineesBankDetailsPage, bankDetails).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
+        }
+      }
+
+      "from the OrganisationAuthorisedPersonName page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationAuthorisedPersonNamePage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the what is full authorised person's date of birth page when continue button is clicked" in {
+          navigator.nextPage(OrganisationAuthorisedPersonNamePage, NormalMode,
+            emptyUserAnswers.set(OrganisationAuthorisedPersonNamePage, nomineeName).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page is created
         }
       }
 
@@ -646,6 +660,21 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the Adding Authorised person from organisation page when selected no and continue button is clicked" in {
           navigator.nextPage(IsOrganisationNomineePaymentsPage, CheckMode,
             emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page created
+        }
+      }
+
+
+      "from the OrganisationAuthorisedPersonName page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationAuthorisedPersonNamePage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(OrganisationAuthorisedPersonNamePage, CheckMode,
+            emptyUserAnswers.set(OrganisationAuthorisedPersonNamePage, nomineeName).success.value) mustBe
             routes.DeadEndController.onPageLoad()//TODO when next page created
         }
       }

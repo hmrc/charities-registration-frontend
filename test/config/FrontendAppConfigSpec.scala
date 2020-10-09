@@ -124,8 +124,9 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.getCharitiesBackend mustBe "http://localhost:9329"
       }
 
-
-
+      "isExternalTest" in {
+        frontendAppConfig.isExternalTest mustBe false
+      }
     }
   }
 

@@ -70,6 +70,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val govUKHelp: String = servicesConfig.getString("urls.footer.govukHelp")
 
   def languageTranslationEnabled: Boolean = servicesConfig.getBoolean("features.welshLanguage")
+  lazy val isExternalTest: Boolean = servicesConfig.getBoolean("features.isExternalTest")
 
   def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
 

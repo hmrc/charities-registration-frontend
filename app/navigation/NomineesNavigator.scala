@@ -65,7 +65,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IndividualNomineesNinoPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesNinoPage) match {
-      case Some(_) => controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
+      case Some(_) => if(frontendAppConfig.isExternalTest){
+        routes.DeadEndController.onPageLoad() // TODo Summary Pages
+      } else {
+        controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
+      }
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -98,7 +102,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationNomineeContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeContactDetailsPage) match {
-      case Some(_) => addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
+      case Some(_) => if(frontendAppConfig.isExternalTest){
+        routes.DeadEndController.onPageLoad() // TODo Summary Pages
+      } else {
+        addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
+      }
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

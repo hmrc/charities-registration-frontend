@@ -65,12 +65,20 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPassportPage(index)) match {
-      case Some(_) => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      case Some(_) => if(frontendAppConfig.isExternalTest){
+        redirectToPlaybackPage(index)
+      } else {
+        addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      }
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
-      case Some(_) => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      case Some(_) => if(frontendAppConfig.isExternalTest){
+        redirectToPlaybackPage(index)
+      } else {
+        addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      }
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

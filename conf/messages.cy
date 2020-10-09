@@ -1461,6 +1461,12 @@ isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised 
 isOrganisationNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isOrganisationNomineePayments.error.required = (W)Select yes if the organisation is authorised to receive payments(W)
 
+# Charity Nominee Organisation Authorised Person messages
+# ----------------------------------------------------------
+organisationNomineeAuthorisedPerson.title = (W)Authorised person(W)
+organisationNomineeAuthorisedPerson.heading = (W)You need to add an authorised person from {0}(W)
+organisationNomineeAuthorisedPerson.p1 = (W)This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf.(W)
+
 # Charity Nominee Organisation Authorised Person Name Page Messages
 # ----------------------------------------------------------
 organisationAuthorisedPersonName.title = (W)Authorised person’s name(W)
@@ -1478,15 +1484,20 @@ organisationAuthorisedPersonName.lastName.error.length = (W)The authorised perso
 organisationAuthorisedPersonName.lastName.error.format = (W)The authorised person’s last name must not include the following characters: & ( ) : @(W)
 organisationAuthorisedPersonName.title.error.required = (W)Select the authorised person’s title(W)
 
+# Charity Nominee Organisation Authorised Person DOB Page Messages
+# ----------------------------------------------------------
+organisationAuthorisedPersonDOB.title = (W)What is the authorised person’s date of birth?(W)
+organisationAuthorisedPersonDOB.heading = (W)What is {0}’s date of birth?(W)
+organisationAuthorisedPersonDOB.hint = (W)For example, 21 3 1960(W)
+organisationAuthorisedPersonDOB.error.required.all = (W)Enter their date of birth(W)
+organisationAuthorisedPersonDOB.error.required.two = (W)Enter their {0} and {1} of birth(W)
+organisationAuthorisedPersonDOB.error.required.one = (W)Enter their {0} of birth(W)
+organisationAuthorisedPersonDOB.error.invalid = (W)Their birth date must be a real date.(W)
+organisationAuthorisedPersonDOB.error.minimum = (W)The authorised person must be at least 16 years old(W)
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.h2 = (W)Authorise a nominee(W)
 nomineeDetailsSummary.section = (W)Officials and nominees(W)
-
-# Charity Nominee Organisation Authorised Person messages
-# ----------------------------------------------------------
-organisationNomineeAuthorisedPerson.title = (W)Authorised person(W)
-organisationNomineeAuthorisedPerson.heading = (W)You need to add an authorised person from {0}(W)
-organisationNomineeAuthorisedPerson.p1 = (W)This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf.(W)

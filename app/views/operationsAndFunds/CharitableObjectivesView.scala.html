@@ -26,7 +26,8 @@
     button: components.button,
     inputCharacterCount: components.inputCharacterCount,
     fieldset: components.fieldset,
-    h1: components.h1
+    h1: components.h1,
+    pAsHint: components.pAsHint
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -37,20 +38,18 @@
 
         @errorSummary(form.errors)
 
-        @fieldset("charitableObjectives.heading"){
-
-             @inputCharacterCount(
-                form,
-                id = "value",
-                name = "value",
-                rows = 5,
-                value = Some("value"),
-                maxLength = Some(500),
-                isPageHeading = false,
-                label = messages("charitableObjectives.label"),
-                countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
-            )
-        }
+        @inputCharacterCount(
+            form,
+            id = "value",
+            name = "value",
+            rows = 5,
+            value = Some("value"),
+            maxLength = Some(500),
+            isPageHeading = true,
+            label = messages("charitableObjectives.heading"),
+            hint = Some(Html(pAsHint("charitableObjectives", "label"))),
+            countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
+        )
 
         @button("site.saveAndContinue")
 

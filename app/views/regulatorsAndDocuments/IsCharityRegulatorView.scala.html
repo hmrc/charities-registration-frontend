@@ -24,7 +24,8 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
-    button: components.button
+    button: components.button,
+    pAsHint: components.pAsHint
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -36,18 +37,7 @@
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "isCharityRegulator.heading")
-
-        <details class="govuk-details" data-module="govuk-details">
-           <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                  @messages("isCharityRegulator.details")
-                </span>
-           </summary>
-           <div class="govuk-details__text">
-            @messages("isCharityRegulator.hint")
-           </div>
-        </details>
+        @yesNoRadio(form, "isCharityRegulator.heading", hint = Some(Html(pAsHint("isCharityRegulator", "hint"))))
 
         @button("site.saveAndContinue")
 

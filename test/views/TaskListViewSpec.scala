@@ -85,47 +85,47 @@ class TaskListViewSpec extends ViewBehaviours  {
 
       "Charity contact details row" must {
         behave like pageWithHyperLink(applyView(),
-          "charity-info", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "Charity’s contact details")
+          "charity-info", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "Enter the charity’s contact details")
       }
 
       "Regulator row" must {
         behave like pageWithHyperLink(applyView(),
-          "name-regulator",controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url,"Regulator")
+          "name-regulator",controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url,"Enter regulator information")
       }
 
       "Governing document row" must {
         behave like pageWithHyperLink(applyView(),
-          "governing-doc-info", controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, "Governing document")
+          "governing-doc-info", controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, "Enter governing document details")
       }
 
       "Objectives row" must {
         behave like pageWithHyperLink(applyView(),
-          "charity-objective", controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url, "Objectives")
+          "charity-objective", controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url, "Enter objectives and purposes")
       }
 
       "Fundraising information row" must {
         behave like pageWithHyperLink(applyView(),
-          "fundraising-info", controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url, "Fundraising information")
+          "fundraising-info", controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url, "Enter fundraising and operations details")
       }
 
       "Bank details row" must {
         behave like pageWithHyperLink(applyView(),
-          "bank-details", controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, "Bank details")
+          "bank-details", controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, "Enter bank details")
       }
 
       "Authorised officials row" must {
         behave like pageWithHyperLink(applyView(),
-          "authorised-officials", controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad().url, "Authorised officials")
+          "authorised-officials", controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad().url, "Enter details for authorised officials")
       }
 
       "Other officials row" must {
         behave like pageWithHyperLink(applyView(),
-          "other-officials", controllers.otherOfficials.routes.CharityOtherOfficialsController.onPageLoad().url, "Other officials")
+          "other-officials", controllers.otherOfficials.routes.CharityOtherOfficialsController.onPageLoad().url, "Enter details for other officials")
       }
 
       "Nominee row" must {
         behave like pageWithHyperLink(applyView(),
-          "nominee-info",controllers.nominees.routes.CharityNomineeController.onPageLoad().url,"Nominee")
+          "nominee-info",controllers.nominees.routes.CharityNomineeController.onPageLoad().url,"Enter details for nominee")
       }
 
       "display continue button if status is completed" in {

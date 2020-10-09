@@ -43,6 +43,6 @@ class CharitableObjectivesViewSpec extends TextAreaViewBehaviours  {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-     behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("operationsAndFunds.section")), isPageHeading = false)
+     behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("operationsAndFunds.section")))
     }
   }

@@ -212,7 +212,7 @@ checkIfYouCanRegister.p1 = (W)Use this service to check if the charity can regis
 # ----------------------------------------------------------
 isEligiblePurpose.title = (W)Is the charity for charitable purposes only?(W)
 isEligiblePurpose.heading = (W)Is the charity for charitable purposes only?(W)
-isEligiblePurpose.p = (W)Charitable purposes include things that contribute to education, animal welfare and relieving poverty.(W)
+isEligiblePurpose.p = (W)A charitable purpose is one that falls within one or more of 13 ‘descriptions of purposes’ listed in the Charities Act. For example, education, relief of poverty or religion. All charitable purposes benefit the public in some way.(W)
 isEligiblePurpose.checkYourAnswersLabel = (W)Is your charity for charitable purposes only?(W)
 isEligiblePurpose.error.required = (W)Select yes if the charity is for charitable purposes only(W)
 
@@ -289,7 +289,7 @@ notEligible.bank.p1 = (W)To use this service the charity must have a UK bank, bu
 # ----------------------------------------------------------
 eligibleCharity.title = (W)The charity is eligible for this service(W)
 eligibleCharity.heading = (W)The charity is eligible for this service(W)
-eligibleCharity.p1 = (W)The information you enter will be saved as you progress. If you close the page, the information you have already entered will be saved for 28 days. After that time you will need to enter all the information again.(W)
+eligibleCharity.p1 = (W)Next you need to sign in using your charity’s Government Gateway ID. You can set up a new Government Gateway for your charity if you need to.(W)
 
 # Section1 - Charity Information
 # ----------------------------------------------------------
@@ -409,7 +409,6 @@ startCharityRegulator.p2 = (W)Adding regulator information takes around 5 minute
 # ----------------------------------------------------------
 isCharityRegulator.title = (W)Is the charity registered with a charity regulator?(W)
 isCharityRegulator.heading = (W)Is the charity registered with a charity regulator?(W)
-isCharityRegulator.details = (W)What is a charity regulator(W)
 isCharityRegulator.hint = (W)A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.(W)
 isCharityRegulator.error.required = (W)Select yes if the charity is registered with a charity regulator(W)
 isCharityRegulator.checkYourAnswersLabel = (W)Registered with a charity regulator(W)
@@ -594,7 +593,7 @@ charitableObjectives.heading = (W)What are the charity’s charitable objectives
 charitableObjectives.error.required = (W)Enter the charity’s charitable objectives(W)
 charitableObjectives.error.format = (W)Your answer must not include the following characters: & () : @(W)
 charitableObjectives.error.length = (W)Your answer must be 500 characters or fewer(W)
-charitableObjectives.label = (W)Charitable objectives describe what a charity has been set up to do. They are usually written in the objects clause in the governing document.(W)
+charitableObjectives.label = (W)Charitable objectives describe what a charity has been set up to do. They are usually written into the governing document. For example, you could summarise what is written in the charity’s objects clause.(W)
 charitableObjectives.checkYourAnswersLabel = (W)Charitable objectives(W)
 
 # CharitablePurposesPage Messages
@@ -773,8 +772,8 @@ operationsFundsSummary.section = (W)Operations and funds(W)
 # ----------------------------------------------------------
 startBankDetails.title = (W)The charity’s bank details(W)
 startBankDetails.heading = (W)The charity’s bank details(W)
-startBankDetails.p1 = (W)You need to add the charity’s bank account details.(W)
-startBankDetails.p2 = (W)Adding bank details takes around 5 minutes.(W)
+startBankDetails.p1 = (W)You need to add the charity’s bank account details. We need the charity’s bank details to pay Gift Aid and other tax repayments.(W)
+startBankDetails.p2 = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from our account to your charity’s account. You should make sure the charity can receive BACS payments.(W)
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
@@ -782,7 +781,7 @@ bankDetails.title = (W)What are the charity’s bank account details?(W)
 bankDetails.heading = (W)What are the charity’s bank account details?(W)
 bankDetails.p1 = (W)We need the charity’s bank details to pay Gift Aid and other tax repayments.(W)
 bankDetails.accountName = (W)Charity’s account name(W)
-bankDetails.accountName.hint = (W)As shown on the charity’s account statements(W)
+bankDetails.accountName.hint = (W)As shown on the charity’s account information(W)
 bankDetails.accountName.error.length = (W)The charity’s account name must be 60 characters or fewer(W)
 bankDetails.accountName.error.required = (W)Enter the charity’s account name(W)
 bankDetails.accountName.error.format = (W)The charity’s account name must not include the following characters: & ( ) : @(W)
@@ -798,7 +797,7 @@ bankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
 bankDetails.rollNumber.hint = (W)You can find it on the charity’s bank card, statement or passbook(W)
 bankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
 bankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
-bankDetails.basc.warning = (W)We will send repayments using BACS. You should make sure the charity can receive BACS payments.(W)
+bankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
 bankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
 bankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
 bankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)

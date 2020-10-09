@@ -1391,26 +1391,6 @@ organisationNomineesBankDetails.rollNumber.error.length = (W)Building society ro
 organisationNomineesBankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
 organisationNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
 
-
-# Nominee Individual Address Messages
-# ----------------------------------------------------------
-nomineeIndividualAddress.lookupPage.title = (W)What is the nominee’s address?  - Officials and nominees(W)
-nomineeIndividualAddress.lookupPage.heading = (W)What is {0}’s full home address?(W)
-nomineeIndividualAddress.lookupPage.manualAddressLinkText = (W)Nominee’s address does not have a UK postcode(W)
-
-nomineeIndividualAddress.selectPage.title = (W)What is the nominee’s full address? - Officials and nominees(W)
-nomineeIndividualAddress.selectPage.heading = (W)What is {0}’s full home address?(W)
-nomineeIndividualAddress.selectPage.editAddressLinkText = (W)Enter nominee’s home address manually(W)
-
-nomineeIndividualAddress.editPage.title = (W)What is the nominees’s full address? - Officials and nominees(W)
-nomineeIndividualAddress.editPage.heading = (W)What is {0}’s full home address?(W)
-
-nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s address - Officials and nominees(W)
-nomineeIndividualAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
-nomineeIndividualAddress.confirmPage.changeLinkText = (W)Change nominee’s home address(W)
-
-nomineeIndividualAddress.checkYourAnswersLabel = (W)Home address(W)
-
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = (W)What is the name of the organisation?(W)
@@ -1430,6 +1410,12 @@ isIndividualNomineeNino.error.required = (W)Select yes if they have a National I
 isIndividualNomineePayments.title = (W)Is the nominee authorised to receive payments for your charity?(W)
 isIndividualNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isIndividualNomineePayments.error.required = (W)Select yes if the nominee is authorised to receive payments(W)
+
+# Charity Nominee Individual Previous Address Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePreviousAddress.title = (W)Has the nominee’s address changed in the last 12 months?(W)
+isIndividualNomineePreviousAddress.heading = (W)Has {0}’s home address changed in the last 12 months?(W)
+isIndividualNomineePreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
 
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
@@ -1476,6 +1462,23 @@ isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised 
 isOrganisationNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isOrganisationNomineePayments.error.required = (W)Select yes if the organisation is authorised to receive payments(W)
 
+# Charity Nominee Organisation Authorised Person Name Page Messages
+# ----------------------------------------------------------
+organisationAuthorisedPersonName.title = (W)Authorised person’s name(W)
+organisationAuthorisedPersonName.heading = (W)Authorised person’s name(W)
+organisationAuthorisedPersonName.firstName.label = (W)First name(W)
+organisationAuthorisedPersonName.firstName.error.required = (W)Enter the authorised person’s first name(W)
+organisationAuthorisedPersonName.firstName.error.length = (W)The authorised person’s name must be 100 characters or fewer(W)
+organisationAuthorisedPersonName.firstName.error.format = (W)The authorised person’s first name must not include the following characters: & ( ) : @(W)
+organisationAuthorisedPersonName.middleName.label = (W)Middle name (optional)(W)
+organisationAuthorisedPersonName.middleName.error.length = (W)The authorised person’s middle name must be 100 characters or fewer(W)
+organisationAuthorisedPersonName.middleName.error.format = (W)The authorised person’s middle name must not include the following characters: & ( ) : @(W)
+organisationAuthorisedPersonName.lastName.label = (W)Last name(W)
+organisationAuthorisedPersonName.lastName.error.required = (W)Enter the authorised person’s last name(W)
+organisationAuthorisedPersonName.lastName.error.length = (W)The authorised person’s last name must be 100 characters or fewer(W)
+organisationAuthorisedPersonName.lastName.error.format = (W)The authorised person’s last name must not include the following characters: & ( ) : @(W)
+organisationAuthorisedPersonName.title.error.required = (W)Select the authorised person’s title(W)
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)
@@ -1483,14 +1486,8 @@ nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s nomine
 nomineeDetailsSummary.checkYourAnswers.h2 = (W)Authorise a nominee(W)
 nomineeDetailsSummary.section = (W)Officials and nominees(W)
 
-# Charity Nominee Individual Previous Address Page Messages
-# ----------------------------------------------------------
-isIndividualNomineePreviousAddress.title = (W)Has the nominee’s address changed in the last 12 months?(W)
-isIndividualNomineePreviousAddress.heading = (W)Has {0}’s home address changed in the last 12 months?(W)
-isIndividualNomineePreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
-
 # Charity Nominee Organisation Authorised Person messages
 # ----------------------------------------------------------
 organisationNomineeAuthorisedPerson.title = (W)Authorised person(W)
 organisationNomineeAuthorisedPerson.heading = (W)You need to add an authorised person from {0}(W)
-organisationNomineeAuthorisedPerson.p1 = (W)This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf(W)
+organisationNomineeAuthorisedPerson.p1 = (W)This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf.(W)

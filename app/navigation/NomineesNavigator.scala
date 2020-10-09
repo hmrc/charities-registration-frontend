@@ -114,16 +114,20 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IsOrganisationNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePaymentsPage) match {
-      case Some(true) => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode) // TODO next page
-      case Some(false) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad() // TODO next page
+      case Some(true) => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode)
+      case Some(false) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineesBankDetailsPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case OrganisationAuthorisedPersonNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
     case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -219,6 +223,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineesBankDetailsPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationAuthorisedPersonNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

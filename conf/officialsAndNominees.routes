@@ -232,5 +232,10 @@ POST       /nominee-organisation-payments                                       
 GET        /nominee-organisation-payments/change                                controllers.nominees.IsOrganisationNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-organisation-payments/change                                controllers.nominees.IsOrganisationNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /authorised-person-name                                              controllers.nominees.OrganisationAuthorisedPersonNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /authorised-person-name                                              controllers.nominees.OrganisationAuthorisedPersonNameController.onSubmit(mode: Mode = NormalMode)
+GET        /authorised-person-name/change                                       controllers.nominees.OrganisationAuthorisedPersonNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /authorised-person-name/change                                       controllers.nominees.OrganisationAuthorisedPersonNameController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

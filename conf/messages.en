@@ -1391,7 +1391,6 @@ organisationNomineesBankDetails.rollNumber.error.length = Building society roll 
 organisationNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
 organisationNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
 
-
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
 nameOfOrganisation.title = What is the name of the organisation?
@@ -1411,6 +1410,12 @@ isIndividualNomineeNino.error.required = Select yes if they have a National Insu
 isIndividualNomineePayments.title = Is the nominee authorised to receive payments for your charity?
 isIndividualNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isIndividualNomineePayments.error.required = Select yes if the nominee is authorised to receive payments
+
+# Charity Nominee Individual Previous Address Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePreviousAddress.title = Has the nominee’s address changed in the last 12 months?
+isIndividualNomineePreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
+isIndividualNomineePreviousAddress.error.required = Select yes if their address has changed in the last 12 months
 
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
@@ -1457,6 +1462,23 @@ isOrganisationNomineePayments.title = Is the nominee organisation authorised to 
 isOrganisationNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isOrganisationNomineePayments.error.required = Select yes if the organisation is authorised to receive payments
 
+# Charity Nominee Organisation Authorised Person Name Page Messages
+# ----------------------------------------------------------
+organisationAuthorisedPersonName.title = Authorised person’s name
+organisationAuthorisedPersonName.heading = Authorised person’s name
+organisationAuthorisedPersonName.firstName.label = First name
+organisationAuthorisedPersonName.firstName.error.required = Enter the authorised person’s first name
+organisationAuthorisedPersonName.firstName.error.length = The authorised person’s name must be 100 characters or fewer
+organisationAuthorisedPersonName.firstName.error.format = The authorised person’s first name must not include the following characters: & ( ) : @
+organisationAuthorisedPersonName.middleName.label = Middle name (optional)
+organisationAuthorisedPersonName.middleName.error.length = The authorised person’s middle name must be 100 characters or fewer
+organisationAuthorisedPersonName.middleName.error.format = The authorised person’s middle name must not include the following characters: & ( ) : @
+organisationAuthorisedPersonName.lastName.label = Last name
+organisationAuthorisedPersonName.lastName.error.required = Enter the authorised person’s last name
+organisationAuthorisedPersonName.lastName.error.length = The authorised person’s last name must be 100 characters or fewer
+organisationAuthorisedPersonName.lastName.error.format = The authorised person’s last name must not include the following characters: & ( ) : @
+organisationAuthorisedPersonName.title.error.required = Select the authorised person’s title
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details
@@ -1464,14 +1486,8 @@ nomineeDetailsSummary.checkYourAnswers.heading = Check the charity’s nominee d
 nomineeDetailsSummary.checkYourAnswers.h2 = Authorise a nominee
 nomineeDetailsSummary.section = Officials and nominees
 
-# Charity Nominee Individual Previous Address Page Messages
-# ----------------------------------------------------------
-isIndividualNomineePreviousAddress.title = Has the nominee’s address changed in the last 12 months?
-isIndividualNomineePreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
-isIndividualNomineePreviousAddress.error.required = Select yes if their address has changed in the last 12 months
-
 # Charity Nominee Organisation Authorised Person messages
 # ----------------------------------------------------------
 organisationNomineeAuthorisedPerson.title = Authorised person
 organisationNomineeAuthorisedPerson.heading = You need to add an authorised person from {0}
-organisationNomineeAuthorisedPerson.p1 = This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf
+organisationNomineeAuthorisedPerson.p1 = This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf.

@@ -381,6 +381,22 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the OtherOfficialsPassportPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OtherOfficialsPassportPage(0), CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the What is [Full name]’s home address? when clicked continue button" in {
+          navigator.nextPage(OtherOfficialsPassportPage(0), CheckMode,
+            emptyUserAnswers.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+              .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("1223", "gb", LocalDate.now())))
+              .success.value) mustBe
+            routes.DeadEndController.onPageLoad()
+        }
+      }
+
       "from the OtherOfficialAddressLookupPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -420,6 +436,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(OtherOfficialPreviousAddressLookupPage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), address).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is created
+
         }
       }
 
@@ -522,12 +539,48 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 routes.SessionExpiredController.onPageLoad()
             }
 
-            "go to the summary page when continue button is clicked" in {
+            "go to the OtherOfficialsNINOPage if Yes is selected and previously the user's passport details were provided" in {
+              navigator.nextPage(IsOtherOfficialNinoPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true )
+                  .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
+                  .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(previousOrSameIndex(index)), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+                  otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(PlaybackMode, index)
+            }
+
+            "go to the OtherOfficialsPassportPage if No is selected and previously the user's NINO details were provided" in {
+              navigator.nextPage(IsOtherOfficialNinoPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), false)
+                  .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
+                  .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
+                  .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
+                otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(PlaybackMode, index)
+            }
+
+            "go to the Playback page when Yes is selected and previously the user's NINO details were provided" in {
               navigator.nextPage(IsOtherOfficialNinoPage(index), PlaybackMode,
                 emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
-                  .flatMap(_.set(IsOtherOfficialNinoPage(index), true)).success.value) mustBe
-                routes.DeadEndController.onPageLoad() // TODO when next page is ready
+                  .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
+                  .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
+                goToPlaybackPage(index)
+            }
+
+            "go to the Playback page when No is selected and previously the user's passport details were provided" in {
+              navigator.nextPage(IsOtherOfficialNinoPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), false)
+                  .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
+                  .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(previousOrSameIndex(index)), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+                goToPlaybackPage(index)
             }
           }
 
@@ -570,12 +623,23 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 routes.SessionExpiredController.onPageLoad()
             }
 
+            "go to the check your answers page when yes and prev address is defined is selected" in {
+              navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
+                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
+                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
+                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(0), address))
+                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), address))
+                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
+                goToPlaybackPage(index)
+            }
+
             "go to the Previous Address Lookup flow when yes is selected" in {
               navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), PlaybackMode,
                 emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
                   .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true)).success.value) mustBe
-                routes.DeadEndController.onPageLoad() // TODO when next page is ready
+                addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, PlaybackMode)
             }
 
             "go to the You have added one other official page when no is selected" in {
@@ -586,6 +650,25 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 goToPlaybackPage(index)
             }
 
+          }
+
+          "from the OtherOfficialsPassportPage" must {
+
+            "go to the SessionExpiredController page when user answer is empty" in {
+              navigator.nextPage(OtherOfficialsPassportPage(0), PlaybackMode, emptyUserAnswers) mustBe
+                routes.SessionExpiredController.onPageLoad()
+            }
+
+            "go to the check your answers page when clicked continue button" in {
+              navigator.nextPage(OtherOfficialsPassportPage(index), PlaybackMode,
+                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), false)
+                  .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
+                  .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(previousOrSameIndex(index)), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+                goToPlaybackPage(index)
+            }
           }
 
           "from the OtherOfficialPreviousAddressLookupPage" must {

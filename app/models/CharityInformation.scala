@@ -28,7 +28,7 @@ object CharityName {
 
 }
 
-case class CharityContactDetails(daytimePhone:String,mobilePhone:String,emailAddress:String)
+case class CharityContactDetails(daytimePhone:String, mobilePhone:String, emailAddress:String)
 
 object CharityContactDetails {
 

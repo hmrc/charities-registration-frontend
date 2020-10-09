@@ -56,7 +56,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the CharityInformationAddressLookupController page when clicked continue button" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).success.value) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 900 982", "abc@gmail.com")).success.value) mustBe
             controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
         }
       }
@@ -163,7 +163,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Charity Details Summary page when an answer is given" in {
 
           navigator.nextPage(CharityContactDetailsPage, CheckMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", None, "abc@gmail.com")).success.value) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 900 982", "abc@gmail.com")).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }

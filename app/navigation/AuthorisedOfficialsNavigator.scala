@@ -64,12 +64,20 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
-      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      case Some(_) => if(frontendAppConfig.isExternalTest){
+        redirectToPlaybackPage(index)
+      } else {
+        addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      }
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case AuthorisedOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
-      case Some(_) => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      case Some(_) =>  if(frontendAppConfig.isExternalTest){
+        redirectToPlaybackPage(index)
+      } else {
+        addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+      }
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

@@ -35,7 +35,11 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
+      case Some(_) => if(frontendAppConfig.isExternalTest){
+        charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+      } else {
+        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
+      }
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityOfficialAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityOfficialAddressLookupPage) match {

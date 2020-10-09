@@ -98,6 +98,33 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       verify(mockCharitiesRegistrationService, times(1)).register(any())(any(), any(), any())
     }
 
+    "redirect to the next page without calling service if external test is enabled" in {
+
+      val app =
+        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+          .overrides(
+            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
+            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+          ).build()
+
+      val controller: DeclarationController = app.injector.instanceOf[DeclarationController]
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockCharitiesRegistrationService.register(any())(any(), any(), any())).thenReturn(
+        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad()))
+      )
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockCharitiesRegistrationService, never).register(any())(any(), any(), any())
+    }
+
     "redirect to the session expired page for invalid transformation" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))

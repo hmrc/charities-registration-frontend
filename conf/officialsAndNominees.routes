@@ -50,12 +50,12 @@ POST       /:index/authorised-official-passport/change                          
 GET        /:index/authorised-official-passport/playback-change                 controllers.authorisedOfficials.AuthorisedOfficialsPassportController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
 POST       /:index/authorised-official-passport/playback-change                 controllers.authorisedOfficials.AuthorisedOfficialsPassportController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
-GET        /:index/other-official-passport                                controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = NormalMode, index: Index)
-POST       /:index/other-official-passport                                 controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = NormalMode, index: Index)
-GET        /:index/other-official-passport/change                          controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = CheckMode, index: Index)
-POST       /:index/other-official-passport/change                          controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = CheckMode, index: Index)
-GET        /:index/other-official-passport/playback-change                 controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
-POST       /:index/other-official-passport/playback-change                 controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = PlaybackMode, index: Index)
+GET        /:index/other-official-passport                                      controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/other-official-passport                                      controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/other-official-passport/change                               controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/other-official-passport/change                               controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = CheckMode, index: Index)
+GET        /:index/other-official-passport/playback-change                      controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
+POST       /:index/other-official-passport/playback-change                      controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
 GET        /:index/authorised-official-changed-address                          controllers.authorisedOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-changed-address                          controllers.authorisedOfficials.IsAuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
@@ -236,6 +236,11 @@ GET        /authorised-person-name                                              
 POST       /authorised-person-name                                              controllers.nominees.OrganisationAuthorisedPersonNameController.onSubmit(mode: Mode = NormalMode)
 GET        /authorised-person-name/change                                       controllers.nominees.OrganisationAuthorisedPersonNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /authorised-person-name/change                                       controllers.nominees.OrganisationAuthorisedPersonNameController.onSubmit(mode: Mode = CheckMode)
+
+GET        /authorised-person-date-of-birth                                     controllers.nominees.OrganisationAuthorisedPersonDOBController.onPageLoad(mode: Mode = NormalMode)
+POST       /authorised-person-date-of-birth                                     controllers.nominees.OrganisationAuthorisedPersonDOBController.onSubmit(mode: Mode = NormalMode)
+GET        /authorised-person-date-of-birth/change                              controllers.nominees.OrganisationAuthorisedPersonDOBController.onPageLoad(mode: Mode = CheckMode)
+POST       /authorised-person-date-of-birth/change                              controllers.nominees.OrganisationAuthorisedPersonDOBController.onSubmit(mode: Mode = CheckMode)
 
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

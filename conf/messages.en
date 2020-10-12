@@ -1461,6 +1461,12 @@ isOrganisationNomineePayments.title = Is the nominee organisation authorised to 
 isOrganisationNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isOrganisationNomineePayments.error.required = Select yes if the organisation is authorised to receive payments
 
+# Charity Nominee Organisation Authorised Person messages
+# ----------------------------------------------------------
+organisationNomineeAuthorisedPerson.title = Authorised person
+organisationNomineeAuthorisedPerson.heading = You need to add an authorised person from {0}
+organisationNomineeAuthorisedPerson.p1 = This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf.
+
 # Charity Nominee Organisation Authorised Person Name Page Messages
 # ----------------------------------------------------------
 organisationAuthorisedPersonName.title = Authorised person’s name
@@ -1478,15 +1484,20 @@ organisationAuthorisedPersonName.lastName.error.length = The authorised person�
 organisationAuthorisedPersonName.lastName.error.format = The authorised person’s last name must not include the following characters: & ( ) : @
 organisationAuthorisedPersonName.title.error.required = Select the authorised person’s title
 
+# Charity Nominee Organisation Authorised Person DOB Page Messages
+# ----------------------------------------------------------
+organisationAuthorisedPersonDOB.title = What is the authorised person’s date of birth?
+organisationAuthorisedPersonDOB.heading = What is {0}’s date of birth?
+organisationAuthorisedPersonDOB.hint = For example, 21 3 1960
+organisationAuthorisedPersonDOB.error.required.all = Enter their date of birth
+organisationAuthorisedPersonDOB.error.required.two = Enter their {0} and {1} of birth
+organisationAuthorisedPersonDOB.error.required.one = Enter their {0} of birth
+organisationAuthorisedPersonDOB.error.invalid = Their birth date must be a real date.
+organisationAuthorisedPersonDOB.error.minimum = The authorised person must be at least 16 years old
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details
 nomineeDetailsSummary.checkYourAnswers.heading = Check the charity’s nominee details
 nomineeDetailsSummary.checkYourAnswers.h2 = Authorise a nominee
 nomineeDetailsSummary.section = Officials and nominees
-
-# Charity Nominee Organisation Authorised Person messages
-# ----------------------------------------------------------
-organisationNomineeAuthorisedPerson.title = Authorised person
-organisationNomineeAuthorisedPerson.heading = You need to add an authorised person from {0}
-organisationNomineeAuthorisedPerson.p1 = This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf.

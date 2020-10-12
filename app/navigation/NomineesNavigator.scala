@@ -133,9 +133,15 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationAuthorisedPersonNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
+      case Some(_) => nomineeRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(NormalMode)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationAuthorisedPersonDOBPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonDOBPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
     case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case _ => _ => routes.IndexController.onPageLoad()
@@ -236,6 +242,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationAuthorisedPersonNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationAuthorisedPersonDOBPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonDOBPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

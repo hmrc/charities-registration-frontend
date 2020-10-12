@@ -356,7 +356,22 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the what is full authorised person's date of birth page when continue button is clicked" in {
           navigator.nextPage(OrganisationAuthorisedPersonNamePage, NormalMode,
             emptyUserAnswers.set(OrganisationAuthorisedPersonNamePage, nomineeName).success.value) mustBe
-            routes.DeadEndController.onPageLoad()//TODO when next page is created
+            nomineesRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the OrganisationAuthorisedPersonDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Does the nominee have national insurance number page when clicked continue button" in {
+          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode,
+            emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page is ready
+
         }
       }
 
@@ -676,6 +691,21 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(OrganisationAuthorisedPersonNamePage, CheckMode,
             emptyUserAnswers.set(OrganisationAuthorisedPersonNamePage, nomineeName).success.value) mustBe
             routes.DeadEndController.onPageLoad()//TODO when next page created
+        }
+      }
+
+      "from the OrganisationAuthorisedPersonDOBPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode,
+            emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page is ready
+
         }
       }
 

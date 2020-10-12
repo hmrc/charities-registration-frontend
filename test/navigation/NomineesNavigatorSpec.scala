@@ -370,6 +370,28 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to Does the nominee have national insurance number page when clicked continue button" in {
           navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode,
             emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
+            nomineesRoutes.IsOrganisationNomineeNinoController.onPageLoad(NormalMode)
+
+        }
+      }
+
+      "from the IsOrganisationNomineeNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to What is the nominee's National Insurance number page when Yes selected" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, NormalMode,
+            emptyUserAnswers.set(IsOrganisationNomineeNinoPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page is ready
+
+        }
+
+        "go to What are the nominee's passport or national identity card details page when Yes selected" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, NormalMode,
+            emptyUserAnswers.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe
             routes.DeadEndController.onPageLoad()//TODO when next page is ready
 
         }
@@ -697,15 +719,47 @@ class NomineesNavigatorSpec extends SpecBase {
       "from the OrganisationAuthorisedPersonDOBPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, CheckMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
-          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode,
+          navigator.nextPage(OrganisationAuthorisedPersonDOBPage, CheckMode,
             emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
             routes.DeadEndController.onPageLoad()//TODO when next page is ready
 
+        }
+      }
+
+      "from the IsOrganisationNomineeNinoPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when previous answer was Yes and changed answer is Yes" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsOrganisationNomineeNinoPage, true).success.value) mustBe //TODO add more behaviour once pages created
+            routes.DeadEndController.onPageLoad() //TODO when next page is ready
+        }
+
+        "go to the summary page when previous answer was No and changed answer is No" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe //TODO add more behaviour once pages created
+            routes.DeadEndController.onPageLoad() //TODO when next page is ready
+        }
+
+        "go to the What is the nominee's National Insurance number page when previous answer was No and changed answer is Yes" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsOrganisationNomineeNinoPage, true).success.value) mustBe //TODO add more behaviour once pages created
+            routes.DeadEndController.onPageLoad() //TODO when next page is ready
+        }
+
+        "go to the What are the nominee's passport or national identity card details page when previous answer was Yes and changed answer is No" in {
+          navigator.nextPage(IsOrganisationNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe //TODO add more behaviour once pages created
+            routes.DeadEndController.onPageLoad() //TODO when next page is ready
         }
       }
 

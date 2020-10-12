@@ -1316,7 +1316,7 @@ isIndividualNomineeNino.error.required = (W)Select yes if they have a National I
 
 # Charity Nominee Individual Nino Messages
 # ----------------------------------------------------------
-individualNomineesNino.title = (W)What is the nominee’s national insurance number?(W)
+individualNomineesNino.title = (W)What is the nominee’s National Insurance number?(W)
 individualNomineesNino.heading = (W)What is {0}’s National Insurance number?(W)
 individualNomineesNino.hint = (W)For example, QQ 12 34 56 C(W)
 individualNomineesNino.error.required = (W)Enter their National Insurance number(W)
@@ -1453,7 +1453,7 @@ organisationNomineeAddress.checkYourAnswersLabel = (W)Address(W)
 # ----------------------------------------------------------
 isOrganisationNomineePreviousAddress.title = (W)Has the nominee organisation’s address changed in the last 12 months? - Officials and nominees(W)
 isOrganisationNomineePreviousAddress.heading = (W)Has {0}’s address changed in the last 12 months?(W)
-isOrganisationNomineePreviousAddress.error.required = (W)Select yes if the organisation's address has changed in the last 12 months(W)
+isOrganisationNomineePreviousAddress.error.required = (W)Select yes if the organisation’s address has changed in the last 12 months(W)
 
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------
@@ -1494,6 +1494,12 @@ organisationAuthorisedPersonDOB.error.required.two = (W)Enter their {0} and {1} 
 organisationAuthorisedPersonDOB.error.required.one = (W)Enter their {0} of birth(W)
 organisationAuthorisedPersonDOB.error.invalid = (W)Their birth date must be a real date.(W)
 organisationAuthorisedPersonDOB.error.minimum = (W)The authorised person must be at least 16 years old(W)
+
+# Charity Nominee Organisation Nino Page Messages
+# ----------------------------------------------------------
+isOrganisationNomineeNino.title = (W)Does the authorised person have a National Insurance number?(W)
+isOrganisationNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
+isOrganisationNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

@@ -195,6 +195,11 @@ POST       /nominee-changed-address                                             
 GET        /nominee-changed-address/change                                      controllers.nominees.IsIndividualNomineePreviousAddressController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-changed-address/change                                      controllers.nominees.IsIndividualNomineePreviousAddressController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankDetailsController.onPageLoad(mode: Mode = NormalMode)
 POST       /nominee-bank-details                                                controllers.nominees.IndividualNomineesBankDetailsController.onSubmit(mode: Mode = NormalMode)
 GET        /nominee-bank-details/change                                         controllers.nominees.IndividualNomineesBankDetailsController.onPageLoad(mode: Mode = CheckMode)
@@ -222,11 +227,6 @@ POST       /nominee-organisation-changed-address                                
 GET        /nominee-organisation-changed-address/change                         controllers.nominees.IsOrganisationNomineePreviousAddressController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-organisation-changed-address/change                         controllers.nominees.IsOrganisationNomineePreviousAddressController.onSubmit(mode: Mode = CheckMode)
 
-GET        /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = NormalMode)
-POST       /nominee-payments                                                    controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = NormalMode)
-GET        /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
-POST       /nominee-payments/change                                             controllers.nominees.IsIndividualNomineePaymentsController.onSubmit(mode: Mode = CheckMode)
-
 GET        /nominee-organisation-payments                                       controllers.nominees.IsOrganisationNomineePaymentsController.onPageLoad(mode: Mode = NormalMode)
 POST       /nominee-organisation-payments                                       controllers.nominees.IsOrganisationNomineePaymentsController.onSubmit(mode: Mode = NormalMode)
 GET        /nominee-organisation-payments/change                                controllers.nominees.IsOrganisationNomineePaymentsController.onPageLoad(mode: Mode = CheckMode)
@@ -241,6 +241,11 @@ GET        /authorised-person-date-of-birth                                     
 POST       /authorised-person-date-of-birth                                     controllers.nominees.OrganisationAuthorisedPersonDOBController.onSubmit(mode: Mode = NormalMode)
 GET        /authorised-person-date-of-birth/change                              controllers.nominees.OrganisationAuthorisedPersonDOBController.onPageLoad(mode: Mode = CheckMode)
 POST       /authorised-person-date-of-birth/change                              controllers.nominees.OrganisationAuthorisedPersonDOBController.onSubmit(mode: Mode = CheckMode)
+
+GET        /authorised-person-national-insurance                                controllers.nominees.IsOrganisationNomineeNinoController.onPageLoad(mode: Mode = NormalMode)
+POST       /authorised-person-national-insurance                                controllers.nominees.IsOrganisationNomineeNinoController.onSubmit(mode: Mode = NormalMode)
+GET        /authorised-person-national-insurance/change                         controllers.nominees.IsOrganisationNomineeNinoController.onPageLoad(mode: Mode = CheckMode)
+POST       /authorised-person-national-insurance/change                         controllers.nominees.IsOrganisationNomineeNinoController.onSubmit(mode: Mode = CheckMode)
 
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

@@ -247,5 +247,10 @@ POST       /authorised-person-national-insurance                                
 GET        /authorised-person-national-insurance/change                         controllers.nominees.IsOrganisationNomineeNinoController.onPageLoad(mode: Mode = CheckMode)
 POST       /authorised-person-national-insurance/change                         controllers.nominees.IsOrganisationNomineeNinoController.onSubmit(mode: Mode = CheckMode)
 
+GET        /authorised-person-enter-national-insurance                          controllers.nominees.OrganisationAuthorisedPersonNinoController.onPageLoad(mode: Mode = NormalMode)
+POST       /authorised-person-enter-national-insurance                          controllers.nominees.OrganisationAuthorisedPersonNinoController.onSubmit(mode: Mode = NormalMode)
+GET        /authorised-person-enter-national-insurance/change                   controllers.nominees.OrganisationAuthorisedPersonNinoController.onPageLoad(mode: Mode = CheckMode)
+POST       /authorised-person-enter-national-insurance/change                   controllers.nominees.OrganisationAuthorisedPersonNinoController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onPageLoad()
 POST       /nominee-summary                                                     controllers.nominees.NomineeDetailsSummaryController.onSubmit()

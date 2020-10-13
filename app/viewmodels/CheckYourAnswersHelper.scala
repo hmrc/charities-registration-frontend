@@ -19,7 +19,8 @@ package viewmodels
 import java.text.DecimalFormat
 
 import models.addressLookup.AddressModel
-import models.{Name, Passport, PhoneNumber, UserAnswers, WithOrder}
+import models.nominees.OrganisationNomineeContactDetails
+import models.{BankDetails, Name, Passport, PhoneNumber, UserAnswers, WithOrder}
 import pages.QuestionPage
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -116,6 +117,87 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
         changeLinkCall -> messages("site.edit")
       )
     }
+
+  def answerOrgPhoneNumber(page: QuestionPage[OrganisationNomineeContactDetails],
+                           changeLinkCall: Call,
+                           messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).map { contactDetails =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = contactDetails.phoneNumber,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def answerOrgEmailAddress(page: QuestionPage[OrganisationNomineeContactDetails],
+                            changeLinkCall: Call,
+                            messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).map { contactDetails =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = contactDetails.email,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def answerAccountName(page: QuestionPage[BankDetails],
+                        changeLinkCall: Call,
+                        messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).map { contactDetails =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = contactDetails.accountName,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def answerSortCode(page: QuestionPage[BankDetails],
+                     changeLinkCall: Call,
+                     messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).map { contactDetails =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = contactDetails.sortCode,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def answerAccountNumber(page: QuestionPage[BankDetails],
+                          changeLinkCall: Call,
+                          messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).map { contactDetails =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = contactDetails.accountNumber,
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def answerRollNumber(page: QuestionPage[BankDetails],
+                       changeLinkCall: Call,
+                       messagePrefix: String): Option[SummaryListRow] =
+
+    userAnswers.get(page).flatMap { contactDetails =>
+      contactDetails.rollNumber.map { rollNumber =>
+        summaryListRow(
+          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+          value = rollNumber,
+          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+        )
+      }
+    }
+
 
    def answerAddress(page: QuestionPage[AddressModel],
                      changeLinkCall: Call,

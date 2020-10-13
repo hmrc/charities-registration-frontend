@@ -1495,11 +1495,19 @@ organisationAuthorisedPersonDOB.error.required.one = (W)Enter their {0} of birth
 organisationAuthorisedPersonDOB.error.invalid = (W)Their birth date must be a real date.(W)
 organisationAuthorisedPersonDOB.error.minimum = (W)The authorised person must be at least 16 years old(W)
 
-# Charity Nominee Organisation Nino Page Messages
+# Charity Nominee Organisation Authorised Person Nino Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineeNino.title = (W)Does the authorised person have a National Insurance number?(W)
 isOrganisationNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
 isOrganisationNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
+
+# Charity Nominee Authorised Person National Insurance Number messages
+# ----------------------------------------------------------
+organisationAuthorisedPersonNino.title = (W)What is the authorised person’s National Insurance number?(W)
+organisationAuthorisedPersonNino.heading = (W)What is {0}’s National Insurance number?(W)
+organisationAuthorisedPersonNino.hint = (W)For example, QQ 12 34 56 C.(W)
+organisationAuthorisedPersonNino.error.required = (W)Enter their National Insurance number(W)
+organisationAuthorisedPersonNino.error.format = (W)Enter a National Insurance number in the correct format(W)
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

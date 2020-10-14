@@ -77,6 +77,6 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
       updatedAnswers <- Future.fromTry(result = request.userAnswers.remove(
         WhatCountryDoesTheCharityOperateInDeletePage(index)).flatMap(_.set(Section5Page, false)))
       _              <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index), mode, updatedAnswers))
+    } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index-1), mode, updatedAnswers))
   }
 }

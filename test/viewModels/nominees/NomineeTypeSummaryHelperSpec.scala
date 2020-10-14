@@ -20,26 +20,26 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
 import models.{CheckMode, UserAnswers}
-import pages.nominees.IsAuthoriseNomineePage
+import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage}
 import viewmodels.SummaryListRowHelper
-import viewmodels.nominees.NomineeDetailsSummaryHelper
+import viewmodels.nominees.{NomineeDetailsSummaryHelper, NomineeTypeSummaryHelper}
 
-class NomineeDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
+class NomineeTypeSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-  private val helper = new NomineeDetailsSummaryHelper(UserAnswers("id")
-    .set(IsAuthoriseNomineePage, false).success.value)
+  private val helper = new NomineeTypeSummaryHelper(UserAnswers("id")
+    .set(ChooseNomineePage, false).success.value)
 
 
-  "Nominee Details Check Your Answers Helper" must {
+  "Nominee Type Check Your Answers Helper" must {
 
     "For the is authorise nominee answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.authoriseNomineeRow mustBe Some(summaryListRow(
-          messages("isAuthoriseNominee.checkYourAnswersLabel"),
-          messages("site.no"),
-          Some(messages("isAuthoriseNominee.checkYourAnswersLabel")),
-          nomineesRoutes.IsAuthoriseNomineeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        helper.nomineeTypeRow mustBe Some(summaryListRow(
+          messages("chooseNominee.checkYourAnswersLabel"),
+          messages("chooseNominee.false"),
+          Some(messages("chooseNominee.checkYourAnswersLabel")),
+          nomineesRoutes.ChooseNomineeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

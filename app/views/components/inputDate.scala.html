@@ -41,7 +41,6 @@
             classes = s"govuk-input--width-2${if(
                 form(s"$id.day").hasErrors
                     || form.errors.exists(_.key.isEmpty)
-                    || form.errors.exists(_.args.isEmpty)
                     || form.errors.exists(_.args.contains("day")))" govuk-input--error" else ""}",
             name =  s"$id.day",
             label = Some(messages("date.day")),
@@ -52,7 +51,6 @@
             classes = s"govuk-input--width-2${if(
                 form(s"$id.month").hasErrors
                     || form.errors.exists(_.key.isEmpty)
-                    || form.errors.exists(_.args.isEmpty)
                     || form.errors.exists(_.args.contains("month"))) " govuk-input--error" else ""}",
             name = s"$id.month",
             label = Some(messages("date.month")),
@@ -63,7 +61,6 @@
             classes = s"govuk-input--width-4${if(
                 form(s"$id.year").hasErrors
                     || form.errors.exists(_.key.isEmpty)
-                    || form.errors.exists(_.args.isEmpty)
                     || form.errors.exists(_.args.contains("year"))) " govuk-input--error" else ""}",
             name = s"$id.year",
             label = Some(messages("date.year")),

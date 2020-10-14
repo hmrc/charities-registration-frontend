@@ -1267,7 +1267,11 @@ chooseNominee.title = (W)Is the nominee an individual or an organisation?(W)
 chooseNominee.heading = (W)Is the nominee a person or an organisation?(W)
 chooseNominee.error.required = (W)Select if the nominee is a person or an organisation(W)
 chooseNominee.person = (W)Person(W)
+chooseNominee.true = (W)Person(W)
 chooseNominee.organisation = (W)Organisation(W)
+chooseNominee.false = (W)Organisation(W)
+
+chooseNominee.checkYourAnswersLabel = (W)Type of nominee(W)
 
 # Charity Nominee Individual Name Page Messages
 # ----------------------------------------------------------
@@ -1286,6 +1290,8 @@ individualNomineeName.lastName.error.length = (W)The nominee’s last name must 
 individualNomineeName.lastName.error.format = (W)The nominee’s last name must not include the following characters: & ( ) : @(W)
 individualNomineeName.title.error.required = (W)Select the nominee’s title(W)
 
+individualNomineeName.checkYourAnswersLabel = (W)Full name(W)
+
 # Charity Nominee Individual DOB Page Messages
 # ----------------------------------------------------------
 individualNomineeDOB.title = (W)What is the nominee’s date of birth?(W)
@@ -1296,6 +1302,8 @@ individualNomineeDOB.error.required.two = (W)Enter their {0} and {1} of birth(W)
 individualNomineeDOB.error.required.one = (W)Enter their {0} of birth(W)
 individualNomineeDOB.error.invalid = (W)Their birth date must be a real date.(W)
 individualNomineeDOB.error.minimum = (W)The nominee must be at least 16 years old(W)
+
+individualNomineeDOB.checkYourAnswersLabel = (W)Date of birth(W)
 
 # Charity Nominee Individual Phone number Page Messages
 # ----------------------------------------------------------
@@ -1308,11 +1316,16 @@ individualNomineesPhoneNumber.alternativePhoneNumber.label = (W)Alternative phon
 individualNomineesPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019(W)
 individualNomineesPhoneNumber.alternativePhoneNumber.error.required = (W)Enter their alternative phone number(W)
 
+individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
+individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
+
 # Charity Nominee Individual Nino Page Messages
 # ----------------------------------------------------------
 isIndividualNomineeNino.title = (W)Does the nominee have a National Insurance number?(W)
 isIndividualNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
 isIndividualNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
+
+isIndividualNomineeNino.checkYourAnswersLabel = (W)Nominee has a National Insurance number(W)
 
 # Charity Nominee Individual Nino Messages
 # ----------------------------------------------------------
@@ -1341,7 +1354,23 @@ nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s address 
 nomineeIndividualAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
 nomineeIndividualAddress.confirmPage.changeLinkText = (W)Change nominee’s home address(W)
 
-nomineeIndividualAddress.checkYourAnswersLabel = (W)Home address(W)
+nomineeIndividualAddress.checkYourAnswersLabel = (W)Nominee address(W)
+
+# Charity Nominee Individual Previous Address Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePreviousAddress.title = (W)Has the nominee’s address changed in the last 12 months?(W)
+isIndividualNomineePreviousAddress.heading = (W)Has {0}’s home address changed in the last 12 months?(W)
+isIndividualNomineePreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+
+isIndividualNomineePreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+
+# Is Charity Nominee authorised to receive payments Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePayments.title = (W)Is the nominee authorised to receive payments for your charity?(W)
+isIndividualNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
+isIndividualNomineePayments.error.required = (W)Select yes if the nominee is authorised to receive payments(W)
+
+isIndividualNomineePayments.checkYourAnswersLabel = (W)Nominee can receive payments on behalf of your charity(W)
 
 # Charity Nominee Individual Bank details Messages
 # ----------------------------------------------------------
@@ -1366,29 +1395,10 @@ individualNomineesBankDetails.rollNumber.error.length = (W)Building society roll
 individualNomineesBankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
 individualNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
 
-
-# Charity Nominee Organisation Bank details Messages
-# ----------------------------------------------------------
-organisationNomineesBankDetails.title = (W)Nominee organisation’s bank details(W)
-organisationNomineesBankDetails.heading = (W){0}’s bank details(W)
-organisationNomineesBankDetails.accountName = (W)Name on the account(W)
-organisationNomineesBankDetails.accountName.hint = (W)As shown on organisation’s account statements(W)
-organisationNomineesBankDetails.accountName.error.length = (W)Organisation’s account name must be 60 characters or fewer(W)
-organisationNomineesBankDetails.accountName.error.required = (W)Enter the organisation’s account name(W)
-organisationNomineesBankDetails.accountName.error.format = (W)The organisation’s account name must not include the following characters: & ( ) : @(W)
-organisationNomineesBankDetails.sortCode = (W)Organisation’s sort code(W)
-organisationNomineesBankDetails.sortCode.hint = (W)Must be 6 digits long(W)
-organisationNomineesBankDetails.sortCode.error.required = (W)Enter the organisation’s sort code(W)
-organisationNomineesBankDetails.sortCode.error.format = (W)Enter a valid sort code like 309430(W)
-organisationNomineesBankDetails.accountNumber = (W)Organisation’s account number(W)
-organisationNomineesBankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
-organisationNomineesBankDetails.accountNumber.error.required = (W)Enter the organisation’s account number(W)
-organisationNomineesBankDetails.accountNumber.error.format = (W)Enter a valid account number like 00733445(W)
-organisationNomineesBankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
-organisationNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
-organisationNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
-organisationNomineesBankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
-organisationNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+individualNomineesBankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
+individualNomineesBankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
+individualNomineesBankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)
+individualNomineesBankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number(W)
 
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
@@ -1398,23 +1408,7 @@ nameOfOrganisation.error.required = (W)Enter the name of the organisation(W)
 nameOfOrganisation.error.length = (W)The name of the organisation must be 160 characters or fewer(W)
 nameOfOrganisation.error.format = (W)The name of the organisation must not include the following characters: & ( ) : @(W)
 
-# Charity Nominee Individual Nino Page Messages
-# ----------------------------------------------------------
-isIndividualNomineeNino.title = (W)Does the nominee have a National Insurance number?(W)
-isIndividualNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
-isIndividualNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
-
-# Is Charity Nominee authorised to receive payments Page Messages
-# ----------------------------------------------------------
-isIndividualNomineePayments.title = (W)Is the nominee authorised to receive payments for your charity?(W)
-isIndividualNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
-isIndividualNomineePayments.error.required = (W)Select yes if the nominee is authorised to receive payments(W)
-
-# Charity Nominee Individual Previous Address Page Messages
-# ----------------------------------------------------------
-isIndividualNomineePreviousAddress.title = (W)Has the nominee’s address changed in the last 12 months?(W)
-isIndividualNomineePreviousAddress.heading = (W)Has {0}’s home address changed in the last 12 months?(W)
-isIndividualNomineePreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+nameOfOrganisation.checkYourAnswersLabel = (W)Name(W)
 
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
@@ -1427,6 +1421,7 @@ organisationContactDetails.email.label = (W)Email address(W)
 organisationContactDetails.email.error.format = (W)Enter your charity’s email address in the correct format, like name@example.com(W)
 organisationContactDetails.email.error.length = (W)The organisation’s email address must be 160 characters or fewer.(W)
 organisationContactDetails.email.error.required = (W)Enter the organisation’s email address(W)
+
 organisationContactDetails.phoneNumber.checkYourAnswersLabel = (W)Phone number(W)
 organisationContactDetails.email.checkYourAnswersLabel = (W)Email address(W)
 
@@ -1455,11 +1450,43 @@ isOrganisationNomineePreviousAddress.title = (W)Has the nominee organisation’s
 isOrganisationNomineePreviousAddress.heading = (W)Has {0}’s address changed in the last 12 months?(W)
 isOrganisationNomineePreviousAddress.error.required = (W)Select yes if the organisation’s address has changed in the last 12 months(W)
 
+isOrganisationNomineePreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised to receive payments for your charity?(W)
 isOrganisationNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isOrganisationNomineePayments.error.required = (W)Select yes if the organisation is authorised to receive payments(W)
+
+isOrganisationNomineePayments.checkYourAnswersLabel = (W)Nominee organisation can receive payments on behalf of your charity(W)
+
+# Charity Nominee Organisation Bank details Messages
+# ----------------------------------------------------------
+organisationNomineesBankDetails.title = (W)Nominee organisation’s bank details(W)
+organisationNomineesBankDetails.heading = (W){0}’s bank details(W)
+organisationNomineesBankDetails.accountName = (W)Name on the account(W)
+organisationNomineesBankDetails.accountName.hint = (W)As shown on organisation’s account statements(W)
+organisationNomineesBankDetails.accountName.error.length = (W)Organisation’s account name must be 60 characters or fewer(W)
+organisationNomineesBankDetails.accountName.error.required = (W)Enter the organisation’s account name(W)
+organisationNomineesBankDetails.accountName.error.format = (W)The organisation’s account name must not include the following characters: & ( ) : @(W)
+organisationNomineesBankDetails.sortCode = (W)Organisation’s sort code(W)
+organisationNomineesBankDetails.sortCode.hint = (W)Must be 6 digits long(W)
+organisationNomineesBankDetails.sortCode.error.required = (W)Enter the organisation’s sort code(W)
+organisationNomineesBankDetails.sortCode.error.format = (W)Enter a valid sort code like 309430(W)
+organisationNomineesBankDetails.accountNumber = (W)Organisation’s account number(W)
+organisationNomineesBankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
+organisationNomineesBankDetails.accountNumber.error.required = (W)Enter the organisation’s account number(W)
+organisationNomineesBankDetails.accountNumber.error.format = (W)Enter a valid account number like 00733445(W)
+organisationNomineesBankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
+organisationNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
+organisationNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
+organisationNomineesBankDetails.rollNumber.error.format = (W)Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops(W)
+organisationNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+
+organisationNomineesBankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
+organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
+organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)
+organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number(W)
 
 # Charity Nominee Organisation Authorised Person messages
 # ----------------------------------------------------------
@@ -1484,6 +1511,8 @@ organisationAuthorisedPersonName.lastName.error.length = (W)The authorised perso
 organisationAuthorisedPersonName.lastName.error.format = (W)The authorised person’s last name must not include the following characters: & ( ) : @(W)
 organisationAuthorisedPersonName.title.error.required = (W)Select the authorised person’s title(W)
 
+organisationAuthorisedPersonName.checkYourAnswersLabel = (W)Full name(W)
+
 # Charity Nominee Organisation Authorised Person DOB Page Messages
 # ----------------------------------------------------------
 organisationAuthorisedPersonDOB.title = (W)What is the authorised person’s date of birth?(W)
@@ -1495,11 +1524,15 @@ organisationAuthorisedPersonDOB.error.required.one = (W)Enter their {0} of birth
 organisationAuthorisedPersonDOB.error.invalid = (W)Their birth date must be a real date.(W)
 organisationAuthorisedPersonDOB.error.minimum = (W)The authorised person must be at least 16 years old(W)
 
+organisationAuthorisedPersonDOB.checkYourAnswersLabel = (W)Date of birth(W)
+
 # Charity Nominee Organisation Authorised Person Nino Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineeNino.title = (W)Does the authorised person have a National Insurance number?(W)
 isOrganisationNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
 isOrganisationNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
+
+isOrganisationNomineeNino.checkYourAnswersLabel = (W)Nominee has a National Insurance number(W)
 
 # Charity Nominee Authorised Person National Insurance Number messages
 # ----------------------------------------------------------
@@ -1509,9 +1542,17 @@ organisationAuthorisedPersonNino.hint = (W)For example, QQ 12 34 56 C.(W)
 organisationAuthorisedPersonNino.error.required = (W)Enter their National Insurance number(W)
 organisationAuthorisedPersonNino.error.format = (W)Enter a National Insurance number in the correct format(W)
 
+organisationAuthorisedPersonNino.checkYourAnswersLabel = (W)National Insurance number(W)
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.h2 = (W)Authorise a nominee(W)
+nomineeDetailsSummary.checkYourAnswers.h2.nominee = (W)Nominee(W)
+nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = (W)Nominee individual details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.individualBank = (W)Nominee bank account details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = (W)Nominee organisation details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = (W)Nominee organisation bank account details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = (W)Authorised person details(W)
 nomineeDetailsSummary.section = (W)Officials and nominees(W)

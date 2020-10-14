@@ -39,7 +39,7 @@ class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list rows" in {
 
-        helper.bankDetailsRows mustBe Seq(summaryListRow(
+        helper.rows mustBe Seq(summaryListRow(
           messages("bankDetails.accountName.checkYourAnswersLabel"),
           "PM Cares",
           Some(messages("bankDetails.accountName.checkYourAnswersLabel")),

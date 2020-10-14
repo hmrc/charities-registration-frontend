@@ -75,12 +75,12 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
       case Some(true) => nomineeRoutes.IndividualNomineesBankDetailsController.onPageLoad(NormalMode)
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankDetailsPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -149,7 +149,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationAuthorisedPersonNinoPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNinoPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

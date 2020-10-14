@@ -22,12 +22,12 @@ import controllers.LocalBaseController
 import controllers.actions._
 import models.NormalMode
 import navigation.NomineesNavigator
-import pages.nominees.NomineeDetailsSummaryPage
+import pages.nominees.{ChooseNomineePage, NomineeDetailsSummaryPage}
 import pages.sections.Section9Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
-import viewmodels.nominees.NomineeDetailsSummaryHelper
-import views.html.CheckYourAnswersView
+import viewmodels.nominees.{NomineeDetailsSummaryHelper, NomineeIndividualSummaryHelper, NomineeOrganisationSummaryHelper}
+import views.html.nominees.NomineeDetailsSummaryView
 
 import scala.concurrent.Future
 
@@ -37,16 +37,22 @@ class NomineeDetailsSummaryController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
-    view: CheckYourAnswersView,
+    view: NomineeDetailsSummaryView,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val nomineeSummaryHelper = new NomineeDetailsSummaryHelper(request.userAnswers)
+    
+    val nomineeSummaryRows = request.userAnswers.get(ChooseNomineePage) match {
+      case Some(true) => Some(new NomineeIndividualSummaryHelper(request.userAnswers).rows)
+      case Some(false) => Some(new NomineeOrganisationSummaryHelper(request.userAnswers).rows)
+      case None => None
+    }
 
-    Ok(view(nomineeSummaryHelper.rows, NomineeDetailsSummaryPage,
-      controllers.nominees.routes.NomineeDetailsSummaryController.onSubmit(), h2Required = true))
+    Ok(view(nomineeSummaryHelper.rows, nomineeSummaryRows, "nomineeDetailsSummary",
+      controllers.nominees.routes.NomineeDetailsSummaryController.onSubmit()))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

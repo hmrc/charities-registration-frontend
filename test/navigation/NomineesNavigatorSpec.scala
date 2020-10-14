@@ -204,11 +204,11 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the Check your charity`s nominee details page when No is selected" in {
           navigator.nextPage(IsIndividualNomineePaymentsPage, NormalMode,
             emptyUserAnswers.set(IsIndividualNomineePaymentsPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
-      "from the IndividualNomineesBankContactDetails page" must {
+      "from the IndividualNomineesBankDetails page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesBankDetailsPage, NormalMode, emptyUserAnswers) mustBe
@@ -218,7 +218,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to summary page when clicked continue button" in {
           navigator.nextPage(IndividualNomineesBankDetailsPage, NormalMode,
             emptyUserAnswers.set(IndividualNomineesBankDetailsPage, bankDetails).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -407,7 +407,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(OrganisationAuthorisedPersonNinoPage, NormalMode,
             emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123456A").success.value) mustBe
-            routes.DeadEndController.onPageLoad()//TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
 
         }
       }

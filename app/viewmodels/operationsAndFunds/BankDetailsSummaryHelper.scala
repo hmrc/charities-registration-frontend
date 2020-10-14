@@ -28,54 +28,31 @@ class BankDetailsSummaryHelper(override val userAnswers: UserAnswers)
                               (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
     with SummaryListRowHelper {
 
+  def accountName: Option[SummaryListRow] =
+    answerAccountName(BankDetailsPage,
+      controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
+      messagePrefix = "bankDetails.accountName")
 
-  def bankDetailsRows: Seq[SummaryListRow] =
-    userAnswers.get(BankDetailsPage).map{ contact =>
-      answerRows(contact, controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode))
-    }.fold(List[SummaryListRow]())(_.toList)
+  def accountSortCode: Option[SummaryListRow] =
+    answerSortCode(BankDetailsPage,
+      controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
+      messagePrefix = "bankDetails.sortCode")
 
-  private def answerRows(bankDetails: BankDetails,
-                                          changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
+  def accountNumber: Option[SummaryListRow] =
+    answerAccountNumber(BankDetailsPage,
+      controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
+      messagePrefix = "bankDetails.accountNumber")
 
-    Some(
-      summaryListRow(
-        label = messages("bankDetails.accountName.checkYourAnswersLabel"),
-        value = bankDetails.accountName,
-        visuallyHiddenText = Some(messages("bankDetails.accountName.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    ),
-
-    Some(
-      summaryListRow(
-        label = messages("bankDetails.sortCode.checkYourAnswersLabel"),
-        value = bankDetails.sortCode,
-        visuallyHiddenText = Some(messages("bankDetails.sortCode.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    ),
-
-    Some(
-      summaryListRow(
-        label = messages("bankDetails.accountNumber.checkYourAnswersLabel"),
-        value = bankDetails.accountNumber,
-        visuallyHiddenText = Some(messages("bankDetails.accountNumber.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    ),
-
-    bankDetails.rollNumber.map( rollNo =>
-      summaryListRow(
-        label = messages("bankDetails.rollNumber.checkYourAnswersLabel"),
-        value = rollNo,
-        visuallyHiddenText = Some(messages("bankDetails.rollNumber.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
+  def accountRollNumber: Option[SummaryListRow] =
+    answerRollNumber(BankDetailsPage,
+      controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
+      messagePrefix = "bankDetails.rollNumber")
 
     val rows: Seq[SummaryListRow] = Seq(
-      bankDetailsRows
+      accountName,
+      accountSortCode,
+      accountNumber,
+      accountRollNumber
     ).flatten
 
   }

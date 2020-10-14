@@ -1267,7 +1267,11 @@ chooseNominee.title = Is the nominee an individual or an organisation?
 chooseNominee.heading = Is the nominee a person or an organisation?
 chooseNominee.error.required = Select if the nominee is a person or an organisation
 chooseNominee.person = Person
+chooseNominee.true = Person
 chooseNominee.organisation = Organisation
+chooseNominee.false = Organisation
+
+chooseNominee.checkYourAnswersLabel = Type of nominee
 
 # Charity Nominee Individual Name Page Messages
 # ----------------------------------------------------------
@@ -1286,6 +1290,8 @@ individualNomineeName.lastName.error.length = The nominee’s last name must be 
 individualNomineeName.lastName.error.format = The nominee’s last name must not include the following characters: & ( ) : @
 individualNomineeName.title.error.required = Select the nominee’s title
 
+individualNomineeName.checkYourAnswersLabel = Full name
+
 # Charity Nominee Individual DOB Page Messages
 # ----------------------------------------------------------
 individualNomineeDOB.title = What is the nominee’s date of birth?
@@ -1296,6 +1302,8 @@ individualNomineeDOB.error.required.two = Enter their {0} and {1} of birth
 individualNomineeDOB.error.required.one = Enter their {0} of birth
 individualNomineeDOB.error.invalid = Their birth date must be a real date.
 individualNomineeDOB.error.minimum = The nominee must be at least 16 years old
+
+individualNomineeDOB.checkYourAnswersLabel = Date of birth
 
 # Charity Nominee Individual Phone number Page Messages
 # ----------------------------------------------------------
@@ -1308,11 +1316,16 @@ individualNomineesPhoneNumber.alternativePhoneNumber.label = Alternative phone n
 individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
 individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Enter their alternative phone number
 
+individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
+individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
+
 # Charity Nominee Individual Nino Page Messages
 # ----------------------------------------------------------
 isIndividualNomineeNino.title = Does the nominee have a National Insurance number?
 isIndividualNomineeNino.heading = Does {0} have a National Insurance number?
 isIndividualNomineeNino.error.required = Select yes if they have a National Insurance number
+
+isIndividualNomineeNino.checkYourAnswersLabel = Nominee has a National Insurance number
 
 # Charity Nominee Individual Nino Messages
 # ----------------------------------------------------------
@@ -1341,7 +1354,23 @@ nomineeIndividualAddress.confirmPage.title = Confirm the nominee’s address - O
 nomineeIndividualAddress.confirmPage.heading = Confirm {0}’s home address
 nomineeIndividualAddress.confirmPage.changeLinkText = Change nominee’s home address
 
-nomineeIndividualAddress.checkYourAnswersLabel = Home address
+nomineeIndividualAddress.checkYourAnswersLabel = Nominee address
+
+# Charity Nominee Individual Previous Address Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePreviousAddress.title = Has the nominee’s address changed in the last 12 months?
+isIndividualNomineePreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
+isIndividualNomineePreviousAddress.error.required = Select yes if their address has changed in the last 12 months
+
+isIndividualNomineePreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
+
+# Is Charity Nominee authorised to receive payments Page Messages
+# ----------------------------------------------------------
+isIndividualNomineePayments.title = Is the nominee authorised to receive payments for your charity?
+isIndividualNomineePayments.heading = Is {0} authorised to receive payments for the charity?
+isIndividualNomineePayments.error.required = Select yes if the nominee is authorised to receive payments
+
+isIndividualNomineePayments.checkYourAnswersLabel = Nominee can receive payments on behalf of your charity
 
 # Charity Nominee Individual Bank details Messages
 # ----------------------------------------------------------
@@ -1366,29 +1395,10 @@ individualNomineesBankDetails.rollNumber.error.length = Building society roll nu
 individualNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
 individualNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
 
-
-# Charity Nominee Organisation Bank details Messages
-# ----------------------------------------------------------
-organisationNomineesBankDetails.title = Nominee organisation’s bank details
-organisationNomineesBankDetails.heading = {0}’s bank details
-organisationNomineesBankDetails.accountName = Name on the account
-organisationNomineesBankDetails.accountName.hint = As shown on organisation’s account statements
-organisationNomineesBankDetails.accountName.error.length = Organisation’s account name must be 60 characters or fewer
-organisationNomineesBankDetails.accountName.error.required = Enter the organisation’s account name
-organisationNomineesBankDetails.accountName.error.format = The organisation’s account name must not include the following characters: & ( ) : @
-organisationNomineesBankDetails.sortCode = Organisation’s sort code
-organisationNomineesBankDetails.sortCode.hint = Must be 6 digits long
-organisationNomineesBankDetails.sortCode.error.required = Enter the organisation’s sort code
-organisationNomineesBankDetails.sortCode.error.format = Enter a valid sort code like 309430
-organisationNomineesBankDetails.accountNumber = Organisation’s account number
-organisationNomineesBankDetails.accountNumber.hint = Must be between 6 and 8 digits long
-organisationNomineesBankDetails.accountNumber.error.required = Enter the organisation’s account number
-organisationNomineesBankDetails.accountNumber.error.format = Enter a valid account number like 00733445
-organisationNomineesBankDetails.rollNumber = Building society roll number (if you have one)
-organisationNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
-organisationNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
-organisationNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
-organisationNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
+individualNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
+individualNomineesBankDetails.sortCode.checkYourAnswersLabel = Sort code
+individualNomineesBankDetails.accountNumber.checkYourAnswersLabel = Account number
+individualNomineesBankDetails.rollNumber.checkYourAnswersLabel = Building society roll number
 
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
@@ -1398,23 +1408,7 @@ nameOfOrganisation.error.required = Enter the name of the organisation
 nameOfOrganisation.error.length = The name of the organisation must be 160 characters or fewer
 nameOfOrganisation.error.format = The name of the organisation must not include the following characters: & ( ) : @
 
-# Charity Nominee Individual Nino Page Messages
-# ----------------------------------------------------------
-isIndividualNomineeNino.title = Does the nominee have a National Insurance number?
-isIndividualNomineeNino.heading = Does {0} have a National Insurance number?
-isIndividualNomineeNino.error.required = Select yes if they have a National Insurance number
-
-# Is Charity Nominee authorised to receive payments Page Messages
-# ----------------------------------------------------------
-isIndividualNomineePayments.title = Is the nominee authorised to receive payments for your charity?
-isIndividualNomineePayments.heading = Is {0} authorised to receive payments for the charity?
-isIndividualNomineePayments.error.required = Select yes if the nominee is authorised to receive payments
-
-# Charity Nominee Individual Previous Address Page Messages
-# ----------------------------------------------------------
-isIndividualNomineePreviousAddress.title = Has the nominee’s address changed in the last 12 months?
-isIndividualNomineePreviousAddress.heading = Has {0}’s home address changed in the last 12 months?
-isIndividualNomineePreviousAddress.error.required = Select yes if their address has changed in the last 12 months
+nameOfOrganisation.checkYourAnswersLabel = Name
 
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
@@ -1427,6 +1421,7 @@ organisationContactDetails.email.label = Email address
 organisationContactDetails.email.error.format = Enter your charity’s email address in the correct format, like name@example.com
 organisationContactDetails.email.error.length = The organisation’s email address must be 160 characters or fewer.
 organisationContactDetails.email.error.required = Enter the organisation’s email address
+
 organisationContactDetails.phoneNumber.checkYourAnswersLabel = Phone number
 organisationContactDetails.email.checkYourAnswersLabel = Email address
 
@@ -1455,11 +1450,43 @@ isOrganisationNomineePreviousAddress.title = Has the nominee organisation’s ad
 isOrganisationNomineePreviousAddress.heading = Has {0}’s address changed in the last 12 months?
 isOrganisationNomineePreviousAddress.error.required = Select yes if the organisation’s address has changed in the last 12 months
 
+isOrganisationNomineePreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
+
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineePayments.title = Is the nominee organisation authorised to receive payments for your charity?
 isOrganisationNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isOrganisationNomineePayments.error.required = Select yes if the organisation is authorised to receive payments
+
+isOrganisationNomineePayments.checkYourAnswersLabel = Nominee organisation can receive payments on behalf of your charity
+
+# Charity Nominee Organisation Bank details Messages
+# ----------------------------------------------------------
+organisationNomineesBankDetails.title = Nominee organisation’s bank details
+organisationNomineesBankDetails.heading = {0}’s bank details
+organisationNomineesBankDetails.accountName = Name on the account
+organisationNomineesBankDetails.accountName.hint = As shown on organisation’s account statements
+organisationNomineesBankDetails.accountName.error.length = Organisation’s account name must be 60 characters or fewer
+organisationNomineesBankDetails.accountName.error.required = Enter the organisation’s account name
+organisationNomineesBankDetails.accountName.error.format = The organisation’s account name must not include the following characters: & ( ) : @
+organisationNomineesBankDetails.sortCode = Organisation’s sort code
+organisationNomineesBankDetails.sortCode.hint = Must be 6 digits long
+organisationNomineesBankDetails.sortCode.error.required = Enter the organisation’s sort code
+organisationNomineesBankDetails.sortCode.error.format = Enter a valid sort code like 309430
+organisationNomineesBankDetails.accountNumber = Organisation’s account number
+organisationNomineesBankDetails.accountNumber.hint = Must be between 6 and 8 digits long
+organisationNomineesBankDetails.accountNumber.error.required = Enter the organisation’s account number
+organisationNomineesBankDetails.accountNumber.error.format = Enter a valid account number like 00733445
+organisationNomineesBankDetails.rollNumber = Building society roll number (if you have one)
+organisationNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
+organisationNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
+organisationNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters a to z, numbers, hyphens, spaces and full stops
+organisationNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
+
+organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
+organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = Sort code
+organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel = Account number
+organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel = Building society roll number
 
 # Charity Nominee Organisation Authorised Person messages
 # ----------------------------------------------------------
@@ -1484,6 +1511,8 @@ organisationAuthorisedPersonName.lastName.error.length = The authorised person�
 organisationAuthorisedPersonName.lastName.error.format = The authorised person’s last name must not include the following characters: & ( ) : @
 organisationAuthorisedPersonName.title.error.required = Select the authorised person’s title
 
+organisationAuthorisedPersonName.checkYourAnswersLabel = Full name
+
 # Charity Nominee Organisation Authorised Person DOB Page Messages
 # ----------------------------------------------------------
 organisationAuthorisedPersonDOB.title = What is the authorised person’s date of birth?
@@ -1495,11 +1524,15 @@ organisationAuthorisedPersonDOB.error.required.one = Enter their {0} of birth
 organisationAuthorisedPersonDOB.error.invalid = Their birth date must be a real date.
 organisationAuthorisedPersonDOB.error.minimum = The authorised person must be at least 16 years old
 
+organisationAuthorisedPersonDOB.checkYourAnswersLabel = Date of birth
+
 # Charity Nominee Organisation Authorised Person Nino Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineeNino.title = Does the authorised person have a National Insurance number?
 isOrganisationNomineeNino.heading = Does {0} have a National Insurance number?
 isOrganisationNomineeNino.error.required = Select yes if they have a National Insurance number
+
+isOrganisationNomineeNino.checkYourAnswersLabel = Nominee has a National Insurance number
 
 # Charity Nominee Authorised Person National Insurance Number messages
 # ----------------------------------------------------------
@@ -1509,9 +1542,17 @@ organisationAuthorisedPersonNino.hint = For example, QQ 12 34 56 C.
 organisationAuthorisedPersonNino.error.required = Enter their National Insurance number
 organisationAuthorisedPersonNino.error.format = Enter a National Insurance number in the correct format
 
+organisationAuthorisedPersonNino.checkYourAnswersLabel = National Insurance number
+
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details
 nomineeDetailsSummary.checkYourAnswers.heading = Check the charity’s nominee details
 nomineeDetailsSummary.checkYourAnswers.h2 = Authorise a nominee
+nomineeDetailsSummary.checkYourAnswers.h2.nominee = Nominee
+nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = Nominee individual details
+nomineeDetailsSummary.checkYourAnswers.h2.individualBank = Nominee bank account details
+nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = Nominee organisation details
+nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = Nominee organisation bank account details
+nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = Authorised person details
 nomineeDetailsSummary.section = Officials and nominees

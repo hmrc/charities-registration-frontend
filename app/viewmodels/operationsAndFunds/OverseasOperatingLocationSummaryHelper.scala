@@ -17,7 +17,7 @@
 package viewmodels.operationsAndFunds
 
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
-import models.{Index, NormalMode, UserAnswers}
+import models.{Index, Mode, UserAnswers}
 import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import play.api.i18n.Messages
 import play.api.mvc.Call
@@ -26,8 +26,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswers, val countryService: CountryService)
-                                            (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
+class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswers,
+   val countryService: CountryService,
+   mode: Mode)
+  (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
     with SummaryListRowHelper with CurrencyFormatter {
 
     def overseasOperatingLocationSummaryRow(index: Int, changeLinkCall: Call): Option[SummaryListRow] = {
@@ -44,7 +46,7 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
 
     lazy val rows: Seq[SummaryListRow] = {
       val result = for(i <- 0 to 4) yield  {
-        overseasOperatingLocationSummaryRow(i, operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(i)))
+        overseasOperatingLocationSummaryRow(i, operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(mode, Index(i)))
       }
       result.flatten
     }

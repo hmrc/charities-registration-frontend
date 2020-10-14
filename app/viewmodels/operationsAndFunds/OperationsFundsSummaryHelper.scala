@@ -35,7 +35,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
     with SummaryListRowHelper with CurrencyFormatter {
 
 
-  val overseasOperatingLocationSummaryHelper = new OverseasOperatingLocationSummaryHelper(userAnswers, countryService)
+  val overseasOperatingLocationSummaryHelper = new OverseasOperatingLocationSummaryHelper(userAnswers, countryService, CheckMode)
 
   def fundRaisingRow: Option[SummaryListRow] =
       multiLineAnswer(FundRaisingPage, operationFundsRoutes.FundRaisingController.onPageLoad(CheckMode))

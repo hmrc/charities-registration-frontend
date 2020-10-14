@@ -49,7 +49,7 @@ class OverseasOperatingLocationSummaryController @Inject()(
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService)
+    val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService, mode)
     val preparedForm = request.userAnswers.get(OverseasOperatingLocationSummaryPage)   match {
       case None => form
       case Some(value) => form.fill(value)
@@ -60,7 +60,7 @@ class OverseasOperatingLocationSummaryController @Inject()(
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService)
+    val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService, mode)
 
     if(summaryHelper.rows.length < 5) {
 

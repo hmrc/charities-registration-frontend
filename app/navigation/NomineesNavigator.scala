@@ -23,7 +23,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.addressLookup.{NomineeIndividualAddressLookupPage, OrganisationNomineeAddressLookupPage}
+import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage}
 import pages.nominees._
 import play.api.mvc.Call
 
@@ -91,10 +91,15 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       }
 
     case IsIndividualNomineePreviousAddressPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePreviousAddressPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(true) => controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(NormalMode)
       case Some(false) => nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
+
+    case NomineeIndividualPreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
+        case Some(_) => nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+        case _ => routes.SessionExpiredController.onPageLoad()
+      }
 
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
       case Some(_) => nomineeRoutes.OrganisationNomineeContactDetailsController.onPageLoad(NormalMode)
@@ -201,6 +206,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
       case Some(false) => routes.DeadEndController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case NomineeIndividualPreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {

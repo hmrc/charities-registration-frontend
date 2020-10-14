@@ -21,9 +21,9 @@ import pages.QuestionPage
 import pages.nominees.NomineeId
 import play.api.libs.json.JsPath
 
-case object NomineeIndividualAddressLookupPage extends QuestionPage[AddressModel] {
+case object NomineeIndividualPreviousAddressLookupPage extends QuestionPage[AddressModel] {
 
   override def path: JsPath =  NomineeId.path \ toString
 
-  override lazy val toString: String = "individualAddress"
+  override lazy val toString: String = "individualPreviousAddress"
 }

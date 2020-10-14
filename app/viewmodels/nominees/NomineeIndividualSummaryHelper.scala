@@ -19,7 +19,7 @@ package viewmodels.nominees
 import controllers.nominees.routes
 import models.nominees.NomineeSummary
 import models.{CheckMode, UserAnswers}
-import pages.addressLookup.NomineeIndividualAddressLookupPage
+import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
 import pages.nominees._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
@@ -75,7 +75,10 @@ class NomineeIndividualSummaryHelper(override val userAnswers: UserAnswers)
       routes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode),
       messagePrefix = "isIndividualNomineePreviousAddress")
 
-  def nomineePreviousAddress: Option[SummaryListRow] = None // TODO individual nominee prev address
+  def nomineePreviousAddress: Option[SummaryListRow] =
+    answerAddress(NomineeIndividualPreviousAddressLookupPage,
+      controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(CheckMode),
+      messagePrefix = "nomineeIndividualPreviousAddress")
 
   def nomineeCanBePaid: Option[SummaryListRow] =
     answerPrefix(IsIndividualNomineePaymentsPage,

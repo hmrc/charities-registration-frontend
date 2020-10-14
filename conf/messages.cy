@@ -1339,18 +1339,18 @@ individualNomineesNino.checkYourAnswersLabel = (W)National Insurance number(W)
 
 # Nominee Individual Address Messages
 # ----------------------------------------------------------
-nomineeIndividualAddress.lookupPage.title = (W)What is the nominee’s address?  - Officials and nominees(W)
-nomineeIndividualAddress.lookupPage.heading = (W)What is {0}’s full home address?(W)
+nomineeIndividualAddress.lookupPage.title = (W)What is the nominee’s home address? - Officials and nominees(W)
+nomineeIndividualAddress.lookupPage.heading = (W)What is {0}’s home address?(W)
 nomineeIndividualAddress.lookupPage.manualAddressLinkText = (W)Nominee’s address does not have a UK postcode(W)
 
-nomineeIndividualAddress.selectPage.title = (W)What is the nominee’s full address? - Officials and nominees(W)
+nomineeIndividualAddress.selectPage.title = (W)What is the nominee’s full home address? - Officials and nominees(W)
 nomineeIndividualAddress.selectPage.heading = (W)What is {0}’s full home address?(W)
 nomineeIndividualAddress.selectPage.editAddressLinkText = (W)Enter nominee’s home address manually(W)
 
-nomineeIndividualAddress.editPage.title = (W)What is the nominees’s full address? - Officials and nominees(W)
+nomineeIndividualAddress.editPage.title = (W)What is the nominee’s full home address? - Officials and nominees(W)
 nomineeIndividualAddress.editPage.heading = (W)What is {0}’s full home address?(W)
 
-nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s address - Officials and nominees(W)
+nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s home address - Officials and nominees(W)
 nomineeIndividualAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
 nomineeIndividualAddress.confirmPage.changeLinkText = (W)Change nominee’s home address(W)
 
@@ -1363,6 +1363,25 @@ isIndividualNomineePreviousAddress.heading = (W)Has {0}’s home address changed
 isIndividualNomineePreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
 
 isIndividualNomineePreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+
+# Nominee Individual Previous Address Messages
+# ----------------------------------------------------------
+nomineeIndividualPreviousAddress.lookupPage.title = (W)What is the nominee’s previous home address? - Officials and nominees(W)
+nomineeIndividualPreviousAddress.lookupPage.heading = (W)What is {0}’s previous home address?(W)
+nomineeIndividualPreviousAddress.lookupPage.manualAddressLinkText = (W)Nominee’s previous address does not have a UK postcode(W)
+
+nomineeIndividualPreviousAddress.selectPage.title = (W)What is the nominee’s full previous home address? - Officials and nominees(W)
+nomineeIndividualPreviousAddress.selectPage.heading = (W)What is {0}’s full previous home address?(W)
+nomineeIndividualPreviousAddress.selectPage.editAddressLinkText = (W)Enter nominee’s home address manually(W)
+
+nomineeIndividualPreviousAddress.editPage.title = (W)What is the nominee’s full previous home address? - Officials and nominees(W)
+nomineeIndividualPreviousAddress.editPage.heading = (W)What is {0}’s full previous home address?(W)
+
+nomineeIndividualPreviousAddress.confirmPage.title = (W)Confirm the nominee’s previous home address - Officials and nominees(W)
+nomineeIndividualPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous home address(W)
+nomineeIndividualPreviousAddress.confirmPage.changeLinkText = (W)Change nominee’s previous home address(W)
+
+nomineeIndividualPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
 
 # Is Charity Nominee authorised to receive payments Page Messages
 # ----------------------------------------------------------

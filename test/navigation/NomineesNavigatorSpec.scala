@@ -26,7 +26,7 @@ import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import models.nominees.OrganisationNomineeContactDetails
 import pages.IndexPage
-import pages.addressLookup.{NomineeIndividualAddressLookupPage, OrganisationNomineeAddressLookupPage}
+import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage}
 import pages.nominees._
 
 class NomineesNavigatorSpec extends SpecBase {
@@ -188,6 +188,41 @@ class NomineesNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IsIndividualNomineePreviousAddressPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Previous address lookup when yes selected" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode,
+            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe
+            addressLookupRoutes.NomineeIndividualPreviousAddressLookupController.initializeJourney(NormalMode)
+        }
+
+        "go to the Is nominee authorised to receive payments page when No is selected" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode,
+            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, false).success.value) mustBe
+            nomineesRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IndividualNomineePreviousAddressLookup Page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Is nominee authorised to receive payments page when clicked continue button" in {
+          navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, address)
+              .success.value) mustBe
+            nomineesRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+        }
+      }
+
       "from the IsIndividualNomineePaymentsPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -219,26 +254,6 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(IndividualNomineesBankDetailsPage, NormalMode,
             emptyUserAnswers.set(IndividualNomineesBankDetailsPage, bankDetails).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
-        }
-      }
-
-      "from the IsIndividualNomineePreviousAddressPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the Previous address lookup when yes selected" in {
-          navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode,
-            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-        }
-
-        "go to the Is nominee authorised to receive payments page when No is selected" in {
-          navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode,
-            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, false).success.value) mustBe
-            nomineesRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
         }
       }
 
@@ -547,6 +562,56 @@ class NomineesNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IndividualNomineeLookupPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, address)
+              .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
+              .success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IsIndividualNomineePreviousAddressPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the Previous address lookup when yes selected" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+
+        "go to the Is nominee authorised to receive payments page when No is selected" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, false).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IndividualNomineePreviousAddressLookup Page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to summary page when clicked continue button" in {
+          navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, address).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
       "from the IsIndividualNomineePaymentsPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -581,26 +646,8 @@ class NomineesNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the IsIndividualNomineePreviousAddressPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the Previous address lookup when yes selected" in {
-          navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode,
-            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-        }
-
-        "go to the Is nominee authorised to receive payments page when No is selected" in {
-          navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode,
-            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-        }
-      }
-
+      // Organisation nominee
+      // ----------------------------------------------------------------------------------------------
 
       "from the  OrganisationNomineeName page" must {
 
@@ -615,23 +662,6 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
-
-      "from the IndividualNomineeLookupPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(NomineeIndividualAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
-          navigator.nextPage(NomineeIndividualAddressLookupPage, CheckMode,
-            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, address)
-              .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
-              .success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-        }
-      }
-
 
       "from the OrganisationNomineeContactDetails page" must {
 

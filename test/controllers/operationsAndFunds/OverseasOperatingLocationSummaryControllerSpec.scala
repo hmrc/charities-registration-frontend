@@ -66,20 +66,25 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Seq())(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
+      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(OverseasOperatingLocationSummaryPage, true).getOrElse(emptyUserAnswers))))
+        set(OverseasOperatingLocationSummaryPage, true)
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "TT")).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -87,11 +92,27 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
+    "redirect to the correct page if no country is in the UserAnswers" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
+        set(OverseasOperatingLocationSummaryPage, true).success.value)))
+
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+
+    }
+
     "redirect to the next page when valid data is submitted" in {
+      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value)))
+
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)

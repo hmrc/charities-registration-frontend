@@ -112,7 +112,20 @@ class FundRaisingNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true)
               .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0),"PL")).success.value) mustBe
             operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
+        }
 
+        "go to What countries does the charity operate page when country is entered and clicked continue when" +
+          "summary was visited before but answered OverseasOperatingLocationSummaryPage" in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), NormalMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true).success.value) mustBe
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
+        }
+
+        "go to What countries does the charity operate page when country is entered and clicked continue when" +
+          "summary was visited before but not answered OverseasOperatingLocationSummaryPage" in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), NormalMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).success.value) mustBe
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
         }
       }
 
@@ -301,6 +314,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }
+
       "from the OperatingLocationPage page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -321,6 +335,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
         }
       }
 
+
       "from the WhatCountryDoesTheCharityOperateIn page" must {
         "go to the SessionExpiredController page when user answer is empty" in {
           navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), CheckMode, emptyUserAnswers) mustBe
@@ -331,6 +346,13 @@ class FundRaisingNavigatorSpec extends SpecBase {
           navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), CheckMode,
             emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "PL").success.value) mustBe
             operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
+        }
+
+        "go to What countries does the charity operate page when country is entered and clicked continue when" +
+          "summary was visited before but answered OverseasOperatingLocationSummaryPage" in {
+          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), CheckMode,
+            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true).success.value) mustBe
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
         }
       }
 

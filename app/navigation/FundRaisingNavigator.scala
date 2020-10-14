@@ -56,9 +56,11 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case WhatCountryDoesTheCharityOperateInPage(_) => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
       case Some(_) =>
         overseasRedirect(userAnswers, NormalMode)
-      case _ if userAnswers.get(WhatCountryDoesTheCharityOperateInPage(Index(0))).isDefined =>
+      case _ if userAnswers.get(WhatCountryDoesTheCharityOperateInPage(Index(0))).isDefined=>
         operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
-      case _=> routes.SessionExpiredController.onPageLoad()
+      case _ if userAnswers.get(OperatingLocationPage).isDefined =>
+        operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OverseasOperatingLocationSummaryPage => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
@@ -130,8 +132,13 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case WhatCountryDoesTheCharityOperateInPage(index) => userAnswers: UserAnswers => userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)) match {
-      case Some(_) => operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
+
+
+    case WhatCountryDoesTheCharityOperateInPage(_) => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
+      case Some(_) =>
+        overseasRedirect(userAnswers, CheckMode)
+      case _ if userAnswers.get(WhatCountryDoesTheCharityOperateInPage(Index(0))).isDefined=>
+        operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

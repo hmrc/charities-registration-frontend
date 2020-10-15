@@ -135,9 +135,23 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
+        "go to the SessionExpiredController page when user answer is not empty, but has no answer to page" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode, emptyUserAnswers
+          .set(WhatCountryDoesTheCharityOperateInPage(0), "PL").success.value) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to WhatCountryDoesTheCharityOperateInPage when there is no country in the UserAnswers" in {
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).success.value) mustBe
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
+        }
+
         "go to the IsFinancialAccounts page when user selects No" in {
           navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode,
-            emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, false).success.value) mustBe
+            emptyUserAnswers
+              .set(WhatCountryDoesTheCharityOperateInPage(Index(0)), "PL")
+              .flatMap(_.set(OverseasOperatingLocationSummaryPage, false)).success.value) mustBe
             operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
         }
 

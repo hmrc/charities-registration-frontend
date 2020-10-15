@@ -26,6 +26,7 @@ import models.operations.FundRaisingOptions.Other
 import models.operations.OperatingLocationOptions.Overseas
 import pages.Page
 import pages.operationsAndFunds._
+import play.api.Logger
 import play.api.mvc.Call
 
 class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -63,18 +64,28 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case OverseasOperatingLocationSummaryPage => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
-      case Some(true) =>
-        val result = for(i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
-        val index = result.filter(_.nonEmpty).flatten.length
-        if(index < 5) {
-          operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(index))
-        } else {
-          operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+    case OverseasOperatingLocationSummaryPage => userAnswers: UserAnswers =>
+      userAnswers.get(WhatCountryDoesTheCharityOperateInPage(Index(0))) match {
+        case None => userAnswers.get(OperatingLocationPage) match {
+          case Some(_) => operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
+          case _ => routes.SessionExpiredController.onPageLoad()
         }
-      case Some(false) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
+        case _ =>
+          userAnswers.get(OverseasOperatingLocationSummaryPage) match {
+          case Some(true) =>
+            val result = for(i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
+            val index = result.filter(_.nonEmpty).flatten.length
+
+            index match {
+              case lessThanFive if lessThanFive < 5 => operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(index))
+              case _ => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+            }
+
+          case Some(false) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
+
+          case _ => routes.SessionExpiredController.onPageLoad()
+          }
+        }
 
     case IsFinancialAccountsPage => userAnswers: UserAnswers => userAnswers.get(IsFinancialAccountsPage) match {
       case Some(true) => operationFundsRoutes.EstimatedIncomeController.onPageLoad(NormalMode)

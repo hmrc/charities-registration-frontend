@@ -23,7 +23,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
 import models.{BankDetails, CheckMode, Name, PhoneNumber, SelectTitle, UserAnswers}
-import pages.addressLookup.NomineeIndividualAddressLookupPage
+import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
 import pages.nominees._
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeIndividualSummaryHelper
@@ -41,7 +41,8 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
     .flatMap(_.set(IsIndividualNomineeNinoPage, true))
     .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
     .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))
-    .flatMap(_.set(IsIndividualNomineePreviousAddressPage, false))
+    .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
+    .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address))
     .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
     .flatMap(_.set(IndividualNomineesBankDetailsPage, BankDetails(accountName = "PM Cares",
       sortCode = "176534",
@@ -141,9 +142,21 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
       "have a correctly formatted summary list row" in {
         helper.nomineeAddressChanged mustBe Some(summaryListRow(
           messages("isIndividualNomineePreviousAddress.checkYourAnswersLabel"),
-          messages("site.no"),
+          messages("site.yes"),
           Some(messages("isIndividualNomineePreviousAddress.checkYourAnswersLabel")),
           nomineesRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the nominee's previous address answer" must {
+
+      "have a correctly formatted summary list row" in {
+        helper.nomineePreviousAddress mustBe Some(summaryListRow(
+          messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel"),
+          "Test 1, Test 2, AA00 0AA, United Kingdom",
+          Some(messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel")),
+          controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

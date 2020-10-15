@@ -22,11 +22,12 @@ import models.{CheckMode, UserAnswers}
 import pages.addressLookup.OrganisationNomineeAddressLookupPage
 import pages.nominees._
 import play.api.i18n.Messages
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class NomineeOrganisationSummaryHelper(override val userAnswers: UserAnswers)
+class NomineeOrganisationSummaryHelper(countryService: CountryService)(override val userAnswers: UserAnswers)
                                       (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
@@ -103,11 +104,22 @@ class NomineeOrganisationSummaryHelper(override val userAnswers: UserAnswers)
       routes.OrganisationAuthorisedPersonNinoController.onPageLoad(CheckMode),
       messagePrefix = "organisationAuthorisedPersonNino")
 
-  def authorisedPersonPassportNumber: Option[SummaryListRow] = None // TODO organisation authorised person passport page
+  def authorisedPersonPassportNumber: Option[SummaryListRow] =
+    answerPassportNo(OrganisationAuthorisedPersonPassportPage,
+    routes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode),
+    messagePrefix = "organisationAuthorisedPersonPassport")
 
-  def authorisedPersonPassportCountry: Option[SummaryListRow] = None // TODO organisation authorised person passport page
+  def authorisedPersonPassportCountry: Option[SummaryListRow] =
+    answerCountryOfIssue(OrganisationAuthorisedPersonPassportPage,
+    routes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode),
+    messagePrefix = "organisationAuthorisedPersonPassport",
+    countryService)
 
-  def authorisedPersonPassportExpiry: Option[SummaryListRow] = None // TODO organisation authorised person passport page
+  def authorisedPersonPassportExpiry: Option[SummaryListRow] =
+    answerExpiryDate(OrganisationAuthorisedPersonPassportPage,
+      routes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode),
+      messagePrefix = "organisationAuthorisedPersonPassport")
+
 
 
   val rows: NomineeSummary = NomineeSummary(

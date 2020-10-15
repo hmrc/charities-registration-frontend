@@ -159,11 +159,16 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case IsOrganisationNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineeNinoPage) match {
       case Some(true) => nomineeRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(NormalMode)
-      case Some(false) => routes.DeadEndController.onPageLoad()// TODO next page
+      case Some(false) => nomineeRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonNinoPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNinoPage) match {
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationAuthorisedPersonPassportPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonPassportPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -299,6 +304,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationAuthorisedPersonNinoPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNinoPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationAuthorisedPersonPassportPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonPassportPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ => routes.SessionExpiredController.onPageLoad()
     }

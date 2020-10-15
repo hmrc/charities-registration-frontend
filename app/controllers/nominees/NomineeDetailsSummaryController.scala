@@ -49,7 +49,7 @@ class NomineeDetailsSummaryController @Inject()(
     
     val nomineeSummaryRows = request.userAnswers.get(ChooseNomineePage) match {
       case Some(true) => Some(new NomineeIndividualSummaryHelper(countryService)(request.userAnswers).rows)
-      case Some(false) => Some(new NomineeOrganisationSummaryHelper(request.userAnswers).rows)
+      case Some(false) => Some(new NomineeOrganisationSummaryHelper(countryService)(request.userAnswers).rows)
       case None => None
     }
 

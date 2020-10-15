@@ -23,9 +23,13 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
 import models.nominees.OrganisationNomineeContactDetails
-import models.{BankDetails, CheckMode, Name, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Country, Name, Passport, SelectTitle, UserAnswers}
+import org.mockito.ArgumentMatchers.{any, eq => meq}
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.OrganisationNomineeAddressLookupPage
 import pages.nominees._
+import service.CountryService
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeOrganisationSummaryHelper
 
@@ -35,7 +39,10 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
   private val month = 1
   private val dayOfMonth = 2
 
-  private val helper = new NomineeOrganisationSummaryHelper(UserAnswers("id")
+  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+
+  private lazy val baseUserAnswers: UserAnswers = UserAnswers("id")
     .set(OrganisationNomineeNamePage, "Company Inc")
     .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com")))
     .flatMap(_.set(OrganisationNomineeAddressLookupPage, ConfirmedAddressConstants.address))
@@ -46,9 +53,16 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       accountNumber = "43444546",
       rollNumber = Some("765431234"))))
     .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")))
-    .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))
-    .flatMap(_.set(IsOrganisationNomineeNinoPage, true))
+    .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth))).success.value
+
+  private val helperNino = new NomineeOrganisationSummaryHelper(mockCountryService)(baseUserAnswers
+    .set(IsOrganisationNomineeNinoPage, true)
     .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AB123123A"))
+    .success.value)
+
+  private val helperPassport = new NomineeOrganisationSummaryHelper(mockCountryService)(baseUserAnswers
+    .set(IsOrganisationNomineeNinoPage, false)
+    .flatMap(_.set(OrganisationAuthorisedPersonPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))))
     .success.value)
 
 
@@ -57,7 +71,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation name answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeName mustBe Some(summaryListRow(
+        helperNino.nomineeName mustBe Some(summaryListRow(
           messages("nameOfOrganisation.checkYourAnswersLabel"),
           "Company Inc",
           Some(messages("nameOfOrganisation.checkYourAnswersLabel")),
@@ -70,7 +84,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation phone number answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeMainPhone mustBe Some(summaryListRow(
+        helperNino.nomineeMainPhone mustBe Some(summaryListRow(
           messages("organisationContactDetails.phoneNumber.checkYourAnswersLabel"),
           "0123123123",
           Some(messages("organisationContactDetails.phoneNumber.checkYourAnswersLabel")),
@@ -82,7 +96,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation email address answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeEmailAddress mustBe Some(summaryListRow(
+        helperNino.nomineeEmailAddress mustBe Some(summaryListRow(
           messages("organisationContactDetails.email.checkYourAnswersLabel"),
           "company@inc.com",
           Some(messages("organisationContactDetails.email.checkYourAnswersLabel")),
@@ -94,7 +108,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation's address answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeAddress mustBe Some(summaryListRow(
+        helperNino.nomineeAddress mustBe Some(summaryListRow(
           messages("organisationNomineeAddress.checkYourAnswersLabel"),
           "Test 1, Test 2, AA00 0AA, United Kingdom",
           Some(messages("organisationNomineeAddress.checkYourAnswersLabel")),
@@ -106,7 +120,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the has the organisation's address changed answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeAddressChanged mustBe Some(summaryListRow(
+        helperNino.nomineeAddressChanged mustBe Some(summaryListRow(
           messages("isOrganisationNomineePreviousAddress.checkYourAnswersLabel"),
           messages("site.no"),
           Some(messages("isOrganisationNomineePreviousAddress.checkYourAnswersLabel")),
@@ -118,7 +132,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the can organisation be paid answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeCanBePaid mustBe Some(summaryListRow(
+        helperNino.nomineeCanBePaid mustBe Some(summaryListRow(
           messages("isOrganisationNomineePayments.checkYourAnswersLabel"),
           messages("site.yes"),
           Some(messages("isOrganisationNomineePayments.checkYourAnswersLabel")),
@@ -130,7 +144,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation account name answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeAccountName mustBe Some(summaryListRow(
+        helperNino.nomineeAccountName mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.accountName.checkYourAnswersLabel"),
           "PM Cares",
           Some(messages("organisationNomineesBankDetails.accountName.checkYourAnswersLabel")),
@@ -142,7 +156,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation sort code answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeSortCode mustBe Some(summaryListRow(
+        helperNino.nomineeSortCode mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.sortCode.checkYourAnswersLabel"),
           "176534",
           Some(messages("organisationNomineesBankDetails.sortCode.checkYourAnswersLabel")),
@@ -154,7 +168,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation account number answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeAccountNumber mustBe Some(summaryListRow(
+        helperNino.nomineeAccountNumber mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel"),
           "43444546",
           Some(messages("organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel")),
@@ -166,7 +180,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation roll number answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.nomineeBuildingRoll mustBe Some(summaryListRow(
+        helperNino.nomineeBuildingRoll mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel"),
           "765431234",
           Some(messages("organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel")),
@@ -178,7 +192,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation authorised person name answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.authorisedPersonName mustBe Some(summaryListRow(
+        helperNino.authorisedPersonName mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonName.checkYourAnswersLabel"),
           "Mr John Jones",
           Some(messages("organisationAuthorisedPersonName.checkYourAnswersLabel")),
@@ -190,7 +204,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the organisation authorised person DOB answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.authorisedPersonDOB mustBe Some(summaryListRow(
+        helperNino.authorisedPersonDOB mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel"),
           "2 January 1991",
           Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
@@ -202,7 +216,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     "For the does the organisation authorised person have a NINO answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.authorisedPersonHasNino mustBe Some(summaryListRow(
+        helperNino.authorisedPersonHasNino mustBe Some(summaryListRow(
           messages("isOrganisationNomineeNino.checkYourAnswersLabel"),
           messages("site.yes"),
           Some(messages("isOrganisationNomineeNino.checkYourAnswersLabel")),
@@ -211,10 +225,10 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       }
     }
 
-    "For the does the organisation authorised person's nino answer" must {
+    "For the organisation authorised person's nino answer" must {
 
       "have a correctly formatted summary list row" in {
-        helper.authorisedPersonNino mustBe Some(summaryListRow(
+        helperNino.authorisedPersonNino mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonNino.checkYourAnswersLabel"),
           "AB123123A",
           Some(messages("organisationAuthorisedPersonNino.checkYourAnswersLabel")),
@@ -223,6 +237,35 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       }
     }
 
+    "For the organisation authorised person's passport answer" must {
+
+      "have a correctly formatted summary list row for country of issue" in {
+        helperPassport.authorisedPersonPassportCountry mustBe Some(summaryListRow(
+          messages("organisationAuthorisedPersonPassport.country.checkYourAnswersLabel"),
+          "United Kingdom",
+          Some(messages("organisationAuthorisedPersonPassport.country.checkYourAnswersLabel")),
+          nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+
+      "have a correctly formatted summary list row for passport number" in {
+        helperPassport.authorisedPersonPassportNumber mustBe Some(summaryListRow(
+          messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel"),
+          "GB12345",
+          Some(messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel")),
+          nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+
+      "have a correctly formatted summary list row for expiry date" in {
+        helperPassport.authorisedPersonPassportExpiry mustBe Some(summaryListRow(
+          messages("organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel"),
+          "2 January 1991",
+          Some(messages("organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel")),
+          nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
 
   }
 }

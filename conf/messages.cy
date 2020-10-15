@@ -1332,7 +1332,7 @@ isIndividualNomineeNino.checkYourAnswersLabel = (W)Nominee has a National Insura
 individualNomineesPassport.title = (W)What are the nominee’s passport or national identity card details?(W)
 individualNomineesPassport.heading = (W){0}’s passport or national identity card details(W)
 individualNomineesPassport.passportNumber.label = (W)National identity card or passport number(W)
-individualNomineesPassport.hint = (W)For example, 21 3 2015(W)
+individualNomineesPassport.hint = (W)For example, 21 3 2015.(W)
 individualNomineesPassport.passportNumber.error.format = (W)The nominee’s passport or national identity card number must not include the following characters: & ( ) : @(W)
 individualNomineesPassport.passportNumber.error.length = (W)The nominee’s passport or national identity card number must be 30 characters or fewer(W)
 individualNomineesPassport.passportNumber.error.required = (W)Enter the nominee’s passport or national identity card number(W)
@@ -1344,8 +1344,8 @@ individualNomineesPassport.expiryDate.label = (W)Expiry date(W)
 individualNomineesPassport.error.minimum = (W)The expiry date must be in the future(W)
 individualNomineesPassport.error.invalid = (W)The expiry date must be a real date(W)
 individualNomineesPassport.error.required.all = (W)Enter the expiry date(W)
-individualNomineesPassport.error.required.two = (W)Enter {0} and {1} of expiry date(W)
-individualNomineesPassport.error.required.one = (W)Enter the {0} of expiry date(W)
+individualNomineesPassport.error.required.two = (W)Enter the {0} and the {1} of the expiry date(W)
+individualNomineesPassport.error.required.one = (W)Enter the {0} of the expiry date(W)
 
 individualNomineesPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
 individualNomineesPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
@@ -1605,6 +1605,30 @@ organisationAuthorisedPersonNino.error.required = (W)Enter their National Insura
 organisationAuthorisedPersonNino.error.format = (W)Enter a National Insurance number in the correct format(W)
 
 organisationAuthorisedPersonNino.checkYourAnswersLabel = (W)National Insurance number(W)
+
+# Charity Nominee Authorised Person Passport Page Messages
+# ----------------------------------------------------------
+organisationAuthorisedPersonPassport.title = (W)Authorised person’s passport or national identity card details(W)
+organisationAuthorisedPersonPassport.heading = (W){0}’s passport or national identity card details(W)
+organisationAuthorisedPersonPassport.passportNumber.label = (W)Passport or national identity card number(W)
+organisationAuthorisedPersonPassport.hint = (W)For example, 21 3 2015.(W)
+organisationAuthorisedPersonPassport.passportNumber.error.format = (W)The authorised person’s passport or national identity card number must not include the following characters: & ( ) : @(W)
+organisationAuthorisedPersonPassport.passportNumber.error.length = (W)The authorised person’s passport or national identity card number must be 30 characters or fewer(W)
+organisationAuthorisedPersonPassport.passportNumber.error.required = (W)Enter the authorised person’s passport or national identity card number(W)
+organisationAuthorisedPersonPassport.country.label = (W)Country of issue(W)
+organisationAuthorisedPersonPassport.country.hint = (W)Select a country of issue(W)
+organisationAuthorisedPersonPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
+organisationAuthorisedPersonPassport.country.error.required = (W)Enter the country of issue(W)
+organisationAuthorisedPersonPassport.expiryDate.label = (W)Expiry date(W)
+organisationAuthorisedPersonPassport.error.minimum = (W)The expiry date must be in the future(W)
+organisationAuthorisedPersonPassport.error.invalid = (W)The expiry date must be a real date(W)
+organisationAuthorisedPersonPassport.error.required.all = (W)Enter the expiry date(W)
+organisationAuthorisedPersonPassport.error.required.two = (W)Enter the {0} and the {1} of the expiry date(W)
+organisationAuthorisedPersonPassport.error.required.one = (W)Enter the {0} of the expiry date(W)
+
+organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
+organisationAuthorisedPersonPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
+organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

@@ -48,3 +48,8 @@ GET        /organisation-nominee-address-lookup                                 
 GET        /organisation-nominee-address-callback                                controllers.addressLookup.OrganisationNomineeAddressLookupController.callback(mode: Mode = NormalMode, id: Option[String] ?= None)
 GET        /organisation-nominee-address-lookup/change                           controllers.addressLookup.OrganisationNomineeAddressLookupController.initializeJourney(mode: Mode = CheckMode)
 GET        /organisation-nominee-address-callback/change                         controllers.addressLookup.OrganisationNomineeAddressLookupController.callback(mode: Mode = CheckMode, id: Option[String] ?= None)
+
+GET        /organisation-nominee-previous-address-lookup                         controllers.addressLookup.OrganisationNomineePreviousAddressLookupController.initializeJourney(mode: Mode = NormalMode)
+GET        /organisation-nominee-previous-address-callback                       controllers.addressLookup.OrganisationNomineePreviousAddressLookupController.callback(mode: Mode = NormalMode, id: Option[String] ?= None)
+GET        /organisation-nominee-previous-address-lookup/change                  controllers.addressLookup.OrganisationNomineePreviousAddressLookupController.initializeJourney(mode: Mode = CheckMode)
+GET        /organisation-nominee-previous-address-callback/change                controllers.addressLookup.OrganisationNomineePreviousAddressLookupController.callback(mode: Mode = CheckMode, id: Option[String] ?= None)

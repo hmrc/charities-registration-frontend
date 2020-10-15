@@ -23,7 +23,7 @@ import controllers.routes
 import javax.inject.Inject
 import models._
 import pages.Page
-import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage}
+import pages.addressLookup._
 import pages.nominees._
 import play.api.mvc.Call
 
@@ -126,8 +126,13 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IsOrganisationNomineePreviousAddressPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePreviousAddressPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(true) => addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode)
       case Some(false) => nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationNomineePreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
+      case Some(_) => nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -258,6 +263,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case IsOrganisationNomineePreviousAddressPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePreviousAddressPage) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OrganisationNomineePreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

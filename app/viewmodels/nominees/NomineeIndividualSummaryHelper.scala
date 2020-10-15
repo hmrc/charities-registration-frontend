@@ -22,11 +22,12 @@ import models.{CheckMode, UserAnswers}
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
 import pages.nominees._
 import play.api.i18n.Messages
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class NomineeIndividualSummaryHelper(override val userAnswers: UserAnswers)
+class NomineeIndividualSummaryHelper(countryService: CountryService)(override val userAnswers: UserAnswers)
                                     (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
   def nomineeName: Option[SummaryListRow] =
@@ -59,11 +60,21 @@ class NomineeIndividualSummaryHelper(override val userAnswers: UserAnswers)
       routes.IndividualNomineesNinoController.onPageLoad(CheckMode),
       messagePrefix = "individualNomineesNino")
 
-  def nomineePassportNumber: Option[SummaryListRow] = None // TODO individual passport page
+  def nomineePassportNumber: Option[SummaryListRow] =
+    answerPassportNo(IndividualNomineesPassportPage,
+      routes.IndividualNomineePassportController.onPageLoad(CheckMode),
+      messagePrefix = "individualNomineesPassport")
 
-  def nomineePassportCountry: Option[SummaryListRow] = None // TODO individual passport page
+  def nomineePassportCountry: Option[SummaryListRow] =
+    answerCountryOfIssue(IndividualNomineesPassportPage,
+      routes.IndividualNomineePassportController.onPageLoad(CheckMode),
+      messagePrefix = "individualNomineesPassport",
+      countryService)
 
-  def nomineePassportExpiry: Option[SummaryListRow] = None // TODO individual passport page
+  def nomineePassportExpiry: Option[SummaryListRow] =
+    answerExpiryDate(IndividualNomineesPassportPage,
+      routes.IndividualNomineePassportController.onPageLoad(CheckMode),
+      messagePrefix = "individualNomineesPassport")
 
   def nomineeAddress: Option[SummaryListRow] =
     answerAddress(NomineeIndividualAddressLookupPage,
@@ -104,6 +115,8 @@ class NomineeIndividualSummaryHelper(override val userAnswers: UserAnswers)
     answerRollNumber(IndividualNomineesBankDetailsPage,
       routes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode),
       messagePrefix = "individualNomineesBankDetails.rollNumber")
+
+
 
   val rows: NomineeSummary = NomineeSummary(
     new NomineeTypeSummaryHelper(userAnswers).rows,

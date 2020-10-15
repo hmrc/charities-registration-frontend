@@ -26,6 +26,7 @@ import pages.nominees.{ChooseNomineePage, NomineeDetailsSummaryPage}
 import pages.sections.Section9Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
+import service.CountryService
 import viewmodels.nominees.{NomineeDetailsSummaryHelper, NomineeIndividualSummaryHelper, NomineeOrganisationSummaryHelper}
 import views.html.nominees.NomineeDetailsSummaryView
 
@@ -37,6 +38,7 @@ class NomineeDetailsSummaryController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
+    val countryService: CountryService,
     view: NomineeDetailsSummaryView,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
@@ -46,7 +48,7 @@ class NomineeDetailsSummaryController @Inject()(
     val nomineeSummaryHelper = new NomineeDetailsSummaryHelper(request.userAnswers)
     
     val nomineeSummaryRows = request.userAnswers.get(ChooseNomineePage) match {
-      case Some(true) => Some(new NomineeIndividualSummaryHelper(request.userAnswers).rows)
+      case Some(true) => Some(new NomineeIndividualSummaryHelper(countryService)(request.userAnswers).rows)
       case Some(false) => Some(new NomineeOrganisationSummaryHelper(request.userAnswers).rows)
       case None => None
     }

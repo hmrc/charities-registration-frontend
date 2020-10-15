@@ -22,9 +22,13 @@ import assets.constants.ConfirmedAddressConstants
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
-import models.{BankDetails, CheckMode, Name, PhoneNumber, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Country, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import org.mockito.ArgumentMatchers.{any, eq => meq}
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
 import pages.nominees._
+import service.CountryService
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeIndividualSummaryHelper
 
@@ -34,7 +38,11 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
   private val month = 1
   private val dayOfMonth = 2
 
-  private val helper = new NomineeIndividualSummaryHelper(UserAnswers("id")
+  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
+
+  private val helper = new NomineeIndividualSummaryHelper(mockCountryService)(UserAnswers("id")
     .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
     .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123123", "0123123124")))
@@ -48,6 +56,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
       sortCode = "176534",
       accountNumber = "43444546",
       rollNumber = Some("765431234"))))
+    .flatMap(_.set(IndividualNomineesPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))))
     .success.value)
 
 
@@ -110,6 +119,45 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
           Some(messages("isIndividualNomineeNino.checkYourAnswersLabel")),
           nomineesRoutes.IsIndividualNomineeNinoController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
+      }
+    }
+
+    "For the Nominees Passport answers" must {
+
+      "have a correctly formatted summary list rows for passport number" in {
+
+        helper.nomineePassportNumber mustBe Some(
+          summaryListRow(
+            messages("individualNomineesPassport.passportNumber.checkYourAnswersLabel"),
+            "GB12345",
+            Some(messages("individualNomineesPassport.passportNumber.checkYourAnswersLabel")),
+            nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
+      }
+
+      "have a correctly formatted summary list rows for country of issue" in {
+
+        helper.nomineePassportCountry mustBe Some(
+          summaryListRow(
+            messages("individualNomineesPassport.country.checkYourAnswersLabel"),
+            "United Kingdom",
+            Some(messages("individualNomineesPassport.country.checkYourAnswersLabel")),
+            nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
+      }
+
+      "have a correctly formatted summary list rows for expiry date" in {
+
+        helper.nomineePassportExpiry mustBe Some(
+          summaryListRow(
+            messages("individualNomineesPassport.expiryDate.checkYourAnswersLabel"),
+            "2 January 1991",
+            Some(messages("individualNomineesPassport.expiryDate.checkYourAnswersLabel")),
+            nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 

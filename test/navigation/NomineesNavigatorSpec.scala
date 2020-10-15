@@ -153,7 +153,22 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the nominee passport or national identity card details page when No is selected" in {
           navigator.nextPage(IsIndividualNomineeNinoPage, NormalMode,
             emptyUserAnswers.set(IsIndividualNomineeNinoPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IndividualNomineePassportController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IndividualNomineePassportPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineesPassportPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to What is nominee’s home address? page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineesPassportPage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now())).success.value) mustBe
+            controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
+
         }
       }
 
@@ -407,7 +422,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to What are the nominee's passport or national identity card details page when Yes selected" in {
           navigator.nextPage(IsOrganisationNomineeNinoPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad()//TODO when next page is ready
+            routes.DeadEndController.onPageLoad()//TODO when next page is created
 
         }
       }
@@ -544,6 +559,21 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
             emptyUserAnswers.set(IsIndividualNomineeNinoPage, false).success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
+      "from the IndividualNomineePassportPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IndividualNomineesPassportPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to What is nominee’s home address? page when clicked continue button" in {
+          navigator.nextPage(IndividualNomineesPassportPage, CheckMode,
+            emptyUserAnswers.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now())).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+
         }
       }
 

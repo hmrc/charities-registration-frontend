@@ -60,7 +60,12 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case IsIndividualNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineeNinoPage) match {
       case Some(true) => nomineeRoutes.IndividualNomineesNinoController.onPageLoad(NormalMode)
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => nomineeRoutes.IndividualNomineePassportController.onPageLoad(NormalMode)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IndividualNomineesPassportPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPassportPage) match {
+      case Some(_) => controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -149,7 +154,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case IsOrganisationNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineeNinoPage) match {
       case Some(true) => nomineeRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(NormalMode)
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(false) => routes.DeadEndController.onPageLoad()// TODO next page
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -194,6 +199,11 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case IsIndividualNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineeNinoPage) match {
       case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
       case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case IndividualNomineesPassportPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPassportPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

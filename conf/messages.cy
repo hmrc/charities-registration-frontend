@@ -1327,6 +1327,30 @@ isIndividualNomineeNino.error.required = (W)Select yes if they have a National I
 
 isIndividualNomineeNino.checkYourAnswersLabel = (W)Nominee has a National Insurance number(W)
 
+# Charity Nominee Individual Passport Page Messages
+# ----------------------------------------------------------
+individualNomineesPassport.title = (W)What are the nominee’s passport or national identity card details?(W)
+individualNomineesPassport.heading = (W){0}’s passport or national identity card details(W)
+individualNomineesPassport.passportNumber.label = (W)National identity card or passport number(W)
+individualNomineesPassport.hint = (W)For example, 21 3 2015(W)
+individualNomineesPassport.passportNumber.error.format = (W)The nominee’s passport or national identity card number must not include the following characters: & ( ) : @(W)
+individualNomineesPassport.passportNumber.error.length = (W)The nominee’s passport or national identity card number must be 30 characters or fewer(W)
+individualNomineesPassport.passportNumber.error.required = (W)Enter the nominee’s passport or national identity card number(W)
+individualNomineesPassport.country.label = (W)Country of issue(W)
+individualNomineesPassport.country.hint = (W)Select a country of issue(W)
+individualNomineesPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
+individualNomineesPassport.country.error.required = (W)Enter the country of issue(W)
+individualNomineesPassport.expiryDate.label = (W)Expiry date(W)
+individualNomineesPassport.error.minimum = (W)The expiry date must be in the future(W)
+individualNomineesPassport.error.invalid = (W)The expiry date must be a real date(W)
+individualNomineesPassport.error.required.all = (W)Enter the expiry date(W)
+individualNomineesPassport.error.required.two = (W)Enter {0} and {1} of expiry date(W)
+individualNomineesPassport.error.required.one = (W)Enter the {0} of expiry date(W)
+
+individualNomineesPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
+individualNomineesPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
+individualNomineesPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
+
 # Charity Nominee Individual Nino Messages
 # ----------------------------------------------------------
 individualNomineesNino.title = (W)What is the nominee’s National Insurance number?(W)

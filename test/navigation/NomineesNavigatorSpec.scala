@@ -26,7 +26,7 @@ import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import models.nominees.OrganisationNomineeContactDetails
 import pages.IndexPage
-import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage}
+import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
 import pages.nominees._
 
 class NomineesNavigatorSpec extends SpecBase {
@@ -324,21 +324,35 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Orgnisation previous address page when continue button is clicked" in {
+        "go to the Organisation previous address page when continue button is clicked" in {
           navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineePreviousAddressPage, true)
               .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, true))
               .success.value) mustBe
-            routes.DeadEndController.onPageLoad()//TODO when next page created
+            addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode)
 
         }
 
-        "go to the Has the address changed page when continue button is clicked" in {
+        "go to the IsOrganisationNomineePayments when continue button is clicked" in {
           navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineePreviousAddressPage, false)
               .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
               .success.value) mustBe
           nomineesRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the OrganisationNomineePreviousAddressLookup page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to IsOrganisationNomineePayments when continue button is clicked" in {
+          navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, address).success.value) mustBe
+            nomineesRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
         }
       }
 
@@ -740,6 +754,21 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.DeadEndController.onPageLoad() // TODO when next page is ready
         }
       }
+
+      "from the OrganisationNomineePreviousAddressLookup page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, address).success.value) mustBe
+            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+        }
+      }
+
 
 
       "from the OrganisationNomineesBankContactDetails page" must {

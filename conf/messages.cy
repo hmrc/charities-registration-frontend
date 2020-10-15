@@ -1495,6 +1495,25 @@ isOrganisationNomineePreviousAddress.error.required = (W)Select yes if the organ
 
 isOrganisationNomineePreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
 
+# Organisation Nominee Previous Address Messages
+# ----------------------------------------------------------
+nomineeOrganisationPreviousAddress.lookupPage.title = (W)What is the nominee organisation’s previous address? - Officials and nominees(W)
+nomineeOrganisationPreviousAddress.lookupPage.heading = (W)What is {0}’s previous address?(W)
+nomineeOrganisationPreviousAddress.lookupPage.manualAddressLinkText = (W)Organisation’s previous address does not have a UK postcode(W)
+
+nomineeOrganisationPreviousAddress.selectPage.title = (W)What is the nominee organisation’s full previous address? - Officials and nominees(W)
+nomineeOrganisationPreviousAddress.selectPage.heading = (W)What is {0}’s full previous address?(W)
+nomineeOrganisationPreviousAddress.selectPage.editAddressLinkText = (W)Enter organisation’s previous address manually(W)
+
+nomineeOrganisationPreviousAddress.editPage.title = (W)What is the nominee organisation’s full previous address? - Officials and nominees(W)
+nomineeOrganisationPreviousAddress.editPage.heading = (W)What is {0}’s full previous address?(W)
+
+nomineeOrganisationPreviousAddress.confirmPage.title = (W)Confirm the nominee organisation’s previous address - Officials and nominees(W)
+nomineeOrganisationPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous address(W)
+nomineeOrganisationPreviousAddress.confirmPage.changeLinkText = (W)Change organisation’s previous address(W)
+
+nomineeOrganisationPreviousAddress.checkYourAnswersLabel = (W)Previous address(W)
+
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised to receive payments for your charity?(W)

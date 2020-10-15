@@ -26,7 +26,6 @@ import models.operations.FundRaisingOptions.Other
 import models.operations.OperatingLocationOptions.Overseas
 import pages.Page
 import pages.operationsAndFunds._
-import play.api.Logger
 import play.api.mvc.Call
 
 class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {

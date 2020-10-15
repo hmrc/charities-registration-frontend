@@ -1332,7 +1332,7 @@ isIndividualNomineeNino.checkYourAnswersLabel = Nominee has a National Insurance
 individualNomineesPassport.title = What are the nominee’s passport or national identity card details?
 individualNomineesPassport.heading = {0}’s passport or national identity card details
 individualNomineesPassport.passportNumber.label = National identity card or passport number
-individualNomineesPassport.hint = For example, 21 3 2015
+individualNomineesPassport.hint = For example, 21 3 2015.
 individualNomineesPassport.passportNumber.error.format = The nominee’s passport or national identity card number must not include the following characters: & ( ) : @
 individualNomineesPassport.passportNumber.error.length = The nominee’s passport or national identity card number must be 30 characters or fewer
 individualNomineesPassport.passportNumber.error.required = Enter the nominee’s passport or national identity card number
@@ -1344,8 +1344,8 @@ individualNomineesPassport.expiryDate.label = Expiry date
 individualNomineesPassport.error.minimum = The expiry date must be in the future
 individualNomineesPassport.error.invalid = The expiry date must be a real date
 individualNomineesPassport.error.required.all = Enter the expiry date
-individualNomineesPassport.error.required.two = Enter {0} and {1} of expiry date
-individualNomineesPassport.error.required.one = Enter the {0} of expiry date
+individualNomineesPassport.error.required.two = Enter the {0} and the {1} of the expiry date
+individualNomineesPassport.error.required.one = Enter the {0} of the expiry date
 
 individualNomineesPassport.passportNumber.checkYourAnswersLabel = Passport or national identity card number
 individualNomineesPassport.country.checkYourAnswersLabel = Country of issue
@@ -1605,6 +1605,30 @@ organisationAuthorisedPersonNino.error.required = Enter their National Insurance
 organisationAuthorisedPersonNino.error.format = Enter a National Insurance number in the correct format
 
 organisationAuthorisedPersonNino.checkYourAnswersLabel = National Insurance number
+
+# Charity Nominee Authorised Person Passport Page Messages
+# ----------------------------------------------------------
+organisationAuthorisedPersonPassport.title = Authorised person’s passport or national identity card details
+organisationAuthorisedPersonPassport.heading = {0}’s passport or national identity card details
+organisationAuthorisedPersonPassport.passportNumber.label = Passport or national identity card number
+organisationAuthorisedPersonPassport.hint = For example, 21 3 2015.
+organisationAuthorisedPersonPassport.passportNumber.error.format = The authorised person’s passport or national identity card number must not include the following characters: & ( ) : @
+organisationAuthorisedPersonPassport.passportNumber.error.length = The authorised person’s passport or national identity card number must be 30 characters or fewer
+organisationAuthorisedPersonPassport.passportNumber.error.required = Enter the authorised person’s passport or national identity card number
+organisationAuthorisedPersonPassport.country.label = Country of issue
+organisationAuthorisedPersonPassport.country.hint = Select a country of issue
+organisationAuthorisedPersonPassport.country.error.length = The country of issue must be 50 characters or fewer
+organisationAuthorisedPersonPassport.country.error.required = Enter the country of issue
+organisationAuthorisedPersonPassport.expiryDate.label = Expiry date
+organisationAuthorisedPersonPassport.error.minimum = The expiry date must be in the future
+organisationAuthorisedPersonPassport.error.invalid = The expiry date must be a real date
+organisationAuthorisedPersonPassport.error.required.all = Enter the expiry date
+organisationAuthorisedPersonPassport.error.required.two = Enter the {0} and the {1} of the expiry date
+organisationAuthorisedPersonPassport.error.required.one = Enter the {0} of the expiry date
+
+organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel = Passport or national identity card number
+organisationAuthorisedPersonPassport.country.checkYourAnswersLabel = Country of issue
+organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel = Expiry date
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------

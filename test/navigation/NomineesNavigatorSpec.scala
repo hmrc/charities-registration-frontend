@@ -436,7 +436,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to What are the nominee's passport or national identity card details page when Yes selected" in {
           navigator.nextPage(IsOrganisationNomineeNinoPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad()//TODO when next page is created
+            nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(NormalMode)
 
         }
       }
@@ -451,6 +451,21 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(OrganisationAuthorisedPersonNinoPage, NormalMode,
             emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123456A").success.value) mustBe
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
+
+        }
+      }
+
+      "from the OrganisationAuthorisedPersonPassportPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationAuthorisedPersonPassportPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(OrganisationAuthorisedPersonPassportPage, NormalMode,
+            emptyUserAnswers.set(OrganisationAuthorisedPersonPassportPage, Passport("123", "gb", LocalDate.now().plusDays(1))).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
 
         }
@@ -879,6 +894,20 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123456A").success.value) mustBe
             routes.DeadEndController.onPageLoad()//TODO when next page is ready
 
+        }
+      }
+
+      "from the OrganisationAuthorisedPersonPassportPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(OrganisationAuthorisedPersonPassportPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page when continue button is clicked" in {
+          navigator.nextPage(OrganisationAuthorisedPersonPassportPage, CheckMode,
+            emptyUserAnswers.set(OrganisationAuthorisedPersonPassportPage, Passport("123", "gb", LocalDate.now().plusDays(1))).success.value) mustBe
+            routes.DeadEndController.onPageLoad()//TODO when next page is ready
         }
       }
 

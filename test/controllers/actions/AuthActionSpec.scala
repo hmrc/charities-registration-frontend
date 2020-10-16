@@ -18,8 +18,12 @@ package controllers.actions
 
 import base.SpecBase
 import com.google.inject.Inject
+import config.FrontendAppConfig
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{Action, AnyContent, BodyParsers, Results}
 import play.api.test.Helpers._
+import repositories.{SessionRepository, UserAnswerRepository}
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Credentials, Retrieval}
@@ -175,6 +179,28 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe OK
       }
+
+      "redirect the user to correct for external test environment" in {
+
+        val application = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true").overrides(
+          bind[SessionRepository].toInstance(mockSessionRepository),
+          bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+          bind[IdentifierAction].to[FakeIdentifierAction],
+          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+          bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
+          bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
+        ).build()
+
+        val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
+        val frontendAppConfig: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
+
+        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))), frontendAppConfig, bodyParsers)
+        val controller = new Harness(authAction)
+        val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustBe OK
+      }
+
     }
 
     "the Org user with not supporting credential role" must {

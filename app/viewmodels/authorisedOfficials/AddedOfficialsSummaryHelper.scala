@@ -33,7 +33,7 @@ class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode, countryS
   with SummaryListRowHelper {
 
   val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index, CheckMode, countryService)(userAnswers)
-  val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index, CheckMode)(userAnswers)
+  val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index, CheckMode, countryService)(userAnswers)
 
   def isAddAnotherAuthorisedOfficialRow: Option[SummaryListRow] =
     answerPrefix(IsAddAnotherAuthorisedOfficialPage,

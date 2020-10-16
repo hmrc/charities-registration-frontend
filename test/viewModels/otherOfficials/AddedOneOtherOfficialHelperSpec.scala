@@ -24,8 +24,12 @@ import base.SpecBase
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
+import service.CountryService
 import viewmodels.SummaryListRowHelper
 import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
 
@@ -46,8 +50,11 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
     .set(OtherOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
     .set(IsOtherOfficialsPreviousAddressPage(0), false).success.value
 
+  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
 
-  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOneOtherOfficialHelper(index, CheckMode)(userAnswers)
+
+  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOneOtherOfficialHelper(index, CheckMode,countryService = mockCountryService)(userAnswers)
 
 
   "Check Your Answers Helper" must {

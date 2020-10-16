@@ -45,7 +45,7 @@ trait AddedOfficialController extends LocalBaseController {
       case "addedOneAuthorisedOfficial" | "addedSecondAuthorisedOfficial" =>
         new AddedOneAuthorisedOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
       case "addedOneOtherOfficial" | "addedSecondOtherOfficial"| "addedThirdOtherOfficial" =>
-        new AddedOneOtherOfficialHelper(index, PlaybackMode)(request.userAnswers).rows
+        new AddedOneOtherOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
     }
 
     Ok(view(rows, submitCall, messagePrefix))

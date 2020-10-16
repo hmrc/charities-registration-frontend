@@ -19,13 +19,15 @@ package viewmodels.otherOfficials
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{Index, Mode, UserAnswers}
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
+import pages.authorisedOfficials.AuthorisedOfficialsPassportPage
 import pages.otherOfficials._
 import play.api.i18n.Messages
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOneOtherOfficialHelper(index: Index, mode: Mode)(override val userAnswers: UserAnswers)
+class AddedOneOtherOfficialHelper(index: Index, mode: Mode, countryService: CountryService)(override val userAnswers: UserAnswers)
                                  (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
@@ -66,6 +68,23 @@ class AddedOneOtherOfficialHelper(index: Index, mode: Mode)(override val userAns
                  otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(mode, index),
                  messagePrefix = "otherOfficialsNino")
 
+  def otherOfficialPassportNumberRow: Option[SummaryListRow] =
+    answerPassportNo(OtherOfficialsPassportPage(index),
+      otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
+      messagePrefix = "otherOfficialsPassport")
+
+  def otherOfficialCountryOfIssueRow: Option[SummaryListRow] =
+    answerCountryOfIssue(OtherOfficialsPassportPage(index),
+      otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
+      messagePrefix = "otherOfficialsPassport",
+      countryService)
+
+  def otherOfficialExpiryDateRow: Option[SummaryListRow] =
+    answerExpiryDate(OtherOfficialsPassportPage(index),
+      otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
+      messagePrefix = "otherOfficialsPassport")
+
+
   def otherOfficialAddressRow: Option[SummaryListRow] =
     answerAddress(OtherOfficialAddressLookupPage(index),
                   controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index, mode),
@@ -90,6 +109,9 @@ class AddedOneOtherOfficialHelper(index: Index, mode: Mode)(override val userAns
     otherOfficialPositionRow,
     otherOfficialHasNinoRow,
     otherOfficialNinoRow,
+    otherOfficialPassportNumberRow,
+    otherOfficialCountryOfIssueRow,
+    otherOfficialExpiryDateRow,
     otherOfficialAddressRow,
     otherOfficialHadPreviousAddressRow,
     otherOfficialPreviousAddressRow

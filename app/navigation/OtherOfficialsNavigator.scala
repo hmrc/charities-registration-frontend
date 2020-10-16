@@ -141,7 +141,12 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(_) => routes.DeadEndController.onPageLoad()// TODO summary page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPassportPage(index)) match {
+      case Some(_) => routes.DeadEndController.onPageLoad()// TODO summary page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -190,11 +195,20 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case Some(true) if userAnswers.get(OtherOfficialsNinoPage(index)).isDefined => redirectToPlaybackPage(index)
+      case Some(true) => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(PlaybackMode,index)
+      case Some(false) if userAnswers.get(OtherOfficialsPassportPage(index)).isDefined =>
+        redirectToPlaybackPage(index)
+      case Some(false) => otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(PlaybackMode,index)
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
+      case Some(_) => redirectToPlaybackPage(index)
+      case _ =>  routes.SessionExpiredController.onPageLoad()
+    }
+
+    case OtherOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPassportPage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -205,7 +219,8 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case IsOtherOfficialsPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO redirect to next page once created
+      case Some(true) if userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)).isDefined => redirectToPlaybackPage(index)
+      case Some(true) => addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, PlaybackMode)
       case Some(false) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

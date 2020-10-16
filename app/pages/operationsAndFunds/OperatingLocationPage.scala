@@ -16,14 +16,35 @@
 
 package pages.operationsAndFunds
 
+import models.UserAnswers
 import models.operations.OperatingLocationOptions
+import models.operations.OperatingLocationOptions.Overseas
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.{Success, Try}
 
 case object OperatingLocationPage extends QuestionPage[Set[OperatingLocationOptions]] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "operatingLocation"
+
+  override def cleanup(value: Option[Set[OperatingLocationOptions]], userAnswers: UserAnswers): Try[UserAnswers] =
+    value match {
+      case Some(notOverseas) if !notOverseas.contains(Overseas) =>
+        userAnswers.removeCountries()
+      case _ => super.cleanup(value, userAnswers)
+    }
+
+  implicit class CountryRemover(userAnswers: UserAnswers) {
+    def removeCountries(index: Int = 0, answers: Try[UserAnswers] = Success(userAnswers)): Try[UserAnswers] = {
+      if (index < 5) {
+        removeCountries(index + 1, answers.flatMap(_.remove(WhatCountryDoesTheCharityOperateInPage(index))))
+      } else {
+        answers
+      }
+    }
+  }
 
 }

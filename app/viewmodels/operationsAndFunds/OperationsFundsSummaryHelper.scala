@@ -44,19 +44,19 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
       multiLineAnswer(OperatingLocationPage, operationFundsRoutes.OperatingLocationController.onPageLoad(CheckMode))
 
     def isFinancialAccountsRow: Option[SummaryListRow] =
-      answer(IsFinancialAccountsPage, routes.DeadEndController.onPageLoad())
+      answer(IsFinancialAccountsPage, operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode))
 
     def estimatedAmountRow: Option[SummaryListRow] =
-      answer(EstimatedIncomePage, routes.DeadEndController.onPageLoad())
+      answer(EstimatedIncomePage, operationFundsRoutes.EstimatedIncomeController.onPageLoad(CheckMode))
 
-  def whyNoBankStatementRow: Option[SummaryListRow] =
-    answer(WhyNoBankStatementPage, routes.DeadEndController.onPageLoad())
+    def whyNoBankStatementRow: Option[SummaryListRow] =
+      answer(WhyNoBankStatementPage, operationFundsRoutes.WhyNoBankStatementController.onPageLoad(CheckMode))
 
     def actualAmountRow: Option[SummaryListRow] =
-      answer(ActualIncomePage, routes.DeadEndController.onPageLoad())
+      answer(ActualIncomePage, operationFundsRoutes.ActualIncomeController.onPageLoad(CheckMode))
 
     def isBankStatementsRow: Option[SummaryListRow] =
-      answer(IsBankStatementsPage, routes.DeadEndController.onPageLoad())
+      answer(IsBankStatementsPage, operationFundsRoutes.IsBankStatementsController.onPageLoad(CheckMode))
 
     def accountingPeriodRow: Option[SummaryListRow] =
       answerAccountingPeriod(AccountingPeriodEndDatePage, operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(CheckMode))

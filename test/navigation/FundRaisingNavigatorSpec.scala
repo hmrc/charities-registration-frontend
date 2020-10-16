@@ -307,10 +307,17 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
 
-        "go to the Where does your charity operate page when user answer has other and clicked continue button" in {
+        "go to the What is the other fundraising method page when user answer is 'other' and clicked continue button" in {
           navigator.nextPage(FundRaisingPage, CheckMode,
             emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other)).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad()
+            operationFundsRoutes.OtherFundRaisingController.onPageLoad(CheckMode)
+        }
+
+        "go to the Summary page when user answer is 'other', the 'other fundraising methods' page has already been answered, and clicked continue button" in {
+          navigator.nextPage(FundRaisingPage, CheckMode,
+            emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other))
+              .flatMap(_.set(OtherFundRaisingPage, "some fundraising method")).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }
 
@@ -342,10 +349,17 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
 
-        "go to Has your charity prepared financial accounts page when user answer has other and clicked continue button" in {
+        "go to What country does you charity operate in page when user answer has overseas but no previous country input, and clicked continue button" in {
           navigator.nextPage(OperatingLocationPage, CheckMode,
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).getOrElse(emptyUserAnswers)) mustBe
-            routes.DeadEndController.onPageLoad()
+            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, 0)
+        }
+
+        "go to Overseas operating location summary page when user answer has overseas and previous country input, and clicked continue button" in {
+          navigator.nextPage(OperatingLocationPage, CheckMode,
+            emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "DE")).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
         }
       }
 
@@ -404,6 +418,27 @@ class FundRaisingNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the IsFinancialAccountsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsFinancialAccountsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Summary page when yes is selected" in {
+          navigator.nextPage(IsFinancialAccountsPage, CheckMode,
+            emptyUserAnswers.set(IsFinancialAccountsPage,true).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+
+        "go to Summary page when no is selected" in {
+          navigator.nextPage(IsFinancialAccountsPage, CheckMode,
+            emptyUserAnswers.set(IsFinancialAccountsPage,false).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
+
+
       "from the EstimatedIncome page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -427,6 +462,46 @@ class FundRaisingNavigatorSpec extends SpecBase {
         "go to Summary page when a number is provided" in {
           navigator.nextPage(ActualIncomePage, CheckMode,
             emptyUserAnswers.set(ActualIncomePage, BigDecimal.valueOf(123.12)).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
+
+      "from the IsBankStatements page" must {
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(IsBankStatementsPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Summary page when the answer is Yes" in {
+          navigator.nextPage(IsBankStatementsPage, CheckMode,
+            emptyUserAnswers.set(IsBankStatementsPage, true).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+
+        "go to WhyNoBankStatement page when the answer is No and the WhyNoBankStatement question hasn't yet been answered" in {
+          navigator.nextPage(IsBankStatementsPage, CheckMode,
+            emptyUserAnswers.set(IsBankStatementsPage, false).success.value) mustBe
+            operationFundsRoutes.WhyNoBankStatementController.onPageLoad(CheckMode)
+        }
+
+        "go to Summary page when the answer is No and the WhyNoBankStatement question was already answered" in {
+          navigator.nextPage(IsBankStatementsPage, CheckMode,
+            emptyUserAnswers.set(IsBankStatementsPage, false)
+              .flatMap(_.set(WhyNoBankStatementPage, "reason for no bank statement")).success.value) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
+
+      "from the WhyNoBankStatement page" must {
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(WhyNoBankStatementPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to Summary page when a reason is provided" in {
+          navigator.nextPage(WhyNoBankStatementPage, CheckMode,
+            emptyUserAnswers.set(IsBankStatementsPage, false)
+              .flatMap(_.set(WhyNoBankStatementPage, "reason for no bank statement")).success.value) mustBe
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }

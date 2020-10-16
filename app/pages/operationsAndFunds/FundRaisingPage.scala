@@ -16,13 +16,24 @@
 
 package pages.operationsAndFunds
 
+import models.UserAnswers
 import models.operations.FundRaisingOptions
+import models.operations.FundRaisingOptions.Other
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object FundRaisingPage extends QuestionPage[Set[FundRaisingOptions]] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "selectFundRaising"
+
+  override def cleanup(value: Option[Set[FundRaisingOptions]], userAnswers: UserAnswers): Try[UserAnswers] =
+    value match {
+      case Some(notOther) if !notOther.contains(Other)  => userAnswers.remove(OtherFundRaisingPage)
+      case _ => super.cleanup(value, userAnswers)
+    }
+
 }

@@ -93,7 +93,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("isFinancialAccounts.checkYourAnswersLabel"),
             messages("site.yes"),
             Some(messages("isFinancialAccounts.checkYourAnswersLabel")),
-            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+            operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -108,7 +108,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("estimatedIncome.checkYourAnswersLabel"),
             "£1,123.12",
             Some(messages("estimatedIncome.checkYourAnswersLabel")),
-            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+            operationFundsRoutes.EstimatedIncomeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -123,7 +123,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("actualIncome.checkYourAnswersLabel"),
             "£11,123.12",
             Some(messages("actualIncome.checkYourAnswersLabel")),
-            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+            operationFundsRoutes.ActualIncomeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -138,7 +138,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             messages("isBankStatements.checkYourAnswersLabel"),
             messages("site.yes"),
             Some(messages("isBankStatements.checkYourAnswersLabel")),
-            routes.DeadEndController.onPageLoad() -> BaseMessages.changeLink
+            operationFundsRoutes.IsBankStatementsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }

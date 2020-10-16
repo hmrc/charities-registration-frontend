@@ -142,19 +142,19 @@ class ExternalTestNavigationSpec extends SpecBase {
       }
 
       "from the AuthorisedOfficialsNINOPage" must {
-        "go to the dead end page when clicked continue button" in {
+        "go to Summary page when clicked continue button" in {
           authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsNinoPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
 
       "from the AuthorisedOfficialsPassportPage" must {
-        "go to the dead end page when clicked continue button" in {
+        "go to Summary page  when clicked continue button" in {
           authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsPassportPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
               .success.value) mustBe
-            routes.DeadEndController.onPageLoad()
+            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
 

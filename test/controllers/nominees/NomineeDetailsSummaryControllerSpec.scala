@@ -24,6 +24,7 @@ import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.nominees.ChooseNomineePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -56,6 +57,28 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return OK and the correct view for a GET when Nominee is present" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(
+        emptyUserAnswers.set(ChooseNomineePage, true).success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return OK and the correct view for a GET when Nominee is not present" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(
+        emptyUserAnswers.set(ChooseNomineePage, false).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 

@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.{Mode, PhoneNumber}
 import navigation.NomineesNavigator
 import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesPhoneNumberPage}
-import pages.sections.{Section7Page, Section9Page}
+import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository

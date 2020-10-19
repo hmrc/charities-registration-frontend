@@ -142,8 +142,8 @@ POST       /added-three-other-officials                                         
 
 GET        /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = NormalMode)
 POST       /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onSubmit(mode: Mode = NormalMode)
-GET        /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onSubmit(mode: Mode = CheckMode)
+GET        /add-another-other-official/change                                   controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-another-other-official/change                                   controllers.otherOfficials.AddAnotherOtherOfficialController.onSubmit(mode: Mode = CheckMode)
 
 GET        /other-official-summary                                              controllers.otherOfficials.OtherOfficialsSummaryController.onPageLoad
 POST       /other-official-summary                                              controllers.otherOfficials.OtherOfficialsSummaryController.onSubmit

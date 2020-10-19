@@ -171,7 +171,7 @@ class ExternalTestNavigationSpec extends SpecBase {
         "go to the dead end page when clicked continue button" in {
           otherOfficialsNavigator.nextPage(OtherOfficialsNinoPage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when summary page is ready
+            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
         }
       }
     }

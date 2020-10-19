@@ -24,7 +24,7 @@ import models.Mode
 import navigation.NomineesNavigator
 import pages.addressLookup.OrganisationNomineeAddressLookupPage
 import pages.nominees.OrganisationNomineeNamePage
-import pages.sections.Section7Page
+import pages.sections.Section9Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.ErrorHandler
@@ -54,6 +54,6 @@ class OrganisationNomineeAddressLookupController @Inject()(
 
   def callback(mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      addressLookupCallback(OrganisationNomineeAddressLookupPage, Section7Page, id, mode)
+      addressLookupCallback(OrganisationNomineeAddressLookupPage, Section9Page, id, mode)
   }
 }

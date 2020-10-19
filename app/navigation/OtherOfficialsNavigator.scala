@@ -116,58 +116,71 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
   private val checkRouteMap: Page => UserAnswers => Call = {
 
     case OtherOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNamePage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsDOBPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(true) if userAnswers.get(OtherOfficialsNinoPage(index)).isDefined =>
+        otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+      case Some(true) => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(CheckMode, index)
+      case Some(false) if userAnswers.get(OtherOfficialsPassportPage(index)).isDefined =>
+        otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+      case Some(false) => otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(CheckMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad()// TODO summary page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPassportPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad()// TODO summary page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(_) => otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(true) if userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)).isDefined =>
+        otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+      case Some(true) => addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
+      case Some(false) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO summary page
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case AddAnotherOtherOfficialPage => userAnswers: UserAnswers => userAnswers.get(AddAnotherOtherOfficialPage) match {
       case Some(_) => routes.DeadEndController.onPageLoad()// TODO summary page
       case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case AddedSecondOtherOfficialPage  => userAnswers: UserAnswers => userAnswers.get(AddedSecondOtherOfficialPage) match {
+      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad()

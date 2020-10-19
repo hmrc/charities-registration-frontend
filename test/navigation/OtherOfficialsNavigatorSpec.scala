@@ -262,7 +262,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the Summary page when user answer is empty" in {
           navigator.nextPage(AddedThirdOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
-            routes.DeadEndController.onPageLoad()
+            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
         }
       }
 

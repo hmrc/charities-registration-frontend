@@ -33,31 +33,32 @@ import views.html.common.OfficialsSummaryView
 import scala.concurrent.Future
 
 class OtherOfficialsSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
-    val navigator: OtherOfficialsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    countryService: CountryService,
-    view: OfficialsSummaryView,
-    val controllerComponents: MessagesControllerComponents
+     val sessionRepository: UserAnswerRepository,
+     val navigator: OtherOfficialsNavigator,
+     identify: AuthIdentifierAction,
+     getData: UserDataRetrievalAction,
+     requireData: DataRequiredAction,
+     countryService: CountryService,
+     view: OfficialsSummaryView,
+     val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData){ implicit request =>
 
     val firstOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(0), countryService = countryService)(request.userAnswers)
     val secondOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(1), countryService = countryService)(request.userAnswers)
+    val thirdOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(2), countryService = countryService)(request.userAnswers)
 
     Ok(view(firstOtherOfficialsSummaryHelper.otherRows, secondOtherOfficialsSummaryHelper.otherRowsAddAnother,
-      OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit(),
-      h2Required = true))
+      thirdOtherOfficialsSummaryHelper.otherRowsAddThird,
+      OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit()))
   }
-
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
     updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page, true))
     _              <- sessionRepository.set(updatedAnswers)
+
     } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, updatedAnswers))
 
   }

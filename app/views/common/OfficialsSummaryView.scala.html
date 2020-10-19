@@ -26,27 +26,33 @@
     h2:components.h2,
 )
 
-@(answersOfficial1: Seq[SummaryListRow], answersOfficial2: Seq[SummaryListRow], section: String, postAction: Call, subheadingMsgArgs: Seq[String] = Seq(),
-headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinue", h2Required: Boolean = false, subH2MsgArgs: Seq[String] = Seq()
+@(answersOfficial1: Seq[SummaryListRow], answersOfficial2: Seq[SummaryListRow],  answersOfficial3: Seq[SummaryListRow], section: String, postAction: Call
 )(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(messages(s"$section.section", subheadingMsgArgs:_*))))) {
+@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(messages(s"$section.section"))))) {
 
-    @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs:_*))
+    @h1(messages(s"$section.checkYourAnswers.heading"))
 
-    @if(h2Required){
-        @h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*) ++ {if (answersOfficial2.nonEmpty) (" " ++ messages("individual.1of2")) else ""})
+    @if(answersOfficial2.nonEmpty){
+        @h2(messages(s"$section.checkYourAnswers.h2") ++ " " ++ messages("individual.1of2") )
     }
 
     @govukSummaryList(SummaryList(answersOfficial1))
 
-    @(if(answersOfficial2.nonEmpty)h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*)++ " " ++ messages("individual.2of2")))
+    @(if(answersOfficial2.nonEmpty)h2(messages(s"$section.checkYourAnswers.h2")++ " " ++ messages("individual.2of2")))
 
     @(if(answersOfficial2.nonEmpty)govukSummaryList(SummaryList(answersOfficial2)))
 
+    @if(answersOfficial3.nonEmpty){
+
+        @h2(messages(s"$section.checkYourAnswers.h2")++ " " ++ messages("individual.3of3"))
+
+        @govukSummaryList(SummaryList(answersOfficial3))
+    }
+
     @formHelper(action = postAction, 'autoComplete -> "off") {
 
-        @button(buttonMsg)
+        @button("site.confirmAndContinue")
 
     }
 }

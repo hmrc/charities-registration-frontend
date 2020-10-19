@@ -46,7 +46,7 @@ class NomineeDetailsSummaryController @Inject()(
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val nomineeSummaryHelper = new NomineeDetailsSummaryHelper(request.userAnswers)
-    
+
     val nomineeSummaryRows = request.userAnswers.get(ChooseNomineePage) match {
       case Some(true) => Some(new NomineeIndividualSummaryHelper(countryService)(request.userAnswers).rows)
       case Some(false) => Some(new NomineeOrganisationSummaryHelper(countryService)(request.userAnswers).rows)

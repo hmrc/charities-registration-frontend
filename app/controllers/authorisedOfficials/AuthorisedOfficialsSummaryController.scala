@@ -48,9 +48,9 @@ class AuthorisedOfficialsSummaryController @Inject()(
     val firstAuthorisedOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(0), countryService = countryService)(request.userAnswers)
     val secondAuthorisedOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(1), countryService = countryService)(request.userAnswers)
 
-    Ok(view(firstAuthorisedOfficialsSummaryHelper.authorisedRows, secondAuthorisedOfficialsSummaryHelper.authorisedRowsAddAnother,
-      AuthorisedOfficialsSummaryPage, controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit(),
-      h2Required = true))
+    Ok(view(firstAuthorisedOfficialsSummaryHelper.authorisedRows, secondAuthorisedOfficialsSummaryHelper.authorisedRowsAddAnother, Seq(),
+      AuthorisedOfficialsSummaryPage, controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit()
+      ))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

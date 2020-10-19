@@ -45,8 +45,10 @@ class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode, countryS
                  otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(mode),
                  messagePrefix = "addAnotherOtherOfficial")
 
+
   val authorisedRows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRow
   val authorisedRowsAddAnother: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows
   val otherRows: Seq[SummaryListRow] = addedOneOtherOfficial.rows
   val otherRowsAddAnother: Seq[SummaryListRow] = addedOneOtherOfficial.rows ++ addedAnotherOtherOfficialRow
+  val otherRowsAddThird: Seq[SummaryListRow] = addedOneOtherOfficial.rows
 }

@@ -102,7 +102,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
 
     case AddedSecondOtherOfficialPage => _ => otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(NormalMode)
 
-    case AddedThirdOtherOfficialPage => _ => routes.DeadEndController.onPageLoad()
+    case AddedThirdOtherOfficialPage => _ =>  otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
 
     case AddAnotherOtherOfficialPage => userAnswers: UserAnswers => userAnswers.get(AddAnotherOtherOfficialPage) match {
       case Some(true) => otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode,2)

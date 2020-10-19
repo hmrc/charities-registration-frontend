@@ -27,7 +27,7 @@
 )(implicit messages: Messages)
 
 @govukRadios(Radios(
-    classes = s"${if(inline){"govuk-radios--inline"};if(buttonSmall){"govuk-radios govuk-radios--small"}}",
+    classes = s"${if(inline){"govuk-radios--inline"} else if(buttonSmall){"govuk-radios govuk-radios--small"}}",
     name = "value",
     fieldset = Some(Fieldset(
         legend = Some(Legend(

@@ -22,13 +22,13 @@ import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.charityInformation.{routes => charityInfoRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
-import controllers.nominees.{routes => nomineesRoutes}
+import controllers.nominees.{routes => nomineeRoutes}
 import controllers.routes
 import models.nominees.OrganisationNomineeContactDetails
 import models.{CharityContactDetails, CheckMode, NormalMode, Passport}
 import pages.authorisedOfficials.{AuthorisedOfficialsNinoPage, AuthorisedOfficialsPassportPage}
 import pages.charityInformation.CharityContactDetailsPage
-import pages.nominees.{IndividualNomineesNinoPage, OrganisationNomineeContactDetailsPage}
+import pages.nominees.{IndividualNomineesNinoPage, IndividualNomineesPassportPage, OrganisationNomineeContactDetailsPage}
 import pages.otherOfficials.{OtherOfficialsNinoPage, OtherOfficialsPassportPage}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
@@ -112,19 +112,28 @@ class ExternalTestNavigationSpec extends SpecBase {
 
       "from the IndividualNomineeNinoPage" must {
 
-        "go to the dead end page when clicked continue button" in {
+        "go to the IsIndividualNomineePayments page when clicked continue button" in {
           nomineesNavigator.nextPage(IndividualNomineesNinoPage, NormalMode,
             emptyUserAnswers.set(IndividualNomineesNinoPage, "QQ 12 34 56 C").success.value) mustBe
-            routes.DeadEndController.onPageLoad()
+          nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IndividualNomineesPassportPage" must {
+
+        "go to the IsIndividualNomineePayments page when clicked continue button" in {
+          nomineesNavigator.nextPage(IndividualNomineesPassportPage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now())).success.value) mustBe
+            nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
         }
       }
 
       "from the OrganisationNomineeContactDetails page" must {
-        "go to the dead end page when clicked continue button" in {
+        "go to IsOrganisationNomineePayments page when clicked continue button" in {
           nomineesNavigator.nextPage(OrganisationNomineeContactDetailsPage, NormalMode,
             emptyUserAnswers.set(OrganisationNomineeContactDetailsPage,
               OrganisationNomineeContactDetails("0123123123", "test@email.com")).success.value) mustBe
-            routes.DeadEndController.onPageLoad()
+            nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
         }
       }
     }

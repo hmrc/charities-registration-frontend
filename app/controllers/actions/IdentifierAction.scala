@@ -16,6 +16,8 @@
 
 package controllers.actions
 
+import java.util.UUID
+
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.routes
@@ -40,15 +42,21 @@ class AuthenticatedIdentifierAction @Inject()(
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-    authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {
-      _.map {
-        credentials => block(IdentifierRequest(request, credentials.providerId))
-      }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
-    } recover {
-      case _: NoActiveSession =>
-        Redirect(config.loginUrl, Map("continue" -> Seq(config.loginContinueUrl)))
-      case _: AuthorisationException =>
-        Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad())
+    if (config.isExternalTest) {
+      //scalastyle:off magic.number
+      block(IdentifierRequest(request,
+        UUID.randomUUID.toString.replaceAll("[^a-zA-Z0-9]", "").toUpperCase.substring(0,16)))
+    } else {
+      authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {
+        _.map {
+          credentials => block(IdentifierRequest(request, credentials.providerId))
+        }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
+      } recover {
+        case _: NoActiveSession =>
+          Redirect(config.loginUrl, Map("continue" -> Seq(config.loginContinueUrl)))
+        case _: AuthorisationException =>
+          Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad())
+      }
     }
   }
 }

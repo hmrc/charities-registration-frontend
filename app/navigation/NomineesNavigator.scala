@@ -65,13 +65,17 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IndividualNomineesPassportPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPassportPage) match {
-      case Some(_) => controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
+      case Some(_) => if(frontendAppConfig.isExternalTest){
+        nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+      } else {
+        controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
+      }
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesNinoPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesNinoPage) match {
       case Some(_) => if(frontendAppConfig.isExternalTest){
-        routes.DeadEndController.onPageLoad() // TODo Summary Pages
+        nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
       } else {
         controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
       }
@@ -113,7 +117,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case OrganisationNomineeContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeContactDetailsPage) match {
       case Some(_) => if(frontendAppConfig.isExternalTest){
-        routes.DeadEndController.onPageLoad() // TODo Summary Pages
+        nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
       } else {
         addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
       }

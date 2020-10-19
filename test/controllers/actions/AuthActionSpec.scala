@@ -27,7 +27,7 @@ import repositories.{SessionRepository, UserAnswerRepository}
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Credentials, Retrieval}
-import uk.gov.hmrc.http.{HeaderCarrier, UnauthorizedException}
+import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys, UnauthorizedException}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -180,7 +180,28 @@ class AuthActionSpec extends SpecBase {
         status(result) mustBe OK
       }
 
-      "redirect the user to correct for external test environment" in {
+      "redirect the user to correct for external test environment with session Id" in {
+
+        val application = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true").overrides(
+          bind[SessionRepository].toInstance(mockSessionRepository),
+          bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+          bind[IdentifierAction].to[FakeIdentifierAction],
+          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+          bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
+          bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
+        ).build()
+
+        val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
+        val frontendAppConfig: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
+
+        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))), frontendAppConfig, bodyParsers)
+        val controller = new Harness(authAction)
+        val result = controller.onPageLoad()(fakeRequest.withSession(SessionKeys.sessionId -> "foo"))
+
+        status(result) mustBe OK
+      }
+
+      "redirect the user to correct for external test environment without session id" in {
 
         val application = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true").overrides(
           bind[SessionRepository].toInstance(mockSessionRepository),

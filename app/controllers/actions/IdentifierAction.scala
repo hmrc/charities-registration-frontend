@@ -44,8 +44,9 @@ class AuthenticatedIdentifierAction @Inject()(
 
     if (config.isExternalTest) {
       //scalastyle:off magic.number
-      block(IdentifierRequest(request,
-        UUID.randomUUID.toString.replaceAll("[^a-zA-Z0-9]", "").toUpperCase.substring(0,16)))
+      val internalId: String = UUID.randomUUID.toString.replaceAll(
+        "[^a-zA-Z0-9]", "").toUpperCase.substring(0,16)
+      block(IdentifierRequest(request, hc.sessionId.fold(internalId)(_.value)))
     } else {
       authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {
         _.map {

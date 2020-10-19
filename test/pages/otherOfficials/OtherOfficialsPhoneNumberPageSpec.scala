@@ -27,7 +27,7 @@ class OtherOfficialsPhoneNumberPageSpec extends PageBehaviours {
     implicit lazy val arbitraryOtherOfficialsPhoneNumber: Arbitrary[PhoneNumber] = Arbitrary {
       PhoneNumber(
         daytimePhone = "07700 900 982",
-        mobilePhone = "07700 900 982"
+        mobilePhone = Some("07700 900 982")
       )
     }
 

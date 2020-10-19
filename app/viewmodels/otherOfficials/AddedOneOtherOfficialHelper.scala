@@ -51,6 +51,7 @@ class AddedOneOtherOfficialHelper(index: Index, mode: Mode, countryService: Coun
       otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(mode, index),
       messagePrefix = "otherOfficialsPhoneNumber.alternativePhoneNumber")
 
+
   def otherOfficialPositionRow: Option[SummaryListRow] =
     answerPrefix(OtherOfficialsPositionPage(index),
                  otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(mode, index),

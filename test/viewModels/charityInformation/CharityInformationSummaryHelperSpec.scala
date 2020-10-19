@@ -32,7 +32,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .set(CharityNamePage, CharityName(fullName = "Believe",
                                       operatingName = Some("Original Charity"))).success.value
     .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
-                                                          mobilePhone = "07700 900 982",
+                                                          mobilePhone = Some("07700 900 982"),
                                                           emailAddress = "japan@china.com")).success.value
     .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address).success.value
     .set(CanWeSendToThisAddressPage, true).success.value
@@ -41,7 +41,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .set(CharityNamePage, CharityName(fullName = "Believe",
       operatingName = Some("Original Charity"))).success.value
     .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
-                                                          mobilePhone = "07700 900 982",
+                                                          mobilePhone = Some("07700 900 982"),
                                                           emailAddress = "japan@china.com")).success.value
     .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address).success.value
     .set(CanWeSendToThisAddressPage, false).success.value

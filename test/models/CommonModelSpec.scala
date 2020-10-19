@@ -112,10 +112,10 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       val authorisedOfficialsPhoneNumber = PhoneNumber(
         daytimePhone = "01632 960 001",
-        mobilePhone = "01632 960 001")
+        mobilePhone = Some("01632 960 001"))
 
       authorisedOfficialsPhoneNumber.daytimePhone mustBe "01632 960 001"
-      authorisedOfficialsPhoneNumber.mobilePhone mustBe "01632 960 001"
+      authorisedOfficialsPhoneNumber.mobilePhone.get mustBe "01632 960 001"
 
     }
 

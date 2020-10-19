@@ -81,7 +81,7 @@ class AuthorisedOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeA
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
-        PhoneNumber("07700 900 982", "07700 900 982")).success.value
+        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -93,7 +93,7 @@ class AuthorisedOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeA
 
     "redirect to the next page when valid data is submitted" in {
       val userAnswers = localUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
-        PhoneNumber("07700 900 982", "07700 900 982")).success.value
+        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
 
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
 

@@ -31,8 +31,8 @@ class PhoneNumberFormProvider @Inject() extends Mappings {
       mapping(
         "mainPhoneNumber" -> text(s"$messagePrefix.mainPhoneNumber.error.required")
           .verifying(regexp(validateTelephoneNumber,s"$messagePrefix.mainPhoneNumber.error.format")),
-        "alternativePhoneNumber" -> text(s"$messagePrefix.alternativePhoneNumber.error.required")
-          .verifying(regexp(validateTelephoneNumber,s"$messagePrefix.alternativePhoneNumber.error.format")))
+        "alternativePhoneNumber" -> optional(text()
+          .verifying(regexp(validateTelephoneNumber,s"$messagePrefix.alternativePhoneNumber.error.format"))))
     (PhoneNumber.apply)(PhoneNumber.unapply)
   )
 }

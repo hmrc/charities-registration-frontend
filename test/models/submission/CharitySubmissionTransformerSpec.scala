@@ -49,14 +49,14 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
           _.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
-        _.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
+        _.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981")))).flatMap(
         _.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A")).flatMap(
         _.set(AuthorisedOfficialAddressLookupPage(1),
           AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).flatMap(
         _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
-        _.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
+        _.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981")))).flatMap(
         _.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A")).flatMap(
         _.set(OtherOfficialAddressLookupPage(1),
           AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))))
@@ -94,14 +94,14 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
         _.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
-        _.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
+        _.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981")))).flatMap(
         _.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A")).flatMap(
         _.set(AuthorisedOfficialAddressLookupPage(1),
           AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).flatMap(
         _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
         _.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day))).flatMap(
-        _.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
+        _.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981")))).flatMap(
         _.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A")).flatMap(
         _.set(OtherOfficialAddressLookupPage(1),
           AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))))

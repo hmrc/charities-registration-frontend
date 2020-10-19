@@ -59,7 +59,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct organisation" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
+        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
           .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName")))).success.value
 
         val expectedJson =
@@ -83,7 +83,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       }
 
       "convert the correct organisation with mandatory fields only" in {
-        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
+        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None))).success.value
 
         val expectedJson =
@@ -340,7 +340,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CanWeSendToThisAddressPage, false)))
           .flatMap(_.set(CharityPostalAddressLookupPage,
             AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 
         val expectedJson =
@@ -418,7 +418,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(_.set(CharityPostalAddressLookupPage,
             AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com"))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 
         val expectedJson =
@@ -496,7 +496,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CharityOfficialAddressLookupPage,
             AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com")))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")))
             .flatMap(_.set(CharityNamePage, CharityName("ABC", None))).success.value
 
         val expectedJson =

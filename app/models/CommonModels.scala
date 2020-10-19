@@ -72,7 +72,7 @@ object Name {
   override def toString: String = "name"
 }
 
-case class PhoneNumber(daytimePhone: String, mobilePhone: String)
+case class PhoneNumber(daytimePhone: String, mobilePhone: Option[String])
 
 object PhoneNumber {
 

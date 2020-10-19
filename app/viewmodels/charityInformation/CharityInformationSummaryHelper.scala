@@ -17,7 +17,7 @@
 package viewmodels.charityInformation
 
 import models.addressLookup.AddressModel
-import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
+import models.{CharityContactDetails, CharityName, CheckMode, PhoneNumber, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
@@ -80,35 +80,34 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
   ).flatten
 
   private def answerCharityContactDetails(charityContactDetails: CharityContactDetails,
-                                          changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
+                                          changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] =
 
-    Some(
-      summaryListRow(
-        label = messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel"),
-        value = charityContactDetails.daytimePhone,
-        visuallyHiddenText = Some(messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
+    Seq(
+      Some(
+        summaryListRow(
+          label = messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel"),
+          value = charityContactDetails.daytimePhone,
+          visuallyHiddenText = Some(messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+        )
+      ),
+      charityContactDetails.mobilePhone.map { mobilePhone =>
+        summaryListRow(
+          label = messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel"),
+          value = mobilePhone,
+          visuallyHiddenText = Some(messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+        )
+      },
+      Some(
+        summaryListRow(
+          label = messages("charityContactDetails.emailAddress.checkYourAnswersLabel"),
+          value = charityContactDetails.emailAddress,
+          visuallyHiddenText = Some(messages("charityContactDetails.emailAddress.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+        )
       )
-    ),
-
-    Some(
-      summaryListRow(
-        label = messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel"),
-        value = charityContactDetails.mobilePhone,
-        visuallyHiddenText = Some(messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    ),
-
-    Some(
-      summaryListRow(
-        label = messages("charityContactDetails.emailAddress.checkYourAnswersLabel"),
-        value = charityContactDetails.emailAddress,
-        visuallyHiddenText = Some(messages("charityContactDetails.emailAddress.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
-    )
-  ).flatten
+    ).flatten
 
   private def answerAddress(page: QuestionPage[AddressModel],
                             changeLinkCall: Call,

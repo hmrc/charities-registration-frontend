@@ -120,7 +120,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
 
         val result = controller.checkComplete(emptyUserAnswers
           .set(CharityNamePage, CharityName("a charity", None))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", "07111111111", "abc@email.com")))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")))
           .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CanWeSendToThisAddressPage, true))
           .flatMap(_.set(CharityPostalAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom")))).success.value
@@ -133,7 +133,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
 
         val result = controller.checkComplete(emptyUserAnswers
           .set(CharityNamePage, CharityName("a charity", None))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", "07111111111", "abc@email.com")))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")))
           .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CanWeSendToThisAddressPage, true)).success.value
         )
@@ -145,7 +145,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
 
         val result = controller.checkComplete(emptyUserAnswers
           .set(CharityNamePage, CharityName("a charity", None))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", "07111111111", "abc@email.com")))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")))
           .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(_.set(CharityPostalAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom")))).success.value

@@ -34,12 +34,12 @@
     @h1(messages(s"$section.checkYourAnswers.heading"))
 
     @if(answersOfficial2.nonEmpty){
-        @h2(messages(s"$section.checkYourAnswers.h2") ++ " " ++ messages("individual.1of2") )
+        @h2(messages(s"$section.checkYourAnswers.h2") ++ {if(answersOfficial3.nonEmpty) (" " ++ messages("individual.1of3")) else (" " ++ messages("individual.1of2"))})
     }
 
     @govukSummaryList(SummaryList(answersOfficial1))
 
-    @(if(answersOfficial2.nonEmpty)h2(messages(s"$section.checkYourAnswers.h2")++ " " ++ messages("individual.2of2")))
+    @(if(answersOfficial2.nonEmpty)h2(messages(s"$section.checkYourAnswers.h2")++ {if(answersOfficial3.nonEmpty) (" " ++ messages("individual.2of3")) else (" " ++ messages("individual.2of2"))}))
 
     @(if(answersOfficial2.nonEmpty)govukSummaryList(SummaryList(answersOfficial2)))
 

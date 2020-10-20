@@ -20,7 +20,7 @@ import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 
 
-case class NomineeSummary(nomineeType: Seq[SummaryListRow], details: Seq[SummaryListRow],
+case class NomineeSummary(details: Seq[SummaryListRow],
                           bankDetails: Seq[SummaryListRow], authorisedPersonDetails: Seq[SummaryListRow],
                           h2Details: String, h2BankDetails: String)
 

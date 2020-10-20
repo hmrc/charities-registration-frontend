@@ -123,7 +123,6 @@ class NomineeOrganisationSummaryHelper(countryService: CountryService)(override 
 
 
   val rows: NomineeSummary = NomineeSummary(
-    new NomineeTypeSummaryHelper(userAnswers).rows,
     Seq(
       nomineeName,
       nomineeMainPhone,

@@ -18,7 +18,7 @@ package viewmodels.nominees
 
 import controllers.nominees.routes
 import models.{CheckMode, UserAnswers}
-import pages.nominees.IsAuthoriseNomineePage
+import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage}
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
@@ -31,8 +31,15 @@ class NomineeDetailsSummaryHelper(override val userAnswers: UserAnswers)
   def authoriseNomineeRow: Option[SummaryListRow] =
     answer(IsAuthoriseNomineePage, routes.IsAuthoriseNomineeController.onPageLoad(CheckMode))
 
+  def nomineeTypeRow: Option[SummaryListRow] =
+    answerPrefix(ChooseNomineePage,
+      routes.ChooseNomineeController.onPageLoad(CheckMode),
+      answerIsMsgKey = true,
+      messagePrefix = "chooseNominee")
+
   val rows: Seq[SummaryListRow] = Seq(
-    authoriseNomineeRow
+    authoriseNomineeRow,
+    nomineeTypeRow
   ).flatten
 
 }

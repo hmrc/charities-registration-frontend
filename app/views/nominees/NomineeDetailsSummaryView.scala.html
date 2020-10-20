@@ -36,15 +36,11 @@
 
     @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs:_*))
 
-    @h2(messages(s"$section.checkYourAnswers.h2", subH2MsgArgs:_*))
+    @h2(messages(s"$section.checkYourAnswers.h2.nominee", subH2MsgArgs:_*))
 
     @govukSummaryList(SummaryList(answersAuthorise))
 
     @nomineeSummary.map{ nomineeSummaryRows =>
-
-        @h2(messages(s"$section.checkYourAnswers.h2.nominee", subH2MsgArgs:_*))
-
-        @govukSummaryList(SummaryList(nomineeSummaryRows.nomineeType))
 
         @if(nomineeSummaryRows.details.nonEmpty) {
 

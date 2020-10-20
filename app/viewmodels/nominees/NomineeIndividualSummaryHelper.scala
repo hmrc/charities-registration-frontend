@@ -119,7 +119,6 @@ class NomineeIndividualSummaryHelper(countryService: CountryService)(override va
 
 
   val rows: NomineeSummary = NomineeSummary(
-    new NomineeTypeSummaryHelper(userAnswers).rows,
     Seq(
       nomineeName,
       nomineeDOB,

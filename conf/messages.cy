@@ -1315,7 +1315,7 @@ isIndividualNomineeNino.title = (W)Does the nominee have a National Insurance nu
 isIndividualNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
 isIndividualNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
 
-isIndividualNomineeNino.checkYourAnswersLabel = (W)Nominee has a National Insurance number(W)
+isIndividualNomineeNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
 # Charity Nominee Individual Passport Page Messages
 # ----------------------------------------------------------
@@ -1368,7 +1368,7 @@ nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s home add
 nomineeIndividualAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
 nomineeIndividualAddress.confirmPage.changeLinkText = (W)Change nominee’s home address(W)
 
-nomineeIndividualAddress.checkYourAnswersLabel = (W)Nominee address(W)
+nomineeIndividualAddress.checkYourAnswersLabel = (W)Home address(W)
 
 # Charity Nominee Individual Previous Address Page Messages
 # ----------------------------------------------------------
@@ -1403,7 +1403,7 @@ isIndividualNomineePayments.title = (W)Is the nominee authorised to receive paym
 isIndividualNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isIndividualNomineePayments.error.required = (W)Select yes if the nominee is authorised to receive payments(W)
 
-isIndividualNomineePayments.checkYourAnswersLabel = (W)Nominee can receive payments on behalf of your charity(W)
+isIndividualNomineePayments.checkYourAnswersLabel = (W)Can receive payments on behalf of the charity(W)
 
 # Charity Nominee Individual Bank details Messages
 # ----------------------------------------------------------
@@ -1510,7 +1510,7 @@ isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised 
 isOrganisationNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isOrganisationNomineePayments.error.required = (W)Select yes if the organisation is authorised to receive payments(W)
 
-isOrganisationNomineePayments.checkYourAnswersLabel = (W)Nominee organisation can receive payments on behalf of your charity(W)
+isOrganisationNomineePayments.checkYourAnswersLabel = (W)Can receive payments on behalf of the charity(W)
 
 # Charity Nominee Organisation Bank details Messages
 # ----------------------------------------------------------
@@ -1584,7 +1584,7 @@ isOrganisationNomineeNino.title = (W)Does the authorised person have a National 
 isOrganisationNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
 isOrganisationNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
 
-isOrganisationNomineeNino.checkYourAnswersLabel = (W)Nominee has a National Insurance number(W)
+isOrganisationNomineeNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
 
 # Charity Nominee Authorised Person National Insurance Number messages
 # ----------------------------------------------------------
@@ -1624,11 +1624,10 @@ organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel = (W)Expir
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)
 nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s nominee details(W)
-nomineeDetailsSummary.checkYourAnswers.h2 = (W)Authorise a nominee(W)
 nomineeDetailsSummary.checkYourAnswers.h2.nominee = (W)Nominee(W)
-nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = (W)Nominee individual details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.individualBank = (W)Nominee bank account details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = (W)Nominee organisation details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = (W)Nominee organisation bank account details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = (W)Authorised person details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = (W)Nominee’s details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.individualBank = (W)Nominee’s bank details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = (W)Nominee’s details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = (W)Nominee’s bank details(W)
+nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = (W)Authorised person’s details(W)
 nomineeDetailsSummary.section = (W)Officials and nominees(W)

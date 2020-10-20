@@ -1315,7 +1315,7 @@ isIndividualNomineeNino.title = Does the nominee have a National Insurance numbe
 isIndividualNomineeNino.heading = Does {0} have a National Insurance number?
 isIndividualNomineeNino.error.required = Select yes if they have a National Insurance number
 
-isIndividualNomineeNino.checkYourAnswersLabel = Nominee has a National Insurance number
+isIndividualNomineeNino.checkYourAnswersLabel = Has a National Insurance number
 
 # Charity Nominee Individual Passport Page Messages
 # ----------------------------------------------------------
@@ -1368,7 +1368,7 @@ nomineeIndividualAddress.confirmPage.title = Confirm the nominee’s home addres
 nomineeIndividualAddress.confirmPage.heading = Confirm {0}’s home address
 nomineeIndividualAddress.confirmPage.changeLinkText = Change nominee’s home address
 
-nomineeIndividualAddress.checkYourAnswersLabel = Nominee address
+nomineeIndividualAddress.checkYourAnswersLabel = Home address
 
 # Charity Nominee Individual Previous Address Page Messages
 # ----------------------------------------------------------
@@ -1403,7 +1403,7 @@ isIndividualNomineePayments.title = Is the nominee authorised to receive payment
 isIndividualNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isIndividualNomineePayments.error.required = Select yes if the nominee is authorised to receive payments
 
-isIndividualNomineePayments.checkYourAnswersLabel = Nominee can receive payments on behalf of your charity
+isIndividualNomineePayments.checkYourAnswersLabel = Can receive payments on behalf of the charity
 
 # Charity Nominee Individual Bank details Messages
 # ----------------------------------------------------------
@@ -1510,7 +1510,7 @@ isOrganisationNomineePayments.title = Is the nominee organisation authorised to 
 isOrganisationNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isOrganisationNomineePayments.error.required = Select yes if the organisation is authorised to receive payments
 
-isOrganisationNomineePayments.checkYourAnswersLabel = Nominee organisation can receive payments on behalf of your charity
+isOrganisationNomineePayments.checkYourAnswersLabel = Can receive payments on behalf of the charity
 
 # Charity Nominee Organisation Bank details Messages
 # ----------------------------------------------------------
@@ -1584,7 +1584,7 @@ isOrganisationNomineeNino.title = Does the authorised person have a National Ins
 isOrganisationNomineeNino.heading = Does {0} have a National Insurance number?
 isOrganisationNomineeNino.error.required = Select yes if they have a National Insurance number
 
-isOrganisationNomineeNino.checkYourAnswersLabel = Nominee has a National Insurance number
+isOrganisationNomineeNino.checkYourAnswersLabel = Has a National Insurance number
 
 # Charity Nominee Authorised Person National Insurance Number messages
 # ----------------------------------------------------------
@@ -1624,11 +1624,10 @@ organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel = Expiry d
 # ----------------------------------------------------------
 nomineeDetailsSummary.checkYourAnswers.title = Check the charity’s nominee details
 nomineeDetailsSummary.checkYourAnswers.heading = Check the charity’s nominee details
-nomineeDetailsSummary.checkYourAnswers.h2 = Authorise a nominee
 nomineeDetailsSummary.checkYourAnswers.h2.nominee = Nominee
-nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = Nominee individual details
-nomineeDetailsSummary.checkYourAnswers.h2.individualBank = Nominee bank account details
-nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = Nominee organisation details
-nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = Nominee organisation bank account details
-nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = Authorised person details
+nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = Nominee’s details
+nomineeDetailsSummary.checkYourAnswers.h2.individualBank = Nominee’s bank details
+nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = Nominee’s details
+nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = Nominee’s bank details
+nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = Authorised person’s details
 nomineeDetailsSummary.section = Officials and nominees

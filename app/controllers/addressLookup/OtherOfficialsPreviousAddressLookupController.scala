@@ -24,7 +24,7 @@ import models.{Index, Mode}
 import navigation.OtherOfficialsNavigator
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
-import pages.sections.{Section7Page, Section8Page}
+import pages.sections.Section8Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.ErrorHandler

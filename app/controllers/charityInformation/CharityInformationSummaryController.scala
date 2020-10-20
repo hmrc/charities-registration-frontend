@@ -20,9 +20,11 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
-import pages.charityInformation.CharityInformationSummaryPage
+import pages.{IndexPage, QuestionPage}
+import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
+import pages.charityInformation._
 import pages.sections.Section1Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
@@ -44,17 +46,34 @@ class CharityInformationSummaryController @Inject()(
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val charityInformationAnswersHelper = new CharityInformationSummaryHelper(request.userAnswers)
-
-    Ok(view(charityInformationAnswersHelper.rows, CharityInformationSummaryPage,
-      controllers.charityInformation.routes.CharityInformationSummaryController.onSubmit()))
+    if (charityInformationAnswersHelper.rows.isEmpty) {
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+    } else {
+      Ok(view(charityInformationAnswersHelper.rows, CharityInformationSummaryPage,
+        controllers.charityInformation.routes.CharityInformationSummaryController.onSubmit()))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section1Page, true))
+      updatedAnswers <- Future.fromTry(result = checkComplete(request.userAnswers) match {
+        case inProgressOrComplete => request.userAnswers.set(Section1Page, inProgressOrComplete)
+      })
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityInformationSummaryPage, NormalMode, updatedAnswers))
+
+  }
+
+  def checkComplete(userAnswers: UserAnswers): Boolean = {
+    val pagesAlwaysRequired: Seq[QuestionPage[_]] =
+      Seq(CharityNamePage, CharityContactDetailsPage, CharityOfficialAddressLookupPage, CanWeSendToThisAddressPage)
+    val charityPostalAddressIsDefined = userAnswers.arePagesDefined(Seq(CharityPostalAddressLookupPage))
+
+    userAnswers.arePagesDefined(pagesAlwaysRequired) && userAnswers.get(CanWeSendToThisAddressPage).exists {
+      case true => !charityPostalAddressIsDefined
+      case false => charityPostalAddressIsDefined
+    }
 
   }
 }

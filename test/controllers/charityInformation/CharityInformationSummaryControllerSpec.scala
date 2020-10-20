@@ -18,12 +18,15 @@ package controllers.charityInformation
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.UserAnswers
+import models.addressLookup.{AddressModel, CountryModel}
+import models.{CharityContactDetails, CharityName, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
+import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -55,7 +58,8 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("aaa", None)).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -63,7 +67,18 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
-    "redirect to the next page when valid data is submitted" in {
+    "return Redirect and the session expired view for a GET with no data stored" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to the next page when valid data is submitted with no pages answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
@@ -73,6 +88,72 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to the next page when valid data is submitted with some pages answered" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "give the correct completion status" when {
+      "no data is provided" in {
+        val result = controller.checkComplete(emptyUserAnswers)
+
+        result mustBe false
+      }
+
+      "some but not all data is provided" in {
+        val result = controller.checkComplete(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)
+
+        result mustBe false
+      }
+
+      "unnecessary data is provided" in {
+
+        val result = controller.checkComplete(emptyUserAnswers
+          .set(CharityNamePage, CharityName("a charity", None))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", "07111111111", "abc@email.com")))
+          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
+          .flatMap(_.set(CanWeSendToThisAddressPage, true))
+          .flatMap(_.set(CharityPostalAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom")))).success.value
+        )
+
+        result mustBe false
+      }
+
+      "all data necessary is provided when postal address is the same as location" in {
+
+        val result = controller.checkComplete(emptyUserAnswers
+          .set(CharityNamePage, CharityName("a charity", None))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", "07111111111", "abc@email.com")))
+          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
+          .flatMap(_.set(CanWeSendToThisAddressPage, true)).success.value
+        )
+
+        result mustBe true
+      }
+
+      "all data necessary is provided when postal address is different to location" in {
+
+        val result = controller.checkComplete(emptyUserAnswers
+          .set(CharityNamePage, CharityName("a charity", None))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", "07111111111", "abc@email.com")))
+          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
+          .flatMap(_.set(CanWeSendToThisAddressPage, false))
+          .flatMap(_.set(CharityPostalAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom")))).success.value
+        )
+
+        result mustBe true
+      }
+
     }
 
   }

@@ -32,6 +32,14 @@ final case class UserAnswers(
                               expiresAt: LocalDateTime =  LocalDateTime.now.plusMinutes(15)
                             ) {
 
+  def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean = {
+    !pages.exists(page => checkDataPresent(page).isEmpty)
+  }
+
+  def checkDataPresent[A](page: QuestionPage[A], idx: Option[Int] = None): Option[JsValue] = {
+    path(page, idx).readNullable[JsValue].reads(data).getOrElse(None)
+  }
+
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 
   def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] =

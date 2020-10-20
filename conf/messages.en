@@ -297,18 +297,17 @@ contactDetail.section = Charity Information
 
 # StartInformationPage Messages
 # ----------------------------------------------------------
-startInformation.title = The charity’s information
-startInformation.heading = The charity’s information
+startInformation.title = The charity’s contact details
+startInformation.heading = The charity’s contact details
 startInformation.p1 = You need to add the charity’s:
 startInformation.b1 = name and operating name
 startInformation.b2 = address
 startInformation.b3 = postal address
-startInformation.p2 = Adding the charity’s information takes around 5 minutes.
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = What is the charity’s name?
-charityName.heading = What is the charity’s name?
+charityName.title = The charity’s name
+charityName.heading = The charity’s name
 charityName.fullName.label = Full name of the charity
 charityName.fullName.hint = As shown on the charity’s governing document
 charityName.fullName.error.required = Enter the full name of the charity
@@ -323,8 +322,8 @@ charityName.operatingName.checkYourAnswersLabel = Operating name
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
-charityContactDetails.title = What are the charity’s contact details?
-charityContactDetails.heading = What are the charity’s contact details?
+charityContactDetails.title = The charity’s contact details
+charityContactDetails.heading = The charity’s contact details
 charityContactDetails.mainPhoneNumber.label = Main phone number
 charityContactDetails.mainPhoneNumber.error.format = Enter the charity’s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 charityContactDetails.mainPhoneNumber.error.required = Enter the charity’s main phone number
@@ -403,7 +402,6 @@ startCharityRegulator.heading = The charity’s regulators
 startCharityRegulator.p1 = You need to add the charity’s:
 startCharityRegulator.b1 = regulators
 startCharityRegulator.b2 = regulator registration numbers
-startCharityRegulator.p2 = Adding regulator information takes around 5 minutes.
 
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
@@ -454,9 +452,9 @@ nIRegulatorRegNumber.checkYourAnswersLabel = Charity Commission for Northern Ire
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------
-charityOtherRegulatorDetails.title = What are the charity’s regulator details
-charityOtherRegulatorDetails.heading = What are the charity’s regulator details
-charityOtherRegulatorDetails.regulatorName.label = Name of your charity’s regulator
+charityOtherRegulatorDetails.title = The charity’s regulator details
+charityOtherRegulatorDetails.heading = The charity’s regulator details
+charityOtherRegulatorDetails.regulatorName.label = Name of the charity’s regulator
 charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of the charity’s regulator
 charityOtherRegulatorDetails.regulatorName.error.format = The name of your charity’s regulator must not include the following characters: & ( ) : @
 charityOtherRegulatorDetails.regulatorName.error.length = Your charity’s regulator name should be 100 characters or fewer
@@ -506,7 +504,6 @@ startGoverningDocument.heading = The charity’s governing document
 startGoverningDocument.p1 = You need to add the charity’s:
 startGoverningDocument.b1 = governing document type
 startGoverningDocument.b2 = governing document approval date
-startGoverningDocument.p2 = Adding governing document information takes around 5 minutes.
 
 # Select Governing Document Messages
 # ----------------------------------------------------------
@@ -584,7 +581,6 @@ startCharitableObjectives.p1 = You need to add the charity’s:
 startCharitableObjectives.b1 = charitable objectives
 startCharitableObjectives.b2 = charitable purposes
 startCharitableObjectives.b3 = benefit to the public
-startCharitableObjectives.p2 = Adding information about objectives and purposes takes around 5 minutes.
 
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
@@ -643,7 +639,6 @@ startFundraising.p1 = You need to add the charity’s:
 startFundraising.b1 = fundraising activities
 startFundraising.b2 = operating locations
 startFundraising.b3 = accounting period end date
-startFundraising.p2 = Adding information about fundraising and operations takes around 5 minutes.
 
 # How will your charity raise funds
 # ----------------------------------------------------------
@@ -777,8 +772,8 @@ startBankDetails.p2 = We will send repayments using BACS. This is an electronic 
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
-bankDetails.title = What are the charity’s bank account details?
-bankDetails.heading = What are the charity’s bank account details?
+bankDetails.title = The charity’s bank details
+bankDetails.heading = The charity’s bank details
 bankDetails.p1 = We need the charity’s bank details to pay Gift Aid and other tax repayments.
 bankDetails.accountName = Charity’s account name
 bankDetails.accountName.hint = As shown on the charity’s account information
@@ -833,12 +828,11 @@ charityAuthorisedOfficials.title = The charity’s authorised officials
 charityAuthorisedOfficials.heading = The charity’s authorised officials
 charityAuthorisedOfficials.p1 = You need to add 1 authorised official but you can add up to 2.
 charityAuthorisedOfficials.p2 = An authorised official can deal with the charity’s tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.
-charityAuthorisedOfficials.p3 = Adding information about authorised officials takes around 5 minutes.
 
 # Authorised Officials Name Messages
 # ----------------------------------------------------------
-authorisedOfficialsName.title = What is the authorised official’s name?
-authorisedOfficialsName.heading = What is the authorised official’s name?
+authorisedOfficialsName.title = Authorised official’s name
+authorisedOfficialsName.heading = Authorised official’s name
 authorisedOfficialsName.firstName.label = First name
 authorisedOfficialsName.firstName.error.required = Enter the authorised official’s first name
 authorisedOfficialsName.firstName.error.length = The authorised official’s first name must be 100 characters or fewer
@@ -869,8 +863,8 @@ authorisedOfficialsDOB.checkYourAnswersLabel = Date of birth
 
 # Authorised Officials Phone Number Messages
 # ----------------------------------------------------------
-authorisedOfficialsPhoneNumber.title = What is the authorised official’s phone number?
-authorisedOfficialsPhoneNumber.heading = What is {0}’s phone number?
+authorisedOfficialsPhoneNumber.title = Authorised official’s phone numbers
+authorisedOfficialsPhoneNumber.heading = {0}’s phone numbers
 authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
@@ -924,8 +918,8 @@ isAuthorisedOfficialNino.checkYourAnswersLabel = Has a National Insurance number
 
 # Authorised official Passport Page Messages
 # ----------------------------------------------------------
-authorisedOfficialsPassport.title = What are the authorised official’s passport or national identity card details?
-authorisedOfficialsPassport.heading = What are {0}’s passport or national identity card details?
+authorisedOfficialsPassport.title = Authorised official’s passport or national identity card details
+authorisedOfficialsPassport.heading = {0}’s passport or national identity card details
 authorisedOfficialsPassport.passportNumber.label = Passport or national identity card number
 authorisedOfficialsPassport.hint = For example, 21 3 2015.
 authorisedOfficialsPassport.passportNumber.error.format= The authorised official’s passport or national identity card number must not include the following characters: & ( ) : @
@@ -1057,12 +1051,11 @@ charityOtherOfficials.heading = The charity’s other officials
 charityOtherOfficials.p1 = You need to add 2 other officials but you can add up to 3.
 charityOtherOfficials.p2 = Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.
 charityOtherOfficials.p3 = They will normally be the trustees or directors of the charity (if the charity is a company), or community amateur sports club (CASC) officials.
-charityOtherOfficials.p4 = Adding information about other officials takes around 5 minutes.
 
 # Other Officials Name Messages
 # ----------------------------------------------------------
-otherOfficialsName.title = What is the other official’s name?
-otherOfficialsName.heading = What is the other official’s name?
+otherOfficialsName.title = Other official’s name
+otherOfficialsName.heading = Other official’s name
 otherOfficialsName.firstName.label = First name
 otherOfficialsName.firstName.error.required = Enter the other official’s first name
 otherOfficialsName.firstName.error.length = The other official’s first name must be 100 characters or fewer
@@ -1093,8 +1086,8 @@ otherOfficialsDOB.checkYourAnswersLabel = Date of birth
 
 # Other Officials Phone Number Messages
 # ----------------------------------------------------------
-otherOfficialsPhoneNumber.title = What is the other official’s phone number?
-otherOfficialsPhoneNumber.heading = What is {0}’s phone number?
+otherOfficialsPhoneNumber.title = Other official’s phone numbers
+otherOfficialsPhoneNumber.heading = {0}’s phone numbers
 otherOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
 otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
@@ -1125,8 +1118,8 @@ isOtherOfficialNino.checkYourAnswersLabel = Has a National Insurance number
 
 # Other official Passport Page Messages
 # ----------------------------------------------------------
-otherOfficialsPassport.title = What are the other official’s passport or national identity card details?
-otherOfficialsPassport.heading = What are {0}’s passport or national identity card details?
+otherOfficialsPassport.title = Other official’s passport or national identity card details
+otherOfficialsPassport.heading = {0}’s passport or national identity card details
 otherOfficialsPassport.passportNumber.label = Passport or national identity card number
 otherOfficialsPassport.hint = For example, 21 3 2015.
 otherOfficialsPassport.passportNumber.error.format = The other official’s passport or national identity card number must not include the following characters: & ( ) : @
@@ -1214,7 +1207,6 @@ addSecondOtherOfficials.title = You will be adding the second official in the ne
 addSecondOtherOfficials.heading = You need to add a second other official
 addSecondOtherOfficials.p1 = Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.
 addSecondOtherOfficials.p2 = They will normally be the trustees or directors of the charity (if your charity is a company), or community amateur sports club (CASC) officials.
-addSecondOtherOfficials.p3 = Adding information about other officials takes around 5 minutes.
 
 # Check the second Other Official Page Messages
 # ----------------------------------------------------------
@@ -1250,9 +1242,8 @@ otherOfficialsSummary.section = Officials and nominees
 charityNominee.title = The charity’s nominee
 charityNominee.heading = The charity’s nominee
 charityNominee.p1 = You now have the option of adding a nominee.
-charityNominee.p2 = A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.
-charityNominee.p3 = Nominees aren’t ‘managers’ for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.
-charityNominee.p4 = Adding information about a nominee takes around 5 minutes.
+charityNominee.p2 = A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on the charity’s behalf. They might also receive the repayments too.
+charityNominee.p3 = Nominees are not ‘managers’ for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.
 
 # Do you want to add a nominee Page Messages
 # ----------------------------------------------------------
@@ -1275,8 +1266,8 @@ chooseNominee.checkYourAnswersLabel = Type of nominee
 
 # Charity Nominee Individual Name Page Messages
 # ----------------------------------------------------------
-individualNomineeName.title = What is the nominee’s name?
-individualNomineeName.heading = What is the nominee’s name?
+individualNomineeName.title = Nominee’s name
+individualNomineeName.heading = Nominee’s name
 individualNomineeName.firstName.label = First name
 individualNomineeName.firstName.error.required = Enter the nominee’s first name
 individualNomineeName.firstName.error.length = The nominee’s first name must be 100 characters or fewer
@@ -1307,8 +1298,8 @@ individualNomineeDOB.checkYourAnswersLabel = Date of birth
 
 # Charity Nominee Individual Phone number Page Messages
 # ----------------------------------------------------------
-individualNomineesPhoneNumber.title = What is the nominee’s phone number?
-individualNomineesPhoneNumber.heading = What is {0}’s phone number?
+individualNomineesPhoneNumber.title = Nominee’s phone numbers
+individualNomineesPhoneNumber.heading = {0}’s phone numbers
 individualNomineesPhoneNumber.mainPhoneNumber.label = Main phone number
 individualNomineesPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 individualNomineesPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
@@ -1455,8 +1446,8 @@ nameOfOrganisation.checkYourAnswersLabel = Name
 
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
-organisationContactDetails.title = What are the nominee organisation’s contact details?
-organisationContactDetails.heading = What are {0}’s contact details?
+organisationContactDetails.title = Nominee organisation’s contact details
+organisationContactDetails.heading = {0}’s contact details
 organisationContactDetails.phoneNumber.label = Phone number
 organisationContactDetails.phoneNumber.error.format = Enter the organisation’s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192
 organisationContactDetails.phoneNumber.error.required = Enter the organisation’s phone number

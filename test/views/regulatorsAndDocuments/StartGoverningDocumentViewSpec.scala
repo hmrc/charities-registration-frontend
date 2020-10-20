@@ -36,7 +36,7 @@ class StartGoverningDocumentViewSpec extends ViewBehaviours  {
       behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("regulatorsSummary.section")))
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "b1", "b2","p2")
+        "p1", "b1", "b2")
 
       behave like pageWithHyperLink(applyView(), "linkButton", controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, messages("site.continue"))
 

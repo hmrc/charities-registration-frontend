@@ -36,7 +36,7 @@ class CharityAuthorisedOfficialsViewSpec extends ViewBehaviours  {
         behave like normalPage(applyView(index), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
 
         behave like pageWithAdditionalGuidance(applyView(index), messageKeyPrefix,
-          "p1", "p2", "p3")
+          "p1", "p2")
 
         behave like pageWithBackLink(applyView(index))
 

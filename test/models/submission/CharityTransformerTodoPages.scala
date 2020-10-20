@@ -67,7 +67,7 @@ trait CharityTransformerTodoPages extends SpecBase{
     .flatMap(_.set(CharityOfficialAddressLookupPage,
       AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
-    .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 000 111", "abc@gmail.com")))
+    .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")))
     .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
     .flatMap(_.set(IsCharityRegulatorPage, false))
     .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
@@ -76,7 +76,7 @@ trait CharityTransformerTodoPages extends SpecBase{
     .flatMap(
       _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
     .flatMap(
-      _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981")))
+      _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
     .flatMap(
       _.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
     .flatMap(
@@ -86,7 +86,7 @@ trait CharityTransformerTodoPages extends SpecBase{
       _.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))).flatMap(
     _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
     _.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
-    _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", "07700 900 981"))).flatMap(
+    _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))).flatMap(
     _.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")).flatMap(
     _.set(OtherOfficialAddressLookupPage(0),
       AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))))

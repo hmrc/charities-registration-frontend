@@ -64,7 +64,7 @@ class ExternalTestNavigationSpec extends SpecBase {
         "go to the Charity Details Summary page when clicked Confirm and continue button" in {
 
           charityInformationNavigator.nextPage(CharityContactDetailsPage, NormalMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 900 982", "abc@gmail.com")).success.value) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -145,7 +145,7 @@ class ExternalTestNavigationSpec extends SpecBase {
         "go to the Charity Details Summary page when an answer is given" in {
 
           charityInformationNavigator.nextPage(CharityContactDetailsPage, CheckMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", "07700 900 982", "abc@gmail.com")).success.value) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }

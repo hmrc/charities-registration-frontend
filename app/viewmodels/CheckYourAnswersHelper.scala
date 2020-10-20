@@ -109,13 +109,18 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
                                changeLinkCall: Call,
                                messagePrefix: String): Option[SummaryListRow] =
 
-    userAnswers.get(page).map { contactDetails =>
-      summaryListRow(
-        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = contactDetails.mobilePhone,
-        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
-        changeLinkCall -> messages("site.edit")
-      )
+    userAnswers.get(page).flatMap { contactDetails =>
+      contactDetails.mobilePhone match {
+        case Some(_) => Some(summaryListRow(
+          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+          value = contactDetails.mobilePhone.getOrElse(""),
+          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+          changeLinkCall -> messages("site.edit")
+        ))
+
+        case _ => None
+      }
+
     }
 
   def answerOrgPhoneNumber(page: QuestionPage[OrganisationNomineeContactDetails],

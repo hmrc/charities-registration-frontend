@@ -36,7 +36,7 @@ class StartInformationViewSpec extends ViewBehaviours  {
       behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "b1", "b2", "b3","p2")
+        "p1", "b1", "b2", "b3")
 
       behave like pageWithHyperLink(applyView(), "linkButton", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, messages("site.continue"))
 

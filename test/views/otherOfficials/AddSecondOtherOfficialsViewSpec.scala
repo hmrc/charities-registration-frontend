@@ -35,7 +35,7 @@ class AddSecondOtherOfficialsViewSpec extends ViewBehaviours  {
 
       behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
 
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,"p1", "p2", "p3")
+      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,"p1", "p2")
 
       behave like pageWithBackLink(applyView())
 

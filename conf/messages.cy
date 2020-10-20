@@ -297,18 +297,17 @@ contactDetail.section = (W)Charity Information(W)
 
 # StartInformationPage Messages
 # ----------------------------------------------------------
-startInformation.title = (W)The charity’s information(W)
-startInformation.heading = (W)The charity’s information(W)
+startInformation.title = (W)The charity’s contact details(W)
+startInformation.heading = (W)The charity’s contact details(W)
 startInformation.p1 = (W)You need to add the charity’s:(W)
 startInformation.b1 = (W)name and operating name(W)
 startInformation.b2 = (W)address(W)
 startInformation.b3 = (W)postal address(W)
-startInformation.p2 = (W)Adding the charity’s information takes around 5 minutes.(W)
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = (W)What is the charity’s name?(W)
-charityName.heading = (W)What is the charity’s name?(W)
+charityName.title = (W)The charity’s name(W)
+charityName.heading = (W)The charity’s name(W)
 charityName.fullName.label = (W)Full name of the charity(W)
 charityName.fullName.hint = (W)As shown on the charity’s governing document(W)
 charityName.fullName.error.required = (W)Enter the full name of the charity(W)
@@ -323,8 +322,8 @@ charityName.operatingName.checkYourAnswersLabel = (W)Operating name(W)
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
-charityContactDetails.title = (W)What are the charity’s contact details?(W)
-charityContactDetails.heading = (W)What are the charity’s contact details?(W)
+charityContactDetails.title = (W)The charity’s contact details(W)
+charityContactDetails.heading = (W)The charity’s contact details(W)
 charityContactDetails.mainPhoneNumber.label = (W)Main phone number(W)
 charityContactDetails.mainPhoneNumber.error.format = (W)Enter the charity’s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
 charityContactDetails.mainPhoneNumber.error.required = (W)Enter the charity’s main phone number(W)
@@ -403,7 +402,6 @@ startCharityRegulator.heading = (W)The charity’s regulators(W)
 startCharityRegulator.p1 = (W)You need to add the charity’s:(W)
 startCharityRegulator.b1 = (W)regulators(W)
 startCharityRegulator.b2 = (W)regulator registration numbers(W)
-startCharityRegulator.p2 = (W)Adding regulator information takes around 5 minutes.(W)
 
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
@@ -454,9 +452,9 @@ nIRegulatorRegNumber.checkYourAnswersLabel = (W)Charity Commission for Northern 
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------
-charityOtherRegulatorDetails.title = (W)What are the charity’s regulator details(W)
-charityOtherRegulatorDetails.heading = (W)What are the charity’s regulator details(W)
-charityOtherRegulatorDetails.regulatorName.label = (W)Name of your charity’s regulator(W)
+charityOtherRegulatorDetails.title = (W)The charity’s regulator details(W)
+charityOtherRegulatorDetails.heading = (W)The charity’s regulator details(W)
+charityOtherRegulatorDetails.regulatorName.label = (W)Name of the charity’s regulator(W)
 charityOtherRegulatorDetails.regulatorName.error.required = (W)Enter the name of the charity’s regulator(W)
 charityOtherRegulatorDetails.regulatorName.error.format = (W)The name of your charity’s regulator must not include the following characters: & ( ) : @(W)
 charityOtherRegulatorDetails.regulatorName.error.length = (W)Your charity’s regulator name should be 100 characters or fewer(W)
@@ -506,7 +504,6 @@ startGoverningDocument.heading = (W)The charity’s governing document(W)
 startGoverningDocument.p1 = (W)You need to add the charity’s:(W)
 startGoverningDocument.b1 = (W)governing document type(W)
 startGoverningDocument.b2 = (W)governing document approval date(W)
-startGoverningDocument.p2 = (W)Adding governing document information takes around 5 minutes.(W)
 
 # Select Governing Document Messages
 # ----------------------------------------------------------
@@ -584,7 +581,6 @@ startCharitableObjectives.p1 = (W)You need to add the charity’s:(W)
 startCharitableObjectives.b1 = (W)charitable objectives(W)
 startCharitableObjectives.b2 = (W)charitable purposes(W)
 startCharitableObjectives.b3 = (W)benefit to the public(W)
-startCharitableObjectives.p2 = (W)Adding information about objectives and purposes takes around 5 minutes.(W)
 
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
@@ -643,7 +639,6 @@ startFundraising.p1 = (W)You need to add the charity’s:(W)
 startFundraising.b1 = (W)fundraising activities(W)
 startFundraising.b2 = (W)operating locations(W)
 startFundraising.b3 = (W)accounting period end date(W)
-startFundraising.p2 = (W)Adding information about fundraising and operations takes around 5 minutes.(W)
 
 # How will your charity raise funds
 # ----------------------------------------------------------
@@ -777,8 +772,8 @@ startBankDetails.p2 = (W)We will send repayments using BACS. This is an electron
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
-bankDetails.title = (W)What are the charity’s bank account details?(W)
-bankDetails.heading = (W)What are the charity’s bank account details?(W)
+bankDetails.title = (W)The charity’s bank details(W)
+bankDetails.heading = (W)The charity’s bank details(W)
 bankDetails.p1 = (W)We need the charity’s bank details to pay Gift Aid and other tax repayments.(W)
 bankDetails.accountName = (W)Charity’s account name(W)
 bankDetails.accountName.hint = (W)As shown on the charity’s account information(W)
@@ -833,12 +828,11 @@ charityAuthorisedOfficials.title = (W)The charity’s authorised officials(W)
 charityAuthorisedOfficials.heading = (W)The charity’s authorised officials(W)
 charityAuthorisedOfficials.p1 = (W)You need to add 1 authorised official but you can add up to 2.(W)
 charityAuthorisedOfficials.p2 = (W)An authorised official can deal with the charity’s tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.(W)
-charityAuthorisedOfficials.p3 = (W)Adding information about authorised officials takes around 5 minutes.(W)
 
 # Authorised Officials Name Messages
 # ----------------------------------------------------------
-authorisedOfficialsName.title = (W)What is the authorised official’s name?(W)
-authorisedOfficialsName.heading = (W)What is the authorised official’s name?(W)
+authorisedOfficialsName.title = (W)Authorised official’s name(W)
+authorisedOfficialsName.heading = (W)Authorised official’s name(W)
 authorisedOfficialsName.firstName.label = (W)First name(W)
 authorisedOfficialsName.firstName.error.required = (W)Enter the authorised official’s first name(W)
 authorisedOfficialsName.firstName.error.length = (W)The authorised official’s first name must be 100 characters or fewer(W)
@@ -869,8 +863,8 @@ authorisedOfficialsDOB.checkYourAnswersLabel = (W)Date of birth(W)
 
 # Authorised Officials Phone Number Messages
 # ----------------------------------------------------------
-authorisedOfficialsPhoneNumber.title = (W)What is the authorised official’s phone number?(W)
-authorisedOfficialsPhoneNumber.heading = (W)What is {0}’s phone number?(W)
+authorisedOfficialsPhoneNumber.title = (W)Authorised official’s phone numbers(W)
+authorisedOfficialsPhoneNumber.heading = (W){0}’s phone numbers(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.label = (W)Main phone number(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
@@ -924,8 +918,8 @@ isAuthorisedOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance num
 
 # Authorised official Passport Page Messages
 # ----------------------------------------------------------
-authorisedOfficialsPassport.title = (W)What are the authorised official’s passport or national identity card details?(W)
-authorisedOfficialsPassport.heading = (W)What are {0}’s passport or national identity card details?(W)
+authorisedOfficialsPassport.title = (W)Authorised official’s passport or national identity card details(W)
+authorisedOfficialsPassport.heading = (W){0}’s passport or national identity card details(W)
 authorisedOfficialsPassport.passportNumber.label = (W)Passport or national identity card number(W)
 authorisedOfficialsPassport.hint = (W)For example, 21 3 2015.(W)
 authorisedOfficialsPassport.passportNumber.error.format= The authorised official’s passport or national identity card number must not include the following characters: & ( ) : @(W)
@@ -1040,7 +1034,6 @@ isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = (W)Add another authorised
 addedSecondAuthorisedOfficial.checkYourAnswers.heading = (W)Check the second authorised official’s details(W)
 addedSecondAuthorisedOfficial.checkYourAnswers.title = (W)Check the second authorised official’s details(W)
 
-
 # Authorised Officials Summary page
 # ----------------------------------------------------------
 authorisedOfficialsSummary.checkYourAnswers.title = (W)Check the charity’s authorised official details(W)
@@ -1058,12 +1051,11 @@ charityOtherOfficials.heading = (W)The charity’s other officials(W)
 charityOtherOfficials.p1 = (W)You need to add 2 other officials but you can add up to 3.(W)
 charityOtherOfficials.p2 = (W)Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.(W)
 charityOtherOfficials.p3 = (W)They will normally be the trustees or directors of the charity (if the charity is a company), or community amateur sports club (CASC) officials.(W)
-charityOtherOfficials.p4 = (W)Adding information about other officials takes around 5 minutes.(W)
 
 # Other Officials Name Messages
 # ----------------------------------------------------------
-otherOfficialsName.title = (W)What is the other official’s name?(W)
-otherOfficialsName.heading = (W)What is the other official’s name?(W)
+otherOfficialsName.title = (W)Other official’s name(W)
+otherOfficialsName.heading = (W)Other official’s name(W)
 otherOfficialsName.firstName.label = (W)First name(W)
 otherOfficialsName.firstName.error.required = (W)Enter the other official’s first name(W)
 otherOfficialsName.firstName.error.length = (W)The other official’s first name must be 100 characters or fewer(W)
@@ -1076,6 +1068,7 @@ otherOfficialsName.lastName.error.required = (W)Enter the other official’s las
 otherOfficialsName.lastName.error.length = (W)The other official’s last name must be 100 characters or fewer(W)
 otherOfficialsName.lastName.error.format = (W)The other official’s last name must not include the following characters: & ( ) : @(W)
 otherOfficialsName.title.error.required = (W)Select the other official’s title(W)
+
 otherOfficialsName.checkYourAnswersLabel = (W)Full name(W)
 
 # Other Official Date of birth Messages
@@ -1093,8 +1086,8 @@ otherOfficialsDOB.checkYourAnswersLabel = (W)Date of birth(W)
 
 # Other Officials Phone Number Messages
 # ----------------------------------------------------------
-otherOfficialsPhoneNumber.title = (W)What is the other official’s phone number?(W)
-otherOfficialsPhoneNumber.heading = (W)What is {0}’s phone number?(W)
+otherOfficialsPhoneNumber.title = (W)Other official’s phone numbers(W)
+otherOfficialsPhoneNumber.heading = (W){0}’s phone numbers(W)
 otherOfficialsPhoneNumber.mainPhoneNumber.label = (W)Main phone number(W)
 otherOfficialsPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
@@ -1125,8 +1118,8 @@ isOtherOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W
 
 # Other official Passport Page Messages
 # ----------------------------------------------------------
-otherOfficialsPassport.title = (W)What are the other official’s passport or national identity card details?(W)
-otherOfficialsPassport.heading = (W)What are {0}’s passport or national identity card details?(W)
+otherOfficialsPassport.title = (W)Other official’s passport or national identity card details(W)
+otherOfficialsPassport.heading = (W){0}’s passport or national identity card details(W)
 otherOfficialsPassport.passportNumber.label = (W)Passport or national identity card number(W)
 otherOfficialsPassport.hint = (W)For example, 21 3 2015.(W)
 otherOfficialsPassport.passportNumber.error.format= (W)The other official’s passport or national identity card number must not include the following characters: & ( ) : @(W)
@@ -1214,7 +1207,6 @@ addSecondOtherOfficials.title = (W)You will be adding the second official in the
 addSecondOtherOfficials.heading = (W)You need to add a second other official(W)
 addSecondOtherOfficials.p1 = (W)Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.(W)
 addSecondOtherOfficials.p2 = (W)They will normally be the trustees or directors of the charity (if your charity is a company), or community amateur sports club (CASC) officials.(W)
-addSecondOtherOfficials.p3 = (W)Adding information about other officials takes around 5 minutes.(W)
 
 # Check the second Other Official Page Messages
 # ----------------------------------------------------------
@@ -1250,9 +1242,8 @@ otherOfficialsSummary.section = (W)Officials and nominees(W)
 charityNominee.title = (W)The charity’s nominee(W)
 charityNominee.heading = (W)The charity’s nominee(W)
 charityNominee.p1 = (W)You now have the option of adding a nominee.(W)
-charityNominee.p2 = (W)A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on your behalf. They might also receive the repayments too.(W)
-charityNominee.p3 = (W)Nominees aren’t ‘managers’ for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.(W)
-charityNominee.p4 = (W)Adding information about a nominee takes around 5 minutes.(W)
+charityNominee.p2 = (W)A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on the charity’s behalf. They might also receive the repayments too.(W)
+charityNominee.p3 = (W)Nominees are not ‘managers’ for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.(W)
 
 # Do you want to add a nominee Page Messages
 # ----------------------------------------------------------
@@ -1275,8 +1266,8 @@ chooseNominee.checkYourAnswersLabel = (W)Type of nominee(W)
 
 # Charity Nominee Individual Name Page Messages
 # ----------------------------------------------------------
-individualNomineeName.title = (W)What is the nominee’s name?(W)
-individualNomineeName.heading = (W)What is the nominee’s name?(W)
+individualNomineeName.title = (W)Nominee’s name(W)
+individualNomineeName.heading = (W)Nominee’s name(W)
 individualNomineeName.firstName.label = (W)First name(W)
 individualNomineeName.firstName.error.required = (W)Enter the nominee’s first name(W)
 individualNomineeName.firstName.error.length = (W)The nominee’s first name must be 100 characters or fewer(W)
@@ -1307,8 +1298,8 @@ individualNomineeDOB.checkYourAnswersLabel = (W)Date of birth(W)
 
 # Charity Nominee Individual Phone number Page Messages
 # ----------------------------------------------------------
-individualNomineesPhoneNumber.title = (W)What is the nominee’s phone number?(W)
-individualNomineesPhoneNumber.heading = (W)What is {0}’s phone number?(W)
+individualNomineesPhoneNumber.title = (W)Nominee’s phone numbers(W)
+individualNomineesPhoneNumber.heading = (W){0}’s phone numbers(W)
 individualNomineesPhoneNumber.mainPhoneNumber.label = (W)Main phone number(W)
 individualNomineesPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
 individualNomineesPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
@@ -1455,8 +1446,8 @@ nameOfOrganisation.checkYourAnswersLabel = (W)Name(W)
 
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
-organisationContactDetails.title = (W)What are the nominee organisation’s contact details?(W)
-organisationContactDetails.heading = (W)What are {0}’s contact details?(W)
+organisationContactDetails.title = (W)Nominee organisation’s contact details(W)
+organisationContactDetails.heading = (W){0}’s contact details(W)
 organisationContactDetails.phoneNumber.label = (W)Phone number(W)
 organisationContactDetails.phoneNumber.error.format = (W)Enter the organisation’s main phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 0192(W)
 organisationContactDetails.phoneNumber.error.required = (W)Enter the organisation’s phone number(W)

@@ -37,7 +37,7 @@ class CharityNomineeViewSpec extends ViewBehaviours  {
       behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2", "p3", "p4")
+        "p1", "p2", "p3")
 
       behave like pageWithBackLink(applyView())
 

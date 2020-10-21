@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package pages.addressLookup
+package pages.nominees
 
-import models.addressLookup.AddressModel
 import pages.QuestionPage
-import pages.nominees.NomineeIndividualIdPage
-import play.api.libs.json.JsPath
+import play.api.libs.json.{JsPath, __}
 
-case object NomineeIndividualPreviousAddressLookupPage extends QuestionPage[AddressModel] {
+case object NomineeOrganisationIdPage extends QuestionPage[Nothing] {
 
-  override def path: JsPath =  NomineeIndividualIdPage.path \ toString
+  override def path: JsPath = __ \ "nominee" \ NomineeOrganisationIdPage.toString
 
-  override lazy val toString: String = "individualPreviousAddress"
+  override def toString: String = "organisation"
 }

@@ -21,7 +21,7 @@ import play.api.libs.json.JsPath
 
 case object IsOrganisationNomineeNinoPage extends QuestionPage[Boolean] {
 
-  override def path: JsPath = NomineeId.path \ toString
+  override def path: JsPath = NomineeOrganisationIdPage.path \ toString
 
   override def toString: String = "isOrganisationNino"
 }

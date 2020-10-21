@@ -18,12 +18,12 @@ package pages.addressLookup
 
 import models.addressLookup.AddressModel
 import pages.QuestionPage
-import pages.nominees.NomineeId
+import pages.nominees.NomineeIndividualIdPage
 import play.api.libs.json.JsPath
 
 case object NomineeIndividualAddressLookupPage extends QuestionPage[AddressModel] {
 
-  override def path: JsPath =  NomineeId.path \ toString
+  override def path: JsPath =  NomineeIndividualIdPage.path \ toString
 
   override lazy val toString: String = "individualAddress"
 }

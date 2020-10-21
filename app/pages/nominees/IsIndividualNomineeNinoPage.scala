@@ -16,12 +16,22 @@
 
 package pages.nominees
 
+import models.UserAnswers
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
+import scala.util.Try
+
 case object IsIndividualNomineeNinoPage extends QuestionPage[Boolean] {
 
-  override def path: JsPath = NomineeId.path \ toString
+  override def path: JsPath = NomineeIndividualIdPage.path \ toString
 
   override def toString: String = "isIndividualNino"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
+    value match {
+      case Some(true)  => userAnswers.remove(IndividualNomineesPassportPage)
+      case Some(false)  => userAnswers.remove(IndividualNomineesNinoPage)
+      case _ => super.cleanup(value, userAnswers)
+    }
 }

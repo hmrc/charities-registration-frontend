@@ -26,7 +26,7 @@ import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import models.nominees.OrganisationNomineeContactDetails
 import pages.IndexPage
-import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
+import pages.addressLookup._
 import pages.nominees._
 
 class NomineesNavigatorSpec extends SpecBase {
@@ -506,10 +506,10 @@ class NomineesNavigatorSpec extends SpecBase {
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
 
-        "go to the DeadEnd page when clicked continue button" in {
+        "go to the ChooseNominee page when clicked continue button" in {
           navigator.nextPage(IsAuthoriseNomineePage, CheckMode,
             emptyUserAnswers.set(IsAuthoriseNomineePage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.ChooseNomineeController.onPageLoad(CheckMode)
         }
       }
 
@@ -520,10 +520,16 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the summary page when continue button is clicked" in {
+        "go to the IndividualNomineeName page when person is selected and continue button is clicked" in {
           navigator.nextPage(ChooseNomineePage, CheckMode,
             emptyUserAnswers.set(ChooseNomineePage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
+        }
+
+        "go to the OrganisationNomineeName page when organisation is selected and continue button is clicked" in {
+          navigator.nextPage(ChooseNomineePage, CheckMode,
+            emptyUserAnswers.set(ChooseNomineePage, false).success.value) mustBe
+            nomineesRoutes.OrganisationNomineeNameController.onPageLoad(NormalMode)
         }
       }
 
@@ -537,7 +543,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(IndividualNomineeNamePage, CheckMode,
             emptyUserAnswers.set(IndividualNomineeNamePage, nomineeName).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -548,11 +554,10 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to What is the nominee's phone number page when clicked continue button" in {
+        "go to summary page when clicked continue button" in {
           navigator.nextPage(IndividualNomineeDOBPage, CheckMode,
             emptyUserAnswers.set(IndividualNomineeDOBPage,LocalDate.now().minusYears(minYear)).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -563,11 +568,10 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to Does the nominee have national insurance page when clicked continue button" in {
+        "go to summary page when clicked continue button" in {
           navigator.nextPage(IndividualNomineesPhoneNumberPage, CheckMode,
             emptyUserAnswers.set(IndividualNomineesPhoneNumberPage, IndividualNomineePhoneNumber).success.value) mustBe
-            routes.DeadEndController.onPageLoad()
-
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -581,13 +585,13 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the Nominee National insurance number page when yes selected" in {
           navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
             emptyUserAnswers.set(IsIndividualNomineeNinoPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode)
         }
 
         "go to the nominee passport or national identity card details page when No is selected" in {
           navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
             emptyUserAnswers.set(IsIndividualNomineeNinoPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode)
         }
       }
 
@@ -598,11 +602,10 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to What is nominee’s home address? page when clicked continue button" in {
+        "go to summary page when clicked continue button" in {
           navigator.nextPage(IndividualNomineesPassportPage, CheckMode,
             emptyUserAnswers.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now())).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -613,11 +616,10 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to Does the nominee have national insurance page when clicked continue button" in {
+        "go to summary page when clicked continue button" in {
           navigator.nextPage(IndividualNomineesNinoPage, CheckMode,
             emptyUserAnswers.set(IndividualNomineesNinoPage, "QQ 12 34 56 C").success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is created
-
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -633,7 +635,7 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(NomineeIndividualAddressLookupPage, address)
               .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
               .success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode)
         }
       }
 
@@ -644,16 +646,23 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Previous address lookup when yes selected" in {
+        "go to the summary page when yes selected and previous address is defined" in {
           navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode,
-            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).flatMap(
+              _.set(NomineeIndividualPreviousAddressLookupPage, address)).success.value) mustBe
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
 
-        "go to the Is nominee authorised to receive payments page when No is selected" in {
+        "go to the Previous address lookup when yes selected and previous address is not defined" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe
+            addressLookupRoutes.NomineeIndividualPreviousAddressLookupController.initializeJourney(CheckMode)
+        }
+
+        "go to the summary page when No is selected" in {
           navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode,
             emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -667,7 +676,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to summary page when clicked continue button" in {
           navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, CheckMode,
             emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, address).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -678,16 +687,23 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Bank account details page when yes selected" in {
+        "go to the summary page when yes selected and account details are defined" in {
+          navigator.nextPage(IsIndividualNomineePaymentsPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineePaymentsPage, true).flatMap(
+              _.set(IndividualNomineesBankDetailsPage, bankDetails)).success.value) mustBe
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
+        }
+
+        "go to the Bank account details page when yes selected and account details are not defined" in {
           navigator.nextPage(IsIndividualNomineePaymentsPage, CheckMode,
             emptyUserAnswers.set(IsIndividualNomineePaymentsPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode)
         }
 
         "go to the Check your charity`s nominee details page when No is selected" in {
           navigator.nextPage(IsIndividualNomineePaymentsPage, CheckMode,
             emptyUserAnswers.set(IsIndividualNomineePaymentsPage, false).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 
@@ -701,7 +717,7 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to summary page when clicked continue button" in {
           navigator.nextPage(IndividualNomineesBankDetailsPage, CheckMode,
             emptyUserAnswers.set(IndividualNomineesBankDetailsPage, bankDetails).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
 

@@ -19,9 +19,9 @@ package pages.nominees
 import pages.QuestionPage
 import play.api.libs.json.{JsPath, __}
 
-case object NomineeId extends QuestionPage[Nothing] {
+case object NomineeIndividualIdPage extends QuestionPage[Nothing] {
 
-  override def path: JsPath = __ \ NomineeId.toString
+  override def path: JsPath = __ \ "nominee" \ NomineeIndividualIdPage.toString
 
-  override def toString: String = "nominee"
+  override def toString: String = "individual"
 }

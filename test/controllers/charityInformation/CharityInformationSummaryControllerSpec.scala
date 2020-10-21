@@ -103,58 +103,5 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
-    "give the correct completion status" when {
-      "no data is provided" in {
-        val result = controller.checkComplete(emptyUserAnswers)
-
-        result mustBe false
-      }
-
-      "some but not all data is provided" in {
-        val result = controller.checkComplete(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)
-
-        result mustBe false
-      }
-
-      "unnecessary data is provided" in {
-
-        val result = controller.checkComplete(emptyUserAnswers
-          .set(CharityNamePage, CharityName("a charity", None))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")))
-          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CanWeSendToThisAddressPage, true))
-          .flatMap(_.set(CharityPostalAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom")))).success.value
-        )
-
-        result mustBe false
-      }
-
-      "all data necessary is provided when postal address is the same as location" in {
-
-        val result = controller.checkComplete(emptyUserAnswers
-          .set(CharityNamePage, CharityName("a charity", None))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")))
-          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CanWeSendToThisAddressPage, true)).success.value
-        )
-
-        result mustBe true
-      }
-
-      "all data necessary is provided when postal address is different to location" in {
-
-        val result = controller.checkComplete(emptyUserAnswers
-          .set(CharityNamePage, CharityName("a charity", None))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")))
-          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CanWeSendToThisAddressPage, false))
-          .flatMap(_.set(CharityPostalAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom")))).success.value
-        )
-
-        result mustBe true
-      }
-
-    }
-
   }
 }

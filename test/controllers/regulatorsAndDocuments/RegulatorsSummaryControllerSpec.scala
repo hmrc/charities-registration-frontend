@@ -18,12 +18,16 @@ package controllers.regulatorsAndDocuments
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.UserAnswers
+import models.{CharityOtherRegulatorDetails, UserAnswers}
+import models.regulators.CharityRegulator
+import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
+import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityOtherRegulatorDetailsPage, CharityRegulatorPage, IsCharityRegulatorPage, NIRegulatorRegNumberPage, ScottishRegulatorRegNumberPage, SelectWhyNoRegulatorPage, WhyNotRegisteredWithCharityPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -54,11 +58,23 @@ class RegulatorsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(
+        emptyUserAnswers.set(IsCharityRegulatorPage, true).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return See Other and the session expired view for a GET with no data stored" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
@@ -73,6 +89,7 @@ class RegulatorsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
+
 
   }
 }

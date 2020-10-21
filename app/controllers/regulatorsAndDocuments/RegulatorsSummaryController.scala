@@ -20,15 +20,20 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import models.NormalMode
+import models.regulators.CharityRegulator
+import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Scottish}
+import models.regulators.SelectWhyNoRegulator.Other
+import models.{NormalMode, UserAnswers}
 import navigation.RegulatorsAndDocumentsNavigator
-import pages.regulatorsAndDocuments.RegulatorsSummaryPage
+import pages.{IndexPage, QuestionPage}
+import pages.regulatorsAndDocuments._
 import pages.sections.Section2Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
-import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
+import viewmodels.regulatorsAndDocuments.{RegulatorsStatusHelper, RegulatorsSummaryHelper}
 import views.html.CheckYourAnswersView
 
+import scala.collection.mutable.ListBuffer
 import scala.concurrent.Future
 
 class RegulatorsSummaryController @Inject()(
@@ -44,15 +49,18 @@ class RegulatorsSummaryController @Inject()(
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val regulatorsAnswersHelper = new RegulatorsSummaryHelper(request.userAnswers)
-
-    Ok(view(regulatorsAnswersHelper.rows, RegulatorsSummaryPage,
-      controllers.regulatorsAndDocuments.routes.RegulatorsSummaryController.onSubmit()))
+    if (regulatorsAnswersHelper.rows.isEmpty) {
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+    } else {
+      Ok(view(regulatorsAnswersHelper.rows, RegulatorsSummaryPage,
+        controllers.regulatorsAndDocuments.routes.RegulatorsSummaryController.onSubmit()))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section2Page, true))
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section2Page, RegulatorsStatusHelper.checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(RegulatorsSummaryPage, NormalMode, updatedAnswers))
 

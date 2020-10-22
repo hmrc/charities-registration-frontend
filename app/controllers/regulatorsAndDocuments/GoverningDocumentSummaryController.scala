@@ -22,10 +22,12 @@ import controllers.LocalBaseController
 import controllers.actions._
 import models.NormalMode
 import navigation.DocumentsNavigator
+import pages.IndexPage
 import pages.regulatorsAndDocuments.GoverningDocumentSummaryPage
 import pages.sections.Section3Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
+import viewmodels.regulatorsAndDocuments.GoverningDocumentStatusHelper.checkComplete
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 import views.html.CheckYourAnswersView
 
@@ -45,16 +47,21 @@ class GoverningDocumentSummaryController @Inject()(
 
     val governingDocumentAnswersHelper = new GoverningDocumentSummaryHelper(request.userAnswers)
 
-    Ok(view(governingDocumentAnswersHelper.rows, GoverningDocumentSummaryPage,
-      controllers.regulatorsAndDocuments.routes.GoverningDocumentSummaryController.onSubmit()))
+    if (governingDocumentAnswersHelper.rows.isEmpty) {
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+    } else {
+
+      Ok(view(governingDocumentAnswersHelper.rows, GoverningDocumentSummaryPage,
+        controllers.regulatorsAndDocuments.routes.GoverningDocumentSummaryController.onSubmit()))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section3Page, true))
+      updatedAnswers <- Future.fromTry(request.userAnswers.set(Section3Page, checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, updatedAnswers))
-
   }
+
 }

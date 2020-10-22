@@ -582,10 +582,24 @@ class NomineesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
+        "go to the summary page when yes selected and nino is already defined" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineeNinoPage, true)
+              .flatMap(_.set(IndividualNomineesNinoPage, "QQ 12 34 56 C")).success.value) mustBe
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
+        }
+
         "go to the Nominee National insurance number page when yes selected" in {
           navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
             emptyUserAnswers.set(IsIndividualNomineeNinoPage, true).success.value) mustBe
             nomineesRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode)
+        }
+
+        "go to the summary page when No is selected and passport is already defined" in {
+          navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode,
+            emptyUserAnswers.set(IsIndividualNomineeNinoPage, false)
+              .flatMap(_.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+            nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
 
         "go to the nominee passport or national identity card details page when No is selected" in {

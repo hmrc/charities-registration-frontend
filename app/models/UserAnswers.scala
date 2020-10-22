@@ -33,7 +33,11 @@ final case class UserAnswers(
                             ) {
 
   def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean = {
-    !pages.exists(page => checkDataPresent(page).isEmpty)
+    if (pages.isEmpty) {
+      false
+    } else {
+      pages.forall(page => checkDataPresent(page).nonEmpty)
+    }
   }
 
   def checkDataPresent[A](page: QuestionPage[A], idx: Option[Int] = None): Option[JsValue] = {

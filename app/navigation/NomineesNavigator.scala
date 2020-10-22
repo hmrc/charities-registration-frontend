@@ -212,7 +212,9 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case IsIndividualNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineeNinoPage) match {
+      case Some(true) if userAnswers.get(IndividualNomineesNinoPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case Some(true) => nomineeRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode)
+      case Some(false) if userAnswers.get(IndividualNomineesPassportPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case Some(false) => nomineeRoutes.IndividualNomineePassportController.onPageLoad(CheckMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

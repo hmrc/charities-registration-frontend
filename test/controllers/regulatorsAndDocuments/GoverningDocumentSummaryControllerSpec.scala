@@ -16,14 +16,18 @@
 
 package controllers.regulatorsAndDocuments
 
+import java.time.LocalDate
+
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
+import models.regulators.SelectGoverningDocument
 import navigation.DocumentsNavigator
 import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SelectGoverningDocumentPage, WhenGoverningDocumentApprovedPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -50,11 +54,24 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
 
   private val controller: GoverningDocumentSummaryController = inject[GoverningDocumentSummaryController]
 
-  "Regulators Controller" must {
+  "GoverningDocumentSummaryController" must {
 
-    "return OK and the correct view for a GET" in {
+    "return to task list and if user has not answered any question" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return OK and the correct view for a GET if user has answered section" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(SelectGoverningDocumentPage,
+        SelectGoverningDocument.TrustDeed).flatMap(
+        _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))).flatMap(
+        _.set(IsApprovedGoverningDocumentPage, false)).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 

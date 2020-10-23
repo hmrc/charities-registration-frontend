@@ -22,11 +22,13 @@ import controllers.actions._
 import javax.inject.Inject
 import models.NormalMode
 import navigation.BankDetailsNavigator
+import pages.IndexPage
+import pages.charityInformation.CharityInformationSummaryPage
 import pages.operationsAndFunds.BankDetailsSummaryPage
 import pages.sections.Section6Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
+import viewmodels.operationsAndFunds.{BankDetailsStatusHelper, BankDetailsSummaryHelper}
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
@@ -45,14 +47,22 @@ class BankDetailsSummaryController @Inject()(
 
     val bankDetailsSummaryHelper = new BankDetailsSummaryHelper(request.userAnswers)
 
-    Ok(view(bankDetailsSummaryHelper.rows, BankDetailsSummaryPage,
-    controllers.operationsAndFunds.routes.BankDetailsSummaryController.onSubmit()))
+    if (bankDetailsSummaryHelper.rows.isEmpty) {
+
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+
+    } else {
+
+      Ok(view(bankDetailsSummaryHelper.rows, BankDetailsSummaryPage,
+        controllers.operationsAndFunds.routes.BankDetailsSummaryController.onSubmit()))
+    }
+
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section6Page, true))
+    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section6Page, BankDetailsStatusHelper.checkComplete(request.userAnswers)))
     _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(BankDetailsSummaryPage, NormalMode, updatedAnswers))
 

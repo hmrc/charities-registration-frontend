@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewModels
+package viewModels.regulatorsAndDocuments
 
 import java.time.LocalDate
 

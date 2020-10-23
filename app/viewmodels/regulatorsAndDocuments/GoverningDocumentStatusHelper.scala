@@ -25,16 +25,21 @@ import viewmodels.StatusHelper
 
 object GoverningDocumentStatusHelper extends StatusHelper {
 
-  private val allPages: Seq[QuestionPage[_]] =  Seq(SelectGoverningDocumentPage, GoverningDocumentNamePage, IsApprovedGoverningDocumentPage,
-    WhenGoverningDocumentApprovedPage, HasCharityChangedPartsOfGoverningDocumentPage, SectionsChangedGoverningDocumentPage)
+  private val allPages: Seq[QuestionPage[_]] =  Seq(
+    SelectGoverningDocumentPage,
+    GoverningDocumentNamePage,
+    IsApprovedGoverningDocumentPage,
+    WhenGoverningDocumentApprovedPage,
+    HasCharityChangedPartsOfGoverningDocumentPage,
+    SectionsChangedGoverningDocumentPage
+  )
 
-  private def pageList(documentType:SelectGoverningDocument, list: Seq[QuestionPage[_]] = Seq.empty): Seq[QuestionPage[_]] = {
-    if(documentType == Other) {
-      list ++ Seq(WhenGoverningDocumentApprovedPage, SelectGoverningDocumentPage, GoverningDocumentNamePage)
-    } else {
-      list ++ Seq(WhenGoverningDocumentApprovedPage, SelectGoverningDocumentPage)
-    }
-  }
+  private val common = Seq(WhenGoverningDocumentApprovedPage, SelectGoverningDocumentPage, IsApprovedGoverningDocumentPage)
+  private val f0 = common ++ Seq(GoverningDocumentNamePage)
+
+  private val f1 = (documentType:SelectGoverningDocument) => if(documentType == Other) f0 else common
+  private val f2 = (list: Seq[QuestionPage[_]]) => list ++ Seq(HasCharityChangedPartsOfGoverningDocumentPage)
+  private val f3 = (list: Seq[QuestionPage[_]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
@@ -42,19 +47,17 @@ object GoverningDocumentStatusHelper extends StatusHelper {
 
     userAnswers.get(SelectGoverningDocumentPage) match {
       case Some(governingDocument) =>
-        val pages = pageList(governingDocument)
         userAnswers.get(IsApprovedGoverningDocumentPage) match {
           case Some(false) =>
-            val newPages = pages ++ Seq(IsApprovedGoverningDocumentPage)
+            val newPages = f1(governingDocument)
             userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
           case _ =>
             userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
             case Some(false) =>
-              val newPages = pages ++ Seq(IsApprovedGoverningDocumentPage, HasCharityChangedPartsOfGoverningDocumentPage)
+              val newPages = f2(f1(governingDocument))
               userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
             case _  =>
-              val pages = pageList(governingDocument, Seq(SectionsChangedGoverningDocumentPage)) ++
-                Seq(IsApprovedGoverningDocumentPage, HasCharityChangedPartsOfGoverningDocumentPage)
+              val pages = f3(f2(f1(governingDocument)))
               userAnswers.arePagesDefined(pages) && noAdditionalPagesDefined(pages)
           }
         }

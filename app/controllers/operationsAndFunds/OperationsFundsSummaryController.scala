@@ -27,6 +27,7 @@ import pages.sections.Section5Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CountryService
+import viewmodels.operationsAndFunds.OperationsFundsStatusHelper.checkComplete
 import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 import views.html.CheckYourAnswersView
 
@@ -54,7 +55,7 @@ class OperationsFundsSummaryController @Inject()(
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section5Page, true))
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section5Page, checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(OperationsFundsSummaryPage, NormalMode, updatedAnswers))
 

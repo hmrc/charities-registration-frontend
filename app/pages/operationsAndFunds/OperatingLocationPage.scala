@@ -34,18 +34,9 @@ case object OperatingLocationPage extends QuestionPage[Set[OperatingLocationOpti
     value match {
       case Some(notOverseas) if !notOverseas.contains(Overseas) =>
 
-        userAnswers.remove(OverseasOperatingLocationSummaryPage).flatMap(_.removeCountries())
+        userAnswers.remove(Seq(OverseasOperatingLocationSummaryPage, OverseasCountriesPage))
+
       case _ => super.cleanup(value, userAnswers)
     }
-
-  implicit class CountryRemover(userAnswers: UserAnswers) {
-    def removeCountries(index: Int = 0, answers: Try[UserAnswers] = Success(userAnswers)): Try[UserAnswers] = {
-      if (index < 5) {
-        removeCountries(index + 1, answers.flatMap(_.remove(WhatCountryDoesTheCharityOperateInPage(index))))
-      } else {
-        answers
-      }
-    }
-  }
 
 }

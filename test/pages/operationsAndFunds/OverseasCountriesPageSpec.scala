@@ -16,12 +16,18 @@
 
 package pages.operationsAndFunds
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import pages.behaviours.PageBehaviours
 
-case class WhatCountryDoesTheCharityOperateInPage(index:Int) extends QuestionPage[String] {
+class OverseasCountriesPageSpec extends PageBehaviours{
 
-  override def path: JsPath = JsPath \ OverseasCountriesPage \ index \ toString
 
-  override def toString: String = "country"
+  "OverseasCountriesPage" must {
+
+    beRetrievable[List[String]](OverseasCountriesPage)
+
+    beSettable[List[String]](OverseasCountriesPage)
+
+    beRemovable[List[String]](OverseasCountriesPage)
+
+  }
 }

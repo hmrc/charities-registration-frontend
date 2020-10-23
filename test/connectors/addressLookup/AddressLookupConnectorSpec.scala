@@ -43,8 +43,8 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
     when(mockFrontendAppConfig.addressLookupFrontend) thenReturn getUrl
     when(mockFrontendAppConfig.host) thenReturn "http://localhost:9457"
-    when(mockFrontendAppConfig.feedbackUrlAddressLookup) thenReturn "http://localhost:9250/contact/beta-feedback?service=charities"
-    when(mockFrontendAppConfig.contactFormServiceIdentifier) thenReturn "charities"
+    when(mockFrontendAppConfig.feedbackUrlAddressLookup) thenReturn "http://localhost:9250/contact/beta-feedback?service=iCharities"
+    when(mockFrontendAppConfig.contactFormServiceIdentifier) thenReturn "iCharities"
     when(mockFrontendAppConfig.timeout) thenReturn 900
     when(mockFrontendAppConfig.retrieveAddressUrl) thenReturn (getUrl + "/api/confirmed")
 

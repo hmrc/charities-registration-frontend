@@ -32,7 +32,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   private val contactHost: String = servicesConfig.getString("contact-frontend.host")
 
-  val contactFormServiceIdentifier: String = "charities"
+  val contactFormServiceIdentifier: String = "iCharities"
 
   lazy val contactUrl: String = s"$contactHost/contact/contact-hmrc?service=$contactFormServiceIdentifier"
 

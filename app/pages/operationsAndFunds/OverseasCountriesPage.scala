@@ -19,9 +19,9 @@ package pages.operationsAndFunds
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class WhatCountryDoesTheCharityOperateInPage(index:Int) extends QuestionPage[String] {
+case object OverseasCountriesPage extends QuestionPage[List[String]] {
 
-  override def path: JsPath = JsPath \ OverseasCountriesPage \ index \ toString
+  override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "country"
+  override def toString: String = "whatCountryDoesTheCharityOperateIn"
 }

@@ -23,12 +23,12 @@ import javax.inject.Inject
 import models.NormalMode
 import navigation.BankDetailsNavigator
 import pages.IndexPage
-import pages.charityInformation.CharityInformationSummaryPage
 import pages.operationsAndFunds.BankDetailsSummaryPage
 import pages.sections.Section6Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import viewmodels.operationsAndFunds.{BankDetailsStatusHelper, BankDetailsSummaryHelper}
+import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
+import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
@@ -62,7 +62,7 @@ class BankDetailsSummaryController @Inject()(
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section6Page, BankDetailsStatusHelper.checkComplete(request.userAnswers)))
+    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
     _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(BankDetailsSummaryPage, NormalMode, updatedAnswers))
 

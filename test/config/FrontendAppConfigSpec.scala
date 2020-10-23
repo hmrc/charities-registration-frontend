@@ -41,11 +41,11 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "contactFormServiceIdentifier" in {
-        frontendAppConfig.contactFormServiceIdentifier mustBe "charities"
+        frontendAppConfig.contactFormServiceIdentifier mustBe "iCharities"
       }
 
       "contactUrl" in {
-        frontendAppConfig.contactUrl mustBe "http://localhost:9250/contact/contact-hmrc?service=charities"
+        frontendAppConfig.contactUrl mustBe "http://localhost:9250/contact/contact-hmrc?service=iCharities"
       }
 
       "gtmContainer" in {
@@ -53,11 +53,11 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "feedbackUrl" in {
-        frontendAppConfig.feedbackUrl mustBe "http://localhost:9250/contact/beta-feedback?service=charities"
+        frontendAppConfig.feedbackUrl mustBe "http://localhost:9250/contact/beta-feedback?service=iCharities"
       }
 
       "feedbackUnauthenticatedUrl" in {
-        frontendAppConfig.feedbackUnauthenticatedUrl mustBe "http://localhost:9250/contact/beta-feedback-unauthenticated?service=charities"
+        frontendAppConfig.feedbackUnauthenticatedUrl mustBe "http://localhost:9250/contact/beta-feedback-unauthenticated?service=iCharities"
       }
 
       "loginUrl" in {
@@ -89,7 +89,7 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "feedbackUrlAddressLookup" in {
-        frontendAppConfig.feedbackUrlAddressLookup mustBe "http://localhost:9250/contact/beta-feedback?service=charities"
+        frontendAppConfig.feedbackUrlAddressLookup mustBe "http://localhost:9250/contact/beta-feedback?service=iCharities"
       }
 
       "cookies" in {

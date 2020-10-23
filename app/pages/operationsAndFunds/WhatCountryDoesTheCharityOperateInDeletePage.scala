@@ -19,10 +19,9 @@ package pages.operationsAndFunds
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-
 case class WhatCountryDoesTheCharityOperateInDeletePage(index:Int) extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString \ index
 
-  override def toString: String = "whatCountryDoesTheCharityOperateIn"
+  override def toString: String = OverseasCountriesPage.toString
 }

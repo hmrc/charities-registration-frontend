@@ -19,7 +19,6 @@ package viewModels.operationsAndFunds
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
-import controllers.routes
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}

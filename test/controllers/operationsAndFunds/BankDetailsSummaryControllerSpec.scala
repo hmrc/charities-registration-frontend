@@ -54,7 +54,7 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   "BankDetailsSummaryController Controller" must {
 
-    "return Redirect and the session expired view for a GET with no data stored" in {
+    "return redirect and task list view for a GET with no data stored" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 

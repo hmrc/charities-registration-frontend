@@ -23,7 +23,7 @@ import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.FundRaisingNavigator
-import pages.operationsAndFunds.{WhatCountryDoesTheCharityOperateInDeletePage, WhatCountryDoesTheCharityOperateInPage}
+import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInDeletePage, WhatCountryDoesTheCharityOperateInPage}
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
@@ -75,7 +75,8 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
 
     for {
       updatedAnswers <- Future.fromTry(result = request.userAnswers.remove(
-        WhatCountryDoesTheCharityOperateInDeletePage(index)).flatMap(_.set(Section5Page, false)))
+                          Seq(WhatCountryDoesTheCharityOperateInDeletePage(index), OverseasOperatingLocationSummaryPage))
+                        .flatMap(_.set(Section5Page, false)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index-1), mode, updatedAnswers))
   }

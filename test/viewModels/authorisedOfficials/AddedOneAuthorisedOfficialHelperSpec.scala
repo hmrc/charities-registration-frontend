@@ -41,16 +41,16 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
   private val dayOfMonth = 2
 
   private val authorisedOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).success.value
-    .set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
-    .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
-                                             mobilePhone = Some("07700 900 982"))).success.value
-    .set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head).success.value
-    .set(IsAuthorisedOfficialNinoPage(0), true).success.value
-    .set(AuthorisedOfficialsNinoPage(0), "AA123456A").success.value
-    .set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))).success.value
-    .set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
-    .set(IsAuthorisedOfficialPreviousAddressPage(0), false).success.value
+    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).flatMap(
+    _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth))).flatMap(
+    _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
+                                             mobilePhone = Some("07700 900 982")))).flatMap(
+    _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head)).flatMap(
+    _.set(IsAuthorisedOfficialNinoPage(0), true)).flatMap(
+    _.set(AuthorisedOfficialsNinoPage(0), "AA123456A")).flatMap(
+    _.set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))).flatMap(
+    _.set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address)).flatMap(
+    _.set(IsAuthorisedOfficialPreviousAddressPage(0), false)).success.value
 
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
   when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))

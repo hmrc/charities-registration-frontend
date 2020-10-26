@@ -36,7 +36,6 @@ class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfi
     }
 
     case CharitablePurposesPage => userAnswers: UserAnswers => userAnswers.get(CharitablePurposesPage) match {
-      case Some(items) if items.toSeq.equals(Seq(Other)) => routes.DeadEndController.onPageLoad()
       case Some(_) => operations.PublicBenefitsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }

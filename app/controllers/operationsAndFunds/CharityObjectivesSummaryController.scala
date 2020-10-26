@@ -22,11 +22,12 @@ import controllers.LocalBaseController
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import models.NormalMode
 import navigation.ObjectivesNavigator
-import pages.operationsAndFunds.CharityObjectivesSummaryPage
+import pages.IndexPage
+import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, CharityObjectivesSummaryPage, PublicBenefitsPage}
 import pages.sections.Section4Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
-import viewmodels.operationsAndFunds.CharityObjectivesSummaryHelper
+import viewmodels.operationsAndFunds.{CharityObjectivesStatusHelper, CharityObjectivesSummaryHelper}
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
@@ -39,20 +40,25 @@ class CharityObjectivesSummaryController @Inject()(
     requireData: DataRequiredAction,
     view: CheckYourAnswersView,
     val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val charityObjectivesAnswersHelper = new CharityObjectivesSummaryHelper(request.userAnswers)
 
-    Ok(view(charityObjectivesAnswersHelper.rows, CharityObjectivesSummaryPage,
-      controllers.operationsAndFunds.routes.CharityObjectivesSummaryController.onSubmit()))
+    if(charityObjectivesAnswersHelper.rows.isEmpty) {
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+    } else {
+      Ok(view(charityObjectivesAnswersHelper.rows, CharityObjectivesSummaryPage,
+        controllers.operationsAndFunds.routes.CharityObjectivesSummaryController.onSubmit()))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section4Page, true))
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(
+                          Section4Page, CharityObjectivesStatusHelper.checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityObjectivesSummaryPage, NormalMode, updatedAnswers))
 

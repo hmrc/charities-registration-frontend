@@ -17,63 +17,74 @@
 package viewmodels.regulatorsAndDocuments
 
 import models.UserAnswers
-import models.regulators.CharityRegulator
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Scottish}
 import models.regulators.SelectWhyNoRegulator.Other
+import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import pages.QuestionPage
 import pages.regulatorsAndDocuments._
 import viewmodels.StatusHelper
 
-import scala.collection.mutable.ListBuffer
-
 object RegulatorsStatusHelper extends StatusHelper {
 
-  override def checkComplete(userAnswers: UserAnswers): Boolean = {
+  private val allPages: Seq[QuestionPage[_]] = Seq(
+    IsCharityRegulatorPage, CharityRegulatorPage,
+    CharityCommissionRegistrationNumberPage,
+    ScottishRegulatorRegNumberPage,
+    NIRegulatorRegNumberPage,
+    CharityOtherRegulatorDetailsPage,
+    SelectWhyNoRegulatorPage, WhyNotRegisteredWithCharityPage
+  )
 
-    val allPages: Seq[QuestionPage[_]] = Seq(
-      IsCharityRegulatorPage, CharityRegulatorPage,
-      CharityCommissionRegistrationNumberPage,
-      ScottishRegulatorRegNumberPage,
-      NIRegulatorRegNumberPage,
-      CharityOtherRegulatorDetailsPage,
-      SelectWhyNoRegulatorPage, WhyNotRegisteredWithCharityPage
-    )
+  implicit class RegulatorsStatus(list: Seq[QuestionPage[_]]) {
 
-    val requiredPairs: Map[CharityRegulator, QuestionPage[_]] = Map(
+    private val requiredPairs: Map[CharityRegulator, QuestionPage[_]] = Map(
       (EnglandWales, CharityCommissionRegistrationNumberPage),
       (Scottish, ScottishRegulatorRegNumberPage),
       (NorthernIreland, NIRegulatorRegNumberPage),
       (models.regulators.CharityRegulator.Other, CharityOtherRegulatorDetailsPage)
     )
 
-    lazy val pagesNeeded: ListBuffer[QuestionPage[_]] = ListBuffer(IsCharityRegulatorPage)
+    def withCharityRegulator: Seq[QuestionPage[_]] = list ++ Seq(CharityRegulatorPage)
 
-    val correctJourneyFound: Boolean = userAnswers.get(IsCharityRegulatorPage) match {
+    def withSelectWhyNoRegulator: Seq[QuestionPage[_]] = list ++ Seq(SelectWhyNoRegulatorPage)
+
+    def withNotRegisteredCause(cause: SelectWhyNoRegulator): Seq[QuestionPage[_]] = {
+      if (cause.equals(Other)) {
+        list ++ Seq(WhyNotRegisteredWithCharityPage)
+      } else {
+        list
+      }
+    }
+
+    def withRegulators(regulators: Set[CharityRegulator]): Seq[QuestionPage[_]] =
+      list ++ regulators.map(regulator => requiredPairs(regulator))
+
+  }
+
+  override def checkComplete(userAnswers: UserAnswers): Boolean = {
+
+
+    lazy val common: Seq[QuestionPage[_]] = Seq(IsCharityRegulatorPage)
+
+    userAnswers.get(IsCharityRegulatorPage) match {
       case Some(true) =>
-        pagesNeeded += CharityRegulatorPage
         userAnswers.get(CharityRegulatorPage) match {
           case Some(regulatorSet) if regulatorSet.nonEmpty =>
-            regulatorSet.forall(regulator => {
-              pagesNeeded += requiredPairs(regulator)
-              userAnswers.arePagesDefined(Seq(requiredPairs(regulator)))
-            })
+            val pagesInJourney = common.withCharityRegulator.withRegulators(regulatorSet)
+            userAnswers.arePagesDefined(pagesInJourney) && userAnswers.unneededPagesNotPresent(pagesInJourney, allPages)
           case _ => false
         }
 
       case Some(false) =>
-        pagesNeeded += SelectWhyNoRegulatorPage
         userAnswers.get(SelectWhyNoRegulatorPage) match {
-          case Some(value) if value.equals(Other) =>
-            pagesNeeded += WhyNotRegisteredWithCharityPage
-            userAnswers.arePagesDefined(Seq(WhyNotRegisteredWithCharityPage))
-          case Some(_) =>
-            true
+          case Some(causeForNotRegistered) =>
+            val pagesInJourney = common.withSelectWhyNoRegulator.withNotRegisteredCause(causeForNotRegistered)
+            userAnswers.arePagesDefined(pagesInJourney) && userAnswers.unneededPagesNotPresent(pagesInJourney, allPages)
           case _ => false
         }
 
       case _ => false
     }
 
-    correctJourneyFound && userAnswers.unneededPagesNotPresent(pagesNeeded, allPages)
   }
 }

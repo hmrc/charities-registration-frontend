@@ -37,7 +37,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
     def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[_]] = (isPreviousAddress: Boolean, index: Int) => {
       updateList(
         isPreviousAddress,
-        if(index == 0) Seq(AuthorisedOfficialPreviousAddressLookupPage(index)) else Seq(AuthorisedOfficialPreviousAddressLookupPage(1))
+        Seq(AuthorisedOfficialPreviousAddressLookupPage(index))
       )
     }
 

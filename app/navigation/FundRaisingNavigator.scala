@@ -157,6 +157,8 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
         overseasRedirect(userAnswers, CheckMode)
       case _ if userAnswers.get(WhatCountryDoesTheCharityOperateInPage(Index(0))).isDefined=>
         operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
+      case _ if userAnswers.get(OperatingLocationPage).isDefined =>
+        operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -169,6 +171,8 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
           operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       case Some(false) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ if userAnswers.get(OperatingLocationPage).isDefined =>
+        operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

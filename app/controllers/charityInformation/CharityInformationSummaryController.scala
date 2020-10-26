@@ -46,6 +46,7 @@ class CharityInformationSummaryController @Inject()(
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val charityInformationAnswersHelper = new CharityInformationSummaryHelper(request.userAnswers)
+
     if (charityInformationAnswersHelper.rows.isEmpty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {

@@ -22,6 +22,7 @@ import controllers.LocalBaseController
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import models.NormalMode
 import navigation.FundRaisingNavigator
+import pages.IndexPage
 import pages.operationsAndFunds.OperationsFundsSummaryPage
 import pages.sections.Section5Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -47,9 +48,12 @@ class OperationsFundsSummaryController @Inject()(
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val operationsFundsSummaryHelper = new OperationsFundsSummaryHelper(request.userAnswers, countryService)
-
-    Ok(view(operationsFundsSummaryHelper.rows, OperationsFundsSummaryPage,
-      controllers.operationsAndFunds.routes.OperationsFundsSummaryController.onSubmit()))
+    if (operationsFundsSummaryHelper.rows.isEmpty) {
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+    } else {
+      Ok(view(operationsFundsSummaryHelper.rows, OperationsFundsSummaryPage,
+        controllers.operationsAndFunds.routes.OperationsFundsSummaryController.onSubmit()))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

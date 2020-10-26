@@ -56,12 +56,10 @@ object OperationsFundsStatusHelper extends StatusHelper {
 
     userAnswers.get(FundRaisingPage) match {
       case Some(fundRaisingOptions) =>
-
         val isFundRaising = fundRaisingOptions.contains(FundRaisingOptions.Other)
 
         userAnswers.get(OperatingLocationPage) match {
           case Some(locations) =>
-
             val isOverseas = locations.toList.contains(Overseas)
 
             userAnswers.get(IsBankStatementsPage) match {

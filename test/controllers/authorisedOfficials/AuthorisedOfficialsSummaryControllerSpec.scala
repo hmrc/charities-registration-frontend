@@ -18,12 +18,13 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.UserAnswers
+import models.{Name, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -52,9 +53,20 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
   "AuthorisedOfficials Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "redirect to index page if rows are empty" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return OK and the correct view for a GET" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 

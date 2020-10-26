@@ -24,6 +24,7 @@ import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.operationsAndFunds.{ActualIncomePage, EstimatedIncomePage, IsFinancialAccountsPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -52,9 +53,22 @@ class OperationsFundsSummaryControllerSpec extends SpecBase with BeforeAndAfterE
 
   "OperationsFundsSummary Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "redirect to index page if rows are empty" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return OK and the correct view for a GET" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(IsFinancialAccountsPage, true).flatMap(
+        _.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap(
+        _.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 

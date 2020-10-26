@@ -426,7 +426,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
         "go to What countries does the charity operate page when country is entered and clicked continue when" +
           "summary was visited before and answered OperatingLocationOptions" in {
-          navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), CheckMode,
+          navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode,
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas)).success.value) mustBe
             operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
         }

@@ -6,14 +6,17 @@ object AppDependencies {
 
   val compile = Seq(
     play.sbt.PlayImport.ws,
-    "org.reactivemongo"         %% "play2-reactivemongo"            % "0.18.6-play26",
-    "uk.gov.hmrc"               %% "logback-json-logger"            % "4.8.0",
-    "uk.gov.hmrc"               %% "play-health"                    % "3.15.0-play-26",
-    "uk.gov.hmrc"               %% "play-conditional-form-mapping"  % "1.3.0-play-26",
-    "uk.gov.hmrc"               %% "bootstrap-play-26"              % "1.16.0",
-    "uk.gov.hmrc"               %% "play-frontend-govuk"            % "0.51.0-play-26",
-    "uk.gov.hmrc"               %% "play-frontend-hmrc"             % "0.18.0-play-26",
-    "uk.gov.hmrc"               %% "play-language"                  % "4.4.0-play-26"
+    "org.reactivemongo"         %% "play2-reactivemongo"             % "0.20.3-play26",
+    "org.reactivemongo"         %% "reactivemongo-play-json-compat"  % "0.20.11-play26",
+    "com.typesafe.play"         %% "play-iteratees"                  % "2.6.1",
+    "com.typesafe.play"         %% "play-iteratees-reactive-streams" % "2.6.1",
+    "uk.gov.hmrc"               %% "logback-json-logger"             % "4.8.0",
+    "uk.gov.hmrc"               %% "play-health"                     % "3.15.0-play-26",
+    "uk.gov.hmrc"               %% "play-conditional-form-mapping"   % "1.3.0-play-26",
+    "uk.gov.hmrc"               %% "bootstrap-play-26"               % "1.16.0",
+    "uk.gov.hmrc"               %% "play-frontend-govuk"             % "0.53.0-play-26",
+    "uk.gov.hmrc"               %% "play-frontend-hmrc"              % "0.18.0-play-26",
+    "uk.gov.hmrc"               %% "play-language"                   % "4.4.0-play-26"
   )
 
   val test = Seq(

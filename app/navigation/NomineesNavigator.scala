@@ -260,65 +260,70 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeContactDetailsPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeAddressLookupPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineePreviousAddressPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePreviousAddressPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(true) if userAnswers.get(OrganisationNomineePreviousAddressLookupPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+      case Some(true) => addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(CheckMode)
+      case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineePreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePaymentsPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(true) if userAnswers.get(OrganisationNomineesBankDetailsPage).isDefined =>
+        nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+      case Some(true) => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode)
+      case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineesBankDetailsPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonDOBPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonDOBPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineeNinoPage) match {
-      case Some(true) => routes.DeadEndController.onPageLoad() // TODO next page
-      case Some(false) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(true) if userAnswers.get(OrganisationAuthorisedPersonNinoPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+      case Some(true) => nomineeRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(CheckMode)
+      case Some(false) if userAnswers.get(OrganisationAuthorisedPersonPassportPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+      case Some(false) => nomineeRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonNinoPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNinoPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonPassportPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonPassportPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
+      case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 

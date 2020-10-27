@@ -27,7 +27,7 @@ import models.{BankDetails, CheckMode, Country, Name, Passport, SelectTitle, Use
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import pages.addressLookup.OrganisationNomineeAddressLookupPage
+import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
 import pages.nominees._
 import service.CountryService
 import viewmodels.SummaryListRowHelper
@@ -47,6 +47,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com")))
     .flatMap(_.set(OrganisationNomineeAddressLookupPage, ConfirmedAddressConstants.address))
     .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
+    .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, ConfirmedAddressConstants.address))
     .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
     .flatMap(_.set(OrganisationNomineesBankDetailsPage, BankDetails(accountName = "PM Cares",
       sortCode = "176534",
@@ -125,6 +126,18 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
           messages("site.no"),
           Some(messages("isOrganisationNomineePreviousAddress.checkYourAnswersLabel")),
           nomineesRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the nominee's previous address answer" must {
+
+      "have a correctly formatted summary list row" in {
+        helperNino.nomineePreviousAddress mustBe Some(summaryListRow(
+          messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel"),
+          "Test 1, Test 2, AA00 0AA, United Kingdom",
+          Some(messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel")),
+          controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

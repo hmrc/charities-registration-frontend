@@ -19,7 +19,7 @@ package viewmodels.nominees
 import controllers.nominees.routes
 import models.nominees.NomineeSummary
 import models.{CheckMode, UserAnswers}
-import pages.addressLookup.OrganisationNomineeAddressLookupPage
+import pages.addressLookup.{NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
 import pages.nominees._
 import play.api.i18n.Messages
 import service.CountryService
@@ -56,7 +56,10 @@ class NomineeOrganisationSummaryHelper(countryService: CountryService)(override 
       routes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode),
       messagePrefix = "isOrganisationNomineePreviousAddress")
 
-  def nomineePreviousAddress: Option[SummaryListRow] = None // TODO organisation nominee prev address
+  def nomineePreviousAddress: Option[SummaryListRow] =
+    answerAddress(OrganisationNomineePreviousAddressLookupPage,
+      controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(CheckMode),
+      messagePrefix = "nomineeOrganisationPreviousAddress")
 
   def nomineeCanBePaid: Option[SummaryListRow] =
     answerPrefix(IsOrganisationNomineePaymentsPage,

@@ -35,11 +35,11 @@ object GoverningDocumentStatusHelper extends StatusHelper {
   )
 
   private val common = Seq(WhenGoverningDocumentApprovedPage, SelectGoverningDocumentPage, IsApprovedGoverningDocumentPage)
-  private val f0 = common ++ Seq(GoverningDocumentNamePage)
+  private val commonWithDocName = common ++ Seq(GoverningDocumentNamePage)
 
-  private val f1 = (documentType:SelectGoverningDocument) => if(documentType == Other) f0 else common
-  private val f2 = (list: Seq[QuestionPage[_]]) => list ++ Seq(HasCharityChangedPartsOfGoverningDocumentPage)
-  private val f3 = (list: Seq[QuestionPage[_]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
+  private val governingDoc = (documentType:SelectGoverningDocument) => if(documentType == Other) commonWithDocName else common
+  private val hasCharityChanged = (list: Seq[QuestionPage[_]]) => list ++ Seq(HasCharityChangedPartsOfGoverningDocumentPage)
+  private val sectionsChanged = (list: Seq[QuestionPage[_]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
@@ -49,17 +49,17 @@ object GoverningDocumentStatusHelper extends StatusHelper {
       case Some(governingDocument) =>
         userAnswers.get(IsApprovedGoverningDocumentPage) match {
           case Some(false) =>
-            val newPages = f1(governingDocument)
+            val newPages = governingDoc(governingDocument)
             userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
           case _ =>
             userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
-            case Some(false) =>
-              val newPages = f2(f1(governingDocument))
-              userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
-            case _  =>
-              val pages = f3(f2(f1(governingDocument)))
-              userAnswers.arePagesDefined(pages) && noAdditionalPagesDefined(pages)
-          }
+              case Some(false) =>
+                val newPages = (governingDoc andThen hasCharityChanged)(governingDocument)
+                userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
+              case _  =>
+                val pages = (governingDoc andThen hasCharityChanged andThen sectionsChanged)(governingDocument)
+                userAnswers.arePagesDefined(pages) && noAdditionalPagesDefined(pages)
+            }
         }
       case _=> false
     }

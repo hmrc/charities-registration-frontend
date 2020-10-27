@@ -20,11 +20,13 @@ import java.time.LocalDateTime
 
 import models.UserAnswers
 import play.api.libs.json.Json
+import reactivemongo.api.indexes.Index.Aux
 import play.modules.reactivemongo.ReactiveMongoApi
+import reactivemongo.api.bson.collection.BSONSerializationPack
 import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson.BSONDocument
-import reactivemongo.play.json.ImplicitBSONHandlers.JsObjectDocumentWriter
 import reactivemongo.play.json.collection.JSONCollection
+import reactivemongo.play.json.collection.Helpers.idWrites
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -39,11 +41,40 @@ trait AbstractRepository {
   private def collection: Future[JSONCollection] =
     mongo.database.map(_.collection[JSONCollection](collectionName))
 
-  private val lastUpdatedIndex = Index(
-    key     = Seq("expiresAt" -> IndexType.Ascending),
-    name    = Some("dataExpiry"),
+  private val lastUpdatedIndex: Aux[BSONSerializationPack.type] = index(
+    key = Seq("expiresAt" -> IndexType.Ascending),
+    name = Some("dataExpiry"),
     options = BSONDocument("expireAfterSeconds" -> 0)
   )
+
+  private def index(key: Seq[(String, IndexType)],
+    name: Option[String],
+    unique: Boolean = false,
+    sparse: Boolean = false,
+    background: Boolean = false,
+    options: BSONDocument = BSONDocument.empty): Aux[BSONSerializationPack.type] = Index(
+      key = key,
+      unique = unique,
+      name = name,
+      background = background,
+      sparse = sparse,
+      expireAfterSeconds = None,
+      storageEngine = None,
+      weights = None,
+      defaultLanguage = None,
+      languageOverride = None,
+      textIndexVersion = None,
+      sphereIndexVersion = None,
+      bits = None,
+      min = None,
+      max = None,
+      bucketSize = None,
+      collation = None,
+      wildcardProjection = None,
+      version = None,
+      partialFilter = None,
+      options = options
+    )
 
   def ensureTtlIndex(collection: JSONCollection): Future[Unit] = {
     collection.indexesManager.ensure(lastUpdatedIndex) flatMap {
@@ -59,8 +90,7 @@ trait AbstractRepository {
     }
   }
 
-  val started: Future[Unit] =
-    collection.flatMap(ensureTtlIndex).map(_ => ())
+  val started: Future[Unit] = collection.flatMap(ensureTtlIndex).map(_ => ())
 
   def get(id: String): Future[Option[UserAnswers]] =
     collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])

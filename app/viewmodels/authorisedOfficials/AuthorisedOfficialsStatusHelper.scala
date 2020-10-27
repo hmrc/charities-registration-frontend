@@ -21,39 +21,9 @@ import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials._
 import viewmodels.StatusHelper
+import viewmodels._
 
 object AuthorisedOfficialsStatusHelper extends StatusHelper {
-
-  implicit class AuthorisedOfficialStatus(common: Seq[QuestionPage[_]]) {
-
-    def authorisedOfficial1StartOfJourney: Boolean => Seq[QuestionPage[_]] = (isNino: Boolean) => {
-      updateList(
-        isNino,
-        Seq(AuthorisedOfficialsNinoPage(0)),
-        Seq(AuthorisedOfficialsPassportPage(0))
-      )
-    }
-
-    def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[_]] = (isPreviousAddress: Boolean, index: Int) => {
-      updateList(
-        isPreviousAddress,
-        Seq(AuthorisedOfficialPreviousAddressLookupPage(index))
-      )
-    }
-
-    def authorisedOfficial2StartOfJourney: Boolean => Seq[QuestionPage[_]] = (isNino: Boolean) => {
-      updateList(
-        isNino,
-        authorisedOfficial2common ++ Seq(AuthorisedOfficialsNinoPage(1)),
-        authorisedOfficial2common ++ Seq(AuthorisedOfficialsPassportPage(1))
-      )
-    }
-
-    def updateList(condition: Boolean, addIfTrue: Seq[QuestionPage[_]], elseAdd: Seq[QuestionPage[_]]= Seq.empty): Seq[QuestionPage[_]] = {
-      if (condition) common ++ addIfTrue else common ++ elseAdd
-    }
-  }
-
 
   private def journeyCommon(index: Int): Seq[QuestionPage[_]] = Seq(
     AuthorisedOfficialsNamePage(index),
@@ -99,7 +69,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
               case (Some(isNino2), Some(isPreviousAddress2)) =>
                 val newPages = authorisedOfficial1common.authorisedOfficial1StartOfJourney(isNino1)
                   .previousAddressEntry(isPreviousAddress1, 0)
-                  .authorisedOfficial2StartOfJourney(isNino2)
+                  .authorisedOfficialAnotherStartOfJourney(isNino2, authorisedOfficial2common)
                   .previousAddressEntry(isPreviousAddress2, 1)
 
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)

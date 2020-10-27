@@ -24,6 +24,7 @@ import navigation.ObjectivesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.operationsAndFunds.CharitableObjectivesPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -52,13 +53,25 @@ class CharityObjectivesSummaryControllerSpec extends SpecBase with BeforeAndAfte
 
   "Charity Objectives Summary Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "return OK and the correct view for a GET with some data stored" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(
+        Some(emptyUserAnswers.set(CharitableObjectivesPage, "charitable objectives").success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return SEE_OTHER and the correct view for a GET with nothing in userAnswers" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
-      status(result) mustEqual OK
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

@@ -54,16 +54,10 @@ class ObjectivesNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to How does your charity benefit the public? page when selected any option other than the other and clicked continue" in {
+        "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
           navigator.nextPage(CharitablePurposesPage, NormalMode,
             emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value) mustBe
             operations.PublicBenefitsController.onPageLoad(NormalMode)
-        }
-
-        "go to How does your charity benefit the public? page when selected other option and clicked continue" in {
-          navigator.nextPage(CharitablePurposesPage, NormalMode,
-            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](Other)).success.value) mustBe
-            routes.DeadEndController.onPageLoad()
         }
       }
 
@@ -123,7 +117,8 @@ class ObjectivesNavigatorSpec extends SpecBase {
         "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
           navigator.nextPage(CharitablePurposesPage, CheckMode,
             emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value) mustBe
-            operations.CharityObjectivesSummaryController.onPageLoad()        }
+            operations.CharityObjectivesSummaryController.onPageLoad()
+        }
       }
 
       "from the PublicBenefits page" must {

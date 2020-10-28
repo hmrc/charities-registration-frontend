@@ -22,12 +22,14 @@ import controllers.actions._
 import javax.inject.Inject
 import models.{Index, NormalMode}
 import navigation.OtherOfficialsNavigator
+import pages.IndexPage
 import pages.otherOfficials.OtherOfficialsSummaryPage
 import pages.sections.Section8Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import service.CountryService
 import viewmodels.authorisedOfficials.AddedOfficialsSummaryHelper
+import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.OfficialsSummaryView
 
 import scala.concurrent.Future
@@ -49,14 +51,22 @@ class OtherOfficialsSummaryController @Inject()(
     val secondOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(1), countryService = countryService)(request.userAnswers)
     val thirdOtherOfficialsSummaryHelper = new AddedOfficialsSummaryHelper(Index(2), countryService = countryService)(request.userAnswers)
 
-    Ok(view(firstOtherOfficialsSummaryHelper.otherRows, secondOtherOfficialsSummaryHelper.otherRowsAddAnother,
-      thirdOtherOfficialsSummaryHelper.otherRowsAddThird,
-      OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit()))
+    if (
+      (firstOtherOfficialsSummaryHelper.otherRows ++
+        secondOtherOfficialsSummaryHelper.otherRowsAddAnother ++
+        thirdOtherOfficialsSummaryHelper.otherRowsAddThird) == Seq.empty) {
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+    } else {
+      Ok(view(firstOtherOfficialsSummaryHelper.otherRows, secondOtherOfficialsSummaryHelper.otherRowsAddAnother,
+        thirdOtherOfficialsSummaryHelper.otherRowsAddThird,
+        OtherOfficialsSummaryPage, controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit()
+      ))
+    }
   }
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page, true))
+    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page, checkComplete(request.userAnswers)))
     _              <- sessionRepository.set(updatedAnswers)
 
     } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, updatedAnswers))

@@ -15,36 +15,49 @@
  */
 
 import pages.QuestionPage
-import pages.addressLookup.AuthorisedOfficialPreviousAddressLookupPage
+import pages.addressLookup.{AuthorisedOfficialPreviousAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNinoPage, AuthorisedOfficialsPassportPage}
+import pages.otherOfficials.{OtherOfficialsNinoPage, OtherOfficialsPassportPage}
+import pages.sections.Section7Page
 
 package object viewmodels {
 
-  implicit class AuthorisedOfficialStatus(common: Seq[QuestionPage[_]]) {
+  implicit class OfficialStatus(common: Seq[QuestionPage[_]])(implicit sectionPage: QuestionPage[Boolean]) {
 
-    def authorisedOfficial1StartOfJourney: Boolean => Seq[QuestionPage[_]] = (isNino: Boolean) => {
-      updateList(
-        isNino,
-        Seq(AuthorisedOfficialsNinoPage(0)),
-        Seq(AuthorisedOfficialsPassportPage(0))
-      )
-    }
+    def equivalentPages(index: Int): Map[String, (QuestionPage[_], QuestionPage[_])] = Map(
+      ("nino", (AuthorisedOfficialsNinoPage(index), OtherOfficialsNinoPage(index))),
+      ("passport", (AuthorisedOfficialsPassportPage(index), OtherOfficialsPassportPage(index))),
+      ("previousAddress", (AuthorisedOfficialPreviousAddressLookupPage(index), OtherOfficialPreviousAddressLookupPage(index)))
+    )
+
+    def getPage(section: QuestionPage[Boolean], page: String, index: Int): Seq[QuestionPage[_]] = Seq(
+      if (section == Section7Page) {
+        equivalentPages(index)(page)._1
+      } else {
+        equivalentPages(index)(page)._2
+      }
+    )
 
     def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[_]] = (isPreviousAddress: Boolean, index: Int) => {
       updateList(
         isPreviousAddress,
-        Seq(AuthorisedOfficialPreviousAddressLookupPage(index))
+        getPage(sectionPage, "previousAddress", index)
       )
     }
 
-    def authorisedOfficialAnotherStartOfJourney: (Boolean, Seq[QuestionPage[_]]) => Seq[QuestionPage[_]] =
-      (isNino: Boolean, authorisedOfficial2common: Seq[QuestionPage[_]]) => {
+    def indexedOfficialStartOfJourney: (Int, Boolean, Seq[QuestionPage[_]]) => Seq[QuestionPage[_]] =
+      (index: Int, isNino: Boolean, commonPages: Seq[QuestionPage[_]]) => {
         updateList(
           isNino,
-          authorisedOfficial2common ++ Seq(AuthorisedOfficialsNinoPage(1)),
-          authorisedOfficial2common ++ Seq(AuthorisedOfficialsPassportPage(1))
+          commonPages ++ getPage(sectionPage, "nino", index),
+          commonPages ++ getPage(sectionPage, "passport", index)
         )
       }
+
+    def getOfficialPages(index: Int, isNino: Boolean, isPreviousAddress: Boolean, previousPages: Seq[QuestionPage[_]] = Seq.empty): Seq[QuestionPage[_]] = {
+      common.indexedOfficialStartOfJourney(index, isNino, previousPages)
+        .previousAddressEntry(isPreviousAddress, index)
+    }
 
     def updateList(condition: Boolean, addIfTrue: Seq[QuestionPage[_]], elseAdd: Seq[QuestionPage[_]]= Seq.empty): Seq[QuestionPage[_]] = {
       if (condition) common ++ addIfTrue else common ++ elseAdd

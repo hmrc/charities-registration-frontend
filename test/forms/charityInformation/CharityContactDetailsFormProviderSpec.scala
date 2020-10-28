@@ -52,7 +52,6 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
       FormError(fieldName, invalidKey, Seq(formProvider.validateTelephoneNumber))
     )
   }
-
   ".alternativePhoneNumber" must {
 
     val fieldName = "alternativePhoneNumber"

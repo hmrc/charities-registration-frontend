@@ -23,6 +23,7 @@ import play.api.data.{Form, FormError}
 class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
   private val maxLength = 160
+  private val fullNameMaxLength = 60
   private val formProvider: CharityNameFormProvider = inject[CharityNameFormProvider]
   private val form: Form[CharityName] = formProvider()
 
@@ -42,8 +43,8 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      maxLength = fullNameMaxLength,
+      lengthError = FormError(fieldName, lengthKey, Seq(fullNameMaxLength))
     )
 
     behave like mandatoryField(

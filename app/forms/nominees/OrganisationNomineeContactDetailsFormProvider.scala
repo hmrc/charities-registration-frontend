@@ -25,9 +25,6 @@ import play.api.data.Forms._
 class OrganisationNomineeContactDetailsFormProvider @Inject() extends Mappings {
 
   private val maxEmailLength: Int = 160
-  private[nominees] val validateTelephoneNumber = """^\+?(?:\s*\d){10,13}$"""
-  private[nominees] val validateEmailAddress = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
-
 
   def apply(): Form[OrganisationNomineeContactDetails] =
     Form(

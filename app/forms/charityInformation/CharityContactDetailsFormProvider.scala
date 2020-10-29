@@ -24,8 +24,6 @@ import play.api.data.Forms._
 
 class CharityContactDetailsFormProvider @Inject() extends Mappings {
 
-  private[charityInformation] val validateTelephoneNumber = """^\+?(?:\s*\d){10,13}$"""
-  private[charityInformation] val emailAddressPattern = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
   private[charityInformation] val maxLength = 160
 
   def apply(): Form[CharityContactDetails] =
@@ -37,7 +35,7 @@ class CharityContactDetailsFormProvider @Inject() extends Mappings {
           .verifying(regexp(validateTelephoneNumber,"charityContactDetails.alternativePhoneNumber.error.format"))),
         "emailAddress" -> text("charityContactDetails.emailAddress.error.required")
           .verifying(maxLength(maxLength, "charityContactDetails.emailAddress.error.length"))
-          .verifying(regexp(emailAddressPattern, "charityContactDetails.emailAddress.error.format")))
+          .verifying(regexp(validateEmailAddress, "charityContactDetails.emailAddress.error.format")))
       (CharityContactDetails.apply)(CharityContactDetails.unapply)
     )
 

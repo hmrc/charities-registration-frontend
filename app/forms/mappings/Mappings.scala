@@ -25,6 +25,12 @@ import play.api.data.Forms.of
 
 trait Mappings extends Formatters with Constraints {
 
+    val validateField = "^[a-zA-Z0-9-, ']+$"
+
+    val validateTelephoneNumber = """^\+?(?:\s*\d){10,13}$"""
+
+    val validateEmailAddress = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
+
   protected def text(errorKey: String = "error.required"): FieldMapping[String] =
     of(stringFormatter(errorKey))
 

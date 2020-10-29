@@ -57,7 +57,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       form,
       fieldName,
       "123456&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -91,7 +91,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
       form,
       fieldName,
       "123456&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -124,12 +124,12 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
 
     "valid for ORegulatorName" in {
 
-      "ORegulatorName" must fullyMatch regex formProvider.validateFields
+      "ORegulatorName" must fullyMatch regex formProvider.validateField
     }
 
     "ORegulatorName" in {
 
-      "ORegulatorName&" mustNot fullyMatch regex formProvider.validateFields
+      "ORegulatorName&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 
@@ -137,12 +137,12 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
 
     "valid for 123456" in {
 
-      "123456" must fullyMatch regex formProvider.validateFields
+      "123456" must fullyMatch regex formProvider.validateField
     }
 
     "valid for 01632 960" in {
 
-      "123456&" mustNot fullyMatch regex formProvider.validateFields
+      "123456&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 

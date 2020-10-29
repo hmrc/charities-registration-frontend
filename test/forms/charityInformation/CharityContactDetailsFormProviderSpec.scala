@@ -104,7 +104,7 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "invalidEmail",
-      FormError(fieldName, invalidKey, Seq(formProvider.emailAddressPattern))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateEmailAddress))
     )
   }
 
@@ -152,12 +152,12 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "valid for abc@gmail.com" in {
 
-      "abc@gmail.com" must fullyMatch regex formProvider.emailAddressPattern
+      "abc@gmail.com" must fullyMatch regex formProvider.validateEmailAddress
     }
 
     "valid for abc@gmail" in {
 
-      "abc@gmail" mustNot fullyMatch regex formProvider.emailAddressPattern
+      "abc@gmail" mustNot fullyMatch regex formProvider.validateEmailAddress
     }
   }
 

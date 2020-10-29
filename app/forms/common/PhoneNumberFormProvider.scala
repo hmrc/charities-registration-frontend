@@ -24,8 +24,6 @@ import play.api.data.Forms._
 
 class PhoneNumberFormProvider @Inject() extends Mappings {
 
-  private[common] val validateTelephoneNumber = """^\+?(?:\s*\d){10,13}$"""
-
   def apply(messagePrefix: String): Form[PhoneNumber] =
     Form(
       mapping(

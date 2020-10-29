@@ -427,7 +427,7 @@ charityRegulator.checkYourAnswersLabel = Charity’s regulators
 charityCommissionRegistrationNumber.title = What is the Charity Commission for England and Wales registration number?
 charityCommissionRegistrationNumber.heading = What is the Charity Commission for England and Wales registration number?
 charityCommissionRegistrationNumber.error.required = Enter the charity’s registration number
-charityCommissionRegistrationNumber.error.format = Registration number must be 6 or 7 numbers, like 123456 or 1234567
+charityCommissionRegistrationNumber.error.format = Registration number must be 6 or 7 numbers
 charityCommissionRegistrationNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, 123456 or 1234567
 charityCommissionRegistrationNumber.checkYourAnswersLabel = Charity Commission for England and Wales registration number
 
@@ -436,7 +436,7 @@ charityCommissionRegistrationNumber.checkYourAnswersLabel = Charity Commission f
 scottishRegulatorRegNumber.title = What is the Office of the Scottish Charity Regulator (OSCR) registration number?
 scottishRegulatorRegNumber.heading = What is the Office of the Scottish Charity Regulator (OSCR) registration number?
 scottishRegulatorRegNumber.error.required = Enter the charity’s registration number
-scottishRegulatorRegNumber.error.format = Registration number is SC then 0 and 5 numbers, like SC012345
+scottishRegulatorRegNumber.error.format = Registration number must be SC followed by 6 numbers
 scottishRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, SC012345
 scottishRegulatorRegNumber.checkYourAnswersLabel = Office of the Scottish Charity Regulator registration number
 
@@ -445,7 +445,7 @@ scottishRegulatorRegNumber.checkYourAnswersLabel = Office of the Scottish Charit
 nIRegulatorRegNumber.title = What is the Charity Commission for Northern Ireland registration number?
 nIRegulatorRegNumber.heading = What is the Charity Commission for Northern Ireland registration number?
 nIRegulatorRegNumber.error.required = Enter the charity’s registration number
-nIRegulatorRegNumber.error.format = Registration number is 6 numbers, like 123456
+nIRegulatorRegNumber.error.format = Registration number must be 6 numbers
 nIRegulatorRegNumber.hint = The registration number will be on any mail the regulator has sent the charity. For example, 123456
 nIRegulatorRegNumber.checkYourAnswersLabel = Charity Commission for Northern Ireland registration number
 
@@ -455,12 +455,12 @@ charityOtherRegulatorDetails.title = The charity’s regulator details
 charityOtherRegulatorDetails.heading = The charity’s regulator details
 charityOtherRegulatorDetails.regulatorName.label = Name of the charity’s regulator
 charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of the charity’s regulator
-charityOtherRegulatorDetails.regulatorName.error.format = The name of your charity’s regulator must not include the following characters: & ( ) : @
-charityOtherRegulatorDetails.regulatorName.error.length = Your charity’s regulator name should be 100 characters or fewer
+charityOtherRegulatorDetails.regulatorName.error.format = Regulator name must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charityOtherRegulatorDetails.regulatorName.error.length = Regulator name must be 100 characters or less
 charityOtherRegulatorDetails.registrationNumber.label = Registration number
 charityOtherRegulatorDetails.registrationNumber.error.required = Enter the charity’s registration number
-charityOtherRegulatorDetails.registrationNumber.error.format = Your charity’s registration number must not include the following characters: & ( ) : @
-charityOtherRegulatorDetails.registrationNumber.error.length = Your charity’s registration number should be 20 characters or fewer
+charityOtherRegulatorDetails.registrationNumber.error.format = Registration number must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charityOtherRegulatorDetails.registrationNumber.error.length = Registration number must be 20 characters or less
 charityOtherRegulatorDetails.hint = The registration number will be on any mail the regulator has sent the charity.
 charityOtherRegulatorDetails.name.checkYourAnswersLabel = Charity’s other regulator
 charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Registration number for the charity’s regulator
@@ -482,8 +482,8 @@ selectWhyNoRegulator.checkYourAnswersLabel = Reason for not registering
 # ----------------------------------------------------------
 whyNotRegisteredWithCharity.title = What is the other reason why the charity not registered with a regulator?
 whyNotRegisteredWithCharity.heading = What is the other reason why the charity not registered with a regulator?
-whyNotRegisteredWithCharity.error.required = Enter why the charity has not registered with a regulator
-whyNotRegisteredWithCharity.error.format = Your answer must not include the following characters: & ( ) : @
+whyNotRegisteredWithCharity.error.required = Enter why the charity is not registered with a regulator
+whyNotRegisteredWithCharity.error.format = The reason why the charity is not registered with a regulator must only include letters, numbers, hyphens, apostrophes, commas and spaces
 whyNotRegisteredWithCharity.error.length = Your answer must be 100 characters or fewer
 whyNotRegisteredWithCharity.checkYourAnswersLabel = Other reason for not registering
 

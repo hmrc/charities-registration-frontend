@@ -20,10 +20,13 @@ import models.UserAnswers
 import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials._
+import pages.sections.Section7Page
 import viewmodels.StatusHelper
 import viewmodels._
 
 object AuthorisedOfficialsStatusHelper extends StatusHelper {
+
+  implicit val sectionPage: QuestionPage[Boolean] = Section7Page
 
   private def journeyCommon(index: Int): Seq[QuestionPage[_]] = Seq(
     AuthorisedOfficialsNamePage(index),
@@ -45,7 +48,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
 
   private val authorisedOfficial2common: Seq[QuestionPage[_]] = journeyCommon(1)
 
-  private val allPages: Seq[QuestionPage[_]] =  {
+  private val allPages: Seq[QuestionPage[_]] = {
     authorisedOfficial1common ++ authorisedOfficial2common ++
       remainingJourneyPages(0) ++ remainingJourneyPages(1)
   }
@@ -60,17 +63,16 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
 
         userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
           case Some(false) =>
-            val newPages = authorisedOfficial1common.authorisedOfficial1StartOfJourney(isNino1).previousAddressEntry(isPreviousAddress1, 0)
+            val newPages = authorisedOfficial1common.getOfficialPages(0, isNino1, isPreviousAddress1)
 
             userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
           case Some(true) =>
 
             (userAnswers.get(IsAuthorisedOfficialNinoPage(1)), userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(1))) match {
               case (Some(isNino2), Some(isPreviousAddress2)) =>
-                val newPages = authorisedOfficial1common.authorisedOfficial1StartOfJourney(isNino1)
-                  .previousAddressEntry(isPreviousAddress1, 0)
-                  .authorisedOfficialAnotherStartOfJourney(isNino2, authorisedOfficial2common)
-                  .previousAddressEntry(isPreviousAddress2, 1)
+                val newPages = authorisedOfficial1common
+                  .getOfficialPages(0, isNino1, isPreviousAddress1)
+                  .getOfficialPages(1, isNino2, isPreviousAddress2, authorisedOfficial2common)
 
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
               case _ => false

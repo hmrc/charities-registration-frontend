@@ -106,7 +106,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
 
     case AddAnotherOtherOfficialPage => userAnswers: UserAnswers => userAnswers.get(AddAnotherOtherOfficialPage) match {
       case Some(true) => otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode,2)
-      case Some(false) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad() // TODO redirect to next page once created
+      case Some(false) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 

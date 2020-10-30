@@ -586,8 +586,8 @@ startCharitableObjectives.b3 = benefit to the public
 charitableObjectives.title = What are the charity’s charitable objectives?
 charitableObjectives.heading = What are the charity’s charitable objectives?
 charitableObjectives.error.required = Enter the charity’s charitable objectives
-charitableObjectives.error.format = Your answer must not include the following characters: & () : @
-charitableObjectives.error.length = Your answer must be 500 characters or fewer
+charitableObjectives.error.format = Charity’s charitable objectives must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charitableObjectives.error.length = Charity’s charitable objectives must be 500 characters or less
 charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written into the governing document. For example, you could summarise what is written in the charity’s objects clause.
 charitableObjectives.checkYourAnswersLabel = Charitable objectives
 
@@ -617,8 +617,8 @@ charitablePurposes.checkYourAnswersLabel = Charity’s charitable purposes
 publicBenefits.title = How does the charity benefit the public?
 publicBenefits.heading = How does the charity benefit the public?
 publicBenefits.error.required = Enter how the charity benefits the public
-publicBenefits.error.format = Your answer must not include the following characters: & ( ) : @
-publicBenefits.error.length = Your answer must be 255 characters or fewer
+publicBenefits.error.format = How your charity benefits the public must only include letters, numbers, hyphens, apostrophes, commas and spaces
+publicBenefits.error.length = How your charity benefits the public must be 255 characters or less
 publicBenefits.checkYourAnswersLabel = How the charity benefits the public
 
 # Charity Objectives Summary page

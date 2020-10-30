@@ -55,7 +55,7 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateReason))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -63,12 +63,12 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
 
     "valid for abcd" in {
 
-      "abcd" must fullyMatch regex formProvider.validateReason
+      "abcd" must fullyMatch regex formProvider.validateField
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateReason
+      "abc@" mustNot fullyMatch regex formProvider.validateField
     }
   }
 }

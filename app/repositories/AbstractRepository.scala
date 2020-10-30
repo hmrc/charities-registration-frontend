@@ -24,9 +24,9 @@ import reactivemongo.api.indexes.Index.Aux
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.bson.collection.BSONSerializationPack
 import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.bson.BSONDocument
 import reactivemongo.play.json.collection.JSONCollection
 import reactivemongo.play.json.collection.Helpers.idWrites
+import reactivemongo.api.bson.BSONDocument
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

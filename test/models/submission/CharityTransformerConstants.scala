@@ -38,26 +38,10 @@ import play.api.libs.json.{JsPath, JsValue, Json}
 
 import scala.util.Try
 
-trait CharityTransformerTodoPages extends SpecBase{
+trait CharityTransformerConstants extends SpecBase{
   //scalastyle:off magic.number
 
   private val date = LocalDate.now()
-
-  // TODO when page created
-  case object NoBankStatementPage extends QuestionPage[String] {
-
-    override def path: JsPath = JsPath \ toString
-
-    override def toString: String = "noBankStatement"
-  }
-
-  // TODO when page created
-  case class OverseasCountryPage(index: Int) extends QuestionPage[String] {
-
-    override def path: JsPath = JsPath \ toString \ index
-
-    override def toString: String = "overseas"
-  }
 
   val day: Int = 11
   val month: Int = 12
@@ -108,6 +92,8 @@ trait CharityTransformerTodoPages extends SpecBase{
     _.set(AccountingPeriodEndDatePage,
       MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
       _.set(IsFinancialAccountsPage, true)).flatMap(
+      _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
+      _.set(ActualIncomePage, BigDecimal(121))).flatMap(
       _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
       _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
       _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
@@ -453,6 +439,8 @@ trait CharityTransformerTodoPages extends SpecBase{
        |          "accountPeriodEnd": "0101",
        |          "financialAccounts": true
        |        },
+       |        "estimatedGrossIncome": 123.00,
+       |        "incomeReceivedToDate": 121.00,
        |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
@@ -620,6 +608,8 @@ trait CharityTransformerTodoPages extends SpecBase{
        |          "accountPeriodEnd": "0101",
        |          "financialAccounts": true
        |        },
+       |        "estimatedGrossIncome": 123.00,
+       |        "incomeReceivedToDate": 121.00,
        |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,

@@ -31,7 +31,8 @@ class WhenGoverningDocumentApprovedFormProvider @Inject()(timeMachine: TimeMachi
         invalidKey     = "whenGoverningDocumentApproved.error.invalid",
         allRequiredKey = "whenGoverningDocumentApproved.error.required.all",
         twoRequiredKey = "whenGoverningDocumentApproved.error.required.two",
-        requiredKey    = "whenGoverningDocumentApproved.error.required"
+        requiredKey    = "whenGoverningDocumentApproved.error.required",
+        nonNumericKey  = "whenGoverningDocumentApproved.error.nonNumeric"
       ).verifying(maxDate(timeMachine.now(), "whenGoverningDocumentApproved.error.future", "day", "month", "year"))
     )
 }

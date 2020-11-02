@@ -522,8 +522,8 @@ selectGoverningDocument.checkYourAnswersLabel = Name
 governingDocumentName.title = What is the name of the governing document that was used to set up and run the charity?
 governingDocumentName.heading = What is the name of the governing document that was used to set up and run the charity?
 governingDocumentName.error.required = Enter the governing document that was used to set up and run the charity
-governingDocumentName.error.length = The name of the governing document must be 50 characters or fewer
-governingDocumentName.error.format = The name of the governing document must not include the following characters: & ( ) : @
+governingDocumentName.error.length = Name of the governing document must be 50 characters or less
+governingDocumentName.error.format = Name of the governing document must only include letters, numbers, hyphens, apostrophes, commas and spaces
 governingDocumentName.checkYourAnswersLabel = Other name
 
 # whenGoverningDocumentApproved Messages
@@ -532,18 +532,19 @@ whenGoverningDocumentApproved.title = What date did the governing document becom
 whenGoverningDocumentApproved.heading = What date did the {0} become effective?
 WhenGoverningDocumentApproved.p1 = If the charity is a CIO (Charitable Incorporated Organisation), it is the date the charity was accepted onto the regulator’s register.
 WhenGoverningDocumentApproved.hint = For example, 27 3 2007
-whenGoverningDocumentApproved.error.invalid = The date when the governing document was approved must be a real date.
+whenGoverningDocumentApproved.error.invalid = The date when the governing document was approved must be a real date
 whenGoverningDocumentApproved.error.required.all = Enter the date when the governing document became effective
 whenGoverningDocumentApproved.error.required.two = Enter the {0} and the {1} when the governing document became effective
 whenGoverningDocumentApproved.error.required = Enter the {0} when the governing document became effective
-whenGoverningDocumentApproved.error.future = The date when the governing document was approved must be today or in the past.
+whenGoverningDocumentApproved.error.future = The date when the governing document was approved must be today or in the past
+whenGoverningDocumentApproved.error.nonNumeric = The date when the governing document was approved must be written as a number
 whenGoverningDocumentApproved.checkYourAnswersLabel = Effective date
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
 isApprovedGoverningDocument.title = Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?
 isApprovedGoverningDocument.heading = Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?
-isApprovedGoverningDocument.error.required = Select yes if the charity is using a form of governing document that is approved by a national organisation, parent body or principle regulator
+isApprovedGoverningDocument.error.required = Select yes if the charity’s governing document is approved
 isApprovedGoverningDocument.checkYourAnswersLabel = Approved by a regulator
 
 # HasCharityChangedPartsOfGoverningDocument Messages
@@ -557,9 +558,9 @@ hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = Have sections 
 # ----------------------------------------------------------
 sectionsChangedGoverningDocument.title = What sections and clauses have changed in the governing document and why?
 sectionsChangedGoverningDocument.heading = What sections and clauses have changed in the governing document and why?
-sectionsChangedGoverningDocument.error.required = Enter what sections and clauses have changed in the governing document and why they have changed
-sectionsChangedGoverningDocument.error.length = Your answer must be 350 characters or fewer
-sectionsChangedGoverningDocument.error.format = Your answer must not include the following characters: & () : @
+sectionsChangedGoverningDocument.error.required = Enter what sections and clauses have changed in the governing document and why
+sectionsChangedGoverningDocument.error.length = The sections that have changed in the governing document must be 350 characters or less
+sectionsChangedGoverningDocument.error.format = The sections that have changed in the governing document must only include letters, numbers, hyphens, apostrophes, commas and spaces
 sectionsChangedGoverningDocument.checkYourAnswersLabel = Sections and clauses that have been changed
 
 # GoverningDocument Summary page

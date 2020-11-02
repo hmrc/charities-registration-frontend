@@ -22,13 +22,12 @@ import play.api.data.Form
 
 class SectionsChangedGoverningDocumentFormProvider @Inject() extends Mappings {
 
-  private[regulatorsAndDocuments] val validateReasonField = """^[a-zA-Z0-9 ][^@&:)(]*$"""
   private[regulatorsAndDocuments] val maxLength = 350
 
   def apply(): Form[String] =
     Form(
       "value" -> text("sectionsChangedGoverningDocument.error.required")
          .verifying(maxLength(maxLength, "sectionsChangedGoverningDocument.error.length"))
-        .verifying(regexp(validateReasonField,"sectionsChangedGoverningDocument.error.format"))
+        .verifying(regexp(validateField,"sectionsChangedGoverningDocument.error.format"))
       )
 }

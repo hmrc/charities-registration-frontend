@@ -54,13 +54,13 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
   "NomineeDetailsSummaryController Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "redirect to index page no rows are defined" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
-      status(result) mustEqual OK
+      status(result) mustEqual SEE_OTHER
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

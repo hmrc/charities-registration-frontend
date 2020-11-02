@@ -15,14 +15,15 @@
  */
 
 import pages.QuestionPage
-import pages.addressLookup.{AuthorisedOfficialPreviousAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
+import pages.addressLookup._
 import pages.authorisedOfficials.{AuthorisedOfficialsNinoPage, AuthorisedOfficialsPassportPage}
+import pages.nominees._
 import pages.otherOfficials.{OtherOfficialsNinoPage, OtherOfficialsPassportPage}
 import pages.sections.Section7Page
 
 package object viewmodels {
 
-  implicit class OfficialStatus(common: Seq[QuestionPage[_]])(implicit sectionPage: QuestionPage[Boolean]) {
+  implicit class OfficialStatus(override val commonPages: Seq[QuestionPage[_]])(implicit sectionPage: QuestionPage[Boolean]) extends StatusUtil {
 
     def equivalentPages(index: Int): Map[String, (QuestionPage[_], QuestionPage[_])] = Map(
       ("nino", (AuthorisedOfficialsNinoPage(index), OtherOfficialsNinoPage(index))),
@@ -39,7 +40,7 @@ package object viewmodels {
     )
 
     def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[_]] = (isPreviousAddress: Boolean, index: Int) => {
-      updateList(
+      updateAvailablePages(
         isPreviousAddress,
         getPage(sectionPage, "previousAddress", index)
       )
@@ -47,7 +48,7 @@ package object viewmodels {
 
     def indexedOfficialStartOfJourney: (Int, Boolean, Seq[QuestionPage[_]]) => Seq[QuestionPage[_]] =
       (index: Int, isNino: Boolean, commonPages: Seq[QuestionPage[_]]) => {
-        updateList(
+        updateAvailablePages(
           isNino,
           commonPages ++ getPage(sectionPage, "nino", index),
           commonPages ++ getPage(sectionPage, "passport", index)
@@ -55,12 +56,24 @@ package object viewmodels {
       }
 
     def getOfficialPages(index: Int, isNino: Boolean, isPreviousAddress: Boolean, previousPages: Seq[QuestionPage[_]] = Seq.empty): Seq[QuestionPage[_]] = {
-      common.indexedOfficialStartOfJourney(index, isNino, previousPages)
+      commonPages.indexedOfficialStartOfJourney(index, isNino, previousPages)
         .previousAddressEntry(isPreviousAddress, index)
     }
 
-    def updateList(condition: Boolean, addIfTrue: Seq[QuestionPage[_]], elseAdd: Seq[QuestionPage[_]]= Seq.empty): Seq[QuestionPage[_]] = {
-      if (condition) common ++ addIfTrue else common ++ elseAdd
+  }
+
+  implicit class NomineeStatus(override val commonPages: Seq[QuestionPage[_]]) extends StatusUtil {
+
+    def getIndividualNomineePages(isNino: Boolean, isPreviousAddress: Boolean, isPayment: Boolean): Seq[QuestionPage[_]] = {
+        commonPages.updateAvailablePages(isNino, Seq(IndividualNomineesNinoPage), Seq(IndividualNomineesPassportPage))
+          .updateAvailablePages(isPreviousAddress, Seq(NomineeIndividualPreviousAddressLookupPage))
+          .updateAvailablePages(isPayment, Seq(IndividualNomineesBankDetailsPage))
+    }
+
+    def getOrganisationNomineePages(isNino: Boolean, isPreviousAddress: Boolean, isPayment: Boolean): Seq[QuestionPage[_]] = {
+        commonPages.updateAvailablePages(isNino, Seq(OrganisationAuthorisedPersonNinoPage), Seq(OrganisationAuthorisedPersonPassportPage))
+          .updateAvailablePages(isPreviousAddress, Seq(OrganisationNomineePreviousAddressLookupPage))
+          .updateAvailablePages(isPayment, Seq(OrganisationNomineesBankDetailsPage))
     }
 
   }

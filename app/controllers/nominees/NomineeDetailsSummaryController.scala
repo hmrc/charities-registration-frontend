@@ -22,11 +22,13 @@ import controllers.LocalBaseController
 import controllers.actions._
 import models.NormalMode
 import navigation.NomineesNavigator
+import pages.IndexPage
 import pages.nominees.{ChooseNomineePage, NomineeDetailsSummaryPage}
 import pages.sections.Section9Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CountryService
+import viewmodels.nominees.NomineeStatusHelper.checkComplete
 import viewmodels.nominees.{NomineeDetailsSummaryHelper, NomineeIndividualSummaryHelper, NomineeOrganisationSummaryHelper}
 import views.html.nominees.NomineeDetailsSummaryView
 
@@ -52,15 +54,18 @@ class NomineeDetailsSummaryController @Inject()(
       case Some(false) => Some(new NomineeOrganisationSummaryHelper(countryService)(request.userAnswers).rows)
       case None => None
     }
-
-    Ok(view(nomineeSummaryHelper.rows, nomineeSummaryRows, "nomineeDetailsSummary",
-      controllers.nominees.routes.NomineeDetailsSummaryController.onSubmit()))
+    if (nomineeSummaryHelper.rows == Seq.empty) {
+      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+    } else {
+      Ok(view(nomineeSummaryHelper.rows, nomineeSummaryRows, "nomineeDetailsSummary",
+        controllers.nominees.routes.NomineeDetailsSummaryController.onSubmit()))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section9Page, true))
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section9Page, checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(NomineeDetailsSummaryPage, NormalMode, updatedAnswers))
 

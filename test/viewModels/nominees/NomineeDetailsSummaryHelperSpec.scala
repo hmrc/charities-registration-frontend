@@ -27,7 +27,7 @@ import viewmodels.nominees.NomineeDetailsSummaryHelper
 class NomineeDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val helperWithOrganisation = new NomineeDetailsSummaryHelper(UserAnswers("id")
-    .set(IsAuthoriseNomineePage, false)
+    .set(IsAuthoriseNomineePage, true)
     .flatMap(_.set(ChooseNomineePage, false)).success.value)
 
   private val helperNoNominee = new NomineeDetailsSummaryHelper(UserAnswers("id")

@@ -108,5 +108,7 @@
     }
   ],
   "acknowledgementReference" : "765432",
-  "isFinancialAccounts" : true
+  "isFinancialAccounts" : true,
+  "estimatedIncome": 123.00,
+  "actualIncome": 121.00
 }

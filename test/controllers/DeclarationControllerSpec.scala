@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.Assets.Redirect
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
-import models.submission.CharityTransformerTodoPages
+import models.submission.CharityTransformerConstants
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
@@ -34,7 +34,7 @@ import views.html.DeclarationView
 
 import scala.concurrent.Future
 
-class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerTodoPages{
+class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerConstants{
   //scalastyle:off magic.number
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)

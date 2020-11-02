@@ -52,7 +52,7 @@ class CharityCommonTransformer extends JsonTransformer {
             val result = for {
               v1 <- officialAddress.transform((localPath \ 'addressDetails \ 'officialAddress).json.pick).asOpt
               v2 <- correspondenceAddress.transform((localPath \ 'addressDetails \ 'correspondenceAddress).json.pick).asOpt
-            } yield v1!=v2
+            } yield v1 != v2
             JsBoolean(result.fold(false)(r => r && !isDiff))
           }
       }
@@ -80,7 +80,7 @@ class CharityCommonTransformer extends JsonTransformer {
   def userAnswersToIndDeclarationInfo : Reads[JsObject] = {
 
     val isNonUK = (__ \ 'authorisedOfficials \ 0  \ 'officialAddress \ 'country \ 'code).read[String].map{
-      code => JsBoolean(code!="GB")
+      code => JsBoolean(code != "GB")
     }
 
     (getName(localPath \ 'declarationInfo \ 'name, __ \ 'authorisedOfficials \ 0 \ 'officialsName) and

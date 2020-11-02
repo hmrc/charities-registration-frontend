@@ -34,7 +34,7 @@ import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
 
-class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
+class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
   val jsonTransformer = new CharitySubmissionTransformer(new CharityTransformer, new CharityPartnerTransformer, new CharityCommonTransformer)
 
@@ -68,6 +68,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
         _.set(AccountingPeriodEndDatePage,
           MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
+          _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
+          _.set(ActualIncomePage, BigDecimal(121))).flatMap(
           _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
           _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
           _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
@@ -126,18 +128,18 @@ class CharitySubmissionTransformerSpec extends CharityTransformerTodoPages {
       ).flatMap(_.set(AccountingPeriodEndDatePage,
         MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
         _.set(IsFinancialAccountsPage, true)).flatMap(
-        _.set(NoBankStatementPage,
+        _.set(WhyNoBankStatementPage,
           "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900")
       ).flatMap(
         _.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00))).flatMap(
         _.set(ActualIncomePage, BigDecimal.valueOf(19999.99))).flatMap(
         _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
         _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-        _.set(OverseasCountryPage(0), "Country 1")).flatMap(
-        _.set(OverseasCountryPage(1), "Country 2")).flatMap(
-        _.set(OverseasCountryPage(2), "Country 3")).flatMap(
-        _.set(OverseasCountryPage(3), "Country 4")).flatMap(
-        _.set(OverseasCountryPage(4), "Country 5")
+        _.set(WhatCountryDoesTheCharityOperateInPage(0), "Country 1")).flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(1), "Country 2")).flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(2), "Country 3")).flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(3), "Country 4")).flatMap(
+        _.set(WhatCountryDoesTheCharityOperateInPage(4), "Country 5")
       )).success.value
 
       userAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe jsonAllFields

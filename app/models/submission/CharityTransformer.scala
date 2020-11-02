@@ -97,12 +97,12 @@ class CharityTransformer extends JsonTransformer {
       (__ \ 'accountingPeriodEndDate).read[String].flatMap(accountPeriod =>
         (__ \ 'operationAndFundsCommon \ 'accountPeriodEnd).json.put(JsString(accountPeriod.replaceAll("-", "")))) and
         (__ \ 'operationAndFundsCommon \ 'financialAccounts).json.copyFrom(hasFinancialAccounts) and
-        (__ \ 'noBankStatement).readNullable[String].flatMap {
+        (__ \ 'whyNoBankStatement).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes.substring(0,255)))
           case Some(changes) => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes))
           case _ => doNothing
         } and
-        (__ \ 'noBankStatement).readNullable[String].flatMap {
+        (__ \ 'whyNoBankStatement).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatementsB).json.put(JsString(changes.substring(255)))
           case _ => doNothing
         }
@@ -111,19 +111,24 @@ class CharityTransformer extends JsonTransformer {
 
   def userAnswersToOtherCountriesOfOperation : Reads[JsObject] = {
     (
-      ((__ \ 'otherCountriesOfOperation \ 'overseas1 ).json.copyFrom((__ \ 'overseas \ 0 ).json.pick) orElse doNothing) and
-        ((__ \ 'otherCountriesOfOperation \ 'overseas2 ).json.copyFrom((__ \ 'overseas \ 1 ).json.pick) orElse doNothing) and
-        ((__ \ 'otherCountriesOfOperation \ 'overseas3 ).json.copyFrom((__ \ 'overseas \ 2 ).json.pick) orElse doNothing) and
-        ((__ \ 'otherCountriesOfOperation \ 'overseas4 ).json.copyFrom((__ \ 'overseas \ 3 ).json.pick) orElse doNothing) and
-        ((__ \ 'otherCountriesOfOperation \ 'overseas5 ).json.copyFrom((__ \ 'overseas \ 4 ).json.pick) orElse doNothing)
+      ((__ \ 'otherCountriesOfOperation \ 'overseas1 ).json
+        .copyFrom((__ \ 'whatCountryDoesTheCharityOperateIn \ 0 \ 'overseasCountry ).json.pick) orElse doNothing) and
+        ((__ \ 'otherCountriesOfOperation \ 'overseas2 ).json
+          .copyFrom((__ \ 'whatCountryDoesTheCharityOperateIn \ 1 \ 'overseasCountry ).json.pick) orElse doNothing) and
+        ((__ \ 'otherCountriesOfOperation \ 'overseas3 ).json
+          .copyFrom((__ \ 'whatCountryDoesTheCharityOperateIn \ 2 \ 'overseasCountry ).json.pick) orElse doNothing) and
+        ((__ \ 'otherCountriesOfOperation \ 'overseas4 ).json
+          .copyFrom((__ \ 'whatCountryDoesTheCharityOperateIn \ 3 \ 'overseasCountry ).json.pick) orElse doNothing) and
+        ((__ \ 'otherCountriesOfOperation \ 'overseas5 ).json
+          .copyFrom((__ \ 'whatCountryDoesTheCharityOperateIn \ 4 \ 'overseasCountry ).json.pick) orElse doNothing)
       ).reduce
   }
 
   def userAnswersToOperationAndFunds : Reads[JsObject] = {
     (
       ((__ \ 'operationAndFunds).json.copyFrom(userAnswersToOperationAndFundsCommon) orElse doNothing) and
-        ((__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.copyFrom((__ \ 'estimatedIncome).json.pick) orElse doNothing) and
-        ((__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'actualIncome).json.pick) orElse doNothing) and
+        ((__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.copyFrom((__ \ 'estimatedIncome).json.pick)) and
+        ((__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'actualIncome).json.pick)) and
         (__ \ 'operationAndFunds \ 'futureFunds).json.copyFrom((__ \ 'selectFundRaising).read[JsArray].map(x =>
           JsString(x.value.map(_.toString()).mkString(", ").replaceAll("\"", "")))) and
         (__ \ 'operationAndFunds \ 'otherAreaOperation).json.put(JsBoolean(true)) and

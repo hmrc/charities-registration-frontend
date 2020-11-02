@@ -23,5 +23,5 @@ case class WhatCountryDoesTheCharityOperateInPage(index:Int) extends QuestionPag
 
   override def path: JsPath = JsPath \ OverseasCountriesPage \ index \ toString
 
-  override def toString: String = "country"
+  override def toString: String = "overseasCountry"
 }

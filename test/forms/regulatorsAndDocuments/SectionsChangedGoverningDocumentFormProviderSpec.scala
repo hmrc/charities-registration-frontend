@@ -55,7 +55,7 @@ class SectionsChangedGoverningDocumentFormProviderSpec extends StringFieldBehavi
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateReasonField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -63,12 +63,12 @@ class SectionsChangedGoverningDocumentFormProviderSpec extends StringFieldBehavi
 
     "valid for abcd" in {
 
-      "abcd" must fullyMatch regex formProvider.validateReasonField
+      "abcd" must fullyMatch regex formProvider.validateField
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateReasonField
+      "abc@" mustNot fullyMatch regex formProvider.validateField
     }
   }
 }

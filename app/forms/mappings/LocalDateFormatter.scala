@@ -29,6 +29,7 @@ private[mappings] class LocalDateFormatter(
                                             allRequiredKey: String,
                                             twoRequiredKey: String,
                                             requiredKey: String,
+                                            nonNumericKey: String,
                                             args: Seq[String] = Seq.empty
                                           ) extends Formatter[LocalDate] with GenericDateFormatter {
 
@@ -62,12 +63,10 @@ private[mappings] class LocalDateFormatter(
   override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], LocalDate] = {
 
     fields(key, data).count(_._2.isDefined) match {
+      case 3 if illegalFields(key, data).nonEmpty | illegalZero(key, data).nonEmpty  =>
+        Left(List() ++ illegalErrors(key, data, nonNumericKey, args, illegalFields) ++ illegalErrors(key, data, invalidKey, args, illegalZero))
       case 3 =>
-        if (illegalFields(key, data).nonEmpty) {
-          Left(List() ++ illegalErrors(key, data, invalidKey, args))
-        } else {
-          formatDate(key, data)
-        }
+        formatDate(key, data)
       case 2 =>
        leftErrors(key, data, requiredKey, invalidKey, args)
       case 1 =>

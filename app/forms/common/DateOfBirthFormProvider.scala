@@ -33,7 +33,8 @@ class DateOfBirthFormProvider @Inject()(timeMachine: TimeMachine) extends Mappin
         invalidKey     = s"$messagePrefix.error.invalid",
         allRequiredKey = s"$messagePrefix.error.required.all",
         twoRequiredKey = s"$messagePrefix.error.required.two",
-        requiredKey    = s"$messagePrefix.error.required.one"
+        requiredKey    = s"$messagePrefix.error.required.one",
+        nonNumericKey  = s"$messagePrefix.error.invalid"
       ).verifying(maxDate(timeMachine.now().minusYears(minYears), s"$messagePrefix.error.minimum", "day", "month", "year"))
     )
 }

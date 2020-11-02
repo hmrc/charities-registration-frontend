@@ -58,12 +58,10 @@ private[mappings] class LocalDateFormatterDayMonth(
   override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], MonthDay] = {
 
     fields(key, data).count(_._2.isDefined) match {
+      case 2 if illegalFields(key, data).nonEmpty | illegalZero(key, data).nonEmpty =>
+        Left(List() ++ illegalErrors(key, data, invalidKey, args, illegalFields) ++ illegalErrors(key, data, invalidKey, args, illegalZero))
       case 2 =>
-        if (illegalFields(key, data).nonEmpty) {
-          Left(List() ++ illegalErrors(key, data, invalidKey, args))
-        } else {
-          formatDate(key, data)
-        }
+        formatDate(key, data)
       case 1 =>
         leftErrors(key, data, requiredKey, invalidKey, args)
       case _ =>

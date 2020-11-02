@@ -536,7 +536,7 @@ whenGoverningDocumentApproved.error.invalid = (W)The date when the governing doc
 whenGoverningDocumentApproved.error.required.all = (W)Enter the date when the governing document became effective(W)
 whenGoverningDocumentApproved.error.required.two = (W)Enter the {0} and the {1} when the governing document became effective(W)
 whenGoverningDocumentApproved.error.required = (W)Enter the {0} when the governing document became effective(W)
-whenGoverningDocumentApproved.error.future = (W)The date when the governing document was approved must be today or in the past.(W)
+whenGoverningDocumentApproved.error.future = (W)The date when the governing document was approved must be today or in the past(W)
 whenGoverningDocumentApproved.error.nonNumeric = (W)The date when the governing document was approved must be written as a number(W)
 whenGoverningDocumentApproved.checkYourAnswersLabel = (W)Effective date(W)
 

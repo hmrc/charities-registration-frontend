@@ -26,6 +26,8 @@ import utils.TimeMachine
 class DateOfBirthFormProvider @Inject()(timeMachine: TimeMachine) extends Mappings {
 
   private val minYears = 16
+  private val startYear = 1900
+  private val dayMonth = 1
 
   def apply(messagePrefix: String): Form[LocalDate] =
     Form(
@@ -34,8 +36,9 @@ class DateOfBirthFormProvider @Inject()(timeMachine: TimeMachine) extends Mappin
         allRequiredKey = s"$messagePrefix.error.required.all",
         twoRequiredKey = s"$messagePrefix.error.required.two",
         requiredKey    = s"$messagePrefix.error.required.one",
-        nonNumericKey  = s"$messagePrefix.error.invalid"
-      ).verifying(maxDate(timeMachine.now().minusYears(minYears), s"$messagePrefix.error.minimum", "day", "month", "year"))
+        nonNumericKey  = s"$messagePrefix.error.nonNumeric"
+      ).verifying(maxDate(timeMachine.now().minusYears(minYears), s"$messagePrefix.error.minimum", "day", "month", "year")
+      ).verifying(minDate(LocalDate.of(startYear, dayMonth, dayMonth), s"$messagePrefix.error.dateBetween", "day", "month", "year"))
     )
 }
 

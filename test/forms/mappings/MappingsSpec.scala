@@ -78,6 +78,45 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
     }
   }
 
+  "textWithOneSpace" must {
+
+    val testForm: Form[String] =
+      Form(
+        "value" -> textWithOneSpace()
+      )
+
+    "bind a valid string" in {
+      val result = testForm.bind(Map("value" -> "foo  bar"))
+      result.get mustEqual "foo bar"
+    }
+
+    "not bind an empty string" in {
+      val result = testForm.bind(Map("value" -> ""))
+      result.errors must contain(FormError("value", "error.required"))
+    }
+
+    "not bind a string with spaces only" in {
+      val result = testForm.bind(Map("value" -> "        "))
+      result.errors must contain(FormError("value", "error.required"))
+    }
+
+    "not bind an empty map" in {
+      val result = testForm.bind(Map.empty[String, String])
+      result.errors must contain(FormError("value", "error.required"))
+    }
+
+    "return a custom error message" in {
+      val form = Form("value" -> text("custom.error"))
+      val result = form.bind(Map("value" -> ""))
+      result.errors must contain(FormError("value", "custom.error"))
+    }
+
+    "unbind a valid value" in {
+      val result = testForm.fill("foo bar")
+      result.apply("value").value.value mustEqual "foo bar"
+    }
+  }
+
   "boolean" must {
 
     val testForm: Form[Boolean] =
@@ -133,9 +172,19 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
       result.errors must contain(FormError("value", "error.required"))
     }
 
+    "not bind an decimal value" in {
+      val result = testForm.bind(Map("value" -> "10.01"))
+      result.errors must contain(FormError("value", "error.wholeNumber"))
+    }
+
     "not bind an empty map" in {
       val result = testForm.bind(Map.empty[String, String])
       result.errors must contain(FormError("value", "error.required"))
+    }
+
+    "not bind non numeric value" in {
+      val result = testForm.bind(Map("value" -> "abc"))
+      result.errors must contain(FormError("value", "error.nonNumeric"))
     }
 
     "unbind a valid value" in {
@@ -172,13 +221,13 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
     )
 
     "bind a valid option with no decimals" in {
-    val result = testForm.bind(Map("value" -> "123"))
-    result.get mustEqual BigDecimal.valueOf(123)
+      val result = testForm.bind(Map("value" -> "123"))
+      result.get mustEqual BigDecimal.valueOf(123)
     }
 
     "bind a valid option with decimals" in {
-    val result = testForm.bind(Map("value" -> "123.12"))
-    result.get mustEqual BigDecimal.valueOf(123.12)
+      val result = testForm.bind(Map("value" -> "123.12"))
+      result.get mustEqual BigDecimal.valueOf(123.12)
     }
 
     "bind a valid option with a pound sign at the start" in {
@@ -206,17 +255,24 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
       result.get mustEqual BigDecimal.valueOf(123)
     }
 
+    "successfully bind the highest number" in {
+      val result = testForm.bind(Map("value" -> "9999999.99"))
+      result.get mustEqual BigDecimal.valueOf(9999999.99)
+    }
+
+    "fail to bind invalid input with different currency symbol" in {
+      val result = testForm.bind(Map("value" -> "$123.12345"))
+      result.errors must contain(FormError("value", "error.invalidNumeric"))
+    }
+
     "fail to bind invalid input with multiple decimal points" in {
       val result = testForm.bind(Map("value" -> "£123.12.12"))
       result.errors must contain(FormError("value", "error.invalidNumeric"))
     }
+
     "fail to bind invalid input with pound sign on both ends" in {
       val result = testForm.bind(Map("value" -> "£123.12£"))
       result.errors must contain(FormError("value", "error.invalidNumeric"))
-    }
-    "successfully bind the highest number" in {
-      val result = testForm.bind(Map("value" -> "9999999.99"))
-      result.get mustEqual BigDecimal.valueOf(9999999.99)
     }
 
     "not bind an empty map" in {

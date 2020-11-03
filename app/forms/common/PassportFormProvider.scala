@@ -25,7 +25,6 @@ import utils.TimeMachine
 
 class PassportFormProvider @Inject()(timeMachine: TimeMachine) extends Mappings {
 
-  private[common] val validateFields = "^[^@&:)(]+$"
   private[common] val maxLengthCountry = 50
   private[common] val maxLengthPassport = 30
 
@@ -33,18 +32,18 @@ class PassportFormProvider @Inject()(timeMachine: TimeMachine) extends Mappings 
     Form(
       mapping(
 
-        "passportNumber" -> text(s"$messagePrefix.passportNumber.error.required")
+        "passportNumber" -> textWithOneSpace(s"$messagePrefix.passportNumber.error.required")
               .verifying(maxLength(maxLengthPassport, s"$messagePrefix.passportNumber.error.length"))
-              .verifying(regexp(validateFields,s"$messagePrefix.passportNumber.error.format")),
+              .verifying(regexp(validateField,s"$messagePrefix.passportNumber.error.format")),
         "country" -> text(s"$messagePrefix.country.error.required")
           .verifying(maxLength(maxLengthCountry, s"$messagePrefix.country.error.length"))
-          .verifying(regexp(validateFields,s"$messagePrefix.country.error.format")),
+          .verifying(regexp(validateField,s"$messagePrefix.country.error.format")),
         "expiryDate" -> localDate(
           invalidKey     = s"$messagePrefix.error.invalid",
           allRequiredKey = s"$messagePrefix.error.required.all",
           twoRequiredKey = s"$messagePrefix.error.required.two",
           requiredKey    = s"$messagePrefix.error.required.one",
-          nonNumericKey  = s"$messagePrefix.error.invalid"
+          nonNumericKey  = s"$messagePrefix.error.nonNumeric"
         ).verifying(minDate(timeMachine.now().plusDays(1), s"$messagePrefix.error.minimum", "day", "month", "year"))
       )(Passport.apply)(Passport.unapply)
     )

@@ -24,13 +24,17 @@ import scala.util.control.Exception.nonFatalCatch
 
 trait Formatters {
 
-  private[mappings] def stringFormatter(errorKey: String): Formatter[String] = new Formatter[String] {
+  def replaceSpaces (input: String): String = trimString(input).replaceAll(" +", " ")
+
+  def trimString (input: String): String = input.trim
+
+  private[mappings] def stringFormatter(errorKey: String, updateString: String => String = trimString): Formatter[String] = new Formatter[String] {
 
     override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], String] =
       data.get(key) match {
         case None => Left(Seq(FormError(key, errorKey)))
-        case Some(x) if x.trim.length == 0 => Left(Seq(FormError(key, errorKey)))
-        case Some(s) => Right(s.trim)
+        case Some(str) if updateString(str).length == 0 => Left(Seq(FormError(key, errorKey)))
+        case Some(str) => Right(updateString(str))
       }
 
     override def unbind(key: String, value: String): Map[String, String] =
@@ -42,7 +46,7 @@ trait Formatters {
 
       private val baseFormatter = stringFormatter(requiredKey)
 
-      override def bind(key: String, data: Map[String, String]) =
+      override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], Boolean] =
         baseFormatter
           .bind(key, data)
           .right.flatMap {
@@ -61,7 +65,7 @@ trait Formatters {
 
       private val baseFormatter = stringFormatter(requiredKey)
 
-      override def bind(key: String, data: Map[String, String]) =
+      override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], Int] =
         baseFormatter
           .bind(key, data)
           .right.map(_.replace(",", ""))
@@ -74,7 +78,7 @@ trait Formatters {
               .left.map(_ => Seq(FormError(key, nonNumericKey, args)))
         }
 
-      override def unbind(key: String, value: Int) =
+      override def unbind(key: String, value: Int): Map[String, String] =
         baseFormatter.unbind(key, value.toString)
     }
 
@@ -88,7 +92,7 @@ trait Formatters {
       def onlyOnePound: String => Boolean = input =>
         !List(-1, 0, input.length - 1).contains(input.indexOf("£")) | input.count(_ == '£') > 1
 
-      override def bind(key: String, data: Map[String, String]) =
+      override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], BigDecimal] =
         baseFormatter
           .bind(key, data)
           .right.map(_.replace(",", "").replace(" ", ""))
@@ -103,7 +107,7 @@ trait Formatters {
               .left.map(_ => Seq(FormError(key, invalidCurrency, args)))
         }
 
-      override def unbind(key: String, value: BigDecimal) =
+      override def unbind(key: String, value: BigDecimal): Map[String, String] =
         baseFormatter.unbind(key, value.toString)
     }
 

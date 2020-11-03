@@ -64,7 +64,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
       form,
       fieldName,
       "()invalidFirstName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -98,7 +98,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
       form,
       fieldName,
       "()invalidFirstName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -193,12 +193,12 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
 
     "valid for passportNumber" in {
 
-      "passportNumber" must fullyMatch regex formProvider.validateFields
+      "passportNumber" must fullyMatch regex formProvider.validateField
     }
 
     "valid for passportNumber&" in {
 
-      "passportNumber&" mustNot fullyMatch regex formProvider.validateFields
+      "passportNumber&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 
@@ -206,12 +206,12 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
 
     "valid for country" in {
 
-      "country" must fullyMatch regex formProvider.validateFields
+      "country" must fullyMatch regex formProvider.validateField
     }
 
     "valid for country&" in {
 
-      "country&" mustNot fullyMatch regex formProvider.validateFields
+      "country&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 }

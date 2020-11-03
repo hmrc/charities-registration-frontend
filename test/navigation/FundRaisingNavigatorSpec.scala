@@ -355,11 +355,11 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, 0)
         }
 
-        "go to Overseas operating location summary page when user answer has overseas and previous country input, and clicked continue button" in {
+        "go to OperationsFundsSummary page when user answer has overseas and previous country input, and clicked continue button" in {
           navigator.nextPage(OperatingLocationPage, CheckMode,
             emptyUserAnswers.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas))
               .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "DE")).getOrElse(emptyUserAnswers)) mustBe
-            operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }
 

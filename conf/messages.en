@@ -674,9 +674,7 @@ operatingLocation.checkYourAnswersLabel = Operating locations
 whatCountryDoesTheCharityOperateIn.title = What country does the charity operate in?
 whatCountryDoesTheCharityOperateIn.heading = What country does the charity operate in?
 whatCountryDoesTheCharityOperateIn.hint = If your charity operates in more than one country, you can add more countries on the next page.
-whatCountryDoesTheCharityOperateIn.error.required = Enter the country that the charity operates in
-whatCountryDoesTheCharityOperateIn.error.length = The country that the charity operates in must be 50 characters or fewer
-whatCountryDoesTheCharityOperateIn.error.format = The Country that the charity operates in must not include the following characters: & ( ) : @
+whatCountryDoesTheCharityOperateIn.error.required = Enter a country that the charity operates in
 
 # Select Overseas Operating Location Summary page
 # ----------------------------------------------------------
@@ -685,7 +683,7 @@ overseasOperatingLocationSummary.checkYourAnswers.heading = Check the charity’
 overseasOperatingLocationSummary.addAnotherCountry.h2 = Do you want to add another country?
 overseasOperatingLocationSummary.addAnotherCountry.hint = You can add up to 5 countries
 overseasOperatingLocationSummary.addAnotherCountry.warn = You cannot add another operating country.
-overseasOperatingLocationSummary.addAnotherCountry.error.required = Select yes to add another country
+overseasOperatingLocationSummary.addAnotherCountry.error.required = Select yes if you want to add another operating country
 overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = Operating country {0}
 overseasOperatingLocationSummary.checkYourAnswersLabel = Overseas operating locations
 
@@ -695,8 +693,8 @@ otherFundRaising.title = What other way will the charity raise funds?
 otherFundRaising.heading = What other way will the charity raise funds?
 otherFundRaising.checkYourAnswersLabel = Other fundraising methods
 otherFundRaising.error.required = Enter the other way the charity will raise funds
-otherFundRaising.error.format= Your answer must not include the following characters: & ( ) : @
-otherFundRaising.error.length= Your answer must be 95 characters or fewer
+otherFundRaising.error.format= The other way the charity will raise funds must only include letters, numbers, hyphens, apostrophes, commas and spaces
+otherFundRaising.error.length= The other way the charity will raise funds must be 95 characters or less
 
 
 # Has your charity prepared financial accounts Messages
@@ -713,7 +711,7 @@ estimatedIncome.title = What is the charity’s estimated income for its current
 estimatedIncome.heading = What is the charity’s estimated income for its current 12 months of operation?
 estimatedIncome.p1 = This figure should be your charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 estimatedIncome.error.required = Enter your estimated income for the current 12 months of operation
-estimatedIncome.error.format = The charity’s estimated income must be an amount of money, like 100.50 or 110
+estimatedIncome.error.format = Estimated income must written as a number, like 100.50 or 110
 estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 months of operation
 
 # What is the charity's actual income so far?
@@ -721,7 +719,7 @@ estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 mont
 actualIncome.title = What is the charity’s actual income so far?
 actualIncome.heading = What is the charity’s actual income so far?
 actualIncome.p1 = This figure should be your actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
-actualIncome.error.required = Enter your actual income so far
+actualIncome.error.required = Enter the charity's actual income so far
 actualIncome.error.format = The charity’s actual income must be an amount of money, like 100.50 or 110
 actualIncome.checkYourAnswersLabel = Actual income so far
 
@@ -741,8 +739,8 @@ whyNoBankStatement.heading = Why does the charity not have bank statements for t
 whyNoBankStatement.hint = If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.
 whyNoBankStatement.checkYourAnswersLabel = Why you do not have bank statements for the last 3 months
 whyNoBankStatement.error.required = Enter why the charity does not have bank statements for the last 3 months of operation
-whyNoBankStatement.error.format = Your answer must not include the following characters: & ( ) : @
-whyNoBankStatement.error.length = Your answer must be 350 characters or fewer
+whyNoBankStatement.error.format = Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas and spaces
+whyNoBankStatement.error.length = Why the charity does not have bank statements must be 350 characters or less
 
 # AccountingEndDatePage Messages
 # -------------------------------------  ---------------------
@@ -751,6 +749,8 @@ accountingPeriodEndDate.heading = What is the charity’s accounting period end 
 accountingPeriodEndDate.error.required.all = Enter the accounting period end date
 accountingPeriodEndDate.error.required = Enter the accounting period end {0}
 accountingPeriodEndDate.error.invalid = The accounting period end date must be a real date
+accountingPeriodEndDate.error.nonNumeric = Accounting period end date must be written as a number, like 01 10
+accountingPeriodEndDate.error.leapYear = Accounting period end date cannot be on a leap year
 accountingPeriodEndDate.p1 = This is the date to which the charity prepares its financial accounts.
 accountingPeriodEndDate.checkYourAnswersLabel = Accounting period end date
 

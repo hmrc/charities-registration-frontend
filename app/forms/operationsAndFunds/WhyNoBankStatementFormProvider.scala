@@ -22,14 +22,13 @@ import play.api.data.Form
 
 class WhyNoBankStatementFormProvider @Inject() extends Mappings {
 
-  private[operationsAndFunds] val validateBenefitsField = """^[a-zA-Z0-9 ][^@&:)(]*$"""
   private[operationsAndFunds] val maxLength = 255
 
   def apply(): Form[String] =
     Form(
       "value" -> text("whyNoBankStatement.error.required")
         .verifying(maxLength(maxLength, "whyNoBankStatement.error.length"))
-        .verifying(regexp(validateBenefitsField,"whyNoBankStatement.error.format"))
+        .verifying(regexp(validateField,"whyNoBankStatement.error.format"))
     )
 }
 

@@ -22,16 +22,11 @@ import play.api.data.{Form, FormError}
 class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBehaviours {
 
   private val form: Form[String] = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply()
-  private val formProvider: WhatCountryDoesTheCharityOperateInFormProvider = inject[WhatCountryDoesTheCharityOperateInFormProvider]
-
 
   ".country" must {
 
     val fieldName = "country"
     val requiredKey = "whatCountryDoesTheCharityOperateIn.error.required"
-    val lengthKey = "whatCountryDoesTheCharityOperateIn.error.length"
-    val maxLengthCountry = 50
-    val invalidKey = "whatCountryDoesTheCharityOperateIn.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -39,24 +34,10 @@ class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBeha
       nonEmptyString
     )
 
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLengthCountry,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLengthCountry))
-    )
-
     behave like mandatoryField(
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
-    )
-
-    behave like fieldWithRegex(
-      form,
-      fieldName,
-      "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
     )
 
   }

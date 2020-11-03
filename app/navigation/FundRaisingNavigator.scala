@@ -145,7 +145,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
     case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
       case Some(items) if items.toSeq.contains(Overseas) => userAnswers.get(WhatCountryDoesTheCharityOperateInPage(0)) match {
-        case Some(_) => operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
+        case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         case _ => operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
       }
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()

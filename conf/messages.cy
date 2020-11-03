@@ -674,9 +674,7 @@ operatingLocation.checkYourAnswersLabel = (W)Operating locations(W)
 whatCountryDoesTheCharityOperateIn.title = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.heading = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.hint = (W)If your charity operates in more than one country, you can add more countries on the next page.(W)
-whatCountryDoesTheCharityOperateIn.error.required = (W)Enter the country that the charity operates in(W)
-whatCountryDoesTheCharityOperateIn.error.length = (W)The country that the charity operates in must be 50 characters or fewer(W)
-whatCountryDoesTheCharityOperateIn.error.format= (W)The Country that the charity operates in must not include the following characters: & ( ) : @(W)
+whatCountryDoesTheCharityOperateIn.error.required = (W)Enter a country that the charity operates in(W)
 
 # Select Overseas Operating Location Summary page
 # ----------------------------------------------------------
@@ -685,7 +683,7 @@ overseasOperatingLocationSummary.checkYourAnswers.heading = (W)Check the charity
 overseasOperatingLocationSummary.addAnotherCountry.h2 = (W)Do you want to add another country?(W)
 overseasOperatingLocationSummary.addAnotherCountry.hint = (W)You can add up to 5 countries(W)
 overseasOperatingLocationSummary.addAnotherCountry.warn = (W)You cannot add another operating country.(W)
-overseasOperatingLocationSummary.addAnotherCountry.error.required = (W)Select yes to add another country(W)
+overseasOperatingLocationSummary.addAnotherCountry.error.required = (W)Select yes if you want to add another operating country(W)
 overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = (W)Operating country {0}(W)
 overseasOperatingLocationSummary.checkYourAnswersLabel = (W)Overseas operating locations(W)
 
@@ -695,8 +693,8 @@ otherFundRaising.title = (W)What other way will the charity raise funds?(W)
 otherFundRaising.heading = (W)What other way will the charity raise funds?(W)
 otherFundRaising.checkYourAnswersLabel = (W)Other fundraising methods(W)
 otherFundRaising.error.required = (W)Enter the other way the charity will raise funds(W)
-otherFundRaising.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
-otherFundRaising.error.length = (W)Your answer must be 95 characters or fewer(W)
+otherFundRaising.error.format = (W)The other way the charity will raise funds must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+otherFundRaising.error.length = (W)The other way the charity will raise funds must be 95 characters or less(W)
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
@@ -712,7 +710,7 @@ estimatedIncome.title = (W)What is the charity’s estimated income for its curr
 estimatedIncome.heading = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
 estimatedIncome.p1 = (W)This figure should be your charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
 estimatedIncome.error.required = (W)Enter your estimated income for the current 12 months of operation(W)
-estimatedIncome.error.format = (W)The charity’s estimated income must be an amount of money, like 100.50 or 110(W)
+estimatedIncome.error.format = (W)Estimated income must written as a number, like 100.50 or 110(W)
 estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 months of operation(W)
 
 
@@ -721,7 +719,7 @@ estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 m
 actualIncome.title = (W)What is the charity’s actual income so far?(W)
 actualIncome.heading = (W)What is the charity’s actual income so far?(W)
 actualIncome.p1 = (W)This figure should be your actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
-actualIncome.error.required = (W)Enter your actual income so far(W)
+actualIncome.error.required = (W)Enter the charity's actual income so far(W)
 actualIncome.error.format = (W)The charity’s actual income must be an amount of money, like 100.50 or 110(W)
 actualIncome.checkYourAnswersLabel = (W)Actual income so far(W)
 
@@ -740,8 +738,8 @@ whyNoBankStatement.heading = (W)Why does the charity not have bank statements fo
 whyNoBankStatement.hint = (W)If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.(W)
 whyNoBankStatement.checkYourAnswersLabel = (W)Why you do not have bank statements for the last 3 months(W)
 whyNoBankStatement.error.required = (W)Enter why the charity does not have bank statements for the last 3 months of operation(W)
-whyNoBankStatement.error.format = (W)Your answer must not include the following characters: & ( ) : @(W)
-whyNoBankStatement.error.length = (W)Your answer must be 350 characters or fewer(W)
+whyNoBankStatement.error.format = (W)Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+whyNoBankStatement.error.length = (W)Why the charity does not have bank statements must be 350 characters or less(W)
 
 
 # AccountingEndDatePage Messages
@@ -751,6 +749,8 @@ accountingPeriodEndDate.heading = (W)What is the charity’s accounting period e
 accountingPeriodEndDate.error.required.all = (W)Enter the accounting period end date(W)
 accountingPeriodEndDate.error.required = (W)Enter the accounting period end {0}(W)
 accountingPeriodEndDate.error.invalid = (W)The accounting period end date must be a real date(W)
+accountingPeriodEndDate.error.nonNumeric = (W)Accounting period end date must be written as a number, like 01 10(W)
+accountingPeriodEndDate.error.leapYear = (W)Accounting period end date cannot be on a leap year(W)
 accountingPeriodEndDate.p1 = (W)This is the date to which the charity prepares its financial accounts.(W)
 accountingPeriodEndDate.checkYourAnswersLabel = (W)Accounting period end date(W)
 

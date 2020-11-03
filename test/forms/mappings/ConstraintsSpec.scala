@@ -116,6 +116,27 @@ class ConstraintsSpec extends WordSpec with MustMatchers with ScalaCheckProperty
     }
   }
 
+  "minLength" must {
+
+    lazy val min = minLength(10, "error.length")
+
+    "return error for a string shorter than the allowed length" in {
+      min("a" * 9) mustEqual Invalid("error.length", 10)
+    }
+
+    "return error for an empty string" in {
+      min("") mustEqual Invalid("error.length", 10)
+    }
+
+    "return Valid for a string equal to the allowed length" in {
+      min("a" * 10) mustEqual Valid
+    }
+
+    "return valid for a string longer than the allowed length" in {
+      min("a" * 11) mustEqual Valid
+    }
+  }
+
   "maxLength" must {
 
     lazy val max = maxLength(10, "error.length")
@@ -134,6 +155,35 @@ class ConstraintsSpec extends WordSpec with MustMatchers with ScalaCheckProperty
 
     "return Invalid for a string longer than the allowed length" in {
       max("a" * 11) mustEqual Invalid("error.length", 10)
+    }
+  }
+
+  "lengthBetween" must {
+
+    lazy val lenBet = lengthBetween(10, 20, "error.length")
+
+    "return Valid for a string defined between the allowed length" in {
+      lenBet("a" * 14) mustEqual Valid
+    }
+
+    "return Valid for a string equal to lower bound" in {
+      lenBet("a" * 10) mustEqual Valid
+    }
+
+    "return Valid for a string equal to upper bound" in {
+      lenBet("a" * 20) mustEqual Valid
+    }
+
+    "return error for an empty string" in {
+      lenBet("") mustEqual Invalid("error.length", 10, 20)
+    }
+
+    "return error for a string less than min length" in {
+      lenBet("a" * 9) mustEqual Invalid("error.length", 10, 20)
+    }
+
+    "return error for a string more than max length" in {
+      lenBet("a" * 21) mustEqual Invalid("error.length", 10, 20)
     }
   }
 

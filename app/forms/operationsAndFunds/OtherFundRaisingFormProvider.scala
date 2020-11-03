@@ -22,14 +22,13 @@ import play.api.data.Form
 
 class OtherFundRaisingFormProvider @Inject() extends Mappings {
 
-  private[operationsAndFunds] val validateBenefitsField = """^[a-zA-Z0-9 ][^@&:)(]*$"""
   private[operationsAndFunds] val maxLength = 95
 
   def apply(): Form[String] =
     Form(
       "value" -> text("otherFundRaising.error.required")
         .verifying(maxLength(maxLength, "otherFundRaising.error.length"))
-        .verifying(regexp(validateBenefitsField,"otherFundRaising.error.format"))
+        .verifying(regexp(validateField,"otherFundRaising.error.format"))
     )
 }
 

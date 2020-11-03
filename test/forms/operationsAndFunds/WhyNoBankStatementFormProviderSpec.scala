@@ -55,7 +55,7 @@ class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateBenefitsField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -63,12 +63,12 @@ class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
 
     "valid for abcd" in {
 
-      "abcd" must fullyMatch regex formProvider.validateBenefitsField
+      "abcd" must fullyMatch regex formProvider.validateField
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateBenefitsField
+      "abc@" mustNot fullyMatch regex formProvider.validateField
     }
   }
 }

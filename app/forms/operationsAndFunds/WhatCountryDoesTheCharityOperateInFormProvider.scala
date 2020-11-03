@@ -22,13 +22,8 @@ import play.api.data.Form
 
 class WhatCountryDoesTheCharityOperateInFormProvider @Inject() extends Mappings {
 
-  private[operationsAndFunds] val validateFields = "^[^@&:)(]+$"
-  private[operationsAndFunds] val maxLengthCountry = 50
-
   def apply(): Form[String] =
     Form(
       "country" -> text("whatCountryDoesTheCharityOperateIn.error.required")
-        .verifying(maxLength(maxLengthCountry, "whatCountryDoesTheCharityOperateIn.error.length"))
-        .verifying(regexp(validateFields, "whatCountryDoesTheCharityOperateIn.error.format"))
     )
 }

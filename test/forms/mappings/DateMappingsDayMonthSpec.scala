@@ -30,7 +30,9 @@ class DateMappingsDayMonthSpec extends FreeSpec with MustMatchers with ScalaChec
     "value" -> localDateDayMonth(
       invalidKey = "error.invalid",
       allRequiredKey = "error.required.all",
-      requiredKey = "error.required"
+      requiredKey = "error.required",
+      nonNumericKey = "error.nonNumeric",
+      leapYearKey = "error.leapYear"
     )
   )
 
@@ -98,7 +100,7 @@ class DateMappingsDayMonthSpec extends FreeSpec with MustMatchers with ScalaChec
         val result = form.bind(data)
 
         result.errors must contain(
-          FormError("value.day", "error.invalid", List("day"))
+          FormError("value.day", "error.nonNumeric", List("day"))
         )
     }
   }
@@ -136,7 +138,7 @@ class DateMappingsDayMonthSpec extends FreeSpec with MustMatchers with ScalaChec
         val result = form.bind(data)
 
         result.errors must contain(
-          FormError("value.month", "error.invalid", List("month"))
+          FormError("value.month", "error.nonNumeric", List("month"))
         )
     }
   }
@@ -154,7 +156,7 @@ class DateMappingsDayMonthSpec extends FreeSpec with MustMatchers with ScalaChec
 
         val result = form.bind(data)
 
-        result.errors must contain only FormError("value.day", "error.invalid", List("day", "month"))
+        result.errors must contain only FormError("value.day", "error.nonNumeric", List("day", "month"))
     }
   }
 
@@ -170,8 +172,22 @@ class DateMappingsDayMonthSpec extends FreeSpec with MustMatchers with ScalaChec
 
         val result = form.bind(data)
 
-        result.errors must contain only FormError("value.day", "error.invalid", List("day", "month"))
+        result.errors must contain only FormError("value.day", "error.nonNumeric", List("day", "month"))
     }
+  }
+
+  "fail to bind leap year date" in {
+
+    val data = Map(
+      "value.day" -> "29",
+      "value.month" -> "2",
+    )
+
+    val result = form.bind(data)
+
+    result.errors must contain(
+      FormError("value.day", "error.leapYear", List.empty)
+    )
   }
 
   "fail to bind an invalid date" in {

@@ -26,6 +26,8 @@ private[mappings] class LocalDateFormatterDayMonth(
                                             invalidKey: String,
                                             allRequiredKey: String,
                                             requiredKey: String,
+                                            nonNumericKey: String,
+                                            leapYearKey: String,
                                             args: Seq[String] = Seq.empty
                                           ) extends Formatter[MonthDay] with GenericDateFormatter {
 
@@ -33,6 +35,8 @@ private[mappings] class LocalDateFormatterDayMonth(
 
   private def toDate(key: String, day: Int, month: Int): Either[Seq[FormError], MonthDay] =
    Try(MonthDay.fromDateFields(new LocalDate(LocalDate.now().getYear, month, day).toDate)) match {
+      case Success(date) if date.getDayOfMonth == 29 && date.getMonthOfYear == 2 =>
+        Left(Seq(FormError(keyWithError(key, "day"), leapYearKey, args)))
       case Success(date) =>
         Right(date)
       case Failure(_) =>
@@ -44,7 +48,7 @@ private[mappings] class LocalDateFormatterDayMonth(
     val int = intFormatter(
       requiredKey = invalidKey,
       wholeNumberKey = invalidKey,
-      nonNumericKey = invalidKey,
+      nonNumericKey = nonNumericKey,
       args
     )
 
@@ -59,7 +63,7 @@ private[mappings] class LocalDateFormatterDayMonth(
 
     fields(key, data).count(_._2.isDefined) match {
       case 2 if illegalFields(key, data).nonEmpty | illegalZero(key, data).nonEmpty =>
-        Left(List() ++ illegalErrors(key, data, invalidKey, args, illegalFields) ++ illegalErrors(key, data, invalidKey, args, illegalZero))
+        Left(List() ++ illegalErrors(key, data, nonNumericKey, args, illegalFields) ++ illegalErrors(key, data, invalidKey, args, illegalZero))
       case 2 =>
         formatDate(key, data)
       case 1 =>

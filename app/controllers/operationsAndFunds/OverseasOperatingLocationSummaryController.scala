@@ -50,13 +50,9 @@ class OverseasOperatingLocationSummaryController @Inject()(
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService, mode)
-    val preparedForm = request.userAnswers.get(OverseasOperatingLocationSummaryPage) match {
-      case None => form
-      case Some(value) => form.fill(value)
-    }
 
     request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(0)) match {
-      case Some(_) => Ok(view(preparedForm, mode, summaryHelper.rows))
+      case Some(_) => Ok(view(form, mode, summaryHelper.rows))
       case None => Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, request.userAnswers))
     }
 

@@ -25,11 +25,9 @@ import play.api.data.Forms.of
 
 trait Mappings extends Formatters with Constraints {
 
-    val validateField = "^[a-zA-Z0-9-, ']+$"
-
-    val validateTelephoneNumber = """^\+?(?:\s*\d){10,13}$"""
-
-    val validateEmailAddress = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
+  val validateField = "^[a-zA-Z0-9-, ']+$"
+  val validateTelephoneNumber = """^\+?(?:\s*\d){10,13}$"""
+  val validateEmailAddress = """^(?i)[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"""
 
   protected def text(errorKey: String = "error.required"): FieldMapping[String] =
     of(stringFormatter(errorKey))
@@ -65,6 +63,8 @@ trait Mappings extends Formatters with Constraints {
                            invalidKey: String,
                            allRequiredKey: String,
                            requiredKey: String,
+                           nonNumericKey: String,
+                           leapYearKey: String,
                            args: Seq[String] = Seq.empty): FieldMapping[MonthDay] =
-    of(new LocalDateFormatterDayMonth(invalidKey, allRequiredKey, requiredKey, args))
+    of(new LocalDateFormatterDayMonth(invalidKey, allRequiredKey, requiredKey, nonNumericKey, leapYearKey, args))
 }

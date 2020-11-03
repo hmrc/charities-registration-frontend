@@ -27,7 +27,9 @@ class AccountingPeriodEndDateFormProvider @Inject()extends Mappings {
       "date" -> localDateDayMonth(
         invalidKey = "accountingPeriodEndDate.error.invalid",
         allRequiredKey = "accountingPeriodEndDate.error.required.all",
-        requiredKey = "accountingPeriodEndDate.error.required"
+        requiredKey = "accountingPeriodEndDate.error.required",
+        nonNumericKey = "accountingPeriodEndDate.error.nonNumeric",
+        leapYearKey = "accountingPeriodEndDate.error.leapYear"
       )
     )
 }

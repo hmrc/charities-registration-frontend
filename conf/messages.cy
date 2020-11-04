@@ -704,22 +704,22 @@ isFinancialAccounts.error.required = (W)Select yes if the charity has prepared f
 isFinancialAccounts.hint = (W)If the charity has a set of prepared financial accounts, you will need to post us a copy to support the application.(W)
 isFinancialAccounts.checkYourAnswersLabel = (W)Financial accounts(W)
 
-# What is the charity's estimated income for its current 12 months of operation?
+# What is the charity’s estimated income for its current 12 months of operation?
 # ----------------------------------------------------------
 estimatedIncome.title = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
 estimatedIncome.heading = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
 estimatedIncome.p1 = (W)This figure should be your charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
-estimatedIncome.error.required = (W)Enter the charity's estimated income for the current 12 months of operation(W)
+estimatedIncome.error.required = (W)Enter the charity’s estimated income for the current 12 months of operation(W)
 estimatedIncome.error.format = (W)Estimated income must written as a number, like 100.50 or 110(W)
 estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 months of operation(W)
 
 
-# What is the charity's actual income so far?
+# What is the charity’s actual income so far?
 # ----------------------------------------------------------
 actualIncome.title = (W)What is the charity’s actual income so far?(W)
 actualIncome.heading = (W)What is the charity’s actual income so far?(W)
 actualIncome.p1 = (W)This figure should be your actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
-actualIncome.error.required = (W)Enter the charity's actual income so far(W)
+actualIncome.error.required = (W)Enter the charity’s actual income so far(W)
 actualIncome.error.format = (W)The charity’s actual income must be an amount of money, like 100.50 or 110(W)
 actualIncome.checkYourAnswersLabel = (W)Actual income so far(W)
 

@@ -17,14 +17,12 @@
 package pages.authorisedOfficials
 
 import pages.QuestionPage
-import play.api.libs.json.{JsObject, JsPath, __}
+import play.api.libs.json.JsPath
 
-case class AuthorisedOfficialsId(index: Int) extends QuestionPage[JsObject] {
+case object RemoveAuthorisedOfficialsPage extends QuestionPage[Boolean] {
 
-  override def path: JsPath = __ \ AuthorisedOfficialsId.toString \ index
+  override def path: JsPath = JsPath \ toString
+
+  override lazy val toString: String = "removeAuthorisedOfficial"
 }
 
-object AuthorisedOfficialsId {
-
-  override def toString: String = "authorisedOfficials"
-}

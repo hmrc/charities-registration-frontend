@@ -116,6 +116,12 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
+    case RemoveAuthorisedOfficialsPage => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsId(0)) match {
+      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+      case _ if userAnswers.data.fields.nonEmpty => authOfficialRoutes.CharityAuthorisedOfficialsController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

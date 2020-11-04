@@ -16,15 +16,17 @@
 
 package pages.authorisedOfficials
 
-import pages.QuestionPage
-import play.api.libs.json.{JsObject, JsPath, __}
+import pages.behaviours.PageBehaviours
 
-case class AuthorisedOfficialsId(index: Int) extends QuestionPage[JsObject] {
+class RemoveAuthorisedOfficialsPageSpec extends PageBehaviours {
 
-  override def path: JsPath = __ \ AuthorisedOfficialsId.toString \ index
-}
+  "RemoveAuthorisedOfficialsPage" must {
 
-object AuthorisedOfficialsId {
+    beRetrievable[Boolean](RemoveAuthorisedOfficialsPage)
 
-  override def toString: String = "authorisedOfficials"
+    beSettable[Boolean](RemoveAuthorisedOfficialsPage)
+
+    beRemovable[Boolean](RemoveAuthorisedOfficialsPage)
+  }
+
 }

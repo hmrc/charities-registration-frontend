@@ -50,6 +50,9 @@ POST       /added-two-authorised-officials                                      
 GET        /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onPageLoad
 POST       /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onSubmit
 
+GET        /:index/remove-authorised-official                                   controllers.authorisedOfficials.RemoveAuthorisedOfficialsController.onPageLoad(index: Index)
+POST       /:index/remove-authorised-official                                   controllers.authorisedOfficials.RemoveAuthorisedOfficialsController.onSubmit(index: Index)
+
 GET        /other-officials                                                     controllers.otherOfficials.CharityOtherOfficialsController.onPageLoad()
 
 GET        /:index/other-official-name                                          controllers.otherOfficials.OtherOfficialsNameController.onPageLoad(mode: Mode = NormalMode, index: Index)

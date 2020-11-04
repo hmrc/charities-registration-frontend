@@ -76,7 +76,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "()invalidFirstName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -103,7 +103,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "CName&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -137,7 +137,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "()invalidLastName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
   
@@ -175,12 +175,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for firstName" in {
 
-      "firstName" must fullyMatch regex formProvider.validateFields
+      "firstName" must fullyMatch regex formProvider.validateField
     }
 
     "valid for firstName&" in {
 
-      "firstName&" mustNot fullyMatch regex formProvider.validateFields
+      "firstName&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 
@@ -188,12 +188,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for middleName" in {
 
-      "middleName" must fullyMatch regex formProvider.validateFields
+      "middleName" must fullyMatch regex formProvider.validateField
     }
 
     "valid for middleName&" in {
 
-      "middleName&" mustNot fullyMatch regex formProvider.validateFields
+      "middleName&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 
@@ -201,12 +201,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for lastName" in {
 
-      "OpName" must fullyMatch regex formProvider.validateFields
+      "OpName" must fullyMatch regex formProvider.validateField
     }
 
     "valid for lastName&" in {
 
-      "lastName&" mustNot fullyMatch regex formProvider.validateFields
+      "lastName&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 }

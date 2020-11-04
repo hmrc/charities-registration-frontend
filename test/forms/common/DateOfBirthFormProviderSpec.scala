@@ -25,6 +25,8 @@ class DateOfBirthFormProviderSpec extends DateBehaviours {
 
   private val messagePrefix: String = "authorisedOfficialsDOB"
   private val form: Form[LocalDate] = inject[DateOfBirthFormProvider].apply(messagePrefix)
+  private val startYear = 1900
+  private val dayMonth = 1
 
   ".value" should {
     val minYear = 16
@@ -37,6 +39,11 @@ class DateOfBirthFormProviderSpec extends DateBehaviours {
     behave like dateFieldWithMax(form, "date",
       max = validDate,
       FormError("date", s"$messagePrefix.error.minimum", List("day", "month", "year"))
+    )
+
+    behave like dateFieldWithMin(form, "date",
+      min = LocalDate.of(startYear, dayMonth, dayMonth),
+      FormError("date", s"$messagePrefix.error.dateBetween", List("day", "month", "year"))
     )
   }
 }

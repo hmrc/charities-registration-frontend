@@ -19,10 +19,10 @@ package forms.common
 import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.{Form, FormError}
 
-class IsPreviousAddressFormProviderSpec extends BooleanFieldBehaviours {
+class YesNoFormProviderSpec extends BooleanFieldBehaviours {
 
-  private val messagePrefix: String = "authorisedOfficialPreviousAddress"
-  private val formProvider: IsPreviousAddressFormProvider = inject[IsPreviousAddressFormProvider]
+  private val messagePrefix: String = "isAuthorisedOfficialNino"
+  private val formProvider: YesNoFormProvider = inject[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messagePrefix)
   private val requiredKey = s"$messagePrefix.error.required"
   private val invalidKey = "error.boolean"

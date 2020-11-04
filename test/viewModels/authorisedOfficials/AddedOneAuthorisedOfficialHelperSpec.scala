@@ -24,7 +24,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import models.{Country, Index, Name, Passport, PhoneNumber, PlaybackMode, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -57,7 +57,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
   def helper(userAnswers: UserAnswers = authorisedOfficialDetails, index: Index) =  new AddedOneAuthorisedOfficialHelper(
-    index, CheckMode, mockCountryService)(userAnswers)
+    index, PlaybackMode, mockCountryService)(userAnswers)
 
 
   "Check Your Answers Helper" must {
@@ -70,7 +70,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
           messages("authorisedOfficialsName.checkYourAnswersLabel"),
           "Mr John Jones",
           Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
-          authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          authOfficials.AuthorisedOfficialsNameController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
         )
         )
       }
@@ -85,7 +85,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsDOB.checkYourAnswersLabel"),
             "2 January 2000",
             Some(messages("authorisedOfficialsDOB.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsDOBController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsDOBController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -100,7 +100,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
             "07700 900 982",
             Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           ))
       }
     }
@@ -115,7 +115,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
             "07700 900 982",
             Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           ))
       }
     }
@@ -129,7 +129,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("officialsPosition.checkYourAnswersLabel"),
             "Board member",
             Some(messages("officialsPosition.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsPositionController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsPositionController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -144,7 +144,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("isAuthorisedOfficialNino.checkYourAnswersLabel"),
             s"${messages("site.yes")}",
             Some(messages("isAuthorisedOfficialNino.checkYourAnswersLabel")),
-            authOfficials.IsAuthorisedOfficialNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.IsAuthorisedOfficialNinoController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -159,7 +159,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsNino.checkYourAnswersLabel"),
             "AA123456A",
             Some(messages("authorisedOfficialsNino.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsNinoController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -174,7 +174,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel"),
             "GB12345",
             Some(messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -186,7 +186,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
             "United Kingdom",
             Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -199,7 +199,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
             "Unknown",
             Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -211,7 +211,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel"),
             "2 January 2000",
             Some(messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel")),
-            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -226,7 +226,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialAddress.checkYourAnswersLabel"),
             "Test 1, Test 2, AA00 0AA, United Kingdom",
             Some(messages("authorisedOfficialAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
+            controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(0, PlaybackMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -241,7 +241,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel"),
             s"${messages("site.no")}",
             Some(messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel")),
-            authOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(PlaybackMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -257,7 +257,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
             messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
             "Test 1, Test 2, AA00 0AA, United Kingdom",
             Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
+            controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(0, PlaybackMode) -> BaseMessages.changeLink
           )
         )
       }

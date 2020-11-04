@@ -1021,15 +1021,6 @@ authorisedOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
 addedOneAuthorisedOfficial.checkYourAnswers.title = You have added one authorised official
 addedOneAuthorisedOfficial.checkYourAnswers.heading = Check the authorised official’s details
 
-# Do you want to add another Authorised official Page Messages
-# ----------------------------------------------------------
-isAddAnotherAuthorisedOfficial.title = Do you want to add another authorised official?
-isAddAnotherAuthorisedOfficial.heading = Do you want to add another authorised official?
-isAddAnotherAuthorisedOfficial.hint = You have already provided details for {0}.
-isAddAnotherAuthorisedOfficial.error.required = Select yes if you want to add another authorised official
-
-isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = Add another authorised official
-
 # You have added second Authorised Official Page Messages
 # ----------------------------------------------------------
 addedSecondAuthorisedOfficial.checkYourAnswers.heading = Check the second authorised official’s details
@@ -1037,10 +1028,19 @@ addedSecondAuthorisedOfficial.checkYourAnswers.title = Check the second authoris
 
 # Authorised Officials Summary page
 # ----------------------------------------------------------
-authorisedOfficialsSummary.checkYourAnswers.title = Check the charity’s authorised official details
-authorisedOfficialsSummary.checkYourAnswers.heading = Check the charity’s authorised official details
+authorisedOfficialsSummary.checkYourAnswers.title.addedOne = You have added 1 authorised official
+authorisedOfficialsSummary.checkYourAnswers.title.addedTwo = You have added 2 authorised officials
+authorisedOfficialsSummary.checkYourAnswers.heading.addedOne = You have added 1 authorised official
+authorisedOfficialsSummary.checkYourAnswers.heading.addedTwo = You have added 2 authorised officials
 authorisedOfficialsSummary.checkYourAnswers.h2 = Authorised charity’s official
+authorisedOfficialsSummary.checkYourAnswers.change = Change
+authorisedOfficialsSummary.checkYourAnswers.changeName = Change {0}
+authorisedOfficialsSummary.checkYourAnswers.remove = Remove
+authorisedOfficialsSummary.checkYourAnswers.removeName = Remove {0} from the list
+authorisedOfficialsSummary.addAnotherOfficial.h2 = Do you want to add another authorised official?
+authorisedOfficialsSummary.error.required = Select yes to add another authorised official
 authorisedOfficialsSummary.section = Officials and nominees
+
 
 # Section8 - Other Officials
 # ----------------------------------------------------------

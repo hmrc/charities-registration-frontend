@@ -22,12 +22,13 @@ import base.SpecBase
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
-import models.authOfficials.OfficialsPosition
 import models.addressLookup.{AddressModel, CountryModel}
+import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
+import pages.sections.Section7Page
 import play.api.mvc.Call
 
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
@@ -245,9 +246,9 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
       "from the AddedOneAuthorisedOfficialPage" must {
 
-        "go to the DoYouWantToAddAnotherAuthorisedOfficial page when user answer is empty for 1st loop" in {
+        "go to the summary page when user answer is empty for 1st loop" in {
           navigator.nextPage(AddedOneAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
-            authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
+            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
 
@@ -279,6 +280,37 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the summary page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the index if Yes is selected and the section is complete" in {
+          navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers
+            .set(IsAddAnotherAuthorisedOfficialPage, true)
+            .flatMap(_.set(Section7Page, true)).success.value
+          ) mustBe
+            routes.IndexController.onPageLoad()
+        }
+
+        "go to the index if No is selected" in {
+          navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers
+            .set(IsAddAnotherAuthorisedOfficialPage, false).success.value
+          ) mustBe
+            routes.IndexController.onPageLoad()
+        }
+
+        "go to the 2nd authorised official's name page if Yes is selected and the section isn't completed yet" in {
+          navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers
+            .set(IsAddAnotherAuthorisedOfficialPage, true)
+            .flatMap(_.set(Section7Page, false)).success.value
+          ) mustBe
+            authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
+        }
+      }
+
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {
@@ -289,228 +321,10 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
     }
 
     "in Check mode" when {
-      List(0,1).foreach(index => {
-        s"from the AuthorisedOfficialsNamePage $index" must {
 
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialsNamePage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the summary page when continue button is clicked" in {
-            navigator.nextPage(AuthorisedOfficialsNamePage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName).flatMap(
-                _.set(AuthorisedOfficialsNamePage(index), authorisedOfficialsName)).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-
-        s"from the AuthorisedOfficialsDOBPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialsDOBPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the summary page when continue button is clicked" in {
-            navigator.nextPage(AuthorisedOfficialsDOBPage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).flatMap(
-                _.set(AuthorisedOfficialsDOBPage(index), LocalDate.now().minusYears(minYear))).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-
-        s"from the AuthorisedOfficialsPhoneNumberPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the summary page when continue button is clicked" in {
-            navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber).flatMap(
-                _.set(AuthorisedOfficialsPhoneNumberPage(index), authorisedOfficialsPhoneNumber)).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-
-        s"from the AuthorisedOfficialsPositionPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialsPositionPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the summary page when continue button is clicked" in {
-            navigator.nextPage(AuthorisedOfficialsPositionPage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.BoardMember).flatMap(
-                _.set(AuthorisedOfficialsPositionPage(index), OfficialsPosition.BoardMember)).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-
-        s"from the IsAuthorisedOfficialNinoPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(IsAuthorisedOfficialNinoPage(0), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the AuthorisedOfficialsNINOPage if Yes is selected and previously the user's passport details were provided" in {
-            navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
-              emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true)
-                .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
-                .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index)
-          }
-
-          "go to the AuthorisedOfficialsPassportPage if No is selected and previously the user's NINO details were provided" in {
-            navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
-              emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), false)
-                .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
-                .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, index)
-          }
-
-          "go to the Summary page when Yes is selected and previously the user's NINO details were provided" in {
-            navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
-              emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true)
-                .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
-                .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-
-          "go to Summary page when No is selected and previously the user's passport details were provided" in {
-            navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
-              emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), false)
-                .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
-                .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-
-        s"from the AuthorisedOfficialsNINOPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialsNinoPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to Summary page when clicked continue button" in {
-            navigator.nextPage(AuthorisedOfficialsNinoPage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C").flatMap(
-                _.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-
-        s"from the AuthorisedOfficialsPassportPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialsPassportPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to Summary page  when clicked continue button" in {
-            navigator.nextPage(AuthorisedOfficialsPassportPage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())).flatMap(
-                _.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
-                .success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-
-        s"from the AuthorisedOfficialAddressLookupPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the summary page when continue button is clicked" in {
-            navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0), address).flatMap(
-                _.set(AuthorisedOfficialAddressLookupPage(index), address)).success.value) mustBe
-              authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
-          }
-        }
-
-        s"from the IsAuthorisedOfficialPreviousAddressPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the Previous Address Lookup flow when yes is selected" in {
-            navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode,
-              emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), true)
-                .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
-                .success.value) mustBe
-              addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
-          }
-
-          "go to the Summary page when no is selected" in {
-            navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode,
-              emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), false)
-                .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), false))
-                .success.value) mustBe {
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-            }
-          }
-
-          "go to the Summary page when yes is selected and previous address is present" in {
-            navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode,
-              emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), false)
-                .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true)
-                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address)))
-                .success.value) mustBe {
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-            }
-          }
-        }
-
-        s"from the AuthorisedOfficialPreviousAddressLookupPage $index" must {
-
-          "go to the SessionExpiredController page when user answer is empty" in {
-            navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(index), CheckMode, emptyUserAnswers) mustBe
-              routes.SessionExpiredController.onPageLoad()
-          }
-
-          "go to the summary page when continue button is clicked" in {
-            navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(index), CheckMode,
-              emptyUserAnswers.set(AuthorisedOfficialPreviousAddressLookupPage(0), address).flatMap(
-                _.set(AuthorisedOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
-              authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-          }
-        }
-      })
-
-      "from the IsAddAnotherAuthorisedOfficialPage $index" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the DeadEnd page when clicked continue button" in {
-          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, CheckMode,
-            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
-            routes.DeadEndController.onPageLoad() // TODO when next page is ready
-        }
-      }
-
-      "from any UnKnownPage" must {
-
-        "go to the IndexController page when user answer is empty" in {
-          navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
-        }
+      "any page is called should go to IndexController" in {
+        navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
+          routes.IndexController.onPageLoad()
       }
     }
 

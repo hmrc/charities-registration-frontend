@@ -20,7 +20,7 @@ import forms.mappings.Mappings
 import javax.inject.Inject
 import play.api.data.Form
 
-class IsNomineePaymentsFormProvider @Inject() extends Mappings {
+class YesNoFormProvider @Inject() extends Mappings {
 
   def apply(messagePrefix: String): Form[Boolean] =
     Form(

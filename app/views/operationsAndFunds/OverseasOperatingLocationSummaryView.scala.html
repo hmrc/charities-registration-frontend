@@ -28,6 +28,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     h2:components.h2,
+    summaryYesNo: components.summaryYesNo
 )
 
 @(form: Form[_], mode: Mode, answers: Seq[SummaryListRow])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
@@ -43,32 +44,12 @@
     @formHelper(action = controllers.operationsAndFunds.routes.OverseasOperatingLocationSummaryController.onSubmit(mode), 'autoComplete -> "off") {
 
         @if(answers.length < 5) {
-            @govukRadios(Radios(
-                classes = "govuk-radios--inline",
-                idPrefix = None,
-                name = "value",
-                fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                        content = HtmlContent(Html(h2(messages("overseasOperatingLocationSummary.addAnotherCountry.h2")))),
-                        isPageHeading = false,
-                        classes = "govuk-heading-m"
-                    ))
-                )),
-                hint = Some(Hint(content = HtmlContent(Html(messages("overseasOperatingLocationSummary.addAnotherCountry.hint"))))),
-                items = Seq(
-                    RadioItem(id = Some("value"),
-                        value = Some("true"),
-                        content = Text(messages("site.yes")),
-                        checked = form("value").value.contains("true")
-                        ),
-                    RadioItem(id = Some("value-no"),
-                        value = Some("false"),
-                        content = Text(messages("site.no")),
-                        checked = form("value").value.contains("false")
-                        )
-                ),
-                errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
-            ))
+
+            @summaryYesNo(form,
+                h2Message = "overseasOperatingLocationSummary.addAnotherCountry.h2",
+                hintMessage = Some("overseasOperatingLocationSummary.addAnotherCountry.hint")
+            )
+
          } else { @p(Html(messages("overseasOperatingLocationSummary.addAnotherCountry.warn")), classes= "govuk-body govuk-hint")}
 
         @button("site.confirmAndContinue")

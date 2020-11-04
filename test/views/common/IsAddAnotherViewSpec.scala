@@ -17,8 +17,8 @@
 package views.common
 
 import assets.messages.BaseMessages
-import controllers.authorisedOfficials.routes
-import forms.common.IsAddAnotherFormProvider
+import controllers.otherOfficials.routes
+import forms.common.YesNoFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -27,13 +27,13 @@ import views.html.common.IsAddAnotherView
 
 class IsAddAnotherViewSpec extends YesNoViewBehaviours  {
 
-  private val messageKeyPrefix = "isAddAnotherAuthorisedOfficial"
+  private val messageKeyPrefix = "addAnotherOtherOfficial"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
   private val firstOfficialsName = "Jane Johnson"
   private val secondOfficialsName = "Jeff Jackson"
-  val form: Form[Boolean] = inject[IsAddAnotherFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
-    "IsAddAnotherAuthorisedOfficialView" must {
+    "IsAddAnotherOtherOfficialView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[IsAddAnotherView](Some(emptyUserAnswers))
@@ -44,7 +44,7 @@ class IsAddAnotherViewSpec extends YesNoViewBehaviours  {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsAddAnotherAuthorisedOfficialController.onSubmit(NormalMode).url, section = section)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AddAnotherOtherOfficialController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

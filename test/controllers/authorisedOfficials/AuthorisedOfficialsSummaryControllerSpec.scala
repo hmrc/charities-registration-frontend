@@ -18,13 +18,15 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import forms.common.YesNoFormProvider
 import models.{Name, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAddAnotherAuthorisedOfficialPage}
+import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -49,6 +51,11 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
     reset(mockUserAnswerRepository)
   }
 
+  private val messagePrefix: String = "authorisedOfficialsSummary"
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
+  private val form: Form[Boolean] = formProvider(messagePrefix)
+
+
   private val controller: AuthorisedOfficialsSummaryController = inject[AuthorisedOfficialsSummaryController]
 
   "AuthorisedOfficials Controller" must {
@@ -60,6 +67,34 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return OK if the form has data in it" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+        .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true)).success.value
+      )))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "return OK if the form has data for two officials in it" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+        .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")))
+        .success.value
+      )))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
@@ -76,13 +111,44 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
     "redirect to the next page when valid data is submitted" in {
 
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
-      val result = controller.onSubmit()(fakeRequest)
+      val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to the next page when valid data is submitted with two rows of officials" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man"))).success.value)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit()(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to the next page when invalid data is submitted" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "notACorrectValue"))
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit()(request)
+
+      status(result) mustBe BAD_REQUEST
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

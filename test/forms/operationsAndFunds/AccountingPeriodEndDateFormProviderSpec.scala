@@ -18,7 +18,7 @@ package forms.operationsAndFunds
 
 import forms.behaviours.DateBehaviours
 import org.joda.time.{LocalDate, MonthDay}
-import play.api.data.Form
+import play.api.data.{Form, FormError}
 
 class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
@@ -27,8 +27,8 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
   ".value" should {
 
     val validData = daysBetween(
-      min = new LocalDate(2000,1,1),
-      max = new LocalDate(2000,12,31)
+      min = new LocalDate(2001,1,1),
+      max = new LocalDate(2001,12,31)
     )
 
     ".value" should {
@@ -37,6 +37,9 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
       behave like mandatoryDateField(form, "date", "accountingPeriodEndDate.error.required.all", Seq("day", "month"))
 
+      behave like dayMonthFieldFailOn29Feb(form, "date",
+        FormError("date.day", "accountingPeriodEndDate.error.leapYear", List())
+      )
     }
   }
 }

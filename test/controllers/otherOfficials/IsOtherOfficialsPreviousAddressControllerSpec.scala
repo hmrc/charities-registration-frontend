@@ -18,14 +18,14 @@ package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.otherOfficials.{OtherOfficialsNamePage, IsOtherOfficialsPreviousAddressPage}
+import pages.otherOfficials.{IsOtherOfficialsPreviousAddressPage, OtherOfficialsNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -54,7 +54,7 @@ class IsOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Before
 
   private val messageKeyPrefix = "isOtherOfficialsPreviousAddress"
   private val view: IsPreviousAddressView = inject[IsPreviousAddressView]
-  private val formProvider: IsPreviousAddressFormProvider = inject[IsPreviousAddressFormProvider]
+  private val formProvider: YesNoFormProvider = inject[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: IsOtherOfficialsPreviousAddressController = inject[IsOtherOfficialsPreviousAddressController]

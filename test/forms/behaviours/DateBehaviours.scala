@@ -58,6 +58,19 @@ class DateBehaviours extends FieldBehaviours {
     }
   }
 
+  def dayMonthFieldFailOn29Feb(form: Form[_], key: String, formError: FormError): Unit = {
+
+    s"not bind valid data for 29/02/2000" in {
+      val data = Map(
+        s"$key.day" -> "29",
+        s"$key.month" -> "02"
+      )
+
+      val result = form.bind(data)
+      result.errors must contain only formError
+    }
+  }
+
   def dateFieldWithMax(form: Form[_], key: String, max: LocalDate, formError: FormError): Unit = {
     val generator = datesBetween(max.plusDays(1), max.plusYears(10))
     forAll(generator -> "invalid dates") {

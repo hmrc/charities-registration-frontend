@@ -25,6 +25,7 @@ import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
+import pages.sections.Section7Page
 import play.api.mvc.Call
 
 class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -98,7 +99,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AddedOneAuthorisedOfficialPage => _ => authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(NormalMode)
+    case AddedOneAuthorisedOfficialPage => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case AddedSecondAuthorisedOfficialPage => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
@@ -108,75 +109,18 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
+    case AuthorisedOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
+      case Some(true) if userAnswers.get(Section7Page).contains(true) => routes.IndexController.onPageLoad()
+      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
+      case Some(false) => routes.IndexController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
-    case AuthorisedOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case AuthorisedOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case AuthorisedOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-
-    case AuthorisedOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case IsAuthorisedOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
-      case Some(true) if userAnswers.get(AuthorisedOfficialsNinoPage(index)).isDefined =>
-        authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index)
-      case Some(false) if userAnswers.get(AuthorisedOfficialsPassportPage(index)).isDefined =>
-        authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case Some(false) => authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case AuthorisedOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case AuthorisedOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
-      case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
-      case _ => routes.SessionExpiredController.onPageLoad()
-    }
-
-    case IsAuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
-      case Some(true) if userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)).isDefined =>
-        authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case Some(true) => addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
-      case Some(false) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
-      userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
-        case Some(_) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-        case _ => routes.SessionExpiredController.onPageLoad()
-      }
-
-    case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
-
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad() // TODO move all playback routes to checkMode and remove playback mode
 
   }
 

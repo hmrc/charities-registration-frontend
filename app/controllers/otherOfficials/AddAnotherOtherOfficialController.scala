@@ -19,7 +19,7 @@ package controllers.otherOfficials
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsAddAnotherController
-import forms.common.IsAddAnotherFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.OtherOfficialsNavigator
@@ -36,7 +36,7 @@ class AddAnotherOtherOfficialController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
-    val formProvider: IsAddAnotherFormProvider,
+    val formProvider: YesNoFormProvider,
     val controllerComponents: MessagesControllerComponents,
     override val sessionRepository: UserAnswerRepository,
     override val navigator: OtherOfficialsNavigator,

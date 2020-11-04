@@ -18,7 +18,7 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
@@ -54,7 +54,7 @@ class IsIndividualNomineePreviousAddressControllerSpec extends SpecBase with Bef
 
   private val messageKeyPrefix: String = "isIndividualNomineePreviousAddress"
   private val view: IsPreviousAddressView = injector.instanceOf[IsPreviousAddressView]
-  private val formProvider: IsPreviousAddressFormProvider = injector.instanceOf[IsPreviousAddressFormProvider]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: IsIndividualNomineePreviousAddressController = inject[IsIndividualNomineePreviousAddressController]

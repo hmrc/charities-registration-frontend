@@ -18,7 +18,7 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsOfficialsNinoFormProvider
+import forms.common.YesNoFormProvider
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
@@ -31,7 +31,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.common.IsOfficialsNinoView
+import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
@@ -53,8 +53,8 @@ class IsOrganisationNomineeNinoControllerSpec extends SpecBase with BeforeAndAft
   }
 
   private val messageKeyPrefix: String = "isOrganisationNomineeNino"
-  private val view: IsOfficialsNinoView = injector.instanceOf[IsOfficialsNinoView]
-  private val formProvider: IsOfficialsNinoFormProvider = injector.instanceOf[IsOfficialsNinoFormProvider]
+  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: IsOrganisationNomineeNinoController = inject[IsOrganisationNomineeNinoController]
@@ -72,7 +72,7 @@ class IsOrganisationNomineeNinoControllerSpec extends SpecBase with BeforeAndAft
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
-        controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(NormalMode))(
+        controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(NormalMode), "officialsAndNominees")(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }

@@ -19,7 +19,7 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsNomineePaymentsController
-import forms.common.IsNomineePaymentsFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
@@ -34,15 +34,15 @@ import scala.concurrent.Future
 
 
 class IsIndividualNomineePaymentsController @Inject()(
-     val identify: AuthIdentifierAction,
-     val getData: UserDataRetrievalAction,
-     val requireData: DataRequiredAction,
-     val formProvider: IsNomineePaymentsFormProvider,
-     val sessionRepository: UserAnswerRepository,
-     val navigator: NomineesNavigator,
-     override val controllerComponents: MessagesControllerComponents,
-     val view: IsNomineePaymentsView
-     )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: YesNoFormProvider,
+    val sessionRepository: UserAnswerRepository,
+    val navigator: NomineesNavigator,
+    override val controllerComponents: MessagesControllerComponents,
+    val view: IsNomineePaymentsView
+  )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
 
   val messagePrefix: String = "isIndividualNomineePayments"
   private val form: Form[Boolean] = formProvider(messagePrefix)

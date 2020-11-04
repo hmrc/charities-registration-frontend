@@ -21,11 +21,11 @@ import java.time.LocalDate
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.charityInformation.{routes => charityInfoRoutes}
-import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.nominees.{routes => nomineeRoutes}
+import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.nominees.OrganisationNomineeContactDetails
-import models.{CharityContactDetails, CheckMode, NormalMode, Passport}
+import models.{CharityContactDetails, CheckMode, NormalMode, Passport, PlaybackMode}
 import pages.authorisedOfficials.{AuthorisedOfficialsNinoPage, AuthorisedOfficialsPassportPage}
 import pages.charityInformation.CharityContactDetailsPage
 import pages.nominees.{IndividualNomineesNinoPage, IndividualNomineesPassportPage, OrganisationNomineeContactDetailsPage}
@@ -150,28 +150,31 @@ class ExternalTestNavigationSpec extends SpecBase {
         }
       }
 
-      "from the AuthorisedOfficialsNINOPage" must {
-        "go to Summary page when clicked continue button" in {
-          authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsNinoPage(0), CheckMode,
-            emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
-            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-        }
-      }
-
-      "from the AuthorisedOfficialsPassportPage" must {
-        "go to Summary page  when clicked continue button" in {
-          authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsPassportPage(0), CheckMode,
-            emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
-              .success.value) mustBe
-            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-        }
-      }
-
       "from the OtherOfficialsNinoPage" must {
         "go to the dead end page when clicked continue button" in {
           otherOfficialsNavigator.nextPage(OtherOfficialsNinoPage(0), CheckMode,
             emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
             otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+        }
+      }
+    }
+
+    "in Playback mode" when {
+
+      "from the AuthorisedOfficialsNINOPage" must {
+        "go to Summary page when clicked continue button" in {
+          authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsNinoPage(0), PlaybackMode,
+            emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
+            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
+        }
+      }
+
+      "from the AuthorisedOfficialsPassportPage" must {
+        "go to Summary page  when clicked continue button" in {
+          authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsPassportPage(0), PlaybackMode,
+            emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+              .success.value) mustBe
+            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
         }
       }
     }

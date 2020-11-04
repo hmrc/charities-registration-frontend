@@ -16,25 +16,22 @@
 
 package controllers.nominees
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsOfficialsNinoFormProvider
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import forms.common.YesNoFormProvider
+import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.nominees.{IndividualNomineeDOBPage, IndividualNomineeNamePage, IsAuthoriseNomineePage, IsIndividualNomineeNinoPage}
-import pages.otherOfficials.{IsOtherOfficialNinoPage, OtherOfficialsNamePage}
+import pages.nominees.{IndividualNomineeNamePage, IsIndividualNomineeNinoPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.common.IsOfficialsNinoView
+import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
@@ -56,8 +53,8 @@ class IsIndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfter
   }
 
   private val messageKeyPrefix: String = "isIndividualNomineeNino"
-  private val view: IsOfficialsNinoView = injector.instanceOf[IsOfficialsNinoView]
-  private val formProvider: IsOfficialsNinoFormProvider = injector.instanceOf[IsOfficialsNinoFormProvider]
+  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: IsIndividualNomineeNinoController = inject[IsIndividualNomineeNinoController]
@@ -74,7 +71,7 @@ class IsIndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfter
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.nominees.routes.IsIndividualNomineeNinoController.onSubmit(NormalMode))(
+        controllers.nominees.routes.IsIndividualNomineeNinoController.onSubmit(NormalMode), "officialsAndNominees")(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }

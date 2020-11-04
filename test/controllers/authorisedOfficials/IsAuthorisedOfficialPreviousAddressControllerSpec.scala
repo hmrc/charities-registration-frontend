@@ -18,14 +18,14 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.authorisedOfficials.{IsAuthorisedOfficialPreviousAddressPage, AuthorisedOfficialsNamePage}
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialPreviousAddressPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -53,7 +53,7 @@ class IsAuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Be
   }
   private val messageKeyPrefix = "isAuthorisedOfficialPreviousAddress"
   private val view: IsPreviousAddressView = injector.instanceOf[IsPreviousAddressView]
-  private val formProvider: IsPreviousAddressFormProvider = injector.instanceOf[IsPreviousAddressFormProvider]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: IsAuthorisedOfficialPreviousAddressController = inject[IsAuthorisedOfficialPreviousAddressController]

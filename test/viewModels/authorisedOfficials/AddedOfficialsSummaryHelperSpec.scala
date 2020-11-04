@@ -18,7 +18,6 @@ package viewModels.authorisedOfficials
 
 import assets.messages.BaseMessages
 import base.SpecBase
-import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{CheckMode, Index, UserAnswers}
 import org.mockito.ArgumentMatchers.any
@@ -44,18 +43,6 @@ class AddedOfficialsSummaryHelperSpec extends SpecBase with SummaryListRowHelper
   def helper(userAnswers: UserAnswers, index: Index) = new AddedOfficialsSummaryHelper(index, countryService = mockCountryService)(userAnswers)
 
   "Check Your Answers Helper" must {
-
-    "For the isAddAnotherAuthorisedOfficial answer" must {
-
-      "have a correctly formatted summary list row" in {
-        helper(authorisedOfficialDetails, 0).isAddAnotherAuthorisedOfficialRow mustBe Some(summaryListRow(
-          messages("isAddAnotherAuthorisedOfficial.checkYourAnswersLabel"),
-          BaseMessages.yes,
-          Some(messages("isAddAnotherAuthorisedOfficial.checkYourAnswersLabel")),
-          authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
 
     "For the addedAnotherOtherOfficial answer" must {
 

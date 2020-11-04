@@ -18,14 +18,14 @@ package controllers.common
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
+import models.Mode
 import models.requests.DataRequest
-import models.{Index, Mode}
 import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.common.IsOfficialsNinoView
+import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
@@ -33,7 +33,7 @@ trait IsOfficialsNinoController extends LocalBaseController {
   protected val sessionRepository: UserAnswerRepository
   protected val navigator: BaseNavigator
   protected val controllerComponents: MessagesControllerComponents
-  protected val view: IsOfficialsNinoView
+  protected val view: YesNoView
   protected val messagePrefix: String
 
   def getView(page: QuestionPage[Boolean], form: Form[Boolean], fullName: String, submitCall: Call)(
@@ -44,7 +44,7 @@ trait IsOfficialsNinoController extends LocalBaseController {
       case Some(value) => form.fill(value)
     }
 
-    Ok(view(preparedForm, fullName, messagePrefix, submitCall))
+    Ok(view(preparedForm, fullName, messagePrefix, submitCall, "officialsAndNominees"))
   }
 
     def postView(mode: Mode, page: QuestionPage[Boolean], form: Form[Boolean], fullName: String,
@@ -52,7 +52,7 @@ trait IsOfficialsNinoController extends LocalBaseController {
 
     form.bindFromRequest().fold(
       formWithErrors =>
-            Future.successful(BadRequest(view(formWithErrors, fullName, messagePrefix, submitCall))),
+            Future.successful(BadRequest(view(formWithErrors, fullName, messagePrefix, submitCall, "officialsAndNominees"))),
 
       value =>
         for {

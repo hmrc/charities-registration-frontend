@@ -1021,15 +1021,6 @@ authorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Previous home addre
 addedOneAuthorisedOfficial.checkYourAnswers.title = (W)You have added one authorised official(W)
 addedOneAuthorisedOfficial.checkYourAnswers.heading = (W)Check the authorised official’s details(W)
 
-# Do you want to add another Authorised official Page Messages
-# ----------------------------------------------------------
-isAddAnotherAuthorisedOfficial.title = (W)Do you want to add another authorised official?(W)
-isAddAnotherAuthorisedOfficial.heading = (W)Do you want to add another authorised official?(W)
-isAddAnotherAuthorisedOfficial.hint = (W)You have already provided details for {0}.(W)
-isAddAnotherAuthorisedOfficial.error.required = (W)Select yes if you want to add another authorised official(W)
-
-isAddAnotherAuthorisedOfficial.checkYourAnswersLabel = (W)Add another authorised official(W)
-
 # You have added second Authorised Official Page Messages
 # ----------------------------------------------------------
 addedSecondAuthorisedOfficial.checkYourAnswers.heading = (W)Check the second authorised official’s details(W)
@@ -1037,10 +1028,19 @@ addedSecondAuthorisedOfficial.checkYourAnswers.title = (W)Check the second autho
 
 # Authorised Officials Summary page
 # ----------------------------------------------------------
-authorisedOfficialsSummary.checkYourAnswers.title = (W)Check the charity’s authorised official details(W)
-authorisedOfficialsSummary.checkYourAnswers.heading = (W)Check the charity’s authorised official details(W)
+authorisedOfficialsSummary.checkYourAnswers.title.addedOne = (W)You have added 1 authorised official(W)
+authorisedOfficialsSummary.checkYourAnswers.title.addedTwo = (W)You have added 2 authorised officials(W)
+authorisedOfficialsSummary.checkYourAnswers.heading.addedOne = (W)You have added 1 authorised official(W)
+authorisedOfficialsSummary.checkYourAnswers.heading.addedTwo = (W)You have added 2 authorised officials(W)
 authorisedOfficialsSummary.checkYourAnswers.h2 = (W)Authorised charity’s official(W)
+authorisedOfficialsSummary.checkYourAnswers.change = (W)Change(W)
+authorisedOfficialsSummary.checkYourAnswers.changeName = (W)Change {0}(W)
+authorisedOfficialsSummary.checkYourAnswers.remove = (W)Remove(W)
+authorisedOfficialsSummary.checkYourAnswers.removeName = (W)Remove {0} from the list(W)
+authorisedOfficialsSummary.addAnotherOfficial.h2 = (W)Do you want to add another authorised official?(W)
+authorisedOfficialsSummary.error.required = (W)Select yes to add another authorised official(W)
 authorisedOfficialsSummary.section = (W)Officials and nominees(W)
+
 
 # Section8 - Other Officials
 # ----------------------------------------------------------

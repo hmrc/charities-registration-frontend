@@ -18,7 +18,7 @@ package views.common
 
 import assets.messages.BaseMessages
 import controllers.authorisedOfficials.routes
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import models.{Index, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -29,7 +29,7 @@ class IsPreviousAddressViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isAuthorisedOfficialPreviousAddress"
   private val section: Some[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[IsPreviousAddressFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
   "AuthorisedOfficialPreviousAddressView" must {
 

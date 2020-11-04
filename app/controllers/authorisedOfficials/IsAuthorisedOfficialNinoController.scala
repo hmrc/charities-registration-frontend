@@ -19,7 +19,7 @@ package controllers.authorisedOfficials
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsOfficialsNinoController
-import forms.common.IsOfficialsNinoFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
@@ -28,7 +28,7 @@ import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.common.IsOfficialsNinoView
+import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
@@ -36,11 +36,11 @@ class IsAuthorisedOfficialNinoController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
-    val formProvider: IsOfficialsNinoFormProvider,
+    val formProvider: YesNoFormProvider,
     override val sessionRepository: UserAnswerRepository,
     override val navigator: AuthorisedOfficialsNavigator,
     override val controllerComponents: MessagesControllerComponents,
-    override val view: IsOfficialsNinoView
+    override val view: YesNoView
   )(implicit appConfig: FrontendAppConfig) extends IsOfficialsNinoController {
 
   override val messagePrefix: String = "isAuthorisedOfficialNino"

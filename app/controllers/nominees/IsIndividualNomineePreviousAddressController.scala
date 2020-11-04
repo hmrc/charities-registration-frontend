@@ -19,7 +19,7 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsPreviousAddressController
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
@@ -33,15 +33,15 @@ import views.html.common.IsPreviousAddressView
 import scala.concurrent.Future
 
 class IsIndividualNomineePreviousAddressController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: IsPreviousAddressFormProvider,
-   override val sessionRepository: UserAnswerRepository,
-   override val navigator: NomineesNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: IsPreviousAddressView
-   )(implicit appConfig: FrontendAppConfig) extends IsPreviousAddressController {
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: YesNoFormProvider,
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: NomineesNavigator,
+    override val controllerComponents: MessagesControllerComponents,
+    override val view: IsPreviousAddressView
+  )(implicit appConfig: FrontendAppConfig) extends IsPreviousAddressController {
 
   override val messagePrefix: String = "isIndividualNomineePreviousAddress"
   private val form: Form[Boolean] = formProvider(messagePrefix)

@@ -16,10 +16,8 @@
 
 package viewmodels.authorisedOfficials
 
-import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{CheckMode, Index, Mode, UserAnswers}
-import pages.authorisedOfficials._
 import pages.otherOfficials._
 import play.api.i18n.Messages
 import service.CountryService
@@ -32,13 +30,7 @@ class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode, countryS
                                  (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
-  val addedOneAuthorisedOfficial = new AddedOneAuthorisedOfficialHelper(index, CheckMode, countryService)(userAnswers)
   val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index, CheckMode, countryService)(userAnswers)
-
-  def isAddAnotherAuthorisedOfficialRow: Option[SummaryListRow] =
-    answerPrefix(IsAddAnotherAuthorisedOfficialPage,
-                 authOfficialRoutes.IsAddAnotherAuthorisedOfficialController.onPageLoad(mode),
-                 messagePrefix = "isAddAnotherAuthorisedOfficial")
 
   def addedAnotherOtherOfficialRow: Option[SummaryListRow] =
     answerPrefix(AddAnotherOtherOfficialPage,
@@ -46,8 +38,6 @@ class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode, countryS
                  messagePrefix = "addAnotherOtherOfficial")
 
 
-  val authorisedRows: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows ++ isAddAnotherAuthorisedOfficialRow
-  val authorisedRowsAddAnother: Seq[SummaryListRow] = addedOneAuthorisedOfficial.rows
   val otherRows: Seq[SummaryListRow] = addedOneOtherOfficial.rows
   val otherRowsAddAnother: Seq[SummaryListRow] = addedOneOtherOfficial.rows ++ addedAnotherOtherOfficialRow
   val otherRowsAddThird: Seq[SummaryListRow] = addedOneOtherOfficial.rows

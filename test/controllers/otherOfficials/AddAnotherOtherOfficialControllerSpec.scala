@@ -18,7 +18,7 @@ package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsAddAnotherFormProvider
+import forms.common.YesNoFormProvider
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
@@ -54,7 +54,7 @@ class AddAnotherOtherOfficialControllerSpec extends SpecBase with BeforeAndAfter
 
   private val messageKeyPrefix = "addAnotherOtherOfficial"
   private val view: IsAddAnotherView = inject[IsAddAnotherView]
-  private val formProvider: IsAddAnotherFormProvider = inject[IsAddAnotherFormProvider]
+  private val formProvider: YesNoFormProvider = inject[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: AddAnotherOtherOfficialController = inject[AddAnotherOtherOfficialController]

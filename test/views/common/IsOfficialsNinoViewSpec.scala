@@ -18,7 +18,7 @@ package views.common
 
 import assets.messages.BaseMessages
 import controllers.authorisedOfficials.routes
-import forms.common.IsOfficialsNinoFormProvider
+import forms.common.YesNoFormProvider
 import models.{Index, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -29,7 +29,7 @@ class IsOfficialsNinoViewSpec extends YesNoViewBehaviours  {
 
   private val messageKeyPrefix = "isAuthorisedOfficialPosition"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[IsOfficialsNinoFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
     "AuthorisedOfficialsNameView" must {
 

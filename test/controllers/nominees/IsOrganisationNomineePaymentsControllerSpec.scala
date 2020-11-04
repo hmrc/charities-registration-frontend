@@ -18,7 +18,7 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsNomineePaymentsFormProvider
+import forms.common.YesNoFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
@@ -53,7 +53,7 @@ class IsOrganisationNomineePaymentsControllerSpec extends SpecBase with BeforeAn
   }
   val messagePrefix: String = "isOrganisationNomineePayments"
   private val view: IsNomineePaymentsView = injector.instanceOf[IsNomineePaymentsView]
-  private val formProvider: IsNomineePaymentsFormProvider = injector.instanceOf[IsNomineePaymentsFormProvider]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
   private val controller: IsOrganisationNomineePaymentsController = inject[IsOrganisationNomineePaymentsController]

@@ -19,7 +19,7 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsNomineePaymentsController
-import forms.common.IsNomineePaymentsFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
@@ -36,12 +36,12 @@ class IsOrganisationNomineePaymentsController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
-    val formProvider: IsNomineePaymentsFormProvider,
+    val formProvider: YesNoFormProvider,
     override val sessionRepository: UserAnswerRepository,
     override val navigator: NomineesNavigator,
     override val controllerComponents: MessagesControllerComponents,
     override val view: IsNomineePaymentsView
-   )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
+  )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
 
   override val messagePrefix: String = "isOrganisationNomineePayments"
   private val form: Form[Boolean] = formProvider(messagePrefix)

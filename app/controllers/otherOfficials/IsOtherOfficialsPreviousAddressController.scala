@@ -19,11 +19,11 @@ package controllers.otherOfficials
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsPreviousAddressController
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.OtherOfficialsNavigator
-import pages.otherOfficials.{OtherOfficialsNamePage, IsOtherOfficialsPreviousAddressPage}
+import pages.otherOfficials.{IsOtherOfficialsPreviousAddressPage, OtherOfficialsNamePage}
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
@@ -33,15 +33,15 @@ import views.html.common.IsPreviousAddressView
 import scala.concurrent.Future
 
 class IsOtherOfficialsPreviousAddressController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: IsPreviousAddressFormProvider,
-   override val sessionRepository: UserAnswerRepository,
-   override val navigator: OtherOfficialsNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: IsPreviousAddressView
- )(implicit appConfig: FrontendAppConfig) extends IsPreviousAddressController {
+    val identify: AuthIdentifierAction,
+    val getData: UserDataRetrievalAction,
+    val requireData: DataRequiredAction,
+    val formProvider: YesNoFormProvider,
+    override val sessionRepository: UserAnswerRepository,
+    override val navigator: OtherOfficialsNavigator,
+    override val controllerComponents: MessagesControllerComponents,
+    override val view: IsPreviousAddressView
+  )(implicit appConfig: FrontendAppConfig) extends IsPreviousAddressController {
 
   override val messagePrefix: String = "isOtherOfficialsPreviousAddress"
   private val form: Form[Boolean] = formProvider(messagePrefix)

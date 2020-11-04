@@ -19,11 +19,11 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsPreviousAddressController
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
-import pages.nominees.{IndividualNomineeNamePage, IsIndividualNomineePreviousAddressPage, IsOrganisationNomineePreviousAddressPage, OrganisationNomineeNamePage}
+import pages.nominees.{IsOrganisationNomineePreviousAddressPage, OrganisationNomineeNamePage}
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
@@ -36,7 +36,7 @@ class IsOrganisationNomineePreviousAddressController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
-    val formProvider: IsPreviousAddressFormProvider,
+    val formProvider: YesNoFormProvider,
     override val sessionRepository: UserAnswerRepository,
     override val navigator: NomineesNavigator,
     override val controllerComponents: MessagesControllerComponents,

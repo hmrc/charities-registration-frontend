@@ -14,30 +14,31 @@
  * limitations under the License.
  */
 
-package views.operationsAndFunds
+package views.common
 
-import forms.operationsAndFunds.OverseasOperatingLocationSummaryFormProvider
-import models.NormalMode
+import forms.common.YesNoFormProvider
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
+import views.html.common.OfficialsSummaryViewNewTODO
 
-class OverseasOperatingLocationSummaryViewSpec extends ViewBehaviours  {
+class OfficialsSummaryViewNewTODOSpec extends ViewBehaviours  {
 
-  private val messageKeyPrefix: String = "overseasOperatingLocationSummary.checkYourAnswers"
-  private val section: String = messages("operationsAndFunds.section")
-  val form: Form[Boolean] = inject[OverseasOperatingLocationSummaryFormProvider].apply()
+  private val messageKeyPrefix: String = "authorisedOfficialsSummary.checkYourAnswers"
+  private val section: String = messages("officialsAndNominees.section")
+  val form: Form[Boolean] = inject[YesNoFormProvider].apply("authorisedOfficialsSummary")
 
-  "OverseasOperatingLocationSummaryView" must {
+  "OfficialsSummaryViewNewTODO" must {
 
     def applyView(form: Form[Boolean]): HtmlFormat.Appendable = {
-      val view = viewFor[OverseasOperatingLocationSummaryView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, Seq())(
+      val view = viewFor[OfficialsSummaryViewNewTODO](Some(emptyUserAnswers))
+      view.apply(form, "authorisedOfficialsSummary", 2,
+        controllers.routes.IndexController.onPageLoad()
+      )(
         fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq(), section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, Seq(), section = Some(section), postHeadingString = ".addedOne")
 
     behave like pageWithBackLink(applyView(form))
 

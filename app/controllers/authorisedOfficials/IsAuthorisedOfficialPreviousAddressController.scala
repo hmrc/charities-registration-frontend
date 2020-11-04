@@ -19,11 +19,11 @@ package controllers.authorisedOfficials
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsPreviousAddressController
-import forms.common.IsPreviousAddressFormProvider
+import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.{IsAuthorisedOfficialPreviousAddressPage, AuthorisedOfficialsNamePage}
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialPreviousAddressPage}
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
@@ -36,7 +36,7 @@ class IsAuthorisedOfficialPreviousAddressController @Inject()(
    val identify: AuthIdentifierAction,
    val getData: UserDataRetrievalAction,
    val requireData: DataRequiredAction,
-   val formProvider: IsPreviousAddressFormProvider,
+   val formProvider: YesNoFormProvider,
    override val sessionRepository: UserAnswerRepository,
    override val navigator: AuthorisedOfficialsNavigator,
    override val controllerComponents: MessagesControllerComponents,

@@ -1,0 +1,49 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this(
+        govukRadios: GovukRadios,
+        h2: components.h2
+)
+
+@(form: Form[_], h2Message: String, hintMessage: Option[String])(implicit messages: Messages)
+
+@govukRadios(Radios(
+    classes = "govuk-radios--inline",
+    idPrefix = None,
+    name = "value",
+    fieldset = Some(Fieldset(
+        legend = Some(Legend(
+            content = HtmlContent(Html(h2(messages(h2Message)))),
+            isPageHeading = false,
+            classes = "govuk-heading-m"
+        ))
+    )),
+    hint = hintMessage.map(text => Hint(content = HtmlContent(Html(messages(text))))),
+    items = Seq(
+        RadioItem(id = Some("value"),
+            value = Some("true"),
+            content = Text(messages("site.yes")),
+            checked = form("value").value.contains("true")
+        ),
+        RadioItem(id = Some("value-no"),
+            value = Some("false"),
+            content = Text(messages("site.no")),
+            checked = form("value").value.contains("false")
+        )
+    ),
+    errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+))

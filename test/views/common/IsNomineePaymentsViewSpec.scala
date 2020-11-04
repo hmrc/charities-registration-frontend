@@ -17,7 +17,7 @@
 package views.common
 
 import assets.messages.BaseMessages
-import forms.common.IsNomineePaymentsFormProvider
+import forms.common.YesNoFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -28,7 +28,7 @@ class IsNomineePaymentsViewSpec extends YesNoViewBehaviours  {
 
   private val messageKeyPrefix = "isIndividualNomineePayments"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[IsNomineePaymentsFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
   "IsIndividualNomineePaymentsView" must {
 

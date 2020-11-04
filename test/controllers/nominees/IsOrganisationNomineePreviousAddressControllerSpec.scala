@@ -18,14 +18,14 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.IsPreviousAddressFormProvider
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import forms.common.YesNoFormProvider
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.nominees.{IndividualNomineeNamePage, IsIndividualNomineePreviousAddressPage, IsOrganisationNomineePreviousAddressPage, OrganisationNomineeNamePage}
+import pages.nominees.{IsOrganisationNomineePreviousAddressPage, OrganisationNomineeNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -54,7 +54,7 @@ class IsOrganisationNomineePreviousAddressControllerSpec extends SpecBase with B
 
   private val messageKeyPrefix: String = "isOrganisationNomineePreviousAddress"
   private val view: IsPreviousAddressView = injector.instanceOf[IsPreviousAddressView]
-  private val formProvider: IsPreviousAddressFormProvider = injector.instanceOf[IsPreviousAddressFormProvider]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
   private val form: Form[Boolean] = formProvider(messageKeyPrefix)
 
   private val controller: IsOrganisationNomineePreviousAddressController = inject[IsOrganisationNomineePreviousAddressController]

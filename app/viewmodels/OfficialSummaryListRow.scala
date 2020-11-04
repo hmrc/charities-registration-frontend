@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 
-package forms.common
+package viewmodels
 
-import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
+import models.Name
+import play.api.mvc.Call
 
-class IsAddAnotherFormProvider @Inject() extends Mappings {
-
-  def apply(messagePrefix: String): Form[Boolean] =
-    Form(
-      "value" -> boolean(s"$messagePrefix.error.required")
-    )
-}
+case class OfficialSummaryListRow(name: Name, changeCall: Call, removeCall: Call)

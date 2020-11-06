@@ -15,42 +15,82 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
+@import viewmodels.OfficialSummaryListRow
 
 @this(
+        govukRadios: GovukRadios,
         govukLayout: templates.GovukLayoutWrapper,
         govukSummaryList: GovukSummaryList,
         h1: components.h1,
+        subheading: components.subheading,
         button: components.button,
+        p: components.p,
+        h2: components.h2,
         formHelper: FormWithCSRF,
-        h2:components.h2,
+        errorSummary: components.errorSummary,
+        summaryYesNo: components.summaryYesNo
 )
 
-@(answersOfficial1: Seq[SummaryListRow], answersOfficial2: Seq[SummaryListRow],  answersOfficial3: Seq[SummaryListRow], section: String, postAction: Call
+@(form: Form[_], section: String, maxOfficials: Int, postAction: Call, officialAnswers: Seq[OfficialSummaryListRow] = Seq.empty
 )(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(messages(s"$section.section"))))) {
-
-    @h1(messages(s"$section.checkYourAnswers.heading"))
-
-    @if(answersOfficial2.nonEmpty){
-        @h2(messages(s"$section.checkYourAnswers.h2") ++ {if(answersOfficial3.nonEmpty) (" " ++ messages("individual.1of3")) else (" " ++ messages("individual.1of2"))})
+@suffix = @{
+    officialAnswers.length match {
+        case 3 => "addedThree"
+        case 2 => "addedTwo"
+        case _ => "addedOne"
     }
+}
+@govukLayout(pageTitle = Some(title(form, s"$section.checkYourAnswers.title.$suffix", section = Some(messages(s"$section.section"))))) {
 
-    @govukSummaryList(SummaryList(answersOfficial1))
+    @errorSummary(form.errors)
 
-    @(if(answersOfficial2.nonEmpty)h2(messages(s"$section.checkYourAnswers.h2")++ {if(answersOfficial3.nonEmpty) (" " ++ messages("individual.2of3")) else (" " ++ messages("individual.2of2"))}))
+    @h1(messages(s"$section.checkYourAnswers.heading.$suffix"))
 
-    @(if(answersOfficial2.nonEmpty)govukSummaryList(SummaryList(answersOfficial2)))
+    <div class="govuk-form-group">
+        <ul class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+            @for(official <- officialAnswers) {
+                <li class="hmrc-add-to-a-list__contents">
+                    <span class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+                        @{official.name.getFullName}
+                    </span>
+                    <span class="hmrc-add-to-a-list__change">
+                        <a class="govuk-link" href=@{official.changeCall}>
+                            <span aria-hidden="true">@{messages(s"$section.checkYourAnswers.change")}</span>
+                            <span class="govuk-visually-hidden">@{messages(s"$section.checkYourAnswers.changeName", official.name.getFullName)}</span>
+                        </a>
+                    </span>
+                    <span class="hmrc-add-to-a-list__remove">
+                        <a class="govuk-link" href=@{official.removeCall}>
+                            <span aria-hidden="true">@{messages(s"$section.checkYourAnswers.remove")}</span>
+                            <span class="govuk-visually-hidden">@{messages(s"$section.checkYourAnswers.removeName", official.name.getFullName)}</span>
+                        </a>
+                    </span>
+                </li>
+            }
+        </ul>
+    </div>
 
-    @if(answersOfficial3.nonEmpty){
-
-        @h2(messages(s"$section.checkYourAnswers.h2")++ " " ++ messages("individual.3of3"))
-
-        @govukSummaryList(SummaryList(answersOfficial3))
-    }
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
+
+
+
+        @if(officialAnswers.length == 1 && section == "otherOfficialsSummary") {
+
+            @h2(Html(messages(s"$section.checkYourAnswers.p1")))
+
+        } else {
+
+            @if(officialAnswers.length < maxOfficials) {
+
+                @summaryYesNo(form,
+                    h2Message = s"$section.addAnotherOfficial.h2",
+                    hintMessage = None
+                    )
+
+            }
+        }
 
         @button("site.confirmAndContinue")
 

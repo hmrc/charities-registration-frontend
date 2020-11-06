@@ -16,12 +16,16 @@
 
 package pages.otherOfficials
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import pages.behaviours.PageBehaviours
 
-case object AddAnotherOtherOfficialPage extends QuestionPage[Boolean] {
+class IsAddAnotherOtherOfficialPageSpec extends PageBehaviours {
 
-  override def path: JsPath = JsPath \ toString
+  "IsAddAnotherOtherOfficialPage" must {
 
-  override  val toString: String = "addAnotherOtherOfficial"
+    beRetrievable[Boolean](IsAddAnotherOtherOfficialPage)
+
+    beSettable[Boolean](IsAddAnotherOtherOfficialPage)
+
+    beRemovable[Boolean](IsAddAnotherOtherOfficialPage)
+  }
 }

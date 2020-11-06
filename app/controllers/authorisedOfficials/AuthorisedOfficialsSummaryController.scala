@@ -31,7 +31,7 @@ import play.api.mvc._
 import repositories.UserAnswerRepository
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper.checkComplete
 import viewmodels.officials.OfficialSummaryRowHelper
-import views.html.common.OfficialsSummaryViewNewTODO
+import views.html.common.OfficialsSummaryView
 
 import scala.concurrent.Future
 
@@ -42,7 +42,7 @@ class AuthorisedOfficialsSummaryController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,
-    view: OfficialsSummaryViewNewTODO,
+    view: OfficialsSummaryView,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController with OfficialSummaryRowHelper {
 
@@ -77,18 +77,15 @@ class AuthorisedOfficialsSummaryController @Inject()(
 
         value =>
           for {
-            updatedAnswers  <- Future.fromTry(result = request.userAnswers
-                                .set(IsAddAnotherAuthorisedOfficialPage, value))
-            taskListUpdated <- Future.fromTry(result = updatedAnswers
-                                .set(Section7Page, checkComplete(updatedAnswers)))
+            updatedAnswers  <- Future.fromTry(result = request.userAnswers.set(IsAddAnotherAuthorisedOfficialPage, value))
+            taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section7Page, checkComplete(updatedAnswers)))
             _               <- sessionRepository.set(taskListUpdated)
           } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, taskListUpdated))
       )
     } else {
 
       for {
-        updatedAnswers <- Future.fromTry(result = request.userAnswers
-                           .set(Section7Page, checkComplete(request.userAnswers)))
+        updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section7Page, checkComplete(request.userAnswers)))
         _              <- sessionRepository.set(updatedAnswers)
       } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, updatedAnswers))
     }

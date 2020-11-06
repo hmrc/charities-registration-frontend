@@ -16,12 +16,26 @@
 
 package navigation
 
-import models.{Mode, UserAnswers}
+import controllers.routes
+import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
 import play.api.mvc.Call
 
 trait BaseNavigator {
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call
+  val normalRoutes: Page => UserAnswers => Call
+
+  val checkRouteMap: Page => UserAnswers => Call
+
+  val playbackRouteMap: Page => UserAnswers => Call = _ => _ => routes.SessionExpiredController.onPageLoad()
+
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
+    case NormalMode =>
+      normalRoutes(page)(userAnswers)
+    case CheckMode =>
+      checkRouteMap(page)(userAnswers)
+    case PlaybackMode =>
+      playbackRouteMap(page)(userAnswers)
+  }
 
 }

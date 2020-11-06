@@ -20,18 +20,18 @@ import forms.common.YesNoFormProvider
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.common.OfficialsSummaryViewNewTODO
+import views.html.common.OfficialsSummaryView
 
-class OfficialsSummaryViewNewTODOSpec extends ViewBehaviours  {
+class OfficialsSummaryViewSpec extends ViewBehaviours  {
 
   private val messageKeyPrefix: String = "authorisedOfficialsSummary.checkYourAnswers"
   private val section: String = messages("officialsAndNominees.section")
   val form: Form[Boolean] = inject[YesNoFormProvider].apply("authorisedOfficialsSummary")
 
-  "OfficialsSummaryViewNewTODO" must {
+  "OfficialsSummaryView" must {
 
     def applyView(form: Form[Boolean]): HtmlFormat.Appendable = {
-      val view = viewFor[OfficialsSummaryViewNewTODO](Some(emptyUserAnswers))
+      val view = viewFor[OfficialsSummaryView](Some(emptyUserAnswers))
       view.apply(form, "authorisedOfficialsSummary", 2,
         controllers.routes.IndexController.onPageLoad()
       )(

@@ -35,7 +35,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case _ => routes.SessionExpiredController.onPageLoad() // TODO redirect to page if user attempts to use non-0-or-1 index
   }
 
-  private val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call =  {
 
     case AuthorisedOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
       case Some(_) => authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(NormalMode, index)
@@ -98,13 +98,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AddedAuthorisedOfficialPage(index)=> _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-
-    case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
-      case Some(false) => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
+    case AddedAuthorisedOfficialPage(_)=> _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case AuthorisedOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
       case Some(true) if userAnswers.get(Section7Page).contains(true) => routes.IndexController.onPageLoad()
@@ -122,12 +116,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => routes.IndexController.onPageLoad() // TODO move all playback routes to checkMode and remove playback mode
-
-  }
-
-  private val playbackRoute: Page => UserAnswers => Call = {
+  override val checkRouteMap: Page => UserAnswers => Call = {
     case AuthorisedOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
@@ -150,9 +139,9 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case IsAuthorisedOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
       case Some(true) if userAnswers.get(AuthorisedOfficialsNinoPage(index)).isDefined => redirectToPlaybackPage(index)
-      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(PlaybackMode, index)
+      case Some(true) => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index)
       case Some(false) if userAnswers.get(AuthorisedOfficialsPassportPage(index)).isDefined => redirectToPlaybackPage(index)
-      case Some(false) => authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, index)
+      case Some(false) => authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
 
@@ -167,13 +156,13 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(PlaybackMode, index)
+      case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsAuthorisedOfficialPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
       case Some(true) if userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)).isDefined => redirectToPlaybackPage(index)
-      case Some(true) => addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, PlaybackMode)
+      case Some(true) => addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
       case Some(false) => redirectToPlaybackPage(index)
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }
@@ -188,12 +177,4 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
   }
 
-  override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode =>
-      normalRoutes(page)(userAnswers)
-    case CheckMode =>
-      checkRouteMap(page)(userAnswers)
-    case PlaybackMode =>
-      playbackRoute(page)(userAnswers)
-  }
 }

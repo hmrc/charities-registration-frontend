@@ -64,13 +64,13 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
     .flatMap(_.set(IsOtherOfficialNinoPage(1), true))
     .flatMap(_.set(OtherOfficialsNinoPage(1), "AA123123A"))
     .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(1), false))
-    .flatMap(_.set(AddAnotherOtherOfficialPage, false)).success.value
+    .flatMap(_.set(IsAddAnotherOtherOfficialPage, false)).success.value
 
   def completeAllThree: UserAnswers  = common(2, completeFirstTwo)
     .set(IsOtherOfficialNinoPage(2), true)
     .flatMap(_.set(OtherOfficialsNinoPage(2), "AA123123A"))
     .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(2), false))
-    .flatMap(_.set(AddAnotherOtherOfficialPage, true)).success.value
+    .flatMap(_.set(IsAddAnotherOtherOfficialPage, true)).success.value
 
 
   "OtherOfficialsStatusHelper" must {
@@ -235,7 +235,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
 
       "return false with correct data for two other officials, but not correct data for the 3rd other official" in {
         helper.checkComplete(completeFirstTwo
-          .set(AddAnotherOtherOfficialPage, true).success.value) mustBe false
+          .set(IsAddAnotherOtherOfficialPage, true).success.value) mustBe false
       }
 
       "return false with incorrect data for three other officials" in {
@@ -249,7 +249,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
 
       "return false with correct data for first two other officials, but no answer to AddAnother page" in {
         helper.checkComplete(completeFirstTwo
-        .remove(AddAnotherOtherOfficialPage).success.value) mustBe false
+        .remove(IsAddAnotherOtherOfficialPage).success.value) mustBe false
       }
 
     }

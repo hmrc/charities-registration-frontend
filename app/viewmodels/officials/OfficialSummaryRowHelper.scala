@@ -20,6 +20,7 @@ import models.{Index, Name}
 import models.requests.DataRequest
 import pages.QuestionPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.mvc.Call
 import viewmodels.OfficialSummaryListRow
 
@@ -43,6 +44,24 @@ trait OfficialSummaryRowHelper {
     officialAnswers(AuthorisedOfficialsNamePage(1),
       controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(Index(1)),
       controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(1)
+    )
+
+  def firstOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+    officialAnswers(OtherOfficialsNamePage(0),
+      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(0),
+      controllers.routes.DeadEndController.onPageLoad()
+    )
+
+  def secondOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+    officialAnswers(OtherOfficialsNamePage(1),
+      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(1),
+      controllers.routes.DeadEndController.onPageLoad()
+    )
+
+  def thirdOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+    officialAnswers(OtherOfficialsNamePage(2),
+      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(2),
+      controllers.routes.DeadEndController.onPageLoad()
     )
 
 }

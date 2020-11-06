@@ -17,9 +17,9 @@
 package pages.otherOfficials
 
 import pages.QuestionPage
-import play.api.libs.json.{JsPath, __}
+import play.api.libs.json.{JsObject, JsPath, __}
 
-case class OtherOfficialsId(index: Int) extends QuestionPage[Nothing] {
+case class OtherOfficialsId(index: Int) extends QuestionPage[JsObject] {
 
   override def path: JsPath = __ \ OtherOfficialsId.toString \ index
 }

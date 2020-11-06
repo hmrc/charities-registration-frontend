@@ -1197,27 +1197,34 @@ otherOfficialPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
 # ----------------------------------------------------------
 addedOtherOfficial.checkYourAnswers.title = (W)Check the other official’s details(W)
 
-# Add a second other officials messages
+# Check the second Other Official Page Messages
 # ----------------------------------------------------------
-addSecondOtherOfficials.title = (W)You will be adding the second official in the next page(W)
-addSecondOtherOfficials.heading = (W)You need to add a second other official(W)
-addSecondOtherOfficials.p1 = (W)Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.(W)
-addSecondOtherOfficials.p2 = (W)They will normally be the trustees or directors of the charity (if your charity is a company), or community amateur sports club (CASC) officials.(W)
+addedSecondOtherOfficial.checkYourAnswers.title = (W)Check the second other official’s details(W)
+addedSecondOtherOfficial.checkYourAnswers.heading = (W)Check the second other official’s details(W)
 
-# Add another other Official Page Messages
+# Check the third Other Official Page Messages
 # ----------------------------------------------------------
-addAnotherOtherOfficial.title = (W)Do you want to add another other official?(W)
-addAnotherOtherOfficial.heading = (W)Do you want to add a third other official?(W)
-addAnotherOtherOfficial.hint = (W)You have already provided details for {0} and {1}.(W)
-addAnotherOtherOfficial.error.required = (W)Select yes if you want to add another other official(W)
-
-addAnotherOtherOfficial.checkYourAnswersLabel = (W)Add another other official(W)
+addedThirdOtherOfficial.checkYourAnswers.title = (W)Check the third other official’s details(W)
+addedThirdOtherOfficial.checkYourAnswers.heading = (W)Check the third other official’s details(W)
 
 # Charity’s Other Officials Details Summary Page Messages
 # ----------------------------------------------------------
-otherOfficialsSummary.checkYourAnswers.title = (W)Check your charity’s other officials details(W)
-otherOfficialsSummary.checkYourAnswers.heading = (W)Check your charity’s other officials details(W)
+# Authorised Officials Summary page
+# ----------------------------------------------------------
+otherOfficialsSummary.checkYourAnswers.title.addedOne = (W)You have added 1 other official(W)
+otherOfficialsSummary.checkYourAnswers.title.addedTwo = (W)You have added 2 other officials(W)
+otherOfficialsSummary.checkYourAnswers.title.addedThree = (W)You have added 3 other officials(W)
+otherOfficialsSummary.checkYourAnswers.heading.addedOne = (W)You have added 1 other official(W)
+otherOfficialsSummary.checkYourAnswers.heading.addedTwo = (W)You have added 2 other officials(W)
+otherOfficialsSummary.checkYourAnswers.heading.addedThree = (W)You have added 3 other officials(W)
+otherOfficialsSummary.checkYourAnswers.p1 = (W)You now need to add another other official(W)
 otherOfficialsSummary.checkYourAnswers.h2 = (W)Charity’s other official(W)
+otherOfficialsSummary.checkYourAnswers.change = (W)Change(W)
+otherOfficialsSummary.checkYourAnswers.changeName = (W)Change {0}(W)
+otherOfficialsSummary.checkYourAnswers.remove = (W)Remove(W)
+otherOfficialsSummary.checkYourAnswers.removeName = (W)Remove {0} from the list(W)
+otherOfficialsSummary.addAnotherOfficial.h2 = (W)Do you want to add another other official?(W)
+otherOfficialsSummary.error.required = (W)Select yes if you want to add another other official(W)
 otherOfficialsSummary.section = (W)Officials and nominees(W)
 
 # Section9 - Name nominees

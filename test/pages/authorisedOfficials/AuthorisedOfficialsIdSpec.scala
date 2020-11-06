@@ -16,7 +16,9 @@
 
 package pages.authorisedOfficials
 
+import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
+import play.api.libs.json.{JsObject, JsString}
 
 class AuthorisedOfficialsIdSpec extends PageBehaviours {
 
@@ -27,5 +29,15 @@ class AuthorisedOfficialsIdSpec extends PageBehaviours {
       pageId.path.toString mustBe "/authorisedOfficials(0)"
       pageId.index mustBe 0
     }
+
+    implicit lazy val arbitraryAuthorisedOfficialsId: Arbitrary[JsObject] = Arbitrary {
+      JsObject(Seq("test" -> JsString("Test")))
+    }
+
+    beRetrievable[JsObject](AuthorisedOfficialsId(0))
+
+    beSettable[JsObject](AuthorisedOfficialsId(0))
+
+    beRemovable[JsObject](AuthorisedOfficialsId(0))
   }
 }

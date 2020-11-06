@@ -24,10 +24,11 @@ import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
+import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
+import pages.charityInformation.CharityNamePage
 import pages.sections.Section7Page
 import play.api.mvc.Call
 
@@ -308,6 +309,42 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             .flatMap(_.set(Section7Page, false)).success.value
           ) mustBe
             authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
+        }
+      }
+
+      "from the RemoveAuthorisedOfficialsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page if No is selected and AuthorisedOfficials are present" in {
+          navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, emptyUserAnswers
+            .set(RemoveAuthorisedOfficialsPage, false).flatMap(
+            _.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName)).success.value
+          ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+        }
+
+        "go to the summary page if Yes is selected and AuthorisedOfficials are present" in {
+          navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, emptyUserAnswers
+            .set(RemoveAuthorisedOfficialsPage, true).flatMap(
+            _.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName)).success.value
+          ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+        }
+
+        "go to the start of journey if removed all official deatils and AuthorisedOfficials are not present" in {
+          navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, emptyUserAnswers
+            .set(RemoveAuthorisedOfficialsPage, true).flatMap(
+            _.set(CharityNamePage, CharityName("ABC", Some("OpName")))).success.value
+          ) mustBe authOfficialRoutes.CharityAuthorisedOfficialsController.onPageLoad()
+        }
+
+        "go to the index if No is selected" in {
+          navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers
+            .set(IsAddAnotherAuthorisedOfficialPage, false).success.value
+          ) mustBe
+            routes.IndexController.onPageLoad()
         }
       }
 

@@ -1041,6 +1041,12 @@ authorisedOfficialsSummary.addAnotherOfficial.h2 = Do you want to add another au
 authorisedOfficialsSummary.error.required = Select yes to add another authorised official
 authorisedOfficialsSummary.section = Officials and nominees
 
+# Are you sure you want to remove this authorised official
+# ----------------------------------------------------------
+removeAuthorisedOfficial.title = Are you sure you want to remove this authorised official?
+removeAuthorisedOfficial.heading = Are you sure you want to remove {0}?
+removeAuthorisedOfficial.error.required = Select yes to remove this authorised official
+
 
 # Section8 - Other Officials
 # ----------------------------------------------------------

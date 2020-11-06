@@ -36,13 +36,13 @@ trait OfficialSummaryRowHelper {
   def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
     officialAnswers(AuthorisedOfficialsNamePage(0),
       controllers.authorisedOfficials.routes.AddedOneAuthorisedOfficialController.onPageLoad(),
-      controllers.routes.DeadEndController.onPageLoad()
+      controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(0)
     )
 
   def secondAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
     officialAnswers(AuthorisedOfficialsNamePage(1),
       controllers.authorisedOfficials.routes.AddedSecondAuthorisedOfficialController.onPageLoad(),
-      controllers.routes.DeadEndController.onPageLoad()
+      controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(1)
     )
 
 }

@@ -22,15 +22,13 @@ import controllers.actions._
 import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.NormalMode
-import models.requests.DataRequest
 import navigation.AuthorisedOfficialsNavigator
 import pages.IndexPage
-import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsSummaryPage, IsAddAnotherAuthorisedOfficialPage}
+import pages.authorisedOfficials.{AuthorisedOfficialsSummaryPage, IsAddAnotherAuthorisedOfficialPage}
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import viewmodels.OfficialSummaryListRow
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper.checkComplete
 import viewmodels.officials.OfficialSummaryRowHelper
 import views.html.common.OfficialsSummaryViewNewTODO
@@ -54,15 +52,10 @@ class AuthorisedOfficialsSummaryController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val preparedForm = request.userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case None => form
-      case Some(value) => form.fill(value)
-    }
-
     if ((firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow) == Seq.empty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
-      Ok(view(preparedForm, messagePrefix, maxOfficials = 2,
+      Ok(view(form, messagePrefix, maxOfficials = 2,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit(),
         firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow))
     }
@@ -94,9 +87,9 @@ class AuthorisedOfficialsSummaryController @Inject()(
     } else {
 
       for {
-        updatedAnswers      <- Future.fromTry(result = request.userAnswers
-                                .set(Section7Page, checkComplete(request.userAnswers)))
-        _                   <- sessionRepository.set(updatedAnswers)
+        updatedAnswers <- Future.fromTry(result = request.userAnswers
+                           .set(Section7Page, checkComplete(request.userAnswers)))
+        _              <- sessionRepository.set(updatedAnswers)
       } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, updatedAnswers))
     }
 

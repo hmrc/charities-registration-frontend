@@ -814,13 +814,6 @@ nameTitle.0001 = (W)Mr(W)
 nameTitle.0002 = (W)Mrs(W)
 nameTitle.0003 = (W)Miss(W)
 nameTitle.0004 = (W)Ms(W)
-nameTitle.0005 = (W)Dr(W)
-nameTitle.0006 = (W)Sir(W)
-nameTitle.0007 = (W)Rev(W)
-nameTitle.0009 = (W)Prof(W)
-nameTitle.0010 = (W)Lord(W)
-nameTitle.0011 = (W)Lady(W)
-nameTitle.0012 = (W)Dame(W)
 
 # Authorised Officials Page Messages
 # ----------------------------------------------------------

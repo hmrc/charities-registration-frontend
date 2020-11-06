@@ -162,7 +162,7 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct AddressModel with mandatory fields only" in {
 
         val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-          Name(SelectTitle.Dr, "Jim", None, "Jones")).success.value
+          Name(SelectTitle.Mrs, "Jim", None, "Jones")).success.value
 
         val expectedJson =
           """{
@@ -172,7 +172,7 @@ class JsonTransformerSpec extends SpecBase {
             |        "name": {
             |          "firstName": "Jim",
             |          "lastName": "Jones",
-            |          "title": "0005"
+            |          "title": "0002"
             |        }
             |      }
             |    }

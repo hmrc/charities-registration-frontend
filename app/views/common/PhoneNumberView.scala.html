@@ -44,7 +44,9 @@
                 name = "mainPhoneNumber",
                 label = s"$messagePrefix.mainPhoneNumber.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some("govuk-input govuk-!-width-one-half"),
+                inputType = "tel",
+                isTelephone = true
             )
 
             @inputText(
@@ -53,7 +55,9 @@
                 name = "alternativePhoneNumber",
                 label = s"$messagePrefix.alternativePhoneNumber.label",
                 isPageHeading = false,
-                classes = Some("govuk-input govuk-!-width-one-half")
+                classes = Some("govuk-input govuk-!-width-one-half"),
+                inputType = "tel",
+                isTelephone = true
             )
         }
 

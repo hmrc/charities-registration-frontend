@@ -42,6 +42,23 @@ class DateBehaviours extends FieldBehaviours {
     }
   }
 
+  def dateFieldIgnoreSpaces(form: Form[_], key: String, validData: Gen[LocalDate]): Unit = {
+
+    forAll(validData -> "valid date") {
+      date =>
+        s"bind valid data while ignoring spaces for $date" in {
+          val data = Map(
+            s"$key.day"   -> s" ${date.getDayOfMonth.toString}",
+            s"$key.month" -> s"${date.getMonthValue.toString} ",
+            s"$key.year"  -> s" ${date.getYear.toString} "
+          )
+
+          val result = form.bind(data)
+          result.value.value mustEqual date
+        }
+    }
+  }
+
   def dayMonthField(form: Form[_], key: String, validData: Gen[JodaLocalDate]): Unit = {
 
     forAll(validData -> "valid date") {

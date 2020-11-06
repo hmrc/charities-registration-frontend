@@ -25,6 +25,7 @@
     errorSummary: components.errorSummary,
     button: components.button,
     inputText: components.inputText,
+    inputNumber: components.inputNumber,
     p: components.p,
     warning: components.warning,
     fieldset: components.fieldset
@@ -55,24 +56,26 @@
                 classes = Some("govuk-input govuk-!-width-one-half")
             )
 
-            @inputText(
+            @inputNumber(
                 form,
                 id = "sortCode",
                 name = "sortCode",
                 label = s"$messagePrefix.sortCode",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.sortCode.hint"))),
-                classes = Some("govuk-input govuk-input--width-5")
+                classes = Some("govuk-input govuk-input--width-5"),
+                isDecimal = false
             )
 
-            @inputText(
+            @inputNumber(
                 form,
                 id = "accountNumber",
                 name = "accountNumber",
                 label = s"$messagePrefix.accountNumber",
                 isPageHeading = false,
                 hint = Some(Html(messages(s"$messagePrefix.accountNumber.hint"))),
-                classes = Some("govuk-input govuk-input govuk-input--width-10")
+                classes = Some("govuk-input govuk-input govuk-input--width-10"),
+                isDecimal = false
             )
 
             @inputText(

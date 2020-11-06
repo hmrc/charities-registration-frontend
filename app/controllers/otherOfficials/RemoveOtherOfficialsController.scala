@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.authorisedOfficials
+package controllers.otherOfficials
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
@@ -22,9 +22,9 @@ import controllers.actions._
 import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.{Index, NormalMode}
-import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.{AuthorisedOfficialsId, AuthorisedOfficialsNamePage, IsAddAnotherAuthorisedOfficialPage, RemoveAuthorisedOfficialsPage}
-import pages.sections.Section7Page
+import navigation.OtherOfficialsNavigator
+import pages.otherOfficials.{IsAddAnotherOtherOfficialPage, OtherOfficialsId, OtherOfficialsNamePage, RemoveOtherOfficialsPage}
+import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -33,28 +33,28 @@ import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
-class RemoveAuthorisedOfficialsController @Inject()(
+class RemoveOtherOfficialsController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: YesNoFormProvider,
     val sessionRepository: UserAnswerRepository,
-    val navigator: AuthorisedOfficialsNavigator,
+    val navigator: OtherOfficialsNavigator,
     val controllerComponents: MessagesControllerComponents,
     val view: YesNoView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  private val messagePrefix: String = "removeAuthorisedOfficial"
+  private val messagePrefix: String = "removeOtherOfficial"
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      if (request.userAnswers.get(AuthorisedOfficialsId(index)).isEmpty) {
-        Future.successful(Redirect(navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, request.userAnswers)))
+      if (request.userAnswers.get(OtherOfficialsId(index)).isEmpty) {
+        Future.successful(Redirect(navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, request.userAnswers)))
       } else {
-        getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-          Future.successful(Ok(view(form, authorisedOfficialsName, messagePrefix,
-            controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(index),
+        getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
+          Future.successful(Ok(view(form, otherOfficialsName, messagePrefix,
+            controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(index),
             "officialsAndNominees")))
         }
       }
@@ -62,20 +62,20 @@ class RemoveAuthorisedOfficialsController @Inject()(
 
   def onSubmit(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
         form.bindFromRequest().fold(
           formWithErrors =>
-            Future.successful(BadRequest(view(formWithErrors, authorisedOfficialsName, messagePrefix,
-              controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(index),
+            Future.successful(BadRequest(view(formWithErrors, otherOfficialsName, messagePrefix,
+              controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(index),
               "officialsAndNominees"))),
           value =>
             for {
               updatedAnswers <- Future.fromTry(request.userAnswers.remove(
-                                 if(value) Seq(AuthorisedOfficialsId(index), IsAddAnotherAuthorisedOfficialPage) else Seq()
+                                 if(value) Seq(OtherOfficialsId(index), IsAddAnotherOtherOfficialPage) else Seq()
                                 ))
-              taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section7Page, checkComplete(updatedAnswers)))
+              taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section8Page, checkComplete(updatedAnswers)))
               _ <- sessionRepository.set(taskListUpdated)
-            } yield Redirect(navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, updatedAnswers))
+            } yield Redirect(navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, updatedAnswers))
         )
       }
   }

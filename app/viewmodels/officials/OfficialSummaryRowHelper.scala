@@ -26,7 +26,8 @@ import viewmodels.OfficialSummaryListRow
 
 trait OfficialSummaryRowHelper {
 
-  def officialAnswers(pageToCall: QuestionPage[Name], onChangeCall: Call, onDeleteCall: Call)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+  private def officialAnswers(pageToCall: QuestionPage[Name], onChangeCall: Call, onDeleteCall: Call)(
+    implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
     request.userAnswers.get[Name](pageToCall).map(name =>
       OfficialSummaryListRow(name,
         onChangeCall,
@@ -34,34 +35,28 @@ trait OfficialSummaryRowHelper {
       )
     ).foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
 
-  def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
-    officialAnswers(AuthorisedOfficialsNamePage(0),
-      controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(Index(0)),
-      controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(0)
+  private def authorisedOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
+    officialAnswers(AuthorisedOfficialsNamePage(index),
+      controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(index),
+      controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(index)
     )
+  }
 
-  def secondAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
-    officialAnswers(AuthorisedOfficialsNamePage(1),
-      controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(Index(1)),
-      controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(1)
+  private def otherOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
+    officialAnswers(OtherOfficialsNamePage(index),
+      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index),
+      controllers.otherOfficials.routes.RemoveOtherOfficialsController.onPageLoad(index)
     )
+  }
 
-  def firstOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
-    officialAnswers(OtherOfficialsNamePage(0),
-      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(0),
-      controllers.routes.DeadEndController.onPageLoad()
-    )
+  def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = authorisedOfficialAnswers(0)
 
-  def secondOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
-    officialAnswers(OtherOfficialsNamePage(1),
-      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(1),
-      controllers.routes.DeadEndController.onPageLoad()
-    )
+  def secondAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = authorisedOfficialAnswers(1)
 
-  def thirdOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
-    officialAnswers(OtherOfficialsNamePage(2),
-      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(2),
-      controllers.routes.DeadEndController.onPageLoad()
-    )
+  def firstOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(0)
+
+  def secondOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(1)
+
+  def thirdOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(2)
 
 }

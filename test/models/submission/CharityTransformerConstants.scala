@@ -389,7 +389,7 @@ trait CharityTransformerConstants extends SpecBase{
        |          "firstName": "Albert",
        |          "middleName": "G",
        |          "lastName": "Einstien",
-       |          "title": "0005"
+       |          "title": "0001"
        |        },
        |        "position": "02",
        |        "declaration": true,
@@ -485,7 +485,7 @@ trait CharityTransformerConstants extends SpecBase{
        |        },
        |        "individualDetails": {
        |          "name": {
-       |            "title": "0005",
+       |            "title": "0001",
        |            "firstName": "Albert",
        |            "middleName": "G",
        |            "lastName": "Einstien"

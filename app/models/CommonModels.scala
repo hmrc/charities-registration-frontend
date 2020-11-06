@@ -32,16 +32,9 @@ object SelectTitle extends Enumerable.Implicits {
   case object Mrs extends WithName("0002") with SelectTitle
   case object Miss extends WithName("0003") with SelectTitle
   case object Ms extends WithName("0004") with SelectTitle
-  case object Dr extends WithName("0005") with SelectTitle
-  case object Sir extends WithName("0006") with SelectTitle
-  case object Rev extends WithName("0007") with SelectTitle
-  case object Prof extends WithName("0009") with SelectTitle
-  case object Lord extends WithName("0010") with SelectTitle
-  case object Lady extends WithName("0011") with SelectTitle
-  case object Dame extends WithName("0012") with SelectTitle
 
   val values: Seq[SelectTitle] = Seq(
-    Mr, Mrs, Miss, Ms, Dr, Sir, Rev, Prof, Lord, Lady, Dame
+    Mr, Mrs, Miss, Ms
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package pages.otherOfficials
+package pages.authorisedOfficials
 
 import pages.behaviours.PageBehaviours
 
-class AddedSecondOtherOfficialPageSpec extends PageBehaviours {
+class AddedAuthorisedOfficialPageSpec extends PageBehaviours {
 
-  "AddedSecondOtherOfficialPage" must {
+  "AddedAuthorisedOfficialPage" must {
 
-    beRetrievable[String](AddedSecondOtherOfficialPage)
+    beRetrievable[String](AddedAuthorisedOfficialPage(0))
 
-    beSettable[String](AddedSecondOtherOfficialPage)
+    beSettable[String](AddedAuthorisedOfficialPage(0))
 
-    beRemovable[String](AddedSecondOtherOfficialPage)
+    beRemovable[String](AddedAuthorisedOfficialPage(0))
   }
 }

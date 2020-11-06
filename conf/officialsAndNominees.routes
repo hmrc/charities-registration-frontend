@@ -41,11 +41,8 @@ POST       /:index/authorised-official-changed-address                          
 GET        /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
 POST       /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.IsAuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
-GET        /added-one-authorised-official                                       controllers.authorisedOfficials.AddedOneAuthorisedOfficialController.onPageLoad()
-POST       /added-one-authorised-official                                       controllers.authorisedOfficials.AddedOneAuthorisedOfficialController.onSubmit()
-
-GET        /added-two-authorised-officials                                      controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onPageLoad()
-POST       /added-two-authorised-officials                                      controllers.authorisedOfficials.AddedSecondAuthorisedOfficialController.onSubmit()
+GET        /:index/added-authorised-official                                    controllers.authorisedOfficials.AddedAuthorisedOfficialController.onPageLoad(index: Index)
+POST       /:index/added-authorised-official                                    controllers.authorisedOfficials.AddedAuthorisedOfficialController.onSubmit(index: Index)
 
 GET        /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onPageLoad
 POST       /authorised-official-summary                                         controllers.authorisedOfficials.AuthorisedOfficialsSummaryController.onSubmit
@@ -111,16 +108,10 @@ POST       /:index/other-official-changed-address/change                        
 GET        /:index/other-official-changed-address/playback-change               controllers.otherOfficials.IsOtherOfficialsPreviousAddressController.onPageLoad(mode: Mode = PlaybackMode, index: Index)
 POST       /:index/other-official-changed-address/playback-change               controllers.otherOfficials.IsOtherOfficialsPreviousAddressController.onSubmit(mode: Mode = PlaybackMode, index: Index)
 
-GET        /added-one-other-official                                            controllers.otherOfficials.AddedOneOtherOfficialController.onPageLoad()
-POST       /added-one-other-official                                            controllers.otherOfficials.AddedOneOtherOfficialController.onSubmit()
+GET        /:index/added-other-official                                         controllers.otherOfficials.AddedOtherOfficialController.onPageLoad(index: Index)
+POST       /:index/added-other-official                                         controllers.otherOfficials.AddedOtherOfficialController.onSubmit(index: Index)
 
 GET        /add-other-official                                                  controllers.otherOfficials.AddSecondOtherOfficialsController.onPageLoad()
-
-GET        /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onPageLoad()
-POST       /added-two-other-officials                                           controllers.otherOfficials.AddedSecondOtherOfficialController.onSubmit()
-
-GET        /added-three-other-officials                                         controllers.otherOfficials.AddedThirdOtherOfficialController.onPageLoad()
-POST       /added-three-other-officials                                         controllers.otherOfficials.AddedThirdOtherOfficialController.onSubmit()
 
 GET        /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onPageLoad(mode: Mode = NormalMode)
 POST       /add-another-other-official                                          controllers.otherOfficials.AddAnotherOtherOfficialController.onSubmit(mode: Mode = NormalMode)

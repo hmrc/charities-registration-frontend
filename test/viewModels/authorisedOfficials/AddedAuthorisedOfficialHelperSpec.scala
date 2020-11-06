@@ -32,9 +32,9 @@ import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOffic
 import pages.authorisedOfficials._
 import service.CountryService
 import viewmodels.SummaryListRowHelper
-import viewmodels.authorisedOfficials.AddedOneAuthorisedOfficialHelper
+import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
 
-class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
+class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val year = 2000
   private val month = 1
@@ -56,7 +56,7 @@ class AddedOneAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowH
   when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
-  def helper(userAnswers: UserAnswers = authorisedOfficialDetails, index: Index) =  new AddedOneAuthorisedOfficialHelper(
+  def helper(userAnswers: UserAnswers = authorisedOfficialDetails, index: Index) =  new AddedAuthorisedOfficialHelper(
     index, PlaybackMode, mockCountryService)(userAnswers)
 
 

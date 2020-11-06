@@ -23,14 +23,14 @@ import play.api.i18n.Messages
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
-import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
+import viewmodels.otherOfficials.AddedOtherOfficialHelper
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
 class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode, countryService: CountryService)(override val userAnswers: UserAnswers)
                                  (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
-  val addedOneOtherOfficial = new AddedOneOtherOfficialHelper(index, CheckMode, countryService)(userAnswers)
+  val addedOtherOfficial = new AddedOtherOfficialHelper(index, CheckMode, countryService)(userAnswers)
 
   def addedAnotherOtherOfficialRow: Option[SummaryListRow] =
     answerPrefix(AddAnotherOtherOfficialPage,
@@ -38,7 +38,7 @@ class AddedOfficialsSummaryHelper(index: Index, mode: Mode = CheckMode, countryS
                  messagePrefix = "addAnotherOtherOfficial")
 
 
-  val otherRows: Seq[SummaryListRow] = addedOneOtherOfficial.rows
-  val otherRowsAddAnother: Seq[SummaryListRow] = addedOneOtherOfficial.rows ++ addedAnotherOtherOfficialRow
-  val otherRowsAddThird: Seq[SummaryListRow] = addedOneOtherOfficial.rows
+  val otherRows: Seq[SummaryListRow] = addedOtherOfficial.rows
+  val otherRowsAddAnother: Seq[SummaryListRow] = addedOtherOfficial.rows ++ addedAnotherOtherOfficialRow
+  val otherRowsAddThird: Seq[SummaryListRow] = addedOtherOfficial.rows
 }

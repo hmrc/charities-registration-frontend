@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package pages.otherOfficials
+package pages.authorisedOfficials
 
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object AddedSecondOtherOfficialPage extends QuestionPage[String] {
+case class AddedAuthorisedOfficialPage(index:Int) extends QuestionPage[String] {
 
-  override def path: JsPath = JsPath \ toString
+  override def path: JsPath =  JsPath \ toString
 
-  override val toString: String = "addedSecondOtherOfficial"
+  override lazy val toString: String = "addedAuthorisedOfficial"
 }
-

@@ -31,9 +31,9 @@ import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviou
 import pages.otherOfficials._
 import service.CountryService
 import viewmodels.SummaryListRowHelper
-import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
+import viewmodels.otherOfficials.AddedOtherOfficialHelper
 
-class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
+class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val year = 2000
   private val month = 1
@@ -54,7 +54,7 @@ class AddedOneOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper
   when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
 
 
-  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOneOtherOfficialHelper(index, CheckMode,countryService = mockCountryService)(userAnswers)
+  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOtherOfficialHelper(index, CheckMode,countryService = mockCountryService)(userAnswers)
 
 
   "Check Your Answers Helper" must {

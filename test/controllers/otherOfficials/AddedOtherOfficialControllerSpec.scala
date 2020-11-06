@@ -18,12 +18,13 @@ package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.UserAnswers
+import models.{Index, Name, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -31,7 +32,7 @@ import repositories.{SessionRepository, UserAnswerRepository}
 
 import scala.concurrent.Future
 
-class AddedSecondOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach {
+class AddedOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -49,15 +50,17 @@ class AddedSecondOtherOfficialControllerSpec extends SpecBase with BeforeAndAfte
     reset(mockUserAnswerRepository)
   }
 
-  private val controller: AddedSecondOtherOfficialController = inject[AddedSecondOtherOfficialController]
+  private val controller: AddedOtherOfficialController = inject[AddedOtherOfficialController]
+  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
+    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
-  "AddedSecondOtherOfficialController Controller" must {
+  "AddedOtherOfficialController Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
-      val result = controller.onPageLoad()(fakeRequest)
+      val result = controller.onPageLoad(Index(0))(fakeRequest)
 
       status(result) mustEqual OK
       verify(mockUserAnswerRepository, times(1)).get(any())
@@ -68,7 +71,7 @@ class AddedSecondOtherOfficialControllerSpec extends SpecBase with BeforeAndAfte
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
-      val result = controller.onSubmit()(fakeRequest)
+      val result = controller.onSubmit(Index(0))(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)

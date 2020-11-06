@@ -25,17 +25,17 @@
     formHelper: FormWithCSRF
 )
 
-@(answers: Seq[SummaryListRow], postAction: Call, messagePrefix: String, subheadingMsgArgs: Seq[String] = Seq(), headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinue")(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(answers: Seq[SummaryListRow], postAction: Call, fullName: String, messagePrefix: String)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm(s"$messagePrefix.checkYourAnswers.title", section = Some(messages("officialsAndNominees.section", subheadingMsgArgs:_*))))) {
+@govukLayout(pageTitle = Some(titleNoForm(s"$messagePrefix.checkYourAnswers.title", section = Some(messages("officialsAndNominees.section"))))) {
 
-    @h1(messages(s"$messagePrefix.checkYourAnswers.heading", headingMsgArgs:_*))
+    @h1(messages("checkYourAnswers.heading", fullName))
 
     @govukSummaryList(SummaryList(answers))
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
 
-        @button(buttonMsg)
+        @button("site.confirmAndContinue")
 
     }
 }

@@ -22,14 +22,16 @@ import controllers.actions._
 import controllers.common.AddedOfficialController
 import models.Index
 import navigation.OtherOfficialsNavigator
-import pages.otherOfficials.AddedOneOtherOfficialPage
+import pages.otherOfficials.{AddedOtherOfficialPage, OtherOfficialsNamePage}
 import pages.sections.Section8Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CountryService
 import views.html.common.AddedOfficialsView
 
-class AddedOneOtherOfficialController @Inject()(
+import scala.concurrent.Future
+
+class AddedOtherOfficialController @Inject()(
    override val sessionRepository: UserAnswerRepository,
    override val navigator: OtherOfficialsNavigator,
    identify: AuthIdentifierAction,
@@ -40,16 +42,19 @@ class AddedOneOtherOfficialController @Inject()(
    override val controllerComponents: MessagesControllerComponents
  )(implicit appConfig: FrontendAppConfig) extends AddedOfficialController {
 
-  override val messagePrefix: String = "addedOneOtherOfficial"
+  override val messagePrefix: String = "addedOtherOfficial"
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getView(Index(0), controllers.otherOfficials.routes.AddedOneOtherOfficialController.onSubmit())
+    getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
+
+      Future.successful(getView(index, controllers.otherOfficials.routes.AddedOtherOfficialController.onSubmit(index), otherOfficialsName))
+    }
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    postView(AddedOneOtherOfficialPage, Section8Page)
+    postView(AddedOtherOfficialPage(index), Section8Page)
   }
 }
 

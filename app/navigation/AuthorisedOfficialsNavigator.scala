@@ -21,7 +21,7 @@ import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
-import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
+import models.{CheckMode, Index, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
@@ -31,8 +31,7 @@ import play.api.mvc.Call
 class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   def redirectToPlaybackPage(index: Int): Call = index match {
-    case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
-    case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
+    case x if x == 0 | x == 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(x))
     case _ => routes.SessionExpiredController.onPageLoad() // TODO redirect to page if user attempts to use non-0-or-1 index
   }
 
@@ -99,9 +98,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AddedOneAuthorisedOfficialPage => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-
-    case AddedSecondAuthorisedOfficialPage => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+    case AddedAuthorisedOfficialPage(index)=> _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case IsAddAnotherAuthorisedOfficialPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
       case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)

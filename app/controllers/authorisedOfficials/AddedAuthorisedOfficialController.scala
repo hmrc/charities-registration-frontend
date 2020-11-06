@@ -22,14 +22,16 @@ import controllers.actions._
 import controllers.common.AddedOfficialController
 import models.Index
 import navigation.AuthorisedOfficialsNavigator
-import pages.authorisedOfficials.AddedOneAuthorisedOfficialPage
+import pages.authorisedOfficials.{AddedAuthorisedOfficialPage, AuthorisedOfficialsNamePage}
 import pages.sections.Section7Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CountryService
 import views.html.common.AddedOfficialsView
 
-class AddedOneAuthorisedOfficialController @Inject()(
+import scala.concurrent.Future
+
+class AddedAuthorisedOfficialController @Inject()(
     override val sessionRepository: UserAnswerRepository,
     override val navigator: AuthorisedOfficialsNavigator,
     identify: AuthIdentifierAction,
@@ -40,16 +42,19 @@ class AddedOneAuthorisedOfficialController @Inject()(
     override val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends AddedOfficialController {
 
-  override val messagePrefix: String = "addedOneAuthorisedOfficial"
+  override val messagePrefix: String = "addedAuthorisedOfficial"
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    getView(Index(0), controllers.authorisedOfficials.routes.AddedOneAuthorisedOfficialController.onSubmit())
-  }
+    getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+      Future.successful(getView(index, controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onSubmit(index), authorisedOfficialsName))
 
-    postView(AddedOneAuthorisedOfficialPage, Section7Page)
+  }}
+
+  def onSubmit(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
+    postView(AddedAuthorisedOfficialPage(index), Section7Page)
   }
 }
 

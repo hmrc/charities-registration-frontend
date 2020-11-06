@@ -39,9 +39,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val minYear = 16
 
   def goToPlaybackPage(index: Int): Call = index match {
-    case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
-    case 1 => otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
-    case 2 => otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
+    case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))
+    case 1 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(1))
+    case 2 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(2))
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
@@ -242,10 +242,10 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the AddedOneOtherOfficialPage" must {
+      "from the AddedOtherOfficialPage" must {
 
         "go to the AddSecondOtherOfficials page when user answer is empty" in {
-          navigator.nextPage(AddedOneOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddedOtherOfficialPage(Index(0)), NormalMode, emptyUserAnswers) mustBe
             otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
         }
       }
@@ -253,7 +253,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       "from the AddedSecondOtherOfficialPage" must {
 
         "go to the DoYouWantToAddAnotherOtherOfficial page when user answer is empty" in {
-          navigator.nextPage(AddedSecondOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddedOtherOfficialPage(1), NormalMode, emptyUserAnswers) mustBe
             otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(NormalMode)
         }
       }
@@ -261,7 +261,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       "from the AddedThirdOtherOfficialPage" must {
 
         "go to the Summary page when user answer is empty" in {
-          navigator.nextPage(AddedThirdOtherOfficialPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddedOtherOfficialPage(2), NormalMode, emptyUserAnswers) mustBe
             otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
         }
       }
@@ -516,13 +516,13 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       "from the AddedSecondOtherOfficialPage" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(AddedSecondOtherOfficialPage, CheckMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddedOtherOfficialPage(1), CheckMode, emptyUserAnswers) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
 
         "go to the dead end page when clicked continue button" in {
-          navigator.nextPage(AddedSecondOtherOfficialPage, CheckMode,
-            emptyUserAnswers.set(AddedSecondOtherOfficialPage, "added").success.value) mustBe
+          navigator.nextPage(AddedOtherOfficialPage(1), CheckMode,
+            emptyUserAnswers.set(AddedOtherOfficialPage(1), "added").success.value) mustBe
             routes.DeadEndController.onPageLoad() // TODO when summary page is ready
         }
       }

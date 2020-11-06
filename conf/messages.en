@@ -808,6 +808,7 @@ bankDetailsSummary.section = Operations and funds
 # Section7 - Name authorised officials
 # ----------------------------------------------------------
 officialsAndNominees.section =  Officials and nominees
+checkYourAnswers.heading = Check {0}’s details
 
 nameTitle = Title
 nameTitle.0001 = Mr
@@ -1009,15 +1010,9 @@ authorisedOfficialPreviousAddress.confirmPage.changeLinkText = Change authorised
 
 authorisedOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
 
-# You have added one Authorised Official Page Messages
+# You have added Authorised Official Page Messages
 # ----------------------------------------------------------
-addedOneAuthorisedOfficial.checkYourAnswers.title = You have added one authorised official
-addedOneAuthorisedOfficial.checkYourAnswers.heading = Check the authorised official’s details
-
-# You have added second Authorised Official Page Messages
-# ----------------------------------------------------------
-addedSecondAuthorisedOfficial.checkYourAnswers.heading = Check the second authorised official’s details
-addedSecondAuthorisedOfficial.checkYourAnswers.title = Check the second authorised official’s details
+addedAuthorisedOfficial.checkYourAnswers.title = Check the authorised official’s details
 
 # Authorised Officials Summary page
 # ----------------------------------------------------------
@@ -1198,10 +1193,9 @@ otherOfficialPreviousAddress.confirmPage.changeLinkText = Change other official�
 
 otherOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
 
-# You have added one Other Official Page Messages
+# You have added Other Official Page Messages
 # ----------------------------------------------------------
-addedOneOtherOfficial.checkYourAnswers.title = You have added one other official
-addedOneOtherOfficial.checkYourAnswers.heading = Check the charity’s other official details
+addedOtherOfficial.checkYourAnswers.title = Check the other official’s details
 
 # Add a second other officials messages
 # ----------------------------------------------------------
@@ -1209,16 +1203,6 @@ addSecondOtherOfficials.title = You will be adding the second official in the ne
 addSecondOtherOfficials.heading = You need to add a second other official
 addSecondOtherOfficials.p1 = Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.
 addSecondOtherOfficials.p2 = They will normally be the trustees or directors of the charity (if your charity is a company), or community amateur sports club (CASC) officials.
-
-# Check the second Other Official Page Messages
-# ----------------------------------------------------------
-addedSecondOtherOfficial.checkYourAnswers.title = Check the second other official’s details
-addedSecondOtherOfficial.checkYourAnswers.heading = Check the second other official’s details
-
-# Check the third Other Official Page Messages
-# ----------------------------------------------------------
-addedThirdOtherOfficial.checkYourAnswers.title = Check the third other official’s details
-addedThirdOtherOfficial.checkYourAnswers.heading = Check the third other official’s details
 
 # Add another other Official Page Messages
 # ----------------------------------------------------------

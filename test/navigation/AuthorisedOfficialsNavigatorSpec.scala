@@ -207,8 +207,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), false))
                 .success.value) mustBe {
               index match {
-                case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
-                case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
+                case 0 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
+                case 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(1))
               }
             }
           }
@@ -227,8 +227,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address))
                 .success.value) mustBe {
               index match {
-                case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
-                case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
+                case 0 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
+                case 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(1))
               }
             }
           }
@@ -245,10 +245,10 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the AddedOneAuthorisedOfficialPage" must {
+      "from the AddedAuthorisedOfficialPage" must {
 
         "go to the summary page when user answer is empty for 1st loop" in {
-          navigator.nextPage(AddedOneAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddedAuthorisedOfficialPage(Index(0)), NormalMode, emptyUserAnswers) mustBe
             authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
@@ -256,7 +256,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
       "from the AddedSecondAuthorisedOfficialPage" must {
 
         "go to the summary page when user answer is empty for 2nd loop" in {
-          navigator.nextPage(AddedSecondAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AddedAuthorisedOfficialPage(Index(1)), NormalMode, emptyUserAnswers) mustBe
             authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
         }
       }
@@ -368,8 +368,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
     "in Playback mode" when {
 
       def goToPlaybackPage(index: Int): Call = index match {
-        case 0 => authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
-        case 1 => authOfficialRoutes.AddedSecondAuthorisedOfficialController.onPageLoad()
+        case 0 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
+        case 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(1))
         case _ => routes.SessionExpiredController.onPageLoad()
       }
 

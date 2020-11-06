@@ -21,7 +21,7 @@ import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
-import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
+import models.{CheckMode, Index, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
@@ -30,11 +30,10 @@ import play.api.mvc.Call
 class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   def redirectToPlaybackPage(index: Int): Call = index match {
-    case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
-    case 1 => otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
-    case 2 => otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
+    case x if x >= 0 && x <= 2 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(x))
     case _ => routes.SessionExpiredController.onPageLoad() // TODO redirect to page if user attempts to use non-0-or-1 index
   }
+
 
   private val normalRoutes: Page => UserAnswers => Call =  {
 
@@ -98,11 +97,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AddedOneOtherOfficialPage => _ => otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
+    case AddedOtherOfficialPage(0) => _ => otherOfficialRoutes.AddSecondOtherOfficialsController.onPageLoad()
 
-    case AddedSecondOtherOfficialPage => _ => otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(NormalMode)
+    case AddedOtherOfficialPage(1) => _ => otherOfficialRoutes.AddAnotherOtherOfficialController.onPageLoad(NormalMode)
 
-    case AddedThirdOtherOfficialPage => _ =>  otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+    case AddedOtherOfficialPage(2) => _ =>  otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
 
     case AddAnotherOtherOfficialPage => userAnswers: UserAnswers => userAnswers.get(AddAnotherOtherOfficialPage) match {
       case Some(true) => otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode,2)
@@ -178,7 +177,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AddedSecondOtherOfficialPage  => userAnswers: UserAnswers => userAnswers.get(AddedSecondOtherOfficialPage) match {
+    case AddedOtherOfficialPage(1)  => userAnswers: UserAnswers => userAnswers.get(AddedOtherOfficialPage(1)) match {
       case Some(_) => routes.DeadEndController.onPageLoad() // TODO next page
       case _ =>  routes.SessionExpiredController.onPageLoad()
     }

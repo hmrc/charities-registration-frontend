@@ -16,7 +16,7 @@
 
 package viewmodels.officials
 
-import models.Name
+import models.{Index, Name}
 import models.requests.DataRequest
 import pages.QuestionPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
@@ -35,13 +35,13 @@ trait OfficialSummaryRowHelper {
 
   def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
     officialAnswers(AuthorisedOfficialsNamePage(0),
-      controllers.authorisedOfficials.routes.AddedOneAuthorisedOfficialController.onPageLoad(),
+      controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(Index(0)),
       controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(0)
     )
 
   def secondAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
     officialAnswers(AuthorisedOfficialsNamePage(1),
-      controllers.authorisedOfficials.routes.AddedSecondAuthorisedOfficialController.onPageLoad(),
+      controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(Index(1)),
       controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(1)
     )
 

@@ -26,8 +26,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOneAuthorisedOfficialHelper(index: Index, mode: Mode, countryService: CountryService) (override val userAnswers: UserAnswers)
-                                     (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
+class AddedAuthorisedOfficialHelper(index: Index, mode: Mode, countryService: CountryService)(override val userAnswers: UserAnswers)
+                                   (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
 
   def authOfficialNamesRow: Option[SummaryListRow] =

@@ -25,8 +25,8 @@ import pages.QuestionPage
 import play.api.mvc.{AnyContent, Call, MessagesControllerComponents, Result}
 import repositories.UserAnswerRepository
 import service.CountryService
-import viewmodels.authorisedOfficials.AddedOneAuthorisedOfficialHelper
-import viewmodels.otherOfficials.AddedOneOtherOfficialHelper
+import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
+import viewmodels.otherOfficials.AddedOtherOfficialHelper
 import views.html.common.AddedOfficialsView
 
 import scala.concurrent.Future
@@ -39,16 +39,16 @@ trait AddedOfficialController extends LocalBaseController {
   protected val messagePrefix: String
   protected val countryService: CountryService
 
-  def getView(index:Index, submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
+  def getView(index:Index, submitCall: Call, officialsName: String)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
 
     val rows = messagePrefix match {
-      case "addedOneAuthorisedOfficial" | "addedSecondAuthorisedOfficial" =>
-        new AddedOneAuthorisedOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
-      case "addedOneOtherOfficial" | "addedSecondOtherOfficial"| "addedThirdOtherOfficial" =>
-        new AddedOneOtherOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
+      case "addedAuthorisedOfficial" =>
+        new AddedAuthorisedOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
+      case "addedOtherOfficial" =>
+        new AddedOtherOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
     }
 
-    Ok(view(rows, submitCall, messagePrefix))
+    Ok(view(rows, submitCall, officialsName, messagePrefix))
   }
 
   def postView(page: QuestionPage[String], section:QuestionPage[Boolean])(

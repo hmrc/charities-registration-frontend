@@ -25,7 +25,7 @@ import controllers.nominees.{routes => nomineeRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.nominees.OrganisationNomineeContactDetails
-import models.{CharityContactDetails, CheckMode, NormalMode, Passport, PlaybackMode}
+import models.{CharityContactDetails, CheckMode, Index, NormalMode, Passport, PlaybackMode}
 import pages.authorisedOfficials.{AuthorisedOfficialsNinoPage, AuthorisedOfficialsPassportPage}
 import pages.charityInformation.CharityContactDetailsPage
 import pages.nominees.{IndividualNomineesNinoPage, IndividualNomineesPassportPage, OrganisationNomineeContactDetailsPage}
@@ -39,9 +39,9 @@ class ExternalTestNavigationSpec extends SpecBase {
     new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
 
   def goToPlaybackPage(index: Int): Call = index match {
-    case 0 => otherOfficialRoutes.AddedOneOtherOfficialController.onPageLoad()
-    case 1 => otherOfficialRoutes.AddedSecondOtherOfficialController.onPageLoad()
-    case 2 => otherOfficialRoutes.AddedThirdOtherOfficialController.onPageLoad()
+    case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))
+    case 1 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(1))
+    case 2 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(2))
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
@@ -74,7 +74,7 @@ class ExternalTestNavigationSpec extends SpecBase {
           authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsNinoPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C")
               .success.value) mustBe
-            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
+            authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
         }
       }
 
@@ -83,7 +83,7 @@ class ExternalTestNavigationSpec extends SpecBase {
           authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsPassportPage(0), NormalMode,
             emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
               .success.value) mustBe
-            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
+            authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
         }
       }
 
@@ -165,7 +165,7 @@ class ExternalTestNavigationSpec extends SpecBase {
         "go to Summary page when clicked continue button" in {
           authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsNinoPage(0), PlaybackMode,
             emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
-            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
+            authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
         }
       }
 
@@ -174,7 +174,7 @@ class ExternalTestNavigationSpec extends SpecBase {
           authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsPassportPage(0), PlaybackMode,
             emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
               .success.value) mustBe
-            authOfficialRoutes.AddedOneAuthorisedOfficialController.onPageLoad()
+            authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
         }
       }
     }

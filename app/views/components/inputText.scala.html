@@ -26,7 +26,8 @@
         hint: Option[Html] = None,
         classes: Option[String] = None,
         stripWhitespace: Boolean = false,
-        inputType: String = "text"
+        inputType: String = "text",
+        isTelephone: Boolean = false
 )(implicit messages: Messages)
 
 @govukInput(Input(
@@ -43,6 +44,8 @@
   )),
   value = form(name).value,
   errorMessage = form(name).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
-  inputType = inputType
+  inputType = inputType,
+  inputmode = if(isTelephone) Some("tel") else None
+
 ))
 

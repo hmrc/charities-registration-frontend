@@ -61,15 +61,17 @@ private[mappings] class LocalDateFormatterDayMonth(
 
   override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], MonthDay] = {
 
-    fields(key, data).count(_._2.isDefined) match {
-      case 2 if illegalFields(key, data).nonEmpty | illegalZero(key, data).nonEmpty =>
-        Left(List() ++ illegalErrors(key, data, nonNumericKey, args, illegalFields) ++ illegalErrors(key, data, invalidKey, args, illegalZero))
+    val dataWithoutSpaces: Map[String, String] = data.map(entry => (entry._1, entry._2.replace(" ", "")))
+
+    fields(key, dataWithoutSpaces).count(_._2.isDefined) match {
+      case 2 if illegalFields(key, dataWithoutSpaces).nonEmpty | illegalZero(key, dataWithoutSpaces).nonEmpty =>
+        Left(List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields) ++ illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero))
       case 2 =>
-        formatDate(key, data)
+        formatDate(key, dataWithoutSpaces)
       case 1 =>
-        leftErrors(key, data, requiredKey, invalidKey, args)
+        leftErrors(key, dataWithoutSpaces, requiredKey, invalidKey, args)
       case _ =>
-        leftErrors(key, data, allRequiredKey, invalidKey, args)
+        leftErrors(key, dataWithoutSpaces, allRequiredKey, invalidKey, args)
     }
   }
 

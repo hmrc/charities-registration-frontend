@@ -34,6 +34,8 @@ class DateOfBirthFormProviderSpec extends DateBehaviours {
 
     behave like dateField(form, "date", validDate)
 
+    behave like dateFieldIgnoreSpaces(form, "date", validDate)
+
     behave like mandatoryDateField(form, "date", s"$messagePrefix.error.required.all", Seq("day", "month", "year"))
 
     behave like dateFieldWithMax(form, "date",

@@ -261,26 +261,6 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the IsAddAnotherAuthorisedOfficialPage" must {
-
-        "go to the SessionExpiredController page when user answer is empty" in {
-          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
-        }
-
-        "go to the AuthorisedOfficialsNamePage page when yes is selected" in {
-          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode,
-            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, true).success.value) mustBe
-            authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
-        }
-
-        "go to the summary page when no is selected" in {
-          navigator.nextPage(IsAddAnotherAuthorisedOfficialPage, NormalMode,
-            emptyUserAnswers.set(IsAddAnotherAuthorisedOfficialPage, false).success.value) mustBe
-            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
-        }
-      }
-
       "from the summary page" must {
 
         "go to the SessionExpiredController page when user answer is empty" in {
@@ -359,14 +339,6 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
     "in Check mode" when {
 
-      "any page is called should go to IndexController" in {
-        navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-          routes.IndexController.onPageLoad()
-      }
-    }
-
-    "in Playback mode" when {
-
       def goToPlaybackPage(index: Int): Call = index match {
         case 0 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
         case 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(1))
@@ -379,12 +351,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the AuthorisedOfficialsNamePage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialsNamePage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialsNamePage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(AuthorisedOfficialsNamePage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialsNamePage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName)
                   .flatMap(_.set(AuthorisedOfficialsNamePage(index), authorisedOfficialsName)).success.value) mustBe
                 goToPlaybackPage(index)
@@ -394,12 +366,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the AuthorisedOfficialsDOBPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialsDOBPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialsDOBPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(AuthorisedOfficialsDOBPage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialsDOBPage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.now().minusYears(minYear))
                   .flatMap(_.set(AuthorisedOfficialsDOBPage(index), LocalDate.now().minusYears(minYear))).success.value) mustBe
                 goToPlaybackPage(index)
@@ -409,12 +381,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the AuthorisedOfficialsPhoneNumberPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialsPhoneNumberPage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber)
                   .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(index), authorisedOfficialsPhoneNumber)).success.value) mustBe
                 goToPlaybackPage(index)
@@ -424,12 +396,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the AuthorisedOfficialsPositionPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialsPositionPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialsPositionPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(AuthorisedOfficialsPositionPage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialsPositionPage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.BoardMember)
                   .flatMap(_.set(AuthorisedOfficialsPositionPage(index), OfficialsPosition.BoardMember)).success.value) mustBe
                 goToPlaybackPage(index)
@@ -439,30 +411,30 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the IsAuthorisedOfficialNinoPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the AuthorisedOfficialsNINOPage if Yes is selected and previously the user's passport details were provided" in {
-              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
                   .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
                   .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
-                authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(PlaybackMode, index)
+                authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index)
             }
 
             "go to the AuthorisedOfficialsPassportPage if No is selected and previously the user's NINO details were provided" in {
-              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
                   .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
                   .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
-                authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(PlaybackMode, index)
+                authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, index)
             }
 
             "go to the Playback page when Yes is selected and previously the user's NINO details were provided" in {
-              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
                   .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
@@ -471,7 +443,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             }
 
             "go to the Playback page when No is selected and previously the user's passport details were provided" in {
-              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), PlaybackMode,
+              navigator.nextPage(IsAuthorisedOfficialNinoPage(index), CheckMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialNinoPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
                   .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
@@ -483,12 +455,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the AuthorisedOfficialsNINOPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialsNinoPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialsNinoPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the What is [Full name]’s home address? when clicked continue button" in {
-              navigator.nextPage(AuthorisedOfficialsNinoPage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialsNinoPage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C")
                   .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
                 goToPlaybackPage(index)
@@ -498,12 +470,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           s"from the AuthorisedOfficialsPassportPage for index $index" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialsPassportPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialsPassportPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the Playback page when new passport is provided" in {
-              navigator.nextPage(AuthorisedOfficialsPassportPage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialsPassportPage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
                   .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))
                   .success.value) mustBe
@@ -514,41 +486,41 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the AuthorisedOfficialAddressLookupPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the Have you previously changed your address page when continue button is clicked" in {
-              navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0), address)
                   .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), address)).success.value) mustBe
-                authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(PlaybackMode, index)
+                authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
             }
           }
 
           "from the IsAuthorisedOfficialPreviousAddressPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the Previous Address Lookup flow when yes is selected" in {
-              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), PlaybackMode,
+              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), true)
                   .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true)).success.value) mustBe
-                addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, PlaybackMode)
+                addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
             }
 
             "go to the You have added one authorised official page when no is selected" in {
-              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), PlaybackMode,
+              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), false)).success.value) mustBe
                 goToPlaybackPage(index)
             }
 
             "go to the You have added one authorised official page when Yes is selected and home address is defined" in {
-              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), PlaybackMode,
+              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode,
                 emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
                   .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
@@ -560,12 +532,12 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "from the AuthorisedOfficialPreviousAddressLookupPage" must {
 
             "go to the SessionExpiredController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(0), PlaybackMode, emptyUserAnswers) mustBe
+              navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(0), CheckMode, emptyUserAnswers) mustBe
                 routes.SessionExpiredController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(index), PlaybackMode,
+              navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(index), CheckMode,
                 emptyUserAnswers.set(AuthorisedOfficialPreviousAddressLookupPage(0), address)
                   .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
                 goToPlaybackPage(index)
@@ -577,11 +549,19 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
       "from any UnKnownPage" must {
 
         "go to the IndexController page when user answer is empty" in {
-          navigator.nextPage(IndexPage, PlaybackMode, emptyUserAnswers) mustBe
+          navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad()
         }
       }
 
+    }
+
+    "in Playback mode" when {
+
+      "any page is called should go to SessionExpired page" in {
+        navigator.nextPage(IndexPage, PlaybackMode, emptyUserAnswers) mustBe
+          routes.SessionExpiredController.onPageLoad()
+      }
     }
   }
 }

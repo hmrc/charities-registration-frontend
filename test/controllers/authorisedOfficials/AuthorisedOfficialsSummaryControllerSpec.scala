@@ -18,7 +18,6 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.YesNoFormProvider
 import models.{Name, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
@@ -26,7 +25,6 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAddAnotherAuthorisedOfficialPage}
-import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -50,11 +48,6 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
     super.beforeEach()
     reset(mockUserAnswerRepository)
   }
-
-  private val messagePrefix: String = "authorisedOfficialsSummary"
-  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messagePrefix)
-
 
   private val controller: AuthorisedOfficialsSummaryController = inject[AuthorisedOfficialsSummaryController]
 

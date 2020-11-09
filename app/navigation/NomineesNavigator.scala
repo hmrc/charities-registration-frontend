@@ -29,7 +29,7 @@ import play.api.mvc.Call
 
 class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  private val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call =  {
 
     case IsAuthoriseNomineePage => userAnswers: UserAnswers => userAnswers.get(IsAuthoriseNomineePage) match {
       case Some(true) => nomineeRoutes.ChooseNomineeController.onPageLoad(NormalMode)
@@ -182,7 +182,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
+  override val checkRouteMap: Page => UserAnswers => Call = {
 
     case IsAuthoriseNomineePage => userAnswers: UserAnswers => userAnswers.get(IsAuthoriseNomineePage) match {
       case Some(true) => nomineeRoutes.ChooseNomineeController.onPageLoad(CheckMode)
@@ -332,12 +332,4 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode =>
-      normalRoutes(page)(userAnswers)
-    case CheckMode =>
-      checkRouteMap(page)(userAnswers)
-    case PlaybackMode =>
-      routes.SessionExpiredController.onPageLoad() // TODO
-  }
 }

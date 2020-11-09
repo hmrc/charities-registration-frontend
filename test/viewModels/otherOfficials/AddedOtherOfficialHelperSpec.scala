@@ -23,7 +23,7 @@ import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
+import models.{Index, Name, PhoneNumber, CheckMode, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -54,7 +54,8 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
   when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
 
 
-  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =   new AddedOtherOfficialHelper(index, CheckMode,countryService = mockCountryService)(userAnswers)
+  def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =
+    new AddedOtherOfficialHelper(index, CheckMode,countryService = mockCountryService)(userAnswers)
 
 
   "Check Your Answers Helper" must {

@@ -39,7 +39,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
   }
 
-  private val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call =  {
 
     case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
       case Some(items) if items.toSeq.contains(Other) => operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
@@ -127,7 +127,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
+  override val checkRouteMap: Page => UserAnswers => Call = {
 
     case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
       case Some(items) if items.toSeq.contains(Other) => userAnswers.get(OtherFundRaisingPage) match {
@@ -211,12 +211,4 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode =>
-      normalRoutes(page)(userAnswers)
-    case CheckMode =>
-      checkRouteMap(page)(userAnswers)
-    case PlaybackMode =>
-      routes.SessionExpiredController.onPageLoad() // TODO
-  }
 }

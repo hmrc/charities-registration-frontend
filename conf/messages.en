@@ -1197,27 +1197,34 @@ otherOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
 # ----------------------------------------------------------
 addedOtherOfficial.checkYourAnswers.title = Check the other official’s details
 
-# Add a second other officials messages
+# Check the second Other Official Page Messages
 # ----------------------------------------------------------
-addSecondOtherOfficials.title = You will be adding the second official in the next page
-addSecondOtherOfficials.heading = You need to add a second other official
-addSecondOtherOfficials.p1 = Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.
-addSecondOtherOfficials.p2 = They will normally be the trustees or directors of the charity (if your charity is a company), or community amateur sports club (CASC) officials.
+addedSecondOtherOfficial.checkYourAnswers.title = Check the second other official’s details
+addedSecondOtherOfficial.checkYourAnswers.heading = Check the second other official’s details
 
-# Add another other Official Page Messages
+# Check the third Other Official Page Messages
 # ----------------------------------------------------------
-addAnotherOtherOfficial.title = Do you want to add another other official?
-addAnotherOtherOfficial.heading = Do you want to add a third other official?
-addAnotherOtherOfficial.hint = You have already provided details for {0} and {1}.
-addAnotherOtherOfficial.error.required = Select yes if you want to add another other official
-
-addAnotherOtherOfficial.checkYourAnswersLabel = Add another other official
+addedThirdOtherOfficial.checkYourAnswers.title = Check the third other official’s details
+addedThirdOtherOfficial.checkYourAnswers.heading = Check the third other official’s details
 
 # Charity’s Other Officials Details Summary Page Messages
 # ----------------------------------------------------------
-otherOfficialsSummary.checkYourAnswers.title = Check your charity’s other officials details
-otherOfficialsSummary.checkYourAnswers.heading = Check your charity’s other officials details
+# Authorised Officials Summary page
+# ----------------------------------------------------------
+otherOfficialsSummary.checkYourAnswers.title.addedOne = You have added 1 other official
+otherOfficialsSummary.checkYourAnswers.title.addedTwo = You have added 2 other officials
+otherOfficialsSummary.checkYourAnswers.title.addedThree = You have added 3 other officials
+otherOfficialsSummary.checkYourAnswers.heading.addedOne = You have added 1 other official
+otherOfficialsSummary.checkYourAnswers.heading.addedTwo = You have added 2 other officials
+otherOfficialsSummary.checkYourAnswers.heading.addedThree = You have added 3 other officials
+otherOfficialsSummary.checkYourAnswers.p1 = You now need to add another other official
 otherOfficialsSummary.checkYourAnswers.h2 = Charity’s other official
+otherOfficialsSummary.checkYourAnswers.change = Change
+otherOfficialsSummary.checkYourAnswers.changeName = Change {0}
+otherOfficialsSummary.checkYourAnswers.remove = Remove
+otherOfficialsSummary.checkYourAnswers.removeName = Remove {0} from the list
+otherOfficialsSummary.addAnotherOfficial.h2 = Do you want to add another other official?
+otherOfficialsSummary.error.required = Select yes if you want to add another other official
 otherOfficialsSummary.section = Officials and nominees
 
 # Section9 - Name nominees

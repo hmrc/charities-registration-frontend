@@ -29,7 +29,7 @@ import play.api.mvc.Call
 
 class CharityInformationNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  private val normalRoutes: Page => UserAnswers => Call = {
+  override val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
         case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
@@ -61,7 +61,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
+  override val checkRouteMap: Page => UserAnswers => Call = {
 
     case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
       case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
@@ -89,12 +89,4 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode =>
-      normalRoutes(page)(userAnswers)
-    case CheckMode =>
-      checkRouteMap(page)(userAnswers)
-    case PlaybackMode =>
-      routes.SessionExpiredController.onPageLoad() // TODO
-  }
 }

@@ -46,7 +46,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
 
   private val otherOfficial1common: Seq[QuestionPage[_]] = journeyCommon(0)
 
-  private val otherOfficial2common: Seq[QuestionPage[_]] = journeyCommon(1) ++ Seq(AddAnotherOtherOfficialPage)
+  private val otherOfficial2common: Seq[QuestionPage[_]] = journeyCommon(1) ++ Seq(IsAddAnotherOtherOfficialPage)
 
   private val otherOfficial3common: Seq[QuestionPage[_]] = journeyCommon(2)
 
@@ -64,7 +64,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
       userAnswers.get(IsOtherOfficialNinoPage(1)), userAnswers.get(IsOtherOfficialsPreviousAddressPage(1))) match {
       case (Some(isNino1), Some(isPreviousAddress1), Some(isNino2), Some(isPreviousAddress2)) =>
 
-        userAnswers.get(AddAnotherOtherOfficialPage) match {
+        userAnswers.get(IsAddAnotherOtherOfficialPage) match {
 
           case Some(false) =>
             val newPages = otherOfficial1common

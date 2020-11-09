@@ -19,7 +19,7 @@ package controllers.common
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import models.requests.DataRequest
-import models.{Index, NormalMode, PlaybackMode}
+import models.{CheckMode, Index, NormalMode}
 import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.mvc.{AnyContent, Call, MessagesControllerComponents, Result}
@@ -43,9 +43,9 @@ trait AddedOfficialController extends LocalBaseController {
 
     val rows = messagePrefix match {
       case "addedAuthorisedOfficial" =>
-        new AddedAuthorisedOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
+        new AddedAuthorisedOfficialHelper(index, CheckMode, countryService)(request.userAnswers).rows
       case "addedOtherOfficial" =>
-        new AddedOtherOfficialHelper(index, PlaybackMode, countryService)(request.userAnswers).rows
+        new AddedOtherOfficialHelper(index, CheckMode, countryService)(request.userAnswers).rows
     }
 
     Ok(view(rows, submitCall, officialsName, messagePrefix))

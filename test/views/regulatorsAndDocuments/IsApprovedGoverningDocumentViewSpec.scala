@@ -40,6 +40,8 @@ class IsApprovedGoverningDocumentViewSpec extends YesNoViewBehaviours  {
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
+      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "p")
+
       behave like pageWithBackLink(applyView(form))
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsApprovedGoverningDocumentController.onSubmit(NormalMode).url, section = section)

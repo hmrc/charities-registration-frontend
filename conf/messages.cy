@@ -542,9 +542,10 @@ whenGoverningDocumentApproved.checkYourAnswersLabel = (W)Effective date(W)
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = (W)Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?(W)
-isApprovedGoverningDocument.heading = (W)Is the charity using a form of governing document that is approved by a national organisation, parent body or principle regulator?(W)
+isApprovedGoverningDocument.title = (W)Is the governing document approved?(W)
+isApprovedGoverningDocument.heading = (W)Is the governing document approved?(W)
 isApprovedGoverningDocument.error.required = (W)Select yes if the charity’s governing document is approved(W)
+isApprovedGoverningDocument.p = (W)The governing document can be approved by a national organisation, parent body or principle regulator.(W)
 isApprovedGoverningDocument.checkYourAnswersLabel = (W)Approved by a regulator(W)
 
 # HasCharityChangedPartsOfGoverningDocument Messages

@@ -98,6 +98,9 @@ POST       /:index/added-other-official                                         
 GET        /other-official-summary                                              controllers.otherOfficials.OtherOfficialsSummaryController.onPageLoad
 POST       /other-official-summary                                              controllers.otherOfficials.OtherOfficialsSummaryController.onSubmit
 
+GET        /:index/remove-other-official                                        controllers.otherOfficials.RemoveOtherOfficialsController.onPageLoad(index: Index)
+POST       /:index/remove-other-official                                        controllers.otherOfficials.RemoveOtherOfficialsController.onSubmit(index: Index)
+
 GET        /nominees                                                            controllers.nominees.CharityNomineeController.onPageLoad()
 
 GET        /authorise-nominee                                                   controllers.nominees.IsAuthoriseNomineeController.onPageLoad(mode: Mode = NormalMode)

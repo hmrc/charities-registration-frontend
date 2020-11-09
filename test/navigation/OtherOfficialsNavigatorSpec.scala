@@ -24,9 +24,10 @@ import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
+import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
+import pages.charityInformation.CharityNamePage
 import pages.otherOfficials._
 import pages.sections.Section8Page
 import play.api.mvc.Call
@@ -548,6 +549,41 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             .flatMap(_.set(OtherOfficialsNamePage(2), otherOfficialsName))
             .flatMap(_.set(OtherOfficialsNamePage(3), otherOfficialsName)).success.value) mustBe
           routes.SessionExpiredController.onPageLoad()
+      }
+
+      "from the RemoveOtherOfficialsPage" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the summary page if No is selected and OtherOfficials are present" in {
+          navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
+            .set(RemoveOtherOfficialsPage, false).flatMap(
+            _.set(OtherOfficialsNamePage(0), otherOfficialsName)).success.value
+          ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+        }
+
+        "go to the summary page if Yes is selected and OtherOfficials are present" in {
+          navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
+            .set(RemoveOtherOfficialsPage, true).flatMap(
+            _.set(OtherOfficialsNamePage(0), otherOfficialsName)).success.value
+          ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+        }
+
+        "go to the start of journey if removed all official details and OtherOfficials are not present" in {
+          navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
+            .set(RemoveOtherOfficialsPage, true).flatMap(
+            _.set(CharityNamePage, CharityName("ABC", Some("OpName")))).success.value
+          ) mustBe otherOfficialRoutes.CharityOtherOfficialsController.onPageLoad()
+        }
+
+        "go to the index if No is selected" in {
+          navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
+            .set(IsAddAnotherOtherOfficialPage, false).success.value
+          ) mustBe routes.SessionExpiredController.onPageLoad()
+        }
       }
 
       "from any UnKnownPage" must {

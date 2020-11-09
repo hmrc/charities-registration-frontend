@@ -1228,6 +1228,12 @@ otherOfficialsSummary.addAnotherOfficial.h2 = (W)Do you want to add another othe
 otherOfficialsSummary.error.required = (W)Select yes if you want to add another other official(W)
 otherOfficialsSummary.section = (W)Officials and nominees(W)
 
+# Are you sure you want to remove this other official
+# ----------------------------------------------------------
+removeOtherOfficial.title = (W)Are you sure you want to remove this other official?(W)
+removeOtherOfficial.heading = (W)Are you sure you want to remove {0}?(W)
+removeOtherOfficial.error.required = (W)Select yes to remove this other official(W)
+
 # Section9 - Name nominees
 # ----------------------------------------------------------
 

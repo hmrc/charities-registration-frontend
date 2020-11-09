@@ -109,6 +109,12 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
+    case RemoveOtherOfficialsPage => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsId(0)) match {
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+      case _ if userAnswers.data.fields.nonEmpty => otherOfficialRoutes.CharityOtherOfficialsController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

@@ -133,12 +133,14 @@ index.section4.label = Officials and nominee
 index.section4.spoke1.label = Enter details for authorised officials
 index.section4.spoke2.label = Enter details for other officials
 index.section4.spoke3.label = Enter details for nominee
+index.section.numbers5 = 5.
+index.section5.label = Confirm the declaration and send the supporting documents
+index.section5.spoke1.label = Confirm the declaration and send the supporting documents
 index.section.note.label = Once you have completed every section, you will be asked to sign a declaration and submit the application.
 index.section.notStarted = Not started
 index.section.inProgress = In progress
 index.section.completed = Completed
-index.complete.h2 = You have now completed every section
-index.complete.p = On the next pages, you will be asked to sign a declaration and submit the application.
+index.section.canNotStartYet = Cannot start yet
 
 # Common Address Lookup Frontend Messages
 # ----------------------------------------------------------

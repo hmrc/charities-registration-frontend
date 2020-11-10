@@ -64,10 +64,14 @@ class TaskListViewSpec extends ViewBehaviours  {
         controllers.nominees.routes.CharityNomineeController.onPageLoad(),
         "index.section.inProgress")
 
+      val section10 = TaskListRow("index.section5.spoke1.label",
+        controllers.routes.DeclarationController.onPageLoad(),
+        "index.section.inProgress")
+
       def applyView(isCompleted: Boolean = false): HtmlFormat.Appendable = {
         val view = viewFor[TaskList](Some(emptyUserAnswers))
         view.apply(
-          List(section1, section2, section3, section4, section5, section6, section7, section8, section9), status = isCompleted)(
+          List(section1, section2, section3, section4, section5, section6, section7, section8, section9, section10), status = isCompleted)(
           fakeRequest, messages, frontendAppConfig)
       }
 
@@ -80,6 +84,7 @@ class TaskListViewSpec extends ViewBehaviours  {
         "section2.label", "section2.spoke1.label", "section2.spoke2.label",
         "section3.label", "section3.spoke1.label", "section3.spoke2.label", "section3.spoke3.label",
         "section4.label", "section4.spoke1.label", "section4.spoke2.label", "section4.spoke3.label",
+        "section5.label", "section5.spoke1.label",
         "section.note.label"
       )
 
@@ -128,9 +133,14 @@ class TaskListViewSpec extends ViewBehaviours  {
           "nominee-info",controllers.nominees.routes.CharityNomineeController.onPageLoad().url,"Enter details for nominee")
       }
 
-      "display continue button if status is completed" in {
+      "Declaration row" must {
+        behave like pageWithHyperLink(applyView(),
+          "declaration-info",controllers.routes.DeclarationController.onPageLoad().url,"Confirm the declaration and send the supporting documents")
+      }
+
+      "dont display declaration message at the bottom pf page if status is completed" in {
         val doc = asDocument(applyView(true))
-        assertRenderedById(doc, "declaration")
+        assertNotRenderedById(doc, "declaration")
       }
 
     }

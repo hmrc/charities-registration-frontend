@@ -23,13 +23,13 @@ import play.api.data.format.Formatter
 import scala.util.{Failure, Success, Try}
 
 private[mappings] class LocalDateFormatterDayMonth(
-                                            invalidKey: String,
-                                            allRequiredKey: String,
-                                            requiredKey: String,
-                                            nonNumericKey: String,
-                                            leapYearKey: String,
-                                            args: Seq[String] = Seq.empty
-                                          ) extends Formatter[MonthDay] with GenericDateFormatter {
+    invalidKey: String,
+    allRequiredKey: String,
+    requiredKey: String,
+    nonNumericKey: String,
+    leapYearKey: String,
+    args: Seq[String] = Seq.empty
+  ) extends Formatter[MonthDay] with GenericDateFormatter {
 
   val fieldKeys: List[String] = List("day", "month")
 
@@ -65,7 +65,8 @@ private[mappings] class LocalDateFormatterDayMonth(
 
     fields(key, dataWithoutSpaces).count(_._2.isDefined) match {
       case 2 if illegalFields(key, dataWithoutSpaces).nonEmpty | illegalZero(key, dataWithoutSpaces).nonEmpty =>
-        Left(List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields) ++ illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero))
+        Left(List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields) ++
+          illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero))
       case 2 =>
         formatDate(key, dataWithoutSpaces)
       case 1 =>

@@ -38,122 +38,75 @@
     <p class="govuk-body"><br></p>
     <ol class="app-task-list">
         <li>
-            <h2 class="app-task-list__section">
-                <span class="app-task-list__section-number">@messages("index.section.numbers1") </span> @messages("index.section1.label")
-            </h2>
+            @getH2("index.section.numbers1", "index.section1.label")
             <ul class="app-task-list__items">
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result.head.link.url}" id="charity-info">
-                      @messages(result.head.name)
-                    </a>
-                  </span>
-                    <strong class="@getTagClass(result.head)" id="charity-info-completed">@messages(result.head.state)</strong>
-                </li>
+                @getSection(result(0), "charity-info")
             </ul>
         </li>
         <li>
-            <h2 class="app-task-list__section">
-                <span class="app-task-list__section-number">@messages("index.section.numbers2") </span> @messages("index.section2.label")
-            </h2>
+            @getH2("index.section.numbers2", "index.section2.label")
             <ul class="app-task-list__items">
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(1).link.url}" id="name-regulator">
-                      @messages(result(1).name)
-                    </a>
-                  </span>
-                  <strong class="@getTagClass(result(1))" id="name-regulator-completed">@messages(result(1).state)</strong>
-                </li>
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(2).link.url}" id="governing-doc-info">
-                      @messages(result(2).name)
-                    </a>
-                  </span>
-                    <strong class="@getTagClass(result(2))" id="governing-doc-info-completed">@messages(result(2).state)</strong>
-                </li>
+                @getSection(result(1), "name-regulator")
+                @getSection(result(2), "governing-doc-info")
             </ul>
         </li>
         <li>
-            <h2 class="app-task-list__section">
-                <span class="app-task-list__section-number">@messages("index.section.numbers3") </span> @messages("index.section3.label")
-            </h2>
+            @getH2("index.section.numbers3", "index.section3.label")
             <ul class="app-task-list__items">
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(3).link.url}" id="charity-objective">
-                      @messages(result(3).name)
-                    </a>
-                  </span>
-                  <strong class="@getTagClass(result(3))" id="charity-objective-completed">@messages(result(3).state)</strong>
-                </li>
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(4).link.url}" id="fundraising-info">
-                      @messages(result(4).name)
-                    </a>
-                  </span>
-                  <strong class="@getTagClass(result(4))" id="fundraising-info-completed">@messages(result(4).state)</strong>
-                </li>
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(5).link.url}" id="bank-details">
-                      @messages(result(5).name)
-                    </a>
-                  </span>
-                  <strong class="@getTagClass(result(5))" id="bank-details-completed">@messages(result(5).state)</strong>
-                </li>
+                @getSection(result(3), "charity-objective")
+                @getSection(result(4), "fundraising-info")
+                @getSection(result(5), "bank-details")
             </ul>
         </li>
         <li>
-            <h2 class="app-task-list__section">
-                <span class="app-task-list__section-number">@messages("index.section.numbers4") </span> @messages("index.section4.label")
-            </h2>
+            @getH2("index.section.numbers4", "index.section4.label")
             <ul class="app-task-list__items">
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(6).link.url}" id="authorised-officials">
-                      @messages(result(6).name)
-                    </a>
-                  </span>
-                  <strong class="@getTagClass(result(6))" id="authorised-officials-completed">@messages(result(6).state)</strong>
-                </li>
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(7).link.url}" id="other-officials">
-                      @messages(result(7).name)
-                    </a>
-                  </span>
-                  <strong class="@getTagClass(result(7))" id="other-officials-completed">@messages(result(7).state)</strong>
-                </li>
-                <li class="app-task-list__item">
-                  <span class="app-task-list__task-name">
-                    <a href="@{result(8).link.url}" id="nominee-info">
-                      @messages(result(8).name)
-                    </a>
-                  </span>
-                  <strong class="@getTagClass(result(8))" id="nominee-info-completed">@messages(result(8).state)</strong>
-                </li>
+                @getSection(result(6), "authorised-officials")
+                @getSection(result(7), "other-officials")
+                @getSection(result(8), "nominee-info")
+            </ul>
+        </li>
+        <li>
+            @getH2("index.section.numbers5", "index.section5.label")
+            <ul class="app-task-list__items">
+                @getSection(result(9), "declaration-info")
             </ul>
         </li>
     </ol>
 
-    @if(status) {
-        <h2 class="app-task-list__section">
-            @messages("index.complete.h2")
-        </h2>
-            @p(Html(messages("index.complete.p")))
-
-        @link(controllers.routes.DeclarationController.onPageLoad().url, "site.continue", id=Some("declaration"))
-    } else {
-        <p class="govuk-body govuk-!-margin-bottom-7">@messages("index.section.note.label")</p>
+    @if(!status) {
+      <p class="govuk-body govuk-!-margin-bottom-7" id="declaration">@messages("index.section.note.label")</p>
     }
 }
 
-    @getTagClass(taskListRow: TaskListRow) = @{taskListRow.state match {
-            case "index.section.completed" => "hmrc-status-tag govuk-tag govuk-tag--turquoise"
-            case "index.section.inProgress" => "hmrc-status-tag govuk-tag govuk-tag--yellow"
-            case _ => "hmrc-status-tag govuk-tag govuk-tag--grey"
-        }
+@getH2(number: String, label: String) = {
+    <h2 class="app-task-list__section">
+        <span class="app-task-list__section-number">@messages(number) </span> @messages(label)
+    </h2>
+}
+
+@getSection(taskListRow: TaskListRow, id: String) = {
+    <li class="app-task-list__item">
+      <span class="app-task-list__task-name">
+        @getConditionalSectionLink(taskListRow, id)
+      </span>
+      <strong class="@getTagClass(taskListRow)">@messages(taskListRow.state)</strong>
+    </li>
+}
+
+@getConditionalSectionLink(taskListRow: TaskListRow, id: String) = {
+    @if(taskListRow.state=="index.section.canNotStartYet"){
+        @messages(taskListRow.name)
+    } else {
+        <a href="@{taskListRow.link.url}" id="@id">
+            @messages(taskListRow.name)
+        </a>
     }
+}
+
+@getTagClass(taskListRow: TaskListRow) = @{taskListRow.state match {
+        case "index.section.completed" => "hmrc-status-tag govuk-tag govuk-tag--turquoise"
+        case "index.section.inProgress" => "hmrc-status-tag govuk-tag govuk-tag--yellow"
+        case _ => "hmrc-status-tag govuk-tag govuk-tag--grey"
+    }
+}

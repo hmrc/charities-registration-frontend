@@ -30,9 +30,12 @@ $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
   color: #0b0c0c;
 }
 
-
 .autocomplete__wrapper{
   max-width: 52ex + 1ex;
+}
+
+.app-task-list__task-name{
+  width: 65%
 }
 
 .govuk-form-group--error .autocomplete__input {

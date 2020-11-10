@@ -42,7 +42,7 @@ class IndexController @Inject()(
 
       val result = taskListHelper.getTaskListRow(userAnswers)
 
-      val completed = result.forall(_.state.equals("index.section.completed"))
+      val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
 
       Ok(view(result, status = completed))
     }

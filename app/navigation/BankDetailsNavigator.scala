@@ -28,10 +28,7 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
   override val normalRoutes: Page => UserAnswers => Call =  {
 
-    case BankDetailsPage => userAnswers: UserAnswers => userAnswers.get(BankDetailsPage) match {
-      case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
+    case BankDetailsPage => userAnswers: UserAnswers => navigate(userAnswers)
 
     case BankDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
 
@@ -40,11 +37,13 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
   override val checkRouteMap: Page => UserAnswers => Call = {
 
-    case BankDetailsPage => userAnswers: UserAnswers => userAnswers.get(BankDetailsPage) match {
-      case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
-    }
+    case BankDetailsPage => userAnswers: UserAnswers => navigate(userAnswers)
 
     case _ => _ => routes.IndexController.onPageLoad()
+  }
+
+  private def navigate(userAnswers: UserAnswers): Call = userAnswers.get(BankDetailsPage) match {
+    case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
+    case _ =>  routes.SessionExpiredController.onPageLoad()
   }
 }

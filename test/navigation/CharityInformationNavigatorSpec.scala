@@ -226,12 +226,26 @@ class CharityInformationNavigatorSpec extends SpecBase {
       }
 
     }
+
     "in Playback mode" when {
+
       "attempting to go to any site" must {
+
         "go to the SessionExpiredController page" in {
           navigator.nextPage(CharityPostalAddressLookupPage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+            routes.IndexController.onPageLoad()
         }
+      }
+
+      "go to the BankDetailsController page" in {
+        navigator.nextPage(CharityNamePage, PlaybackMode, emptyUserAnswers
+          .set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value) mustBe
+          controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode)
+      }
+
+      "go to the SessionExpiredController page" in {
+        navigator.nextPage(CharityNamePage, PlaybackMode, emptyUserAnswers) mustBe
+          routes.SessionExpiredController.onPageLoad()
       }
     }
   }

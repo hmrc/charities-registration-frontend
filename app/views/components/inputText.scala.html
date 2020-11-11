@@ -27,7 +27,8 @@
         classes: Option[String] = None,
         stripWhitespace: Boolean = false,
         inputType: String = "text",
-        isTelephone: Boolean = false
+        isTelephone: Boolean = false,
+        labelClasses: Option[String] = None
 )(implicit messages: Messages)
 
 @govukInput(Input(
@@ -37,7 +38,7 @@
   label = Label(
     content = Text(messages(label, headingMessageArgs:_*)),
     isPageHeading = isPageHeading,
-    classes = if(isPageHeading) "govuk-label--xl"
+    classes = labelClasses.getOrElse("") + (if(isPageHeading) "govuk-label--xl" else "")
   ),
   hint = hint.map(hintHtml => Hint(
       content = HtmlContent(hintHtml)

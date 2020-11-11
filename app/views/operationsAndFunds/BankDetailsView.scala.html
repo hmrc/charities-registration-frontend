@@ -1,0 +1,112 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.nominees.routes._
+@import models._
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    button: components.button,
+    inputText: components.inputText,
+    inputNumber: components.inputNumber,
+    p: components.p,
+    warning: components.warning,
+    fieldset: components.fieldset
+)
+
+@(form: Form[_], charityName: String, submitCall: Call, messagePrefix: String, sectionName: String, nomineeName: Option[String])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some(sectionName)))) {
+
+    @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
+
+        @errorSummary(form.errors)
+
+        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(nomineeName.getOrElse(""))) {
+
+
+            @if(nomineeName.isEmpty){
+                @p{@messages("bankDetails.p1")}
+            }
+
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+
+            <div id="account-name-hint" class="govuk-hint">
+                <div class="govuk-label"><strong>@messages("bankDetails.accountName")</strong></div>
+                @messages("bankDetails.accountName.hint")
+            </div>
+            <div class="govuk-label">@charityName</div>
+            <div class="govuk-!-font-size-19">
+                <a id="changeLink" class="govuk-link" href="@{controllers.charityInformation.routes.CharityNameController.onPageLoad(PlaybackMode).url}">
+                    @messages("site.edit")<span class="govuk-visually-hidden">@messages("bankDetails.accountName")</span>
+                </a>
+            </div>
+
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+
+            @inputNumber(
+                form,
+                id = "sortCode",
+                name = "sortCode",
+                label = s"$messagePrefix.sortCode",
+                isPageHeading = false,
+                hint = Some(Html(messages(s"$messagePrefix.sortCode.hint"))),
+                classes = Some("govuk-input govuk-input--width-5"),
+                isDecimal = false,
+                labelClasses = Some("govuk-!-font-weight-bold")
+            )
+
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+
+            @inputNumber(
+                form,
+                id = "accountNumber",
+                name = "accountNumber",
+                label = s"$messagePrefix.accountNumber",
+                isPageHeading = false,
+                hint = Some(Html(messages(s"$messagePrefix.accountNumber.hint"))),
+                classes = Some("govuk-input govuk-input govuk-input--width-10"),
+                isDecimal = false,
+                labelClasses = Some("govuk-!-font-weight-bold")
+            )
+
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+
+            @inputText(
+                form,
+                id = "rollNumber",
+                name = "rollNumber",
+                label = s"$messagePrefix.rollNumber",
+                isPageHeading = false,
+                hint = Some(Html(messages(s"$messagePrefix.rollNumber.hint"))),
+                classes = Some("govuk-input govuk-!-width-one-half"),
+                labelClasses = Some("govuk-!-font-weight-bold")
+            )
+
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-3">
+
+        }
+
+        @warning{@messages(s"$messagePrefix.basc.warning")}
+
+        @button("site.saveAndContinue")
+
+    }
+}

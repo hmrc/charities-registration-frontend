@@ -785,14 +785,11 @@ startBankDetails.p2 = We will send repayments using BACS. This is an electronic 
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
-bankDetails.title = The charity’s bank details
-bankDetails.heading = The charity’s bank details
+bankDetails.title = The charity’s bank, building society or credit union details
+bankDetails.heading = The charity’s bank, building society or credit union details
 bankDetails.p1 = We need the charity’s bank details to pay Gift Aid and other tax repayments.
 bankDetails.accountName = Charity’s account name
-bankDetails.accountName.hint = As shown on the charity’s account information
-bankDetails.accountName.error.length = Account name must be 60 characters or less
-bankDetails.accountName.error.required = Enter the charity’s account name
-bankDetails.accountName.error.format = Account name must only include letters, numbers, hyphens, apostrophes, commas and spaces
+bankDetails.accountName.hint = The charity’s account name needs to be the same as the charity’s name
 bankDetails.sortCode = Charity’s sort code
 bankDetails.sortCode.hint = Must be 6 digits long
 bankDetails.sortCode.error.required = Enter the charity’s sort code

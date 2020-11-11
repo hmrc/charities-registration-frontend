@@ -19,13 +19,14 @@ package controllers.charityInformation
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.charityInformation.CharityNameFormProvider
-import models.{CharityName, NormalMode, UserAnswers}
+import models.{BankDetails, CharityName, NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.charityInformation.CharityNamePage
+import pages.operationsAndFunds.BankDetailsPage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -90,6 +91,21 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit(NormalMode)(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
+    }
+
+    "redirect to the next page when valid data is submitted with BankDetails" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
+      val userAnswers = emptyUserAnswers.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))).success.value
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 

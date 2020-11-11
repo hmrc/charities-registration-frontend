@@ -89,4 +89,14 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
+  override val playbackRouteMap: Page => UserAnswers => Call = {
+
+    case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
+      case Some(_) => controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case _ => _ => routes.IndexController.onPageLoad()
+  }
+
 }

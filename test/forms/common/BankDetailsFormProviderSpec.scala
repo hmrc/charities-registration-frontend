@@ -94,6 +94,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       "123456a",
       FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
     )
+
     "bind sort codes in nnnnnn format" in {
       val result = form.bind(Map(fieldName -> "123456")).apply(fieldName)
       result.value.value mustBe "123456"
@@ -248,6 +249,42 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       val details = form.bind(
         Map(
           "accountName" -> bankDetails.accountName,
+          "sortCode" -> bankDetails.sortCode,
+          "accountNumber" -> bankDetails.accountNumber,
+          "rollNumber" -> bankDetails.rollNumber.getOrElse("")
+        )
+      ).get
+
+      details.accountName mustBe bankDetails.accountName
+      details.sortCode mustBe bankDetails.sortCode
+      details.accountNumber mustBe bankDetails.accountNumber
+      details.rollNumber mustBe bankDetails.rollNumber
+    }
+
+    "unapply BankDetails correctly" in {
+      val filled = form.fill(bankDetails)
+      filled("accountName").value.value mustBe bankDetails.accountName
+      filled("sortCode").value.value mustBe bankDetails.sortCode
+      filled("accountNumber").value.value mustBe bankDetails.accountNumber
+      filled("rollNumber").value.value mustBe bankDetails.rollNumber.get
+    }
+  }
+
+  "BankDetailsFormProvider with charity Name" must {
+
+    val bankDetails = BankDetails(
+      accountName = "fullName",
+      sortCode = "123456",
+      accountNumber = "12345678",
+      rollNumber = Some("rollNumber")
+    )
+
+    val form: Form[BankDetails] = formProvider(messagePrefix, "fullName")
+
+    "apply BankDetails correctly" in {
+
+      val details = form.bind(
+        Map(
           "sortCode" -> bankDetails.sortCode,
           "accountNumber" -> bankDetails.accountNumber,
           "rollNumber" -> bankDetails.rollNumber.getOrElse("")

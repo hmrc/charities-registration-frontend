@@ -64,6 +64,10 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.loginUrl mustBe "http://localhost:9949/auth-login-stub/gg-sign-in"
       }
 
+      "login continue key" in {
+        frontendAppConfig.loginContinueKey mustBe "continue"
+      }
+
       "signOutUrl" in {
         frontendAppConfig.signOutUrl mustBe "https://www.gov.uk/charity-recognition-hmrc"
       }

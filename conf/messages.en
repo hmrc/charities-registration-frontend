@@ -174,6 +174,16 @@ deadEnd.heading = Sorry, this page is still in development
 deadEnd.p1 = Please go back and select another option.
 deadEnd.p2 = You can also visit the task list to see the section status change from ‘Not started’ to ‘In progress’ or ‘Completed’.
 
+# Section10 - Declaration
+# ----------------------------------------------------------
+declaration.section = Declare and send
+
+# Start Declaration page Messages
+# ----------------------------------------------------------
+startDeclaration.title = Declaration and send the application
+startDeclaration.heading = Declaration and send the application
+startDeclaration.p = The next pages will ask you to confirm a declaration and send the application. You will then be asked to send some documents to support the application.
+
 # Declaration page Messages
 # ----------------------------------------------------------
 declaration.title = Declaration
@@ -188,7 +198,7 @@ registrationSent.heading = Registration Sent
 registrationSent.h2 = What to do next
 registrationSent.h2a = Post copies of the documents by {0}
 registrationSent.h2b = How long do applications take
-registrationSent.p1 = You reference number
+registrationSent.p1 = Your reference number
 registrationSent.p3 = You need to make copies and add your reference number 0123 4567 8901 to:
 registrationSent.p4 = You have until {0} to send copies of the documents to:
 registrationSent.p5 = Charities, Savings & International 2

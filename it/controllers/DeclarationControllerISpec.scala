@@ -48,7 +48,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
         AuthStub.unauthorised()
 
-        val res = getRequest("/declaration")()
+        val res = getRequest("/declare-and-send/declaration")()
 
         whenReady(res) { result =>
           result must have(
@@ -69,7 +69,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             AuthStub.authorised()
 
-            val response = postRequest("/declaration", Json.toJson("test" -> "value"))()
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
 
             val requestJson = readJsonFromFile("/scenario_1_request.json")
 
@@ -98,7 +98,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             AuthStub.authorised()
 
-            val response = postRequest("/declaration", Json.toJson("test" -> "value"))()
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
 
             val requestJson = readJsonFromFile("/request_with_min_data.json")
 
@@ -127,7 +127,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             AuthStub.authorised()
 
-            val response = postRequest("/declaration", Json.toJson("test" -> "value"))()
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
 
             val requestJson = readJsonFromFile("/scenario_2_request.json")
 
@@ -156,7 +156,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             AuthStub.authorised()
 
-            val response = postRequest("/declaration", Json.toJson("test" -> "value"))()
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
 
             val requestJson = readJsonFromFile("/scenario_3_request.json")
 

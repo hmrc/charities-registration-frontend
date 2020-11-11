@@ -23,25 +23,17 @@
     govukSummaryList: GovukSummaryList,
     h1: components.h1,
     p: components.p,
-    warning: components.warning,
-    button: components.button,
-    formHelper: FormWithCSRF
+    link: components.linkAsButton
 )
 
 @()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("declaration.title", Some("declaration.section")))) {
+@govukLayout(pageTitle = Some(titleNoForm("startDeclaration.title", Some("declaration.section")))) {
 
-    @h1(messages("declaration.heading"))
+    @h1(messages("startDeclaration.heading"))
 
-    @warning{@messages("declaration.warning")}
+    @p{@messages("startDeclaration.p")}
 
-    @p{@messages("declaration.p1")}
-
-    @formHelper(action = controllers.routes.DeclarationController.onSubmit(), 'autoComplete -> "off") {
-
-        @button("site.confirmAndSend")
-
-    }
+    @link(controllers.routes.DeclarationController.onPageLoad().url, "site.continue", id=Some("declarationLink"))
 
 }

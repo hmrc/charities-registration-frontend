@@ -18,29 +18,28 @@ package views
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.DeclarationView
+import views.html.StartDeclarationView
 
-class DeclarationViewSpec extends ViewBehaviours  {
+class StartDeclarationViewSpec extends ViewBehaviours  {
 
-  private val messageKeyPrefix = "declaration"
+  private val messageKeyPrefix = "startDeclaration"
 
-    "declarationView" must {
+    "startDeclarationView" must {
 
       def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[DeclarationView](Some(emptyUserAnswers))
+        val view = viewFor[StartDeclarationView](Some(emptyUserAnswers))
         view.apply()(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("declaration.section")))
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1")
+        "p")
 
       behave like pageWithBackLink(applyView())
 
-      behave like pageWithWarningText(applyView(), messages("declaration.warning"))
-
-      behave like pageWithSubmitButton(applyView(), messages("site.confirmAndSend"))
+      behave like pageWithHyperLink(applyView(), "declarationLink",
+        controllers.routes.DeclarationController.onPageLoad().url, messages("site.continue"))
 
     }
   }

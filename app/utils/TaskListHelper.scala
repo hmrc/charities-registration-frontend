@@ -83,7 +83,7 @@ class TaskListHelper {
     val section10: Boolean => TaskListRow = (isDependent: Boolean) => {
       TaskListRow(
         "index.section5.spoke1.label",
-        controllers.routes.DeclarationController.onPageLoad(),
+        controllers.routes.StartDeclarationController.onPageLoad(),
         if (isDependent) "index.section.notStarted" else "index.section.canNotStartYet")
     }
   }

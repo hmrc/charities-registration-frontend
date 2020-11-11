@@ -31,11 +31,16 @@ GET        /sign-out                                    controllers.SignOutContr
 
 GET       /in-development                               controllers.DeadEndController.onPageLoad
 
+### StartDeclaration Page route
+### ----------------
+
+GET       /declare-and-send/start-declaration           controllers.StartDeclarationController.onPageLoad
+
 ### Declaration Page route
 ### ----------------
 
-GET       /declaration                                  controllers.DeclarationController.onPageLoad
-POST      /declaration                                  controllers.DeclarationController.onSubmit
+GET       /declare-and-send/declaration                 controllers.DeclarationController.onPageLoad
+POST      /declare-and-send/declaration                 controllers.DeclarationController.onSubmit
 
 ### Registration Sent Page route
 ### ----------------

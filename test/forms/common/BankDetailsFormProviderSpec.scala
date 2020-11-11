@@ -58,7 +58,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFields))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
     )
   }
 
@@ -273,12 +273,12 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "valid for accountName" in {
 
-      "accountName" must fullyMatch regex formProvider.validateFields
+      "accountName" must fullyMatch regex formProvider.validateField
     }
 
     "valid for accountName&" in {
 
-      "accountName&" mustNot fullyMatch regex formProvider.validateFields
+      "accountName&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 
@@ -302,7 +302,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       "12345678" must fullyMatch regex formProvider.accountNumberPattern
     }
 
-    "valid for 12345678a" in {
+    "invalid for 12345678a" in {
 
       "12345678a" mustNot fullyMatch regex formProvider.accountNumberPattern
     }
@@ -312,10 +312,10 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "valid for roll-Number, ." in {
 
-      "roll-Number, ." must fullyMatch regex formProvider.rollNumberPattern
+      "roll-Number /" must fullyMatch regex formProvider.rollNumberPattern
     }
 
-    "valid for roll-Number, .!" in {
+    "invalid for roll-Number, .!" in {
 
       "roll-Number, .!" mustNot fullyMatch regex formProvider.rollNumberPattern
     }

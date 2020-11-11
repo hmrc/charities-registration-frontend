@@ -22,13 +22,12 @@ import play.api.data.Form
 
 class OrganisationNomineeNameFormProvider @Inject() extends Mappings {
 
-  private[nominees] val validateReason = "^[^@&:)(]+$"
   private[nominees] val maxLength = 160
 
   def apply(): Form[String] =
     Form(
       "name" -> text("nameOfOrganisation.error.required")
         .verifying(maxLength(maxLength, "nameOfOrganisation.error.length"))
-        .verifying(regexp(validateReason,"nameOfOrganisation.error.format"))
+        .verifying(regexp(validateField,"nameOfOrganisation.error.format"))
     )
 }

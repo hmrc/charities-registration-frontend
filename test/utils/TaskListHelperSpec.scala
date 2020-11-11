@@ -98,7 +98,7 @@ class TaskListHelperSpec extends SpecBase {
     s"index.section.$status")
 
   private def section10(status:String = "canNotStartYet") = TaskListRow("index.section5.spoke1.label",
-    controllers.routes.DeclarationController.onPageLoad(),
+    controllers.routes.StartDeclarationController.onPageLoad(),
     s"index.section.$status")
 
   "getTaskListRow" must {

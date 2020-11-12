@@ -41,7 +41,7 @@ class RegistrationSentController @Inject()(
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case Some(acknowledgementReference) =>  userAnswerRepository.delete(request.userAnswers).map { _ =>
-        Ok(view(dayToString(timeMachine.now().plusDays(28)),acknowledgementReference))
+        Ok(view(dayToString(timeMachine.now().plusDays(28)), acknowledgementReference))
       }
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }

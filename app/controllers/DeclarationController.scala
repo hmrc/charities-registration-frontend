@@ -49,12 +49,12 @@ class DeclarationController @Inject()(
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    if(appConfig.isExternalTest){
+    if(appConfig.isExternalTest) {
       for {
         updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, "0123 4567 8901"))
         _ <- userAnswerRepository.set(updatedAnswers)
       } yield
-        Redirect(controllers.routes.RegistrationSentController.onPageLoad())
+        Redirect(controllers.routes.EmailOrPostController.onPageLoad())
     }
     else {
       request.userAnswers.data.transform(transformer.userAnswersToSubmission) match {

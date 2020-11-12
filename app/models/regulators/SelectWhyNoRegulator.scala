@@ -30,11 +30,11 @@ object SelectWhyNoRegulator extends Enumerable.Implicits {
   case object ExemptOrExcepted extends WithName("5") with SelectWhyNoRegulator
   case object NoRegulatorInCountry extends WithName("4") with SelectWhyNoRegulator
   case object ParochialChurchCouncils extends WithName("2") with SelectWhyNoRegulator
-  case object UninformedYouthGroup extends WithName("3") with SelectWhyNoRegulator
+  case object UniformedYouthGroup extends WithName("3") with SelectWhyNoRegulator
   case object Other extends WithName("7") with SelectWhyNoRegulator
 
   val values: Seq[SelectWhyNoRegulator] = Seq(
-    EnglandWalesUnderThreshold, ExemptOrExcepted, NoRegulatorInCountry, ParochialChurchCouncils, UninformedYouthGroup, Other
+    EnglandWalesUnderThreshold, ExemptOrExcepted, NoRegulatorInCountry, ParochialChurchCouncils, UniformedYouthGroup, Other
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {

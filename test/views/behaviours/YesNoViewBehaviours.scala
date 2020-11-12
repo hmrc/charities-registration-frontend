@@ -27,25 +27,26 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
                 expectedFormAction: String,
                 headingArgs: Seq[String] = Seq(),
                 section: Option[String] = None,
-                legendKey :Option[String] = None): Unit = {
+                legendKey :Option[String] = None,
+                isEmailOrPost: Boolean = false): Unit = {
 
     "behave like a page with a Yes/No question" when {
 
       "rendered" must {
 
-        "contain a legend for the question" in {
+        if (!isEmailOrPost) {
+          "contain a legend for the question" in {
 
-          val doc = asDocument(createView(form))
-          val legends = doc.getElementsByTag("legend")
-          legends.size mustBe 1
-          legendKey.fold{
-            legends.first.text mustBe messages(s"$messageKeyPrefix.heading", headingArgs:_*)
-           }
-           { key=>
-            legends.first.text mustBe messages(s"$messageKeyPrefix.$key", headingArgs:_*)
-           }
+            val doc = asDocument(createView(form))
+            val legends = doc.getElementsByTag("legend")
+            legends.size mustBe 1
+            legendKey.fold {
+              legends.first.text mustBe messages(s"$messageKeyPrefix.heading", headingArgs: _*)
+            } { key =>
+              legends.first.text mustBe messages(s"$messageKeyPrefix.$key", headingArgs: _*)
+            }
+          }
         }
-
 
         "contain an input for the value" in {
 

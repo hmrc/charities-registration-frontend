@@ -191,6 +191,26 @@ declaration.heading = (W)Declaration(W)
 declaration.warning = (W)You can be prosecuted for knowingly providing false or misleading information on your application.(W)
 declaration.p1 = (W)By sending this application, I confirm that the information I have provided is true to the best of my knowledge.(W)
 
+# Required documents bullets Messages
+# ----------------------------------------------------------
+requiredDocuments.governingDocumentName.answerTrue = (W)governing documents and any proposed changes(W)
+requiredDocuments.isCharityRegulator.answerTrue = (W)notification of registration - the certificate the charity got after registering with the regulator(W)
+requiredDocuments.isCharityRegulator.answerAlternative = (W)evidence of activities - some promotional material that explains what the charity does(W)
+requiredDocuments.isFinancialAccounts.answerTrue = (W)approved financial accounts - like you would send to a regulator or Companies House(W)
+requiredDocuments.isBankStatements.answerTrue = (W)the charity’s bank statements for the last 3 months(W)
+requiredDocuments.isBankStatements.answerAlternative = (W)a letter from the bank with the charity’s name and account details - including its account number and sort code(W)
+requiredDocuments.selectWhyNoRegulator.answerTrue = (W)certificate of registration from the governing body(W)
+requiredDocuments.foreignAddresses.answerTrue = (W)identity details for {0} - their passport, identity card or a utility bill from the last 3 months(W)
+
+# Email or post page Messages
+# ----------------------------------------------------------
+emailOrPost.title = (W)Would you prefer to send us the charity’s supporting documents by email or post?(W)
+emailOrPost.heading = (W)Would you prefer to send us the charity’s supporting documents by email or post?(W)
+emailOrPost.p = (W)You need to send us the charity’s:(W)
+emailOrPost.yes = (W)Email(W)
+emailOrPost.no = (W)Post(W)
+emailOrPost.error.required = (W)Select if you would prefer to send the charity’s supporting documents by email or post(W)
+
 # Registration sent page Messages
 # ----------------------------------------------------------
 registrationSent.title = (W)Registration Sent(W)

@@ -83,7 +83,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
             { result =>
               result must have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.RegistrationSentController.onPageLoad().url)
+                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
               )
             }
           }
@@ -112,7 +112,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
             { result =>
               result must have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.RegistrationSentController.onPageLoad().url)
+                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
               )
             }
           }
@@ -141,7 +141,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
             { result =>
               result must have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.RegistrationSentController.onPageLoad().url)
+                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
               )
             }
           }
@@ -170,7 +170,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
             { result =>
               result must have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.RegistrationSentController.onPageLoad().url)
+                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
               )
             }
           }

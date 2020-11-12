@@ -32,7 +32,7 @@
     @h1(messages("startCharityRegulator.heading"))
 
     @p(Html(messages("startCharityRegulator.p1")))
-    @bullets("startCharityRegulator.b1", "startCharityRegulator.b2")
+    @bullets("startCharityRegulator.b1", "startCharityRegulator.b2")()
 
     @link(controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))
 

@@ -19,7 +19,7 @@
         h2: components.h2
 )
 
-@(form: Form[_], h2Message: String, hintMessage: Option[String])(implicit messages: Messages)
+@(form: Form[_], h2Message: Option[String], hintMessage: Option[String], keyPrefix: String = "site", hintHtml: Option[Html] = None)(implicit messages: Messages)
 
 @govukRadios(Radios(
     classes = "govuk-radios--inline",
@@ -27,21 +27,24 @@
     name = "value",
     fieldset = Some(Fieldset(
         legend = Some(Legend(
-            content = HtmlContent(Html(h2(messages(h2Message)))),
+            content = h2Message.map(message => HtmlContent(Html(h2(messages(message))))).getOrElse(Empty),
             isPageHeading = false,
             classes = "govuk-heading-m"
         ))
     )),
-    hint = hintMessage.map(text => Hint(content = HtmlContent(Html(messages(text))))),
+    hint = hintHtml.fold(hintMessage.map(text =>
+                Hint(content = HtmlContent(Html(messages(text)))))
+            )(hint => Some(Hint(content = HtmlContent(hint)))
+    ),
     items = Seq(
         RadioItem(id = Some("value"),
             value = Some("true"),
-            content = Text(messages("site.yes")),
+            content = Text(messages(s"$keyPrefix.yes")),
             checked = form("value").value.contains("true")
         ),
         RadioItem(id = Some("value-no"),
             value = Some("false"),
-            content = Text(messages("site.no")),
+            content = Text(messages(s"$keyPrefix.no")),
             checked = form("value").value.contains("false")
         )
     ),

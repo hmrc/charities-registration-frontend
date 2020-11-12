@@ -16,10 +16,19 @@
 
 @this()
 
-@(itemMsgKeys: String*)(implicit messages: Messages)
+@(itemMsgKeys: String*)(messagesWithParams: Option[(String, String)]*)(implicit messages: Messages)
 
 <ul class="govuk-list govuk-list--bullet">
  @itemMsgKeys.map { msgKey =>
   <li>@messages(msgKey)</li>
+ }
+ @messagesWithParams.map {
+
+  case Some((msgKey, msgParam)) => {
+   <li>@messages(msgKey, msgParam)</li>
+  }
+  case _ => {
+   @HtmlFormat.empty
+  }
  }
 </ul>

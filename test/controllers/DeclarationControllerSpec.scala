@@ -119,7 +119,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, times(1)).set(any())
       verify(mockCharitiesRegistrationService, never).register(any())(any(), any(), any())

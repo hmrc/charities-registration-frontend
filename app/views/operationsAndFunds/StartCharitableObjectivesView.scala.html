@@ -32,7 +32,7 @@
     @h1(messages("startCharitableObjectives.heading"))
 
     @p(Html(messages("startCharitableObjectives.p1")))
-    @bullets("startCharitableObjectives.b1", "startCharitableObjectives.b2", "startCharitableObjectives.b3")
+    @bullets("startCharitableObjectives.b1", "startCharitableObjectives.b2", "startCharitableObjectives.b3")()
 
     @link(controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url, "site.continue",Some("linkButton"))
 

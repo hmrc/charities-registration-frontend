@@ -39,27 +39,33 @@ class CharitiesRegistrationService @Inject()(
 
   private val logger = Logger(this.getClass)
 
-  def register(requestJson: JsValue)( implicit request: DataRequest[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] = {
+  def register(requestJson: JsValue)(implicit request: DataRequest[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] = {
 
-    charitiesConnector.registerCharities(requestJson, Random.nextInt()).flatMap {
-      case Right(result) =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference))
-          _ <- userAnswerRepository.set(updatedAnswers)
-          _ <- Future.successful(auditService.sendEvent(DeclarationAuditEvent(true)))
-          _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson)))
-        } yield
-          Redirect(controllers.routes.RegistrationSentController.onPageLoad())
+    request.userAnswers.get(AcknowledgementReferencePage) match {
+      case None =>
+        charitiesConnector.registerCharities(requestJson, Random.nextInt()).flatMap {
+          case Right(result) =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference))
+              _ <- userAnswerRepository.set(updatedAnswers)
+              _ <- Future.successful(auditService.sendEvent(DeclarationAuditEvent(true)))
+              _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson)))
+            } yield
+              Redirect(controllers.routes.EmailOrPostController.onPageLoad())
 
-      case Left(errors) =>
-        logger.error(s"[CharitiesRegistrationService][register] registration failed with error ${errors.body}")
-        Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+          case Left(errors) =>
+            logger.error(s"[CharitiesRegistrationService][register] registration failed with error ${errors.body}")
+            Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
 
-    } recover {
-      case errors =>
-        logger.error(s"[CharitiesRegistrationService][register] registration failed with error ${errors.getMessage}")
-        Redirect(controllers.routes.SessionExpiredController.onPageLoad())
+        } recover {
+          case errors =>
+            logger.error(s"[CharitiesRegistrationService][register] registration failed with error ${errors.getMessage}")
+            Redirect(controllers.routes.SessionExpiredController.onPageLoad())
+        }
+
+      case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))
     }
+
   }
 
 }

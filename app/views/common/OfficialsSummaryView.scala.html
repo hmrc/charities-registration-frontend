@@ -85,7 +85,7 @@
             @if(officialAnswers.length < maxOfficials) {
 
                 @summaryYesNo(form,
-                    h2Message = s"$section.addAnotherOfficial.h2",
+                    h2Message = Some(s"$section.addAnotherOfficial.h2"),
                     hintMessage = None
                     )
 

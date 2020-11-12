@@ -20,7 +20,7 @@ import pages.behaviours.PageBehaviours
 
 class ActualIncomeSpec extends PageBehaviours {
 
-  "EstimatedIncomePage" must {
+  "ActualIncomePage" must {
 
     beRetrievable[BigDecimal](ActualIncomePage)
 

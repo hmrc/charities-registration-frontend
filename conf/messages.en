@@ -191,6 +191,26 @@ declaration.heading = Declaration
 declaration.warning = You can be prosecuted for knowingly providing false or misleading information on your application.
 declaration.p1 = By sending this application, I confirm that the information I have provided is true to the best of my knowledge.
 
+# Required documents bullets Messages
+# ----------------------------------------------------------
+requiredDocuments.governingDocumentName.answerTrue = governing documents and any proposed changes
+requiredDocuments.isCharityRegulator.answerTrue = notification of registration - the certificate the charity got after registering with the regulator
+requiredDocuments.isCharityRegulator.answerAlternative = evidence of activities - some promotional material that explains what the charity does
+requiredDocuments.isFinancialAccounts.answerTrue = approved financial accounts - like you would send to a regulator or Companies House
+requiredDocuments.isBankStatements.answerTrue = the charity’s bank statements for the last 3 months
+requiredDocuments.isBankStatements.answerAlternative = a letter from the bank with the charity’s name and account details - including its account number and sort code
+requiredDocuments.selectWhyNoRegulator.answerTrue = certificate of registration from the governing body
+requiredDocuments.foreignAddresses.answerTrue = identity details for {0} - their passport, identity card or a utility bill from the last 3 months
+
+# Email or post page Messages
+# ----------------------------------------------------------
+emailOrPost.title = Would you prefer to send us the charity’s supporting documents by email or post?
+emailOrPost.heading = Would you prefer to send us the charity’s supporting documents by email or post?
+emailOrPost.p = You need to send us the charity’s:
+emailOrPost.yes = Email
+emailOrPost.no = Post
+emailOrPost.error.required = Select if you would prefer to send the charity’s supporting documents by email or post
+
 # Registration sent page Messages
 # ----------------------------------------------------------
 registrationSent.title = Registration Sent

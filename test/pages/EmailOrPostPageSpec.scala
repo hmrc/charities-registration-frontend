@@ -14,8 +14,18 @@
  * limitations under the License.
  */
 
-package utils
+package pages
 
-trait RemoveWhitespace {
-  def removeWhitespace(string: String): String = string.split("\\s+").mkString
+import pages.behaviours.PageBehaviours
+
+class EmailOrPostPageSpec extends PageBehaviours {
+
+  "EmailOrPostPage" must {
+
+    beRetrievable[Boolean](EmailOrPostPage)
+
+    beSettable[Boolean](EmailOrPostPage)
+
+    beRemovable[Boolean](EmailOrPostPage)
+  }
 }

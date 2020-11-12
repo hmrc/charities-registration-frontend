@@ -20,7 +20,7 @@ import forms.mappings.Mappings
 import javax.inject.Inject
 import models.BankDetails
 import play.api.data.Form
-import play.api.data.Forms.{mapping, optional}
+import play.api.data.Forms.{mapping, optional, default}
 
 class BankDetailsFormProvider @Inject() extends Mappings {
 
@@ -43,6 +43,20 @@ class BankDetailsFormProvider @Inject() extends Mappings {
         "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
           .verifying(regexp(accountNumberPattern,s"$messagePrefix.accountNumber.error.format")),
         "rollNumber" -> optional(textWithOneSpace()
+          .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
+          .verifying(regexp(rollNumberPattern,s"$messagePrefix.rollNumber.error.format")))
+      )(BankDetails.apply)(BankDetails.unapply)
+    )
+
+  def apply(messagePrefix: String, charityName:String): Form[BankDetails] =
+    Form(
+      mapping(
+        "accountName" ->  default(text(), charityName),
+        "sortCode" -> text(s"$messagePrefix.sortCode.error.required")
+          .verifying(regexp(sortCodePattern,s"$messagePrefix.sortCode.error.format")),
+        "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
+          .verifying(regexp(accountNumberPattern,s"$messagePrefix.accountNumber.error.format")),
+        "rollNumber" -> optional(text()
           .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
           .verifying(regexp(rollNumberPattern,s"$messagePrefix.rollNumber.error.format")))
       )(BankDetails.apply)(BankDetails.unapply)

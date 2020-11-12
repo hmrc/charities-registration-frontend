@@ -4,6 +4,8 @@ GET        /name                                     controllers.charityInformat
 POST       /name                                     controllers.charityInformation.CharityNameController.onSubmit(mode: Mode = NormalMode)
 GET        /name/change                              controllers.charityInformation.CharityNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /name/change                              controllers.charityInformation.CharityNameController.onSubmit(mode: Mode = CheckMode)
+GET        /name/playback-change                     controllers.charityInformation.CharityNameController.onPageLoad(mode: Mode = PlaybackMode)
+POST       /name/playback-change                     controllers.charityInformation.CharityNameController.onSubmit(mode: Mode = PlaybackMode)
 
 GET        /contact-details                          controllers.charityInformation.CharityContactDetailsController.onPageLoad(mode: Mode = NormalMode)
 POST       /contact-details                          controllers.charityInformation.CharityContactDetailsController.onSubmit(mode: Mode = NormalMode)

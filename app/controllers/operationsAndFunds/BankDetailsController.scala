@@ -23,12 +23,13 @@ import forms.common.BankDetailsFormProvider
 import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.BankDetailsNavigator
+import pages.charityInformation.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.Section6Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
-import views.html.common.BankAccountDetailsView
+import views.html.operationsAndFunds.BankDetailsView
 
 import scala.concurrent.Future
 
@@ -40,36 +41,45 @@ class BankDetailsController @Inject()(
     requireData: DataRequiredAction,
     formProvider: BankDetailsFormProvider,
     val controllerComponents: MessagesControllerComponents,
-    view: BankAccountDetailsView
+    view: BankDetailsView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   val messagePrefix: String = "bankDetails"
   val sectionName: String = "operationsAndFunds.section"
-  val form: Form[BankDetails] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    request.userAnswers.get(CharityNamePage) match {
+      case Some(charityName) =>
 
-    val preparedForm = request.userAnswers.get(BankDetailsPage) match {
-      case None => form
-      case Some(value) => form.fill(value)
+        val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
+
+        val preparedForm = request.userAnswers.get(BankDetailsPage) match {
+          case None => form
+          case Some(value) => form.fill(value)
+        }
+
+        Future.successful(Ok(view(preparedForm, charityName.fullName, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
+          messagePrefix, sectionName, None)))
+      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
-
-    Future.successful(Ok(view(preparedForm, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
-      messagePrefix, sectionName, None)))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
-          messagePrefix, sectionName, None))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(BankDetailsPage, value).flatMap(_.set(Section6Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
-    )
+    request.userAnswers.get(CharityNamePage) match {
+      case Some(charityName) =>
+        val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
+        form.bindFromRequest().fold(
+          formWithErrors =>
+              Future.successful(BadRequest(view(formWithErrors, charityName.fullName,
+                controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
+                messagePrefix, sectionName, None))),
+          value =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(BankDetailsPage, value).flatMap(_.set(Section6Page, false)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
+        )
+      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+    }
   }
 }

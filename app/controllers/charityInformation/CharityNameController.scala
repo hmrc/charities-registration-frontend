@@ -24,10 +24,12 @@ import javax.inject.Inject
 import models.{CharityName, Mode}
 import navigation.CharityInformationNavigator
 import pages.charityInformation.CharityNamePage
+import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.Section1Page
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
+import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import views.html.charityInformation.CharityNameView
 
 import scala.concurrent.Future
@@ -63,7 +65,9 @@ class CharityNameController @Inject()(
 
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharityNamePage, value).flatMap(_.set(Section1Page, false)))
+          updatedBankDetails <- request.userAnswers.get(BankDetailsPage).fold(Future.successful(request.userAnswers))(bakDetails =>
+                                Future.fromTry(request.userAnswers.set(BankDetailsPage, bakDetails.copy(accountName = value.fullName))))
+          updatedAnswers <- Future.fromTry(updatedBankDetails.set(CharityNamePage, value).flatMap(_.set(Section1Page, checkComplete(updatedBankDetails))))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(CharityNamePage, mode, updatedAnswers))
     )

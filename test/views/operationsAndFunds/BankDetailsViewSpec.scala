@@ -18,24 +18,24 @@ package views.operationsAndFunds
 
 import assets.messages.BaseMessages
 import forms.common.BankDetailsFormProvider
-import models.{BankDetails, NormalMode}
+import models.{BankDetails, NormalMode, PlaybackMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.common.BankAccountDetailsView
+import views.html.operationsAndFunds.BankDetailsView
 
 
 class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
 
   private val messageKeyPrefix = "bankDetails"
   private val sectionName: String = "operationsAndFunds.section"
-  val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
+  val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix, "charityName")
 
     "BankDetailsView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
-          view.apply(form, controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode),
+          val view = viewFor[BankDetailsView](Some(emptyUserAnswers))
+          view.apply(form, "charityName", controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
             messageKeyPrefix, sectionName, None)(fakeRequest, messages, frontendAppConfig)
         }
 
@@ -48,7 +48,11 @@ class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix,
-        "p1")
+        "p1", "accountName", "accountName.hint")
+
+      behave like pageWithHyperLink(applyView(form), "changeLink",
+        controllers.charityInformation.routes.CharityNameController.onPageLoad(PlaybackMode).url,
+        messages("site.edit") + messages("bankDetails.accountName"))
 
     }
   }

@@ -24,20 +24,13 @@ import models.RegistrationResponse
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.Status._
-import play.api.libs.json.{JsResultException, JsValue, Json}
+import play.api.libs.json.{JsResultException, Json}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-
-import scala.io.Source
 
 
 class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSugar {
 
   lazy val mockFrontendAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
-
-  private def readJsonFromFile(filePath: String): JsValue = {
-    val path = Source.fromURL(getClass.getResource(filePath)).mkString
-    Json.parse(path)
-  }
 
   "CharitiesConnector" when {
 

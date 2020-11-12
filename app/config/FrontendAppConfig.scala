@@ -78,4 +78,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val getRecognition: String = servicesConfig.getString("urls.getRecognition")
 
   lazy val getCharitiesBackend: String = servicesConfig.baseUrl("charities")
+
+  lazy val sessionCacheBaseUrl: String = servicesConfig.baseUrl("cachable.session-cache")
+  lazy val cachableSessionDomain: String = servicesConfig.getConfString("cachable.session-cache.domain", "keystore")
 }

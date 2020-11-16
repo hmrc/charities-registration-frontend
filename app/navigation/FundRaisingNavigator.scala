@@ -43,6 +43,12 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
     case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
       case Some(items) if items.toSeq.contains(Other) => operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
+      //case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+      case Some(_) => operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case CharityEstablishedInPage => userAnswers: UserAnswers => userAnswers.get(CharityEstablishedInPage) match {
       case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -118,7 +124,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
 
     case OtherFundRaisingPage => userAnswer:UserAnswers => userAnswer.get(OtherFundRaisingPage) match{
-      case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+      case Some(_) => operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -134,6 +140,11 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
         case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         case _ => operationFundsRoutes.OtherFundRaisingController.onPageLoad(CheckMode)
       }
+      case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
+
+    case CharityEstablishedInPage => userAnswers: UserAnswers => userAnswers.get(CharityEstablishedInPage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }

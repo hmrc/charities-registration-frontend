@@ -21,7 +21,7 @@ import java.time.LocalDate
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
-import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
+import models.operations.{CharitablePurposes, CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
@@ -71,6 +71,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
           _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
           _.set(ActualIncomePage, BigDecimal(121))).flatMap(
           _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+          _.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales)).flatMap(
           _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
           _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
           _.set(CharitableObjectivesPage,
@@ -134,6 +135,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         _.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00))).flatMap(
         _.set(ActualIncomePage, BigDecimal.valueOf(19999.99))).flatMap(
         _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+        _.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales)).flatMap(
         _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
         _.set(WhatCountryDoesTheCharityOperateInPage(0), "Country 1")).flatMap(
         _.set(WhatCountryDoesTheCharityOperateInPage(1), "Country 2")).flatMap(

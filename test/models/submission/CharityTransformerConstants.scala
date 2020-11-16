@@ -22,7 +22,7 @@ import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
-import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
+import models.operations.{CharitablePurposes, CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.SelectWhyNoRegulator
 import models.{BankDetails, CharityContactDetails, CharityName, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle, UserAnswers}
@@ -95,6 +95,7 @@ trait CharityTransformerConstants extends SpecBase{
       _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
       _.set(ActualIncomePage, BigDecimal(121))).flatMap(
       _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
+      _.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales)).flatMap(
       _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
       _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
       _.set(CharitableObjectivesPage,

@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models._
-import models.operations.{FundRaisingOptions, OperatingLocationOptions}
+import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import org.joda.time.{LocalDate, MonthDay}
 import pages.IndexPage
 import pages.operationsAndFunds._
@@ -40,16 +40,30 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.SessionExpiredController.onPageLoad()
         }
 
-        "go to the Where does your charity operate page when user answers other than the Other when clicked continue button" in {
+        "go to the What country was your charity established in page when user answers other than the Other when clicked continue button" in {
           navigator.nextPage(FundRaisingPage, NormalMode,
             emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).getOrElse(emptyUserAnswers)) mustBe
-            operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+            operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
         }
 
         "go to the Where does your other fundraising page when user answer has other and clicked continue button" in {
           navigator.nextPage(FundRaisingPage, NormalMode,
             emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other)).getOrElse(emptyUserAnswers)) mustBe
             operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the What Country was your charity established in page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityEstablishedInPage, NormalMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to OperatingLocationPage page when country is selected and clicked continue button" in {
+          navigator.nextPage(CharityEstablishedInPage, NormalMode,
+            emptyUserAnswers.set(CharityEstablishedInPage, CharityEstablishedOptions.England).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
         }
       }
 
@@ -63,7 +77,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
         "go to OperatingLocationPage page when user answers and clicked continue button" in {
           navigator.nextPage(OtherFundRaisingPage, NormalMode,
             emptyUserAnswers.set(OtherFundRaisingPage, "sdf").getOrElse(emptyUserAnswers)) mustBe
-            operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
+            operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
         }
       }
 
@@ -321,6 +335,19 @@ class FundRaisingNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the What Country was your charity established in page" must {
+
+        "go to the SessionExpiredController page when user answer is empty" in {
+          navigator.nextPage(CharityEstablishedInPage, CheckMode, emptyUserAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to OperatingLocationPage page when country is selected and clicked continue button" in {
+          navigator.nextPage(CharityEstablishedInPage, CheckMode,
+            emptyUserAnswers.set(CharityEstablishedInPage, CharityEstablishedOptions.England).getOrElse(emptyUserAnswers)) mustBe
+            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+        }
+      }
 
       "from the OtherFundRaising page" must {
 

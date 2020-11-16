@@ -19,7 +19,8 @@ package viewModels.operationsAndFunds
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
-import models.operations.{FundRaisingOptions, OperatingLocationOptions}
+import models.operations.CharityEstablishedOptions.England
+import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
 import org.scalatestplus.mockito.MockitoSugar
@@ -35,6 +36,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
   private val helper = new OperationsFundsSummaryHelper(UserAnswers("id")
     .set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap
+  (_.set(CharityEstablishedInPage, CharityEstablishedOptions.values.head)).flatMap
   (_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap
   (_.set(IsFinancialAccountsPage, true)).flatMap
   (_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap
@@ -62,6 +64,19 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
             operationFundsRoutes.FundRaisingController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
+      }
+    }
+
+    "For the Country Charity Established In answer" must {
+
+      "have a correctly formatted summary list row when one added" in {
+
+        helper.countryOfEstablishmentRow mustBe Some(summaryListRow(
+          messages("charityEstablishedIn.checkYourAnswersLabel"),
+          messages(s"charityEstablishedIn.$England"),
+          Some(messages("charityEstablishedIn.checkYourAnswersLabel")),
+          operationFundsRoutes.CharityEstablishedInController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
       }
     }
 

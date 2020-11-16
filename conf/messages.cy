@@ -702,6 +702,18 @@ operatingLocation.4 = (W)Northern Ireland(W)
 operatingLocation.5 = (W)Overseas(W)
 operatingLocation.checkYourAnswersLabel = (W)Operating locations(W)
 
+# What Country was The Charity Established in Messages
+# ----------------------------------------------------------
+charityEstablishedIn.title = (W)What country was the charity established in?(W)
+charityEstablishedIn.heading = (W)What country was the charity established in?(W)
+charityEstablishedIn.0 = (W)England(W)
+charityEstablishedIn.1 = (W)Wales(W)
+charityEstablishedIn.2 = (W)Scotland(W)
+charityEstablishedIn.3 = (W)Northern Ireland(W)
+charityEstablishedIn.4 = (W)Overseas(W)
+charityEstablishedIn.error.required = (W)Select where the charity was established(W)
+charityEstablishedIn.checkYourAnswersLabel = (W)Country of establishment(W)
+
 # What Country Does The Charity Operate Messages
 # ----------------------------------------------------------
 whatCountryDoesTheCharityOperateIn.title = (W)What country does the charity operate in?(W)

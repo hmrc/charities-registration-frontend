@@ -35,6 +35,7 @@ class CharityTransformer extends JsonTransformer {
   private def findNode(locationPath: JsPath, readPath: JsPath, index: String): Reads[JsObject] ={
     locationPath.json.copyFrom(readPath.read[JsArray].map(x => JsBoolean(x.value.contains(JsString(index)))))
   }
+
   def userAnswersToRegulator: Reads[JsObject] = {
     ( getRegulator("ccew") and
       ((__ \ 'regulator \ 'ccewRegistrationNumber).json.copyFrom((__ \ 'charityCommissionRegistrationNumber).json.pick) orElse doNothing) and
@@ -127,8 +128,8 @@ class CharityTransformer extends JsonTransformer {
   def userAnswersToOperationAndFunds : Reads[JsObject] = {
     (
       ((__ \ 'operationAndFunds).json.copyFrom(userAnswersToOperationAndFundsCommon) orElse doNothing) and
-        ((__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.copyFrom((__ \ 'estimatedIncome).json.pick)) and
-        ((__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'actualIncome).json.pick)) and
+        (__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.copyFrom((__ \ 'estimatedIncome).json.pick) and
+        (__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.copyFrom((__ \ 'actualIncome).json.pick) and
         (__ \ 'operationAndFunds \ 'futureFunds).json.copyFrom((__ \ 'selectFundRaising).read[JsArray].map(x =>
           JsString(x.value.map(_.toString()).mkString(", ").replaceAll("\"", "")))) and
         (__ \ 'operationAndFunds \ 'otherAreaOperation).json.put(JsBoolean(true)) and

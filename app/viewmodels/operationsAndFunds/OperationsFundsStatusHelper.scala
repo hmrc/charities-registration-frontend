@@ -27,6 +27,7 @@ object OperationsFundsStatusHelper extends StatusHelper {
 
   private val common: Seq[QuestionPage[_]] = Seq(
     FundRaisingPage,
+    CharityEstablishedInPage,
     OperatingLocationPage,
     IsFinancialAccountsPage,
     EstimatedIncomePage,

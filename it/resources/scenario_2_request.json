@@ -51,6 +51,7 @@
   "charityRegulator" : [
     "otherRegulator"
   ],
+  "charityEstablishedIn" : "1",
   "hasCharityChangedPartsOfGoverningDocument" : true,
   "isSection5Completed" : true,
   "actualIncome" : 100.0,

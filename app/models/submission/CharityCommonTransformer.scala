@@ -34,13 +34,14 @@ class CharityCommonTransformer extends JsonTransformer {
   }
 
   def userAnswersToOrganisation : Reads[JsObject] = {
-    ((localPath \ 'organisation\ 'applicationType).json.put(JsString("0")) and
-      (localPath \ 'organisation\ 'orgName).json.copyFrom((__ \ 'charityName \ 'fullName).json.pick) and
-      ((localPath \ 'organisation\ 'operatingName).json.copyFrom((__ \ 'charityName \ 'operatingName).json.pick) orElse doNothing) and
-      (localPath \ 'organisation\ 'telephoneNumber).json.copyFrom((__ \ 'charityContactDetails \ 'daytimePhone).json.pick) and
-      ((localPath \ 'organisation\ 'mobileNumber).json.copyFrom((__ \ 'charityContactDetails \ 'mobilePhone).json.pick) orElse doNothing) and
-      ((localPath \ 'organisation\ 'emailAddress).json.copyFrom((__ \ 'charityContactDetails \ 'emailAddress).json.pick) orElse doNothing) and
-      (localPath \ 'organisation\ 'countryEstd).json.put(JsString("1"))).reduce
+    ((localPath \ 'organisation \ 'applicationType).json.put(JsString("0")) and
+      (localPath \ 'organisation \ 'orgName).json.copyFrom((__ \ 'charityName \ 'fullName).json.pick) and
+      ((localPath \ 'organisation \ 'operatingName).json.copyFrom((__ \ 'charityName \ 'operatingName).json.pick) orElse doNothing) and
+      (localPath \ 'organisation \ 'telephoneNumber).json.copyFrom((__ \ 'charityContactDetails \ 'daytimePhone).json.pick) and
+      ((localPath \ 'organisation \ 'mobileNumber).json.copyFrom((__ \ 'charityContactDetails \ 'mobilePhone).json.pick) orElse doNothing) and
+      ((localPath \ 'organisation \ 'emailAddress).json.copyFrom((__ \ 'charityContactDetails \ 'emailAddress).json.pick) orElse doNothing) and
+      (localPath \ 'organisation \ 'countryEstd).json.copyFrom(
+        (__ \ 'charityEstablishedIn).read[String].map(value =>if(value == "0") JsString("1") else JsString(value)))).reduce
   }
 
   def userAnswersToAddressDetailsCommon : Reads[JsObject] = {

@@ -24,8 +24,10 @@
   label: String,
   isPageHint: Boolean = true,
   isPageHeading: Boolean = true,
+  isPageHintText: Boolean = true,
   headingMessageArgs: Seq[String] = Seq(),
   hint: String,
+  hintText: String,
   countries: Seq[(String, String)])(implicit messages: Messages)
 
 @if(isPageHeading) {
@@ -40,11 +42,12 @@
     </label>
 }
 @if(isPageHint){<span id="@id-hint" class="govuk-hint">@hint</span>}
+@if(isPageHintText){<span id="@id-hintText" class="govuk-hint">@hintText</span>}
 @select(hmrcComponent.Select(
     id = id,
     name = name,
     errorMessage = form("country").error.map(fe ⇒ ErrorMessage(content = HtmlContent(messages(fe.message)))),
-    items = Seq(SelectItem(value = Some(""), text=HtmlContent(hint))) ++ countries.map {
+    items = Seq(SelectItem(value = Some(""), text=(hintText))) ++ countries.map {
     case (k,v) ⇒ SelectItem(
     value = Some(k),
     text = v,

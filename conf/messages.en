@@ -719,6 +719,7 @@ charityEstablishedIn.checkYourAnswersLabel = Country of establishment
 whatCountryDoesTheCharityOperateIn.title = What country does the charity operate in?
 whatCountryDoesTheCharityOperateIn.heading = What country does the charity operate in?
 whatCountryDoesTheCharityOperateIn.hint = If your charity operates in more than one country, you can add more countries on the next page.
+whatCountryDoesTheCharityOperateIn.hintText = Select a country
 whatCountryDoesTheCharityOperateIn.error.required = Enter a country that the charity operates in
 
 # Select Overseas Operating Location Summary page
@@ -828,8 +829,8 @@ bankDetails.sortCode.error.required = Enter the charity’s sort code
 bankDetails.sortCode.error.format = Sort code must be written as a number, like 309430
 bankDetails.accountNumber = Charity’s account number
 bankDetails.accountNumber.hint = Must be between 6 and 8 digits long
-bankDetails.accountNumber.error.required = Account number must be written as a number, like 00733445
-bankDetails.accountNumber.error.format = Enter a valid account number like 00733445
+bankDetails.accountNumber.error.required = Enter the charity’s account number
+bankDetails.accountNumber.error.format = Account number must be written as a number, like 00733445
 bankDetails.rollNumber = Building society roll number (if you have one)
 bankDetails.rollNumber.hint = You can find it on your charity’s bank card, statement or passbook
 bankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters

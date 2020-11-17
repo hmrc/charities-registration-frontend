@@ -39,7 +39,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   val gtmContainer: Option[String] = (Try {
     servicesConfig.getString("gtm.container")
   } map {
-    case "main" => Some("GTM-NDJKHWK")
+    case "main" => Some("GTM-MTGZWNQ")
     case "transitional" => Some("GTM-TSFTCWZ")
   }) getOrElse(None)
 

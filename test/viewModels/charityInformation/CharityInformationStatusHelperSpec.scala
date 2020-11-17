@@ -24,8 +24,11 @@ import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetai
 import viewmodels.charityInformation.CharityInformationStatusHelper
 
 class CharityInformationStatusHelperSpec extends SpecBase {
+
   "CharityInformationStatusHelper" must {
+
     "give the correct completion status" when {
+
       "no data is provided" in {
         val result = CharityInformationStatusHelper.checkComplete(emptyUserAnswers)
 
@@ -62,6 +65,29 @@ class CharityInformationStatusHelperSpec extends SpecBase {
         )
 
         result mustBe true
+      }
+
+      "all data necessary is provided when postal address is the same as location and email is blank" in {
+
+        val result = CharityInformationStatusHelper.checkComplete(emptyUserAnswers
+          .set(CharityNamePage, CharityName("a charity", None))
+          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "")))
+          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
+          .flatMap(_.set(CanWeSendToThisAddressPage, true)).success.value
+        )
+
+        result mustBe false
+      }
+
+      "not all data necessary is provided when postal address is the same as location" in {
+
+        val result = CharityInformationStatusHelper.checkComplete(emptyUserAnswers
+          .set(CharityNamePage, CharityName("a charity", None))
+          .flatMap(_.set(CharityOfficialAddressLookupPage, AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))))
+          .flatMap(_.set(CanWeSendToThisAddressPage, true)).success.value
+        )
+
+        result mustBe false
       }
 
       "all data necessary is provided when postal address is different to location" in {

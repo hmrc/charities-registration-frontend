@@ -18,27 +18,34 @@ package repositories
 
 import java.time.LocalDateTime
 
+import config.FrontendAppConfig
 import models.UserAnswers
-import play.api.libs.json.Json
-import reactivemongo.api.indexes.Index.Aux
+import play.api.libs.json.{JsObject, Json}
 import play.modules.reactivemongo.ReactiveMongoApi
-import reactivemongo.api.bson.collection.BSONSerializationPack
-import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.play.json.collection.JSONCollection
-import reactivemongo.play.json.collection.Helpers.idWrites
 import reactivemongo.api.bson.BSONDocument
+import reactivemongo.api.bson.collection.BSONSerializationPack
+import reactivemongo.api.indexes.Index.Aux
+import reactivemongo.api.indexes.{Index, IndexType}
+import reactivemongo.play.json.collection.Helpers.idWrites
+import reactivemongo.play.json.collection.JSONCollection
+import uk.gov.hmrc.crypto.{ApplicationCrypto, Crypted, PlainText}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.util.Try
 
 trait AbstractRepository {
 
   val mongo: ReactiveMongoApi
   val collectionName: String
   val timeToLive: Int
+
+  val applicationCrypto: ApplicationCrypto
+  val appConfig: FrontendAppConfig
+
   def calculateExpiryTime: LocalDateTime
 
-  private def collection: Future[JSONCollection] =
+  def collection: Future[JSONCollection] =
     mongo.database.map(_.collection[JSONCollection](collectionName))
 
   private val lastUpdatedIndex: Aux[BSONSerializationPack.type] = index(
@@ -92,19 +99,48 @@ trait AbstractRepository {
 
   val started: Future[Unit] = collection.flatMap(ensureTtlIndex).map(_ => ())
 
-  def get(id: String): Future[Option[UserAnswers]] =
-    collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])
+  def get(id: String): Future[Option[UserAnswers]] = {
+
+    if (appConfig.encryptData) {
+
+      collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers]).map {
+        _.map {
+          userAnswers =>
+            val decrypted = Try {
+              val dataAsString = Json.stringify((userAnswers.data \ "encrypted").getOrElse(Json.obj()))
+              val decryptedString = applicationCrypto.JsonCrypto.decrypt(Crypted(dataAsString)).value
+              Json.parse(decryptedString).as[JsObject]
+            }.toOption.getOrElse(Json.obj())
+
+            userAnswers.copy(data = decrypted)
+        }
+      }
+
+    } else {
+      collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])
+    }
+  }
 
   def set(userAnswers: UserAnswers): Future[Boolean] = {
+
+    val document = if (appConfig.encryptData) {
+
+      val userDataAsString = PlainText(Json.stringify(userAnswers.data))
+      val encryptedData = applicationCrypto.JsonCrypto.encrypt(userDataAsString).value
+
+      userAnswers.copy(data = Json.obj("encrypted" -> encryptedData), lastUpdated  = LocalDateTime.now, expiresAt = calculateExpiryTime)
+
+    } else {
+      userAnswers.copy(lastUpdated  = LocalDateTime.now, expiresAt = calculateExpiryTime)
+    }
 
     val selector = Json.obj(
       "_id" -> userAnswers.id
     )
 
     val modifier = Json.obj(
-      "$set" -> userAnswers.copy(lastUpdated  = LocalDateTime.now, expiresAt = calculateExpiryTime)
+      "$set" -> document
     )
-
     collection.flatMap {
       _.update(ordered = false)
         .one(selector, modifier, upsert = true).map {

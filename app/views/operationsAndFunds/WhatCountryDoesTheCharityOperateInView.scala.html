@@ -41,8 +41,10 @@
         name = "country",
         isPageHint = true,
         isPageHeading = true,
+        isPageHintText = false,
         label = messages("whatCountryDoesTheCharityOperateIn.heading"),
         hint =  countriesList.fold(messages("whatCountryDoesTheCharityOperateIn.hint"))(str => messages("whatCountryDoesTheCharityOperateIn.countries.hint", str)),
+        hintText = messages("whatCountryDoesTheCharityOperateIn.hintText"),
         countries = countries
     )
 

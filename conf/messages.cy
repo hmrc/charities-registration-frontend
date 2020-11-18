@@ -722,6 +722,7 @@ whatCountryDoesTheCharityOperateIn.title = (W)What country does the charity oper
 whatCountryDoesTheCharityOperateIn.heading = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.hint = (W)If your charity operates in more than one country, you can add more countries on the next page.(W)
 whatCountryDoesTheCharityOperateIn.countries.hint = (W)You can add up to 5 countries. You have already added {0}.(W)
+whatCountryDoesTheCharityOperateIn.hintText = (W)Select a country(W)
 whatCountryDoesTheCharityOperateIn.error.required = (W)Enter a country that the charity operates in(W)
 
 # Select Overseas Operating Location Summary page

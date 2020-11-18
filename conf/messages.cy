@@ -1,5 +1,7 @@
 service.name = (W)Register your charity’s details with HMRC(W)
 
+service.separator.and = (W)and(W)
+
 date.day = (W)Day(W)
 date.month = (W)Month(W)
 date.year = (W)Year(W)
@@ -719,6 +721,7 @@ charityEstablishedIn.checkYourAnswersLabel = (W)Country of establishment(W)
 whatCountryDoesTheCharityOperateIn.title = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.heading = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.hint = (W)If your charity operates in more than one country, you can add more countries on the next page.(W)
+whatCountryDoesTheCharityOperateIn.countries.hint = (W)You can add up to 5 countries. You have already added {0}.(W)
 whatCountryDoesTheCharityOperateIn.hintText = (W)Select a country(W)
 whatCountryDoesTheCharityOperateIn.error.required = (W)Enter a country that the charity operates in(W)
 

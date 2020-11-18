@@ -33,9 +33,9 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
 
     "WhatCountryDoesTheCharityOperateInView" must {
 
-      def applyView(form: Form[String]): HtmlFormat.Appendable = {
+      def applyView(form: Form[String], countriesList: Option[String] = None): HtmlFormat.Appendable = {
           val view = viewFor[WhatCountryDoesTheCharityOperateInView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode,Index(0),Seq(("GB", "United Kingdom")))(fakeRequest, messages, frontendAppConfig)
+          view.apply(form, NormalMode,Index(0),Seq(("GB", "United Kingdom")), countriesList)(fakeRequest, messages, frontendAppConfig)
         }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
@@ -43,5 +43,15 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "hint")
+
+      "When Countries are populated" must {
+        "display the correct guidance" in {
+
+          val doc = asDocument(applyView(form, Some("United Kingdom")))
+          assertContainsText(doc, messages(s"$messageKeyPrefix.countries.hint", "United Kingdom"))
+        }
+      }
   }
 }

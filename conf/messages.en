@@ -1,5 +1,7 @@
 service.name = Register your charity’s details with HMRC
 
+service.separator.and = and
+
 date.day = Day
 date.month = Month
 date.year = Year
@@ -719,7 +721,7 @@ charityEstablishedIn.checkYourAnswersLabel = Country of establishment
 whatCountryDoesTheCharityOperateIn.title = What country does the charity operate in?
 whatCountryDoesTheCharityOperateIn.heading = What country does the charity operate in?
 whatCountryDoesTheCharityOperateIn.hint = If your charity operates in more than one country, you can add more countries on the next page.
-whatCountryDoesTheCharityOperateIn.hintText = Select a country
+whatCountryDoesTheCharityOperateIn.countries.hint = You can add up to 5 countries. You have already added {0}.
 whatCountryDoesTheCharityOperateIn.error.required = Enter a country that the charity operates in
 
 # Select Overseas Operating Location Summary page

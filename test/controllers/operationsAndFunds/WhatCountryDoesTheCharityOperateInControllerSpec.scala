@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
-import models.{Index, NormalMode, UserAnswers}
+import models.{Country, Index, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
@@ -72,8 +72,9 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(("TH", "Thai")))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(("TH", "Thai")), None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockCountryService, never()).find(any())(any())
       verify(mockCountryService, times(1)).countries()(any())
     }
 
@@ -82,6 +83,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("TH", "Thai")))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

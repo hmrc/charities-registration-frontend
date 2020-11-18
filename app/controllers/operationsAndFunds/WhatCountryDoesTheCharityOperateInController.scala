@@ -21,6 +21,7 @@ import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
 import javax.inject.Inject
+import models.requests.DataRequest
 import models.{Index, Mode}
 import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInDeletePage, WhatCountryDoesTheCharityOperateInPage}
@@ -47,21 +48,34 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
 
   private val form: Form[String] = formProvider()
 
+  private def getCountries(implicit request: DataRequest[_]): Option[String] = {
+
+    val result = for(i <- 0 to 4) yield request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
+    val countryList = result.filter(_.nonEmpty).flatten.map(code => countryService.find(code).fold(code)(_.name))
+    if(countryList.nonEmpty) {
+      Some(countryList.mkString(", ")
+        .replaceFirst(",(?=[^,]+$)", s" ${messagesApi.preferred(request).apply("service.separator.and")}"))
+    } else {
+      None
+    }
+  }
+
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val preparedForm = request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index))   match {
+    val preparedForm = request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)) match {
       case None => form
       case Some(value) => form.fill(value)
     }
-    Ok(view(preparedForm, mode,index, countryService.countries().filter(country => country._1 != "GB")))
+
+    Ok(view(preparedForm, mode,index, countryService.countries().filter(country => country._1 != "GB"), getCountries))
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     form.bindFromRequest().fold(
-      formWithErrors =>
+      formWithErrors => {
         Future.successful(BadRequest(view(formWithErrors, mode,index, countryService.countries()
-          .filter(country => country._1 != "GB")))),
+          .filter(country => country._1 != "GB"), getCountries)))},
 
       value =>
         for {

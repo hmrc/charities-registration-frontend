@@ -17,14 +17,17 @@
 package repositories
 
 import java.time.{LocalDateTime, ZoneOffset}
+
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
 import play.modules.reactivemongo.ReactiveMongoApi
+import uk.gov.hmrc.crypto.ApplicationCrypto
 
 @Singleton
 class UserAnswerRepositoryImpl @Inject()(
    override val mongo: ReactiveMongoApi,
-   appConfig: FrontendAppConfig) extends UserAnswerRepository {
+   override val appConfig: FrontendAppConfig,
+   override val applicationCrypto: ApplicationCrypto) extends UserAnswerRepository {
 
   override lazy val collectionName: String = "user-answers"
 

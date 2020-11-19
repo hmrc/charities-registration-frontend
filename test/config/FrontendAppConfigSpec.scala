@@ -139,6 +139,10 @@ class FrontendAppConfigSpec extends SpecBase {
       "cachableSessionDomain" in {
         frontendAppConfig.cachableSessionDomain mustBe "keystore"
       }
+
+      "encryptData" in {
+        frontendAppConfig.encryptData mustBe false
+      }
     }
   }
 

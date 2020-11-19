@@ -346,11 +346,11 @@ charityName.fullName.label = (W)Full name of the charity(W)
 charityName.fullName.hint = (W)As shown on the charity’s governing document(W)
 charityName.fullName.error.required = (W)Enter the full name of the charity(W)
 charityName.fullName.error.length = (W)Charity’s full name must be 60 characters or less(W)
-charityName.fullName.error.format = (W)Charity’s full name must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+charityName.fullName.error.format = (W)Charity’s full name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 charityName.operatingName.label = (W)Operating name of the charity (optional)(W)
 charityName.operatingName.hint = (W)The working name or acronym by which the charity is known(W)
 charityName.operatingName.error.length = (W)Charity’s operating name must be 160 characters or less(W)
-charityName.operatingName.error.format = (W)Charity’s operating name must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+charityName.operatingName.error.format = (W)Charity’s operating name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 charityName.fullName.checkYourAnswersLabel = (W)Full name(W)
 charityName.operatingName.checkYourAnswersLabel = (W)Operating name(W)
 
@@ -489,11 +489,11 @@ charityOtherRegulatorDetails.title = (W)The charity’s regulator details(W)
 charityOtherRegulatorDetails.heading = (W)The charity’s regulator details(W)
 charityOtherRegulatorDetails.regulatorName.label = (W)Name of the charity’s regulator(W)
 charityOtherRegulatorDetails.regulatorName.error.required = (W)Enter the name of the charity’s regulator(W)
-charityOtherRegulatorDetails.regulatorName.error.format = (W)Regulator name must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+charityOtherRegulatorDetails.regulatorName.error.format = (W)Regulator name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 charityOtherRegulatorDetails.regulatorName.error.length = (W)Regulator name must be 100 characters or less(W)
 charityOtherRegulatorDetails.registrationNumber.label = (W)Registration number(W)
 charityOtherRegulatorDetails.registrationNumber.error.required = (W)Enter the charity’s registration number(W)
-charityOtherRegulatorDetails.registrationNumber.error.format = (W)Registration number must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+charityOtherRegulatorDetails.registrationNumber.error.format = (W)Registration number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 charityOtherRegulatorDetails.registrationNumber.error.length = (W)Registration number must be 20 characters or less(W)
 charityOtherRegulatorDetails.hint = (W)The registration number will be on any mail the regulator has sent the charity.(W)
 charityOtherRegulatorDetails.name.checkYourAnswersLabel = (W)Charity’s other regulator(W)
@@ -517,7 +517,7 @@ selectWhyNoRegulator.checkYourAnswersLabel = (W)Reason for not registering(W)
 whyNotRegisteredWithCharity.title = (W)What is the other reason why the charity not registered with a regulator?(W)
 whyNotRegisteredWithCharity.heading = (W)What is the other reason why the charity not registered with a regulator?(W)
 whyNotRegisteredWithCharity.error.required = (W)Enter why the charity is not registered with a regulator(W)
-whyNotRegisteredWithCharity.error.format = (W)The reason why the charity is not registered with a regulator must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+whyNotRegisteredWithCharity.error.format = (W)The reason why the charity is not registered with a regulator must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 whyNotRegisteredWithCharity.error.length = (W)Your answer must be 100 characters or fewer(W)
 whyNotRegisteredWithCharity.checkYourAnswersLabel = (W)Other reason for not registering(W)
 
@@ -557,7 +557,7 @@ governingDocumentName.title = (W)What is the name of the governing document that
 governingDocumentName.heading = (W)What is the name of the governing document that was used to set up and run the charity?(W)
 governingDocumentName.error.required = (W)Enter the governing document that was used to set up and run the charity(W)
 governingDocumentName.error.length = (W)Name of the governing document must be 50 characters or less(W)
-governingDocumentName.error.format = (W)Name of the governing document must only include letters, numbers, hyphens, apostrophes, commas and spacesW)
+governingDocumentName.error.format = (W)Name of the governing document must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 governingDocumentName.checkYourAnswersLabel = (W)Other name(W)
 
 # whenGoverningDocumentApproved Messages
@@ -595,7 +595,7 @@ sectionsChangedGoverningDocument.title = (W)What sections and clauses have chang
 sectionsChangedGoverningDocument.heading = (W)What sections and clauses have changed in the governing document and why?(W)
 sectionsChangedGoverningDocument.error.required = (W)Enter what sections and clauses have changed in the governing document and why(W)
 sectionsChangedGoverningDocument.error.length = (W)The sections that have changed in the governing document must be 350 characters or less(W)
-sectionsChangedGoverningDocument.error.format = (W)The sections that have changed in the governing document must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+sectionsChangedGoverningDocument.error.format = (W)The sections that have changed in the governing document must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 sectionsChangedGoverningDocument.checkYourAnswersLabel = (W)Sections and clauses that have been changed(W)
 
 # GoverningDocument Summary page
@@ -622,7 +622,7 @@ startCharitableObjectives.b3 = (W)benefit to the public(W)
 charitableObjectives.title = (W)What are the charity’s charitable objectives?(W)
 charitableObjectives.heading = (W)What are the charity’s charitable objectives?(W)
 charitableObjectives.error.required = (W)Enter the charity’s charitable objectives(W)
-charitableObjectives.error.format = (W)Charity’s charitable objectives must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+charitableObjectives.error.format = (W)Charity’s charitable objectives must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 charitableObjectives.error.length = (W)Charity’s charitable objectives must be 500 characters or less(W)
 charitableObjectives.label = (W)Charitable objectives describe what a charity has been set up to do. They are usually written into the governing document. For example, you could summarise what is written in the charity’s objects clause.(W)
 charitableObjectives.checkYourAnswersLabel = (W)Charitable objectives(W)
@@ -653,8 +653,8 @@ charitablePurposes.checkYourAnswersLabel = (W)Charity’s charitable purposes(W)
 publicBenefits.title = (W)How does the charity benefit the public?(W)
 publicBenefits.heading = (W)How does the charity benefit the public?(W)
 publicBenefits.error.required = (W)Enter how the charity benefits the public(W)
-publicBenefits.error.format = (W)How your charity benefits the public must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
-publicBenefits.error.length = (W)How your charity benefits the public must be 255 characters or less(W)
+publicBenefits.error.format = (W)How the charity benefits the public must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
+publicBenefits.error.length = (W)How the charity benefits the public must be 500 characters or less(W)
 publicBenefits.checkYourAnswersLabel = (W)How the charity benefits the public(W)
 
 # Charity Objectives Summary page
@@ -742,7 +742,7 @@ otherFundRaising.title = (W)What other way will the charity raise funds?(W)
 otherFundRaising.heading = (W)What other way will the charity raise funds?(W)
 otherFundRaising.checkYourAnswersLabel = (W)Other fundraising methods(W)
 otherFundRaising.error.required = (W)Enter the other way the charity will raise funds(W)
-otherFundRaising.error.format = (W)The other way the charity will raise funds must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+otherFundRaising.error.format = (W)The other way the charity will raise funds must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 otherFundRaising.error.length = (W)The other way the charity will raise funds must be 95 characters or less(W)
 
 # Has your charity prepared financial accounts Messages
@@ -761,7 +761,6 @@ estimatedIncome.p1 = (W)This figure should be your charity’s estimated income 
 estimatedIncome.error.required = (W)Enter the charity’s estimated income for the current 12 months of operation(W)
 estimatedIncome.error.format = (W)Estimated income must written as a number, like 100.50 or 110(W)
 estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 months of operation(W)
-
 
 # What is the charity’s actual income so far?
 # ----------------------------------------------------------
@@ -787,9 +786,8 @@ whyNoBankStatement.heading = (W)Why does the charity not have bank statements fo
 whyNoBankStatement.hint = (W)If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.(W)
 whyNoBankStatement.checkYourAnswersLabel = (W)Why you do not have bank statements for the last 3 months(W)
 whyNoBankStatement.error.required = (W)Enter why the charity does not have bank statements for the last 3 months of operation(W)
-whyNoBankStatement.error.format = (W)Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas and spaces(W)
+whyNoBankStatement.error.format = (W)Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
 whyNoBankStatement.error.length = (W)Why the charity does not have bank statements must be 350 characters or less(W)
-
 
 # AccountingEndDatePage Messages
 # ----------------------------------------------------------
@@ -837,7 +835,7 @@ bankDetails.accountNumber.error.format = (W)Account number must be written as a 
 bankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
 bankDetails.rollNumber.hint = (W)You can find it on the charity’s bank card, statement or passbook(W)
 bankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
-bankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens and forward slashes(W)
+bankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops(W)
 bankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
 bankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
 bankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)

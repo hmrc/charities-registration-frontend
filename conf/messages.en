@@ -346,11 +346,11 @@ charityName.fullName.label = Full name of the charity
 charityName.fullName.hint = As shown on the charity’s governing document
 charityName.fullName.error.required = Enter the full name of the charity
 charityName.fullName.error.length = Charity’s full name must be 60 characters or less
-charityName.fullName.error.format = Charity’s full name must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charityName.fullName.error.format = Charity’s full name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 charityName.operatingName.label = Operating name of the charity (optional)
 charityName.operatingName.hint = The working name or acronym by which the charity is known
 charityName.operatingName.error.length = Charity’s operating name must be 160 characters or less
-charityName.operatingName.error.format = Charity’s operating name must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charityName.operatingName.error.format = Charity’s operating name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 charityName.fullName.checkYourAnswersLabel = Full name
 charityName.operatingName.checkYourAnswersLabel = Operating name
 
@@ -489,11 +489,11 @@ charityOtherRegulatorDetails.title = The charity’s regulator details
 charityOtherRegulatorDetails.heading = The charity’s regulator details
 charityOtherRegulatorDetails.regulatorName.label = Name of the charity’s regulator
 charityOtherRegulatorDetails.regulatorName.error.required = Enter the name of the charity’s regulator
-charityOtherRegulatorDetails.regulatorName.error.format = Regulator name must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charityOtherRegulatorDetails.regulatorName.error.format = Regulator name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 charityOtherRegulatorDetails.regulatorName.error.length = Regulator name must be 100 characters or less
 charityOtherRegulatorDetails.registrationNumber.label = Registration number
 charityOtherRegulatorDetails.registrationNumber.error.required = Enter the charity’s registration number
-charityOtherRegulatorDetails.registrationNumber.error.format = Registration number must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charityOtherRegulatorDetails.registrationNumber.error.format = Registration number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 charityOtherRegulatorDetails.registrationNumber.error.length = Registration number must be 20 characters or less
 charityOtherRegulatorDetails.hint = The registration number will be on any mail the regulator has sent the charity.
 charityOtherRegulatorDetails.name.checkYourAnswersLabel = Charity’s other regulator
@@ -517,7 +517,7 @@ selectWhyNoRegulator.checkYourAnswersLabel = Reason for not registering
 whyNotRegisteredWithCharity.title = What is the other reason why the charity not registered with a regulator?
 whyNotRegisteredWithCharity.heading = What is the other reason why the charity not registered with a regulator?
 whyNotRegisteredWithCharity.error.required = Enter why the charity is not registered with a regulator
-whyNotRegisteredWithCharity.error.format = The reason why the charity is not registered with a regulator must only include letters, numbers, hyphens, apostrophes, commas and spaces
+whyNotRegisteredWithCharity.error.format = The reason why the charity is not registered with a regulator must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 whyNotRegisteredWithCharity.error.length = Your answer must be 100 characters or fewer
 whyNotRegisteredWithCharity.checkYourAnswersLabel = Other reason for not registering
 
@@ -557,7 +557,7 @@ governingDocumentName.title = What is the name of the governing document that wa
 governingDocumentName.heading = What is the name of the governing document that was used to set up and run the charity?
 governingDocumentName.error.required = Enter the governing document that was used to set up and run the charity
 governingDocumentName.error.length = Name of the governing document must be 50 characters or less
-governingDocumentName.error.format = Name of the governing document must only include letters, numbers, hyphens, apostrophes, commas and spaces
+governingDocumentName.error.format = Name of the governing document must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 governingDocumentName.checkYourAnswersLabel = Other name
 
 # whenGoverningDocumentApproved Messages
@@ -595,7 +595,7 @@ sectionsChangedGoverningDocument.title = What sections and clauses have changed 
 sectionsChangedGoverningDocument.heading = What sections and clauses have changed in the governing document and why?
 sectionsChangedGoverningDocument.error.required = Enter what sections and clauses have changed in the governing document and why
 sectionsChangedGoverningDocument.error.length = The sections that have changed in the governing document must be 350 characters or less
-sectionsChangedGoverningDocument.error.format = The sections that have changed in the governing document must only include letters, numbers, hyphens, apostrophes, commas and spaces
+sectionsChangedGoverningDocument.error.format = The sections that have changed in the governing document must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 sectionsChangedGoverningDocument.checkYourAnswersLabel = Sections and clauses that have been changed
 
 # GoverningDocument Summary page
@@ -622,7 +622,7 @@ startCharitableObjectives.b3 = benefit to the public
 charitableObjectives.title = What are the charity’s charitable objectives?
 charitableObjectives.heading = What are the charity’s charitable objectives?
 charitableObjectives.error.required = Enter the charity’s charitable objectives
-charitableObjectives.error.format = Charity’s charitable objectives must only include letters, numbers, hyphens, apostrophes, commas and spaces
+charitableObjectives.error.format = Charity’s charitable objectives must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 charitableObjectives.error.length = Charity’s charitable objectives must be 500 characters or less
 charitableObjectives.label = Charitable objectives describe what a charity has been set up to do. They are usually written into the governing document. For example, you could summarise what is written in the charity’s objects clause.
 charitableObjectives.checkYourAnswersLabel = Charitable objectives
@@ -653,8 +653,8 @@ charitablePurposes.checkYourAnswersLabel = Charity’s charitable purposes
 publicBenefits.title = How does the charity benefit the public?
 publicBenefits.heading = How does the charity benefit the public?
 publicBenefits.error.required = Enter how the charity benefits the public
-publicBenefits.error.format = How your charity benefits the public must only include letters, numbers, hyphens, apostrophes, commas and spaces
-publicBenefits.error.length = How your charity benefits the public must be 255 characters or less
+publicBenefits.error.format = How the charity benefits the public must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
+publicBenefits.error.length = How the charity benefits the public must be 500 characters or less
 publicBenefits.checkYourAnswersLabel = How the charity benefits the public
 
 # Charity Objectives Summary page
@@ -742,9 +742,8 @@ otherFundRaising.title = What other way will the charity raise funds?
 otherFundRaising.heading = What other way will the charity raise funds?
 otherFundRaising.checkYourAnswersLabel = Other fundraising methods
 otherFundRaising.error.required = Enter the other way the charity will raise funds
-otherFundRaising.error.format= The other way the charity will raise funds must only include letters, numbers, hyphens, apostrophes, commas and spaces
+otherFundRaising.error.format= The other way the charity will raise funds must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 otherFundRaising.error.length= The other way the charity will raise funds must be 95 characters or less
-
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
@@ -780,7 +779,6 @@ isBankStatements.hint = If the account has been open for less than 3 months, you
 isBankStatements.error.required = Select yes if the charity has bank statements for the last 3 months of operation
 isBankStatements.checkYourAnswersLabel = Bank statements for the last 3 months
 
-
 # Why does the charity not have a bank statement
 # ----------------------------------------------------------
 whyNoBankStatement.title = Why does the charity not have bank statements for the last 3 months of operation?
@@ -788,7 +786,7 @@ whyNoBankStatement.heading = Why does the charity not have bank statements for t
 whyNoBankStatement.hint = If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.
 whyNoBankStatement.checkYourAnswersLabel = Why you do not have bank statements for the last 3 months
 whyNoBankStatement.error.required = Enter why the charity does not have bank statements for the last 3 months of operation
-whyNoBankStatement.error.format = Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas and spaces
+whyNoBankStatement.error.format = Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 whyNoBankStatement.error.length = Why the charity does not have bank statements must be 350 characters or less
 
 # AccountingEndDatePage Messages
@@ -837,7 +835,7 @@ bankDetails.accountNumber.error.format = Account number must be written as a num
 bankDetails.rollNumber = Building society roll number (if you have one)
 bankDetails.rollNumber.hint = You can find it on your charity’s bank card, statement or passbook
 bankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
-bankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens and forward slashes
+bankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
 bankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
 bankDetails.accountName.checkYourAnswersLabel = Account name
 bankDetails.sortCode.checkYourAnswersLabel = Sort code
@@ -1080,7 +1078,6 @@ authorisedOfficialsSummary.section = Officials and nominees
 removeAuthorisedOfficial.title = Are you sure you want to remove this authorised official?
 removeAuthorisedOfficial.heading = Are you sure you want to remove {0}?
 removeAuthorisedOfficial.error.required = Select yes to remove this authorised official
-
 
 # Section8 - Other Officials
 # ----------------------------------------------------------

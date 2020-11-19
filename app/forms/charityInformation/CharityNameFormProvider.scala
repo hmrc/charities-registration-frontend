@@ -32,10 +32,10 @@ class CharityNameFormProvider @Inject() extends Mappings {
       mapping(
       "fullName" -> text("charityName.fullName.error.required")
         .verifying(maxLength(fullNameMaxLength, "charityName.fullName.error.length"))
-        .verifying(regexp(validateField,"charityName.fullName.error.format")),
+        .verifying(regexp(validateFieldWithFullStop,"charityName.fullName.error.format")),
       "operatingName" -> optional(text()
         .verifying(maxLength(maxLength, "charityName.operatingName.error.length")).
-        verifying(regexp(validateField,"charityName.operatingName.error.format")))
+        verifying(regexp(validateFieldWithFullStop,"charityName.operatingName.error.format")))
       )(CharityName.apply)(CharityName.unapply)
     )
 }

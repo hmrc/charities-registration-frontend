@@ -28,7 +28,7 @@ class WhyNoBankStatementFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("whyNoBankStatement.error.required")
         .verifying(maxLength(maxLength, "whyNoBankStatement.error.length"))
-        .verifying(regexp(validateField,"whyNoBankStatement.error.format"))
+        .verifying(regexp(validateFieldWithFullStop,"whyNoBankStatement.error.format"))
     )
 }
 

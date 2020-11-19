@@ -29,7 +29,7 @@ class PublicBenefitsFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "publicBenefits.error.required"
     val lengthKey = "publicBenefits.error.length"
     val invalidKey = "publicBenefits.error.format"
-    val maxLength = 255
+    val maxLength = 500
     val fieldName = "value"
 
     behave like fieldThatBindsValidData(
@@ -55,7 +55,7 @@ class PublicBenefitsFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
     )
   }
 
@@ -63,12 +63,12 @@ class PublicBenefitsFormProviderSpec extends StringFieldBehaviours {
 
     "valid for abcd" in {
 
-      "abcd" must fullyMatch regex formProvider.validateField
+      "abcd" must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateField
+      "abc@" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 }

@@ -32,7 +32,6 @@ object CharityInformationStatusHelper extends StatusHelper {
     userAnswers.arePagesDefined(pagesAlwaysRequired) && userAnswers.get(CanWeSendToThisAddressPage).exists {
       case true => !charityPostalAddressIsDefined
       case false => charityPostalAddressIsDefined
-    }
-
+    } && userAnswers.get(CharityContactDetailsPage).fold(false)(_.emailAddress.trim.nonEmpty)
   }
 }

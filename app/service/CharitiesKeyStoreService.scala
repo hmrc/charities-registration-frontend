@@ -18,26 +18,38 @@ package service
 
 import connectors.CharitiesShortLivedCache
 import javax.inject.Inject
-import models.oldCharities.{CharityAddress, CharityContactDetails}
+import models.UserAnswers
+import models.oldCharities._
+import models.requests.OptionalDataRequest
 import play.api.Logger
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json._
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache){
+class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache, userAnswerTransformer : UserAnswerTransformer){
 
   private val logger = Logger(this.getClass)
 
-  def getCacheData(internalId:String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[JsValue]] ={
+  def getCacheData(request: OptionalDataRequest[_])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[UserAnswers] ={
 
-    cache.fetch(internalId).map {
-      case Some(cacheMap) =>
-        cacheMap.getEntry[CharityContactDetails]("charityContactDetails").map { contactDetails =>
-          Json.obj("charityContactDetails" -> Json.toJson(contactDetails))
-        }
+    cache.fetch(request.internalId).map {
+      case Some(cacheMap) if request.userAnswers.isEmpty =>
+        val result = Json.obj().
+          getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails").
+          getJson[CharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCharityOfficialAddress, "charityOfficialAddress").
+          getJson[OptionalCharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCorrespondenceAddress, "correspondenceAddress").
+          getJson[CharityRegulator](cacheMap, userAnswerTransformer.toUserAnswersCharityRegulator, "charityRegulator").
+          getJson[CharityGoverningDocument](cacheMap, userAnswerTransformer.toUserAnswersCharityGoverningDocument, "charityGoverningDocument").
+          getJson[WhatYourCharityDoes](cacheMap, userAnswerTransformer.toUserAnswersWhatYourCharityDoes, "whatYourCharityDoes").
+          getJson[OperationAndFunds](cacheMap, userAnswerTransformer.toUserAnswersOperationAndFunds, "operationAndFunds").
+          getJson[CharityBankAccountDetails](cacheMap, userAnswerTransformer.toUserAnswersCharityBankAccountDetails, "charityBankAccountDetails")
+
+        UserAnswers(request.internalId, result)
+
       case _ =>
-        None
+        request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+
     } recover {
       case errors: Throwable =>
         logger.error(s"[CharitiesKeyStoreService][getCacheData] registration failed with error ${errors.getMessage}")

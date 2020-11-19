@@ -104,10 +104,7 @@ object ScalaMonthDay {
   }
 
   implicit val MonthDayWrites: Writes[ScalaMonthDay] = new Writes[ScalaMonthDay] {
-    def writes(mt: ScalaMonthDay): JsValue = Json.obj(
-      "monthInYear" -> mt.monthDay.getMonthOfYear,
-      "dayInMonth" -> mt.monthDay.getDayOfMonth
-    )
+    def writes(mt: ScalaMonthDay): JsValue = JsString(s"--${mt.monthDay.getMonthOfYear}-${mt.monthDay.getDayOfMonth}")
   }
 }
 

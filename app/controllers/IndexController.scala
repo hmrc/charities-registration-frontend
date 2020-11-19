@@ -20,14 +20,20 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import models.UserAnswers
+import pages.sections.Section1Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
+import service.CharitiesKeyStoreService
 import utils.TaskListHelper
+import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import views.html.TaskList
+
+import scala.concurrent.Future
 
 class IndexController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
+    charitiesKeyStoreService: CharitiesKeyStoreService,
     userAnswerRepository: UserAnswerRepository,
     taskListHelper: TaskListHelper,
     view: TaskList,
@@ -36,16 +42,16 @@ class IndexController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
 
-    val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-
-    userAnswerRepository.set(userAnswers).map { _ =>
-
-      val result = taskListHelper.getTaskListRow(userAnswers)
-
+    for{
+      userAnswers <- charitiesKeyStoreService.getCacheData(request)
+      updatedAnswers <- Future.fromTry(result = userAnswers.set(Section1Page, checkComplete(userAnswers)))
+      _ <- userAnswerRepository.set(updatedAnswers)
+    } yield {
+      val result = taskListHelper.getTaskListRow(updatedAnswers)
       val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-
       Ok(view(result, status = completed))
     }
+
   }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>

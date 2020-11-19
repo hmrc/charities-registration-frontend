@@ -55,13 +55,13 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
   def overseasOperatingLocationSummaryCYARow(changeLinkCall: Call): Option[SummaryListRow] = {
 
     val result1 = for(i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
-    val ans = result1.filter(_.nonEmpty).flatten
+    val ans = result1.filter(_.nonEmpty).flatten.map(code => countryService.find(code).fold(code)(_.name))
 
     userAnswers.get(WhatCountryDoesTheCharityOperateInPage(0)).map{ _ =>
       summaryListRow(
         label = messages("overseasOperatingLocationSummary.checkYourAnswersLabel"),
         value = ans.foldLeft("")(
-          (accumulator,code) => accumulator + "<div>" + countryService.find(code).fold(code)(_.name) + "</div>"),
+          (accumulator,code) => accumulator + "<div>" + code + "</div>"),
         visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

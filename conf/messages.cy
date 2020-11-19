@@ -86,9 +86,9 @@ session_expired.guidance = (W)The details you have given have been deleted becau
 incorrect-details.title = (W)You cannot sign in with these details(W)
 incorrect-details.heading = (W)You cannot sign in with these details(W)
 incorrect-details.notAnOrganisation.p1 = (W)You must(W)
-incorrect-details.notAnOrganisation.p1.link = (W)sign into Government Gateway using your charity’s sign-in details.(W)
+incorrect-details.notAnOrganisation.p1.link = (W)sign into Government Gateway using the charity’s sign-in details.(W)
 incorrect-details.notAnOrganisation.p2 = (W)If you do not have these already, you can(W)
-incorrect-details.notAnOrganisation.p2.link = (W)set up a Government Gateway account for your charity.(W)
+incorrect-details.notAnOrganisation.p2.link = (W)set up a Government Gateway account for the charity.(W)
 
 
 # Timeout Messages
@@ -323,7 +323,7 @@ notEligible.bank.p1 = (W)To use this service the charity must have a UK bank, bu
 # ----------------------------------------------------------
 eligibleCharity.title = (W)The charity is eligible for this service(W)
 eligibleCharity.heading = (W)The charity is eligible for this service(W)
-eligibleCharity.p1 = (W)Next you need to sign in using your charity’s Government Gateway ID. You can set up a new Government Gateway for your charity if you need to.(W)
+eligibleCharity.p1 = (W)Next you need to sign in using the charity’s Government Gateway ID. You can set up a new Government Gateway for the charity if you need to.(W)
 
 # Section1 - Charity Information
 # ----------------------------------------------------------
@@ -720,7 +720,7 @@ charityEstablishedIn.checkYourAnswersLabel = (W)Country of establishment(W)
 # ----------------------------------------------------------
 whatCountryDoesTheCharityOperateIn.title = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.heading = (W)What country does the charity operate in?(W)
-whatCountryDoesTheCharityOperateIn.hint = (W)If your charity operates in more than one country, you can add more countries on the next page.(W)
+whatCountryDoesTheCharityOperateIn.hint = (W)If the charity operates in more than one country, you can add more countries on the next page.(W)
 whatCountryDoesTheCharityOperateIn.countries.hint = (W)You can add up to 5 countries. You have already added {0}.(W)
 whatCountryDoesTheCharityOperateIn.hintText = (W)Select a country(W)
 whatCountryDoesTheCharityOperateIn.error.required = (W)Enter a country that the charity operates in(W)
@@ -757,7 +757,7 @@ isFinancialAccounts.checkYourAnswersLabel = (W)Financial accounts(W)
 # ----------------------------------------------------------
 estimatedIncome.title = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
 estimatedIncome.heading = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
-estimatedIncome.p1 = (W)This figure should be your charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
+estimatedIncome.p1 = (W)This figure should be the charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
 estimatedIncome.error.required = (W)Enter the charity’s estimated income for the current 12 months of operation(W)
 estimatedIncome.error.format = (W)Estimated income must written as a number, like 100.50 or 110(W)
 estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 months of operation(W)
@@ -766,7 +766,7 @@ estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 m
 # ----------------------------------------------------------
 actualIncome.title = (W)What is the charity’s actual income so far?(W)
 actualIncome.heading = (W)What is the charity’s actual income so far?(W)
-actualIncome.p1 = (W)This figure should be your actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
+actualIncome.p1 = (W)This figure should be the charity’s actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
 actualIncome.error.required = (W)Enter the charity’s actual income so far(W)
 actualIncome.error.format = (W)The charity’s actual income must be an amount of money, like 100.50 or 110(W)
 actualIncome.checkYourAnswersLabel = (W)Actual income so far(W)
@@ -815,7 +815,7 @@ operationsFundsSummary.section = (W)Operations and funds(W)
 startBankDetails.title = (W)The charity’s bank details(W)
 startBankDetails.heading = (W)The charity’s bank details(W)
 startBankDetails.p1 = (W)You need to add the charity’s bank account details. We need the charity’s bank details to pay Gift Aid and other tax repayments.(W)
-startBankDetails.p2 = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from our account to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+startBankDetails.p2 = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from our account to the charity’s account. You should make sure the charity can receive BACS payments.(W)
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
@@ -836,7 +836,7 @@ bankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
 bankDetails.rollNumber.hint = (W)You can find it on the charity’s bank card, statement or passbook(W)
 bankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
 bankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops(W)
-bankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+bankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.(W)
 bankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
 bankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
 bankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)
@@ -1079,13 +1079,12 @@ removeAuthorisedOfficial.title = (W)Are you sure you want to remove this authori
 removeAuthorisedOfficial.heading = (W)Are you sure you want to remove {0}?(W)
 removeAuthorisedOfficial.error.required = (W)Select yes to remove this authorised official(W)
 
-
 # Section8 - Other Officials
 # ----------------------------------------------------------
 
 # charity’s other officials messages
 # ----------------------------------------------------------
-charityOtherOfficials.title = (W)Your charity’s other officials(W)
+charityOtherOfficials.title = (W)The charity’s other officials(W)
 charityOtherOfficials.heading = (W)The charity’s other officials(W)
 charityOtherOfficials.p1 = (W)You need to add 2 other officials but you can add up to 3.(W)
 charityOtherOfficials.p2 = (W)Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.(W)
@@ -1445,7 +1444,7 @@ nomineeIndividualPreviousAddress.checkYourAnswersLabel = (W)Previous home addres
 
 # Is Charity Nominee authorised to receive payments Page Messages
 # ----------------------------------------------------------
-isIndividualNomineePayments.title = (W)Is the nominee authorised to receive payments for your charity?(W)
+isIndividualNomineePayments.title = (W)Is the nominee authorised to receive payments for the charity?(W)
 isIndividualNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isIndividualNomineePayments.error.required = (W)Select yes if the nominee is authorised to receive payments(W)
 
@@ -1472,7 +1471,7 @@ individualNomineesBankDetails.rollNumber = (W)Building society roll number (if y
 individualNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
 individualNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
 individualNomineesBankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops(W)
-individualNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+individualNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.(W)
 
 individualNomineesBankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
 individualNomineesBankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
@@ -1552,7 +1551,7 @@ nomineeOrganisationPreviousAddress.checkYourAnswersLabel = (W)Previous address(W
 
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------
-isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised to receive payments for your charity?(W)
+isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised to receive payments for the charity?(W)
 isOrganisationNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
 isOrganisationNomineePayments.error.required = (W)Select yes if the organisation is authorised to receive payments(W)
 
@@ -1579,7 +1578,7 @@ organisationNomineesBankDetails.rollNumber = (W)Building society roll number (if
 organisationNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
 organisationNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
 organisationNomineesBankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops(W)
-organisationNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.(W)
+organisationNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.(W)
 
 organisationNomineesBankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
 organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)

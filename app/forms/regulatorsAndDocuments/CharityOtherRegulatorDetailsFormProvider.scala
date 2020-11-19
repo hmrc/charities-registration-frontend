@@ -32,11 +32,11 @@ class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "regulatorName" -> text("charityOtherRegulatorDetails.regulatorName.error.required")
           .verifying(maxLength(maxLengthRegulatorName, "charityOtherRegulatorDetails.regulatorName.error.length"))
-          .verifying(regexp(validateField,"charityOtherRegulatorDetails.regulatorName.error.format")),
+          .verifying(regexp(validateFieldWithFullStop,"charityOtherRegulatorDetails.regulatorName.error.format")),
 
       "registrationNumber" -> text("charityOtherRegulatorDetails.registrationNumber.error.required")
         .verifying(maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length"))
-        .verifying(regexp(validateField,"charityOtherRegulatorDetails.registrationNumber.error.format"))
+        .verifying(regexp(validateFieldWithFullStop,"charityOtherRegulatorDetails.registrationNumber.error.format"))
       )(CharityOtherRegulatorDetails.apply)(CharityOtherRegulatorDetails.unapply))
 
 }

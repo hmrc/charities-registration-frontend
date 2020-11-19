@@ -58,7 +58,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "()invalidName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
     )
   }
 

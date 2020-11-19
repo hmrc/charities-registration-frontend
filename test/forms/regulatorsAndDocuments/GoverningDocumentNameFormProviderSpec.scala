@@ -55,7 +55,7 @@ class GoverningDocumentNameFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
     )
   }
 
@@ -84,12 +84,12 @@ class GoverningDocumentNameFormProviderSpec extends StringFieldBehaviours {
 
     "valid for will" in {
 
-      "will" must fullyMatch regex formProvider.validateField
+      "will" must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
     "valid for will@" in {
 
-      "will@" mustNot fullyMatch regex formProvider.validateField
+      "will@" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 

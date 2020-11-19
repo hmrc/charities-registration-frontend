@@ -22,12 +22,12 @@ import play.api.data.Form
 
 class PublicBenefitsFormProvider @Inject() extends Mappings {
 
-  private[operationsAndFunds] val maxLength = 255
+  private[operationsAndFunds] val maxLength = 500
 
   def apply(): Form[String] =
     Form(
       "value" -> text("publicBenefits.error.required")
          .verifying(maxLength(maxLength, "publicBenefits.error.length"))
-         .verifying(regexp(validateField,"publicBenefits.error.format"))
+         .verifying(regexp(validateFieldWithFullStop,"publicBenefits.error.format"))
       )
 }

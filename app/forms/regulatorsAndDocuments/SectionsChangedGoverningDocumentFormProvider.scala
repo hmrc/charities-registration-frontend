@@ -28,6 +28,6 @@ class SectionsChangedGoverningDocumentFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("sectionsChangedGoverningDocument.error.required")
          .verifying(maxLength(maxLength, "sectionsChangedGoverningDocument.error.length"))
-        .verifying(regexp(validateField,"sectionsChangedGoverningDocument.error.format"))
+        .verifying(regexp(validateFieldWithFullStop,"sectionsChangedGoverningDocument.error.format"))
       )
 }

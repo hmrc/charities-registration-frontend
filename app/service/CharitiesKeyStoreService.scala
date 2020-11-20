@@ -21,9 +21,11 @@ import javax.inject.Inject
 import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
+import pages.sections.Section1Page
 import play.api.Logger
 import play.api.libs.json._
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -33,7 +35,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache, userAn
 
   def getCacheData(request: OptionalDataRequest[_])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[UserAnswers] ={
 
-    cache.fetch(request.internalId).map {
+    cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>
         val result = Json.obj().
           getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails").
@@ -45,14 +47,21 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache, userAn
           getJson[OperationAndFunds](cacheMap, userAnswerTransformer.toUserAnswersOperationAndFunds, "operationAndFunds").
           getJson[CharityBankAccountDetails](cacheMap, userAnswerTransformer.toUserAnswersCharityBankAccountDetails, "charityBankAccountDetails")
 
-        UserAnswers(request.internalId, result)
+        for {
+          userAnswers <- cache.remove(request.internalId).map(_ => UserAnswers(request.internalId, result))
+          updatedAnswers <- if(userAnswers.data.fields.nonEmpty){
+              Future.fromTry(result = userAnswers.set(Section1Page, checkComplete(userAnswers)))
+            } else{
+              Future.successful(userAnswers)
+            }
+        } yield updatedAnswers
 
       case _ =>
-        request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+        Future.successful(request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId)))
 
     } recover {
       case errors: Throwable =>
-        logger.error(s"[CharitiesKeyStoreService][getCacheData] registration failed with error ${errors.getMessage}")
+        logger.error(s"[CharitiesKeyStoreService][getCacheData] get existing charities data failed with error ${errors.getMessage}")
         throw errors
     }
   }

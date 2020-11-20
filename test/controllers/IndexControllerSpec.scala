@@ -27,7 +27,7 @@ import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.{UserAnswerRepository, UserAnswerRepositoryImpl}
+import repositories.UserAnswerRepository
 import service.CharitiesKeyStoreService
 
 import scala.concurrent.Future

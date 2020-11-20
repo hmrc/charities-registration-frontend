@@ -76,7 +76,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "()invalidFirstName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
     )
   }
 
@@ -103,7 +103,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "CName&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
     )
   }
 
@@ -137,7 +137,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       form,
       fieldName,
       "()invalidLastName",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateField))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
     )
   }
   
@@ -175,12 +175,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for firstName" in {
 
-      "firstName" must fullyMatch regex formProvider.validateField
+      "firstName" must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
     "valid for firstName&" in {
 
-      "firstName&" mustNot fullyMatch regex formProvider.validateField
+      "firstName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 
@@ -188,12 +188,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for middleName" in {
 
-      "middleName" must fullyMatch regex formProvider.validateField
+      "middleName" must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
     "valid for middleName&" in {
 
-      "middleName&" mustNot fullyMatch regex formProvider.validateField
+      "middleName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 
@@ -201,12 +201,12 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
     "valid for lastName" in {
 
-      "OpName" must fullyMatch regex formProvider.validateField
+      "OpName" must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
     "valid for lastName&" in {
 
-      "lastName&" mustNot fullyMatch regex formProvider.validateField
+      "lastName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 }

@@ -32,13 +32,13 @@ class NameFormProvider @Inject() extends Mappings {
         "value" -> enumerable[SelectTitle](s"$messagePrefix.title.error.required"),
         "firstName" -> text(s"$messagePrefix.firstName.error.required")
               .verifying(maxLength(maxLength, s"$messagePrefix.firstName.error.length"))
-              .verifying(regexp(validateField,s"$messagePrefix.firstName.error.format")),
+              .verifying(regexp(validateFieldWithFullStop,s"$messagePrefix.firstName.error.format")),
         "middleName" -> optional(text()
               .verifying(maxLength(maxLength, s"$messagePrefix.middleName.error.length"))
-              .verifying(regexp(validateField,s"$messagePrefix.middleName.error.format"))),
+              .verifying(regexp(validateFieldWithFullStop,s"$messagePrefix.middleName.error.format"))),
         "lastName" -> text(s"$messagePrefix.lastName.error.required")
               .verifying(maxLength(maxLength, s"$messagePrefix.lastName.error.length"))
-              .verifying(regexp(validateField,s"$messagePrefix.lastName.error.format"))
+              .verifying(regexp(validateFieldWithFullStop,s"$messagePrefix.lastName.error.format"))
       )(Name.apply)(Name.unapply)
     )
 }

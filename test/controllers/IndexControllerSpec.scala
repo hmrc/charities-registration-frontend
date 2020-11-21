@@ -17,15 +17,17 @@
 package controllers
 
 import base.SpecBase
+import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, times, verify, when}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
 import service.CharitiesKeyStoreService
@@ -36,18 +38,20 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   lazy val mockCharitiesKeyStoreService: CharitiesKeyStoreService = MockitoSugar.mock[CharitiesKeyStoreService]
+  lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = MockitoSugar.mock[CharitiesShortLivedCache]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[CharitiesKeyStoreService].toInstance(mockCharitiesKeyStoreService),
         bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerRepository, mockCharitiesShortLivedCache)
   }
 
   private val controller: IndexController = inject[IndexController]
@@ -58,6 +62,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
       when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful(emptyUserAnswers))
+      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(true)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onPageLoad()(fakeRequest)
@@ -70,6 +75,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
     "Fetch user answers and redirect to the next page (start of journey page)" in {
 
       when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful(emptyUserAnswers))
+      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(true)))
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
         set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
@@ -79,6 +85,21 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual OK
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, times(1)).set(any())
+    }
+
+    "redirect to the session expired page if no valid session id for switchover journey" in {
+
+      val requestWithoutSession = FakeRequest()
+      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful(emptyUserAnswers))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
+        set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onPageLoad()(requestWithoutSession)
+
+      status(result) mustEqual SEE_OTHER
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, never()).set(any())
     }
 
     "For keepalive" in {

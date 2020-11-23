@@ -15,7 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.{components => hmrcComponent}
-
+@import uk.gov.hmrc.govukfrontend.views.html.components.{toClasses => govukToClasses}
 @this(select: GovukSelect)
 
 @(form: Form[_],
@@ -30,6 +30,8 @@
   hintText: String,
   countries: Seq[(String, String)])(implicit messages: Messages)
 
+<div class="@govukToClasses("govuk-form-group", if(form(id).hasErrors) "govuk-form-group--error" else "")">
+
 @if(isPageHeading) {
     <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--xl" for=@name>
@@ -41,6 +43,7 @@
         @messages(label, headingMessageArgs: _*)
     </label>
 }
+
 @if(isPageHint){<span id="@id-hint" class="govuk-hint">@hint</span>}
 @if(isPageHintText){<span id="@id-hintText" class="govuk-hint">@hintText</span>}
 @select(hmrcComponent.Select(
@@ -56,7 +59,7 @@
     },
     formGroupClasses = "form-field-group"
 ))
-
+</div>
 <script src="@controllers.routes.Assets.versioned("javascripts/autocomplete.js")" ></script>
 
 <script>

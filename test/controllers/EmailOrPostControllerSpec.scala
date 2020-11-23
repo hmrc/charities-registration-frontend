@@ -75,14 +75,15 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
+    "redirect to RegistrationSent page when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
         set(EmailOrPostPage, true).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
-      status(result) mustEqual OK
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

@@ -25,32 +25,64 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
 
   private val messageKeyPrefix = "registrationSent"
 
-    "RegistrationSentView" must {
+    "RegistrationSentView for Email" must {
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
-        view.apply("080582080582",dayToString(
-          inject[TimeMachine].now().plusDays(28)))(fakeRequest, messages, frontendAppConfig)
+        view.apply(dayToString(
+          inject[TimeMachine].now().plusDays(28)), dayToString(
+          inject[TimeMachine].now()),"080582080582",
+          emailOrPost = true, Seq.empty, None)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p3", "p8", "p9")
-
-
-      behave like pageWithWarningText(applyView(), messages("registrationSent.warning"))
+        "p1", "submissionDate", "p3.beforeRefNo", "p3.afterRefNo", "p4.beforeRegistrations", "p4.keyWord", "p4.beforeRegNo", "p4.afterRegNo", "p9",
+        "email.prefer.p", "whatHappensNext.p1", "whatHappensNext.p2", "whatHappensNext.p3", "changeSomething.p1")
 
       behave like pageWithHyperLink(applyView(), "link",frontendAppConfig.feedbackUrl(fakeRequest), messages("registrationSent.link"))
 
-      "Contains the address" in{
+      "Contains the reference number" in{
+       val doc = asDocument(applyView())
+        assertContainsText(doc,"080582080582")
+      }
+
+    }
+
+    "RegistrationSentView for Post" must {
+
+      def applyView(): HtmlFormat.Appendable = {
+        val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
+        view.apply(dayToString(
+          inject[TimeMachine].now().plusDays(28)), dayToString(
+          inject[TimeMachine].now()),"080582080582",
+          emailOrPost = false, Seq.empty, None)(fakeRequest, messages, frontendAppConfig)
+      }
+
+      behave like normalPage(applyView(), messageKeyPrefix)
+
+      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
+        "p1", "submissionDate", "p3.beforeRefNo", "p3.afterRefNo",
+        "p4.receiveBy", "p4.applyAgain", "p4.postTo", "p9",
+        "post.prefer.p", "whatHappensNext.p1", "whatHappensNext.p2", "whatHappensNext.p3", "changeSomething.p1")
+
+
+      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.feedbackUrl(fakeRequest), messages("registrationSent.link"))
+
+      "Contains the inset text" in {
+        val doc = asDocument(applyView())
+        assert(doc.getElementsByClass("govuk-inset-text").first.text == messages("registrationSent.warning"))
+      }
+
+      "Contains the address" in {
        val doc = asDocument(applyView())
         assertContainsText(doc,"Charities, Savings &amp; International 2")
         assertContainsText(doc,"HMRC")
         assertContainsText(doc,"BX9 1BU")
       }
 
-      "Contains the reference number" in{
+      "Contains the reference number" in {
        val doc = asDocument(applyView())
         assertContainsText(doc,"080582080582")
       }

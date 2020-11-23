@@ -25,6 +25,7 @@ import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
+import pages.{AcknowledgementReferencePage, EmailOrPostPage}
 import pages.charityInformation.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import play.api.data.Form
@@ -60,6 +61,20 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val controller: CharityNameController = inject[CharityNameController]
 
   "CharityName Controller" must {
+
+    "redirect to EmailOrPost page when acknowledgement reference is present" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      .set(AcknowledgementReferencePage, "0123123")
+      .flatMap(_.set(EmailOrPostPage, true))
+      .success.value)))
+
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad().url
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
 
     "return OK and the correct view for a GET" in {
 

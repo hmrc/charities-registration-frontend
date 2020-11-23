@@ -210,25 +210,49 @@ emailOrPost.error.required = Select if you would prefer to send the charity’s 
 
 # Registration sent page Messages
 # ----------------------------------------------------------
-registrationSent.title = Registration Sent
-registrationSent.heading = Registration Sent
-registrationSent.h2 = What to do next
-registrationSent.h2a = Post copies of the documents by {0}
-registrationSent.h2b = How long do applications take
+registrationSent.title = Registration sent
+registrationSent.heading = Registration sent
+registrationSent.submissionDate = Submitted:
+registrationSent.email.h2 = Send us the documents by email
+registrationSent.post.h2 = Send us the documents by post
+registrationSent.step1 = Step 1: Prepare the documents
+registrationSent.p3.beforeRefNo = You need to make copies and add your reference number
+registrationSent.p3.afterRefNo = to:
+registrationSent.post.step2 = Step 2: Post copies of the documents
+registrationSent.email.step2 = Step 2: Send copies of the documents by {0}
+registrationSent.p4.beforeRegistrations = Add the word
+registrationSent.p4.keyWord = Registrations
+registrationSent.p4.beforeRegNo = and your reference number
+registrationSent.p4.afterRegNo = to the subject line and
+registrationSent.p4.link = send the documents by email to contactcharities@hmrc.gov.uk
+
+registrationSent.p4.receiveBy = We must receive the documents by
+registrationSent.p4.applyAgain = . If we do not receive the documents by this date, you will have to apply again.
+registrationSent.p4.postTo = You should post the documents to:
+registrationSent.email.prefer.h2 = If you would prefer to send documents by post
+registrationSent.email.prefer.p = You can
+registrationSent.email.prefer.link = follow the instructions to send your charity’s supporting documents by post
+registrationSent.email.prefer.afterLink = .
+registrationSent.post.prefer.h2 = If you would prefer to send documents by email
+registrationSent.post.prefer.p = You can
+registrationSent.post.prefer.link = follow the instructions to send your charity’s supporting documents by email
+registrationSent.post.prefer.afterLink = .
+
+registrationSent.whatHappensNext.h2 = What happens after we receive your documents
+registrationSent.whatHappensNext.p1 = It can take up to 6 weeks to process your registration.
+registrationSent.whatHappensNext.p2 = We will then send letters to the officials and the nominee to confirm that they have been registered with the charity.
+registrationSent.whatHappensNext.p3 = We will also send a letter to the charity’s postal address that will tell you how to claim gift aid.
+registrationSent.changeSomething = If you need to change something
+registrationSent.changeSomething.p1 = If there is something you need to change in your application, contact the charities helpline on
+registrationSent.changeSomething.helplineNumber = 0300 123 1073
+registrationSent.changeSomething.afterHelplineNumber = .
+
 registrationSent.p1 = Your reference number
-registrationSent.p3 = You need to make copies and add your reference number 0123 4567 8901 to:
-registrationSent.p4 = You have until {0} to send copies of the documents to:
 registrationSent.p5 = Charities, Savings & International 2
 registrationSent.p6 = HMRC
 registrationSent.p7 = BX9 1BU
-registrationSent.p8 = It can take up to 6 weeks to process your registration.
 registrationSent.p9 = (takes 30 seconds).
-registrationSent.l1 = notification of registration
-registrationSent.l2 = financial accounts
-registrationSent.l3 = evidence of activities
-registrationSent.l4 = governing documents and proposed changes
-registrationSent.l5 = identity details for all officials
-registrationSent.warning = Do not send original documents
+registrationSent.warning = Do not send original documents. We cannot return any documents you send to us.
 registrationSent.link = What do you think of this service?
 
 # CheckIfCanRegisterPage Messages
@@ -956,9 +980,9 @@ authorisedOfficialsPassport.title = Authorised official’s passport or national
 authorisedOfficialsPassport.heading = {0}’s passport or national identity card details
 authorisedOfficialsPassport.passportNumber.label = Passport or national identity card number
 authorisedOfficialsPassport.hint = For example, 21 3 2015
-authorisedOfficialsPassport.passportNumber.error.format= Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
+authorisedOfficialsPassport.passportNumber.error.format = Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 authorisedOfficialsPassport.passportNumber.error.length = Passport or national identity card number must be 30 characters or less
-authorisedOfficialsPassport.passportNumber.error.required = Enter their passport or national identity card number
+authorisedOfficialsPassport.passportNumber.error.required = Enter the authorised official’s passport or national identity card number
 authorisedOfficialsPassport.country.label = Country of issue
 authorisedOfficialsPassport.country.hint = Select a country of issue
 authorisedOfficialsPassport.country.error.required = Enter the country of issue
@@ -980,7 +1004,7 @@ authorisedOfficialsNino.title = What is the authorised official’s National Ins
 authorisedOfficialsNino.heading = What is {0}’s National Insurance number?
 authorisedOfficialsNino.hint = For example, QQ 12 34 56 C
 authorisedOfficialsNino.error.required = Enter their National Insurance number
-authorisedOfficialsNino.error.format = Enter a National Insurance number that is 2 letters, 6 numbers, then A,B,C or D
+authorisedOfficialsNino.error.format = Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D
 
 authorisedOfficialsNino.checkYourAnswersLabel = National Insurance number
 
@@ -1158,7 +1182,7 @@ otherOfficialsPassport.passportNumber.label = Passport or national identity card
 otherOfficialsPassport.hint = For example, 21 3 2015
 otherOfficialsPassport.passportNumber.error.format = Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 otherOfficialsPassport.passportNumber.error.length = Passport or national identity card number must be 30 characters or less
-otherOfficialsPassport.passportNumber.error.required = Enter their passport or national identity card number
+otherOfficialsPassport.passportNumber.error.required = Enter the other official’s passport or national identity card number
 otherOfficialsPassport.country.label = Country of issue
 otherOfficialsPassport.country.hint = Select a country of issue
 otherOfficialsPassport.country.error.length = The country of issue must be 50 characters or fewer
@@ -1181,7 +1205,7 @@ otherOfficialsNino.title = What is the other official’s National Insurance num
 otherOfficialsNino.heading = What is {0}’s National Insurance number?
 otherOfficialsNino.hint = For example, QQ 12 34 56 C
 otherOfficialsNino.error.required = Enter their National Insurance number
-otherOfficialsNino.error.format = National Insurance number must only include letters and numbers
+otherOfficialsNino.error.format = Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D
 
 otherOfficialsNino.checkYourAnswersLabel = National Insurance number
 
@@ -1363,7 +1387,7 @@ individualNomineesPassport.title = What are the nominee’s passport or national
 individualNomineesPassport.heading = {0}’s passport or national identity card details
 individualNomineesPassport.passportNumber.label = National identity card or passport number
 individualNomineesPassport.hint = For example, 21 3 2015
-individualNomineesPassport.passportNumber.error.format = The nominee’s passport or national identity card number must not include the following characters: & ( ) : @
+individualNomineesPassport.passportNumber.error.format = Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 individualNomineesPassport.passportNumber.error.length = The nominee’s passport or national identity card number must be 30 characters or fewer
 individualNomineesPassport.passportNumber.error.required = Enter the nominee’s passport or national identity card number
 individualNomineesPassport.country.label = Country of issue
@@ -1387,7 +1411,7 @@ individualNomineesNino.title = What is the nominee’s National Insurance number
 individualNomineesNino.heading = What is {0}’s National Insurance number?
 individualNomineesNino.hint = For example, QQ 12 34 56 C
 individualNomineesNino.error.required = Enter their National Insurance number
-individualNomineesNino.error.format = National Insurance number must only include letters and numbers
+individualNomineesNino.error.format = Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D
 
 individualNomineesNino.checkYourAnswersLabel = National Insurance number
 
@@ -1634,7 +1658,7 @@ organisationAuthorisedPersonNino.title = What is the authorised person’s Natio
 organisationAuthorisedPersonNino.heading = What is {0}’s National Insurance number?
 organisationAuthorisedPersonNino.hint = For example, QQ 12 34 56 C
 organisationAuthorisedPersonNino.error.required = Enter their National Insurance number
-organisationAuthorisedPersonNino.error.format = Enter a National Insurance number in the correct format
+organisationAuthorisedPersonNino.error.format = Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D
 
 organisationAuthorisedPersonNino.checkYourAnswersLabel = National Insurance number
 
@@ -1644,7 +1668,7 @@ organisationAuthorisedPersonPassport.title = Authorised person’s passport or n
 organisationAuthorisedPersonPassport.heading = {0}’s passport or national identity card details
 organisationAuthorisedPersonPassport.passportNumber.label = Passport or national identity card number
 organisationAuthorisedPersonPassport.hint = For example, 21 3 2015
-organisationAuthorisedPersonPassport.passportNumber.error.format = The authorised person’s passport or national identity card number must not include the following characters: & ( ) : @
+organisationAuthorisedPersonPassport.passportNumber.error.format = Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 organisationAuthorisedPersonPassport.passportNumber.error.length = The authorised person’s passport or national identity card number must be 30 characters or fewer
 organisationAuthorisedPersonPassport.passportNumber.error.required = Enter the authorised person’s passport or national identity card number
 organisationAuthorisedPersonPassport.country.label = Country of issue

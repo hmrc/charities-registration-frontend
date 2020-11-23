@@ -17,12 +17,13 @@
 package controllers
 
 import config.FrontendAppConfig
-import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
+import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
-import pages.AcknowledgementReferencePage
+import pages.{AcknowledgementReferencePage, EmailOrPostPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import utils.{ImplicitDateFormatter, TimeMachine}
+import viewmodels.RequiredDocumentsHelper
 import views.html.RegistrationSentView
 
 import scala.concurrent.Future
@@ -32,17 +33,35 @@ class RegistrationSentController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     userAnswerRepository: UserAnswerRepository,
-    requireData: DataRequiredAction,
+    requireData: RegistrationDataRequiredAction,
     view: RegistrationSentView,
     val controllerComponents: MessagesControllerComponents,
     timeMachine: TimeMachine
   )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with  LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
     request.userAnswers.get(AcknowledgementReferencePage) match {
-      case Some(acknowledgementReference) =>  userAnswerRepository.delete(request.userAnswers).map { _ =>
-        Ok(view(dayToString(timeMachine.now().plusDays(28)), acknowledgementReference))
-      }
+      case Some(acknowledgementReference) =>
+        request.userAnswers.get(EmailOrPostPage) match {
+          case Some(emailOrPost) =>
+            Future.successful(Ok(view(dayToString(timeMachine.now().plusDays(28)), dayToString(timeMachine.now()), acknowledgementReference, emailOrPost,
+              RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+              RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+            )))
+          case _ => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))
+        }
+      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+    }
+  }
+
+  def onChange: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    request.userAnswers.get(EmailOrPostPage) match {
+      case Some(emailOrPost) =>
+        for {
+          updatedAnswers <-  Future.fromTry(request.userAnswers.set(EmailOrPostPage, !emailOrPost))
+          _              <- userAnswerRepository.set(updatedAnswers)
+        } yield Redirect(routes.RegistrationSentController.onPageLoad())
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
   }

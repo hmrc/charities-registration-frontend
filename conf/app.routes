@@ -52,3 +52,4 @@ POST      /declare-and-send/email-or-post               controllers.EmailOrPostC
 ### ----------------
 
 GET       /registration-sent                            controllers.RegistrationSentController.onPageLoad
+GET       /registration-sent/change                     controllers.RegistrationSentController.onChange

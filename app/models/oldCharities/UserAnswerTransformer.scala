@@ -28,7 +28,7 @@ class UserAnswerTransformer extends JsonTransformer {
     jsonPath.read[Boolean].map(flag => if(flag) JsString(value) else JsString(""))
   }
 
-  private def nodeJsArrayData( jsArrayParam: Reads[JsArray], path: JsPath): Reads[JsObject] ={
+  private def nodeJsArrayData(jsArrayParam: Reads[JsArray], path: JsPath): Reads[JsObject] ={
     jsArrayParam.flatMap{ arr=>
       if (arr.value.exists(_!=JsString(""))){
         path.json.put(JsArray(arr.value.filter(_!=JsString(""))))
@@ -129,9 +129,20 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
+  private def selectGoverningDocument(path: JsPath): Reads[JsObject] = {
+    (__ \ 'charityGoverningDocument \ 'docType).read[String].flatMap {
+      case "1" =>  path.json.put(JsString("3"))
+      case "2" =>  path.json.put(JsString("1"))
+      case "3" =>  path.json.put(JsString("4"))
+      case "4" =>  path.json.put(JsString("5"))
+      case "6" =>  path.json.put(JsString("2"))
+      case "7" =>  path.json.put(JsString("6"))
+    }
+  }
+
   def toUserAnswersCharityGoverningDocument : Reads[JsObject] = {
     (
-      (__ \ 'selectGoverningDocument).json.copyFrom((__ \ 'charityGoverningDocument \ 'docType).json.pick) and
+      selectGoverningDocument(__ \ 'selectGoverningDocument) and
       (__ \ 'governingDocumentName ).json.copyFrom((__ \ 'charityGoverningDocument \ 'nameOtherDoc).json.pick) and
       ((__ \ 'whenGoverningDocumentApproved ).json.copyFrom((__ \ 'charityGoverningDocument \ 'effectiveDate).json.pick) orElse doNothing) and
       (__ \ 'sectionsChangedGoverningDocument).json.copyFrom((__ \ 'charityGoverningDocument \ 'govDocApprovedWording).json.pick) and

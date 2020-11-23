@@ -20,15 +20,11 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import models.UserAnswers
-import pages.sections.Section1Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CharitiesKeyStoreService
 import utils.TaskListHelper
-import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import views.html.TaskList
-
-import scala.concurrent.Future
 
 class IndexController @Inject()(
     identify: AuthIdentifierAction,
@@ -44,10 +40,9 @@ class IndexController @Inject()(
 
     for{
       userAnswers <- charitiesKeyStoreService.getCacheData(request)
-      updatedAnswers <- Future.fromTry(result = userAnswers.set(Section1Page, checkComplete(userAnswers)))
-      _ <- userAnswerRepository.set(updatedAnswers)
+      _ <- userAnswerRepository.set(userAnswers)
     } yield {
-      val result = taskListHelper.getTaskListRow(updatedAnswers)
+      val result = taskListHelper.getTaskListRow(userAnswers)
       val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
       Ok(view(result, status = completed))
     }

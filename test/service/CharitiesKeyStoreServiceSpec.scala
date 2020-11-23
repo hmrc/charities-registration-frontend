@@ -29,6 +29,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
+import uk.gov.hmrc.http.HttpResponse
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
@@ -83,6 +84,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
     def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = None
     def mockOperationAndFunds: Option[OperationAndFunds] = None
     def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = None
+    def removeResponse: Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache(){
       when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(Some(mockCacheMap)))
@@ -94,6 +96,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
       when(mockCacheMap.getEntry[WhatYourCharityDoes](meq("whatYourCharityDoes"))(meq(WhatYourCharityDoes.formats))).thenReturn(mockWhatYourCharityDoes)
       when(mockCacheMap.getEntry[OperationAndFunds](meq("operationAndFunds"))(meq(OperationAndFunds.formats))).thenReturn(mockOperationAndFunds)
       when(mockCacheMap.getEntry[CharityBankAccountDetails](meq("charityBankAccountDetails"))(meq(CharityBankAccountDetails.formats))).thenReturn(mockCharityBankAccountDetails)
+      when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse)
     }
 
   }
@@ -225,7 +228,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "2"
+          "selectGoverningDocument" -> "1"
           ))
 
         val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
@@ -263,7 +266,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "2",
+          "selectGoverningDocument" -> "1",
           "charitableObjectives" -> "objectives",
           "whatYourCharityDoesOtherReason" -> "otherReason",
           "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),
@@ -307,7 +310,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "2",
+          "selectGoverningDocument" -> "1",
           "charitableObjectives" -> "objectives",
           "whatYourCharityDoesOtherReason" -> "otherReason",
           "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),
@@ -369,7 +372,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "2",
+          "selectGoverningDocument" -> "1",
           "charitableObjectives" -> "objectives",
           "whatYourCharityDoesOtherReason" -> "otherReason",
           "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),
@@ -401,9 +404,21 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         result.data mustBe responseJson.data
       }
 
+      "throw error if exception is returned from CharitiesShortLivedCache.remove" in new LocalSetup {
+
+        override val mockContactDetails: Option[CharityContactDetails] = Some(CharityContactDetails("Test123", None, "1234567890", None, None, None))
+        override def removeResponse: Future[HttpResponse] = Future.failed(new RuntimeException())
+
+        initialiseCache()
+
+        intercept[RuntimeException]{
+          await(service.getCacheData(optionalDataRequest))
+        }
+
+      }
+
       "throw error if exception is returned from CharitiesShortLivedCache" in {
 
-        when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(Some(mockCacheMap)))
         when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.failed(new RuntimeException()))
 
         intercept[RuntimeException]{

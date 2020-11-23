@@ -16,6 +16,8 @@
 
 package service
 
+import java.util.UUID
+
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
 import models.UserAnswers
@@ -29,8 +31,9 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.HttpResponse
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
 import uk.gov.hmrc.http.cache.client.CacheMap
+import uk.gov.hmrc.http.logging.SessionId
 
 import scala.concurrent.Future
 
@@ -52,7 +55,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
   val service: CharitiesKeyStoreService = inject[CharitiesKeyStoreService]
 
-  private val optionalDataRequest = OptionalDataRequest(fakeRequest, "8799940975137654", None)
+  private val sessionId = s"session-${UUID.randomUUID}"
+  private val requestWithSession = fakeRequest.withSession(SessionKeys.sessionId -> sessionId)
+
+  private val optionalDataRequest = OptionalDataRequest(requestWithSession, "8799940975137654", None)
 
   val contactDetails: CharityContactDetails = CharityContactDetails("Test123", None, "1234567890", None, None, None)
   val charityAddress: CharityAddress = CharityAddress("Test123", "line2", "", "", "postcode", "")
@@ -73,9 +79,9 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
     OtherCountriesOfOperation(Some("EN"), Some("EN"), None, None, None))
   val charityBankAccountDetails: CharityBankAccountDetails = CharityBankAccountDetails("Tesco", "123456", "12345678", Some("rollNumber"))
 
+  override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
 
   trait LocalSetup {
-
     def mockContactDetails: Option[CharityContactDetails] = None
     def mockCharityAddress: Option[CharityAddress] = None
     def mockCorrespondenceAddress: Option[OptionalCharityAddress] = None
@@ -88,6 +94,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
     def initialiseCache(){
       when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(Some(mockCacheMap)))
+      when(mockCharitiesShortLivedCache.cache(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(mockCacheMap))
       when(mockCacheMap.getEntry[CharityContactDetails](meq("charityContactDetails"))(meq(CharityContactDetails.formats))).thenReturn(mockContactDetails)
       when(mockCacheMap.getEntry[CharityAddress](meq("charityOfficialAddress"))(meq(CharityAddress.formats))).thenReturn(mockCharityAddress)
       when(mockCacheMap.getEntry[OptionalCharityAddress](meq("correspondenceAddress"))(meq(OptionalCharityAddress.formats))).thenReturn(mockCorrespondenceAddress)
@@ -402,6 +409,19 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
 
         result.data mustBe responseJson.data
+      }
+
+      "throw error if session is not valid" in new LocalSetup {
+        implicit val hc: HeaderCarrier = HeaderCarrier()
+        override val mockContactDetails: Option[CharityContactDetails] = Some(CharityContactDetails("Test123", None, "1234567890", None, None, None))
+        override def removeResponse: Future[HttpResponse] = Future.failed(new RuntimeException())
+
+        initialiseCache()
+
+        intercept[RuntimeException]{
+          await(service.getCacheData(optionalDataRequest))
+        }
+
       }
 
       "throw error if exception is returned from CharitiesShortLivedCache.remove" in new LocalSetup {

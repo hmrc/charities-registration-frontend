@@ -26,12 +26,18 @@
     p: components.p
 )
 
-@(result: List[TaskListRow], status:Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(result: List[TaskListRow], status:Boolean, isSwitchOver:Option[Boolean])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 
 @main_template(Some(titleNoForm("index.title"))) {
 
     @h1(messages("index.heading"))
+
+    @isSwitchOver.map{ _ =>
+        <div class="govuk-inset-text" id="isSwitchOver">
+            @messages("index.isSwitchOver")
+        </div>
+    }
 
     <p class="govuk-body">@messages("index.guidance")</p>
 

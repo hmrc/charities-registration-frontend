@@ -68,10 +68,10 @@ class TaskListViewSpec extends ViewBehaviours  {
         controllers.routes.StartDeclarationController.onPageLoad(),
         "index.section.inProgress")
 
-      def applyView(isCompleted: Boolean = false): HtmlFormat.Appendable = {
+      def applyView(isCompleted: Boolean = false, isSwitchOver:Option[Boolean] = None): HtmlFormat.Appendable = {
         val view = viewFor[TaskList](Some(emptyUserAnswers))
         view.apply(
-          List(section1, section2, section3, section4, section5, section6, section7, section8, section9, section10), status = isCompleted)(
+          List(section1, section2, section3, section4, section5, section6, section7, section8, section9, section10), status = isCompleted, isSwitchOver)(
           fakeRequest, messages, frontendAppConfig)
       }
 
@@ -141,6 +141,16 @@ class TaskListViewSpec extends ViewBehaviours  {
       "dont display declaration message at the bottom pf page if status is completed" in {
         val doc = asDocument(applyView(true))
         assertNotRenderedById(doc, "declaration")
+      }
+
+      "dont display switch over message if its not switchover case" in {
+        val doc = asDocument(applyView(true))
+        assertNotRenderedById(doc, "isSwitchOver")
+      }
+
+      "display switch over message if its not switchover case" in {
+        val doc = asDocument(applyView(true, isSwitchOver = Some(true)))
+        assertRenderedById(doc, "isSwitchOver")
       }
 
     }

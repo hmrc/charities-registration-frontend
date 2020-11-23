@@ -6,12 +6,6 @@ date.day = Day
 date.month = Month
 date.year = Year
 
-individual.1of2 = (1 of 2)
-individual.2of2 = (2 of 2)
-individual.1of3 = (1 of 3)
-individual.2of3 = (2 of 3)
-individual.3of3 = (3 of 3)
-
 error.browser.title.prefix = Error:
 error.boolean = Please give an answer
 error.invalid_date = Date must be written like a number, like 01 12
@@ -118,6 +112,7 @@ main.checkYourAnswers.subheading = Main section
 index.title = Add information about the charity
 index.heading = Add information about the charity
 index.guidance = The information you enter will be saved as you progress. If you close the page, the information you have already entered will be saved for 28 days. After that time you will need to enter all the information again.
+index.isSwitchOver = We have updated this service since the last time you used it. All of your data has been saved. It’s ready for you to review using the links below.
 index.section.numbers1 = 1.
 index.section1.label = The charity’s contact details
 index.section1.spoke1.label= Enter the charity’s contact details

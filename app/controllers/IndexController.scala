@@ -17,19 +17,24 @@
 package controllers
 
 import config.FrontendAppConfig
+import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import models.UserAnswers
+import pages.IsSwitchOverUserPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CharitiesKeyStoreService
 import utils.TaskListHelper
 import views.html.TaskList
 
+import scala.concurrent.Future
+
 class IndexController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     charitiesKeyStoreService: CharitiesKeyStoreService,
+    cache: CharitiesShortLivedCache,
     userAnswerRepository: UserAnswerRepository,
     taskListHelper: TaskListHelper,
     view: TaskList,
@@ -38,15 +43,20 @@ class IndexController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
 
-    for{
-      userAnswers <- charitiesKeyStoreService.getCacheData(request)
-      _ <- userAnswerRepository.set(userAnswers)
-    } yield {
-      val result = taskListHelper.getTaskListRow(userAnswers)
-      val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-      Ok(view(result, status = completed))
+    hc.sessionId match {
+      case Some(sessionId) =>
+        for{
+          userAnswers <- charitiesKeyStoreService.getCacheData(request)
+          _ <- userAnswerRepository.set(userAnswers)
+          isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
+        } yield {
+          val result = taskListHelper.getTaskListRow(userAnswers)
+          val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+          Ok(view(result, status = completed, isSwitchOver))
+        }
+      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
-
+    
   }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>

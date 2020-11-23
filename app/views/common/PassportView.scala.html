@@ -25,7 +25,6 @@
     errorSummary: components.errorSummary,
     button: components.button,
     inputText: components.inputText,
-    h1: components.h1,
     fieldset: components.fieldset,
     inputDate: components.inputDate,
     country: components.autocompleteCountryList
@@ -66,7 +65,8 @@
                 id = "expiryDate",
                 legendContent = messages(s"$messagePrefix.expiryDate.label"),
                 legendClasses = "govuk-label govuk-!-margin-bottom-4",
-                hintText = Some(messages(s"$messagePrefix.hint")),
+                hintMessage= None,
+                hintHtml = Some(Html(messages(s"$messagePrefix.hint"))),
                 legendAsPageHeading = false
             )
 

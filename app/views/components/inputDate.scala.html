@@ -21,7 +21,8 @@
   legendContent: String,
   legendClasses: String = "govuk-fieldset__legend--xl",
   id: String = "date",
-  hintText: Option[String] = None,
+  hintMessage: Option[String],
+  hintHtml: Option[Html] = None,
   legendAsPageHeading: Boolean = true)(implicit messages: Messages)
 
 @govukDateInput(DateInput(
@@ -67,11 +68,13 @@
             value = form(s"$id.year").value
         )
     ),
-    hint = hintText.map(hint => Hint(content = Text(messages(hint)))),
-    errorMessage = hierarchyErrors(id, form, Seq(".day", ".month", ".year", ""))
-            .fold(form.errors.find(_.key.isEmpty))(err => Some(err)).map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+        hint = hintHtml.fold(hintMessage.map(text => Hint(content = HtmlContent(Html(messages(text))))))(
+                hint => Some(Hint(content = HtmlContent(hint)))
+        ),
+        errorMessage = hierarchyErrors(id, form, Seq(".day", ".month", ".year", ""))
+                .fold(form.errors.find(_.key.isEmpty))(err => Some(err)).map(
+                    err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
 ))
-
     @hierarchyErrors(id: String, form: Form[_], appended: Seq[String]) = @{
         val allFields = appended.flatMap(suffix => form(s"$id$suffix").error)
 

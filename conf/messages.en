@@ -86,9 +86,9 @@ session_expired.guidance = The details you have given have been deleted because 
 incorrect-details.title = You cannot sign in with these details
 incorrect-details.heading = You cannot sign in with these details
 incorrect-details.notAnOrganisation.p1 = You must
-incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using your charity’s sign-in details.
+incorrect-details.notAnOrganisation.p1.link = sign into Government Gateway using the charity’s sign-in details.
 incorrect-details.notAnOrganisation.p2 = If you do not have these already, you can
-incorrect-details.notAnOrganisation.p2.link = set up a Government Gateway account for your charity.
+incorrect-details.notAnOrganisation.p2.link = set up a Government Gateway account for the charity.
 
 
 # Timeout Messages
@@ -323,7 +323,7 @@ notEligible.bank.p1 = To use this service the charity must have a UK bank, build
 # ----------------------------------------------------------
 eligibleCharity.title = The charity is eligible for this service
 eligibleCharity.heading = The charity is eligible for this service
-eligibleCharity.p1 = Next you need to sign in using your charity’s Government Gateway ID. You can set up a new Government Gateway for your charity if you need to.
+eligibleCharity.p1 = Next you need to sign in using the charity’s Government Gateway ID. You can set up a new Government Gateway for the charity if you need to.
 
 # Section1 - Charity Information
 # ----------------------------------------------------------
@@ -720,7 +720,7 @@ charityEstablishedIn.checkYourAnswersLabel = Country of establishment
 # ----------------------------------------------------------
 whatCountryDoesTheCharityOperateIn.title = What country does the charity operate in?
 whatCountryDoesTheCharityOperateIn.heading = What country does the charity operate in?
-whatCountryDoesTheCharityOperateIn.hint = If your charity operates in more than one country, you can add more countries on the next page.
+whatCountryDoesTheCharityOperateIn.hint = If the charity operates in more than one country, you can add more countries on the next page.
 whatCountryDoesTheCharityOperateIn.countries.hint = You can add up to 5 countries. You have already added {0}.
 whatCountryDoesTheCharityOperateIn.hintText = Select a country
 whatCountryDoesTheCharityOperateIn.error.required = Enter a country that the charity operates in
@@ -757,7 +757,7 @@ isFinancialAccounts.checkYourAnswersLabel = Financial accounts
 # ----------------------------------------------------------
 estimatedIncome.title = What is the charity’s estimated income for its current 12 months of operation?
 estimatedIncome.heading = What is the charity’s estimated income for its current 12 months of operation?
-estimatedIncome.p1 = This figure should be your charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
+estimatedIncome.p1 = This figure should be the charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 estimatedIncome.error.required = Enter the charity’s estimated income for the current 12 months of operation
 estimatedIncome.error.format = Estimated income must written as a number, like 100.50 or 110
 estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 months of operation
@@ -766,7 +766,7 @@ estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 mont
 # ----------------------------------------------------------
 actualIncome.title = What is the charity’s actual income so far?
 actualIncome.heading = What is the charity’s actual income so far?
-actualIncome.p1 = This figure should be your actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
+actualIncome.p1 = This figure should be the charity’s actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 actualIncome.error.required = Enter the charity’s actual income so far
 actualIncome.error.format = The charity’s actual income must be an amount of money, like 100.50 or 110
 actualIncome.checkYourAnswersLabel = Actual income so far
@@ -815,7 +815,7 @@ operationsFundsSummary.section = Operations and funds
 startBankDetails.title = The charity’s bank details
 startBankDetails.heading = The charity’s bank details
 startBankDetails.p1 = You need to add the charity’s bank account details. We need the charity’s bank details to pay Gift Aid and other tax repayments.
-startBankDetails.p2 = We will send repayments using BACS. This is an electronic system that makes payments directly from our account to your charity’s account. You should make sure the charity can receive BACS payments.
+startBankDetails.p2 = We will send repayments using BACS. This is an electronic system that makes payments directly from our account to the charity’s account. You should make sure the charity can receive BACS payments.
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
@@ -836,7 +836,7 @@ bankDetails.rollNumber = Building society roll number (if you have one)
 bankDetails.rollNumber.hint = You can find it on your charity’s bank card, statement or passbook
 bankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 bankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
-bankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
+bankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 bankDetails.accountName.checkYourAnswersLabel = Account name
 bankDetails.sortCode.checkYourAnswersLabel = Sort code
 bankDetails.accountNumber.checkYourAnswersLabel = Account number
@@ -1084,7 +1084,7 @@ removeAuthorisedOfficial.error.required = Select yes to remove this authorised o
 
 # charity’s other officials messages
 # ----------------------------------------------------------
-charityOtherOfficials.title = Your charity’s other officials
+charityOtherOfficials.title = The charity’s other officials
 charityOtherOfficials.heading = The charity’s other officials
 charityOtherOfficials.p1 = You need to add 2 other officials but you can add up to 3.
 charityOtherOfficials.p2 = Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.
@@ -1444,7 +1444,7 @@ nomineeIndividualPreviousAddress.checkYourAnswersLabel = Previous home address
 
 # Is Charity Nominee authorised to receive payments Page Messages
 # ----------------------------------------------------------
-isIndividualNomineePayments.title = Is the nominee authorised to receive payments for your charity?
+isIndividualNomineePayments.title = Is the nominee authorised to receive payments for the charity?
 isIndividualNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isIndividualNomineePayments.error.required = Select yes if the nominee is authorised to receive payments
 
@@ -1471,7 +1471,7 @@ individualNomineesBankDetails.rollNumber = Building society roll number (if you 
 individualNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
 individualNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 individualNomineesBankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
-individualNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
+individualNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 
 individualNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
 individualNomineesBankDetails.sortCode.checkYourAnswersLabel = Sort code
@@ -1551,7 +1551,7 @@ nomineeOrganisationPreviousAddress.checkYourAnswersLabel = Previous address
 
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------
-isOrganisationNomineePayments.title = Is the nominee organisation authorised to receive payments for your charity?
+isOrganisationNomineePayments.title = Is the nominee organisation authorised to receive payments for the charity?
 isOrganisationNomineePayments.heading = Is {0} authorised to receive payments for the charity?
 isOrganisationNomineePayments.error.required = Select yes if the organisation is authorised to receive payments
 
@@ -1578,7 +1578,7 @@ organisationNomineesBankDetails.rollNumber = Building society roll number (if yo
 organisationNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
 organisationNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 organisationNomineesBankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
-organisationNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to your charity’s account. You should make sure the charity can receive BACS payments.
+organisationNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 
 organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
 organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = Sort code

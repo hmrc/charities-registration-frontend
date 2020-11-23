@@ -24,9 +24,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     inputDate: components.inputDate,
-    button: components.button,
-    h1: components.h1,
-    fieldset: components.fieldset
+    button: components.button
 
 )
 
@@ -38,16 +36,13 @@
 
         @errorSummary(form.errors, Try(form.error("date").get.args.head.toString).toOption)
 
-        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(fullName)) {
-
             @inputDate(
                 form,
                 legendContent = messages(s"$messagePrefix.heading", fullName),
-                legendClasses = "govuk-visually-hidden",
-                hintText = Some(messages(s"$messagePrefix.hint")),
-                legendAsPageHeading = false
+                hintMessage= None,
+                hintHtml = Some(Html(messages(s"$messagePrefix.hint"))),
+                legendAsPageHeading = true
             )
-        }
 
         @button("site.saveAndContinue")
 

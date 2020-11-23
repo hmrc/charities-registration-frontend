@@ -24,9 +24,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     inputDate: components.inputDate,
-    button: components.button,
-    p: components.p,
-    fieldset: components.fieldset
+    button: components.button
 
 )
 
@@ -38,20 +36,20 @@
 
         @errorSummary(form.errors)
 
-        @fieldset("whenGoverningDocumentApproved.heading", headingMessageArgs = Seq(messages(s"selectGoverningDocument.$documentName"))) {
-
-            @p{@messages("WhenGoverningDocumentApproved.p1")}
-
             @inputDate(
                 form,
-                legendContent = messages("whenGoverningDocumentApproved.heading"),
-                legendClasses = "govuk-visually-hidden",
-                hintText = Some(messages("WhenGoverningDocumentApproved.hint")),
-                legendAsPageHeading = false,
+                legendContent = messages("whenGoverningDocumentApproved.heading",messages(s"selectGoverningDocument.$documentName")),
+                hintMessage= None,
+                hintHtml= Some(hint),
+                legendAsPageHeading = true,
             )
-        }
 
         @button("site.saveAndContinue")
 
     }
+}
+
+@hint = {
+    <p class="govuk-body">@messages("WhenGoverningDocumentApproved.p1")</p>
+    <p>@messages("WhenGoverningDocumentApproved.hint")</p>
 }

@@ -24,12 +24,13 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
+import pages.AcknowledgementReferencePage
 import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
+import repositories.{UserAnswerRepository, UserAnswerRepositoryImpl}
 import service.CharitiesKeyStoreService
 
 import scala.concurrent.Future
@@ -57,6 +58,17 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val controller: IndexController = inject[IndexController]
 
   "Index Controller" must {
+
+    "Redirect to registration sent page if the acknowledgement reference number is already present" in {
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      .set(AcknowledgementReferencePage, "0123123").success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad().url
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
 
     "Set answers and redirect to the next page (start of journey page)" in {
 

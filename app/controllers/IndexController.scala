@@ -21,6 +21,7 @@ import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import models.UserAnswers
+import pages.AcknowledgementReferencePage
 import pages.IsSwitchOverUserPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
@@ -45,18 +46,23 @@ class IndexController @Inject()(
 
     hc.sessionId match {
       case Some(sessionId) =>
-        for{
-          userAnswers <- charitiesKeyStoreService.getCacheData(request)
-          _ <- userAnswerRepository.set(userAnswers)
-          isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
-        } yield {
-          val result = taskListHelper.getTaskListRow(userAnswers)
-          val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-          Ok(view(result, status = completed, isSwitchOver))
+        request.userAnswers match {
+          case Some(userAnswers) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
+            Future.successful(Redirect(routes.RegistrationSentController.onPageLoad()))
+          case _ =>
+            for {
+              userAnswers <- charitiesKeyStoreService.getCacheData(request)
+              _ <- userAnswerRepository.set(userAnswers)
+              isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
+            } yield {
+              val result = taskListHelper.getTaskListRow(userAnswers)
+              val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+              Ok(view(result, status = completed, isSwitchOver))
+            }
         }
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
-    
+
   }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>

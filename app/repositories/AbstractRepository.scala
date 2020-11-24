@@ -20,6 +20,7 @@ import java.time.LocalDateTime
 
 import config.FrontendAppConfig
 import models.UserAnswers
+import pages.AcknowledgementReferencePage
 import play.api.libs.json.{JsObject, Json}
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.bson.BSONDocument
@@ -123,15 +124,19 @@ trait AbstractRepository {
 
   def set(userAnswers: UserAnswers): Future[Boolean] = {
 
+    def expiryDate: LocalDateTime = userAnswers.get(AcknowledgementReferencePage) match {
+      case Some(_) => userAnswers.expiresAt
+      case _ => calculateExpiryTime
+    }
     val document = if (appConfig.encryptData) {
 
       val userDataAsString = PlainText(Json.stringify(userAnswers.data))
       val encryptedData = applicationCrypto.JsonCrypto.encrypt(userDataAsString).value
 
-      userAnswers.copy(data = Json.obj("encrypted" -> encryptedData), lastUpdated  = LocalDateTime.now, expiresAt = calculateExpiryTime)
+      userAnswers.copy(data = Json.obj("encrypted" -> encryptedData), lastUpdated  = LocalDateTime.now, expiresAt = expiryDate)
 
     } else {
-      userAnswers.copy(lastUpdated  = LocalDateTime.now, expiresAt = calculateExpiryTime)
+      userAnswers.copy(lastUpdated  = LocalDateTime.now, expiresAt = expiryDate)
     }
 
     val selector = Json.obj(

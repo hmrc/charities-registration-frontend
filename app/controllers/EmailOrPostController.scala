@@ -21,7 +21,6 @@ import controllers.actions._
 import forms.common.YesNoFormProvider
 import javax.inject.Inject
 import models.requests.DataRequest
-import navigation.EligibilityNavigator
 import pages.EmailOrPostPage
 import play.api.data.Form
 import play.api.mvc._
@@ -35,7 +34,7 @@ class EmailOrPostController @Inject()(
     val userAnswerRepository: UserAnswerRepository,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
+    requireData: RegistrationDataRequiredAction,
     formProvider: YesNoFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: EmailOrPostView
@@ -45,15 +44,13 @@ class EmailOrPostController @Inject()(
   val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request: DataRequest[_] =>
-
-    val preparedForm = request.userAnswers.get(EmailOrPostPage) match {
-      case None => form
-      case Some(value) => form.fill(value)
+    request.userAnswers match {
+      case userAnswers if userAnswers.get(EmailOrPostPage).isDefined => Redirect(routes.RegistrationSentController.onPageLoad())
+      case userAnswers =>
+        Ok(view(form,
+          RequiredDocumentsHelper.getRequiredDocuments(userAnswers),
+          RequiredDocumentsHelper.getForeignOfficialsMessages(userAnswers)))
     }
-
-    Ok(view(preparedForm,
-      RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-      RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

@@ -33,6 +33,7 @@ class ModuleBindings extends AbstractModule {
 
     bind(classOf[DataRequiredAction]).to(classOf[DataRequiredActionImpl]).asEagerSingleton()
     bind(classOf[UserDataRetrievalAction]).to(classOf[UserDataRetrievalActionImpl]).asEagerSingleton()
+    bind(classOf[RegistrationDataRequiredAction]).to(classOf[RegistrationDataRequiredActionImpl]).asEagerSingleton()
 
     bind(classOf[IdentifierAction]).to(classOf[SessionIdentifierAction]).asEagerSingleton()
     bind(classOf[AuthIdentifierAction]).to(classOf[AuthenticatedIdentifierAction]).asEagerSingleton()

@@ -30,7 +30,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
+import play.api.libs.json.{JsPath, Json, JsonValidationError}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.logging.SessionId
@@ -79,6 +79,16 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
     OtherCountriesOfOperation(Some("EN"), Some("EN"), None, None, None))
   val charityBankAccountDetails: CharityBankAccountDetails = CharityBankAccountDetails("Tesco", "123456", "12345678", Some("rollNumber"))
 
+  val charityHowManyAuthOfficials: CharityHowManyAuthOfficials = CharityHowManyAuthOfficials(Some(22))
+  val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("true"), "AB111111A", OfficialIndividualNationalIdentityCardDetails("", "", None))
+  val currentAddress: CharityAddress = CharityAddress("current", "address", "", "", "AA1 1AA", "")
+  val previousAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("previous", "address", "", "", "AA2 2AA", ""))
+  val charityAuthorisedOfficialIndividual: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0001", "First", "Middle", "Last",
+    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
+  val charityAuthorisedOfficialIndividual2: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
+    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
+
+
   override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
 
   trait LocalSetup {
@@ -98,6 +108,12 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
     def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = None
 
+    def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = None
+
+    def mockCharityAuthorisedOfficialIndividual: Option[CharityAuthorisedOfficialIndividual] = None
+
+    def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
+
     def removeResponse: Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache() {
@@ -111,6 +127,9 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
       when(mockCacheMap.getEntry[WhatYourCharityDoes](meq("whatYourCharityDoes"))(meq(WhatYourCharityDoes.formats))).thenReturn(mockWhatYourCharityDoes)
       when(mockCacheMap.getEntry[OperationAndFunds](meq("operationAndFunds"))(meq(OperationAndFunds.formats))).thenReturn(mockOperationAndFunds)
       when(mockCacheMap.getEntry[CharityBankAccountDetails](meq("charityBankAccountDetails"))(meq(CharityBankAccountDetails.formats))).thenReturn(mockCharityBankAccountDetails)
+      when(mockCacheMap.getEntry[CharityHowManyAuthOfficials](meq("charityHowManyAuthOfficials"))(meq(CharityHowManyAuthOfficials.formats))).thenReturn(mockCharityHowManyAuthOfficials)
+      when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("authorisedOfficialIndividual1"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityAuthorisedOfficialIndividual)
+      when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityAuthorisedOfficialIndividual2)
       when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse)
     }
 
@@ -124,9 +143,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         initialiseCache()
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe Json.obj()
+        result._1.data mustBe Json.obj()
+        result._2 mustBe Seq.empty
       }
 
       "return valid object when its valid for contactDetails only" in new LocalSetup {
@@ -140,9 +160,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
       "return valid object when its valid for contactDetails and charityAddress" in new LocalSetup {
@@ -159,9 +180,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection1Completed" -> false,
           "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"GB"},"lines":["Test123","line2"]}""")))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
       "return valid object when its valid for contactDetails, charityAddress and correspondenceAddress" in new LocalSetup {
@@ -182,9 +204,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}""")))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress and regulator" in new LocalSetup {
@@ -215,9 +238,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityCommissionRegistrationNumber" -> "ccewTestRegulator"
         ))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator and charityGoverningDocument" in new LocalSetup {
@@ -256,9 +280,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "selectGoverningDocument" -> "1"
         ))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument and whatYourCharityDoes" in new LocalSetup {
@@ -304,9 +329,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection4Completed" -> false
         ))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes and operationAndFunds" in new LocalSetup {
@@ -371,12 +397,13 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection5Completed" -> false
         ))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
-      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes, operationAndFunds and charityBankAccountDetails" in new LocalSetup {
+      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes, operationAndFunds, charityBankAccountDetails, how many auth officials and two auth officials" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
 
@@ -393,6 +420,12 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         override def mockOperationAndFunds: Option[OperationAndFunds] = Some(operationAndFunds)
 
         override def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = Some(charityBankAccountDetails)
+
+        override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
+
+        override def mockCharityAuthorisedOfficialIndividual: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual)
+
+        override def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual2)
 
         initialiseCache()
 
@@ -439,12 +472,96 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "accountingPeriodEndDate" -> "--1-1",
           "isSection5Completed" -> false,
           "bankDetails" -> Json.parse("""{"accountName":"Tesco","accountNumber":"123456","sortCode":"12345678","rollNumber":"rollNumber"}"""),
-          "isSection6Completed" -> false
+          "isSection6Completed" -> false,
+          "isAddAnotherOfficial" -> true,
+          "isSection7Completed" -> false,
+          "authorisedOfficials" -> Json.arr(Json.parse(
+            """
+              |{
+              |            "isOfficialPreviousAddress": true,
+              |            "officialsPhoneNumber": {
+              |                "mobilePhone": "0123123124",
+              |                "daytimePhone": "0123123123"
+              |            },
+              |            "officialsPosition": "01",
+              |            "officialsDOB": "1990-01-01",
+              |            "isOfficialNino": true,
+              |            "officialAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA1 1AA",
+              |                "lines": [
+              |                    "current",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialPreviousAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA2 2AA",
+              |                "lines": [
+              |                    "previous",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialsName": {
+              |                "firstName": "First",
+              |                "lastName": "Last",
+              |                "middleName": "Middle",
+              |                "title": "0001"
+              |            },
+              |            "officialsNino": "AB111111A"
+              |        }""".stripMargin), Json.parse(
+            """
+              |{
+              |            "isOfficialPreviousAddress": true,
+              |            "officialsPhoneNumber": {
+              |                "mobilePhone": "0123123124",
+              |                "daytimePhone": "0123123123"
+              |            },
+              |            "officialsPosition": "01",
+              |            "officialsDOB": "1990-01-01",
+              |            "isOfficialNino": true,
+              |            "officialAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA1 1AA",
+              |                "lines": [
+              |                    "current",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialPreviousAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA2 2AA",
+              |                "lines": [
+              |                    "previous",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialsName": {
+              |                "firstName": "First",
+              |                "lastName": "Last",
+              |                "middleName": "Middle",
+              |                "title": "unsupported"
+              |            },
+              |            "officialsNino": "AB111111A"
+              |        }""".stripMargin))
         ))
 
-        val result: UserAnswers = await(service.getCacheData(optionalDataRequest))
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
-        result.data mustBe responseJson.data
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
       }
 
       "throw error if session is not valid" in new LocalSetup {

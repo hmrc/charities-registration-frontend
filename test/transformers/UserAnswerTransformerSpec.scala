@@ -17,7 +17,8 @@
 package transformers
 
 import base.SpecBase
-import models.oldCharities.{CharityAddress, CharityContactDetails, OptionalCharityAddress}
+import models.oldCharities.{CharityAddress, CharityAuthorisedOfficialIndividual, CharityContactDetails, CharityHowManyAuthOfficials, OfficialIndividualIdentity, OfficialIndividualNationalIdentityCardDetails, OptionalCharityAddress}
+import org.joda.time.LocalDate
 import play.api.libs.json.Json
 
 class UserAnswerTransformerSpec extends SpecBase {
@@ -65,6 +66,125 @@ class UserAnswerTransformerSpec extends SpecBase {
         )
       }
     }
+
+    "toUserAnswersCharityHowManyAuthOfficials" must {
+
+      "convert to isAddAnotherOfficial: true with 2 auth officials" in {
+
+        val howMany: CharityHowManyAuthOfficials = CharityHowManyAuthOfficials(Some(2))
+
+        Json.obj("charityHowManyAuthOfficials" -> Json.toJson(howMany)).transform(
+          jsonTransformer.toUserAnswersCharityHowManyAuthOfficials).asOpt.value mustBe Json.obj(
+          "isAddAnotherOfficial" -> true,
+          "isSection7Completed" -> false
+        )
+      }
+
+      "convert to isAddAnotherOfficial: true with 1 auth officials" in {
+
+        val howMany: CharityHowManyAuthOfficials = CharityHowManyAuthOfficials(Some(1))
+
+        Json.obj("charityHowManyAuthOfficials" -> Json.toJson(howMany)).transform(
+          jsonTransformer.toUserAnswersCharityHowManyAuthOfficials).asOpt.value mustBe Json.obj(
+          "isAddAnotherOfficial" -> false,
+          "isSection7Completed" -> false
+
+        )
+      }
+    }
+
+    "toOneOfficial" must {
+
+      "convert to an authorised official with nino and previous address" in {
+
+        val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("true"), "AB111111A", OfficialIndividualNationalIdentityCardDetails("", "", None))
+        val currentAddress: CharityAddress = CharityAddress("current", "address", "", "", "AA1 1AA", "")
+        val previousAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("previous", "address", "", "", "AA2 2AA", ""))
+        val authOfficial: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("01", "First", "Middle", "Last",
+          LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
+
+        Json.obj("authorisedOfficialIndividual1" -> Json.toJson(authOfficial)).transform(
+          jsonTransformer.toOneOfficial(0)).asOpt.value mustBe Json.parse(
+          """{
+            |    "isOfficialPreviousAddress": "true",
+            |    "officialsPhoneNumber": {
+            |        "mobilePhone": "0123123124",
+            |        "daytimePhone": "0123123123"
+            |    },
+            |    "officialsPosition": "01",
+            |    "officialsDOB": "1990-01-01",
+            |    "isOfficialNino": "true",
+            |    "officialAddress": {
+            |        "country": {
+            |            "code": "GB",
+            |            "name": "GB"
+            |        },
+            |        "postcode": "AA1 1AA",
+            |        "lines": [
+            |            "current",
+            |            "address"
+            |        ]
+            |    },
+            |    "officialsName": {
+            |        "firstName": "First",
+            |        "lastName": "Last",
+            |        "middleName": "Middle",
+            |        "title": "01"
+            |    },
+            |    "officialsNino": "AB111111A",
+            |    "officialsPassport": {}
+            |}""".stripMargin
+        )
+      }
+
+      "convert to an authorised official with passport and no previous address" in {
+
+        val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("false"), "",
+          OfficialIndividualNationalIdentityCardDetails("number", "United Kingdom", Some(LocalDate.parse("2100-01-01"))))
+        val currentAddress: CharityAddress = CharityAddress("current", "address", "", "", "AA1 1AA", "")
+        val previousAddress: OptionalCharityAddress = OptionalCharityAddress(Some("false"), CharityAddress("", "", "", "", "", ""))
+        val authOfficial: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("01", "First", "Middle", "Last",
+          LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
+
+        Json.obj("authorisedOfficialIndividual1" -> Json.toJson(authOfficial)).transform(
+          jsonTransformer.toOneOfficial(0)).asOpt.value mustBe Json.parse(
+          """{
+            |    "isOfficialPreviousAddress": "false",
+            |    "officialsPhoneNumber": {
+            |        "mobilePhone": "0123123124",
+            |        "daytimePhone": "0123123123"
+            |    },
+            |    "officialsPosition": "01",
+            |    "officialsDOB": "1990-01-01",
+            |    "isOfficialNino": "false",
+            |    "officialAddress": {
+            |        "country": {
+            |            "code": "GB",
+            |            "name": "GB"
+            |        },
+            |        "postcode": "AA1 1AA",
+            |        "lines": [
+            |            "current",
+            |            "address"
+            |        ]
+            |    },
+            |    "officialsName": {
+            |        "firstName": "First",
+            |        "lastName": "Last",
+            |        "middleName": "Middle",
+            |        "title": "01"
+            |    },
+            |    "officialsNino": "",
+            |    "officialsPassport": {
+            |        "passportNumber": "number",
+            |        "expiryDate": "2100-01-01",
+            |        "country": "United Kingdom"
+            |    }
+            |}""".stripMargin
+        )
+      }
+    }
+
   }
 
 }

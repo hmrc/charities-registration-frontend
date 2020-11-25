@@ -79,8 +79,8 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   lazy val getCharitiesBackend: String = servicesConfig.baseUrl("charities")
 
-  lazy val sessionCacheBaseUrl: String = servicesConfig.baseUrl("cachable.session-cache")
-  lazy val cachableSessionDomain: String = servicesConfig.getConfString("cachable.session-cache.domain", "keystore")
+  lazy val save4laterCacheBaseUrl: String = servicesConfig.baseUrl("cachable.short-lived-cache")
+  lazy val save4laterDomain: String = servicesConfig.getConfString("cachable.short-lived-cache.domain", "save4later")
 
   lazy val encryptData: Boolean = servicesConfig.getBoolean("mongodb.encrypted")
 }

@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.Assets.Redirect
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
-import models.submission.CharityTransformerConstants
+import transformers.submission.CharityTransformerConstants
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach

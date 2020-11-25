@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.submission
+package transformers.submission
 
 import models.requests.DataRequest
 import play.api.libs.functional.syntax._

@@ -65,8 +65,9 @@ object CharityRegulatorInfoDetails {
   implicit val formats: OFormat[CharityRegulatorInfoDetails] = Json.format[CharityRegulatorInfoDetails]
 }
 
-case class CharityRegulatorOtherInfoDetails (isCharityOtherRegulatorSelected: Boolean,charityRegulatorName: String,charityOtherRegistrationNumber: String)
-  extends RegulatorDetailsBase(baseisCharityRegulatorSelected = isCharityOtherRegulatorSelected,
+case class CharityRegulatorOtherInfoDetails (isCharityOtherRegulatorSelected: Boolean,charityRegulatorName: String,
+  charityOtherRegistrationNumber: String) extends RegulatorDetailsBase(
+    baseisCharityRegulatorSelected = isCharityOtherRegulatorSelected,
     baseCharityRegistrationNumber = charityOtherRegistrationNumber)
 
 
@@ -97,15 +98,12 @@ case class ScalaMonthDay(monthDay: MonthDay)
 
 object ScalaMonthDay {
 
-  implicit val MonthDayReads: Reads[ScalaMonthDay] = new Reads[ScalaMonthDay] {
-    def reads(jv: JsValue): JsResult[ScalaMonthDay] = {
-      JsSuccess(ScalaMonthDay(new MonthDay((jv \ "monthInYear").as[Int], (jv \ "dayInMonth").as[Int])))
-    }
+  implicit val MonthDayReads: Reads[ScalaMonthDay] = (jv: JsValue) => {
+    JsSuccess(ScalaMonthDay(new MonthDay((jv \ "monthInYear").as[Int], (jv \ "dayInMonth").as[Int])))
   }
 
-  implicit val MonthDayWrites: Writes[ScalaMonthDay] = new Writes[ScalaMonthDay] {
-    def writes(mt: ScalaMonthDay): JsValue = JsString(s"--${mt.monthDay.getMonthOfYear}-${mt.monthDay.getDayOfMonth}")
-  }
+  implicit val MonthDayWrites: Writes[ScalaMonthDay] = (mt: ScalaMonthDay) =>
+    JsString(s"--${mt.monthDay.getMonthOfYear}-${mt.monthDay.getDayOfMonth}")
 }
 
 case class OperationAndFundsCommon(accountPeriodEnd: ScalaMonthDay, financialAccounts: Option[Boolean],

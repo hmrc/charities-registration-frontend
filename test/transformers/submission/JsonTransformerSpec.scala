@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.submission
+package transformers.submission
 
 import base.SpecBase
 import models.{Name, SelectTitle}

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package models.oldCharities
+package transformers
 
-import models.submission.JsonTransformer
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
+import transformers.submission.JsonTransformer
 
 class UserAnswerTransformer extends JsonTransformer {
   //scalastyle:off magic.number
@@ -96,14 +96,14 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  def toUserAnswersCharityRegulator: Reads[JsObject] = {
+  private val regulator: Reads[JsArray] = for {
+    ccew <- nodeBooleanData(__ \ 'charityRegulator \ 'ccew \ 'isCharityRegulatorSelected, "ccew")
+    oscrv <- nodeBooleanData(__ \ 'charityRegulator \ 'oscr \ 'isCharityRegulatorSelected, "oscr")
+    ccni <- nodeBooleanData(__ \ 'charityRegulator \ 'ccni \ 'isCharityRegulatorSelected, "ccni")
+    other <- nodeBooleanData(__ \ 'charityRegulator \ 'other \ 'isCharityOtherRegulatorSelected, "otherRegulator")
+  } yield JsArray(Seq(ccew, oscrv, ccni, other))
 
-    val regulator = for {
-      ccew <- nodeBooleanData(__ \ 'charityRegulator \ 'ccew \ 'isCharityRegulatorSelected, "ccew")
-      oscrv <- nodeBooleanData(__ \ 'charityRegulator \ 'oscr \ 'isCharityRegulatorSelected, "oscr")
-      ccni <- nodeBooleanData(__ \ 'charityRegulator \ 'ccni \ 'isCharityRegulatorSelected, "ccni")
-      other <- nodeBooleanData(__ \ 'charityRegulator \ 'other \ 'isCharityOtherRegulatorSelected, "otherRegulator")
-    } yield JsArray(Seq(ccew, oscrv, ccni, other))
+  def toUserAnswersCharityRegulator: Reads[JsObject] = {
 
     regulator.flatMap {
       arr =>
@@ -154,26 +154,26 @@ class UserAnswerTransformer extends JsonTransformer {
       ).reduce
   }
 
-  def toUserAnswersWhatYourCharityDoes: Reads[JsObject] = {
+  private val charitablePurposes: Reads[JsArray] = for {
+    reliefOfPoverty <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'reliefOfPoverty, "reliefOfPoverty")
+    education <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'education, "education")
+    religion <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'religion, "religion")
+    healthOrSavingOfLives <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'healthOrSavingOfLives, "healthOrSavingOfLives")
+    citizenshipOrCommunityDevelopment <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'citizenshipOrCommunityDevelopment, "citizenshipOrCommunityDevelopment")
+    artsCultureOrScience <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'artsCultureHeritageOrScience, "artsCultureOrScience")
+    amateurSport <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'amateurSport, "amateurSport")
+    humanRights <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'humanRights, "humanRights")
+    environmentalProtection <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'environmentalProtectionOrImprovement, "environmentalProtection")
+    reliefOfYouthAge <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'reliefOfThoseInNeed, "reliefOfYouthAge")
+    animalWelfare <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'animalWelfare, "animalWelfare")
+    armedForcesOfTheCrown <-
+      nodeBooleanData(__ \ 'whatYourCharityDoes \ 'promotionOfEfficiencyInArmedForcesPoliceFireAndRescueService, "armedForcesOfTheCrown")
+    other <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'whatYourCharityDoesOther, "other")
+  } yield JsArray(Seq(reliefOfPoverty, education, religion, healthOrSavingOfLives, citizenshipOrCommunityDevelopment,
+    artsCultureOrScience, amateurSport, humanRights, environmentalProtection, reliefOfYouthAge, animalWelfare,
+    armedForcesOfTheCrown, other))
 
-    val charitablePurposes = for {
-      reliefOfPoverty <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'reliefOfPoverty, "reliefOfPoverty")
-      education <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'education, "education")
-      religion <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'religion, "religion")
-      healthOrSavingOfLives <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'healthOrSavingOfLives, "healthOrSavingOfLives")
-      citizenshipOrCommunityDevelopment <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'citizenshipOrCommunityDevelopment, "citizenshipOrCommunityDevelopment")
-      artsCultureOrScience <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'artsCultureHeritageOrScience, "artsCultureOrScience")
-      amateurSport <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'amateurSport, "amateurSport")
-      humanRights <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'humanRights, "humanRights")
-      environmentalProtection <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'environmentalProtectionOrImprovement, "environmentalProtection")
-      reliefOfYouthAge <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'reliefOfThoseInNeed, "reliefOfYouthAge")
-      animalWelfare <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'animalWelfare, "animalWelfare")
-      armedForcesOfTheCrown <-
-        nodeBooleanData(__ \ 'whatYourCharityDoes \ 'promotionOfEfficiencyInArmedForcesPoliceFireAndRescueService, "armedForcesOfTheCrown")
-      other <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'whatYourCharityDoesOther, "other")
-    } yield JsArray(Seq(reliefOfPoverty, education, religion, healthOrSavingOfLives, citizenshipOrCommunityDevelopment,
-      artsCultureOrScience, amateurSport, humanRights, environmentalProtection, reliefOfYouthAge, animalWelfare,
-      armedForcesOfTheCrown, other))
+  def toUserAnswersWhatYourCharityDoes: Reads[JsObject] = {
 
     charitablePurposes.flatMap {
       arr =>
@@ -191,43 +191,43 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  def toUserAnswersOperationAndFunds: Reads[JsObject] = {
+  private val futureFunds: Reads[JsArray] = for {
+    donations <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'donations, "donations")
+    fundraising <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'fundraising, "fundraising")
+    grants <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'grants, "grants")
+    membershipSubscriptions <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'membershipSubscriptions, "membershipSubscriptions")
+    tradingIncome <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'tradingIncome, "tradingIncome")
+    tradingSubsidiaries <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'tradingSubsidiaries, "tradingSubsidiaries")
+    investmentIncome <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'investmentIncome, "investmentIncome")
+    other <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'other, "other")
+  } yield JsArray(Seq(donations, fundraising, grants, membershipSubscriptions, tradingIncome,
+    tradingSubsidiaries, investmentIncome, other))
 
-    val futureFunds = for {
-      donations <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'donations, "donations")
-      fundraising <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'fundraising, "fundraising")
-      grants <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'grants, "grants")
-      membershipSubscriptions <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'membershipSubscriptions, "membershipSubscriptions")
-      tradingIncome <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'tradingIncome, "tradingIncome")
-      tradingSubsidiaries <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'tradingSubsidiaries, "tradingSubsidiaries")
-      investmentIncome <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'investmentIncome, "investmentIncome")
-      other <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'other, "other")
-    } yield JsArray(Seq(donations, fundraising, grants, membershipSubscriptions, tradingIncome,
-      tradingSubsidiaries, investmentIncome, other))
+  private val whereWillCharityOperate = for {
+    overseas <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'overseas, "5")
+    england <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'englandAndWales, "1")
+    wales <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'englandAndWales, "2")
+    oscrv <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'scotland, "3")
+    ccni <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'northernIreland, "4")
+    ukwide <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'ukWide, "6")
+  } yield JsArray(Seq(england, wales, oscrv, ccni, overseas, ukwide))
 
-    val whereWillCharityOperate = for {
-      overseas <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'overseas, "5")
-      england <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'englandAndWales, "1")
-      wales <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'englandAndWales, "2")
-      oscrv <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'scotland, "3")
-      ccni <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'northernIreland, "4")
-      ukwide <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'ukWide, "6")
-    } yield JsArray(Seq(england, wales, oscrv, ccni, overseas, ukwide))
+  private val updatedWhereWillCharityOperate: Reads[JsObject] = whereWillCharityOperate.flatMap { arr =>
 
-    val updatedWhereWillCharityOperate = whereWillCharityOperate.flatMap { arr =>
+    def containsList(l1: Seq[JsString]) = arr.value.exists(_ != JsString("")) && l1.forall(arr.value.toList.contains)
 
-      def containsList(l1: Seq[JsString]) = arr.value.exists(_ != JsString("")) && l1.forall(arr.value.toList.contains)
-
-      arr.value.toList match {
-        case _ if containsList(Seq(JsString("5"), JsString("6"))) =>
-          (__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"), JsString("5"))))
-        case _ if containsList(Seq(JsString("6"))) =>
-          (__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"))))
-        case list if list.exists(_ != JsString("")) =>
-          (__ \ 'operatingLocation).json.put(JsArray(arr.value.filter(_ != JsString(""))))
-        case _ => doNothing
-      }
+    arr.value.toList match {
+      case _ if containsList(Seq(JsString("5"), JsString("6"))) =>
+        (__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"), JsString("5"))))
+      case _ if containsList(Seq(JsString("6"))) =>
+        (__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"))))
+      case list if list.exists(_ != JsString("")) =>
+        (__ \ 'operatingLocation).json.put(JsArray(arr.value.filter(_ != JsString(""))))
+      case _ => doNothing
     }
+  }
+
+  def toUserAnswersOperationAndFunds: Reads[JsObject] = {
 
     (
       nodeJsArrayData(futureFunds, __ \ 'selectFundRaising) and updatedWhereWillCharityOperate and

@@ -132,12 +132,12 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.isExternalTest mustBe false
       }
 
-      "sessionCacheBaseUrl" in {
-        frontendAppConfig.sessionCacheBaseUrl mustBe "http://localhost:8400"
+      "save4laterCacheBaseUrl" in {
+        frontendAppConfig.save4laterCacheBaseUrl mustBe "http://localhost:9272"
       }
 
-      "cachableSessionDomain" in {
-        frontendAppConfig.cachableSessionDomain mustBe "keystore"
+      "save4laterDomain" in {
+        frontendAppConfig.save4laterDomain mustBe "save4later"
       }
 
       "encryptData" in {

@@ -38,8 +38,8 @@ class CharitiesShortLivedCacheSpec extends SpecBase with WireMockHelper with Moc
         bind[FrontendAppConfig].toInstance(mockFrontendAppConfig)
       )
 
-  when(mockFrontendAppConfig.sessionCacheBaseUrl) thenReturn getUrl
-  when(mockFrontendAppConfig.cachableSessionDomain) thenReturn "keystore"
+  when(mockFrontendAppConfig.save4laterCacheBaseUrl) thenReturn getUrl
+  when(mockFrontendAppConfig.save4laterDomain) thenReturn "keystore"
 
   val connector: CharitiesShortLivedCache = inject[CharitiesShortLivedCache]
 

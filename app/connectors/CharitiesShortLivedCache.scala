@@ -26,8 +26,8 @@ class CharitiesShortLivedHttpCaching @Inject()(val http: HttpClient,
   appConfig: FrontendAppConfig) extends ShortLivedHttpCaching {
 
     override lazy val defaultSource: String = "charities-frontend"
-    override lazy val baseUri: String = appConfig.sessionCacheBaseUrl
-    override lazy val domain: String = appConfig.cachableSessionDomain
+    override lazy val baseUri: String = appConfig.save4laterCacheBaseUrl
+    override lazy val domain: String = appConfig.save4laterDomain
 }
 
 class CharitiesShortLivedCache @Inject()(val shortLiveCache: CharitiesShortLivedHttpCaching,

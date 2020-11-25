@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package models.oldCharities
+package transformers
 
 import base.SpecBase
+import models.oldCharities.{CharityAddress, CharityContactDetails, OptionalCharityAddress}
 import play.api.libs.json.Json
 
 class UserAnswerTransformerSpec extends SpecBase {

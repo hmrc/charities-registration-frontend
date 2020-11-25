@@ -26,6 +26,8 @@ import pages.sections.Section1Page
 import play.api.Logger
 import play.api.libs.json._
 import repositories.SessionRepository
+import transformers.UserAnswerTransformer
+import transformers.CharitiesJsObject
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 

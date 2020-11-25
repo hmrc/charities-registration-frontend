@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package models
-
 import play.api.Logger
-import play.api.libs.json.{JsError, JsObject, JsSuccess, Json, OFormat, Reads}
+import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-package object oldCharities {
+package object transformers {
+
   private val logger = Logger(this.getClass)
 
   implicit class CharitiesJsObject(val accumulator: JsObject) {

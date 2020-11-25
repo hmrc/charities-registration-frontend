@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.submission
+package transformers.submission
 
 import javax.inject.Inject
 import models.requests.DataRequest

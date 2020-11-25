@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.submission
+package transformers.submission
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.JsObjectReducer

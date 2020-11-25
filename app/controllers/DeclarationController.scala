@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
-import models.submission.CharitySubmissionTransformer
+import transformers.submission.CharitySubmissionTransformer
 import pages.AcknowledgementReferencePage
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess}

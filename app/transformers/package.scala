@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import models.transformers.TransformerKeeper
 import play.api.Logger
 import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -22,22 +23,45 @@ package object transformers {
 
   private val logger = Logger(this.getClass)
 
-  implicit class CharitiesJsObject(val accumulator: JsObject) {
+  implicit class CharitiesJsObject(val transformerKeeper: TransformerKeeper) {
 
-    def getJson[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String)(implicit format: OFormat[T]): JsObject = {
+    def getJson[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String)(implicit format: OFormat[T]): TransformerKeeper = {
       cacheMap.getEntry[T](key) match {
         case Some(result) =>
           Json.obj(key -> Json.toJson(result)).transform(transformer) match {
             case JsSuccess(requestJson, _) =>
               logger.info(s"[CharitiesKeyStoreService][getCacheData] $key transformation successful")
-              accumulator ++ requestJson
+              TransformerKeeper(transformerKeeper.accumulator ++ requestJson, transformerKeeper.errors)
 
             case JsError(err) =>
-              logger.error(s"[CharitiesKeyStoreService][getCacheData] $key transformation failed with errors : " + err)
-              throw new RuntimeException("transformation failed for existing charities data migration")
+              logger.error(s"[CharitiesKeyStoreService][getCacheData] $key transformation failed with errors: " + err)
+              TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
           }
         case None =>
-          accumulator
+          transformerKeeper
+      }
+    }
+
+    def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(implicit format: OFormat[T]): TransformerKeeper = {
+      cacheMap.getEntry[T](key) match {
+        case Some(result) =>
+          Json.obj(key -> Json.toJson(result)).transform(transformer) match {
+            case JsSuccess(requestJson, _) =>
+                val combinedPreviousAndNewOfficial = transformerKeeper.accumulator.fields
+                  .find(_._1 == goalKey)
+                  .map(_._2.as[JsArray] ++ requestJson(goalKey).as[JsArray])
+
+                logger.info(s"[CharitiesKeyStoreService][getCacheData] $key array transformation successful")
+
+                TransformerKeeper(transformerKeeper.accumulator ++ Json.obj(
+                  "authorisedOfficials" -> combinedPreviousAndNewOfficial), transformerKeeper.errors)
+
+            case JsError(err) =>
+              logger.error(s"[CharitiesKeyStoreService][getCacheData] $key transformation failed with errors: " + err)
+              TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
+          }
+        case None =>
+          transformerKeeper
       }
     }
   }

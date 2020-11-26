@@ -51,5 +51,5 @@ POST      /declare-and-send/email-or-post               controllers.EmailOrPostC
 ### Registration Sent Page route
 ### ----------------
 
-GET       /registration-sent                            controllers.RegistrationSentController.onPageLoad
-GET       /registration-sent/change                     controllers.RegistrationSentController.onChange
+GET       /declare-and-send/registration-sent           controllers.RegistrationSentController.onPageLoad
+GET       /declare-and-send/registration-sent/change    controllers.RegistrationSentController.onChange

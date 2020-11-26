@@ -23,7 +23,6 @@ import connectors.CharitiesShortLivedCache
 import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
-import org.joda.time.{LocalDate, MonthDay}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
@@ -31,13 +30,14 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{JsPath, Json, JsonValidationError}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
+import utils.TestData
 
 import scala.concurrent.Future
 
-class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach {
+class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
 
   lazy val mockCacheMap: CacheMap = mock[CacheMap]
   lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
@@ -59,45 +59,6 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
   private val requestWithSession = fakeRequest.withSession(SessionKeys.sessionId -> sessionId)
 
   private val optionalDataRequest = OptionalDataRequest(requestWithSession, "8799940975137654", None)
-
-  val contactDetails: CharityContactDetails = CharityContactDetails("Test123", None, "1234567890", None, None, None)
-  val charityAddress: CharityAddress = CharityAddress("Test123", "line2", "", "", "postcode", "")
-  val correspondenceAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("Test123", "line2", "", "", "postcode", ""))
-  val charityRegulator: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = true, "ccewTestRegulator"),
-    CharityRegulatorInfoDetails(isCharityRegulatorSelected = true, "ccewTestRegulator"), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
-    CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = true, "otherRegulatorName", "otherRegulatorRegistrationNumber"), CharityReasonForNotRegistering(None, None))
-  val charityGoverningDocument: CharityGoverningDocument = CharityGoverningDocument("2", "", "test", Some(LocalDate.parse("1990-11-11")), Some(true))
-  val whatYourCharityDoes: WhatYourCharityDoes = WhatYourCharityDoes("objectives", reliefOfPoverty = true, education = false, animalWelfare = false,
-    healthOrSavingOfLives = false, citizenshipOrCommunityDevelopment = false, reliefOfThoseInNeed = false, religion = false,
-    amateurSport = false, humanRights = false, artsCultureHeritageOrScience = false, environmentalProtectionOrImprovement = false,
-    promotionOfEfficiencyInArmedForcesPoliceFireAndRescueService = false, whatYourCharityDoesOther = false, "otherReason", "benefitThePublic")
-  val operationAndFunds: OperationAndFunds = OperationAndFunds(
-    OperationAndFundsCommon(ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)), Some(true), Some(true), Some("noBankStatements")),
-    FutureFunds(donations = true, fundraising = false, grants = false, membershipSubscriptions = false, tradingIncome = false, tradingSubsidiaries = false, investmentIncome = false, other = false),
-    Some("fundsOther"), Some(100), Some(100), Some(false),
-    WhereWillCharityOperate(englandAndWales = true, scotland = false, northernIreland = false, ukWide = false, overseas = false),
-    OtherCountriesOfOperation(Some("EN"), Some("EN"), None, None, None))
-  val charityBankAccountDetails: CharityBankAccountDetails = CharityBankAccountDetails("Tesco", "123456", "12345678", Some("rollNumber"))
-
-  val charityHowManyAuthOfficials: CharityHowManyAuthOfficials = CharityHowManyAuthOfficials(Some(22))
-  val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("true"), "AB111111A", OfficialIndividualNationalIdentityCardDetails("", "", None))
-  val identityPassport: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("false"), "", OfficialIndividualNationalIdentityCardDetails("PaspNum", "Country", Some(LocalDate.parse("2100-01-01"))))
-  val currentAddress: CharityAddress = CharityAddress("current", "address", "", "", "AA1 1AA", "")
-  val previousAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("previous", "address", "", "", "AA2 2AA", ""))
-  val charityAuthorisedOfficialIndividual1: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0001", "First", "Middle", "Last",
-    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
-  val charityAuthorisedOfficialIndividual2: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
-    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identityPassport)
-
-  val charityHowManyOtherOfficials: CharityHowManyOtherOfficials = CharityHowManyOtherOfficials(Some(33))
-  val charityOtherOfficialIndividual1: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0001", "First", "Middle", "Last",
-    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
-  val charityOtherOfficialIndividual2: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
-    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identityPassport)
-  val charityOtherOfficialIndividual3: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
-    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
-
-
 
   override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
 
@@ -132,7 +93,15 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
     def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] = None
 
-    def removeResponse: Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
+    def mockCharityAddNominee: Option[CharityAddNominee] = None
+
+    def mockCharityNomineeStatus: Option[CharityNomineeStatus] = None
+
+    def mockCharityNomineeIndividual: Option[CharityNomineeIndividual] = None
+
+    def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] = None
+
+    def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache() {
       when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(Some(mockCacheMap)))
@@ -152,6 +121,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
       when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual1"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityOtherOfficialIndividual1)
       when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityOtherOfficialIndividual2)
       when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual3"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityOtherOfficialIndividual3)
+      when(mockCacheMap.getEntry[CharityAddNominee](meq("charityAddNominee"))(meq(CharityAddNominee.formats))).thenReturn(mockCharityAddNominee)
+      when(mockCacheMap.getEntry[CharityNomineeStatus](meq("charityNomineeStatus"))(meq(CharityNomineeStatus.formats))).thenReturn(mockCharityNomineeStatus)
+      when(mockCacheMap.getEntry[CharityNomineeIndividual](meq("charityNomineeIndividual"))(meq(CharityNomineeIndividual.formats))).thenReturn(mockCharityNomineeIndividual)
+      when(mockCacheMap.getEntry[CharityNomineeOrganisation](meq("charityNomineeOrganisation"))(meq(CharityNomineeOrganisation.formats))).thenReturn(mockCharityNomineeOrganisation)
       when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse)
     }
 
@@ -266,7 +239,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         result._2 mustBe Seq.empty
       }
 
-      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator and charityGoverningDocument" in new LocalSetup {
+      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator and charityGoverningDocument2" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
 
@@ -276,7 +249,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
 
-        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument)
+        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
 
         initialiseCache()
 
@@ -308,7 +281,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         result._2 mustBe Seq.empty
       }
 
-      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument and whatYourCharityDoes" in new LocalSetup {
+      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2 and whatYourCharityDoes" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
 
@@ -318,7 +291,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
 
-        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument)
+        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
 
         override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
 
@@ -357,7 +330,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         result._2 mustBe Seq.empty
       }
 
-      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes and operationAndFunds" in new LocalSetup {
+      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2, whatYourCharityDoes and operationAndFunds" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
 
@@ -367,7 +340,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
 
-        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument)
+        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
 
         override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
 
@@ -425,23 +398,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         result._2 mustBe Seq.empty
       }
 
-      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes, operationAndFunds, charityBankAccountDetails, how many auth officials and two auth officials" in new LocalSetup {
-
-        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
-        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
-
-        override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
-
-        override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
-
-        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument)
-
-        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
-
-        override def mockOperationAndFunds: Option[OperationAndFunds] = Some(operationAndFunds)
-
-        override def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = Some(charityBankAccountDetails)
+      "return valid object when its valid for how many auth officials and two auth officials" in new LocalSetup {
 
         override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
 
@@ -452,49 +409,6 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         initialiseCache()
 
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
-          "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
-          "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
-          "isSection1Completed" -> false,
-          "canWeSendLettersToThisAddress" -> false,
-          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "isSection2Completed" -> false,
-          "charityRegulator" -> Json.parse("""["ccew","oscr","otherRegulator"]"""),
-          "isCharityRegulator" -> true,
-          "charityOtherRegulatorDetails" -> Json.parse("""{"regulatorName":"otherRegulatorName","registrationNumber":"otherRegulatorRegistrationNumber"}"""),
-          "scottishRegulatorRegNumber" -> "ccewTestRegulator",
-          "nIRegulatorRegNumber" -> "",
-          "charityCommissionRegistrationNumber" -> "ccewTestRegulator",
-          "whenGoverningDocumentApproved" -> "1990-11-11",
-          "sectionsChangedGoverningDocument" -> "test",
-          "governingDocumentName" -> "",
-          "isApprovedGoverningDocument" -> true,
-          "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "1",
-          "charitableObjectives" -> "objectives",
-          "whatYourCharityDoesOtherReason" -> "otherReason",
-          "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),
-          "publicBenefits" -> "benefitThePublic",
-          "isSection4Completed" -> false,
-          "estimatedIncome" -> 100,
-          "actualIncome" -> 100,
-          "isFinancialAccounts" -> true,
-          "otherFundRaising" -> "fundsOther",
-          "publicBenefits" -> "benefitThePublic",
-          "isApprovedGoverningDocument" -> true,
-          "isSection5Completed" -> false,
-          "whatYourCharityDoesOtherReason" -> "otherReason",
-          "operatingLocation" -> Json.parse("""["1","2"]"""),
-          "selectFundRaising" -> Json.parse("""["donations"]"""),
-          "whenGoverningDocumentApproved" -> "1990-11-11",
-          "governingDocumentName" -> "",
-          "publicBenefits" -> "benefitThePublic",
-          "isBankStatements" -> true,
-          "whyNoBankStatement" -> "noBankStatements",
-          "accountingPeriodEndDate" -> "--1-1",
-          "isSection5Completed" -> false,
-          "bankDetails" -> Json.parse("""{"accountName":"Tesco","accountNumber":"123456","sortCode":"12345678","rollNumber":"rollNumber"}"""),
-          "isSection6Completed" -> false,
           "isAddAnotherOfficial" -> true,
           "isSection7Completed" -> false,
           "authorisedOfficials" -> Json.arr(Json.parse(
@@ -600,7 +514,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
 
-        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument)
+        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
 
         override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
 
@@ -892,6 +806,96 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           )
 
         ))
+
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
+      }
+
+      "return valid object when its valid charityAddNominee" in new LocalSetup {
+
+        override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityNoNominee)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSection9Completed" -> true,
+          "nominee" -> Json.parse("""{"isAuthoriseNominee":false}""")))
+
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
+      }
+
+      "return valid object when its valid charityNomineeStatus" in new LocalSetup {
+
+        override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
+
+        override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusInd)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSection9Completed" -> false,
+          "nominee" -> Json.parse("""{"chooseNominee":true,"isAuthoriseNominee":true}""")))
+
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
+      }
+
+      "return valid object when its valid charityNomineeStatus, charityNomineeIndividual" in new LocalSetup {
+
+        override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
+
+        override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusInd)
+
+        override def mockCharityNomineeIndividual: Option[CharityNomineeIndividual] = Some(charityNomineeIndividual)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSection9Completed" -> false,
+          "nominee" -> Json.parse(
+            """{"chooseNominee":true,"isAuthoriseNominee":true,
+							|"individual":{"isIndividualPreviousAddress":false,"individualDOB":"2000-10-10","isIndividualNino":true,
+							|"individualAddress":{"country":{"code":"UK","name":"UK"},"postcode":"","lines":["Line1","Line2","Line3","Line5"]},
+							|"isIndividualNomineePayments":false,"individualNino":"CS700100A",
+							|"individualName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
+							|"individualPhoneNumber":{"daytimePhone":""}}}""".stripMargin)))
+
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
+      }
+
+      "return valid object when its valid charityNomineeStatus, charityNomineeOrganisation" in new LocalSetup {
+
+        override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
+
+        override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusOrg)
+
+        override def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] = Some(charityNomineeOrganisation)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSection9Completed" -> false,
+          "nominee" -> Json.parse(
+            """{"chooseNominee":false,"isAuthoriseNominee":true,
+							|"organisation":{"isOrganisationPreviousAddress":true,"isOrganisationNino":false,
+							|"isOrganisationNomineePayments":true,"organisationName":"Tesco",
+							|"organisationPreviousAddress":{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]},
+							|"organisationAuthorisedPersonName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
+							|"organisationAuthorisedPersonDOB":"2000-10-10",
+							|"organisationAddress":{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]},
+							|"organisationBankDetails":{"accountName":"AABB","rollNumber":"BB","accountNumber":"12345678","sortCode":"123456"},
+							|"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
+							|"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 

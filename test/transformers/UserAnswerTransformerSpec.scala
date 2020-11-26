@@ -17,11 +17,12 @@
 package transformers
 
 import base.SpecBase
-import models.oldCharities.{CharityAddress, CharityAuthorisedOfficialIndividual, CharityContactDetails, CharityHowManyAuthOfficials, CharityHowManyOtherOfficials, OfficialIndividualIdentity, OfficialIndividualNationalIdentityCardDetails, OptionalCharityAddress}
+import models.oldCharities._
 import org.joda.time.LocalDate
 import play.api.libs.json.Json
+import utils.TestData
 
-class UserAnswerTransformerSpec extends SpecBase {
+class UserAnswerTransformerSpec extends SpecBase with TestData {
   //scalastyle:off magic.number
   val jsonTransformer: UserAnswerTransformer = new UserAnswerTransformer
 
@@ -30,9 +31,6 @@ class UserAnswerTransformerSpec extends SpecBase {
     "toUserAnswerCharityContactDetails" must {
 
       "convert the ContactDetails" in {
-
-        val contactDetails: CharityContactDetails = CharityContactDetails("Test123", None, "1234567890", None, None, None)
-
         Json.obj("charityContactDetails" -> Json.toJson(contactDetails)).transform(
           jsonTransformer.toUserAnswerCharityContactDetails).asOpt.value mustBe Json.obj(
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
@@ -44,9 +42,6 @@ class UserAnswerTransformerSpec extends SpecBase {
     "toUserAnswerCharityOfficialAddress" must {
 
       "convert the OfficialAddress" in {
-
-        val charityAddress: CharityAddress = CharityAddress("Test123", "line2", "", "", "postcode", "")
-
         Json.obj("charityOfficialAddress" -> Json.toJson(charityAddress)).transform(
           jsonTransformer.toUserAnswerCharityOfficialAddress).asOpt.value mustBe Json.obj(
           "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"GB"},"lines":["Test123","line2"]}"""))
@@ -56,14 +51,59 @@ class UserAnswerTransformerSpec extends SpecBase {
     "toUserAnswerCorrespondenceAddress" must {
 
       "convert the CorrespondenceAddress" in {
-
-        val correspondenceAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("Test123", "line2", "", "", "postcode", ""))
-
         Json.obj("correspondenceAddress" -> Json.toJson(correspondenceAddress)).transform(
           jsonTransformer.toUserAnswerCorrespondenceAddress).asOpt.value mustBe Json.obj(
           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "canWeSendLettersToThisAddress" -> false
         )
+      }
+    }
+
+    "toUserAnswersCharityRegulator" must {
+
+      "convert to correct charityRegulator " in {
+        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator)).transform(
+          jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
+          """{"isSection2Completed":false,"isCharityRegulator":true,
+						|"selectWhyNoRegulator":"NotRegister","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+      }
+    }
+
+    "toUserAnswersCharityGoverningDocument" must {
+
+      "convert to correct GoverningDocument for document 1" in {
+        Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument1)).transform(
+          jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
+          """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"3"}""".stripMargin)
+      }
+
+      "convert to correct GoverningDocument for document 3" in {
+        Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument3)).transform(
+          jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
+          """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"4"}""".stripMargin)
+      }
+
+      "convert to correct GoverningDocument for document 4" in {
+        Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument4)).transform(
+          jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
+          """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"5"}""".stripMargin)
+      }
+
+      "convert to correct GoverningDocument for document 6" in {
+        Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument6)).transform(
+          jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
+          """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"2"}""".stripMargin)
+      }
+
+      "convert to correct GoverningDocument for document 7" in {
+        Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument7)).transform(
+          jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
+          """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"6"}""".stripMargin)
       }
     }
 
@@ -129,31 +169,6 @@ class UserAnswerTransformerSpec extends SpecBase {
           jsonTransformer.toUserAnswersCharityHowManyOtherOfficials).asOpt.value mustBe Json.obj()
       }
     }
-
-    "titleFilter" must {
-
-      (1 to 4).foreach { index =>
-
-        s"pick the title if it's 000$index" in {
-
-          Json.obj("authorisedOfficialIndividual1" -> Json.obj("title" -> s"000$index")).transform(
-            jsonTransformer.titleFilter(0, "authorised")).asOpt.value mustBe Json.obj("title" -> s"000$index")
-        }
-      }
-
-      "put down unsupported if the title is outside the accepted range" in {
-
-        Json.obj("authorisedOfficialIndividual1" -> Json.obj("title" -> "0005")).transform(
-          jsonTransformer.titleFilter(0, "authorised")).asOpt.value mustBe Json.obj("title" -> "unsupported")
-      }
-
-      "do nothing if title isn't present" in {
-
-        Json.obj("authorisedOfficialIndividual1" -> Json.obj()).transform(
-          jsonTransformer.titleFilter(0, "authorised")).asOpt.value mustBe Json.obj()
-      }
-    }
-
 
     "toOneOfficial" must {
 
@@ -256,6 +271,22 @@ class UserAnswerTransformerSpec extends SpecBase {
       }
     }
 
+    "toUserAnswersCharityAddNominee" must {
+
+      "convert to correct charityAddNominee" in {
+        Json.obj("charityAddNominee" -> Json.toJson(CharityAddNominee(None))).transform(
+          jsonTransformer.toUserAnswersCharityAddNominee).asOpt.value mustBe Json.parse(
+          """{"isSection9Completed":false,"nominee":{"isAuthoriseNominee":false}}""".stripMargin)
+      }
+    }
+
+    "toUserAnswersCharityNomineeStatus" must {
+
+      "convert to correct charityNomineeStatus" in {
+        Json.obj("charityNomineeStatus" -> Json.toJson(CharityNomineeStatus(None))).transform(
+          jsonTransformer.toUserAnswersCharityNomineeStatus).asOpt.value mustBe Json.obj()
+      }
+    }
   }
 
 }

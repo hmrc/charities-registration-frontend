@@ -174,26 +174,6 @@ object CharityHowManyAuthOfficials {
   implicit val formats: OFormat[CharityHowManyAuthOfficials] = Json.format[CharityHowManyAuthOfficials]
 }
 
-case class OfficialIndividualNationalIdentityCardDetails(
-  identityCardNumber: String,
-  countryOfIssue: String,
-  expiryDate: Option[LocalDate])
-
-object OfficialIndividualNationalIdentityCardDetails {
-
-  implicit val formats: OFormat[OfficialIndividualNationalIdentityCardDetails] = Json.format[OfficialIndividualNationalIdentityCardDetails]
-}
-
-case class OfficialIndividualIdentity(
-  nationalInsuranceNumberPossession: Option[String],
-  niNumberUK: String,
-  officialIndividualIdentityCardDetails: OfficialIndividualNationalIdentityCardDetails)
-
-object OfficialIndividualIdentity {
-
-  implicit val formats: OFormat[OfficialIndividualIdentity] = Json.format[OfficialIndividualIdentity]
-}
-
 case class CharityAuthorisedOfficialIndividual(
   title: String,
   firstName: String,
@@ -218,4 +198,109 @@ case class CharityHowManyOtherOfficials(numberOfOtherOfficials: Option[Int])
 object CharityHowManyOtherOfficials {
 
   implicit val formats: OFormat[CharityHowManyOtherOfficials] = Json.format[CharityHowManyOtherOfficials]
+}
+
+case class CharityAddNominee(nominee: Option[Boolean])
+
+object CharityAddNominee {
+
+  implicit val formats: OFormat[CharityAddNominee] = Json.format[CharityAddNominee]
+}
+
+case class CharityNomineeStatus(nomineeStatus: Option[String])
+
+object CharityNomineeStatus {
+
+  implicit val formats: OFormat[CharityNomineeStatus] = Json.format[CharityNomineeStatus]
+}
+
+
+case class OfficialIndividualNationalIdentityCardDetails (
+ identityCardNumber: String,
+ countryOfIssue: String,
+ expiryDate: Option[LocalDate]
+)
+
+object OfficialIndividualNationalIdentityCardDetails {
+
+  implicit val formats: OFormat[OfficialIndividualNationalIdentityCardDetails] = Json.format[OfficialIndividualNationalIdentityCardDetails]
+}
+
+case class OfficialIndividualIdentity(
+ nationalInsuranceNumberPossession: Option[String],
+ niNumberUK: String,
+ officialIndividualIdentityCardDetails: OfficialIndividualNationalIdentityCardDetails
+)
+
+object OfficialIndividualIdentity {
+
+  implicit val formats: OFormat[OfficialIndividualIdentity] = Json.format[OfficialIndividualIdentity]
+}
+
+case class NomineePaymentDetails (
+ nomineeOrgAcctRef:String,
+ nomineeCommonPaymentDetails: CharityBankAccountDetails
+)
+
+object NomineePaymentDetails {
+
+  implicit val formats: OFormat[NomineePaymentDetails] = Json.format[NomineePaymentDetails]
+}
+
+case class NomineeBankDetails(
+  authorisedToReceivePayments: Option[String],
+  nomineePaymentDetails: NomineePaymentDetails
+)
+
+object NomineeBankDetails {
+
+  implicit val formats: OFormat[NomineeBankDetails] = Json.format[NomineeBankDetails]
+}
+
+case class CharityNomineeIndividual(
+   title: String,
+   firstName: String,
+   middleName: Option[String],
+   lastName: String,
+   dateOfBirth: LocalDate,
+   dayTimePhoneNumber: String,
+   mobilePhoneNumber: Option[String],
+   emailAddress: Option[String],
+   nomineeIndividualHomeAddress: CharityAddress,
+   nomineeIndividualPreviousAddress: OptionalCharityAddress,
+   nomineeIndividualIdentity: OfficialIndividualIdentity,
+   nomineeIndividualBankDetails: NomineeBankDetails
+  )
+
+object CharityNomineeIndividual {
+
+  implicit val formats: OFormat[CharityNomineeIndividual] = Json.format[CharityNomineeIndividual]
+}
+
+case class NomineeOrgPersonalDetails(
+    title: String,
+    firstName: String,
+    middleName: Option[String],
+    lastName: String,
+    dateOfBirth: LocalDate
+  )
+
+object NomineeOrgPersonalDetails {
+
+  implicit val formats: OFormat[NomineeOrgPersonalDetails] = Json.format[NomineeOrgPersonalDetails]
+}
+
+case class CharityNomineeOrganisation(
+   orgFullName: String,
+   orgPhoneNumber: String,
+   address: CharityAddress,
+   nomineeOrgPreviousAddress: OptionalCharityAddress,
+   nomineeOrgPersonalDetails: NomineeOrgPersonalDetails,
+   nomineeOrgNIDetails: OfficialIndividualIdentity,
+   nomineeBankAccountDetails: NomineeBankDetails
+ )
+
+object CharityNomineeOrganisation {
+
+  implicit val formats: OFormat[CharityNomineeOrganisation] = Json.format[CharityNomineeOrganisation]
 }

@@ -23,15 +23,15 @@ import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
 import pages.IsSwitchOverUserPage
-import pages.sections.{Section1Page, Section7Page, Section8Page}
+import pages.sections.{Section1Page, Section7Page, Section8Page, Section9Page}
 import play.api.Logger
 import play.api.libs.json._
 import repositories.SessionRepository
-import transformers.UserAnswerTransformer
-import transformers.CharitiesJsObject
+import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
+import viewmodels.nominees.NomineeStatusHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -42,6 +42,30 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
   val sessionRepository: SessionRepository){
 
   private val logger = Logger(this.getClass)
+
+  private def isSection1Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
+    userAnswers.get(Section1Page) match {
+      case Some(_) => userAnswers.set(Section1Page, checkComplete(userAnswers))
+      case _ => Success(userAnswers)
+    }
+  }
+
+  private def isSection7Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
+    userAnswers.get(Section7Page) match {
+      case Some(_) => userAnswers.set(Section7Page,
+        AuthorisedOfficialsStatusHelper.checkComplete(userAnswers) && AuthorisedOfficialsStatusHelper.validateDataFromOldService(userAnswers))
+      case _ => Success(userAnswers)
+    }
+  }
+
+  private def isSection9Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
+    userAnswers.get(Section9Page) match {
+      case Some(_) =>
+        userAnswers.set(Section9Page,
+        NomineeStatusHelper.checkComplete(userAnswers) && NomineeStatusHelper.validateDataFromOldService(userAnswers))
+      case _ => Success(userAnswers)
+    }
+  }
 
   private def isSection8Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
     userAnswers.get(Section8Page) match {
@@ -57,6 +81,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
 
     cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>
+
         val result = TransformerKeeper(Json.obj(), Seq.empty)
           .getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails")
           .getJson[CharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCharityOfficialAddress, "charityOfficialAddress")
@@ -81,6 +106,11 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
           .getJsonOfficials[CharityAuthorisedOfficialIndividual](
             cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(2, "other"),
             "otherOfficialIndividual3", "otherOfficials")
+          .getJson[CharityAddNominee](cacheMap, userAnswerTransformer.toUserAnswersCharityAddNominee, "charityAddNominee")
+          .getJson[CharityNomineeStatus](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeStatus, "charityNomineeStatus")
+          .getJson[CharityNomineeIndividual](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeIndividual, "charityNomineeIndividual")
+          .getJson[CharityNomineeOrganisation](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeOrganisation, "charityNomineeOrganisation")
+
 
         hc.sessionId match {
           case Some(sessionId) =>
@@ -88,12 +118,9 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
               _ <- cache.cache(sessionId.value, IsSwitchOverUserPage, true)
               userAnswers <- cache.remove(request.internalId).map(_ => UserAnswers(request.internalId, result.accumulator))
               updatedAnswersWithErrors <- if (userAnswers.data.fields.nonEmpty) {
-                Future.fromTry(result = userAnswers.set(Section1Page, checkComplete(userAnswers))
-                  .flatMap(userAnswers => userAnswers.get(Section7Page) match {
-                    case Some(_) => userAnswers.set(Section7Page,
-                      AuthorisedOfficialsStatusHelper.checkComplete(userAnswers) && AuthorisedOfficialsStatusHelper.validateDataFromOldService(userAnswers))
-                    case _ => Success(userAnswers)
-                  })
+                Future.fromTry(result = isSection1Completed(userAnswers)
+                  .flatMap(userAnswers => isSection7Completed(userAnswers))
+                  .flatMap(userAnswers => isSection9Completed(userAnswers))
                   .flatMap(userAnswers => isSection8Completed(userAnswers))
                 ).flatMap(userAnswers => Future.successful((userAnswers, result.errors)))
               } else {

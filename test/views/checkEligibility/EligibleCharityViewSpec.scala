@@ -19,6 +19,7 @@ package views.checkEligibility
 import assets.messages.BaseMessages
 import models.NormalMode
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.http.logging.SessionId
 import views.behaviours.ViewBehaviours
 import views.html.checkEligibility.EligibleCharityView
 
@@ -28,9 +29,9 @@ class EligibleCharityViewSpec extends ViewBehaviours {
 
   "EligibleCharityView view" must {
 
-    def applyView(): HtmlFormat.Appendable = {
+    def applyView(sessionId: Option[SessionId] = None): HtmlFormat.Appendable = {
       val view = viewFor[EligibleCharityView](Some(emptyUserAnswers))
-      view.apply(NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(NormalMode, sessionId)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(), messageKeyPrefix)
@@ -41,7 +42,13 @@ class EligibleCharityViewSpec extends ViewBehaviours {
     behave like pageWithBackLink(applyView())
 
     behave like pageWithHyperLink(applyView(),
-      "linkButton", controllers.routes.IndexController.onPageLoad().url, BaseMessages.continue)
+      "linkButton", controllers.routes.IndexController.onPageLoad(None).url, BaseMessages.continue)
+
+    "with session id" must {
+      behave like pageWithHyperLink(applyView(Some(SessionId("123456"))),
+        "linkButton", controllers.routes.IndexController.onPageLoad(Some("123456")).url, BaseMessages.continue)
+    }
+
 
   }
 }

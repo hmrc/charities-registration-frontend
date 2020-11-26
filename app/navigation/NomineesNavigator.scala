@@ -177,9 +177,9 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
+    case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
@@ -327,9 +327,9 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
+    case NomineeDetailsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
 }

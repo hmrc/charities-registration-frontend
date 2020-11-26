@@ -49,11 +49,11 @@ class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       elroutes.EligibleCharityController.onPageLoad(),
       elroutes.InEligibleLocationOtherController.onPageLoad()
     )
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   def navigate(value: Option[Boolean], ifTrue: Call, ifFalse: Call): Call = {

@@ -279,14 +279,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
             .set(IsAddAnotherOtherOfficialPage, true)
             .flatMap(_.set(Section8Page, true)).success.value
-          ) mustBe routes.IndexController.onPageLoad()
+          ) mustBe routes.IndexController.onPageLoad(None)
         }
 
         "go to the index if No is selected and the section is complete" in {
           navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
             .set(IsAddAnotherOtherOfficialPage, false)
             .flatMap(_.set(Section8Page, true)).success.value
-          ) mustBe routes.IndexController.onPageLoad()
+          ) mustBe routes.IndexController.onPageLoad(None)
         }
 
         "go to the 2nd other official's name page if section isn't completed yet" in {
@@ -310,7 +310,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }
@@ -590,7 +590,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }

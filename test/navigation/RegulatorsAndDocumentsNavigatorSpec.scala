@@ -301,7 +301,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the Task List page when click continue button" in {
           navigator.nextPage(RegulatorsSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad() // TODO modify once next page created
+            routes.IndexController.onPageLoad(None) // TODO modify once next page created
         }
       }
 
@@ -322,7 +322,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }
@@ -537,7 +537,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the Task List page when click continue button" in {
           navigator.nextPage(RegulatorsSummaryPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -545,7 +545,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
       "from SelectWhyNoRegulator " must {

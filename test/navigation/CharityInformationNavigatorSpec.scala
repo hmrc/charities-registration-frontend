@@ -132,7 +132,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the Task List page when click continue button" in {
           navigator.nextPage(CharityInformationSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -140,7 +140,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }
@@ -151,7 +151,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -251,7 +251,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the SessionExpiredController page" in {
           navigator.nextPage(CharityPostalAddressLookupPage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 

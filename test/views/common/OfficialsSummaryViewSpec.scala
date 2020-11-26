@@ -33,7 +33,7 @@ class OfficialsSummaryViewSpec extends ViewBehaviours {
     def applyView(form: Form[Boolean]): HtmlFormat.Appendable = {
       val view = viewFor[OfficialsSummaryView](Some(emptyUserAnswers))
       view.apply(form, "authorisedOfficialsSummary", 2,
-        controllers.routes.IndexController.onPageLoad()
+        controllers.routes.IndexController.onPageLoad(None)
       )(
         fakeRequest, messages, frontendAppConfig)
     }

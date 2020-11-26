@@ -30,16 +30,16 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
     case BankDetailsPage => userAnswers: UserAnswers => navigate(userAnswers)
 
-    case BankDetailsSummaryPage => _ => routes.IndexController.onPageLoad()
+    case BankDetailsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
 
     case BankDetailsPage => userAnswers: UserAnswers => navigate(userAnswers)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   private def navigate(userAnswers: UserAnswers): Call = userAnswers.get(BankDetailsPage) match {

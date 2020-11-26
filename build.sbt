@@ -32,7 +32,7 @@ lazy val root = (project in file("."))
   .settings(
     scalaVersion := "2.12.12",
     name := appName,
-    RoutesKeys.routesImport += "models._",
+    RoutesKeys.routesImport ++= Seq("models._", "models.OptionBinder._"),
     PlayKeys.playDefaultPort := 9457,
     TwirlKeys.templateImports ++= Seq(
       "play.twirl.api.HtmlFormat",
@@ -41,6 +41,7 @@ lazy val root = (project in file("."))
       "views.ViewUtils._",
       "models.Index",
       "models.Mode",
+      "models.OptionBinder._",
       "controllers.routes._"
     ),
     ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*models.oldCharities.*;.*models.Mode*;.*filters.*;.*handlers.*;.*components.*;.*repositories.*;.*TimeMachine.*;" +

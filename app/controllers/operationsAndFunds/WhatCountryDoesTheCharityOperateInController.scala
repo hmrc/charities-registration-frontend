@@ -20,11 +20,10 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
-import javax.inject.Inject
 import models.requests.DataRequest
 import models.{Index, Mode}
 import navigation.FundRaisingNavigator
-import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInDeletePage, WhatCountryDoesTheCharityOperateInPage}
+import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
@@ -32,6 +31,7 @@ import repositories.UserAnswerRepository
 import service.CountryService
 import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhatCountryDoesTheCharityOperateInController @Inject()(

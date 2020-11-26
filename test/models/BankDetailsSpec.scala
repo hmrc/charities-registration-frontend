@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import models.BankDetails
+package models
+
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import play.api.libs.json.Json
 
@@ -48,5 +49,9 @@ class BankDetailsSpec extends WordSpec with MustMatchers with OptionValues {
         (result \ "rollNumber").as[String] mustBe "operatingName"
       }
     }
+  }
+
+  "toString" in {
+    BankDetails.toString mustBe "bankDetail"
   }
 }

@@ -18,6 +18,7 @@ package models
 
 import java.time.LocalDate
 import base.SpecBase
+import models.nominees.OrganisationNomineeContactDetails
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
@@ -162,6 +163,52 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       country.country mustBe "GB"
       country.name mustBe "United Kingdom"
+    }
+  }
+
+  "CharityName object" must {
+
+    "all parameters defined" in {
+
+      val charityName = CharityName("Name", Some("op number"))
+
+      charityName.fullName mustBe "Name"
+      charityName.operatingName mustBe Some("op number")
+    }
+
+    "toString" in {
+      CharityName.toString mustBe "charityNamesDetail"
+    }
+  }
+
+  "CharityContactDetails object" must {
+
+    "all parameters defined" in {
+
+      val charityContactDetails = CharityContactDetails("1234567890", Some("1234567890"), "a@b.com")
+
+      charityContactDetails.daytimePhone mustBe "1234567890"
+      charityContactDetails.mobilePhone mustBe Some("1234567890")
+      charityContactDetails.emailAddress mustBe "a@b.com"
+    }
+
+    "toString" in {
+      CharityContactDetails.toString mustBe "charityContactDetails"
+    }
+  }
+
+  "CharityOtherRegulatorDetails object" must {
+
+    "all parameters defined" in {
+
+      val charityOtherRegulatorDetails = CharityOtherRegulatorDetails("1234567890", "1234567890")
+
+      charityOtherRegulatorDetails.regulatorName mustBe "1234567890"
+      charityOtherRegulatorDetails.registrationNumber mustBe "1234567890"
+    }
+
+    "toString" in {
+      CharityOtherRegulatorDetails.toString mustBe "charityOtherRegulatorDetails"
     }
   }
 

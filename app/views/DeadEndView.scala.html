@@ -37,6 +37,6 @@
     @p{@messages("deadEnd.p1")}
     @p{@messages("deadEnd.p2")}
 
-    @link(controllers.routes.IndexController.onPageLoad().url, "site.gotoTaskList", id=Some("taskListLink"))
+    @link(controllers.routes.IndexController.onPageLoad(None).url, "site.gotoTaskList", id=Some("taskListLink"))
 
 }

@@ -101,9 +101,9 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case AddedAuthorisedOfficialPage(_) => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case AuthorisedOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(true) if userAnswers.get(Section7Page).contains(true) => routes.IndexController.onPageLoad()
+      case Some(true) if userAnswers.get(Section7Page).contains(true) => routes.IndexController.onPageLoad(None)
       case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
-      case Some(false) => routes.IndexController.onPageLoad()
+      case Some(false) => routes.IndexController.onPageLoad(None)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
@@ -113,7 +113,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
@@ -173,7 +173,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
 
   }
 

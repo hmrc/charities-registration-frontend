@@ -16,14 +16,19 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.mvc._
 
-case class CharityOtherRegulatorDetails(regulatorName: String, registrationNumber: String)
+object OptionBinder {
 
-object CharityOtherRegulatorDetails {
+  implicit def optionBindable[T: PathBindable]: PathBindable[Option[T]] = new PathBindable[Option[T]] {
+    def bind(key: String, value: String): Either[String, Option[T]] =
+      implicitly[PathBindable[T]].
+        bind(key, value).
+        fold(
+          left => Left(left),
+          right => Right(Some(right))
+        )
 
-  implicit val formats = Json.format[CharityOtherRegulatorDetails]
-
-  override def toString: String = "charityOtherRegulatorDetails"
-
+    def unbind(key: String, value: Option[T]): String = value map (_.toString) getOrElse ""
+  }
 }

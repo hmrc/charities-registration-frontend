@@ -273,14 +273,14 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             .set(IsAddAnotherAuthorisedOfficialPage, true)
             .flatMap(_.set(Section7Page, true)).success.value
           ) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
 
         "go to the index if No is selected" in {
           navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers
             .set(IsAddAnotherAuthorisedOfficialPage, false).success.value
           ) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
 
         "go to the 2nd authorised official's name page if Yes is selected and the section isn't completed yet" in {
@@ -324,7 +324,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers
             .set(IsAddAnotherAuthorisedOfficialPage, false).success.value
           ) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -332,7 +332,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }
@@ -550,7 +550,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 

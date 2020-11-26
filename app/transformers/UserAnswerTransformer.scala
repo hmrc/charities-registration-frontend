@@ -38,13 +38,6 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  private def filterNonEmptyString(jsonPath: JsPath, goalLocation: String): Reads[JsObject] = {
-    jsonPath.readNullable[String] flatMap {
-      case Some(value) if value.nonEmpty => (__ \ goalLocation).json.put(JsString(value))
-      case _ => doNothing
-    }
-  }
-
   private def commonAddress(basePath: JsPath, uaPath: JsPath) = {
     val lines = for {
       line1 <- (basePath \ 'addressLine1).read[String].map(JsString)
@@ -260,65 +253,4 @@ class UserAnswerTransformer extends JsonTransformer {
         (__ \ 'isSection6Completed).json.put(JsBoolean(false))
       ).reduce
   }
-
-
-  def toUserAnswersCharityHowManyAuthOfficials: Reads[JsObject] = {
-    ((__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials).readNullable[Int].flatMap {
-      case Some(2) => (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(true))
-      case _ => (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(false))
-    } and
-      (__ \ 'isSection7Completed).json.put(JsBoolean(false))).reduce
-
-  }
-
-  private def authorisedOfficialOriginalKey(index: Int): JsPath = __ \ s"authorisedOfficialIndividual${index + 1}"
-
-  def toOneOfficial(index: Int): Reads[JsObject] = {
-    (
-      (__ \ 'officialsName \ 'title).json
-        .copyFrom((authorisedOfficialOriginalKey(index) \ 'title).json.pick) and
-        (__ \ 'officialsName \ 'firstName).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'firstName).json.pick) and
-        ((__ \ 'officialsName \ 'middleName).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'middleName).json.pick) orElse doNothing) and
-        (__ \ 'officialsName \ 'lastName).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'lastName).json.pick) and
-        (__ \ 'officialsDOB).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'dateOfBirth).json.pick) and
-        (__ \ 'officialsPhoneNumber \ 'daytimePhone).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'dayPhoneNumber).json.pick) and
-        ((__ \ 'officialsPhoneNumber \ 'mobilePhone).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'telephoneNumber).json.pick) orElse doNothing) and
-        (__ \ 'officialsPosition).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'positionType).json.pick) and
-        (__ \ 'isOfficialNino).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialIndividualIdentity \ 'nationalInsuranceNumberPossession).json.pick) and
-        ((__ \ 'officialsNino).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialIndividualIdentity \ 'niNumberUK).json.pick) orElse doNothing) and
-        ((__ \ 'officialsPassport).json
-          .copyFrom(filterNonEmptyString(authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialIndividualIdentity \ 'officialIndividualIdentityCardDetails \ 'identityCardNumber, "passportNumber")) orElse doNothing) and
-        ((__ \ 'officialsPassport).json
-          .copyFrom(filterNonEmptyString(authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialIndividualIdentity \ 'officialIndividualIdentityCardDetails \ 'countryOfIssue, "country")) orElse doNothing) and
-        ((__ \ 'officialsPassport).json
-          .copyFrom(filterNonEmptyString(authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialIndividualIdentity \ 'officialIndividualIdentityCardDetails \ 'expiryDate, "expiryDate")) orElse doNothing) and
-        commonAddress(
-          authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialAddress,
-          __ \ 'officialAddress).reduce and
-        (__ \ 'isOfficialPreviousAddress).json
-          .copyFrom((authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialPreviousAddress \ 'toggle).json.pick) and
-        (commonAddress(
-          authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialPreviousAddress \ 'optionalCharityAddress,
-          __ \ 'officialPreviousAddress).reduce orElse doNothing)
-      ).reduce
-
-  }
-
-  def toUserAnswersCharityAuthorisedOfficialIndividual(index: Int): Reads[JsObject] = {
-
-    val auth = __.readNullable(toOneOfficial(index)).map(x => x.fold(JsArray())(el => JsArray.empty :+ el))
-
-    (__ \ 'authorisedOfficials).json.copyFrom(auth)
-  }
-
-
 }

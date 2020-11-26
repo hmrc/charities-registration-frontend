@@ -28,7 +28,6 @@ import pages.AcknowledgementReferencePage
 import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{JsPath, JsonValidationError}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.{UserAnswerRepository, UserAnswerRepositoryImpl}
@@ -74,7 +73,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
     "Set answers and redirect to the next page (start of journey page)" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
-      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful((emptyUserAnswers, Seq.empty)))
+      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful(emptyUserAnswers))
       when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(true)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
@@ -87,7 +86,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "Fetch user answers and redirect to the next page (start of journey page)" in {
 
-      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful((emptyUserAnswers, Seq.empty)))
+      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful(emptyUserAnswers))
       when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(true)))
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
         set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)))
@@ -103,7 +102,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
     "redirect to the session expired page if no valid session id for switchover journey" in {
 
       val requestWithoutSession = FakeRequest()
-      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful((emptyUserAnswers, Seq.empty)))
+      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful(emptyUserAnswers))
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
         set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
@@ -113,23 +112,6 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual SEE_OTHER
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, never()).set(any())
-    }
-
-    "redirect to the session expired page if the transformation failed" in {
-
-      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any()))
-        .thenReturn(Future.successful((emptyUserAnswers, Seq((JsPath, Seq(JsonValidationError("a message")))))))
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(true)))
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, times(1)).set(any())
-
     }
 
     "For keepalive" in {

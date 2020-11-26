@@ -21,7 +21,6 @@ import javax.inject.Inject
 import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
-import models.transformers.TransformerKeeper
 import pages.IsSwitchOverUserPage
 import pages.sections.Section1Page
 import play.api.Logger
@@ -35,55 +34,47 @@ import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplet
 import scala.concurrent.{ExecutionContext, Future}
 
 class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
-  userAnswerTransformer: UserAnswerTransformer,
+  userAnswerTransformer : UserAnswerTransformer,
   val sessionRepository: SessionRepository){
 
   private val logger = Logger(this.getClass)
 
-  def getCacheData(request: OptionalDataRequest[_])(
-    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[(UserAnswers, Seq[(JsPath, Seq[JsonValidationError])])] ={
+  def getCacheData(request: OptionalDataRequest[_])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[UserAnswers] ={
 
     cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>
-        val result = TransformerKeeper(Json.obj(), Seq.empty)
-          .getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails")
-          .getJson[CharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCharityOfficialAddress, "charityOfficialAddress")
-          .getJson[OptionalCharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCorrespondenceAddress, "correspondenceAddress")
-          .getJson[CharityRegulator](cacheMap, userAnswerTransformer.toUserAnswersCharityRegulator, "charityRegulator")
-          .getJson[CharityGoverningDocument](cacheMap, userAnswerTransformer.toUserAnswersCharityGoverningDocument, "charityGoverningDocument")
-          .getJson[WhatYourCharityDoes](cacheMap, userAnswerTransformer.toUserAnswersWhatYourCharityDoes, "whatYourCharityDoes")
-          .getJson[OperationAndFunds](cacheMap, userAnswerTransformer.toUserAnswersOperationAndFunds, "operationAndFunds")
-          .getJson[CharityBankAccountDetails](cacheMap, userAnswerTransformer.toUserAnswersCharityBankAccountDetails, "charityBankAccountDetails")
-          .getJson[CharityHowManyAuthOfficials](cacheMap, userAnswerTransformer.toUserAnswersCharityHowManyAuthOfficials, "charityHowManyAuthOfficials")
-          .getJson[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0), "authorisedOfficialIndividual1")
-          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1),
-            "authorisedOfficialIndividual2", "authorisedOfficials")
+        val result = Json.obj().
+          getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails").
+          getJson[CharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCharityOfficialAddress, "charityOfficialAddress").
+          getJson[OptionalCharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCorrespondenceAddress, "correspondenceAddress").
+          getJson[CharityRegulator](cacheMap, userAnswerTransformer.toUserAnswersCharityRegulator, "charityRegulator").
+          getJson[CharityGoverningDocument](cacheMap, userAnswerTransformer.toUserAnswersCharityGoverningDocument, "charityGoverningDocument").
+          getJson[WhatYourCharityDoes](cacheMap, userAnswerTransformer.toUserAnswersWhatYourCharityDoes, "whatYourCharityDoes").
+          getJson[OperationAndFunds](cacheMap, userAnswerTransformer.toUserAnswersOperationAndFunds, "operationAndFunds").
+          getJson[CharityBankAccountDetails](cacheMap, userAnswerTransformer.toUserAnswersCharityBankAccountDetails, "charityBankAccountDetails")
 
         hc.sessionId match {
           case Some(sessionId) =>
             for {
               _ <- cache.cache(sessionId.value, IsSwitchOverUserPage, true)
-              userAnswers <- cache.remove(request.internalId).map(_ => UserAnswers(request.internalId, result.accumulator))
-              updatedAnswersWithErrors <- if (userAnswers.data.fields.nonEmpty) {
+              userAnswers <- cache.remove(request.internalId).map(_ => UserAnswers(request.internalId, result))
+              updatedAnswers <- if(userAnswers.data.fields.nonEmpty){
                 Future.fromTry(result = userAnswers.set(Section1Page, checkComplete(userAnswers)))
-                  .flatMap(userAnswers => Future.successful((userAnswers, result.errors)))
-              } else {
-                Future.successful((userAnswers, result.errors))
+              } else{
+                Future.successful(userAnswers)
               }
-            } yield updatedAnswersWithErrors
+            } yield updatedAnswers
           case _ =>
             logger.error(s"[CharitiesKeyStoreService][getCacheData] no valid session found")
             throw new RuntimeException("no valid session found")
         }
 
       case _ =>
-        Future.successful((request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId)), Seq.empty))
+        Future.successful(request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId)))
 
     } recover {
       case errors: Throwable =>
-        logger.error(s"[CharitiesKeyStoreService][getCacheData] get existing charities data failed with error $errors")
+        logger.error(s"[CharitiesKeyStoreService][getCacheData] get existing charities data failed with error ${errors.getMessage}")
         throw errors
     }
   }

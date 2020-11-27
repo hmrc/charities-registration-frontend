@@ -19,7 +19,7 @@ package controllers.common
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import models.requests.DataRequest
-import models.{Mode, Name}
+import models.{Mode, Name, SelectTitle}
 import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.data.Form

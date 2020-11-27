@@ -38,6 +38,13 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
+  private def filterNonEmptyString(jsonPath: JsPath, goalLocation: String): Reads[JsObject] = {
+    jsonPath.readNullable[String] flatMap {
+      case Some(value) if value.nonEmpty => (__ \ goalLocation).json.put(JsString(value))
+      case _ => doNothing
+    }
+  }
+
   private def commonAddress(basePath: JsPath, uaPath: JsPath) = {
     val lines = for {
       line1 <- (basePath \ 'addressLine1).read[String].map(JsString)
@@ -253,4 +260,92 @@ class UserAnswerTransformer extends JsonTransformer {
         (__ \ 'isSection6Completed).json.put(JsBoolean(false))
       ).reduce
   }
+
+
+  def toUserAnswersCharityHowManyAuthOfficials: Reads[JsObject] = {
+    ((__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials).readNullable[Int].flatMap {
+      case Some(number) if number > 11 => (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(true))
+      case Some(_) => (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(false))
+      case _ => doNothing
+    } and
+      (__ \ 'isSection7Completed).json.put(JsBoolean(false))).reduce
+
+  }
+
+  def titleFilter(index: Int): Reads[JsObject] = {
+    (authorisedOfficialOriginalKey(index) \ 'title).readNullable[String].flatMap {
+      case Some(value) if Seq("0001", "0002", "0003", "0004").contains(value) => (__ \ 'title).json.put(JsString(value))
+      case Some(_) => (__ \ 'title).json.put(JsString("unsupported"))
+      case _  => doNothing
+    }
+  }
+
+  private def optionalAddress(oldPath: JsPath, rewriteIsAddAnotherPath: JsPath, previousAddressPath: JsPath, booleanFlag: Boolean = true): Reads[JsObject] = {
+    (oldPath \ 'toggle).readNullable[String].flatMap { toggle =>
+      if (toggle.contains("true")) {
+        (commonAddress(oldPath \ 'address, previousAddressPath) and
+          rewriteIsAddAnotherPath.json.put(JsBoolean(booleanFlag))).reduce
+      }
+      else {
+        (doNothing and rewriteIsAddAnotherPath.json.put(JsBoolean(!booleanFlag))).reduce
+      }
+    }
+  }
+
+  private def ninoOrPassport(isIndividualNino: JsPath, individualNino: JsPath, individualPassport: JsPath, oldSchemaPath: JsPath): Reads[JsObject] = {
+    val passportPath = oldSchemaPath \ 'officialIndividualIdentityCardDetails
+    (oldSchemaPath \ 'nationalInsuranceNumberPossession).readNullable[String].flatMap{
+      case Some("true") =>  ((isIndividualNino).json.put(JsBoolean(true)) and
+        (individualNino).json.copyFrom((oldSchemaPath \ 'niNumberUK).json.pick)).reduce
+      case _ => ((isIndividualNino).json.put(JsBoolean(false)) and
+        (individualPassport \ 'passportNumber).json.copyFrom((passportPath \ 'identityCardNumber).json.pick) and
+        (individualPassport \ 'country).json.copyFrom((passportPath \ 'countryOfIssue).json.pick) and
+        (individualPassport \ 'expiryDate).json.copyFrom((passportPath \ 'expiryDate).json.pick)
+        ).reduce
+    }
+  }
+
+  private def authorisedOfficialOriginalKey(index: Int): JsPath = __ \ s"authorisedOfficialIndividual${index + 1}"
+// scalastyle:off method.length
+  def toOneOfficial(index: Int): Reads[JsObject] = {
+    (
+      (__ \ 'officialsName).json
+        .copyFrom(titleFilter(index)) and
+        (__ \ 'officialsName \ 'firstName).json
+          .copyFrom((authorisedOfficialOriginalKey(index) \ 'firstName).json.pick) and
+        ((__ \ 'officialsName \ 'middleName).json
+          .copyFrom((authorisedOfficialOriginalKey(index) \ 'middleName).json.pick) orElse doNothing) and
+        (__ \ 'officialsName \ 'lastName).json
+          .copyFrom((authorisedOfficialOriginalKey(index) \ 'lastName).json.pick) and
+        (__ \ 'officialsDOB).json
+          .copyFrom((authorisedOfficialOriginalKey(index) \ 'dateOfBirth).json.pick) and
+        (__ \ 'officialsPhoneNumber \ 'daytimePhone).json
+          .copyFrom((authorisedOfficialOriginalKey(index) \ 'dayPhoneNumber).json.pick) and
+        ((__ \ 'officialsPhoneNumber \ 'mobilePhone).json
+          .copyFrom((authorisedOfficialOriginalKey(index) \ 'telephoneNumber).json.pick) orElse doNothing) and
+        (__ \ 'officialsPosition).json
+          .copyFrom((authorisedOfficialOriginalKey(index) \ 'positionType).json.pick) and
+        ninoOrPassport(__ \ 'isOfficialNino,
+          __ \ 'officialsNino,
+          __ \ 'officialsPassport,
+          authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialIndividualIdentity) and
+        commonAddress(
+          authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialAddress,
+          __ \ 'officialAddress).reduce and
+        optionalAddress(authorisedOfficialOriginalKey(index) \ 'charityAuthorisedOfficialPreviousAddress,
+          __ \ 'isOfficialPreviousAddress,
+          __ \ 'officialPreviousAddress
+        )
+      ).reduce
+
+  }
+
+  def toUserAnswersCharityAuthorisedOfficialIndividual(index: Int): Reads[JsObject] = {
+
+    val auth = __.readNullable(toOneOfficial(index)).map(x => x.fold(JsArray())(el => JsArray.empty :+ el))
+
+    (__ \ 'authorisedOfficials).json.copyFrom(auth)
+  }
+
+
 }

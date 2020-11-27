@@ -16,7 +16,7 @@
 
 package viewmodels.authorisedOfficials
 
-import models.UserAnswers
+import models.{SelectTitle, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials._
@@ -51,6 +51,17 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
   private val allPages: Seq[QuestionPage[_]] = {
     authorisedOfficial1common ++ authorisedOfficial2common ++
       remainingJourneyPages(0) ++ remainingJourneyPages(1)
+  }
+
+  def validateDataFromOldService(userAnswers: UserAnswers): Boolean = {
+    val range = if (userAnswers.get(IsAddAnotherAuthorisedOfficialPage).contains(true)) Seq(0, 1) else Seq(0)
+
+    range.forall(index =>
+      userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
+        case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
+        case _ => true
+      }
+    )
   }
 
 

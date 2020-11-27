@@ -51,13 +51,19 @@ class IndexController @Inject()(
             Future.successful(Redirect(routes.RegistrationSentController.onPageLoad()))
           case _ =>
             for {
-              userAnswers <- charitiesKeyStoreService.getCacheData(request)
+              (userAnswers, validationErrors) <- charitiesKeyStoreService.getCacheData(request)
               _ <- userAnswerRepository.set(userAnswers)
               isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
             } yield {
-              val result = taskListHelper.getTaskListRow(userAnswers)
-              val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-              Ok(view(result, status = completed, isSwitchOver))
+              validationErrors match {
+                case noErrors if noErrors.isEmpty =>
+                  val result = taskListHelper.getTaskListRow(userAnswers)
+                  val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+                  Ok(view(result, status = completed, isSwitchOver))
+                case hasErrors =>
+                  Redirect(routes.SessionExpiredController.onPageLoad()) // TODO make it redirect to a new yet-to-be-developed transformation error page
+              }
+
             }
         }
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))

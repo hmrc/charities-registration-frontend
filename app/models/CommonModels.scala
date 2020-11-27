@@ -32,10 +32,13 @@ object SelectTitle extends Enumerable.Implicits {
   case object Mrs extends WithName("0002") with SelectTitle
   case object Miss extends WithName("0003") with SelectTitle
   case object Ms extends WithName("0004") with SelectTitle
+  case object UnsupportedTitle extends WithName("unsupported") with SelectTitle
 
   val values: Seq[SelectTitle] = Seq(
     Mr, Mrs, Miss, Ms
   )
+
+  val valuesAndUnsupported: Seq[SelectTitle] = values :+ UnsupportedTitle
 
   def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
     value =>
@@ -47,7 +50,7 @@ object SelectTitle extends Enumerable.Implicits {
   }
 
   implicit val enumerable: Enumerable[SelectTitle] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(valuesAndUnsupported.map(v => v.toString -> v): _*)
 }
 
 case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {

@@ -35,13 +35,21 @@ import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplet
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Success
+import scala.util.{Success, Try}
 
 class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
   userAnswerTransformer: UserAnswerTransformer,
   val sessionRepository: SessionRepository){
 
   private val logger = Logger(this.getClass)
+
+  private def isSection8Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
+    userAnswers.get(Section8Page) match {
+      case Some(_) => userAnswers.set(Section8Page,
+        OtherOfficialStatusHelper.checkComplete(userAnswers) && OtherOfficialStatusHelper.validateDataFromOldService(userAnswers))
+      case _ => Success(userAnswers)
+    }
+  }
 
   // scalastyle:off method.length
   def getCacheData(request: OptionalDataRequest[_])(
@@ -60,10 +68,19 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
           .getJson[CharityBankAccountDetails](cacheMap, userAnswerTransformer.toUserAnswersCharityBankAccountDetails, "charityBankAccountDetails")
           .getJson[CharityHowManyAuthOfficials](cacheMap, userAnswerTransformer.toUserAnswersCharityHowManyAuthOfficials, "charityHowManyAuthOfficials")
           .getJson[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0), "authorisedOfficialIndividual1")
+            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "authorised"), "authorisedOfficialIndividual1")
           .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1),
+            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),
             "authorisedOfficialIndividual2", "authorisedOfficials")
+          .getJson[CharityHowManyOtherOfficials](cacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials, "charityHowManyOtherOfficials")
+          .getJson[CharityAuthorisedOfficialIndividual](
+            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "other"), "otherOfficialIndividual1")
+          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "other"),
+            "otherOfficialIndividual2", "otherOfficials")
+          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(2, "other"),
+            "otherOfficialIndividual3", "otherOfficials")
 
         hc.sessionId match {
           case Some(sessionId) =>
@@ -77,6 +94,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
                       AuthorisedOfficialsStatusHelper.checkComplete(userAnswers) && AuthorisedOfficialsStatusHelper.validateDataFromOldService(userAnswers))
                     case _ => Success(userAnswers)
                   })
+                  .flatMap(userAnswers => isSection8Completed(userAnswers))
                 ).flatMap(userAnswers => Future.successful((userAnswers, result.errors)))
               } else {
                 Future.successful((userAnswers, result.errors))

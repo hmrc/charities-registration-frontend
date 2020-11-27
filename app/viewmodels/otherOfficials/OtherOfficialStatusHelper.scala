@@ -16,7 +16,7 @@
 
 package viewmodels.otherOfficials
 
-import models.UserAnswers
+import models.{SelectTitle, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
@@ -55,6 +55,16 @@ object OtherOfficialStatusHelper extends StatusHelper {
       remainingJourneyPages(0) ++ remainingJourneyPages(1) ++ remainingJourneyPages(2)
   }
 
+  def validateDataFromOldService(userAnswers: UserAnswers): Boolean = {
+    val range = if (userAnswers.get(IsAddAnotherOtherOfficialPage).contains(true)) Seq(0, 1, 2) else Seq(0, 1)
+
+    range.forall(index =>
+      userAnswers.get(OtherOfficialsNamePage(index)) match {
+        case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
+        case _ => true
+      }
+    )
+  }
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 

@@ -26,6 +26,7 @@ package object transformers {
   implicit class CharitiesJsObject(val transformerKeeper: TransformerKeeper) {
 
     def getJson[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String)(implicit format: OFormat[T]): TransformerKeeper = {
+
       cacheMap.getEntry[T](key) match {
         case Some(result) =>
           Json.obj(key -> Json.toJson(result)).transform(transformer) match {
@@ -42,7 +43,9 @@ package object transformers {
       }
     }
 
-    def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(implicit format: OFormat[T]): TransformerKeeper = {
+    def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(
+      implicit format: OFormat[T]): TransformerKeeper = {
+
       cacheMap.getEntry[T](key) match {
         case Some(result) =>
           Json.obj(key -> Json.toJson(result)).transform(transformer) match {
@@ -54,7 +57,7 @@ package object transformers {
                 logger.info(s"[CharitiesJsObject][getJsonOfficials] $key array transformation successful")
 
                 TransformerKeeper(transformerKeeper.accumulator ++ Json.obj(
-                  "authorisedOfficials" -> combinedPreviousAndNewOfficial), transformerKeeper.errors)
+                  goalKey -> combinedPreviousAndNewOfficial), transformerKeeper.errors)
 
             case JsError(err) =>
               logger.error(s"[CharitiesJsObject][getJsonOfficials] $key transformation failed with errors: " + err)

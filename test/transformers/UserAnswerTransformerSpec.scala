@@ -17,7 +17,7 @@
 package transformers
 
 import base.SpecBase
-import models.oldCharities.{CharityAddress, CharityAuthorisedOfficialIndividual, CharityContactDetails, CharityHowManyAuthOfficials, OfficialIndividualIdentity, OfficialIndividualNationalIdentityCardDetails, OptionalCharityAddress}
+import models.oldCharities.{CharityAddress, CharityAuthorisedOfficialIndividual, CharityContactDetails, CharityHowManyAuthOfficials, CharityHowManyOtherOfficials, OfficialIndividualIdentity, OfficialIndividualNationalIdentityCardDetails, OptionalCharityAddress}
 import org.joda.time.LocalDate
 import play.api.libs.json.Json
 
@@ -35,9 +35,9 @@ class UserAnswerTransformerSpec extends SpecBase {
 
         Json.obj("charityContactDetails" -> Json.toJson(contactDetails)).transform(
           jsonTransformer.toUserAnswerCharityContactDetails).asOpt.value mustBe Json.obj(
-           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
-           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
-           "isSection1Completed" -> false)
+          "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
+          "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
+          "isSection1Completed" -> false)
       }
     }
 
@@ -49,7 +49,7 @@ class UserAnswerTransformerSpec extends SpecBase {
 
         Json.obj("charityOfficialAddress" -> Json.toJson(charityAddress)).transform(
           jsonTransformer.toUserAnswerCharityOfficialAddress).asOpt.value mustBe Json.obj(
-           "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"GB"},"lines":["Test123","line2"]}"""))
+          "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"GB"},"lines":["Test123","line2"]}"""))
       }
     }
 
@@ -61,7 +61,7 @@ class UserAnswerTransformerSpec extends SpecBase {
 
         Json.obj("correspondenceAddress" -> Json.toJson(correspondenceAddress)).transform(
           jsonTransformer.toUserAnswerCorrespondenceAddress).asOpt.value mustBe Json.obj(
-           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "canWeSendLettersToThisAddress" -> false
         )
       }
@@ -88,10 +88,72 @@ class UserAnswerTransformerSpec extends SpecBase {
           jsonTransformer.toUserAnswersCharityHowManyAuthOfficials).asOpt.value mustBe Json.obj(
           "isAddAnotherOfficial" -> false,
           "isSection7Completed" -> false
+        )
+      }
+
+      "do nothing if the question wasn't answered" in {
+
+        Json.obj("charityHowManyAuthOfficials" -> Json.obj()).transform(
+          jsonTransformer.toUserAnswersCharityHowManyAuthOfficials).asOpt.value mustBe Json.obj()
+      }
+    }
+
+    "toUserAnswersCharityHowManyOtherOfficials" must {
+
+      "convert to addAnotherOtherOfficial: true with 3 other officials" in {
+
+        val howMany: CharityHowManyOtherOfficials = CharityHowManyOtherOfficials(Some(33))
+
+        Json.obj("charityHowManyOtherOfficials" -> Json.toJson(howMany)).transform(
+          jsonTransformer.toUserAnswersCharityHowManyOtherOfficials).asOpt.value mustBe Json.obj(
+          "addAnotherOtherOfficial" -> true,
+          "isSection8Completed" -> false
+        )
+      }
+
+      "convert to addAnotherOtherOfficial: true with 2 other officials" in {
+
+        val howMany: CharityHowManyOtherOfficials = CharityHowManyOtherOfficials(Some(22))
+
+        Json.obj("charityHowManyOtherOfficials" -> Json.toJson(howMany)).transform(
+          jsonTransformer.toUserAnswersCharityHowManyOtherOfficials).asOpt.value mustBe Json.obj(
+          "addAnotherOtherOfficial" -> false,
+          "isSection8Completed" -> false
 
         )
       }
+
+      "do nothing if the question wasn't answered" in {
+
+        Json.obj("charityHowManyOtherOfficials" -> Json.obj()).transform(
+          jsonTransformer.toUserAnswersCharityHowManyOtherOfficials).asOpt.value mustBe Json.obj()
+      }
     }
+
+    "titleFilter" must {
+
+      (1 to 4).foreach { index =>
+
+        s"pick the title if it's 000$index" in {
+
+          Json.obj("authorisedOfficialIndividual1" -> Json.obj("title" -> s"000$index")).transform(
+            jsonTransformer.titleFilter(0, "authorised")).asOpt.value mustBe Json.obj("title" -> s"000$index")
+        }
+      }
+
+      "put down unsupported if the title is outside the accepted range" in {
+
+        Json.obj("authorisedOfficialIndividual1" -> Json.obj("title" -> "0005")).transform(
+          jsonTransformer.titleFilter(0, "authorised")).asOpt.value mustBe Json.obj("title" -> "unsupported")
+      }
+
+      "do nothing if title isn't present" in {
+
+        Json.obj("authorisedOfficialIndividual1" -> Json.obj()).transform(
+          jsonTransformer.titleFilter(0, "authorised")).asOpt.value mustBe Json.obj()
+      }
+    }
+
 
     "toOneOfficial" must {
 
@@ -104,7 +166,7 @@ class UserAnswerTransformerSpec extends SpecBase {
           LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
 
         Json.obj("authorisedOfficialIndividual1" -> Json.toJson(authOfficial)).transform(
-          jsonTransformer.toOneOfficial(0)).asOpt.value mustBe Json.parse(
+          jsonTransformer.toOneOfficial(0, "authorised")).asOpt.value mustBe Json.parse(
           """{
             |    "isOfficialPreviousAddress": true,
             |    "officialsPhoneNumber": {
@@ -157,7 +219,7 @@ class UserAnswerTransformerSpec extends SpecBase {
           LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
 
         Json.obj("authorisedOfficialIndividual1" -> Json.toJson(authOfficial)).transform(
-          jsonTransformer.toOneOfficial(0)).asOpt.value mustBe Json.parse(
+          jsonTransformer.toOneOfficial(0, "authorised")).asOpt.value mustBe Json.parse(
           """{
             |    "isOfficialPreviousAddress": false,
             |    "officialsPhoneNumber": {

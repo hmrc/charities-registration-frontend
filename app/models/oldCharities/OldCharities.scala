@@ -212,3 +212,10 @@ object CharityAuthorisedOfficialIndividual {
 
   implicit val formats: OFormat[CharityAuthorisedOfficialIndividual] = Json.format[CharityAuthorisedOfficialIndividual]
 }
+
+case class CharityHowManyOtherOfficials(numberOfOtherOfficials: Option[Int])
+
+object CharityHowManyOtherOfficials {
+
+  implicit val formats: OFormat[CharityHowManyOtherOfficials] = Json.format[CharityHowManyOtherOfficials]
+}

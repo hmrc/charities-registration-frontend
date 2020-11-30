@@ -22,7 +22,7 @@ import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{AcknowledgementReferencePage, EmailOrPostPage}
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -58,6 +58,7 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AcknowledgementReferencePage, "123456789")
+        .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
         .flatMap(_.set(EmailOrPostPage, true))
         .success.value)))
 
@@ -74,6 +75,7 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AcknowledgementReferencePage, "123456789")
+        .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
         .success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)

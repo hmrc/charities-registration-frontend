@@ -304,3 +304,10 @@ object CharityNomineeOrganisation {
 
   implicit val formats: OFormat[CharityNomineeOrganisation] = Json.format[CharityNomineeOrganisation]
 }
+
+case class Acknowledgement(formBundle:String, timeStamp:String)
+
+object Acknowledgement {
+
+  implicit val formats: OFormat[Acknowledgement] =Json.format[Acknowledgement]
+}

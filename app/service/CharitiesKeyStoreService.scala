@@ -30,7 +30,7 @@ import repositories.SessionRepository
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
-import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
+import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
@@ -45,7 +45,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
 
   private def isSection1Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
     userAnswers.get(Section1Page) match {
-      case Some(_) => userAnswers.set(Section1Page, checkComplete(userAnswers))
+      case Some(_) => userAnswers.set(Section1Page, CharityInformationStatusHelper.checkComplete(userAnswers))
       case _ => Success(userAnswers)
     }
   }
@@ -81,7 +81,6 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
 
     cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>
-
         val result = TransformerKeeper(Json.obj(), Seq.empty)
           .getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails")
           .getJson[CharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCharityOfficialAddress, "charityOfficialAddress")
@@ -110,7 +109,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
           .getJson[CharityNomineeStatus](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeStatus, "charityNomineeStatus")
           .getJson[CharityNomineeIndividual](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeIndividual, "charityNomineeIndividual")
           .getJson[CharityNomineeOrganisation](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeOrganisation, "charityNomineeOrganisation")
-
+          .getJson[Acknowledgement](cacheMap, userAnswerTransformer.toUserAnswersAcknowledgement, "acknowledgement-Reference")
 
         hc.sessionId match {
           case Some(sessionId) =>
@@ -120,8 +119,8 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
               updatedAnswersWithErrors <- if (userAnswers.data.fields.nonEmpty) {
                 Future.fromTry(result = isSection1Completed(userAnswers)
                   .flatMap(userAnswers => isSection7Completed(userAnswers))
-                  .flatMap(userAnswers => isSection9Completed(userAnswers))
                   .flatMap(userAnswers => isSection8Completed(userAnswers))
+                  .flatMap(userAnswers => isSection9Completed(userAnswers))
                 ).flatMap(userAnswers => Future.successful((userAnswers, result.errors)))
               } else {
                 Future.successful((userAnswers, result.errors))

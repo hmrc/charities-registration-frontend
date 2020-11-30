@@ -20,13 +20,14 @@ import audit.{AuditService, DeclarationAuditEvent, SubmissionAuditEvent}
 import connectors.CharitiesConnector
 import javax.inject.Inject
 import models.requests.DataRequest
-import pages.AcknowledgementReferencePage
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
 import play.api.libs.json.JsValue
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import repositories.UserAnswerRepository
 import uk.gov.hmrc.http.HeaderCarrier
+import utils.TimeMachine
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
@@ -34,7 +35,8 @@ import scala.util.Random
 class CharitiesRegistrationService @Inject()(
     userAnswerRepository: UserAnswerRepository,
     auditService: AuditService,
-    charitiesConnector: CharitiesConnector
+    charitiesConnector: CharitiesConnector,
+    timeMachine: TimeMachine
   ) {
 
   private val logger = Logger(this.getClass)
@@ -46,7 +48,8 @@ class CharitiesRegistrationService @Inject()(
         charitiesConnector.registerCharities(requestJson, Random.nextInt()).flatMap {
           case Right(result) =>
             for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference))
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference)
+                .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now())))
               _ <- userAnswerRepository.set(updatedAnswers)
               _ <- Future.successful(auditService.sendEvent(DeclarationAuditEvent(true)))
               _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson)))

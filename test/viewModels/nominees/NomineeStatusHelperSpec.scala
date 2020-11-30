@@ -300,6 +300,72 @@ class NomineeStatusHelperSpec extends SpecBase {
           helper.checkComplete(nomineeOrganisation.addIndividualAddress) mustBe false
         }
       }
+
+      "validateDataFromOldService" must {
+
+        "return true when for empty user Answers" in {
+
+          helper.validateDataFromOldService(emptyUserAnswers) mustBe true
+        }
+
+        "return true when for no nominee" in {
+
+          helper.validateDataFromOldService(noNominee) mustBe true
+        }
+
+        "return true when for nominee with correct title" in {
+          val nomineeIndividual: UserAnswers = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, true)
+              .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")))).success.value
+
+          helper.validateDataFromOldService(nomineeIndividual) mustBe true
+        }
+
+        "return false when for nominee with unsupported title" in {
+          val nomineeIndividual: UserAnswers = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, true)
+              .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.UnsupportedTitle, firstName = "John", None, lastName = "Jones")))).success.value
+
+          helper.validateDataFromOldService(nomineeIndividual) mustBe false
+        }
+
+        "return true when for nominee with correct title and email" in {
+          val nomineeOrganisation: UserAnswers  = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, false))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com")))
+            .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))).success.value
+
+          helper.validateDataFromOldService(nomineeOrganisation) mustBe true
+        }
+
+        "return false when for nominee with unsupported title and correct email" in {
+          val nomineeOrganisation: UserAnswers  = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, false))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com")))
+            .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.UnsupportedTitle, firstName = "John", None, lastName = "Jones"))).success.value
+
+          helper.validateDataFromOldService(nomineeOrganisation) mustBe false
+        }
+
+        "return false when for nominee with unsupported title and blank email" in {
+          val nomineeOrganisation: UserAnswers  = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, false))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "")))
+            .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.UnsupportedTitle, firstName = "John", None, lastName = "Jones"))).success.value
+
+          helper.validateDataFromOldService(nomineeOrganisation) mustBe false
+        }
+
+        "return false when for nominee with correct title and blank email" in {
+          val nomineeOrganisation: UserAnswers  = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, false))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "")))
+            .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))).success.value
+
+          helper.validateDataFromOldService(nomineeOrganisation) mustBe false
+        }
+
+      }
     }
   }
 }

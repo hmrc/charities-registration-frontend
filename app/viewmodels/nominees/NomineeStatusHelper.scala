@@ -16,7 +16,7 @@
 
 package viewmodels.nominees
 
-import models.UserAnswers
+import models.{SelectTitle, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup._
 import pages.nominees._
@@ -109,6 +109,22 @@ object NomineeStatusHelper extends StatusHelper {
         }
 
       case _ => false
+    }
+  }
+
+  def validateDataFromOldService(userAnswers: UserAnswers): Boolean = {
+    (userAnswers.get(IsAuthoriseNomineePage), userAnswers.get(ChooseNomineePage)) match {
+      case(Some(true), Some(true)) =>
+        userAnswers.get(IndividualNomineeNamePage) match {
+          case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
+          case _ => true
+        }
+      case(Some(true), Some(false)) =>
+        (userAnswers.get(OrganisationAuthorisedPersonNamePage), userAnswers.get(OrganisationNomineeContactDetailsPage)) match {
+          case (Some(name), Some(contact)) => name.title != SelectTitle.UnsupportedTitle && contact.email.nonEmpty
+          case _ => true
+        }
+      case _ => true
     }
   }
 }

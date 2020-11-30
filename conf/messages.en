@@ -255,6 +255,13 @@ registrationSent.p9 = (takes 30 seconds).
 registrationSent.warning = Do not send original documents. We cannot return any documents you send to us.
 registrationSent.link = What do you think of this service?
 
+# Your application is being processed - submitted in old service messages
+# ----------------------------------------------------------
+beingProcessedOldSubmission.title = Your application is being processed
+beingProcessedOldSubmission.heading = Your application is being processed
+beingProcessedOldSubmission.whatHappensNext.h2 = What happens after we receive your supporting documents
+beingProcessedOldSubmission.whatHappensNext.p2 = We will send letters to the officials and the nominee to confirm that they have been registered with the charity.
+
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
 checkIfYouCanRegister.title = Check if you can register the charity

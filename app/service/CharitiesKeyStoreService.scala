@@ -22,14 +22,15 @@ import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
-import pages.IsSwitchOverUserPage
 import pages.sections.{Section1Page, Section7Page, Section8Page, Section9Page}
+import pages.{IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.Logger
 import play.api.libs.json._
 import repositories.SessionRepository
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.ImplicitDateFormatter
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
@@ -40,7 +41,7 @@ import scala.util.{Success, Try}
 
 class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
   userAnswerTransformer: UserAnswerTransformer,
-  val sessionRepository: SessionRepository){
+  val sessionRepository: SessionRepository) extends ImplicitDateFormatter {
 
   private val logger = Logger(this.getClass)
 
@@ -76,6 +77,14 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
     }
   }
 
+  private def expiryTimeIfCompleted(userAnswers: UserAnswers): Try[UserAnswers] = {
+    userAnswers.get(OldServiceSubmissionPage) match {
+      case Some(submitted) =>
+        Success(userAnswers.copy(expiresAt = oldStringToDate(submitted.submissionDate).plusDays(28).atTime(12, 0))) //scalastyle:off magic.number
+      case _ => Success(userAnswers)
+    }
+  }
+
   private def getSwitchOverJsonData(cacheMap: CacheMap): TransformerKeeper = {
     TransformerKeeper(Json.obj(), Seq.empty)
       .getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails")
@@ -105,7 +114,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
       .getJson[CharityNomineeStatus](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeStatus, "charityNomineeStatus")
       .getJson[CharityNomineeIndividual](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeIndividual, "charityNomineeIndividual")
       .getJson[CharityNomineeOrganisation](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeOrganisation, "charityNomineeOrganisation")
-      .getJson[Acknowledgement](cacheMap, userAnswerTransformer.toUserAnswersAcknowledgement, "acknowledgement-Reference")
+      .getJson[Acknowledgement](cacheMap, userAnswerTransformer.toUserAnswersOldAcknowledgement, "acknowledgement-Reference")
   }
 
   def getCacheData(request: OptionalDataRequest[_])(
@@ -126,6 +135,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
                   .flatMap(userAnswers => isSection7Completed(userAnswers))
                   .flatMap(userAnswers => isSection8Completed(userAnswers))
                   .flatMap(userAnswers => isSection9Completed(userAnswers))
+                  .flatMap(userAnswers => expiryTimeIfCompleted(userAnswers))
                   .flatMap(_.set(IsSwitchOverUserPage, true))
                 ).flatMap(userAnswers => Future.successful((userAnswers, result.errors)))
               } else {

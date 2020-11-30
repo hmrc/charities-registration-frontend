@@ -20,7 +20,7 @@ import java.time.LocalDateTime
 
 import config.FrontendAppConfig
 import models.UserAnswers
-import pages.AcknowledgementReferencePage
+import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
 import play.api.libs.json.{JsObject, Json}
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.bson.BSONDocument
@@ -124,8 +124,8 @@ trait AbstractRepository {
 
   def set(userAnswers: UserAnswers): Future[Boolean] = {
 
-    def expiryDate: LocalDateTime = userAnswers.get(AcknowledgementReferencePage) match {
-      case Some(_) => userAnswers.expiresAt
+    def expiryDate: LocalDateTime = (userAnswers.get(AcknowledgementReferencePage), userAnswers.get(OldServiceSubmissionPage)) match {
+      case (Some(_), _) | (_, Some(_)) => userAnswers.expiresAt
       case _ => calculateExpiryTime
     }
     val document = if (appConfig.encryptData) {

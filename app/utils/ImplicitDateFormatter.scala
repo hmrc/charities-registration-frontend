@@ -27,7 +27,7 @@ import scala.language.implicitConversions
 
 trait ImplicitDateFormatter {
   private val midday: Int = 12
-  implicit def dateToString(date:LocalDate)(implicit messages: Messages): String = createDateFormatForPattern(
+  implicit def dateToString(date: LocalDate)(implicit messages: Messages): String = createDateFormatForPattern(
     "d MMMM yyyy").format {
     new SimpleDateFormat("yyyy-MM-dd'T'HH")
       .parse(date.atTime(midday, 0).toString)
@@ -38,20 +38,28 @@ trait ImplicitDateFormatter {
     new SimpleDateFormat("yyyy-MM-dd").parse(monthDay.toLocalDate(LocalDate.now().getYear).toString)
   )
 
-  def dayToString(date:LocalDate)(implicit messages: Messages): String =
-  {
-    val number= if(date.getDayOfMonth<20) {date.getDayOfMonth} else {date.getDayOfMonth%10}
-    val dateSuffix = number match {
+  def dayToString(date: LocalDate, dayOfWeek: Boolean = true)(implicit messages: Messages): String = {
+    val number = if (date.getDayOfMonth < 20) {date.getDayOfMonth} else {date.getDayOfMonth % 10}
+    val dateSuffix = number match { // TODO needs Welsh equivalent
       case 1 =>  "st"
       case 2 =>  "nd"
       case 3 =>  "rd"
       case _ =>  "th"
     }
+    val outputFormat = if (dayOfWeek) s"EEEE d'$dateSuffix' MMMM yyyy" else s"d'$dateSuffix' MMMM yyyy"
     createDateFormatForPattern(
-      s"EEEE d'$dateSuffix' MMMM yyyy").format(
+      outputFormat).format(
         new SimpleDateFormat("yyyy-MM-dd").parse(date.toString)
       )
 
+  }
+
+  def oldStringToDate(oldFormattedDate: String): LocalDate = {
+
+    LocalDate.parse(new SimpleDateFormat(
+      s"yyyy-MM-dd").format(
+      new SimpleDateFormat("HH:mm EEEE dd MMMM yyyy").parse(oldFormattedDate.replace("am, ", " ").replace("pm, ", " "))
+    ))
   }
 
   private val defaultTimeZone: TimeZone = TimeZone.getTimeZone("Europe/London")

@@ -452,11 +452,11 @@ class UserAnswerTransformer extends JsonTransformer {
       ).reduce
   }
 
-  def toUserAnswersAcknowledgement: Reads[JsObject] = {
-    (
-      (__ \ 'acknowledgementReference).json.copyFrom((__ \ "acknowledgement-Reference" \ 'formBundle).json.pick) and
-      (__ \ 'applicationSubmissionDate).json.copyFrom((__ \ "acknowledgement-Reference" \ 'timeStamp).json.pick)
-    ).reduce
-  }
+  def toUserAnswersOldAcknowledgement: Reads[JsObject] = {
 
+    (
+      (__ \ 'oldAcknowledgement \ 'refNumber).json.copyFrom((__ \ "acknowledgement-Reference" \ 'formBundle).json.pick) and
+      (__ \ 'oldAcknowledgement \ 'submissionDate).json.copyFrom((__ \ "acknowledgement-Reference" \ 'timeStamp).json.pick)
+      ).reduce
+  }
 }

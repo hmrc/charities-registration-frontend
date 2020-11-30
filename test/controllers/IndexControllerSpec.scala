@@ -19,12 +19,12 @@ package controllers
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.UserAnswers
+import models.{OldServiceSubmission, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
-import pages.AcknowledgementReferencePage
+import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
 import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -69,6 +69,21 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad().url
       verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "Redirect to registration sent page if the submission was completed in the old service" in {
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful((emptyUserAnswers
+        .set(OldServiceSubmissionPage, OldServiceSubmission("num", "date")).success.value, Seq.empty)))
+      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(true)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad().url
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
     }
 
     "Set answers and redirect to the next page (start of journey page)" in {

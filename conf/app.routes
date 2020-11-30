@@ -53,3 +53,8 @@ POST      /declare-and-send/email-or-post               controllers.EmailOrPostC
 
 GET       /declare-and-send/registration-sent           controllers.RegistrationSentController.onPageLoad
 GET       /declare-and-send/registration-sent/change    controllers.RegistrationSentController.onChange
+
+### Application Being Processed Page route
+### -----------------
+
+GET       /application-being-processed                   controllers.ApplicationBeingProcessedController.onPageLoad

@@ -19,7 +19,7 @@ package controllers.actions
 import javax.inject.Inject
 import controllers.routes
 import models.requests.{DataRequest, OptionalDataRequest}
-import pages.AcknowledgementReferencePage
+import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, Result}
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -36,8 +36,9 @@ class DataRequiredActionImpl @Inject()(implicit val executionContext: ExecutionC
       case None =>
         Future.successful(Left(Redirect(routes.SessionExpiredController.onPageLoad())))
       case Some(data) =>
-        data.get(AcknowledgementReferencePage) match {
-          case Some(_) => Future.successful(Left(Redirect(routes.EmailOrPostController.onPageLoad())))
+        (data.get(AcknowledgementReferencePage), data.get(OldServiceSubmissionPage)) match {
+          case (_, Some(_)) => Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad())))
+          case (Some(_), _) => Future.successful(Left(Redirect(routes.EmailOrPostController.onPageLoad())))
           case _ =>
             Future.successful(Right(DataRequest(request.request, request.internalId, data)))
         }

@@ -259,5 +259,38 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
       }
 
     }
+
+    "validate the data from the old service correctly" when {
+
+      "one official with an unsupported title is pulled" in {
+        helper.validateDataFromOldService(emptyUserAnswers
+          .set(IsAddAnotherAuthorisedOfficialPage, false)
+          .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.UnsupportedTitle, "Joe", None, "Bloggs")))
+          .success.value) mustBe false
+      }
+
+      "two officials with unsupported titles are pulled" in {
+        helper.validateDataFromOldService(emptyUserAnswers
+          .set(IsAddAnotherAuthorisedOfficialPage, true)
+          .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.UnsupportedTitle, "Joe", None, "Bloggs")))
+          .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.UnsupportedTitle, "Joe", None, "Bloggs")))
+          .success.value) mustBe false
+      }
+
+      "two officials with supported titles are pulled" in {
+        helper.validateDataFromOldService(emptyUserAnswers
+          .set(IsAddAnotherAuthorisedOfficialPage, true)
+          .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
+          .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mrs, "Joe", None, "Bloggs")))
+          .success.value) mustBe true
+      }
+
+      "one official with a supported title is pulled" in {
+        helper.validateDataFromOldService(emptyUserAnswers
+          .set(IsAddAnotherAuthorisedOfficialPage, false)
+          .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
+          .success.value) mustBe true
+      }
+    }
   }
 }

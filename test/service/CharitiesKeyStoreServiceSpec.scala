@@ -81,12 +81,22 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
   val charityHowManyAuthOfficials: CharityHowManyAuthOfficials = CharityHowManyAuthOfficials(Some(22))
   val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("true"), "AB111111A", OfficialIndividualNationalIdentityCardDetails("", "", None))
+  val identityPassport: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("false"), "", OfficialIndividualNationalIdentityCardDetails("PaspNum", "Country", Some(LocalDate.parse("2100-01-01"))))
   val currentAddress: CharityAddress = CharityAddress("current", "address", "", "", "AA1 1AA", "")
   val previousAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("previous", "address", "", "", "AA2 2AA", ""))
-  val charityAuthorisedOfficialIndividual: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0001", "First", "Middle", "Last",
+  val charityAuthorisedOfficialIndividual1: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0001", "First", "Middle", "Last",
     LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
   val charityAuthorisedOfficialIndividual2: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
+    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identityPassport)
+
+  val charityHowManyOtherOfficials: CharityHowManyOtherOfficials = CharityHowManyOtherOfficials(Some(33))
+  val charityOtherOfficialIndividual1: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0001", "First", "Middle", "Last",
     LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
+  val charityOtherOfficialIndividual2: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
+    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identityPassport)
+  val charityOtherOfficialIndividual3: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
+    LocalDate.parse("1990-01-01"), "01", "0123123123", Some("0123123124"), None, currentAddress, previousAddress, identity)
+
 
 
   override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
@@ -110,9 +120,17 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
     def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = None
 
-    def mockCharityAuthorisedOfficialIndividual: Option[CharityAuthorisedOfficialIndividual] = None
+    def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
 
     def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
+
+    def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] = None
+
+    def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
+
+    def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
+
+    def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] = None
 
     def removeResponse: Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
@@ -128,8 +146,12 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
       when(mockCacheMap.getEntry[OperationAndFunds](meq("operationAndFunds"))(meq(OperationAndFunds.formats))).thenReturn(mockOperationAndFunds)
       when(mockCacheMap.getEntry[CharityBankAccountDetails](meq("charityBankAccountDetails"))(meq(CharityBankAccountDetails.formats))).thenReturn(mockCharityBankAccountDetails)
       when(mockCacheMap.getEntry[CharityHowManyAuthOfficials](meq("charityHowManyAuthOfficials"))(meq(CharityHowManyAuthOfficials.formats))).thenReturn(mockCharityHowManyAuthOfficials)
-      when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("authorisedOfficialIndividual1"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityAuthorisedOfficialIndividual)
+      when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("authorisedOfficialIndividual1"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityAuthorisedOfficialIndividual1)
       when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityAuthorisedOfficialIndividual2)
+      when(mockCacheMap.getEntry[CharityHowManyOtherOfficials](meq("charityHowManyOtherOfficials"))(meq(CharityHowManyOtherOfficials.formats))).thenReturn(mockCharityHowManyOtherOfficials)
+      when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual1"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityOtherOfficialIndividual1)
+      when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityOtherOfficialIndividual2)
+      when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual3"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(mockCharityOtherOfficialIndividual3)
       when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse)
     }
 
@@ -423,7 +445,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
 
-        override def mockCharityAuthorisedOfficialIndividual: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual)
+        override def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual1)
 
         override def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual2)
 
@@ -525,7 +547,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            },
               |            "officialsPosition": "01",
               |            "officialsDOB": "1990-01-01",
-              |            "isOfficialNino": true,
+              |            "isOfficialNino": false,
               |            "officialAddress": {
               |                "country": {
               |                    "code": "GB",
@@ -554,8 +576,321 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |                "middleName": "Middle",
               |                "title": "unsupported"
               |            },
-              |            "officialsNino": "AB111111A"
+              |            "officialsPassport": {
+              |              "country": "Country",
+              |              "expiryDate": "2100-01-01",
+              |              "passportNumber": "PaspNum"
+              |            }
               |        }""".stripMargin))
+        ))
+
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
+      }
+
+      "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes, operationAndFunds, charityBankAccountDetails, how many auth officials and two auth officials, how many other officials and two other officials" in new LocalSetup {
+
+        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
+
+        override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
+
+        override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
+
+        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument)
+
+        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
+
+        override def mockOperationAndFunds: Option[OperationAndFunds] = Some(operationAndFunds)
+
+        override def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = Some(charityBankAccountDetails)
+
+        override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
+
+        override def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual1)
+
+        override def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual2)
+
+        override def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] = Some(charityHowManyOtherOfficials)
+
+        override def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = Some(charityOtherOfficialIndividual1)
+
+        override def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = Some(charityOtherOfficialIndividual2)
+
+        override def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] = Some(charityOtherOfficialIndividual3)
+
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
+          "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
+          "isSection1Completed" -> false,
+          "canWeSendLettersToThisAddress" -> false,
+          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "isSection2Completed" -> false,
+          "charityRegulator" -> Json.parse("""["ccew","oscr","otherRegulator"]"""),
+          "isCharityRegulator" -> true,
+          "charityOtherRegulatorDetails" -> Json.parse("""{"regulatorName":"otherRegulatorName","registrationNumber":"otherRegulatorRegistrationNumber"}"""),
+          "scottishRegulatorRegNumber" -> "ccewTestRegulator",
+          "nIRegulatorRegNumber" -> "",
+          "charityCommissionRegistrationNumber" -> "ccewTestRegulator",
+          "whenGoverningDocumentApproved" -> "1990-11-11",
+          "sectionsChangedGoverningDocument" -> "test",
+          "governingDocumentName" -> "",
+          "isApprovedGoverningDocument" -> true,
+          "isSection3Completed" -> false,
+          "selectGoverningDocument" -> "1",
+          "charitableObjectives" -> "objectives",
+          "whatYourCharityDoesOtherReason" -> "otherReason",
+          "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),
+          "publicBenefits" -> "benefitThePublic",
+          "isSection4Completed" -> false,
+          "estimatedIncome" -> 100,
+          "actualIncome" -> 100,
+          "isFinancialAccounts" -> true,
+          "otherFundRaising" -> "fundsOther",
+          "publicBenefits" -> "benefitThePublic",
+          "isApprovedGoverningDocument" -> true,
+          "isSection5Completed" -> false,
+          "whatYourCharityDoesOtherReason" -> "otherReason",
+          "operatingLocation" -> Json.parse("""["1","2"]"""),
+          "selectFundRaising" -> Json.parse("""["donations"]"""),
+          "whenGoverningDocumentApproved" -> "1990-11-11",
+          "governingDocumentName" -> "",
+          "publicBenefits" -> "benefitThePublic",
+          "isBankStatements" -> true,
+          "whyNoBankStatement" -> "noBankStatements",
+          "accountingPeriodEndDate" -> "--1-1",
+          "isSection5Completed" -> false,
+          "bankDetails" -> Json.parse("""{"accountName":"Tesco","accountNumber":"123456","sortCode":"12345678","rollNumber":"rollNumber"}"""),
+          "isSection6Completed" -> false,
+          "isAddAnotherOfficial" -> true,
+          "isSection7Completed" -> false,
+          "authorisedOfficials" -> Json.arr(Json.parse(
+            """
+              |{
+              |            "isOfficialPreviousAddress": true,
+              |            "officialsPhoneNumber": {
+              |                "mobilePhone": "0123123124",
+              |                "daytimePhone": "0123123123"
+              |            },
+              |            "officialsPosition": "01",
+              |            "officialsDOB": "1990-01-01",
+              |            "isOfficialNino": true,
+              |            "officialAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA1 1AA",
+              |                "lines": [
+              |                    "current",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialPreviousAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA2 2AA",
+              |                "lines": [
+              |                    "previous",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialsName": {
+              |                "firstName": "First",
+              |                "lastName": "Last",
+              |                "middleName": "Middle",
+              |                "title": "0001"
+              |            },
+              |            "officialsNino": "AB111111A"
+              |        }""".stripMargin), Json.parse(
+            """
+              |{
+              |            "isOfficialPreviousAddress": true,
+              |            "officialsPhoneNumber": {
+              |                "mobilePhone": "0123123124",
+              |                "daytimePhone": "0123123123"
+              |            },
+              |            "officialsPosition": "01",
+              |            "officialsDOB": "1990-01-01",
+              |            "isOfficialNino": false,
+              |            "officialAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA1 1AA",
+              |                "lines": [
+              |                    "current",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialPreviousAddress": {
+              |                "country": {
+              |                    "code": "GB",
+              |                    "name": "GB"
+              |                },
+              |                "postcode": "AA2 2AA",
+              |                "lines": [
+              |                    "previous",
+              |                    "address"
+              |                ]
+              |            },
+              |            "officialsName": {
+              |                "firstName": "First",
+              |                "lastName": "Last",
+              |                "middleName": "Middle",
+              |                "title": "unsupported"
+              |            },
+              |            "officialsPassport": {
+              |              "country": "Country",
+              |              "expiryDate": "2100-01-01",
+              |              "passportNumber": "PaspNum"
+              |            }
+              |        }""".stripMargin)),
+          "addAnotherOtherOfficial" -> true,
+          "isSection8Completed" -> false,
+
+          "otherOfficials" -> Json.arr(
+            Json.parse(
+              """{
+                |  "isOfficialNino": true,
+                |  "isOfficialsPreviousAddress": true,
+                |  "officialAddress": {
+                |    "country": {
+                |      "code": "GB",
+                |      "name": "GB"
+                |    },
+                |    "lines": [
+                |      "current",
+                |      "address"
+                |    ],
+                |    "postcode": "AA1 1AA"
+                |  },
+                |  "officialPreviousAddress": {
+                |    "country": {
+                |      "code": "GB",
+                |      "name": "GB"
+                |    },
+                |    "lines": [
+                |      "previous",
+                |      "address"
+                |    ],
+                |    "postcode": "AA2 2AA"
+                |  },
+                |  "officialsDOB": "1990-01-01",
+                |  "officialsName": {
+                |    "firstName": "First",
+                |    "lastName": "Last",
+                |    "middleName": "Middle",
+                |    "title": "0001"
+                |  },
+                |  "officialsNino": "AB111111A",
+                |  "officialsPhoneNumber": {
+                |    "daytimePhone": "0123123123",
+                |    "mobilePhone": "0123123124"
+                |  },
+                |  "officialsPosition": "01"
+                |}
+                |""".stripMargin),
+            Json.parse(
+              """
+                |{
+                |  "isOfficialNino": false,
+                |  "isOfficialsPreviousAddress": true,
+                |  "officialAddress": {
+                |    "country": {
+                |      "code": "GB",
+                |      "name": "GB"
+                |    },
+                |    "lines": [
+                |      "current",
+                |      "address"
+                |    ],
+                |    "postcode": "AA1 1AA"
+                |  },
+                |  "officialPreviousAddress": {
+                |    "country": {
+                |      "code": "GB",
+                |      "name": "GB"
+                |    },
+                |    "lines": [
+                |      "previous",
+                |      "address"
+                |    ],
+                |    "postcode": "AA2 2AA"
+                |  },
+                |  "officialsDOB": "1990-01-01",
+                |  "officialsName": {
+                |    "firstName": "First",
+                |    "lastName": "Last",
+                |    "middleName": "Middle",
+                |    "title": "unsupported"
+                |  },
+                |  "officialsPassport": {
+                |    "country": "Country",
+                |    "expiryDate": "2100-01-01",
+                |    "passportNumber": "PaspNum"
+                |  },
+                |  "officialsPhoneNumber": {
+                |    "daytimePhone": "0123123123",
+                |    "mobilePhone": "0123123124"
+                |  },
+                |  "officialsPosition": "01"
+                |}
+                |""".stripMargin),
+            Json.parse(
+              """
+                |{
+                |  "isOfficialNino": true,
+                |  "isOfficialsPreviousAddress": true,
+                |  "officialAddress": {
+                |    "country": {
+                |      "code": "GB",
+                |      "name": "GB"
+                |    },
+                |    "lines": [
+                |      "current",
+                |      "address"
+                |    ],
+                |  "postcode": "AA1 1AA"
+                |  },
+                |  "officialPreviousAddress": {
+                |    "country": {
+                |      "code": "GB",
+                |      "name": "GB"
+                |    },
+                |    "lines": [
+                |      "previous",
+                |      "address"
+                |    ],
+                |    "postcode": "AA2 2AA"
+                |  },
+                |  "officialsDOB": "1990-01-01",
+                |  "officialsName": {
+                |    "firstName": "First",
+                |    "lastName": "Last",
+                |    "middleName": "Middle",
+                |    "title": "unsupported"
+                |  },
+                |  "officialsNino": "AB111111A",
+                |  "officialsPhoneNumber": {
+                |    "daytimePhone": "0123123123",
+                |    "mobilePhone": "0123123124"
+                |  },
+                |  "officialsPosition": "01"
+                |}
+                |""".stripMargin)
+          )
+
         ))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))

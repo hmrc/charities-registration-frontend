@@ -101,6 +101,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
     def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] = None
 
+    def mockAcknowledgement: Option[Acknowledgement] = None
+
     def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache() {
@@ -125,6 +127,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
       when(mockCacheMap.getEntry[CharityNomineeStatus](meq("charityNomineeStatus"))(meq(CharityNomineeStatus.formats))).thenReturn(mockCharityNomineeStatus)
       when(mockCacheMap.getEntry[CharityNomineeIndividual](meq("charityNomineeIndividual"))(meq(CharityNomineeIndividual.formats))).thenReturn(mockCharityNomineeIndividual)
       when(mockCacheMap.getEntry[CharityNomineeOrganisation](meq("charityNomineeOrganisation"))(meq(CharityNomineeOrganisation.formats))).thenReturn(mockCharityNomineeOrganisation)
+      when(mockCacheMap.getEntry[Acknowledgement](meq("acknowledgement-Reference"))(meq(Acknowledgement.formats))).thenReturn(mockAcknowledgement)
       when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse)
     }
 
@@ -896,6 +899,21 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 							|"organisationBankDetails":{"accountName":"AABB","rollNumber":"BB","accountNumber":"12345678","sortCode":"123456"},
 							|"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
 							|"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)))
+
+        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+
+        result._1.data mustBe responseJson.data
+        result._2 mustBe Seq.empty
+      }
+
+      "return valid object when its valid Acknowledgement" in new LocalSetup {
+
+        override def mockAcknowledgement: Option[Acknowledgement] = Some(acknowledgement)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "applicationSubmissionDate" -> "2020-11-10","acknowledgementReference" -> "080582080582"))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 

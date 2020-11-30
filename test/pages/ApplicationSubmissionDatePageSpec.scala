@@ -16,16 +16,27 @@
 
 package pages
 
+import java.time.LocalDate
+
+import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class AcknowledgementReferencePageSpec extends PageBehaviours {
+class ApplicationSubmissionDatePageSpec extends PageBehaviours {
 
-  "AcknowledgementReferencePage" must {
+  private val year = 2002
+  private val month = 1
+  private val dayInMonth = 1
 
-    beRetrievable[String](AcknowledgementReferencePage)
+  implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
+    LocalDate.of(year, month, dayInMonth)
+  }
 
-    beSettable[String](AcknowledgementReferencePage)
+  "ApplicationSubmissionDatePage" must {
 
-    beRemovable[String](AcknowledgementReferencePage)
+    beRetrievable[LocalDate](ApplicationSubmissionDatePage)
+
+    beSettable[LocalDate](ApplicationSubmissionDatePage)
+
+    beRemovable[LocalDate](ApplicationSubmissionDatePage)
   }
 }

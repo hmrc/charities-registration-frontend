@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
-import pages.{AcknowledgementReferencePage, EmailOrPostPage}
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import utils.{ImplicitDateFormatter, TimeMachine}
@@ -35,17 +35,17 @@ class RegistrationSentController @Inject()(
     userAnswerRepository: UserAnswerRepository,
     requireData: RegistrationDataRequiredAction,
     view: RegistrationSentView,
-    val controllerComponents: MessagesControllerComponents,
-    timeMachine: TimeMachine
+    val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with  LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    request.userAnswers.get(AcknowledgementReferencePage) match {
-      case Some(acknowledgementReference) =>
+    (request.userAnswers.get(AcknowledgementReferencePage), request.userAnswers.get(ApplicationSubmissionDatePage)) match {
+      case (Some(acknowledgementReference),Some(applicationSubmissionDate)) =>
         request.userAnswers.get(EmailOrPostPage) match {
           case Some(emailOrPost) =>
-            Future.successful(Ok(view(dayToString(timeMachine.now().plusDays(28)), dayToString(timeMachine.now()), acknowledgementReference, emailOrPost,
+            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
+              dayToString(applicationSubmissionDate), acknowledgementReference, emailOrPost,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
               RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
             )))

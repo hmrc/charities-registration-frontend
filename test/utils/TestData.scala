@@ -16,7 +16,7 @@
 
 package utils
 
-import models.oldCharities._
+import models.oldCharities.{Acknowledgement, _}
 import org.joda.time.{LocalDate, MonthDay}
 
 trait TestData {
@@ -79,4 +79,6 @@ trait TestData {
 		OfficialIndividualIdentity(Some("false"), "", OfficialIndividualNationalIdentityCardDetails("AK123456K", "UK", Option(new LocalDate(2000, 10, 10)))),
 		NomineeBankDetails(Some("true"), NomineePaymentDetails("", CharityBankAccountDetails("AABB", "12345678", "123456", Some("BB"))))
 	)
+	val acknowledgement: Acknowledgement = Acknowledgement("080582080582", "2020-11-10")
+
 }

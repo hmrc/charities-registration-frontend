@@ -16,16 +16,13 @@
 
 package pages
 
-import pages.behaviours.PageBehaviours
+import java.time.LocalDate
 
-class AcknowledgementReferencePageSpec extends PageBehaviours {
+import play.api.libs.json.JsPath
 
-  "AcknowledgementReferencePage" must {
+case object ApplicationSubmissionDatePage extends QuestionPage[LocalDate] {
 
-    beRetrievable[String](AcknowledgementReferencePage)
+  override def path: JsPath = JsPath \ toString
 
-    beSettable[String](AcknowledgementReferencePage)
-
-    beRemovable[String](AcknowledgementReferencePage)
-  }
+  override def toString: String = "applicationSubmissionDate"
 }

@@ -188,8 +188,6 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  private def authorisedOfficialOriginalKey(index: Int): JsPath = __ \ s"authorisedOfficialIndividual${index + 1}"
-
   def toUserAnswerCharityContactDetails: Reads[JsObject] = {
     (
       (__ \ 'charityName \ 'fullName).json
@@ -444,5 +442,11 @@ class UserAnswerTransformer extends JsonTransformer {
       ).reduce
   }
 
+  def toUserAnswersAcknowledgement: Reads[JsObject] = {
+    (
+      (__ \ 'acknowledgementReference).json.copyFrom((__ \ "acknowledgement-Reference" \ 'formBundle).json.pick) and
+      (__ \ 'applicationSubmissionDate).json.copyFrom((__ \ "acknowledgement-Reference" \ 'timeStamp).json.pick)
+    ).reduce
+  }
 
 }

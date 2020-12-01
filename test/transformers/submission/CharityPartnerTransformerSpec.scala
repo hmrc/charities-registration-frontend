@@ -560,8 +560,6 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "abc@email.com")))
           .success.value
 
-        play.api.Logger.error("userAnswers is " + localUserAnswers)
-
         val expectedJson =
           """{
              |			  "orgDetails": {
@@ -595,7 +593,6 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |  }""".stripMargin
 
         val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
-        play.api.Logger.error("result here is " + result.toString())
         result.transform(jsonTransformer.userAnswersToBankDetails("organisationBankDetails")).asOpt.value mustBe Json.parse(expectedJson)
       }
 

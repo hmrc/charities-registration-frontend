@@ -60,7 +60,7 @@ class IndexController @Inject()(
                   val result = taskListHelper.getTaskListRow(userAnswers)
                   val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
                   Ok(view(result, status = completed, isSwitchOver))
-                case hasErrors =>
+                case _ =>
                   Redirect(routes.SessionExpiredController.onPageLoad()) // TODO make it redirect to a new yet-to-be-developed transformation error page
               }
 

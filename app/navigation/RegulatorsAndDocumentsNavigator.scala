@@ -23,8 +23,8 @@ import javax.inject.Inject
 import models._
 import models.regulators.CharityRegulator
 import models.regulators.SelectWhyNoRegulator._
-import pages.{Page, QuestionPage}
 import pages.regulatorsAndDocuments._
+import pages.{IsSwitchOverUserPage, Page, QuestionPage}
 import play.api.mvc.Call
 
 class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -32,12 +32,23 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
   override val normalRoutes: Page => UserAnswers => Call =  {
     case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorPageNav(NormalMode, userAnswers)
 
-    case CharityRegulatorPage | CharityCommissionRegistrationNumberPage | ScottishRegulatorRegNumberPage
-         | NIRegulatorRegNumberPage | CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers  =>
-      userAnswers.get(CharityRegulatorPage) match {
-        case Some(items) => nextNav(CharityRegulator.pageMap.filter(p => items.contains(p._1)).values.toSeq, userAnswers, NormalMode)
-        case _ => routes.SessionExpiredController.onPageLoad()
-      }
+    case CharityRegulatorPage => userAnswers: UserAnswers  => nextNormalOrSwitchOverNavigation(userAnswers, Seq())
+
+    case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers  =>
+      nextNormalOrSwitchOverNavigation(userAnswers, Seq(CharityCommissionRegistrationNumberPage))
+
+    case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers  =>
+      nextNormalOrSwitchOverNavigation(userAnswers,
+        Seq(CharityCommissionRegistrationNumberPage, ScottishRegulatorRegNumberPage))
+
+    case NIRegulatorRegNumberPage => userAnswers: UserAnswers  =>
+      nextNormalOrSwitchOverNavigation(userAnswers,
+        Seq(CharityCommissionRegistrationNumberPage, ScottishRegulatorRegNumberPage, NIRegulatorRegNumberPage))
+
+    case CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers  => userAnswers.get(CharityRegulatorPage) match {
+      case Some(items) => nextNav(CharityRegulator.pageMap.filter{ case(key, _) => items.contains(key)}.values.toSeq, userAnswers, CheckMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
 
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => selectWhyNoRegulatorPageNav(userAnswers, NormalMode)
 
@@ -123,5 +134,24 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       }
     }
     checkNextNav(res)
+  }
+
+  private def switchOverNavigation(remainingPages: Seq[QuestionPage[_]]): Call = {
+    remainingPages match {
+      case CharityCommissionRegistrationNumberPage :: _ => regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(NormalMode)
+      case ScottishRegulatorRegNumberPage :: _ => regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(NormalMode)
+      case NIRegulatorRegNumberPage :: _ => regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(NormalMode)
+      case CharityOtherRegulatorDetailsPage :: _ => regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
+      case _ => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
+    }
+  }
+
+  private def nextNormalOrSwitchOverNavigation(userAnswers: UserAnswers, initialPages: Seq[QuestionPage[_]]): Call = {
+    val list = (items: Set[CharityRegulator]) => CharityRegulator.pageMap.filter(p => items.contains(p._1)).values.toList
+    (userAnswers.get(CharityRegulatorPage), userAnswers.get(IsSwitchOverUserPage)) match {
+      case (Some(items), Some(_)) => switchOverNavigation(list(items).diff(initialPages))
+      case (Some(items), _) => nextNav(list(items), userAnswers, NormalMode)
+      case _ => routes.SessionExpiredController.onPageLoad()
+    }
   }
 }

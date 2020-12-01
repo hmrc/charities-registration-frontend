@@ -55,7 +55,7 @@ class AuditService @Inject()(config: FrontendAppConfig, connector: AuditConnecto
 
     result.onComplete {
       case Success(_) =>
-        Logger.debug(s"[AuditService][sendEvent] successfully sent ${event.auditType}")
+        Logger.info(s"[AuditService][sendEvent] successfully sent ${event.auditType}")
 
       case Failure(exception) =>
         Logger.error(s"[AuditService][sendEvent] failed to send event ${event.auditType}", exception)

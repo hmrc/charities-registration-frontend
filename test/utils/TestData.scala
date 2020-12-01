@@ -27,9 +27,24 @@ trait TestData {
 	val charityRegulator: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = true, "ccewTestRegulator"),
 		CharityRegulatorInfoDetails(isCharityRegulatorSelected = true, "ccewTestRegulator"), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
 		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = true, "otherRegulatorName", "otherRegulatorRegistrationNumber"), CharityReasonForNotRegistering(None, None))
-	val noCharityRegulator: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+	val noCharityRegulator5: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
 		CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
-		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = false, "", ""), CharityReasonForNotRegistering(Some("NotRegister"), Some("Reason")))
+		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = false, "", ""), CharityReasonForNotRegistering(Some("5"), Some("Reason")))
+	val noCharityRegulator6: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = false, "", ""), CharityReasonForNotRegistering(Some("6"), Some("Reason")))
+	val noCharityRegulator7: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = false, "", ""), CharityReasonForNotRegistering(Some("7"), Some("Reason")))
+	val noCharityRegulator8: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = false, "", ""), CharityReasonForNotRegistering(Some("8"), Some("Reason")))
+	val noCharityRegulator9: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = false, "", ""), CharityReasonForNotRegistering(Some("9"), Some("Reason")))
+	val noCharityRegulator10: CharityRegulator = CharityRegulator(CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""), CharityRegulatorInfoDetails(isCharityRegulatorSelected = false, ""),
+		CharityRegulatorOtherInfoDetails(isCharityOtherRegulatorSelected = false, "", ""), CharityReasonForNotRegistering(Some("10"), Some("Reason")))
 	val charityGoverningDocument1: CharityGoverningDocument = CharityGoverningDocument("1", "", "test", Some(LocalDate.parse("1990-11-11")), Some(true))
 	val charityGoverningDocument2: CharityGoverningDocument = CharityGoverningDocument("2", "", "test", Some(LocalDate.parse("1990-11-11")), Some(true))
 	val charityGoverningDocument3: CharityGoverningDocument = CharityGoverningDocument("3", "", "test", Some(LocalDate.parse("1990-11-11")), Some(true))

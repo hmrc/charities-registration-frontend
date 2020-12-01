@@ -156,7 +156,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
-          "isSection1Completed" -> false))
+          "isSection1Completed" -> false, "isSwitchOver" -> true))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
@@ -176,6 +176,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false,
+          "isSwitchOver" -> true,
           "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"GB"},"lines":["Test123","line2"]}""")))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
@@ -198,6 +199,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false,
+          "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}""")))
@@ -224,6 +226,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false,
+          "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
@@ -259,6 +262,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
+          "isSwitchOver" -> true,
           "isSection1Completed" -> false,
           "canWeSendLettersToThisAddress" -> false,
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
@@ -304,6 +308,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false,
+          "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
@@ -355,6 +360,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false,
+          "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
@@ -413,6 +419,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
           "isAddAnotherOfficial" -> true,
+          "isSwitchOver" -> true,
           "isSection7Completed" -> false,
           "authorisedOfficials" -> Json.arr(Json.parse(
             """
@@ -545,6 +552,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
           "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
+          "isSwitchOver" -> true,
           "isSection1Completed" -> false,
           "canWeSendLettersToThisAddress" -> false,
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
@@ -823,6 +831,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         initialiseCache()
 
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSwitchOver" -> true,
           "isSection9Completed" -> true,
           "nominee" -> Json.parse("""{"isAuthoriseNominee":false}""")))
 
@@ -841,6 +850,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         initialiseCache()
 
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSwitchOver" -> true,
           "isSection9Completed" -> false,
           "nominee" -> Json.parse("""{"chooseNominee":true,"isAuthoriseNominee":true}""")))
 
@@ -861,6 +871,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         initialiseCache()
 
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSwitchOver" -> true,
           "isSection9Completed" -> false,
           "nominee" -> Json.parse(
             """{"chooseNominee":true,"isAuthoriseNominee":true,
@@ -887,6 +898,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         initialiseCache()
 
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isSwitchOver" -> true,
           "isSection9Completed" -> false,
           "nominee" -> Json.parse(
             """{"chooseNominee":false,"isAuthoriseNominee":true,
@@ -912,7 +924,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         initialiseCache()
 
-        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj("isSwitchOver" -> true,
           "applicationSubmissionDate" -> "2020-11-10","acknowledgementReference" -> "080582080582"))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))

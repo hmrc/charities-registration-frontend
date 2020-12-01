@@ -85,13 +85,4 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
     )
   }
 
-  def onRemove(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.remove(
-                          Seq(WhatCountryDoesTheCharityOperateInDeletePage(index), OverseasOperatingLocationSummaryPage))
-                        .flatMap(_.set(Section5Page, false)))
-      _              <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index-1), mode, updatedAnswers))
-  }
 }

@@ -21,8 +21,7 @@ import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import models.UserAnswers
-import pages.AcknowledgementReferencePage
-import pages.IsSwitchOverUserPage
+import pages.{AcknowledgementReferencePage, IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CharitiesKeyStoreService
@@ -56,10 +55,13 @@ class IndexController @Inject()(
               isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
             } yield {
               validationErrors match {
-                case noErrors if noErrors.isEmpty =>
-                  val result = taskListHelper.getTaskListRow(userAnswers)
-                  val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-                  Ok(view(result, status = completed, isSwitchOver))
+                case noErrors if noErrors.isEmpty => userAnswers match {
+                  case complete if complete.get(OldServiceSubmissionPage).isDefined => Redirect(routes.ApplicationBeingProcessedController.onPageLoad())
+                  case _ =>
+                    val result = taskListHelper.getTaskListRow(userAnswers)
+                    val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+                    Ok(view(result, status = completed, isSwitchOver))
+                }
                 case _ =>
                   Redirect(routes.SessionExpiredController.onPageLoad()) // TODO make it redirect to a new yet-to-be-developed transformation error page
               }

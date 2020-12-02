@@ -94,6 +94,6 @@ trait TestData {
 		OfficialIndividualIdentity(Some("false"), "", OfficialIndividualNationalIdentityCardDetails("AK123456K", "UK", Option(new LocalDate(2000, 10, 10)))),
 		NomineeBankDetails(Some("true"), NomineePaymentDetails("", CharityBankAccountDetails("AABB", "12345678", "123456", Some("BB"))))
 	)
-	val acknowledgement: Acknowledgement = Acknowledgement("080582080582", "2020-11-10")
+	val acknowledgement: Acknowledgement = Acknowledgement("080582080582", "9:56am, Tuesday 1 December 2020")
 
 }

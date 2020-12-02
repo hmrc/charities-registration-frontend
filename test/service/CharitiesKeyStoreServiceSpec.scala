@@ -924,8 +924,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         initialiseCache()
 
-        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj("isSwitchOver" -> true,
-          "applicationSubmissionDate" -> "2020-11-10","acknowledgementReference" -> "080582080582"))
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj("isSwitchOver" -> true, "oldAcknowledgement" -> Json.obj(
+          "submissionDate" -> "9:56am, Tuesday 1 December 2020", "refNumber" -> "080582080582")))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 

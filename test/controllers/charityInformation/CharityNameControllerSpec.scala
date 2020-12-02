@@ -19,13 +19,13 @@ package controllers.charityInformation
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.charityInformation.CharityNameFormProvider
-import models.{BankDetails, CharityName, NormalMode, UserAnswers}
+import models.{BankDetails, CharityName, NormalMode, OldServiceSubmission, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.{AcknowledgementReferencePage, EmailOrPostPage}
+import pages.{AcknowledgementReferencePage, EmailOrPostPage, OldServiceSubmissionPage}
 import pages.charityInformation.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import play.api.data.Form
@@ -73,6 +73,19 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad().url
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
+      .success.value)))
+
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad().url
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

@@ -29,12 +29,12 @@
     bullets: components.bullets
 )
 
-@(sendBeforeDate: String, currentDate: String, acknowledgementReference: String, emailOrPost: Boolean,
+@(sendBeforeDate: String, submissionDate: String, acknowledgementReference: String, emailOrPost: Boolean,
     requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)]
     )(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @pageSelector = @{
-    if(emailOrPost) "email" else "post"
+    if (emailOrPost) "email" else "post"
 }
 
 @govukLayout(pageTitle = Some(titleNoForm("registrationSent.title", Some(s"declaration.section"))), backLink = false) {
@@ -51,7 +51,7 @@
         <br>
         <div class="govuk-panel__body">
             <div>@messages("registrationSent.submissionDate")</div>
-            <strong>@currentDate</strong>
+            <strong>@submissionDate</strong>
         </div>
     </div>
 

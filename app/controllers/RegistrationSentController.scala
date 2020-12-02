@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage, OldServiceSubmissionPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import utils.{ImplicitDateFormatter, TimeMachine}
@@ -40,12 +40,13 @@ class RegistrationSentController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    (request.userAnswers.get(AcknowledgementReferencePage), request.userAnswers.get(ApplicationSubmissionDatePage)) match {
-      case (Some(acknowledgementReference),Some(applicationSubmissionDate)) =>
+    (request.userAnswers.get(AcknowledgementReferencePage),
+      request.userAnswers.get(ApplicationSubmissionDatePage)) match {
+      case (Some(acknowledgementReference), Some(applicationSubmissionDate)) =>
         request.userAnswers.get(EmailOrPostPage) match {
           case Some(emailOrPost) =>
             Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
-              dayToString(applicationSubmissionDate), acknowledgementReference, emailOrPost,
+              dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
               RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
             )))
@@ -59,7 +60,7 @@ class RegistrationSentController @Inject()(
     request.userAnswers.get(EmailOrPostPage) match {
       case Some(emailOrPost) =>
         for {
-          updatedAnswers <-  Future.fromTry(request.userAnswers.set(EmailOrPostPage, !emailOrPost))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, !emailOrPost))
           _              <- userAnswerRepository.set(updatedAnswers)
         } yield Redirect(routes.RegistrationSentController.onPageLoad())
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))

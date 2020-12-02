@@ -19,13 +19,13 @@ package controllers
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, OldServiceSubmission, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.EmailOrPostPage
+import pages.{EmailOrPostPage, OldServiceSubmissionPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialNinoPage}
 import play.api.data.Form
 import play.api.inject.bind
@@ -62,6 +62,21 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val controller: EmailOrPostController = inject[EmailOrPostController]
 
   "EmailOrPost Controller" must {
+
+    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
+        .success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad().url
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+
 
     "return OK and the correct view for a GET" in {
 

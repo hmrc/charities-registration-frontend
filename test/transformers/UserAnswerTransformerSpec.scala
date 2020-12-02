@@ -327,8 +327,8 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
 
       "convert to correct Acknowledgement" in {
         Json.obj("acknowledgement-Reference" -> Json.toJson(acknowledgement)).transform(
-          jsonTransformer.toUserAnswersAcknowledgement).asOpt.value mustBe Json.obj(
-          "applicationSubmissionDate" -> "2020-11-10","acknowledgementReference" -> "080582080582")
+          jsonTransformer.toUserAnswersOldAcknowledgement).asOpt.value mustBe Json.obj("oldAcknowledgement" -> Json.obj(
+          "submissionDate" -> "9:56am, Tuesday 1 December 2020", "refNumber" -> "080582080582"))
       }
     }
   }

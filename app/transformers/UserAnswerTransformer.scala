@@ -188,6 +188,17 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
+  private def selectWhyNoRegulator(path: JsPath): Reads[JsObject] = {
+    (__ \ 'charityRegulator \ 'reasonForNotRegistering \ 'charityRegulator).read[String].flatMap {
+      case "5" => path.json.put(JsString("1"))
+      case "6" => path.json.put(JsString("2"))
+      case "7" => path.json.put(JsString("3"))
+      case "8" => path.json.put(JsString("4"))
+      case "9" => path.json.put(JsString("5"))
+      case "10" => path.json.put(JsString("7"))
+    }
+  }
+
   def toUserAnswerCharityContactDetails: Reads[JsObject] = {
     (
       (__ \ 'charityName \ 'fullName).json
@@ -233,9 +244,8 @@ class UserAnswerTransformer extends JsonTransformer {
               (__ \ 'charityRegulator \ 'other \ 'charityOtherRegistrationNumber).json.pick) orElse doNothing) and
             (__ \ 'isSection2Completed).json.put(JsBoolean(false))).reduce
         } else {
-          ((__ \ 'isCharityRegulator).json.put(JsBoolean(true)) and
-            (__ \ 'selectWhyNoRegulator).json.copyFrom(
-              (__ \ 'charityRegulator \ 'reasonForNotRegistering \ 'charityRegulator).json.pick) and
+          ((__ \ 'isCharityRegulator).json.put(JsBoolean(false)) and
+            selectWhyNoRegulator(__ \ 'selectWhyNoRegulator) and
             ((__ \ 'whyNotRegisteredWithCharity).json.copyFrom(
               (__ \ 'charityRegulator \ 'reasonForNotRegistering \ 'notRegReasonOtherDescription).json.pick) orElse doNothing) and
             (__ \ 'isSection2Completed).json.put(JsBoolean(false))).reduce

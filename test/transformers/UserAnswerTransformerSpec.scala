@@ -61,11 +61,46 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
 
     "toUserAnswersCharityRegulator" must {
 
-      "convert to correct charityRegulator " in {
-        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator)).transform(
+      "convert to correct charityRegulator5" in {
+        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator5)).transform(
           jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
-          """{"isSection2Completed":false,"isCharityRegulator":true,
-						|"selectWhyNoRegulator":"NotRegister","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+          """{"isSection2Completed":false,"isCharityRegulator":false,
+						|"selectWhyNoRegulator":"1","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+      }
+
+      "convert to correct charityRegulator6" in {
+        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator6)).transform(
+          jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
+          """{"isSection2Completed":false,"isCharityRegulator":false,
+						|"selectWhyNoRegulator":"2","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+      }
+
+      "convert to correct charityRegulator7" in {
+        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator7)).transform(
+          jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
+          """{"isSection2Completed":false,"isCharityRegulator":false,
+						|"selectWhyNoRegulator":"3","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+      }
+
+      "convert to correct charityRegulator8" in {
+        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator8)).transform(
+          jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
+          """{"isSection2Completed":false,"isCharityRegulator":false,
+						|"selectWhyNoRegulator":"4","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+      }
+
+      "convert to correct charityRegulator9" in {
+        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator9)).transform(
+          jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
+          """{"isSection2Completed":false,"isCharityRegulator":false,
+						|"selectWhyNoRegulator":"5","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+      }
+
+      "convert to correct charityRegulator10" in {
+        Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator10)).transform(
+          jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
+          """{"isSection2Completed":false,"isCharityRegulator":false,
+						|"selectWhyNoRegulator":"7","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
       }
     }
 

@@ -29,6 +29,7 @@ import play.api.libs.json._
 import repositories.SessionRepository
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.cache.client.CacheMap
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
@@ -75,41 +76,45 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
     }
   }
 
-  // scalastyle:off method.length
+  private def getSwitchOverJsonData(cacheMap: CacheMap): TransformerKeeper = {
+    TransformerKeeper(Json.obj(), Seq.empty)
+      .getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails")
+      .getJson[CharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCharityOfficialAddress, "charityOfficialAddress")
+      .getJson[OptionalCharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCorrespondenceAddress, "correspondenceAddress")
+      .getJson[CharityRegulator](cacheMap, userAnswerTransformer.toUserAnswersCharityRegulator, "charityRegulator")
+      .getJson[CharityGoverningDocument](cacheMap, userAnswerTransformer.toUserAnswersCharityGoverningDocument, "charityGoverningDocument")
+      .getJson[WhatYourCharityDoes](cacheMap, userAnswerTransformer.toUserAnswersWhatYourCharityDoes, "whatYourCharityDoes")
+      .getJson[OperationAndFunds](cacheMap, userAnswerTransformer.toUserAnswersOperationAndFunds, "operationAndFunds")
+      .getJson[CharityBankAccountDetails](cacheMap, userAnswerTransformer.toUserAnswersCharityBankAccountDetails, "charityBankAccountDetails")
+      .getJson[CharityHowManyAuthOfficials](cacheMap, userAnswerTransformer.toUserAnswersCharityHowManyAuthOfficials, "charityHowManyAuthOfficials")
+      .getJson[CharityAuthorisedOfficialIndividual](
+        cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "authorised"), "authorisedOfficialIndividual1")
+      .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+        cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),
+        "authorisedOfficialIndividual2", "authorisedOfficials")
+      .getJson[CharityHowManyOtherOfficials](cacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials, "charityHowManyOtherOfficials")
+      .getJson[CharityAuthorisedOfficialIndividual](
+        cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "other"), "otherOfficialIndividual1")
+      .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+        cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "other"),
+        "otherOfficialIndividual2", "otherOfficials")
+      .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+        cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(2, "other"),
+        "otherOfficialIndividual3", "otherOfficials")
+      .getJson[CharityAddNominee](cacheMap, userAnswerTransformer.toUserAnswersCharityAddNominee, "charityAddNominee")
+      .getJson[CharityNomineeStatus](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeStatus, "charityNomineeStatus")
+      .getJson[CharityNomineeIndividual](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeIndividual, "charityNomineeIndividual")
+      .getJson[CharityNomineeOrganisation](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeOrganisation, "charityNomineeOrganisation")
+      .getJson[Acknowledgement](cacheMap, userAnswerTransformer.toUserAnswersAcknowledgement, "acknowledgement-Reference")
+  }
+
   def getCacheData(request: OptionalDataRequest[_])(
     implicit hc: HeaderCarrier, ec: ExecutionContext): Future[(UserAnswers, Seq[(JsPath, Seq[JsonValidationError])])] ={
 
     cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>
-        val result = TransformerKeeper(Json.obj(), Seq.empty)
-          .getJson[CharityContactDetails](cacheMap, userAnswerTransformer.toUserAnswerCharityContactDetails, "charityContactDetails")
-          .getJson[CharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCharityOfficialAddress, "charityOfficialAddress")
-          .getJson[OptionalCharityAddress](cacheMap, userAnswerTransformer.toUserAnswerCorrespondenceAddress, "correspondenceAddress")
-          .getJson[CharityRegulator](cacheMap, userAnswerTransformer.toUserAnswersCharityRegulator, "charityRegulator")
-          .getJson[CharityGoverningDocument](cacheMap, userAnswerTransformer.toUserAnswersCharityGoverningDocument, "charityGoverningDocument")
-          .getJson[WhatYourCharityDoes](cacheMap, userAnswerTransformer.toUserAnswersWhatYourCharityDoes, "whatYourCharityDoes")
-          .getJson[OperationAndFunds](cacheMap, userAnswerTransformer.toUserAnswersOperationAndFunds, "operationAndFunds")
-          .getJson[CharityBankAccountDetails](cacheMap, userAnswerTransformer.toUserAnswersCharityBankAccountDetails, "charityBankAccountDetails")
-          .getJson[CharityHowManyAuthOfficials](cacheMap, userAnswerTransformer.toUserAnswersCharityHowManyAuthOfficials, "charityHowManyAuthOfficials")
-          .getJson[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "authorised"), "authorisedOfficialIndividual1")
-          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),
-            "authorisedOfficialIndividual2", "authorisedOfficials")
-          .getJson[CharityHowManyOtherOfficials](cacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials, "charityHowManyOtherOfficials")
-          .getJson[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "other"), "otherOfficialIndividual1")
-          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "other"),
-            "otherOfficialIndividual2", "otherOfficials")
-          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-            cacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(2, "other"),
-            "otherOfficialIndividual3", "otherOfficials")
-          .getJson[CharityAddNominee](cacheMap, userAnswerTransformer.toUserAnswersCharityAddNominee, "charityAddNominee")
-          .getJson[CharityNomineeStatus](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeStatus, "charityNomineeStatus")
-          .getJson[CharityNomineeIndividual](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeIndividual, "charityNomineeIndividual")
-          .getJson[CharityNomineeOrganisation](cacheMap, userAnswerTransformer.toUserAnswersCharityNomineeOrganisation, "charityNomineeOrganisation")
-          .getJson[Acknowledgement](cacheMap, userAnswerTransformer.toUserAnswersAcknowledgement, "acknowledgement-Reference")
+
+        val result = getSwitchOverJsonData(cacheMap)
 
         hc.sessionId match {
           case Some(sessionId) =>
@@ -121,6 +126,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
                   .flatMap(userAnswers => isSection7Completed(userAnswers))
                   .flatMap(userAnswers => isSection8Completed(userAnswers))
                   .flatMap(userAnswers => isSection9Completed(userAnswers))
+                  .flatMap(_.set(IsSwitchOverUserPage, true))
                 ).flatMap(userAnswers => Future.successful((userAnswers, result.errors)))
               } else {
                 Future.successful((userAnswers, result.errors))

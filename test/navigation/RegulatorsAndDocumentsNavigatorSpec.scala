@@ -23,7 +23,7 @@ import models._
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import pages.regulatorsAndDocuments._
-import pages.{IndexPage, QuestionPage}
+import pages.{IndexPage, IsSwitchOverUserPage, QuestionPage}
 
 class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
@@ -81,6 +81,40 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(CharityRegulatorPage, Set[CharityRegulator](Other)).success.value) mustBe
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
         }
+
+        "go to the CharityCommissionRegistrationNumberPage page when user answer has all options selected and its switch user journey" in {
+          navigator.nextPage(CharityRegulatorPage, NormalMode,
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityRegulatorPage, CharityRegulator.values.toSet))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(NormalMode)
+        }
+
+        "go to the ScottishRegulatorRegNumberPage page when user answer has Scottish and Other selected and its switch user journey" in {
+          navigator.nextPage(CharityRegulatorPage, NormalMode,
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")))
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish, Other)))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(NormalMode)
+        }
+
+        "go to the NIRegulatorRegNumberPage page when user answer has NorthernIreland and Other selected and its switch user journey" in {
+          navigator.nextPage(CharityRegulatorPage, NormalMode,
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")))
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland, Other)))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(NormalMode)
+        }
+
+        "go to the CharityOtherRegulatorDetailsPage page when user answer hasOther selected and its switch user journey" in {
+          navigator.nextPage(CharityRegulatorPage, NormalMode,
+            emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber"))
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
+        }
       }
 
       "from the CharityCommissionRegistrationNumberPage" must {
@@ -116,6 +150,24 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Other))).success.value) mustBe
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
+        }
+
+        "go to the ScottishRegulatorRegNumberPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
+          navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber"))
+              .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")))
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, Other)))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(NormalMode)
+        }
+
+        "go to the RegulatorsSummaryController when user answer has EnglandWales and its switch user journey" in {
+          navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode,
+            emptyUserAnswers.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales)))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
       }
 
@@ -153,6 +205,16 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
             routes.SessionExpiredController.onPageLoad()
         }
+
+        "go to the CharityOtherRegulatorDetailsPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
+          navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber"))
+              .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")))
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, Other)))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
+        }
       }
 
       "from the NIRegulatorRegNumberPage" must {
@@ -180,6 +242,16 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
             routes.SessionExpiredController.onPageLoad()
+        }
+
+        "go to the CharityOtherRegulatorDetailsPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
+          navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber"))
+              .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")))
+              .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, Other)))
+              .flatMap(_.set(IsSwitchOverUserPage, true)).success.value) mustBe
+            regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
         }
       }
 

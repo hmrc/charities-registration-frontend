@@ -38,7 +38,10 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case Some(_) => if(frontendAppConfig.isExternalTest){
         charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       } else {
-        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
+        userAnswers.get(CharityOfficialAddressLookupPage) match {
+          case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
+          case _ => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
+        }
       }
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -48,7 +51,8 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     }
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
       case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case Some(false) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+      case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined => charityInfoRoutes.ConfirmCharityPostalAddressController.onPageLoad()
+      case Some(_) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
     case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {

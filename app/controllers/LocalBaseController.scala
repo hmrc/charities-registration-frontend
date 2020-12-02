@@ -18,6 +18,7 @@ package controllers
 
 
 import models._
+import models.addressLookup.AddressModel
 import models.nominees.OrganisationNomineeContactDetails
 import models.requests.DataRequest
 import pages.QuestionPage
@@ -46,6 +47,20 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     request.userAnswers.get(page).map {
       name =>
         block(name)
+    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
+  }
+
+  def getAddress(addressLookupPageId:QuestionPage[AddressModel])(block: Seq[String] => Future[Result])(
+    implicit request: DataRequest[AnyContent]): Future[Result] = {
+
+    request.userAnswers.get(addressLookupPageId).map {
+      charityInformationAddressLookup =>
+
+        val addressList = charityInformationAddressLookup.lines
+        val postcode = charityInformationAddressLookup.postcode.fold(Seq[String]())(Seq(_))
+        val country = Seq(charityInformationAddressLookup.country.name)
+        block(Seq(addressList, postcode, country).flatten)
+
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
 

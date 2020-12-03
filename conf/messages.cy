@@ -747,7 +747,7 @@ charityEstablishedIn.checkYourAnswersLabel = (W)Country of establishment(W)
 whatCountryDoesTheCharityOperateIn.title = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.heading = (W)What country does the charity operate in?(W)
 whatCountryDoesTheCharityOperateIn.hint = (W)If the charity operates in more than one country, you can add more countries on the next page.(W)
-whatCountryDoesTheCharityOperateIn.countries.hint = (W)You can add up to 5 countries. You have already added {0}.(W)
+whatCountryDoesTheCharityOperateIn.countries.hint = (W)You can add up to 5 countries. You have already added the following countries: {0}.(W)
 whatCountryDoesTheCharityOperateIn.hintText = (W)Select a country(W)
 whatCountryDoesTheCharityOperateIn.error.required = (W)Enter a country that the charity operates in(W)
 

@@ -1,0 +1,59 @@
+/*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package views.common
+
+import play.twirl.api.HtmlFormat
+import views.behaviours.ViewBehaviours
+import views.html.common.ConfirmAddressView
+
+class ConfirmAddressViewSpec extends ViewBehaviours  {
+
+  private val messageKeyPrefix = "charityOfficialAddress"
+  val charityInformationAddressLookup = List("12", "Banner Way", "ZZ1 1ZZ")
+
+  "ConfirmAddressView" must {
+
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
+      view.apply(charityInformationAddressLookup, messageKeyPrefix, onwardRoute, onwardRoute, None)(fakeRequest, messages, frontendAppConfig)
+    }
+
+    def applyViewWithName(name:String): HtmlFormat.Appendable = {
+      val view = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
+      view.apply(charityInformationAddressLookup, "authorisedOfficialAddress", onwardRoute, onwardRoute, Some(name))(fakeRequest, messages, frontendAppConfig)
+    }
+
+    behave like normalPage(applyView(), s"$messageKeyPrefix.confirmPage")
+
+    "with name" must {
+      behave like normalPage(applyViewWithName("John Doe"), "authorisedOfficialAddress.confirmPage", Seq("John Doe"))
+    }
+
+    behave like pageWithBackLink(applyView())
+
+    "change link" must {
+      behave like pageWithHyperLink(applyView(), "linkButton", onwardRoute.url, "Change charity’s address")
+    }
+
+    "change link with name" must {
+      behave like pageWithHyperLink(applyViewWithName("John Doe"), "linkButton", onwardRoute.url, "Change authorised official’s home address")
+    }
+
+    behave like pageWithHyperLink(applyView(), "confirmAndContinue", onwardRoute.url, "Confirm and continue")
+
+  }
+}

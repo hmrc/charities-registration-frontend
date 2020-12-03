@@ -56,8 +56,17 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the CharityInformationAddressLookupController page when clicked continue button" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage,
+              CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
             controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
+        }
+
+        "go to the ConfirmCharityOfficialAddressController page when CharityOfficialAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(CharityContactDetailsPage, NormalMode,
+            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com"))
+              .flatMap(_.set(CharityOfficialAddressLookupPage,
+                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
+            controllers.charityInformation.routes.ConfirmCharityOfficialAddressController.onPageLoad()
         }
       }
 
@@ -93,6 +102,14 @@ class CharityInformationNavigatorSpec extends SpecBase {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
             emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value) mustBe
             controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+        }
+
+        "go to the ConfirmCharityPostalAddressController page when CharityOfficialAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage, false)
+              .flatMap(_.set(CharityPostalAddressLookupPage,
+                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
+            controllers.charityInformation.routes.ConfirmCharityPostalAddressController.onPageLoad()
         }
       }
 
@@ -163,7 +180,8 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Charity Details Summary page when an answer is given" in {
 
           navigator.nextPage(CharityContactDetailsPage, CheckMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
+            emptyUserAnswers.set(CharityContactDetailsPage,
+              CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }

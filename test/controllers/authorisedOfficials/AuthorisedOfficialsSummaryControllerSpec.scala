@@ -116,6 +116,30 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
+    "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
+
+      val app =
+        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+          .overrides(
+            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
+            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+          ).build()
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val controller: AuthorisedOfficialsSummaryController = app.injector.instanceOf[AuthorisedOfficialsSummaryController]
+
+      val result = controller.onSubmit()(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
     "redirect to the next page when valid data is submitted with two rows of officials" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
@@ -124,6 +148,32 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man"))).success.value)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit()(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to the next page when valid data is submitted with two rows of officials and isExternalTest is true" in {
+
+      val app =
+        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+          .overrides(
+            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
+            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+          ).build()
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man"))).success.value)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val controller: AuthorisedOfficialsSummaryController = app.injector.instanceOf[AuthorisedOfficialsSummaryController]
 
       val result = controller.onSubmit()(request)
 

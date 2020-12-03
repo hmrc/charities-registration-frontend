@@ -77,14 +77,16 @@ class OtherOfficialsSummaryController @Inject()(
         value =>
           for {
             updatedAnswers  <- Future.fromTry(result = request.userAnswers.set(IsAddAnotherOtherOfficialPage, value))
-            taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section8Page, checkComplete(updatedAnswers)))
+            taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section8Page,
+              if(appConfig.isExternalTest) true else checkComplete(updatedAnswers)))
             _               <- sessionRepository.set(taskListUpdated)
           } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, taskListUpdated))
       )
     } else {
 
       for {
-        updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page, checkComplete(request.userAnswers)))
+        updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page,
+          if(appConfig.isExternalTest) true else checkComplete(request.userAnswers)))
         _              <- sessionRepository.set(updatedAnswers)
       } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, updatedAnswers))
     }

@@ -10,14 +10,14 @@ object AppDependencies {
     "org.reactivemongo"         %% "reactivemongo-bson-api"          % "0.20.11",
     "com.typesafe.play"         %% "play-iteratees"                  % "2.6.1",
     "com.typesafe.play"         %% "play-iteratees-reactive-streams" % "2.6.1",
-    "uk.gov.hmrc"               %% "logback-json-logger"             % "4.8.0",
-    "uk.gov.hmrc"               %% "play-health"                     % "3.15.0-play-26",
-    "uk.gov.hmrc"               %% "play-conditional-form-mapping"   % "1.3.0-play-26",
-    "uk.gov.hmrc"               %% "bootstrap-play-26"               % "2.0.0",
-    "uk.gov.hmrc"               %% "play-frontend-govuk"             % "0.53.0-play-26",
+    "uk.gov.hmrc"               %% "logback-json-logger"             % "4.9.0",
+    "uk.gov.hmrc"               %% "play-health"                     % "3.16.0-play-26",
+    "uk.gov.hmrc"               %% "play-conditional-form-mapping"   % "1.4.0-play-26",
+    "uk.gov.hmrc"               %% "bootstrap-play-26"               % "2.2.0",
+    "uk.gov.hmrc"               %% "play-frontend-govuk"             % "0.55.0-play-26",
     "uk.gov.hmrc"               %% "play-frontend-hmrc"              % "0.18.0-play-26",
-    "uk.gov.hmrc"               %% "play-language"                   % "4.4.0-play-26",
-    "uk.gov.hmrc"               %% "http-caching-client"             % "9.1.0-play-26",
+    "uk.gov.hmrc"               %% "play-language"                   % "4.5.0-play-26",
+    "uk.gov.hmrc"               %% "http-caching-client"             % "9.2.0-play-26",
     "com.typesafe.play"         %% "play-json-joda"                  % "2.7.4"
   )
 

@@ -18,14 +18,14 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
-import javax.inject.Inject
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage, OldServiceSubmissionPage}
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
-import utils.{ImplicitDateFormatter, TimeMachine}
+import utils.ImplicitDateFormatter
 import viewmodels.RequiredDocumentsHelper
 import views.html.RegistrationSentView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 //scalastyle:off magic.number

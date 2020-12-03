@@ -32,7 +32,7 @@ import play.api.libs.json.{JsPath, JsonValidationError}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.{UserAnswerRepository, UserAnswerRepositoryImpl}
-import service.CharitiesKeyStoreService
+import service.{CharitiesKeyStoreService, CharitiesRegistrationService}
 
 import scala.concurrent.Future
 
@@ -53,7 +53,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository, mockCharitiesShortLivedCache)
+    reset(mockUserAnswerRepository, mockCharitiesShortLivedCache, mockCharitiesKeyStoreService)
   }
 
   private val controller: IndexController = inject[IndexController]
@@ -145,6 +145,33 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockUserAnswerRepository, times(1)).set(any())
 
+    }
+
+    "redirect to the task list without calling save4later service if external test is enabled" in {
+
+      val app =
+        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+          .overrides(
+            bind[CharitiesKeyStoreService].toInstance(mockCharitiesKeyStoreService),
+            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
+            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+          ).build()
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockCharitiesKeyStoreService.getCacheData(any())(any(), any())).thenReturn(Future.successful((emptyUserAnswers, Seq.empty)))
+      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())).thenReturn(Future.successful(Some(true)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val controller: IndexController = app.injector.instanceOf[IndexController]
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockCharitiesKeyStoreService, never).getCacheData(any())(any(), any())
+      verify(mockCharitiesShortLivedCache, never).fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())
     }
 
     "For keepalive" in {

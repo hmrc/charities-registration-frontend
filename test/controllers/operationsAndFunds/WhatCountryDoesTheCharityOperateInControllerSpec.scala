@@ -27,9 +27,13 @@ import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
+import play.api.Play
 import play.api.data.Form
+import play.api.i18n.Messages
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.Cookie
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
 import service.CountryService
@@ -66,7 +70,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
     "return OK and the correct view for a GET" in {
 
-    when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
@@ -75,6 +79,25 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(("TH", "Thai")), None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
       verify(mockCountryService, never()).find(any())(any())
+      verify(mockCountryService, times(1)).countries()(any())
+    }
+
+    "return OK and the correct view for a GET for Welsh" in {
+
+      val welshRequest = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(
+        WhatCountryDoesTheCharityOperateInPage(0), "TH").success.value)))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("TH", "Thai")))
+      when(mockCountryService.isWelsh(any())).thenReturn(true)
+
+      val result = controller.onPageLoad(NormalMode, Index(0))(welshRequest)
+
+      status(result) mustEqual OK
+      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockCountryService, times(1)).find(any())(any())
+      verify(mockCountryService, times(1)).isWelsh(any())
       verify(mockCountryService, times(1)).countries()(any())
     }
 

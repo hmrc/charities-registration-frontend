@@ -19,11 +19,14 @@ package controllers
 import base.SpecBase
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.addressLookup.{AddressModel, CountryModel}
+
 import javax.inject.Inject
 import models.requests.DataRequest
-import models.{Index, Name, SelectTitle, UserAnswers}
+import models.{Country, Index, Name, SelectTitle, UserAnswers}
 import org.mockito.Mockito.reset
 import org.scalatest.BeforeAndAfterEach
+import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.OrganisationNomineeNamePage
 import play.api.inject.bind
@@ -52,6 +55,10 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private def block(test: String): Future[Result] = {
     Future.successful(Results.Ok(test))
+  }
+
+  private def blockForAddress(test: Seq[String], country: Country): Future[Result] = {
+    Future.successful(Results.Ok(test.mkString(",")))
   }
 
   class TestAuthorisedOfficialsController @Inject()(
@@ -101,6 +108,15 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+    }
+
+    "calling the .getAddress() is successful" in {
+
+      val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
+        .set(CharityOfficialAddressLookupPage, AddressModel(List("12", "Banner Way"), Some("NE128UZ"), CountryModel("GB", "GB"))).success.value)
+      val result = controller.getAddress(CharityOfficialAddressLookupPage)(blockForAddress)(request)
+
+      status(result) mustEqual OK
     }
   }
 }

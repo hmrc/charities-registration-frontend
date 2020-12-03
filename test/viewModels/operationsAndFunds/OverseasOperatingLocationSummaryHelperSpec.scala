@@ -90,31 +90,31 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 1),
             value = "Thai",
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 1)),
-            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(0)) -> BaseMessages.delete
+            operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(0)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 2),
             value = "India",
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 2)),
-            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(1)) -> BaseMessages.delete
+            operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(1)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 3),
             value = "Portugal",
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 3)),
-            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(2)) -> BaseMessages.delete
+            operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(2)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 4),
             value = "Paraguay",
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 4)),
-            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(3)) -> BaseMessages.delete
+            operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(3)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 5),
             value = "Afghanistan",
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 5)),
-            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onRemove(NormalMode, Index(4)) -> BaseMessages.delete
+            operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(4)) -> BaseMessages.delete
           )
         )
       }

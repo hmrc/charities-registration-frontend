@@ -37,8 +37,10 @@ POST       /:index/select-overseas-operating-location           controllers.oper
 GET        /:index/select-overseas-operating-location/change    controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/select-overseas-operating-location/change    controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onSubmit(mode: Mode = CheckMode, index: Index)
 
-GET        /:index/delete-overseas-operating-location           controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onRemove(mode: Mode = NormalMode,index: Index)
-GET        /:index/delete-overseas-operating-location/change    controllers.operationsAndFunds.WhatCountryDoesTheCharityOperateInController.onRemove(mode: Mode = CheckMode,index: Index)
+GET        /:index/remove-overseas-operating-location           controllers.operationsAndFunds.IsRemoveOperatingCountryController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/remove-overseas-operating-location           controllers.operationsAndFunds.IsRemoveOperatingCountryController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/remove-overseas-operating-location/change    controllers.operationsAndFunds.IsRemoveOperatingCountryController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/remove-overseas-operating-location/change    controllers.operationsAndFunds.IsRemoveOperatingCountryController.onSubmit(mode: Mode = CheckMode, index: Index)
 
 GET        /select-location-established                         controllers.operationsAndFunds.CharityEstablishedInController.onPageLoad(mode: Mode = NormalMode)
 POST       /select-location-established                         controllers.operationsAndFunds.CharityEstablishedInController.onSubmit(mode: Mode = NormalMode)

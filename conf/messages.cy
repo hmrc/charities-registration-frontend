@@ -751,6 +751,12 @@ whatCountryDoesTheCharityOperateIn.countries.hint = (W)You can add up to 5 count
 whatCountryDoesTheCharityOperateIn.hintText = (W)Select a country(W)
 whatCountryDoesTheCharityOperateIn.error.required = (W)Enter a country that the charity operates in(W)
 
+# Are you sure you want to remove this Charity Operating Country Messages
+# ----------------------------------------------------------
+isRemoveOperatingCountry.title = (W)Are you sure you want to remove {0}?(W)
+isRemoveOperatingCountry.heading = (W)Are you sure you want to remove {0}?(W)
+isRemoveOperatingCountry.error.required = (W)Select yes to remove this country(W)
+
 # Select Overseas Operating Location Summary page
 # ----------------------------------------------------------
 overseasOperatingLocationSummary.checkYourAnswers.title = (W)Check the charity’s operating country details(W)

@@ -29,6 +29,8 @@ trait CountryService {
 
   def find(code: String)(implicit messages: Messages): Option[Country]
 
+  def isWelsh(implicit messages: Messages): Boolean
+
 }
 
 @Singleton
@@ -45,7 +47,7 @@ class CountryServiceImpl extends CountryService {
 
   private lazy val countriesCY: Seq[Country] = getCountries("/countriesCY.json")
 
-  private def isWelsh(implicit messages: Messages) = messages.lang.code == "cy"
+  override def isWelsh(implicit messages: Messages) = messages.lang.code == "cy"
 
   override def countries()(implicit messages: Messages): Seq[(String, String)] = {
 

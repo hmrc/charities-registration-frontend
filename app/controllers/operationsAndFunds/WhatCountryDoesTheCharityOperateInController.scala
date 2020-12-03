@@ -53,8 +53,13 @@ class WhatCountryDoesTheCharityOperateInController @Inject()(
     val result = for(i <- 0 to 4) yield request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
     val countryList = result.filter(_.nonEmpty).flatten.map(code => countryService.find(code).fold(code)(_.name))
     if(countryList.nonEmpty) {
-      Some(countryList.mkString(", ")
+      if(countryService.isWelsh){
+        Some(countryList.mkString(", "))
+      }
+      else {
+        Some(countryList.mkString(", ")
         .replaceFirst(",(?=[^,]+$)", s" ${messagesApi.preferred(request).apply("service.separator.and")}"))
+      }
     } else {
       None
     }

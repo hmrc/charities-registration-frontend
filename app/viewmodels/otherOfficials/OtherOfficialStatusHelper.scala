@@ -16,7 +16,7 @@
 
 package viewmodels.otherOfficials
 
-import models.{SelectTitle, UserAnswers}
+import models.{Index, SelectTitle, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
@@ -99,6 +99,15 @@ object OtherOfficialStatusHelper extends StatusHelper {
           case _ => false
         }
       case _ => false
+    }
+  }
+
+  def otherOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean ={
+    (userAnswers.get(IsOtherOfficialNinoPage(index)), userAnswers.get(IsOtherOfficialsPreviousAddressPage(index))) match {
+      case (Some(isNino), Some(isPreviousAddress)) =>
+        val list  = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)
+        userAnswers.arePagesDefined(list) && userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index))
+      case _=> false
     }
   }
 }

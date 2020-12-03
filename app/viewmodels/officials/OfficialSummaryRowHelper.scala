@@ -16,37 +16,44 @@
 
 package viewmodels.officials
 
-import models.{Index, Name}
 import models.requests.DataRequest
-import pages.QuestionPage
+import models.{Index, Name, NormalMode}
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.otherOfficials.OtherOfficialsNamePage
-import play.api.mvc.Call
 import viewmodels.OfficialSummaryListRow
+import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper.authorisedOfficialCompleted
+import viewmodels.otherOfficials.OtherOfficialStatusHelper.otherOfficialCompleted
 
 trait OfficialSummaryRowHelper {
 
-  private def officialAnswers(pageToCall: QuestionPage[Name], onChangeCall: Call, onDeleteCall: Call)(
-    implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
-    request.userAnswers.get[Name](pageToCall).map(name =>
+  private def authorisedOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
+    val isCompleted = authorisedOfficialCompleted(index, request.userAnswers)
+    request.userAnswers.get[Name](AuthorisedOfficialsNamePage(index)).map(name =>
       OfficialSummaryListRow(name,
-        onChangeCall,
-        onDeleteCall
+        if(isCompleted){
+          controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(index)
+        } else {
+          controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, index)
+        },
+        controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(index),
+        isCompleted
       )
     ).foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
-
-  private def authorisedOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
-    officialAnswers(AuthorisedOfficialsNamePage(index),
-      controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(index),
-      controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(index)
-    )
   }
 
   private def otherOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
-    officialAnswers(OtherOfficialsNamePage(index),
-      controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index),
-      controllers.otherOfficials.routes.RemoveOtherOfficialsController.onPageLoad(index)
-    )
+    val isCompleted = otherOfficialCompleted(index, request.userAnswers)
+    request.userAnswers.get[Name](OtherOfficialsNamePage(index)).map(name =>
+      OfficialSummaryListRow(name,
+        if(isCompleted){
+          controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index)
+        } else {
+          controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, index)
+        },
+        controllers.otherOfficials.routes.RemoveOtherOfficialsController.onPageLoad(index),
+        isCompleted
+      )
+    ).foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
   }
 
   def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = authorisedOfficialAnswers(0)

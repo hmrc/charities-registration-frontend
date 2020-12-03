@@ -293,4 +293,34 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
       }
     }
   }
+
+  "authorisedOfficialCompleted" must {
+
+    val userAnswers = common(0, emptyUserAnswers)
+      .set(IsAuthorisedOfficialNinoPage(0), true)
+      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123123A"))
+      .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false)).success.value
+
+    "return false if Authorised official data is empty" in {
+
+      helper.authorisedOfficialCompleted(0, emptyUserAnswers) mustBe false
+    }
+
+    "return false if Authorised official required data is not defined" in {
+
+      helper.authorisedOfficialCompleted(0, common(0, emptyUserAnswers)) mustBe false
+    }
+
+    "return false if Authorised official required data is defined with additional fields" in {
+
+      helper.authorisedOfficialCompleted(0, common(0, userAnswers.
+        set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))).flatMap(
+        _.set(AuthorisedOfficialsNinoPage(0), "AA123123A")).success.value)) mustBe false
+    }
+
+    "return true if Authorised official required data is defined with additional fields" in {
+
+      helper.authorisedOfficialCompleted(0, userAnswers) mustBe true
+    }
+  }
 }

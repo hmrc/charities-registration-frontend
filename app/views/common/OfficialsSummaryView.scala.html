@@ -41,6 +41,12 @@
         case _ => "addedOne"
     }
 }
+
+@getTagClass(isCompleted: Boolean) = @{isCompleted match {
+    case true => "hmrc-status-tag govuk-tag govuk-tag--turquoise"
+    case _ => "hmrc-status-tag govuk-tag govuk-tag--yellow"
+    }
+}
 @govukLayout(pageTitle = Some(title(form, s"$section.checkYourAnswers.title.$suffix", section = Some(messages(s"$section.section"))))) {
 
     @errorSummary(form.errors)
@@ -66,11 +72,13 @@
                             <span class="govuk-visually-hidden">@{messages(s"$section.checkYourAnswers.removeName", official.name.getFullName)}</span>
                         </a>
                     </span>
+                    <span class="hmrc-add-to-a-list__remove">
+                        <strong class="@getTagClass(official.isCompleted)">@messages(if(official.isCompleted){"index.section.completed"} else {"index.section.inProgress"})</strong>
+                    </span>
                 </li>
             }
         </ul>
     </div>
-
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
 

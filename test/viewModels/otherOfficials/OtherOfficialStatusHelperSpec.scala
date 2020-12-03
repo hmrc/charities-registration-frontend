@@ -286,6 +286,34 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
           .success.value) mustBe true
       }
     }
+  }
 
+  "otherOfficialCompleted" must {
+
+    val userAnswers = common(0, emptyUserAnswers)
+      .set(IsOtherOfficialNinoPage(0), true)
+      .flatMap(_.set(OtherOfficialsNinoPage(0), "AA123123A"))
+      .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(0), false)).success.value
+
+    "return false if other official data is empty" in {
+
+      helper.otherOfficialCompleted(0, emptyUserAnswers) mustBe false
+    }
+
+    "return false if other official required data is not defined" in {
+
+      helper.otherOfficialCompleted(0, common(0, emptyUserAnswers)) mustBe false
+    }
+
+    "return false if other official required data is defined with additional fields" in {
+
+      helper.otherOfficialCompleted(0, common(0, userAnswers.addPassport(0)
+        .set(OtherOfficialsNinoPage(0), "AA123123A").success.value)) mustBe false
+    }
+
+    "return true if other official required data is defined with additional fields" in {
+
+      helper.otherOfficialCompleted(0, userAnswers) mustBe true
+    }
   }
 }

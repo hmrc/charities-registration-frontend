@@ -19,4 +19,4 @@ package viewmodels
 import models.Name
 import play.api.mvc.Call
 
-case class OfficialSummaryListRow(name: Name, changeCall: Call, removeCall: Call)
+case class OfficialSummaryListRow(name: Name, changeCall: Call, removeCall: Call, isCompleted:Boolean)

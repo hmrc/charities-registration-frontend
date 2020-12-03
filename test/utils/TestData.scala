@@ -61,6 +61,24 @@ trait TestData {
 		Some("fundsOther"), Some(100), Some(100), Some(false),
 		WhereWillCharityOperate(englandAndWales = true, scotland = false, northernIreland = false, ukWide = false, overseas = false),
 		OtherCountriesOfOperation(Some("EN"), Some("EN"), None, None, None))
+	val operationAndFundsUKWide: OperationAndFunds = OperationAndFunds(
+		OperationAndFundsCommon(ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)), Some(true), Some(true), Some("noBankStatements")),
+		FutureFunds(donations = true, fundraising = false, grants = false, membershipSubscriptions = false, tradingIncome = false, tradingSubsidiaries = false, investmentIncome = false, other = false),
+		Some("fundsOther"), Some(100), Some(100), Some(false),
+		WhereWillCharityOperate(englandAndWales = false, scotland = false, northernIreland = false, ukWide = true, overseas = false),
+		OtherCountriesOfOperation(None, None, None, None, None))
+	val operationAndFundsFiveCountries: OperationAndFunds = OperationAndFunds(
+		OperationAndFundsCommon(ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)), Some(true), Some(true), Some("noBankStatements")),
+		FutureFunds(donations = true, fundraising = false, grants = false, membershipSubscriptions = false, tradingIncome = false, tradingSubsidiaries = false, investmentIncome = false, other = false),
+		Some("fundsOther"), Some(100), Some(100), Some(false),
+		WhereWillCharityOperate(englandAndWales = false, scotland = false, northernIreland = false, ukWide = true, overseas = true),
+		OtherCountriesOfOperation(Some("AA"), Some("BB"), Some("CC"), Some("DD"), Some("EE")))
+	val operationAndFundsFiveCountriesNoUK: OperationAndFunds = OperationAndFunds(
+		OperationAndFundsCommon(ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)), Some(true), Some(true), Some("noBankStatements")),
+		FutureFunds(donations = true, fundraising = false, grants = false, membershipSubscriptions = false, tradingIncome = false, tradingSubsidiaries = false, investmentIncome = false, other = false),
+		Some("fundsOther"), Some(100), Some(100), Some(false),
+		WhereWillCharityOperate(englandAndWales = false, scotland = false, northernIreland = false, ukWide = false, overseas = true),
+		OtherCountriesOfOperation(Some("AA"), Some("BB"), Some("CC"), Some("DD"), Some("EE")))
 	val charityBankAccountDetails: CharityBankAccountDetails = CharityBankAccountDetails("Tesco", "123456", "12345678", Some("rollNumber"))
 	val charityHowManyAuthOfficials: CharityHowManyAuthOfficials = CharityHowManyAuthOfficials(Some(22))
 	val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("true"), "AB111111A", OfficialIndividualNationalIdentityCardDetails("", "", None))

@@ -24,6 +24,7 @@ import models.requests.DataRequest
 import pages.QuestionPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{AnyContent, Result}
+import service.CountryService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -50,7 +51,7 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
 
-  def getAddress(addressLookupPageId:QuestionPage[AddressModel])(block: Seq[String] => Future[Result])(
+  def getAddress(addressLookupPageId: QuestionPage[AddressModel])(block: (Seq[String], Country) => Future[Result])(
     implicit request: DataRequest[AnyContent]): Future[Result] = {
 
     request.userAnswers.get(addressLookupPageId).map {
@@ -58,10 +59,10 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
 
         val addressList = charityInformationAddressLookup.lines
         val postcode = charityInformationAddressLookup.postcode.fold(Seq[String]())(Seq(_))
-        val country = Seq(charityInformationAddressLookup.country.name)
-        block(Seq(addressList, postcode, country).flatten)
+        val countryName = charityInformationAddressLookup.country.name
+        val countryCode = charityInformationAddressLookup.country.code
+        block(Seq(addressList, postcode).flatten, Country(countryCode, countryName))
 
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
-
 }

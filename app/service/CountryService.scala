@@ -31,6 +31,8 @@ trait CountryService {
 
   def isWelsh(implicit messages: Messages): Boolean
 
+  def translatedCountryName(country: Country)(implicit messages: Messages): String
+
 }
 
 @Singleton
@@ -61,5 +63,11 @@ class CountryServiceImpl extends CountryService {
     if (isWelsh) countriesCY.find(_.code == code) else countriesEN.find(_.code == code)
 
   }
+
+  override def translatedCountryName(country: Country)(implicit messages: Messages): String =
+    find(country.code).map { countryTranslated =>
+      countryTranslated.name
+    }.getOrElse(country.name)
+
 
 }

@@ -158,7 +158,10 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
   def daysBetween(min: JodaLocalDate, max: JodaLocalDate): Gen[JodaLocalDate] = {
     Gen.choose(min.toDateTimeAtStartOfDay().getMillis, max.toDateTimeAtStartOfDay.getMillis).map {
       millis =>
-       val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
+       val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate match {
+         case leap if leap.getDayOfMonth == 29 && leap.getMonthValue == 2 => leap.plusDays(1)
+         case nonLeap => nonLeap
+       }
         new JodaLocalDate(date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant.toEpochMilli)
     }
   }

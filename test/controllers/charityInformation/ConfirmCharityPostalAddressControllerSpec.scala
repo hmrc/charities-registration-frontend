@@ -51,14 +51,14 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
   private val view: ConfirmAddressView = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmCharityPostalAddressController = inject[ConfirmCharityPostalAddressController]
   private val messageKeyPrefix = "charityPostalAddress"
-  private val charityInformationAddressLookup = List("12", "Banner Way", "GB")
+  private val charityInformationAddressLookup = List("12", "Banner Way", "United Kingdom")
 
   "ConfirmCharityPostalAddressController Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(CharityPostalAddressLookupPage, AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "GB"))).success.value)))
+        .set(CharityPostalAddressLookupPage, AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 

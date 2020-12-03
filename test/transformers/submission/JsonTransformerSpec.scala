@@ -47,8 +47,7 @@ class JsonTransformerSpec extends SpecBase {
             |        "addressLine2": "Morrison street",
             |        "addressLine3": "line3",
             |        "addressLine4": "line4",
-            |        "nonUKAddress": false,
-            |        "nonUKCountry":"United Kingdom"
+            |        "nonUKAddress": false
             |      }
             |     }
             |    }
@@ -107,8 +106,7 @@ class JsonTransformerSpec extends SpecBase {
             |        "addressLine2": "Morrison street",
             |        "addressLine3": "line3",
             |        "addressLine4": "line4",
-            |        "nonUKAddress": false,
-            |        "nonUKCountry":"United Kingdom"
+            |        "nonUKAddress": false
             |      }
             |     }
             |    }

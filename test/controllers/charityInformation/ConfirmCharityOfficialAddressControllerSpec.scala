@@ -51,14 +51,14 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
   private val view: ConfirmAddressView = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmCharityOfficialAddressController = inject[ConfirmCharityOfficialAddressController]
   private val messageKeyPrefix = "charityOfficialAddress"
-  private val charityInformationAddressLookup = List("12", "Banner Way", "GB")
+  private val charityInformationAddressLookup = List("12", "Banner Way", "United Kingdom")
 
   "ConfirmCharityOfficialAddressController Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(CharityOfficialAddressLookupPage, AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "GB"))).success.value)))
+        .set(CharityOfficialAddressLookupPage, AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 

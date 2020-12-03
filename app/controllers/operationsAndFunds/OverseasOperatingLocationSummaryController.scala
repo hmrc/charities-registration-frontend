@@ -76,7 +76,11 @@ class OverseasOperatingLocationSummaryController @Inject()(
           } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
       )
     } else {
-      Future.successful(Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, request.userAnswers)))
+      for {
+        updatedAnswers <- Future.fromTry(result = request.userAnswers.set(
+          OverseasOperatingLocationSummaryPage, true))
+        _ <- sessionRepository.set(updatedAnswers)
+      } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
     }
   }
 

@@ -150,7 +150,7 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, never).set(any())
+      verify(mockUserAnswerRepository, times(1)).set(any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

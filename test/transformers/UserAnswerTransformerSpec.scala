@@ -44,7 +44,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
       "convert the OfficialAddress" in {
         Json.obj("charityOfficialAddress" -> Json.toJson(charityAddress)).transform(
           jsonTransformer.toUserAnswerCharityOfficialAddress).asOpt.value mustBe Json.obj(
-          "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"GB"},"lines":["Test123","line2"]}"""))
+          "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"United Kingdom"},"lines":["Test123","line2"]}"""))
       }
     }
 
@@ -53,7 +53,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
       "convert the CorrespondenceAddress" in {
         Json.obj("correspondenceAddress" -> Json.toJson(correspondenceAddress)).transform(
           jsonTransformer.toUserAnswerCorrespondenceAddress).asOpt.value mustBe Json.obj(
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "canWeSendLettersToThisAddress" -> false
         )
       }
@@ -229,7 +229,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
             |    "officialAddress": {
             |        "country": {
             |            "code": "GB",
-            |            "name": "GB"
+            |            "name": "United Kingdom"
             |        },
             |        "postcode": "AA1 1AA",
             |        "lines": [
@@ -240,7 +240,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
             |    "officialPreviousAddress": {
             |         "country": {
             |             "code": "GB",
-            |             "name": "GB"
+            |             "name": "United Kingdom"
             |         },
             |         "postcode": "AA2 2AA",
             |         "lines": [
@@ -282,7 +282,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
             |    "officialAddress": {
             |        "country": {
             |            "code": "GB",
-            |            "name": "GB"
+            |            "name": "United Kingdom"
             |        },
             |        "postcode": "AA1 1AA",
             |        "lines": [
@@ -329,6 +329,99 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
         Json.obj("acknowledgement-Reference" -> Json.toJson(acknowledgement)).transform(
           jsonTransformer.toUserAnswersOldAcknowledgement).asOpt.value mustBe Json.obj("oldAcknowledgement" -> Json.obj(
           "submissionDate" -> "9:56am, Tuesday 1 December 2020", "refNumber" -> "080582080582"))
+      }
+    }
+
+    "toUserAnswersOperationAndFunds" must {
+
+      "convert to the correct OperationAndFunds object with foreign countries of operation" in {
+        Json.obj("operationAndFunds" -> Json.toJson(operationAndFundsFiveCountries)).transform(
+          jsonTransformer.toUserAnswersOperationAndFunds).asOpt.value mustBe Json.parse(
+          """
+            |{
+            |    "isSection5Completed": false,
+            |    "operatingLocation": [
+            |        "1",
+            |        "2",
+            |        "3",
+            |        "4",
+            |        "5"
+            |    ],
+            |    "actualIncome": 100,
+            |    "selectFundRaising": [
+            |        "donations"
+            |    ],
+            |    "whatCountryDoesTheCharityOperateIn": [
+            |        {"overseasCountry": "AA"},
+            |        {"overseasCountry": "BB"},
+            |        {"overseasCountry": "CC"},
+            |        {"overseasCountry": "DD"},
+            |        {"overseasCountry": "EE"}
+            |    ],
+            |    "isBankStatements": true,
+            |    "whyNoBankStatement": "noBankStatements",
+            |    "accountingPeriodEndDate": "--1-1",
+            |    "estimatedIncome": 100,
+            |    "isFinancialAccounts": true,
+            |    "otherFundRaising": "fundsOther"
+            |}
+            |""".stripMargin)
+      }
+
+      "convert to the correct OperationAndFunds object with foreign countries of operation and no UK-Wide" in {
+        Json.obj("operationAndFunds" -> Json.toJson(operationAndFundsFiveCountriesNoUK)).transform(
+          jsonTransformer.toUserAnswersOperationAndFunds).asOpt.value mustBe Json.parse(
+          """
+            |{
+            |    "isSection5Completed": false,
+            |    "operatingLocation": [
+            |        "5"
+            |    ],
+            |    "actualIncome": 100,
+            |    "selectFundRaising": [
+            |        "donations"
+            |    ],
+            |    "whatCountryDoesTheCharityOperateIn": [
+            |        {"overseasCountry": "AA"},
+            |        {"overseasCountry": "BB"},
+            |        {"overseasCountry": "CC"},
+            |        {"overseasCountry": "DD"},
+            |        {"overseasCountry": "EE"}
+            |    ],
+            |    "isBankStatements": true,
+            |    "whyNoBankStatement": "noBankStatements",
+            |    "accountingPeriodEndDate": "--1-1",
+            |    "estimatedIncome": 100,
+            |    "isFinancialAccounts": true,
+            |    "otherFundRaising": "fundsOther"
+            |}
+            |""".stripMargin)
+      }
+
+      "convert to the correct OperationAndFunds object with no foreign countries of operation, UK-Wide" in {
+        Json.obj("operationAndFunds" -> Json.toJson(operationAndFundsUKWide)).transform(
+          jsonTransformer.toUserAnswersOperationAndFunds).asOpt.value mustBe Json.parse(
+          """
+            |{
+            |    "isSection5Completed": false,
+            |    "operatingLocation": [
+            |        "1",
+            |        "2",
+            |        "3",
+            |        "4"
+            |    ],
+            |    "actualIncome": 100,
+            |    "selectFundRaising": [
+            |        "donations"
+            |    ],
+            |    "isBankStatements": true,
+            |    "whyNoBankStatement": "noBankStatements",
+            |    "accountingPeriodEndDate": "--1-1",
+            |    "estimatedIncome": 100,
+            |    "isFinancialAccounts": true,
+            |    "otherFundRaising": "fundsOther"
+            |}
+            |""".stripMargin)
       }
     }
   }

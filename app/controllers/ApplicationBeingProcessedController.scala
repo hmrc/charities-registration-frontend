@@ -34,7 +34,7 @@ class ApplicationBeingProcessedController @Inject()(
     getData: UserDataRetrievalAction,
     view: ApplicationBeingProcessedView,
     val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with  LocalBaseController {
+  )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
 

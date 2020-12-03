@@ -16,7 +16,7 @@
 
 package viewmodels.authorisedOfficials
 
-import models.{SelectTitle, UserAnswers}
+import models.{Index, SelectTitle, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials._
@@ -91,6 +91,16 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
           case _ => false
         }
       case _ => false
+    }
+  }
+
+
+  def authorisedOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean ={
+    (userAnswers.get(IsAuthorisedOfficialNinoPage(index)), userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index))) match {
+      case (Some(isNino), Some(isPreviousAddress)) =>
+        val list  = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)
+        userAnswers.arePagesDefined(list) && userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index))
+      case _=> false
     }
   }
 

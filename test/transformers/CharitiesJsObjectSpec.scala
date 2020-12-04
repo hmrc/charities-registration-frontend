@@ -91,7 +91,7 @@ class CharitiesJsObjectSpec extends SpecBase {
               |            "officialAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA1 1AA",
               |                "lines": [
@@ -102,7 +102,7 @@ class CharitiesJsObjectSpec extends SpecBase {
               |            "officialPreviousAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA2 2AA",
               |                "lines": [
@@ -138,7 +138,7 @@ class CharitiesJsObjectSpec extends SpecBase {
             |            "officialAddress": {
             |                "country": {
             |                    "code": "GB",
-            |                    "name": "GB"
+            |                    "name": "United Kingdom"
             |                },
             |                "postcode": "AA1 1AA",
             |                "lines": [
@@ -149,7 +149,7 @@ class CharitiesJsObjectSpec extends SpecBase {
             |            "officialPreviousAddress": {
             |                "country": {
             |                    "code": "GB",
-            |                    "name": "GB"
+            |                    "name": "United Kingdom"
             |                },
             |                "postcode": "AA2 2AA",
             |                "lines": [
@@ -178,7 +178,7 @@ class CharitiesJsObjectSpec extends SpecBase {
             |            "officialAddress": {
             |                "country": {
             |                    "code": "GB",
-            |                    "name": "GB"
+            |                    "name": "United Kingdom"
             |                },
             |                "postcode": "AA1 1AA",
             |                "lines": [
@@ -189,7 +189,7 @@ class CharitiesJsObjectSpec extends SpecBase {
             |            "officialPreviousAddress": {
             |                "country": {
             |                    "code": "GB",
-            |                    "name": "GB"
+            |                    "name": "United Kingdom"
             |                },
             |                "postcode": "AA2 2AA",
             |                "lines": [

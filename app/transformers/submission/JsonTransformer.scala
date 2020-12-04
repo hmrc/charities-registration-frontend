@@ -26,17 +26,20 @@ trait JsonTransformer {
 
   def getAddress(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
 
-    val isNonUK = (userAnswerPath \ 'country \ 'code).read[String].map{
-      code => JsBoolean(code!="GB")
+    val isNonUK = (userAnswerPath \ 'country \ 'code).read[String].map {
+      code => JsBoolean(code != "GB")
     }
 
     ((submissionPath \ 'nonUKAddress).json.copyFrom(isNonUK) and
-     ((submissionPath \ 'nonUKCountry).json.copyFrom((userAnswerPath \ 'country \ 'name).json.pick) orElse doNothing) and
-     (submissionPath \ 'addressLine1).json.copyFrom((userAnswerPath \ 'lines \ 0).json.pick) and
-     (submissionPath \ 'addressLine2).json.copyFrom((userAnswerPath \ 'lines \ 1).json.pick) and
-     ((submissionPath \ 'addressLine3).json.copyFrom((userAnswerPath \ 'lines \ 2).json.pick) orElse doNothing) and
-     ((submissionPath \ 'addressLine4).json.copyFrom((userAnswerPath \ 'lines \ 3).json.pick) orElse doNothing) and
-     ((submissionPath \ 'postcode).json.copyFrom((userAnswerPath \ 'postcode).json.pick) orElse doNothing)).reduce
+      isNonUK.flatMap {
+        case JsBoolean(true) => (submissionPath \ 'nonUKCountry).json.copyFrom((userAnswerPath \ 'country \ 'name).json.pick)
+        case _ => doNothing
+      } and
+      (submissionPath \ 'addressLine1).json.copyFrom((userAnswerPath \ 'lines \ 0).json.pick) and
+      (submissionPath \ 'addressLine2).json.copyFrom((userAnswerPath \ 'lines \ 1).json.pick) and
+      ((submissionPath \ 'addressLine3).json.copyFrom((userAnswerPath \ 'lines \ 2).json.pick) orElse doNothing) and
+      ((submissionPath \ 'addressLine4).json.copyFrom((userAnswerPath \ 'lines \ 3).json.pick) orElse doNothing) and
+      ((submissionPath \ 'postcode).json.copyFrom((userAnswerPath \ 'postcode).json.pick) orElse doNothing)).reduce
   }
 
   def getOptionalAddress(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
@@ -47,7 +50,7 @@ trait JsonTransformer {
 
   def getName(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
 
-      ((submissionPath \ 'title).json.copyFrom((userAnswerPath \ 'title).json.pick) and
+    ((submissionPath \ 'title).json.copyFrom((userAnswerPath \ 'title).json.pick) and
       (submissionPath \ 'firstName).json.copyFrom((userAnswerPath \ 'firstName).json.pick) and
       ((submissionPath \ 'middleName).json.copyFrom((userAnswerPath \ 'middleName).json.pick) orElse doNothing) and
       (submissionPath \ 'lastName).json.copyFrom((userAnswerPath \ 'lastName).json.pick)).reduce

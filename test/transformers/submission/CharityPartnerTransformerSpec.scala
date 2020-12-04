@@ -217,8 +217,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -243,8 +242,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
@@ -252,8 +250,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -295,8 +292,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
             |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -322,8 +318,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -348,8 +343,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
@@ -357,8 +351,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -400,8 +393,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
             |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -427,8 +419,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -453,8 +444,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
@@ -462,8 +452,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -505,8 +494,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
             |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -703,8 +691,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      }
@@ -796,8 +783,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine2": "Dubai Main Road",
             |                    "addressLine3": "line3",
             |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -839,8 +825,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
             |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD",
-            |                    "nonUKCountry": "United Kingdom"
+            |                    "postcode": "G27JD"
             |               }
             |        }
             |  }""".stripMargin
@@ -912,8 +897,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      }
@@ -991,8 +975,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      },
@@ -1056,8 +1039,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      },
@@ -1149,8 +1131,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      },
@@ -1214,8 +1195,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      },
@@ -1354,8 +1334,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      },
@@ -1419,8 +1398,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Dubai Main Road",
              |            "addressLine3": "line3",
              |            "addressLine4": "line4",
-             |            "postcode": "G27JD",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "G27JD"
              |          }
              |        }
              |      },
@@ -1481,8 +1459,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "1",
              |            "addressLine2": "Nominee Street",
              |            "nonUKAddress": false,
-             |            "postcode": "AA11AA",
-             |            "nonUKCountry": "United Kingdom"
+             |            "postcode": "AA11AA"
              |          },
              |          "previousAddress": {
              |            "addressLine1": "1",

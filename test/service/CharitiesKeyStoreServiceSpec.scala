@@ -177,7 +177,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false,
           "isSwitchOver" -> true,
-          "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"GB"},"lines":["Test123","line2"]}""")))
+          "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"United Kingdom"},"lines":["Test123","line2"]}""")))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
@@ -201,8 +201,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection1Completed" -> false,
           "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
-          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}""")))
+          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}""")))
 
         val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
 
@@ -228,8 +228,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection1Completed" -> false,
           "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
-          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "isSection2Completed" -> false,
           "charityRegulator" -> Json.parse("""["ccew","oscr","otherRegulator"]"""),
           "isCharityRegulator" -> true,
@@ -265,8 +265,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSwitchOver" -> true,
           "isSection1Completed" -> false,
           "canWeSendLettersToThisAddress" -> false,
-          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "isSection2Completed" -> false,
           "charityRegulator" -> Json.parse("""["ccew","oscr","otherRegulator"]"""),
           "isCharityRegulator" -> true,
@@ -310,8 +310,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection1Completed" -> false,
           "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
-          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "isSection2Completed" -> false,
           "charityRegulator" -> Json.parse("""["ccew","oscr","otherRegulator"]"""),
           "isCharityRegulator" -> true,
@@ -362,8 +362,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection1Completed" -> false,
           "isSwitchOver" -> true,
           "canWeSendLettersToThisAddress" -> false,
-          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "isSection2Completed" -> false,
           "charityRegulator" -> Json.parse("""["ccew","oscr","otherRegulator"]"""),
           "isCharityRegulator" -> true,
@@ -435,7 +435,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA1 1AA",
               |                "lines": [
@@ -446,7 +446,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialPreviousAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA2 2AA",
               |                "lines": [
@@ -475,7 +475,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA1 1AA",
               |                "lines": [
@@ -486,7 +486,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialPreviousAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA2 2AA",
               |                "lines": [
@@ -555,8 +555,8 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSwitchOver" -> true,
           "isSection1Completed" -> false,
           "canWeSendLettersToThisAddress" -> false,
-          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
-          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+          "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "isSection2Completed" -> false,
           "charityRegulator" -> Json.parse("""["ccew","oscr","otherRegulator"]"""),
           "isCharityRegulator" -> true,
@@ -610,7 +610,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA1 1AA",
               |                "lines": [
@@ -621,7 +621,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialPreviousAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA2 2AA",
               |                "lines": [
@@ -650,7 +650,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA1 1AA",
               |                "lines": [
@@ -661,7 +661,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |            "officialPreviousAddress": {
               |                "country": {
               |                    "code": "GB",
-              |                    "name": "GB"
+              |                    "name": "United Kingdom"
               |                },
               |                "postcode": "AA2 2AA",
               |                "lines": [
@@ -692,7 +692,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
                 |  "officialAddress": {
                 |    "country": {
                 |      "code": "GB",
-                |      "name": "GB"
+                |      "name": "United Kingdom"
                 |    },
                 |    "lines": [
                 |      "current",
@@ -703,7 +703,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
                 |  "officialPreviousAddress": {
                 |    "country": {
                 |      "code": "GB",
-                |      "name": "GB"
+                |      "name": "United Kingdom"
                 |    },
                 |    "lines": [
                 |      "previous",
@@ -734,7 +734,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
                 |  "officialAddress": {
                 |    "country": {
                 |      "code": "GB",
-                |      "name": "GB"
+                |      "name": "United Kingdom"
                 |    },
                 |    "lines": [
                 |      "current",
@@ -745,7 +745,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
                 |  "officialPreviousAddress": {
                 |    "country": {
                 |      "code": "GB",
-                |      "name": "GB"
+                |      "name": "United Kingdom"
                 |    },
                 |    "lines": [
                 |      "previous",
@@ -780,7 +780,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
                 |  "officialAddress": {
                 |    "country": {
                 |      "code": "GB",
-                |      "name": "GB"
+                |      "name": "United Kingdom"
                 |    },
                 |    "lines": [
                 |      "current",
@@ -791,7 +791,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
                 |  "officialPreviousAddress": {
                 |    "country": {
                 |      "code": "GB",
-                |      "name": "GB"
+                |      "name": "United Kingdom"
                 |    },
                 |    "lines": [
                 |      "previous",
@@ -876,7 +876,7 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "nominee" -> Json.parse(
             """{"chooseNominee":true,"isAuthoriseNominee":true,
 							|"individual":{"isIndividualPreviousAddress":false,"individualDOB":"2000-10-10","isIndividualNino":true,
-							|"individualAddress":{"country":{"code":"UK","name":"UK"},"postcode":"","lines":["Line1","Line2","Line3","Line5"]},
+							|"individualAddress":{"country":{"code":"XX","name":"UK"},"lines":["Line1","Line2","Line3","Line5"]},
 							|"isIndividualNomineePayments":false,"individualNino":"CS700100A",
 							|"individualName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
 							|"individualPhoneNumber":{"daytimePhone":""}}}""".stripMargin)))
@@ -904,10 +904,10 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
             """{"chooseNominee":false,"isAuthoriseNominee":true,
 							|"organisation":{"isOrganisationPreviousAddress":true,"isOrganisationNino":false,
 							|"isOrganisationNomineePayments":true,"organisationName":"Tesco",
-							|"organisationPreviousAddress":{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]},
+							|"organisationPreviousAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
 							|"organisationAuthorisedPersonName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
 							|"organisationAuthorisedPersonDOB":"2000-10-10",
-							|"organisationAddress":{"country":{"code":"GB","name":"GB"},"postcode":"postcode","lines":["Test123","line2"]},
+							|"organisationAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
 							|"organisationBankDetails":{"accountName":"AABB","rollNumber":"BB","accountNumber":"12345678","sortCode":"123456"},
 							|"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
 							|"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)))

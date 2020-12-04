@@ -29,6 +29,7 @@ import pages.charityInformation.CanWeSendToThisAddressPage
 import pages.sections.Section1Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
+import service.CountryService
 import views.html.charityInformation.CanWeSendToThisAddressView
 
 import scala.concurrent.Future
@@ -39,6 +40,7 @@ class CanWeSendToThisAddressController  @Inject()(
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,
    requireData: DataRequiredAction,
+   val countryService: CountryService,
    formProvider: CanWeSendToThisAddressFormProvider,
    val controllerComponents: MessagesControllerComponents,
    view: CanWeSendToThisAddressView
@@ -54,10 +56,9 @@ class CanWeSendToThisAddressController  @Inject()(
         case Some(value) => form.fill(value)
       }
 
-      getCharityInformationAddressLookup {
-        charityInformationAddressLookup =>
-
-      Future.successful(Ok(view(preparedForm, mode, charityInformationAddressLookup)))
+      getAddress(CharityOfficialAddressLookupPage) { (charityAddress, country) =>
+        val addressWithTranslatedCountry: Seq[String] = charityAddress :+ countryService.translatedCountryName(country)
+        Future.successful(Ok(view(preparedForm, mode, addressWithTranslatedCountry)))
       }
   }
 
@@ -68,9 +69,9 @@ class CanWeSendToThisAddressController  @Inject()(
 
       form.bindFromRequest().fold(
         formWithErrors =>
-          getCharityInformationAddressLookup {
-            charityInformationAddressLookup =>
-          Future.successful(BadRequest(view(formWithErrors, mode, charityInformationAddressLookup)))
+          getAddress(CharityOfficialAddressLookupPage) { (charityAddress, country) =>
+            val addressWithTranslatedCountry: Seq[String] = charityAddress :+ countryService.translatedCountryName(country)
+            Future.successful(BadRequest(view(formWithErrors, mode, addressWithTranslatedCountry)))
           },
 
         value =>
@@ -79,19 +80,5 @@ class CanWeSendToThisAddressController  @Inject()(
             _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(CanWeSendToThisAddressPage, mode, updatedAnswers))
       )
-  }
-
-    private def getCharityInformationAddressLookup(block: Seq[String] => Future[Result])
-                                          (implicit request: DataRequest[AnyContent]): Future[Result] = {
-
-    request.userAnswers.get(CharityOfficialAddressLookupPage).map {
-      charityInformationAddressLookup =>
-
-        val addressList = charityInformationAddressLookup.lines
-        val postcode = charityInformationAddressLookup.postcode.fold(Seq[String]())(Seq(_))
-        val country = Seq(charityInformationAddressLookup.country.name)
-        block(Seq(addressList, postcode, country).flatten)
-
-    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
 }

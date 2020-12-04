@@ -45,13 +45,29 @@ class UserAnswerTransformer extends JsonTransformer {
     ukwide <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'ukWide, "6")
   } yield JsArray(Seq(england, wales, oscrv, ccni, overseas, ukwide))
 
+  private val otherCountries: Reads[JsArray] = for {
+    country1 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas1).readNullable[JsString]
+    country2 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas2).readNullable[JsString]
+    country3 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas3).readNullable[JsString]
+    country4 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas4).readNullable[JsString]
+    country5 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas5).readNullable[JsString]
+  } yield JsArray(Seq(country1, country2, country3, country4, country5).flatten
+    .map(countryName => Json.obj("overseasCountry" -> countryName)))
+
+  private lazy val overseasLocations: Reads[JsObject] = otherCountries.flatMap { countries =>
+    (__ \ 'whatCountryDoesTheCharityOperateIn).json.put(countries)
+  }
+
   private val updatedWhereWillCharityOperate: Reads[JsObject] = whereWillCharityOperate.flatMap { arr =>
 
     def containsList(l1: Seq[JsString]) = arr.value.exists(_ != JsString("")) && l1.forall(arr.value.toList.contains)
 
     arr.value.toList match {
       case _ if containsList(Seq(JsString("5"), JsString("6"))) =>
-        (__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"), JsString("5"))))
+        ((__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"), JsString("5")))) and
+          overseasLocations).reduce
+      case _ if containsList(Seq(JsString("5"))) =>
+        ((__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("5")))) and overseasLocations).reduce
       case _ if containsList(Seq(JsString("6"))) =>
         (__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"))))
       case list if list.exists(_ != JsString("")) =>
@@ -114,14 +130,14 @@ class UserAnswerTransformer extends JsonTransformer {
           (uaPath \ 'postcode).json.put(JsString(postcode))
         }
         else {
-          (uaPath \ 'postcode).json.put(JsString(postcode))
+          doNothing
         }
       } and
       (uaPath \ 'country \ 'code).json.copyFrom((oldPath \ 'country).read[String].map {
-        country => if (country == "") JsString("GB") else JsString(country)
+        country => if (country == "") JsString("GB") else JsString("XX")
       }) and
       (uaPath \ 'country \ 'name).json.copyFrom((oldPath \ 'country).read[String].map {
-        country => if (country == "") JsString("GB") else JsString(country)
+        country => if (country == "") JsString("United Kingdom") else JsString(country)
       })
   }
 

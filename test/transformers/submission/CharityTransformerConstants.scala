@@ -229,14 +229,12 @@ trait CharityTransformerConstants extends SpecBase{
        |          "addressLine2": "Morrison street",
        |          "addressLine3": "line3",
        |          "addressLine4": "line4",
-       |          "nonUKCountry": "United Kingdom",
        |          "nonUKAddress": false
        |        },
        |        "correspondenceAddress": {
        |          "postcode": "ZZ11ZZ",
        |          "addressLine1": "1",
        |          "addressLine2": "Morrison street",
-       |          "nonUKCountry": "United Kingdom",
        |          "nonUKAddress": false
        |        }
        |      }
@@ -271,8 +269,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD",
-       |            "nonUKCountry": "United Kingdom"
+       |            "postcode": "G27JD"
        |          }
        |        }
        |      },
@@ -336,8 +333,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD",
-       |            "nonUKCountry": "United Kingdom"
+       |            "postcode": "G27JD"
        |          }
        |        }
        |      },
@@ -504,8 +500,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD",
-       |            "nonUKCountry": "United Kingdom"
+       |            "postcode": "G27JD"
        |          }
        |        }
        |      },
@@ -673,8 +668,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD",
-       |            "nonUKCountry": "United Kingdom"
+       |            "postcode": "G27JD"
        |          }
        |        }
        |      },
@@ -738,8 +732,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD",
-       |            "nonUKCountry": "United Kingdom"
+       |            "postcode": "G27JD"
        |          }
        |        }
        |      },

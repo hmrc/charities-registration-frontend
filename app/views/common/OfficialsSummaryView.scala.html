@@ -62,8 +62,8 @@
                     </span>
                     <span class="hmrc-add-to-a-list__change">
                         <a class="govuk-link" href=@{official.changeCall}>
-                            <span aria-hidden="true">@{messages(s"$section.checkYourAnswers.change")}</span>
-                            <span class="govuk-visually-hidden">@{messages(s"$section.checkYourAnswers.changeName", official.name.getFullName)}</span>
+                            <span aria-hidden="true">@{if(official.isCompleted){messages(s"$section.checkYourAnswers.change")} else {messages(s"$section.checkYourAnswers.continue")}}</span>
+                            <span class="govuk-visually-hidden">@{messages(if(official.isCompleted){s"$section.checkYourAnswers.changeName"} else {s"$section.checkYourAnswers.continueName"}, official.name.getFullName)}</span>
                         </a>
                     </span>
                     <span class="hmrc-add-to-a-list__remove">

@@ -21,8 +21,8 @@ object AppDependencies {
     "com.typesafe.play"         %% "play-json-joda"                  % "2.7.4"
   )
 
-  val test = Seq(
-    "uk.gov.hmrc"               %%    "reactivemongo-test"          % "4.21.0-play-26",
+  val test: Seq[ModuleID] = Seq(
+    "uk.gov.hmrc"               %%    "reactivemongo-test"          % "4.22.0-play-26",
     "org.scalatest"             %%    "scalatest"                   % "3.0.8",
     "org.scalatestplus.play"    %%    "scalatestplus-play"          % "3.1.2",
     "org.pegdown"               %     "pegdown"                     % "1.6.0",

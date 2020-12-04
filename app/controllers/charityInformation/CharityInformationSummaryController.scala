@@ -58,7 +58,8 @@ class CharityInformationSummaryController @Inject()(
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section1Page, checkComplete(request.userAnswers)))
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section1Page,
+        if(appConfig.isExternalTest) true else checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityInformationSummaryPage, NormalMode, updatedAnswers))
 

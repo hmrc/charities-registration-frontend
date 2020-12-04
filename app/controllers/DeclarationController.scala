@@ -18,16 +18,17 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
-import javax.inject.Inject
-import transformers.submission.CharitySubmissionTransformer
-import pages.AcknowledgementReferencePage
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
 import service.CharitiesRegistrationService
+import transformers.submission.CharitySubmissionTransformer
 import views.html.DeclarationView
 
+import java.time.LocalDate
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class DeclarationController @Inject()(
@@ -51,7 +52,8 @@ class DeclarationController @Inject()(
 
     if(appConfig.isExternalTest) {
       for {
-        updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, "0123 4567 8901"))
+        updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, "0123 4567 8901")
+          .flatMap(_.set(ApplicationSubmissionDatePage, LocalDate.now())))
         _ <- userAnswerRepository.set(updatedAnswers)
       } yield
         Redirect(controllers.routes.EmailOrPostController.onPageLoad())

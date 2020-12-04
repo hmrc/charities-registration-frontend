@@ -18,15 +18,13 @@ package controllers.charityInformation
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.addressLookup.{AddressModel, CountryModel}
-import models.{CharityContactDetails, CharityName, UserAnswers}
+import models.{CharityName, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import pages.charityInformation.CharityNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
@@ -103,5 +101,28 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
+    "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
+
+      val app =
+        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+          .overrides(
+            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[SessionRepository].toInstance(mockSessionRepository),
+            bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
+            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+          ).build()
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+
+      val controller: CharityInformationSummaryController = app.injector.instanceOf[CharityInformationSummaryController]
+
+      val result = controller.onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
   }
 }

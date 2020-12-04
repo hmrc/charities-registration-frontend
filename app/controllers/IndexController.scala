@@ -19,15 +19,18 @@ package controllers
 import config.FrontendAppConfig
 import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
-import javax.inject.Inject
 import models.UserAnswers
+import models.requests.OptionalDataRequest
 import pages.{AcknowledgementReferencePage, IsSwitchOverUserPage, OldServiceSubmissionPage}
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import repositories.UserAnswerRepository
 import service.CharitiesKeyStoreService
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.logging.SessionId
 import utils.TaskListHelper
 import views.html.TaskList
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IndexController @Inject()(
@@ -49,28 +52,40 @@ class IndexController @Inject()(
           case Some(userAnswers) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
             Future.successful(Redirect(routes.RegistrationSentController.onPageLoad()))
           case _ =>
-            for {
-              (userAnswers, validationErrors) <- charitiesKeyStoreService.getCacheData(request)
-              _ <- userAnswerRepository.set(userAnswers)
-              isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
-            } yield {
-              validationErrors match {
-                case noErrors if noErrors.isEmpty => userAnswers match {
-                  case complete if complete.get(OldServiceSubmissionPage).isDefined => Redirect(routes.ApplicationBeingProcessedController.onPageLoad())
-                  case _ =>
-                    val result = taskListHelper.getTaskListRow(userAnswers)
-                    val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-                    Ok(view(result, status = completed, isSwitchOver))
-                }
-                case _ =>
-                  Redirect(routes.SessionExpiredController.onPageLoad()) // TODO make it redirect to a new yet-to-be-developed transformation error page
+            if(appConfig.isExternalTest){
+              val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+              userAnswerRepository.set(userAnswers).map { _ =>
+                val result = taskListHelper.getTaskListRow(userAnswers)
+                val completed = result.forall(_.state.equals("index.section.completed"))
+                Ok(view(result, status = completed, None))
               }
-
+            } else {
+              getTaskList(sessionId)
             }
         }
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
 
+  }
+
+  private def getTaskList(sessionId: SessionId)(implicit request: OptionalDataRequest[_], hc: HeaderCarrier): Future[Result] = {
+    for {
+      (userAnswers, validationErrors) <- charitiesKeyStoreService.getCacheData(request)
+      _ <- userAnswerRepository.set(userAnswers)
+      isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
+    } yield {
+      validationErrors match {
+        case noErrors if noErrors.isEmpty => userAnswers match {
+          case complete if complete.get(OldServiceSubmissionPage).isDefined => Redirect(routes.ApplicationBeingProcessedController.onPageLoad())
+          case _ =>
+            val result = taskListHelper.getTaskListRow(userAnswers)
+            val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+            Ok(view(result, status = completed, isSwitchOver))
+        }
+        case _ =>
+          Redirect(routes.SessionExpiredController.onPageLoad()) // TODO make it redirect to a new yet-to-be-developed transformation error page
+      }
+    }
   }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>

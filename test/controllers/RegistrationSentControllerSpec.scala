@@ -16,15 +16,13 @@
 
 package controllers
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{OldServiceSubmission, UserAnswers}
+import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage, OldServiceSubmissionPage}
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -72,8 +70,6 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
         "123456789", emailOrPost = true, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
-
-
 
     "return SEE_OTHER and the correct view for a GET with no EmailOrPostPage answered" in {
 

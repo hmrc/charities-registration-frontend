@@ -65,7 +65,8 @@ class NomineeDetailsSummaryController @Inject()(
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section9Page, checkComplete(request.userAnswers)))
+      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section9Page,
+        if(appConfig.isExternalTest) true else checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(NomineeDetailsSummaryPage, NormalMode, updatedAnswers))
 

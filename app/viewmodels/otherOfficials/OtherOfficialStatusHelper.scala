@@ -55,16 +55,15 @@ object OtherOfficialStatusHelper extends StatusHelper {
       remainingJourneyPages(0) ++ remainingJourneyPages(1) ++ remainingJourneyPages(2)
   }
 
-  private def officialsTitleIsLegal(userAnswers: UserAnswers, index: Int): Boolean =
-    userAnswers.get(OtherOfficialsNamePage(index)) match {
-      case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
-      case _ => true
-    }
-
   def validateDataFromOldService(userAnswers: UserAnswers): Boolean = {
     val range = if (userAnswers.get(IsAddAnotherOtherOfficialPage).contains(true)) Seq(0, 1, 2) else Seq(0, 1)
 
-    range.forall(index => officialsTitleIsLegal(userAnswers, index))
+    range.forall(index =>
+      userAnswers.get(OtherOfficialsNamePage(index)) match {
+        case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
+        case _ => true
+      }
+    )
   }
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
@@ -82,7 +81,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
               .getOfficialPages(0, isNino1, isPreviousAddress1)
               .getOfficialPages(1, isNino2, isPreviousAddress2, otherOfficial2common)
 
-            userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages) && validateDataFromOldService(userAnswers)
+            userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
 
           case Some(true) =>
 
@@ -93,7 +92,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
                   .getOfficialPages(1, isNino2, isPreviousAddress2, otherOfficial2common)
                   .getOfficialPages(2, isNino3, isPreviousAddress3, otherOfficial3common)
 
-                userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages) && validateDataFromOldService(userAnswers)
+                userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
 
               case _ => false
             }
@@ -103,15 +102,12 @@ object OtherOfficialStatusHelper extends StatusHelper {
     }
   }
 
-  def otherOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean = {
+  def otherOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean ={
     (userAnswers.get(IsOtherOfficialNinoPage(index)), userAnswers.get(IsOtherOfficialsPreviousAddressPage(index))) match {
       case (Some(isNino), Some(isPreviousAddress)) =>
         val list  = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)
-        userAnswers.arePagesDefined(list) &&
-          userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index)) &&
-          officialsTitleIsLegal(userAnswers, index)
-
-      case _ => false
+        userAnswers.arePagesDefined(list) && userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index))
+      case _=> false
     }
   }
 }

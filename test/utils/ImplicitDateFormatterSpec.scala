@@ -129,12 +129,5 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
       dayToString(LocalDate.of(2020, 9, 23))(welshMessages) mustBe result
     }
 
-    "format dates in correct style for Welsh without day of week" in {
-      val welshRequest = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
-      val welshMessages: Messages = messagesApi.preferred(welshRequest)
-      val result: String = "23 Medi 2020"
-      dayToString(LocalDate.of(2020, 9, 23), dayOfWeek = false)(welshMessages) mustBe result
-    }
-
   }
 }

@@ -20,7 +20,7 @@ import java.text.DecimalFormat
 
 import models.addressLookup.AddressModel
 import models.nominees.OrganisationNomineeContactDetails
-import models.{BankDetails, Name, Passport, PhoneNumber, UserAnswers, WithOrder}
+import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers, WithOrder}
 import pages.QuestionPage
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -70,7 +70,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = ans.getFullNameWithTitle(messages),
+        value = if (ans.title == SelectTitle.UnsupportedTitle) ans.getFullName else ans.getFullNameWithTitle(messages),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

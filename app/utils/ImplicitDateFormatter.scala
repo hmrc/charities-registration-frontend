@@ -26,7 +26,9 @@ import play.api.i18n.Messages
 import scala.language.implicitConversions
 
 trait ImplicitDateFormatter {
+
   private val midday: Int = 12
+
   implicit def dateToString(date: LocalDate)(implicit messages: Messages): String = createDateFormatForPattern(
     "d MMMM yyyy").format {
     new SimpleDateFormat("yyyy-MM-dd'T'HH")
@@ -39,18 +41,24 @@ trait ImplicitDateFormatter {
   )
 
   def dayToString(date: LocalDate, dayOfWeek: Boolean = true)(implicit messages: Messages): String = {
+
     val number = if (date.getDayOfMonth < 20) {date.getDayOfMonth} else {date.getDayOfMonth % 10}
-    val dateSuffix = number match { // TODO needs Welsh equivalent
-      case 1 =>  "st"
-      case 2 =>  "nd"
-      case 3 =>  "rd"
-      case _ =>  "th"
+
+    val dateSuffix = number match {
+      case 1 => "st"
+      case 2 => "nd"
+      case 3 => "rd"
+      case _ => "th"
     }
-    val outputFormat = if (dayOfWeek) s"EEEE d'$dateSuffix' MMMM yyyy" else s"d'$dateSuffix' MMMM yyyy"
-    createDateFormatForPattern(
-      outputFormat).format(
-        new SimpleDateFormat("yyyy-MM-dd").parse(date.toString)
-      )
+
+    val outputFormat = messages.lang.code match {
+      case "en" if dayOfWeek => s"EEEE d'$dateSuffix' MMMM yyyy"
+      case "en" => s"d'$dateSuffix' MMMM yyyy"
+      case _ if dayOfWeek => s"EEEE d MMMM yyyy"
+      case _ => s"d MMMM yyyy"
+    }
+
+    createDateFormatForPattern(outputFormat).format(new SimpleDateFormat("yyyy-MM-dd").parse(date.toString))
 
   }
 

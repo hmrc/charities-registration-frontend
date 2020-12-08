@@ -48,7 +48,7 @@ trait NinoController extends LocalBaseController {
   }
 
   def postView(mode: Mode, page: QuestionPage[String], form: Form[String], fullName: String,
-     section:QuestionPage[Boolean], submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
+     section: QuestionPage[Boolean], submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
     form.bindFromRequest().fold(
       formWithErrors =>

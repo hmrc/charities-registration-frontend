@@ -22,15 +22,15 @@ import play.api.libs.json.JsPath
 
 import scala.util.Try
 
-case class IsOtherOfficialNinoPage(index:Int) extends QuestionPage[Boolean] {
+case class IsOtherOfficialNinoPage(index: Int) extends QuestionPage[Boolean] {
 
-  override def path: JsPath =  OtherOfficialsId(index).path \ toString
+  override def path: JsPath = OtherOfficialsId(index).path \ toString
 
   override lazy val toString: String = "isOfficialNino"
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(true)  => userAnswers.remove(OtherOfficialsPassportPage(index))
+      case Some(true) => userAnswers.remove(OtherOfficialsPassportPage(index))
       case _ => userAnswers.remove(OtherOfficialsNinoPage(index))
     }
 }

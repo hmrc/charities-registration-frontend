@@ -31,8 +31,8 @@ object CharityContactDetails {
   implicit val formats: OFormat[CharityContactDetails] = Json.format[CharityContactDetails]
 }
 
-case class CharityAddress(addressLine1:String, addressLine2:String, addressLine3:String, addressLine4:String,
-   postcode:String, country:String)
+case class CharityAddress(addressLine1: String, addressLine2: String, addressLine3: String, addressLine4: String,
+   postcode: String, country: String)
 
 object CharityAddress {
 
@@ -46,16 +46,16 @@ object OptionalCharityAddress {
   implicit val formats: OFormat[OptionalCharityAddress] = Json.format[OptionalCharityAddress]
 }
 
-class RegulatorDetailsBase(baseisCharityRegulatorSelected: Boolean, baseCharityRegistrationNumber: String )
+class RegulatorDetailsBase(baseisCharityRegulatorSelected: Boolean, baseCharityRegistrationNumber: String)
 
-case class CharityReasonForNotRegistering(charityRegulator: Option[String], notRegReasonOtherDescription:Option[String])
+case class CharityReasonForNotRegistering(charityRegulator: Option[String], notRegReasonOtherDescription: Option[String])
 
 object CharityReasonForNotRegistering {
 
   implicit val formats: OFormat[CharityReasonForNotRegistering] = Json.format[CharityReasonForNotRegistering]
 }
 
-case class CharityRegulatorInfoDetails (isCharityRegulatorSelected: Boolean,charityRegistrationNumber: String )
+case class CharityRegulatorInfoDetails (isCharityRegulatorSelected: Boolean,charityRegistrationNumber: String)
   extends RegulatorDetailsBase(baseisCharityRegulatorSelected = isCharityRegulatorSelected,
     baseCharityRegistrationNumber = charityRegistrationNumber)
 
@@ -77,7 +77,7 @@ object CharityRegulatorOtherInfoDetails {
 }
 case class CharityRegulator(ccew: CharityRegulatorInfoDetails, oscr: CharityRegulatorInfoDetails,
   ccni: CharityRegulatorInfoDetails, other: CharityRegulatorOtherInfoDetails,
-  reasonForNotRegistering:CharityReasonForNotRegistering)
+  reasonForNotRegistering: CharityReasonForNotRegistering)
 
 
 object CharityRegulator {
@@ -86,7 +86,7 @@ object CharityRegulator {
 }
 
 case class CharityGoverningDocument(docType: String, nameOtherDoc: String, govDocApprovedWording: String,
-  effectiveDate: Option[LocalDate], governingApprovedDoc : Option[Boolean])
+  effectiveDate: Option[LocalDate], governingApprovedDoc: Option[Boolean])
 
 
 object CharityGoverningDocument {
@@ -148,12 +148,12 @@ object OperationAndFunds {
   implicit val formats: OFormat[OperationAndFunds] = Json.format[OperationAndFunds]
 }
 
-case class WhatYourCharityDoes(charitableObjectives :String, reliefOfPoverty: Boolean, education: Boolean,
+case class WhatYourCharityDoes(charitableObjectives: String, reliefOfPoverty: Boolean, education: Boolean,
   animalWelfare: Boolean, healthOrSavingOfLives: Boolean, citizenshipOrCommunityDevelopment: Boolean,
   reliefOfThoseInNeed: Boolean, religion: Boolean, amateurSport: Boolean, humanRights: Boolean,
   artsCultureHeritageOrScience: Boolean, environmentalProtectionOrImprovement: Boolean,
   promotionOfEfficiencyInArmedForcesPoliceFireAndRescueService: Boolean, whatYourCharityDoesOther: Boolean,
-  whatYourCharityDoesOtherReason: String, charityThingsBenefitThePublic :String)
+  whatYourCharityDoesOtherReason: String, charityThingsBenefitThePublic: String)
 
 object WhatYourCharityDoes {
 
@@ -238,7 +238,7 @@ object OfficialIndividualIdentity {
 }
 
 case class NomineePaymentDetails (
- nomineeOrgAcctRef:String,
+ nomineeOrgAcctRef: String,
  nomineeCommonPaymentDetails: CharityBankAccountDetails
 )
 

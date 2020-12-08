@@ -36,7 +36,7 @@ class RegistrationSentController @Inject()(
     requireData: RegistrationDataRequiredAction,
     view: RegistrationSentView,
     val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with  LocalBaseController {
+  )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 

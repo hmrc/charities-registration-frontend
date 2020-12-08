@@ -35,32 +35,32 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     case _ => routes.SessionExpiredController.onPageLoad() // TODO redirect to page if user attempts to use non-0-or-1 index
   }
 
-  override val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call = {
 
     case OtherOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNamePage(index)) match {
       case Some(_) => otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsDOBPage(index)) match {
       case Some(_) => otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(NormalMode, index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
       case Some(_) => otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
       case Some(_) => otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(NormalMode, index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
       case Some(true) => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, index)
       case Some(false) => otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(NormalMode, index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPassportPage(index)) match {
@@ -69,7 +69,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       } else {
         addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
       }
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
@@ -78,7 +78,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       } else {
         addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
       }
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
@@ -89,7 +89,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     case IsOtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
       case Some(true) => addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
       case Some(false) => redirectToPlaybackPage(index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
@@ -121,12 +121,12 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
   override val checkRouteMap: Page => UserAnswers => Call = {
     case OtherOfficialsNamePage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNamePage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsDOBPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsDOBPage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPhoneNumberPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
@@ -136,7 +136,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
 
     case OtherOfficialsPositionPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPositionPage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOtherOfficialNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialNinoPage(index)) match {
@@ -150,12 +150,12 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
 
     case OtherOfficialsNinoPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsNinoPage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialsPassportPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsPassportPage(index)) match {
       case Some(_) => redirectToPlaybackPage(index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
@@ -163,11 +163,11 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case IsOtherOfficialsPreviousAddressPage(index) => userAnswers:UserAnswers  => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
+    case IsOtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
       case Some(true) if userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)).isDefined => redirectToPlaybackPage(index)
       case Some(true) => addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
       case Some(false) => redirectToPlaybackPage(index)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {

@@ -71,7 +71,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
-      val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,

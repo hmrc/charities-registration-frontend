@@ -55,7 +55,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
 
   def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =
-    new AddedOtherOfficialHelper(index, CheckMode,countryService = mockCountryService)(userAnswers)
+    new AddedOtherOfficialHelper(index, CheckMode, countryService = mockCountryService)(userAnswers)
 
 
   "Check Your Answers Helper" must {

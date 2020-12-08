@@ -44,7 +44,7 @@ class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       elroutes.EligibleCharityController.onPageLoad(),
       elroutes.IsEligibleLocationOtherController.onPageLoad()
     )
-    case IsEligibleLocationOtherPage =>  userAnswers: UserAnswers => navigate(
+    case IsEligibleLocationOtherPage => userAnswers: UserAnswers => navigate(
       userAnswers.get(IsEligibleLocationOtherPage),
       elroutes.EligibleCharityController.onPageLoad(),
       elroutes.InEligibleLocationOtherController.onPageLoad()
@@ -56,7 +56,7 @@ class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  def navigate(value : Option[Boolean], ifTrue:Call, ifFalse:Call): Call ={
+  def navigate(value: Option[Boolean], ifTrue: Call, ifFalse: Call): Call = {
     value match{
       case Some(true) => ifTrue
       case Some(false) => ifFalse

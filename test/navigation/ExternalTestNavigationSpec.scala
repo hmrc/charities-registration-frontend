@@ -159,7 +159,7 @@ class ExternalTestNavigationSpec extends SpecBase {
       }
 
       "from the AuthorisedOfficialsPassportPage" must {
-        "go to Summary page  when clicked continue button" in {
+        "go to Summary page when clicked continue button" in {
           authorisedOfficialsNavigator.nextPage(AuthorisedOfficialsPassportPage(0), CheckMode,
             emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
               .success.value) mustBe

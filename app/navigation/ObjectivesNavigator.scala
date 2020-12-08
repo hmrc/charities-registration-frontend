@@ -28,7 +28,7 @@ import play.api.mvc.Call
 
 class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  override val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call = {
 
     case CharitableObjectivesPage => userAnswers: UserAnswers => userAnswers.get(CharitableObjectivesPage) match {
       case Some(_) => operations.CharitablePurposesController.onPageLoad(NormalMode)

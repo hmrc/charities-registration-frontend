@@ -70,7 +70,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     val validSortCodeGen = for {
       firstDigits     <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
-      firstSeparator  <- Gen.oneOf(' ', '-').map(_.toString)
+      firstSeparator <- Gen.oneOf(' ', '-').map(_.toString)
       secondDigits    <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
       secondSeparator <- Gen.oneOf(' ', '-').map(_.toString)
       thirdDigits     <- Gen.listOfN(2, Gen.numChar).map(_.mkString)

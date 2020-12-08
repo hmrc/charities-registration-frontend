@@ -60,7 +60,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: BankDetailsController = inject[BankDetailsController]
 
-  private val bankDetails =  BankDetails(
+  private val bankDetails = BankDetails(
     accountName = "fullName",
     sortCode = "123456",
     accountNumber = "12345678",

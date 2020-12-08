@@ -32,7 +32,7 @@ class SelectGoverningDocumentFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[SelectGoverningDocument](
       form,
       fieldName,
-      validValues  = SelectGoverningDocument.values,
+      validValues = SelectGoverningDocument.values,
       invalidError = FormError(fieldName, "error.invalid")
     )
 

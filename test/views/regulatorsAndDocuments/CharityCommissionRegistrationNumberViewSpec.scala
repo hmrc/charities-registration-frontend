@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
 
-class CharityCommissionRegistrationNumberViewSpec extends QuestionViewBehaviours[String]  {
+class CharityCommissionRegistrationNumberViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix = "charityCommissionRegistrationNumber"
   val form: Form[String] = inject[CharityCommissionRegistrationNumberFormProvider].apply()

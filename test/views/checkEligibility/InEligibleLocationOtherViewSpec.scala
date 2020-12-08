@@ -20,7 +20,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.checkEligibility.InEligibleLocationOtherView
 
-class InEligibleLocationOtherViewSpec extends ViewBehaviours  {
+class InEligibleLocationOtherViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "notEligible"
   private val messageLink= messages("notEligible.p3.link")
@@ -38,7 +38,7 @@ class InEligibleLocationOtherViewSpec extends ViewBehaviours  {
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
         "locationOther.p1", "p2", "p3", "p3.link")
 
-      behave like pageWithHyperLink(applyView(), "link",frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
+      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
 
     }
   }

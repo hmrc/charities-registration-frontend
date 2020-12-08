@@ -39,7 +39,7 @@ trait CountryService {
 class CountryServiceImpl extends CountryService {
 
   private def getCountries(resourceFile: String): Seq[Country] = {
-    Json.parse( getClass.getResourceAsStream(resourceFile)).as[Map[String, FcoCountry]].map {
+    Json.parse(getClass.getResourceAsStream(resourceFile)).as[Map[String, FcoCountry]].map {
       country =>
         Country(country._2.country, country._2.name)
     }.toSeq.sortWith(_.name < _.name)

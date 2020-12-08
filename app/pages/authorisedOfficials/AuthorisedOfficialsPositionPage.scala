@@ -20,9 +20,9 @@ import models.authOfficials.OfficialsPosition
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class AuthorisedOfficialsPositionPage(index:Int) extends QuestionPage[OfficialsPosition] {
+case class AuthorisedOfficialsPositionPage(index: Int) extends QuestionPage[OfficialsPosition] {
 
-  override def path: JsPath =  AuthorisedOfficialsId(index).path \ toString
+  override def path: JsPath = AuthorisedOfficialsId(index).path \ toString
 
   override lazy val toString: String = "officialsPosition"
 }

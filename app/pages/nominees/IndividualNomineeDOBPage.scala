@@ -23,7 +23,7 @@ import play.api.libs.json.JsPath
 
 case object IndividualNomineeDOBPage extends QuestionPage[LocalDate] {
 
-  override def path: JsPath =  NomineeIndividualIdPage.path \ toString
+  override def path: JsPath = NomineeIndividualIdPage.path \ toString
 
   override lazy val toString: String = "individualDOB"
 }

@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.common.OfficialsPositionView
 
-class OfficialsPositionViewSpec extends ViewBehaviours  {
+class OfficialsPositionViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix: String = "authorisedOfficialsPosition"
   private val section: String = messages("officialsAndNominees.section")

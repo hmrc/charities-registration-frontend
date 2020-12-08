@@ -104,7 +104,7 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
     "redirect to the next page when valid data is submitted after changing the selection" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", SelectWhyNoRegulator.ExemptOrExcepted.toString))
-      val userAnswer =  emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).success.value
+      val userAnswer = emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).success.value
       when(mockUserAnswerRepository.get(meq("id"))).thenReturn(Future.successful(Some(userAnswer)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 

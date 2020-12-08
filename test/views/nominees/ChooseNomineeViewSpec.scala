@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.nominees.ChooseNomineeView
 
-class ChooseNomineeViewSpec extends YesNoViewBehaviours  {
+class ChooseNomineeViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "chooseNominee"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))

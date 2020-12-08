@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.charityInformation.CanWeSendToThisAddressView
 
-class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours  {
+class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "canWeSendLettersToThisAddress"
   private val section: Some[String] = Some(messages("contactDetail.section"))

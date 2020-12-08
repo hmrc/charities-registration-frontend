@@ -67,7 +67,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
       answer(OtherFundRaisingPage, operationFundsRoutes.OtherFundRaisingController.onPageLoad(CheckMode))
 
     private def answerAccountingPeriod[A](page: QuestionPage[MonthDay],
-                                        changeLinkCall: Call) : Option[SummaryListRow] =
+                                        changeLinkCall: Call): Option[SummaryListRow] =
       userAnswers.get(page).map{ ans =>
         summaryListRow(
           label = messages(s"$page.checkYourAnswersLabel"),

@@ -20,9 +20,9 @@ import models.PhoneNumber
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class AuthorisedOfficialsPhoneNumberPage(index:Int) extends QuestionPage[PhoneNumber] {
+case class AuthorisedOfficialsPhoneNumberPage(index: Int) extends QuestionPage[PhoneNumber] {
 
-  override def path: JsPath =  AuthorisedOfficialsId(index).path \ toString
+  override def path: JsPath = AuthorisedOfficialsId(index).path \ toString
 
   override lazy val toString: String = "officialsPhoneNumber"
 }

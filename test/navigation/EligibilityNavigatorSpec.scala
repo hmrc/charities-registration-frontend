@@ -133,7 +133,7 @@ class EligibilityNavigatorSpec extends SpecBase{
     }
   }
   
-  def userAnswers(page: QuestionPage[Boolean], value : Boolean): UserAnswers ={
+  def userAnswers(page: QuestionPage[Boolean], value : Boolean): UserAnswers = {
     emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
   }
 }

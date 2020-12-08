@@ -21,7 +21,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.regulatorsAndDocuments.StartGoverningDocumentView
 
-class StartGoverningDocumentViewSpec extends ViewBehaviours  {
+class StartGoverningDocumentViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startGoverningDocument"
 

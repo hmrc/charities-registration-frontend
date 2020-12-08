@@ -133,10 +133,10 @@ trait AbstractRepository {
       val userDataAsString = PlainText(Json.stringify(userAnswers.data))
       val encryptedData = applicationCrypto.JsonCrypto.encrypt(userDataAsString).value
 
-      userAnswers.copy(data = Json.obj("encrypted" -> encryptedData), lastUpdated  = LocalDateTime.now, expiresAt = expiryDate)
+      userAnswers.copy(data = Json.obj("encrypted" -> encryptedData), lastUpdated = LocalDateTime.now, expiresAt = expiryDate)
 
     } else {
-      userAnswers.copy(lastUpdated  = LocalDateTime.now, expiresAt = expiryDate)
+      userAnswers.copy(lastUpdated = LocalDateTime.now, expiresAt = expiryDate)
     }
 
     val selector = Json.obj(

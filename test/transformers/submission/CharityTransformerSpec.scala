@@ -90,7 +90,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
       "convert the correct Regulator object only other" in {
 
-        val localUserAnswers = emptyUserAnswers.set(CharityRegulatorPage,Set[CharityRegulator]( Other)).flatMap(
+        val localUserAnswers = emptyUserAnswers.set(CharityRegulatorPage,Set[CharityRegulator](Other)).flatMap(
           _.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("Other Regulator Name", "12345678901234567890"))
         ).success.value
 

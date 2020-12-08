@@ -50,7 +50,7 @@ trait DateOfBirthController extends LocalBaseController {
   }
 
   def postView(mode: Mode, page: QuestionPage[LocalDate], form: Form[LocalDate], fullName: String,
-    section:QuestionPage[Boolean], submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
+    section: QuestionPage[Boolean], submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
     form.bindFromRequest().fold(
       formWithErrors =>

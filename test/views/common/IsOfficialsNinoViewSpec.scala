@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.common.IsOfficialsNinoView
 
-class IsOfficialsNinoViewSpec extends YesNoViewBehaviours  {
+class IsOfficialsNinoViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isAuthorisedOfficialPosition"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
@@ -35,7 +35,7 @@ class IsOfficialsNinoViewSpec extends YesNoViewBehaviours  {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[IsOfficialsNinoView](Some(emptyUserAnswers))
-        view.apply(form,"test", messageKeyPrefix, onwardRoute)(
+        view.apply(form, "test", messageKeyPrefix, onwardRoute)(
           fakeRequest, messages, frontendAppConfig)
       }
 
@@ -44,7 +44,7 @@ class IsOfficialsNinoViewSpec extends YesNoViewBehaviours  {
       behave like pageWithBackLink(applyView(form))
 
       behave like yesNoPage(form, applyView, messageKeyPrefix,
-        routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode,Index(0) ).url, Seq("test"), section = section)
+        routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode, Index(0)).url, Seq("test"), section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

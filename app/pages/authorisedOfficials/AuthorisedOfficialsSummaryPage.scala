@@ -19,7 +19,7 @@ package pages.authorisedOfficials
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object AuthorisedOfficialsSummaryPage  extends QuestionPage[String] {
+case object AuthorisedOfficialsSummaryPage extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString
 

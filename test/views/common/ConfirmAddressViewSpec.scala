@@ -20,7 +20,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.common.ConfirmAddressView
 
-class ConfirmAddressViewSpec extends ViewBehaviours  {
+class ConfirmAddressViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "charityOfficialAddress"
   val charityInformationAddressLookup = List("12", "Banner Way", "ZZ1 1ZZ")

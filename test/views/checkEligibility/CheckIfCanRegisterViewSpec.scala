@@ -33,7 +33,7 @@ class CheckIfCanRegisterViewSpec extends ViewBehaviours {
       view.apply(NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(),messageKeyPrefix )
+    behave like normalPage(applyView(), messageKeyPrefix)
 
     behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
       "p1")
@@ -41,7 +41,7 @@ class CheckIfCanRegisterViewSpec extends ViewBehaviours {
     behave like pageWithBackLink(applyView())
 
     behave like pageWithHyperLink(applyView(),
-      "linkButton",controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url,BaseMessages.continue)
+      "linkButton", controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url, BaseMessages.continue)
 
   }
 }

@@ -37,6 +37,6 @@ trait BaseSelectors {
   def checkAnswersHeading(id: Int, row: Int) = s"dl:nth-of-type($id) div:nth-of-type($row) > dt"
   def checkAnswersAnswerValue(id: Int, row: Int) = s"dl:nth-of-type($id) div:nth-of-type($row) > dd:nth-of-type(1)"
   def reviewEmployeesRowLabel(row: Int) = s"table tr:nth-of-type($row) th"
-  def reviewEmployeesRowAction(row: Int) =  s"table tr:nth-of-type($row) td a"
+  def reviewEmployeesRowAction(row: Int) = s"table tr:nth-of-type($row) td a"
 
 }

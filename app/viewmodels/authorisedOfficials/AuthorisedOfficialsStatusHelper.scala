@@ -96,7 +96,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
   }
 
 
-  def authorisedOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean ={
+  def authorisedOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean = {
     (userAnswers.get(IsAuthorisedOfficialNinoPage(index)), userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index))) match {
       case (Some(isNino), Some(isPreviousAddress)) =>
         val list  = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)

@@ -26,7 +26,7 @@ import views.behaviours.CheckboxViewBehaviours
 import views.html.operationsAndFunds.OperatingLocationView
 
 
-class OperatingLocationViewSpec extends CheckboxViewBehaviours[OperatingLocationOptions]  {
+class OperatingLocationViewSpec extends CheckboxViewBehaviours[OperatingLocationOptions] {
 
   private val messageKeyPrefix: String = "operatingLocation"
   private val section: String = messages("operationsAndFunds.section")

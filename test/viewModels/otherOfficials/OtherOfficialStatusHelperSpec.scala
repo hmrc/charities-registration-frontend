@@ -66,7 +66,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
     .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(1), false))
     .flatMap(_.set(IsAddAnotherOtherOfficialPage, false)).success.value
 
-  def completeAllThree: UserAnswers  = common(2, completeFirstTwo)
+  def completeAllThree: UserAnswers = common(2, completeFirstTwo)
     .set(IsOtherOfficialNinoPage(2), true)
     .flatMap(_.set(OtherOfficialsNinoPage(2), "AA123123A"))
     .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(2), false))

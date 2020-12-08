@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.operationsAndFunds.CharityEstablishedInView
 
-class WhatCountryWasCharityEstablishedInViewSpec extends ViewBehaviours  {
+class WhatCountryWasCharityEstablishedInViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix: String = "charityEstablishedIn"
   private val section: String = messages("operationsAndFunds.section")

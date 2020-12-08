@@ -22,7 +22,7 @@ import viewmodels.TaskListRow
 import views.behaviours.ViewBehaviours
 import views.html.TaskList
 
-class TaskListViewSpec extends ViewBehaviours  {
+class TaskListViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "index"
 

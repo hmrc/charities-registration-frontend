@@ -18,7 +18,7 @@ package models
 
 import play.api.libs.json.Json
 
-case class CharityOtherRegulatorDetails(regulatorName:String, registrationNumber:String)
+case class CharityOtherRegulatorDetails(regulatorName: String, registrationNumber: String)
 
 object CharityOtherRegulatorDetails {
 

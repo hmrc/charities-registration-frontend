@@ -25,7 +25,7 @@ import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.GoverningDocumentNameView
 
 class
-GoverningDocumentNameViewSpec extends QuestionViewBehaviours[String]  {
+GoverningDocumentNameViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix = "governingDocumentName"
   val form: Form[String] = inject[GoverningDocumentNameFormProvider].apply()

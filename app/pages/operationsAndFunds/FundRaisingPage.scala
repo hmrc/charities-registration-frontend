@@ -32,7 +32,7 @@ case object FundRaisingPage extends QuestionPage[Set[FundRaisingOptions]] {
 
   override def cleanup(value: Option[Set[FundRaisingOptions]], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(notOther) if !notOther.contains(Other)  => userAnswers.remove(OtherFundRaisingPage)
+      case Some(notOther) if !notOther.contains(Other) => userAnswers.remove(OtherFundRaisingPage)
       case _ => super.cleanup(value, userAnswers)
     }
 

@@ -49,7 +49,7 @@ trait PassportController extends LocalBaseController {
     Ok(view(preparedForm, fullName, messagePrefix, submitCall, countryService.countries()))
   }
 
-  def postView(mode: Mode, page: QuestionPage[Passport], form: Form[Passport], fullName: String, section:QuestionPage[Boolean], submitCall: Call)(
+  def postView(mode: Mode, page: QuestionPage[Passport], form: Form[Passport], fullName: String, section: QuestionPage[Boolean], submitCall: Call)(
     implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
     form.bindFromRequest().fold(

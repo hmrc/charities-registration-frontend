@@ -40,7 +40,7 @@ class OtherOfficialsPreviousAddressLookupController @Inject()(
   val controllerComponents: MessagesControllerComponents
  )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
 
-  override val messagePrefix : String = "otherOfficialPreviousAddress"
+  override val messagePrefix: String = "otherOfficialPreviousAddress"
 
   def initializeJourney(index: Index, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

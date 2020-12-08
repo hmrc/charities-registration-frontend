@@ -65,7 +65,7 @@ private[mappings] class LocalDateFormatter(
     val dataWithoutSpaces: Map[String, String] = data.map(entry => (entry._1, entry._2.replace(" ", "")))
 
     fields(key, dataWithoutSpaces).count(_._2.isDefined) match {
-      case 3 if illegalFields(key, dataWithoutSpaces).nonEmpty | illegalZero(key, dataWithoutSpaces).nonEmpty  =>
+      case 3 if illegalFields(key, dataWithoutSpaces).nonEmpty | illegalZero(key, dataWithoutSpaces).nonEmpty =>
         Left(List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields)
           ++ illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero))
       case 3 =>

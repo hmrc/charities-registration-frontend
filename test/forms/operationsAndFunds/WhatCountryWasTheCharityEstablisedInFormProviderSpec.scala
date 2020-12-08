@@ -32,7 +32,7 @@ class WhatCountryWasTheCharityEstablisedInFormProviderSpec extends OptionFieldBe
     behave like optionsField[CharityEstablishedOptions](
       form,
       fieldName,
-      validValues  = CharityEstablishedOptions.values,
+      validValues = CharityEstablishedOptions.values,
       invalidError = FormError(fieldName, "error.invalid")
     )
 

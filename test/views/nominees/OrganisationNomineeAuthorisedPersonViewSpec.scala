@@ -23,7 +23,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.nominees.OrganisationNomineeAuthorisedPersonView
 
-class OrganisationNomineeAuthorisedPersonViewSpec extends ViewBehaviours  {
+class OrganisationNomineeAuthorisedPersonViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "organisationNomineeAuthorisedPerson"
 

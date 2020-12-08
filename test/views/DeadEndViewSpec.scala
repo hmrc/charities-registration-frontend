@@ -20,7 +20,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.DeadEndView
 
-class DeadEndViewSpec extends ViewBehaviours  {
+class DeadEndViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "deadEnd"
 

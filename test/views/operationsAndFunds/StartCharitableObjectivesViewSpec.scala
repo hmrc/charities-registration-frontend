@@ -21,7 +21,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.operationsAndFunds.StartCharitableObjectivesView
 
-class StartCharitableObjectivesViewSpec extends ViewBehaviours  {
+class StartCharitableObjectivesViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startCharitableObjectives"
   private val section: String = messages("operationsAndFunds.section")

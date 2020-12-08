@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours
 import views.html.regulatorsAndDocuments.CharityRegulatorView
 
-class CharityRegulatorViewSpec extends CheckboxViewBehaviours[CharityRegulator]  {
+class CharityRegulatorViewSpec extends CheckboxViewBehaviours[CharityRegulator] {
 
   private val messageKeyPrefix: String = "charityRegulator"
   private val section: String = messages("charityRegulator.section")

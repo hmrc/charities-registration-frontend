@@ -17,7 +17,7 @@
 package pages.checkEligibility
 import pages.Page
 
-case object CheckIfCanRegisterPage  extends Page {
+case object CheckIfCanRegisterPage extends Page {
 
   override def toString: String = "checkIfYouCanRegister"
 }

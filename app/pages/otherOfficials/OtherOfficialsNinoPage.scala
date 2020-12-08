@@ -19,8 +19,8 @@ package pages.otherOfficials
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class OtherOfficialsNinoPage(index:Int) extends QuestionPage[String] {
+case class OtherOfficialsNinoPage(index: Int) extends QuestionPage[String] {
 
-  override def path: JsPath =  OtherOfficialsId(index).path \ toString
+  override def path: JsPath = OtherOfficialsId(index).path \ toString
   override lazy val toString: String = "officialsNino"
 }

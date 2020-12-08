@@ -38,7 +38,7 @@ class WhenGoverningDocumentApprovedViewSpec extends QuestionViewBehaviours[Local
       view.apply(form, NormalMode, "5")(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Will"),  section = Some(messages("charityRegulator.section")))
+    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Will"), section = Some(messages("charityRegulator.section")))
 
     behave like pageWithBackLink(applyView(form))
 

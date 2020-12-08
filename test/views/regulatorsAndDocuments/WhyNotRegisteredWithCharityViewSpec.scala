@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.TextAreaViewBehaviours
 import views.html.regulatorsAndDocuments.WhyNotRegisteredWithCharityView
 
-class WhyNotRegisteredWithCharityViewSpec extends TextAreaViewBehaviours  {
+class WhyNotRegisteredWithCharityViewSpec extends TextAreaViewBehaviours {
 
   private val messageKeyPrefix = "whyNotRegisteredWithCharity"
   val form: Form[String] = inject[WhyNotRegisteredWithCharityFormProvider].apply()

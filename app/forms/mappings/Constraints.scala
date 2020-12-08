@@ -121,7 +121,7 @@ trait Constraints extends InputFilter{
         Valid
     }
 
-  protected def uniqueEntry(values: Seq[String], idx: Int,  errorKey: String): Constraint[String] = {
+  protected def uniqueEntry(values: Seq[String], idx: Int, errorKey: String): Constraint[String] = {
 
     val filteredValues = values.zipWithIndex.filterNot(_._2 == idx -1).map(_._1)
 

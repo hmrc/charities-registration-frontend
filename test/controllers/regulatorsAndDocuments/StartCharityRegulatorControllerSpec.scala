@@ -29,7 +29,7 @@ import views.html.regulatorsAndDocuments.StartCharityRegulatorView
 
 import scala.concurrent.Future
 
-class StartCharityRegulatorControllerSpec  extends SpecBase with BeforeAndAfterEach {
+class StartCharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers = Some(emptyUserAnswers)
 

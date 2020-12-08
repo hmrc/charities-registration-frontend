@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.nominees.IsAuthoriseNomineeView
 
-class IsAuthoriseNomineeViewSpec extends YesNoViewBehaviours  {
+class IsAuthoriseNomineeViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isAuthoriseNominee"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))

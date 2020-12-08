@@ -26,7 +26,7 @@ import views.behaviours.CheckboxViewBehaviours
 import views.html.operationsAndFunds.CharitablePurposesView
 
 
-class CharitablePurposesViewSpec extends CheckboxViewBehaviours[CharitablePurposes]  {
+class CharitablePurposesViewSpec extends CheckboxViewBehaviours[CharitablePurposes] {
 
   private val messageKeyPrefix: String = "charitablePurposes"
   private val section: String = messages("operationsAndFunds.section")

@@ -21,9 +21,9 @@ import java.time.LocalDate
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class OtherOfficialsDOBPage(index: Int)  extends QuestionPage[LocalDate] {
+case class OtherOfficialsDOBPage(index: Int) extends QuestionPage[LocalDate] {
 
-  override def path: JsPath =  OtherOfficialsId(index).path \ toString
+  override def path: JsPath = OtherOfficialsId(index).path \ toString
 
   override lazy val toString: String = "officialsDOB"
 }

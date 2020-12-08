@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.nominees.OrganisationNomineeNameView
 
-class OrganisationNomineeNameViewSpec extends QuestionViewBehaviours[String]  {
+class OrganisationNomineeNameViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix = "nameOfOrganisation"
   val form: Form[String] = inject[OrganisationNomineeNameFormProvider].apply()

@@ -32,7 +32,7 @@ case object SelectGoverningDocumentPage extends QuestionPage[SelectGoverningDocu
 
   override def cleanup(value: Option[SelectGoverningDocument], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(item) if item != Other  =>
+      case Some(item) if item != Other =>
         userAnswers.remove(Seq(GoverningDocumentNamePage))
       case _ =>
         super.cleanup(value, userAnswers)

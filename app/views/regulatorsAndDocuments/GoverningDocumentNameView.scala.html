@@ -29,7 +29,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "governingDocumentName.title",Some("charityRegulator.section")))) {
+@govukLayout(pageTitle = Some(title(form, "governingDocumentName.title", Some("charityRegulator.section")))) {
 
     @formHelper(action = GoverningDocumentNameController.onSubmit(mode)) {
 

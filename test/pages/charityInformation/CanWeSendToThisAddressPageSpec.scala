@@ -22,7 +22,7 @@ import pages.addressLookup.CharityPostalAddressLookupPage
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 
-class CanWeSendToThisAddressPageSpec  extends PageBehaviours {
+class CanWeSendToThisAddressPageSpec extends PageBehaviours {
 
   "CanWeSendToThisAddressPage" must {
 

@@ -29,23 +29,23 @@ import play.api.mvc.Call
 
 class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  override val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call = {
     case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorPageNav(NormalMode, userAnswers)
 
-    case CharityRegulatorPage => userAnswers: UserAnswers  => nextNormalOrSwitchOverNavigation(userAnswers, Seq())
+    case CharityRegulatorPage => userAnswers: UserAnswers => nextNormalOrSwitchOverNavigation(userAnswers, Seq())
 
-    case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers  =>
+    case CharityCommissionRegistrationNumberPage => userAnswers: UserAnswers =>
       nextNormalOrSwitchOverNavigation(userAnswers, Seq(CharityCommissionRegistrationNumberPage))
 
-    case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers  =>
+    case ScottishRegulatorRegNumberPage => userAnswers: UserAnswers =>
       nextNormalOrSwitchOverNavigation(userAnswers,
         Seq(CharityCommissionRegistrationNumberPage, ScottishRegulatorRegNumberPage))
 
-    case NIRegulatorRegNumberPage => userAnswers: UserAnswers  =>
+    case NIRegulatorRegNumberPage => userAnswers: UserAnswers =>
       nextNormalOrSwitchOverNavigation(userAnswers,
         Seq(CharityCommissionRegistrationNumberPage, ScottishRegulatorRegNumberPage, NIRegulatorRegNumberPage))
 
-    case CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers  => userAnswers.get(CharityRegulatorPage) match {
+    case CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityRegulatorPage) match {
       case Some(items) => nextNav(CharityRegulator.pageMap.filter{ case(key, _) => items.contains(key)}.values.toSeq, userAnswers, CheckMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -66,7 +66,7 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorCheckNav(CheckMode, userAnswers)
 
     case CharityRegulatorPage | CharityCommissionRegistrationNumberPage | ScottishRegulatorRegNumberPage
-         | NIRegulatorRegNumberPage | CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers  =>
+         | NIRegulatorRegNumberPage | CharityOtherRegulatorDetailsPage => userAnswers: UserAnswers =>
       userAnswers.get(CharityRegulatorPage) match {
         case Some(items) => nextNav(CharityRegulator.pageMap.filter{ case(key, _) => items.contains(key)}.values.toSeq, userAnswers, CheckMode)
         case _ => routes.SessionExpiredController.onPageLoad()
@@ -75,7 +75,7 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad()
 
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
-      case Some(Other) =>  userAnswers.get(WhyNotRegisteredWithCharityPage) match {
+      case Some(Other) => userAnswers.get(WhyNotRegisteredWithCharityPage) match {
         case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         case _ => regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode)
       }
@@ -111,9 +111,9 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def nextNav(res: Seq[QuestionPage[_]], userAnswers: UserAnswers, mode: Mode): Call ={
+  private def nextNav(res: Seq[QuestionPage[_]], userAnswers: UserAnswers, mode: Mode): Call = {
 
-    def checkNextNav(seqPages: Seq[QuestionPage[_]]): Call ={
+    def checkNextNav(seqPages: Seq[QuestionPage[_]]): Call = {
       if(seqPages.isEmpty){
         regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
       } else {
@@ -121,13 +121,13 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
           case CharityCommissionRegistrationNumberPage => userAnswers.get(CharityCommissionRegistrationNumberPage).fold(
             regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(mode)
           )(_ => checkNextNav(seqPages.tail))
-          case ScottishRegulatorRegNumberPage  => userAnswers.get(ScottishRegulatorRegNumberPage).fold(
+          case ScottishRegulatorRegNumberPage => userAnswers.get(ScottishRegulatorRegNumberPage).fold(
             regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(mode)
           )(_ => checkNextNav(seqPages.tail))
-          case NIRegulatorRegNumberPage  => userAnswers.get(NIRegulatorRegNumberPage).fold(
+          case NIRegulatorRegNumberPage => userAnswers.get(NIRegulatorRegNumberPage).fold(
             regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(mode)
           )(_ => checkNextNav(seqPages.tail))
-          case CharityOtherRegulatorDetailsPage  => userAnswers.get(CharityOtherRegulatorDetailsPage).fold(
+          case CharityOtherRegulatorDetailsPage => userAnswers.get(CharityOtherRegulatorDetailsPage).fold(
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(mode)
           )(_ => checkNextNav(seqPages.tail))
         }

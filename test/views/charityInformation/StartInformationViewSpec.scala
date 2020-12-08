@@ -21,7 +21,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.charityInformation.StartInformationView
 
-class StartInformationViewSpec extends ViewBehaviours  {
+class StartInformationViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startInformation"
   private val section: String = messages("contactDetail.section")

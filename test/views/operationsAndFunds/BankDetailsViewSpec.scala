@@ -25,7 +25,7 @@ import views.behaviours.QuestionViewBehaviours
 import views.html.operationsAndFunds.BankDetailsView
 
 
-class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
+class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
   private val messageKeyPrefix = "bankDetails"
   private val sectionName: String = "operationsAndFunds.section"

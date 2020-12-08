@@ -34,7 +34,7 @@ class IsNomineePaymentsViewSpec extends YesNoViewBehaviours  {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[IsNomineePaymentsView](Some(emptyUserAnswers))
-      view.apply(form,"Jim Jam", messageKeyPrefix, onwardRoute)(
+      view.apply(form, "Jim Jam", messageKeyPrefix, onwardRoute)(
         fakeRequest, messages, frontendAppConfig)
     }
 

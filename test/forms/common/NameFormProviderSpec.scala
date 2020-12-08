@@ -20,7 +20,7 @@ import forms.behaviours.{OptionFieldBehaviours, StringFieldBehaviours}
 import models.{Name, SelectTitle}
 import play.api.data.{Form, FormError}
 
-class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehaviours  {
+class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehaviours {
 
   private val maxLength = 100
   private val messagePrefix: String = "authorisedOfficialsName"
@@ -35,7 +35,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
     behave like optionsField[SelectTitle](
       form,
       fieldName,
-      validValues  = SelectTitle.values,
+      validValues = SelectTitle.values,
       invalidError = FormError(fieldName, "error.invalid")
     )
 
@@ -143,7 +143,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
   
   "AuthorisedOfficialsNameFormProvider" must {
 
-    val authorisedOfficialsName = Name(SelectTitle.Mr,"Jim", Some("John"), "Jones")
+    val authorisedOfficialsName = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
 
     "apply AuthorisedOfficialsName correctly" in {
 

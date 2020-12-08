@@ -102,7 +102,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0) ,"United Kingdom").success.value
+      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0) , "United Kingdom").success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))

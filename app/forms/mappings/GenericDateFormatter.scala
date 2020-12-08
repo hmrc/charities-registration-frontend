@@ -46,13 +46,13 @@ private[mappings] trait GenericDateFormatter extends Formatters with Constraints
     .map(_._1)
     .toList
 
-  lazy val illegalErrors: (String, Map[String, String], String, Seq[String],  (String, Map[String, String]) => List[String]) => Option[FormError] =
-    (key, data, invalidKey, args, validate) =>  validate(key, data) match {
+  lazy val illegalErrors: (String, Map[String, String], String, Seq[String], (String, Map[String, String]) => List[String]) => Option[FormError] =
+    (key, data, invalidKey, args, validate) => validate(key, data) match {
       case emptyList if emptyList.isEmpty => None
       case foundErrors => Some(FormError(keyWithError(key, validate(key, data).head), invalidKey, foundErrors ++ args))
     }
 
-  def leftErrors(key: String, data: Map[String, String], missingMessage: String, invalidMessage: String, args: Seq[String]):Left[Seq[FormError], Nothing] =
+  def leftErrors(key: String, data: Map[String, String], missingMessage: String, invalidMessage: String, args: Seq[String]): Left[Seq[FormError], Nothing] =
     Left(
       List(
         FormError(keyWithError(key, missingFields(key, data).head), missingMessage, missingFields(key, data) ++ args))

@@ -25,7 +25,7 @@ class CharityCommonTransformer extends JsonTransformer {
 
   val localPath: JsPath = __ \ 'charityRegistration \ 'common
 
-  def userAnswersToAdmin(implicit request: DataRequest[_] ) : Reads[JsObject] = {
+  def userAnswersToAdmin(implicit request: DataRequest[_]): Reads[JsObject] = {
     ((localPath \ 'admin \ 'applicationDate).json.put(JsString("1970-01-01")) and
       (localPath \ 'admin \ 'welshIndicator).json.put(JsBoolean(false)) and
       (localPath \ 'admin \ 'credentialID).json.put(JsString(s"/newauth/credentialId/${request.internalId}")) and
@@ -33,7 +33,7 @@ class CharityCommonTransformer extends JsonTransformer {
       (localPath \ 'admin \ 'acknowledgmentReference).json.put(JsString("15 CHARACTERS S"))).reduce
   }
 
-  def userAnswersToOrganisation : Reads[JsObject] = {
+  def userAnswersToOrganisation: Reads[JsObject] = {
     ((localPath \ 'organisation \ 'applicationType).json.put(JsString("0")) and
       (localPath \ 'organisation \ 'orgName).json.copyFrom((__ \ 'charityName \ 'fullName).json.pick) and
       ((localPath \ 'organisation \ 'operatingName).json.copyFrom((__ \ 'charityName \ 'operatingName).json.pick) orElse doNothing) and
@@ -41,10 +41,10 @@ class CharityCommonTransformer extends JsonTransformer {
       ((localPath \ 'organisation \ 'mobileNumber).json.copyFrom((__ \ 'charityContactDetails \ 'mobilePhone).json.pick) orElse doNothing) and
       ((localPath \ 'organisation \ 'emailAddress).json.copyFrom((__ \ 'charityContactDetails \ 'emailAddress).json.pick) orElse doNothing) and
       (localPath \ 'organisation \ 'countryEstd).json.copyFrom(
-        (__ \ 'charityEstablishedIn).read[String].map(value =>if(value == "0") JsString("1") else JsString(value)))).reduce
+        (__ \ 'charityEstablishedIn).read[String].map(value => if(value == "0") JsString("1") else JsString(value)))).reduce
   }
 
-  def userAnswersToAddressDetailsCommon : Reads[JsObject] = {
+  def userAnswersToAddressDetailsCommon: Reads[JsObject] = {
 
     val differentCorrespondenceAddress = (__ \ 'canWeSendLettersToThisAddress).read[Boolean].flatMap { isDiff =>
       getOptionalAddress(localPath \ 'addressDetails \ 'correspondenceAddress, __ \ 'charityPostalAddress).flatMap {
@@ -64,7 +64,7 @@ class CharityCommonTransformer extends JsonTransformer {
       getOptionalAddress(localPath \ 'addressDetails\ 'correspondenceAddress, __ \ 'charityPostalAddress)).reduce
   }
 
-  def userAnswersToBankDetails : Reads[JsObject] = {
+  def userAnswersToBankDetails: Reads[JsObject] = {
     (
       (localPath \ 'bankDetails \ 'accountName).json.copyFrom((__ \ 'bankDetails \ 'accountName).json.pick) and
       (__ \ 'bankDetails \ 'sortCode).read[String].flatMap { n =>
@@ -77,19 +77,19 @@ class CharityCommonTransformer extends JsonTransformer {
     ).reduce
   }
 
-  def userAnswersToIndDeclarationInfo : Reads[JsObject] = {
+  def userAnswersToIndDeclarationInfo: Reads[JsObject] = {
 
-    val isNonUK = (__ \ 'authorisedOfficials \ 0  \ 'officialAddress \ 'country \ 'code).read[String].map{
+    val isNonUK = (__ \ 'authorisedOfficials \ 0 \ 'officialAddress \ 'country \ 'code).read[String].map{
       code => JsBoolean(code != "GB")
     }
 
     (getName(localPath \ 'declarationInfo \ 'name, __ \ 'authorisedOfficials \ 0 \ 'officialsName) and
-      (localPath \ 'declarationInfo \ 'position).json.copyFrom((__ \ 'authorisedOfficials \ 0 \ 'officialsPosition ).json.pick) and
+      (localPath \ 'declarationInfo \ 'position).json.copyFrom((__ \ 'authorisedOfficials \ 0 \ 'officialsPosition).json.pick) and
       (localPath \ 'declarationInfo \ 'overseas).json.copyFrom(isNonUK) and
       (localPath \ 'declarationInfo \ 'declaration).json.put(JsBoolean(true))).reduce
   }
 
-  def userAnswersToCommon(implicit request: DataRequest[_] ) : Reads[JsObject] = {
+  def userAnswersToCommon(implicit request: DataRequest[_]): Reads[JsObject] = {
 
     (userAnswersToAdmin and userAnswersToOrganisation and userAnswersToAddressDetailsCommon and
       userAnswersToBankDetails and userAnswersToIndDeclarationInfo).reduce

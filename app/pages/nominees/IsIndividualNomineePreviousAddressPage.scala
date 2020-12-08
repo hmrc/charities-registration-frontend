@@ -31,7 +31,7 @@ case object IsIndividualNomineePreviousAddressPage extends QuestionPage[Boolean]
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(false)  => userAnswers.remove(NomineeIndividualPreviousAddressLookupPage)
+      case Some(false) => userAnswers.remove(NomineeIndividualPreviousAddressLookupPage)
       case _ => super.cleanup(value, userAnswers)
     }
 }

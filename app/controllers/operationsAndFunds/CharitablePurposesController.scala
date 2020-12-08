@@ -35,7 +35,7 @@ import scala.concurrent.Future
 
 class CharitablePurposesController @Inject()(
    sessionRepository: UserAnswerRepository,
-   navigator:ObjectivesNavigator,
+   navigator: ObjectivesNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,
    requireData: DataRequiredAction,

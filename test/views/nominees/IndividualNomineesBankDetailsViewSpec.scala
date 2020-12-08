@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.BankAccountDetailsView
 
-class IndividualNomineesBankDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
+class IndividualNomineesBankDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
   private val messageKeyPrefix = "individualNomineesBankDetails"
   private val sectionName: String = "officialsAndNominees.section"

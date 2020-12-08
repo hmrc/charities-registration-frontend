@@ -100,7 +100,7 @@ class TaskListHelper {
   }
 
   private def getSection(name: String, normalUrl: Call, changeUrl: Call, sectionId: QuestionPage[Boolean],
-                         isDependent: Option[Boolean] = None)(implicit userAnswers: UserAnswers) : TaskListRow = {
+                         isDependent: Option[Boolean] = None)(implicit userAnswers: UserAnswers): TaskListRow = {
     userAnswers.get(sectionId) match {
       case _ if isDependent.contains(false) => TaskListRow(name, normalUrl, "index.section.canNotStartYet")
       case Some(true) => TaskListRow(name, changeUrl, "index.section.completed")

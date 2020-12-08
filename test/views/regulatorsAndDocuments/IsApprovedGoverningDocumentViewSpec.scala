@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.regulatorsAndDocuments.IsApprovedGoverningDocumentView
 
-class IsApprovedGoverningDocumentViewSpec extends YesNoViewBehaviours  {
+class IsApprovedGoverningDocumentViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isApprovedGoverningDocument"
   private val section: Option[String] = Some(messages("charityRegulator.section"))

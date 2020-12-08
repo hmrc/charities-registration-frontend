@@ -39,7 +39,7 @@ trait AddedOfficialController extends LocalBaseController {
   protected val messagePrefix: String
   protected val countryService: CountryService
 
-  def getView(index:Index, submitCall: Call, officialsName: String)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
+  def getView(index: Index, submitCall: Call, officialsName: String)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
 
     val rows = messagePrefix match {
       case "addedAuthorisedOfficial" =>
@@ -51,7 +51,7 @@ trait AddedOfficialController extends LocalBaseController {
     Ok(view(rows, submitCall, officialsName, messagePrefix))
   }
 
-  def postView(page: QuestionPage[String], section:QuestionPage[Boolean])(
+  def postView(page: QuestionPage[String], section: QuestionPage[Boolean])(
     implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
     for {

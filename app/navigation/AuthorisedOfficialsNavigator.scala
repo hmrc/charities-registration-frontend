@@ -98,7 +98,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case AddedAuthorisedOfficialPage(_)=> _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+    case AddedAuthorisedOfficialPage(_) => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case AuthorisedOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
       case Some(true) if userAnswers.get(Section7Page).contains(true) => routes.IndexController.onPageLoad()

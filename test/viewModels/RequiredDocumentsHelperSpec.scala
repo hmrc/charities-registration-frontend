@@ -24,6 +24,10 @@ import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNamePage}
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.regulatorsAndDocuments.IsCharityRegulatorPage
+import play.api.Play
+import play.api.i18n.Messages
+import play.api.mvc.Cookie
+import play.api.test.FakeRequest
 import viewmodels.RequiredDocumentsHelper
 
 class RequiredDocumentsHelperSpec extends SpecBase{
@@ -38,6 +42,8 @@ class RequiredDocumentsHelperSpec extends SpecBase{
   private val userAnswersUKAuthOfficial1 = emptyUserAnswers
     .set(AuthorisedOfficialAddressLookupPage(0), AddressModel(Seq("aa", "bb"), postcode = None, country = CountryModel("GB", "United Kingdom"))).success.value
 
+  private val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+  private lazy val localMessages: Messages = messagesApi.preferred(localRequest)
 
   "RequiredDocumentsHelper" must {
 
@@ -115,6 +121,21 @@ class RequiredDocumentsHelperSpec extends SpecBase{
 
       "format correctly for 4 or more names" in {
         RequiredDocumentsHelper.formatNames(Seq(john, john, john, john)) mustBe "John Smith, John Smith, John Smith and John Smith"
+
+      }
+
+      "format correctly for 2 names in Welsh" in {
+        RequiredDocumentsHelper.formatNames(Seq(john, john))(localMessages) mustBe "John Smith, John Smith"
+
+      }
+
+      "format correctly for 3 names in Welsh" in {
+        RequiredDocumentsHelper.formatNames(Seq(john, john, john))(localMessages) mustBe "John Smith, John Smith, John Smith"
+
+      }
+
+      "format correctly for 4 or more names in Welsh" in {
+        RequiredDocumentsHelper.formatNames(Seq(john, john, john, john))(localMessages) mustBe "John Smith, John Smith, John Smith, John Smith"
 
       }
     }

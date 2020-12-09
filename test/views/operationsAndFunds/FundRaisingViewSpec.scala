@@ -26,7 +26,7 @@ import views.behaviours.CheckboxViewBehaviours
 import views.html.operationsAndFunds.FundRaisingView
 
 
-class FundRaisingViewSpec extends CheckboxViewBehaviours[FundRaisingOptions]  {
+class FundRaisingViewSpec extends CheckboxViewBehaviours[FundRaisingOptions] {
 
   private val messageKeyPrefix: String = "selectFundRaising"
   private val section: String = messages("operationsAndFunds.section")

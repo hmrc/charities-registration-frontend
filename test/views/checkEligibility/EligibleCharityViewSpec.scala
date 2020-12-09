@@ -33,7 +33,7 @@ class EligibleCharityViewSpec extends ViewBehaviours {
       view.apply(NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(),messageKeyPrefix )
+    behave like normalPage(applyView(), messageKeyPrefix)
 
     behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
       "p1")
@@ -41,7 +41,7 @@ class EligibleCharityViewSpec extends ViewBehaviours {
     behave like pageWithBackLink(applyView())
 
     behave like pageWithHyperLink(applyView(),
-      "linkButton",controllers.routes.IndexController.onPageLoad().url,BaseMessages.continue)
+      "linkButton", controllers.routes.IndexController.onPageLoad().url, BaseMessages.continue)
 
   }
 }

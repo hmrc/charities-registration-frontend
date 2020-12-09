@@ -25,7 +25,7 @@ import views.behaviours.QuestionViewBehaviours
 import views.html.charityInformation.CharityNameView
 
 
-class CharityNameViewSpec extends QuestionViewBehaviours[CharityName]  {
+class CharityNameViewSpec extends QuestionViewBehaviours[CharityName] {
 
   private val messageKeyPrefix = "charityName"
   val form: Form[CharityName] = inject[CharityNameFormProvider].apply()

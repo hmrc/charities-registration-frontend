@@ -32,7 +32,7 @@ class CharityRegulatorFormProviderSpec extends CheckboxFieldBehaviours {
     behave like checkboxField[CharityRegulator](
       form,
       fieldName,
-      validValues  = CharityRegulator.values,
+      validValues = CharityRegulator.values,
       invalidError = FormError(s"$fieldName[0]", "error.invalid")
     )
 

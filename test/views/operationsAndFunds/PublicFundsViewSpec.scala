@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.TextAreaViewBehaviours
 import views.html.operationsAndFunds.PublicBenefitsView
 
-class PublicFundsViewSpec extends TextAreaViewBehaviours  {
+class PublicFundsViewSpec extends TextAreaViewBehaviours {
 
   private val messageKeyPrefix = "publicBenefits"
   val form: Form[String] = inject[PublicBenefitsFormProvider].apply()

@@ -28,7 +28,7 @@ import play.api.mvc.Call
 
 class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  override val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call = {
 
     case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, NormalMode)
 
@@ -55,7 +55,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
 
-    case IsApprovedGoverningDocumentPage  => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
+    case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
 
     case HasCharityChangedPartsOfGoverningDocumentPage => userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, CheckMode)
 
@@ -100,7 +100,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
     userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
     case Some(true) if mode == CheckMode && userAnswers.get(SectionsChangedGoverningDocumentPage).isDefined =>
       regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case Some(true)  => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
+    case Some(true) => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
     case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }

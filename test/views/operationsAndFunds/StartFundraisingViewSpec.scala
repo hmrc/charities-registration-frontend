@@ -21,7 +21,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.operationsAndFunds.StartFundraisingView
 
-class StartFundraisingViewSpec extends ViewBehaviours  {
+class StartFundraisingViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startFundraising"
   private val section: String = messages("operationsAndFunds.section")

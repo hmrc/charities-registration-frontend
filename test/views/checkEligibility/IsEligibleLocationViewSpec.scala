@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.checkEligibility.IsEligibleLocationView
 
-class IsEligibleLocationViewSpec extends YesNoViewBehaviours  {
+class IsEligibleLocationViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isEligibleLocation"
   val form: Form[Boolean] = inject[IsEligibleLocationFormProvider].apply()

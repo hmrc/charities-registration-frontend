@@ -25,7 +25,7 @@ import viewmodels.StatusHelper
 
 object GoverningDocumentStatusHelper extends StatusHelper {
 
-  private val allPages: Seq[QuestionPage[_]] =  Seq(
+  private val allPages: Seq[QuestionPage[_]] = Seq(
     SelectGoverningDocumentPage,
     GoverningDocumentNamePage,
     IsApprovedGoverningDocumentPage,
@@ -37,7 +37,7 @@ object GoverningDocumentStatusHelper extends StatusHelper {
   private val common = Seq(WhenGoverningDocumentApprovedPage, SelectGoverningDocumentPage, IsApprovedGoverningDocumentPage)
   private val commonWithDocName = common ++ Seq(GoverningDocumentNamePage)
 
-  private val governingDoc = (documentType:SelectGoverningDocument) => if(documentType == Other) commonWithDocName else common
+  private val governingDoc = (documentType: SelectGoverningDocument) => if(documentType == Other) commonWithDocName else common
   private val hasCharityChanged = (list: Seq[QuestionPage[_]]) => list ++ Seq(HasCharityChangedPartsOfGoverningDocumentPage)
   private val sectionsChanged = (list: Seq[QuestionPage[_]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
 
@@ -56,7 +56,7 @@ object GoverningDocumentStatusHelper extends StatusHelper {
               case Some(false) =>
                 val newPages = (governingDoc andThen hasCharityChanged)(governingDocument)
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
-              case _  =>
+              case _ =>
                 val pages = (governingDoc andThen hasCharityChanged andThen sectionsChanged)(governingDocument)
                 userAnswers.arePagesDefined(pages) && noAdditionalPagesDefined(pages)
             }

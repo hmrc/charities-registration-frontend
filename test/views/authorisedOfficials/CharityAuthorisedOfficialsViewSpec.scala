@@ -22,10 +22,10 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
 
-class CharityAuthorisedOfficialsViewSpec extends ViewBehaviours  {
+class CharityAuthorisedOfficialsViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "charityAuthorisedOfficials"
-    List(0,1).foreach(index => {
+    List(0, 1).foreach(index => {
     s"CharityAuthorisedOfficialsView for index $index" must {
 
       def applyView(index: Index): HtmlFormat.Appendable = {

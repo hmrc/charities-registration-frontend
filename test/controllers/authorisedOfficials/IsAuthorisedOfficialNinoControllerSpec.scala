@@ -71,7 +71,7 @@ class IsAuthorisedOfficialNinoControllerSpec extends SpecBase with BeforeAndAfte
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
+      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
         controllers.authorisedOfficials.routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode, Index(0)), "officialsAndNominees")(
         fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())

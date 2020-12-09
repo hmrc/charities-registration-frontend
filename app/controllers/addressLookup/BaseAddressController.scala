@@ -31,7 +31,7 @@ import viewmodels.ErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait BaseAddressController extends LocalBaseController  {
+trait BaseAddressController extends LocalBaseController {
   protected val addressLookupConnector: AddressLookupConnector
   protected val errorHandler: ErrorHandler
   protected val sessionRepository: UserAnswerRepository
@@ -39,7 +39,7 @@ trait BaseAddressController extends LocalBaseController  {
   protected val messagePrefix: String
 
   def addressLookupInitialize(callbackUrl: String, fullName: Option[String] = None, allowedCountryCodes: Option[Set[String]] = None)(
-    implicit request:  DataRequest[AnyContent], ec: ExecutionContext): Future[Result] = {
+    implicit request: DataRequest[AnyContent], ec: ExecutionContext): Future[Result] = {
 
     addressLookupConnector.initialize(callbackUrl, messagePrefix, fullName, allowedCountryCodes)(hc, ec, messagesApi) map {
       case Right(AddressLookupOnRamp(url)) => Redirect(url)
@@ -48,7 +48,7 @@ trait BaseAddressController extends LocalBaseController  {
   }
 
   def addressLookupCallback(page: QuestionPage[AddressModel], pageSection: QuestionPage[Boolean], id: Option[String], mode: Mode = NormalMode)(
-    implicit request:  DataRequest[AnyContent]): Future[Result] = {
+    implicit request: DataRequest[AnyContent]): Future[Result] = {
 
     id match {
       case Some(addressId) =>

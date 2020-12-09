@@ -23,7 +23,7 @@ import play.api.libs.json.JsPath
 
 case object NomineeIndividualAddressLookupPage extends QuestionPage[AddressModel] {
 
-  override def path: JsPath =  NomineeIndividualIdPage.path \ toString
+  override def path: JsPath = NomineeIndividualIdPage.path \ toString
 
   override lazy val toString: String = "individualAddress"
 }

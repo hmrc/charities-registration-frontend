@@ -23,5 +23,5 @@ case object IsAddAnotherOtherOfficialPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
-  override  val toString: String = "addAnotherOtherOfficial"
+  override val toString: String = "addAnotherOtherOfficial"
 }

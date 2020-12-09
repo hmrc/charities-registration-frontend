@@ -29,39 +29,39 @@ import play.api.mvc.Call
 
 class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  override val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call = {
 
     case IsAuthoriseNomineePage => userAnswers: UserAnswers => userAnswers.get(IsAuthoriseNomineePage) match {
       case Some(true) => nomineeRoutes.ChooseNomineeController.onPageLoad(NormalMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case ChooseNomineePage => userAnswers: UserAnswers => userAnswers.get(ChooseNomineePage) match {
       case Some(true) => nomineeRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
       case Some(false) => nomineeRoutes.OrganisationNomineeNameController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeNamePage) match {
       case Some(_) => nomineeRoutes.IndividualNomineeDOBController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineeDOBPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeDOBPage) match {
       case Some(_) => nomineeRoutes.IndividualNomineesPhoneNumberController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesPhoneNumberPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPhoneNumberPage) match {
       case Some(_) => nomineeRoutes.IsIndividualNomineeNinoController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsIndividualNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineeNinoPage) match {
       case Some(true) => nomineeRoutes.IndividualNomineesNinoController.onPageLoad(NormalMode)
       case Some(false) => nomineeRoutes.IndividualNomineePassportController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesPassportPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPassportPage) match {
@@ -70,7 +70,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       } else {
         controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
       }
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesNinoPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesNinoPage) match {
@@ -79,18 +79,18 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       } else {
         controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
       }
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsIndividualNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePaymentsPage) match {
       case Some(true) => nomineeRoutes.IndividualNomineesBankDetailsController.onPageLoad(NormalMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankDetailsPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case NomineeIndividualAddressLookupPage => userAnswers: UserAnswers =>
@@ -102,7 +102,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case IsIndividualNomineePreviousAddressPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineePreviousAddressPage) match {
       case Some(true) => controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(NormalMode)
       case Some(false) => nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case NomineeIndividualPreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
@@ -112,7 +112,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
       case Some(_) => nomineeRoutes.OrganisationNomineeContactDetailsController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeContactDetailsPage) match {
@@ -121,44 +121,44 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       } else {
         addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
       }
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeAddressLookupPage) match {
       case Some(_) => nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineePreviousAddressPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePreviousAddressPage) match {
       case Some(true) => addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode)
       case Some(false) => nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineePreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
       case Some(_) => nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePaymentsPage) match {
       case Some(true) => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode)
       case Some(false) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineesBankDetailsPage) match {
       case Some(_) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
       case Some(_) => nomineeRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonDOBPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonDOBPage) match {
       case Some(_) => nomineeRoutes.IsOrganisationNomineeNinoController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineeNinoPage) match {
@@ -187,28 +187,28 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     case IsAuthoriseNomineePage => userAnswers: UserAnswers => userAnswers.get(IsAuthoriseNomineePage) match {
       case Some(true) => nomineeRoutes.ChooseNomineeController.onPageLoad(CheckMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case ChooseNomineePage => userAnswers: UserAnswers => userAnswers.get(ChooseNomineePage) match {
       case Some(true) => nomineeRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
       case Some(false) => nomineeRoutes.OrganisationNomineeNameController.onPageLoad(NormalMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeNamePage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineeDOBPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineeDOBPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesPhoneNumberPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPhoneNumberPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsIndividualNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsIndividualNomineeNinoPage) match {
@@ -216,17 +216,17 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case Some(true) => nomineeRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode)
       case Some(false) if userAnswers.get(IndividualNomineesPassportPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case Some(false) => nomineeRoutes.IndividualNomineePassportController.onPageLoad(CheckMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesPassportPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesPassportPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesNinoPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesNinoPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case NomineeIndividualAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualAddressLookupPage) match {
@@ -238,7 +238,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
       case Some(true) if userAnswers.get(NomineeIndividualPreviousAddressLookupPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case Some(true) => addressLookupRoutes.NomineeIndividualPreviousAddressLookupController.initializeJourney(CheckMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case NomineeIndividualPreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
@@ -251,39 +251,39 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
         nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case Some(true) => nomineeRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IndividualNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(IndividualNomineesBankDetailsPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeNamePage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeContactDetailsPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineeAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeAddressLookupPage) match {
       case Some(_) => nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode)
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineePreviousAddressPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePreviousAddressPage) match {
       case Some(true) if userAnswers.get(OrganisationNomineePreviousAddressLookupPage).isDefined => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case Some(true) => addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(CheckMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineePreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineePaymentsPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineePaymentsPage) match {
@@ -291,22 +291,22 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
         nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case Some(true) => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode)
       case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationNomineesBankDetailsPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineesBankDetailsPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonNamePage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case OrganisationAuthorisedPersonDOBPage => userAnswers: UserAnswers => userAnswers.get(OrganisationAuthorisedPersonDOBPage) match {
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsOrganisationNomineeNinoPage => userAnswers: UserAnswers => userAnswers.get(IsOrganisationNomineeNinoPage) match {

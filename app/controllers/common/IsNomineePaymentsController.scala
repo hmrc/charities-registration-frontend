@@ -48,7 +48,7 @@ trait IsNomineePaymentsController extends LocalBaseController {
   }
 
     def postView(mode: Mode, page: QuestionPage[Boolean], form: Form[Boolean], fullName: String,
-                 section:QuestionPage[Boolean], submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
+                 section: QuestionPage[Boolean], submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
     form.bindFromRequest().fold(
       formWithErrors =>

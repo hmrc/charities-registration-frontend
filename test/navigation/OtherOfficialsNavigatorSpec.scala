@@ -393,7 +393,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the OtherOfficialsNINOPage if Yes is selected and previously the user's passport details were provided" in {
               navigator.nextPage(IsOtherOfficialNinoPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true )
+                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
                   .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))

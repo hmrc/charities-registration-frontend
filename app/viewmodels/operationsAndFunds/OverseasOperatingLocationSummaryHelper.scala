@@ -45,7 +45,7 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
     }
 
     lazy val rows: Seq[SummaryListRow] = {
-      val result = for(i <- 0 to 4) yield  {
+      val result = for(i <- 0 to 4) yield {
         overseasOperatingLocationSummaryRow(i, operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(mode, Index(i)))
       }
       result.flatten

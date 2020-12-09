@@ -30,7 +30,7 @@ case object IsApprovedGoverningDocumentPage extends QuestionPage[Boolean] {
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(false)  =>
+      case Some(false) =>
         userAnswers.remove(Seq(HasCharityChangedPartsOfGoverningDocumentPage, SectionsChangedGoverningDocumentPage))
       case _ =>
         super.cleanup(value, userAnswers)

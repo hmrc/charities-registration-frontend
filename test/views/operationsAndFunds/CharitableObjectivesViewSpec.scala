@@ -25,7 +25,7 @@ import views.behaviours.TextAreaViewBehaviours
 import views.html.operationsAndFunds.CharitableObjectivesView
 
 
-class CharitableObjectivesViewSpec extends TextAreaViewBehaviours  {
+class CharitableObjectivesViewSpec extends TextAreaViewBehaviours {
 
   private val messageKeyPrefix = "charitableObjectives"
   val form: Form[String] = inject[CharitableObjectivesFormProvider].apply()

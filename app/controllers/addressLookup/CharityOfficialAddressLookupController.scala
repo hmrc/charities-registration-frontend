@@ -38,7 +38,7 @@ class CharityOfficialAddressLookupController @Inject()(
   val controllerComponents: MessagesControllerComponents
  )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
 
-  override val messagePrefix : String = "charityOfficialAddress"
+  override val messagePrefix: String = "charityOfficialAddress"
 
   def initializeJourney: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

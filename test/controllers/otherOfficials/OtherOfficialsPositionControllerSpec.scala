@@ -69,7 +69,7 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
-      val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
@@ -81,7 +81,7 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(OtherOfficialsPositionPage(0),  OfficialsPosition.UKAgent).getOrElse(emptyUserAnswers))))
+        set(OtherOfficialsPositionPage(0), OfficialsPosition.UKAgent).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

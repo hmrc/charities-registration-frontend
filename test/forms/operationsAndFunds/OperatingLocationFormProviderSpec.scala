@@ -32,7 +32,7 @@ class OperatingLocationFormProviderSpec extends CheckboxFieldBehaviours {
     behave like checkboxField[OperatingLocationOptions](
       form,
       fieldName,
-      validValues  = OperatingLocationOptions.values,
+      validValues = OperatingLocationOptions.values,
       invalidError = FormError(s"$fieldName[0]", "error.invalid")
     )
 

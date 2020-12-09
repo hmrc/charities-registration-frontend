@@ -47,7 +47,7 @@ trait NameController extends LocalBaseController {
     Ok(view(preparedForm, messagePrefix, submitCall))
   }
 
-  def postView(mode: Mode, page: QuestionPage[Name], form: Form[Name], section:QuestionPage[Boolean], submitCall: Call)(
+  def postView(mode: Mode, page: QuestionPage[Name], form: Form[Name], section: QuestionPage[Boolean], submitCall: Call)(
     implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
     form.bindFromRequest().fold(

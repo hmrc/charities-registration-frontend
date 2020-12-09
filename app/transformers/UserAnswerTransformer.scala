@@ -141,7 +141,7 @@ class UserAnswerTransformer extends JsonTransformer {
       })
   }
 
-  private def optionalAddress(oldPath:JsPath, newFlagPath:JsPath, uaPath:JsPath, expectedFlag: Boolean = false): Reads[JsObject] = {
+  private def optionalAddress(oldPath: JsPath, newFlagPath: JsPath, uaPath: JsPath, expectedFlag: Boolean = false): Reads[JsObject] = {
     val negativeFlag = !expectedFlag
     (oldPath \ 'toggle).readNullable[String].flatMap { toggle =>
       if (toggle.contains("true")) {
@@ -154,12 +154,12 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  private def ninoOrPassport(uaPathNino:JsPath, uaPathPassport:JsPath, uaFlagPath:JsPath, oldSchemaPath:JsPath): Reads[JsObject] = {
+  private def ninoOrPassport(uaPathNino: JsPath, uaPathPassport: JsPath, uaFlagPath: JsPath, oldSchemaPath: JsPath): Reads[JsObject] = {
 
     val passportPath = oldSchemaPath \ 'officialIndividualIdentityCardDetails
 
     (oldSchemaPath \ 'nationalInsuranceNumberPossession).readNullable[String].flatMap{
-      case Some("true") =>  (uaFlagPath.json.put(JsBoolean(true)) and
+      case Some("true") => (uaFlagPath.json.put(JsBoolean(true)) and
         uaPathNino.json.copyFrom((oldSchemaPath \ 'niNumberUK).json.pick)).reduce
       case _ => (uaFlagPath.json.put(JsBoolean(false)) and
         (uaPathPassport \ 'passportNumber).json.copyFrom((passportPath \ 'identityCardNumber).json.pick) and
@@ -169,7 +169,7 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  private def getTitle(individual:JsPath, oldSchemaPath:JsPath): Reads[JsObject] = {
+  private def getTitle(individual: JsPath, oldSchemaPath: JsPath): Reads[JsObject] = {
     oldSchemaPath.read[String].flatMap{
       case title if List("0001", "0002", "0003", "0004").contains(title) =>
         individual.json.copyFrom(oldSchemaPath.json.pick)
@@ -177,8 +177,8 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  private def bankDetails(oldPath:JsPath, uaFlagPath:JsPath, uaPath:JsPath): Reads[JsObject] = {
-    val commonBankPath =  oldPath \ 'nomineePaymentDetails \ 'nomineeCommonPaymentDetails
+  private def bankDetails(oldPath: JsPath, uaFlagPath: JsPath, uaPath: JsPath): Reads[JsObject] = {
+    val commonBankPath = oldPath \ 'nomineePaymentDetails \ 'nomineeCommonPaymentDetails
     (oldPath \ 'authorisedToReceivePayments).read[String].flatMap { toggle =>
       if (toggle.contains("true")) {
         ((uaPath \ 'accountName).json.copyFrom((commonBankPath \ 'accountName).json.pick) and
@@ -344,7 +344,7 @@ class UserAnswerTransformer extends JsonTransformer {
   // scalastyle:off method.length
   def toOneOfficial(index: Int, authOrOther: String): Reads[JsObject] = {
     (
-      getTitle(__ \ 'officialsName \ 'title,  authorisedOfficialOriginalKey(index, authOrOther) \ 'title) and
+      getTitle(__ \ 'officialsName \ 'title, authorisedOfficialOriginalKey(index, authOrOther) \ 'title) and
         (__ \ 'officialsName \ 'firstName).json
           .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ 'firstName).json.pick) and
         ((__ \ 'officialsName \ 'middleName).json

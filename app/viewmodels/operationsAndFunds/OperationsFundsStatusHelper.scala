@@ -36,16 +36,16 @@ object OperationsFundsStatusHelper extends StatusHelper {
     AccountingPeriodEndDatePage
   )
 
-  private val allPages: Seq[QuestionPage[_]] =  common ++ Seq(
+  private val allPages: Seq[QuestionPage[_]] = common ++ Seq(
     OtherFundRaisingPage,
     WhyNoBankStatementPage,
     OverseasOperatingLocationSummaryPage,
     OverseasCountriesPage
   )
 
-  private val f1 = (list: Seq[QuestionPage[_]], isOtherFundRaising:Boolean) => if(isOtherFundRaising) list ++ Seq(OtherFundRaisingPage) else list
+  private val f1 = (list: Seq[QuestionPage[_]], isOtherFundRaising: Boolean) => if(isOtherFundRaising) list ++ Seq(OtherFundRaisingPage) else list
 
-  private val f2 = (list: Seq[QuestionPage[_]], isOverseas:Boolean) => {
+  private val f2 = (list: Seq[QuestionPage[_]], isOverseas: Boolean) => {
     if(isOverseas) list ++ Seq(OverseasOperatingLocationSummaryPage, OverseasCountriesPage) else list
   }
 

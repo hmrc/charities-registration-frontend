@@ -34,7 +34,7 @@ import views.html.{ApplicationBeingProcessedView, RegistrationSentView}
 
 import scala.concurrent.Future
 
-class ApplicationBeingProcessedControllerSpec extends SpecBase with ImplicitDateFormatter with BeforeAndAfterEach  {
+class ApplicationBeingProcessedControllerSpec extends SpecBase with ImplicitDateFormatter with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 

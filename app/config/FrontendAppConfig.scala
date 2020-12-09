@@ -59,7 +59,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   // Address lookup
   lazy val addressLookupFrontend: String = servicesConfig.baseUrl("address-lookup-frontend")
-  lazy val retrieveAddressUrl: String =  addressLookupFrontend + "/api/v2/confirmed"
+  lazy val retrieveAddressUrl: String = addressLookupFrontend + "/api/v2/confirmed"
 
   def feedbackUrlAddressLookup: String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"

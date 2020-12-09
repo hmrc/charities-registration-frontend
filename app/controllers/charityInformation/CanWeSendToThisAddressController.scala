@@ -34,7 +34,7 @@ import views.html.charityInformation.CanWeSendToThisAddressView
 
 import scala.concurrent.Future
 
-class CanWeSendToThisAddressController  @Inject()(
+class CanWeSendToThisAddressController @Inject()(
    sessionRepository: UserAnswerRepository,
    navigator: CharityInformationNavigator,
    identify: AuthIdentifierAction,

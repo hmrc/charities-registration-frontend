@@ -21,7 +21,7 @@ import play.api.libs.json.JsPath
 
 case object IndividualNomineesNinoPage extends QuestionPage[String] {
 
-  override def path: JsPath =  NomineeIndividualIdPage.path \ toString
+  override def path: JsPath = NomineeIndividualIdPage.path \ toString
 
   override lazy val toString: String = "individualNino"
 }

@@ -39,7 +39,7 @@ class InEligibleCharitablePurposesViewSpec extends ViewBehaviours {
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
         "charitablePurposes.p1", "p2", "p3", "p3.link")
 
-      behave like pageWithHyperLink(applyView(), "link",frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
+      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
 
     }
   }

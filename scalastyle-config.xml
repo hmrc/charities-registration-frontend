@@ -116,4 +116,25 @@
     <check level="warning" class="org.scalastyle.scalariform.PublicMethodsHaveTypeChecker" enabled="false"></check>
     <check level="warning" class="org.scalastyle.file.NewLineAtEofChecker" enabled="true"></check>
     <check level="warning" class="org.scalastyle.file.NoNewLineAtEofChecker" enabled="false"></check>
+    <check level="warning" class="org.scalastyle.scalariform.DisallowSpaceAfterTokenChecker" enabled="true">
+        <parameters>
+            <parameter name="tokens">LPAREN</parameter>
+        </parameters>
+    </check>
+    <check level="warning" class="org.scalastyle.scalariform.DisallowSpaceBeforeTokenChecker" enabled="true">
+        <parameters>
+            <parameter name="tokens">COLON, COMMA, RPAREN</parameter>
+        </parameters>
+    </check>
+    <check level="warning" class="org.scalastyle.scalariform.EnsureSingleSpaceAfterTokenChecker" enabled="true">
+        <parameters>
+            <parameter name="tokens">COLON, EQUALS, ARROW</parameter>
+        </parameters>
+    </check>
+    <check level="warning" class="org.scalastyle.file.RegexChecker" enabled="true">
+        <parameters>
+            <parameter name="regex"><![CDATA[^.*\=\{{1}.*$]]></parameter>
+        </parameters>
+        <customMessage>No space between = and {</customMessage>
+    </check>
 </scalastyle>

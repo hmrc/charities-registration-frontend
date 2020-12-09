@@ -58,7 +58,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel"),
-        ans.toList.sortBy(_.order).foldLeft("")((accumulator,item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>"),
+        ans.toList.sortBy(_.order).foldLeft("")((accumulator, item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>"),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -66,7 +66,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   def answerFullName(page: QuestionPage[Name],
                      changeLinkCall: Call,
-                     messagePrefix: String) : Option[SummaryListRow] =
+                     messagePrefix: String): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),

@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.CharityOtherRegulatorDetailsView
 
-class CharityOtherRegulatorDetailsViewSpec extends QuestionViewBehaviours[CharityOtherRegulatorDetails]  {
+class CharityOtherRegulatorDetailsViewSpec extends QuestionViewBehaviours[CharityOtherRegulatorDetails] {
 
   private val messageKeyPrefix = "charityOtherRegulatorDetails"
   val form: Form[CharityOtherRegulatorDetails] = inject[CharityOtherRegulatorDetailsFormProvider].apply()

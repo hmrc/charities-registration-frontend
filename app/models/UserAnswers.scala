@@ -29,7 +29,7 @@ final case class UserAnswers(
                               id: String,
                               data: JsObject = Json.obj(),
                               lastUpdated: LocalDateTime = LocalDateTime.now,
-                              expiresAt: LocalDateTime =  LocalDateTime.now.plusMinutes(15)
+                              expiresAt: LocalDateTime = LocalDateTime.now.plusMinutes(15)
                             ) {
 
   def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean = {

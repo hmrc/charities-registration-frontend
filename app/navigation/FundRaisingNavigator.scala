@@ -39,7 +39,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     }
   }
 
-  override val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call = {
 
     case FundRaisingPage => userAnswers: UserAnswers => userAnswers.get(FundRaisingPage) match {
       case Some(items) if items.toSeq.contains(Other) => operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
@@ -120,10 +120,10 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
     case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case OtherFundRaisingPage => userAnswer:UserAnswers => userAnswer.get(OtherFundRaisingPage) match{
+    case OtherFundRaisingPage => userAnswer: UserAnswers => userAnswer.get(OtherFundRaisingPage) match{
       case Some(_) => operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -149,7 +149,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case OtherFundRaisingPage => userAnswers:UserAnswers  => userAnswers.get(OtherFundRaisingPage)match{
+    case OtherFundRaisingPage => userAnswers: UserAnswers => userAnswers.get(OtherFundRaisingPage)match{
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -189,7 +189,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
     case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ =>  routes.SessionExpiredController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
 
     case IsFinancialAccountsPage => userAnswers: UserAnswers => userAnswers.get(IsFinancialAccountsPage) match {

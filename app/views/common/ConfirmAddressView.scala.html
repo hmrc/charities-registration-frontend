@@ -35,7 +35,7 @@
     @h1(messages(s"$messagePrefix.confirmPage.heading", h1Param.getOrElse("")))
 
     <div id="address">
-        @for( (line, index) <- address.zipWithIndex ) {
+        @for((line, index) <- address.zipWithIndex) {
         <span class="govuk-body">@line</span><br>
         }
     </div>

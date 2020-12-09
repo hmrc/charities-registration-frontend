@@ -30,7 +30,7 @@ case object HasCharityChangedPartsOfGoverningDocumentPage extends QuestionPage[B
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(false)  =>
+      case Some(false) =>
         userAnswers.remove(SectionsChangedGoverningDocumentPage)
       case _ =>
         super.cleanup(value, userAnswers)

@@ -118,7 +118,7 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
   }
 
   def getCacheData(request: OptionalDataRequest[_])(
-    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[(UserAnswers, Seq[(JsPath, Seq[JsonValidationError])])] ={
+    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[(UserAnswers, Seq[(JsPath, Seq[JsonValidationError])])] = {
 
     cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>

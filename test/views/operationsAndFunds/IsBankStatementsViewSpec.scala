@@ -26,7 +26,7 @@ import views.behaviours.YesNoViewBehaviours
 import views.html.operationsAndFunds.IsBankStatementsView
 
 
-class IsBankStatementsViewSpec extends YesNoViewBehaviours  {
+class IsBankStatementsViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isBankStatements"
   private val section: Option[String] = Some(messages("operationsAndFunds.section"))

@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.checkEligibility.IsEligibleAccountView
 
-class IsEligibleAccountViewSpec extends YesNoViewBehaviours  {
+class IsEligibleAccountViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isEligibleAccount"
   val form: Form[Boolean] = inject[IsEligibleAccountFormProvider].apply()

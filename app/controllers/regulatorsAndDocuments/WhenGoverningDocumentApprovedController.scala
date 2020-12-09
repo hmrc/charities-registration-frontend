@@ -80,11 +80,11 @@ class WhenGoverningDocumentApprovedController @Inject()(
     }
   }
 
-  private def getDocumentName(page: QuestionPage[SelectGoverningDocument])(block:String => Future[Result])
+  private def getDocumentName(page: QuestionPage[SelectGoverningDocument])(block: String => Future[Result])
                  (implicit request: DataRequest[AnyContent]): Future[Result] = {
 
     request.userAnswers.get(page) match {
-      case Some(documentName) =>  block(documentName)
+      case Some(documentName) => block(documentName)
       case None => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
   }

@@ -20,7 +20,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.checkEligibility.InEligibleBankView
 
-class InEligibleBankViewSpec extends ViewBehaviours  {
+class InEligibleBankViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "notEligible"
   private val messageLink= messages("notEligible.p3.link")
@@ -38,7 +38,7 @@ class InEligibleBankViewSpec extends ViewBehaviours  {
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
         "bank.p1", "p2", "p3", "p3.link")
 
-      behave like pageWithHyperLink(applyView(), "link",frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
+      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
 
     }
   }

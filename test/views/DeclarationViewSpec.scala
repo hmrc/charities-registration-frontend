@@ -20,7 +20,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.DeclarationView
 
-class DeclarationViewSpec extends ViewBehaviours  {
+class DeclarationViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "declaration"
 

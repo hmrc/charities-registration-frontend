@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.NameView
 
-class NameViewSpec extends QuestionViewBehaviours[Name]  {
+class NameViewSpec extends QuestionViewBehaviours[Name] {
 
   private val messageKeyPrefix = "authorisedOfficialsName"
   override val form: Form[Name] = inject[NameFormProvider].apply(messageKeyPrefix)

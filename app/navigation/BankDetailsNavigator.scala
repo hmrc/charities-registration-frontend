@@ -26,7 +26,7 @@ import play.api.mvc.Call
 
 class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
-  override val normalRoutes: Page => UserAnswers => Call =  {
+  override val normalRoutes: Page => UserAnswers => Call = {
 
     case BankDetailsPage => userAnswers: UserAnswers => navigate(userAnswers)
 
@@ -44,6 +44,6 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
   private def navigate(userAnswers: UserAnswers): Call = userAnswers.get(BankDetailsPage) match {
     case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
-    case _ =>  routes.SessionExpiredController.onPageLoad()
+    case _ => routes.SessionExpiredController.onPageLoad()
   }
 }

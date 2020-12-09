@@ -24,7 +24,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.PhoneNumberView
 
-class PhoneNumberViewSpec extends QuestionViewBehaviours[PhoneNumber]  {
+class PhoneNumberViewSpec extends QuestionViewBehaviours[PhoneNumber] {
 
   private val messageKeyPrefix = "authorisedOfficialsPhoneNumber"
   val form: Form[PhoneNumber] = inject[PhoneNumberFormProvider].apply(messageKeyPrefix)

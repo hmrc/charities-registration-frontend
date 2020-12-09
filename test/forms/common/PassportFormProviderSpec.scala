@@ -30,9 +30,9 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
   private val maxLengthCountry = 50
   private val maxLengthPassport = 30
 
-  private val today =  LocalDate.now
-  private val futureDate =  today.plusDays(1)
-  private val pastDate =  today.minusDays(1)
+  private val today = LocalDate.now
+  private val futureDate = today.plusDays(1)
+  private val pastDate = today.minusDays(1)
 
   ".passportNumber" must {
 
@@ -123,7 +123,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
       val data = Map("passportNumber" -> "GB123456", "country" -> "GB",
         s"$fieldName.day"   -> today.getDayOfMonth.toString,
         s"$fieldName.month" -> today.getMonthValue.toString,
-        s"$fieldName.year"  -> today.getYear.toString
+        s"$fieldName.year" -> today.getYear.toString
       )
 
       val result = form.bind(data)
@@ -136,7 +136,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
       val data = Map("passportNumber" -> "GB123456", "country" -> "GB",
         s"$fieldName.day"   -> pastDate.getDayOfMonth.toString,
         s"$fieldName.month" -> pastDate.getMonthValue.toString,
-        s"$fieldName.year"  -> pastDate.getYear.toString
+        s"$fieldName.year" -> pastDate.getYear.toString
       )
 
       val result = form.bind(data)
@@ -148,7 +148,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
       val data = Map("passportNumber" -> "GB123456", "country" -> "GB",
         s"$fieldName.day"   -> futureDate.getDayOfMonth.toString,
         s"$fieldName.month" -> futureDate.getMonthValue.toString,
-        s"$fieldName.year"  -> futureDate.getYear.toString
+        s"$fieldName.year" -> futureDate.getYear.toString
       )
 
       val result = form.bind(data)

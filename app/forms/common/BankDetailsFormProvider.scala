@@ -48,10 +48,10 @@ class BankDetailsFormProvider @Inject() extends Mappings {
       )(BankDetails.apply)(BankDetails.unapply)
     )
 
-  def apply(messagePrefix: String, charityName:String): Form[BankDetails] =
+  def apply(messagePrefix: String, charityName: String): Form[BankDetails] =
     Form(
       mapping(
-        "accountName" ->  default(text(), charityName),
+        "accountName" -> default(text(), charityName),
         "sortCode" -> text(s"$messagePrefix.sortCode.error.required")
           .verifying(regexp(sortCodePattern,s"$messagePrefix.sortCode.error.format")),
         "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")

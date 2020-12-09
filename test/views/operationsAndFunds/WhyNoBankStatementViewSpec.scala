@@ -25,7 +25,7 @@ import views.behaviours.QuestionViewBehaviours
 import views.html.operationsAndFunds.WhyNoBankStatementView
 
 
-class WhyNoBankStatementViewSpec extends QuestionViewBehaviours[String]  {
+class WhyNoBankStatementViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix: String = "whyNoBankStatement"
   private val section: String = messages("operationsAndFunds.section")

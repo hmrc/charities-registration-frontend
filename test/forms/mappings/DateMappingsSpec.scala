@@ -33,7 +33,7 @@ class DateMappingsSpec extends FreeSpec with MustMatchers with ScalaCheckPropert
       allRequiredKey = "error.required.all",
       twoRequiredKey = "error.required.two",
       invalidKey     = "error.invalid",
-      nonNumericKey  = "error.nonNumeric"
+      nonNumericKey = "error.nonNumeric"
     )
   )
 

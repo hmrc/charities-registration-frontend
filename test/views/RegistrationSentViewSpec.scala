@@ -21,7 +21,7 @@ import utils.{ImplicitDateFormatter, TimeMachine}
 import views.behaviours.ViewBehaviours
 import views.html.RegistrationSentView
 
-class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter  {
+class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter {
 
   private val messageKeyPrefix = "registrationSent"
   private val section: Option[String] = Some(messages("declaration.section"))

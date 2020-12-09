@@ -23,7 +23,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
 
-class OverseasOperatingLocationSummaryViewSpec extends ViewBehaviours  {
+class OverseasOperatingLocationSummaryViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix: String = "overseasOperatingLocationSummary.checkYourAnswers"
   private val section: String = messages("operationsAndFunds.section")

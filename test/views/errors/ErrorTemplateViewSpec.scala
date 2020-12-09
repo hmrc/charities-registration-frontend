@@ -26,7 +26,7 @@ class ErrorTemplateViewSpec extends ViewBehaviours {
 
     val view = inject[ErrorTemplate]
 
-    val applyView = view.apply("title","heading","content")(fakeRequest, messages, frontendAppConfig)
+    val applyView = view.apply("title", "heading", "content")(fakeRequest, messages, frontendAppConfig)
     lazy val document = Jsoup.parse(applyView.toString)
 
     "Have the correct pageTitle" in {

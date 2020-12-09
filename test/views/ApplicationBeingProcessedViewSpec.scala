@@ -21,7 +21,7 @@ import utils.{ImplicitDateFormatter, TimeMachine}
 import views.behaviours.ViewBehaviours
 import views.html.ApplicationBeingProcessedView
 
-class ApplicationBeingProcessedViewSpec extends ViewBehaviours with ImplicitDateFormatter  {
+class ApplicationBeingProcessedViewSpec extends ViewBehaviours with ImplicitDateFormatter {
 
   private val messageKeyPrefix = "beingProcessedOldSubmission"
 

@@ -25,7 +25,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.checkEligibility.IsEligiblePurposeView
 
-class IsEligiblePurposeViewSpec extends YesNoViewBehaviours  {
+class IsEligiblePurposeViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isEligiblePurpose"
   val form: Form[Boolean] = inject[IsEligiblePurposeFormProvider].apply()

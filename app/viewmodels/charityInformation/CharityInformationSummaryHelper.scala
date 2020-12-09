@@ -58,7 +58,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       s"$CharityPostalAddressLookupPage.addressLookup")
 
   private def answerCharityName(charityName: CharityName,
-                                changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
+                                changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
 
     Some(
       summaryListRow(
@@ -69,7 +69,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       )
     ),
 
-    charityName.operatingName.map( name =>
+    charityName.operatingName.map(name =>
       summaryListRow(
         label = messages("charityName.operatingName.checkYourAnswersLabel"),
         value = name,
@@ -80,7 +80,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
   ).flatten
 
   private def answerCharityContactDetails(charityContactDetails: CharityContactDetails,
-                                          changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] =
+                                          changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] =
 
     Seq(
       Some(
@@ -111,8 +111,8 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
 
   private def answerAddress(page: QuestionPage[AddressModel],
                             changeLinkCall: Call,
-                            messagePrefix: String)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    userAnswers.get(page).flatMap( address =>
+                            messagePrefix: String)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
+    userAnswers.get(page).flatMap(address =>
       Some(
         summaryListRow(
           label = messages(s"$messagePrefix.checkYourAnswersLabel"),
@@ -127,7 +127,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
   ).flatten
 
   private def answerCanWeSendToThisAddress(canWeSendToThisAddress: Boolean,
-                                           changeLinkCall: Call)( implicit messages: Messages): Seq[SummaryListRow] = Seq(
+                                           changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
 
     if (canWeSendToThisAddress) {
       userAnswers.get(CharityOfficialAddressLookupPage).map { address =>

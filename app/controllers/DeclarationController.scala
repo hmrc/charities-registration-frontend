@@ -65,7 +65,7 @@ class DeclarationController @Inject()(
           registrationService.register(requestJson)
 
         case JsError(err) =>
-          logger.error("[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors : " + err)
+          logger.error("[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors: " + err)
           Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
       }
     }

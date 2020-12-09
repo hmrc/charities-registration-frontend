@@ -19,7 +19,7 @@ package pages.operationsAndFunds
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class WhatCountryDoesTheCharityOperateInPage(index:Int) extends QuestionPage[String] {
+case class WhatCountryDoesTheCharityOperateInPage(index: Int) extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ OverseasCountriesPage \ index \ toString
 

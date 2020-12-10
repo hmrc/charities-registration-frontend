@@ -26,6 +26,7 @@ import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNa
 import pages.operationsAndFunds.{IsBankStatementsPage, IsFinancialAccountsPage}
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.regulatorsAndDocuments.{IsCharityRegulatorPage, SelectWhyNoRegulatorPage}
+import play.api.i18n.Messages
 import play.api.libs.json.Reads
 
 object RequiredDocumentsHelper {
@@ -60,31 +61,30 @@ object RequiredDocumentsHelper {
         case _ => None
       })
 
-  def formatNames(names: Seq[Name]): String = {
+  def formatNames(names: Seq[Name])(implicit messages: Messages): String = {
     val listOfNames = names.map(_.getFullName)
-    listOfNames.dropRight(1).mkString(", ") match {
-      case moreThanOneNames if moreThanOneNames.nonEmpty => moreThanOneNames + " and " + listOfNames.last
-      case _ => listOfNames.last
+    messages.lang.code match {
+      case "cy" => listOfNames.mkString(", ")
+      case _ => listOfNames.mkString(", ").replaceFirst(",(?=[^,]+$)", s" ${messages("service.separator.and")}")
+      }
+    }
+
+    def getRequiredDocuments(userAnswers: UserAnswers): Seq[String] = {
+      Seq(
+        Some(s"${requiredDocumentsKey}governingDocumentName.answerTrue"),
+        checkPageCondition(userAnswers, IsCharityRegulatorPage, true),
+        checkPageCondition(userAnswers, SelectWhyNoRegulatorPage, SelectWhyNoRegulator.UniformedYouthGroup),
+        checkPageCondition(userAnswers, IsCharityRegulatorPage, false, ".answerAlternative"),
+        checkPageCondition(userAnswers, IsFinancialAccountsPage, true),
+        checkPageCondition(userAnswers, IsBankStatementsPage, true),
+        checkPageCondition(userAnswers, IsBankStatementsPage, false, ".answerAlternative")
+      ).flatten
+    }
+
+    def getForeignOfficialsMessages(userAnswers: UserAnswers)(implicit messages: Messages): Option[(String, String)] = {
+      getOfficialsAndNomineesNames(userAnswers) match {
+        case nonZero if nonZero.nonEmpty => Some(("requiredDocuments.foreignAddresses.answerTrue", formatNames(nonZero)))
+        case _ => None
+      }
     }
   }
-
-  def getRequiredDocuments(userAnswers: UserAnswers): Seq[String] = {
-    Seq(
-      Some(s"${requiredDocumentsKey}governingDocumentName.answerTrue"),
-      checkPageCondition(userAnswers, IsCharityRegulatorPage, true),
-      checkPageCondition(userAnswers, SelectWhyNoRegulatorPage, SelectWhyNoRegulator.UniformedYouthGroup),
-      checkPageCondition(userAnswers, IsCharityRegulatorPage, false, ".answerAlternative"),
-      checkPageCondition(userAnswers, IsFinancialAccountsPage, true),
-      checkPageCondition(userAnswers, IsBankStatementsPage, true),
-      checkPageCondition(userAnswers, IsBankStatementsPage, false, ".answerAlternative")
-    ).flatten
-  }
-
-  def getForeignOfficialsMessages(userAnswers: UserAnswers): Option[(String, String)] = {
-    getOfficialsAndNomineesNames(userAnswers) match {
-      case nonZero if nonZero.nonEmpty => Some(("requiredDocuments.foreignAddresses.answerTrue", formatNames(nonZero)))
-      case _ => None
-    }
-  }
-
-}

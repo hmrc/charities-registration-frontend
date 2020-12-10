@@ -197,7 +197,7 @@ requiredDocuments.isFinancialAccounts.answerTrue = (W)approved financial account
 requiredDocuments.isBankStatements.answerTrue = (W)the charity’s bank statements for the last 3 months(W)
 requiredDocuments.isBankStatements.answerAlternative = (W)a letter from the bank with the charity’s name and account details - including its account number and sort code(W)
 requiredDocuments.selectWhyNoRegulator.answerTrue = (W)certificate of registration from the governing body(W)
-requiredDocuments.foreignAddresses.answerTrue = (W)identity details for {0} - their passport, identity card or a utility bill from the last 3 months(W)
+requiredDocuments.foreignAddresses.answerTrue = (W)identity details for: {0} - their passport, identity card or a utility bill from the last 3 months(W)
 
 # Email or post page Messages
 # ----------------------------------------------------------

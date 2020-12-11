@@ -195,7 +195,7 @@ requiredDocuments.isCharityRegulator.answerTrue = (W)notification of registratio
 requiredDocuments.isCharityRegulator.answerAlternative = (W)evidence of activities - some promotional material that explains what the charity does(W)
 requiredDocuments.isFinancialAccounts.answerTrue = (W)approved financial accounts - like you would send to a regulator or Companies House(W)
 requiredDocuments.isBankStatements.answerTrue = (W)the charity’s bank statements for the last 3 months(W)
-requiredDocuments.isBankStatements.answerAlternative = (W)a letter from the bank with the charity’s name and account details - including its account number and sort code(W)
+requiredDocuments.isBankStatements.answerAlternative = (W)a bank statement for the past month(W)
 requiredDocuments.selectWhyNoRegulator.answerTrue = (W)certificate of registration from the governing body(W)
 requiredDocuments.foreignAddresses.answerTrue = (W)identity details for: {0} - their passport, identity card or a utility bill from the last 3 months(W)
 
@@ -807,7 +807,7 @@ actualIncome.checkYourAnswersLabel = (W)Actual income so far(W)
 # ----------------------------------------------------------
 isBankStatements.title = (W)Does the charity have bank statements for the last 3 months of operation?(W)
 isBankStatements.heading = (W)Does the charity have bank statements for the last 3 months of operation?(W)
-isBankStatements.hint = (W)If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.(W)
+isBankStatements.hint = (W)If the account has been open for less than 3 months, you must provide a bank statement for the past month.(W)
 isBankStatements.error.required = (W)Select yes if the charity has bank statements for the last 3 months of operation(W)
 isBankStatements.checkYourAnswersLabel = (W)Bank statements for the last 3 months(W)
 

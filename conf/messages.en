@@ -195,7 +195,7 @@ requiredDocuments.isCharityRegulator.answerTrue = notification of registration -
 requiredDocuments.isCharityRegulator.answerAlternative = evidence of activities - some promotional material that explains what the charity does
 requiredDocuments.isFinancialAccounts.answerTrue = approved financial accounts - like you would send to a regulator or Companies House
 requiredDocuments.isBankStatements.answerTrue = the charity’s bank statements for the last 3 months
-requiredDocuments.isBankStatements.answerAlternative = a letter from the bank with the charity’s name and account details - including its account number and sort code
+requiredDocuments.isBankStatements.answerAlternative = a bank statement for the past month
 requiredDocuments.selectWhyNoRegulator.answerTrue = certificate of registration from the governing body
 requiredDocuments.foreignAddresses.answerTrue = identity details for {0} - their passport, identity card or a utility bill from the last 3 months
 
@@ -807,7 +807,7 @@ actualIncome.checkYourAnswersLabel = Actual income so far
 # ----------------------------------------------------------
 isBankStatements.title = Does the charity have bank statements for the last 3 months of operation?
 isBankStatements.heading = Does the charity have bank statements for the last 3 months of operation?
-isBankStatements.hint = If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.
+isBankStatements.hint = If the account has been open for less than 3 months, you must provide a bank statement for the past month.
 isBankStatements.error.required = Select yes if the charity has bank statements for the last 3 months of operation
 isBankStatements.checkYourAnswersLabel = Bank statements for the last 3 months
 

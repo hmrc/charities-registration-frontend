@@ -101,7 +101,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
 
     case OtherOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherOtherOfficialPage) match {
-      case Some(_) if userAnswers.get(Section8Page).contains(true) => routes.IndexController.onPageLoad()
+      case Some(_) if userAnswers.get(Section8Page).contains(true) => routes.IndexController.onPageLoad(None)
       case Some(true) if userAnswers.get(OtherOfficialsId(0)).nonEmpty && userAnswers.get(OtherOfficialsId(1)).nonEmpty =>
         otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode, 2)
       case _ if userAnswers.get(OtherOfficialsId(0)).nonEmpty =>
@@ -115,7 +115,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
@@ -175,7 +175,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
 
   }
 }

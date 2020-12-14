@@ -79,7 +79,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the Task List page when click continue button" in {
           navigator.nextPage(CharityObjectivesSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -87,7 +87,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }
@@ -139,7 +139,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }

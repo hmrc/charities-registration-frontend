@@ -14,25 +14,25 @@
  * limitations under the License.
  *@
 
-@import controllers.checkEligibility.routes._
-@import models.Mode
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 @import views.ViewUtils._
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.http.logging.SessionId
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
+    govukSummaryList: GovukSummaryList,
     h1: components.h1,
-    link: components.linkAsButton,
+    p: components.p,
+    link: components.link
 )
 
-@(mode: Mode, sessionId: Option[SessionId])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm("eligibleCharity.title", None)), signOut = false) {
+@govukLayout(pageTitle = Some(titleNoForm("cannotFindApplication.title", None))) {
 
-    @h1(messages("eligibleCharity.heading"))
+    @h1(messages("cannotFindApplication.heading"))
 
-    <p class="govuk-body govuk-!-margin-bottom-7">@(messages("eligibleCharity.p1"))</p>
+    @p{@messages(s"cannotFindApplication.p1")@link(appConfig.signOutUrl, messages("cannotFindApplication.p1.link"), Some("link")).}
 
-    @link(sessionId.fold(controllers.routes.IndexController.onPageLoad(None).url)(id => controllers.routes.IndexController.onPageLoad(Some(id.value)).url), "site.continue",Some("linkButton"))
 }

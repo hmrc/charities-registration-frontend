@@ -16,8 +16,8 @@
 
 package service
 
+import config.FrontendAppConfig
 import connectors.CharitiesShortLivedCache
-import javax.inject.Inject
 import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
@@ -26,22 +26,29 @@ import pages.sections.{Section1Page, Section7Page, Section8Page, Section9Page}
 import pages.{IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.Logger
 import play.api.libs.json._
-import repositories.SessionRepository
+import play.api.mvc.Call
+import repositories.{SessionRepository, UserAnswerRepository}
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
+import uk.gov.hmrc.http.logging.SessionId
 import utils.ImplicitDateFormatter
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Success, Try}
 
-class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
-  userAnswerTransformer: UserAnswerTransformer,
-  val sessionRepository: SessionRepository) extends ImplicitDateFormatter {
+@Singleton
+class CharitiesSave4LaterService @Inject()(
+ cache: CharitiesShortLivedCache,
+ userAnswerTransformer: UserAnswerTransformer,
+ sessionRepository: SessionRepository,
+ userAnswerRepository: UserAnswerRepository,
+ appConfig: FrontendAppConfig) extends ImplicitDateFormatter {
 
   private val logger = Logger(this.getClass)
 
@@ -80,7 +87,8 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
   private def expiryTimeIfCompleted(userAnswers: UserAnswers): Try[UserAnswers] = {
     userAnswers.get(OldServiceSubmissionPage) match {
       case Some(submitted) =>
-        Success(userAnswers.copy(expiresAt = oldStringToDate(submitted.submissionDate).plusDays(28).atTime(12, 0))) //scalastyle:off magic.number
+        Success(userAnswers.copy(expiresAt = oldStringToDate(submitted.submissionDate).plusDays(
+          appConfig.servicesConfig.getInt("mongodb.user-answers.timeToLiveInDays")).atTime(12, 0))) //scalastyle:off magic.number
       case _ => Success(userAnswers)
     }
   }
@@ -117,42 +125,62 @@ class CharitiesKeyStoreService @Inject()(cache: CharitiesShortLivedCache,
       .getJson[Acknowledgement](cacheMap, userAnswerTransformer.toUserAnswersOldAcknowledgement, "acknowledgement-Reference")
   }
 
-  def getCacheData(request: OptionalDataRequest[_])(
-    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[(UserAnswers, Seq[(JsPath, Seq[JsonValidationError])])] = {
+  private def updateSwitchOverUserAnswer(userAnswers: UserAnswers, result: TransformerKeeper)(
+    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[Call, UserAnswers]] = {
+    if (userAnswers.data.fields.nonEmpty) {
+      Future.fromTry(result = isSection1Completed(userAnswers)
+        .flatMap(userAnswers => isSection7Completed(userAnswers))
+        .flatMap(userAnswers => isSection8Completed(userAnswers))
+        .flatMap(userAnswers => isSection9Completed(userAnswers))
+        .flatMap(userAnswers => expiryTimeIfCompleted(userAnswers))
+        .flatMap(_.set(IsSwitchOverUserPage, true))
+      ).flatMap { userAnswers =>
+        userAnswerRepository.set(userAnswers).map { _ =>
+          if (result.errors.isEmpty) {
+            Right(userAnswers)
+          } else {
+            Left(controllers.routes.CannotFindApplicationController.onPageLoad())
+          }
+        }
+      }
+    } else {
+      userAnswerRepository.set(userAnswers).map(_ => Right(userAnswers))
+    }
+  }
+
+  private def checkForValidApplicationJourney(request: OptionalDataRequest[_], lastSessionId: Option[String])(
+    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[Call, UserAnswers]] = {
+    (request.userAnswers, lastSessionId) match {
+      case (Some(userAnswers), _) => userAnswerRepository.set(userAnswers).map(_ => Right(userAnswers))
+      case (None, Some(sessionId)) =>
+        sessionRepository.get(sessionId).flatMap {
+          case None =>
+            logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data found")
+            Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
+          case Some(_) => val userAnswers = UserAnswers(request.internalId)
+            userAnswerRepository.set(userAnswers).map(_ => Right(userAnswers))
+        }
+      case _ => logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data and current session data found")
+        Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
+    }
+  }
+
+  def getCacheData(request: OptionalDataRequest[_], sessionId: SessionId, eligibleJourneyId: Option[String])(
+    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[Call, UserAnswers]] = {
 
     cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>
-
-        val result = getSwitchOverJsonData(cacheMap)
-
-        hc.sessionId match {
-          case Some(sessionId) =>
-            for {
-              _ <- cache.cache(sessionId.value, IsSwitchOverUserPage, true)
-              userAnswers <- cache.remove(request.internalId).map(_ => UserAnswers(request.internalId, result.accumulator))
-              updatedAnswersWithErrors <- if (userAnswers.data.fields.nonEmpty) {
-                Future.fromTry(result = isSection1Completed(userAnswers)
-                  .flatMap(userAnswers => isSection7Completed(userAnswers))
-                  .flatMap(userAnswers => isSection8Completed(userAnswers))
-                  .flatMap(userAnswers => isSection9Completed(userAnswers))
-                  .flatMap(userAnswers => expiryTimeIfCompleted(userAnswers))
-                  .flatMap(_.set(IsSwitchOverUserPage, true))
-                ).flatMap(userAnswers => Future.successful((userAnswers, result.errors)))
-              } else {
-                Future.successful((userAnswers, result.errors))
-              }
-            } yield updatedAnswersWithErrors
-          case _ =>
-            logger.error(s"[CharitiesKeyStoreService][getCacheData] no valid session found")
-            throw new RuntimeException("no valid session found")
-        }
-
+        for {
+          result <- Future.successful(getSwitchOverJsonData(cacheMap))
+          _ <- cache.cache(sessionId.value, IsSwitchOverUserPage, true)
+          userAnswers <- cache.remove(request.internalId).map(_ => UserAnswers(request.internalId, result.accumulator))
+          updatedAnswersWithErrors <- updateSwitchOverUserAnswer(userAnswers, result)
+        } yield updatedAnswersWithErrors
       case _ =>
-        Future.successful((request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId)), Seq.empty))
-
+        checkForValidApplicationJourney(request, eligibleJourneyId)
     } recover {
       case errors: Throwable =>
-        logger.error(s"[CharitiesKeyStoreService][getCacheData] get existing charities data failed with error $errors")
+        logger.error(s"[CharitiesSave4LaterService][getCacheData] get existing charities data failed with error $errors")
         throw errors
     }
   }

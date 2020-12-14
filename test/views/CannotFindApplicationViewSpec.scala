@@ -18,28 +18,27 @@ package views
 
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.DeadEndView
+import views.html.CannotFindApplicationView
 
-class DeadEndViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "deadEnd"
+class CannotFindApplicationViewSpec extends ViewBehaviours  {
 
-    "deadEndView" must {
+  private val messageKeyPrefix = "cannotFindApplication"
+
+    "CannotFindApplicationView" must {
 
       def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[DeadEndView](Some(emptyUserAnswers))
+        val view = viewFor[CannotFindApplicationView](Some(emptyUserAnswers))
         view.apply()(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix)
 
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2")
+        "p1")
 
       behave like pageWithBackLink(applyView())
 
-      behave like pageWithHyperLink(applyView(), "taskListLink",
-        controllers.routes.IndexController.onPageLoad(None).url, messages("site.gotoTaskList"))
 
     }
   }

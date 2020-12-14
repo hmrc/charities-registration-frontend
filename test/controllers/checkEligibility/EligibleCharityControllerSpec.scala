@@ -16,30 +16,42 @@
 
 package controllers.checkEligibility
 
-import views.html.checkEligibility.EligibleCharityView
 import base.SpecBase
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import uk.gov.hmrc.http.logging.SessionId
+import views.html.checkEligibility.EligibleCharityView
 
 class EligibleCharityControllerSpec extends SpecBase {
 
-  private val view: EligibleCharityView = inject[EligibleCharityView]
 
-  object Controller extends EligibleCharityController (
-    controllerComponents = messagesControllerComponents,
-    view = view
-  )
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+
+  private val view: EligibleCharityView = injector.instanceOf[EligibleCharityView]
+
+  private val controller: EligibleCharityController = inject[EligibleCharityController]
 
   "SessionExpired Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = controller.onPageLoad(NormalMode)(FakeRequest())
 
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+        view(NormalMode, None)(fakeRequest, messages, frontendAppConfig).toString
+    }
+
+    "return OK and the correct view for a GET with session Id" in {
+
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(NormalMode, Some(SessionId("foo")))(fakeRequest, messages, frontendAppConfig).toString
     }
   }
 }

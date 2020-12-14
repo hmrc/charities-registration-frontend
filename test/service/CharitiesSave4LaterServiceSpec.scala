@@ -16,8 +16,6 @@
 
 package service
 
-import java.util.UUID
-
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
 import models.UserAnswers
@@ -29,22 +27,30 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{JsPath, Json, JsonValidationError}
+import play.api.libs.json.Json
+import play.api.mvc.Call
+import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.logging.SessionId
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
 import utils.TestData
 
+import java.util.UUID
 import scala.concurrent.Future
 
-class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
+// scalastyle:off number.of.methods
+// scalastyle:off line.size.limit
+// scalastyle:off magic.number
+class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
 
+  lazy val mockRepository: SessionRepository = mock[SessionRepository]
   lazy val mockCacheMap: CacheMap = mock[CacheMap]
   lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
+        bind[SessionRepository].toInstance(mockRepository),
         bind[CacheMap].toInstance(mockCacheMap),
         bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache)
       )
@@ -53,60 +59,45 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
     reset(mockCharitiesShortLivedCache, mockCacheMap)
   }
 
-  val service: CharitiesKeyStoreService = inject[CharitiesKeyStoreService]
+  lazy val service: CharitiesSave4LaterService = inject[CharitiesSave4LaterService]
 
   private val sessionId = s"session-${UUID.randomUUID}"
+  private val lastSessionId = s"session-${UUID.randomUUID}"
   private val requestWithSession = fakeRequest.withSession(SessionKeys.sessionId -> sessionId)
-
   private val optionalDataRequest = OptionalDataRequest(requestWithSession, "8799940975137654", None)
 
   override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
 
   trait LocalSetup {
     def mockContactDetails: Option[CharityContactDetails] = None
-
     def mockCharityAddress: Option[CharityAddress] = None
-
     def mockCorrespondenceAddress: Option[OptionalCharityAddress] = None
-
     def mockCharityRegulator: Option[CharityRegulator] = None
-
     def mockCharityGoverningDocument: Option[CharityGoverningDocument] = None
-
     def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = None
-
     def mockOperationAndFunds: Option[OperationAndFunds] = None
-
     def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = None
-
     def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = None
-
     def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
-
     def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
-
     def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] = None
-
     def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
-
     def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
-
     def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] = None
-
     def mockCharityAddNominee: Option[CharityAddNominee] = None
-
     def mockCharityNomineeStatus: Option[CharityNomineeStatus] = None
-
     def mockCharityNomineeIndividual: Option[CharityNomineeIndividual] = None
-
     def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] = None
-
     def mockAcknowledgement: Option[Acknowledgement] = None
+    def mockSessionId: SessionId = SessionId(sessionId)
+    def mockEligibleJourneyId: Option[String] = None
+    def mockCache: Option[CacheMap] = Some(mockCacheMap)
+    def mockRepositoryData: Option[UserAnswers] = None
 
     def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache() {
-      when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(Some(mockCacheMap)))
+      when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(mockCache))
       when(mockCharitiesShortLivedCache.cache(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(mockCacheMap))
       when(mockCacheMap.getEntry[CharityContactDetails](meq("charityContactDetails"))(meq(CharityContactDetails.formats))).thenReturn(mockContactDetails)
       when(mockCacheMap.getEntry[CharityAddress](meq("charityOfficialAddress"))(meq(CharityAddress.formats))).thenReturn(mockCharityAddress)
@@ -128,12 +119,13 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
       when(mockCacheMap.getEntry[CharityNomineeIndividual](meq("charityNomineeIndividual"))(meq(CharityNomineeIndividual.formats))).thenReturn(mockCharityNomineeIndividual)
       when(mockCacheMap.getEntry[CharityNomineeOrganisation](meq("charityNomineeOrganisation"))(meq(CharityNomineeOrganisation.formats))).thenReturn(mockCharityNomineeOrganisation)
       when(mockCacheMap.getEntry[Acknowledgement](meq("acknowledgement-Reference"))(meq(Acknowledgement.formats))).thenReturn(mockAcknowledgement)
-      when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse)
+      when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse())
+      when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
     }
 
   }
 
-  "CharitiesKeyStoreService" when {
+  "CharitiesSave4LaterService" when {
 
     "getCacheData" must {
 
@@ -141,10 +133,9 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         initialiseCache()
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe Json.obj()
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe Json.obj()
       }
 
       "return valid object when its valid for contactDetails only" in new LocalSetup {
@@ -158,16 +149,14 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false, "isSwitchOver" -> true))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails and charityAddress" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
         override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
 
         initialiseCache()
@@ -179,18 +168,15 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSwitchOver" -> true,
           "charityOfficialAddress" -> Json.parse("""{"postcode":"postcode","country":{"code":"GB","name":"United Kingdom"},"lines":["Test123","line2"]}""")))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress and correspondenceAddress" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
         override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
-
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
 
         initialiseCache()
@@ -204,20 +190,16 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
           "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}""")))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress and regulator" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
         override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
-
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
-
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
 
         initialiseCache()
@@ -239,22 +221,17 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "charityCommissionRegistrationNumber" -> "ccewTestRegulator"
         ))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator and charityGoverningDocument2" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
         override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
-
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
-
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
-
         override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
 
         initialiseCache()
@@ -282,24 +259,18 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "selectGoverningDocument" -> "1"
         ))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2 and whatYourCharityDoes" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
         override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
-
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
-
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
-
         override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
-
         override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
 
         initialiseCache()
@@ -332,26 +303,19 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection4Completed" -> false
         ))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2, whatYourCharityDoes and operationAndFunds" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
         override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
-
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
-
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
-
         override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
-
         override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
-
         override def mockOperationAndFunds: Option[OperationAndFunds] = Some(operationAndFunds)
 
         initialiseCache()
@@ -401,18 +365,15 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection5Completed" -> false
         ))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for how many auth officials and two auth officials" in new LocalSetup {
 
         override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
-
         override def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual1)
-
         override def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual2)
 
         initialiseCache()
@@ -508,44 +469,28 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
               |        }""".stripMargin))
         ))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes, operationAndFunds, charityBankAccountDetails, how many auth officials and two auth officials, how many other officials and two other officials" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-
         override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
-
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
-
         override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
-
         override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
-
         override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
-
         override def mockOperationAndFunds: Option[OperationAndFunds] = Some(operationAndFunds)
-
         override def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = Some(charityBankAccountDetails)
-
         override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
-
         override def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual1)
-
         override def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = Some(charityAuthorisedOfficialIndividual2)
-
         override def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] = Some(charityHowManyOtherOfficials)
-
         override def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = Some(charityOtherOfficialIndividual1)
-
         override def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = Some(charityOtherOfficialIndividual2)
-
         override def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] = Some(charityOtherOfficialIndividual3)
-
 
         initialiseCache()
 
@@ -818,10 +763,9 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 
         ))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityAddNominee" in new LocalSetup {
@@ -835,16 +779,14 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection9Completed" -> true,
           "nominee" -> Json.parse("""{"isAuthoriseNominee":false}""")))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityNomineeStatus" in new LocalSetup {
 
         override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
-
         override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusInd)
 
         initialiseCache()
@@ -854,18 +796,15 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
           "isSection9Completed" -> false,
           "nominee" -> Json.parse("""{"chooseNominee":true,"isAuthoriseNominee":true}""")))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityNomineeStatus, charityNomineeIndividual" in new LocalSetup {
 
         override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
-
         override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusInd)
-
         override def mockCharityNomineeIndividual: Option[CharityNomineeIndividual] = Some(charityNomineeIndividual)
 
         initialiseCache()
@@ -881,18 +820,15 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 							|"individualName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
 							|"individualPhoneNumber":{"daytimePhone":""}}}""".stripMargin)))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityNomineeStatus, charityNomineeOrganisation" in new LocalSetup {
 
         override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
-
         override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusOrg)
-
         override def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] = Some(charityNomineeOrganisation)
 
         initialiseCache()
@@ -912,10 +848,9 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
 							|"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
 							|"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid Acknowledgement" in new LocalSetup {
@@ -927,37 +862,86 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj("isSwitchOver" -> true, "oldAcknowledgement" -> Json.obj(
           "submissionDate" -> "9:56am, Tuesday 1 December 2020", "refNumber" -> "080582080582")))
 
-        val result: (UserAnswers, Seq[(JsPath, Seq[JsonValidationError])]) = await(service.getCacheData(optionalDataRequest))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result._1.data mustBe responseJson.data
-        result._2 mustBe Seq.empty
+        result.right.get.data mustBe responseJson.data
+      }
+
+      "return CannotFindApplication when CacheMap return None for switchover case" in new LocalSetup {
+
+        override def mockCache: Option[CacheMap] = None
+
+        initialiseCache()
+
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
+
+        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
+      }
+
+      "return object when request with user answers when CacheMap return None" in new LocalSetup {
+
+        override def mockCache: Option[CacheMap] = None
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj())
+
+        val optionalDataRequest: OptionalDataRequest[_] = OptionalDataRequest(requestWithSession, "8799940975137654", Some(emptyUserAnswers))
+
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
+
+        result.right.get.data mustBe responseJson.data
+      }
+
+      "return object when request without user answers, last session with data and when CacheMap return None" in new LocalSetup {
+
+        override def mockCache: Option[CacheMap] = None
+        override def mockEligibleJourneyId: Option[String] = Some(lastSessionId)
+        override def mockRepositoryData: Option[UserAnswers] = Some(emptyUserAnswers)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj())
+
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
+
+        result.right.get.data mustBe responseJson.data
+      }
+
+      "return CannotFindApplication when request without user answers, last session with data and when CacheMap return None" in new LocalSetup {
+
+        override def mockCache: Option[CacheMap] = None
+        override def mockEligibleJourneyId: Option[String] = Some(lastSessionId)
+
+        initialiseCache()
+
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
+
+        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
       }
 
       "throw error if session is not valid" in new LocalSetup {
         implicit val hc: HeaderCarrier = HeaderCarrier()
         override val mockContactDetails: Option[CharityContactDetails] = Some(CharityContactDetails("Test123", None, "1234567890", None, None, None))
-        override def removeResponse: Future[HttpResponse] = Future.failed(new RuntimeException())
+        override def removeResponse(): Future[HttpResponse] = Future.failed(new RuntimeException())
 
         initialiseCache()
 
         intercept[RuntimeException]{
-          await(service.getCacheData(optionalDataRequest))
+          await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
         }
-
       }
 
       "throw error if exception is returned from CharitiesShortLivedCache.remove" in new LocalSetup {
 
         override val mockContactDetails: Option[CharityContactDetails] = Some(CharityContactDetails("Test123", None, "1234567890", None, None, None))
-
-        override def removeResponse: Future[HttpResponse] = Future.failed(new RuntimeException())
+        override def removeResponse(): Future[HttpResponse] = Future.failed(new RuntimeException())
 
         initialiseCache()
 
         intercept[RuntimeException] {
-          await(service.getCacheData(optionalDataRequest))
+          await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
         }
-
       }
 
       "throw error if exception is returned from CharitiesShortLivedCache" in {
@@ -965,12 +949,9 @@ class CharitiesKeyStoreServiceSpec extends SpecBase with MockitoSugar with Befor
         when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.failed(new RuntimeException()))
 
         intercept[RuntimeException] {
-          await(service.getCacheData(optionalDataRequest))
+          await(service.getCacheData(optionalDataRequest, SessionId(sessionId), None))
         }
       }
-
     }
-
   }
-
 }

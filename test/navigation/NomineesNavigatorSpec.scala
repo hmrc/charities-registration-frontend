@@ -475,7 +475,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to the TaskList page when clicked continue button" in {
           navigator.nextPage(NomineeDetailsSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -483,7 +483,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }
@@ -958,7 +958,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to the TaskList page when clicked continue button" in {
           navigator.nextPage(NomineeDetailsSummaryPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -966,7 +966,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad()
+            routes.IndexController.onPageLoad(None)
         }
       }
     }

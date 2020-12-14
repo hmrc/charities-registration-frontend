@@ -54,7 +54,11 @@ class AuthenticatedIdentifierAction @Inject()(
         }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
       } recover {
         case _: NoActiveSession =>
-          Redirect(config.loginUrl, Map(config.loginContinueKey -> Seq(config.loginContinueUrl), "origin" -> Seq(config.appName)))
+          val redirectUrl = hc.sessionId match {
+            case Some(id) => s"${config.loginContinueUrl}/${id.value}"
+            case None => config.loginContinueUrl
+          }
+          Redirect(config.loginUrl, Map(config.loginContinueKey -> Seq(redirectUrl), "origin" -> Seq(config.appName)))
         case _: AuthorisationException =>
           Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad())
       }

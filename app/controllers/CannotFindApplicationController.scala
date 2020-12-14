@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-package controllers.checkEligibility
+package controllers
 
 import config.FrontendAppConfig
-import javax.inject.Inject
-import models.Mode
-import play.api.i18n.I18nSupport
+import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.checkEligibility.EligibleCharityView
+import views.html.CannotFindApplicationView
 
-class EligibleCharityController @Inject()(
-    val controllerComponents: MessagesControllerComponents,
-    view: EligibleCharityView
-  )(implicit appConfig: FrontendAppConfig) extends FrontendBaseController with I18nSupport {
+import javax.inject.Inject
+import scala.concurrent.Future
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = Action { implicit request =>
-    Ok(view(mode, hc.sessionId))
+
+class CannotFindApplicationController @Inject()(
+    identify: AuthIdentifierAction,
+    getData: UserDataRetrievalAction,
+    view: CannotFindApplicationView,
+    val controllerComponents: MessagesControllerComponents
+  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+
+  def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
+
+    Future.successful(Ok(view()))
   }
+
 }

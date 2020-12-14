@@ -42,9 +42,9 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case SectionsChangedGoverningDocumentPage => userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, NormalMode)
 
-    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad()
+    case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
@@ -61,7 +61,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
     case SectionsChangedGoverningDocumentPage => userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, CheckMode)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
 
   }
 

@@ -60,9 +60,9 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case CharityInformationSummaryPage => _ => routes.IndexController.onPageLoad()
+    case CharityInformationSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
@@ -90,7 +90,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val playbackRouteMap: Page => UserAnswers => Call = {
@@ -100,7 +100,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
 }

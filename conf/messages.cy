@@ -262,6 +262,13 @@ beingProcessedOldSubmission.heading = (W)Your application is being processed(W)
 beingProcessedOldSubmission.whatHappensNext.h2 = (W)What happens after we receive your supporting documents(W)
 beingProcessedOldSubmission.whatHappensNext.p2 = (W)We will send letters to the officials and the nominee to confirm that they have been registered with the charity.(W)
 
+# Cannot Find Application page Messages
+# ----------------------------------------------------------
+cannotFindApplication.title = (W)We cannot find your application(W)
+cannotFindApplication.heading = (W)We cannot find your application(W)
+cannotFindApplication.p1 = (W)We save unfinished applications for 28 days. After that, you need to(W)
+cannotFindApplication.p1.link = (W)start your application again(W)
+
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
 checkIfYouCanRegister.title = (W)Check if you can register the charity(W)

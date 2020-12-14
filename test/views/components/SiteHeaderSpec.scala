@@ -42,7 +42,7 @@ class SiteHeaderSpec extends SpecBase {
     }
 
     "Have the correct Service Name and Link" in {
-      document.select(Selectors.serviceLink).attr("href") mustBe controllers.routes.IndexController.onPageLoad().url
+      document.select(Selectors.serviceLink).attr("href") mustBe controllers.routes.IndexController.onPageLoad(None).url
       document.select(Selectors.serviceLink).text mustBe SiteHeaderMessages.serviceName
     }
 

@@ -57,9 +57,9 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad()
+    case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
@@ -72,7 +72,7 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
         case _ => routes.SessionExpiredController.onPageLoad()
       }
 
-    case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad()
+    case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
     case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => userAnswers.get(SelectWhyNoRegulatorPage) match {
       case Some(Other) => userAnswers.get(WhyNotRegisteredWithCharityPage) match {
@@ -88,7 +88,7 @@ class RegulatorsAndDocumentsNavigator @Inject()(implicit frontendAppConfig: Fron
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   private def isCharityRegulatorPageNav(mode: Mode, userAnswers: UserAnswers): Call = userAnswers.get(IsCharityRegulatorPage) match {

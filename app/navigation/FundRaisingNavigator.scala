@@ -128,9 +128,9 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case OperationsFundsSummaryPage => _ => routes.IndexController.onPageLoad()
+    case OperationsFundsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
@@ -219,7 +219,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case _ => routes.SessionExpiredController.onPageLoad()
     }
 
-    case _ => _ => routes.IndexController.onPageLoad()
+    case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
 }

@@ -1,19 +1,14 @@
 # microservice specific routes
-
 ->         /govuk-frontend                              govuk.Routes
 GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 GET        /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)
 
 ### Index Controller
-### ----------------
-
-GET        /task-list                                  controllers.IndexController.onPageLoad(eligibleJourneyId: Option[String] = None)
-GET        /task-list/:eligibleJourneyId               controllers.IndexController.onPageLoad(eligibleJourneyId: Option[String])
-GET        /keepalive                                  controllers.IndexController.keepalive
+GET        /task-list                                   controllers.IndexController.onPageLoad(eligibleJourneyId: Option[String] = None)
+GET        /task-list/:eligibleJourneyId                controllers.IndexController.onPageLoad(eligibleJourneyId: Option[String])
+GET        /keepalive                                   controllers.IndexController.keepalive
 
 ### Section Routes
-### ----------------
-
 ->         /check-eligibility                           checkEligibility.Routes
 ->         /charity-information                         charityInformation.Routes
 ->         /regulators-and-documents                    regulatorsAndDocuments.Routes
@@ -22,45 +17,32 @@ GET        /keepalive                                  controllers.IndexControll
 ->         /address                                     address.Routes
 
 ### SignOut/Session Expired
-### -----------------------
-
 GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
 GET        /sign-out                                    controllers.SignOutController.signOut
 
 ### Dead End Page route
-### ----------------
-
 GET       /in-development                               controllers.DeadEndController.onPageLoad
 
 ### StartDeclaration Page route
-### ----------------
-
 GET       /declare-and-send/start-declaration           controllers.StartDeclarationController.onPageLoad
 
 ### Declaration Page route
-### ----------------
-
 GET       /declare-and-send/declaration                 controllers.DeclarationController.onPageLoad
 POST      /declare-and-send/declaration                 controllers.DeclarationController.onSubmit
 
 ### Declaration Email or Post Page route
-### ----------------
-
 GET       /declare-and-send/email-or-post               controllers.EmailOrPostController.onPageLoad
 POST      /declare-and-send/email-or-post               controllers.EmailOrPostController.onSubmit
 
 ### Registration Sent Page route
-### ----------------
-
 GET       /declare-and-send/registration-sent           controllers.RegistrationSentController.onPageLoad
 GET       /declare-and-send/registration-sent/change    controllers.RegistrationSentController.onChange
 
 ### Application Being Processed Page route
-### -----------------
-
-GET       /application-being-processed                   controllers.ApplicationBeingProcessedController.onPageLoad
+GET       /application-being-processed                  controllers.ApplicationBeingProcessedController.onPageLoad
 
 ### Cannot find Application route
-### ----------------
-
 GET       /we-cannot-find-your-application              controllers.CannotFindApplicationController.onPageLoad
+
+### Switchover error page route
+GET       /error/problem-with-your-answers              controllers.SwitchOverErrorController.onPageLoad

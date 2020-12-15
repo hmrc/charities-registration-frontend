@@ -269,6 +269,14 @@ cannotFindApplication.heading = (W)We cannot find your application(W)
 cannotFindApplication.p1 = (W)We save unfinished applications for 28 days. After that, you need to(W)
 cannotFindApplication.p1.link = (W)start your application again(W)
 
+# Switch over error page Messages
+# ----------------------------------------------------------
+switchOverError.title = (W)Sorry, there is a problem with some of your answers - Error(W)
+switchOverError.heading = (W)Sorry, there is a problem with some of your answers(W)
+switchOverError.p1 = (W)We have redesigned this service since you last worked on your application.(W)
+switchOverError.p2 = (W)We have brought some of your answers across to the new service. However some of your answers have been lost.(W)
+switchOverError.p3.link = (W)Continue with your application(W)
+
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
 checkIfYouCanRegister.title = (W)Check if you can register the charity(W)

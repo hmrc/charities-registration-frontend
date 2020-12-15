@@ -139,7 +139,7 @@ class CharitiesSave4LaterService @Inject()(
           if (result.errors.isEmpty) {
             Right(userAnswers)
           } else {
-            Left(controllers.routes.CannotFindApplicationController.onPageLoad())
+            Left(controllers.routes.SwitchOverErrorController.onPageLoad())
           }
         }
       }

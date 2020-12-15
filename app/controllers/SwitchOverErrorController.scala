@@ -19,14 +19,15 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.AuthIdentifierAction
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.CannotFindApplicationView
+import views.html.SwitchOverErrorView
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class CannotFindApplicationController @Inject()(
+
+class SwitchOverErrorController @Inject()(
     identify: AuthIdentifierAction,
-    view: CannotFindApplicationView,
+    view: SwitchOverErrorView,
     val controllerComponents: MessagesControllerComponents
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 

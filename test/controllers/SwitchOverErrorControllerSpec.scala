@@ -25,9 +25,9 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.UserAnswerRepository
-import views.html.CannotFindApplicationView
+import views.html.SwitchOverErrorView
 
-class CannotFindApplicationControllerSpec extends SpecBase with BeforeAndAfterEach {
+class SwitchOverErrorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -43,11 +43,11 @@ class CannotFindApplicationControllerSpec extends SpecBase with BeforeAndAfterEa
     reset(mockUserAnswerRepository)
   }
 
-  private val view: CannotFindApplicationView = injector.instanceOf[CannotFindApplicationView]
+  private val view: SwitchOverErrorView = injector.instanceOf[SwitchOverErrorView]
 
-  private val controller: CannotFindApplicationController = inject[CannotFindApplicationController]
+  private val controller: SwitchOverErrorController = inject[SwitchOverErrorController]
 
-  "CannotFindApplication Controller" must {
+  "SwitchOverError Controller" must {
 
     "return OK and the correct view for a GET" in {
 

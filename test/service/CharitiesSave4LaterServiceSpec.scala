@@ -93,7 +93,6 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
     def mockEligibleJourneyId: Option[String] = None
     def mockCache: Option[CacheMap] = Some(mockCacheMap)
     def mockRepositoryData: Option[UserAnswers] = None
-
     def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache() {

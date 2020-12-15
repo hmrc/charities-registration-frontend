@@ -23,7 +23,7 @@ import forms.common.BankDetailsFormProvider
 import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.BankDetailsNavigator
-import pages.charityInformation.CharityNamePage
+import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.Section6Page
 import play.api.data.Form

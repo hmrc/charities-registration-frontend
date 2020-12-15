@@ -51,7 +51,7 @@ class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
         "p1", "accountName", "accountName.hint")
 
       behave like pageWithHyperLink(applyView(form), "changeLink",
-        controllers.charityInformation.routes.CharityNameController.onPageLoad(PlaybackMode).url,
+        controllers.contactDetails.routes.CharityNameController.onPageLoad(PlaybackMode).url,
         messages("site.edit") + messages("bankDetails.accountName"))
 
     }

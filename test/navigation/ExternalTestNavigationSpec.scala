@@ -20,14 +20,14 @@ import java.time.LocalDate
 
 import base.SpecBase
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
-import controllers.charityInformation.{routes => charityInfoRoutes}
+import controllers.contactDetails.{routes => charityInfoRoutes}
 import controllers.nominees.{routes => nomineeRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import models.nominees.OrganisationNomineeContactDetails
 import models.{CharityContactDetails, CheckMode, Index, NormalMode, Passport}
 import pages.authorisedOfficials.{AuthorisedOfficialsNinoPage, AuthorisedOfficialsPassportPage}
-import pages.charityInformation.CharityContactDetailsPage
+import pages.contactDetails.CharityContactDetailsPage
 import pages.nominees.{IndividualNomineesNinoPage, IndividualNomineesPassportPage, OrganisationNomineeContactDetailsPage}
 import pages.otherOfficials.{OtherOfficialsNinoPage, OtherOfficialsPassportPage}
 import play.api.inject.guice.GuiceApplicationBuilder

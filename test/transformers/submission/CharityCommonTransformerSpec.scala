@@ -23,7 +23,7 @@ import models.operations.CharityEstablishedOptions
 import models.{BankDetails, CharityContactDetails, CharityName, Name, SelectTitle}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPositionPage}
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import pages.operationsAndFunds.{BankDetailsPage, CharityEstablishedInPage}
 import play.api.libs.json.Json
 

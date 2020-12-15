@@ -20,7 +20,7 @@ import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.{CharityContactDetails, CharityName}
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import viewmodels.charityInformation.CharityInformationStatusHelper
 
 class CharityInformationStatusHelperSpec extends SpecBase {

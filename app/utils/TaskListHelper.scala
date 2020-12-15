@@ -17,7 +17,7 @@
 package utils
 
 import controllers.authorisedOfficials.{routes => authOfficialsRoutes}
-import controllers.charityInformation.{routes => charityInfoRoutes}
+import controllers.contactDetails.{routes => charityInfoRoutes}
 import controllers.nominees.{routes => charityNomineeRoutes}
 import controllers.operationsAndFunds.{routes => opsAndFundsRoutes}
 import controllers.otherOfficials.{routes => otherOfficialsRoutes}

@@ -22,7 +22,7 @@ import models.{CharityName, UserAnswers}
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar.mock
-import pages.charityInformation.CharityNamePage
+import pages.contactDetails.CharityNamePage
 import pages.sections.Section1Page
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json

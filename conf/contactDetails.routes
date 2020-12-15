@@ -1,0 +1,25 @@
+GET        /start-name                               controllers.contactDetails.StartInformationController.onPageLoad()
+
+GET        /name                                     controllers.contactDetails.CharityNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /name                                     controllers.contactDetails.CharityNameController.onSubmit(mode: Mode = NormalMode)
+GET        /name/change                              controllers.contactDetails.CharityNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /name/change                              controllers.contactDetails.CharityNameController.onSubmit(mode: Mode = CheckMode)
+GET        /name/playback-change                     controllers.contactDetails.CharityNameController.onPageLoad(mode: Mode = PlaybackMode)
+POST       /name/playback-change                     controllers.contactDetails.CharityNameController.onSubmit(mode: Mode = PlaybackMode)
+
+GET        /phone-and-email                          controllers.contactDetails.CharityContactDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /phone-and-email                          controllers.contactDetails.CharityContactDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /phone-and-email/change                   controllers.contactDetails.CharityContactDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /phone-and-email/change                   controllers.contactDetails.CharityContactDetailsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /confirm-entered-address                  controllers.contactDetails.ConfirmCharityOfficialAddressController.onPageLoad()
+GET        /confirm-entered-postal-address           controllers.contactDetails.ConfirmCharityPostalAddressController.onPageLoad()
+
+GET        /send-letters                             controllers.contactDetails.CanWeSendToThisAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /send-letters                             controllers.contactDetails.CanWeSendToThisAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /send-letters/change                      controllers.contactDetails.CanWeSendToThisAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /send-letters/change                      controllers.contactDetails.CanWeSendToThisAddressController.onSubmit(mode: Mode = CheckMode)
+
+GET        /summary                                  controllers.contactDetails.CharityInformationSummaryController.onPageLoad()
+POST       /summary                                  controllers.contactDetails.CharityInformationSummaryController.onSubmit()
+

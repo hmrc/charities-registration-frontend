@@ -10,7 +10,7 @@ GET        /keepalive                                   controllers.IndexControl
 
 ### Section Routes
 ->         /check-eligibility                           checkEligibility.Routes
-->         /charity-information                         charityInformation.Routes
+->         /contact-details                             contactDetails.Routes
 ->         /regulators-and-documents                    regulatorsAndDocuments.Routes
 ->         /operations-and-funds                        operationsAndFunds.Routes
 ->         /officials-and-nominees                      officialsAndNominees.Routes

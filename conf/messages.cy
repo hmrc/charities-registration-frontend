@@ -366,9 +366,9 @@ eligibleCharity.title = (W)The charity is eligible for this service(W)
 eligibleCharity.heading = (W)The charity is eligible for this service(W)
 eligibleCharity.p1 = (W)Next you need to sign in using the charity’s Government Gateway ID. You can set up a new Government Gateway for the charity if you need to.(W)
 
-# Section1 - Charity Information
+# Section1 - Contact Details
 # ----------------------------------------------------------
-contactDetail.section = (W)Charity Information(W)
+contactDetail.section = (W)Contact details(W)
 
 # StartInformationPage Messages
 # ----------------------------------------------------------
@@ -414,18 +414,18 @@ charityContactDetails.emailAddress.checkYourAnswersLabel = (W)Email address(W)
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = (W)What is the charity’s address? - Charity Information(W)
+charityOfficialAddress.lookupPage.title = (W)What is the charity’s address? - Contact details(W)
 charityOfficialAddress.lookupPage.heading = (W)What is the charity’s address?(W)
 charityOfficialAddress.lookupPage.manualAddressLinkText = (W)Charity’s address does not have a UK postcode(W)
 
-charityOfficialAddress.selectPage.title = (W)What is the charity’s full address? - Charity Information(W)
+charityOfficialAddress.selectPage.title = (W)What is the charity’s full address? - Contact details(W)
 charityOfficialAddress.selectPage.heading = (W)What is the charity’s full address?(W)
 charityOfficialAddress.selectPage.editAddressLinkText = (W)Enter charity’s address manually(W)
 
-charityOfficialAddress.editPage.title = (W)What is the charity’s full address? - Charity Information(W)
+charityOfficialAddress.editPage.title = (W)What is the charity’s full address? - Contact details(W)
 charityOfficialAddress.editPage.heading = (W)What is the charity’s full address?(W)
 
-charityOfficialAddress.confirmPage.title = (W)Confirm the charity’s address - Charity Information(W)
+charityOfficialAddress.confirmPage.title = (W)Confirm the charity’s address - Contact details(W)
 charityOfficialAddress.confirmPage.heading = (W)Confirm the charity’s address(W)
 charityOfficialAddress.confirmPage.changeLinkText = (W)Change charity’s address(W)
 
@@ -442,18 +442,18 @@ canWeSendLettersToThisAddress.checkYourAnswersLabel = (W)Send letters to this ad
 
 # Charity Postal Address Messages
 # ----------------------------------------------------------
-charityPostalAddress.lookupPage.title = (W)What is the charity’s postal address? - Charity Information(W)
+charityPostalAddress.lookupPage.title = (W)What is the charity’s postal address? - Contact details(W)
 charityPostalAddress.lookupPage.heading = (W)What is the charity’s postal address?(W)
 charityPostalAddress.lookupPage.manualAddressLinkText = (W)Charity’s postal address does not have a UK postcode(W)
 
-charityPostalAddress.selectPage.title = (W)What is the charity’s full postal address? - Charity Information(W)
+charityPostalAddress.selectPage.title = (W)What is the charity’s full postal address? - Contact details(W)
 charityPostalAddress.selectPage.heading = (W)What is the charity’s full postal address?(W)
 charityPostalAddress.selectPage.editAddressLinkText = (W)Enter charity’s postal address manually(W)
 
-charityPostalAddress.editPage.title = (W)What is the charity’s full postal address? - Charity Information(W)
+charityPostalAddress.editPage.title = (W)What is the charity’s full postal address? - Contact details(W)
 charityPostalAddress.editPage.heading = (W)What is the charity’s full postal address?(W)
 
-charityPostalAddress.confirmPage.title = (W)Confirm the charity’s postal address - Charity Information(W)
+charityPostalAddress.confirmPage.title = (W)Confirm the charity’s postal address - Contact details(W)
 charityPostalAddress.confirmPage.heading = (W)Confirm the charity’s postal address(W)
 charityPostalAddress.confirmPage.changeLinkText = (W)Change charity’s postal address(W)
 
@@ -463,7 +463,7 @@ charityPostalAddress.addressLookup.checkYourAnswersLabel = (W)Postal address(W)
 # ----------------------------------------------------------
 charityInformationSummary.checkYourAnswers.title = (W)Check the charity’s contact details(W)
 charityInformationSummary.checkYourAnswers.heading = (W)Check the charity’s contact details(W)
-charityInformationSummary.section = (W)Charity information(W)
+charityInformationSummary.section = (W)Contact details(W)
 
 # Section2 - Regulators and documents
 # ----------------------------------------------------------

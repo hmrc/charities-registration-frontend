@@ -30,7 +30,7 @@ import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials._
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._

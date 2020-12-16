@@ -25,7 +25,7 @@ import navigation.FakeNavigators.FakeBankDetailsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.charityInformation.CharityNamePage
+import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder

@@ -19,7 +19,7 @@ package viewmodels.charityInformation
 import models.UserAnswers
 import pages.QuestionPage
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import viewmodels.StatusHelper
 
 object CharityInformationStatusHelper extends StatusHelper {

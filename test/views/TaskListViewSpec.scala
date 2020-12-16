@@ -29,7 +29,7 @@ class TaskListViewSpec extends ViewBehaviours {
     "TaskList View" must {
 
       val section1 = TaskListRow("index.section1.spoke1.label",
-        controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode),
+        controllers.contactDetails.routes.CharityNameController.onPageLoad(NormalMode),
         "index.section.notStarted")
 
       val section2 = TaskListRow("index.section2.spoke1.label",
@@ -90,7 +90,7 @@ class TaskListViewSpec extends ViewBehaviours {
 
       "Charity contact details row" must {
         behave like pageWithHyperLink(applyView(),
-          "charity-info", controllers.charityInformation.routes.CharityNameController.onPageLoad(NormalMode).url, "Enter the charity’s contact details")
+          "charity-info", controllers.contactDetails.routes.CharityNameController.onPageLoad(NormalMode).url, "Enter the charity’s contact details")
       }
 
       "Regulator row" must {

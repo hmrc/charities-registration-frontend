@@ -20,7 +20,7 @@ import models.addressLookup.AddressModel
 import models.{CharityContactDetails, CharityName, CheckMode, PhoneNumber, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
@@ -34,12 +34,12 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
 
   def charityNameRows: Seq[SummaryListRow] =
     userAnswers.get(CharityNamePage).map{ name =>
-      answerCharityName(name, controllers.charityInformation.routes.CharityNameController.onPageLoad(CheckMode))
+      answerCharityName(name, controllers.contactDetails.routes.CharityNameController.onPageLoad(CheckMode))
     }.fold(List[SummaryListRow]())(_.toList)
 
   def charityContactDetailsRows: Seq[SummaryListRow] =
     userAnswers.get(CharityContactDetailsPage).map{ contact =>
-      answerCharityContactDetails(contact, controllers.charityInformation.routes.CharityContactDetailsController.onPageLoad(CheckMode))
+      answerCharityContactDetails(contact, controllers.contactDetails.routes.CharityContactDetailsController.onPageLoad(CheckMode))
     }.fold(List[SummaryListRow]())(_.toList)
 
   def officialAddressRow: Seq[SummaryListRow] =
@@ -49,7 +49,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
 
   def canWeSendToThisAddressRow: Seq[SummaryListRow] =
     userAnswers.get(CanWeSendToThisAddressPage).map{ boolean =>
-      answerCanWeSendToThisAddress(boolean, controllers.charityInformation.routes.CanWeSendToThisAddressController.onPageLoad(CheckMode))
+      answerCanWeSendToThisAddress(boolean, controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(CheckMode))
     }.fold(List[SummaryListRow]())(_.toList)
 
   def postalAddressRow: Seq[SummaryListRow] =

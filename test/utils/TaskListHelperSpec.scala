@@ -27,9 +27,9 @@ class TaskListHelperSpec extends SpecBase {
 
   private def section1(status:String = "notStarted") = TaskListRow("index.section1.spoke1.label",
     if(status=="completed") {
-      controllers.charityInformation.routes.CharityInformationSummaryController.onPageLoad()
+      controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad()
     } else {
-      controllers.charityInformation.routes.StartInformationController.onPageLoad()
+      controllers.contactDetails.routes.StartInformationController.onPageLoad()
     },
     s"index.section.$status")
 

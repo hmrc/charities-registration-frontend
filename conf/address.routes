@@ -1,10 +1,10 @@
 ### Charity AddressLookup Controller
 ### ----------------------------------------
-GET        /charity-information-address-lookup                                   controllers.addressLookup.CharityOfficialAddressLookupController.initializeJourney
-GET        /charity-information-address-callback                                 controllers.addressLookup.CharityOfficialAddressLookupController.callback(id: Option[String] ?= None)
+GET        /contact-details-address-lookup                                       controllers.addressLookup.CharityOfficialAddressLookupController.initializeJourney
+GET        /contact-details-address-callback                                     controllers.addressLookup.CharityOfficialAddressLookupController.callback(id: Option[String] ?= None)
 
-GET        /charity-information-postal-address-lookup                            controllers.addressLookup.CharityPostalAddressLookupController.initializeJourney
-GET        /charity-information-postal-address-callback                          controllers.addressLookup.CharityPostalAddressLookupController.callback(id: Option[String] ?= None)
+GET        /contact-details-postal-address-lookup                                controllers.addressLookup.CharityPostalAddressLookupController.initializeJourney
+GET        /contact-details-postal-address-callback                              controllers.addressLookup.CharityPostalAddressLookupController.callback(id: Option[String] ?= None)
 
 GET        /:index/authorised-official-address-lookup                            controllers.addressLookup.AuthorisedOfficialsAddressLookupController.initializeJourney(index: Index, mode: Mode = NormalMode)
 GET        /:index/authorised-official-address-callback                          controllers.addressLookup.AuthorisedOfficialsAddressLookupController.callback(index: Index, mode: Mode = NormalMode, id: Option[String] ?= None)

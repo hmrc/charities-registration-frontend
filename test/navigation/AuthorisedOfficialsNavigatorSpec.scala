@@ -28,7 +28,7 @@ import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneN
 import pages.IndexPage
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
-import pages.charityInformation.CharityNamePage
+import pages.contactDetails.CharityNamePage
 import pages.sections.Section7Page
 import play.api.mvc.Call
 

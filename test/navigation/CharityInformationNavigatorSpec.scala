@@ -17,13 +17,13 @@
 package navigation
 
 import base.SpecBase
-import controllers.charityInformation.{routes => charityInfoRoutes}
+import controllers.contactDetails.{routes => charityInfoRoutes}
 import controllers.routes
 import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import pages.IndexPage
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 
 class CharityInformationNavigatorSpec extends SpecBase {
 
@@ -66,7 +66,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com"))
               .flatMap(_.set(CharityOfficialAddressLookupPage,
                 AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
-            controllers.charityInformation.routes.ConfirmCharityOfficialAddressController.onPageLoad()
+            controllers.contactDetails.routes.ConfirmCharityOfficialAddressController.onPageLoad()
         }
       }
 
@@ -109,7 +109,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(CanWeSendToThisAddressPage, false)
               .flatMap(_.set(CharityPostalAddressLookupPage,
                 AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
-            controllers.charityInformation.routes.ConfirmCharityPostalAddressController.onPageLoad()
+            controllers.contactDetails.routes.ConfirmCharityPostalAddressController.onPageLoad()
         }
       }
 

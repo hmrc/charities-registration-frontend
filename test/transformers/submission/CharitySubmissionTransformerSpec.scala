@@ -29,7 +29,7 @@ import models.{BankDetails, CharityName, CharityOtherRegulatorDetails, MongoDate
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.addressLookup._
 import pages.authorisedOfficials._
-import pages.charityInformation.{CanWeSendToThisAddressPage, CharityNamePage}
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityNamePage}
 import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._

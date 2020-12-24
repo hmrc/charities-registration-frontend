@@ -489,7 +489,7 @@ isCharityRegulator.checkYourAnswersLabel = Registered with a charity regulator
 # ----------------------------------------------------------
 charityRegulator.title = Who are the charity’s regulators?
 charityRegulator.heading = Who are the charity’s regulators?
-charityRegulator.hint = Select all that apply
+charityRegulator.hint = Select all that apply.
 charityRegulator.error.required = Select the charity’s regulators
 charityRegulator.ccew = Charity Commission for England and Wales
 charityRegulator.oscr = Office of the Scottish Charity Regulator
@@ -672,7 +672,7 @@ charitableObjectives.checkYourAnswersLabel = Charitable objectives
 # ----------------------------------------------------------
 charitablePurposes.title = What are the charity’s charitable purposes?
 charitablePurposes.heading = What are the charity’s charitable purposes?
-charitablePurposes.hint = Select all that apply
+charitablePurposes.hint = Select all that apply.
 charitablePurposes.error.required = Select the charity’s charitable purposes
 charitablePurposes.amateurSport = Amateur sport
 charitablePurposes.animalWelfare = Animal welfare
@@ -720,7 +720,7 @@ startFundraising.b3 = accounting period end date
 # ----------------------------------------------------------
 selectFundRaising.title = How will the charity raise funds?
 selectFundRaising.heading = How will the charity raise funds?
-selectFundRaising.hint = Select all that apply
+selectFundRaising.hint = Select all that apply.
 selectFundRaising.error.required = Select how the charity will raise funds
 selectFundRaising.donations = Donations
 selectFundRaising.fundraising = Fundraising
@@ -736,7 +736,7 @@ selectFundRaising.checkYourAnswersLabel = Fundraising methods
 # ----------------------------------------------------------
 operatingLocation.title = Where does the charity operate?
 operatingLocation.heading = Where does the charity operate?
-operatingLocation.hint = Select all that apply
+operatingLocation.hint = Select all that apply.
 operatingLocation.error.required = Select where the charity operates
 operatingLocation.1 = England
 operatingLocation.2 = Wales
@@ -830,7 +830,7 @@ isBankStatements.checkYourAnswersLabel = Bank statements for the last 3 months
 # ----------------------------------------------------------
 whyNoBankStatement.title = Why does the charity not have bank statements for the last 3 months of operation?
 whyNoBankStatement.heading = Why does the charity not have bank statements for the last 3 months of operation?
-whyNoBankStatement.hint = If the account has been open for less than 3 months, you will need to provide a letter from the bank to prove that the charity has an account.
+whyNoBankStatement.hint = If the account has been open for less than 3 months, you must provide a bank statement for the past month.
 whyNoBankStatement.checkYourAnswersLabel = Why you do not have bank statements for the last 3 months
 whyNoBankStatement.error.required = Enter why the charity does not have bank statements for the last 3 months of operation
 whyNoBankStatement.error.format = Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops

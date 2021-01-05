@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,12 +66,20 @@ class TaskListHelper {
     )(userAnswers)
 
     val section7: () => TaskListRow = () => getSection("index.section4.spoke1.label",
-      authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad(),
+      if(userAnswers.get(Section7Page).nonEmpty) {
+        authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+      } else {
+        authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad()
+      },
       authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad(),
       Section7Page)(userAnswers)
 
     val section8: () => TaskListRow = () => getSection("index.section4.spoke2.label",
-      otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad(),
+      if(userAnswers.get(Section8Page).nonEmpty) {
+        otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad()
+      } else{
+        otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad()
+      },
       otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad(),
       Section8Page)(userAnswers)
 

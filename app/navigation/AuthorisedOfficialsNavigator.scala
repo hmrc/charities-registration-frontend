@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,7 +101,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case AddedAuthorisedOfficialPage(_) => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case AuthorisedOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(true) if userAnswers.get(Section7Page).contains(true) => routes.IndexController.onPageLoad(None)
+      case Some(true) if userAnswers.get(Section7Page).contains(true) || userAnswers.get(AuthorisedOfficialsId(1)).nonEmpty => routes.IndexController.onPageLoad(None)
       case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
       case Some(false) => routes.IndexController.onPageLoad(None)
       case _ => routes.SessionExpiredController.onPageLoad()
@@ -172,7 +172,6 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case Some(_) => redirectToPlaybackPage(index)
       case _ => routes.SessionExpiredController.onPageLoad()
     }
-
     case _ => _ => routes.IndexController.onPageLoad(None)
 
   }

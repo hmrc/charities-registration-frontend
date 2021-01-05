@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@ package controllers.otherOfficials
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
+
 import javax.inject.Inject
 import models.Index
+import pages.sections.Section8Page
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.otherOfficials.CharityOtherOfficialsView
@@ -39,6 +41,6 @@ class CharityOtherOfficialsController @Inject()(
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    Future.successful(Ok(view(Index(0))))
-  }
+      Future.successful(Ok(view(Index(0))))
+    }
 }

@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package controllers.contactDetails
+package controllers.otherOfficials
 
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
-import models.NormalMode
-import models.addressLookup.AddressModel
-import pages.QuestionPage
-import pages.addressLookup.CharityOfficialAddressLookupPage
-import play.api.mvc._
-import views.html.common.ConfirmAddressView
 import javax.inject.Inject
+import models.{Index, NormalMode}
+import pages.addressLookup.OtherOfficialAddressLookupPage
+import pages.otherOfficials.OtherOfficialsNamePage
+import play.api.mvc._
 import service.CountryService
+import views.html.common.ConfirmAddressView
 
-class ConfirmCharityOfficialAddressController @Inject()(
+class ConfirmOtherOfficialsAddressController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
@@ -38,13 +37,15 @@ class ConfirmCharityOfficialAddressController @Inject()(
     override implicit val appConfig: FrontendAppConfig
   ) extends ConfirmAddressController {
 
-  override val messagePrefix: String = "charityOfficialAddress"
+  override val messagePrefix: String = "otherOfficialAddress"
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onPageLoad(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-    getView(controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(NormalMode),
-      CharityOfficialAddressLookupPage,
-      controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
-    )
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
+        getView(controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index),
+          OtherOfficialAddressLookupPage(index),
+          controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode),
+          Some(otherOfficialsName))
+      }
   }
 }

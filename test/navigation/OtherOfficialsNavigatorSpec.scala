@@ -146,6 +146,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               .success.value) mustBe
             addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode)
         }
+
+        "go to the ConfirmOtherOfficialsAddressController page when OtherOfficialAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(OtherOfficialsPassportPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+              .flatMap(_.set(OtherOfficialAddressLookupPage(0), address))
+              .success.value) mustBe
+            otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(0)
+        }
       }
 
       "from the OtherOfficialsNinoPage" must {
@@ -159,6 +167,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
             emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
             addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0), NormalMode)
+        }
+
+        "go to the ConfirmOtherOfficialsAddressController page when OtherOfficialAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 A")
+              .flatMap(_.set(OtherOfficialAddressLookupPage(0), address))
+              .success.value) mustBe
+            otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(0)
         }
       }
 
@@ -191,6 +207,17 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
                 .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true)).success.value) mustBe
               addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
+          }
+
+          "go to the ConfirmOtherOfficialsPreviousAddressController page when yes is selected and OtherOfficialPreviousAddressLookupPage is present and clicked continue button" in {
+            navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), NormalMode,
+              emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(0), address))
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address))
+                .success.value) mustBe
+              otherOfficialRoutes.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index)
           }
 
           "go to the You have added one/second/third other official page when no is selected" in {

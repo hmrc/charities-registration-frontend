@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package controllers.contactDetails
+package controllers.nominees
 
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
-import models.NormalMode
-import models.addressLookup.AddressModel
-import pages.QuestionPage
-import pages.addressLookup.CharityOfficialAddressLookupPage
-import play.api.mvc._
-import views.html.common.ConfirmAddressView
 import javax.inject.Inject
+import models.NormalMode
+import pages.addressLookup.NomineeIndividualAddressLookupPage
+import pages.nominees.IndividualNomineeNamePage
+import play.api.mvc._
 import service.CountryService
+import views.html.common.ConfirmAddressView
 
-class ConfirmCharityOfficialAddressController @Inject()(
+class ConfirmNomineeIndividualAddressController @Inject()(
     val identify: AuthIdentifierAction,
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
@@ -38,13 +37,15 @@ class ConfirmCharityOfficialAddressController @Inject()(
     override implicit val appConfig: FrontendAppConfig
   ) extends ConfirmAddressController {
 
-  override val messagePrefix: String = "charityOfficialAddress"
+  override val messagePrefix: String = "nomineeIndividualAddress"
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-    getView(controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(NormalMode),
-      CharityOfficialAddressLookupPage,
-      controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
-    )
+      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+        getView(controllers.nominees.routes.IsIndividualNomineePreviousAddressController.onPageLoad(NormalMode),
+          NomineeIndividualAddressLookupPage,
+          controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode),
+          Some(individualNomineeName))
+      }
   }
 }

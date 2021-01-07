@@ -38,12 +38,12 @@ class ConfirmCharityPostalAddressController @Inject()(
  ) extends ConfirmAddressController {
 
   override val messagePrefix: String = "charityPostalAddress"
-  override val page: QuestionPage[AddressModel] = CharityPostalAddressLookupPage
-  override def changeLinkCall: Call = controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
-
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      getView(controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad())
+      getView(controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
+        CharityPostalAddressLookupPage,
+        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+      )
   }
 }

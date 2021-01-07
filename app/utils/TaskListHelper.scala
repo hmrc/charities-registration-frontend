@@ -66,12 +66,20 @@ class TaskListHelper {
     )(userAnswers)
 
     val section7: () => TaskListRow = () => getSection("index.section4.spoke1.label",
-      authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad(),
+      if(userAnswers.get(Section7Page).nonEmpty) {
+        authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+      } else {
+        authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad()
+      },
       authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad(),
       Section7Page)(userAnswers)
 
     val section8: () => TaskListRow = () => getSection("index.section4.spoke2.label",
-      otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad(),
+      if(userAnswers.get(Section8Page).nonEmpty) {
+        otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad()
+      } else{
+        otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad()
+      },
       otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad(),
       Section8Page)(userAnswers)
 

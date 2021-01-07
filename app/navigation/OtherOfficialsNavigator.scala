@@ -101,7 +101,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
 
     case OtherOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherOtherOfficialPage) match {
-      case Some(_) if userAnswers.get(Section8Page).contains(true) => routes.IndexController.onPageLoad(None)
+      case Some(_) if userAnswers.get(Section8Page).contains(true) || userAnswers.get(OtherOfficialsId(2)).nonEmpty => routes.IndexController.onPageLoad(None)
       case Some(true) if userAnswers.get(OtherOfficialsId(0)).nonEmpty && userAnswers.get(OtherOfficialsId(1)).nonEmpty =>
         otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode, 2)
       case _ if userAnswers.get(OtherOfficialsId(0)).nonEmpty =>

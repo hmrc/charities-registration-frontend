@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -186,7 +186,7 @@ class DateMappingsDayMonthSpec extends FreeSpec with MustMatchers with ScalaChec
     val result = form.bind(data)
 
     result.errors must contain(
-      FormError("value.day", "error.leapYear", List.empty)
+      FormError("value.day", "error.invalid", List.empty)
     )
   }
 

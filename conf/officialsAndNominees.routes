@@ -36,6 +36,9 @@ POST       /:index/authorised-official-passport                                 
 GET        /:index/authorised-official-passport/change                          controllers.authorisedOfficials.AuthorisedOfficialsPassportController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-passport/change                          controllers.authorisedOfficials.AuthorisedOfficialsPassportController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /:index/authorised-official-confirm-entered-address                  controllers.authorisedOfficials.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index: Index)
+GET        /:index/authorised-official-confirm-entered-previous-address         controllers.authorisedOfficials.ConfirmAuthorisedOfficialsPreviousAddressController.onPageLoad(index: Index)
+
 GET        /:index/authorised-official-changed-address                          controllers.authorisedOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/authorised-official-changed-address                          controllers.authorisedOfficials.IsAuthorisedOfficialPreviousAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/authorised-official-changed-address/change                   controllers.authorisedOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(mode: Mode = CheckMode, index: Index)
@@ -86,6 +89,9 @@ GET        /:index/other-official-passport                                      
 POST       /:index/other-official-passport                                      controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/other-official-passport/change                               controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/other-official-passport/change                               controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = CheckMode, index: Index)
+
+GET        /:index/other-official-confirm-entered-address                       controllers.otherOfficials.ConfirmOtherOfficialsAddressController.onPageLoad(index: Index)
+GET        /:index/other-official-confirm-entered-previous-address              controllers.otherOfficials.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index: Index)
 
 GET        /:index/other-official-changed-address                               controllers.otherOfficials.IsOtherOfficialsPreviousAddressController.onPageLoad(mode: Mode = NormalMode, index: Index)
 POST       /:index/other-official-changed-address                               controllers.otherOfficials.IsOtherOfficialsPreviousAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
@@ -143,6 +149,9 @@ POST       /nominee-passport                                                    
 GET        /nominee-passport/change                                             controllers.nominees.IndividualNomineePassportController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-passport/change                                             controllers.nominees.IndividualNomineePassportController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-confirm-entered-address                                     controllers.nominees.ConfirmNomineeIndividualAddressController.onPageLoad()
+GET        /nominee-confirm-entered-previous-address                            controllers.nominees.ConfirmNomineeIndividualPreviousAddressController.onPageLoad()
+
 GET        /nominee-changed-address                                             controllers.nominees.IsIndividualNomineePreviousAddressController.onPageLoad(mode: Mode = NormalMode)
 POST       /nominee-changed-address                                             controllers.nominees.IsIndividualNomineePreviousAddressController.onSubmit(mode: Mode = NormalMode)
 GET        /nominee-changed-address/change                                      controllers.nominees.IsIndividualNomineePreviousAddressController.onPageLoad(mode: Mode = CheckMode)
@@ -174,6 +183,9 @@ GET        /nominee-organisation-contact-details/change                         
 POST       /nominee-organisation-contact-details/change                         controllers.nominees.OrganisationNomineeContactDetailsController.onSubmit(mode: Mode = CheckMode)
 
 GET        /authorised-person                                                   controllers.nominees.OrganisationNomineeAuthorisedPersonController.onPageLoad()
+
+GET        /nominee-organisation-confirm-entered-address                        controllers.nominees.ConfirmOrganisationNomineeAddressController.onPageLoad()
+GET        /nominee-organisation-confirm-entered-previous-address               controllers.nominees.ConfirmOrganisationNomineePreviousAddressController.onPageLoad()
 
 GET        /nominee-organisation-changed-address                                controllers.nominees.IsOrganisationNomineePreviousAddressController.onPageLoad(mode: Mode = NormalMode)
 POST       /nominee-organisation-changed-address                                controllers.nominees.IsOrganisationNomineePreviousAddressController.onSubmit(mode: Mode = NormalMode)

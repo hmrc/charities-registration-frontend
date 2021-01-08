@@ -148,9 +148,19 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           "go to the What is [Full name]’s home address? when clicked continue button" in {
             navigator.nextPage(AuthorisedOfficialsNinoPage(index), NormalMode,
               emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C")
-                .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 D"))
                 .success.value) mustBe
               addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(Index(index), NormalMode)
+          }
+
+          "go to the ConfirmAuthorisedOfficialsAddressController page when AuthorisedOfficialAddressLookupPage is present and clicked continue button" in {
+            navigator.nextPage(AuthorisedOfficialsNinoPage(index), NormalMode,
+              emptyUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 A")
+                .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 B"))
+                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), address))
+                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), address))
+                .success.value) mustBe
+              controllers.authorisedOfficials.routes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(Index(index))
           }
         }
 
@@ -167,6 +177,16 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))
                 .success.value) mustBe
               addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+          }
+
+          "go to the ConfirmAuthorisedOfficialsAddressController page when AuthorisedOfficialAddressLookupPage is present and clicked continue button" in {
+            navigator.nextPage(AuthorisedOfficialsPassportPage(index), NormalMode,
+              emptyUserAnswers.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), address))
+                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), address))
+                .success.value) mustBe
+              controllers.authorisedOfficials.routes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(Index(index))
           }
         }
 
@@ -199,6 +219,16 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
                 .success.value) mustBe
               addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
+          }
+
+          "go to the ConfirmAuthorisedOfficialsPreviousAddressController page when yes is selected and AuthorisedOfficialPreviousAddressLookupPage is present and clicked continue button" in {
+            navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), NormalMode,
+              emptyUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), true)
+                .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
+                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
+                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address))
+                .success.value) mustBe
+              controllers.authorisedOfficials.routes.ConfirmAuthorisedOfficialsPreviousAddressController.onPageLoad(index)
           }
 
           "go to the You have added one authorised official page when no is selected" in {

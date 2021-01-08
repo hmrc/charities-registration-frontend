@@ -170,6 +170,13 @@ class NomineesNavigatorSpec extends SpecBase {
             controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
 
         }
+
+        "go to the ConfirmNomineeIndividualAddressController page when NomineeIndividualAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(IndividualNomineesPassportPage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now()))
+              .flatMap(_.set(NomineeIndividualAddressLookupPage, address)).success.value) mustBe
+            nomineesRoutes.ConfirmNomineeIndividualAddressController.onPageLoad()
+        }
       }
 
       "from the IndividualNomineeNinoPage" must {
@@ -183,7 +190,13 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(IndividualNomineesNinoPage, NormalMode,
             emptyUserAnswers.set(IndividualNomineesNinoPage, "QQ 12 34 56 C").success.value) mustBe
             addressLookupRoutes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
+        }
 
+        "go to the ConfirmNomineeIndividualAddressController page when NomineeIndividualAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(IndividualNomineesNinoPage, NormalMode,
+            emptyUserAnswers.set(IndividualNomineesNinoPage, "QQ 12 34 56 C")
+              .flatMap(_.set(NomineeIndividualAddressLookupPage, address)).success.value) mustBe
+            nomineesRoutes.ConfirmNomineeIndividualAddressController.onPageLoad()
         }
       }
 
@@ -220,6 +233,14 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode,
             emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, false).success.value) mustBe
             nomineesRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+        }
+
+        "go to the ConfirmNomineeIndividualPreviousAddressController page when Yes is selected and NomineeIndividualPreviousAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode,
+            emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true)
+              .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, address))
+                .success.value) mustBe
+            nomineesRoutes.ConfirmNomineeIndividualPreviousAddressController.onPageLoad()
         }
       }
 
@@ -301,6 +322,13 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com")).success.value) mustBe
             addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
         }
+
+        "go to the ConfirmOrganisationNomineeAddressController page when OrganisationNomineeAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(OrganisationNomineeContactDetailsPage, NormalMode,
+            emptyUserAnswers.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com"))
+              .flatMap(_.set(OrganisationNomineeAddressLookupPage, address)).success.value) mustBe
+            nomineesRoutes.ConfirmOrganisationNomineeAddressController.onPageLoad()
+        }
       }
 
       "from the OrganisationNomineeAddressLookup page" must {
@@ -330,7 +358,6 @@ class NomineesNavigatorSpec extends SpecBase {
               .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, true))
               .success.value) mustBe
             addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode)
-
         }
 
         "go to the IsOrganisationNomineePayments when continue button is clicked" in {
@@ -339,6 +366,13 @@ class NomineesNavigatorSpec extends SpecBase {
               .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
               .success.value) mustBe
           nomineesRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
+        }
+
+        "go to the ConfirmOrganisationNomineePreviousAddressController page when Yes is selected and OrganisationNomineePreviousAddressLookupPage is present and clicked continue button" in {
+          navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode,
+            emptyUserAnswers.set(IsOrganisationNomineePreviousAddressPage, true)
+              .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, address)).success.value) mustBe
+            nomineesRoutes.ConfirmOrganisationNomineePreviousAddressController.onPageLoad()
         }
       }
 

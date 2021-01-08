@@ -21,7 +21,7 @@ import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
-import models.{CheckMode, Index, Mode, NormalMode, PlaybackMode, UserAnswers}
+import models.{CheckMode, Index, NormalMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
@@ -67,7 +67,10 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case Some(_) => if(frontendAppConfig.isExternalTest){
         redirectToPlaybackPage(index)
       } else {
-        addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+          case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
+          case _ => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        }
       }
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -76,7 +79,10 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
       case Some(_) => if(frontendAppConfig.isExternalTest){
         redirectToPlaybackPage(index)
       } else {
-        addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+          case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
+          case _ => addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        }
       }
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -87,6 +93,8 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case IsAuthorisedOfficialPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
+      case Some(true) if userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)).isDefined =>
+        authOfficialRoutes.ConfirmAuthorisedOfficialsPreviousAddressController.onPageLoad(index)
       case Some(true) => addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
       case Some(false) => redirectToPlaybackPage(index)
       case _ => routes.SessionExpiredController.onPageLoad()
@@ -101,7 +109,8 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     case AddedAuthorisedOfficialPage(_) => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case AuthorisedOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(true) if userAnswers.get(Section7Page).contains(true) || userAnswers.get(AuthorisedOfficialsId(1)).nonEmpty => routes.IndexController.onPageLoad(None)
+      case Some(true) if userAnswers.get(Section7Page).contains(true) || userAnswers.get(AuthorisedOfficialsId(1)).nonEmpty =>
+        routes.IndexController.onPageLoad(None)
       case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
       case Some(false) => routes.IndexController.onPageLoad(None)
       case _ => routes.SessionExpiredController.onPageLoad()

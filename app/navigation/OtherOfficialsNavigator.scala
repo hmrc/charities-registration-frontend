@@ -21,7 +21,7 @@ import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
 import javax.inject.Inject
-import models.{CheckMode, Index, Mode, NormalMode, PlaybackMode, UserAnswers}
+import models.{CheckMode, Index, NormalMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
@@ -67,7 +67,10 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case Some(_) => if(frontendAppConfig.isExternalTest){
         redirectToPlaybackPage(index)
       } else {
-        addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+          case Some(_) => otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
+          case _ => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        }
       }
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -76,7 +79,10 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       case Some(_) => if(frontendAppConfig.isExternalTest){
         redirectToPlaybackPage(index)
       } else {
-        addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+          case Some(_) => otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
+          case _ => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+        }
       }
       case _ => routes.SessionExpiredController.onPageLoad()
     }
@@ -87,6 +93,8 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case IsOtherOfficialsPreviousAddressPage(index) => userAnswers: UserAnswers => userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
+      case Some(true) if userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)).isDefined =>
+        otherOfficialRoutes.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index)
       case Some(true) => addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
       case Some(false) => redirectToPlaybackPage(index)
       case _ => routes.SessionExpiredController.onPageLoad()
@@ -101,7 +109,8 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
       otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
 
     case OtherOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherOtherOfficialPage) match {
-      case Some(_) if userAnswers.get(Section8Page).contains(true) || userAnswers.get(OtherOfficialsId(2)).nonEmpty => routes.IndexController.onPageLoad(None)
+      case Some(_) if userAnswers.get(Section8Page).contains(true) || userAnswers.get(OtherOfficialsId(2)).nonEmpty =>
+        routes.IndexController.onPageLoad(None)
       case Some(true) if userAnswers.get(OtherOfficialsId(0)).nonEmpty && userAnswers.get(OtherOfficialsId(1)).nonEmpty =>
         otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode, 2)
       case _ if userAnswers.get(OtherOfficialsId(0)).nonEmpty =>

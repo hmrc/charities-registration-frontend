@@ -49,7 +49,7 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "gtmContainer" in {
-        frontendAppConfig.gtmContainer mustBe Some("GTM-MTGZWNQ")
+        frontendAppConfig.gtmContainer mustBe "c"
       }
 
       "feedbackUrl" in {

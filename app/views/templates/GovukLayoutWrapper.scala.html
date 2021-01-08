@@ -21,6 +21,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcLanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
 
 @this(
     govukLayout: GovukLayout,
@@ -29,18 +30,18 @@
     siteHeader: components.siteHeader,
     phaseBanner: components.phaseBanner,
     link: components.link,
-    gtmSnippet: GtmSnippet,
     hmrcReportTechnicalIssue: hmrcReportTechnicalIssue,
     languageSwitch: HmrcLanguageSelect,
-    header: HmrcHeader
+    header: HmrcHeader,
+    hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet
 )
 
 @(pageTitle: Option[String] = None, signOut: Boolean = true, js: Option[Html] = None, backLink: Boolean = true, showDeskproLink: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @head = {
-    @gtmSnippet()
+    @hmrcTrackingConsentSnippet()
     <!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
-<!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
+    <!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
 }
 
 @scripts = {

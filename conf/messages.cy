@@ -1,266 +1,267 @@
-service.name = (W)Register your charity’s details with HMRC(W)
+service.name = Cofrestru manylion eich elusen gyda CThEM
 
-service.separator.and = (W)and(W)
+service.separator.and = a
 
-date.day = (W)Day(W)
-date.month = (W)Month(W)
-date.year = (W)Year(W)
+date.day = Diwrnod
+date.month = Mis
+date.year = Blwyddyn
 
-error.browser.title.prefix = (W)Error:(W)
-error.boolean = (W)Please give an answer(W)
-error.invalid_date = (W)Date must be written like a number, like 01 12(W)
-error.date.day_blank = (W)Enter a day(W)
-error.date.day_invalid = (W)Give a correct day using numbers 1 to 31(W)
-error.date.month_blank = (W)Enter a month(W)
-error.date.month_invalid = (W)Month must be written like a number, like 12(W)
-error.date.year_blank = (W)Enter a year(W)
-error.date.year_invalid = (W)Year must be written like a number, like 1984(W)
-error.integer = (W)Number must be rounded up or down, like 100(W)
-error.non_numeric = (W)Give a value using only numbers(W)
-error.number = (W)Enter a valid number(W)
-error.required = (W)Enter a value(W)
-error.summary.title = (W)There is a problem(W)
+error.browser.title.prefix = Gwall:
+error.boolean = Rhowch ateb
+error.invalid_date = Mae’n rhaid ysgrifennu’r dyddiad fel rhif, megis 01 12
+error.date.day_blank = Nodwch ddiwrnod
+error.date.day_invalid = Rhowch ddiwrnod cywir gan ddefnyddio’r rhifau 1 i 31
+error.date.month_blank = Nodwch fis
+error.date.month_invalid = Mae’n rhaid ysgrifennu’r mis fel rhif, megis 12
+error.date.year_blank = Nodwch flwyddyn
+error.date.year_invalid = Mae’n rhaid ysgrifennu’r flwyddyn fel rhif, megis 1984
+error.integer = Mae’n rhaid talgrynnu’r rhif i fyny neu i lawr, megis 100
+error.non_numeric = Rhowch werth gan ddefnyddio rhifau yn unig
+error.number = Nodwch rif dilys
+error.required = Rhowch ateb
+error.summary.title = Mae problem wedi codi
 
 
 # Sitewide Messages
 # ----------------------------------------------------------
-site.back = (W)Back(W)
-site.saveForLater = (W)Save and come back later(W)
-site.review = (W)Review(W)
-site.delete = (W)Remove(W)
-site.edit = (W)Change(W)
-site.hidden-delete = (W)Delete {0}(W)
-site.hidden-edit = (W)Change {0}(W)
-site.no = (W)No(W)
-site.yes = (W)Yes(W)
-site.continue = (W)Continue(W)
-site.confirm = (W)Confirm(W)
-site.saveAndContinue = (W)Save and continue(W)
-site.submitAndContinue = (W)Submit and continue(W)
-site.acceptAndContinue = (W)Accept and continue(W)
-site.confirmAndSubmit = (W)Confirm and submit(W)
-site.confirmAndContinue = (W)Confirm and continue(W)
-site.confirmAndSend = (W)Confirm and send(W)
-site.textarea.char_limit = (W)(Limit is {0} characters)(W)
-site.govuk = (W)GOV.UK(W)
-site.signOut = (W)Sign out(W)
-site.getHelpWithThisPage = (W)Get help with this page(W)
-site.notProvided = (W)Not Provided(W)
-site.incomplete = (W)Incomplete(W)
-site.warning = (W)Warning(W)
-site.opensInNewWindowOrTab = (W)(opens in a new tab or window).(W)
-site.change = (W)Change(W)
-site.logOut = (W)log out(W)
-site.empref = (W)Employer PAYE reference: {0}(W)
-site.gotoTaskList = (W)Go to task list(W)
+site.back = Yn ôl
+site.saveForLater = Cadw a dod yn ôl yn nes ymlaen
+site.review = Adolygu
+site.delete = Tynnu
+site.edit = Newid
+site.hidden-delete = Dileu {0}
+site.hidden-edit = Newid {0}
+site.no = Na
+site.yes = Iawn
+site.continue = Yn eich blaen
+site.confirm = Cadarnhau
+site.saveAndContinue = Cadw ac yn eich blaen
+site.submitAndContinue = Cyflwyno ac yn eich blaen
+site.acceptAndContinue = Derbyn ac yn eich blaen
+site.confirmAndSubmit = Cadarnhau a chyflwyno
+site.confirmAndContinue = Cadarnhau ac yn eich blaen
+site.confirmAndSend = Cadarnhau ac anfon
+site.textarea.char_limit = (Y terfyn yw {0} o gymeriadau)
+site.govuk = GOV.UK/CYMRAEG
+site.signOut = Allgofnodi
+site.getHelpWithThisPage = Help gyda’r dudalen hon
+site.notProvided = Heb ei ddarparu
+site.incomplete = Heb ei lenwi
+site.warning = Rhybudd
+site.opensInNewWindowOrTab = (yn agor ffenestr neu dab newydd).
+site.change = Newid
+site.logOut = allgofnodi
+site.empref = Cyfeirnod TWE y Cyflogwr: {0}
+site.gotoTaskList = Ewch i’r rhestr o dasgau
 
-footer.cookies         = (W)Cookies(W)
-footer.privacy         = (W)Privacy policy(W)
-footer.termsConditions = (W)Terms and conditions(W)
-footer.govukHelp       = (W)Help using GOV.UK(W)
+footer.cookies         = Cwcis
+footer.privacy         = Polisi preifatrwydd
+footer.termsConditions = Telerau ac amodau
+footer.govukHelp       = Help wrth ddefnyddio GOV.UK
 
 
 # Internal Server Error pages
 # ----------------------------------------------------------
-error.submissionError.title = (W)Something has gone wrong(W)
-error.submissionError.heading = (W)Something has gone wrong(W)
-error.submissionError.content = (W)Your claim submission has failed. You need to(W)
-error.submissionError.link = (W)start your claim again(W)
+error.submissionError.title = Mae rhywbeth wedi mynd o’i le
+error.submissionError.heading = Mae rhywbeth wedi mynd o’i le
+error.submissionError.content = Nid ydych wedi llwyddo i gyflwyno’ch hawliad. Mae’n rhaid i chi
+error.submissionError.link = ddechrau’ch hawliad eto
 
 
 # Session Expired
 # ----------------------------------------------------------
-session_expired.title = (W)For your security, this service has been reset(W)
-session_expired.heading = (W)For your security, this service has been reset(W)
-session_expired.guidance = (W)The details you have given have been deleted because you did not continue the service for 15 minutes.(W)
+session_expired.title = Er eich diogelwch, mae’r gwasanaeth hwn wedi’i ailosod
+session_expired.heading = Er eich diogelwch, mae’r gwasanaeth hwn wedi’i ailosod
+session_expired.guidance = Mae’r manylion a roddwyd gennych wedi’u dileu gan nad ydych wedi mynd yn eich blaen â’r gwasanaeth ers 15 munud.
 
 
 # Incorrect Details Error
 # ----------------------------------------------------------
-incorrect-details.title = (W)You cannot sign in with these details(W)
-incorrect-details.heading = (W)You cannot sign in with these details(W)
-incorrect-details.notAnOrganisation.p1 = (W)You must(W)
-incorrect-details.notAnOrganisation.p1.link = (W)sign into Government Gateway using the charity’s sign-in details.(W)
-incorrect-details.notAnOrganisation.p2 = (W)If you do not have these already, you can(W)
-incorrect-details.notAnOrganisation.p2.link = (W)set up a Government Gateway account for the charity.(W)
+incorrect-details.title = Ni allwch fewngofnodi gan ddefnyddio’r manylion hyn
+incorrect-details.heading = Ni allwch fewngofnodi gan ddefnyddio’r manylion hyn
+incorrect-details.notAnOrganisation.p1 = Mae’n rhaid i chi
+incorrect-details.notAnOrganisation.p1.link = fewngofnodi i Borth y Llywodraeth gan ddefnyddio manylion mewngofnodi’r elusen.
+incorrect-details.notAnOrganisation.p2 = Os nad oes gennych y rhain eisoes, gallwch
+incorrect-details.notAnOrganisation.p2.link = greu cyfrif Porth y Llywodraeth ar gyfer yr elusen.
 
 
 # Timeout Messages
 # ----------------------------------------------------------
-timeout.title = (W)You are about to be signed out(W)
-timeout.message = (W)For security reasons, you will be signed out of this service in(W)
-timeout.keepAlive = (W)Stay signed in(W)
-timeout.signOut = (W)Sign out(W)
+timeout.title = Rydych ar fin cael eich allgofnodi
+timeout.message = Am resymau diogelwch, cewch eich allgofnodi o’r gwasanaeth hwn mewn
+timeout.keepAlive = Parhau i fod wedi’ch mewngofnodi
+timeout.signOut = Allgofnodi
 
 
 # Sections
 # ----------------------------------------------------------
-section.main = (W)Main section(W)
+section.main = Prif adran
 
 # BETA Banner
 # ----------------------------------------------------------
-feedback.before = (W)This is a new service - your(W)
-feedback.link = (W)feedback(W)
-feedback.after = (W)will help us to improve it.(W)
+feedback.before = Gwasanaeth newydd yw hwn – bydd eich
+feedback.link = adborth
+feedback.after = yn ein helpu i’w wella.
 
 # CheckAnswersPage Messages
 # ----------------------------------------------------------
-main.checkYourAnswers.title = (W)Check your answers(W)
-main.checkYourAnswers.heading = (W)Check your answers(W)
-main.checkYourAnswers.subheading = (W)Main section(W)
+main.checkYourAnswers.title = Gwiriwch eich atebion
+main.checkYourAnswers.heading = Gwiriwch eich atebion
+main.checkYourAnswers.subheading = Prif adran
 
-index.title = (W)Add information about the charity(W)
-index.heading = (W)Add information about the charity(W)
-index.guidance = (W)The information you enter will be saved as you progress. If you close the page, the information you have already entered will be saved for 28 days. After that time you will need to enter all the information again.(W)
-index.isSwitchOver = (W)We have updated this service since the last time you used it. All of your data has been saved. It’s ready for you to review using the links below.(W)
-index.section.numbers1 = (W)1.(W)
-index.section1.label = (W)The charity’s contact details(W)
-index.section1.spoke1.label= (W)Enter the charity’s contact details(W)
-index.section.numbers2 = (W)2.(W)
-index.section2.label = (W)Regulators and documents(W)
-index.section2.spoke1.label = (W)Enter regulator information(W)
-index.section2.spoke2.label = (W)Enter governing document details(W)
-index.section.numbers3 = (W)3.(W)
-index.section3.label = (W)Operations and funds(W)
-index.section3.spoke1.label = (W)Enter objectives and purposes(W)
-index.section3.spoke2.label = (W)Enter fundraising and operations details(W)
-index.section3.spoke3.label = (W)Enter bank details(W)
-index.section.numbers4 = (W)4.(W)
-index.section4.label = (W)Officials and nominee(W)
-index.section4.spoke1.label = (W)Enter details for authorised officials(W)
-index.section4.spoke2.label = (W)Enter details for other officials(W)
-index.section4.spoke3.label = (W)Enter details for nominee(W)
-index.section.numbers5 = (W)5.(W)
-index.section5.label = (W)Confirm the declaration and send the supporting documents(W)
-index.section5.spoke1.label = (W)Confirm the declaration and send the supporting documents(W)
-index.section.note.label = (W)Once you have completed every section, you will be asked to sign a declaration and submit the application.(W)
-index.section.notStarted = (W)Not started(W)
-index.section.inProgress = (W)In progress(W)
-index.section.completed = (W)Completed(W)
-index.section.canNotStartYet = (W)Cannot start yet(W)
+index.title = Ychwanegu manylion am yr elusen
+index.heading = Ychwanegu manylion am yr elusen
+index.guidance = Bydd yr wybodaeth a nodwch yn cael ei chadw wrth i chi fynd yn eich blaen. Os byddwch yn cau’r dudalen, bydd yr wybodaeth yr ydych eisoes wedi’i nodi’n cael ei chadw am 28 diwrnod. Ar ôl yr amser hwnnw, bydd angen i chi nodi’r holl wybodaeth eto.
+index.isSwitchOver = Rydym wedi diweddaru’r gwasanaeth hwn ers y tro diwethaf i chi ei ddefnyddio. Mae’ch holl ddata wedi’u cadw. Maent yn barod i chi eu hadolygu gan ddefnyddio’r cysylltiadau isod.
+index.section.numbers1 = 1.
+index.section1.label = Manylion cyswllt yr elusen
+index.section1.spoke1.label = Nodwch fanylion cyswllt yr elusen
+index.section.numbers2 = 2.
+index.section2.label = Rheolyddion a dogfennau
+index.section2.spoke1.label = Nodwch wybodaeth am y rheoleiddiwr
+index.section2.spoke2.label = Nodwch fanylion y ddogfen lywodraethu
+index.section.numbers3 = 3.
+index.section3.label = Gweithrediadau a chyllid
+index.section3.spoke1.label = Nodwch yr amcanion a’r dibenion
+index.section3.spoke2.label = Nodwch fanylion codi arian a gweithrediadau
+index.section3.spoke3.label = Nodwch fanylion banc
+index.section.numbers4 = 4.
+index.section4.label = Swyddogion ac enwebai
+index.section4.spoke1.label = Nodwch fanylion ar gyfer swyddogion awdurdodedig
+index.section4.spoke2.label = Nodwch fanylion ar gyfer swyddogion eraill
+index.section4.spoke3.label = Nodwch fanylion ar gyfer enwebai
+index.section.numbers5 = 5.
+index.section5.label = Cadarnhau’r datganiad ac anfon y dogfennau ategol
+index.section5.spoke1.label = Cadarnhau’r datganiad ac anfon y dogfennau ategol
+index.section.note.label = Ar ôl i chi gwblhau pob adran, gofynnir i chi lofnodi datganiad a chyflwyno’r cais.
+index.section.notStarted = Heb ddechrau
+index.section.inProgress = Ar y gweill
+index.section.completed = Wedi’i gwblhau
+index.section.canNotStartYet = Ni allwch ddechrau eto
 
 # Common Address Lookup Frontend Messages
 # ----------------------------------------------------------
-commonAddress.lookupPage.filterLabel = (W)Property name or number (optional)(W)
-commonAddress.LookupPage.postcodeLabel = (W)Postcode search(W)
-commonAddress.lookupPage.submitLabel = (W)Find address(W)
+commonAddress.lookupPage.filterLabel = Enw neu rif yr eiddo (dewisol)
+commonAddress.LookupPage.postcodeLabel = Chwilio am y cod post
+commonAddress.lookupPage.submitLabel = Dod o hyd i gyfeiriad
 commonAddress.lookupPage.noResultsFoundMessage =
 commonAddress.lookupPage.resultLimitExceededMessage =
 
-commonAddress.selectPage.headingWithPostcode = (W)Postcode search(W)
+commonAddress.selectPage.headingWithPostcode = Chwilio am y cod post
 commonAddress.selectPage.proposalListLabel =
-commonAddress.selectPage.submitLabel = Continue
+commonAddress.selectPage.submitLabel = Yn eich blaen
 commonAddress.selectPage.searchAgainLinkText =
 
-commonAddress.editPage.line1Label = (W)Address line 1(W)
-commonAddress.editPage.line2Label = (W)Address line 2 (optional)(W)
-commonAddress.editPage.line3Label = (W)Address line 3 (optional)(W)
-commonAddress.editPage.townLabel = (W)Town or city(W)
-commonAddress.editPage.postcodeLabel = (W)Postcode or Zipcode (optional)(W)
-commonAddress.editPage.submitLabel = (W)Continue(W)
+commonAddress.editPage.line1Label = Llinell 1 y cyfeiriad
+commonAddress.editPage.line2Label = Llinell 2 y cyfeiriad (dewisol)
+commonAddress.editPage.line3Label = Llinell 3 y cyfeiriad (dewisol)
+commonAddress.editPage.townLabel = Tref neu ddinas
+commonAddress.editPage.postcodeLabel = Cod post (dewisol)
+commonAddress.editPage.submitLabel = Yn eich blaen
 
 commonAddress.confirmPage.infoMessage =
-commonAddress.confirmPage.submitLabel = (W)Confirm and continue(W)
+commonAddress.confirmPage.submitLabel = Cadarnhau ac yn eich blaen
 commonAddress.confirmPage.searchAgainLinkText =
 commonAddress.confirmPage.confirmChangeText =
 
 # Dead End page Messages
 # ----------------------------------------------------------
-deadEnd.title = (W)Sorry, this page is still in development(W)
-deadEnd.heading = (W)Sorry, this page is still in development(W)
-deadEnd.p1 = (W)Please go back and select another option.(W)
-deadEnd.p2 = (W)You can also visit the task list to see the section status change from ‘Not started’ to ‘In progress’ or ‘Completed’.(W)
+deadEnd.title = Mae’n ddrwg gennym, mae’r dudalen hon yn dal i gael ei datblygu
+deadEnd.heading = Mae’n ddrwg gennym, mae’r dudalen hon yn dal i gael ei datblygu
+deadEnd.p1 = Ewch yn ôl a dewiswch opsiwn arall.
+deadEnd.p2 = Gallwch hefyd ymweld â’r rhestr o dasgau er mwyn gweld y newid o ran statws adran o ‘Heb ddechrau’ neu ‘Ar y gweill’ neu ‘Wedi’i gwblhau’.
 
 # Section10 - Declaration
 # ----------------------------------------------------------
-declaration.section = (W)Declare and send(W)
+declaration.section = Datgan ac anfon
 
 # Start Declaration page Messages
 # ----------------------------------------------------------
-startDeclaration.title = (W)Declaration and send the application(W)
-startDeclaration.heading = (W)Declaration and send the application(W)
-startDeclaration.p = (W)The next pages will ask you to confirm a declaration and send the application. You will then be asked to send some documents to support the application.(W)
+startDeclaration.title = Datganiad ac anfon y cais
+startDeclaration.heading = Datganiad ac anfon y cais
+startDeclaration.p = Bydd y tudalennau nesaf yn gofyn i chi gadarnhau datganiad ac anfon y cais. Wedyn, gofynnir i chi anfon rhai dogfennau i ategu’r cais.
 
 # Declaration page Messages
 # ----------------------------------------------------------
-declaration.title = (W)Declaration(W)
-declaration.heading = (W)Declaration(W)
-declaration.warning = (W)You can be prosecuted for knowingly providing false or misleading information on your application.(W)
-declaration.p1 = (W)By sending this application, I confirm that the information I have provided is true to the best of my knowledge.(W)
+declaration.title = Datganiad
+declaration.heading = Datganiad
+declaration.warning = Gellir eich erlid am roi gwybodaeth anwir neu gamarweiniol yn fwriadol ar eich cais.
+declaration.p1 = Drwy anfon y cais hwn, rwy’n cadarnhau bod yr wybodaeth a roddwyd gennyf yn wir hyd eithaf fy ngwybodaeth.
 
 # Required documents bullets Messages
 # ----------------------------------------------------------
-requiredDocuments.governingDocumentName.answerTrue = (W)governing documents and any proposed changes(W)
-requiredDocuments.isCharityRegulator.answerTrue = (W)notification of registration - the certificate the charity got after registering with the regulator(W)
-requiredDocuments.isCharityRegulator.answerAlternative = (W)evidence of activities - some promotional material that explains what the charity does(W)
-requiredDocuments.isFinancialAccounts.answerTrue = (W)approved financial accounts - like you would send to a regulator or Companies House(W)
-requiredDocuments.isBankStatements.answerTrue = (W)the charity’s bank statements for the last 3 months(W)
-requiredDocuments.isBankStatements.answerAlternative = (W)a bank statement for the past month(W)
-requiredDocuments.selectWhyNoRegulator.answerTrue = (W)certificate of registration from the governing body(W)
-requiredDocuments.foreignAddresses.answerTrue = (W)identity details for: {0} - their passport, identity card or a utility bill from the last 3 months(W)
+requiredDocuments.governingDocumentName.answerTrue = dogfennau llywodraethol ac unrhyw newidiadau arfaethedig
+requiredDocuments.isCharityRegulator.answerTrue = hysbysiad o gofrestriad  – y dystysgrif a gafodd yr elusen ar ôl cofrestru gyda’r rheolydd
+requiredDocuments.isCharityRegulator.answerAlternative = tystiolaeth o weithgareddau – rhai deunydd hyrwyddo sy’n esbonio’r hyn y mae’r elusen yn ei wneud
+requiredDocuments.isFinancialAccounts.answerTrue = cyfrifon ariannol cymeradwy – megis yr hyn y byddech yn ei anfon at reolydd neu Dŷ’r Cwmnïau
+requiredDocuments.isBankStatements.answerTrue = copïau o gyfriflenni banc yr elusen ar gyfer y 3 mis diwethaf
+requiredDocuments.isBankStatements.answerAlternative = (UPDATED)llythyr oddi wrth y banc gydag enw a manylion banc yr elusen – gan gynnwys rhif y cyfrif a’r cod didoli(UPDATED)
+requiredDocuments.selectWhyNoRegulator.answerTrue = tystysgrif cofrestru oddi wrth y corff llywodraethol
+requiredDocuments.foreignAddresses.answerTrue = manylion adnabod ar gyfer: {0} – ei basbort, cerdyn adnabod neu fil cyfleustodau o’r 3 mis diwethaf
 
 # Email or post page Messages
 # ----------------------------------------------------------
-emailOrPost.title = (W)Would you prefer to send us the charity’s supporting documents by email or post?(W)
-emailOrPost.heading = (W)Would you prefer to send us the charity’s supporting documents by email or post?(W)
-emailOrPost.p = (W)You need to send us the charity’s:(W)
-emailOrPost.yes = (W)Email(W)
-emailOrPost.no = (W)Post(W)
-emailOrPost.error.required = (W)Select if you would prefer to send the charity’s supporting documents by email or post(W)
+emailOrPost.title = A fyddai’n well gennych anfon dogfennau ategol yr elusen atom drwy e-bost neu drwy’r post?
+emailOrPost.heading = A fyddai’n well gennych anfon dogfennau ategol yr elusen atom drwy e-bost neu drwy’r post?
+emailOrPost.p = Mae angen i chi anfon y canlynol:
+emailOrPost.yes = E-bost yr elusen
+emailOrPost.no = Cyfeiriad post yr elusen
+emailOrPost.error.required = Dewiswch a fyddai’n well gennych anfon dogfennau ategol yr elusen drwy e-bost neu drwy’r post
 
 # Registration sent page Messages
 # ----------------------------------------------------------
-registrationSent.title = (W)Registration sent(W)
-registrationSent.heading = (W)Registration sent(W)
-registrationSent.submissionDate = (W)Submitted:(W)
-registrationSent.email.h2 = (W)Send us the documents by email(W)
-registrationSent.post.h2 = (W)Send us the documents by post(W)
-registrationSent.step1 = (W)Step 1: Prepare the documents(W)
-registrationSent.p3.beforeRefNo = (W)You need to make copies and add your reference number(W)
-registrationSent.p3.afterRefNo = (W)to:(W)
-registrationSent.post.step2 = (W)Step 2: Post copies of the documents(W)
-registrationSent.email.step2 = (W)Step 2: Send copies of the documents by {0}(W)
-registrationSent.p4.beforeRegistrations = (W)Add the word(W)
-registrationSent.p4.keyWord = (W)Registrations(W)
-registrationSent.p4.beforeRegNo = (W)and your reference number(W)
-registrationSent.p4.afterRegNo = (W)to the subject line and(W)
-registrationSent.p4.link = (W)send the documents by email to contactcharities@hmrc.gov.uk(W)
+registrationSent.title = Cofrestriad wedi’i anfon
+registrationSent.heading = Cofrestriad wedi’i anfon
+registrationSent.submissionDate = Cyflwynwyd:
+registrationSent.email.h2 = Anfonwch y dogfennau atom drwy e-bost
+registrationSent.post.h2 = Anfonwch y dogfennau atom drwy’r post
+registrationSent.step1 = Cam 1: Paratoi’r dogfennau
+registrationSent.p3.beforeRefNo = Mae angen i chi wneud copïau ac ychwanegu’ch cyfeirnod
+registrationSent.p3.afterRefNo = at:
+registrationSent.post.step2 = Cam 2: Postio copïau o’r dogfennau
+registrationSent.email.step2 = Cam 2: Anfon copïau o’r dogfennau erbyn {0}
+registrationSent.p4.beforeRegistrations = Ychwanegwch y gair
+registrationSent.p4.keyWord = Cofrestriadau
+registrationSent.p4.beforeRegNo = a’ch cyfeirnod
+registrationSent.p4.afterRegNo = at y llinell pwnc ac
+registrationSent.p4.link = anfonwch y dogfennau drwy e-bost i contactcharities@hmrc.gov.uk
 
-registrationSent.p4.receiveBy = (W)We must receive the documents by(W)
-registrationSent.p4.applyAgain = (W). If we do not receive the documents by this date, you will have to apply again.(W)
-registrationSent.p4.postTo = (W)You should post the documents to:(W)
-registrationSent.email.prefer.h2 = (W)If you would prefer to send documents by post(W)
-registrationSent.email.prefer.p = (W)You can(W)
-registrationSent.email.prefer.link = (W)follow the instructions to send your charity’s supporting documents by post(W)
-registrationSent.email.prefer.afterLink = (W).(W)
-registrationSent.post.prefer.h2 = (W)If you would prefer to send documents by email(W)
-registrationSent.post.prefer.p = (W)You can(W)
-registrationSent.post.prefer.link = (W)follow the instructions to send your charity’s supporting documents by email(W)
-registrationSent.post.prefer.afterLink = (W).(W)
+registrationSent.p4.receiveBy = Mae’n rhaid i’r dogfennau ddod i law erbyn
+registrationSent.p4.applyAgain = . Os nad yw’r dogfennau yn dod i law erbyn y dyddiad hwn, bydd angen i chi wneud cais eto.
+registrationSent.p4.postTo = Dylech bostio’r dogfennau i:
+registrationSent.email.prefer.h2 = Os yw’n well gennych anfon dogfennau drwy’r post
+registrationSent.email.prefer.p = Gallwch
+registrationSent.email.prefer.link = ddilyn y cyfarwyddiadau i anfon dogfennau ategol eich elusen drwy’r post
+registrationSent.email.prefer.afterLink = .
+registrationSent.post.prefer.h2 = Os yw’n well gennych anfon dogfennau drwy e-bost
+registrationSent.post.prefer.p = Gallwch
+registrationSent.post.prefer.link = ddilyn y cyfarwyddiadau i anfon dogfennau ategol eich elusen drwy e-bost
+registrationSent.post.prefer.afterLink = .
 
-registrationSent.whatHappensNext.h2 = (W)What happens after we receive your documents(W)
-registrationSent.whatHappensNext.p1 = (W)It can take up to 6 weeks to process your registration.(W)
-registrationSent.whatHappensNext.p2 = (W)We will then send letters to the officials and the nominee to confirm that they have been registered with the charity.(W)
-registrationSent.whatHappensNext.p3 = (W)We will also send a letter to the charity’s postal address that will tell you how to claim gift aid.(W)
-registrationSent.changeSomething = (W)If you need to change something(W)
-registrationSent.changeSomething.p1 = (W)If there is something you need to change in your application, contact the charities helpline on(W)
-registrationSent.changeSomething.helplineNumber = (W)0300 123 1073(W)
-registrationSent.changeSomething.afterHelplineNumber = (W).(W)
+registrationSent.whatHappensNext.h2 = Yr hyn sy’n digwydd ar ôl i’ch dogfennau ddod i law
+registrationSent.whatHappensNext.p1 = Gall gymryd hyd at 6 wythnos i brosesu’ch cofrestriad.
+registrationSent.whatHappensNext.p2 = Byddwn wedyn yn anfon llythyrau at y swyddogion a’r enwebai i gadarnhau eu bod wedi’u cofrestru gyda’r elusen.
+registrationSent.whatHappensNext.p3 = Byddwn hefyd yn anfon llythyr at gyfeiriad post yr elusen a fydd yn rhoi gwybod i chi sut i hawlio Rhodd Cymorth.
+registrationSent.changeSomething = Os oes angen i chi newid rhywbeth
+registrationSent.changeSomething.p1 = Os oes angen i chi newid rhywbeth ar eich cais, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM ar
+registrationSent.changeSomething.helplineNumber = 0300 200 1900
+registrationSent.changeSomething.afterHelplineNumber = .
 
-registrationSent.p1 = (W)Your reference number(W)
-registrationSent.p5 = (W)Charities, Savings & International 2(W)
-registrationSent.p6 = (W)HMRC(W)
-registrationSent.p7 = (W)BX9 1BU(W)
-registrationSent.p9 = (W)(takes 30 seconds).(W)
-registrationSent.warning = (W)Do not send original documents. We cannot return any documents you send to us.(W)
-registrationSent.link = (W)What do you think of this service?(W)
+registrationSent.p1 = Eich cyfeirnod
+registrationSent.p5 = Elusennau, Cynilion a Rhyngwladol
+registrationSent.p5.welsh = Gwasanaeth Cwsmeriaid Cymraeg CThEM
+registrationSent.p6 = HMRC
+registrationSent.p7 = BX9 1ST
+registrationSent.p9 = (mae’n cymryd 30 eiliad).
+registrationSent.warning = Peidiwch ag anfon dogfennau gwreiddiol. Ni allwn ddychwelyd unrhyw ddogfennau yr ydych yn eu hanfon atom.
+registrationSent.link = Beth yw’ch barn am y gwasanaeth hwn?
 
 # Your application is being processed - submitted in old service messages
 # ----------------------------------------------------------
-beingProcessedOldSubmission.title = (W)Your application is being processed(W)
-beingProcessedOldSubmission.heading = (W)Your application is being processed(W)
-beingProcessedOldSubmission.whatHappensNext.h2 = (W)What happens after we receive your supporting documents(W)
-beingProcessedOldSubmission.whatHappensNext.p2 = (W)We will send letters to the officials and the nominee to confirm that they have been registered with the charity.(W)
+beingProcessedOldSubmission.title = Mae’ch cais wrthi’n cael ei brosesu
+beingProcessedOldSubmission.heading = Mae’ch cais wrthi’n cael ei brosesu
+beingProcessedOldSubmission.whatHappensNext.h2 = Yr hyn sy’n digwydd ar ôl i’ch dogfennau ategol ddod i law
+beingProcessedOldSubmission.whatHappensNext.p2 = Byddwn yn anfon llythyrau at y swyddogion a’r enwebai i gadarnhau eu bod wedi’u cofrestru â’r elusen.
 
 # Cannot Find Application page Messages
 # ----------------------------------------------------------
@@ -279,1453 +280,1433 @@ switchOverError.p3.link = (W)Continue with your application(W)
 
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
-checkIfYouCanRegister.title = (W)Check if you can register the charity(W)
-checkIfYouCanRegister.heading = (W)Check if you can register the charity(W)
-checkIfYouCanRegister.p1 = (W)Use this service to check if the charity can register for tax purposes.(W)
+checkIfYouCanRegister.title = Gwirio a allwch gofrestru’r elusen
+checkIfYouCanRegister.heading = Gwirio a allwch gofrestru’r elusen
+checkIfYouCanRegister.p1 = Defnyddiwch y gwasanaeth hwn i wirio a all yr elusen gofrestru at ddibenion treth.
 
 # IsEligiblePurposePage Messages
 # ----------------------------------------------------------
-isEligiblePurpose.title = (W)Is the charity for charitable purposes only?(W)
-isEligiblePurpose.heading = (W)Is the charity for charitable purposes only?(W)
-isEligiblePurpose.p = (W)A charitable purpose is one that falls within one or more of 13 ‘descriptions of purposes’ listed in the Charities Act. For example, education, relief of poverty or religion. All charitable purposes benefit the public in some way.(W)
-isEligiblePurpose.checkYourAnswersLabel = (W)Is your charity for charitable purposes only?(W)
-isEligiblePurpose.error.required = (W)Select yes if the charity is for charitable purposes only(W)
+isEligiblePurpose.title = A yw’r elusen at ddibenion elusennol yn unig?
+isEligiblePurpose.heading = A yw’r elusen at ddibenion elusennol yn unig?
+isEligiblePurpose.p = Ystyr diben elusennol yw un sy’n dod o fewn un neu fwy o’r 13 o ddisgrifiadau o ddibenion a restrir yn y Ddeddf Elusennau. Er enghraifft, addysg, cynorthwyo gyda thlodi neu grefydd. Mae pob diben elusennol o fudd i’r cyhoedd mewn rhyw ffordd.
+isEligiblePurpose.checkYourAnswersLabel = A yw’ch elusen at ddibenion elusennol yn unig?
+isEligiblePurpose.error.required = Dewiswch ‘Iawn’ os yw’r elusen at ddibenion elusennol yn unig
 
 # IsEligibleAccountPage Messages
 # ----------------------------------------------------------
-isEligibleAccount.title = (W)Does the charity have a UK bank, building society or credit union account?(W)
-isEligibleAccount.heading = (W)Does the charity have a UK bank, building society or credit union account?(W)
-isEligibleAccount.checkYourAnswersLabel = (W)Does your charity have a UK bank, building society or credit union account?(W)
-isEligibleAccount.error.required = (W)Select yes if the charity has a UK bank, building society or credit union account(W)
+isEligibleAccount.title = A oes gan yr elusen gyfrif banc, cymdeithas adeiladu neu undeb credyd yn y DU?
+isEligibleAccount.heading = A oes gan yr elusen gyfrif banc, cymdeithas adeiladu neu undeb credyd yn y DU?
+isEligibleAccount.checkYourAnswersLabel = A oes gan eich elusen gyfrif banc, cymdeithas adeiladu neu undeb credyd yn y DU?
+isEligibleAccount.error.required = Dewiswch ‘Iawn’ os oes gan yr elusen gyfrif banc, cymdeithas adeiladu neu undeb credyd yn y DU
 
 # IsEligibleLocationPage Messages
 # ----------------------------------------------------------
-isEligibleLocation.title = (W)Is the charity based in the UK?(W)
-isEligibleLocation.heading = (W)Is the charity based in the UK?(W)
-isEligibleLocation.checkYourAnswersLabel = (W)Is your charity based in the UK?(W)
-isEligibleLocation.error.required = (W)Select yes if the charity is based in the UK(W)
+isEligibleLocation.title = A yw’r elusen wedi’i lleoli yn y DU?
+isEligibleLocation.heading = A yw’r elusen wedi’i lleoli yn y DU?
+isEligibleLocation.checkYourAnswersLabel = A yw’ch elusen wedi’i lleoli yn y DU?
+isEligibleLocation.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’i lleoli yn y DU
 
 # IsEligibleLocationOtherPage Messages
 # ----------------------------------------------------------
-isEligibleLocationOther.title = (W)Is the charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
-isEligibleLocationOther.heading = (W)Is the charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
-isEligibleLocationOther.details = (W)Countries in the European Union(W)
-isEligibleLocationOther.austria = (W)Austria(W)
-isEligibleLocationOther.belgium = (W)Belgium(W)
-isEligibleLocationOther.bulgaria = (W)Bulgaria(W)
-isEligibleLocationOther.croatia = (W)Croatia(W)
-isEligibleLocationOther.republicOfCyprus = (W)Republic of Cyprus(W)
-isEligibleLocationOther.czechRepublic = (W)Czech Republic(W)
-isEligibleLocationOther.denmark = (W)Denmark(W)
-isEligibleLocationOther.estonia = (W)Estonia(W)
-isEligibleLocationOther.finland = (W)Finland(W)
-isEligibleLocationOther.france = (W)France(W)
-isEligibleLocationOther.germany = (W)Germany(W)
-isEligibleLocationOther.greece = (W)Greece(W)
-isEligibleLocationOther.hungary = (W)Hungary(W)
-isEligibleLocationOther.ireland = (W)Ireland(W)
-isEligibleLocationOther.italy = (W)Italy(W)
-isEligibleLocationOther.latvia = (W)Latvia(W)
-isEligibleLocationOther.lithuania = (W)Lithuania(W)
-isEligibleLocationOther.luxembourg = (W)Luxembourg(W)
-isEligibleLocationOther.malta = (W)Malta(W)
-isEligibleLocationOther.netherlands = (W)Netherlands(W)
-isEligibleLocationOther.poland = (W)Poland(W)
-isEligibleLocationOther.portugal = (W)Portugal(W)
-isEligibleLocationOther.romania = (W)Romania(W)
-isEligibleLocationOther.slovakia = (W)Slovakia(W)
-isEligibleLocationOther.slovenia = (W)Slovenia(W)
-isEligibleLocationOther.spain = (W)Spain(W)
-isEligibleLocationOther.sweden = (W)Sweden(W)
-isEligibleLocationOther.checkYourAnswersLabel = (W)Is your charity based in the European Union, Iceland, Liechtenstein or Norway?(W)
-isEligibleLocationOther.error.required = (W)Select yes if the charity is based in the European Union, Iceland, Liechtenstein or Norway(W)
+isEligibleLocationOther.title = A yw’r elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy?
+isEligibleLocationOther.heading = A yw’r elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy?
+isEligibleLocationOther.details = Gwledydd yn yr Undeb Ewropeaidd
+isEligibleLocationOther.austria = Awstria
+isEligibleLocationOther.belgium = Gwlad Belg
+isEligibleLocationOther.bulgaria = Bwlgaria
+isEligibleLocationOther.croatia = Croatia
+isEligibleLocationOther.republicOfCyprus = Gweriniaeth Cyprus
+isEligibleLocationOther.czechRepublic = Y Weriniaeth Tsiec
+isEligibleLocationOther.denmark = Denmarc
+isEligibleLocationOther.estonia = Estonia
+isEligibleLocationOther.finland = Y Ffindir
+isEligibleLocationOther.france = Ffrainc
+isEligibleLocationOther.germany = Yr Almaen
+isEligibleLocationOther.greece = Gwlad Groeg
+isEligibleLocationOther.hungary = Hwngari
+isEligibleLocationOther.ireland = Iwerddon
+isEligibleLocationOther.italy = Yr Eidal
+isEligibleLocationOther.latvia = Latvia
+isEligibleLocationOther.lithuania = Lithuania
+isEligibleLocationOther.luxembourg = Lwcsembwrg
+isEligibleLocationOther.malta = Malta
+isEligibleLocationOther.netherlands = Yr Iseldiroedd
+isEligibleLocationOther.poland = Gwlad Pwyl
+isEligibleLocationOther.portugal = Portiwgal
+isEligibleLocationOther.romania = România
+isEligibleLocationOther.slovakia = Slofakia
+isEligibleLocationOther.slovenia = Slofenia
+isEligibleLocationOther.spain = Sbaen
+isEligibleLocationOther.sweden = Sweden
+isEligibleLocationOther.checkYourAnswersLabel = A yw’ch elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy?
+isEligibleLocationOther.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy
 
 # InEligible Page Messages
 # ----------------------------------------------------------
-notEligible.title = (W)You cannot register the charity with HMRC(W)
-notEligible.heading = (W)You cannot register the charity with HMRC(W)
-notEligible.p2 = (W)If things change, you should check back to see if you can register the charity with HMRC.(W)
-notEligible.p3 = (W)For more information,(W)
-notEligible.p3.link = (W)check the guidance on charitable purposes(W)
+notEligible.title = Ni allwch gofrestru’r elusen gyda CThEM
+notEligible.heading = Ni allwch gofrestru’r elusen gyda CThEM
+notEligible.p2 = Os yw pethau’n newid, dylech wirio eto i weld a allwch gofrestru’r elusen gyda CThEM.
+notEligible.p3 = I gael rhagor o wybodaeth,
+notEligible.p3.link = gwiriwch yr arweiniad ar ddibenion elusennol
 
 # InEligibleCharitablePurposes Page Messages
 # ----------------------------------------------------------
-notEligible.charitablePurposes.p1 = (W)To use this service the charity must be established for charitable purposes only.(W)
+notEligible.charitablePurposes.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod y sefydliad wedi’i sefydlu at ddibenion elusennol yn unig.
 
 # InEligibleLocationOther Page Messages
 # ----------------------------------------------------------
-notEligible.locationOther.p1 = (W)To use this service the charity must be based in the UK, European Union, Iceland, Liechtenstein or Norway.(W)
+notEligible.locationOther.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod yr elusen wedi’i lleoli yn y DU, yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy
 
 # InEligibleBank Page Messages
 # ----------------------------------------------------------
-notEligible.bank.p1 = (W)To use this service the charity must have a UK bank, building society or credit union account.(W)
+notEligible.bank.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod gan yr elusen gyfrif banc, cymdeithas adeiladu neu undeb gredyd yn y DU.
 
 # EligibleCharity Page Messages
 # ----------------------------------------------------------
-eligibleCharity.title = (W)The charity is eligible for this service(W)
-eligibleCharity.heading = (W)The charity is eligible for this service(W)
-eligibleCharity.p1 = (W)Next you need to sign in using the charity’s Government Gateway ID. You can set up a new Government Gateway for the charity if you need to.(W)
+eligibleCharity.title = Mae’r elusen yn gymwys ar gyfer y gwasanaeth hwn
+eligibleCharity.heading = Mae’r elusen yn gymwys ar gyfer y gwasanaeth hwn
+eligibleCharity.p1 = Nesaf, mae angen i chi fewngofnodi gan ddefnyddio Dynodydd Defnyddiwr (ID) yr elusen ar gyfer Porth y Llywodraeth. Gallwch greu cyfrif Porth y Llywodraeth newydd i’r elusen os bydd angen.
 
 # Section1 - Contact Details
 # ----------------------------------------------------------
-contactDetail.section = (W)Contact details(W)
+contactDetail.section = (UPDATED)Gwybodaeth am yr elusen(UPDATED)
 
 # StartInformationPage Messages
 # ----------------------------------------------------------
-startInformation.title = (W)The charity’s contact details(W)
-startInformation.heading = (W)The charity’s contact details(W)
-startInformation.p1 = (W)You need to add the charity’s:(W)
-startInformation.b1 = (W)name and operating name(W)
-startInformation.b2 = (W)address(W)
-startInformation.b3 = (W)postal address(W)
+startInformation.title = Manylion cyswllt yr elusen
+startInformation.heading = Manylion cyswllt yr elusen
+startInformation.p1 = Mae angen i chi ychwanegu:
+startInformation.b1 = enw ac enw gweithredol yr elusen
+startInformation.b2 = cyfeiriad yr elusen
+startInformation.b3 = cyfeiriad post yr elusen
 
 # CharityNamePage Messages
 # ----------------------------------------------------------
-charityName.title = (W)The charity’s name(W)
-charityName.heading = (W)The charity’s name(W)
-charityName.fullName.label = (W)Full name of the charity(W)
-charityName.fullName.hint = (W)As shown on the charity’s governing document(W)
-charityName.fullName.error.required = (W)Enter the full name of the charity(W)
-charityName.fullName.error.length = (W)Charity’s full name must be 60 characters or less(W)
-charityName.fullName.error.format = (W)Charity’s full name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-charityName.operatingName.label = (W)Operating name of the charity (optional)(W)
-charityName.operatingName.hint = (W)The working name or acronym by which the charity is known(W)
-charityName.operatingName.error.length = (W)Charity’s operating name must be 160 characters or less(W)
-charityName.operatingName.error.format = (W)Charity’s operating name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-charityName.fullName.checkYourAnswersLabel = (W)Full name(W)
-charityName.operatingName.checkYourAnswersLabel = (W)Operating name(W)
+charityName.title = Enw’r elusen
+charityName.heading = Enw’r elusen
+charityName.fullName.label = Enw llawn yr elusen
+charityName.fullName.hint = Fel y dangosir ar ddogfen lywodraethu’r elusen
+charityName.fullName.error.required = Nodwch enw llawn yr elusen
+charityName.fullName.error.length = Mae’n rhaid i enw llawn yr elusen fod yn 60 o gymeriadau neu lai
+charityName.fullName.error.format = Mae’n rhaid i enw llawn yr elusen gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+charityName.operatingName.label = Enw gweithredol yr elusen (dewisol)
+charityName.operatingName.hint = Yr enw ar waith neu’r acronym y mae’r elusen yn cael ei chydnabod ganddo
+charityName.operatingName.error.length = Mae’n rhaid i enw gweithredol yr elusen fod yn 160 o gymeriadau neu lai
+charityName.operatingName.error.format = Mae’n rhaid i enw gweithredol yr elusen gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+charityName.fullName.checkYourAnswersLabel = Enw llawn
+charityName.operatingName.checkYourAnswersLabel = Enw gweithredol
 
 # CharityContactDetailsPage Messages
 # ----------------------------------------------------------
-charityContactDetails.title = (W)The charity’s contact details(W)
-charityContactDetails.heading = (W)The charity’s contact details(W)
-charityContactDetails.mainPhoneNumber.label = (W)Main phone number(W)
-charityContactDetails.mainPhoneNumber.error.format = (W)Enter the charity’s main phone number, like 01632 960 001(W)
-charityContactDetails.mainPhoneNumber.error.required = (W)Enter the charity’s main phone number(W)
-charityContactDetails.alternativePhoneNumber.label = (W)Alternative phone number (optional)(W)
-charityContactDetails.alternativePhoneNumber.error.format = (W)Enter the charity’s alternative phone number, like 01632 960 001(W)
-charityContactDetails.emailAddress.label = (W)Email address(W)
-charityContactDetails.emailAddress.error.required = (W)Enter the charity’s email address(W)
-charityContactDetails.emailAddress.error.format = (W)Enter the charity’s email address in the correct format, like name@example.com(W)
-charityContactDetails.emailAddress.error.length = (W)Email address must be 160 characters or less(W)
-charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
-charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
-charityContactDetails.emailAddress.checkYourAnswersLabel = (W)Email address(W)
+charityContactDetails.title = Manylion cyswllt yr elusen
+charityContactDetails.heading = Manylion cyswllt yr elusen
+charityContactDetails.mainPhoneNumber.label = Prif rif ffôn
+charityContactDetails.mainPhoneNumber.error.format = Nodwch brif rif ffôn yr elusen, megis 01632 960 001
+charityContactDetails.mainPhoneNumber.error.required = Nodwch brif rif ffôn yr elusen
+charityContactDetails.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
+charityContactDetails.alternativePhoneNumber.error.format = Nodwch brif rif ffôn arall yr elusen, megis 01632 960 001
+charityContactDetails.emailAddress.label = Cyfeiriad e-bost
+charityContactDetails.emailAddress.error.required = Nodwch gyfeiriad e-bost yr elusen
+charityContactDetails.emailAddress.error.format = Nodwch gyfeiriad e-bost yr elusen yn y fformat cywir, fel enw@enghraifft.com
+charityContactDetails.emailAddress.error.length = Mae’n rhaid i’r cyfeiriad e-bost fod yn 160 o gymeriadau neu lai
+charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
+charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
+charityContactDetails.emailAddress.checkYourAnswersLabel = Cyfeiriad e-bost
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = (W)What is the charity’s address? - Contact details(W)
-charityOfficialAddress.lookupPage.heading = (W)What is the charity’s address?(W)
-charityOfficialAddress.lookupPage.manualAddressLinkText = (W)Charity’s address does not have a UK postcode(W)
+charityOfficialAddress.lookupPage.title = (UPDATED)Beth yw cyfeiriad yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityOfficialAddress.lookupPage.heading = Beth yw cyfeiriad yr elusen?
+charityOfficialAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad yr elusen god post yn y DU
 
-charityOfficialAddress.selectPage.title = (W)What is the charity’s full address? - Contact details(W)
-charityOfficialAddress.selectPage.heading = (W)What is the charity’s full address?(W)
-charityOfficialAddress.selectPage.editAddressLinkText = (W)Enter charity’s address manually(W)
+charityOfficialAddress.selectPage.title = (UPDATED)Beth yw cyfeiriad llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityOfficialAddress.selectPage.heading = Beth yw cyfeiriad llawn yr elusen?
+charityOfficialAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad yr elusen â llaw
 
-charityOfficialAddress.editPage.title = (W)What is the charity’s full address? - Contact details(W)
-charityOfficialAddress.editPage.heading = (W)What is the charity’s full address?(W)
+charityOfficialAddress.editPage.title = (UPDATED)Beth yw cyfeiriad llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityOfficialAddress.editPage.heading = Beth yw cyfeiriad llawn yr elusen?
 
-charityOfficialAddress.confirmPage.title = (W)Confirm the charity’s address - Contact details(W)
-charityOfficialAddress.confirmPage.heading = (W)Confirm the charity’s address(W)
-charityOfficialAddress.confirmPage.changeLinkText = (W)Change charity’s address(W)
+charityOfficialAddress.confirmPage.title = (UPDATED)Cadarnhau cyfeiriad llawn yr elusen – Gwybodaeth am yr elusen(UPDATED)
+charityOfficialAddress.confirmPage.heading = Cadarnhau cyfeiriad llawn yr elusen
+charityOfficialAddress.confirmPage.changeLinkText = Newid cyfeiriad yr elusen
 
-charityOfficialAddress.addressLookup.checkYourAnswersLabel = (W)Address(W)
+charityOfficialAddress.addressLookup.checkYourAnswersLabel = Cyfeiriad
 
 # CanWeSendLettersToThisAddressPage Messages
 # ----------------------------------------------------------
 
-canWeSendLettersToThisAddress.title = (W)Can we send letters to this address?(W)
-canWeSendLettersToThisAddress.heading = (W)Can we send letters to this address?(W)
-canWeSendLettersToThisAddress.error.required = (W)Select yes if we can send letters to this address(W)
-canWeSendLettersToThisAddress.no.hint = (W)I want to enter another address(W)
-canWeSendLettersToThisAddress.checkYourAnswersLabel = (W)Send letters to this address(W)
+canWeSendLettersToThisAddress.title = A allwn anfon llythyrau i’r cyfeiriad hwn?
+canWeSendLettersToThisAddress.heading = A allwn anfon llythyrau i’r cyfeiriad hwn?
+canWeSendLettersToThisAddress.error.required = Dewiswch ‘Iawn’ os gallwn anfon llythyrau i’r cyfeiriad hwn
+canWeSendLettersToThisAddress.no.hint = Hoffwn nodi cyfeiriad arall
+canWeSendLettersToThisAddress.checkYourAnswersLabel = Anfon llythyrau i’r cyfeiriad hwn
 
 # Charity Postal Address Messages
 # ----------------------------------------------------------
-charityPostalAddress.lookupPage.title = (W)What is the charity’s postal address? - Contact details(W)
-charityPostalAddress.lookupPage.heading = (W)What is the charity’s postal address?(W)
-charityPostalAddress.lookupPage.manualAddressLinkText = (W)Charity’s postal address does not have a UK postcode(W)
+charityPostalAddress.lookupPage.title = (UPDATED)Beth yw cyfeiriad post yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.lookupPage.heading = Beth yw cyfeiriad post yr elusen?
+charityPostalAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad post yr elusen god post yn y DU
 
-charityPostalAddress.selectPage.title = (W)What is the charity’s full postal address? - Contact details(W)
-charityPostalAddress.selectPage.heading = (W)What is the charity’s full postal address?(W)
-charityPostalAddress.selectPage.editAddressLinkText = (W)Enter charity’s postal address manually(W)
+charityPostalAddress.selectPage.title = (UPDATED)Beth yw cyfeiriad post llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.selectPage.heading = Beth yw cyfeiriad post llawn yr elusen?
+charityPostalAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad post llawn yr elusen â llaw
 
-charityPostalAddress.editPage.title = (W)What is the charity’s full postal address? - Contact details(W)
-charityPostalAddress.editPage.heading = (W)What is the charity’s full postal address?(W)
+charityPostalAddress.editPage.title = (UPDATED)Beth yw cyfeiriad post llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.editPage.heading = Beth yw cyfeiriad post llawn yr elusen?
 
-charityPostalAddress.confirmPage.title = (W)Confirm the charity’s postal address - Contact details(W)
-charityPostalAddress.confirmPage.heading = (W)Confirm the charity’s postal address(W)
-charityPostalAddress.confirmPage.changeLinkText = (W)Change charity’s postal address(W)
+charityPostalAddress.confirmPage.title = (UPDATED)Cadarnhau cyfeiriad post yr elusen – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.confirmPage.heading = Cadarnhau cyfeiriad post yr elusen
+charityPostalAddress.confirmPage.changeLinkText = Newid cyfeiriad post yr elusen
 
-charityPostalAddress.addressLookup.checkYourAnswersLabel = (W)Postal address(W)
+charityPostalAddress.addressLookup.checkYourAnswersLabel = Cyfeiriad post
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
-charityInformationSummary.checkYourAnswers.title = (W)Check the charity’s contact details(W)
-charityInformationSummary.checkYourAnswers.heading = (W)Check the charity’s contact details(W)
-charityInformationSummary.section = (W)Contact details(W)
+charityInformationSummary.checkYourAnswers.title = Gwirio manylion cyswllt yr elusen
+charityInformationSummary.checkYourAnswers.heading = Gwirio manylion cyswllt yr elusen
+charityInformationSummary.section = (UPDATED)Gwybodaeth am yr elusen(UPDATED)
 
 # Section2 - Regulators and documents
 # ----------------------------------------------------------
-charityRegulator.section = (W)Regulators and documents(W)
+charityRegulator.section = Rheolyddion a dogfennau
 
 # StartCharityRegulatorPage Messages
 # ----------------------------------------------------------
-startCharityRegulator.title = (W)The charity’s regulators(W)
-startCharityRegulator.heading = (W)The charity’s regulators(W)
-startCharityRegulator.p1 = (W)You need to add the charity’s:(W)
-startCharityRegulator.b1 = (W)regulators(W)
-startCharityRegulator.b2 = (W)regulator registration numbers(W)
+startCharityRegulator.title = Rheolyddion yr elusen
+startCharityRegulator.heading = Rheolyddion yr elusen
+startCharityRegulator.p1 = Mae angen i chi ychwanegu:
+startCharityRegulator.b1 = rheolyddion yr elusen
+startCharityRegulator.b2 = rhifau cofrestru rheolyddion yr elusen
 
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
-isCharityRegulator.title = (W)Is the charity registered with a charity regulator?(W)
-isCharityRegulator.heading = (W)Is the charity registered with a charity regulator?(W)
-isCharityRegulator.hint = (W)A charity regulator is an independent organisation that checks how charities are run. For example, the Charity Commission for England and Wales, the Office of the Scottish Charity Regulator, or the Charity Commission for Northern Ireland.(W)
-isCharityRegulator.error.required = (W)Select yes if the charity is registered with a charity regulator(W)
-isCharityRegulator.checkYourAnswersLabel = (W)Registered with a charity regulator(W)
+isCharityRegulator.title = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
+isCharityRegulator.heading = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
+isCharityRegulator.hint = Sefydliad annibynnol yw rheolydd elusen sy’n gwirio sut mae elusennau’n cael eu rhedeg. Er enghraifft, y Comisiwn Elusennau ar gyfer Cymru a Lloegr, Swyddfa Rheolydd Elusennau’r Alban, neu’r Comisiwn Elusennau ar gyfer Gogledd Iwerddon.
+isCharityRegulator.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’i chofrestru â rheolydd elusen
+isCharityRegulator.checkYourAnswersLabel = Wedi’i chofrestru â rheolydd elusen
 
 # Enter Charity Regulator Messages
 # ----------------------------------------------------------
-charityRegulator.title = (W)Who are the charity’s regulators?(W)
-charityRegulator.heading = (W)Who are the charity’s regulators?(W)
-charityRegulator.hint = (W)Select all that apply.(W)
-charityRegulator.error.required = (W)Select the charity’s regulators(W)
-charityRegulator.ccew = (W)Charity Commission for England and Wales(W)
-charityRegulator.oscr = (W)Office of the Scottish Charity Regulator(W)
-charityRegulator.ccni = (W)Charity Commission for Northern Ireland(W)
-charityRegulator.otherRegulator = (W)Other(W)
-charityRegulator.checkYourAnswersLabel = (W)Charity’s regulators(W)
+charityRegulator.title = Pwy yw rheolyddion yr elusen?
+charityRegulator.heading = Pwy yw rheolyddion yr elusen?
+charityRegulator.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+charityRegulator.error.required = Dewiswch reolyddion yr elusen
+charityRegulator.ccew = Comisiwn Elusennau ar gyfer Cymru a Lloegr
+charityRegulator.oscr = Swyddfa Rheolydd Elusennau’r Alban
+charityRegulator.ccni = Comisiwn Elusennau ar gyfer Gogledd Iwerddon
+charityRegulator.otherRegulator = Arall
+charityRegulator.checkYourAnswersLabel = Rheolyddion yr elusen
 
 # CharityCommissionRegistrationNumberPage Messages
 # ----------------------------------------------------------
-charityCommissionRegistrationNumber.title = (W)What is the Charity Commission for England and Wales registration number?(W)
-charityCommissionRegistrationNumber.heading = (W)What is the Charity Commission for England and Wales registration number?(W)
-charityCommissionRegistrationNumber.error.required = (W)Enter the charity’s registration number(W)
-charityCommissionRegistrationNumber.error.format = (W)Registration number must be 6 or 7 numbers(W)
-charityCommissionRegistrationNumber.hint = (W)The registration number will be on any mail the regulator has sent the charity. For example, 123456 or 1234567(W)
-charityCommissionRegistrationNumber.checkYourAnswersLabel = (W)Charity Commission for England and Wales registration number(W)
+charityCommissionRegistrationNumber.title = Beth yw rhif cofrestru’r Comisiwn Elusennau ar gyfer Cymru a Lloegr?
+charityCommissionRegistrationNumber.heading = Beth yw rhif cofrestru’r Comisiwn Elusennau ar gyfer Cymru a Lloegr?
+charityCommissionRegistrationNumber.error.required = Nodwch rif cofrestru’r elusen
+charityCommissionRegistrationNumber.error.format = Mae’n rhaid i’r rhif cofrestru fod yn 6 neu’n 7 rhif
+charityCommissionRegistrationNumber.hint = Bydd y rhif cofrestru i’w weld ar unrhyw bost y mae’r rheolydd wedi’i anfon i’r elusen. Er enghraifft, 123456 neu 1234567
+charityCommissionRegistrationNumber.checkYourAnswersLabel = Rhif cofrestru’r Comisiwn Elusennau ar gyfer Cymru a Lloegr
 
 # ScottishRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-scottishRegulatorRegNumber.title = (W)What is the Office of the Scottish Charity Regulator (OSCR) registration number?(W)
-scottishRegulatorRegNumber.heading = (W)What is the Office of the Scottish Charity Regulator (OSCR) registration number?(W)
-scottishRegulatorRegNumber.error.required = (W)Enter the charity’s registration number(W)
-scottishRegulatorRegNumber.error.format = (W)Registration number must be SC followed by 6 numbers(W)
-scottishRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent the charity. For example, SC012345(W)
-scottishRegulatorRegNumber.checkYourAnswersLabel = (W)Office of the Scottish Charity Regulator registration number(W)
+scottishRegulatorRegNumber.title = Beth yw rhif cofrestru Swyddfa Rheolydd Elusennau’r Alban (OSCR)?
+scottishRegulatorRegNumber.heading = Beth yw rhif cofrestru Swyddfa Rheolydd Elusennau’r Alban (OSCR)?
+scottishRegulatorRegNumber.error.required = Nodwch rif cofrestru’r elusen
+scottishRegulatorRegNumber.error.format = Mae’n rhaid i’r rhif cofrestru gynnwys SC, wedi’i ddilyn gan 6 rhif
+scottishRegulatorRegNumber.hint = Bydd y rhif cofrestru i’w weld ar unrhyw bost y mae’r rheolydd wedi’i anfon i’r elusen. Er enghraifft, SC012345
+scottishRegulatorRegNumber.checkYourAnswersLabel = Rhif cofrestru Swyddfa Rheolydd Elusennau’r Alban
 
 # NIRegulatorRegNumberPage Messages
 # ----------------------------------------------------------
-nIRegulatorRegNumber.title = (W)What is the Charity Commission for Northern Ireland registration number?(W)
-nIRegulatorRegNumber.heading = (W)What is the Charity Commission for Northern Ireland registration number?(W)
-nIRegulatorRegNumber.error.required = (W)Enter the charity’s registration number(W)
-nIRegulatorRegNumber.error.format = (W)Registration number must be 6 numbers(W)
-nIRegulatorRegNumber.hint = (W)The registration number will be on any mail the regulator has sent the charity. For example, 123456(W)
-nIRegulatorRegNumber.checkYourAnswersLabel = (W)Charity Commission for Northern Ireland registration number(W)
+nIRegulatorRegNumber.title = Beth yw rhif cofrestru’r Comisiwn Elusennau ar gyfer Gogledd Iwerddon?
+nIRegulatorRegNumber.heading = Beth yw rhif cofrestru’r Comisiwn Elusennau ar gyfer Gogledd Iwerddon?
+nIRegulatorRegNumber.error.required = Nodwch rif cofrestru’r elusen
+nIRegulatorRegNumber.error.format = Mae’n rhaid i’r rhif cofrestru fod yn 6 rhif
+nIRegulatorRegNumber.hint = Bydd y rhif cofrestru i’w weld ar unrhyw bost y mae’r rheolydd wedi’i anfon i’r elusen. Er enghraifft, 123456
+nIRegulatorRegNumber.checkYourAnswersLabel = Rhif cofrestru’r Comisiwn Elusennau ar gyfer Gogledd Iwerddon
 
 # CharityOtherRegulatorDetailsPage Messages
 # ----------------------------------------------------------
-charityOtherRegulatorDetails.title = (W)The charity’s regulator details(W)
-charityOtherRegulatorDetails.heading = (W)The charity’s regulator details(W)
-charityOtherRegulatorDetails.regulatorName.label = (W)Name of the charity’s regulator(W)
-charityOtherRegulatorDetails.regulatorName.error.required = (W)Enter the name of the charity’s regulator(W)
-charityOtherRegulatorDetails.regulatorName.error.format = (W)Regulator name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-charityOtherRegulatorDetails.regulatorName.error.length = (W)Regulator name must be 100 characters or less(W)
-charityOtherRegulatorDetails.registrationNumber.label = (W)Registration number(W)
-charityOtherRegulatorDetails.registrationNumber.error.required = (W)Enter the charity’s registration number(W)
-charityOtherRegulatorDetails.registrationNumber.error.format = (W)Registration number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-charityOtherRegulatorDetails.registrationNumber.error.length = (W)Registration number must be 20 characters or less(W)
-charityOtherRegulatorDetails.hint = (W)The registration number will be on any mail the regulator has sent the charity.(W)
-charityOtherRegulatorDetails.name.checkYourAnswersLabel = (W)Charity’s other regulator(W)
-charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = (W)Registration number for the charity’s regulator(W)
+charityOtherRegulatorDetails.title = Manylion rheolydd yr elusen
+charityOtherRegulatorDetails.heading = Manylion rheolydd yr elusen
+charityOtherRegulatorDetails.regulatorName.label = Enw rheolydd yr elusen
+charityOtherRegulatorDetails.regulatorName.error.required = Nodwch enw rheolydd yr elusen
+charityOtherRegulatorDetails.regulatorName.error.format = Mae’n rhaid i enw’r rheolydd gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+charityOtherRegulatorDetails.regulatorName.error.length = Mae’n rhaid i enw’r rheolydd fod yn 100 o gymeriadau neu lai
+charityOtherRegulatorDetails.registrationNumber.label = Rhif cofrestru
+charityOtherRegulatorDetails.registrationNumber.error.required = Nodwch rif cofrestru’r elusen
+charityOtherRegulatorDetails.registrationNumber.error.format = Mae’n rhaid i’r rhif cofrestru gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+charityOtherRegulatorDetails.registrationNumber.error.length = Mae’n rhaid i’r rhif cofrestru fod yn 20 o gymeriadau neu lai
+charityOtherRegulatorDetails.hint = Bydd y rhif cofrestru i’w weld ar unrhyw bost y mae’r rheolydd wedi’i anfon i’r elusen.
+charityOtherRegulatorDetails.name.checkYourAnswersLabel = Rheolydd arall yr elusen
+charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel = Rhif cofrestru ar gyfer rheolydd yr elusen
 
 # Select why no regulator Messages
 # ----------------------------------------------------------
-selectWhyNoRegulator.title = (W)Why has the charity not registered with a regulator?(W)
-selectWhyNoRegulator.heading = (W)Why has the charity not registered with a regulator?(W)
-selectWhyNoRegulator.error.required = (W)Select why the charity has not registered with a regulator(W)
-selectWhyNoRegulator.1 = (W)Established in England and/or Wales and under gross income threshold(W)
-selectWhyNoRegulator.5 = (W)Exempt or excepted(W)
-selectWhyNoRegulator.4 = (W)No regulator in country of establishment(W)
-selectWhyNoRegulator.2 = (W)Parochial Church Councils under gross income threshold(W)
-selectWhyNoRegulator.3 = (W)Uniformed youth groups(W)
-selectWhyNoRegulator.7 = (W)Other(W)
-selectWhyNoRegulator.checkYourAnswersLabel = (W)Reason for not registering(W)
+selectWhyNoRegulator.title = Pam nad yw’r elusen wedi’i chofrestru â rheolydd?
+selectWhyNoRegulator.heading = Pam nad yw’r elusen wedi’i chofrestru â rheolydd?
+selectWhyNoRegulator.error.required = Dewiswch pam nad yw’r elusen wedi’i chofrestru â rheolydd
+selectWhyNoRegulator.1 = Wedi’i sefydlu yng Nghymru a/neu Loegr ac o dan y trothwy incwm gros
+selectWhyNoRegulator.5 = Yn eithriedig
+selectWhyNoRegulator.4 = Dim rheolydd yn y wlad y cafodd yr elusen ei sefydlu
+selectWhyNoRegulator.2 = Cynghorau Eglwysi Plwyfol sydd o dan y trothwy incwm gros
+selectWhyNoRegulator.3 = Grwpiau o ieuenctid gwisg unffurf
+selectWhyNoRegulator.7 = Arall
+selectWhyNoRegulator.checkYourAnswersLabel = Rheswm dros beidio â chofrestru
 
 # WhyNotRegisteredWithCharityPage Messages
 # ----------------------------------------------------------
-whyNotRegisteredWithCharity.title = (W)What is the other reason why the charity not registered with a regulator?(W)
-whyNotRegisteredWithCharity.heading = (W)What is the other reason why the charity not registered with a regulator?(W)
-whyNotRegisteredWithCharity.error.required = (W)Enter why the charity is not registered with a regulator(W)
-whyNotRegisteredWithCharity.error.format = (W)The reason why the charity is not registered with a regulator must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-whyNotRegisteredWithCharity.error.length = (W)Your answer must be 100 characters or fewer(W)
-whyNotRegisteredWithCharity.checkYourAnswersLabel = (W)Other reason for not registering(W)
+whyNotRegisteredWithCharity.title = Beth yw’r rheswm arall pam nad yw’r elusen wedi’i chofrestru â rheolydd?
+whyNotRegisteredWithCharity.heading = Beth yw’r rheswm arall pam nad yw’r elusen wedi’i chofrestru â rheolydd?
+whyNotRegisteredWithCharity.error.required = Nodwch pam nad yw’r elusen wedi’i chofrestru â rheolydd
+whyNotRegisteredWithCharity.error.format = Mae’n rhaid i’r rheswm pam nad yw’r elusen wedi’i chofrestru â rheolydd gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+whyNotRegisteredWithCharity.error.length = Mae’n rhaid i’ch ateb fod yn 100 o gymeriadau neu lai
+whyNotRegisteredWithCharity.checkYourAnswersLabel = Rheswm arall dros beidio â chofrestru
 
 # Regulators Summary page
 # ----------------------------------------------------------
-regulatorsSummary.checkYourAnswers.title = (W)Check the charity’s regulator details(W)
-regulatorsSummary.checkYourAnswers.heading = (W)Check the charity’s regulator details(W)
-regulatorsSummary.section = (W)Regulators and documents(W)
+regulatorsSummary.checkYourAnswers.title = Gwirio manylion rheolydd yr elusen
+regulatorsSummary.checkYourAnswers.heading = Gwirio manylion rheolydd yr elusen
+regulatorsSummary.section = Rheolyddion a dogfennau
 
 # Section3 - Documents
 # ----------------------------------------------------------
 
 # StartGoverningDocument Page Messages
 # ----------------------------------------------------------
-startGoverningDocument.title = (W)The charity’s governing document(W)
-startGoverningDocument.heading = (W)The charity’s governing document(W)
-startGoverningDocument.p1 = (W)You need to add the charity’s:(W)
-startGoverningDocument.b1 = (W)governing document type(W)
-startGoverningDocument.b2 = (W)governing document approval date(W)
+startGoverningDocument.title = Dogfen lywodaethru’r elusen
+startGoverningDocument.heading = Dogfen lywodaethru’r elusen
+startGoverningDocument.p1 = Mae angen i chi ychwanegu:
+startGoverningDocument.b1 = math o ddogfen lywodraethu’r elusen
+startGoverningDocument.b2 = dyddiad cymeradwyo dogfen lywodraethu’r elusen
 
 # Select Governing Document Messages
 # ----------------------------------------------------------
-selectGoverningDocument.title = (W)What governing document was used to set up and run the charity?(W)
-selectGoverningDocument.heading = (W)What governing document was used to set up and run the charity?(W)
-selectGoverningDocument.error.required = (W)Select the type of governing document that was used to set up and run the charity(W)
-selectGoverningDocument.1 = (W)Memorandum and articles of association(W)
-selectGoverningDocument.2 = (W)Royal Charter(W)
-selectGoverningDocument.3 = (W)Rules or constitution(W)
-selectGoverningDocument.4 = (W)Trust deed(W)
-selectGoverningDocument.5 = (W)Will(W)
-selectGoverningDocument.6 = (W)Other(W)
-selectGoverningDocument.checkYourAnswersLabel = (W)Name(W)
+selectGoverningDocument.title = Pa ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen?
+selectGoverningDocument.heading = Pa ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen?
+selectGoverningDocument.error.required = Dewiswch y math o ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen
+selectGoverningDocument.1 = Memorandwm ac erthyglau cymdeithasiad
+selectGoverningDocument.2 = Siarter Frenhinol
+selectGoverningDocument.3 = Rheolau neu gyfansoddiad
+selectGoverningDocument.4 = Gweithred ymddiriedolaeth
+selectGoverningDocument.5 = Ewyllys
+selectGoverningDocument.6 = Arall
+selectGoverningDocument.checkYourAnswersLabel = Enw
 
 # governingDocumentName Messages
 # ----------------------------------------------------------
-governingDocumentName.title = (W)What is the name of the governing document that was used to set up and run the charity?(W)
-governingDocumentName.heading = (W)What is the name of the governing document that was used to set up and run the charity?(W)
-governingDocumentName.error.required = (W)Enter the governing document that was used to set up and run the charity(W)
-governingDocumentName.error.length = (W)Name of the governing document must be 50 characters or less(W)
-governingDocumentName.error.format = (W)Name of the governing document must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-governingDocumentName.checkYourAnswersLabel = (W)Other name(W)
+governingDocumentName.title = Beth yw enw’r ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen?
+governingDocumentName.heading = Beth yw enw’r ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen?
+governingDocumentName.error.required = Nodwch y ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen
+governingDocumentName.error.length = Mae’n rhaid i enw’r ddogfen lywodraethu fod yn 50 o gymeriadau neu lai
+governingDocumentName.error.format = Mae’n rhaid i enw’r ddogfen lywodraethu gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+governingDocumentName.checkYourAnswersLabel = Enw arall
 
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
-whenGoverningDocumentApproved.title = (W)What date did the governing document become effective?(W)
-whenGoverningDocumentApproved.heading = (W)What date did the {0} become effective?(W)
-WhenGoverningDocumentApproved.p1 = (W)If the charity is a CIO (Charitable Incorporated Organisation), it is the date the charity was accepted onto the regulator’s register.(W)
-WhenGoverningDocumentApproved.hint = (W)For example, 27 3 2007(W)
-whenGoverningDocumentApproved.error.invalid = (W)The date when the governing document was approved must be a real date(W)
-whenGoverningDocumentApproved.error.required.all = (W)Enter the date when the governing document became effective(W)
-whenGoverningDocumentApproved.error.required.two = (W)Enter the {0} and the {1} when the governing document became effective(W)
-whenGoverningDocumentApproved.error.required = (W)Enter the {0} when the governing document became effective(W)
-whenGoverningDocumentApproved.error.future = (W)The date when the governing document was approved must be today or in the past(W)
-whenGoverningDocumentApproved.error.nonNumeric = (W)The date when the governing document was approved must be written as a number(W)
-whenGoverningDocumentApproved.checkYourAnswersLabel = (W)Effective date(W)
+whenGoverningDocumentApproved.title = Ar ba ddyddiad y gwnaeth y ddogfen lywodraethu ddod i rym?
+whenGoverningDocumentApproved.heading = Ar ba ddyddiad y gwnaeth {0} ddod i rym?
+WhenGoverningDocumentApproved.p1 = Os yw’r elusen yn Sefydliad Corfforedig Elusennol (CIO), dyma’r dyddiad y derbyniwyd yr elusen ar gofrestr y rheolydd.
+WhenGoverningDocumentApproved.hint = Er enghraifft, 27 3 2007
+whenGoverningDocumentApproved.error.invalid = Mae’n rhaid i’r dyddiad y cafodd y ddogfen lywodraethu’i chymeradwyo fod yn ddyddiad go iawn
+whenGoverningDocumentApproved.error.required.all = Nodwch y dyddiad y daeth y ddogfen lywodraethol i rym
+whenGoverningDocumentApproved.error.required.two = Nodwch y {0} a’r {1} pan ddaeth y ddogfen lywodraethu i rym
+whenGoverningDocumentApproved.error.required = Nodwch y {0} pan ddaeth y ddogfen lywodraethu i rym
+whenGoverningDocumentApproved.error.future = Mae’n rhaid i’r dyddiad y cafodd y ddogfen lywodraethu ei chymeradwyo fod heddiw neu yn y gorffennol
+whenGoverningDocumentApproved.error.nonNumeric = Mae’n rhaid i’r dyddiad y cafodd y ddogfen lywodraethu’i chymeradwyo fod wedi’i ysgrifennu fel rhif
+whenGoverningDocumentApproved.checkYourAnswersLabel = Dyddiad dod i rym
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = (W)Is the governing document approved?(W)
-isApprovedGoverningDocument.heading = (W)Is the governing document approved?(W)
-isApprovedGoverningDocument.error.required = (W)Select yes if the charity’s governing document is approved(W)
-isApprovedGoverningDocument.p = (W)The governing document can be approved by a national organisation, parent body or principle regulator.(W)
-isApprovedGoverningDocument.checkYourAnswersLabel = (W)Approved by a regulator(W)
+isApprovedGoverningDocument.title = A yw’r ddogfen lywodraethu wedi’i chymeradwyo?
+isApprovedGoverningDocument.heading = A yw’r ddogfen lywodraethu wedi’i chymeradwyo?
+isApprovedGoverningDocument.error.required = Dewiswch ‘Iawn’ os yw dogfen lywodraethu’r elusen wedi’i chymeradwyo
+isApprovedGoverningDocument.p = Gall y ddogfen lywodraethu gael ei chymeradwyo gan sefydliad cenedlaethol, prif gorff neu brif reolydd.
+isApprovedGoverningDocument.checkYourAnswersLabel = Wedi’i chymeradwyo gan reolydd
 
 # HasCharityChangedPartsOfGoverningDocument Messages
 # ----------------------------------------------------------
-hasCharityChangedPartsOfGoverningDocument.title = (W)Has the charity changed parts of the governing document since it was approved?(W)
-hasCharityChangedPartsOfGoverningDocument.heading = (W)Has the charity changed parts of the governing document since it was approved?(W)
-hasCharityChangedPartsOfGoverningDocument.error.required = (W)Select yes if the charity has changed the governing document since it was approved(W)
-hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = (W)Have sections and clauses changed(W)
+hasCharityChangedPartsOfGoverningDocument.title = A yw’r elusen wedi newid rhannau o’r ddogfen lywodraethu ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.heading = A yw’r elusen wedi newid rhannau o’r ddogfen lywodraethu ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi newid y ddogfen lywodraethu ers iddi gael ei chymeradwyo
+hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = A oes adrannau a chymalau wedi newid?
 
 # SectionsChangedGoverningDocument Messages
 # ----------------------------------------------------------
-sectionsChangedGoverningDocument.title = (W)What sections and clauses have changed in the governing document and why?(W)
-sectionsChangedGoverningDocument.heading = (W)What sections and clauses have changed in the governing document and why?(W)
-sectionsChangedGoverningDocument.error.required = (W)Enter what sections and clauses have changed in the governing document and why(W)
-sectionsChangedGoverningDocument.error.length = (W)The sections that have changed in the governing document must be 350 characters or less(W)
-sectionsChangedGoverningDocument.error.format = (W)The sections that have changed in the governing document must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-sectionsChangedGoverningDocument.checkYourAnswersLabel = (W)Sections and clauses that have been changed(W)
+sectionsChangedGoverningDocument.title = Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
+sectionsChangedGoverningDocument.heading = Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
+sectionsChangedGoverningDocument.error.required = Nodwch pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham
+sectionsChangedGoverningDocument.error.length = Mae’n rhaid i’r adrannau sydd wedi newid yn y ddogfen lywodraethu fod yn 350 o gymeriadau neu lai
+sectionsChangedGoverningDocument.error.format = Mae’n rhaid i’r adrannau sydd wedi newid yn y ddogfen lywodraethu gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+sectionsChangedGoverningDocument.checkYourAnswersLabel = Adrannau a chymalau sydd wedi newid
 
 # GoverningDocument Summary page
 # ----------------------------------------------------------
-governingDocumentSummary.checkYourAnswers.title = (W)Check the governing document details(W)
-governingDocumentSummary.checkYourAnswers.heading = (W)Check the governing document details(W)
-governingDocumentSummary.section = (W)Regulators and documents(W)
+governingDocumentSummary.checkYourAnswers.title = Gwirio manylion y ddogfen lywodraethu
+governingDocumentSummary.checkYourAnswers.heading = Gwirio manylion y ddogfen lywodraethu
+governingDocumentSummary.section = Rheolyddion a dogfennau
 
 # Section4 - Operations and Funds
 # ----------------------------------------------------------
-operationsAndFunds.section = (W)Operations and funds(W)
+operationsAndFunds.section = Gweithrediadau a chyllid
 
 # StartCharitableObjectivesPage Messages
 # ----------------------------------------------------------
-startCharitableObjectives.title = (W)The charity’s objectives and purposes(W)
-startCharitableObjectives.heading = (W)The charity’s objectives and purposes(W)
-startCharitableObjectives.p1 = (W)You need to add the charity’s:(W)
-startCharitableObjectives.b1 = (W)charitable objectives(W)
-startCharitableObjectives.b2 = (W)charitable purposes(W)
-startCharitableObjectives.b3 = (W)benefit to the public(W)
+startCharitableObjectives.title = Amcanion a dibenion yr elusen
+startCharitableObjectives.heading = Amcanion a dibenion yr elusen
+startCharitableObjectives.p1 = Mae angen i chi ychwanegu:
+startCharitableObjectives.b1 = amcanion elusennol yr elusen
+startCharitableObjectives.b2 = dibenion elusennol yr elusen
+startCharitableObjectives.b3 = budd yr elusen i’r cyhoedd
 
 # CharitableObjectivesPage Messages
 # ----------------------------------------------------------
-charitableObjectives.title = (W)What are the charity’s charitable objectives?(W)
-charitableObjectives.heading = (W)What are the charity’s charitable objectives?(W)
-charitableObjectives.error.required = (W)Enter the charity’s charitable objectives(W)
-charitableObjectives.error.format = (W)Charity’s charitable objectives must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-charitableObjectives.error.length = (W)Charity’s charitable objectives must be 500 characters or less(W)
-charitableObjectives.label = (W)Charitable objectives describe what a charity has been set up to do. They are usually written into the governing document. For example, you could summarise what is written in the charity’s objects clause.(W)
-charitableObjectives.checkYourAnswersLabel = (W)Charitable objectives(W)
+charitableObjectives.title = Beth yw amcanion elusennol yr elusen?
+charitableObjectives.heading = Beth yw amcanion elusennol yr elusen?
+charitableObjectives.error.required = Nodwch amcanion elusennol yr elusen
+charitableObjectives.error.format = Mae’n rhaid i amcanion elusennol yr elusen gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+charitableObjectives.error.length = Mae’n rhaid i amcanion elusennol yr elusen fod yn 500 o gymeriadau neu lai
+charitableObjectives.label = Mae amcanion elusennol yn disgrifio’r hyn y mae elusen wedi’i sefydlu i’w wneud. Fel arfer, maent yn cael eu hysgrifennu yn y ddogfen lywodraethu. Er enghraifft, gallwch roi crynodeb o’r hyn sydd wedi’i ysgrifennu yn y cymal ar gyfer amcanion yr elusen.
+charitableObjectives.checkYourAnswersLabel = Amcanion elusennol
 
 # CharitablePurposesPage Messages
 # ----------------------------------------------------------
-charitablePurposes.title = (W)What are the charity’s charitable purposes?(W)
-charitablePurposes.heading = (W)What are the charity’s charitable purposes?(W)
-charitablePurposes.hint = (W)Select all that apply.(W)
-charitablePurposes.error.required = (W)Select the charity’s charitable purposes(W)
-charitablePurposes.amateurSport = (W)Amateur sport(W)
-charitablePurposes.animalWelfare = (W)Animal welfare(W)
-charitablePurposes.artsCultureOrScience = (W)Arts, culture, heritage or science(W)
-charitablePurposes.citizenshipOrCommunityDevelopment = (W)Citizenship or community development(W)
-charitablePurposes.education = (W)Education(W)
-charitablePurposes.environmentalProtection = (W)Environmental protection or improvement(W)
-charitablePurposes.healthOrSavingOfLives = (W)Health or saving of lives(W)
-charitablePurposes.humanRights = (W)Human Rights(W)
-charitablePurposes.armedForcesOfTheCrown = (W)Promotion of efficiency in armed forces, police, fire and rescue service(W)
-charitablePurposes.reliefOfPoverty = (W)Relief of poverty(W)
-charitablePurposes.reliefOfYouthAge = (W)Relief of those in need(W)
-charitablePurposes.religion = (W)Religion(W)
-charitablePurposes.other = (W)Other(W)
-charitablePurposes.checkYourAnswersLabel = (W)Charity’s charitable purposes(W)
+charitablePurposes.title = Beth yw dibenion elusennol yr elusen?
+charitablePurposes.heading = Beth yw dibenion elusennol yr elusen?
+charitablePurposes.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+charitablePurposes.error.required = Nodwch ddibenion elusennol yr elusen
+charitablePurposes.amateurSport = Chwaraeon amatur
+charitablePurposes.animalWelfare = Lles anifeiliaid
+charitablePurposes.artsCultureOrScience = Celfyddydau, diwylliant, treftadaeth neu wyddoniaeth
+charitablePurposes.citizenshipOrCommunityDevelopment = Datblygiad cymunedol neu ddinasyddiaeth
+charitablePurposes.education = Addysg
+charitablePurposes.environmentalProtection = Amddiffyn neu wella’r amgylchedd
+charitablePurposes.healthOrSavingOfLives = Iechyd neu achub bywydau
+charitablePurposes.humanRights = Hawliau Dynol
+charitablePurposes.armedForcesOfTheCrown = Hyrwyddo effeithlonrwydd yn y lluoedd arfog, yr heddlu a’r gwasanaeth tân ac achub
+charitablePurposes.reliefOfPoverty = Cynorthwyo gyda thlodi
+charitablePurposes.reliefOfYouthAge = Cynorthwyo’r rhai hynny sydd mewn angen
+charitablePurposes.religion = Crefydd
+charitablePurposes.other = Arall
+charitablePurposes.checkYourAnswersLabel = Dibenion elusennol yr elusen
 
 # Enter Public Benefits Messages
 # ----------------------------------------------------------
-publicBenefits.title = (W)How does the charity benefit the public?(W)
-publicBenefits.heading = (W)How does the charity benefit the public?(W)
-publicBenefits.error.required = (W)Enter how the charity benefits the public(W)
-publicBenefits.error.format = (W)How the charity benefits the public must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-publicBenefits.error.length = (W)How the charity benefits the public must be 500 characters or less(W)
-publicBenefits.checkYourAnswersLabel = (W)How the charity benefits the public(W)
+publicBenefits.title = Sut mae’r elusen o fudd i’r cyhoedd?
+publicBenefits.heading = Sut mae’r elusen o fudd i’r cyhoedd?
+publicBenefits.error.required = Nodwch sut mae’r elusen o fudd i’r cyhoedd
+publicBenefits.error.format = Mae’n rhaid i’r hyn a nodwyd ar gyfer sut mae’r elusen o fudd i’r cyhoedd gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+publicBenefits.error.length = Mae’n rhaid i’r hyn a nodwyd ar gyfer sut mae’r elusen o fudd i’r cyhoedd fod yn 500 o gymeriadau neu lai
+publicBenefits.checkYourAnswersLabel = Sut mae’r elusen o fudd i’r cyhoedd
 
 # Charity Objectives Summary page
 # ----------------------------------------------------------
-charityObjectivesSummary.checkYourAnswers.title = (W)Check the charity’s objectives details(W)
-charityObjectivesSummary.checkYourAnswers.heading = (W)Check the charity’s objectives details(W)
-charityObjectivesSummary.section = (W)Operations and funds(W)
+charityObjectivesSummary.checkYourAnswers.title = Gwirio manylion amcanion yr elusen
+charityObjectivesSummary.checkYourAnswers.heading = Gwirio manylion amcanion yr elusen
+charityObjectivesSummary.section = Gweithrediadau a chyllid
 
 # Section5 - Fundraising Information
 # ----------------------------------------------------------
 
 # StartFundraisingPage Messages
 # ----------------------------------------------------------
-startFundraising.title = (W)The charity’s fundraising and operations(W)
-startFundraising.heading = (W)The charity’s fundraising and operations(W)
-startFundraising.p1 = (W)You need to add the charity’s:(W)
-startFundraising.b1 = (W)fundraising activities(W)
-startFundraising.b2 = (W)operating locations(W)
-startFundraising.b3 = (W)accounting period end date(W)
+startFundraising.title = Gwaith codi arian a gweithrediadau’r elusen
+startFundraising.heading = Gwaith codi arian a gweithrediadau’r elusen
+startFundraising.p1 = Mae angen i chi ychwanegu:
+startFundraising.b1 = gweithgareddau codi arian yr elusen
+startFundraising.b2 = lleoliadau gweithredu’r elusen
+startFundraising.b3 = y dyddiad y daw cyfnod cyfrifyddu’r elusen i ben
 
 # How will your charity raise funds
 # ----------------------------------------------------------
-selectFundRaising.title = (W)How will the charity raise funds?(W)
-selectFundRaising.heading = (W)How will the charity raise funds?(W)
-selectFundRaising.hint = (W)Select all that apply.(W)
-selectFundRaising.error.required = (W)Select how the charity will raise funds(W)
-selectFundRaising.donations = (W)Donations(W)
-selectFundRaising.fundraising = (W)Fundraising(W)
-selectFundRaising.grants = (W)Grants(W)
-selectFundRaising.membershipSubscriptions = (W)Membership subscriptions(W)
-selectFundRaising.tradingIncome = (W)Trading income(W)
-selectFundRaising.tradingSubsidiaries = (W)Trading subsidiaries(W)
-selectFundRaising.investmentIncome = (W)Investment income(W)
-selectFundRaising.other = (W)Other(W)
-selectFundRaising.checkYourAnswersLabel = (W)Fundraising methods(W)
+selectFundRaising.title = Sut bydd yr elusen yn codi arian?
+selectFundRaising.heading = Sut bydd yr elusen yn codi arian?
+selectFundRaising.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+selectFundRaising.error.required = Dewiswch sut bydd yr elusen yn codi arian
+selectFundRaising.donations = Cyfraniadau
+selectFundRaising.fundraising = Codi arian
+selectFundRaising.grants = Grantiau
+selectFundRaising.membershipSubscriptions = Tanysgrifiadau aelodaeth
+selectFundRaising.tradingIncome = Incwm masnachu
+selectFundRaising.tradingSubsidiaries = Is-gwmnïau masnachu
+selectFundRaising.investmentIncome = Incwm buddsoddi
+selectFundRaising.other = Arall
+selectFundRaising.checkYourAnswersLabel = Dulliau o godi arian
 
 # Select Operating Location Messages
 # ----------------------------------------------------------
-operatingLocation.title = (W)Where does the charity operate?(W)
-operatingLocation.heading = (W)Where does the charity operate?(W)
-operatingLocation.hint = (W)Select all that apply.(W)
-operatingLocation.error.required = (W)Select where the charity operates(W)
-operatingLocation.1 = (W)England(W)
-operatingLocation.2 = (W)Wales(W)
-operatingLocation.3 = (W)Scotland(W)
-operatingLocation.4 = (W)Northern Ireland(W)
-operatingLocation.5 = (W)Overseas(W)
-operatingLocation.checkYourAnswersLabel = (W)Operating locations(W)
+operatingLocation.title = Ble mae’r elusen yn gweithredu?
+operatingLocation.heading = Ble mae’r elusen yn gweithredu?
+operatingLocation.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+operatingLocation.error.required = Dewiswch ble mae’r elusen yn gweithredu
+operatingLocation.1 = Lloegr
+operatingLocation.2 = Cymru
+operatingLocation.3 = Yr Alban
+operatingLocation.4 = Gogledd Iwerddon
+operatingLocation.5 = Tramor
+operatingLocation.checkYourAnswersLabel = Lleoliadau gweithredu
 
 # What Country was The Charity Established in Messages
 # ----------------------------------------------------------
-charityEstablishedIn.title = (W)What country was the charity established in?(W)
-charityEstablishedIn.heading = (W)What country was the charity established in?(W)
-charityEstablishedIn.0 = (W)England(W)
-charityEstablishedIn.1 = (W)Wales(W)
-charityEstablishedIn.2 = (W)Scotland(W)
-charityEstablishedIn.3 = (W)Northern Ireland(W)
-charityEstablishedIn.4 = (W)Overseas(W)
-charityEstablishedIn.error.required = (W)Select where the charity was established(W)
-charityEstablishedIn.checkYourAnswersLabel = (W)Country of establishment(W)
+charityEstablishedIn.title = Ym mha wlad y cafodd yr elusen ei sefydlu?
+charityEstablishedIn.heading = Ym mha wlad y cafodd yr elusen ei sefydlu?
+charityEstablishedIn.0 = Lloegr
+charityEstablishedIn.1 = Cymru
+charityEstablishedIn.2 = Yr Alban
+charityEstablishedIn.3 = Gogledd Iwerddon
+charityEstablishedIn.4 = Tramor
+charityEstablishedIn.error.required = Dewiswch ble y cafodd yr elusen ei sefydlu
+charityEstablishedIn.checkYourAnswersLabel = Y wlad y cafodd yr elusen ei sefydlu ynddi
 
 # What Country Does The Charity Operate Messages
 # ----------------------------------------------------------
-whatCountryDoesTheCharityOperateIn.title = (W)What country does the charity operate in?(W)
-whatCountryDoesTheCharityOperateIn.heading = (W)What country does the charity operate in?(W)
-whatCountryDoesTheCharityOperateIn.hint = (W)If the charity operates in more than one country, you can add more countries on the next page.(W)
-whatCountryDoesTheCharityOperateIn.countries.hint = (W)You can add up to 5 countries. You have already added the following countries: {0}.(W)
-whatCountryDoesTheCharityOperateIn.hintText = (W)Select a country(W)
-whatCountryDoesTheCharityOperateIn.error.required = (W)Enter a country that the charity operates in(W)
+whatCountryDoesTheCharityOperateIn.title = Ym mha wlad y mae’r elusen yn gweithredu?
+whatCountryDoesTheCharityOperateIn.heading = Ym mha wlad y mae’r elusen yn gweithredu?
+whatCountryDoesTheCharityOperateIn.hint = Os yw’r elusen yn gweithredu mewn mwy nag un wlad, gallwch ychwanegu rhagor o wledydd ar y dudalen nesaf.
+whatCountryDoesTheCharityOperateIn.countries.hint = Gallwch ychwanegu hyd at 5 gwlad. Rydych eisoes wedi ychwanegu’r gwledydd canlynol: {0}.
+whatCountryDoesTheCharityOperateIn.hintText = Dewiswch wlad
+whatCountryDoesTheCharityOperateIn.error.required = Nodwch wlad y mae’r elusen yn gweithredu ynddi
 
 # Are you sure you want to remove this Charity Operating Country Messages
 # ----------------------------------------------------------
-isRemoveOperatingCountry.title = (W)Are you sure you want to remove {0}?(W)
-isRemoveOperatingCountry.heading = (W)Are you sure you want to remove {0}?(W)
-isRemoveOperatingCountry.error.required = (W)Select yes to remove this country(W)
+isRemoveOperatingCountry.title = A ydych yn siŵr eich bod am dynnu {0}?
+isRemoveOperatingCountry.heading = A ydych yn siŵr eich bod am dynnu {0}?
+isRemoveOperatingCountry.error.required = Dewiswch ‘Iawn’ i dynnu’r wlad hon
 
 # Select Overseas Operating Location Summary page
 # ----------------------------------------------------------
-overseasOperatingLocationSummary.checkYourAnswers.title = (W)Check the charity’s operating country details(W)
-overseasOperatingLocationSummary.checkYourAnswers.heading = (W)Check the charity’s operating country details(W)
-overseasOperatingLocationSummary.addAnotherCountry.h2 = (W)Do you want to add another country?(W)
-overseasOperatingLocationSummary.addAnotherCountry.hint = (W)You can add up to 5 countries(W)
-overseasOperatingLocationSummary.addAnotherCountry.warn = (W)You cannot add another operating country.(W)
-overseasOperatingLocationSummary.addAnotherCountry.error.required = (W)Select yes if you want to add another operating country(W)
-overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = (W)Operating country {0}(W)
-overseasOperatingLocationSummary.checkYourAnswersLabel = (W)Overseas operating locations(W)
+overseasOperatingLocationSummary.checkYourAnswers.title = Gwirio manylion gwlad gweithredu’r elusen
+overseasOperatingLocationSummary.checkYourAnswers.heading = Gwirio manylion gwlad gweithredu’r elusen
+overseasOperatingLocationSummary.addAnotherCountry.h2 = A ydych eisiau ychwanegu gwlad arall?
+overseasOperatingLocationSummary.addAnotherCountry.hint = Gallwch ychwanegu hyd at 5 gwlad
+overseasOperatingLocationSummary.addAnotherCountry.warn = Ni allwch ychwanegu gwlad gweithredu arall
+overseasOperatingLocationSummary.addAnotherCountry.error.required = Dewiswch ‘Iawn’ os ydych am ychwanegu gwlad gweithredu arall
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = Gwlad gweithredu {0}
+overseasOperatingLocationSummary.checkYourAnswersLabel = Lleoliadau gweithredu dramor
 
 # Other FundRaising Messages
 # ----------------------------------------------------------
-otherFundRaising.title = (W)What other way will the charity raise funds?(W)
-otherFundRaising.heading = (W)What other way will the charity raise funds?(W)
-otherFundRaising.checkYourAnswersLabel = (W)Other fundraising methods(W)
-otherFundRaising.error.required = (W)Enter the other way the charity will raise funds(W)
-otherFundRaising.error.format = (W)The other way the charity will raise funds must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-otherFundRaising.error.length = (W)The other way the charity will raise funds must be 95 characters or less(W)
+otherFundRaising.title = Ym mha ffordd arall y bydd yr elusen yn codi arian?
+otherFundRaising.heading = Ym mha ffordd arall y bydd yr elusen yn codi arian?
+otherFundRaising.checkYourAnswersLabel = Dulliau eraill o godi arian
+otherFundRaising.error.required = Nodwch y ffordd arall y bydd yr elusen yn codi arian
+otherFundRaising.error.format = Mae’n rhaid i’r hyn a nodwyd ar gyfer y ffordd arall y bydd yr elusen yn codi arian gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+otherFundRaising.error.length = Mae’n rhaid i’r hyn a nodwyd ar gyfer y ffordd arall y bydd yr elusen yn codi arian fod yn 95 o gymeriadau neu lai
 
 # Has your charity prepared financial accounts Messages
 # ----------------------------------------------------------
-isFinancialAccounts.title = (W)Has the charity prepared financial accounts?(W)
-isFinancialAccounts.heading = (W)Has the charity prepared financial accounts?(W)
-isFinancialAccounts.error.required = (W)Select yes if the charity has prepared financial accounts(W)
-isFinancialAccounts.hint = (W)If the charity has a set of prepared financial accounts, you will need to post us a copy to support the application.(W)
-isFinancialAccounts.checkYourAnswersLabel = (W)Financial accounts(W)
+isFinancialAccounts.title = A yw’r elusen wedi paratoi cyfrifon ariannol?
+isFinancialAccounts.heading = A yw’r elusen wedi paratoi cyfrifon ariannol?
+isFinancialAccounts.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi paratoi cyfrifon ariannol
+isFinancialAccounts.hint = Os yw’r elusen wedi paratoi set o gyfrifon ariannol, bydd yn rhaid i chi anfon copi atom drwy’r post er mwyn ategu’r cais.
+isFinancialAccounts.checkYourAnswersLabel = Cyfrifon ariannol
 
 # What is the charity’s estimated income for its current 12 months of operation?
 # ----------------------------------------------------------
-estimatedIncome.title = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
-estimatedIncome.heading = (W)What is the charity’s estimated income for its current 12 months of operation?(W)
-estimatedIncome.p1 = (W)This figure should be the charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
-estimatedIncome.error.required = (W)Enter the charity’s estimated income for the current 12 months of operation(W)
-estimatedIncome.error.format = (W)Estimated income must written as a number, like 100.50 or 110(W)
-estimatedIncome.checkYourAnswersLabel = (W)Estimated income for the current 12 months of operation(W)
+estimatedIncome.title = Beth yw incwm amcangyfrifedig yr elusen ar gyfer ei 12 mis presennol o weithredu?
+estimatedIncome.heading = Beth yw incwm amcangyfrifedig yr elusen ar gyfer ei 12 mis presennol o weithredu?
+estimatedIncome.p1 = Dylai’r ffigwr hwn fod yn incwm amcangyfrifedig yr elusen cyn unrhyw ddidyniadau. Os ydych yn trosi i bunnoedd Prydain, dylech ddefnyddio’r gyfradd gyfnewid heddiw.
+estimatedIncome.error.required = Nodwch incwm amcangyfrifedig yr elusen ar gyfer y 12 mis presennol o weithredu
+estimatedIncome.error.format = Mae’n rhaid ysgrifennu’r incwm amcangyfrifedig fel rhif, megis 100.50 neu 110
+estimatedIncome.checkYourAnswersLabel = Incwm amcangyfrifedig ar gyfer y 12 mis presennol o weithredu?
 
 # What is the charity’s actual income so far?
 # ----------------------------------------------------------
-actualIncome.title = (W)What is the charity’s actual income so far?(W)
-actualIncome.heading = (W)What is the charity’s actual income so far?(W)
-actualIncome.p1 = (W)This figure should be the charity’s actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.(W)
-actualIncome.error.required = (W)Enter the charity’s actual income so far(W)
-actualIncome.error.format = (W)The charity’s actual income must be an amount of money, like 100.50 or 110(W)
-actualIncome.checkYourAnswersLabel = (W)Actual income so far(W)
+actualIncome.title = Beth yw incwm gwirioneddol yr elusen hyd yn hyn?
+actualIncome.heading = Beth yw incwm gwirioneddol yr elusen hyd yn hyn?
+actualIncome.p1 = Dylai’r ffigwr hwn fod yn incwm gwirioneddol yr elusen cyn unrhyw ddidyniadau. Os ydych yn trosi i bunnoedd Prydain, dylech ddefnyddio’r gyfradd gyfnewid heddiw.
+actualIncome.error.required = Nodwch incwm gwirioneddol yr elusen hyd yn hyn
+actualIncome.error.format = Mae’n rhaid i incwm gwirioneddol yr elusen fod yn swm o arian, megis 100.50 neu 110
+actualIncome.checkYourAnswersLabel = Incwm gwirioneddol hyd yn hyn
 
 # Does your charity have bank statements
 # ----------------------------------------------------------
-isBankStatements.title = (W)Does the charity have bank statements for the last 3 months of operation?(W)
-isBankStatements.heading = (W)Does the charity have bank statements for the last 3 months of operation?(W)
-isBankStatements.hint = (W)If the account has been open for less than 3 months, you must provide a bank statement for the past month.(W)
-isBankStatements.error.required = (W)Select yes if the charity has bank statements for the last 3 months of operation(W)
-isBankStatements.checkYourAnswersLabel = (W)Bank statements for the last 3 months(W)
+isBankStatements.title = A oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
+isBankStatements.heading = A oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
+isBankStatements.hint = (UPDATED)Os yw’r cyfrif wedi bod ar agor am lai na 3 mis, bydd yn rhaid i chi ddarparu llythyr oddi wrth y banc i brofi bod cyfrif gan yr elusen.(UPDATED)
+isBankStatements.error.required = Dewiswch ‘Iawn’ os oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu
+isBankStatements.checkYourAnswersLabel = Cyfriflenni banc ar gyfer y 3 mis diwethaf
 
 # Why does the charity not have a bank statement
 # ----------------------------------------------------------
-whyNoBankStatement.title = (W)Why does the charity not have bank statements for the last 3 months of operation?(W)
-whyNoBankStatement.heading = (W)Why does the charity not have bank statements for the last 3 months of operation?(W)
-whyNoBankStatement.hint = (W)If the account has been open for less than 3 months, you must provide a bank statement for the past month.(W)
-whyNoBankStatement.checkYourAnswersLabel = (W)Why you do not have bank statements for the last 3 months(W)
-whyNoBankStatement.error.required = (W)Enter why the charity does not have bank statements for the last 3 months of operation(W)
-whyNoBankStatement.error.format = (W)Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-whyNoBankStatement.error.length = (W)Why the charity does not have bank statements must be 350 characters or less(W)
+whyNoBankStatement.title = Pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
+whyNoBankStatement.heading = Pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
+whyNoBankStatement.hint = (UPDATED)Os yw’r cyfrif wedi bod ar agor am lai na 3 mis, bydd yn rhaid i chi ddarparu llythyr oddi wrth y banc i brofi bod cyfrif gan yr elusen.(UPDATED)
+whyNoBankStatement.checkYourAnswersLabel = Pam nad oes gennych gyfriflenni banc ar gyfer y 3 mis diwethaf
+whyNoBankStatement.error.required = Nodwch pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu
+whyNoBankStatement.error.format = Mae’n rhaid i’r hyn a nodwyd ar gyfer pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+whyNoBankStatement.error.length = Mae’n rhaid i’r hyn a nodwyd ar gyfer pam nad oes gan yr elusen gyfriflenni banc fod yn 350 o gymeriadau neu lai
 
 # AccountingEndDatePage Messages
 # ----------------------------------------------------------
-accountingPeriodEndDate.title = (W)What is the charity’s accounting period end date?(W)
-accountingPeriodEndDate.heading = (W)What is the charity’s accounting period end date?(W)
-accountingPeriodEndDate.error.required.all = (W)Enter the accounting period end date(W)
-accountingPeriodEndDate.error.required = (W)Enter the accounting period end {0}(W)
-accountingPeriodEndDate.error.invalid = (W)The accounting period end date must be a real date(W)
-accountingPeriodEndDate.error.nonNumeric = (W)Accounting period end date must be written as a number, like 01 10(W)
-accountingPeriodEndDate.error.leapYear = (W)Accounting period end date cannot be on a leap year(W)
-accountingPeriodEndDate.p1 = (W)This is the date to which the charity prepares its financial accounts.(W)
-accountingPeriodEndDate.checkYourAnswersLabel = (W)Accounting period end date(W)
+accountingPeriodEndDate.title = Beth yw’r dyddiad y daw cyfnod cyfrifyddu’r elusen i ben?
+accountingPeriodEndDate.heading = Beth yw’r dyddiad y daw cyfnod cyfrifyddu’r elusen i ben?
+accountingPeriodEndDate.error.required.all = Nodwch y dyddiad y daw’r cyfnod cyfrifyddu i ben
+accountingPeriodEndDate.error.required = Nodwch y {0} y daw’r cyfnod cyfrifyddu i ben
+accountingPeriodEndDate.error.invalid = Mae’n rhaid i’r dyddiad y daw’r cyfnod cyfrifyddu i ben fod yn ddyddiad go iawn
+accountingPeriodEndDate.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad y daw’r cyfnod cyfrifyddu i ben fel rhif, megis 01 10
+accountingPeriodEndDate.error.leapYear = Ni all y dyddiad y daw’r cyfnod cyfrifyddu i ben fod mewn blwyddyn naid
+accountingPeriodEndDate.p1 = Dyma’r dyddiad y mae’r elusen yn paratoi ei chyfrifon ariannol ar ei gyfer.
+accountingPeriodEndDate.checkYourAnswersLabel = Dyddiad y daw’r cyfnod cyfrifyddu i ben
 
 # Operations and Funds Summary page
 # ----------------------------------------------------------
-operationsFundsSummary.checkYourAnswers.title = (W)Check the charity’s operations and funds details(W)
-operationsFundsSummary.checkYourAnswers.heading = (W)Check the charity’s operations and funds details(W)
-operationsFundsSummary.section = (W)Operations and funds(W)
+operationsFundsSummary.checkYourAnswers.title = Gwirio manylion gweithrediadau a chyllid yr elusen
+operationsFundsSummary.checkYourAnswers.heading = Gwirio manylion gweithrediadau a chyllid yr elusen
+operationsFundsSummary.section = Gweithrediadau a chyllid
 
 # Section6 - Supply bank details
 # ----------------------------------------------------------
 
 # Charity’s start bank account details Page Messages
 # ----------------------------------------------------------
-startBankDetails.title = (W)The charity’s bank details(W)
-startBankDetails.heading = (W)The charity’s bank details(W)
-startBankDetails.p1 = (W)You need to add the charity’s bank account details. We need the charity’s bank details to pay Gift Aid and other tax repayments.(W)
-startBankDetails.p2 = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from our account to the charity’s account. You should make sure the charity can receive BACS payments.(W)
+startBankDetails.title = Manylion banc yr elusen
+startBankDetails.heading = Manylion banc yr elusen
+startBankDetails.p1 = Mae angen i chi ychwanegu manylion cyfrif banc yr elusen. Mae angen manylion banc yr elusen arnom i dalu Rhodd Cymorth ac ad-daliadau treth eraill.
+startBankDetails.p2 = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o’n cyfrif i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
-bankDetails.title = (W)The charity’s bank, building society or credit union details(W)
-bankDetails.heading = (W)The charity’s bank, building society or credit union details(W)
-bankDetails.p1 = (W)We need the charity’s bank details to pay Gift Aid and other tax repayments.(W)
-bankDetails.accountName = (W)Charity’s account name(W)
-bankDetails.accountName.hint = (W)The charity’s account name needs to be the same as the charity’s name(W)
-bankDetails.sortCode = (W)Charity’s sort code(W)
-bankDetails.sortCode.hint = (W)Must be 6 digits long(W)
-bankDetails.sortCode.error.required = (W)Enter the charity’s sort code(W)
-bankDetails.sortCode.error.format = (W)Sort code must be written as a number, like 309430(W)
-bankDetails.accountNumber = (W)Charity’s account number(W)
-bankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
-bankDetails.accountNumber.error.required = (W)Enter the charity’s account number(W)
-bankDetails.accountNumber.error.format = (W)Account number must be written as a number, like 00733445(W)
-bankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
-bankDetails.rollNumber.hint = (W)You can find it on the charity’s bank card, statement or passbook(W)
-bankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
-bankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops(W)
-bankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.(W)
-bankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
-bankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
-bankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)
-bankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number (if you have one)(W)
+bankDetails.title = Manylion banc, cymdeithas adeiladu neu undeb credyd yr elusen
+bankDetails.heading = Manylion banc, cymdeithas adeiladu neu undeb credyd yr elusen
+bankDetails.p1 = Mae angen manylion banc yr elusen arnom i dalu Rhodd Cymorth ac ad-daliadau treth eraill.
+bankDetails.accountName = Enw cyfrif yr elusen
+bankDetails.accountName.hint = Mae’n rhaid i enw cyfrif yr elusen fod yr un peth ag enw’r elusen
+bankDetails.sortCode = Cod didoli’r elusen
+bankDetails.sortCode.hint = Mae’n rhaid iddo fod yn 6 digid o hyd
+bankDetails.sortCode.error.required = Nodwch god didoli’r elusen
+bankDetails.sortCode.error.format = Mae’n rhaid ysgrifennu’r cod didoli fel rhif, megis 309430
+bankDetails.accountNumber = Rhif cyfrif yr elusen
+bankDetails.accountNumber.hint = Mae’n rhaid iddo fod rhwng 6 ac 8 digid o hyd
+bankDetails.accountNumber.error.required = Nodwch rif cyfrif yr elusen
+bankDetails.accountNumber.error.format = Mae’n rhaid ysgrifennu rhif y cyfrif fel rhif, megis 00733445
+bankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
+bankDetails.rollNumber.hint = Bydd hyn ar gerdyn banc, cyfriflen neu baslyfr yr elusen
+bankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
+bankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
+bankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEM i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
+bankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
+bankDetails.sortCode.checkYourAnswersLabel = Cod didoli
+bankDetails.accountNumber.checkYourAnswersLabel = Rhif y cyfrif
+bankDetails.rollNumber.checkYourAnswersLabel = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 
 # Charity’s bank account details Page Messages
 # ----------------------------------------------------------
-bankDetailsSummary.checkYourAnswers.title = (W)Check the charity’s bank details(W)
-bankDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s bank details(W)
-bankDetails.rollNumber.hint = (W)You can find it on the charity’s bank card, statement or passbook(W)
-bankDetailsSummary.section = (W)Operations and funds(W)
+bankDetailsSummary.checkYourAnswers.title = Gwirio manylion banc yr elusen
+bankDetailsSummary.checkYourAnswers.heading = Gwirio manylion banc yr elusen
+bankDetailsSummary.section = Gweithrediadau a chyllid
 
 # Section7 - Name authorised officials
 # ----------------------------------------------------------
-officialsAndNominees.section = (W)Officials and nominees(W)
-checkYourAnswers.heading = (W)Check {0}’s details(W)
+officialsAndNominees.section = Swyddogion ac enwebeion
+checkYourAnswers.heading = Gwirio manylion {0}
 
-nameTitle = (W)Title(W)
-nameTitle.0001 = (W)Mr(W)
-nameTitle.0002 = (W)Mrs(W)
-nameTitle.0003 = (W)Miss(W)
-nameTitle.0004 = (W)Ms(W)
+nameTitle = Teitl
+nameTitle.0001 = Mr
+nameTitle.0002 = Mrs
+nameTitle.0003 = Miss
+nameTitle.0004 = Ms
 
 # Authorised Officials Page Messages
 # ----------------------------------------------------------
-charityAuthorisedOfficials.title = (W)The charity’s authorised officials(W)
-charityAuthorisedOfficials.heading = (W)The charity’s authorised officials(W)
-charityAuthorisedOfficials.p1 = (W)You need to add 1 authorised official but you can add up to 2.(W)
-charityAuthorisedOfficials.p2 = (W)An authorised official can deal with the charity’s tax affairs, make Gift Aid or other repayment claims and Gift Aid Small Donation Scheme (GASDS) claims. They can also sign and submit tax returns.(W)
+charityAuthorisedOfficials.title = Swyddogion awdurdodedig yr elusen
+charityAuthorisedOfficials.heading = Swyddogion awdurdodedig yr elusen
+charityAuthorisedOfficials.p1 = Mae angen i chi ychwanegu 1 swyddog awdurdodedig, ond gallwch ychwanegu hyd at 2.
+charityAuthorisedOfficials.p2 = Gall swyddog awdurdodedig ymdrin â materion treth yr elusen, gwneud Rhodd Cymorth neu hawliadau ad-daliadau eraill, a hawliadau’r Cynllun Cyfraniadau Bach Rhodd Cymorth (GASDS). Gall hefyd lofnodi a chyflwyno Ffurflenni Treth.
 
 # Authorised Officials Name Messages
 # ----------------------------------------------------------
-authorisedOfficialsName.title = (W)Authorised official’s name(W)
-authorisedOfficialsName.heading = (W)Authorised official’s name(W)
-authorisedOfficialsName.firstName.label = (W)First name(W)
-authorisedOfficialsName.firstName.error.required = (W)Enter their first name(W)
-authorisedOfficialsName.firstName.error.length = (W)First name must be 100 characters or less(W)
-authorisedOfficialsName.firstName.error.format = (W)First name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-authorisedOfficialsName.middleName.label = (W)Middle name (optional)(W)
-authorisedOfficialsName.middleName.error.length = (W)Middle name must be 100 characters or less(W)
-authorisedOfficialsName.middleName.error.format = (W)Middle name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-authorisedOfficialsName.lastName.label = (W)Last name(W)
-authorisedOfficialsName.lastName.error.required = (W)Enter their last name(W)
-authorisedOfficialsName.lastName.error.length = (W)Last name must be 100 characters or less(W)
-authorisedOfficialsName.lastName.error.format = (W)Last name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-authorisedOfficialsName.title.error.required = (W)Select their title(W)
+authorisedOfficialsName.title = Enw’r swyddog awdurdodedig
+authorisedOfficialsName.heading = Enw’r swyddog awdurdodedig
+authorisedOfficialsName.firstName.label = Enw cyntaf
+authorisedOfficialsName.firstName.error.required = Nodwch ei enw cyntaf
+authorisedOfficialsName.firstName.error.length = Mae’n rhaid i’r enw cyntaf fod yn 100 o gymeriadau neu lai
+authorisedOfficialsName.firstName.error.format = Mae’n rhaid i’r enw cyntaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+authorisedOfficialsName.middleName.label = Enw canol (dewisol)
+authorisedOfficialsName.middleName.error.length = Mae’n rhaid i’r enw canol fod yn 100 o gymeriadau neu lai
+authorisedOfficialsName.middleName.error.format = Mae’n rhaid i’r enw canol gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+authorisedOfficialsName.lastName.label = Enw olaf
+authorisedOfficialsName.lastName.error.required = Nodwch ei enw olaf
+authorisedOfficialsName.lastName.error.length = Mae’n rhaid i’r enw olaf fod yn 100 o gymeriadau neu lai
+authorisedOfficialsName.lastName.error.format = Mae’n rhaid i’r enw olaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+authorisedOfficialsName.title.error.required = Dewiswch ei deitl
 
-authorisedOfficialsName.checkYourAnswersLabel = (W)Full name(W)
+authorisedOfficialsName.checkYourAnswersLabel = Enw llawn
 
 # Authorised Official Date of birth Messages
 # ----------------------------------------------------------
-authorisedOfficialsDOB.title = (W)What is the authorised official’s date of birth?(W)
-authorisedOfficialsDOB.heading = (W)What is {0}’s date of birth?(W)
-authorisedOfficialsDOB.hint = (W)For example, 27 3 1980(W)
-authorisedOfficialsDOB.error.required.all = (W)Enter their date of birth(W)
-authorisedOfficialsDOB.error.required.two = (W)Enter their {0} and {1} of birth(W)
-authorisedOfficialsDOB.error.required.one = (W)Enter their {0} of birth(W)
-authorisedOfficialsDOB.error.invalid = (W)Their birth date must be a real date(W)
-authorisedOfficialsDOB.error.minimum = (W)Authorised officials must be at least 16 years old(W)
-authorisedOfficialsDOB.error.nonNumeric = (W)Date of birth must be written as a number(W)
-authorisedOfficialsDOB.error.dateBetween = (W)Date of birth must be between 01/01/1900 and today(W)
+authorisedOfficialsDOB.title = Beth yw dyddiad geni’r swyddog awdurdodedig?
+authorisedOfficialsDOB.heading = Beth yw dyddiad geni {0}?
+authorisedOfficialsDOB.hint = Er enghraifft, 27 3 1980
+authorisedOfficialsDOB.error.required.all = Nodwch ei ddyddiad geni
+authorisedOfficialsDOB.error.required.two = Nodwch ei {0} a {1} geni
+authorisedOfficialsDOB.error.required.one = Nodwch ei {0} geni
+authorisedOfficialsDOB.error.invalid = Mae’n rhaid i’w ddyddiad geni fod yn ddyddiad go iawn
+authorisedOfficialsDOB.error.minimum = Mae’n rhaid i swyddogion awdurdodedig fod yn 16 oed neu’n hŷn
+authorisedOfficialsDOB.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad geni fel rhif
+authorisedOfficialsDOB.error.dateBetween = Mae’n rhaid i’r dyddiad geni fod rhwng 01/01/1900 a heddiw
 
-authorisedOfficialsDOB.checkYourAnswersLabel = (W)Date of birth(W)
+authorisedOfficialsDOB.checkYourAnswersLabel = Dyddiad geni
 
 # Authorised Officials Phone Number Messages
 # ----------------------------------------------------------
-authorisedOfficialsPhoneNumber.title = (W)Authorised official’s phone numbers(W)
-authorisedOfficialsPhoneNumber.heading = (W){0}’s phone numbers(W)
-authorisedOfficialsPhoneNumber.mainPhoneNumber.label = (W)Main phone number(W)
-authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main phone number, like 01632 960 001(W)
-authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = (W)Alternative phone number (optional)(W)
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001(W)
-authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
+authorisedOfficialsPhoneNumber.title = Rhifau ffôn y swyddog awdurdodedig
+authorisedOfficialsPhoneNumber.heading = Rhifau ffôn {0}
+authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
+authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch ei brif rif ffôn, megis 01632 960 001
+authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch ei rif ffôn arall, megis 01632 960 001
+authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
 
-authorisedOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
+authorisedOfficialsPhoneNumber.checkYourAnswersLabel = Rhif ffôn
 
 # Authorised Official Position  Messages
 # ----------------------------------------------------------
-authorisedOfficialsPosition.title = (W)What is the authorised official’s position in the charity?(W)
-authorisedOfficialsPosition.heading = (W)What is {0}’s position in the charity?(W)
-authorisedOfficialsPosition.error.required = (W)Select their position in the charity(W)
-authorisedOfficialsPosition.hint = (W)Select one option(W)
-officialsPosition.01 = (W)Board member(W)
-officialsPosition.02 = (W)Bursar(W)
-officialsPosition.03 = (W)Chairman(W)
-officialsPosition.04 = (W)Chief executive(W)
-officialsPosition.05 = (W)Director(W)
-officialsPosition.06 = (W)Employee(W)
-officialsPosition.07 = (W)Finance manager(W)
-officialsPosition.08 = (W)Financial accountant(W)
-officialsPosition.09 = (W)Gift aid secretary(W)
-officialsPosition.10 = (W)Governor (Schools and Academies)(W)
-officialsPosition.11 = (W)Head teacher(W)
-officialsPosition.12 = (W)Assistant head teacher(W)
-officialsPosition.13 = (W)Human resources manager(W)
-officialsPosition.14 = (W)Information officer(W)
-officialsPosition.15 = (W)Minister of religion(W)
-officialsPosition.16 = (W)Principal(W)
-officialsPosition.17 = (W)Secretary(W)
-officialsPosition.18 = (W)Assistant secretary(W)
-officialsPosition.19 = (W)Teacher(W)
-officialsPosition.20 = (W)Treasurer(W)
-officialsPosition.21 = (W)Assistant Treasurer(W)
-officialsPosition.22 = (W)Trustee(W)
-officialsPosition.23 = (W)UK Agent(W)
+authorisedOfficialsPosition.title = Beth yw swydd y swyddog awdurdodedig o fewn yr elusen?
+authorisedOfficialsPosition.heading = Beth yw swydd {0} o fewn yr elusen?
+authorisedOfficialsPosition.error.required = Dewiswch ei swydd o fewn yr elusen
+authorisedOfficialsPosition.hint = Dewiswch un opsiwn
+officialsPosition.01 = Aelod o’r bwrdd
+officialsPosition.02 = Bwrsar
+officialsPosition.03 = Cadeirydd
+officialsPosition.04 = Prif Weithredwr
+officialsPosition.05 = Cyfarwyddwr
+officialsPosition.06 = Cyflogai
+officialsPosition.07 = Rheolwr cyllid
+officialsPosition.08 = Cyfrifydd ariannol
+officialsPosition.09 = Ysgrifennydd Rhodd Cymorth
+officialsPosition.10 = Llywodraethwr (Ysgolion ac Academïau)
+officialsPosition.11 = Prifathro
+officialsPosition.12 = Dirprwy brifathro
+officialsPosition.13 = Rheolwr adnoddau dynol
+officialsPosition.14 = Swyddog gwybodaeth
+officialsPosition.15 = Gweinidog yr efengyl
+officialsPosition.16 = Pennaeth
+officialsPosition.17 = Ysgrifennydd
+officialsPosition.18 = Ysgrifennydd cynorthwyol
+officialsPosition.19 = Athro
+officialsPosition.20 = Trysorydd
+officialsPosition.21 = Trysorydd cynorthwyol
+officialsPosition.22 = Ymddiriedolwr
+officialsPosition.23 = Asiant yn y DU
 
-officialsPosition.checkYourAnswersLabel = (W)Position(W)
+officialsPosition.checkYourAnswersLabel = Swydd
 
 # Authorised official has National Insurance Page Messages
 # ----------------------------------------------------------
-isAuthorisedOfficialNino.title = (W)Does the authorised official have a National Insurance number?(W)
-isAuthorisedOfficialNino.heading = (W)Does {0} have a National Insurance number?(W)
-isAuthorisedOfficialNino.error.required = (W)Select yes if they have a National Insurance number(W)
+isAuthorisedOfficialNino.title = A oes rhif Yswiriant Gwladol gan y swyddog awdurdodedig?
+isAuthorisedOfficialNino.heading = A oes gan {0} rif Yswiriant Gwladol?
+isAuthorisedOfficialNino.error.required = Dewiswch ‘Iawn’ os oes rhif Yswiriant Gwladol gan y swyddog awdurdodedig
 
-isAuthorisedOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
+isAuthorisedOfficialNino.checkYourAnswersLabel = Mae rhif Yswiriant Gwladol gan y swyddog awdurdodedig
 
 # Authorised official Passport Page Messages
 # ----------------------------------------------------------
-authorisedOfficialsPassport.title = (W)Authorised official’s passport or national identity card details(W)
-authorisedOfficialsPassport.heading = (W){0}’s passport or national identity card details(W)
-authorisedOfficialsPassport.passportNumber.label = (W)Passport or national identity card number(W)
-authorisedOfficialsPassport.hint = (W)For example, 21 3 2015(W)
-authorisedOfficialsPassport.passportNumber.error.format = (W)Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-authorisedOfficialsPassport.passportNumber.error.length = (W)Passport or national identity card number must be 30 characters or less(W)
-authorisedOfficialsPassport.passportNumber.error.required = (W)Enter the authorised official’s passport or national identity card number(W)
-authorisedOfficialsPassport.country.label = (W)Country of issue(W)
-authorisedOfficialsPassport.country.hint = (W)Select a country of issue(W)
-authorisedOfficialsPassport.country.error.required = (W)Enter the country of issue(W)
-authorisedOfficialsPassport.expiryDate.label = (W)Expiry date(W)
-authorisedOfficialsPassport.error.minimum = (W)Expiry date must be in the future(W)
-authorisedOfficialsPassport.error.invalid = (W)The expiry date must be a real date(W)
-authorisedOfficialsPassport.error.nonNumeric = (W)Expiry date must be written as a number(W)
-authorisedOfficialsPassport.error.required.all = (W)Enter the expiry date(W)
-authorisedOfficialsPassport.error.required.two = (W)Enter {0} and {1} of expiry date(W)
-authorisedOfficialsPassport.error.required.one = (W)Enter {0} of expiry date(W)
+authorisedOfficialsPassport.title = Manylion pasbort neu fanylion cerdyn adnabod cenedlaethol y swyddog awdurdodedig
+authorisedOfficialsPassport.heading = Manylion pasbort neu fanylion cerdyn adnabod cenedlaethol {0}
+authorisedOfficialsPassport.passportNumber.label = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
+authorisedOfficialsPassport.hint = Er enghraifft, 21 3 2015
+authorisedOfficialsPassport.passportNumber.error.format = Mae’n rhaid i rif y pasbort neu rif y cerdyn adnabod cenedlaethol gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+authorisedOfficialsPassport.passportNumber.error.length = Mae’n rhaid i rif pasbort neu rif cerdyn adnabod cenedlaethol fod yn 30 o gymeriadau neu lai
+authorisedOfficialsPassport.passportNumber.error.required = Nodwch rif pasbort neu rif cerdyn adnabod cenedlaethol y swyddog awdurdodedig
+authorisedOfficialsPassport.country.label = Gwlad cyhoeddi
+authorisedOfficialsPassport.country.hint = Dewiswch wlad cyhoeddi
+authorisedOfficialsPassport.country.error.required = Nodwch y wlad cyhoeddi
+authorisedOfficialsPassport.expiryDate.label = Dyddiad dod i ben
+authorisedOfficialsPassport.error.minimum = Mae’n rhaid i’r dyddiad dod i ben fod yn y dyfodol
+authorisedOfficialsPassport.error.invalid = Mae’n rhaid i’r dyddiad dod i ben fod yn ddyddiad go iawn
+authorisedOfficialsPassport.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad dod i ben fel rhif
+authorisedOfficialsPassport.error.required.all = Nodwch y dyddiad dod i ben
+authorisedOfficialsPassport.error.required.two = Nodwch {0} a {1} y dyddiad dod i ben
+authorisedOfficialsPassport.error.required.one = Nodwch {0} y dyddiad dod i ben
 
-authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
-authorisedOfficialsPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
-authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
+authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
+authorisedOfficialsPassport.country.checkYourAnswersLabel = Gwlad cyhoeddi
+authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel = Dyddiad dod i ben
 
 # Authorised Official National Insurance Number messages
 # ----------------------------------------------------------
-authorisedOfficialsNino.title = (W)What is the authorised official’s National Insurance number?(W)
-authorisedOfficialsNino.heading = (W)What is {0}’s National Insurance number?(W)
-authorisedOfficialsNino.hint = (W)For example, QQ 12 34 56 C(W)
-authorisedOfficialsNino.error.required = (W)Enter their National Insurance number(W)
-authorisedOfficialsNino.error.format = (W)Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D(W)
+authorisedOfficialsNino.title = Beth yw rhif Yswiriant Gwladol y swyddog awdurdodedig?
+authorisedOfficialsNino.heading = Beth yw rhif Yswiriant Gwladol {0}?
+authorisedOfficialsNino.hint = Er enghraifft, QQ 12 34 56 C
+authorisedOfficialsNino.error.required = Nodwch ei rif Yswiriant Gwladol
+authorisedOfficialsNino.error.format = Nodwch rif Yswiriant Gwladol ar ffurf 2 lythyren, 6 rhif, ac yna A, B, C neu D
 
-authorisedOfficialsNino.checkYourAnswersLabel = (W)National Insurance number(W)
+authorisedOfficialsNino.checkYourAnswersLabel = Rhif Yswiriant Gwladol
 
 # Authorised Official Address Messages
 # ----------------------------------------------------------
-authorisedOfficialAddress.lookupPage.title = (W)What is the authorised official’s address? - Officials and nominees(W)
-authorisedOfficialAddress.lookupPage.heading = (W)What is {0}’s home address?(W)
-authorisedOfficialAddress.lookupPage.manualAddressLinkText = (W)Authorised official’s home address does not have a UK postcode(W)
+authorisedOfficialAddress.lookupPage.title = Beth yw cyfeiriad y swyddog awdurdodedig? – Swyddogion ac enwebeion
+authorisedOfficialAddress.lookupPage.heading = Beth yw cyfeiriad cartref {0}?
+authorisedOfficialAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref y swyddog awdurdodedig god post yn y DU
 
-authorisedOfficialAddress.selectPage.title = (W)What is the authorised official’s full address? - Officials and nominees(W)
-authorisedOfficialAddress.selectPage.heading = (W)What is {0}’s full home address?(W)
-authorisedOfficialAddress.selectPage.editAddressLinkText = (W)Enter authorised official’s home address manually(W)
+authorisedOfficialAddress.selectPage.title = Beth yw cyfeiriad llawn y swyddog awdurdodedig? – Swyddogion ac enwebeion
+authorisedOfficialAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn {0}?
+authorisedOfficialAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref y swyddog awdurdodedig â llaw
 
-authorisedOfficialAddress.editPage.title = (W)What is the authorised official’s full address? - Officials and nominees(W)
-authorisedOfficialAddress.editPage.heading = (W)What is {0}’s full home address?(W)
+authorisedOfficialAddress.editPage.title = Beth yw cyfeiriad llawn y swyddog awdurdodedig? – Swyddogion ac enwebeion
+authorisedOfficialAddress.editPage.heading = Beth yw cyfeiriad cartref llawn {0}?
 
-authorisedOfficialAddress.confirmPage.title = (W)Confirm the authorised official’s address - Officials and nominees(W)
-authorisedOfficialAddress.confirmPage.heading = (W)Confirm {0}’s address(W)
-authorisedOfficialAddress.confirmPage.changeLinkText = (W)Change authorised official’s home address(W)
+authorisedOfficialAddress.confirmPage.title = Cadarnhau cyfeiriad y swyddog awdurdodedig – Swyddogion ac enwebeion
+authorisedOfficialAddress.confirmPage.heading = Cadarnhau cyfeiriad {0}
+authorisedOfficialAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref y swyddog awdurdodedig
 
-authorisedOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
+authorisedOfficialAddress.checkYourAnswersLabel = Cyfeiriad cartref
 
 # Authorised Officials Previous Address Page Messages
 # ----------------------------------------------------------
-isAuthorisedOfficialPreviousAddress.title = (W)Has the authorised official’s address changed in the last 12 months?(W)
-isAuthorisedOfficialPreviousAddress.heading = (W)Has {0}’s address changed in the last 12 months?(W)
-isAuthorisedOfficialPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+isAuthorisedOfficialPreviousAddress.title = A yw cyfeiriad y swyddog awdurdodedig wedi newid yn ystod y 12 mis diwethaf?
+isAuthorisedOfficialPreviousAddress.heading = A yw cyfeiriad {0} wedi newid yn ystod y 12 mis diwethaf?
+isAuthorisedOfficialPreviousAddress.error.required = Dewiswch ‘Iawn’ os yw ei gyfeiriad wedi newid yn ystod y 12 mis diwethaf?
 
-isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
-
-# Authorised Official Previous Address Messages
-# ----------------------------------------------------------
-authorisedOfficialPreviousAddress.lookupPage.title = (W)What is the authorised official’s previous home address? - Officials and nominees(W)
-authorisedOfficialPreviousAddress.lookupPage.heading = (W)What is {0}’s previous home address?(W)
-authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = (W)Authorised official’s previous home address does not have a UK postcode(W)
-
-authorisedOfficialPreviousAddress.selectPage.title = (W)What is the authorised official’s full previous home address? - Officials and nominees(W)
-authorisedOfficialPreviousAddress.selectPage.heading = (W)What is {0}’s full previous home address?(W)
-authorisedOfficialPreviousAddress.selectPage.editAddressLinkText = (W)Enter authorised official’s full previous home address manually(W)
-
-authorisedOfficialPreviousAddress.editPage.title = (W)What is the authorised official’s full previous home address? - Officials and nominees(W)
-authorisedOfficialPreviousAddress.editPage.heading = (W)What is {0}’s full previous home address?
-
-authorisedOfficialPreviousAddress.confirmPage.title = (W)Confirm the authorised official’s previous home address - Officials and nominees(W)
-authorisedOfficialPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous home address(W)
-authorisedOfficialPreviousAddress.confirmPage.changeLinkText = (W)Change authorised official’s previous home address(W)
-
-authorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
+isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newid yn ystod y 12 mis diwethaf
 
 # Authorised Official Previous Address Messages
 # ----------------------------------------------------------
-authorisedOfficialPreviousAddress.lookupPage.title = (W)What is the authorised official’s previous home address? - Officials and nominees(W)
-authorisedOfficialPreviousAddress.lookupPage.heading = (W)What is {0}’s previous home address?(W)
-authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = (W)Authorised official’s previous home address does not have a UK postcode(W)
+authorisedOfficialPreviousAddress.lookupPage.title = Beth yw cyfeiriad cartref blaenorol y swyddog awdurdodedig? – Swyddogion ac enwebeion
+authorisedOfficialPreviousAddress.lookupPage.heading = Beth yw cyfeiriad cartref blaenorol {0}?
+authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref blaenorol y swyddog awdurdodedig god post yn y DU
 
-authorisedOfficialPreviousAddress.selectPage.title = (W)What is the authorised official’s full previous home address? - Officials and nominees(W)
-authorisedOfficialPreviousAddress.selectPage.heading = (W)What is {0}’s full previous home address?(W)
-authorisedOfficialPreviousAddress.selectPage.editAddressLinkText = (W)Enter authorised official’s full previous home address manually(W)
+authorisedOfficialPreviousAddress.selectPage.title = Beth yw cyfeiriad cartref llawn blaenorol y swyddog awdurdodedig? – Swyddogion ac enwebeion
+authorisedOfficialPreviousAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
+authorisedOfficialPreviousAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref llawn blaenorol y swyddog awdurdodedig â llaw
 
-authorisedOfficialPreviousAddress.editPage.title = (W)What is the authorised official’s full previous home address? - Officials and nominees(W)
-authorisedOfficialPreviousAddress.editPage.heading = (W)What is {0}’s full previous home address?
+authorisedOfficialPreviousAddress.editPage.title = Beth yw cyfeiriad cartref llawn blaenorol y swyddog awdurdodedig? – Swyddogion ac enwebeion
+authorisedOfficialPreviousAddress.editPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
 
-authorisedOfficialPreviousAddress.confirmPage.title = (W)Confirm the authorised official’s previous home address - Officials and nominees(W)
-authorisedOfficialPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous home address(W)
-authorisedOfficialPreviousAddress.confirmPage.changeLinkText = (W)Change authorised official’s previous home address(W)
+authorisedOfficialPreviousAddress.confirmPage.title = Cadarnhau cyfeiriad cartref blaenorol y swyddog awdurdodedig – Swyddogion ac enwebeion
+authorisedOfficialPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad cartref blaenorol {0}
+authorisedOfficialPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref blaenorol y swyddog awdurdodedig
 
-authorisedOfficialPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
+authorisedOfficialPreviousAddress.checkYourAnswersLabel = Cyfeiriad cartref blaenorol
 
 # You have added Authorised Official Page Messages
 # ----------------------------------------------------------
-addedAuthorisedOfficial.checkYourAnswers.title = (W)Check the authorised official’s details(W)
+addedAuthorisedOfficial.checkYourAnswers.title = Gwirio manylion y swyddog awdurdodedig
 
 # Authorised Officials Summary page
 # ----------------------------------------------------------
-authorisedOfficialsSummary.checkYourAnswers.title.addedOne = (W)You have added 1 authorised official(W)
-authorisedOfficialsSummary.checkYourAnswers.title.addedTwo = (W)You have added 2 authorised officials(W)
-authorisedOfficialsSummary.checkYourAnswers.heading.addedOne = (W)You have added 1 authorised official(W)
-authorisedOfficialsSummary.checkYourAnswers.heading.addedTwo = (W)You have added 2 authorised officials(W)
-authorisedOfficialsSummary.checkYourAnswers.h2 = (W)Authorised charity’s official(W)
-authorisedOfficialsSummary.checkYourAnswers.change = (W)Change(W)
-authorisedOfficialsSummary.checkYourAnswers.changeName = (W)Change {0}(W)
-authorisedOfficialsSummary.checkYourAnswers.continue = (W)Continue(W)
-authorisedOfficialsSummary.checkYourAnswers.continueName = (W)Continue {0}(W)
-authorisedOfficialsSummary.checkYourAnswers.remove = (W)Remove(W)
-authorisedOfficialsSummary.checkYourAnswers.removeName = (W)Remove {0} from the list(W)
-authorisedOfficialsSummary.addAnotherOfficial.h2 = (W)Do you want to add another authorised official?(W)
-authorisedOfficialsSummary.error.required = (W)Select yes to add another authorised official(W)
-authorisedOfficialsSummary.section = (W)Officials and nominees(W)
+authorisedOfficialsSummary.checkYourAnswers.title.addedOne = Rydych wedi ychwanegu 1 swyddog awdurdodedig
+authorisedOfficialsSummary.checkYourAnswers.title.addedTwo = Rydych wedi ychwanegu 2 swyddog awdurdodedig
+authorisedOfficialsSummary.checkYourAnswers.heading.addedOne = Rydych wedi ychwanegu 1 swyddog awdurdodedig
+authorisedOfficialsSummary.checkYourAnswers.heading.addedTwo = Rydych wedi ychwanegu 2 swyddog awdurdodedig
+authorisedOfficialsSummary.checkYourAnswers.h2 = Swyddog awdurdodedig yr elusen
+authorisedOfficialsSummary.checkYourAnswers.change = Newid
+authorisedOfficialsSummary.checkYourAnswers.changeName = Newid {0}
+authorisedOfficialsSummary.checkYourAnswers.continue = Yn eich blaen
+authorisedOfficialsSummary.checkYourAnswers.continueName = Yn eich blaen {0}
+authorisedOfficialsSummary.checkYourAnswers.remove = Tynnu
+authorisedOfficialsSummary.checkYourAnswers.removeName = Tynnu {0} o’r rhestr
+authorisedOfficialsSummary.addAnotherOfficial.h2 = A ydych eisiau ychwanegu swyddog awdurdodedig arall?
+authorisedOfficialsSummary.error.required = Dewiswch ‘Iawn’ er mwyn ychwanegu swyddog awdurdodedig arall
+authorisedOfficialsSummary.section = Swyddogion ac enwebeion
 
 # Are you sure you want to remove this authorised official
 # ----------------------------------------------------------
-removeAuthorisedOfficial.title = (W)Are you sure you want to remove this authorised official?(W)
-removeAuthorisedOfficial.heading = (W)Are you sure you want to remove {0}?(W)
-removeAuthorisedOfficial.error.required = (W)Select yes to remove this authorised official(W)
+removeAuthorisedOfficial.title = A ydych yn siŵr eich bod am dynnu’r swyddog awdurdodedig hwn?
+removeAuthorisedOfficial.heading = A ydych yn siŵr eich bod am dynnu {0}?
+removeAuthorisedOfficial.error.required = Dewiswch ‘Iawn’ er mwyn tynnu’r swyddog awdurdodedig hwn
 
 # Section8 - Other Officials
 # ----------------------------------------------------------
 
 # charity’s other officials messages
 # ----------------------------------------------------------
-charityOtherOfficials.title = (W)The charity’s other officials(W)
-charityOtherOfficials.heading = (W)The charity’s other officials(W)
-charityOtherOfficials.p1 = (W)You need to add 2 other officials but you can add up to 3.(W)
-charityOtherOfficials.p2 = (W)Other officials are people in the charity who can tell us about changes to the charity’s details, like the address or bank account.(W)
-charityOtherOfficials.p3 = (W)They will normally be the trustees or directors of the charity (if the charity is a company), or community amateur sports club (CASC) officials.(W)
+charityOtherOfficials.title = Swyddogion eraill yr elusen
+charityOtherOfficials.heading = Swyddogion eraill yr elusen
+charityOtherOfficials.p1 = Mae angen i chi ychwanegu 2 swyddog arall, ond gallwch ychwanegu hyd at 3.
+charityOtherOfficials.p2 = Pobl yn yr elusen sy’n gallu rhoi gwybod i ni am newidiadau i fanylion yr elusen, megis y cyfeiriad neu’r cyfrif banc, yw swyddogion eraill.
+charityOtherOfficials.p3 = Fel arfer, byddant yn ymddiriedolwyr neu gyfarwyddwyr yr elusen (os yw’r elusen yn gwmni), neu’n swyddogion clwb chwaraeon amatur cymunedol (CChAC).
 
 # Other Officials Name Messages
 # ----------------------------------------------------------
-otherOfficialsName.title = (W)Other official’s name(W)
-otherOfficialsName.heading = (W)Other official’s name(W)
-otherOfficialsName.firstName.label = (W)First name(W)
-otherOfficialsName.firstName.error.required = (W)Enter their first name(W)
-otherOfficialsName.firstName.error.length = (W)First name must be 100 characters or less(W)
-otherOfficialsName.firstName.error.format = (W)First name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-otherOfficialsName.middleName.label = (W)Middle name (optional)(W)
-otherOfficialsName.middleName.error.length = (W)Middle name must be 100 characters or less(W)
-otherOfficialsName.middleName.error.format = (W)Middle name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-otherOfficialsName.lastName.label = (W)Last name(W)
-otherOfficialsName.lastName.error.required = (W)Enter their last name(W)
-otherOfficialsName.lastName.error.length = (W)Last name must be 100 characters or less(W)
-otherOfficialsName.lastName.error.format = (W)Last name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-otherOfficialsName.title.error.required = (W)Select their title(W)
+otherOfficialsName.title = Enw’r swyddog arall
+otherOfficialsName.heading = Enw’r swyddog arall
+otherOfficialsName.firstName.label = Enw cyntaf
+otherOfficialsName.firstName.error.required = Nodwch ei enw cyntaf
+otherOfficialsName.firstName.error.length = Mae’n rhaid i’r enw cyntaf fod yn 100 o gymeriadau neu lai
+otherOfficialsName.firstName.error.format = Mae’n rhaid i’r enw cyntaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+otherOfficialsName.middleName.label = Enw canol (dewisol)
+otherOfficialsName.middleName.error.length = Mae’n rhaid i’r enw canol fod yn 100 o gymeriadau neu lai
+otherOfficialsName.middleName.error.format = Mae’n rhaid i’r enw canol gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+otherOfficialsName.lastName.label = Enw olaf
+otherOfficialsName.lastName.error.required = Nodwch ei enw olaf
+otherOfficialsName.lastName.error.length = Mae’n rhaid i’r enw olaf fod yn 100 o gymeriadau neu lai
+otherOfficialsName.lastName.error.format = Mae’n rhaid i’r enw olaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+otherOfficialsName.title.error.required = Dewiswch ei deitl
 
-otherOfficialsName.checkYourAnswersLabel = (W)Full name(W)
+otherOfficialsName.checkYourAnswersLabel = Enw llawn
 
 # Other Official Date of birth Messages
 # ----------------------------------------------------------
-otherOfficialsDOB.title = (W)What is the other official’s date of birth?(W)
-otherOfficialsDOB.heading = (W)What is {0}’s date of birth?(W)
-otherOfficialsDOB.hint = (W)For example, 27 3 1980(W)
-otherOfficialsDOB.error.required.all = (W)Enter their date of birth(W)
-otherOfficialsDOB.error.required.two = (W)Enter their {0} and {1} of birth(W)
-otherOfficialsDOB.error.required.one = (W)Enter their {0} of birth(W)
-otherOfficialsDOB.error.invalid = (W)Their birth date must be a real date(W)
-otherOfficialsDOB.error.minimum = (W)Other officials must be at least 16 years old(W)
-otherOfficialsDOB.error.nonNumeric = (W)Date of birth must be written as a number(W)
-otherOfficialsDOB.error.dateBetween = (W)Date of birth must be between 01/01/1900 and today(W)
+otherOfficialsDOB.title = Beth yw dyddiad geni’r swyddog arall?
+otherOfficialsDOB.heading = Beth yw dyddiad geni {0}?
+otherOfficialsDOB.hint = Er enghraifft, 27 3 1980
+otherOfficialsDOB.error.required.all = Nodwch ei ddyddiad geni
+otherOfficialsDOB.error.required.two = Nodwch ei {0} a {1} geni
+otherOfficialsDOB.error.required.one = Nodwch ei {0} geni
+otherOfficialsDOB.error.invalid = Mae’n rhaid i’w ddyddiad geni fod yn ddyddiad go iawn
+otherOfficialsDOB.error.minimum = Mae’n rhaid i swyddogion eraill fod yn 16 oed neu’n hŷn
+otherOfficialsDOB.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad geni fel rhif
+otherOfficialsDOB.error.dateBetween = Mae’n rhaid i’r dyddiad geni fod rhwng 01/01/1900 a heddiw
 
-otherOfficialsDOB.checkYourAnswersLabel = (W)Date of birth(W)
+otherOfficialsDOB.checkYourAnswersLabel = Dyddiad geni
 
 # Other Officials Phone Number Messages
 # ----------------------------------------------------------
-otherOfficialsPhoneNumber.title = (W)Other official’s phone numbers(W)
-otherOfficialsPhoneNumber.heading = (W){0}’s phone numbers(W)
-otherOfficialsPhoneNumber.mainPhoneNumber.label = (W)Main phone number(W)
-otherOfficialsPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main phone number, like 01632 960 001(W)
-otherOfficialsPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
-otherOfficialsPhoneNumber.alternativePhoneNumber.label = (W)Alternative phone number (optional)(W)
-otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001(W)
-otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
-otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
+otherOfficialsPhoneNumber.title = Rhifau ffôn y swyddog arall
+otherOfficialsPhoneNumber.heading = Rhifau ffôn {0}
+otherOfficialsPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
+otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch ei brif rif ffôn, megis 01632 960 001
+otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
+otherOfficialsPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
+otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch ei rif ffôn arall, megis 01632 960 001
+otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
+otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
 
-otherOfficialsPhoneNumber.checkYourAnswersLabel = (W)Phone Number(W)
+otherOfficialsPhoneNumber.checkYourAnswersLabel = Rhif ffôn
 
 # Other Official Position Messages
 # ----------------------------------------------------------
-otherOfficialsPosition.title = (W)What is the other official’s position in the charity?(W)
-otherOfficialsPosition.heading = (W)What is {0}’s position in the charity?(W)
-otherOfficialsPosition.error.required = (W)Select their position in the charity(W)
-otherOfficialsPosition.hint = (W)Select one option(W)
+otherOfficialsPosition.title = Beth yw swydd y swyddog arall o fewn yr elusen?
+otherOfficialsPosition.heading = Beth yw swydd {0} o fewn yr elusen?
+otherOfficialsPosition.error.required = Dewiswch ei swydd o fewn yr elusen
+otherOfficialsPosition.hint = Dewiswch un opsiwn
 
-otherOfficialsPosition.checkYourAnswersLabel = (W)Position(W)
+otherOfficialsPosition.checkYourAnswersLabel = Swydd
 
 # Other official has National Insurance Page Messages
 # ----------------------------------------------------------
-isOtherOfficialNino.title = (W)Does the other official have a National Insurance number?(W)
-isOtherOfficialNino.heading = (W)Does {0} have a National Insurance number?(W)
-isOtherOfficialNino.error.required = (W)Select yes if they have a National Insurance number(W)
+isOtherOfficialNino.title = A oes rhif Yswiriant Gwladol gan y swyddog arall?
+isOtherOfficialNino.heading = A oes gan {0} rif Yswiriant Gwladol?
+isOtherOfficialNino.error.required = Dewiswch ‘Iawn’ os oes ganddo rif Yswiriant Gwladol
 
-isOtherOfficialNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
+isOtherOfficialNino.checkYourAnswersLabel = Mae ganddo rif Yswiriant Gwladol
 
 # Other official Passport Page Messages
 # ----------------------------------------------------------
-otherOfficialsPassport.title = (W)Other official’s passport or national identity card details(W)
-otherOfficialsPassport.heading = (W){0}’s passport or national identity card details(W)
-otherOfficialsPassport.passportNumber.label = (W)Passport or national identity card number(W)
-otherOfficialsPassport.hint = (W)For example, 21 3 2015(W)
-otherOfficialsPassport.passportNumber.error.format = (W)Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-otherOfficialsPassport.passportNumber.error.length = (W)Passport or national identity card number must be 30 characters or less(W)
-otherOfficialsPassport.passportNumber.error.required = (W)Enter the other official’s passport or national identity card number(W)
-otherOfficialsPassport.country.label = (W)Country of issue(W)
-otherOfficialsPassport.country.hint = (W)Select a country of issue(W)
-otherOfficialsPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
-otherOfficialsPassport.country.error.required = (W)Enter the country of issue(W)
-otherOfficialsPassport.expiryDate.label = (W)Expiry date(W)
-otherOfficialsPassport.error.minimum = (W)Expiry date must be in the future(W)
-otherOfficialsPassport.error.invalid = (W)The expiry date must be a real date(W)
-otherOfficialsPassport.error.nonNumeric = (W)Expiry date must be written as a number(W)
-otherOfficialsPassport.error.required.all = (W)Enter the expiry date(W)
-otherOfficialsPassport.error.required.two = (W)Enter {0} and {1} of expiry date(W)
-otherOfficialsPassport.error.required.one = (W)Enter {0} of expiry date(W)
+otherOfficialsPassport.title = Manylion pasbort neu fanylion cerdyn adnabod cenedlaethol y swyddog arall
+otherOfficialsPassport.heading = Manylion pasbort neu fanylion cerdyn adnabod cenedlaethol {0}
+otherOfficialsPassport.passportNumber.label = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
+otherOfficialsPassport.hint = Er enghraifft, 21 3 2015
+otherOfficialsPassport.passportNumber.error.format = Mae’n rhaid i rif y pasbort neu rif y cerdyn adnabod cenedlaethol gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+otherOfficialsPassport.passportNumber.error.length = Mae’n rhaid i rif y pasbort neu rif y cerdyn adnabod cenedlaethol fod yn 30 o gymeriadau neu lai
+otherOfficialsPassport.passportNumber.error.required = Nodwch rif pasbort neu rif cerdyn adnabod cenedlaethol y swyddog arall
+otherOfficialsPassport.country.label = Gwlad cyhoeddi
+otherOfficialsPassport.country.hint = Dewiswch wlad cyhoeddi
+otherOfficialsPassport.country.error.length = Mae’n rhaid i’r wlad cyhoeddi fod yn 50 o gymeriadau neu lai
+otherOfficialsPassport.country.error.required = Nodwch y wlad cyhoeddi
+otherOfficialsPassport.expiryDate.label = Dyddiad dod i ben
+otherOfficialsPassport.error.minimum = Mae’n rhaid i’r dyddiad dod i ben fod yn y dyfodol
+otherOfficialsPassport.error.invalid = Mae’n rhaid i’r dyddiad dod i ben fod yn ddyddiad go iawn
+otherOfficialsPassport.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad dod i ben fel rhif
+otherOfficialsPassport.error.required.all = Nodwch y dyddiad dod i ben
+otherOfficialsPassport.error.required.two = Nodwch {0} a {1} y dyddiad dod i ben
+otherOfficialsPassport.error.required.one = Nodwch {0} y dyddiad dod i ben
 
-otherOfficialsPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
-otherOfficialsPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
-otherOfficialsPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
+otherOfficialsPassport.passportNumber.checkYourAnswersLabel = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
+otherOfficialsPassport.country.checkYourAnswersLabel = Gwlad cyhoeddi
+otherOfficialsPassport.expiryDate.checkYourAnswersLabel = Dyddiad dod i ben
 
 # Other Official Nino Messages
 # ----------------------------------------------------------
-otherOfficialsNino.title = (W)What is the other official’s National Insurance number(W)
-otherOfficialsNino.heading = (W)What is {0}’s National Insurance number?(W)
-otherOfficialsNino.hint = (W)For example, QQ 12 34 56 C(W)
-otherOfficialsNino.error.required = (W)Enter their National Insurance number(W)
-otherOfficialsNino.error.format = (W)Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D(W)
+otherOfficialsNino.title = Beth yw rhif Yswiriant Gwladol y swyddog arall?
+otherOfficialsNino.heading = Beth yw rhif Yswiriant Gwladol {0}?
+otherOfficialsNino.hint = Er enghraifft, QQ 12 34 56 C
+otherOfficialsNino.error.required = Nodwch ei rif Yswiriant Gwladol
+otherOfficialsNino.error.format = Nodwch rif Yswiriant Gwladol ar ffurf 2 lythyren, 6 rhif, ac yna A, B, C neu D
 
-otherOfficialsNino.checkYourAnswersLabel = (W)National Insurance number(W)
+otherOfficialsNino.checkYourAnswersLabel = Rhif Yswiriant Gwladol
 
 # Other Official Address Messages
 # ----------------------------------------------------------
-otherOfficialAddress.lookupPage.title = (W)What is the other official’s home address? - Officials and nominees(W)
-otherOfficialAddress.lookupPage.heading = (W)What is {0}’s home address?(W)
-otherOfficialAddress.lookupPage.manualAddressLinkText = (W)Other official’s home address does not have a UK postcode(W)
+otherOfficialAddress.lookupPage.title = Beth yw cyfeiriad cartref y swyddog arall? – Swyddogion ac enwebeion
+otherOfficialAddress.lookupPage.heading = Beth yw cyfeiriad cartref {0}?
+otherOfficialAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref y swyddog arall god post yn y DU
 
-otherOfficialAddress.selectPage.title = (W)What is the other official’s full home address? - Officials and nominees(W)
-otherOfficialAddress.selectPage.heading = (W)What is {0}’s full home address?(W)
-otherOfficialAddress.selectPage.editAddressLinkText = (W)Enter other official’s home address manually(W)
+otherOfficialAddress.selectPage.title = Beth yw cyfeiriad cartref llawn y swyddog arall? – Swyddogion ac enwebeion
+otherOfficialAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn {0}?
+otherOfficialAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref y swyddog arall â llaw
 
-otherOfficialAddress.editPage.title = (W)What is the other official’s full home address? - Officials and nominees(W)
-otherOfficialAddress.editPage.heading = (W)What is {0}’s full home address?(W)
+otherOfficialAddress.editPage.title = Beth yw cyfeiriad cartref llawn y swyddog arall? – Swyddogion ac enwebeion
+otherOfficialAddress.editPage.heading = Beth yw cyfeiriad cartref llawn {0}?
 
-otherOfficialAddress.confirmPage.title = (W)Confirm the other official’s home address - Officials and nominees(W)
-otherOfficialAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
-otherOfficialAddress.confirmPage.changeLinkText = (W)Change other official’s home address(W)
+otherOfficialAddress.confirmPage.title = Cadarnhau cyfeiriad cartref y swyddog arall – Swyddogion ac enwebeion
+otherOfficialAddress.confirmPage.heading = Cadarnhau cyfeiriad cartref {0}
+otherOfficialAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref y swyddog arall
 
-otherOfficialAddress.checkYourAnswersLabel = (W)Home address(W)
-
-# Other Official Previous Address Messages
-# ----------------------------------------------------------
-isOtherOfficialsPreviousAddress.title = (W)Has the other official’s address changed in the last 12 months?(W)
-isOtherOfficialsPreviousAddress.heading = (W)Has {0}’s home address changed in the last 12 months?(W)
-isOtherOfficialsPreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
-
-isOtherOfficialsPreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+otherOfficialAddress.checkYourAnswersLabel = Cyfeiriad cartref
 
 # Other Official Previous Address Messages
 # ----------------------------------------------------------
-otherOfficialPreviousAddress.lookupPage.title = (W)What is the other official’s previous home address? - Officials and nominees(W)
-otherOfficialPreviousAddress.lookupPage.heading = (W)What is {0}’s previous home address?(W)
-otherOfficialPreviousAddress.lookupPage.manualAddressLinkText = (W)Other official’s previous home address does not have a UK postcode(W)
+isOtherOfficialsPreviousAddress.title = A yw cyfeiriad y swyddog arall wedi newid yn ystod y 12 mis diwethaf?
+isOtherOfficialsPreviousAddress.heading = A yw cyfeiriad cartref {0} wedi newid yn ystod y 12 mis diwethaf?
+isOtherOfficialsPreviousAddress.error.required = Dewiswch ‘Iawn’ os yw ei gyfeiriad wedi newid yn ystod y 12 mis diwethaf?
 
-otherOfficialPreviousAddress.selectPage.title = (W)What is the other official’s full previous home address? - Officials and nominees(W)
-otherOfficialPreviousAddress.selectPage.heading = (W)What is {0}’s full previous home address?(W)
-otherOfficialPreviousAddress.selectPage.editAddressLinkText = (W)Enter other official’s full previous home address manually(W)
+isOtherOfficialsPreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newid yn ystod y 12 mis diwethaf
 
-otherOfficialPreviousAddress.editPage.title = (W)What is the other official’s full previous home address? - Officials and nominees(W)
-otherOfficialPreviousAddress.editPage.heading = (W)What is {0}’s full previous home address?(W)
+# Other Official Previous Address Messages
+# ----------------------------------------------------------
+otherOfficialPreviousAddress.lookupPage.title = Beth yw cyfeiriad cartref blaenorol y swyddog arall? – Swyddogion ac enwebeion
+otherOfficialPreviousAddress.lookupPage.heading = Beth yw cyfeiriad cartref blaenorol {0}?
+otherOfficialPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad cartref blaenorol y swyddog arall god post yn y DU
 
-otherOfficialPreviousAddress.confirmPage.title = (W)Confirm the other official’s previous home address - Officials and nominees(W)
-otherOfficialPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous home address(W)
-otherOfficialPreviousAddress.confirmPage.changeLinkText = (W)Change other official’s previous home address(W)
+otherOfficialPreviousAddress.selectPage.title = Beth yw cyfeiriad cartref llawn blaenorol y swyddog arall? – Swyddogion ac enwebeion
+otherOfficialPreviousAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
+otherOfficialPreviousAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref llawn blaenorol y swyddog arall â llaw
 
-otherOfficialPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
+otherOfficialPreviousAddress.editPage.title = Beth yw cyfeiriad cartref llawn blaenorol y swyddog arall? – Swyddogion ac enwebeion
+otherOfficialPreviousAddress.editPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
+
+otherOfficialPreviousAddress.confirmPage.title = Cadarnhau cyfeiriad cartref blaenorol y swyddog arall – Swyddogion ac enwebeion
+otherOfficialPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad cartref blaenorol {0}
+otherOfficialPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref blaenorol y swyddog arall
+
+otherOfficialPreviousAddress.checkYourAnswersLabel = Cyfeiriad cartref blaenorol
 
 # You have added Other Official Page Messages
 # ----------------------------------------------------------
-addedOtherOfficial.checkYourAnswers.title = (W)Check the other official’s details(W)
+addedOtherOfficial.checkYourAnswers.title = Gwirio manylion y swyddog arall
 
 # Check the second Other Official Page Messages
 # ----------------------------------------------------------
-addedSecondOtherOfficial.checkYourAnswers.title = (W)Check the second other official’s details(W)
-addedSecondOtherOfficial.checkYourAnswers.heading = (W)Check the second other official’s details(W)
+addedSecondOtherOfficial.checkYourAnswers.title = Gwirio manylion yr ail swyddog arall
+addedSecondOtherOfficial.checkYourAnswers.heading = Gwirio manylion yr ail swyddog arall
 
 # Check the third Other Official Page Messages
 # ----------------------------------------------------------
-addedThirdOtherOfficial.checkYourAnswers.title = (W)Check the third other official’s details(W)
-addedThirdOtherOfficial.checkYourAnswers.heading = (W)Check the third other official’s details(W)
+addedThirdOtherOfficial.checkYourAnswers.title = Gwirio manylion y trydydd swyddog arall
+addedThirdOtherOfficial.checkYourAnswers.heading = Gwirio manylion y trydydd swyddog arall
 
 # Charity’s Other Officials Details Summary Page Messages
 # ----------------------------------------------------------
 # Authorised Officials Summary page
 # ----------------------------------------------------------
-otherOfficialsSummary.checkYourAnswers.title.addedOne = (W)You have added 1 other official(W)
-otherOfficialsSummary.checkYourAnswers.title.addedTwo = (W)You have added 2 other officials(W)
-otherOfficialsSummary.checkYourAnswers.title.addedThree = (W)You have added 3 other officials(W)
-otherOfficialsSummary.checkYourAnswers.heading.addedOne = (W)You have added 1 other official(W)
-otherOfficialsSummary.checkYourAnswers.heading.addedTwo = (W)You have added 2 other officials(W)
-otherOfficialsSummary.checkYourAnswers.heading.addedThree = (W)You have added 3 other officials(W)
-otherOfficialsSummary.checkYourAnswers.p1 = (W)You now need to add another other official(W)
-otherOfficialsSummary.checkYourAnswers.h2 = (W)Charity’s other official(W)
-otherOfficialsSummary.checkYourAnswers.change = (W)Change(W)
-otherOfficialsSummary.checkYourAnswers.changeName = (W)Change {0}(W)
-otherOfficialsSummary.checkYourAnswers.continue = (W)Continue(W)
-otherOfficialsSummary.checkYourAnswers.continueName = (W)Continue {0}(W)
-otherOfficialsSummary.checkYourAnswers.remove = (W)Remove(W)
-otherOfficialsSummary.checkYourAnswers.removeName = (W)Remove {0} from the list(W)
-otherOfficialsSummary.addAnotherOfficial.h2 = (W)Do you want to add another other official?(W)
-otherOfficialsSummary.error.required = (W)Select yes if you want to add another other official(W)
-otherOfficialsSummary.section = (W)Officials and nominees(W)
+otherOfficialsSummary.checkYourAnswers.title.addedOne = Rydych wedi ychwanegu 1 swyddog arall
+otherOfficialsSummary.checkYourAnswers.title.addedTwo = Rydych wedi ychwanegu 2 swyddog arall
+otherOfficialsSummary.checkYourAnswers.title.addedThree = Rydych wedi ychwanegu 3 swyddog arall
+otherOfficialsSummary.checkYourAnswers.heading.addedOne = Rydych wedi ychwanegu 1 swyddog arall
+otherOfficialsSummary.checkYourAnswers.heading.addedTwo = Rydych wedi ychwanegu 2 swyddog arall
+otherOfficialsSummary.checkYourAnswers.heading.addedThree = Rydych wedi ychwanegu 3 swyddog arall
+otherOfficialsSummary.checkYourAnswers.p1 = Mae angen i chi nawr ychwanegu swyddog arall
+otherOfficialsSummary.checkYourAnswers.h2 = Swyddog arall yr elusen
+otherOfficialsSummary.checkYourAnswers.change = Newid
+otherOfficialsSummary.checkYourAnswers.changeName = Newid {0}
+otherOfficialsSummary.checkYourAnswers.continue = Yn eich blaen
+otherOfficialsSummary.checkYourAnswers.continueName = Yn eich blaen â {0}
+otherOfficialsSummary.checkYourAnswers.remove = Tynnu
+otherOfficialsSummary.checkYourAnswers.removeName = Tynnu {0} o’r rhestr
+otherOfficialsSummary.addAnotherOfficial.h2 = A ydych eisiau ychwanegu swyddog arall?
+otherOfficialsSummary.error.required = Dewiswch ‘Iawn’ os hoffech ychwanegu swyddog arall
+otherOfficialsSummary.section = Swyddogion ac enwebeion
 
 # Are you sure you want to remove this other official
 # ----------------------------------------------------------
-removeOtherOfficial.title = (W)Are you sure you want to remove this other official?(W)
-removeOtherOfficial.heading = (W)Are you sure you want to remove {0}?(W)
-removeOtherOfficial.error.required = (W)Select yes to remove this other official(W)
+removeOtherOfficial.title = A ydych yn siŵr eich bod am dynnu’r swyddog arall hwn?
+removeOtherOfficial.heading = A ydych yn siŵr eich bod am dynnu {0}?
+removeOtherOfficial.error.required = Dewiswch ‘Iawn’ er mwyn tynnu’r swyddog arall hwn
 
 # Section9 - Name nominees
 # ----------------------------------------------------------
 
 # Charity Nominee messages
 # ----------------------------------------------------------
-charityNominee.title = (W)The charity’s nominee(W)
-charityNominee.heading = (W)The charity’s nominee(W)
-charityNominee.p1 = (W)You now have the option of adding a nominee.(W)
-charityNominee.p2 = (W)A nominee is a person or an organisation from outside the charity who can submit Gift Aid or other tax repayment claims on the charity’s behalf. They might also receive the repayments too.(W)
-charityNominee.p3 = (W)Nominees are not ‘managers’ for the purposes of the fit and proper persons test. But you do have to tell us if the charity appoints a nominee or the nominee changes.(W)
+charityNominee.title = Enwebai’r elusen
+charityNominee.heading = Enwebai’r elusen
+charityNominee.p1 = Nawr mae gennych yr opsiwn o ychwanegu enwebai.
+charityNominee.p2 = Mae enwebai yn berson neu’n sefydliad y tu allan i’r elusen sy’n gallu cyflwyno hawliadau Rhodd Cymorth neu ad-daliadau treth eraill ar ran yr elusen. Mae’n bosibl y gall gael yr ad-daliadau hefyd.
+charityNominee.p3 = Nid yw enwebeion yn ‘rheolwyr’ at ddibenion y prawf person gweddus a phriodol. Ond mae’n rhaid i chi roi gwybod i ni os yw’r elusen yn penodi enwebai neu os yw’r enwebai’n newid.
 
 # Do you want to add a nominee Page Messages
 # ----------------------------------------------------------
-isAuthoriseNominee.title = (W)Do you want to authorise a nominee from outside the charity?(W)
-isAuthoriseNominee.heading = (W)Do you want to authorise a nominee from outside the charity?(W)
-isAuthoriseNominee.error.required = (W)Select yes if you want to authorise a nominee(W)
-isAuthoriseNominee.checkYourAnswersLabel = (W)Authorise a nominee(W)
+isAuthoriseNominee.title = A ydych eisiau awdurdodi enwebai y tu allan i’r elusen?
+isAuthoriseNominee.heading = A ydych eisiau awdurdodi enwebai y tu allan i’r elusen?
+isAuthoriseNominee.error.required = Dewiswch ‘Iawn’ os ydych eisiau awdurdodi enwebai
+isAuthoriseNominee.checkYourAnswersLabel = Awdurdodi enwebai
 
 # Choose Nominee Page Messages
 # ----------------------------------------------------------
-chooseNominee.title = (W)Is the nominee an individual or an organisation?(W)
-chooseNominee.heading = (W)Is the nominee a person or an organisation?(W)
-chooseNominee.error.required = (W)Select if the nominee is a person or an organisation(W)
-chooseNominee.person = (W)Person(W)
-chooseNominee.true = (W)Person(W)
-chooseNominee.organisation = (W)Organisation(W)
-chooseNominee.false = (W)Organisation(W)
+chooseNominee.title = A yw’r enwebai’n unigolyn neu’n sefydliad?
+chooseNominee.heading = A yw’r enwebai’n berson neu’n sefydliad?
+chooseNominee.error.required = Dewiswch a yw’r enwebai’n berson neu’n sefydliad
+chooseNominee.person = Person
+chooseNominee.true = Person
+chooseNominee.organisation = Sefydliad
+chooseNominee.false = Sefydliad
 
-chooseNominee.checkYourAnswersLabel = (W)Type of nominee(W)
+chooseNominee.checkYourAnswersLabel = Math o enwebai
 
 # Charity Nominee Individual Name Page Messages
 # ----------------------------------------------------------
-individualNomineeName.title = (W)Nominee’s name(W)
-individualNomineeName.heading = (W)Nominee’s name(W)
-individualNomineeName.firstName.label = (W)First name(W)
-individualNomineeName.firstName.error.required = (W)Enter their first name(W)
-individualNomineeName.firstName.error.length = (W)First name must be 100 characters or less(W)
-individualNomineeName.firstName.error.format = (W)First name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-individualNomineeName.middleName.label = (W)Middle name (optional)(W)
-individualNomineeName.middleName.error.length = (W)Middle name must be 100 characters or less(W)
-individualNomineeName.middleName.error.format = (W)Middle name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-individualNomineeName.lastName.label = (W)Last name(W)
-individualNomineeName.lastName.error.required = (W)Enter their last name(W)
-individualNomineeName.lastName.error.length = (W)Last name must be 100 characters or less(W)
-individualNomineeName.lastName.error.format = (W)Last name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-individualNomineeName.title.error.required = (W)Select their title(W)
+individualNomineeName.title = Enw’r enwebai
+individualNomineeName.heading = Enw’r enwebai
+individualNomineeName.firstName.label = Enw cyntaf
+individualNomineeName.firstName.error.required = Nodwch ei enw cyntaf
+individualNomineeName.firstName.error.length = Mae’n rhaid i’r enw cyntaf fod yn 100 o gymeriadau neu lai
+individualNomineeName.firstName.error.format = Mae’n rhaid i’r enw cyntaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+individualNomineeName.middleName.label = Enw canol (dewisol)
+individualNomineeName.middleName.error.length = Mae’n rhaid i’r enw canol fod yn 100 o gymeriadau neu lai
+individualNomineeName.middleName.error.format = Mae’n rhaid i’r enw canol gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+individualNomineeName.lastName.label = Enw olaf
+individualNomineeName.lastName.error.required = Nodwch ei enw olaf
+individualNomineeName.lastName.error.length = Mae’n rhaid i’r enw olaf fod yn 100 o gymeriadau neu lai
+individualNomineeName.lastName.error.format = Mae’n rhaid i’r enw olaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+individualNomineeName.title.error.required = Dewiswch ei deitl
 
-individualNomineeName.checkYourAnswersLabel = (W)Full name(W)
+individualNomineeName.checkYourAnswersLabel = Enw llawn
 
 # Charity Nominee Individual DOB Page Messages
 # ----------------------------------------------------------
-individualNomineeDOB.title = (W)What is the nominee’s date of birth?(W)
-individualNomineeDOB.heading = (W)What is {0}’s date of birth?(W)
-individualNomineeDOB.hint = (W)For example, 27 3 1980(W)
-individualNomineeDOB.error.required.all = (W)Enter their date of birth(W)
-individualNomineeDOB.error.required.two = (W)Enter their {0} and {1} of birth(W)
-individualNomineeDOB.error.required.one = (W)Enter their {0} of birth(W)
-individualNomineeDOB.error.invalid = (W)Their birth date must be a real date(W)
-individualNomineeDOB.error.minimum = (W)Nominee must be at least 16 years old(W)
-individualNomineeDOB.error.dateBetween = (W)Date of birth must be between 01/01/1900 and today(W)
-individualNomineeDOB.error.nonNumeric = (W)Date of birth must be written as a number(W)
+individualNomineeDOB.title = Beth yw dyddiad geni’r enwebai?
+individualNomineeDOB.heading = Beth yw dyddiad geni {0}?
+individualNomineeDOB.hint = Er enghraifft, 27 3 1980
+individualNomineeDOB.error.required.all = Nodwch ei ddyddiad geni
+individualNomineeDOB.error.required.two = Nodwch ei {0} a {1} geni
+individualNomineeDOB.error.required.one = Nodwch ei {0} geni
+individualNomineeDOB.error.invalid = Mae’n rhaid i’w ddyddiad geni fod yn ddyddiad go iawn
+individualNomineeDOB.error.minimum = Mae’n rhaid i’r enwebai fod yn 16 oed neu’n hŷn
+individualNomineeDOB.error.dateBetween = Mae’n rhaid i’r dyddiad geni fod rhwng 01/01/1900 a heddiw
+individualNomineeDOB.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad geni fel rhif
 
-individualNomineeDOB.checkYourAnswersLabel = (W)Date of birth(W)
+individualNomineeDOB.checkYourAnswersLabel = Dyddiad geni
 
 # Charity Nominee Individual Phone number Page Messages
 # ----------------------------------------------------------
-individualNomineesPhoneNumber.title = (W)Nominee’s phone numbers(W)
-individualNomineesPhoneNumber.heading = (W){0}’s phone numbers(W)
-individualNomineesPhoneNumber.mainPhoneNumber.label = (W)Main phone number(W)
-individualNomineesPhoneNumber.mainPhoneNumber.error.format = (W)Enter their main phone number, like 01632 960 001(W)
-individualNomineesPhoneNumber.mainPhoneNumber.error.required = (W)Enter their main phone number(W)
-individualNomineesPhoneNumber.alternativePhoneNumber.label = (W)Alternative phone number (optional)(W)
-individualNomineesPhoneNumber.alternativePhoneNumber.error.format = (W)Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019(W)
-individualNomineesPhoneNumber.alternativePhoneNumber.error.required = (W)Enter their alternative phone number(W)
+individualNomineesPhoneNumber.title = Rhifau ffôn yr enwebai
+individualNomineesPhoneNumber.heading = Rhifau ffôn {0}
+individualNomineesPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
+individualNomineesPhoneNumber.mainPhoneNumber.error.format = Nodwch ei brif rif ffôn, megis 01632 960 001
+individualNomineesPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
+individualNomineesPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
+individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Nodwch ei rif ffôn arall, fel 01632 960 001, 07700 900 982 neu +44 0808 157 019
+individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Nodwch ei rif ffôn arall
 
-individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = (W)Main phone number(W)
-individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = (W)Alternative phone number(W)
+individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
+individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
 
 # Charity Nominee Individual Nino Page Messages
 # ----------------------------------------------------------
-isIndividualNomineeNino.title = (W)Does the nominee have a National Insurance number?(W)
-isIndividualNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
-isIndividualNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
+isIndividualNomineeNino.title = A oes gan yr enwebai rif Yswiriant Gwladol?
+isIndividualNomineeNino.heading = A oes gan {0} rif Yswiriant Gwladol?
+isIndividualNomineeNino.error.required = Dewiswch ‘Iawn’ os oes ganddo rif Yswiriant Gwladol
 
-isIndividualNomineeNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
+isIndividualNomineeNino.checkYourAnswersLabel = Mae ganddo rif Yswiriant Gwladol
 
 # Charity Nominee Individual Passport Page Messages
 # ----------------------------------------------------------
-individualNomineesPassport.title = (W)What are the nominee’s passport or national identity card details?(W)
-individualNomineesPassport.heading = (W){0}’s passport or national identity card details(W)
-individualNomineesPassport.passportNumber.label = (W)National identity card or passport number(W)
-individualNomineesPassport.hint = (W)For example, 21 3 2015(W)
-individualNomineesPassport.passportNumber.error.format = (W)Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-individualNomineesPassport.passportNumber.error.length = (W)The nominee’s passport or national identity card number must be 30 characters or fewer(W)
-individualNomineesPassport.passportNumber.error.required = (W)Enter the nominee’s passport or national identity card number(W)
-individualNomineesPassport.country.label = (W)Country of issue(W)
-individualNomineesPassport.country.hint = (W)Select a country of issue(W)
-individualNomineesPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
-individualNomineesPassport.country.error.required = (W)Enter the country of issue(W)
-individualNomineesPassport.expiryDate.label = (W)Expiry date(W)
-individualNomineesPassport.error.minimum = (W)The expiry date must be in the future(W)
-individualNomineesPassport.error.invalid = (W)The expiry date must be a real date(W)
-individualNomineesPassport.error.required.all = (W)Enter the expiry date(W)
-individualNomineesPassport.error.required.two = (W)Enter the {0} and the {1} of the expiry date(W)
-individualNomineesPassport.error.required.one = (W)Enter the {0} of the expiry date(W)
+individualNomineesPassport.title = Beth yw manylion pasbort neu fanylion cerdyn adnabod cenedlaethol yr enwebai?
+individualNomineesPassport.heading = Manylion pasbort neu fanylion cerdyn adnabod cenedlaethol {0}
+individualNomineesPassport.passportNumber.label = Rhif cerdyn adnabod cenedlaethol neu rif pasbort
+individualNomineesPassport.hint = Er enghraifft, 21 3 2015
+individualNomineesPassport.passportNumber.error.format = Mae’n rhaid i rif y pasbort neu rif y cerdyn adnabod cenedlaethol gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+individualNomineesPassport.passportNumber.error.length = Mae’n rhaid i rif pasbort neu rif cerdyn adnabod cenedlaethol yr enwebai fod yn 30 o gymeriadau neu lai
+individualNomineesPassport.passportNumber.error.required = Nodwch rif pasbort neu rif cerdyn adnabod cenedlaethol yr enwebai
+individualNomineesPassport.country.label = Gwlad cyhoeddi
+individualNomineesPassport.country.hint = Dewiswch wlad cyhoeddi
+individualNomineesPassport.country.error.length = Mae’n rhaid i’r wlad cyhoeddi fod yn 50 o gymeriadau neu lai
+individualNomineesPassport.country.error.required = Nodwch y wlad cyhoeddi
+individualNomineesPassport.expiryDate.label = Dyddiad dod i ben
+individualNomineesPassport.error.minimum = Mae’n rhaid i’r dyddiad dod i ben fod yn y dyfodol
+individualNomineesPassport.error.invalid = Mae’n rhaid i’r dyddiad dod i ben fod yn ddyddiad go iawn
+individualNomineesPassport.error.required.all = Nodwch y dyddiad dod i ben
+individualNomineesPassport.error.required.two = Nodwch {0} a {1} y dyddiad dod i ben
+individualNomineesPassport.error.required.one = Nodwch {0} y dyddiad dod i ben
 
-individualNomineesPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
-individualNomineesPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
-individualNomineesPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
+individualNomineesPassport.passportNumber.checkYourAnswersLabel = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
+individualNomineesPassport.country.checkYourAnswersLabel = Gwlad cyhoeddi
+individualNomineesPassport.expiryDate.checkYourAnswersLabel = Dyddiad dod i ben
 
 # Charity Nominee Individual Nino Messages
 # ----------------------------------------------------------
-individualNomineesNino.title = (W)What is the nominee’s National Insurance number?(W)
-individualNomineesNino.heading = (W)What is {0}’s National Insurance number?(W)
-individualNomineesNino.hint = (W)For example, QQ 12 34 56 C(W)
-individualNomineesNino.error.required = (W)Enter their National Insurance number(W)
-individualNomineesNino.error.format = (W)Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D(W)
+individualNomineesNino.title = Beth yw rhif Yswiriant Gwladol yr enwebai?
+individualNomineesNino.heading = Beth yw rhif Yswiriant Gwladol {0}?
+individualNomineesNino.hint = Er enghraifft, QQ 12 34 56 C
+individualNomineesNino.error.required = Nodwch ei rif Yswiriant Gwladol
+individualNomineesNino.error.format = Nodwch rif Yswiriant Gwladol ar ffurf 2 lythyren, 6 rhif, ac yna A, B, C neu D
 
-individualNomineesNino.checkYourAnswersLabel = (W)National Insurance number(W)
+individualNomineesNino.checkYourAnswersLabel = Rhif Yswiriant Gwladol
 
 # Nominee Individual Address Messages
 # ----------------------------------------------------------
-nomineeIndividualAddress.lookupPage.title = (W)What is the nominee’s home address? - Officials and nominees(W)
-nomineeIndividualAddress.lookupPage.heading = (W)What is {0}’s home address?(W)
-nomineeIndividualAddress.lookupPage.manualAddressLinkText = (W)Nominee’s address does not have a UK postcode(W)
+nomineeIndividualAddress.lookupPage.title = Beth yw cyfeiriad cartref yr enwebai? – Swyddogion ac enwebeion
+nomineeIndividualAddress.lookupPage.heading = Beth yw cyfeiriad cartref {0}?
+nomineeIndividualAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad yr enwebai god post yn y DU
 
-nomineeIndividualAddress.selectPage.title = (W)What is the nominee’s full home address? - Officials and nominees(W)
-nomineeIndividualAddress.selectPage.heading = (W)What is {0}’s full home address?(W)
-nomineeIndividualAddress.selectPage.editAddressLinkText = (W)Enter nominee’s home address manually(W)
+nomineeIndividualAddress.selectPage.title = Beth yw cyfeiriad cartref llawn yr enwebai? – Swyddogion ac enwebeion
+nomineeIndividualAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn {0}?
+nomineeIndividualAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref yr enwebai â llaw
 
-nomineeIndividualAddress.editPage.title = (W)What is the nominee’s full home address? - Officials and nominees(W)
-nomineeIndividualAddress.editPage.heading = (W)What is {0}’s full home address?(W)
+nomineeIndividualAddress.editPage.title = Beth yw cyfeiriad cartref llawn yr enwebai? – Swyddogion ac enwebeion
+nomineeIndividualAddress.editPage.heading = Beth yw cyfeiriad cartref llawn {0}?
 
-nomineeIndividualAddress.confirmPage.title = (W)Confirm the nominee’s home address - Officials and nominees(W)
-nomineeIndividualAddress.confirmPage.heading = (W)Confirm {0}’s home address(W)
-nomineeIndividualAddress.confirmPage.changeLinkText = (W)Change nominee’s home address(W)
+nomineeIndividualAddress.confirmPage.title = Cadarnhau cyfeiriad cartref yr enwebai – Swyddogion ac enwebeion
+nomineeIndividualAddress.confirmPage.heading = Cadarnhau cyfeiriad cartref {0}
+nomineeIndividualAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref yr enwebai
 
-nomineeIndividualAddress.checkYourAnswersLabel = (W)Home address(W)
+nomineeIndividualAddress.checkYourAnswersLabel = Cyfeiriad cartref
 
 # Charity Nominee Individual Previous Address Page Messages
 # ----------------------------------------------------------
-isIndividualNomineePreviousAddress.title = (W)Has the nominee’s address changed in the last 12 months?(W)
-isIndividualNomineePreviousAddress.heading = (W)Has {0}’s home address changed in the last 12 months?(W)
-isIndividualNomineePreviousAddress.error.required = (W)Select yes if their address has changed in the last 12 months(W)
+isIndividualNomineePreviousAddress.title = A yw cyfeiriad yr enwebai wedi newid yn ystod y 12 mis diwethaf?
+isIndividualNomineePreviousAddress.heading = A yw cyfeiriad cartref {0} wedi newid yn ystod y 12 mis diwethaf?
+isIndividualNomineePreviousAddress.error.required = Dewiswch ‘Iawn’ os yw ei gyfeiriad wedi newid yn ystod y 12 mis diwethaf?
 
-isIndividualNomineePreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+isIndividualNomineePreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newid yn ystod y 12 mis diwethaf
 
 # Nominee Individual Previous Address Messages
 # ----------------------------------------------------------
-nomineeIndividualPreviousAddress.lookupPage.title = (W)What is the nominee’s previous home address? - Officials and nominees(W)
-nomineeIndividualPreviousAddress.lookupPage.heading = (W)What is {0}’s previous home address?(W)
-nomineeIndividualPreviousAddress.lookupPage.manualAddressLinkText = (W)Nominee’s previous address does not have a UK postcode(W)
+nomineeIndividualPreviousAddress.lookupPage.title = Beth yw cyfeiriad cartref blaenorol yr enwebai? – Swyddogion ac enwebeion
+nomineeIndividualPreviousAddress.lookupPage.heading = Beth yw cyfeiriad cartref blaenorol {0}?
+nomineeIndividualPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad blaenorol yr enwebai god post yn y DU
 
-nomineeIndividualPreviousAddress.selectPage.title = (W)What is the nominee’s full previous home address? - Officials and nominees(W)
-nomineeIndividualPreviousAddress.selectPage.heading = (W)What is {0}’s full previous home address?(W)
-nomineeIndividualPreviousAddress.selectPage.editAddressLinkText = (W)Enter nominee’s home address manually(W)
+nomineeIndividualPreviousAddress.selectPage.title = Beth yw cyfeiriad cartref llawn blaenorol yr enwebai? – Swyddogion ac enwebeion
+nomineeIndividualPreviousAddress.selectPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
+nomineeIndividualPreviousAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad cartref yr enwebai â llaw
 
-nomineeIndividualPreviousAddress.editPage.title = (W)What is the nominee’s full previous home address? - Officials and nominees(W)
-nomineeIndividualPreviousAddress.editPage.heading = (W)What is {0}’s full previous home address?(W)
+nomineeIndividualPreviousAddress.editPage.title = Beth yw cyfeiriad cartref llawn blaenorol yr enwebai? – Swyddogion ac enwebeion
+nomineeIndividualPreviousAddress.editPage.heading = Beth yw cyfeiriad cartref llawn blaenorol {0}?
 
-nomineeIndividualPreviousAddress.confirmPage.title = (W)Confirm the nominee’s previous home address - Officials and nominees(W)
-nomineeIndividualPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous home address(W)
-nomineeIndividualPreviousAddress.confirmPage.changeLinkText = (W)Change nominee’s previous home address(W)
+nomineeIndividualPreviousAddress.confirmPage.title = Cadarnhau cyfeiriad cartref blaenorol yr enwebai – Swyddogion ac enwebeion
+nomineeIndividualPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad cartref blaenorol {0}
+nomineeIndividualPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref blaenorol yr enwebai
 
-nomineeIndividualPreviousAddress.checkYourAnswersLabel = (W)Previous home address(W)
+nomineeIndividualPreviousAddress.checkYourAnswersLabel = Cyfeiriad cartref blaenorol
 
 # Is Charity Nominee authorised to receive payments Page Messages
 # ----------------------------------------------------------
-isIndividualNomineePayments.title = (W)Is the nominee authorised to receive payments for the charity?(W)
-isIndividualNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
-isIndividualNomineePayments.error.required = (W)Select yes if the nominee is authorised to receive payments(W)
+isIndividualNomineePayments.title = A yw’r enwebai wedi’i awdurdodi i dderbyn taliadau ar ran yr elusen?
+isIndividualNomineePayments.heading = A yw {0} wedi’i awdurdodi i dderbyn taliadau ar ran yr elusen?
+isIndividualNomineePayments.error.required = Dewiswch ‘Iawn’ os yw’r enwebai wedi’i awdurdodi i dderbyn taliadau
 
-isIndividualNomineePayments.checkYourAnswersLabel = (W)Can receive payments on behalf of the charity(W)
+isIndividualNomineePayments.checkYourAnswersLabel = Gallu derbyn taliadau ar ran yr elusen
 
 # Charity Nominee Individual Bank details Messages
 # ----------------------------------------------------------
-individualNomineesBankDetails.title = (W)Nominee’s bank details(W)
-individualNomineesBankDetails.heading = (W){0}’s bank details(W)
-individualNomineesBankDetails.accountName = (W)Name on the account(W)
-individualNomineesBankDetails.accountName.hint = (W)As shown on nominee’s account statements(W)
-individualNomineesBankDetails.accountName.error.length = (W)Account name must be 60 characters or less(W)
-individualNomineesBankDetails.accountName.error.required = (W)Enter the nominee’s account name(W)
-individualNomineesBankDetails.accountName.error.format = (W)Account name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-individualNomineesBankDetails.sortCode = (W)Nominee’s sort code(W)
-individualNomineesBankDetails.sortCode.hint = (W)Must be 6 digits long(W)
-individualNomineesBankDetails.sortCode.error.required = (W)Enter the nominee’s sort code(W)
-individualNomineesBankDetails.sortCode.error.format = (W)Sort code must be written as a number, like 309430(W)
-individualNomineesBankDetails.accountNumber = (W)Nominee’s account number(W)
-individualNomineesBankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
-individualNomineesBankDetails.accountNumber.error.required = (W)Enter the nominee’s account number(W)
-individualNomineesBankDetails.accountNumber.error.format = (W)Account number must be written as a number, like 00733445(W)
-individualNomineesBankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
-individualNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
-individualNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
-individualNomineesBankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops(W)
-individualNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.(W)
+individualNomineesBankDetails.title = Manylion banc yr enwebai
+individualNomineesBankDetails.heading = Manylion banc {0}
+individualNomineesBankDetails.accountName = Yr enw sydd ar y cyfrif
+individualNomineesBankDetails.accountName.hint = Fel y dangosir ar ddatganiadau cyfrif yr enwebai
+individualNomineesBankDetails.accountName.error.length = Mae’n rhaid i enw’r cyfrif fod yn 60 o gymeriadau neu lai
+individualNomineesBankDetails.accountName.error.required = Nodwch enw cyfrif yr enwebai
+individualNomineesBankDetails.accountName.error.format = Mae’n rhaid i enw’r cyfrif gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+individualNomineesBankDetails.sortCode = Cod didoli’r enwebai
+individualNomineesBankDetails.sortCode.hint = Mae’n rhaid iddo fod yn 6 digid o hyd
+individualNomineesBankDetails.sortCode.error.required = Nodwch god didoli’r enwebai
+individualNomineesBankDetails.sortCode.error.format = Mae’n rhaid ysgrifennu’r cod didoli fel rhif, megis 309430
+individualNomineesBankDetails.accountNumber = Rhif cyfrif yr enwebai
+individualNomineesBankDetails.accountNumber.hint = Mae’n rhaid iddo fod rhwng 6 ac 8 digid o hyd
+individualNomineesBankDetails.accountNumber.error.required = Nodwch rif cyfrif yr enwebai
+individualNomineesBankDetails.accountNumber.error.format = Mae’n rhaid ysgrifennu rhif y cyfrif fel rhif, megis 00733445
+individualNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
+individualNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
+individualNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
+individualNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
+individualNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEM i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
-individualNomineesBankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
-individualNomineesBankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
-individualNomineesBankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)
-individualNomineesBankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number(W)
+individualNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
+individualNomineesBankDetails.sortCode.checkYourAnswersLabel = Cod didoli
+individualNomineesBankDetails.accountNumber.checkYourAnswersLabel = Rhif y cyfrif
+individualNomineesBankDetails.rollNumber.checkYourAnswersLabel = Rhif rôl y gymdeithas adeiladu
 
 # Charity Nominee Organisation Name Page Messages
 # ----------------------------------------------------------
-nameOfOrganisation.title = (W)What is the name of the organisation?(W)
-nameOfOrganisation.heading = (W)What is the name of the organisation?(W)
-nameOfOrganisation.error.required = (W)Enter the name of the organisation(W)
-nameOfOrganisation.error.length = (W)Name of the organisation must be 160 characters or less(W)
-nameOfOrganisation.error.format = (W)Name of the organisation must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
+nameOfOrganisation.title = Beth yw enw’r sefydliad?
+nameOfOrganisation.heading = Beth yw enw’r sefydliad?
+nameOfOrganisation.error.required = Nodwch enw’r sefydliad
+nameOfOrganisation.error.length = Mae’n rhaid i enw’r sefydliad fod yn 160 o gymeriadau neu lai
+nameOfOrganisation.error.format = Mae’n rhaid i enw’r sefydliad gynnwys, llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
 
-nameOfOrganisation.checkYourAnswersLabel = (W)Name(W)
+nameOfOrganisation.checkYourAnswersLabel = Enw
 
 # Charity Nominee Organisation Contact Details Page Messages
 # ----------------------------------------------------------
-organisationContactDetails.title = (W)Nominee organisation’s contact details(W)
-organisationContactDetails.heading = (W){0}’s contact details(W)
-organisationContactDetails.phoneNumber.label = (W)Phone number(W)
-organisationContactDetails.phoneNumber.error.format = (W)Enter the organisation’s main phone number, like 01632 960 001(W)
-organisationContactDetails.phoneNumber.error.required = (W)Enter the organisation’s phone number(W)
-organisationContactDetails.email.label = (W)Email address(W)
-organisationContactDetails.email.error.format = (W)Enter the email address in the correct format, like name@example.com(W)
-organisationContactDetails.email.error.length = (W)Email address must be 160 characters or less(W)
-organisationContactDetails.email.error.required = (W)Enter the organisation’s email address(W)
+organisationContactDetails.title = Manylion cyswllt sefydliad yr enwebai
+organisationContactDetails.heading = Manylion cyswllt {0}
+organisationContactDetails.phoneNumber.label = Rhif ffôn
+organisationContactDetails.phoneNumber.error.format = Nodwch brif rif ffôn y sefydliad, megis 01632 960 001
+organisationContactDetails.phoneNumber.error.required = Nodwch rif ffôn y sefydliad
+organisationContactDetails.email.label = Cyfeiriad e-bost
+organisationContactDetails.email.error.format = Nodwch y cyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com
+organisationContactDetails.email.error.length = Mae’n rhaid i’r cyfeiriad e-bost fod yn 160 o gymeriadau neu lai
+organisationContactDetails.email.error.required = Nodwch gyfeiriad e-bost y sefydliad
 
-organisationContactDetails.phoneNumber.checkYourAnswersLabel = (W)Phone number(W)
-organisationContactDetails.email.checkYourAnswersLabel = (W)Email address(W)
+organisationContactDetails.phoneNumber.checkYourAnswersLabel = Rhif ffôn
+organisationContactDetails.email.checkYourAnswersLabel = Cyfeiriad e-bost
 
 # Charity Nominee Organisation Address Lookup Page Messages
 # ----------------------------------------------------------
-organisationNomineeAddress.lookupPage.title = (W)What is the nominee organisation’s address? - Officials and nominees(W)
-organisationNomineeAddress.lookupPage.heading = (W)What is {0}’s address?(W)
-organisationNomineeAddress.lookupPage.manualAddressLinkText = (W)Organisation’s address does not have a UK postcode(W)
+organisationNomineeAddress.lookupPage.title = Beth yw cyfeiriad sefydliad yr enwebai? – Swyddogion ac enwebeion
+organisationNomineeAddress.lookupPage.heading = Beth yw cyfeiriad {0}?
+organisationNomineeAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad y sefydliad god post yn y DU
 
-organisationNomineeAddress.selectPage.title = (W)What is the nominee organisation’s full address? - Officials and nominees(W)
-organisationNomineeAddress.selectPage.heading = (W)What is {0}’s full address?(W)
-organisationNomineeAddress.selectPage.editAddressLinkText = (W)Enter organisation’s address manually(W)
+organisationNomineeAddress.selectPage.title = Beth yw cyfeiriad llawn sefydliad yr enwebai? – Swyddogion ac enwebeion
+organisationNomineeAddress.selectPage.heading = Beth yw cyfeiriad llawn {0}?
+organisationNomineeAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad y sefydliad â llaw
 
-organisationNomineeAddress.editPage.title = (W)What is the nominee organisation’s full address? - Officials and nominees(W)
-organisationNomineeAddress.editPage.heading = (W)What is {0}’s full address?(W)
+organisationNomineeAddress.editPage.title = Beth yw cyfeiriad llawn sefydliad yr enwebai? – Swyddogion ac enwebeion
+organisationNomineeAddress.editPage.heading = Beth yw cyfeiriad llawn {0}?
 
-organisationNomineeAddress.confirmPage.title = (W)Confirm the nominee organisation’s address - Officials and nominees(W)
-organisationNomineeAddress.confirmPage.heading = (W)Confirm {0}’s address(W)
-organisationNomineeAddress.confirmPage.changeLinkText = (W)Change organisation’s address(W)
+organisationNomineeAddress.confirmPage.title = Cadarnhau cyfeiriad sefydliad yr enwebai – Swyddogion ac enwebeion
+organisationNomineeAddress.confirmPage.heading = Cadarnhau cyfeiriad {0}
+organisationNomineeAddress.confirmPage.changeLinkText = Newid cyfeiriad y sefydliad
 
-organisationNomineeAddress.checkYourAnswersLabel = (W)Address(W)
+organisationNomineeAddress.checkYourAnswersLabel = Cyfeiriad
 
 # Charity Nominee Organisation Change Address Page Messages
 # ----------------------------------------------------------
-isOrganisationNomineePreviousAddress.title = (W)Has the nominee organisation’s address changed in the last 12 months? - Officials and nominees(W)
-isOrganisationNomineePreviousAddress.heading = (W)Has {0}’s address changed in the last 12 months?(W)
-isOrganisationNomineePreviousAddress.error.required = (W)Select yes if the organisation’s address has changed in the last 12 months(W)
+isOrganisationNomineePreviousAddress.title = A yw cyfeiriad sefydliad yr enwebai wedi newid yn ystod y 12 mis diwethaf? – Swyddogion ac enwebeion
+isOrganisationNomineePreviousAddress.heading = A yw cyfeiriad {0} wedi newid yn ystod y 12 mis diwethaf?
+isOrganisationNomineePreviousAddress.error.required = Dewiswch ‘Iawn’ os yw cyfeiriad y sefydliad wedi newid yn ystod y 12 mis diwethaf?
 
-isOrganisationNomineePreviousAddress.checkYourAnswersLabel = (W)Address changed in the last 12 months(W)
+isOrganisationNomineePreviousAddress.checkYourAnswersLabel = Cyfeiriad wedi newid yn ystod y 12 mis diwethaf
 
 # Organisation Nominee Previous Address Messages
 # ----------------------------------------------------------
-nomineeOrganisationPreviousAddress.lookupPage.title = (W)What is the nominee organisation’s previous address? - Officials and nominees(W)
-nomineeOrganisationPreviousAddress.lookupPage.heading = (W)What is {0}’s previous address?(W)
-nomineeOrganisationPreviousAddress.lookupPage.manualAddressLinkText = (W)Organisation’s previous address does not have a UK postcode(W)
+nomineeOrganisationPreviousAddress.lookupPage.title = Beth yw cyfeiriad blaenorol sefydliad yr enwebai? – Swyddogion ac enwebeion
+nomineeOrganisationPreviousAddress.lookupPage.heading = Beth yw cyfeiriad blaenorol {0}?
+nomineeOrganisationPreviousAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad blaenorol y sefydliad god post yn y DU
 
-nomineeOrganisationPreviousAddress.selectPage.title = (W)What is the nominee organisation’s full previous address? - Officials and nominees(W)
-nomineeOrganisationPreviousAddress.selectPage.heading = (W)What is {0}’s full previous address?(W)
-nomineeOrganisationPreviousAddress.selectPage.editAddressLinkText = (W)Enter organisation’s previous address manually(W)
+nomineeOrganisationPreviousAddress.selectPage.title = Beth yw cyfeiriad llawn blaenorol sefydliad yr enwebai? – Swyddogion ac enwebeion
+nomineeOrganisationPreviousAddress.selectPage.heading = Beth yw cyfeiriad llawn blaenorol {0}?
+nomineeOrganisationPreviousAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad blaenorol y sefydliad â llaw
 
-nomineeOrganisationPreviousAddress.editPage.title = (W)What is the nominee organisation’s full previous address? - Officials and nominees(W)
-nomineeOrganisationPreviousAddress.editPage.heading = (W)What is {0}’s full previous address?(W)
+nomineeOrganisationPreviousAddress.editPage.title = Beth yw cyfeiriad llawn blaenorol sefydliad yr enwebai? – Swyddogion ac enwebeion
+nomineeOrganisationPreviousAddress.editPage.heading = Beth yw cyfeiriad llawn blaenorol {0}?
 
-nomineeOrganisationPreviousAddress.confirmPage.title = (W)Confirm the nominee organisation’s previous address - Officials and nominees(W)
-nomineeOrganisationPreviousAddress.confirmPage.heading = (W)Confirm {0}’s previous address(W)
-nomineeOrganisationPreviousAddress.confirmPage.changeLinkText = (W)Change organisation’s previous address(W)
+nomineeOrganisationPreviousAddress.confirmPage.title = Cadarnhau cyfeiriad blaenorol sefydliad yr enwebai – Swyddogion ac enwebeion
+nomineeOrganisationPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad blaenorol {0}
+nomineeOrganisationPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad blaenorol y sefydliad
 
-nomineeOrganisationPreviousAddress.checkYourAnswersLabel = (W)Previous address(W)
+nomineeOrganisationPreviousAddress.checkYourAnswersLabel = Cyfeiriad blaenorol
 
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------
-isOrganisationNomineePayments.title = (W)Is the nominee organisation authorised to receive payments for the charity?(W)
-isOrganisationNomineePayments.heading = (W)Is {0} authorised to receive payments for the charity?(W)
-isOrganisationNomineePayments.error.required = (W)Select yes if the organisation is authorised to receive payments(W)
+isOrganisationNomineePayments.title = A yw sefydliad yr enwebai wedi’i awdurdodi i dderbyn taliadau ar ran yr elusen?
+isOrganisationNomineePayments.heading = A yw {0} wedi’i awdurdodi i dderbyn taliadau ar ran yr elusen?
+isOrganisationNomineePayments.error.required = Dewiswch ‘Iawn’ os yw’r sefydliad wedi’i awdurdodi i dderbyn taliadau
 
-isOrganisationNomineePayments.checkYourAnswersLabel = (W)Can receive payments on behalf of the charity(W)
+isOrganisationNomineePayments.checkYourAnswersLabel = Gallu derbyn taliadau ar ran yr elusen
 
 # Charity Nominee Organisation Bank details Messages
 # ----------------------------------------------------------
-organisationNomineesBankDetails.title = (W)Nominee organisation’s bank details(W)
-organisationNomineesBankDetails.heading = (W){0}’s bank details(W)
-organisationNomineesBankDetails.accountName = (W)Name on the account(W)
-organisationNomineesBankDetails.accountName.hint = (W)As shown on organisation’s account statements(W)
-organisationNomineesBankDetails.accountName.error.length = (W)Account name must be 60 characters or less(W)
-organisationNomineesBankDetails.accountName.error.required = (W)Enter the organisation’s account name(W)
-organisationNomineesBankDetails.accountName.error.format = (W)Account name must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-organisationNomineesBankDetails.sortCode = (W)Organisation’s sort code(W)
-organisationNomineesBankDetails.sortCode.hint = (W)Must be 6 digits long(W)
-organisationNomineesBankDetails.sortCode.error.required = (W)Enter the organisation’s sort code(W)
-organisationNomineesBankDetails.sortCode.error.format = (W)Sort code must be written as a number, like 309430(W)
-organisationNomineesBankDetails.accountNumber = (W)Organisation’s account number(W)
-organisationNomineesBankDetails.accountNumber.hint = (W)Must be between 6 and 8 digits long(W)
-organisationNomineesBankDetails.accountNumber.error.required = (W)Enter the organisation’s account number(W)
-organisationNomineesBankDetails.accountNumber.error.format = (W)Account number must be written as a number, like 00733445(W)
-organisationNomineesBankDetails.rollNumber = (W)Building society roll number (if you have one)(W)
-organisationNomineesBankDetails.rollNumber.hint = (W)They can find it on their bank card, statement or passbook(W)
-organisationNomineesBankDetails.rollNumber.error.length = (W)Building society roll number must be between 1 and 18 characters(W)
-organisationNomineesBankDetails.rollNumber.error.format = (W)Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops(W)
-organisationNomineesBankDetails.basc.warning = (W)We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.(W)
+organisationNomineesBankDetails.title = Manylion banc sefydliad yr enwebai
+organisationNomineesBankDetails.heading = Manylion banc {0}
+organisationNomineesBankDetails.accountName = Yr enw sydd ar y cyfrif
+organisationNomineesBankDetails.accountName.hint = Fel y dangosir ar ddatganiadau cyfrif y sefydliad.
+organisationNomineesBankDetails.accountName.error.length = Mae’n rhaid i enw’r cyfrif fod yn 60 o gymeriadau neu lai
+organisationNomineesBankDetails.accountName.error.required = Nodwch enw cyfrif y sefydliad
+organisationNomineesBankDetails.accountName.error.format = Mae’n rhaid i enw’r cyfrif gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+organisationNomineesBankDetails.sortCode = Cod didoli’r sefydliad
+organisationNomineesBankDetails.sortCode.hint = Mae’n rhaid iddo fod yn 6 digid o hyd
+organisationNomineesBankDetails.sortCode.error.required = Nodwch god didoli’r sefydliad
+organisationNomineesBankDetails.sortCode.error.format = Mae’n rhaid ysgrifennu’r cod didoli fel rhif, megis 309430
+organisationNomineesBankDetails.accountNumber = Rhif cyfrif y sefydliad
+organisationNomineesBankDetails.accountNumber.hint = Mae’n rhaid iddo fod rhwng 6 ac 8 digid o hyd
+organisationNomineesBankDetails.accountNumber.error.required = Nodwch rif cyfrif y sefydliad
+organisationNomineesBankDetails.accountNumber.error.format = Mae’n rhaid ysgrifennu rhif y cyfrif fel rhif, megis 00733445
+organisationNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
+organisationNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
+organisationNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
+organisationNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
+organisationNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEM i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
-organisationNomineesBankDetails.accountName.checkYourAnswersLabel = (W)Account name(W)
-organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = (W)Sort code(W)
-organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel = (W)Account number(W)
-organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel = (W)Building society roll number(W)
+organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
+organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = Cod didoli
+organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel = Rhif y cyfrif
+organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel = Rhif rôl y gymdeithas adeiladu
 
 # Charity Nominee Organisation Authorised Person messages
 # ----------------------------------------------------------
-organisationNomineeAuthorisedPerson.title = (W)Authorised person(W)
-organisationNomineeAuthorisedPerson.heading = (W)You need to add an authorised person from {0}(W)
-organisationNomineeAuthorisedPerson.p1 = (W)This person will be able to submit Gift Aid or other tax repayment claims on the charity’s behalf.(W)
+organisationNomineeAuthorisedPerson.title = Person awdurdodedig
+organisationNomineeAuthorisedPerson.heading = Mae angen i chi ychwanegu person awdurdodedig o {0}
+organisationNomineeAuthorisedPerson.p1 = Bydd y person hwn yn gallu cyflwyno hawliadau Rhodd Cymorth neu ad-daliadau treth eraill ar ran yr elusen.
 
 # Charity Nominee Organisation Authorised Person Name Page Messages
 # ----------------------------------------------------------
-organisationAuthorisedPersonName.title = (W)Authorised person’s name(W)
-organisationAuthorisedPersonName.heading = (W)Authorised person’s name(W)
-organisationAuthorisedPersonName.firstName.label = (W)First name(W)
-organisationAuthorisedPersonName.firstName.error.required = (W)Enter the authorised person’s first name(W)
-organisationAuthorisedPersonName.firstName.error.length = (W)The authorised person’s name must be 100 characters or fewer(W)
-organisationAuthorisedPersonName.firstName.error.format = (W)The authorised person’s first name must not include the following characters: & ( ) : @(W)
-organisationAuthorisedPersonName.middleName.label = (W)Middle name (optional)(W)
-organisationAuthorisedPersonName.middleName.error.length = (W)The authorised person’s middle name must be 100 characters or fewer(W)
-organisationAuthorisedPersonName.middleName.error.format = (W)The authorised person’s middle name must not include the following characters: & ( ) : @(W)
-organisationAuthorisedPersonName.lastName.label = (W)Last name(W)
-organisationAuthorisedPersonName.lastName.error.required = (W)Enter the authorised person’s last name(W)
-organisationAuthorisedPersonName.lastName.error.length = (W)The authorised person’s last name must be 100 characters or fewer(W)
-organisationAuthorisedPersonName.lastName.error.format = (W)The authorised person’s last name must not include the following characters: & ( ) : @(W)
-organisationAuthorisedPersonName.title.error.required = (W)Select the authorised person’s title(W)
+organisationAuthorisedPersonName.title = Enw’r person awdurdodedig
+organisationAuthorisedPersonName.heading = Enw’r person awdurdodedig
+organisationAuthorisedPersonName.firstName.label = Enw cyntaf
+organisationAuthorisedPersonName.firstName.error.required = Nodwch enw cyntaf y person awdurdodedig
+organisationAuthorisedPersonName.firstName.error.length = Mae’n rhaid enw’r person awdurdodedig fod yn 100 o gymeriadau neu lai
+organisationAuthorisedPersonName.firstName.error.format = Ni ddylai enw cyntaf y person awdurdodedig gynnwys y symbolau canlynol: & ( ) : @
+organisationAuthorisedPersonName.middleName.label = Enw canol (dewisol)
+organisationAuthorisedPersonName.middleName.error.length = Mae’n rhaid enw canol y person awdurdodedig fod yn 100 o gymeriadau neu lai
+organisationAuthorisedPersonName.middleName.error.format = Ni ddylai enw canol y person awdurdodedig gynnwys y symbolau canlynol: & ( ) : @
+organisationAuthorisedPersonName.lastName.label = Enw olaf
+organisationAuthorisedPersonName.lastName.error.required = Nodwch enw olaf y person awdurdodedig
+organisationAuthorisedPersonName.lastName.error.length = Mae’n rhaid i enw olaf y person awdurdodedig fod yn 100 o gymeriadau neu lai
+organisationAuthorisedPersonName.lastName.error.format = Ni ddylai enw olaf y person awdurdodedig gynnwys y symbolau canlynol: & ( ) : @
+organisationAuthorisedPersonName.title.error.required = Dewiswch deitl y person awdurdodedig
 
-organisationAuthorisedPersonName.checkYourAnswersLabel = (W)Full name(W)
+organisationAuthorisedPersonName.checkYourAnswersLabel = Enw llawn
 
 # Charity Nominee Organisation Authorised Person DOB Page Messages
 # ----------------------------------------------------------
-organisationAuthorisedPersonDOB.title = (W)What is the authorised person’s date of birth?(W)
-organisationAuthorisedPersonDOB.heading = (W)What is {0}’s date of birth?(W)
-organisationAuthorisedPersonDOB.hint = (W)For example, 21 3 1960(W)
-organisationAuthorisedPersonDOB.error.required.all = (W)Enter their date of birth(W)
-organisationAuthorisedPersonDOB.error.required.two = (W)Enter their {0} and {1} of birth(W)
-organisationAuthorisedPersonDOB.error.required.one = (W)Enter their {0} of birth(W)
-organisationAuthorisedPersonDOB.error.invalid = (W)Their birth date must be a real date.(W)
-organisationAuthorisedPersonDOB.error.minimum = (W)The authorised person must be at least 16 years old(W)
-organisationAuthorisedPersonDOB.error.dateBetween = (W)Date of birth must be between 01/01/1900 and today(W)
-organisationAuthorisedPersonDOB.error.nonNumeric = (W)Date of birth must be written as a number(W)
+organisationAuthorisedPersonDOB.title = Beth yw dyddiad geni’r person awdurdodedig?
+organisationAuthorisedPersonDOB.heading = Beth yw dyddiad geni {0}?
+organisationAuthorisedPersonDOB.hint = Er enghraifft, 21 3 1960
+organisationAuthorisedPersonDOB.error.required.all = Nodwch ei ddyddiad geni
+organisationAuthorisedPersonDOB.error.required.two = Nodwch ei {0} a {1} geni
+organisationAuthorisedPersonDOB.error.required.one = Nodwch ei {0} geni
+organisationAuthorisedPersonDOB.error.invalid = Mae’n rhaid i’w ddyddiad geni fod yn ddyddiad go iawn
+organisationAuthorisedPersonDOB.error.minimum = Mae’n rhaid i’r person awdurdodedig fod yn 16 oed neu’n hŷn
+organisationAuthorisedPersonDOB.error.dateBetween = Mae’n rhaid i’r dyddiad geni fod rhwng 01/01/1900 a heddiw
+organisationAuthorisedPersonDOB.error.nonNumeric = Mae’n rhaid ysgrifennu’r dyddiad geni fel rhif
 
-organisationAuthorisedPersonDOB.checkYourAnswersLabel = (W)Date of birth(W)
+organisationAuthorisedPersonDOB.checkYourAnswersLabel = Dyddiad geni
 
 # Charity Nominee Organisation Authorised Person Nino Page Messages
 # ----------------------------------------------------------
-isOrganisationNomineeNino.title = (W)Does the authorised person have a National Insurance number?(W)
-isOrganisationNomineeNino.heading = (W)Does {0} have a National Insurance number?(W)
-isOrganisationNomineeNino.error.required = (W)Select yes if they have a National Insurance number(W)
+isOrganisationNomineeNino.title = A oes rhif Yswiriant Gwladol gan y person awdurdodedig?
+isOrganisationNomineeNino.heading = A oes gan {0} rif Yswiriant Gwladol?
+isOrganisationNomineeNino.error.required = Dewiswch ‘Iawn’ os oes ganddo rif Yswiriant Gwladol
 
-isOrganisationNomineeNino.checkYourAnswersLabel = (W)Has a National Insurance number(W)
+isOrganisationNomineeNino.checkYourAnswersLabel = Mae ganddo rif Yswiriant Gwladol
 
 # Charity Nominee Authorised Person National Insurance Number messages
 # ----------------------------------------------------------
-organisationAuthorisedPersonNino.title = (W)What is the authorised person’s National Insurance number?(W)
-organisationAuthorisedPersonNino.heading = (W)What is {0}’s National Insurance number?(W)
-organisationAuthorisedPersonNino.hint = (W)For example, QQ 12 34 56 C(W)
-organisationAuthorisedPersonNino.error.required = (W)Enter their National Insurance number(W)
-organisationAuthorisedPersonNino.error.format = (W)Enter a National Insurance number that is 2 letters, 6 numbers, then A, B, C or D(W)
+organisationAuthorisedPersonNino.title = Beth yw rhif Yswiriant Gwladol y person awdurdodedig?
+organisationAuthorisedPersonNino.heading = Beth yw rhif Yswiriant Gwladol {0}?
+organisationAuthorisedPersonNino.hint = Er enghraifft, QQ 12 34 56 C
+organisationAuthorisedPersonNino.error.required = Nodwch ei rif Yswiriant Gwladol
+organisationAuthorisedPersonNino.error.format = Nodwch rif Yswiriant Gwladol ar ffurf 2 lythyren, 6 rhif, ac yna A, B, C neu D
 
-organisationAuthorisedPersonNino.checkYourAnswersLabel = (W)National Insurance number(W)
+organisationAuthorisedPersonNino.checkYourAnswersLabel = Rhif Yswiriant Gwladol
 
 # Charity Nominee Authorised Person Passport Page Messages
 # ----------------------------------------------------------
-organisationAuthorisedPersonPassport.title = (W)Authorised person’s passport or national identity card details(W)
-organisationAuthorisedPersonPassport.heading = (W){0}’s passport or national identity card details(W)
-organisationAuthorisedPersonPassport.passportNumber.label = (W)Passport or national identity card number(W)
-organisationAuthorisedPersonPassport.hint = (W)For example, 21 3 2015(W)
-organisationAuthorisedPersonPassport.passportNumber.error.format = (W)Passport or national identity card number must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops(W)
-organisationAuthorisedPersonPassport.passportNumber.error.length = (W)The authorised person’s passport or national identity card number must be 30 characters or fewer(W)
-organisationAuthorisedPersonPassport.passportNumber.error.required = (W)Enter the authorised person’s passport or national identity card number(W)
-organisationAuthorisedPersonPassport.country.label = (W)Country of issue(W)
-organisationAuthorisedPersonPassport.country.hint = (W)Select a country of issue(W)
-organisationAuthorisedPersonPassport.country.error.length = (W)The country of issue must be 50 characters or fewer(W)
-organisationAuthorisedPersonPassport.country.error.required = (W)Enter the country of issue(W)
-organisationAuthorisedPersonPassport.expiryDate.label = (W)Expiry date(W)
-organisationAuthorisedPersonPassport.error.minimum = (W)The expiry date must be in the future(W)
-organisationAuthorisedPersonPassport.error.invalid = (W)The expiry date must be a real date(W)
-organisationAuthorisedPersonPassport.error.required.all = (W)Enter the expiry date(W)
-organisationAuthorisedPersonPassport.error.required.two = (W)Enter the {0} and the {1} of the expiry date(W)
-organisationAuthorisedPersonPassport.error.required.one = (W)Enter the {0} of the expiry date(W)
+organisationAuthorisedPersonPassport.title = Manylion pasbort neu fanylion cerdyn adnabod cenedlaethol y person awdurdodedig
+organisationAuthorisedPersonPassport.heading = Manylion pasbort neu fanylion cerdyn adnabod cenedlaethol {0}
+organisationAuthorisedPersonPassport.passportNumber.label = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
+organisationAuthorisedPersonPassport.hint = Er enghraifft, 21 3 2015
+organisationAuthorisedPersonPassport.passportNumber.error.format = Mae’n rhaid i rif y pasbort neu rif y cerdyn adnabod cenedlaethol gynnwys  llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
+organisationAuthorisedPersonPassport.passportNumber.error.length = Mae’n rhaid i rif pasbort neu rif cerdyn adnabod cenedlaethol y person awdurdodedig fod yn 30 o gymeriadau neu lai
+organisationAuthorisedPersonPassport.passportNumber.error.required = Nodwch rif pasbort neu rif cerdyn adnabod cenedlaethol y person awdurdodedig
+organisationAuthorisedPersonPassport.country.label = Gwlad cyhoeddi
+organisationAuthorisedPersonPassport.country.hint = Dewiswch wlad cyhoeddi
+organisationAuthorisedPersonPassport.country.error.length = Mae’n rhaid i’r wlad cyhoeddi fod yn 50 o gymeriadau neu lai
+organisationAuthorisedPersonPassport.country.error.required = Nodwch y wlad cyhoeddi
+organisationAuthorisedPersonPassport.expiryDate.label = Dyddiad dod i ben
+organisationAuthorisedPersonPassport.error.minimum = Mae’n rhaid i’r dyddiad dod i ben fod yn y dyfodol
+organisationAuthorisedPersonPassport.error.invalid = Mae’n rhaid i’r dyddiad dod i ben fod yn ddyddiad go iawn
+organisationAuthorisedPersonPassport.error.required.all = Nodwch y dyddiad dod i ben
+organisationAuthorisedPersonPassport.error.required.two = Nodwch {0} a {1} y dyddiad dod i ben
+organisationAuthorisedPersonPassport.error.required.one = Nodwch {0} y dyddiad dod i ben
 
-organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel = (W)Passport or national identity card number(W)
-organisationAuthorisedPersonPassport.country.checkYourAnswersLabel = (W)Country of issue(W)
-organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel = (W)Expiry date(W)
+organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
+organisationAuthorisedPersonPassport.country.checkYourAnswersLabel = Y wlad yr anfonwyd ohoni
+organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel = Dyddiad dod i ben
 
 # Charity’s Nominee Details Summary Page Messages
 # ----------------------------------------------------------
-nomineeDetailsSummary.checkYourAnswers.title = (W)Check the charity’s nominee details(W)
-nomineeDetailsSummary.checkYourAnswers.heading = (W)Check the charity’s nominee details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.nominee = (W)Nominee(W)
-nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = (W)Nominee’s details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.individualBank = (W)Nominee’s bank details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = (W)Nominee’s details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = (W)Nominee’s bank details(W)
-nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = (W)Authorised person’s details(W)
-nomineeDetailsSummary.section = (W)Officials and nominees(W)
+nomineeDetailsSummary.checkYourAnswers.title = Gwirio manylion enwebai’r elusen
+nomineeDetailsSummary.checkYourAnswers.heading = Gwirio manylion enwebai’r elusen
+nomineeDetailsSummary.checkYourAnswers.h2.nominee = Enwebai
+nomineeDetailsSummary.checkYourAnswers.h2.individualDetails = Manylion yr enwebai
+nomineeDetailsSummary.checkYourAnswers.h2.individualBank = Manylion banc yr enwebai
+nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = Manylion yr enwebai
+nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = Manylion banc yr enwebai
+nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = Manylion y person awdurdodedig
+nomineeDetailsSummary.section = Swyddogion ac enwebeion

@@ -249,6 +249,7 @@ registrationSent.changeSomething.afterHelplineNumber = .
 
 registrationSent.p1 = Your reference number
 registrationSent.p5 = Charities, Savings & International 2
+registrationSent.p5.welsh =
 registrationSent.p6 = HMRC
 registrationSent.p7 = BX9 1BU
 registrationSent.p9 = (takes 30 seconds).
@@ -893,7 +894,6 @@ bankDetails.rollNumber.checkYourAnswersLabel = Building society roll number (if 
 # ----------------------------------------------------------
 bankDetailsSummary.checkYourAnswers.title = Check the charity’s bank details
 bankDetailsSummary.checkYourAnswers.heading = Check the charity’s bank details
-bankDetails.rollNumber.hint = You can find it on the charity’s bank card, statement or passbook
 bankDetailsSummary.section = Operations and funds
 
 # Section7 - Name authorised officials
@@ -1062,25 +1062,6 @@ isAuthorisedOfficialPreviousAddress.heading = Has {0}’s address changed in the
 isAuthorisedOfficialPreviousAddress.error.required = Select yes if their address has changed in the last 12 months
 
 isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel = Address changed in the last 12 months
-
-# Authorised Official Previous Address Messages
-# ----------------------------------------------------------
-authorisedOfficialPreviousAddress.lookupPage.title = What is the authorised official’s previous home address? - Officials and nominees
-authorisedOfficialPreviousAddress.lookupPage.heading = What is {0}’s previous home address?
-authorisedOfficialPreviousAddress.lookupPage.manualAddressLinkText = Authorised official’s previous home address does not have a UK postcode
-
-authorisedOfficialPreviousAddress.selectPage.title = What is the authorised official’s full previous home address? - Officials and nominees
-authorisedOfficialPreviousAddress.selectPage.heading = What is {0}’s full previous home address?
-authorisedOfficialPreviousAddress.selectPage.editAddressLinkText = Enter authorised official’s full previous home address manually
-
-authorisedOfficialPreviousAddress.editPage.title = What is the authorised official’s full previous home address? - Officials and nominees
-authorisedOfficialPreviousAddress.editPage.heading = What is {0}’s full previous home address?
-
-authorisedOfficialPreviousAddress.confirmPage.title = Confirm the authorised official’s previous home address - Officials and nominees
-authorisedOfficialPreviousAddress.confirmPage.heading = Confirm {0}’s previous home address
-authorisedOfficialPreviousAddress.confirmPage.changeLinkText = Change authorised official’s previous home address
-
-authorisedOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
 
 # Authorised Official Previous Address Messages
 # ----------------------------------------------------------

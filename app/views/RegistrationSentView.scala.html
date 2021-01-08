@@ -76,6 +76,12 @@
         @p{
             <span class="govuk-body" id="line1">@messages("registrationSent.p5")</span>
             <br>
+            @if(messages.lang.code == "cy") {
+                <span class="govuk-body" id="line1">@messages("registrationSent.p5.welsh")</span>
+                <br>
+            } else {
+                @HtmlFormat.empty
+            }
             <span class="govuk-body" id="line2">@messages("registrationSent.p6")</span>
             <br>
             <span class="govuk-body" id="line3">@messages("registrationSent.p7")</span>

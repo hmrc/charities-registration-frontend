@@ -45,33 +45,7 @@
             </summary>
             <div class="govuk-details__text">
                 <ul class="govuk-list govuk-list--bullet">
-                    <li>@messages("isEligibleLocationOther.austria")</li>
-                    <li>@messages("isEligibleLocationOther.belgium")</li>
-                    <li>@messages("isEligibleLocationOther.bulgaria")</li>
-                    <li>@messages("isEligibleLocationOther.croatia")</li>
-                    <li>@messages("isEligibleLocationOther.republicOfCyprus")</li>
-                    <li>@messages("isEligibleLocationOther.czechRepublic")</li>
-                    <li>@messages("isEligibleLocationOther.denmark")</li>
-                    <li>@messages("isEligibleLocationOther.estonia")</li>
-                    <li>@messages("isEligibleLocationOther.finland")</li>
-                    <li>@messages("isEligibleLocationOther.france")</li>
-                    <li>@messages("isEligibleLocationOther.germany")</li>
-                    <li>@messages("isEligibleLocationOther.greece")</li>
-                    <li>@messages("isEligibleLocationOther.hungary")</li>
-                    <li>@messages("isEligibleLocationOther.ireland")</li>
-                    <li>@messages("isEligibleLocationOther.italy")</li>
-                    <li>@messages("isEligibleLocationOther.latvia")</li>
-                    <li>@messages("isEligibleLocationOther.lithuania")</li>
-                    <li>@messages("isEligibleLocationOther.luxembourg")</li>
-                    <li>@messages("isEligibleLocationOther.malta")</li>
-                    <li>@messages("isEligibleLocationOther.netherlands")</li>
-                    <li>@messages("isEligibleLocationOther.poland")</li>
-                    <li>@messages("isEligibleLocationOther.portugal")</li>
-                    <li>@messages("isEligibleLocationOther.romania")</li>
-                    <li>@messages("isEligibleLocationOther.slovakia")</li>
-                    <li>@messages("isEligibleLocationOther.slovenia")</li>
-                    <li>@messages("isEligibleLocationOther.spain")</li>
-                    <li>@messages("isEligibleLocationOther.sweden")</li>
+                    @countriesList.map { country => <li>@country</li>}
                 </ul>
             </div>
         </details>
@@ -81,3 +55,35 @@
     }
 }
 
+@countriesList() = @{
+    val countries = List(
+        messages("isEligibleLocationOther.austria"),
+        messages("isEligibleLocationOther.belgium"),
+        messages("isEligibleLocationOther.bulgaria"),
+        messages("isEligibleLocationOther.croatia"),
+        messages("isEligibleLocationOther.republicOfCyprus"),
+        messages("isEligibleLocationOther.czechRepublic"),
+        messages("isEligibleLocationOther.denmark"),
+        messages("isEligibleLocationOther.estonia"),
+        messages("isEligibleLocationOther.finland"),
+        messages("isEligibleLocationOther.france"),
+        messages("isEligibleLocationOther.germany"),
+        messages("isEligibleLocationOther.greece"),
+        messages("isEligibleLocationOther.hungary"),
+        messages("isEligibleLocationOther.ireland"),
+        messages("isEligibleLocationOther.italy"),
+        messages("isEligibleLocationOther.latvia"),
+        messages("isEligibleLocationOther.lithuania"),
+        messages("isEligibleLocationOther.luxembourg"),
+        messages("isEligibleLocationOther.malta"),
+        messages("isEligibleLocationOther.netherlands"),
+        messages("isEligibleLocationOther.poland"),
+        messages("isEligibleLocationOther.portugal"),
+        messages("isEligibleLocationOther.romania"),
+        messages("isEligibleLocationOther.slovakia"),
+        messages("isEligibleLocationOther.slovenia"),
+        messages("isEligibleLocationOther.spain"),
+        messages("isEligibleLocationOther.sweden")
+    )
+    if (messages.lang.code == "cy") countries.sorted else countries
+}

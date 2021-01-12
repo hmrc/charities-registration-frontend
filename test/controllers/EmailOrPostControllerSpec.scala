@@ -27,6 +27,7 @@ import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.{EmailOrPostPage, OldServiceSubmissionPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialNinoPage}
+import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -80,7 +81,17 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      .set(Section1Page, true)
+        .flatMap(_.set(Section2Page, true))
+        .flatMap(_.set(Section3Page, true))
+        .flatMap(_.set(Section4Page, true))
+        .flatMap(_.set(Section5Page, true))
+        .flatMap(_.set(Section6Page, true))
+        .flatMap(_.set(Section7Page, true))
+        .flatMap(_.set(Section8Page, true))
+        .flatMap(_.set(Section9Page, true))
+        .success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -92,8 +103,18 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to RegistrationSent page when the question has previously been answered" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(EmailOrPostPage, true).success.value)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(EmailOrPostPage, true)
+        .flatMap(_.set(Section1Page, true))
+        .flatMap(_.set(Section2Page, true))
+        .flatMap(_.set(Section3Page, true))
+        .flatMap(_.set(Section4Page, true))
+        .flatMap(_.set(Section5Page, true))
+        .flatMap(_.set(Section6Page, true))
+        .flatMap(_.set(Section7Page, true))
+        .flatMap(_.set(Section8Page, true))
+        .flatMap(_.set(Section9Page, true))
+        .success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -152,6 +173,21 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to Tasklist for a GET if SectionPage is not completed" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(Section1Page, false)
+        .flatMap(_.set(Section2Page, true))
+        .success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
   }

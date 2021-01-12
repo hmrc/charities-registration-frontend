@@ -25,6 +25,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
+import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -34,7 +35,7 @@ import views.html.DeclarationView
 
 import scala.concurrent.Future
 
-class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerConstants{
+class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerConstants {
   //scalastyle:off magic.number
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
@@ -61,7 +62,17 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(Section1Page, true)
+        .flatMap(_.set(Section2Page, true))
+        .flatMap(_.set(Section3Page, true))
+        .flatMap(_.set(Section4Page, true))
+        .flatMap(_.set(Section5Page, true))
+        .flatMap(_.set(Section6Page, true))
+        .flatMap(_.set(Section7Page, true))
+        .flatMap(_.set(Section8Page, true))
+        .flatMap(_.set(Section9Page, true))
+        .success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -150,5 +161,19 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
 
+    "redirect to Tasklist for a GET if SectionPage is not completed" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(Section1Page, false)
+        .flatMap(_.set(Section2Page, true))
+        .success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+    }
   }
 }

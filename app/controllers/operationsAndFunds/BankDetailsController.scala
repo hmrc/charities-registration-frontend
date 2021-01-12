@@ -20,12 +20,13 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.common.BankDetailsFormProvider
+
 import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.BankDetailsNavigator
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
-import pages.sections.Section6Page
+import pages.sections.{Section1Page, Section6Page}
 import play.api.data.Form
 import play.api.mvc._
 import repositories.UserAnswerRepository
@@ -48,19 +49,26 @@ class BankDetailsController @Inject()(
   val sectionName: String = "operationsAndFunds.section"
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    request.userAnswers.get(CharityNamePage) match {
-      case Some(charityName) =>
 
-        val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
+    if (!request.userAnswers.get(Section1Page).contains(true)){
+      Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+    }
+    else {
 
-        val preparedForm = request.userAnswers.get(BankDetailsPage) match {
-          case None => form
-          case Some(value) => form.fill(value)
-        }
+      request.userAnswers.get(CharityNamePage) match {
+        case Some(charityName) =>
 
-        Future.successful(Ok(view(preparedForm, charityName.fullName, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
-          messagePrefix, sectionName, None)))
-      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+          val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
+
+          val preparedForm = request.userAnswers.get(BankDetailsPage) match {
+            case None => form
+            case Some(value) => form.fill(value)
+          }
+
+          Future.successful(Ok(view(preparedForm, charityName.fullName, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
+            messagePrefix, sectionName, None)))
+        case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+      }
     }
   }
 

@@ -18,6 +18,7 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
+
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.UserAnswerRepository
@@ -35,7 +36,11 @@ class StartDeclarationController @Inject()(
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    Future.successful(Ok(view()))
-  }
 
+    if (!isAllSectionsCompleted()) {
+      Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+    } else {
+      Future.successful(Ok(view()))
+    }
+  }
 }

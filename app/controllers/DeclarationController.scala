@@ -45,7 +45,12 @@ class DeclarationController @Inject()(
   private val logger = Logger(this.getClass)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    Future.successful(Ok(view()))
+
+    if (!isAllSectionsCompleted()) {
+      Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+    } else {
+      Future.successful(Ok(view()))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

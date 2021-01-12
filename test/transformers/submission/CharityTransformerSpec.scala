@@ -233,7 +233,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |				"otherDocument": "Other Documents for Charity",
             |				"effectiveDate": "2014-07-01"
             |			},
-            |			"documentEnclosed": "1",
+            |			"documentEnclosed": "2",
             |			"governingApprovedDoc": true,
             |			"governingApprovedWords": false,
             |			"governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
@@ -262,7 +262,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |				"otherDocument": "Other Documents for Charity",
             |				"effectiveDate": "2014-07-01"
             |			},
-            |			"documentEnclosed": "1",
+            |			"documentEnclosed": "2",
             |			"governingApprovedDoc": true,
             |			"governingApprovedWords": false,
             |			"governingApprovedChanges": "changes are shorter than 255 characters"
@@ -287,7 +287,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |				"otherDocument": "Other Documents for Charity",
             |				"effectiveDate": "2014-07-01"
             |			},
-            |			"documentEnclosed": "1",
+            |			"documentEnclosed": "2",
             |			"governingApprovedDoc": false,
             |			"governingApprovedWords": false
             |		}
@@ -889,7 +889,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |          "otherDocument": "Other Documents for Charity",
             |          "effectiveDate": "2014-07-01"
             |        },
-            |        "documentEnclosed": "1",
+            |        "documentEnclosed": "2",
             |        "governingApprovedDoc": true,
             |        "governingApprovedWords": false,
             |        "governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
@@ -988,7 +988,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |          "otherDocument": "Other Documents for Charity",
             |          "effectiveDate": "2014-07-01"
             |        },
-            |        "documentEnclosed": "1",
+            |        "documentEnclosed": "2",
             |        "governingApprovedDoc": false,
             |        "governingApprovedWords": false
             |      },

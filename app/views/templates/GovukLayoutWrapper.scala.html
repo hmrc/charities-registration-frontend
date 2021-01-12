@@ -107,7 +107,8 @@
     signOutHref = if(signOut) Some(controllers.routes.SignOutController.signOut().url) else None,
     homepageUrl = appConfig.govUK,
     serviceName = Some(messages("service.name")),
-    serviceUrl = if(signOut) controllers.routes.IndexController.onPageLoad(None).url else controllers.checkEligibility.routes.CheckIfCanRegisterController.onPageLoad().url
+    serviceUrl = if(signOut) controllers.routes.IndexController.onPageLoad(None).url else controllers.checkEligibility.routes.CheckIfCanRegisterController.onPageLoad().url,
+    language = if (messages.lang.code == "cy") Cy else En
   ))),
   beforeContentBlock = Some(beforeContentBlock),
   bodyEndBlock = None,

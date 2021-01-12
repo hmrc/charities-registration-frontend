@@ -193,17 +193,6 @@ class UserAnswerTransformer extends JsonTransformer {
     }
   }
 
-  private def selectGoverningDocument(path: JsPath): Reads[JsObject] = {
-    (__ \ 'charityGoverningDocument \ 'docType).read[String].flatMap {
-      case "1" => path.json.put(JsString("3"))
-      case "2" => path.json.put(JsString("1"))
-      case "3" => path.json.put(JsString("4"))
-      case "4" => path.json.put(JsString("5"))
-      case "6" => path.json.put(JsString("2"))
-      case "7" => path.json.put(JsString("6"))
-    }
-  }
-
   private def selectWhyNoRegulator(path: JsPath): Reads[JsObject] = {
     (__ \ 'charityRegulator \ 'reasonForNotRegistering \ 'charityRegulator).read[String].flatMap {
       case "5" => path.json.put(JsString("1"))
@@ -271,7 +260,7 @@ class UserAnswerTransformer extends JsonTransformer {
 
   def toUserAnswersCharityGoverningDocument: Reads[JsObject] = {
     (
-      selectGoverningDocument(__ \ 'selectGoverningDocument) and
+      (__ \ 'selectGoverningDocument).json.copyFrom((__ \ 'charityGoverningDocument \ 'docType).json.pick) and
         (__ \ 'governingDocumentName).json.copyFrom((__ \ 'charityGoverningDocument \ 'nameOtherDoc).json.pick) and
         ((__ \ 'whenGoverningDocumentApproved).json.copyFrom((__ \ 'charityGoverningDocument \ 'effectiveDate).json.pick) orElse doNothing) and
         (__ \ 'sectionsChangedGoverningDocument).json.copyFrom((__ \ 'charityGoverningDocument \ 'govDocApprovedWording).json.pick) and

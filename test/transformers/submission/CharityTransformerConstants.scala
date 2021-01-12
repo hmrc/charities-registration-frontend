@@ -131,7 +131,7 @@ trait CharityTransformerConstants extends SpecBase{
        |          "otherDocument": "Other Documents for Charity percent",
        |          "effectiveDate": "2014-07-01"
        |        },
-       |        "documentEnclosed": "1",
+       |        "documentEnclosed": "2",
        |        "governingApprovedDoc": true,
        |        "governingApprovedWords": false,
        |        "governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
@@ -427,7 +427,7 @@ trait CharityTransformerConstants extends SpecBase{
        |          "otherDocument": "Other Documents for Charity",
        |          "effectiveDate": "2014-07-01"
        |        },
-       |        "documentEnclosed": "1",
+       |        "documentEnclosed": "2",
        |        "governingApprovedDoc": false,
        |        "governingApprovedWords": false
        |      },
@@ -595,7 +595,7 @@ trait CharityTransformerConstants extends SpecBase{
        |          "otherDocument": "Other Documents for Charity",
        |          "effectiveDate": "2014-07-01"
        |        },
-       |        "documentEnclosed": "1",
+       |        "documentEnclosed": "2",
        |        "governingApprovedDoc": false,
        |        "governingApprovedWords": false
        |      },

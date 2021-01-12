@@ -26,12 +26,12 @@ sealed trait SelectGoverningDocument
 
 object SelectGoverningDocument extends Enumerable.Implicits {
 
-  case object MemorandumArticlesAssociation extends WithName("1") with SelectGoverningDocument
-  case object RoyalCharacter extends WithName("2") with SelectGoverningDocument
-  case object RulesConstitution extends WithName("3") with SelectGoverningDocument
-  case object TrustDeed extends WithName("4") with SelectGoverningDocument
-  case object Will extends WithName("5") with SelectGoverningDocument
-  case object Other extends WithName("6") with SelectGoverningDocument
+  case object MemorandumArticlesAssociation extends WithName("2") with SelectGoverningDocument
+  case object RoyalCharacter extends WithName("6") with SelectGoverningDocument
+  case object RulesConstitution extends WithName("1") with SelectGoverningDocument
+  case object TrustDeed extends WithName("3") with SelectGoverningDocument
+  case object Will extends WithName("4") with SelectGoverningDocument
+  case object Other extends WithName("7") with SelectGoverningDocument
 
   val values: Seq[SelectGoverningDocument] = Seq(
     MemorandumArticlesAssociation, RoyalCharacter, RulesConstitution, TrustDeed, Will, Other

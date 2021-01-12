@@ -21,8 +21,6 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
-import scala.util.Try
-
 @Singleton
 class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
@@ -36,12 +34,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   lazy val contactUrl: String = s"$contactHost/contact/contact-hmrc?service=$contactFormServiceIdentifier"
 
-  val gtmContainer: Option[String] = (Try {
-    servicesConfig.getString("gtm.container")
-  } map {
-    case "main" => Some("GTM-MTGZWNQ")
-    case "transitional" => Some("GTM-TSFTCWZ")
-  }) getOrElse(None)
+  val gtmContainer: String = servicesConfig.getString("tracking-consent-frontend.gtm.container")
 
   def feedbackUrl(implicit request: RequestHeader): String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
@@ -83,4 +76,5 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val save4laterDomain: String = servicesConfig.getConfString("cachable.short-lived-cache.domain", "save4later")
 
   lazy val encryptData: Boolean = servicesConfig.getBoolean("mongodb.encrypted")
+
 }

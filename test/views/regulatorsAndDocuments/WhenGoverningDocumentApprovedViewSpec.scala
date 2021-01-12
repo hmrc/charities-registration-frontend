@@ -35,7 +35,7 @@ class WhenGoverningDocumentApprovedViewSpec extends QuestionViewBehaviours[Local
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[WhenGoverningDocumentApprovedView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, "5")(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, Seq("Will"), section = Some(messages("charityRegulator.section")))

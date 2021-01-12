@@ -78,7 +78,7 @@ class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAn
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, "5")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 

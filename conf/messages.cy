@@ -585,12 +585,12 @@ startGoverningDocument.b2 = dyddiad cymeradwyo dogfen lywodraethu’r elusen
 selectGoverningDocument.title = Pa ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen?
 selectGoverningDocument.heading = Pa ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen?
 selectGoverningDocument.error.required = Dewiswch y math o ddogfen lywodraethu a ddefnyddiwyd er mwyn sefydlu a rhedeg yr elusen
-selectGoverningDocument.1 = Memorandwm ac erthyglau cymdeithasiad
-selectGoverningDocument.2 = Siarter Frenhinol
-selectGoverningDocument.3 = Rheolau neu gyfansoddiad
-selectGoverningDocument.4 = Gweithred ymddiriedolaeth
-selectGoverningDocument.5 = Ewyllys
-selectGoverningDocument.6 = Arall
+selectGoverningDocument.2 = Memorandwm ac erthyglau cymdeithasiad
+selectGoverningDocument.6 = Siarter Frenhinol
+selectGoverningDocument.1 = Rheolau neu gyfansoddiad
+selectGoverningDocument.3 = Gweithred ymddiriedolaeth
+selectGoverningDocument.4 = Ewyllys
+selectGoverningDocument.7 = Arall
 selectGoverningDocument.checkYourAnswersLabel = Enw
 
 # governingDocumentName Messages

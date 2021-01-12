@@ -255,7 +255,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "1"
+          "selectGoverningDocument" -> "2"
         ))
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
@@ -294,7 +294,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "1",
+          "selectGoverningDocument" -> "2",
           "charitableObjectives" -> "objectives",
           "whatYourCharityDoesOtherReason" -> "otherReason",
           "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),
@@ -339,7 +339,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "1",
+          "selectGoverningDocument" -> "2",
           "charitableObjectives" -> "objectives",
           "whatYourCharityDoesOtherReason" -> "otherReason",
           "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),
@@ -513,7 +513,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "governingDocumentName" -> "",
           "isApprovedGoverningDocument" -> true,
           "isSection3Completed" -> false,
-          "selectGoverningDocument" -> "1",
+          "selectGoverningDocument" -> "2",
           "charitableObjectives" -> "objectives",
           "whatYourCharityDoesOtherReason" -> "otherReason",
           "charitablePurposes" -> Json.parse("""["reliefOfPoverty"]"""),

@@ -110,35 +110,35 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument1)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"3"}""".stripMargin)
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"1"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 3" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument3)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"4"}""".stripMargin)
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"3"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 4" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument4)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"5"}""".stripMargin)
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"4"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 6" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument6)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"2"}""".stripMargin)
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"6"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 7" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument7)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"6"}""".stripMargin)
+						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"7"}""".stripMargin)
       }
     }
 

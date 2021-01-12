@@ -91,7 +91,10 @@
 <div class="govuk-!-font-size-19">
 
     @hmrcReportTechnicalIssue(
-    uk.gov.hmrc.hmrcfrontend.views.html.components.ReportTechnicalIssue(appConfig.contactFormServiceIdentifier, Some(messages.lang.language))
+    uk.gov.hmrc.hmrcfrontend.views.html.components.ReportTechnicalIssue(
+        appConfig.contactFormServiceIdentifier, Some(messages.lang.language),
+        if (messages.lang.code == "cy") Cy else En
+    )
     )
 </div>}
 }

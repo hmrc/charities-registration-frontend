@@ -38,6 +38,8 @@ trait BaseAddressController extends LocalBaseController {
   protected val navigator: BaseNavigator
   protected val messagePrefix: String
 
+  private val logger = Logger(this.getClass)
+
   def addressLookupInitialize(callbackUrl: String, fullName: Option[String] = None, allowedCountryCodes: Option[Set[String]] = None)(
     implicit request: DataRequest[AnyContent], ec: ExecutionContext): Future[Result] = {
 
@@ -59,11 +61,11 @@ trait BaseAddressController extends LocalBaseController {
               _              <- sessionRepository.set(updatedAnswers)
             } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
           case _ =>
-            Logger.error(s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup")
+            logger.error(s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup")
             Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
         }
       case _ =>
-        Logger.error(s"[BaseAddressController][addressLookupCallback][$page] No ID was returned on callback from address lookup")
+        logger.error(s"[BaseAddressController][addressLookupCallback][$page] No ID was returned on callback from address lookup")
         Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
   }

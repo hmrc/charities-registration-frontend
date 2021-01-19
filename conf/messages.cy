@@ -82,6 +82,14 @@ technicalDifficultiesError.heading = (W)Sorry, there is a problem with the servi
 technicalDifficultiesError.p1 = (W)Try again later.(W)
 technicalDifficultiesError.p2 = (W)We saved your answers. They will be available for 28 days.(W)
 
+# Signed out
+# ----------------------------------------------------------
+signed_out.title = (W)For your security, we signed you out - Error (W)
+signed_out.heading = (W)For your security, we signed you out(W)
+signed_out.status = (W)We saved your answers.(W)
+signed_out.signIn = (W)Sign in(W)
+
+
 # Incorrect Details Error
 # ----------------------------------------------------------
 incorrect-details.title = Ni allwch fewngofnodi gan ddefnyddio’r manylion hyn

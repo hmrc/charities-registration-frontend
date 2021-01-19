@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,26 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package controllers
+@import views.ViewUtils._
+@import config.FrontendAppConfig
 
-import config.FrontendAppConfig
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.errors.SignedYouOutView
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    h1: components.h1,
+    link: components.linkAsButton
+)
 
-import javax.inject.Inject
+@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
+@govukLayout(Some(titleNoForm("signed_out.title")), signOut = false) {
 
-class SignOutController @Inject()(
-  val controllerComponents: MessagesControllerComponents,
-  view: SignedYouOutView)(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    @h1(messages("signed_out.heading"))
 
-  def signOut: Action[AnyContent] = Action { _ =>
-    Redirect(appConfig.signOutUrl).withNewSession
-  }
+    <p class="govuk-body">@messages("signed_out.status")</p>
 
-  def signedYouOut: Action[AnyContent] = Action { implicit request =>
-    Ok(view()).withNewSession
-  }
+    @link(controllers.routes.IndexController.onPageLoad(None).url, messages("signed_out.signIn"), Some("linkButton") )
+
 }

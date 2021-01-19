@@ -163,7 +163,7 @@ function timeoutDialog(options) {
   setupDialogTimer()
 
   function validateInput(config) {
-    var requiredConfig = ['timeout', 'countdown', 'keepAliveUrl', 'signOutUrl']
+    var requiredConfig = ['timeout', 'countdown', 'keepAliveUrl', 'signOutUrl', 'signedYouOutUrl']
     var missingRequiredConfig = []
 
     $.each(requiredConfig, function () {
@@ -196,15 +196,13 @@ function timeoutDialog(options) {
   function setupDialog() {
     var $countdownElement = $('<span id="timeout-countdown" class="countdown">');
     var $element = $('<div>')
-      .append(settings.title ? $('<h1 class="govuk-heading-m push--top">').text(settings.title) : '')
-      .append($('<p class="govuk-body" id="timeout-message" role="text">').text(settings.message + ' ')
+      .append($('<p class="govuk-body" id="timeout-message" role="text">').text(settings.message + '  ')
         .append($countdownElement)
         .append('.'))
       .append($('<button id="timeout-keep-signin-btn" class="govuk-button govuk-!-margin-right-1">').text(settings.keepAliveButtonText))
-      .append($('<button id="timeout-sign-out-btn" class="govuk-button govuk-button--secondary">').text(settings.signOutButtonText))
+      .append($('<a href="'+settings.signOutUrl+'" id="timeout-sign-out-link" class="govuk-link hmrc-timeout-dialog__link">').text(settings.signOutButtonText))
 
     $element.find('#timeout-keep-signin-btn').on('click', keepAliveAndClose)
-    $element.find('#timeout-sign-out-btn').on('click', signOut)
 
     var dialogControl = displayDialog($element)
 
@@ -245,7 +243,7 @@ function timeoutDialog(options) {
       var counter = getSecondsRemaining()
       updateCountdown(counter, $countdownElement)
       if (counter <= 0) {
-        signOut()
+        signedYouOut()
       }
     }
 
@@ -267,8 +265,8 @@ function timeoutDialog(options) {
     return Date.now() || +new Date()
   }
 
-  function signOut() {
-    window.location.href = settings.signOutUrl
+  function signedYouOut() {
+    window.location.href = settings.signedYouOutUrl
   }
 
   function cleanup() {

@@ -831,7 +831,6 @@ isBankStatements.checkYourAnswersLabel = Bank statements for the last 3 months
 # ----------------------------------------------------------
 whyNoBankStatement.title = Why does the charity not have bank statements for the last 3 months of operation?
 whyNoBankStatement.heading = Why does the charity not have bank statements for the last 3 months of operation?
-whyNoBankStatement.hint = If the account has been open for less than 3 months, you must provide a bank statement for the past month.
 whyNoBankStatement.checkYourAnswersLabel = Why you do not have bank statements for the last 3 months
 whyNoBankStatement.error.required = Enter why the charity does not have bank statements for the last 3 months of operation
 whyNoBankStatement.error.format = Why the charity does not have bank statements must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops

@@ -195,7 +195,7 @@ requiredDocuments.isCharityRegulator.answerTrue = hysbysiad o gofrestriad  – y
 requiredDocuments.isCharityRegulator.answerAlternative = tystiolaeth o weithgareddau – rhai deunydd hyrwyddo sy’n esbonio’r hyn y mae’r elusen yn ei wneud
 requiredDocuments.isFinancialAccounts.answerTrue = cyfrifon ariannol cymeradwy – megis yr hyn y byddech yn ei anfon at reolydd neu Dŷ’r Cwmnïau
 requiredDocuments.isBankStatements.answerTrue = copïau o gyfriflenni banc yr elusen ar gyfer y 3 mis diwethaf
-requiredDocuments.isBankStatements.answerAlternative = (UPDATED)llythyr oddi wrth y banc gydag enw a manylion banc yr elusen – gan gynnwys rhif y cyfrif a’r cod didoli(UPDATED)
+requiredDocuments.isBankStatements.answerAlternative = cyfriflen banc o’r mis diwethaf
 requiredDocuments.selectWhyNoRegulator.answerTrue = tystysgrif cofrestru oddi wrth y corff llywodraethol
 requiredDocuments.foreignAddresses.answerTrue = manylion adnabod ar gyfer: {0} – ei basbort, cerdyn adnabod neu fil cyfleustodau o’r 3 mis diwethaf
 
@@ -265,10 +265,10 @@ beingProcessedOldSubmission.whatHappensNext.p2 = Byddwn yn anfon llythyrau at y 
 
 # Cannot Find Application page Messages
 # ----------------------------------------------------------
-cannotFindApplication.title = (W)We cannot find your application(W)
-cannotFindApplication.heading = (W)We cannot find your application(W)
-cannotFindApplication.p1 = (W)We save unfinished applications for 28 days. After that, you need to(W)
-cannotFindApplication.p1.link = (W)start your application again(W)
+cannotFindApplication.title = Ni allwn ddod o hyd i’ch cais
+cannotFindApplication.heading = Ni allwn ddod o hyd i’ch cais
+cannotFindApplication.p1 = Rydym yn cadw ceisiadau sydd heb eu gorffen am 28 diwrnod. Ar ôl hyn, bydd angen i chi
+cannotFindApplication.p1.link = ddechrau’ch cais eto
 
 # Switch over error page Messages
 # ----------------------------------------------------------
@@ -351,7 +351,7 @@ notEligible.p3.link = gwiriwch yr arweiniad ar ddibenion elusennol
 
 # InEligibleCharitablePurposes Page Messages
 # ----------------------------------------------------------
-notEligible.charitablePurposes.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod y sefydliad wedi’i sefydlu at ddibenion elusennol yn unig.
+notEligible.charitablePurposes.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod yr elusen wedi’i sefydlu at ddibenion elusennol yn unig.
 
 # InEligibleLocationOther Page Messages
 # ----------------------------------------------------------
@@ -490,7 +490,7 @@ isCharityRegulator.checkYourAnswersLabel = Wedi’i chofrestru â rheolydd eluse
 # ----------------------------------------------------------
 charityRegulator.title = Pwy yw rheolyddion yr elusen?
 charityRegulator.heading = Pwy yw rheolyddion yr elusen?
-charityRegulator.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+charityRegulator.hint = Dewiswch bob un sy’n gymwys.
 charityRegulator.error.required = Dewiswch reolyddion yr elusen
 charityRegulator.ccew = Comisiwn Elusennau ar gyfer Cymru a Lloegr
 charityRegulator.oscr = Swyddfa Rheolydd Elusennau’r Alban
@@ -673,7 +673,7 @@ charitableObjectives.checkYourAnswersLabel = Amcanion elusennol
 # ----------------------------------------------------------
 charitablePurposes.title = Beth yw dibenion elusennol yr elusen?
 charitablePurposes.heading = Beth yw dibenion elusennol yr elusen?
-charitablePurposes.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+charitablePurposes.hint = Dewiswch bob un sy’n gymwys.
 charitablePurposes.error.required = Nodwch ddibenion elusennol yr elusen
 charitablePurposes.amateurSport = Chwaraeon amatur
 charitablePurposes.animalWelfare = Lles anifeiliaid
@@ -721,7 +721,7 @@ startFundraising.b3 = y dyddiad y daw cyfnod cyfrifyddu’r elusen i ben
 # ----------------------------------------------------------
 selectFundRaising.title = Sut bydd yr elusen yn codi arian?
 selectFundRaising.heading = Sut bydd yr elusen yn codi arian?
-selectFundRaising.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+selectFundRaising.hint = Dewiswch bob un sy’n gymwys.
 selectFundRaising.error.required = Dewiswch sut bydd yr elusen yn codi arian
 selectFundRaising.donations = Cyfraniadau
 selectFundRaising.fundraising = Codi arian
@@ -737,7 +737,7 @@ selectFundRaising.checkYourAnswersLabel = Dulliau o godi arian
 # ----------------------------------------------------------
 operatingLocation.title = Ble mae’r elusen yn gweithredu?
 operatingLocation.heading = Ble mae’r elusen yn gweithredu?
-operatingLocation.hint = (UPDATED)Dewiswch bob un sy’n gymwys(UPDATED)
+operatingLocation.hint = Dewiswch bob un sy’n gymwys.
 operatingLocation.error.required = Dewiswch ble mae’r elusen yn gweithredu
 operatingLocation.1 = Lloegr
 operatingLocation.2 = Cymru
@@ -831,7 +831,6 @@ isBankStatements.checkYourAnswersLabel = Cyfriflenni banc ar gyfer y 3 mis diwet
 # ----------------------------------------------------------
 whyNoBankStatement.title = Pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
 whyNoBankStatement.heading = Pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
-whyNoBankStatement.hint = (UPDATED)Os yw’r cyfrif wedi bod ar agor am lai na 3 mis, bydd yn rhaid i chi ddarparu llythyr oddi wrth y banc i brofi bod cyfrif gan yr elusen.(UPDATED)
 whyNoBankStatement.checkYourAnswersLabel = Pam nad oes gennych gyfriflenni banc ar gyfer y 3 mis diwethaf
 whyNoBankStatement.error.required = Nodwch pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu
 whyNoBankStatement.error.format = Mae’n rhaid i’r hyn a nodwyd ar gyfer pam nad oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
@@ -1696,7 +1695,7 @@ organisationAuthorisedPersonPassport.error.required.two = Nodwch {0} a {1} y dyd
 organisationAuthorisedPersonPassport.error.required.one = Nodwch {0} y dyddiad dod i ben
 
 organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel = Rhif pasbort neu rif cerdyn adnabod cenedlaethol
-organisationAuthorisedPersonPassport.country.checkYourAnswersLabel = Y wlad yr anfonwyd ohoni
+organisationAuthorisedPersonPassport.country.checkYourAnswersLabel = Gwlad cyhoeddi
 organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel = Dyddiad dod i ben
 
 # Charity’s Nominee Details Summary Page Messages

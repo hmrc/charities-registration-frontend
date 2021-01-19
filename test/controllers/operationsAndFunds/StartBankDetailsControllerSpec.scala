@@ -18,10 +18,12 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.UserAnswers
+import models.{CharityName, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
+import pages.contactDetails.CharityNamePage
+import pages.sections.Section1Page
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -54,7 +56,9 @@ class StartBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(CharityNamePage, CharityName("CName", Some("OpName")))
+        .flatMap(_.set(Section1Page, true)).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -73,6 +77,21 @@ class StartBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
       verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+
+    "redirect to Tasklist for a GET if Section1Page is not completed" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(CharityNamePage, CharityName("CName", Some("OpName")))
+        .flatMap(_.set(Section1Page, false)).success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+
     }
 
   }

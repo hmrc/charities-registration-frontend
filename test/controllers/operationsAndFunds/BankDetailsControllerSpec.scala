@@ -27,6 +27,7 @@ import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
+import pages.sections.Section1Page
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
@@ -71,7 +72,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to session expired and if charity name is not defined" in {
 
-     when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -80,8 +81,9 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
-       .set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(CharityNamePage, CharityName("CName", Some("OpName")))
+        .flatMap(_.set(Section1Page, true)).success.value)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -95,7 +97,9 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers.set(BankDetailsPage, bankDetails)
-        .flatMap(_.set(CharityNamePage, CharityName("CName", Some("OpName")))).success.value
+        .flatMap(_.set(CharityNamePage, CharityName("CName", Some("OpName"))))
+        .flatMap(_.set(Section1Page, true))
+        .success.value
 
       when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -110,9 +114,9 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
       val request = fakeRequest.withFormUrlEncodedBody("accountName" -> "fullName", "sortCode" -> "123456",
         "accountNumber" -> "12345678", "rollNumber" -> "operatingName")
 
-     when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
-       .set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value)))
-     when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value)))
+      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -126,8 +130,8 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-     when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
-       .set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -173,6 +177,20 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockUserAnswerRepository, times(1)).get(any())
+    }
+    "redirect to Tasklist for a GET if Section1Page is not completed" in {
+
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(CharityNamePage, CharityName("CName", Some("OpName")))
+        .flatMap(_.set(Section1Page, false)).success.value)))
+
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
+      verify(mockUserAnswerRepository, times(1)).get(any())
+
     }
   }
 }

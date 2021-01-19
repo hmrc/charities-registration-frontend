@@ -19,10 +19,14 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
+import pages.sections.Section1Page
+
 import javax.inject.Inject
 import play.api.mvc._
 import repositories.UserAnswerRepository
 import views.html.operationsAndFunds.StartBankDetailsView
+
+import scala.concurrent.Future
 
 class StartBankDetailsController @Inject()(
     val userAnswerRepository: UserAnswerRepository,
@@ -33,8 +37,12 @@ class StartBankDetailsController @Inject()(
     view: StartBankDetailsView
    )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
-    Ok(view())
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    if (!request.userAnswers.get(Section1Page).contains(true)) {
+      Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+    }
+    else {
+      Future.successful(Ok(view()))
+    }
   }
 }

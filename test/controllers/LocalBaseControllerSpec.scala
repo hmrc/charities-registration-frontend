@@ -29,6 +29,7 @@ import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.OrganisationNomineeNamePage
+import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Result, Results}
@@ -74,6 +75,18 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     OrganisationNomineeNamePage, "testName"
   ).success.value
 
+  private val sectionUserAnswers: UserAnswers = emptyUserAnswers
+    .set(Section1Page, true)
+    .flatMap(_.set(Section2Page, true))
+    .flatMap(_.set(Section3Page, true))
+    .flatMap(_.set(Section4Page, true))
+    .flatMap(_.set(Section5Page, true))
+    .flatMap(_.set(Section6Page, true))
+    .flatMap(_.set(Section7Page, true))
+    .flatMap(_.set(Section8Page, true))
+    .flatMap(_.set(Section9Page, true))
+    .success.value
+
   "LocalBase Controller" must {
 
     "calling the .getAuthorisedOfficialName() is successful" in {
@@ -117,6 +130,22 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.getAddress(CharityOfficialAddressLookupPage)(blockForAddress)(request)
 
       status(result) mustEqual OK
+    }
+
+    "calling the .isAllSectionsCompleted is not successful" in {
+
+      val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
+      val result = controller.isAllSectionsCompleted()(request)
+
+      result mustBe false
+    }
+
+    "calling the .isAllSectionsCompleted is successful" in {
+
+      val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, sectionUserAnswers)
+      val result = controller.isAllSectionsCompleted()(request)
+
+      result mustBe true
     }
   }
 }

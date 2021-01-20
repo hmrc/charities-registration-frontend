@@ -19,14 +19,12 @@ package controllers
 
 import models._
 import models.addressLookup.AddressModel
-import models.nominees.OrganisationNomineeContactDetails
 import models.requests.DataRequest
 import pages.QuestionPage
-import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
+import pages.sections._
 import play.api.i18n.I18nSupport
 import play.api.mvc.{AnyContent, Result}
-import service.CountryService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
 import scala.concurrent.{ExecutionContext, Future}
 

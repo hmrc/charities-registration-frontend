@@ -13,11 +13,12 @@ object AppDependencies {
     "uk.gov.hmrc"               %% "logback-json-logger"             % "4.9.0",
     "uk.gov.hmrc"               %% "play-health"                     % "3.16.0-play-26",
     "uk.gov.hmrc"               %% "play-conditional-form-mapping"   % "1.4.0-play-26",
-    "uk.gov.hmrc"               %% "bootstrap-play-26"               % "2.2.0",
+    "uk.gov.hmrc"               %% "bootstrap-frontend-play-26"      % "3.3.0",
     "uk.gov.hmrc"               %% "play-frontend-govuk"             % "0.55.0-play-26",
     "uk.gov.hmrc"               %% "play-frontend-hmrc"              % "0.33.0-play-26",
     "uk.gov.hmrc"               %% "play-language"                   % "4.5.0-play-26",
     "uk.gov.hmrc"               %% "http-caching-client"             % "9.2.0-play-26",
+    "uk.gov.hmrc"               %% "play-allowlist-filter"           % "0.2.0-play-26",
     "com.typesafe.play"         %% "play-json-joda"                  % "2.7.4"
   )
 

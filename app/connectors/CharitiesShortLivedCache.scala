@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import javax.inject.Inject
 import uk.gov.hmrc.crypto.{ApplicationCrypto, CompositeSymmetricCrypto}
 import uk.gov.hmrc.http.cache.client.{ShortLivedCache, ShortLivedHttpCaching}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 
 class CharitiesShortLivedHttpCaching @Inject()(val http: HttpClient,
   appConfig: FrontendAppConfig) extends ShortLivedHttpCaching {

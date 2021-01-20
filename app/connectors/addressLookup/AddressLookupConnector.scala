@@ -23,7 +23,7 @@ import javax.inject.Inject
 import models.addressLookup.AddressLookupConfigurationModel
 import play.api.i18n.MessagesApi
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 

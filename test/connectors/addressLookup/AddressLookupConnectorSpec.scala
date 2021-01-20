@@ -29,7 +29,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.http.HeaderNames
 import play.api.http.Status._
 import play.api.libs.json.Json
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 
 
 class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with MockitoSugar {

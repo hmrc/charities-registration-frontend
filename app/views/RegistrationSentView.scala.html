@@ -56,6 +56,9 @@
     </div>
 
     @h2(messages(s"registrationSent.$pageSelector.h2"))
+    @p{
+        @link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink"))
+    }
     @h2(messages("registrationSent.step1"))
 
     @p {

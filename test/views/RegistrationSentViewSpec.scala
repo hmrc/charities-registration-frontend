@@ -25,7 +25,7 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
 
   private val messageKeyPrefix = "registrationSent"
   private val section: Option[String] = Some(messages("declaration.section"))
-
+  private val firstLinkContent: String = "javascript:window.print()"
 
   "RegistrationSentView for Email" must {
 
@@ -39,6 +39,8 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
 
       behave like normalPage(applyView(), messageKeyPrefix, section = section)
 
+      behave like pageWithPrintOrDownloadLink(applyView(), "printOrDownloadlink", firstLinkContent, messages("registrationSent.printOrDownload"))
+      
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
         "p1", "submissionDate", "p3.beforeRefNo", "p3.afterRefNo", "p4.beforeRegistrations", "p4.keyWord", "p4.beforeRegNo", "p4.afterRegNo", "p9",
         "email.prefer.p", "whatHappensNext.p1", "whatHappensNext.p2", "whatHappensNext.p3", "changeSomething.p1")

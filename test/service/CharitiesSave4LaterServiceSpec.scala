@@ -29,6 +29,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
 import play.api.mvc.Call
+import play.api.test.FakeRequest
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.logging.SessionId
@@ -118,7 +119,6 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       when(mockCacheMap.getEntry[CharityNomineeIndividual](meq("charityNomineeIndividual"))(meq(CharityNomineeIndividual.formats))).thenReturn(mockCharityNomineeIndividual)
       when(mockCacheMap.getEntry[CharityNomineeOrganisation](meq("charityNomineeOrganisation"))(meq(CharityNomineeOrganisation.formats))).thenReturn(mockCharityNomineeOrganisation)
       when(mockCacheMap.getEntry[Acknowledgement](meq("acknowledgement-Reference"))(meq(Acknowledgement.formats))).thenReturn(mockAcknowledgement)
-      when(mockCharitiesShortLivedCache.remove(any())(any(), any())).thenReturn(removeResponse())
       when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
     }
 
@@ -919,28 +919,16 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
       }
 
-      "throw error if session is not valid" in new LocalSetup {
-        implicit val hc: HeaderCarrier = HeaderCarrier()
-        override val mockContactDetails: Option[CharityContactDetails] = Some(CharityContactDetails("Test123", None, "1234567890", None, None, None))
-        override def removeResponse(): Future[HttpResponse] = Future.failed(new RuntimeException())
+      "return CannotFindApplication when session is not valid" in new LocalSetup {
+        override def mockCache: Option[CacheMap] = None
+        override def mockEligibleJourneyId: Option[String] = None
+        override def mockRepositoryData: Option[UserAnswers] = Some(emptyUserAnswers)
 
         initialiseCache()
 
-        intercept[RuntimeException]{
-          await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
-        }
-      }
+        val result = await(service.getCacheData(OptionalDataRequest(FakeRequest("", ""), "8799940975137654", None), mockSessionId, mockEligibleJourneyId))
 
-      "throw error if exception is returned from CharitiesShortLivedCache.remove" in new LocalSetup {
-
-        override val mockContactDetails: Option[CharityContactDetails] = Some(CharityContactDetails("Test123", None, "1234567890", None, None, None))
-        override def removeResponse(): Future[HttpResponse] = Future.failed(new RuntimeException())
-
-        initialiseCache()
-
-        intercept[RuntimeException] {
-          await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
-        }
+        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
       }
 
       "throw error if exception is returned from CharitiesShortLivedCache" in {

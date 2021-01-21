@@ -272,11 +272,11 @@ cannotFindApplication.p1.link = ddechrau’ch cais eto
 
 # Switch over error page Messages
 # ----------------------------------------------------------
-switchOverError.title = (W)Sorry, there is a problem with some of your answers - Error(W)
-switchOverError.heading = (W)Sorry, there is a problem with some of your answers(W)
-switchOverError.p1 = (W)We have redesigned this service since you last worked on your application.(W)
-switchOverError.p2 = (W)We have brought some of your answers across to the new service. However some of your answers have been lost.(W)
-switchOverError.p3.link = (W)Continue with your application(W)
+switchOverError.title = Mae’n ddrwg gennym, mae problem gyda rhai o’ch atebion – Gwall
+switchOverError.heading = Mae’n ddrwg gennym, mae problem gyda rhai o’ch atebion
+switchOverError.p1 = Rydym wedi ailddylunio’r gwasanaeth hwn ers y tro diwethaf i chi weithio ar eich cais.
+switchOverError.p2 = Rydym wedi dod â rhai o’ch atebion i’r gwasanaeth newydd. Fodd bynnag, mae rhai o’ch atebion wedi’u colli.
+switchOverError.p3.link = Ewch yn eich blaen â’ch cais
 
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
@@ -369,7 +369,7 @@ eligibleCharity.p1 = Nesaf, mae angen i chi fewngofnodi gan ddefnyddio Dynodydd 
 
 # Section1 - Contact Details
 # ----------------------------------------------------------
-contactDetail.section = (UPDATED)Gwybodaeth am yr elusen(UPDATED)
+contactDetail.section = Manylion cyswllt
 
 # StartInformationPage Messages
 # ----------------------------------------------------------
@@ -415,19 +415,19 @@ charityContactDetails.emailAddress.checkYourAnswersLabel = Cyfeiriad e-bost
 
 # Charity Official Address Messages
 # ----------------------------------------------------------
-charityOfficialAddress.lookupPage.title = (UPDATED)Beth yw cyfeiriad yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityOfficialAddress.lookupPage.title = Beth yw cyfeiriad yr elusen? – Manylion cyswllt
 charityOfficialAddress.lookupPage.heading = Beth yw cyfeiriad yr elusen?
 charityOfficialAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad yr elusen god post yn y DU
 
-charityOfficialAddress.selectPage.title = (UPDATED)Beth yw cyfeiriad llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityOfficialAddress.selectPage.title = Beth yw cyfeiriad llawn yr elusen? – Manylion cyswllt
 charityOfficialAddress.selectPage.heading = Beth yw cyfeiriad llawn yr elusen?
 charityOfficialAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad yr elusen â llaw
 
-charityOfficialAddress.editPage.title = (UPDATED)Beth yw cyfeiriad llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityOfficialAddress.editPage.title = Beth yw cyfeiriad llawn yr elusen? – Manylion cyswllt
 charityOfficialAddress.editPage.heading = Beth yw cyfeiriad llawn yr elusen?
 
-charityOfficialAddress.confirmPage.title = (UPDATED)Cadarnhau cyfeiriad llawn yr elusen – Gwybodaeth am yr elusen(UPDATED)
-charityOfficialAddress.confirmPage.heading = Cadarnhau cyfeiriad llawn yr elusen
+charityOfficialAddress.confirmPage.title = Cadarnhau cyfeiriad yr elusen – Manylion cyswllt
+charityOfficialAddress.confirmPage.heading = Cadarnhau cyfeiriad yr elusen
 charityOfficialAddress.confirmPage.changeLinkText = Newid cyfeiriad yr elusen
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Cyfeiriad
@@ -443,18 +443,18 @@ canWeSendLettersToThisAddress.checkYourAnswersLabel = Anfon llythyrau i’r cyfe
 
 # Charity Postal Address Messages
 # ----------------------------------------------------------
-charityPostalAddress.lookupPage.title = (UPDATED)Beth yw cyfeiriad post yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.lookupPage.title = Beth yw cyfeiriad post yr elusen? – Manylion cyswllt
 charityPostalAddress.lookupPage.heading = Beth yw cyfeiriad post yr elusen?
 charityPostalAddress.lookupPage.manualAddressLinkText = Nid oes gan gyfeiriad post yr elusen god post yn y DU
 
-charityPostalAddress.selectPage.title = (UPDATED)Beth yw cyfeiriad post llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.selectPage.title = Beth yw cyfeiriad post llawn yr elusen? – Manylion cyswllt
 charityPostalAddress.selectPage.heading = Beth yw cyfeiriad post llawn yr elusen?
 charityPostalAddress.selectPage.editAddressLinkText = Nodwch gyfeiriad post llawn yr elusen â llaw
 
-charityPostalAddress.editPage.title = (UPDATED)Beth yw cyfeiriad post llawn yr elusen? – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.editPage.title = Beth yw cyfeiriad post llawn yr elusen? – Manylion cyswllt
 charityPostalAddress.editPage.heading = Beth yw cyfeiriad post llawn yr elusen?
 
-charityPostalAddress.confirmPage.title = (UPDATED)Cadarnhau cyfeiriad post yr elusen – Gwybodaeth am yr elusen(UPDATED)
+charityPostalAddress.confirmPage.title = Cadarnhau cyfeiriad post yr elusen – Manylion cyswllt
 charityPostalAddress.confirmPage.heading = Cadarnhau cyfeiriad post yr elusen
 charityPostalAddress.confirmPage.changeLinkText = Newid cyfeiriad post yr elusen
 
@@ -464,7 +464,7 @@ charityPostalAddress.addressLookup.checkYourAnswersLabel = Cyfeiriad post
 # ----------------------------------------------------------
 charityInformationSummary.checkYourAnswers.title = Gwirio manylion cyswllt yr elusen
 charityInformationSummary.checkYourAnswers.heading = Gwirio manylion cyswllt yr elusen
-charityInformationSummary.section = (UPDATED)Gwybodaeth am yr elusen(UPDATED)
+charityInformationSummary.section = Manylion cyswllt
 
 # Section2 - Regulators and documents
 # ----------------------------------------------------------
@@ -823,7 +823,7 @@ actualIncome.checkYourAnswersLabel = Incwm gwirioneddol hyd yn hyn
 # ----------------------------------------------------------
 isBankStatements.title = A oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
 isBankStatements.heading = A oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu?
-isBankStatements.hint = (UPDATED)Os yw’r cyfrif wedi bod ar agor am lai na 3 mis, bydd yn rhaid i chi ddarparu llythyr oddi wrth y banc i brofi bod cyfrif gan yr elusen.(UPDATED)
+isBankStatements.hint = Os yw’r cyfrif wedi bod ar agor am lai na 3 mis, mae’n rhaid i chi ddarparu cyfriflen banc ar gyfer y mis diwethaf.
 isBankStatements.error.required = Dewiswch ‘Iawn’ os oes gan yr elusen gyfriflenni banc ar gyfer y 3 mis diwethaf o weithredu
 isBankStatements.checkYourAnswersLabel = Cyfriflenni banc ar gyfer y 3 mis diwethaf
 

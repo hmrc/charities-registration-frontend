@@ -255,6 +255,7 @@ registrationSent.p7 = BX9 1BU
 registrationSent.p9 = (takes 30 seconds).
 registrationSent.warning = Do not send original documents. We cannot return any documents you send to us.
 registrationSent.link = What do you think of this service?
+registrationSent.printOrDownload = Print or download this page
 
 # Your application is being processed - submitted in old service messages
 # ----------------------------------------------------------

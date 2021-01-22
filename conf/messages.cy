@@ -255,6 +255,7 @@ registrationSent.p7 = BX9 1ST
 registrationSent.p9 = (mae’n cymryd 30 eiliad).
 registrationSent.warning = Peidiwch ag anfon dogfennau gwreiddiol. Ni allwn ddychwelyd unrhyw ddogfennau yr ydych yn eu hanfon atom.
 registrationSent.link = Beth yw’ch barn am y gwasanaeth hwn?
+registrationSent.printOrDownload = (W)Print or download this page(W)
 
 # Your application is being processed - submitted in old service messages
 # ----------------------------------------------------------

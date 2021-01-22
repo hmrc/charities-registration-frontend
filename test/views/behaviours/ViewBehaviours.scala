@@ -233,4 +233,14 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+
+  def pageWithPrintOrDownloadLink(view: HtmlFormat.Appendable, linkId: String, url: String, linkText: String) = {
+    "behave like a page with a Print or download link" must {
+      "have a hyperlink" in {
+        val doc = asDocument(view)
+        doc.select(s"#$linkId").attr("href") mustBe url
+        doc.select(s"#$linkId").text() mustBe linkText
+      }
+    }
+  }
 }

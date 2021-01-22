@@ -173,8 +173,7 @@ class CharitiesSave4LaterService @Inject()(
         for {
           result <- Future.successful(getSwitchOverJsonData(cacheMap))
           _ <- cache.cache(sessionId.value, IsSwitchOverUserPage, true)
-          userAnswers <- cache.remove(request.internalId).map(_ => UserAnswers(request.internalId, result.accumulator))
-          updatedAnswersWithErrors <- updateSwitchOverUserAnswer(userAnswers, result)
+          updatedAnswersWithErrors <- updateSwitchOverUserAnswer(UserAnswers(request.internalId, result.accumulator), result)
         } yield updatedAnswersWithErrors
       case _ =>
         checkForValidApplicationJourney(request, eligibleJourneyId)

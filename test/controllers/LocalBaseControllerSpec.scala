@@ -36,7 +36,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Result, Results}
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 
 import scala.concurrent.Future
 
@@ -46,14 +46,14 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
       )
 
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private def block(test: String): Future[Result] = {

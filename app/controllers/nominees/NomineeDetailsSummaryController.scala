@@ -26,8 +26,7 @@ import pages.IndexPage
 import pages.nominees.{ChooseNomineePage, NomineeDetailsSummaryPage}
 import pages.sections.Section9Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import viewmodels.nominees.NomineeStatusHelper.checkComplete
 import viewmodels.nominees.{NomineeDetailsSummaryHelper, NomineeIndividualSummaryHelper, NomineeOrganisationSummaryHelper}
 import views.html.nominees.NomineeDetailsSummaryView
@@ -35,7 +34,7 @@ import views.html.nominees.NomineeDetailsSummaryView
 import scala.concurrent.Future
 
 class NomineeDetailsSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: NomineesNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

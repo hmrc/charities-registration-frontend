@@ -212,4 +212,14 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
     }
   }
 
+  "SaveStatus" must {
+
+    "status defined" in {
+
+      val status = SaveStatus(true)
+
+      status.status mustBe true
+    }
+  }
+
 }

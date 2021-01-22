@@ -26,7 +26,7 @@ import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.Logger
 import play.api.mvc.{AnyContent, Result}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.ErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -34,7 +34,7 @@ import scala.concurrent.{ExecutionContext, Future}
 trait BaseAddressController extends LocalBaseController {
   protected val addressLookupConnector: AddressLookupConnector
   protected val errorHandler: ErrorHandler
-  protected val sessionRepository: UserAnswerRepository
+  protected val sessionRepository: UserAnswerService
   protected val navigator: BaseNavigator
   protected val messagePrefix: String
 

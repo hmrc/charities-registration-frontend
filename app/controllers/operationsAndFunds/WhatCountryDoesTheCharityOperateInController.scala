@@ -27,15 +27,14 @@ import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
-
 import javax.inject.Inject
+
 import scala.concurrent.Future
 
 class WhatCountryDoesTheCharityOperateInController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: FundRaisingNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

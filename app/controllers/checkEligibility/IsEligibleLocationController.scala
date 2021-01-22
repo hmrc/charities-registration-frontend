@@ -25,13 +25,13 @@ import models.Mode
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligibleLocationPage
 import play.api.mvc._
-import repositories.SessionRepository
+import repositories.AbstractRepository
 import views.html.checkEligibility.IsEligibleLocationView
 
 import scala.concurrent.Future
 
 class IsEligibleLocationController @Inject()(
-   val sessionRepository: SessionRepository,
+   val sessionRepository: AbstractRepository,
    val navigator: EligibilityNavigator,
    identify: SessionIdentifierAction,
    getData: DataRetrievalAction,

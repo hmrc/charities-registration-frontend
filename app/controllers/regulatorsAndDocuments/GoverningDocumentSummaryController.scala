@@ -26,7 +26,7 @@ import pages.IndexPage
 import pages.regulatorsAndDocuments.GoverningDocumentSummaryPage
 import pages.sections.Section3Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.regulatorsAndDocuments.GoverningDocumentStatusHelper.checkComplete
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 import views.html.CheckYourAnswersView
@@ -34,7 +34,7 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.Future
 
 class GoverningDocumentSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: DocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

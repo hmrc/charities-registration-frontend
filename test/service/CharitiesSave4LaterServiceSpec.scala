@@ -16,6 +16,8 @@
 
 package service
 
+import java.util.UUID
+
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
 import models.UserAnswers
@@ -30,13 +32,12 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.FakeRequest
-import repositories.SessionRepository
+import repositories.AbstractRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.logging.SessionId
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
 import utils.TestData
 
-import java.util.UUID
 import scala.concurrent.Future
 
 // scalastyle:off number.of.methods
@@ -44,14 +45,16 @@ import scala.concurrent.Future
 // scalastyle:off magic.number
 class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
 
-  lazy val mockRepository: SessionRepository = mock[SessionRepository]
+  lazy val mockRepository: AbstractRepository = mock[AbstractRepository]
+  lazy val mockUserService: UserAnswerService = mock[UserAnswerService]
   lazy val mockCacheMap: CacheMap = mock[CacheMap]
   lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[SessionRepository].toInstance(mockRepository),
+        bind[AbstractRepository].toInstance(mockRepository),
+        bind[UserAnswerService].toInstance(mockUserService),
         bind[CacheMap].toInstance(mockCacheMap),
         bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache)
       )
@@ -120,6 +123,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       when(mockCacheMap.getEntry[CharityNomineeOrganisation](meq("charityNomineeOrganisation"))(meq(CharityNomineeOrganisation.formats))).thenReturn(mockCharityNomineeOrganisation)
       when(mockCacheMap.getEntry[Acknowledgement](meq("acknowledgement-Reference"))(meq(Acknowledgement.formats))).thenReturn(mockAcknowledgement)
       when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
+      when(mockUserService.set(any())(any(), any())).thenReturn(Future.successful(true))
+
     }
 
   }
@@ -813,11 +818,11 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "isSection9Completed" -> false,
           "nominee" -> Json.parse(
             """{"chooseNominee":true,"isAuthoriseNominee":true,
-							|"individual":{"isIndividualPreviousAddress":false,"individualDOB":"2000-10-10","isIndividualNino":true,
-							|"individualAddress":{"country":{"code":"XX","name":"UK"},"lines":["Line1","Line2","Line3","Line5"]},
-							|"isIndividualNomineePayments":false,"individualNino":"CS700100A",
-							|"individualName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
-							|"individualPhoneNumber":{"daytimePhone":""}}}""".stripMargin)))
+              |"individual":{"isIndividualPreviousAddress":false,"individualDOB":"2000-10-10","isIndividualNino":true,
+              |"individualAddress":{"country":{"code":"XX","name":"UK"},"lines":["Line1","Line2","Line3","Line5"]},
+              |"isIndividualNomineePayments":false,"individualNino":"CS700100A",
+              |"individualName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
+              |"individualPhoneNumber":{"daytimePhone":""}}}""".stripMargin)))
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
@@ -837,15 +842,15 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "isSection9Completed" -> false,
           "nominee" -> Json.parse(
             """{"chooseNominee":false,"isAuthoriseNominee":true,
-							|"organisation":{"isOrganisationPreviousAddress":true,"isOrganisationNino":false,
-							|"isOrganisationNomineePayments":true,"organisationName":"Tesco",
-							|"organisationPreviousAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
-							|"organisationAuthorisedPersonName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
-							|"organisationAuthorisedPersonDOB":"2000-10-10",
-							|"organisationAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
-							|"organisationBankDetails":{"accountName":"AABB","rollNumber":"BB","accountNumber":"12345678","sortCode":"123456"},
-							|"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
-							|"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)))
+              |"organisation":{"isOrganisationPreviousAddress":true,"isOrganisationNino":false,
+              |"isOrganisationNomineePayments":true,"organisationName":"Tesco",
+              |"organisationPreviousAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
+              |"organisationAuthorisedPersonName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
+              |"organisationAuthorisedPersonDOB":"2000-10-10",
+              |"organisationAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
+              |"organisationBankDetails":{"accountName":"AABB","rollNumber":"BB","accountNumber":"12345678","sortCode":"123456"},
+              |"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
+              |"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)))
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 

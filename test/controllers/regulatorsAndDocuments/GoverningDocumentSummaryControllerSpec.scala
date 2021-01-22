@@ -31,7 +31,7 @@ import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SelectGove
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 
 import scala.concurrent.Future
 
@@ -42,14 +42,14 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[DocumentsNavigator].toInstance(FakeDocumentsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val controller: GoverningDocumentSummaryController = inject[GoverningDocumentSummaryController]
@@ -58,17 +58,17 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
 
     "return to task list and if user has not answered any question" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return OK and the correct view for a GET if user has answered section" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(SelectGoverningDocumentPage,
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(SelectGoverningDocumentPage,
         SelectGoverningDocument.TrustDeed).flatMap(
         _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))).flatMap(
         _.set(IsApprovedGoverningDocumentPage, false)).success.value)))
@@ -76,19 +76,19 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
   }

@@ -28,13 +28,13 @@ import pages.operationsAndFunds.FundRaisingPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.FundRaisingView
 
 import scala.concurrent.Future
 
 class FundRaisingController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: FundRaisingNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

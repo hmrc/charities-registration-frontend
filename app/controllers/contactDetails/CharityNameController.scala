@@ -28,14 +28,14 @@ import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.Section1Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import views.html.contactDetails.CharityNameView
 
 import scala.concurrent.Future
 
 class CharityNameController @Inject()(
-   val sessionRepository: UserAnswerRepository,
+   val sessionRepository: UserAnswerService,
    val navigator: CharityInformationNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,

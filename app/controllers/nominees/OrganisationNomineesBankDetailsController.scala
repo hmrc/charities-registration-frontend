@@ -27,13 +27,13 @@ import pages.nominees.{OrganisationNomineeNamePage, OrganisationNomineesBankDeta
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.BankAccountDetailsView
 
 import scala.concurrent.Future
 
 class OrganisationNomineesBankDetailsController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: NomineesNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

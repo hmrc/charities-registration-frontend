@@ -27,11 +27,10 @@ import pages.QuestionPage
 import pages.operationsAndFunds._
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import views.html.common.YesNoView
-
 import javax.inject.Inject
+
 import scala.concurrent.Future
 
 class IsRemoveOperatingCountryController @Inject()(
@@ -39,7 +38,7 @@ class IsRemoveOperatingCountryController @Inject()(
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: YesNoFormProvider,
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: FundRaisingNavigator,
     val controllerComponents: MessagesControllerComponents,
     val countryService: CountryService,

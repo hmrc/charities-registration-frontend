@@ -26,11 +26,11 @@ import pages.addressLookup.NomineeIndividualPreviousAddressLookupPage
 import pages.nominees.IndividualNomineeNamePage
 import pages.sections.Section9Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.ErrorHandler
 
 class NomineeIndividualPreviousAddressLookupController @Inject()(
-  override val sessionRepository: UserAnswerRepository,
+  override val sessionRepository: UserAnswerService,
   override val navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

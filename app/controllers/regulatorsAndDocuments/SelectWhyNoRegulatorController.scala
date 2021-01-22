@@ -28,13 +28,13 @@ import pages.regulatorsAndDocuments.SelectWhyNoRegulatorPage
 import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.regulatorsAndDocuments.SelectWhyNoRegulatorView
 
 import scala.concurrent.Future
 
 class SelectWhyNoRegulatorController @Inject()(
-    sessionRepository: UserAnswerRepository,
+    sessionRepository: UserAnswerService,
     navigator: RegulatorsAndDocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

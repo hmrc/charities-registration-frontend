@@ -65,42 +65,42 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
         Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator5)).transform(
           jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
           """{"isSection2Completed":false,"isCharityRegulator":false,
-						|"selectWhyNoRegulator":"1","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+            |"selectWhyNoRegulator":"1","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
       }
 
       "convert to correct charityRegulator6" in {
         Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator6)).transform(
           jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
           """{"isSection2Completed":false,"isCharityRegulator":false,
-						|"selectWhyNoRegulator":"2","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+            |"selectWhyNoRegulator":"2","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
       }
 
       "convert to correct charityRegulator7" in {
         Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator7)).transform(
           jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
           """{"isSection2Completed":false,"isCharityRegulator":false,
-						|"selectWhyNoRegulator":"3","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+            |"selectWhyNoRegulator":"3","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
       }
 
       "convert to correct charityRegulator8" in {
         Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator8)).transform(
           jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
           """{"isSection2Completed":false,"isCharityRegulator":false,
-						|"selectWhyNoRegulator":"4","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+            |"selectWhyNoRegulator":"4","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
       }
 
       "convert to correct charityRegulator9" in {
         Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator9)).transform(
           jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
           """{"isSection2Completed":false,"isCharityRegulator":false,
-						|"selectWhyNoRegulator":"5","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+            |"selectWhyNoRegulator":"5","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
       }
 
       "convert to correct charityRegulator10" in {
         Json.obj("charityRegulator" -> Json.toJson(noCharityRegulator10)).transform(
           jsonTransformer.toUserAnswersCharityRegulator).asOpt.value mustBe Json.parse(
           """{"isSection2Completed":false,"isCharityRegulator":false,
-						|"selectWhyNoRegulator":"7","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
+            |"selectWhyNoRegulator":"7","whyNotRegisteredWithCharity":"Reason"}""".stripMargin)
       }
     }
 
@@ -110,35 +110,35 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument1)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"1"}""".stripMargin)
+            |"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"1"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 3" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument3)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"3"}""".stripMargin)
+            |"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"3"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 4" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument4)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"4"}""".stripMargin)
+            |"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"4"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 6" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument6)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"6"}""".stripMargin)
+            |"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"6"}""".stripMargin)
       }
 
       "convert to correct GoverningDocument for document 7" in {
         Json.obj("charityGoverningDocument" -> Json.toJson(charityGoverningDocument7)).transform(
           jsonTransformer.toUserAnswersCharityGoverningDocument).asOpt.value mustBe Json.parse(
           """{"whenGoverningDocumentApproved":"1990-11-11","isApprovedGoverningDocument":true,"isSection3Completed":false,
-						|"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"7"}""".stripMargin)
+            |"sectionsChangedGoverningDocument":"test","governingDocumentName":"","selectGoverningDocument":"7"}""".stripMargin)
       }
     }
 

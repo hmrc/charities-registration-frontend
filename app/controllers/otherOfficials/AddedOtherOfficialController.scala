@@ -25,14 +25,13 @@ import navigation.OtherOfficialsNavigator
 import pages.otherOfficials.{AddedOtherOfficialPage, OtherOfficialsNamePage}
 import pages.sections.Section8Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import views.html.common.AddedOfficialsView
 
 import scala.concurrent.Future
 
 class AddedOtherOfficialController @Inject()(
-   override val sessionRepository: UserAnswerRepository,
+   override val sessionRepository: UserAnswerService,
    override val navigator: OtherOfficialsNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,

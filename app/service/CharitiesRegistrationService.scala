@@ -25,7 +25,6 @@ import play.api.Logger
 import play.api.libs.json.JsValue
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
-import repositories.UserAnswerRepository
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.TimeMachine
 
@@ -33,10 +32,10 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
 class CharitiesRegistrationService @Inject()(
-    userAnswerRepository: UserAnswerRepository,
-    auditService: AuditService,
-    charitiesConnector: CharitiesConnector,
-    timeMachine: TimeMachine
+  userAnswerService: UserAnswerService,
+  auditService: AuditService,
+  charitiesConnector: CharitiesConnector,
+  timeMachine: TimeMachine
   ) {
 
   private val logger = Logger(this.getClass)
@@ -50,7 +49,7 @@ class CharitiesRegistrationService @Inject()(
             for {
               updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference)
                 .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now())))
-              _ <- userAnswerRepository.set(updatedAnswers)
+              _ <- userAnswerService.set(updatedAnswers)
               _ <- Future.successful(auditService.sendEvent(DeclarationAuditEvent(true)))
               _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson)))
             } yield

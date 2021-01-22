@@ -22,13 +22,14 @@ import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
-import repositories.UserAnswerRepositoryImpl
+import service.UserAnswerService
+import org.mockito.ArgumentMatchers.any
 
 import scala.concurrent.Future
 
 class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
 
-  class Harness(sessionRepository: UserAnswerRepositoryImpl) extends UserDataRetrievalActionImpl(sessionRepository) {
+  class Harness(userAnswerService: UserAnswerService) extends UserDataRetrievalActionImpl(userAnswerService) {
     def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
   }
 
@@ -38,9 +39,9 @@ class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaF
 
       "set userAnswers to 'None' in the request" in {
 
-        val sessionRepository = mock[UserAnswerRepositoryImpl]
-        when(sessionRepository.get("id")) thenReturn Future(None)
-        val action = new Harness(sessionRepository)
+        val userAnswerService = mock[UserAnswerService]
+        when(userAnswerService.get(any())(any(), any())) thenReturn Future(None)
+        val action = new Harness(userAnswerService)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
@@ -54,9 +55,9 @@ class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaF
 
       "build a userAnswers object and add it to the request" in {
 
-        val sessionRepository = mock[UserAnswerRepositoryImpl]
-        when(sessionRepository.get("id")) thenReturn Future(Some(new UserAnswers("id")))
-        val action = new Harness(sessionRepository)
+        val userAnswerService = mock[UserAnswerService]
+        when(userAnswerService.get(any())(any(), any())) thenReturn Future(Some(new UserAnswers("id")))
+        val action = new Harness(userAnswerService)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 

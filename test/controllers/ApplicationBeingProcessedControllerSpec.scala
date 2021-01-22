@@ -24,13 +24,13 @@ import models.{OldServiceSubmission, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage, OldServiceSubmissionPage}
+import pages.OldServiceSubmissionPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
-import utils.{ImplicitDateFormatter, TimeMachine}
-import views.html.{ApplicationBeingProcessedView, RegistrationSentView}
+import service.UserAnswerService
+import utils.ImplicitDateFormatter
+import views.html.ApplicationBeingProcessedView
 
 import scala.concurrent.Future
 
@@ -41,13 +41,13 @@ class ApplicationBeingProcessedControllerSpec extends SpecBase with ImplicitDate
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val view: ApplicationBeingProcessedView = injector.instanceOf[ApplicationBeingProcessedView]
@@ -58,7 +58,7 @@ class ApplicationBeingProcessedControllerSpec extends SpecBase with ImplicitDate
 
     "return OK and the correct view for a GET if application was submitted in the old service" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(OldServiceSubmissionPage, OldServiceSubmission("123456789", "11:59am, Monday 14 September 2020"))
         .success.value)))
 
@@ -67,33 +67,31 @@ class ApplicationBeingProcessedControllerSpec extends SpecBase with ImplicitDate
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(dayToString(LocalDate.parse("2020-09-14"), dayOfWeek = false),
         "123456789")(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no submission reference is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, never).delete(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, never).delete(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
   }

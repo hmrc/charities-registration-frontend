@@ -23,8 +23,7 @@ import models.{CheckMode, Index, NormalMode}
 import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.mvc.{AnyContent, Call, MessagesControllerComponents, Result}
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
 import viewmodels.otherOfficials.AddedOtherOfficialHelper
 import views.html.common.AddedOfficialsView
@@ -32,7 +31,7 @@ import views.html.common.AddedOfficialsView
 import scala.concurrent.Future
 
 trait AddedOfficialController extends LocalBaseController {
-  protected val sessionRepository: UserAnswerRepository
+  protected val sessionRepository: UserAnswerService
   protected val navigator: BaseNavigator
   protected val view: AddedOfficialsView
   protected val controllerComponents: MessagesControllerComponents

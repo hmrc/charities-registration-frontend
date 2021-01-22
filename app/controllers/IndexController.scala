@@ -23,14 +23,13 @@ import models.UserAnswers
 import models.requests.OptionalDataRequest
 import pages.{AcknowledgementReferencePage, IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import repositories.UserAnswerRepository
-import service.CharitiesSave4LaterService
+import service.{CharitiesSave4LaterService, UserAnswerService}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.logging.SessionId
 import utils.TaskListHelper
 import views.html.TaskList
-
 import javax.inject.Inject
+
 import scala.concurrent.Future
 
 class IndexController @Inject()(
@@ -38,7 +37,7 @@ class IndexController @Inject()(
    getData: UserDataRetrievalAction,
    charitiesSave4LaterService: CharitiesSave4LaterService,
    cache: CharitiesShortLivedCache,
-   userAnswerRepository: UserAnswerRepository,
+   userAnswerService: UserAnswerService,
    taskListHelper: TaskListHelper,
    view: TaskList,
    val controllerComponents: MessagesControllerComponents
@@ -51,7 +50,7 @@ class IndexController @Inject()(
       case (Some(sessionId), _) =>
         if(appConfig.isExternalTest){
           val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-          userAnswerRepository.set(userAnswers).map { _ =>
+          userAnswerService.set(userAnswers).map { _ =>
             val result = taskListHelper.getTaskListRow(userAnswers)
             val completed = result.forall(_.state.equals("index.section.completed"))
             Ok(view(result, status = completed, None))
@@ -85,7 +84,7 @@ class IndexController @Inject()(
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-    userAnswerRepository.set(userAnswers).map { _ =>
+    userAnswerService.set(userAnswers).map { _ =>
       NoContent
     }
   }

@@ -25,18 +25,17 @@ object AuthStub extends WireMockMethods {
 
   private val authoriseUri = "/auth/authorise"
 
-  def authorised(): StubMapping =
-    when(method = POST, uri = authoriseUri)
-      .thenReturn(status = OK, body = Json.parse(
-        s"""
-          |{
-          |  "optionalCredentials":{
-          |    "providerId": "providerId",
-          |    "providerType": "PrivilegedApplication"
-          |  }
-          |}
-          |""".stripMargin)
-      )
+  def authorised(userId: String = "providerId"): StubMapping = {
+    val responseBody = s"""
+                          |{
+                          |  "optionalCredentials":{
+                          |    "providerId": "$userId",
+                          |    "providerType": "PrivilegedApplication"
+                          |  }
+                          |}
+                          |""".stripMargin
+    when(method = POST, uri = authoriseUri).thenReturn(status = OK, body = Json.parse(responseBody))
+  }
 
   def unauthorised(): StubMapping =
     when(method = POST, uri = authoriseUri).thenReturn(status = UNAUTHORIZED)

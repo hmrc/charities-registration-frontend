@@ -26,13 +26,13 @@ import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.WhyNoBankStatementPage
 import pages.sections.Section5Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.WhyNoBankStatementView
 
 import scala.concurrent.Future
 
 class WhyNoBankStatementController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: FundRaisingNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

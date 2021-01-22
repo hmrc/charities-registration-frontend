@@ -21,17 +21,19 @@ import controllers.actions.{DataRetrievalAction, SessionIdentifierAction}
 import javax.inject.Inject
 import models.UserAnswers
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.SessionRepositoryImpl
+import repositories.SessionRepository
 import views.html.errors.SessionExpiredView
 
 import scala.concurrent.Future
 
 
-class SessionExpiredController @Inject()(sessionRepository: SessionRepositoryImpl,
+class SessionExpiredController @Inject()(
+  sessionRepository: SessionRepository,
   identify: SessionIdentifierAction,
   getData: DataRetrievalAction,
   view: SessionExpiredView,
-  val controllerComponents: MessagesControllerComponents)(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+  val controllerComponents: MessagesControllerComponents)(
+  implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = identify.async { implicit request =>
       Future.successful(Ok(view()))

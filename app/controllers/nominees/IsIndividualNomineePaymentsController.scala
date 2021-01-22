@@ -27,7 +27,7 @@ import pages.nominees.{IndividualNomineeNamePage, IsIndividualNomineePaymentsPag
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.IsNomineePaymentsView
 
 import scala.concurrent.Future
@@ -38,7 +38,7 @@ class IsIndividualNomineePaymentsController @Inject()(
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: YesNoFormProvider,
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: NomineesNavigator,
     override val controllerComponents: MessagesControllerComponents,
     val view: IsNomineePaymentsView

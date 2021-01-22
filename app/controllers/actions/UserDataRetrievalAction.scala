@@ -19,19 +19,20 @@ package controllers.actions
 import javax.inject.Inject
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import play.api.mvc.ActionTransformer
-import repositories.UserAnswerRepository
+import service.UserAnswerService
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class UserDataRetrievalActionImpl @Inject()(val userAnswerRepository: UserAnswerRepository)(
+class UserDataRetrievalActionImpl @Inject()(val userAnswerService: UserAnswerService)(
   implicit val executionContext: ExecutionContext) extends UserDataRetrievalAction {
 
   override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = {
 
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-    userAnswerRepository.get(request.identifier).map {
+    userAnswerService.get(request.identifier).map {
       case None =>
         OptionalDataRequest(request.request, request.identifier, None)
       case Some(userAnswers) =>

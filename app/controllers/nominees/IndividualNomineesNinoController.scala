@@ -27,7 +27,7 @@ import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesNinoPage}
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.NinoView
 
 import scala.concurrent.Future
@@ -37,7 +37,7 @@ class IndividualNomineesNinoController @Inject()(
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: NinoFormProvider,
-    override val sessionRepository: UserAnswerRepository,
+    override val sessionRepository: UserAnswerService,
     override val navigator: NomineesNavigator,
     override val controllerComponents: MessagesControllerComponents,
     override val view: NinoView

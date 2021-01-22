@@ -27,8 +27,7 @@ import pages.nominees.{OrganisationAuthorisedPersonNamePage, OrganisationAuthori
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import views.html.common.PassportView
 
 import scala.concurrent.Future
@@ -39,7 +38,7 @@ class OrganisationAuthorisedPersonPassportController @Inject()(
   val requireData: DataRequiredAction,
   val formProvider: PassportFormProvider,
   override val countryService: CountryService,
-  override val sessionRepository: UserAnswerRepository,
+  override val sessionRepository: UserAnswerService,
   override val navigator: NomineesNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PassportView

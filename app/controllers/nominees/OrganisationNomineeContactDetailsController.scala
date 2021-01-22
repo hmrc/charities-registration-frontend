@@ -26,13 +26,13 @@ import navigation.NomineesNavigator
 import pages.nominees.{OrganisationNomineeContactDetailsPage, OrganisationNomineeNamePage}
 import pages.sections.Section9Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.nominees.OrganisationNomineeContactDetailsView
 
 import scala.concurrent.Future
 
 class OrganisationNomineeContactDetailsController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: NomineesNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

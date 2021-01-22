@@ -28,13 +28,13 @@ import pages.regulatorsAndDocuments.SelectGoverningDocumentPage
 import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.regulatorsAndDocuments.SelectGoverningDocumentView
 
 import scala.concurrent.Future
 
 class SelectGoverningDocumentController @Inject()(
-    sessionRepository: UserAnswerRepository,
+    sessionRepository: UserAnswerService,
     navigator: DocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

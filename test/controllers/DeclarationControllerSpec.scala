@@ -29,8 +29,7 @@ import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, S
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
-import service.CharitiesRegistrationService
+import service.{CharitiesRegistrationService, UserAnswerService}
 import views.html.DeclarationView
 
 import scala.concurrent.Future
@@ -44,14 +43,14 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository, mockCharitiesRegistrationService)
+    reset(mockUserAnswerService, mockCharitiesRegistrationService)
   }
 
   private val view: DeclarationView = injector.instanceOf[DeclarationView]
@@ -62,7 +61,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(Section1Page, true)
         .flatMap(_.set(Section2Page, true))
         .flatMap(_.set(Section3Page, true))
@@ -78,25 +77,25 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view()(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page after valid transformation" in {
 
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCharitiesRegistrationService.register(any())(any(), any(), any())).thenReturn(
         Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad()))
       )
@@ -105,7 +104,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCharitiesRegistrationService, times(1)).register(any())(any(), any(), any())
     }
 
@@ -114,15 +113,15 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       val app =
         new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
           .overrides(
-            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[UserAnswerService].toInstance(mockUserAnswerService),
             bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
           ).build()
 
       val controller: DeclarationController = app.injector.instanceOf[DeclarationController]
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesRegistrationService.register(any())(any(), any(), any())).thenReturn(
         Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad()))
       )
@@ -131,39 +130,39 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
       verify(mockCharitiesRegistrationService, never).register(any())(any(), any(), any())
     }
 
     "redirect to the session expired page for invalid transformation" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
 
     "redirect to Tasklist for a GET if SectionPage is not completed" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(Section1Page, false)
         .flatMap(_.set(Section2Page, true))
         .success.value)))
@@ -173,7 +172,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
   }
 }

@@ -28,7 +28,7 @@ import pages.operationsAndFunds.CharitableObjectivesPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 
 import scala.concurrent.Future
 
@@ -39,14 +39,14 @@ class CharityObjectivesSummaryControllerSpec extends SpecBase with BeforeAndAfte
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[ObjectivesNavigator].toInstance(FakeObjectivesNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val controller: CharityObjectivesSummaryController = inject[CharityObjectivesSummaryController]
@@ -55,36 +55,36 @@ class CharityObjectivesSummaryControllerSpec extends SpecBase with BeforeAndAfte
 
     "return OK and the correct view for a GET with some data stored" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(
         Some(emptyUserAnswers.set(CharitableObjectivesPage, "charitable objectives").success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return SEE_OTHER and the correct view for a GET with nothing in userAnswers" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
   }

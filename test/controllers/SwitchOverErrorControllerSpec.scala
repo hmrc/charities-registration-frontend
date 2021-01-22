@@ -24,7 +24,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.SwitchOverErrorView
 
 class SwitchOverErrorControllerSpec extends SpecBase with BeforeAndAfterEach {
@@ -34,13 +34,13 @@ class SwitchOverErrorControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val view: SwitchOverErrorView = injector.instanceOf[SwitchOverErrorView]

@@ -20,12 +20,13 @@ import base.SpecBase
 import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
 import connectors.httpParsers.{CharitiesInvalidJson, DefaultedUnexpectedFailure, EtmpFailed}
-import models.RegistrationResponse
+import models.{CharityName, RegistrationResponse, UserAnswers}
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
+import pages.contactDetails.CharityNamePage
 import play.api.http.Status._
 import play.api.libs.json.{JsResultException, Json}
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.{HttpClient, UpstreamErrorResponse}
 
 
 class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSugar {
@@ -34,9 +35,11 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
   "CharitiesConnector" when {
 
-    val httpClient : HttpClient = injector.instanceOf[HttpClient]
-    lazy val charitiesConnector : CharitiesConnector = new CharitiesConnector(httpClient, mockFrontendAppConfig)
+    val httpClient: HttpClient = injector.instanceOf[HttpClient]
+    lazy val charitiesConnector: CharitiesConnector = new CharitiesConnector(httpClient, mockFrontendAppConfig)
     val requestJson = readJsonFromFile("/request.json")
+    val userAnswers: UserAnswers = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value
+
     when(mockFrontendAppConfig.getCharitiesBackend) thenReturn getUrl
 
     "called registerCharities method" should {
@@ -123,6 +126,116 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
           actualResult mustBe expectedResult
 
           verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
+        }
+      }
+
+      "for getUserAnswers response" must {
+
+        "return Some(userAnswers) response)" in {
+
+          val responseJson = """{
+                               |    "_id": "id",
+                               |    "data": {
+                               |        "charityName": {
+                               |            "fullName": "AAA"
+                               |        }
+                               |    },
+                               |    "lastUpdated": {
+                               |        "$date": 1611336311912
+                               |    },
+                               |    "expiresAt": {
+                               |        "$date": 1613779200000
+                               |    }
+                               |}""".stripMargin
+
+          stubFor(get(urlEqualTo("/charities-registration/getUserAnswer/id"))
+            .willReturn(aResponse().withBody(responseJson)
+              .withStatus(OK)
+            )
+          )
+
+          val result = await(charitiesConnector.getUserAnswers("id")(hc, ec))
+
+          result.get.data mustBe userAnswers.data
+
+          verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
+        }
+
+        "return None response" in {
+
+          stubFor(get(urlEqualTo("/charities-registration/getUserAnswer/id"))
+            .willReturn(aResponse().withStatus(NO_CONTENT))
+          )
+
+          val result = await(charitiesConnector.getUserAnswers("id")(hc, ec))
+
+          result mustBe None
+
+          verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
+        }
+
+        "returns an exception if response is in incorrect format" in {
+
+          stubFor(get(urlEqualTo("/charities-registration/getUserAnswer/id"))
+            .willReturn(aResponse().withBody(Json.parse("""{"status":"failure"}""").toString())
+              .withStatus(OK)
+            )
+          )
+
+          intercept[JsResultException] {
+            await(charitiesConnector.getUserAnswers("id")(hc, ec))
+          }
+
+          verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
+        }
+      }
+
+      "for saveUserAnswers response" must {
+
+        "return successful response" in {
+
+          stubFor(post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
+            .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
+            .willReturn(aResponse().withBody("""{"status":true}""")
+              .withStatus(OK)
+            )
+          )
+
+          val result = await(charitiesConnector.saveUserAnswers(userAnswers)(hc, ec))
+
+          result mustBe true
+
+          verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
+        }
+
+        "returns an exception if response is in incorrect format" in {
+
+          stubFor(post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
+            .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
+            .willReturn(aResponse().withBody(Json.parse("""{"testStatus":"failure"}""").toString())
+              .withStatus(OK)
+            )
+          )
+
+          intercept[JsResultException] {
+            await(charitiesConnector.saveUserAnswers(userAnswers)(hc, ec))
+          }
+
+          verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
+        }
+
+        "return UpstreamErrorResponse for Internal Server Error" in {
+
+          stubFor(post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
+            .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
+            .willReturn(aResponse().withStatus(INTERNAL_SERVER_ERROR))
+          )
+
+          intercept[RuntimeException] {
+            await(charitiesConnector.saveUserAnswers(userAnswers)(hc, ec))
+          }
+
+          verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
         }
       }
     }

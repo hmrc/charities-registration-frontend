@@ -24,14 +24,14 @@ import models.requests.DataRequest
 import pages.EmailOrPostPage
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.RequiredDocumentsHelper
 import views.html.EmailOrPostView
 
 import scala.concurrent.Future
 
 class EmailOrPostController @Inject()(
-    val userAnswerRepository: UserAnswerRepository,
+    val userAnswerService: UserAnswerService,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: RegistrationDataRequiredAction,
@@ -72,7 +72,7 @@ class EmailOrPostController @Inject()(
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, value))
-            _ <- userAnswerRepository.set(updatedAnswers)
+            _ <- userAnswerService.set(updatedAnswers)
 
           } yield Redirect(controllers.routes.RegistrationSentController.onPageLoad())
       )

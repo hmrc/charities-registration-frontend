@@ -28,7 +28,7 @@ import pages.authorisedOfficials.{AuthorisedOfficialsSummaryPage, IsAddAnotherAu
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper.checkComplete
 import viewmodels.officials.OfficialSummaryRowHelper
 import views.html.common.OfficialsSummaryView
@@ -36,7 +36,7 @@ import views.html.common.OfficialsSummaryView
 import scala.concurrent.Future
 
 class AuthorisedOfficialsSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: AuthorisedOfficialsNavigator,
     val formProvider: YesNoFormProvider,
     identify: AuthIdentifierAction,

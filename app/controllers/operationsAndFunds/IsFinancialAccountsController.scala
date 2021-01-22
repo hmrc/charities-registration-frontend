@@ -26,13 +26,13 @@ import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.IsFinancialAccountsPage
 import pages.sections.Section5Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.IsFinancialAccountsView
 
 import scala.concurrent.Future
 
 class IsFinancialAccountsController @Inject()(
-  val sessionRepository: UserAnswerRepository,
+  val sessionRepository: UserAnswerService,
   val navigator: FundRaisingNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

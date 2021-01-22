@@ -26,7 +26,7 @@ import pages.IndexPage
 import pages.operationsAndFunds.BankDetailsSummaryPage
 import pages.sections.Section6Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
 import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 import views.html.CheckYourAnswersView
@@ -34,7 +34,7 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.Future
 
 class BankDetailsSummaryController @Inject()(
-  val sessionRepository: UserAnswerRepository,
+  val sessionRepository: UserAnswerService,
   val navigator: BankDetailsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

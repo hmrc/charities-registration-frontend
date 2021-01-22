@@ -22,13 +22,14 @@ import controllers.actions._
 import javax.inject.Inject
 import models.Index
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
+
 import scala.concurrent.Future
 
 
 class CharityAuthorisedOfficialsController @Inject()(
-    val userAnswerRepository: UserAnswerRepository,
+    val userAnswerService: UserAnswerService,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,

@@ -26,8 +26,7 @@ import pages.IndexPage
 import pages.operationsAndFunds.OperationsFundsSummaryPage
 import pages.sections.Section5Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import viewmodels.operationsAndFunds.OperationsFundsStatusHelper.checkComplete
 import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 import views.html.CheckYourAnswersView
@@ -35,7 +34,7 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.Future
 
 class OperationsFundsSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: FundRaisingNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

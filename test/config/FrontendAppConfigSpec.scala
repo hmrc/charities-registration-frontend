@@ -152,8 +152,8 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.save4laterDomain mustBe "save4later"
       }
 
-      "encryptData" in {
-        frontendAppConfig.encryptData mustBe false
+      "timeToLiveInDays" in {
+        frontendAppConfig.timeToLiveInDays mustBe 28
       }
     }
   }

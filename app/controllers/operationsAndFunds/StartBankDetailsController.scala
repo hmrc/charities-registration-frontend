@@ -20,16 +20,15 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import pages.sections.Section1Page
-
 import javax.inject.Inject
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.StartBankDetailsView
 
 import scala.concurrent.Future
 
 class StartBankDetailsController @Inject()(
-    val userAnswerRepository: UserAnswerRepository,
+    val userAnswerService: UserAnswerService,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,

@@ -32,7 +32,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{status, _}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.ErrorHandler
 
 import scala.concurrent.Future
@@ -45,17 +45,17 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository, mockAddressLookupConnector)
+    reset(mockUserAnswerService, mockAddressLookupConnector)
   }
 
-  private lazy val controller: CharityOfficialAddressLookupController = new CharityOfficialAddressLookupController(mockUserAnswerRepository,
+  private lazy val controller: CharityOfficialAddressLookupController = new CharityOfficialAddressLookupController(mockUserAnswerService,
     FakeCharityInformationNavigator, inject[FakeAuthIdentifierAction], inject[UserDataRetrievalAction], inject[DataRequiredAction],
     mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
 
@@ -69,7 +69,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
           "redirect to the on ramp" in {
 
-            when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
             val result = controller.initializeJourney()(fakeDataRequest)
@@ -83,7 +83,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
           "render ISE" in {
 
-            when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
             val result = controller.initializeJourney()(fakeDataRequest)
@@ -95,14 +95,14 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
         "redirect to Session Expired for a GET if no existing data is found" in {
 
-          when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+          when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
           val result = controller.initializeJourney()(fakeRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
-          verify(mockUserAnswerRepository, times(1)).get(any())
-          verify(mockUserAnswerRepository, never).set(any())
+          verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+          verify(mockUserAnswerService, never).set(any())(any(), any())
         }
       }
 
@@ -118,8 +118,8 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
               "redirect to the next page" in {
 
-                when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-                when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+                when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+                when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
                 when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
                 val result = controller.callback(Some("id"))(fakeDataRequest)
@@ -134,7 +134,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
               "render ISE for invalid address" in {
 
-                when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+                when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
                 when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Left(AddressMalformed)))
 
                 val result = controller.callback(Some("id"))(fakeDataRequest)
@@ -146,7 +146,7 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
               "render ISE" in {
 
-                when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+                when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
                 when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
                 val result = controller.callback(None)(fakeDataRequest)
@@ -160,14 +160,14 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
 
           "redirect to Session Expired for a GET if no existing data is found" in {
 
-            when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
             val result = controller.callback(Some("id"))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
             redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
-            verify(mockUserAnswerRepository, times(1)).get(any())
-            verify(mockUserAnswerRepository, never).set(any())
+            verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+            verify(mockUserAnswerService, never).set(any())(any(), any())
           }
         }
       }

@@ -28,7 +28,7 @@ import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAddAnotherAutho
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 
 import scala.concurrent.Future
 
@@ -39,14 +39,14 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val controller: AuthorisedOfficialsSummaryController = inject[AuthorisedOfficialsSummaryController]
@@ -55,17 +55,17 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
     "redirect to index page if rows are empty" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return OK if the form has data in it" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
         .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true)).success.value
       )))
@@ -73,12 +73,12 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return OK if the form has data for two officials in it" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
         .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")))
@@ -88,32 +88,32 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
@@ -121,15 +121,15 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
       val app =
         new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
           .overrides(
-            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[UserAnswerService].toInstance(mockUserAnswerService),
             bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
           ).build()
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val controller: AuthorisedOfficialsSummaryController = app.injector.instanceOf[AuthorisedOfficialsSummaryController]
 
@@ -137,23 +137,23 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted with two rows of officials" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man"))).success.value)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted with two rows of officials and isExternalTest is true" in {
@@ -161,17 +161,17 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
       val app =
         new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
           .overrides(
-            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+            bind[UserAnswerService].toInstance(mockUserAnswerService),
             bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
           ).build()
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man"))).success.value)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val controller: AuthorisedOfficialsSummaryController = app.injector.instanceOf[AuthorisedOfficialsSummaryController]
 
@@ -179,20 +179,20 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "notACorrectValue"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe BAD_REQUEST
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
   }

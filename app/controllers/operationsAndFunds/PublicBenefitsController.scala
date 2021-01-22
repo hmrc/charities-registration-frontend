@@ -27,13 +27,13 @@ import pages.operationsAndFunds.PublicBenefitsPage
 import pages.sections.Section4Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.PublicBenefitsView
 
 import scala.concurrent.Future
 
 class PublicBenefitsController @Inject()(
-  val sessionRepository: UserAnswerRepository,
+  val sessionRepository: UserAnswerService,
   val navigator: ObjectivesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

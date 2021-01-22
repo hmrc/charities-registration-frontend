@@ -27,13 +27,13 @@ import pages.contactDetails.CharityContactDetailsPage
 import pages.sections.Section1Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.contactDetails.CharityContactDetailsView
 
 import scala.concurrent.Future
 
 class CharityContactDetailsController @Inject()(
-    sessionRepository: UserAnswerRepository,
+    sessionRepository: UserAnswerService,
     navigator: CharityInformationNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

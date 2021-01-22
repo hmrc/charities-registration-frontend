@@ -26,13 +26,13 @@ import navigation.ObjectivesNavigator
 import pages.operationsAndFunds.CharitableObjectivesPage
 import pages.sections.Section4Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.CharitableObjectivesView
 
 import scala.concurrent.Future
 
 class CharitableObjectivesController @Inject()(
-  val sessionRepository: UserAnswerRepository,
+  val sessionRepository: UserAnswerService,
   val navigator: ObjectivesNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

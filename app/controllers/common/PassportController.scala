@@ -24,15 +24,14 @@ import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import views.html.common.PassportView
 
 import scala.concurrent.Future
 
 trait PassportController extends LocalBaseController {
   protected val countryService: CountryService
-  protected val sessionRepository: UserAnswerRepository
+  protected val sessionRepository: UserAnswerService
   protected val navigator: BaseNavigator
   protected val controllerComponents: MessagesControllerComponents
   protected val view: PassportView

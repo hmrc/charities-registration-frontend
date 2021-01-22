@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 import config.FrontendAppConfig
 import models.UserAnswers
 import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.bson.BSONDocument
 import reactivemongo.api.bson.collection.BSONSerializationPack
@@ -29,11 +29,10 @@ import reactivemongo.api.indexes.Index.Aux
 import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.play.json.collection.Helpers.idWrites
 import reactivemongo.play.json.collection.JSONCollection
-import uk.gov.hmrc.crypto.{ApplicationCrypto, Crypted, PlainText}
+import uk.gov.hmrc.crypto.ApplicationCrypto
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.util.Try
 
 trait AbstractRepository {
 
@@ -102,24 +101,7 @@ trait AbstractRepository {
 
   def get(id: String): Future[Option[UserAnswers]] = {
 
-    if (appConfig.encryptData) {
-
-      collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers]).map {
-        _.map {
-          userAnswers =>
-            val decrypted = Try {
-              val dataAsString = Json.stringify((userAnswers.data \ "encrypted").getOrElse(Json.obj()))
-              val decryptedString = applicationCrypto.JsonCrypto.decrypt(Crypted(dataAsString)).value
-              Json.parse(decryptedString).as[JsObject]
-            }.toOption.getOrElse(Json.obj())
-
-            userAnswers.copy(data = decrypted)
-        }
-      }
-
-    } else {
       collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])
-    }
   }
 
   def set(userAnswers: UserAnswers): Future[Boolean] = {
@@ -128,16 +110,8 @@ trait AbstractRepository {
       case (Some(_), _) | (_, Some(_)) => userAnswers.expiresAt
       case _ => calculateExpiryTime
     }
-    val document = if (appConfig.encryptData) {
 
-      val userDataAsString = PlainText(Json.stringify(userAnswers.data))
-      val encryptedData = applicationCrypto.JsonCrypto.encrypt(userDataAsString).value
-
-      userAnswers.copy(data = Json.obj("encrypted" -> encryptedData), lastUpdated = LocalDateTime.now, expiresAt = expiryDate)
-
-    } else {
-      userAnswers.copy(lastUpdated = LocalDateTime.now, expiresAt = expiryDate)
-    }
+    val document = userAnswers.copy(lastUpdated = LocalDateTime.now, expiresAt = expiryDate)
 
     val selector = Json.obj(
       "_id" -> userAnswers.id
@@ -152,19 +126,6 @@ trait AbstractRepository {
         lastError =>
           lastError.ok
       }
-    }
-  }
-
-  def delete(userAnswers: UserAnswers): Future[Boolean] = {
-
-    val selector = Json.obj(
-      "_id" -> userAnswers.id
-    )
-
-    collection.flatMap(_.delete(ordered = false)
-      .one(selector)).map {
-      lastError =>
-        lastError.ok
     }
   }
 }

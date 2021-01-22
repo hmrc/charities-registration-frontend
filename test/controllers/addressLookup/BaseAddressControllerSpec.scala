@@ -38,7 +38,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{AnyContent, MessagesControllerComponents}
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.ErrorHandler
 
 import scala.concurrent.Future
@@ -50,28 +50,28 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository, mockAddressLookupConnector)
+    reset(mockUserAnswerService, mockAddressLookupConnector)
   }
 
   class TestAddressLookupController @Inject()(
-     override val sessionRepository: UserAnswerRepository,
-     override val navigator: CharityInformationNavigator,
-     override val addressLookupConnector: AddressLookupConnector,
-     override val errorHandler: ErrorHandler,
-     val controllerComponents: MessagesControllerComponents
+                                               override val sessionRepository: UserAnswerService,
+                                               override val navigator: CharityInformationNavigator,
+                                               override val addressLookupConnector: AddressLookupConnector,
+                                               override val errorHandler: ErrorHandler,
+                                               val controllerComponents: MessagesControllerComponents
    )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
     override val messagePrefix: String = "testPrefix"
   }
 
 
-  lazy val controller: TestAddressLookupController = new TestAddressLookupController(mockUserAnswerRepository,
+  lazy val controller: TestAddressLookupController = new TestAddressLookupController(mockUserAnswerService,
     FakeCharityInformationNavigator, mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
   val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
@@ -85,7 +85,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
           "redirect to the on ramp" in {
 
-            when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
             val result = controller.addressLookupInitialize("testCallback")(request, implicitly)
@@ -100,7 +100,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
           "render ISE" in {
 
-            when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+            when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
             when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
             val result = controller.addressLookupInitialize("testCallback")(request, implicitly)
@@ -122,8 +122,8 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
             "redirect to the next page" in {
 
-              when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-              when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
               val result = controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
@@ -138,7 +138,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
             "render ISE for invalid address" in {
 
-              when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Left(AddressMalformed)))
 
               val result = controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
@@ -150,7 +150,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
             "render ISE" in {
 
-              when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
               val result = controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, None)(request)

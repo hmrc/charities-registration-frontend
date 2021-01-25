@@ -24,10 +24,7 @@ import controllers.actions._
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
 import javax.inject.Inject
 import models.Mode
-import models.regulators.SelectGoverningDocument
-import models.requests.DataRequest
 import navigation.DocumentsNavigator
-import pages.QuestionPage
 import pages.regulatorsAndDocuments.{SelectGoverningDocumentPage, WhenGoverningDocumentApprovedPage}
 import pages.sections.Section3Page
 import play.api.data.Form
@@ -77,15 +74,6 @@ class WhenGoverningDocumentApprovedController @Inject()(
             _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(WhenGoverningDocumentApprovedPage, mode, updatedAnswers))
       )
-    }
-  }
-
-  private def getDocumentName(page: QuestionPage[SelectGoverningDocument])(block: String => Future[Result])
-                 (implicit request: DataRequest[AnyContent]): Future[Result] = {
-
-    request.userAnswers.get(page) match {
-      case Some(documentName) => block(documentName)
-      case None => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }
   }
 }

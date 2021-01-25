@@ -17,6 +17,7 @@
 package controllers.checkEligibility
 
 import config.FrontendAppConfig
+
 import javax.inject.Inject
 import models.Mode
 import play.api.i18n.I18nSupport

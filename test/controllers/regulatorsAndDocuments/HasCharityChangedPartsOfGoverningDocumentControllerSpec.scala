@@ -19,13 +19,14 @@ package controllers.regulatorsAndDocuments
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentFormProvider
+import models.regulators.SelectGoverningDocument
 import models.{NormalMode, UserAnswers}
 import navigation.DocumentsNavigator
 import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentPage
+import pages.regulatorsAndDocuments.{HasCharityChangedPartsOfGoverningDocumentPage, SelectGoverningDocumentPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -58,23 +59,26 @@ class HasCharityChangedPartsOfGoverningDocumentControllerSpec extends SpecBase w
 
   private val controller: HasCharityChangedPartsOfGoverningDocumentController = inject[HasCharityChangedPartsOfGoverningDocumentController]
 
+  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage,
+    SelectGoverningDocument.Will).success.value
+
   "HasCharityChangedPartsofGoverningDocument Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, "will")(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerRepository, times(1)).get(any())
     }
 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers.
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers.
         set(HasCharityChangedPartsOfGoverningDocumentPage, true).getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -87,7 +91,7 @@ class HasCharityChangedPartsOfGoverningDocumentControllerSpec extends SpecBase w
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
@@ -102,7 +106,7 @@ class HasCharityChangedPartsOfGoverningDocumentControllerSpec extends SpecBase w
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 

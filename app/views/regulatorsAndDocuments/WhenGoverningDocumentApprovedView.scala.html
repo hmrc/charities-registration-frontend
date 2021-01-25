@@ -30,7 +30,7 @@
 
 @(form: Form[_], mode: Mode, documentName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "whenGoverningDocumentApproved.title", Some("charityRegulator.section")))) {
+@govukLayout(pageTitle = Some(title(form, "whenGoverningDocumentApproved.title", Some("charityRegulator.section"), Seq(documentName)))) {
 
     @formHelper(action = WhenGoverningDocumentApprovedController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
@@ -38,7 +38,7 @@
 
             @inputDate(
                 form,
-                legendContent = messages("whenGoverningDocumentApproved.heading",messages(s"selectGoverningDocument.$documentName")),
+                legendContent = messages("whenGoverningDocumentApproved.heading", documentName),
                 hintMessage= None,
                 hintHtml= Some(hint),
                 legendAsPageHeading = true,

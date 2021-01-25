@@ -35,16 +35,16 @@ class IsApprovedGoverningDocumentViewSpec extends YesNoViewBehaviours {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
           val view = viewFor[IsApprovedGoverningDocumentView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+          view.apply(form, NormalMode, "Will")(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Will"), section = section)
 
       behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "p")
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsApprovedGoverningDocumentController.onSubmit(NormalMode).url, section = section)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsApprovedGoverningDocumentController.onSubmit(NormalMode).url, Seq("Will"), section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }}

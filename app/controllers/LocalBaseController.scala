@@ -19,10 +19,12 @@ package controllers
 
 import models._
 import models.addressLookup.AddressModel
+import models.regulators.SelectGoverningDocument
 import models.requests.DataRequest
 import pages.QuestionPage
+import pages.regulatorsAndDocuments.GoverningDocumentNamePage
 import pages.sections._
-import play.api.i18n.I18nSupport
+import play.api.i18n.{I18nSupport, Messages}
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
@@ -32,8 +34,8 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
 
   implicit lazy val ec: ExecutionContext = controllerComponents.executionContext
 
-  def getFullName(page: QuestionPage[Name])(block: String => Future[Result])
-                               (implicit request: DataRequest[AnyContent]): Future[Result] = {
+  def getFullName(page: QuestionPage[Name])(block: String => Future[Result])(
+    implicit request: DataRequest[AnyContent]): Future[Result] = {
 
     request.userAnswers.get(page).map {
       name =>
@@ -41,8 +43,8 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
   }
 
-  def getOrganisationName(page: QuestionPage[String])(block: String => Future[Result])
-                 (implicit request: DataRequest[AnyContent]): Future[Result] = {
+  def getOrganisationName(page: QuestionPage[String])(block: String => Future[Result])(
+    implicit request: DataRequest[AnyContent]): Future[Result] = {
 
     request.userAnswers.get(page).map {
       name =>
@@ -63,6 +65,22 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
         block(Seq(addressList, postcode).flatten, Country(countryCode, countryName))
 
     }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
+  }
+
+  def getDocumentName(page: QuestionPage[SelectGoverningDocument])(block: String => Future[Result])(
+    implicit request: DataRequest[AnyContent], messages: Messages): Future[Result] = {
+    request.userAnswers.get(page) match {
+      case Some(SelectGoverningDocument.Other) =>
+       request.userAnswers.get(GoverningDocumentNamePage) match {
+        case Some(otherDocumentName) => block(otherDocumentName)
+        case None => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+      }
+      case Some(SelectGoverningDocument.RoyalCharacter) =>
+        block(messages(s"selectGoverningDocument.${SelectGoverningDocument.RoyalCharacter}"))
+      case Some(documentName) =>
+        block(messages(s"selectGoverningDocument.$documentName").toLowerCase())
+      case None => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+    }
   }
 
   def isAllSectionsCompleted()(implicit request: DataRequest[AnyContent]): Boolean = {

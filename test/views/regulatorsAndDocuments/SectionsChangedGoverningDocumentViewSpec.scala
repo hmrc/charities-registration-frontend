@@ -33,14 +33,14 @@ class SectionsChangedGoverningDocumentViewSpec extends TextAreaViewBehaviours  {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
           val view = viewFor[SectionsChangedGoverningDocumentView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+          view.apply(form, NormalMode, "Will")(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Will"), section = Some(messages("charityRegulator.section")))
 
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("charityRegulator.section")))
+      behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("charityRegulator.section")),headingArgs = Seq("Will"))
   }}

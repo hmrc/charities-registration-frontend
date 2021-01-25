@@ -605,7 +605,7 @@ governingDocumentName.checkYourAnswersLabel = Other name
 
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
-whenGoverningDocumentApproved.title = What date did the governing document become effective?
+whenGoverningDocumentApproved.title = What date did the {0} become effective?
 whenGoverningDocumentApproved.heading = What date did the {0} become effective?
 WhenGoverningDocumentApproved.p1 = If the charity is a CIO (Charitable Incorporated Organisation), it is the date the charity was accepted onto the regulator’s register.
 WhenGoverningDocumentApproved.hint = For example, 27 3 2007
@@ -619,23 +619,23 @@ whenGoverningDocumentApproved.checkYourAnswersLabel = Effective date
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = Is the governing document approved?
-isApprovedGoverningDocument.heading = Is the governing document approved?
+isApprovedGoverningDocument.title = Is the {0} approved?
+isApprovedGoverningDocument.heading = Is the {0} approved?
 isApprovedGoverningDocument.error.required = Select yes if the charity’s governing document is approved
 isApprovedGoverningDocument.p = The governing document can be approved by a national organisation, parent body or principle regulator.
 isApprovedGoverningDocument.checkYourAnswersLabel = Approved by a regulator
 
 # HasCharityChangedPartsOfGoverningDocument Messages
 # ----------------------------------------------------------
-hasCharityChangedPartsOfGoverningDocument.title = Has the charity changed parts of the governing document since it was approved?
-hasCharityChangedPartsOfGoverningDocument.heading = Has the charity changed parts of the governing document since it was approved?
+hasCharityChangedPartsOfGoverningDocument.title = Has the charity changed parts of the {0} since it was approved?
+hasCharityChangedPartsOfGoverningDocument.heading = Has the charity changed parts of the {0} since it was approved?
 hasCharityChangedPartsOfGoverningDocument.error.required = Select yes if the charity has changed the governing document since it was approved
 hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = Have sections and clauses changed
 
 # SectionsChangedGoverningDocument Messages
 # ----------------------------------------------------------
-sectionsChangedGoverningDocument.title = What sections and clauses have changed in the governing document and why?
-sectionsChangedGoverningDocument.heading = What sections and clauses have changed in the governing document and why?
+sectionsChangedGoverningDocument.title = What sections and clauses have changed in the {0} and why?
+sectionsChangedGoverningDocument.heading = What sections and clauses have changed in the {0} and why?
 sectionsChangedGoverningDocument.error.required = Enter what sections and clauses have changed in the governing document and why
 sectionsChangedGoverningDocument.error.length = The sections that have changed in the governing document must be 350 characters or less
 sectionsChangedGoverningDocument.error.format = The sections that have changed in the governing document must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops

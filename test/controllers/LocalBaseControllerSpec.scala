@@ -20,6 +20,7 @@ import base.SpecBase
 import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.{AddressModel, CountryModel}
+import models.regulators.SelectGoverningDocument
 
 import javax.inject.Inject
 import models.requests.DataRequest
@@ -29,6 +30,7 @@ import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.OrganisationNomineeNamePage
+import pages.regulatorsAndDocuments.{GoverningDocumentNamePage, SelectGoverningDocumentPage}
 import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -130,6 +132,61 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.getAddress(CharityOfficialAddressLookupPage)(blockForAddress)(request)
 
       status(result) mustEqual OK
+    }
+
+    "calling getDocumentName" when {
+
+      "return other document name" in {
+
+        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
+          .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).flatMap(
+          _.set(GoverningDocumentNamePage, "other doc name")).success.value)
+
+        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+
+        status(result) mustEqual OK
+      }
+
+      "return SessionExpired if other document name not present" in {
+
+        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
+          .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).success.value)
+
+        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      }
+
+      "return RoyalCharacter if its selected" in {
+
+        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
+          .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter).success.value)
+
+        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+
+        status(result) mustEqual OK
+      }
+
+      "return other document types if its selected" in {
+
+        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
+          .set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value)
+
+        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+
+        status(result) mustEqual OK
+      }
+
+      "return SessionExpired if document type is not selected" in {
+
+        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
+
+        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      }
     }
 
     "calling the .isAllSectionsCompleted is not successful" in {

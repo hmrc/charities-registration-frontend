@@ -605,7 +605,7 @@ governingDocumentName.checkYourAnswersLabel = Enw arall
 
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
-whenGoverningDocumentApproved.title = Ar ba ddyddiad y gwnaeth y ddogfen lywodraethu ddod i rym?
+whenGoverningDocumentApproved.title = (W)What date did the {0} become effective?(W)
 whenGoverningDocumentApproved.heading = Ar ba ddyddiad y gwnaeth {0} ddod i rym?
 WhenGoverningDocumentApproved.p1 = Os yw’r elusen yn Sefydliad Corfforedig Elusennol (CIO), dyma’r dyddiad y derbyniwyd yr elusen ar gofrestr y rheolydd.
 WhenGoverningDocumentApproved.hint = Er enghraifft, 27 3 2007
@@ -619,23 +619,23 @@ whenGoverningDocumentApproved.checkYourAnswersLabel = Dyddiad dod i rym
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = A yw’r ddogfen lywodraethu wedi’i chymeradwyo?
-isApprovedGoverningDocument.heading = A yw’r ddogfen lywodraethu wedi’i chymeradwyo?
+isApprovedGoverningDocument.title = (W)Is the {0} approved?(W)
+isApprovedGoverningDocument.heading = (W)Is the {0} approved?(W)
 isApprovedGoverningDocument.error.required = Dewiswch ‘Iawn’ os yw dogfen lywodraethu’r elusen wedi’i chymeradwyo
 isApprovedGoverningDocument.p = Gall y ddogfen lywodraethu gael ei chymeradwyo gan sefydliad cenedlaethol, prif gorff neu brif reolydd.
 isApprovedGoverningDocument.checkYourAnswersLabel = Wedi’i chymeradwyo gan reolydd
 
 # HasCharityChangedPartsOfGoverningDocument Messages
 # ----------------------------------------------------------
-hasCharityChangedPartsOfGoverningDocument.title = A yw’r elusen wedi newid rhannau o’r ddogfen lywodraethu ers iddi gael ei chymeradwyo?
-hasCharityChangedPartsOfGoverningDocument.heading = A yw’r elusen wedi newid rhannau o’r ddogfen lywodraethu ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.title = (W)Has the charity changed parts of the {0} since it was approved?(W)
+hasCharityChangedPartsOfGoverningDocument.heading = (W)Has the charity changed parts of the {0} since it was approved?(W)
 hasCharityChangedPartsOfGoverningDocument.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi newid y ddogfen lywodraethu ers iddi gael ei chymeradwyo
 hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = A oes adrannau a chymalau wedi newid?
 
 # SectionsChangedGoverningDocument Messages
 # ----------------------------------------------------------
-sectionsChangedGoverningDocument.title = Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
-sectionsChangedGoverningDocument.heading = Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
+sectionsChangedGoverningDocument.title = (W)What sections and clauses have changed in the {0} and why?(W)
+sectionsChangedGoverningDocument.heading = (W)What sections and clauses have changed in the {0} and why?(W)
 sectionsChangedGoverningDocument.error.required = Nodwch pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham
 sectionsChangedGoverningDocument.error.length = Mae’n rhaid i’r adrannau sydd wedi newid yn y ddogfen lywodraethu fod yn 350 o gymeriadau neu lai
 sectionsChangedGoverningDocument.error.format = Mae’n rhaid i’r adrannau sydd wedi newid yn y ddogfen lywodraethu gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig

@@ -28,16 +28,16 @@
     pAsHint: components.pAsHint
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, documentName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "isApprovedGoverningDocument.title", Some("charityRegulator.section")))) {
+@govukLayout(pageTitle = Some(title(form, "isApprovedGoverningDocument.title", Some("charityRegulator.section"), Seq(documentName)))) {
 
 
     @formHelper(action = IsApprovedGoverningDocumentController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "isApprovedGoverningDocument.heading", hint = Some(Html(pAsHint("isApprovedGoverningDocument", "p"))))
+        @yesNoRadio(form, "isApprovedGoverningDocument.heading", hint = Some(Html(pAsHint("isApprovedGoverningDocument", "p"))), headingMessageArgs = Seq(documentName))
 
         @button("site.saveAndContinue")
 

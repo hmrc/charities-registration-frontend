@@ -23,7 +23,7 @@ import forms.regulatorsAndDocuments.IsApprovedGoverningDocumentFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.DocumentsNavigator
-import pages.regulatorsAndDocuments.IsApprovedGoverningDocumentPage
+import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SelectGoverningDocumentPage}
 import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
@@ -45,28 +45,35 @@ class IsApprovedGoverningDocumentController @Inject()(
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      val preparedForm = request.userAnswers.get(IsApprovedGoverningDocumentPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
+      getDocumentName(SelectGoverningDocumentPage) { documentName =>
+
+        val preparedForm = request.userAnswers.get(IsApprovedGoverningDocumentPage) match {
+          case None => form
+          case Some(value) => form.fill(value)
+        }
+        Future.successful(Ok(view(preparedForm, mode, documentName)))
       }
-      Ok(view(preparedForm, mode))
+
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
+      getDocumentName(SelectGoverningDocumentPage) { documentName =>
 
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(IsApprovedGoverningDocumentPage, value).flatMap(_.set(Section3Page, false)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(IsApprovedGoverningDocumentPage, mode, updatedAnswers))
-      )
+        form.bindFromRequest().fold(
+          formWithErrors =>
+            Future.successful(BadRequest(view(formWithErrors, mode, documentName))),
+
+          value =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(IsApprovedGoverningDocumentPage, value).flatMap(_.set(Section3Page, false)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(IsApprovedGoverningDocumentPage, mode, updatedAnswers))
+        )
+      }
   }
 }

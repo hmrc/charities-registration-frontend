@@ -27,9 +27,9 @@
     inputCharacterCount: components.inputCharacterCount
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, documentName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "sectionsChangedGoverningDocument.title",Some("charityRegulator.section")))) {
+@govukLayout(pageTitle = Some(title(form, "sectionsChangedGoverningDocument.title",Some("charityRegulator.section"), Seq(documentName)))) {
 
     @formHelper(action = SectionsChangedGoverningDocumentController.onSubmit(mode)) {
 
@@ -43,8 +43,9 @@
                 value = Some("value"),
                 maxLength = Some(350),
                 isPageHeading = true,
-                label = messages("sectionsChangedGoverningDocument.heading"),
-                countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
+                label = "sectionsChangedGoverningDocument.heading",
+                headingMessageArgs = Seq(documentName),
+                countMessageClasses = Some("govuk-textArea govuk-js-character-count")
              )
 
         @button("site.saveAndContinue")

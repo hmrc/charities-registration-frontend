@@ -75,6 +75,12 @@ session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
+# Technical Difficulties error page Messages
+# ----------------------------------------------------------
+technicalDifficultiesError.title = Sorry, there is a problem with the service - Error
+technicalDifficultiesError.heading = Sorry, there is a problem with the service
+technicalDifficultiesError.p1 = Try again later.
+technicalDifficultiesError.p2 = We saved your answers. They will be available for 28 days.
 
 # Incorrect Details Error
 # ----------------------------------------------------------

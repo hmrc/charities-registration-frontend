@@ -100,6 +100,18 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.cookies mustBe "http://localhost:9457/help/cookies"
       }
 
+      "accessibilityStatement" in {
+        frontendAppConfig.accessibilityStatement mustBe "http://localhost:9457/accessibility-statement/register-charity-hmrc"
+      }
+
+      "platformHost" in {
+        frontendAppConfig.platformHost mustBe ""
+      }
+
+      "accessibilityStatementFrontendUrl" in {
+        frontendAppConfig.accessibilityStatementFrontendUrl() mustBe "http://localhost:9457/accessibility-statement/register-charity-hmrc?referrerUrl="
+      }
+
       "privacy" in {
         frontendAppConfig.privacy mustBe "http://localhost:9457/help/privacy"
       }

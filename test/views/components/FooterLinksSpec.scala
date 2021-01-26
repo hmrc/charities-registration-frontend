@@ -18,9 +18,13 @@ package views.components
 
 import assets.messages.FooterLinksMessages
 import base.SpecBase
+import play.api.mvc.AnyContentAsEmpty
+import play.api.test.FakeRequest
 import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.FooterItem
 
 class FooterLinksSpec extends SpecBase {
+
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
   "FooterLinks.cookieLink(implicit messages: Messages, appConfig: FrontendAppConfig)" must {
 
@@ -29,6 +33,17 @@ class FooterLinksSpec extends SpecBase {
       FooterLinks.cookieLink mustBe FooterItem(
         Some(FooterLinksMessages.cookies),
         Some(frontendAppConfig.cookies)
+      )
+    }
+  }
+
+  "FooterLinks.accessibility(implicit messages: Messages, appConfig: FrontendAppConfig)" must {
+
+    "Have the correct message and link for the privacy" in {
+
+      FooterLinks.accessibilityLink mustBe FooterItem(
+        Some(FooterLinksMessages.accessibility),
+        Some(frontendAppConfig.accessibilityStatementFrontendUrl())
       )
     }
   }
@@ -64,29 +79,33 @@ class FooterLinksSpec extends SpecBase {
         Some(frontendAppConfig.govUKHelp)
       )
     }
+  }
 
-    "FooterLinks.items(implicit messages: Messages, appConfig: FrontendAppConfig)" must {
+  "FooterLinks.items(implicit messages: Messages, appConfig: FrontendAppConfig)" must {
 
-      "Have the correct sequence of links" in {
-        FooterLinks.items mustBe Seq(
-          FooterItem(
-            Some(FooterLinksMessages.cookies),
-            Some(frontendAppConfig.cookies)
-          ),
-          FooterItem(
-            Some(FooterLinksMessages.privacy),
-            Some(frontendAppConfig.privacy)
-          ),
-          FooterItem(
-            Some(FooterLinksMessages.termsConditions),
-            Some(frontendAppConfig.termsConditions)
-          ),
-          FooterItem(
-            Some(FooterLinksMessages.help),
-            Some(frontendAppConfig.govUKHelp)
-          )
+    "Have the correct sequence of links" in {
+      FooterLinks.items mustBe Seq(
+        FooterItem(
+          Some(FooterLinksMessages.cookies),
+          Some(frontendAppConfig.cookies)
+        ),
+        FooterItem(
+          Some(FooterLinksMessages.accessibility),
+          Some(frontendAppConfig.accessibilityStatementFrontendUrl)
+        ),
+        FooterItem(
+          Some(FooterLinksMessages.privacy),
+          Some(frontendAppConfig.privacy)
+        ),
+        FooterItem(
+          Some(FooterLinksMessages.termsConditions),
+          Some(frontendAppConfig.termsConditions)
+        ),
+        FooterItem(
+          Some(FooterLinksMessages.help),
+          Some(frontendAppConfig.govUKHelp)
         )
-      }
+      )
     }
   }
 }

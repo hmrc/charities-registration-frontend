@@ -19,6 +19,7 @@ package assets.messages
 object FooterLinksMessages {
 
   val cookies = "Cookies"
+  val accessibility = "Accessibility statement"
   val privacy = "Privacy policy"
   val termsConditions = "Terms and conditions"
   val help = "Help using GOV.UK"

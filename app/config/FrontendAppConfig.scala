@@ -18,8 +18,11 @@ package config
 
 import com.google.inject.{Inject, Singleton}
 import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
+import play.api.mvc.{Request, RequestHeader}
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+
+import java.net.URLEncoder
+import scala.util.Try
 
 @Singleton
 class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
@@ -62,6 +65,12 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val privacy: String = host + servicesConfig.getString("urls.footer.privacy")
   lazy val termsConditions: String = host + servicesConfig.getString("urls.footer.termsConditions")
   lazy val govUKHelp: String = servicesConfig.getString("urls.footer.govukHelp")
+  lazy val accessibilityStatement: String = host + servicesConfig.getString("urls.footer.accessibilityStatement")
+  lazy val platformHost: String = Try(servicesConfig.getString("platform.frontend.host")).getOrElse("")
+
+  def accessibilityStatementFrontendUrl()(implicit request: Request[_]): String = {
+    s"$accessibilityStatement?referrerUrl=${URLEncoder.encode(s"$platformHost${request.path}", "UTF-8")}"
+  }
 
   def languageTranslationEnabled: Boolean = servicesConfig.getBoolean("features.welshLanguage")
   lazy val isExternalTest: Boolean = servicesConfig.getBoolean("features.isExternalTest")

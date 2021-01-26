@@ -25,23 +25,19 @@ import views.html.checkEligibility.EligibleCharityView
 
 class EligibleCharityControllerSpec extends SpecBase {
 
-
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   private val view: EligibleCharityView = injector.instanceOf[EligibleCharityView]
 
   private val controller: EligibleCharityController = inject[EligibleCharityController]
 
-  "SessionExpired Controller" must {
+  "EligibleCharity Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val result = controller.onPageLoad(NormalMode)(FakeRequest())
 
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(NormalMode, None)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "return OK and the correct view for a GET with session Id" in {

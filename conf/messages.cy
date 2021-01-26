@@ -55,6 +55,7 @@ site.empref = Cyfeirnod TWE y Cyflogwr: {0}
 site.gotoTaskList = Ewch i’r rhestr o dasgau
 
 footer.cookies         = Cwcis
+footer.accessibility   = Datganiad hygyrchedd
 footer.privacy         = Polisi preifatrwydd
 footer.termsConditions = Telerau ac amodau
 footer.govukHelp       = Help wrth ddefnyddio GOV.UK

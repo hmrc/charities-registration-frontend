@@ -18,32 +18,39 @@ package views.components
 
 import config.FrontendAppConfig
 import play.api.i18n.Messages
+import play.api.mvc.Request
 import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.FooterItem
 
 object FooterLinks {
 
-  def cookieLink(implicit messages: Messages, appConfig: FrontendAppConfig) = FooterItem(
+  def cookieLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
     Some(messages("footer.cookies")),
     Some(appConfig.cookies)
   )
 
-  def privacyLink(implicit messages: Messages, appConfig: FrontendAppConfig) = FooterItem(
+  def privacyLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
     Some(messages("footer.privacy")),
     Some(appConfig.privacy)
   )
 
-  def termsConditionsLink(implicit messages: Messages, appConfig: FrontendAppConfig) = FooterItem(
+  def termsConditionsLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
     Some(messages("footer.termsConditions")),
     Some(appConfig.termsConditions)
   )
 
-  def govukHelpLink(implicit messages: Messages, appConfig: FrontendAppConfig) = FooterItem(
+  def govukHelpLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
     Some(messages("footer.govukHelp")),
     Some(appConfig.govUKHelp)
   )
 
-  def items(implicit messages: Messages, appConfig: FrontendAppConfig) = Seq(
+  def accessibilityLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
+    Some(messages("footer.accessibility")),
+    Some(appConfig.accessibilityStatementFrontendUrl)
+  )
+
+  def items(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]) = Seq(
     cookieLink,
+    accessibilityLink,
     privacyLink,
     termsConditionsLink,
     govukHelpLink

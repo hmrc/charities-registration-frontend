@@ -55,6 +55,7 @@ site.empref = Employer PAYE reference: {0}
 site.gotoTaskList = Go to task list
 
 footer.cookies         = Cookies
+footer.accessibility   = Accessibility statement
 footer.privacy         = Privacy policy
 footer.termsConditions = Terms and conditions
 footer.govukHelp       = Help using GOV.UK

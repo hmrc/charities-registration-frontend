@@ -26,11 +26,11 @@ import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.sections.Section7Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.ErrorHandler
 
 class AuthorisedOfficialsAddressLookupController @Inject()(
-  override val sessionRepository: UserAnswerRepository,
+  override val sessionRepository: UserAnswerService,
   override val navigator: AuthorisedOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

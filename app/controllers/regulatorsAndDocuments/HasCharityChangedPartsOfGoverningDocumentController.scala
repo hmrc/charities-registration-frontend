@@ -27,13 +27,13 @@ import pages.regulatorsAndDocuments.{HasCharityChangedPartsOfGoverningDocumentPa
 import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentView
 
 import scala.concurrent.Future
 
 class HasCharityChangedPartsOfGoverningDocumentController @Inject()(
-    sessionRepository: UserAnswerRepository,
+    sessionRepository: UserAnswerService,
     navigator: DocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

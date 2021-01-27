@@ -26,13 +26,13 @@ import navigation.RegulatorsAndDocumentsNavigator
 import pages.regulatorsAndDocuments.NIRegulatorRegNumberPage
 import pages.sections.Section2Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.regulatorsAndDocuments.NIRegulatorRegNumberView
 
 import scala.concurrent.Future
 
 class NIRegulatorRegNumberController @Inject()(
-   val sessionRepository: UserAnswerRepository,
+   val sessionRepository: UserAnswerService,
    val navigator: RegulatorsAndDocumentsNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,

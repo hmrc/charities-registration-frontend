@@ -28,7 +28,7 @@ import pages.nominees.IndividualNomineeNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.ConfirmAddressView
 
 import scala.concurrent.Future
@@ -40,13 +40,13 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val view: ConfirmAddressView = injector.instanceOf[ConfirmAddressView]
@@ -58,7 +58,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
         .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))))
         .success.value)))
@@ -70,31 +70,31 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
         nomineeIndividualPreviousAddressLookup, messageKeyPrefix,
         controllers.nominees.routes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode),
         controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(NormalMode), Some("Jim John Jones"))(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no data found for address" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
   }

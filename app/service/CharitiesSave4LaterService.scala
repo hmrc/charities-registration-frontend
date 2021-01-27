@@ -18,6 +18,7 @@ package service
 
 import config.FrontendAppConfig
 import connectors.CharitiesShortLivedCache
+import javax.inject.{Inject, Singleton}
 import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
@@ -27,7 +28,7 @@ import pages.{IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc.Call
-import repositories.{SessionRepository, UserAnswerRepository}
+import repositories.AbstractRepository
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -38,17 +39,16 @@ import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
-import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Success, Try}
 
 @Singleton
 class CharitiesSave4LaterService @Inject()(
- cache: CharitiesShortLivedCache,
- userAnswerTransformer: UserAnswerTransformer,
- sessionRepository: SessionRepository,
- userAnswerRepository: UserAnswerRepository,
- appConfig: FrontendAppConfig) extends ImplicitDateFormatter {
+  cache: CharitiesShortLivedCache,
+  userAnswerTransformer: UserAnswerTransformer,
+  sessionRepository: AbstractRepository,
+  userAnswerService: UserAnswerService,
+  appConfig: FrontendAppConfig) extends ImplicitDateFormatter {
 
   private val logger = Logger(this.getClass)
 
@@ -88,7 +88,7 @@ class CharitiesSave4LaterService @Inject()(
     userAnswers.get(OldServiceSubmissionPage) match {
       case Some(submitted) =>
         Success(userAnswers.copy(expiresAt = oldStringToDate(submitted.submissionDate).plusDays(
-          appConfig.servicesConfig.getInt("mongodb.user-answers.timeToLiveInDays")).atTime(12, 0))) //scalastyle:off magic.number
+          appConfig.timeToLiveInDays).atTime(12, 0))) //scalastyle:off magic.number
       case _ => Success(userAnswers)
     }
   }
@@ -135,7 +135,7 @@ class CharitiesSave4LaterService @Inject()(
         .flatMap(userAnswers => expiryTimeIfCompleted(userAnswers))
         .flatMap(_.set(IsSwitchOverUserPage, true))
       ).flatMap { userAnswers =>
-        userAnswerRepository.set(userAnswers).map { _ =>
+        userAnswerService.set(userAnswers).map { _ =>
           if (result.errors.isEmpty) {
             Right(userAnswers)
           } else {
@@ -144,21 +144,21 @@ class CharitiesSave4LaterService @Inject()(
         }
       }
     } else {
-      userAnswerRepository.set(userAnswers).map(_ => Right(userAnswers))
+      userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
     }
   }
 
   private def checkForValidApplicationJourney(request: OptionalDataRequest[_], lastSessionId: Option[String])(
     implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[Call, UserAnswers]] = {
     (request.userAnswers, lastSessionId) match {
-      case (Some(userAnswers), _) => userAnswerRepository.set(userAnswers).map(_ => Right(userAnswers))
+      case (Some(userAnswers), _) => userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
       case (None, Some(sessionId)) =>
         sessionRepository.get(sessionId).flatMap {
           case None =>
             logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data found")
             Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
           case Some(_) => val userAnswers = UserAnswers(request.internalId)
-            userAnswerRepository.set(userAnswers).map(_ => Right(userAnswers))
+            userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
         }
       case _ => logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data and current session data found")
         Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))

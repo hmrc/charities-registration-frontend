@@ -28,14 +28,13 @@ import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.contactDetails.CanWeSendToThisAddressPage
 import pages.sections.Section1Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import views.html.contactDetails.CanWeSendToThisAddressView
 
 import scala.concurrent.Future
 
 class CanWeSendToThisAddressController @Inject()(
-   sessionRepository: UserAnswerRepository,
+   sessionRepository: UserAnswerService,
    navigator: CharityInformationNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,

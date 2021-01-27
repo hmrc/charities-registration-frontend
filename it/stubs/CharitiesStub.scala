@@ -17,17 +17,30 @@
 package stubs
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
-import play.api.http.Status.ACCEPTED
-import play.api.libs.json.Json
+import play.api.http.Status.{OK, ACCEPTED}
+import play.api.libs.json.{JsValue, Json}
 import utils.WireMockMethods
 
 object CharitiesStub extends WireMockMethods {
 
   private val charitiesRegistration = "^/org/-?([0-9]*)/submissions/application"
+  private val saveUserAnswer = "/charities-registration/saveUserAnswer/"
+  private val getUserAnswer = "/charities-registration/getUserAnswer/"
 
   def stubScenario(requestJson: String): StubMapping = {
 
     when(method = POST, uri = charitiesRegistration, body = Some(requestJson), isPartial = true)
       .thenReturn(status = ACCEPTED, body = Json.parse("""{"acknowledgementReference":"765432"}"""))
+  }
+
+  def stubUserAnswerPost(requestJson: String, userId: String): StubMapping = {
+
+    when(method = POST, uri = s"$saveUserAnswer$userId", body = Some(requestJson), isPartial = true)
+      .thenReturn(status = OK, body = Json.parse("""{"status":true}"""))
+  }
+
+  def stubUserAnswerGet(responseJson: JsValue, userId: String): StubMapping = {
+
+    when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = responseJson)
   }
 }

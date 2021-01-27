@@ -49,17 +49,17 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |			"regulator": {
-            |				"ccew": true,
-            |				"ccewRegistrationNumber": "123456",
-            |				"oscr": true,
-            |				"oscrRegistrationNumber": "SC123456",
-            |				"ccni": true,
-            |				"ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
-            |				"otherRegulator": true,
-            |				"otherRegulatorName": "Other Regulator Name",
-            |				"otherRegulatorRegistrationNumber": "12345678901234567890"
-            |			}
+            |      "regulator": {
+            |        "ccew": true,
+            |        "ccewRegistrationNumber": "123456",
+            |        "oscr": true,
+            |        "oscrRegistrationNumber": "SC123456",
+            |        "ccni": true,
+            |        "ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
+            |        "otherRegulator": true,
+            |        "otherRegulatorName": "Other Regulator Name",
+            |        "otherRegulatorRegistrationNumber": "12345678901234567890"
+            |      }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToRegulator).asOpt.value mustBe Json.parse(expectedJson)
@@ -75,14 +75,14 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |			"regulator": {
-            |				"ccew": true,
-            |				"ccewRegistrationNumber": "123456",
-            |				"oscr": true,
-            |				"oscrRegistrationNumber": "SC123456",
-            |				"ccni": true,
-            |				"ccniRegistrationNumber": "ABCDEFGHIJ1234567890"
-            |			}
+            |      "regulator": {
+            |        "ccew": true,
+            |        "ccewRegistrationNumber": "123456",
+            |        "oscr": true,
+            |        "oscrRegistrationNumber": "SC123456",
+            |        "ccni": true,
+            |        "ccniRegistrationNumber": "ABCDEFGHIJ1234567890"
+            |      }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToRegulator).asOpt.value mustBe Json.parse(expectedJson)
@@ -96,11 +96,11 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |			"regulator": {
-            |				"otherRegulator": true,
-            |				"otherRegulatorName": "Other Regulator Name",
-            |				"otherRegulatorRegistrationNumber": "12345678901234567890"
-            |			}
+            |      "regulator": {
+            |        "otherRegulator": true,
+            |        "otherRegulatorName": "Other Regulator Name",
+            |        "otherRegulatorRegistrationNumber": "12345678901234567890"
+            |      }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToRegulator).asOpt.value mustBe Json.parse(expectedJson)
@@ -123,18 +123,18 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |"charityOrganisation": {
-            |			"registeredRegulator": true,
-            |			"regulator": {
-            |				"ccew": true,
-            |				"ccewRegistrationNumber": "123456",
-            |				"oscr": true,
-            |				"oscrRegistrationNumber": "SC123456",
-            |				"ccni": true,
-            |				"ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
-            |				"otherRegulator": true,
-            |				"otherRegulatorName": "Other Regulator Name",
-            |				"otherRegulatorRegistrationNumber": "12345678901234567890"
-            |			}
+            |      "registeredRegulator": true,
+            |      "regulator": {
+            |        "ccew": true,
+            |        "ccewRegistrationNumber": "123456",
+            |        "oscr": true,
+            |        "oscrRegistrationNumber": "SC123456",
+            |        "ccni": true,
+            |        "ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
+            |        "otherRegulator": true,
+            |        "otherRegulatorName": "Other Regulator Name",
+            |        "otherRegulatorRegistrationNumber": "12345678901234567890"
+            |      }
             |   }
             |}""".stripMargin
 
@@ -150,8 +150,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |"charityOrganisation": {
-            |			"registeredRegulator": false,
-            |			"nonRegReason": "1"
+            |      "registeredRegulator": false,
+            |      "nonRegReason": "1"
             |   }
             |}""".stripMargin
 
@@ -168,9 +168,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |"charityOrganisation": {
-            |			"registeredRegulator": false,
-            |			"nonRegReason": "7",
-            |			"otherReason": "notRegisteredReason"
+            |      "registeredRegulator": false,
+            |      "nonRegReason": "7",
+            |      "otherReason": "notRegisteredReason"
             |   }
             |}""".stripMargin
 
@@ -188,10 +188,10 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |	  "aboutOrgCommon": {
-            |				"otherDocument": "Other Documents for Charity",
-            |				"effectiveDate": "2014-07-01"
-            |	 }
+            |    "aboutOrgCommon": {
+            |        "otherDocument": "Other Documents for Charity",
+            |        "effectiveDate": "2014-07-01"
+            |   }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisationCommon).asOpt.value mustBe Json.parse(expectedJson)
@@ -204,9 +204,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |	  "aboutOrgCommon": {
-            |				"effectiveDate": "2014-07-01"
-            |	 }
+            |    "aboutOrgCommon": {
+            |        "effectiveDate": "2014-07-01"
+            |   }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisationCommon).asOpt.value mustBe Json.parse(expectedJson)
@@ -228,17 +228,17 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"aboutOrganisation": {
-            |			"aboutOrgCommon": {
-            |				"otherDocument": "Other Documents for Charity",
-            |				"effectiveDate": "2014-07-01"
-            |			},
-            |			"documentEnclosed": "2",
-            |			"governingApprovedDoc": true,
-            |			"governingApprovedWords": false,
-            |			"governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |			"governingApprovedChangesB": "11223344556677889900"
-            |		}
+            |    "aboutOrganisation": {
+            |      "aboutOrgCommon": {
+            |        "otherDocument": "Other Documents for Charity",
+            |        "effectiveDate": "2014-07-01"
+            |      },
+            |      "documentEnclosed": "2",
+            |      "governingApprovedDoc": true,
+            |      "governingApprovedWords": false,
+            |      "governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
+            |      "governingApprovedChangesB": "11223344556677889900"
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(expectedJson)
@@ -257,16 +257,16 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"aboutOrganisation": {
-            |			"aboutOrgCommon": {
-            |				"otherDocument": "Other Documents for Charity",
-            |				"effectiveDate": "2014-07-01"
-            |			},
-            |			"documentEnclosed": "2",
-            |			"governingApprovedDoc": true,
-            |			"governingApprovedWords": false,
-            |			"governingApprovedChanges": "changes are shorter than 255 characters"
-            |		}
+            |    "aboutOrganisation": {
+            |      "aboutOrgCommon": {
+            |        "otherDocument": "Other Documents for Charity",
+            |        "effectiveDate": "2014-07-01"
+            |      },
+            |      "documentEnclosed": "2",
+            |      "governingApprovedDoc": true,
+            |      "governingApprovedWords": false,
+            |      "governingApprovedChanges": "changes are shorter than 255 characters"
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(expectedJson)
@@ -282,15 +282,15 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"aboutOrganisation": {
-            |			"aboutOrgCommon": {
-            |				"otherDocument": "Other Documents for Charity",
-            |				"effectiveDate": "2014-07-01"
-            |			},
-            |			"documentEnclosed": "2",
-            |			"governingApprovedDoc": false,
-            |			"governingApprovedWords": false
-            |		}
+            |    "aboutOrganisation": {
+            |      "aboutOrgCommon": {
+            |        "otherDocument": "Other Documents for Charity",
+            |        "effectiveDate": "2014-07-01"
+            |      },
+            |      "documentEnclosed": "2",
+            |      "governingApprovedDoc": false,
+            |      "governingApprovedWords": false
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(expectedJson)
@@ -310,11 +310,11 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFundsCommon": {
+            |    "operationAndFundsCommon": {
             |     "accountPeriodEnd": "0101",
             |     "financialAccounts": true,
-            |			"noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |			"noBankStatementsB": "11223344556677889900"
+            |      "noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
+            |      "noBankStatementsB": "11223344556677889900"
             |   }
             |}""".stripMargin
 
@@ -332,10 +332,10 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFundsCommon": {
+            |    "operationAndFundsCommon": {
             |     "accountPeriodEnd": "0101",
             |     "financialAccounts": true,
-            |			"noBankStatements": "the changes are less than 255 characters long"
+            |      "noBankStatements": "the changes are less than 255 characters long"
             |   }
             |}""".stripMargin
 
@@ -350,7 +350,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFundsCommon": {
+            |    "operationAndFundsCommon": {
             |     "accountPeriodEnd": "0101",
             |     "financialAccounts": false
             |   }
@@ -373,13 +373,13 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"otherCountriesOfOperation": {
-            |				"overseas1": "Country 1",
-            |				"overseas2": "Country 2",
-            |				"overseas3": "Country 3",
-            |				"overseas4": "Country 4",
-            |				"overseas5": "Country 5"
-            |		}
+            |    "otherCountriesOfOperation": {
+            |        "overseas1": "Country 1",
+            |        "overseas2": "Country 2",
+            |        "overseas3": "Country 3",
+            |        "overseas4": "Country 4",
+            |        "overseas5": "Country 5"
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOtherCountriesOfOperation).asOpt.value mustBe Json.parse(expectedJson)
@@ -391,9 +391,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"otherCountriesOfOperation": {
-            |				"overseas1": "Country 1"
-            |		}
+            |    "otherCountriesOfOperation": {
+            |        "overseas1": "Country 1"
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOtherCountriesOfOperation).asOpt.value mustBe Json.parse(expectedJson)
@@ -423,30 +423,30 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFunds": {
-            |			"operationAndFundsCommon": {
+            |    "operationAndFunds": {
+            |      "operationAndFundsCommon": {
             |       "accountPeriodEnd": "0101",
             |       "financialAccounts": true,
-            |			  "noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |			  "noBankStatementsB": "11223344556677889900"
-            |			},
-            |			"estimatedGrossIncome": 2000.00,
-            |			"incomeReceivedToDate": 19999.99,
-            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |			"otherAreaOperation": true,
-            |			"englandAndWales": true,
-            |			"scotland": true,
-            |			"northernIreland": true,
-            |			"ukWide": true,
-            |			"overseas": true,
-            |			"otherCountriesOfOperation": {
-            |				"overseas1": "Country 1",
-            |				"overseas2": "Country 2",
-            |				"overseas3": "Country 3",
-            |				"overseas4": "Country 4",
-            |				"overseas5": "Country 5"
-            |				}
-            |		}
+            |        "noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
+            |        "noBankStatementsB": "11223344556677889900"
+            |      },
+            |      "estimatedGrossIncome": 2000.00,
+            |      "incomeReceivedToDate": 19999.99,
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "otherAreaOperation": true,
+            |      "englandAndWales": true,
+            |      "scotland": true,
+            |      "northernIreland": true,
+            |      "ukWide": true,
+            |      "overseas": true,
+            |      "otherCountriesOfOperation": {
+            |        "overseas1": "Country 1",
+            |        "overseas2": "Country 2",
+            |        "overseas3": "Country 3",
+            |        "overseas4": "Country 4",
+            |        "overseas5": "Country 5"
+            |        }
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
@@ -465,21 +465,21 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFunds": {
-            |			"operationAndFundsCommon": {
+            |    "operationAndFunds": {
+            |      "operationAndFundsCommon": {
             |       "accountPeriodEnd": "0101",
             |       "financialAccounts": true
-            |			},
+            |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |			"otherAreaOperation": true,
-            |			"englandAndWales": true,
-            |			"scotland": false,
-            |			"northernIreland": false,
-            |			"ukWide": false,
-            |			"overseas": false
-            |		}
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "otherAreaOperation": true,
+            |      "englandAndWales": true,
+            |      "scotland": false,
+            |      "northernIreland": false,
+            |      "ukWide": false,
+            |      "overseas": false
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
@@ -498,21 +498,21 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFunds": {
-            |			"operationAndFundsCommon": {
+            |    "operationAndFunds": {
+            |      "operationAndFundsCommon": {
             |       "accountPeriodEnd": "0101",
             |       "financialAccounts": true
-            |			},
+            |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |			"otherAreaOperation": true,
-            |			"englandAndWales": true,
-            |			"scotland": true,
-            |			"northernIreland": true,
-            |			"ukWide": true,
-            |			"overseas": false
-            |		}
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "otherAreaOperation": true,
+            |      "englandAndWales": true,
+            |      "scotland": true,
+            |      "northernIreland": true,
+            |      "ukWide": true,
+            |      "overseas": false
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
@@ -531,21 +531,21 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFunds": {
-            |			"operationAndFundsCommon": {
+            |    "operationAndFunds": {
+            |      "operationAndFundsCommon": {
             |       "accountPeriodEnd": "0101",
             |       "financialAccounts": true
-            |			},
+            |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |			"otherAreaOperation": true,
-            |			"englandAndWales": true,
-            |			"scotland": true,
-            |			"northernIreland": true,
-            |			"ukWide": true,
-            |			"overseas": false
-            |		}
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "otherAreaOperation": true,
+            |      "englandAndWales": true,
+            |      "scotland": true,
+            |      "northernIreland": true,
+            |      "ukWide": true,
+            |      "overseas": false
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
@@ -564,21 +564,21 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFunds": {
-            |			"operationAndFundsCommon": {
+            |    "operationAndFunds": {
+            |      "operationAndFundsCommon": {
             |       "accountPeriodEnd": "0101",
             |       "financialAccounts": true
-            |			},
+            |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |			"otherAreaOperation": true,
-            |			"englandAndWales": true,
-            |			"scotland": false,
-            |			"northernIreland": true,
-            |			"ukWide": false,
-            |			"overseas": false
-            |		}
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "otherAreaOperation": true,
+            |      "englandAndWales": true,
+            |      "scotland": false,
+            |      "northernIreland": true,
+            |      "ukWide": false,
+            |      "overseas": false
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
@@ -597,21 +597,21 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         val expectedJson =
           """{
-            |		"operationAndFunds": {
-            |			"operationAndFundsCommon": {
+            |    "operationAndFunds": {
+            |      "operationAndFundsCommon": {
             |       "accountPeriodEnd": "0101",
             |       "financialAccounts": true
-            |			},
+            |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |			"futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |			"otherAreaOperation": true,
-            |			"englandAndWales": true,
-            |			"scotland": false,
-            |			"northernIreland": false,
-            |			"ukWide": false,
-            |			"overseas": false
-            |		}
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "otherAreaOperation": true,
+            |      "englandAndWales": true,
+            |      "scotland": false,
+            |      "northernIreland": false,
+            |      "ukWide": false,
+            |      "overseas": false
+            |    }
             |}""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(expectedJson)
@@ -629,8 +629,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |   "charitableObjectives": {
-            |			"objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |			"objectivesB": "11223344556677889900"
+            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
+            |      "objectivesB": "11223344556677889900"
             |   }
             |}""".stripMargin
 
@@ -646,7 +646,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |   "charitableObjectives": {
-            |			"objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
             |   }
             |}""".stripMargin
 
@@ -720,8 +720,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |   "publicBenefit": {
-            |			"publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |			"publicBenefitB": "11223344556677889900"
+            |      "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
+            |      "publicBenefitB": "11223344556677889900"
             |   }
             |}""".stripMargin
 
@@ -737,7 +737,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |   "publicBenefit": {
-            |			"publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+            |      "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
             |   }
             |}""".stripMargin
 
@@ -760,8 +760,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           """{
             |"orgPurpose": {
             |   "charitableObjectives": {
-            |			"objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |			"objectivesB": "11223344556677889900"
+            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
+            |      "objectivesB": "11223344556677889900"
             |   },
             |   "charitablePurposes": {
             |      "reliefOfPoverty": true,
@@ -779,8 +779,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      "other": true
             |   },
             |   "publicBenefit": {
-            |			  "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |			  "publicBenefitB": "11223344556677889900"
+            |        "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
+            |        "publicBenefitB": "11223344556677889900"
             |   }
             |  }
             |}""".stripMargin
@@ -801,7 +801,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           """{
             |"orgPurpose": {
             |   "charitableObjectives": {
-            |			"objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
             |   },
             |   "charitablePurposes": {
             |      "reliefOfPoverty": false,
@@ -819,7 +819,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      "other": false
             |   },
             |   "publicBenefit": {
-            |			  "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+            |        "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
             |   }
             |  }
             |}""".stripMargin

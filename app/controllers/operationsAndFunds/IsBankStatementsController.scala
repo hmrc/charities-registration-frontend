@@ -27,13 +27,13 @@ import pages.operationsAndFunds.IsBankStatementsPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.IsBankStatementsView
 
 import scala.concurrent.Future
 
 class IsBankStatementsController @Inject()(
-    sessionRepository: UserAnswerRepository,
+    sessionRepository: UserAnswerService,
     navigator: FundRaisingNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

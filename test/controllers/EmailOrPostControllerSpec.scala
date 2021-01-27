@@ -32,7 +32,7 @@ import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.EmailOrPostView
 import views.html.common.YesNoView
 
@@ -45,14 +45,14 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val messageKeyPrefix: String = "emailOrPost"
@@ -66,7 +66,7 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
         .success.value)))
 
@@ -74,14 +74,14 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
 
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
       .set(Section1Page, true)
         .flatMap(_.set(Section2Page, true))
         .flatMap(_.set(Section3Page, true))
@@ -98,12 +98,12 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None
       )(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to RegistrationSent page when the question has previously been answered" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(EmailOrPostPage, true)
         .flatMap(_.set(Section1Page, true))
         .flatMap(_.set(Section2Page, true))
@@ -120,65 +120,65 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Registration Sent page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe BAD_REQUEST
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, never).set(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockUserAnswerService, never).set(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Tasklist for a GET if SectionPage is not completed" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(Section1Page, false)
         .flatMap(_.set(Section2Page, true))
         .success.value)))
@@ -188,7 +188,7 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad(None).url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
   }
 }

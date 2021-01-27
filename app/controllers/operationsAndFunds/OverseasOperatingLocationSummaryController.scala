@@ -26,15 +26,14 @@ import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInPage}
 import pages.sections.Section5Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import viewmodels.operationsAndFunds.OverseasOperatingLocationSummaryHelper
 import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
 
 import scala.concurrent.Future
 
 class OverseasOperatingLocationSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: FundRaisingNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

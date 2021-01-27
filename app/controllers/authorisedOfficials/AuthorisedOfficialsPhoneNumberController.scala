@@ -27,7 +27,7 @@ import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficia
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.PhoneNumberView
 
 import scala.concurrent.Future
@@ -37,7 +37,7 @@ class AuthorisedOfficialsPhoneNumberController @Inject()(
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: PhoneNumberFormProvider,
-    override val sessionRepository: UserAnswerRepository,
+    override val sessionRepository: UserAnswerService,
     override val navigator: AuthorisedOfficialsNavigator,
     override val controllerComponents: MessagesControllerComponents,
     override val view: PhoneNumberView

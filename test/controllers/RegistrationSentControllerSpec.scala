@@ -26,7 +26,7 @@ import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, Email
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import utils.{ImplicitDateFormatter, TimeMachine}
 import views.html.RegistrationSentView
 
@@ -39,13 +39,13 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val view: RegistrationSentView = injector.instanceOf[RegistrationSentView]
@@ -56,7 +56,7 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AcknowledgementReferencePage, "123456789")
         .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
         .flatMap(_.set(EmailOrPostPage, true))
@@ -68,12 +68,12 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
       contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(28)),
         dayToString(inject[TimeMachine].now(), dayOfWeek = false),
         "123456789", emailOrPost = true, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(fakeRequest, messages, frontendAppConfig).toString
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return SEE_OTHER and the correct view for a GET with no EmailOrPostPage answered" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AcknowledgementReferencePage, "123456789")
         .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
         .success.value)))
@@ -83,65 +83,61 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no acknowledgement reference is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, never).delete(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(None))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, never).delete(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return SEE_OTHER and the correct view when changing answer" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
         .set(AcknowledgementReferencePage, "123456789")
         .flatMap(_.set(EmailOrPostPage, true))
         .success.value)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onChange()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
     }
 
     "redirect to Session Expired when changing if no existing data is found" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onChange()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
-      verify(mockUserAnswerRepository, times(1)).get(any())
-      verify(mockUserAnswerRepository, never).delete(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
   }
 }

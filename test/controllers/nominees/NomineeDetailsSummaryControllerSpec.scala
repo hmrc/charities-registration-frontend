@@ -28,7 +28,8 @@ import pages.nominees.ChooseNomineePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.{SessionRepository, UserAnswerRepository}
+import repositories.AbstractRepository
+import service.UserAnswerService
 
 import scala.concurrent.Future
 
@@ -39,15 +40,15 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-        bind[SessionRepository].toInstance(mockSessionRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
+        bind[AbstractRepository].toInstance(mockSessionRepository),
         bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository)
+    reset(mockUserAnswerService)
   }
 
   private val controller: NomineeDetailsSummaryController = inject[NomineeDetailsSummaryController]
@@ -56,46 +57,46 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "redirect to index page no rows are defined" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return OK and the correct view for a GET when Nominee is present" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(
         emptyUserAnswers.set(ChooseNomineePage, true).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return OK and the correct view for a GET when Nominee is not present" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(
         emptyUserAnswers.set(ChooseNomineePage, false).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
@@ -103,8 +104,8 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       val app =
         new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
           .overrides(
-            bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
-            bind[SessionRepository].toInstance(mockSessionRepository),
+            bind[UserAnswerService].toInstance(mockUserAnswerService),
+            bind[AbstractRepository].toInstance(mockSessionRepository),
             bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
           ).build()
@@ -113,14 +114,14 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerRepository, times(1)).get(any())
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
   }
 }

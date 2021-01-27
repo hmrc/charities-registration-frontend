@@ -16,16 +16,17 @@
 
 package controllers
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
 import models.UserAnswers
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{JsObject, JsValue, Json}
-import stubs.{AuthStub, CharitiesStub}
+import play.api.libs.json.{JsValue, Json}
+import stubs.AuthStub
+import stubs.CharitiesStub._
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase, WireMockMethods}
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import scala.io.Source
 
 class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with WireMockMethods{
@@ -35,9 +36,9 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     Json.parse(result)
   }
 
-  val today  = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+  private val today  = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
-  val logger = Logger(this.getClass)
+  private val logger = Logger(this.getClass)
 
   "Calling Charities service" when {
 
@@ -48,7 +49,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
         AuthStub.unauthorised()
 
-        val res = getRequest("/declare-and-send/declaration")()
+        val res = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
 
         whenReady(res) { result =>
           result must have(
@@ -60,24 +61,24 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     }
 
     "the user is authorised" must {
-
       "completed all the sections with minimum data" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in {
 
             logger.warn("**********scenario 2**********")
 
-            AuthStub.authorised()
+            val ua = readJsonFromFile("/scenario_1_request.json").as[UserAnswers]
+            stubUserAnswerGet(Json.toJson(ua), "scenario_1_request")
+            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
+              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)), "scenario_1_request")
 
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
-
-            val requestJson = readJsonFromFile("/scenario_1_request.json")
-
-            setAnswers(UserAnswers(s"providerId", requestJson.as[JsObject]))
+            AuthStub.authorised("scenario_1_request")
 
             val transformedRequestJson = readJsonFromFile("/scenario_1_transformed_request.json")
 
-            CharitiesStub.stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
 
             whenReady(response)
             { result =>
@@ -96,17 +97,18 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.warn("**********scenario 3**********")
 
+            val ua = readJsonFromFile("/request_with_min_data.json").as[UserAnswers]
+            stubUserAnswerGet(Json.toJson(ua), "providerId")
+            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
+              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)), "providerId")
+
             AuthStub.authorised()
-
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
-
-            val requestJson = readJsonFromFile("/request_with_min_data.json")
-
-            setAnswers(UserAnswers(s"providerId", requestJson.as[JsObject]))
 
             val transformedRequestJson = readJsonFromFile("/transformed_request_for_min_data.json")
 
-            CharitiesStub.stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
 
             whenReady(response)
             { result =>
@@ -125,17 +127,18 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.warn("**********scenario 4**********")
 
-            AuthStub.authorised()
+            val ua = readJsonFromFile("/scenario_2_request.json").as[UserAnswers]
+            stubUserAnswerGet(Json.toJson(ua), "scenario_2_request")
+            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
+              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)), "scenario_2_request")
 
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
-
-            val requestJson = readJsonFromFile("/scenario_2_request.json")
-
-            setAnswers(UserAnswers(s"providerId", requestJson.as[JsObject]))
+            AuthStub.authorised("scenario_2_request")
 
             val transformedRequestJson = readJsonFromFile("/scenario_2_transformed_request.json")
 
-            CharitiesStub.stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
 
             whenReady(response)
             { result =>
@@ -154,17 +157,18 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.warn("**********scenario 5**********")
 
-            AuthStub.authorised()
+            val ua = readJsonFromFile("/scenario_3_request.json").as[UserAnswers]
+            stubUserAnswerGet(Json.toJson(ua), "scenario_3_request")
+            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
+              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)),"scenario_3_request")
 
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("test" -> "value"))()
-
-            val requestJson = readJsonFromFile("/scenario_3_request.json")
-
-            setAnswers(UserAnswers(s"providerId", requestJson.as[JsObject]))
+            AuthStub.authorised("scenario_3_request")
 
             val transformedRequestJson = readJsonFromFile("/scenario_3_transformed_request.json")
 
-            CharitiesStub.stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+
+            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
 
             whenReady(response)
             { result =>

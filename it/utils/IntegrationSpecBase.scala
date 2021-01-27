@@ -16,31 +16,25 @@
 
 package utils
 
-import java.util.concurrent.TimeUnit
-
-import stubs.AuthStub
-import models.UserAnswers
-import models.requests.DataRequest
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatest.{TryValues, _}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import pages.QuestionPage
 import play.api.i18n.MessagesApi
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{Json, Writes}
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.{Application, Environment, Mode}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
+import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext}
+import scala.concurrent.ExecutionContext
 
 trait IntegrationSpecBase extends WordSpec with GivenWhenThen with TestSuite with ScalaFutures
   with IntegrationPatience with MustMatchers with WiremockHelper with GuiceOneServerPerSuite with TryValues
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with CustomMatchers {
 
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.global
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   override implicit lazy val app: Application = new GuiceApplicationBuilder()
     .in(Environment.simple(mode = Mode.Dev))
@@ -60,9 +54,7 @@ trait IntegrationSpecBase extends WordSpec with GivenWhenThen with TestSuite wit
     "microservice.services.charities.port" -> mockPort
   )
 
-  lazy val mongo: UserAnswerRepository = app.injector.instanceOf[UserAnswerRepository]
-
-  val emptyUserAnswers: UserAnswers = UserAnswers(s"providerId", Json.obj())
+  lazy val userAnswerService: UserAnswerService = app.injector.instanceOf[UserAnswerService]
 
   implicit lazy val messagesApi: MessagesApi = app.injector.instanceOf[MessagesApi]
 
@@ -70,28 +62,19 @@ trait IntegrationSpecBase extends WordSpec with GivenWhenThen with TestSuite wit
 
   lazy val dataFakeRequest: FakeRequest[AnyContentAsEmpty.type] = fakeRequest
 
-  def setAnswers(userAnswers: UserAnswers)(implicit timeout: Duration): Unit = Await.result(mongo.set(userAnswers), timeout)
-
-  def getAnswers(id: String)(implicit timeout: Duration): Option[UserAnswers] = Await.result(mongo.get(id), timeout)
-
-  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], timeout: Duration): Unit =
-    setAnswers(emptyUserAnswers.set(page, value).success.value)
-
   override def beforeEach(): Unit = {
     resetWiremock()
-    getAnswers("providerId").map {userAnswers=>
-      Await.result(mongo.delete(userAnswers), Duration.Inf)
-      Await.result(mongo.set(UserAnswers("providerId")), Duration.Inf)
-    }
+  }
+
+  override def afterEach(): Unit = {
+    resetWiremock()
   }
 
   override def beforeAll(): Unit = {
-    super.beforeAll()
     startWiremock()
   }
 
   override def afterAll(): Unit = {
     stopWiremock()
-    super.afterAll()
   }
 }

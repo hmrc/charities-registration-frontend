@@ -34,13 +34,6 @@ trait CreateRequestHelper extends ServerProvider {
 
   lazy val ws: WSClient = app.injector.instanceOf(classOf[WSClient])
 
-  def getRequest(path: String, follow: Boolean = false)(sessionKvs: (String, String)*): Future[WSResponse] = {
-
-    ws.url(s"http://localhost:$port/register-charity-hmrc$path")
-      .withFollowRedirects(follow)
-      .get()
-  }
-
   def postRequest(path: String, formJson: JsValue, follow: Boolean = false)
                  (sessionKvs: (String, String)*)(): Future[WSResponse] = {
     ws.url(s"http://localhost:$port/register-charity-hmrc$path")

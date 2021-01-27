@@ -28,7 +28,7 @@ import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPositionPage}
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.OfficialsPositionView
 
 import scala.concurrent.Future
@@ -38,7 +38,7 @@ class OtherOfficialsPositionController @Inject()(
    val getData: UserDataRetrievalAction,
    val requireData: DataRequiredAction,
    val formProvider: OfficialsPositionFormProvider,
-   override val sessionRepository: UserAnswerRepository,
+   override val sessionRepository: UserAnswerService,
    override val navigator: OtherOfficialsNavigator,
    override val controllerComponents: MessagesControllerComponents,
    override val view: OfficialsPositionView

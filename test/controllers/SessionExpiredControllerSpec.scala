@@ -24,7 +24,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.SessionRepository
+import repositories.AbstractRepository
 import views.html.errors.SessionExpiredView
 
 import scala.concurrent.Future
@@ -34,7 +34,7 @@ class SessionExpiredControllerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[SessionRepository].toInstance(mockSessionRepository),
+        bind[AbstractRepository].toInstance(mockSessionRepository),
         bind[IdentifierAction].to[FakeIdentifierAction]
       )
 

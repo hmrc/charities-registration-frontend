@@ -97,3 +97,9 @@ case class FcoCountry(country: String, name: String)
 object FcoCountry {
   implicit val formats: OFormat[FcoCountry] = Json.format[FcoCountry]
 }
+
+case class SaveStatus(status: Boolean)
+
+object SaveStatus {
+  implicit val formats: OFormat[SaveStatus] = Json.format[SaveStatus]
+}

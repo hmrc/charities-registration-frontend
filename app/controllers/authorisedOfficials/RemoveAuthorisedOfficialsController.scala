@@ -27,7 +27,7 @@ import pages.authorisedOfficials.{AuthorisedOfficialsId, AuthorisedOfficialsName
 import pages.sections.Section7Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.YesNoView
 
@@ -38,7 +38,7 @@ class RemoveAuthorisedOfficialsController @Inject()(
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: YesNoFormProvider,
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: AuthorisedOfficialsNavigator,
     val controllerComponents: MessagesControllerComponents,
     val view: YesNoView

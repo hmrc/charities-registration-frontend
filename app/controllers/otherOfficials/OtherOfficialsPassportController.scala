@@ -27,8 +27,7 @@ import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPassportPage}
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
-import service.CountryService
+import service.{CountryService, UserAnswerService}
 import views.html.common.PassportView
 
 import scala.concurrent.Future
@@ -39,7 +38,7 @@ class OtherOfficialsPassportController @Inject()(
   val requireData: DataRequiredAction,
   val formProvider: PassportFormProvider,
   override val countryService: CountryService,
-  override val sessionRepository: UserAnswerRepository,
+  override val sessionRepository: UserAnswerService,
   override val navigator: OtherOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PassportView

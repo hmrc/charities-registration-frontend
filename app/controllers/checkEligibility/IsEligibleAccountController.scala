@@ -25,13 +25,13 @@ import models.Mode
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligibleAccountPage
 import play.api.mvc._
-import repositories.SessionRepository
+import repositories.AbstractRepository
 import views.html.checkEligibility.IsEligibleAccountView
 
 import scala.concurrent.Future
 
 class IsEligibleAccountController @Inject()(
-    val sessionRepository: SessionRepository,
+    val sessionRepository: AbstractRepository,
     val navigator: EligibilityNavigator,
     identify: SessionIdentifierAction,
     getData: DataRetrievalAction,

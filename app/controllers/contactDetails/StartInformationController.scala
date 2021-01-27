@@ -21,12 +21,12 @@ import controllers.LocalBaseController
 import controllers.actions._
 import javax.inject.Inject
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.contactDetails.StartInformationView
 
 
 class StartInformationController @Inject()(
-    val userAnswerRepository: UserAnswerRepository,
+    val userAnswerService: UserAnswerService,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,

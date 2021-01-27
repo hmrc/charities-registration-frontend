@@ -22,11 +22,11 @@ import controllers.actions._
 import javax.inject.Inject
 import navigation.EligibilityNavigator
 import play.api.mvc._
-import repositories.SessionRepository
+import repositories.AbstractRepository
 import views.html.checkEligibility.InEligibleCharitablePurposesView
 
 class InEligibleCharitablePurposesController @Inject()(
-    val sessionRepository: SessionRepository,
+    val sessionRepository: AbstractRepository,
     val navigator: EligibilityNavigator,
     identify: SessionIdentifierAction,
     getData: DataRetrievalAction,

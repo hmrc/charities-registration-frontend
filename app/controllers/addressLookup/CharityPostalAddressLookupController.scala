@@ -24,11 +24,11 @@ import navigation.CharityInformationNavigator
 import pages.addressLookup.CharityPostalAddressLookupPage
 import pages.sections.Section1Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.ErrorHandler
 
 class CharityPostalAddressLookupController @Inject()(
-  override val sessionRepository: UserAnswerRepository,
+  override val sessionRepository: UserAnswerService,
   override val navigator: CharityInformationNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

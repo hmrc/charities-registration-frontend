@@ -24,10 +24,10 @@ import play.modules.reactivemongo.ReactiveMongoApi
 import uk.gov.hmrc.crypto.ApplicationCrypto
 
 @Singleton
-class SessionRepositoryImpl @Inject()(
+class SessionRepository @Inject()(
    override val mongo: ReactiveMongoApi,
    override val appConfig: FrontendAppConfig,
-   override val applicationCrypto: ApplicationCrypto) extends SessionRepository {
+   override val applicationCrypto: ApplicationCrypto) extends AbstractRepository {
 
     override lazy val collectionName: String = "user-eligibility-answers"
 
@@ -35,5 +35,3 @@ class SessionRepositoryImpl @Inject()(
 
     override def calculateExpiryTime: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC).plusSeconds(timeToLive)
 }
-
-trait SessionRepository extends AbstractRepository

@@ -27,20 +27,20 @@ import pages.nominees.{IsOrganisationNomineeNinoPage, OrganisationAuthorisedPers
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
 class IsOrganisationNomineeNinoController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: YesNoFormProvider,
-    override val sessionRepository: UserAnswerRepository,
-    override val navigator: NomineesNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: YesNoView
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: YesNoView
   )(implicit appConfig: FrontendAppConfig) extends IsOfficialsNinoController {
 
   override val messagePrefix: String = "isOrganisationNomineeNino"

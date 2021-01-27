@@ -29,7 +29,7 @@ import pages.{IndexPage, QuestionPage}
 import pages.regulatorsAndDocuments._
 import pages.sections.Section2Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.regulatorsAndDocuments.{RegulatorsStatusHelper, RegulatorsSummaryHelper}
 import views.html.CheckYourAnswersView
 
@@ -37,7 +37,7 @@ import scala.collection.mutable.ListBuffer
 import scala.concurrent.Future
 
 class RegulatorsSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: RegulatorsAndDocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

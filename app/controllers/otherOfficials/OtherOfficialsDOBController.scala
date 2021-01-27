@@ -29,7 +29,7 @@ import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage}
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
 import scala.concurrent.Future
@@ -39,7 +39,7 @@ class OtherOfficialsDOBController @Inject()(
     val getData: UserDataRetrievalAction,
     val requireData: DataRequiredAction,
     val formProvider: DateOfBirthFormProvider,
-    override val sessionRepository: UserAnswerRepository,
+    override val sessionRepository: UserAnswerService,
     override val navigator: OtherOfficialsNavigator,
     override val controllerComponents: MessagesControllerComponents,
     override val view: DateOfBirthView

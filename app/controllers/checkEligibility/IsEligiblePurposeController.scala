@@ -25,13 +25,13 @@ import models.{Mode, UserAnswers}
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligiblePurposePage
 import play.api.mvc._
-import repositories.SessionRepositoryImpl
+import repositories.SessionRepository
 import views.html.checkEligibility.IsEligiblePurposeView
 
 import scala.concurrent.Future
 
 class IsEligiblePurposeController @Inject()(
-   val sessionRepository: SessionRepositoryImpl,
+   val sessionRepository: SessionRepository,
    val navigator: EligibilityNavigator,
    identify: SessionIdentifierAction,
    getData: DataRetrievalAction,

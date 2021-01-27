@@ -30,7 +30,7 @@ import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
-import repositories.SessionRepositoryImpl
+import repositories.SessionRepository
 import views.html.checkEligibility.IsEligibleLocationOtherView
 
 import scala.concurrent.Future
@@ -42,7 +42,7 @@ class IsEligibleLocationOtherControllerSpec extends SpecBase with BeforeAndAfter
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[SessionRepositoryImpl].toInstance(mockSessionRepository),
+        bind[SessionRepository].toInstance(mockSessionRepository),
         bind[EligibilityNavigator].toInstance(FakeEligibilityNavigator),
         bind[IdentifierAction].to[FakeIdentifierAction]
       )

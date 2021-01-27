@@ -28,13 +28,13 @@ import pages.regulatorsAndDocuments.CharityRegulatorPage
 import pages.sections.Section2Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.regulatorsAndDocuments.CharityRegulatorView
 
 import scala.concurrent.Future
 
 class CharityRegulatorController @Inject()(
-    sessionRepository: UserAnswerRepository,
+    sessionRepository: UserAnswerService,
     navigator: RegulatorsAndDocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

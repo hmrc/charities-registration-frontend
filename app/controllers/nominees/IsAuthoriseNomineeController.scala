@@ -27,14 +27,14 @@ import pages.nominees.IsAuthoriseNomineePage
 import pages.sections.Section9Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.nominees.IsAuthoriseNomineeView
 
 import scala.concurrent.Future
 
 
 class IsAuthoriseNomineeController @Inject()(
-     sessionRepository: UserAnswerRepository,
+     sessionRepository: UserAnswerService,
      navigator: NomineesNavigator,
      identify: AuthIdentifierAction,
      getData: UserDataRetrievalAction,

@@ -22,11 +22,11 @@ import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRe
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.StartCharitableObjectivesView
 
 class StartCharitableObjectivesController @Inject()(
-    val userAnswerRepository: UserAnswerRepository,
+    val userAnswerService: UserAnswerService,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
     requireData: DataRequiredAction,

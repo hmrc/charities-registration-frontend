@@ -28,13 +28,13 @@ import pages.operationsAndFunds.OperatingLocationPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.OperatingLocationView
 
 import scala.concurrent.Future
 
 class OperatingLocationController @Inject()(
-   sessionRepository: UserAnswerRepository,
+   sessionRepository: UserAnswerService,
    navigator: FundRaisingNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,

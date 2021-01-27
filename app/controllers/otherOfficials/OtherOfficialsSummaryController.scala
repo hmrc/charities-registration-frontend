@@ -28,7 +28,7 @@ import pages.otherOfficials.{IsAddAnotherOtherOfficialPage, OtherOfficialsSummar
 import pages.sections.Section8Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.officials.OfficialSummaryRowHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.OfficialsSummaryView
@@ -36,7 +36,7 @@ import views.html.common.OfficialsSummaryView
 import scala.concurrent.Future
 
 class OtherOfficialsSummaryController @Inject()(
-     val sessionRepository: UserAnswerRepository,
+     val sessionRepository: UserAnswerService,
      val navigator: OtherOfficialsNavigator,
      identify: AuthIdentifierAction,
      getData: UserDataRetrievalAction,

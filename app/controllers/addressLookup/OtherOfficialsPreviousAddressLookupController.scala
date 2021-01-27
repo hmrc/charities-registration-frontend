@@ -26,11 +26,11 @@ import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections.Section8Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.ErrorHandler
 
 class OtherOfficialsPreviousAddressLookupController @Inject()(
-  override val sessionRepository: UserAnswerRepository,
+  override val sessionRepository: UserAnswerService,
   override val navigator: OtherOfficialsNavigator,
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,

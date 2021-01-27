@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.common.BankDetailsFormProvider
-
 import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.BankDetailsNavigator
@@ -29,13 +28,13 @@ import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.{Section1Page, Section6Page}
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.BankDetailsView
 
 import scala.concurrent.Future
 
 class BankDetailsController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: BankDetailsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

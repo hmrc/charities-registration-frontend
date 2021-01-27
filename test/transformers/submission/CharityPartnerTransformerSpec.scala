@@ -55,7 +55,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "individualDetails": {
+            |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
             |                    "firstName": "Authorised",
@@ -89,7 +89,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "individualDetails": {
+            |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
             |                    "firstName": "Individual",
@@ -121,7 +121,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "individualDetails": {
+            |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
             |                    "firstName": "Albert",
@@ -151,7 +151,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           s"""{
-            |			   "individualDetails": {
+            |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
             |                    "firstName": "Albert",
@@ -182,7 +182,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "individualDetails": {
+            |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
             |                    "firstName": "Albert",
@@ -210,7 +210,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -235,7 +235,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -265,7 +265,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
@@ -287,7 +287,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -311,7 +311,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -336,7 +336,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -366,7 +366,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
@@ -388,7 +388,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -412,7 +412,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -437,7 +437,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -467,7 +467,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
@@ -489,7 +489,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -511,7 +511,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "responsiblePerson": {
+            |         "responsiblePerson": {
             |              "action": "1",
             |              "relation": "2"
             |        }
@@ -528,7 +528,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val expectedJson =
           s"""{
              |        "type": "1",
-             |			   "addPartner": {
+             |         "addPartner": {
              |              "effectiveDateOfChange": "$date"
              |        }
              |  }""".stripMargin
@@ -550,7 +550,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-             |			  "orgDetails": {
+             |        "orgDetails": {
              |              "orgName": "organisation",
              |              "telephoneNumber": "0123123123",
              |              "emailAddress": "abc@email.com"
@@ -572,7 +572,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-             |			  "bankDetails": {
+             |        "bankDetails": {
              |              "accountName": "bankAcc",
              |              "sortCode": 112233,
              |              "accountNumber": 12341234,
@@ -592,7 +592,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-             |			  "bankDetails": {
+             |        "bankDetails": {
              |              "accountName": "bankAcc",
              |              "sortCode": 112233,
              |              "accountNumber": 12341234
@@ -719,7 +719,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "individualDetails": {
+            |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
             |                    "firstName": "Albert",
@@ -748,7 +748,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "individualDetails": {
+            |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
             |                    "firstName": "Albert",
@@ -776,7 +776,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -798,7 +798,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
@@ -820,7 +820,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "addressDetails": {
+            |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
             |                    "addressLine1": "2",
@@ -842,7 +842,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val expectedJson =
           """{
-            |			   "responsiblePerson": {
+            |         "responsiblePerson": {
             |              "action": "1",
             |              "relation": "1"
             |        }

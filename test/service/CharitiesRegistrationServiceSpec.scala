@@ -33,7 +33,6 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.Helpers._
-import repositories.UserAnswerRepository
 
 import scala.concurrent.Future
 
@@ -49,14 +48,14 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[UserAnswerRepository].toInstance(mockUserAnswerRepository),
+        bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuditService].toInstance(mockAuditService),
         bind[CharitiesConnector].toInstance(mockCharitiesConnector)
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerRepository, mockAuditService, mockCharitiesConnector)
+    reset(mockUserAnswerService, mockAuditService, mockCharitiesConnector)
   }
 
   private val service: CharitiesRegistrationService = inject[CharitiesRegistrationService]
@@ -65,7 +64,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
     "redirect to next page if acknowledgement reference is already present" in {
 
-      when(mockUserAnswerRepository.get(AcknowledgementReferencePage)).thenReturn(Future.successful(Some(userAnswersWithAcknowledgement)))
+      when(mockUserAnswerService.get(AcknowledgementReferencePage)).thenReturn(Future.successful(Some(userAnswersWithAcknowledgement)))
 
       val result = service.register(Json.obj())(dataRequestWithAcknowledgement, hc, ec)
       status(result) mustBe SEE_OTHER
@@ -74,8 +73,8 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
     }
 
     "redirect to the next page after valid registration response" in {
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(userAnswers))
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesConnector.registerCharities(any(),any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
@@ -86,7 +85,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
-      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
 
       verify(mockAuditService, times(2)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[DeclarationAuditEvent])(any(), any())
@@ -94,7 +93,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
     }
 
     "redirect to the session expired page if registration connector failed" in {
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(userAnswers))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
 
       when(mockCharitiesConnector.registerCharities(any(),any())(any(), any())).thenReturn(
         Future.successful(Left(CharitiesInvalidJson))
@@ -105,14 +104,14 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
-      verify(mockUserAnswerRepository, never()).set(any())
+      verify(mockUserAnswerService, never()).set(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())
     }
 
     "redirect to the session expired page if UserAnswer Repository failed" in {
-      when(mockUserAnswerRepository.get(any())).thenReturn(Future.successful(userAnswers))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
 
-      when(mockUserAnswerRepository.set(any())).thenReturn(Future.failed(new RuntimeException("failed")))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.failed(new RuntimeException("failed")))
       when(mockCharitiesConnector.registerCharities(any(),any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
@@ -122,7 +121,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
-      verify(mockUserAnswerRepository, times(1)).set(any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())
     }
 

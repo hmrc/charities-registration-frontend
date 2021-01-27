@@ -20,19 +20,19 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
 import utils.ImplicitDateFormatter
 import viewmodels.RequiredDocumentsHelper
 import views.html.RegistrationSentView
-
 import javax.inject.Inject
+import service.UserAnswerService
+
 import scala.concurrent.Future
 
 //scalastyle:off magic.number
 class RegistrationSentController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
-    userAnswerRepository: UserAnswerRepository,
+    userAnswerService: UserAnswerService,
     requireData: RegistrationDataRequiredAction,
     view: RegistrationSentView,
     val controllerComponents: MessagesControllerComponents
@@ -46,7 +46,7 @@ class RegistrationSentController @Inject()(
         request.userAnswers.get(EmailOrPostPage) match {
           case Some(emailOrPost) =>
             Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(
-              appConfig.servicesConfig.getInt("mongodb.user-answers.timeToLiveInDays"))),
+              appConfig.timeToLiveInDays)),
               dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
               RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
@@ -62,7 +62,7 @@ class RegistrationSentController @Inject()(
       case Some(emailOrPost) =>
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, !emailOrPost))
-          _              <- userAnswerRepository.set(updatedAnswers)
+          _              <- userAnswerService.set(updatedAnswers)
         } yield Redirect(routes.RegistrationSentController.onPageLoad())
       case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
     }

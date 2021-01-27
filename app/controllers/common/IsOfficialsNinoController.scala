@@ -24,13 +24,13 @@ import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
 trait IsOfficialsNinoController extends LocalBaseController {
-  protected val sessionRepository: UserAnswerRepository
+  protected val sessionRepository: UserAnswerService
   protected val navigator: BaseNavigator
   protected val controllerComponents: MessagesControllerComponents
   protected val view: YesNoView

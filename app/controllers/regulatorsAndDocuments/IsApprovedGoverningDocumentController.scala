@@ -27,13 +27,13 @@ import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SelectGove
 import pages.sections.Section3Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.regulatorsAndDocuments.IsApprovedGoverningDocumentView
 
 import scala.concurrent.Future
 
 class IsApprovedGoverningDocumentController @Inject()(
-    sessionRepository: UserAnswerRepository,
+    sessionRepository: UserAnswerService,
     navigator: DocumentsNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

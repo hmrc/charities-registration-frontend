@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.DeadEndView
 
 import scala.concurrent.Future
@@ -29,7 +29,7 @@ import scala.concurrent.Future
 class DeadEndController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
-    userAnswerRepository: UserAnswerRepository,
+    userAnswerService: UserAnswerService,
     requireData: DataRequiredAction,
     view: DeadEndView,
     val controllerComponents: MessagesControllerComponents

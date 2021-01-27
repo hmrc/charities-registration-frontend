@@ -26,8 +26,7 @@ class ModuleBindings extends AbstractModule {
 
   override def configure(): Unit = {
 
-    bind(classOf[SessionRepository]).to(classOf[SessionRepositoryImpl]).asEagerSingleton()
-    bind(classOf[UserAnswerRepository]).to(classOf[UserAnswerRepositoryImpl]).asEagerSingleton()
+    bind(classOf[AbstractRepository]).to(classOf[SessionRepository]).asEagerSingleton()
 
     bind(classOf[DataRetrievalAction]).to(classOf[DataRetrievalActionImpl]).asEagerSingleton()
 

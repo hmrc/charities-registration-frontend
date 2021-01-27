@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.operationsAndFunds.{WhatCountryDoesTheCharityOperateInFormProvider, CharityEstablishedInFormProvider}
+import forms.operationsAndFunds.{CharityEstablishedInFormProvider, WhatCountryDoesTheCharityOperateInFormProvider}
 import javax.inject.Inject
 import models.Mode
 import models.operations.CharityEstablishedOptions
@@ -28,13 +28,13 @@ import pages.operationsAndFunds.CharityEstablishedInPage
 import pages.sections.Section5Page
 import play.api.data.Form
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.operationsAndFunds.CharityEstablishedInView
 
 import scala.concurrent.Future
 
 class CharityEstablishedInController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: FundRaisingNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

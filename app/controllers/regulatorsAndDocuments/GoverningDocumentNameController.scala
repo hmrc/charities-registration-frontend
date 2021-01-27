@@ -26,13 +26,13 @@ import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.GoverningDocumentNamePage
 import pages.sections.Section3Page
 import play.api.mvc._
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import views.html.regulatorsAndDocuments.GoverningDocumentNameView
 
 import scala.concurrent.Future
 
 class GoverningDocumentNameController @Inject()(
-   val sessionRepository: UserAnswerRepository,
+   val sessionRepository: UserAnswerService,
    val navigator: DocumentsNavigator,
    identify: AuthIdentifierAction,
    getData: UserDataRetrievalAction,

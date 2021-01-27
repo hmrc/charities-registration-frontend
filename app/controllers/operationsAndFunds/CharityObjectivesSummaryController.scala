@@ -26,14 +26,14 @@ import pages.IndexPage
 import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, CharityObjectivesSummaryPage, PublicBenefitsPage}
 import pages.sections.Section4Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.UserAnswerRepository
+import service.UserAnswerService
 import viewmodels.operationsAndFunds.{CharityObjectivesStatusHelper, CharityObjectivesSummaryHelper}
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
 class CharityObjectivesSummaryController @Inject()(
-    val sessionRepository: UserAnswerRepository,
+    val sessionRepository: UserAnswerService,
     val navigator: ObjectivesNavigator,
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

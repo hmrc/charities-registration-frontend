@@ -31,6 +31,8 @@ import scala.util.{Failure, Success}
 
 class AuditService @Inject()(config: FrontendAppConfig, connector: AuditConnector){
 
+  private val logger = Logger(this.getClass)
+
   def sendEvent[T <: AuditEvent](event: T)(implicit rh: RequestHeader, ec: ExecutionContext): Unit = {
 
     implicit def toHc(request: RequestHeader): AuditHeaderCarrier = {
@@ -55,10 +57,10 @@ class AuditService @Inject()(config: FrontendAppConfig, connector: AuditConnecto
 
     result.onComplete {
       case Success(_) =>
-        Logger.info(s"[AuditService][sendEvent] successfully sent ${event.auditType}")
+        logger.info(s"[AuditService][sendEvent] successfully sent ${event.auditType}")
 
       case Failure(exception) =>
-        Logger.error(s"[AuditService][sendEvent] failed to send event ${event.auditType}", exception)
+        logger.error(s"[AuditService][sendEvent] failed to send event ${event.auditType}", exception)
     }
   }
 }

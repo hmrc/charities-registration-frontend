@@ -18,27 +18,27 @@ package views.errors
 
 import org.jsoup.Jsoup
 import views.behaviours.ViewBehaviours
-import views.html.errors.ErrorTemplate
+import views.html.errors.TechnicalDifficultiesErrorView
 
-class ErrorTemplateViewSpec extends ViewBehaviours {
+class TechnicalDifficultiesErrorViewSpec extends ViewBehaviours {
 
-  "Error Template view" must {
+  "Technical Difficulties Error view" must {
 
-    val view = inject[ErrorTemplate]
+    val view = inject[TechnicalDifficultiesErrorView]
 
     val applyView = view.apply("title", "heading", "content")(fakeRequest, messages, frontendAppConfig)
     lazy val document = Jsoup.parse(applyView.toString)
 
     "Have the correct pageTitle" in {
-      document.title mustBe title("title")
+      document.title mustBe title("Sorry, there is a problem with the service - Error")
     }
 
     "Have the correct heading" in {
-      document.select("h1").text mustBe "heading"
+      document.select("h1").text mustBe "Sorry, there is a problem with the service"
     }
 
     "Have the correct content" in {
-      document.select("main p.govuk-body").text mustBe "content"
+      document.select("main p.govuk-body").text mustBe "Try again later. We saved your answers. They will be available for 28 days."
     }
   }
 }

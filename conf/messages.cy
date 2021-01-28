@@ -75,6 +75,12 @@ session_expired.title = Er eich diogelwch, mae’r gwasanaeth hwn wedi’i ailos
 session_expired.heading = Er eich diogelwch, mae’r gwasanaeth hwn wedi’i ailosod
 session_expired.guidance = Mae’r manylion a roddwyd gennych wedi’u dileu gan nad ydych wedi mynd yn eich blaen â’r gwasanaeth ers 15 munud.
 
+# Technical Difficulties error page Messages
+# ----------------------------------------------------------
+technicalDifficultiesError.title = (W)Sorry, there is a problem with the service - Error(W)
+technicalDifficultiesError.heading = (W)Sorry, there is a problem with the service(W)
+technicalDifficultiesError.p1 = (W)Try again later.(W)
+technicalDifficultiesError.p2 = (W)We saved your answers. They will be available for 28 days.(W)
 
 # Incorrect Details Error
 # ----------------------------------------------------------

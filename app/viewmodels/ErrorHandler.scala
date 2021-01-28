@@ -17,19 +17,18 @@
 package viewmodels
 
 import config.FrontendAppConfig
-
 import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Request
 import play.twirl.api.Html
-import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
-import views.html.errors.ErrorTemplate
+import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
+import views.html.errors.TechnicalDifficultiesErrorView
 
 
 class ErrorHandler @Inject()(val messagesApi: MessagesApi,
-   errorTemplate: ErrorTemplate
-  )(implicit appConfig: FrontendAppConfig) extends FrontendErrorHandler with I18nSupport {
+                             technicalDifficultiesErrorView: TechnicalDifficultiesErrorView
+                            )(implicit appConfig: FrontendAppConfig) extends FrontendErrorHandler with I18nSupport {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
-    errorTemplate(pageTitle, heading, message)
+    technicalDifficultiesErrorView(pageTitle, heading, message)
 }

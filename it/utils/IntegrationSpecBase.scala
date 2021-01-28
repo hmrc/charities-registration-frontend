@@ -54,19 +54,11 @@ trait IntegrationSpecBase extends WordSpec with GivenWhenThen with TestSuite wit
     "microservice.services.charities.port" -> mockPort
   )
 
-  lazy val userAnswerService: UserAnswerService = app.injector.instanceOf[UserAnswerService]
-
-  implicit lazy val messagesApi: MessagesApi = app.injector.instanceOf[MessagesApi]
-
   lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "").withSession("sessionId" -> "sessionId")
 
   lazy val dataFakeRequest: FakeRequest[AnyContentAsEmpty.type] = fakeRequest
 
   override def beforeEach(): Unit = {
-    resetWiremock()
-  }
-
-  override def afterEach(): Unit = {
     resetWiremock()
   }
 

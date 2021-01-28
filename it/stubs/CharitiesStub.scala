@@ -17,9 +17,13 @@
 package stubs
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
-import play.api.http.Status.{OK, ACCEPTED}
+import models.UserAnswers
+import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
+import play.api.http.Status.{ACCEPTED, OK}
 import play.api.libs.json.{JsValue, Json}
 import utils.WireMockMethods
+
+import java.time.LocalDate
 
 object CharitiesStub extends WireMockMethods {
 
@@ -29,18 +33,20 @@ object CharitiesStub extends WireMockMethods {
 
   def stubScenario(requestJson: String): StubMapping = {
 
-    when(method = POST, uri = charitiesRegistration, body = Some(requestJson), isPartial = true)
+    when(method = POST, uri = charitiesRegistration, body = Some(requestJson))
       .thenReturn(status = ACCEPTED, body = Json.parse("""{"acknowledgementReference":"765432"}"""))
   }
 
-  def stubUserAnswerPost(requestJson: String, userId: String): StubMapping = {
+  def stubUserAnswerPost(ua: UserAnswers, userId: String): StubMapping = {
+    val requestJson = Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
+      _.set(ApplicationSubmissionDatePage, LocalDate.now())).get))
 
-    when(method = POST, uri = s"$saveUserAnswer$userId", body = Some(requestJson), isPartial = true)
+    when(method = POST, uri = s"$saveUserAnswer$userId", body = Some(requestJson))
       .thenReturn(status = OK, body = Json.parse("""{"status":true}"""))
   }
 
-  def stubUserAnswerGet(responseJson: JsValue, userId: String): StubMapping = {
+  def stubUserAnswerGet(ua: UserAnswers, userId: String): StubMapping = {
 
-    when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = responseJson)
+    when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = Json.toJson(ua))
   }
 }

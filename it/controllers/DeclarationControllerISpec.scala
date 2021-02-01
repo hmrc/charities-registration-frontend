@@ -17,16 +17,17 @@
 package controllers
 
 import models.UserAnswers
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.{JsValue, Json}
+import play.api.libs.ws.WSResponse
 import stubs.AuthStub
 import stubs.CharitiesStub._
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase, WireMockMethods}
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import scala.concurrent.Future
 import scala.io.Source
 
 class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with WireMockMethods{
@@ -40,12 +41,132 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
   private val logger = Logger(this.getClass)
 
+  trait LocalSetup {
+    def internalId: String
+    def requestJson: String
+    def transformedJson: String
+
+    def ua: UserAnswers = readJsonFromFile(requestJson).as[UserAnswers]
+    stubUserAnswerGet(ua, internalId)
+    stubUserAnswerPost(ua, internalId)
+
+    AuthStub.authorised(internalId)
+
+    def transformedRequestJson: JsValue = readJsonFromFile(transformedJson)
+    stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+
+    def response: Future[WSResponse] = postRequest("/declare-and-send/declaration", transformedRequestJson)()
+
+    whenReady(response)
+    { result =>
+      result must have(
+        httpStatus(SEE_OTHER),
+        redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
+      )
+    }
+
+  }
+
   "Calling Charities service" when {
+
+    "the user is authorised" must {
+
+      "completed all the sections with minimum data" must {
+        "submitting the data for charities registration" must {
+          "redirect to registration set page" in new LocalSetup {
+
+            logger.warn("**********scenario 1**********")
+
+            override def internalId: String = "scenario_1_request"
+            override def requestJson: String = "/scenario_1_request.json"
+            override def transformedJson: String = "/scenario_1_transformed_request.json"
+          }
+        }
+      }
+
+      "completed all the sections with different data changes for section 1 to 6" must {
+        "submitting the data for charities registration" must {
+          "redirect to registration set page" in new LocalSetup {
+
+            logger.warn("**********scenario 2**********")
+
+            override def internalId: String = "scenario_2_request"
+            override def requestJson: String = "/scenario_2_request.json"
+            override def transformedJson: String = "/scenario_2_transformed_request.json"
+          }
+        }
+      }
+
+      "completed all the sections with different data changes for section 1 to 8" must {
+        "submitting the data for charities registration" must {
+          "redirect to registration set page" in new LocalSetup {
+
+            logger.warn("**********scenario 3**********")
+
+            override def internalId: String = "scenario_3_request"
+            override def requestJson: String = "/scenario_3_request.json"
+            override def transformedJson: String = "/scenario_3_transformed_request.json"
+          }
+        }
+      }
+
+      "completed all the sections with another set of minimum data" must {
+        "submitting the data for charities registration" must {
+          "redirect to registration set page" in new LocalSetup {
+
+            logger.warn("**********scenario 4**********")
+
+            override def internalId: String = "scenario_4_request"
+            override def requestJson: String = "/scenario_4_request.json"
+            override def transformedJson: String = "/scenario_4_transformed_request.json"
+          }
+        }
+      }
+
+      "completed all the sections with mixed data sets" must {
+        "submitting the data for charities registration" must {
+          "redirect to registration set page" in new LocalSetup {
+
+            logger.warn("**********scenario 5**********")
+
+            override def internalId: String = "scenario_5_request"
+            override def requestJson: String = "/scenario_5_request.json"
+            override def transformedJson: String = "/scenario_5_transformed_request.json"
+          }
+        }
+      }
+
+      "completed all the sections with mixed data sets with nominee as organisation" must {
+        "submitting the data for charities registration" must {
+          "redirect to registration set page" in new LocalSetup {
+
+            logger.warn("**********scenario 6**********")
+
+            override def internalId: String = "scenario_6_request"
+            override def requestJson: String = "/scenario_6_request.json"
+            override def transformedJson: String = "/scenario_6_transformed_request.json"
+          }
+        }
+      }
+
+      "completed all the sections with mixed data sets with nominee as individual" must {
+        "submitting the data for charities registration" must {
+          "redirect to registration set page" in new LocalSetup {
+
+            logger.warn("**********scenario 7**********")
+
+            override def internalId: String = "scenario_7_request"
+            override def requestJson: String = "/scenario_7_request.json"
+            override def transformedJson: String = "/scenario_7_transformed_request.json"
+          }
+        }
+      }
+    }
 
     "user not authorised" must {
       "return SEE_OTHER (303)" in {
 
-        logger.warn("**********scenario 1**********")
+        logger.warn("**********scenario 8**********")
 
         AuthStub.unauthorised()
 
@@ -56,128 +177,6 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
             httpStatus(SEE_OTHER),
             redirectLocation(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
           )
-        }
-      }
-    }
-
-    "the user is authorised" must {
-      "completed all the sections with minimum data" must {
-        "submitting the data for charities registration" must {
-          "redirect to registration set page" in {
-
-            logger.warn("**********scenario 2**********")
-
-            val ua = readJsonFromFile("/scenario_1_request.json").as[UserAnswers]
-            stubUserAnswerGet(Json.toJson(ua), "scenario_1_request")
-            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
-              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)), "scenario_1_request")
-
-            AuthStub.authorised("scenario_1_request")
-
-            val transformedRequestJson = readJsonFromFile("/scenario_1_transformed_request.json")
-
-            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
-
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
-
-            whenReady(response)
-            { result =>
-              result must have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
-              )
-            }
-          }
-        }
-      }
-
-      "completed all the sections with another set of minimum data" must {
-        "submitting the data for charities registration" must {
-          "redirect to registration set page" in {
-
-            logger.warn("**********scenario 3**********")
-
-            val ua = readJsonFromFile("/request_with_min_data.json").as[UserAnswers]
-            stubUserAnswerGet(Json.toJson(ua), "providerId")
-            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
-              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)), "providerId")
-
-            AuthStub.authorised()
-
-            val transformedRequestJson = readJsonFromFile("/transformed_request_for_min_data.json")
-
-            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
-
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
-
-            whenReady(response)
-            { result =>
-              result must have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
-              )
-            }
-          }
-        }
-      }
-
-      "completed all the sections with different data changes for section 1 to 6" must {
-        "submitting the data for charities registration" must {
-          "redirect to registration set page" in {
-
-            logger.warn("**********scenario 4**********")
-
-            val ua = readJsonFromFile("/scenario_2_request.json").as[UserAnswers]
-            stubUserAnswerGet(Json.toJson(ua), "scenario_2_request")
-            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
-              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)), "scenario_2_request")
-
-            AuthStub.authorised("scenario_2_request")
-
-            val transformedRequestJson = readJsonFromFile("/scenario_2_transformed_request.json")
-
-            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
-
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
-
-            whenReady(response)
-            { result =>
-              result must have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
-              )
-            }
-          }
-        }
-      }
-
-      "completed all the sections with different data changes for section 1 to 8" must {
-        "submitting the data for charities registration" must {
-          "redirect to registration set page" in {
-
-            logger.warn("**********scenario 5**********")
-
-            val ua = readJsonFromFile("/scenario_3_request.json").as[UserAnswers]
-            stubUserAnswerGet(Json.toJson(ua), "scenario_3_request")
-            stubUserAnswerPost(Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
-              _.set(ApplicationSubmissionDatePage, LocalDate.now())).get)),"scenario_3_request")
-
-            AuthStub.authorised("scenario_3_request")
-
-            val transformedRequestJson = readJsonFromFile("/scenario_3_transformed_request.json")
-
-            stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
-
-            val response = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
-
-            whenReady(response)
-            { result =>
-              result must have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
-              )
-            }
-          }
         }
       }
     }

@@ -16,7 +16,7 @@
 
 package service
 
-import audit.{AuditService, DeclarationAuditEvent, SubmissionAuditEvent}
+import audit.{AuditService, SubmissionAuditEvent}
 import base.SpecBase
 import connectors.CharitiesConnector
 import connectors.httpParsers.CharitiesInvalidJson
@@ -87,8 +87,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
 
-      verify(mockAuditService, times(2)).sendEvent(any())(any(), any())
-      verify(mockAuditService, atLeastOnce()).sendEvent(any[DeclarationAuditEvent])(any(), any())
+      verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
     }
 

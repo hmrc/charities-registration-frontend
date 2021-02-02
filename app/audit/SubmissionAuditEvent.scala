@@ -16,16 +16,14 @@
 
 package audit
 
-import play.api.libs.json.JsValue
+import play.api.libs.json.{JsObject, JsValue}
 
-case class SubmissionAuditEvent(submission: JsValue) extends AuditEvent {
-  override def auditType: String = "Submission"
+case class SubmissionAuditEvent(submission: JsValue, declaration: Boolean) extends AuditEvent {
+  override def auditType: String = "CharitiesRegistrationSubmission"
 
-  override def transactionName: String = "CharityDeclarationSubmission"
+  override def transactionName: String = "CharityRegistrationSubmission"
 
   override def details: Map[String, String] = {
-    Map(
-      "submission" -> submission.toString
-    )
+    submission.as[JsObject].value.mapValues(_.toString).toMap. +(("declaration", declaration.toString))
   }
 }

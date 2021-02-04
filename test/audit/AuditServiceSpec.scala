@@ -88,39 +88,20 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       }
     }
 
-    "successfully sent DeclarationAuditEvent" in {
-
-      val templateCaptor = ArgumentCaptor.forClass(classOf[DataEvent])
-
-      when(mockAuditConnector.sendEvent(any())(any(), any())).thenReturn(Future(Success))
-
-      auditService.sendEvent(DeclarationAuditEvent(true))
-
-      verify(mockAuditConnector, times(1)).sendEvent(templateCaptor.capture())
-
-      inside(templateCaptor.getValue) {
-        case DataEvent(auditSource, auditType, _, tag, detail, _) =>
-          auditSource mustBe frontendAppConfig.appName
-          tag.get("transactionName") mustBe Some("CharityDeclarationSubmission")
-          auditType mustBe "Declaration"
-          detail mustBe Map("declaration" -> "true")
-      }
-    }
-
     "successfuly sent SubmissionAuditEvent" in {
       val templateCaptor = ArgumentCaptor.forClass(classOf[DataEvent])
 
       when(mockAuditConnector.sendEvent(any())(any(), any())).thenReturn(Future(Success))
 
-      auditService.sendEvent(SubmissionAuditEvent(Json.parse("""{"this": "is a test"}""")))
+      auditService.sendEvent(SubmissionAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), true))
       verify(mockAuditConnector, times(1)).sendEvent(templateCaptor.capture())
 
       inside(templateCaptor.getValue) {
         case DataEvent(auditSource, auditType, _, tag, detail, _) =>
           auditSource mustBe frontendAppConfig.appName
-          tag.get("transactionName") mustBe Some("CharityDeclarationSubmission")
-          auditType mustBe "Submission"
-          detail mustBe Map("submission" -> """{"this":"is a test"}""")
+          tag.get("transactionName") mustBe Some("CharityRegistrationSubmission")
+          auditType mustBe "CharitiesRegistrationSubmission"
+          detail mustBe Map("this" -> """{"is":"a test"}""", "declaration" -> "true")
       }
     }
 

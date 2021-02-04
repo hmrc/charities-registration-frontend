@@ -16,8 +16,9 @@
 
 package service
 
-import audit.{AuditService, DeclarationAuditEvent, SubmissionAuditEvent}
+import audit.{AuditService, SubmissionAuditEvent}
 import connectors.CharitiesConnector
+
 import javax.inject.Inject
 import models.requests.DataRequest
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
@@ -50,8 +51,7 @@ class CharitiesRegistrationService @Inject()(
               updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference)
                 .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now())))
               _ <- userAnswerService.set(updatedAnswers)
-              _ <- Future.successful(auditService.sendEvent(DeclarationAuditEvent(true)))
-              _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson)))
+              _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson, declaration = true)))
             } yield
               Redirect(controllers.routes.EmailOrPostController.onPageLoad())
 

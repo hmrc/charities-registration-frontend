@@ -21,6 +21,7 @@ log
 logs
 modules
 /out
+.scalafmt.conf
 precompiled
 .scalafmt.conf
 /.project

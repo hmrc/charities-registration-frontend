@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-package controllers
+package views.errors
 
-import config.FrontendAppConfig
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import views.behaviours.ViewBehaviours
 import views.html.errors.SignedYouOutView
 
-import javax.inject.Inject
+class SignedYouOutViewSpec extends ViewBehaviours {
 
+  "Signed you out view" must {
 
-class SignOutController @Inject()(
-  val controllerComponents: MessagesControllerComponents,
-  view: SignedYouOutView)(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+    val view = inject[SignedYouOutView]
 
-  def signOut: Action[AnyContent] = Action { _ =>
-    Redirect(appConfig.signOutUrl).withNewSession
-  }
+    val applyView = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-  def signedYouOut: Action[AnyContent] = Action { implicit request =>
-    Ok(view()).withNewSession
+    behave like normalPage(applyView, "signed_out")
   }
 }

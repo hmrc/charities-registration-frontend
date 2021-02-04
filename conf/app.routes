@@ -19,6 +19,7 @@ GET        /keepalive                                   controllers.IndexControl
 ### SignOut/Session Expired
 GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
 GET        /sign-out                                    controllers.SignOutController.signOut
+GET        /error/signed-you-out                        controllers.SignOutController.signedYouOut
 
 ### Dead End Page route
 GET       /in-development                               controllers.DeadEndController.onPageLoad

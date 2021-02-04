@@ -82,6 +82,14 @@ technicalDifficultiesError.heading = Sorry, there is a problem with the service
 technicalDifficultiesError.p1 = Try again later.
 technicalDifficultiesError.p2 = We saved your answers. They will be available for 28 days.
 
+# Signed out
+# ----------------------------------------------------------
+signed_out.title = For your security, we signed you out - Error
+signed_out.heading = For your security, we signed you out
+signed_out.status = We saved your answers.
+signed_out.signIn = Sign in
+
+
 # Incorrect Details Error
 # ----------------------------------------------------------
 incorrect-details.title = You cannot sign in with these details

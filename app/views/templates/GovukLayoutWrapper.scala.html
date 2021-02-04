@@ -58,7 +58,8 @@
                 timeout: @{appConfig.timeout},
                 countdown: @{appConfig.countdown},
                 keepAliveUrl: '@{controllers.routes.IndexController.keepalive().url}',
-                signOutUrl: '@{controllers.routes.SignOutController.signOut().url}'
+                signOutUrl: '@{controllers.routes.SignOutController.signOut().url}',
+                signedYouOutUrl: '@{controllers.routes.SignOutController.signedYouOut().url}'
             });
         };
     </script>

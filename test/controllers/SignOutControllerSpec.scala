@@ -35,5 +35,15 @@ class SignOutControllerSpec extends SpecBase {
         redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl)
       }
     }
+
+    "calling the .signedYouOut() method" must {
+
+      "display new page with new session" in {
+
+        val result = controller.signedYouOut(fakeRequest)
+
+        status(result) mustEqual OK
+      }
+    }
   }
 }

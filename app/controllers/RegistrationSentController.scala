@@ -45,8 +45,7 @@ class RegistrationSentController @Inject()(
       case (Some(acknowledgementReference), Some(applicationSubmissionDate)) =>
         request.userAnswers.get(EmailOrPostPage) match {
           case Some(emailOrPost) =>
-            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(
-              appConfig.timeToLiveInDays)),
+            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
               dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
               RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)

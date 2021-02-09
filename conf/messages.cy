@@ -103,7 +103,7 @@ incorrect-details.notAnOrganisation.p2.link = greu cyfrif Porth y Llywodraeth ar
 # Timeout Messages
 # ----------------------------------------------------------
 timeout.title = Rydych ar fin cael eich allgofnodi
-timeout.message = Am resymau diogelwch, cewch eich allgofnodi o’r gwasanaeth hwn mewn
+timeout.message = (W)For your security, we will sign you out in(W)
 timeout.keepAlive = Parhau i fod wedi’ch mewngofnodi
 timeout.signOut = Allgofnodi
 

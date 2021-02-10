@@ -148,7 +148,6 @@ index.section4.spoke3.label = Nodwch fanylion ar gyfer enwebai
 index.section.numbers5 = 5.
 index.section5.label = Cadarnhau’r datganiad ac anfon y dogfennau ategol
 index.section5.spoke1.label = Cadarnhau’r datganiad ac anfon y dogfennau ategol
-index.section.note.label = Ar ôl i chi gwblhau pob adran, gofynnir i chi lofnodi datganiad a chyflwyno’r cais.
 index.section.notStarted = Heb ddechrau
 index.section.inProgress = Ar y gweill
 index.section.completed = Wedi’i gwblhau

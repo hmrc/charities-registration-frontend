@@ -84,8 +84,7 @@ class TaskListViewSpec extends ViewBehaviours {
         "section2.label", "section2.spoke1.label", "section2.spoke2.label",
         "section3.label", "section3.spoke1.label", "section3.spoke2.label", "section3.spoke3.label",
         "section4.label", "section4.spoke1.label", "section4.spoke2.label", "section4.spoke3.label",
-        "section5.label", "section5.spoke1.label",
-        "section.note.label"
+        "section5.label", "section5.spoke1.label"
       )
 
       "Charity contact details row" must {

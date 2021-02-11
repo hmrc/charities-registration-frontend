@@ -497,7 +497,7 @@ startCharityRegulator.b2 = rhifau cofrestru rheolyddion yr elusen
 # ----------------------------------------------------------
 isCharityRegulator.title = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
 isCharityRegulator.heading = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
-isCharityRegulator.hint = Sefydliad annibynnol yw rheolydd elusen sy’n gwirio sut mae elusennau’n cael eu rhedeg. Er enghraifft, y Comisiwn Elusennau ar gyfer Cymru a Lloegr, Swyddfa Rheolydd Elusennau’r Alban, neu’r Comisiwn Elusennau ar gyfer Gogledd Iwerddon.
+isCharityRegulator.hint = (W)A charity regulator helps give the public trust and confidence in charities. They are an independent organisation. For example, the Charity Commission for England and Wales.(W)
 isCharityRegulator.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’i chofrestru â rheolydd elusen
 isCharityRegulator.checkYourAnswersLabel = Wedi’i chofrestru â rheolydd elusen
 
@@ -813,7 +813,7 @@ otherFundRaising.error.length = Mae’n rhaid i’r hyn a nodwyd ar gyfer y ffor
 isFinancialAccounts.title = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.heading = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi paratoi cyfrifon ariannol
-isFinancialAccounts.hint = Os yw’r elusen wedi paratoi set o gyfrifon ariannol, bydd yn rhaid i chi anfon copi atom drwy’r post er mwyn ategu’r cais.
+isFinancialAccounts.hint = (W)If the charity has a set of prepared financial accounts, you will need to email or post us a copy to support the application. Prepared financial accounts are what you would send to a regulator, HMRC or Companies House.(W)
 isFinancialAccounts.checkYourAnswersLabel = Cyfrifon ariannol
 
 # What is the charity’s estimated income for its current 12 months of operation?

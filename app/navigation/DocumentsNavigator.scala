@@ -73,19 +73,19 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
     case Some(Other) => regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(mode)
     case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 
   private def governingDocumentNamePageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(GoverningDocumentNamePage) match {
     case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 
   private def whenGoverningDocumentApprovedPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(WhenGoverningDocumentApprovedPage) match {
     case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(mode)
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 
   private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
@@ -93,7 +93,7 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
       regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(true) => regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(mode)
     case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 
   private def hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =
@@ -102,14 +102,14 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
       regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(true) => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
     case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 
   private def sectionsChangedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =
     userAnswers.get(SectionsChangedGoverningDocumentPage) match {
     case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
     case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 
 }

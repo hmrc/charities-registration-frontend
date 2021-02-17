@@ -35,9 +35,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the FundRaisingPage page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(FundRaisingPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What country was your charity established in page when user answers other than the Other when clicked continue button" in {
@@ -55,9 +55,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the What Country was your charity established in page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityEstablishedInPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to OperatingLocationPage page when country is selected and clicked continue button" in {
@@ -69,9 +69,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the SelectOperatingLocation page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherFundRaisingPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to OperatingLocationPage page when user answers and clicked continue button" in {
@@ -83,9 +83,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the OperatingLocationPage page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OperatingLocationPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Has your charity prepared financial accounts page when user answers other than the Other when clicked continue button" in {
@@ -110,9 +110,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the WhatCountryDoesTheCharityOperateInPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to What countries does the charity operate in summary page when country is entered and clicked continue when summary wasn't visited before" in {
@@ -144,15 +144,15 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the OverseasOperatingLocationSummaryPage" must {
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
-        "go to the SessionExpiredController page when user answer is not empty, but has no answer to page" in {
+        "go to the PageNotFoundController page when user answer is not empty, but has no answer to page" in {
           navigator.nextPage(OverseasOperatingLocationSummaryPage, NormalMode, emptyUserAnswers
           .set(WhatCountryDoesTheCharityOperateInPage(0), "PL").success.value) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to WhatCountryDoesTheCharityOperateInPage when there is no country in the UserAnswers" in {
@@ -194,9 +194,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the IsFinancialAccountsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsFinancialAccountsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Estimated income page when yes is selected" in {
@@ -214,9 +214,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the EstimatedIncome page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(EstimatedIncomePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to ActualIncome page when a number is provided" in {
@@ -227,9 +227,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the ActualIncome page" must {
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(ActualIncomePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to ActualIncome page when a number is provided" in {
@@ -241,9 +241,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the IsBankStatements page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsBankStatementsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to accounting period end date page when yes is selected" in {
@@ -261,9 +261,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the WhyNoBankStatement page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhyNoBankStatementPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Charity Period End Date" in {
@@ -276,9 +276,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the AccountingPeriodEndDate page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(AccountingPeriodEndDatePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
        "go to the summary page when clicked continue button" in {
@@ -310,9 +310,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the FundRaisingPage page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(FundRaisingPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when an answer is given" in {
@@ -337,9 +337,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the What Country was your charity established in page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityEstablishedInPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to OperatingLocationPage page when country is selected and clicked continue button" in {
@@ -351,9 +351,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the OtherFundRaising page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherFundRaisingPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to OperationsFundsSummaryController Page page when user answers and clicked continue button" in {
@@ -365,9 +365,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the OperatingLocationPage page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OperatingLocationPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when an answer is given" in {
@@ -392,9 +392,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
 
       "from the WhatCountryDoesTheCharityOperateIn page" must {
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(0), CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the OverseasOperationLocationSummary page when user inputs a country" in {
@@ -419,9 +419,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the OverseasOperatingLocationSummaryPage" must {
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OverseasOperatingLocationSummaryPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Operations Funds Summary page when user selects No" in {
@@ -461,9 +461,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the IsFinancialAccountsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsFinancialAccountsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Summary page when yes is selected" in {
@@ -482,9 +482,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the EstimatedIncome page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(EstimatedIncomePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Summary page when a number is provided" in {
@@ -495,9 +495,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the ActualIncome page" must {
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(ActualIncomePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Summary page when a number is provided" in {
@@ -508,9 +508,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the IsBankStatements page" must {
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsBankStatementsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Summary page when the answer is Yes" in {
@@ -534,9 +534,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the WhyNoBankStatement page" must {
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhyNoBankStatementPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Summary page when a reason is provided" in {
@@ -549,9 +549,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
       "from the AccountingPeriodEndDate page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(AccountingPeriodEndDatePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when an answer is given" in {
@@ -573,9 +573,9 @@ class FundRaisingNavigatorSpec extends SpecBase {
 
     "in Playback mode" when {
       "attempting to go to any site" must {
-        "go to the SessionExpiredController page" in {
+        "go to the PageNotFoundController page" in {
           navigator.nextPage(AccountingPeriodEndDatePage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
     }

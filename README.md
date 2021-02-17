@@ -1,5 +1,7 @@
 ## charities-registration-frontend
 
+[ ![Download](https://api.bintray.com/packages/hmrc/releases/charities-registration-frontend/images/download.svg) ](https://bintray.com/hmrc/releases/tax-history-frontend/_latestVersion)
+
 This microservice is an electronic version of the ChA1 form. This form can be found at : http://www.hmrc.gov.uk/charities/cha1.pdf
 
 Registration will allow users to register

@@ -100,7 +100,7 @@ class CharityPostalAddressLookupControllerSpec extends SpecBase with BeforeAndAf
           val result = controller.initializeJourney()(fakeRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+          redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
           verify(mockUserAnswerService, times(1)).get(any())(any(), any())
           verify(mockUserAnswerService, never).set(any())(any(), any())
         }
@@ -165,7 +165,7 @@ class CharityPostalAddressLookupControllerSpec extends SpecBase with BeforeAndAf
             val result = controller.callback(Some("id"))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
-            redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+            redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
             verify(mockUserAnswerService, times(1)).get(any())(any(), any())
             verify(mockUserAnswerService, never).set(any())(any(), any())
           }

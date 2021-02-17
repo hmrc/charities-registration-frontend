@@ -44,6 +44,6 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
   private def navigate(userAnswers: UserAnswers): Call = userAnswers.get(BankDetailsPage) match {
     case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 }

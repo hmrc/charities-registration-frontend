@@ -88,7 +88,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -142,7 +142,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }
@@ -155,7 +155,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }

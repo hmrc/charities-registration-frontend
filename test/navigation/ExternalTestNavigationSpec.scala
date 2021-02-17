@@ -42,7 +42,7 @@ class ExternalTestNavigationSpec extends SpecBase {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))
     case 1 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(1))
     case 2 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(2))
-    case _ => routes.SessionExpiredController.onPageLoad()
+    case _ => routes.PageNotFoundController.onPageLoad()
   }
 
   def previousOrSameIndex(index: Int): Int = index match {

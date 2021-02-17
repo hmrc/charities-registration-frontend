@@ -71,9 +71,13 @@ error.submissionError.link = start your claim again
 
 # Session Expired
 # ----------------------------------------------------------
-session_expired.title = For your security, this service has been reset
-session_expired.heading = For your security, this service has been reset
-session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
+pageNotFound.title = Page not found - Error
+pageNotFound.heading = Page not found
+pageNotFound.p1 = If you typed the web address, check it is correct.
+pageNotFound.p2 = If you pasted the web address, check you copied the entire address.
+pageNotFound.p3 = If the web address is correct or you selected a link or button, you should
+pageNotFound.p3.link = report a technical problem
+pageNotFound.back.start.link = Go back to the start
 
 # Technical Difficulties error page Messages
 # ----------------------------------------------------------

@@ -66,7 +66,7 @@ class BankDetailsController @Inject()(
 
           Future.successful(Ok(view(preparedForm, charityName.fullName, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
             messagePrefix, sectionName, None)))
-        case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+        case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
       }
     }
   }
@@ -86,7 +86,7 @@ class BankDetailsController @Inject()(
               _              <- sessionRepository.set(updatedAnswers)
             } yield Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
         )
-      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+      case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 }

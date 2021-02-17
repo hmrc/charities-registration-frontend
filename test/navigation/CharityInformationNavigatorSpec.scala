@@ -35,9 +35,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityNamePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityContactDetailsController page when clicked continue button" in {
@@ -49,9 +49,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityContactDetailsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityInformationAddressLookupController page when clicked continue button" in {
@@ -72,9 +72,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityInformationAddressLookupPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Send letters page when clicked Confirm and continue button" in {
@@ -87,9 +87,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CanWeSendToThisAddressPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when yes is selected" in {
@@ -115,9 +115,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityInformationPostalAddressLookupPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityPostalAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when clicked Confirm and continue button" in {
@@ -157,9 +157,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityNamePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityNamePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when an answer is given" in {
@@ -172,9 +172,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityContactDetailsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityContactDetailsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when an answer is given" in {
@@ -188,9 +188,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityInformationAddressLookupPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Send letters page when clicked continue button" in {
@@ -203,9 +203,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CanWeSendToThisAddressPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CanWeSendToThisAddressPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when yes is selected" in {
@@ -230,9 +230,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "from the CharityInformationPostalAddressLookupPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityPostalAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when clicked Confirm and continue button" in {
@@ -249,7 +249,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
       "attempting to go to any site" must {
 
-        "go to the SessionExpiredController page" in {
+        "go to the PageNotFoundController page" in {
           navigator.nextPage(CharityPostalAddressLookupPage, PlaybackMode, emptyUserAnswers) mustBe
             routes.IndexController.onPageLoad(None)
         }
@@ -261,9 +261,9 @@ class CharityInformationNavigatorSpec extends SpecBase {
           controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode)
       }
 
-      "go to the SessionExpiredController page" in {
+      "go to the PageNotFoundController page" in {
         navigator.nextPage(CharityNamePage, PlaybackMode, emptyUserAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad()
+           routes.PageNotFoundController.onPageLoad()
       }
     }
   }

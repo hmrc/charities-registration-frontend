@@ -17,13 +17,14 @@
 package navigation
 
 import config.FrontendAppConfig
-import controllers.routes
 import controllers.checkEligibility.{routes => elroutes}
-import javax.inject.Inject
+import controllers.routes
 import models._
 import pages.Page
 import pages.checkEligibility._
 import play.api.mvc.Call
+
+import javax.inject.Inject
 
 
 class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -60,7 +61,7 @@ class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
     value match{
       case Some(true) => ifTrue
       case Some(false) => ifFalse
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
   }
 }

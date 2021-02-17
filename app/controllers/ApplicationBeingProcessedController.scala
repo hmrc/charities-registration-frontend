@@ -40,7 +40,7 @@ class ApplicationBeingProcessedController @Inject()(
 
     request.userAnswers match {
       case None =>
-        Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
+        Future.successful(Redirect(routes.PageNotFoundController.onPageLoad()))
       case Some(data) =>
         data.get(OldServiceSubmissionPage) match {
 
@@ -50,7 +50,7 @@ class ApplicationBeingProcessedController @Inject()(
             Future.successful(Ok(view(dayToString(date, dayOfWeek = false), oldServiceSubmission.refNumber
             )))
 
-          case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+          case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
         }
     }
 

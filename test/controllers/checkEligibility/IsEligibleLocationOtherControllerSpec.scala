@@ -119,7 +119,7 @@ class IsEligibleLocationOtherControllerSpec extends SpecBase with BeforeAndAfter
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
       verify(mockSessionRepository, times(1)).get(any())
     }
 
@@ -133,7 +133,7 @@ class IsEligibleLocationOtherControllerSpec extends SpecBase with BeforeAndAfter
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
       verify(mockSessionRepository, times(1)).get(any())
     }
   }

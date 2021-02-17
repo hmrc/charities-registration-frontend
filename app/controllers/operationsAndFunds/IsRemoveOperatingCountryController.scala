@@ -53,7 +53,7 @@ class IsRemoveOperatingCountryController @Inject()(
 
     request.userAnswers.get(page).map {
       countryCode => block(countryService.find(countryCode).fold(countryCode)(_.name))
-    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
+    }.getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))
   }
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {

@@ -17,7 +17,8 @@ GET        /keepalive                                   controllers.IndexControl
 ->         /address                                     address.Routes
 
 ### SignOut/Session Expired
-GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
+GET        /page-not-found                              controllers.PageNotFoundController.onPageLoad()
+GET        /redirect-to-start-of-journey                controllers.PageNotFoundController.redirectToStartOfJourney()
 GET        /sign-out                                    controllers.SignOutController.signOut
 GET        /error/signed-you-out                        controllers.SignOutController.signedYouOut
 

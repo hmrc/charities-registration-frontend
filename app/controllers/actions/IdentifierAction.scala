@@ -17,7 +17,6 @@
 package controllers.actions
 
 import java.util.UUID
-
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.routes
@@ -82,7 +81,7 @@ class SessionIdentifierAction @Inject()(
       case Some(session) =>
         block(IdentifierRequest(request, session.value))
       case None =>
-        Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
+        Future.successful(Redirect(routes.PageNotFoundController.onPageLoad()))
     }
   }
 }

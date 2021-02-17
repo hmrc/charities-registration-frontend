@@ -118,7 +118,7 @@ class CharityEstablishedInControllerSpec extends SpecBase with BeforeAndAfterEac
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -132,7 +132,7 @@ class CharityEstablishedInControllerSpec extends SpecBase with BeforeAndAfterEac
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
   }

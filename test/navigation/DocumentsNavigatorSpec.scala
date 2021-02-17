@@ -40,9 +40,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the SelectGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(SelectGoverningDocumentPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Governing Document name page when Other is selected" in {
@@ -60,9 +60,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the NameOfTheGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(GoverningDocumentNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Governing Document approved page when Other is selected" in {
@@ -74,9 +74,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the WhenGoverningDocumentApproved" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhenGoverningDocumentApprovedPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Is Governing Document approved page when a date is submitted" in {
@@ -89,9 +89,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the IsApprovedGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsApprovedGoverningDocumentPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the HasCharityChangedPartsofGoverningDocument page when yes is selected" in {
@@ -109,9 +109,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the HasCharityChangedPartsofGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the SectionsChangedGoverningDocument page when yes is selected" in {
@@ -130,9 +130,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the SectionsChangedGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(SectionsChangedGoverningDocumentPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Governing Document summary page when continue is clicked" in {
@@ -146,7 +146,7 @@ class DocumentsNavigatorSpec extends SpecBase {
 
         "go to the Task List page when click continue button" in {
           navigator.nextPage(GoverningDocumentSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad(None) // TODO modify once next page created
+            routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -163,9 +163,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the SelectGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(SelectGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Governing Document name page when Other is selected and Name is not defined" in {
@@ -190,9 +190,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the NameOfTheGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(GoverningDocumentNamePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Governing Document summary page when a name is submitted" in {
@@ -204,9 +204,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the WhenGoverningDocumentApproved" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhenGoverningDocumentApprovedPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Is Governing Document summary page when a date is submitted" in {
@@ -219,9 +219,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the IsApprovedGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsApprovedGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the HasCharityChangedPartsofGoverningDocument page when yes is selected" in {
@@ -248,9 +248,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the HasCharityChangedPartsofGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the SectionsChangedGoverningDocument page when yes is selected" in {
@@ -277,9 +277,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
       "from the SectionsChangedGoverningDocument" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(SectionsChangedGoverningDocumentPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Governing Document summary page when continue is clicked" in {
@@ -300,9 +300,9 @@ class DocumentsNavigatorSpec extends SpecBase {
 
     "in Playback mode" when {
       "attempting to go to any site" must {
-        "go to the SessionExpiredController page" in {
+        "go to the PageNotFoundController page" in {
           navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
     }

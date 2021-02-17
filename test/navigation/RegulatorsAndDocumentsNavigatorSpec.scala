@@ -35,9 +35,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the IsCharityRegulatorPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsCharityRegulatorPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the EnterCharityRegulator page when yes is selected" in {
@@ -53,9 +53,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the CharityRegulatorPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityRegulatorPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityCommissionRegistrationNumberPage when user answer has EnglandWales selected and click Continue button" in {
@@ -119,9 +119,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the CharityCommissionRegistrationNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -173,9 +173,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the ScottishRegulatorRegNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -200,10 +200,10 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
         }
 
-        "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
+        "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
@@ -219,9 +219,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the NIRegulatorRegNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -238,10 +238,10 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(NormalMode)
         }
 
-        "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
+        "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(NIRegulatorRegNumberPage, NormalMode,
             emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
@@ -257,9 +257,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the CharityOtherRegulatorDetailsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -269,18 +269,18 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
-        "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
+        "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")).success.value) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
 
       "from the SelectWhyNoRegulator" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityNotRegisteredReason page when Other is selected" in {
@@ -301,15 +301,15 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the Task List page when click continue button" in {
           navigator.nextPage(RegulatorsSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad(None) // TODO modify once next page created
+            routes.IndexController.onPageLoad(None)
         }
       }
 
       "from the WhyNotRegisteredWithCharityPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhyNotRegisteredWithCharityPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -331,9 +331,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the IsCharityRegulatorPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsCharityRegulatorPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when yes is selected and an answer exists for the CharityRegulator page" in {
@@ -363,9 +363,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the CharityRegulatorPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityRegulatorPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityCommissionRegistrationNumberPage when user answer has EnglandWales selected and click Continue button" in {
@@ -394,9 +394,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the CharityCommissionRegistrationNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityCommissionRegistrationNumberPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -430,9 +430,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
       "from the ScottishRegulatorRegNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -456,18 +456,18 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode)
         }
 
-        "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
+        "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(ScottishRegulatorRegNumberPage, CheckMode,
             emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
 
       "from the NIRegulatorRegNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(NIRegulatorRegNumberPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -484,18 +484,18 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode)
         }
 
-        "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
+        "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(NIRegulatorRegNumberPage, CheckMode,
             emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
 
       "from the CharityOtherRegulatorDetailsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -505,18 +505,18 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
-        "go to the SessionExpiredController page when user answer has no CharityRegulator is selected" in {
+        "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           navigator.nextPage(CharityOtherRegulatorDetailsPage, CheckMode,
             emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")).success.value) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
 
       "from the SelectWhyNoRegulator" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(SelectWhyNoRegulatorPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityNotRegisteredReason page when Other is selected" in {
@@ -581,18 +581,18 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(WhyNotRegisteredWithCharityPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
     }
     }
     "in Playback mode" when {
       "attempting to go to any site" must {
-        "go to the SessionExpiredController page" in {
+        "go to the PageNotFoundController page" in {
           navigator.nextPage(WhyNotRegisteredWithCharityPage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
     }

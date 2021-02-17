@@ -124,7 +124,7 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -138,7 +138,7 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
   }

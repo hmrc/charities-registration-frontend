@@ -105,7 +105,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
     }
 
     "calling the .getOrganisationName() is successful" in {
@@ -122,7 +122,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.getOrganisationName(OrganisationNomineeNamePage)(block)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
     }
 
     "calling the .getAddress() is successful" in {
@@ -155,7 +155,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+        redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
       }
 
       "return RoyalCharacter if its selected" in {
@@ -185,7 +185,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+        redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
       }
     }
 

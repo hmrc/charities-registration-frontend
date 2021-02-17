@@ -52,7 +52,7 @@ class RegistrationSentController @Inject()(
             )))
           case _ => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))
         }
-      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+      case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 
@@ -63,7 +63,7 @@ class RegistrationSentController @Inject()(
           updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, !emailOrPost))
           _              <- userAnswerService.set(updatedAnswers)
         } yield Redirect(routes.RegistrationSentController.onPageLoad())
-      case _ => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+      case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 }

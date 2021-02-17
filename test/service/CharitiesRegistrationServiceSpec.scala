@@ -101,7 +101,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       val result = service.register(Json.obj())(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerService, never()).set(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())
@@ -118,7 +118,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       val result = service.register(Json.obj())(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())

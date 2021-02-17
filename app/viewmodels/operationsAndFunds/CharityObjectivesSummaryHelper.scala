@@ -34,8 +34,6 @@ class CharityObjectivesSummaryHelper(override val userAnswers: UserAnswers)
     def charitablePurposesRow: Option[SummaryListRow] =
       multiLineAnswer(CharitablePurposesPage, operations.CharitablePurposesController.onPageLoad(CheckMode))
 
-    //TODO Add other Charitable Purposes row once page is created
-
     def publicBenefitsRow: Option[SummaryListRow] =
       answer(PublicBenefitsPage, operations.PublicBenefitsController.onPageLoad(CheckMode))
 

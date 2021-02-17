@@ -45,18 +45,18 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case Some(items) if items.toSeq.contains(Other) => operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
       //case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
       case Some(_) => operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case CharityEstablishedInPage => userAnswers: UserAnswers => userAnswers.get(CharityEstablishedInPage) match {
       case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
       case Some(items) if !items.toSeq.contains(Overseas) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
       case Some(_) => overseasRedirect(userAnswers, NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case WhatCountryDoesTheCharityOperateInPage(_) => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
@@ -66,14 +66,14 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
         operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
       case _ if userAnswers.get(OperatingLocationPage).isDefined =>
         operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case OverseasOperatingLocationSummaryPage => userAnswers: UserAnswers =>
       userAnswers.get(WhatCountryDoesTheCharityOperateInPage(Index(0))) match {
         case None => userAnswers.get(OperatingLocationPage) match {
           case Some(_) => operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(NormalMode, Index(0))
-          case _ => routes.SessionExpiredController.onPageLoad()
+          case _ => routes.PageNotFoundController.onPageLoad()
         }
         case _ =>
           userAnswers.get(OverseasOperatingLocationSummaryPage) match {
@@ -88,44 +88,44 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
           case Some(false) => operationFundsRoutes.IsFinancialAccountsController.onPageLoad(NormalMode)
 
-          case _ => routes.SessionExpiredController.onPageLoad()
+          case _ => routes.PageNotFoundController.onPageLoad()
           }
         }
 
     case IsFinancialAccountsPage => userAnswers: UserAnswers => userAnswers.get(IsFinancialAccountsPage) match {
       case Some(_) => operationFundsRoutes.EstimatedIncomeController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case EstimatedIncomePage => userAnswers: UserAnswers => userAnswers.get(EstimatedIncomePage) match {
       case Some(_) => operationFundsRoutes.ActualIncomeController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case ActualIncomePage => userAnswers: UserAnswers => userAnswers.get(ActualIncomePage) match {
       case Some(_) => operationFundsRoutes.IsBankStatementsController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case IsBankStatementsPage => userAnswers: UserAnswers => userAnswers.get(IsBankStatementsPage) match {
       case Some(true) => operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
       case Some(false) => operationFundsRoutes.WhyNoBankStatementController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case WhyNoBankStatementPage => userAnswers: UserAnswers => userAnswers.get(IsBankStatementsPage) match {
       case Some(_) => operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case OtherFundRaisingPage => userAnswer: UserAnswers => userAnswer.get(OtherFundRaisingPage) match{
       case Some(_) => operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case OperationsFundsSummaryPage => _ => routes.IndexController.onPageLoad(None)
@@ -141,17 +141,17 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
         case _ => operationFundsRoutes.OtherFundRaisingController.onPageLoad(CheckMode)
       }
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case CharityEstablishedInPage => userAnswers: UserAnswers => userAnswers.get(CharityEstablishedInPage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case OtherFundRaisingPage => userAnswers: UserAnswers => userAnswers.get(OtherFundRaisingPage)match{
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case OperatingLocationPage => userAnswers: UserAnswers => userAnswers.get(OperatingLocationPage) match {
@@ -160,7 +160,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
         case _ => operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
       }
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case WhatCountryDoesTheCharityOperateInPage(_) => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
@@ -170,7 +170,7 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
         operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
       case _ if userAnswers.get(OperatingLocationPage).isDefined =>
         operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case OverseasOperatingLocationSummaryPage => userAnswers: UserAnswers => userAnswers.get(OverseasOperatingLocationSummaryPage) match {
@@ -184,39 +184,39 @@ class FundRaisingNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
       case Some(false) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case _ if userAnswers.get(OperatingLocationPage).isDefined =>
         operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, Index(0))
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case AccountingPeriodEndDatePage => userAnswers: UserAnswers => userAnswers.get(AccountingPeriodEndDatePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case IsFinancialAccountsPage => userAnswers: UserAnswers => userAnswers.get(IsFinancialAccountsPage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case EstimatedIncomePage => userAnswers: UserAnswers => userAnswers.get(EstimatedIncomePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case ActualIncomePage => userAnswers: UserAnswers => userAnswers.get(ActualIncomePage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case IsBankStatementsPage => userAnswers: UserAnswers => userAnswers.get(IsBankStatementsPage) match {
       case Some(true) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case Some(false) if userAnswers.get(WhyNoBankStatementPage).isDefined => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
       case Some(false) => operationFundsRoutes.WhyNoBankStatementController.onPageLoad(CheckMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case WhyNoBankStatementPage => userAnswers: UserAnswers => userAnswers.get(IsBankStatementsPage) match {
       case Some(_) => operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad(None)

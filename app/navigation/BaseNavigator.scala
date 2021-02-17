@@ -27,7 +27,7 @@ trait BaseNavigator {
 
   val checkRouteMap: Page => UserAnswers => Call
 
-  val playbackRouteMap: Page => UserAnswers => Call = _ => _ => routes.SessionExpiredController.onPageLoad()
+  val playbackRouteMap: Page => UserAnswers => Call = _ => _ => routes.PageNotFoundController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode =>

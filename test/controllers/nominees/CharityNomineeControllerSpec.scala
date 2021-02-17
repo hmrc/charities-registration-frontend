@@ -70,7 +70,7 @@ class CharityNomineeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

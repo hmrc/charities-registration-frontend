@@ -57,12 +57,12 @@ class CharitiesRegistrationService @Inject()(
 
           case Left(errors) =>
             logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
-            Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+            Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
 
         } recover {
           case errors =>
             logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
-            Redirect(controllers.routes.SessionExpiredController.onPageLoad())
+            Redirect(controllers.routes.PageNotFoundController.onPageLoad())
         }
 
       case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))

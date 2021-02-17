@@ -35,9 +35,9 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
       "from the CharitableObjectivesPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitableObjectivesPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharitablePurposes page when clicked button" in {
@@ -49,9 +49,9 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
       "from the CharitablePurposesPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitablePurposesPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
@@ -63,9 +63,9 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
       "from the PublicBenefits page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(PublicBenefitsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -96,9 +96,9 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
       "from the CharitableObjectivesPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitableObjectivesPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharitablePurposes page when clicked button" in {
@@ -109,9 +109,9 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
       "from the CharitablePurposesPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitablePurposesPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
@@ -123,9 +123,9 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
       "from the PublicBenefits page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(PublicBenefitsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
@@ -146,9 +146,9 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
     "in Playback mode" when {
       "attempting to go to any site" must {
-        "go to the SessionExpiredController page" in {
+        "go to the PageNotFoundController page" in {
           navigator.nextPage(PublicBenefitsPage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
     }

@@ -33,9 +33,9 @@ class EligibilityNavigatorSpec extends SpecBase{
 
       "from the IsEligiblePurposePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsEligiblePurposePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IsEligibleAccountController page when yes is selected" in {
@@ -51,9 +51,9 @@ class EligibilityNavigatorSpec extends SpecBase{
 
       "from the IsEligibleAccountPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsEligibleAccountPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IsEligibleLocationController page when yes is selected" in {
@@ -71,7 +71,7 @@ class EligibilityNavigatorSpec extends SpecBase{
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IsEligibleLocationPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IndexController page when yes is selected" in {
@@ -87,9 +87,9 @@ class EligibilityNavigatorSpec extends SpecBase{
 
       "from the IsEligibleLocationOtherPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IndexController page when yes is selected" in {
@@ -125,9 +125,9 @@ class EligibilityNavigatorSpec extends SpecBase{
 
     "in Playback mode" when {
       "attempting to go to any site" must {
-        "go to the SessionExpiredController page" in {
+        "go to the PageNotFoundController page" in {
           navigator.nextPage(IsEligibleLocationOtherPage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
     }

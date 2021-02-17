@@ -81,7 +81,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -93,7 +93,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual controllers.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.PageNotFoundController.onPageLoad().url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

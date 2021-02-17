@@ -109,7 +109,7 @@ class NomineeIndividualPreviousAddressLookupControllerSpec extends SpecBase with
           val result = controller.initializeJourney(NormalMode)(fakeRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+          redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
           verify(mockUserAnswerService, times(1)).get(any())(any(), any())
           verify(mockUserAnswerService, never).set(any())(any(), any())
         }
@@ -174,7 +174,7 @@ class NomineeIndividualPreviousAddressLookupControllerSpec extends SpecBase with
             val result = controller.callback(NormalMode, Some("id"))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
-            redirectLocation(result) mustBe Some(controllers.routes.SessionExpiredController.onPageLoad().url)
+            redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
             verify(mockUserAnswerService, times(1)).get(any())(any(), any())
             verify(mockUserAnswerService, never).set(any())(any(), any())
           }

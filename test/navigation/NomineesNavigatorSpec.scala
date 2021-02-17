@@ -37,7 +37,7 @@ class NomineesNavigatorSpec extends SpecBase {
   private val minYear = 16
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
-  private val bankDetails =  BankDetails(
+  private val bankDetails = BankDetails(
     accountName = "fullName",
     sortCode = "123456",
     accountNumber = "12345678",
@@ -53,9 +53,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsAuthoriseNomineePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsAuthoriseNomineePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the NomineeDetailsSummary page when No selected and clicked continue button" in {
@@ -73,9 +73,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the ChooseNomineePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(ChooseNomineePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Individual Nominee Name page when selected person and clicked continue button" in {
@@ -94,9 +94,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeNamePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineeNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to What is the nominee's date of birth page when clicked continue button" in {
@@ -109,9 +109,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeDOBPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineeDOBPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to What is the nominee's phone number page when clicked continue button" in {
@@ -124,9 +124,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineePhoneNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesPhoneNumberPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Does the nominee have national insurance page when clicked continue button" in {
@@ -139,9 +139,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsIndividualNomineeNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsIndividualNomineeNinoPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Nominee National insurance number page when yes selected" in {
@@ -159,9 +159,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineePassportPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesPassportPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to What is nominee’s home address? page when clicked continue button" in {
@@ -181,9 +181,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesNinoPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Does the nominee have national insurance page when clicked continue button" in {
@@ -202,9 +202,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeLookupPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
@@ -218,9 +218,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsIndividualNomineePreviousAddressPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Previous address lookup when yes selected" in {
@@ -235,7 +235,8 @@ class NomineesNavigatorSpec extends SpecBase {
             nomineesRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
         }
 
-        "go to the ConfirmNomineeIndividualPreviousAddressController page when Yes is selected and NomineeIndividualPreviousAddressLookupPage is present and clicked continue button" in {
+        "go to the ConfirmNomineeIndividualPreviousAddressController page when Yes is selected and" +
+          "NomineeIndividualPreviousAddressLookupPage is present and clicked continue button" in {
           navigator.nextPage(IsIndividualNomineePreviousAddressPage, NormalMode,
             emptyUserAnswers.set(IsIndividualNomineePreviousAddressPage, true)
               .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, address))
@@ -246,9 +247,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineePreviousAddressLookup Page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Is nominee authorised to receive payments page when clicked continue button" in {
@@ -261,9 +262,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsIndividualNomineePaymentsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsIndividualNomineePaymentsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Bank account details page when yes selected" in {
@@ -281,9 +282,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineesBankDetails page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesBankDetailsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -298,9 +299,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the  OrganisationNomineeName page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineeNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Organisation Nominee Contact Details page when clicked continue button" in {
@@ -312,9 +313,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationNomineeContactDetails page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineeContactDetailsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Organisation Nominee Address Lookup page when clicked continue button" in {
@@ -333,9 +334,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationNomineeAddressLookup page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineeAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Has the address changed page when continue button is clicked" in {
@@ -347,9 +348,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsOrganisationNomineePreviousAddress page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Organisation previous address page when continue button is clicked" in {
@@ -368,7 +369,8 @@ class NomineesNavigatorSpec extends SpecBase {
           nomineesRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
         }
 
-        "go to the ConfirmOrganisationNomineePreviousAddressController page when Yes is selected and OrganisationNomineePreviousAddressLookupPage is present and clicked continue button" in {
+        "go to the ConfirmOrganisationNomineePreviousAddressController page when Yes is selected and" +
+          "OrganisationNomineePreviousAddressLookupPage is present and clicked continue button" in {
           navigator.nextPage(IsOrganisationNomineePreviousAddressPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineePreviousAddressPage, true)
               .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, address)).success.value) mustBe
@@ -378,9 +380,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationNomineePreviousAddressLookup page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to IsOrganisationNomineePayments when continue button is clicked" in {
@@ -392,29 +394,29 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsOrganisationNomineePayments Page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsOrganisationNomineePaymentsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What are Organisation's bank account details page when selected yes and clicked continue" in {
           navigator.nextPage(IsOrganisationNomineePaymentsPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, true).success.value) mustBe
-            nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode)//TODO when next page created
+            nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode)
         }
 
         "go to the Adding Authorised person from organisation page when selected no and continue button is clicked" in {
           navigator.nextPage(IsOrganisationNomineePaymentsPage, NormalMode,
             emptyUserAnswers.set(IsOrganisationNomineePaymentsPage, false).success.value) mustBe
-            nomineesRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()//TODO when next page created
+            nomineesRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
         }
       }
 
       "from the OrganisationNomineesBankContactDetails page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineesBankDetailsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Intro to Authorised Person page when clicked continue button" in {
@@ -426,9 +428,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonName page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the what is full authorised person's date of birth page when continue button is clicked" in {
@@ -440,9 +442,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonDOBPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Does the nominee have national insurance number page when clicked continue button" in {
@@ -455,9 +457,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsOrganisationNomineeNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsOrganisationNomineeNinoPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to What is the nominee's National Insurance number page when Yes selected" in {
@@ -477,9 +479,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonNinoPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -492,9 +494,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonPassportPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonPassportPage, NormalMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -529,9 +531,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsAuthoriseNomineePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsAuthoriseNomineePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the NomineeDetailsSummary page when No selected and clicked continue button" in {
@@ -549,9 +551,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the ChooseNomineePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(ChooseNomineePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IndividualNomineeName page when person is selected and continue button is clicked" in {
@@ -569,9 +571,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeNamePage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineeNamePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -583,9 +585,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeDOBPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineeDOBPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -597,9 +599,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineePhoneNumberPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesPhoneNumberPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -611,9 +613,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsIndividualNomineeNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsIndividualNomineeNinoPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when yes selected and nino is already defined" in {
@@ -645,9 +647,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineePassportPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesPassportPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -659,9 +661,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesNinoPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -673,9 +675,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineeLookupPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(NomineeIndividualAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
@@ -689,9 +691,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsIndividualNomineePreviousAddressPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsIndividualNomineePreviousAddressPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when yes selected and previous address is defined" in {
@@ -716,9 +718,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineePreviousAddressLookup Page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -730,9 +732,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsIndividualNomineePaymentsPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsIndividualNomineePaymentsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when yes selected and account details are defined" in {
@@ -757,9 +759,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IndividualNomineesBankContactDetails page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IndividualNomineesBankDetailsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -774,9 +776,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the  OrganisationNomineeName page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineeNamePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -788,9 +790,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationNomineeContactDetails page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineeContactDetailsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -802,9 +804,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationNomineeAddressLookup page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineeAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the has address changed in last 12 months page when clicked continue button is clicked" in {
@@ -816,9 +818,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsOrganisationNomineePreviousAddressPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsOrganisationNomineePreviousAddressPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when yes selected and previous address is defined" in {
@@ -843,9 +845,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationNomineePreviousAddressLookup page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -858,9 +860,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationNomineesBankContactDetails page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationNomineesBankDetailsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to summary page when clicked continue button" in {
@@ -872,9 +874,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsOrganisationNomineePayments Page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsOrganisationNomineePaymentsPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when yes selected and account details are defined" in {
@@ -899,9 +901,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonName page" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonNamePage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -913,9 +915,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonDOBPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonDOBPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -927,9 +929,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the IsOrganisationNomineeNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsOrganisationNomineeNinoPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when yes selected and nino is already defined" in {
@@ -961,9 +963,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonNinoPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonNinoPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -976,9 +978,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
       "from the OrganisationAuthorisedPersonPassportPage" must {
 
-        "go to the SessionExpiredController page when user answer is empty" in {
+        "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OrganisationAuthorisedPersonPassportPage, CheckMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page when continue button is clicked" in {
@@ -1007,9 +1009,9 @@ class NomineesNavigatorSpec extends SpecBase {
 
     "in Playback mode" when {
       "attempting to go to any site" must {
-        "go to the SessionExpiredController page" in {
+        "go to the PageNotFoundController page" in {
           navigator.nextPage(ChooseNomineePage, PlaybackMode, emptyUserAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad()
+             routes.PageNotFoundController.onPageLoad()
         }
       }
     }

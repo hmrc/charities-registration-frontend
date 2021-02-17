@@ -49,7 +49,7 @@ class SessionActionSpec extends SpecBase {
         val result = controller.onPageLoad()(FakeRequest())
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result).get must startWith(controllers.routes.SessionExpiredController.onPageLoad().url)
+        redirectLocation(result).get must startWith(controllers.routes.PageNotFoundController.onPageLoad().url)
       }
     }
 

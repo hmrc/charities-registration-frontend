@@ -17,18 +17,24 @@
 package viewmodels
 
 import config.FrontendAppConfig
-import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Request
 import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
-import views.html.errors.TechnicalDifficultiesErrorView
+import views.html.errors.{PageNotFoundView, TechnicalDifficultiesErrorView}
+
+import javax.inject.Inject
+import scala.concurrent.ExecutionContext
 
 
 class ErrorHandler @Inject()(val messagesApi: MessagesApi,
-   technicalDifficultiesErrorView: TechnicalDifficultiesErrorView
-  )(implicit appConfig: FrontendAppConfig) extends FrontendErrorHandler with I18nSupport {
+   technicalDifficultiesErrorView: TechnicalDifficultiesErrorView,
+   pageNotFoundView: PageNotFoundView
+  )(implicit appConfig: FrontendAppConfig, ex: ExecutionContext) extends FrontendErrorHandler with I18nSupport{
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
     technicalDifficultiesErrorView(pageTitle, heading, message)
+
+  override def notFoundTemplate(implicit request: Request[_]): Html = pageNotFoundView()
+
 }

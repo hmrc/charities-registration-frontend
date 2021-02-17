@@ -32,17 +32,17 @@ class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfi
 
     case CharitableObjectivesPage => userAnswers: UserAnswers => userAnswers.get(CharitableObjectivesPage) match {
       case Some(_) => operations.CharitablePurposesController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case CharitablePurposesPage => userAnswers: UserAnswers => userAnswers.get(CharitablePurposesPage) match {
       case Some(_) => operations.PublicBenefitsController.onPageLoad(NormalMode)
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case PublicBenefitsPage => userAnswers: UserAnswers => userAnswers.get(PublicBenefitsPage) match {
       case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad(None)
@@ -52,17 +52,17 @@ class ObjectivesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfi
 
     case CharitableObjectivesPage => userAnswers: UserAnswers => userAnswers.get(CharitableObjectivesPage) match {
       case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case CharitablePurposesPage => userAnswers: UserAnswers => userAnswers.get(CharitablePurposesPage) match {
       case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case PublicBenefitsPage => userAnswers: UserAnswers => userAnswers.get(PublicBenefitsPage) match {
       case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad()
+      case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case _ => _ => routes.IndexController.onPageLoad(None)

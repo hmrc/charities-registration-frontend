@@ -68,8 +68,6 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
       }
     }
 
-    //TODO Add other Charitable Purposes row once page is created
-
     "For the Public Benefits answer" must {
 
       "have a correctly formatted summary list row" in {

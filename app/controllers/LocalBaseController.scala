@@ -40,7 +40,7 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     request.userAnswers.get(page).map {
       name =>
         block(name.getFullName)
-    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
+    }.getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))
   }
 
   def getOrganisationName(page: QuestionPage[String])(block: String => Future[Result])(
@@ -49,7 +49,7 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     request.userAnswers.get(page).map {
       name =>
         block(name)
-    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
+    }.getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))
   }
 
   def getAddress(addressLookupPageId: QuestionPage[AddressModel])(block: (Seq[String], Country) => Future[Result])(
@@ -64,7 +64,7 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
         val countryCode = charityInformationAddressLookup.country.code
         block(Seq(addressList, postcode).flatten, Country(countryCode, countryName))
 
-    }.getOrElse(Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad())))
+    }.getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))
   }
 
   def getDocumentName(page: QuestionPage[SelectGoverningDocument])(block: String => Future[Result])(
@@ -73,13 +73,13 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
       case Some(SelectGoverningDocument.Other) =>
        request.userAnswers.get(GoverningDocumentNamePage) match {
         case Some(otherDocumentName) => block(otherDocumentName)
-        case None => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+        case None => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
       }
       case Some(SelectGoverningDocument.RoyalCharacter) =>
         block(messages(s"selectGoverningDocument.${SelectGoverningDocument.RoyalCharacter}"))
       case Some(documentName) =>
         block(messages(s"selectGoverningDocument.$documentName").toLowerCase())
-      case None => Future.successful(Redirect(controllers.routes.SessionExpiredController.onPageLoad()))
+      case None => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 

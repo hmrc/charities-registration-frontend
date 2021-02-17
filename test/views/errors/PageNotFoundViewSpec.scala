@@ -17,16 +17,25 @@
 package views.errors
 
 import views.behaviours.ViewBehaviours
-import views.html.errors.SessionExpiredView
+import views.html.errors.PageNotFoundView
 
-class SessionExpiredViewSpec extends ViewBehaviours {
+class PageNotFoundViewSpec extends ViewBehaviours {
 
   "Session Expired view" must {
 
-    val view = inject[SessionExpiredView]
+    val view = inject[PageNotFoundView]
 
     val applyView = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView, "session_expired")
+    behave like normalPage(applyView, "pageNotFound")
+
+    "reportLink" should {
+      behave like pageWithHyperLink(applyView, "reportLink",
+        frontendAppConfig.contactUrl, messages("pageNotFound.p3.link"))
+    }
+
+    behave like pageWithHyperLink(applyView, "startLink",
+      controllers.routes.PageNotFoundController.redirectToStartOfJourney().url, messages("pageNotFound.back.start.link"))
+
   }
 }

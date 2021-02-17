@@ -71,9 +71,13 @@ error.submissionError.link = ddechrau’ch hawliad eto
 
 # Session Expired
 # ----------------------------------------------------------
-session_expired.title = Er eich diogelwch, mae’r gwasanaeth hwn wedi’i ailosod
-session_expired.heading = Er eich diogelwch, mae’r gwasanaeth hwn wedi’i ailosod
-session_expired.guidance = Mae’r manylion a roddwyd gennych wedi’u dileu gan nad ydych wedi mynd yn eich blaen â’r gwasanaeth ers 15 munud.
+pageNotFound.title = (W)Page not found - Error(W)
+pageNotFound.heading = (W)Page not found(W)
+pageNotFound.p1 = (W)If you typed the web address, check it is correct.(W)
+pageNotFound.p2 = (W)If you pasted the web address, check you copied the entire address.(W)
+pageNotFound.p3 = (W)If the web address is correct or you selected a link or button, you should(W)
+pageNotFound.p3.link = (W)report a technical problem(W)
+pageNotFound.back.start.link = (W)Go back to the start(W)
 
 # Technical Difficulties error page Messages
 # ----------------------------------------------------------

@@ -17,8 +17,9 @@
 import models.transformers.TransformerKeeper
 import play.api.Logger
 import play.api.libs.json._
-import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.cache.client.CacheMap
+
+import scala.util.{Failure, Success, Try}
 
 package object transformers {
 
@@ -28,20 +29,28 @@ package object transformers {
 
     def getJson[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String)(implicit format: OFormat[T]): TransformerKeeper = {
 
-      cacheMap.getEntry[T](key) match {
-        case Some(result) =>
-          Json.obj(key -> Json.toJson(result)).transform(transformer) match {
-            case JsSuccess(requestJson, _) =>
-              logger.info(s"[CharitiesJsObject][getJson] $key transformation successful")
-              TransformerKeeper(transformerKeeper.accumulator ++ requestJson, transformerKeeper.errors)
+        Try(cacheMap.getEntry[T](key)) match {
+          case Success(Some(result)) =>
+            Json.obj(key -> Json.toJson(result)).transform(transformer) match {
+              case JsSuccess(requestJson, _) =>
+                logger.info(s"[CharitiesJsObject][getJson] $key transformation successful")
+                TransformerKeeper(transformerKeeper.accumulator ++ requestJson, transformerKeeper.errors)
 
-            case JsError(err) =>
-              logger.error(s"[CharitiesJsObject][getJson] $key transformation failed with errors: " + err)
-              TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
-          }
-        case None =>
-          transformerKeeper
-      }
+              case JsError(err) =>
+                logger.error(s"[CharitiesJsObject][getJson] $key transformation failed with errors: " + err)
+                TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
+            }
+          case Success(None) =>
+            transformerKeeper
+
+          case Failure(ex: JsResultException) =>
+            logger.info(s"[CharitiesJsObject][getJson] $key transformation failed with JsResultException: " + ex.getMessage)
+            TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ ex.errors)
+
+          case Failure(ex) =>
+            logger.error(s"[CharitiesJsObject][getJson] $key exception during transformation: " + ex.getMessage)
+            throw ex
+        }
     }
 
     def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(

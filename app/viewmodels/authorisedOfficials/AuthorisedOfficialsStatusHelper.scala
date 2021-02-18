@@ -77,7 +77,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
           case Some(false) =>
             val newPages = authorisedOfficial1common.getOfficialPages(0, isNino1, isPreviousAddress1)
 
-            userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages) && validateDataFromOldService(userAnswers)
+            userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
           case Some(true) =>
 
             (userAnswers.get(IsAuthorisedOfficialNinoPage(1)), userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(1))) match {
@@ -86,7 +86,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
                   .getOfficialPages(0, isNino1, isPreviousAddress1)
                   .getOfficialPages(1, isNino2, isPreviousAddress2, authorisedOfficial2common)
 
-                userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages) && validateDataFromOldService(userAnswers)
+                userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
               case _ => false
             }
           case _ => false

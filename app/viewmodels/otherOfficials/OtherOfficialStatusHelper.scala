@@ -82,7 +82,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
               .getOfficialPages(0, isNino1, isPreviousAddress1)
               .getOfficialPages(1, isNino2, isPreviousAddress2, otherOfficial2common)
 
-            userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages) && validateDataFromOldService(userAnswers)
+            userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
 
           case Some(true) =>
 
@@ -93,7 +93,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
                   .getOfficialPages(1, isNino2, isPreviousAddress2, otherOfficial2common)
                   .getOfficialPages(2, isNino3, isPreviousAddress3, otherOfficial3common)
 
-                userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages) && validateDataFromOldService(userAnswers)
+                userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
 
               case _ => false
             }

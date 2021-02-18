@@ -297,6 +297,12 @@ switchOverError.p1 = We have redesigned this service since you last worked on yo
 switchOverError.p2 = We have brought some of your answers across to the new service. However some of your answers have been lost.
 switchOverError.p3.link = Continue with your application
 
+# Switch over answers lost error page Messages
+# ----------------------------------------------------------
+switchOverAnswersLostError.title = Sorry, your answers have been lost - Error
+switchOverAnswersLostError.heading = Sorry, your answers have been lost
+switchOverAnswersLostError.p1 = We have updated this service since the last time you used it. Something went wrong and your answers have been lost. You will need to start the application again.
+
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
 checkIfYouCanRegister.title = Check if you can register the charity

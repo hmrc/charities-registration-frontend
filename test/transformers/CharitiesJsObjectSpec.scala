@@ -17,13 +17,13 @@
 package transformers
 
 import base.SpecBase
-import models.oldCharities.{CharityAddress, CharityAuthorisedOfficialIndividual, CharityHowManyAuthOfficials, OfficialIndividualIdentity, OfficialIndividualNationalIdentityCardDetails, OptionalCharityAddress}
+import models.oldCharities._
 import models.transformers.TransformerKeeper
 import org.joda.time.LocalDate
 import org.mockito.ArgumentMatchers.{eq => meq}
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar.mock
-import play.api.libs.json.{Json, JsonValidationError, __}
+import play.api.libs.json.{JsResultException, Json, JsonValidationError, __}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 class CharitiesJsObjectSpec extends SpecBase {
@@ -66,6 +66,32 @@ class CharitiesJsObjectSpec extends SpecBase {
         transformerKeeper.errors mustBe Seq((__ \ 'charityHowManyOtherOfficials \ 'numberOfOtherOfficials,
           Seq(JsonValidationError(Seq("error.path.missing")))))
         transformerKeeper.accumulator mustBe Json.obj()
+
+      }
+
+      "failed with JsResultException when the input doesn't match the transformer" in {
+        when(mockCacheMap.getEntry[CharityHowManyAuthOfficials](
+          meq("charityHowManyAuthOfficials"))(meq(CharityHowManyAuthOfficials.formats))).thenThrow(JsResultException(List((__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials, List(JsonValidationError(List("error.path.missing")))))))
+
+        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+          .getJson(mockCacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials, "charityHowManyAuthOfficials")(
+            CharityHowManyAuthOfficials.formats)
+
+        transformerKeeper.errors mustBe Seq((__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials,
+          Seq(JsonValidationError(Seq("error.path.missing")))))
+        transformerKeeper.accumulator mustBe Json.obj()
+
+      }
+
+      "failed with throwable when unknown exception thrown during transformation" in {
+        when(mockCacheMap.getEntry[CharityHowManyAuthOfficials](
+          meq("charityHowManyAuthOfficials"))(meq(CharityHowManyAuthOfficials.formats))).thenThrow(new RuntimeException)
+
+        intercept[RuntimeException] {
+          TransformerKeeper(Json.obj(), Seq.empty)
+            .getJson(mockCacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials, "charityHowManyAuthOfficials")(
+              CharityHowManyAuthOfficials.formats)
+        }
 
       }
     }

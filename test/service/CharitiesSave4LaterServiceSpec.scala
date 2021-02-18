@@ -23,13 +23,14 @@ import connectors.CharitiesShortLivedCache
 import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
+import models.transformers.TransformerKeeper
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{reset, when}
-import org.scalatest.BeforeAndAfterEach
+import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, JsonValidationError, __}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import repositories.AbstractRepository
@@ -931,7 +932,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
         initialiseCache()
 
-        val result = await(service.getCacheData(OptionalDataRequest(FakeRequest("", ""), "8799940975137654", None), mockSessionId, mockEligibleJourneyId))
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(OptionalDataRequest(FakeRequest("", ""), "8799940975137654", None), mockSessionId, mockEligibleJourneyId))
 
         result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
       }
@@ -944,6 +945,76 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           await(service.getCacheData(optionalDataRequest, SessionId(sessionId), None))
         }
       }
+    }
+
+    "updateSwitchOverUserAnswer" must {
+
+      "return valid object when passing existing userAnswers and no error in TransformerKeeper" in new LocalSetup with PrivateMethodTester {
+
+        val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] = PrivateMethod[Future[Either[Call, UserAnswers]]]('updateSwitchOverUserAnswer)
+
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
+
+        val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
+          "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
+          "isSection1Completed" -> false, "isSwitchOver" -> true))
+
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+
+        whenReady(result) { res =>
+          res.right.get.data mustBe ua.data
+        }
+      }
+
+      "return SwitchOverError passing existing userAnswers and error in TransformerKeeper" in new LocalSetup with PrivateMethodTester {
+
+        val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] = PrivateMethod[Future[Either[Call, UserAnswers]]]('updateSwitchOverUserAnswer)
+
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List((__ \ 'charityContactDetails \ 'fullName, List(JsonValidationError(List("error.path.missing"))))))
+
+        val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
+          "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
+          "isSection1Completed" -> false, "isSwitchOver" -> true))
+
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+
+        whenReady(result) { res =>
+          res.left.get mustBe controllers.routes.SwitchOverErrorController.onPageLoad()
+        }
+      }
+
+      "return SwitchOverAnswersLostError when no existing useranswers and error in TransformerKeeper" in new LocalSetup with PrivateMethodTester {
+
+        val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] = PrivateMethod[Future[Either[Call, UserAnswers]]]('updateSwitchOverUserAnswer)
+
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List((__ \ 'charityContactDetails \ 'fullName, List(JsonValidationError(List("error.path.missing"))))))
+
+        val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj())
+
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+
+        whenReady(result) { res =>
+          res.left.get mustBe controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad()
+        }
+      }
+
+      "return valid object when no existing useranswers and no error in TransformerKeeper" in new LocalSetup with PrivateMethodTester {
+
+        val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] = PrivateMethod[Future[Either[Call, UserAnswers]]]('updateSwitchOverUserAnswer)
+
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
+
+        val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj())
+
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+
+        whenReady(result) { res =>
+          res.right.get.data mustBe emptyUserAnswers.data
+        }
+      }
+
     }
   }
 }

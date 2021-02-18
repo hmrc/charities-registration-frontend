@@ -297,6 +297,12 @@ switchOverError.p1 = Rydym wedi ailddylunio’r gwasanaeth hwn ers y tro diwetha
 switchOverError.p2 = Rydym wedi dod â rhai o’ch atebion i’r gwasanaeth newydd. Fodd bynnag, mae rhai o’ch atebion wedi’u colli.
 switchOverError.p3.link = Ewch yn eich blaen â’ch cais
 
+# Switch over answers lost error page Messages
+# ----------------------------------------------------------
+switchOverAnswersLostError.title = (W)Sorry, your answers have been lost - Error(W)
+switchOverAnswersLostError.heading = (W)Sorry, your answers have been lost(W)
+switchOverAnswersLostError.p1 = (W)We have updated this service since the last time you used it. Something went wrong and your answers have been lost. You will need to start the application again.(W)
+
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
 checkIfYouCanRegister.title = Gwirio a allwch gofrestru’r elusen

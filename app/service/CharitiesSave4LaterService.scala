@@ -144,7 +144,11 @@ class CharitiesSave4LaterService @Inject()(
         }
       }
     } else {
-      userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
+      if(result.errors.nonEmpty) {
+        userAnswerService.set(userAnswers).map(_ => Left(controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad()))
+      } else {
+        userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
+      }
     }
   }
 

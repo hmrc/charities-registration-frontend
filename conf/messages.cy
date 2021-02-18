@@ -256,12 +256,12 @@ registrationSent.post.prefer.p = Gallwch
 registrationSent.post.prefer.link = ddilyn y cyfarwyddiadau i anfon dogfennau ategol eich elusen drwy e-bost
 registrationSent.post.prefer.afterLink = .
 
-registrationSent.whatHappensNext.h2 = Yr hyn sy’n digwydd ar ôl i’ch dogfennau ddod i law
-registrationSent.whatHappensNext.p1 = Gall gymryd hyd at 6 wythnos i brosesu’ch cofrestriad.
-registrationSent.whatHappensNext.p2 = Byddwn wedyn yn anfon llythyrau at y swyddogion a’r enwebai i gadarnhau eu bod wedi’u cofrestru gyda’r elusen.
+registrationSent.whatHappensNext.h2 = (W) What happens next (W)
+registrationSent.whatHappensNext.p1 = (W) After we receive your documents, it can take up to 6 weeks to process your registration. (W)
+registrationSent.whatHappensNext.p2 = (W) We will send letters to the officials and the nominee to say that you've given us their details in the application. (W)
 registrationSent.whatHappensNext.p3 = Byddwn hefyd yn anfon llythyr at gyfeiriad post yr elusen a fydd yn rhoi gwybod i chi sut i hawlio Rhodd Cymorth.
-registrationSent.changeSomething = Os oes angen i chi newid rhywbeth
-registrationSent.changeSomething.p1 = Os oes angen i chi newid rhywbeth ar eich cais, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM ar
+registrationSent.changeSomething = (W) If you need to change something urgently (W)
+registrationSent.changeSomething.p1 = (W) If there is something that you need to change urgently, contact the charities helpline on (W)
 registrationSent.changeSomething.helplineNumber = 0300 200 1900
 registrationSent.changeSomething.afterHelplineNumber = .
 

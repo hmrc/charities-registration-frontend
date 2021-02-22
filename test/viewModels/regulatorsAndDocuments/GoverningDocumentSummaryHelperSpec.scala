@@ -17,7 +17,6 @@
 package viewModels.regulatorsAndDocuments
 
 import java.time.LocalDate
-
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
@@ -25,6 +24,7 @@ import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 
@@ -47,7 +47,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.selectGoverningDocumentRow mustBe Some(summaryListRow(
           messages("selectGoverningDocument.checkYourAnswersLabel"),
-          messages(s"selectGoverningDocument.$MemorandumArticlesAssociation"),
+          HtmlContent(messages(s"selectGoverningDocument.$MemorandumArticlesAssociation")),
           Some(messages("selectGoverningDocument.checkYourAnswersLabel")),
           regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -60,7 +60,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.whatIsTheGoverningDocumentNameRow mustBe Some(summaryListRow(
           messages("governingDocumentName.checkYourAnswersLabel"),
-          ("will"),
+          HtmlContent("will"),
           Some(messages("governingDocumentName.checkYourAnswersLabel")),
           regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -73,7 +73,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.dateApprovedGoverningDocumentRow mustBe Some(summaryListRow(
           messages("whenGoverningDocumentApproved.checkYourAnswersLabel"),
-          "2 January 2000",
+          HtmlContent("2 January 2000"),
           Some(messages("whenGoverningDocumentApproved.checkYourAnswersLabel")),
           regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -86,7 +86,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.isApprovedGoverningDocumentRow  mustBe Some(summaryListRow(
           messages("isApprovedGoverningDocument.checkYourAnswersLabel"),
-          BaseMessages.yes,
+          HtmlContent(BaseMessages.yes),
           Some(messages("isApprovedGoverningDocument.checkYourAnswersLabel")),
           regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -99,7 +99,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.hasCharityChangedPartsOfGoverningDocumentRow  mustBe Some(summaryListRow(
           messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel"),
-          BaseMessages.yes,
+          HtmlContent(BaseMessages.yes),
           Some(messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel")),
           regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -112,7 +112,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
         helper.sectionsChangedGoverningDocumentRow  mustBe Some(summaryListRow(
           messages("sectionsChangedGoverningDocument.checkYourAnswersLabel"),
-          "Governing document change",
+          HtmlContent("Governing document change"),
           Some(messages("sectionsChangedGoverningDocument.checkYourAnswersLabel")),
           regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))

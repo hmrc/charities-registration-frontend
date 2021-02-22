@@ -23,6 +23,7 @@ import controllers.contactDetails.{routes => charityInfoRoutes}
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.charityInformation.CharityInformationSummaryHelper
 
@@ -58,13 +59,13 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
 
         helper().charityNameRows mustBe Seq(summaryListRow(
           messages("charityName.fullName.checkYourAnswersLabel"),
-          "Believe",
+          HtmlContent("Believe"),
           Some(messages("charityName.fullName.checkYourAnswersLabel")),
           charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ),
         summaryListRow(
           messages("charityName.operatingName.checkYourAnswersLabel"),
-          "Original Charity",
+          HtmlContent("Original Charity"),
           Some(messages("charityName.operatingName.checkYourAnswersLabel")),
           charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         )
@@ -79,19 +80,19 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().charityContactDetailsRows mustBe Seq(
           summaryListRow(
           messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel"),
-          "07700 900 982",
+            HtmlContent("07700 900 982"),
           Some(messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel")),
           charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel"),
-            "07700 900 982",
+            HtmlContent("07700 900 982"),
             Some(messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel")),
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("charityContactDetails.emailAddress.checkYourAnswersLabel"),
-            "japan@china.com",
+            HtmlContent("japan@china.com"),
             Some(messages("charityContactDetails.emailAddress.checkYourAnswersLabel")),
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -106,7 +107,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().officialAddressRow mustBe Seq(
           summaryListRow(
             messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel"),
-            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel")),
             controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney() -> BaseMessages.changeLink
           )
@@ -121,7 +122,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().canWeSendToThisAddressRow mustBe Seq(
           summaryListRow(
            messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-          s"${messages("site.yes")}<div>${"Test 1, Test 2, AA00 0AA, United Kingdom"}</div>",
+            HtmlContent(s"<div>${messages("site.yes")}</div>${"Test 1, Test 2, AA00 0AA, United Kingdom"}"),
            Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
            charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -136,7 +137,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper(postalAnswers).canWeSendToThisAddressRow mustBe Seq(
           summaryListRow(
             messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-            s"${messages("site.no")}<div>${messages("canWeSendLettersToThisAddress.no.hint")}</div>",
+            HtmlContent(s"${messages("site.no")}<div>${messages("canWeSendLettersToThisAddress.no.hint")}</div>"),
             Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -151,7 +152,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper(postalAnswers).postalAddressRow mustBe Seq(
           summaryListRow(
             messages("charityPostalAddress.addressLookup.checkYourAnswersLabel"),
-            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("charityPostalAddress.addressLookup.checkYourAnswersLabel")),
             controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney() -> BaseMessages.changeLink
           )

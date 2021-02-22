@@ -18,7 +18,6 @@ package viewModels.authorisedOfficials
 
 
 import java.time.LocalDate
-
 import assets.constants.ConfirmedAddressConstants
 import assets.messages.BaseMessages
 import base.SpecBase
@@ -31,6 +30,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
 
@@ -68,7 +68,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
 
         helper(authorisedOfficialDetails(), 0).authOfficialNamesRow mustBe Some(summaryListRow(
           messages("authorisedOfficialsName.checkYourAnswersLabel"),
-          "Mr John Jones",
+          HtmlContent("Mr John Jones"),
           Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
           authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
         )
@@ -79,7 +79,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
 
         helper(authorisedOfficialDetails(SelectTitle.UnsupportedTitle), 0).authOfficialNamesRow mustBe Some(summaryListRow(
           messages("authorisedOfficialsName.checkYourAnswersLabel"),
-          "John Jones",
+          HtmlContent("John Jones"),
           Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
           authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
         )
@@ -94,7 +94,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialDobRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsDOB.checkYourAnswersLabel"),
-            "2 January 2000",
+            HtmlContent("2 January 2000"),
             Some(messages("authorisedOfficialsDOB.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsDOBController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -109,7 +109,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            "07700 900 982",
+            HtmlContent("07700 900 982"),
             Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           ))
@@ -124,7 +124,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            "07700 900 982",
+            HtmlContent("07700 900 982"),
             Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           ))
@@ -138,7 +138,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialPositionRow mustBe Some(
           summaryListRow(
             messages("officialsPosition.checkYourAnswersLabel"),
-            "Board member",
+            HtmlContent("Board member"),
             Some(messages("officialsPosition.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPositionController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -153,7 +153,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialHasNinoRow mustBe Some(
           summaryListRow(
             messages("isAuthorisedOfficialNino.checkYourAnswersLabel"),
-            s"${messages("site.yes")}",
+            HtmlContent(s"${messages("site.yes")}"),
             Some(messages("isAuthorisedOfficialNino.checkYourAnswersLabel")),
             authOfficials.IsAuthorisedOfficialNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -168,7 +168,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialNinoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsNino.checkYourAnswersLabel"),
-            "AA123456A",
+            HtmlContent("AA123456A"),
             Some(messages("authorisedOfficialsNino.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -183,7 +183,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialPassportNumberRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel"),
-            "GB12345",
+            HtmlContent("GB12345"),
             Some(messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -195,7 +195,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialCountryOfIssueRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
-            "United Kingdom",
+            HtmlContent("United Kingdom"),
             Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -208,7 +208,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
           Passport("GB12345", "Unknown", LocalDate.of(year, month, dayOfMonth))).success.value, 0).authOfficialCountryOfIssueRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
-            "Unknown",
+            HtmlContent("Unknown"),
             Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -220,7 +220,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialExpiryDateRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel"),
-            "2 January 2000",
+            HtmlContent("2 January 2000"),
             Some(messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -235,7 +235,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialAddress.checkYourAnswersLabel"),
-            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("authorisedOfficialAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
@@ -250,7 +250,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialHadPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel"),
-            s"${messages("site.no")}",
+            HtmlContent(s"${messages("site.no")}"),
             Some(messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel")),
             authOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -266,7 +266,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
           ConfirmedAddressConstants.address).success.value, 0).authOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
-            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )

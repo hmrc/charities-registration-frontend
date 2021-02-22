@@ -16,8 +16,6 @@
 
 package viewModels.nominees
 
-import java.time.LocalDate
-
 import assets.constants.ConfirmedAddressConstants
 import assets.messages.BaseMessages
 import base.SpecBase
@@ -30,8 +28,11 @@ import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
 import pages.nominees._
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeOrganisationSummaryHelper
+
+import java.time.LocalDate
 
 class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
@@ -74,7 +75,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeName mustBe Some(summaryListRow(
           messages("nameOfOrganisation.checkYourAnswersLabel"),
-          "Company Inc",
+          HtmlContent("Company Inc"),
           Some(messages("nameOfOrganisation.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationNomineeNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -87,7 +88,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeMainPhone mustBe Some(summaryListRow(
           messages("organisationContactDetails.phoneNumber.checkYourAnswersLabel"),
-          "0123123123",
+          HtmlContent("0123123123"),
           Some(messages("organisationContactDetails.phoneNumber.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationNomineeContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -99,7 +100,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeEmailAddress mustBe Some(summaryListRow(
           messages("organisationContactDetails.email.checkYourAnswersLabel"),
-          "company@inc.com",
+          HtmlContent("company@inc.com"),
           Some(messages("organisationContactDetails.email.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationNomineeContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -111,7 +112,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeAddress mustBe Some(summaryListRow(
           messages("organisationNomineeAddress.checkYourAnswersLabel"),
-          "Test 1, Test 2, AA00 0AA, United Kingdom",
+          Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
           Some(messages("organisationNomineeAddress.checkYourAnswersLabel")),
           controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(CheckMode) -> BaseMessages.changeLink
         ))
@@ -123,7 +124,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeAddressChanged mustBe Some(summaryListRow(
           messages("isOrganisationNomineePreviousAddress.checkYourAnswersLabel"),
-          messages("site.no"),
+          HtmlContent(messages("site.no")),
           Some(messages("isOrganisationNomineePreviousAddress.checkYourAnswersLabel")),
           nomineesRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -135,7 +136,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineePreviousAddress mustBe Some(summaryListRow(
           messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel"),
-          "Test 1, Test 2, AA00 0AA, United Kingdom",
+          Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
           Some(messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel")),
           controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(CheckMode) -> BaseMessages.changeLink
         ))
@@ -147,7 +148,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeCanBePaid mustBe Some(summaryListRow(
           messages("isOrganisationNomineePayments.checkYourAnswersLabel"),
-          messages("site.yes"),
+          HtmlContent(messages("site.yes")),
           Some(messages("isOrganisationNomineePayments.checkYourAnswersLabel")),
           nomineesRoutes.IsOrganisationNomineePaymentsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -159,7 +160,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeAccountName mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.accountName.checkYourAnswersLabel"),
-          "PM Cares",
+          HtmlContent("PM Cares"),
           Some(messages("organisationNomineesBankDetails.accountName.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -171,7 +172,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeSortCode mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.sortCode.checkYourAnswersLabel"),
-          "176534",
+          HtmlContent("176534"),
           Some(messages("organisationNomineesBankDetails.sortCode.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -183,7 +184,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeAccountNumber mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel"),
-          "43444546",
+          HtmlContent("43444546"),
           Some(messages("organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -195,7 +196,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.nomineeBuildingRoll mustBe Some(summaryListRow(
           messages("organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel"),
-          "765431234",
+          HtmlContent("765431234"),
           Some(messages("organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -207,7 +208,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.authorisedPersonName mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonName.checkYourAnswersLabel"),
-          "Mr John Jones",
+          HtmlContent("Mr John Jones"),
           Some(messages("organisationAuthorisedPersonName.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationAuthorisedPersonNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -219,7 +220,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.authorisedPersonDOB mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel"),
-          "2 January 1991",
+          HtmlContent("2 January 1991"),
           Some(messages("organisationAuthorisedPersonDOB.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -231,7 +232,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.authorisedPersonHasNino mustBe Some(summaryListRow(
           messages("isOrganisationNomineeNino.checkYourAnswersLabel"),
-          messages("site.yes"),
+          HtmlContent(messages("site.yes")),
           Some(messages("isOrganisationNomineeNino.checkYourAnswersLabel")),
           nomineesRoutes.IsOrganisationNomineeNinoController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -243,7 +244,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row" in {
         helperNino.authorisedPersonNino mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonNino.checkYourAnswersLabel"),
-          "AB123123A",
+          HtmlContent("AB123123A"),
           Some(messages("organisationAuthorisedPersonNino.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -255,7 +256,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row for country of issue" in {
         helperPassport.authorisedPersonPassportCountry mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonPassport.country.checkYourAnswersLabel"),
-          "United Kingdom",
+          HtmlContent("United Kingdom"),
           Some(messages("organisationAuthorisedPersonPassport.country.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -264,7 +265,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row for passport number" in {
         helperPassport.authorisedPersonPassportNumber mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel"),
-          "GB12345",
+          HtmlContent("GB12345"),
           Some(messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -273,7 +274,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       "have a correctly formatted summary list row for expiry date" in {
         helperPassport.authorisedPersonPassportExpiry mustBe Some(summaryListRow(
           messages("organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel"),
-          "2 January 1991",
+          HtmlContent("2 January 1991"),
           Some(messages("organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel")),
           nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))

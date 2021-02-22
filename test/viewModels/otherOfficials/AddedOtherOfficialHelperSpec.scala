@@ -17,19 +17,19 @@
 package viewModels.otherOfficials
 
 import java.time.LocalDate
-
 import assets.constants.ConfirmedAddressConstants
 import assets.messages.BaseMessages
 import base.SpecBase
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
-import models.{Index, Name, PhoneNumber, CheckMode, SelectTitle, UserAnswers}
+import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.otherOfficials.AddedOtherOfficialHelper
 
@@ -66,7 +66,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper(otherOfficialDetails, 0).otherOfficialNamesRow mustBe Some(summaryListRow(
           messages("otherOfficialsName.checkYourAnswersLabel"),
-          "Mr John Jones",
+          HtmlContent("Mr John Jones"),
           Some(messages("otherOfficialsName.checkYourAnswersLabel")),
           otherOfficials.OtherOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
         )
@@ -81,7 +81,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialDobRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsDOB.checkYourAnswersLabel"),
-            "2 January 2000",
+            HtmlContent("2 January 2000"),
             Some(messages("otherOfficialsDOB.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsDOBController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -96,7 +96,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            "07700 900 982",
+            HtmlContent("07700 900 982"),
             Some(messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           ))
@@ -111,7 +111,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            "07700 900 982",
+            HtmlContent("07700 900 982"),
             Some(messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           ))
@@ -125,7 +125,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialPositionRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPosition.checkYourAnswersLabel"),
-            "Board member",
+            HtmlContent("Board member"),
             Some(messages("otherOfficialsPosition.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPositionController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -140,7 +140,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialHasNinoRow mustBe Some(
           summaryListRow(
             messages("isOtherOfficialNino.checkYourAnswersLabel"),
-            s"${messages("site.yes")}",
+            HtmlContent(s"${messages("site.yes")}"),
             Some(messages("isOtherOfficialNino.checkYourAnswersLabel")),
             otherOfficials.IsOtherOfficialNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -155,7 +155,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialNinoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsNino.checkYourAnswersLabel"),
-            "AA123456A",
+            HtmlContent("AA123456A"),
             Some(messages("otherOfficialsNino.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -170,7 +170,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialAddressRow mustBe Some(
           summaryListRow(
             messages("otherOfficialAddress.checkYourAnswersLabel"),
-            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("otherOfficialAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
@@ -185,7 +185,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialHadPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("isOtherOfficialsPreviousAddress.checkYourAnswersLabel"),
-            s"${messages("site.no")}",
+            HtmlContent(s"${messages("site.no")}"),
             Some(messages("isOtherOfficialsPreviousAddress.checkYourAnswersLabel")),
             otherOfficials.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -201,7 +201,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
           ConfirmedAddressConstants.address).success.value, 0).otherOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
-            "Test 1, Test 2, AA00 0AA, United Kingdom",
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )

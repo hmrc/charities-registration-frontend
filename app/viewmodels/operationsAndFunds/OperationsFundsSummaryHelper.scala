@@ -25,6 +25,7 @@ import pages.operationsAndFunds._
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
@@ -32,7 +33,6 @@ import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countryService: CountryService)
                                   (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
     with SummaryListRowHelper with CurrencyFormatter {
-
 
   val overseasOperatingLocationSummaryHelper = new OverseasOperatingLocationSummaryHelper(userAnswers, countryService, CheckMode)
 
@@ -71,7 +71,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
       userAnswers.get(page).map{ ans =>
         summaryListRow(
           label = messages(s"$page.checkYourAnswersLabel"),
-          value = ans,
+          value = HtmlContent(ans),
           visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )

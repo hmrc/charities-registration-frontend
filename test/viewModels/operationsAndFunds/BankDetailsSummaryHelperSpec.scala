@@ -21,6 +21,7 @@ import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.{BankDetails, CheckMode, UserAnswers}
 import pages.operationsAndFunds.BankDetailsPage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
 import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 
@@ -41,25 +42,25 @@ class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.rows mustBe Seq(summaryListRow(
           messages("bankDetails.accountName.checkYourAnswersLabel"),
-          "PM Cares",
+          HtmlContent("PM Cares"),
           Some(messages("bankDetails.accountName.checkYourAnswersLabel")),
           operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ),
         summaryListRow(
           messages("bankDetails.sortCode.checkYourAnswersLabel"),
-          "176534",
+          HtmlContent("176534"),
           Some(messages("bankDetails.sortCode.checkYourAnswersLabel")),
           operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ),
         summaryListRow(
           messages("bankDetails.accountNumber.checkYourAnswersLabel"),
-          "43444546",
+          HtmlContent("43444546"),
           Some(messages("bankDetails.accountNumber.checkYourAnswersLabel")),
           operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ),
         summaryListRow(
           messages("bankDetails.rollNumber.checkYourAnswersLabel"),
-          "765431234",
+          HtmlContent("765431234"),
           Some(messages("bankDetails.rollNumber.checkYourAnswersLabel")),
           operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         )

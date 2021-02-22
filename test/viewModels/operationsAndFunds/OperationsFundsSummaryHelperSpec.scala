@@ -26,6 +26,7 @@ import org.joda.time.{LocalDate, MonthDay}
 import org.scalatestplus.mockito.MockitoSugar
 import pages.operationsAndFunds._
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
 import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
@@ -59,7 +60,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.fundRaisingRow mustBe Some(
           summaryListRow(
             messages("selectFundRaising.checkYourAnswersLabel"),
-            fundRaisingList,
+            HtmlContent(fundRaisingList),
             Some(messages("selectFundRaising.checkYourAnswersLabel")),
             operationFundsRoutes.FundRaisingController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -73,7 +74,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
         helper.countryOfEstablishmentRow mustBe Some(summaryListRow(
           messages("charityEstablishedIn.checkYourAnswersLabel"),
-          messages(s"charityEstablishedIn.$England"),
+          HtmlContent(messages(s"charityEstablishedIn.$England")),
           Some(messages("charityEstablishedIn.checkYourAnswersLabel")),
           operationFundsRoutes.CharityEstablishedInController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -90,7 +91,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.operatingLocationRow mustBe Some(
           summaryListRow(
             messages("operatingLocation.checkYourAnswersLabel"),
-            operatingLocationList,
+            HtmlContent(operatingLocationList),
             Some(messages("operatingLocation.checkYourAnswersLabel")),
             operationFundsRoutes.OperatingLocationController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -105,7 +106,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.isFinancialAccountsRow mustBe Some(
           summaryListRow(
             messages("isFinancialAccounts.checkYourAnswersLabel"),
-            messages("site.yes"),
+            HtmlContent(messages("site.yes")),
             Some(messages("isFinancialAccounts.checkYourAnswersLabel")),
             operationFundsRoutes.IsFinancialAccountsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -120,7 +121,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.estimatedAmountRow mustBe Some(
           summaryListRow(
             messages("estimatedIncome.checkYourAnswersLabel"),
-            "£1,123.12",
+            HtmlContent("£1,123.12"),
             Some(messages("estimatedIncome.checkYourAnswersLabel")),
             operationFundsRoutes.EstimatedIncomeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -135,7 +136,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.actualAmountRow mustBe Some(
           summaryListRow(
             messages("actualIncome.checkYourAnswersLabel"),
-            "£11,123.12",
+            HtmlContent("£11,123.12"),
             Some(messages("actualIncome.checkYourAnswersLabel")),
             operationFundsRoutes.ActualIncomeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -150,7 +151,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.isBankStatementsRow mustBe Some(
           summaryListRow(
             messages("isBankStatements.checkYourAnswersLabel"),
-            messages("site.yes"),
+            HtmlContent(messages("site.yes")),
             Some(messages("isBankStatements.checkYourAnswersLabel")),
             operationFundsRoutes.IsBankStatementsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -165,7 +166,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
         helper.accountingPeriodRow mustBe Some(
           summaryListRow(
             messages("accountingPeriodEndDate.checkYourAnswersLabel"),
-            "1 October",
+            HtmlContent("1 October"),
             Some(messages("accountingPeriodEndDate.checkYourAnswersLabel")),
             operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

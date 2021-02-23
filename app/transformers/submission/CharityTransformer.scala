@@ -74,8 +74,8 @@ class CharityTransformer extends JsonTransformer {
         (__ \ 'aboutOrganisation \ 'documentEnclosed).json.copyFrom((__ \ 'selectGoverningDocument).json.pick) and
         (__ \ 'aboutOrganisation \ 'governingApprovedDoc).json.copyFrom((__ \ 'isApprovedGoverningDocument).json.pick) and
         (__ \ 'hasCharityChangedPartsOfGoverningDocument).readNullable[Boolean].flatMap {
-          case Some(value) => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(value))
-          case _ => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(false))
+          case Some(value) => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(!value))
+          case _ => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(true))
         } and
         (__ \ 'sectionsChangedGoverningDocument).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(changes.substring(0,255)))
@@ -96,7 +96,7 @@ class CharityTransformer extends JsonTransformer {
     }
     (
       (__ \ 'accountingPeriodEndDate).read[String].flatMap(accountPeriod =>
-        (__ \ 'operationAndFundsCommon \ 'accountPeriodEnd).json.put(JsString(accountPeriod.replaceAll("-", "")))) and
+        (__ \ 'operationAndFundsCommon \ 'accountPeriodEnd).json.put{JsString(("""\d+""".r findAllIn accountPeriod).toList.reverse.mkString)}) and
         (__ \ 'operationAndFundsCommon \ 'financialAccounts).json.copyFrom(hasFinancialAccounts) and
         (__ \ 'whyNoBankStatement).readNullable[String].flatMap {
           case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(changes.substring(0,255)))

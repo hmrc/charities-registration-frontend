@@ -235,7 +235,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |      "documentEnclosed": "2",
             |      "governingApprovedDoc": true,
-            |      "governingApprovedWords": false,
+            |      "governingApprovedWords": true,
             |      "governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
             |      "governingApprovedChangesB": "11223344556677889900"
             |    }
@@ -264,7 +264,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |      "documentEnclosed": "2",
             |      "governingApprovedDoc": true,
-            |      "governingApprovedWords": false,
+            |      "governingApprovedWords": true,
             |      "governingApprovedChanges": "changes are shorter than 255 characters"
             |    }
             |}""".stripMargin
@@ -289,7 +289,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |      "documentEnclosed": "2",
             |      "governingApprovedDoc": false,
-            |      "governingApprovedWords": false
+            |      "governingApprovedWords": true
             |    }
             |}""".stripMargin
 
@@ -302,7 +302,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object and changes are >255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 12, 25).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(IsFinancialAccountsPage, true).flatMap(
             _.set(WhyNoBankStatementPage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
@@ -311,7 +311,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |    "operationAndFundsCommon": {
-            |     "accountPeriodEnd": "0101",
+            |     "accountPeriodEnd": "2512",
             |     "financialAccounts": true,
             |      "noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
             |      "noBankStatementsB": "11223344556677889900"
@@ -324,7 +324,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object and changes are <255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 11, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(IsFinancialAccountsPage, true).flatMap(
             _.set(WhyNoBankStatementPage,
               "the changes are less than 255 characters long"))
@@ -333,7 +333,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val expectedJson =
           """{
             |    "operationAndFundsCommon": {
-            |     "accountPeriodEnd": "0101",
+            |     "accountPeriodEnd": "0111",
             |     "financialAccounts": true,
             |      "noBankStatements": "the changes are less than 255 characters long"
             |   }
@@ -345,13 +345,13 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object with no bank statements" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 15).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
           _.set(IsFinancialAccountsPage, false)).success.value
 
         val expectedJson =
           """{
             |    "operationAndFundsCommon": {
-            |     "accountPeriodEnd": "0101",
+            |     "accountPeriodEnd": "1501",
             |     "financialAccounts": false
             |   }
             |}""".stripMargin
@@ -891,7 +891,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |        },
             |        "documentEnclosed": "2",
             |        "governingApprovedDoc": true,
-            |        "governingApprovedWords": false,
+            |        "governingApprovedWords": true,
             |        "governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
             |        "governingApprovedChangesB": "11223344556677889900"
             |      },
@@ -990,7 +990,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |        },
             |        "documentEnclosed": "2",
             |        "governingApprovedDoc": false,
-            |        "governingApprovedWords": false
+            |        "governingApprovedWords": true
             |      },
             |      "operationAndFunds": {
             |        "operationAndFundsCommon": {

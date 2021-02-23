@@ -133,7 +133,7 @@ trait CharityTransformerConstants extends SpecBase{
        |        },
        |        "documentEnclosed": "2",
        |        "governingApprovedDoc": true,
-       |        "governingApprovedWords": false,
+       |        "governingApprovedWords": true,
        |        "governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
        |        "governingApprovedChangesB": "11223344556677889900"
        |      },
@@ -429,7 +429,7 @@ trait CharityTransformerConstants extends SpecBase{
        |        },
        |        "documentEnclosed": "2",
        |        "governingApprovedDoc": false,
-       |        "governingApprovedWords": false
+       |        "governingApprovedWords": true
        |      },
        |      "operationAndFunds": {
        |        "operationAndFundsCommon": {
@@ -597,7 +597,7 @@ trait CharityTransformerConstants extends SpecBase{
        |        },
        |        "documentEnclosed": "2",
        |        "governingApprovedDoc": false,
-       |        "governingApprovedWords": false
+       |        "governingApprovedWords": true
        |      },
        |      "operationAndFunds": {
        |        "operationAndFundsCommon": {

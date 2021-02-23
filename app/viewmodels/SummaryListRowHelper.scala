@@ -17,19 +17,19 @@
 package viewmodels
 
 import play.api.mvc.Call
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 trait SummaryListRowHelper {
 
-  def summaryListRow(label: String, value: String, visuallyHiddenText: Option[String], actions: (Call, String)*): SummaryListRow = {
+  def summaryListRow(label: String, value: Content, visuallyHiddenText: Option[String], actions: (Call, String)*): SummaryListRow = {
     SummaryListRow(
       key = Key(
         content = Text(label),
         classes = "govuk-!-width-one-third"
       ),
       value = Value(
-        content = HtmlContent(value),
+        content = value,
         classes = "govuk-!-width-one-third"
       ),
       actions = Some(Actions(

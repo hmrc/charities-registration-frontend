@@ -23,6 +23,7 @@ import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{CharityOtherRegulatorDetails, CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
 import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 
@@ -52,7 +53,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.isCharityRegulatorRow mustBe Some(summaryListRow(
           messages("isCharityRegulator.checkYourAnswersLabel"),
-          BaseMessages.yes,
+          HtmlContent(BaseMessages.yes),
           Some(messages("isCharityRegulator.checkYourAnswersLabel")),
           regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -65,7 +66,8 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.charityRegulatorRow mustBe Some(summaryListRow(
           messages("charityRegulator.checkYourAnswersLabel"),
-          s"""<div>${messages(s"charityRegulator.$englandAndWales")}</div><div>${messages(s"charityRegulator.$scottish")}</div><div>${messages(s"charityRegulator.$northernIreland")}</div><div>${messages(s"charityRegulator.$other")}</div>""",
+          HtmlContent(
+            s"""<div>${messages(s"charityRegulator.$englandAndWales")}</div><div>${messages(s"charityRegulator.$scottish")}</div><div>${messages(s"charityRegulator.$northernIreland")}</div><div>${messages(s"charityRegulator.$other")}</div>""".stripMargin),
           Some(messages("charityRegulator.checkYourAnswersLabel")),
           regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -78,7 +80,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.charityCommissionRegRow mustBe Some(summaryListRow(
           messages("charityCommissionRegistrationNumber.checkYourAnswersLabel"),
-          "123456",
+          HtmlContent("123456"),
           Some(messages("charityCommissionRegistrationNumber.checkYourAnswersLabel")),
           regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -91,7 +93,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.scottishRegulatorRegRow mustBe Some(summaryListRow(
           messages("scottishRegulatorRegNumber.checkYourAnswersLabel"),
-          "SC123456",
+          HtmlContent("SC123456"),
           Some(messages("scottishRegulatorRegNumber.checkYourAnswersLabel")),
           regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -104,7 +106,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.nIRegulatorRegRow mustBe Some(summaryListRow(
           messages("nIRegulatorRegNumber.checkYourAnswersLabel"),
-          "123456",
+          HtmlContent("123456"),
           Some(messages("nIRegulatorRegNumber.checkYourAnswersLabel")),
           regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -117,7 +119,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.regulatorNameRow mustBe Some(summaryListRow(
           messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel"),
-          s"test",
+          HtmlContent(s"test"),
           Some(messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel")),
           regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -127,7 +129,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.regulatorRegistrationNumberRow mustBe Some(summaryListRow(
           messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel"),
-          s"${"123423"}",
+          HtmlContent(s"${"123423"}"),
           Some(messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel")),
           regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -140,7 +142,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.selectWhyNoRegulatorRow mustBe Some(summaryListRow(
           messages("selectWhyNoRegulator.checkYourAnswersLabel"),
-          messages(s"selectWhyNoRegulator.$EnglandWalesUnderThreshold"),
+          HtmlContent(messages(s"selectWhyNoRegulator.$EnglandWalesUnderThreshold")),
           Some(messages("selectWhyNoRegulator.checkYourAnswersLabel")),
           regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -153,7 +155,7 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper.whyNotRegisteredCharityRow mustBe Some(summaryListRow(
           messages("whyNotRegisteredWithCharity.checkYourAnswersLabel"),
-          "office closed",
+          HtmlContent("office closed"),
           Some(messages("whyNotRegisteredWithCharity.checkYourAnswersLabel")),
           regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))

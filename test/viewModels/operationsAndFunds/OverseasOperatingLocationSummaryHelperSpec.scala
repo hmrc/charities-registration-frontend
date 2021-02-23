@@ -28,6 +28,7 @@ import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import pages.operationsAndFunds._
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import utils.CurrencyFormatter
 import viewmodels.SummaryListRowHelper
 import viewmodels.operationsAndFunds.OverseasOperatingLocationSummaryHelper
@@ -73,7 +74,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
         helper.overseasOperatingLocationSummaryRow(0, onwardRoute) mustBe Some(
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 1),
-            value = "Thai",
+            value = HtmlContent("Thai"),
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 1)),
             onwardRoute -> BaseMessages.delete
           )
@@ -88,31 +89,31 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
         helper.rows mustBe List(
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 1),
-            value = "Thai",
+            value = HtmlContent("Thai"),
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 1)),
             operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(0)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 2),
-            value = "India",
+            value = HtmlContent("India"),
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 2)),
             operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(1)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 3),
-            value = "Portugal",
+            value = HtmlContent("Portugal"),
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 3)),
             operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(2)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 4),
-            value = "Paraguay",
+            value = HtmlContent("Paraguay"),
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 4)),
             operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(3)) -> BaseMessages.delete
           ),
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 5),
-            value = "Afghanistan",
+            value = HtmlContent("Afghanistan"),
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", 5)),
             operationFundsRoutes.IsRemoveOperatingCountryController.onPageLoad(NormalMode, Index(4)) -> BaseMessages.delete
           )
@@ -128,7 +129,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
         helper.overseasOperatingLocationSummaryCYARow(onwardRoute) mustBe Some(
           summaryListRow(
             label = messages("overseasOperatingLocationSummary.checkYourAnswersLabel"),
-            value = countries,
+            value = HtmlContent(countries),
             visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.checkYourAnswersLabel")),
             onwardRoute -> BaseMessages.changeLink
           )

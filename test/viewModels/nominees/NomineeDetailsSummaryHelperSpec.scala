@@ -21,6 +21,7 @@ import base.SpecBase
 import controllers.nominees.{routes => nomineesRoutes}
 import models.{CheckMode, UserAnswers}
 import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeDetailsSummaryHelper
 
@@ -41,7 +42,7 @@ class NomineeDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper
       "have a correctly formatted summary list row" in {
         helperNoNominee.authoriseNomineeRow mustBe Some(summaryListRow(
           messages("isAuthoriseNominee.checkYourAnswersLabel"),
-          messages("site.no"),
+          HtmlContent(messages("site.no")),
           Some(messages("isAuthoriseNominee.checkYourAnswersLabel")),
           nomineesRoutes.IsAuthoriseNomineeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
@@ -53,7 +54,7 @@ class NomineeDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper
       "have a correctly formatted summary list row" in {
         helperWithOrganisation.nomineeTypeRow mustBe Some(summaryListRow(
           messages("chooseNominee.checkYourAnswersLabel"),
-          messages("chooseNominee.false"),
+          HtmlContent(messages("chooseNominee.false")),
           Some(messages("chooseNominee.checkYourAnswersLabel")),
           nomineesRoutes.ChooseNomineeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))

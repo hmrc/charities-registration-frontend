@@ -22,6 +22,7 @@ import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
@@ -37,7 +38,7 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
       userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)).map{ code =>
         summaryListRow(
           label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", index + 1),
-          value = countryService.find(code).fold(code)(_.name),
+          value = HtmlContent(countryService.find(code).fold(code)(_.name)),
           visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", index + 1)),
           changeLinkCall -> messages("site.delete")
         )
@@ -51,7 +52,6 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
       result.flatten
     }
 
-
   def overseasOperatingLocationSummaryCYARow(changeLinkCall: Call): Option[SummaryListRow] = {
 
     val result1 = for(i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
@@ -60,8 +60,8 @@ class OverseasOperatingLocationSummaryHelper(override val userAnswers: UserAnswe
     userAnswers.get(WhatCountryDoesTheCharityOperateInPage(0)).map{ _ =>
       summaryListRow(
         label = messages("overseasOperatingLocationSummary.checkYourAnswersLabel"),
-        value = ans.foldLeft("")(
-          (accumulator,code) => accumulator + "<div>" + code + "</div>"),
+        value = HtmlContent(ans.foldLeft("")(
+          (accumulator,code) => accumulator + "<div>" + code + "</div>")),
         visuallyHiddenText = Some(messages(s"overseasOperatingLocationSummary.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

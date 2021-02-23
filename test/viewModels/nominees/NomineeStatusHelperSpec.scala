@@ -30,39 +30,39 @@ class NomineeStatusHelperSpec extends SpecBase {
 
   implicit class NomineeStatusPageSetter(userAnswers: UserAnswers) {
 
-    def addIndividualAddress: UserAnswers =
+    def addIndividualAddress(): UserAnswers =
       userAnswers.set(IsIndividualNomineePreviousAddressPage, true)
         .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address)).success.value
 
-    def addPassport: UserAnswers =
+    def addPassport(): UserAnswers =
       userAnswers.set(IsIndividualNomineeNinoPage, false)
         .flatMap(_.set(IndividualNomineesPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))).success.value
 
-    def addPayment: UserAnswers =
+    def addPayment(): UserAnswers =
       userAnswers.set(IsIndividualNomineePaymentsPage, true)
         .flatMap(_.set(IndividualNomineesBankDetailsPage, BankDetails(accountName = "PM Cares",
           sortCode = "176534",
           accountNumber = "43444546",
           rollNumber = Some("765431234")))).success.value
 
-    def removeNino: UserAnswers =
+    def removeNino(): UserAnswers =
       userAnswers.remove(IsIndividualNomineeNinoPage).success.value
 
-    def addOrganizationAddress: UserAnswers =
+    def addOrganizationAddress(): UserAnswers =
       userAnswers.set(IsOrganisationNomineePreviousAddressPage, true)
         .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, ConfirmedAddressConstants.address)).success.value
 
-    def addOrganisationPayment: UserAnswers =
+    def addOrganisationPayment(): UserAnswers =
       userAnswers.set(IsOrganisationNomineePaymentsPage, true)
         .flatMap(_.set(OrganisationNomineesBankDetailsPage, BankDetails(accountName = "PM Cares",
           sortCode = "176534",
           accountNumber = "43444546",
           rollNumber = Some("765431234")))).success.value
 
-    def removeOrganisationNomineeNino: UserAnswers =
+    def removeOrganisationNomineeNino(): UserAnswers =
       userAnswers.remove(IsOrganisationNomineeNinoPage).success.value
 
-    def addOrganisationNomineePassport: UserAnswers =
+    def addOrganisationNomineePassport(): UserAnswers =
       userAnswers.set(IsOrganisationNomineeNinoPage, false)
         .flatMap(_.set(OrganisationAuthorisedPersonPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))).success.value
   }

@@ -17,12 +17,14 @@
 package viewmodels.charityInformation
 
 import models.addressLookup.AddressModel
-import models.{CharityContactDetails, CharityName, CheckMode, PhoneNumber, UserAnswers}
+import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import play.api.i18n.Messages
 import play.api.mvc.Call
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
@@ -30,7 +32,6 @@ import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
                                      (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
   with SummaryListRowHelper {
-
 
   def charityNameRows: Seq[SummaryListRow] =
     userAnswers.get(CharityNamePage).map{ name =>
@@ -63,7 +64,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
     Some(
       summaryListRow(
         label = messages("charityName.fullName.checkYourAnswersLabel"),
-        value = charityName.fullName,
+        value = HtmlContent(charityName.fullName),
         visuallyHiddenText = Some(messages("charityName.fullName.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -72,7 +73,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
     charityName.operatingName.map(name =>
       summaryListRow(
         label = messages("charityName.operatingName.checkYourAnswersLabel"),
-        value = name,
+        value = HtmlContent(name),
         visuallyHiddenText = Some(messages("charityName.operatingName.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -86,7 +87,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       Some(
         summaryListRow(
           label = messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel"),
-          value = charityContactDetails.daytimePhone,
+          value = HtmlContent(charityContactDetails.daytimePhone),
           visuallyHiddenText = Some(messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )
@@ -94,7 +95,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       charityContactDetails.mobilePhone.map { mobilePhone =>
         summaryListRow(
           label = messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel"),
-          value = mobilePhone,
+          value = HtmlContent(mobilePhone),
           visuallyHiddenText = Some(messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )
@@ -102,7 +103,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       Some(
         summaryListRow(
           label = messages("charityContactDetails.emailAddress.checkYourAnswersLabel"),
-          value = charityContactDetails.emailAddress,
+          value = HtmlContent(charityContactDetails.emailAddress),
           visuallyHiddenText = Some(messages("charityContactDetails.emailAddress.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )
@@ -116,9 +117,9 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       Some(
         summaryListRow(
           label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-          value = Seq(Some(address.lines.mkString(", ")),
+          value = Text(Seq(Some(address.lines.mkString(", ")),
             address.postcode,
-            Some(address.country.name)).flatten.mkString(", "),
+            Some(address.country.name)).flatten.mkString(", ")),
           visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
           actions = changeLinkCall -> messages("site.edit")
         )
@@ -133,11 +134,10 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       userAnswers.get(CharityOfficialAddressLookupPage).map { address =>
         summaryListRow(
           label = messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-          value = s"${messages("site.yes")}<div>${
-            Seq(Some(address.lines.mkString(", ")),
+          value = HtmlContent(s"<div>${messages("site.yes")}</div>" +
+            HtmlFormat.escape(Seq(Some(address.lines.mkString(", ")),
               address.postcode,
-              Some(address.country.name)).flatten.mkString(", ")
-          }</div>",
+              Some(address.country.name)).flatten.mkString(", "))),
           visuallyHiddenText = Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )
@@ -146,7 +146,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       Some(
         summaryListRow(
           label = messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-          value = s"${messages("site.no")}<div>${messages("canWeSendLettersToThisAddress.no.hint")}</div>",
+          value = HtmlContent(s"${messages("site.no")}<div>${messages("canWeSendLettersToThisAddress.no.hint")}</div>"),
           visuallyHiddenText = Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )

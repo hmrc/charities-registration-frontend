@@ -23,6 +23,7 @@ import pages.regulatorsAndDocuments.{CharityOtherRegulatorDetailsPage, _}
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
@@ -67,7 +68,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
 
       summaryListRow(
         label = messages(s"$page.name.checkYourAnswersLabel"),
-        value = ans.regulatorName,
+        value = HtmlContent(ans.regulatorName),
         visuallyHiddenText = Some(messages(s"$page.name.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -81,7 +82,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
 
       summaryListRow(
         label = messages(s"$page.registrationNumber.checkYourAnswersLabel"),
-        value = ans.registrationNumber,
+        value = HtmlContent(ans.registrationNumber),
         visuallyHiddenText = Some(messages(s"$page.registrationNumber.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

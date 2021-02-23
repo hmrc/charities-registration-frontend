@@ -17,7 +17,6 @@
 package viewmodels
 
 import java.text.DecimalFormat
-
 import models.addressLookup.AddressModel
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers, WithOrder}
@@ -26,6 +25,7 @@ import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
 import service.CountryService
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 
@@ -44,7 +44,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
-        value = if (answerIsMsgKey) messages(s"$page.$ans") else ans,
+        value = if (answerIsMsgKey) HtmlContent(messages(s"$page.$ans")) else  HtmlContent(ans),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
         changeLinkCall -> messages("site.edit")
       )
@@ -58,7 +58,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel"),
-        ans.toList.sortBy(_.order).foldLeft("")((accumulator, item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>"),
+        HtmlContent(ans.toList.sortBy(_.order).foldLeft("")((accumulator, item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>")),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -70,7 +70,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = if (ans.title == SelectTitle.UnsupportedTitle) ans.getFullName else ans.getFullNameWithTitle(messages),
+        value = HtmlContent(if (ans.title == SelectTitle.UnsupportedTitle) ans.getFullName else ans.getFullNameWithTitle(messages)),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -86,7 +86,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs: _*),
-        value = if (answerIsMsgKey) messages(s"$messagePrefix.$ans") else ans,
+        value = if (answerIsMsgKey) HtmlContent(messages(s"$messagePrefix.$ans")) else HtmlContent(ans),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs: _*)),
         changeLinkCall -> messages("site.edit")
       )
@@ -99,7 +99,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = contactDetails.daytimePhone,
+        value = HtmlContent(contactDetails.daytimePhone),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -113,7 +113,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       contactDetails.mobilePhone.map { mobilePhone =>
         summaryListRow(
           label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-          value = mobilePhone,
+          value = HtmlContent(mobilePhone),
           visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )
@@ -127,7 +127,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = contactDetails.phoneNumber,
+        value = HtmlContent(contactDetails.phoneNumber),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -140,7 +140,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = contactDetails.email,
+        value = HtmlContent(contactDetails.email),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -153,7 +153,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = contactDetails.accountName,
+        value = HtmlContent(contactDetails.accountName),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -166,7 +166,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = contactDetails.sortCode,
+        value = HtmlContent(contactDetails.sortCode),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -179,7 +179,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = contactDetails.accountNumber,
+        value = HtmlContent(contactDetails.accountNumber),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -193,7 +193,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       contactDetails.rollNumber.map { rollNumber =>
         summaryListRow(
           label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-          value = rollNumber,
+          value = HtmlContent(rollNumber),
           visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )
@@ -208,9 +208,9 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
      userAnswers.get(page) map { address =>
        summaryListRow(
          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-         value = Seq(Some(address.lines.mkString(", ")),
+         value = Text(Seq(Some(address.lines.mkString(", ")),
                      address.postcode,
-                     Some(address.country.name)).flatten.mkString(", "),
+                     Some(address.country.name)).flatten.mkString(", ")),
          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
          changeLinkCall -> messages("site.edit")
        )
@@ -223,7 +223,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { passport =>
       summaryListRow(
         label = messages(s"$messagePrefix.passportNumber.checkYourAnswersLabel"),
-        value = passport.passportNumber,
+        value = HtmlContent(passport.passportNumber),
         visuallyHiddenText = Some(messages(s"$messagePrefix.passportNumber.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -238,7 +238,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { passport =>
       summaryListRow(
         label = messages(s"$messagePrefix.country.checkYourAnswersLabel"),
-        value = countryService.find(passport.country).fold(passport.country)(_.name),
+        value = HtmlContent(countryService.find(passport.country).fold(passport.country)(_.name)),
         visuallyHiddenText = Some(messages(s"$messagePrefix.country.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
@@ -252,7 +252,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page).map { passport =>
       summaryListRow(
         label = messages(s"$messagePrefix.expiryDate.checkYourAnswersLabel"),
-        value = passport.expiryDate,
+        value = HtmlContent(passport.expiryDate),
         visuallyHiddenText = Some(messages(s"$messagePrefix.expiryDate.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )

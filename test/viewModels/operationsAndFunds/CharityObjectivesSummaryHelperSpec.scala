@@ -22,6 +22,7 @@ import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPag
 import assets.messages.BaseMessages
 import base.SpecBase
 import models.operations.CharitablePurposes
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
 import viewmodels.operationsAndFunds.CharityObjectivesSummaryHelper
 
@@ -42,7 +43,7 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.charitableObjectivesRow mustBe Some(
           summaryListRow(
             messages("charitableObjectives.checkYourAnswersLabel"),
-            "Charitable Objectives",
+            HtmlContent("Charitable Objectives"),
             Some(messages("charitableObjectives.checkYourAnswersLabel")),
             operations.CharitableObjectivesController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -60,7 +61,7 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.charitablePurposesRow mustBe Some(
           summaryListRow(
             messages("charitablePurposes.checkYourAnswersLabel"),
-            purposeList,
+            HtmlContent(purposeList),
             Some(messages("charitablePurposes.checkYourAnswersLabel")),
             operations.CharitablePurposesController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -75,7 +76,7 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.publicBenefitsRow mustBe Some(
           summaryListRow(
             messages("publicBenefits.checkYourAnswersLabel"),
-            "Public Benefits",
+            HtmlContent("Public Benefits"),
             Some(messages("publicBenefits.checkYourAnswersLabel")),
             operations.PublicBenefitsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

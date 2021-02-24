@@ -18,12 +18,11 @@ package service
 
 import audit.{AuditService, SubmissionAuditEvent}
 import connectors.CharitiesConnector
-
 import javax.inject.Inject
 import models.requests.DataRequest
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
-import play.api.libs.json.JsValue
+import play.api.libs.json.{JsBoolean, JsObject}
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
@@ -41,7 +40,7 @@ class CharitiesRegistrationService @Inject()(
 
   private val logger = Logger(this.getClass)
 
-  def register(requestJson: JsValue)(implicit request: DataRequest[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] = {
+  def register(requestJson: JsObject)(implicit request: DataRequest[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] = {
 
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case None =>
@@ -51,7 +50,7 @@ class CharitiesRegistrationService @Inject()(
               updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference)
                 .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now())))
               _ <- userAnswerService.set(updatedAnswers)
-              _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson, declaration = true)))
+              _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true)))))
             } yield
               Redirect(controllers.routes.EmailOrPostController.onPageLoad())
 

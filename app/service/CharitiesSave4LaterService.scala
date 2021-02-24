@@ -16,18 +16,19 @@
 
 package service
 
+import audit.{AuditService, SwitchOverAuditEvent}
 import config.FrontendAppConfig
 import connectors.CharitiesShortLivedCache
 import javax.inject.{Inject, Singleton}
-import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
+import models.{AuditTypes, UserAnswers}
 import pages.sections.{Section1Page, Section7Page, Section8Page, Section9Page}
 import pages.{IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.Logger
 import play.api.libs.json._
-import play.api.mvc.Call
+import play.api.mvc.{Call, RequestHeader}
 import repositories.AbstractRepository
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
@@ -48,6 +49,7 @@ class CharitiesSave4LaterService @Inject()(
   userAnswerTransformer: UserAnswerTransformer,
   sessionRepository: AbstractRepository,
   userAnswerService: UserAnswerService,
+  auditService: AuditService,
   appConfig: FrontendAppConfig) extends ImplicitDateFormatter {
 
   private val logger = Logger(this.getClass)
@@ -126,7 +128,7 @@ class CharitiesSave4LaterService @Inject()(
   }
 
   private def updateSwitchOverUserAnswer(userAnswers: UserAnswers, result: TransformerKeeper)(
-    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[Call, UserAnswers]] = {
+    implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] = {
     if (userAnswers.data.fields.nonEmpty) {
       Future.fromTry(result = isSection1Completed(userAnswers)
         .flatMap(userAnswers => isSection7Completed(userAnswers))
@@ -137,23 +139,29 @@ class CharitiesSave4LaterService @Inject()(
       ).flatMap { userAnswers =>
         userAnswerService.set(userAnswers).map { _ =>
           if (result.errors.isEmpty) {
+            auditService.sendEvent(
+              SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id) + ("data" -> userAnswers.data), AuditTypes.CompleteUserTransfer))
             Right(userAnswers)
           } else {
+            auditService.sendEvent(
+              SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id) + ("data" -> userAnswers.data), AuditTypes.PartialUserTransfer))
             Left(controllers.routes.SwitchOverErrorController.onPageLoad())
           }
         }
       }
     } else {
       if(result.errors.nonEmpty) {
+        auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.FailedUserTransfer))
         userAnswerService.set(userAnswers).map(_ => Left(controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad()))
       } else {
+        auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
         userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
       }
     }
   }
 
   private def checkForValidApplicationJourney(request: OptionalDataRequest[_], lastSessionId: Option[String])(
-    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[Call, UserAnswers]] = {
+    implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] = {
     (request.userAnswers, lastSessionId) match {
       case (Some(userAnswers), _) => userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
       case (None, Some(sessionId)) =>
@@ -162,6 +170,7 @@ class CharitiesSave4LaterService @Inject()(
             logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data found")
             Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
           case Some(_) => val userAnswers = UserAnswers(request.internalId)
+            auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
             userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
         }
       case _ => logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data and current session data found")
@@ -170,7 +179,7 @@ class CharitiesSave4LaterService @Inject()(
   }
 
   def getCacheData(request: OptionalDataRequest[_], sessionId: SessionId, eligibleJourneyId: Option[String])(
-    implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[Call, UserAnswers]] = {
+    implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] = {
 
     cache.fetch(request.internalId).flatMap {
       case Some(cacheMap) if request.userAnswers.isEmpty =>

@@ -16,18 +16,14 @@
 
 package audit
 
-import models.AuditTypes
 import play.api.libs.json.JsValue
 
-case class SubmissionAuditEvent(submission: JsValue) extends AuditEvent {
+case class SwitchOverAuditEvent(submission: JsValue, override val auditType: String) extends AuditEvent {
 
-  override def auditType: String = AuditTypes.CharitiesRegistrationSubmission
-
-  override def transactionName: String = "CharityRegistrationSubmission"
+  override def transactionName: String = "CharitiesSwitchOver"
 
   override def details: JsValue = {
     submission
   }
 }
-
 

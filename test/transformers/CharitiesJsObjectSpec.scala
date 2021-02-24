@@ -263,6 +263,36 @@ class CharitiesJsObjectSpec extends SpecBase {
             |        }""".stripMargin)))
 
       }
+
+      "failed with JsResultException when the input doesn't match the transformer" in {
+        when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](
+          meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenThrow(JsResultException(List((__ \ 'authorisedOfficials, List(JsonValidationError(List("error.path.missing")))))))
+
+        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+            mockCacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),
+            "authorisedOfficialIndividual2", "authorisedOfficials")(
+            CharityAuthorisedOfficialIndividual.formats)
+
+        transformerKeeper.errors mustBe Seq((__ \ 'authorisedOfficials,
+          Seq(JsonValidationError(Seq("error.path.missing")))))
+        transformerKeeper.accumulator mustBe Json.obj()
+
+      }
+
+      "failed with throwable when unknown exception thrown during transformation" in {
+        when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](
+          meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenThrow(new RuntimeException)
+
+        intercept[RuntimeException] {
+          TransformerKeeper(Json.obj(), Seq.empty)
+            .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+              mockCacheMap, userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),
+              "authorisedOfficialIndividual2", "authorisedOfficials")(
+              CharityAuthorisedOfficialIndividual.formats)
+        }
+
+      }
     }
   }
 

@@ -23,7 +23,7 @@ import play.api.mvc.RequestHeader
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.audit.AuditExtensions._
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector, AuditResult}
-import uk.gov.hmrc.play.audit.model.DataEvent
+import uk.gov.hmrc.play.audit.model.ExtendedDataEvent
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.language.implicitConversions
@@ -41,17 +41,15 @@ class AuditService @Inject()(config: FrontendAppConfig, connector: AuditConnecto
       )
     }
 
-    val details = rh.toAuditDetails() ++ event.details
-
-    lazy val result: Future[AuditResult] = connector.sendEvent(
-      DataEvent(
+    lazy val result: Future[AuditResult] = connector.sendExtendedEvent(
+      ExtendedDataEvent(
         auditSource = config.appName,
         auditType = event.auditType,
         tags = rh.toAuditTags(
           transactionName = event.transactionName,
           path = rh.path
         ),
-        detail = details
+        detail = event.details
       )
     )
 

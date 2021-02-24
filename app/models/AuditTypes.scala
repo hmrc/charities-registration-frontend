@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package audit
+package models
 
-import models.AuditTypes
-import play.api.libs.json.JsValue
+object AuditTypes extends Enumeration {
 
-case class SubmissionAuditEvent(submission: JsValue) extends AuditEvent {
+  val CompleteUserTransfer: AuditTypes.Value = Value("CompleteUserTransfer")
+  val PartialUserTransfer: AuditTypes.Value = Value("PartialUserTransfer")
+  val FailedUserTransfer: AuditTypes.Value = Value("FailedUserTransfer")
+  val NewUser: AuditTypes.Value = Value("NewUser")
+  val CharitiesRegistrationSubmission: AuditTypes.Value = Value("CharitiesRegistrationSubmission")
 
-  override def auditType: String = AuditTypes.CharitiesRegistrationSubmission
-
-  override def transactionName: String = "CharityRegistrationSubmission"
-
-  override def details: JsValue = {
-    submission
-  }
 }
-
-

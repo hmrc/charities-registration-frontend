@@ -16,11 +16,13 @@
 
 package audit
 
+import play.api.libs.json.JsValue
+
 trait AuditEvent {
 
   def auditType: String
 
   def transactionName: String
 
-  def details: Map[String, String]
+  def details: JsValue
 }

@@ -56,8 +56,8 @@ package object transformers {
     def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(
       implicit format: OFormat[T]): TransformerKeeper = {
 
-      cacheMap.getEntry[T](key) match {
-        case Some(result) =>
+      Try(cacheMap.getEntry[T](key)) match {
+        case Success(Some(result)) =>
           Json.obj(key -> Json.toJson(result)).transform(transformer) match {
             case JsSuccess(requestJson, _) =>
                 val combinedPreviousAndNewOfficial = transformerKeeper.accumulator.fields
@@ -73,8 +73,16 @@ package object transformers {
               logger.error(s"[CharitiesJsObject][getJsonOfficials] $key transformation failed with errors: " + err)
               TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
           }
-        case None =>
+        case Success(None) =>
           transformerKeeper
+
+        case Failure(ex: JsResultException) =>
+          logger.info(s"[CharitiesJsObject][getJsonOfficials] $key transformation failed with JsResultException: " + ex.getMessage)
+          TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ ex.errors)
+
+        case Failure(ex) =>
+          logger.error(s"[CharitiesJsObject][getJsonOfficials] $key exception during transformation: " + ex.getMessage)
+          throw ex
       }
     }
   }

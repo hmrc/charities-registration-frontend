@@ -18,6 +18,7 @@ package service
 
 import java.util.UUID
 
+import audit.{AuditService, SubmissionAuditEvent}
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
 import models.UserAnswers
@@ -25,13 +26,13 @@ import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.mockito.Mockito.{reset, when}
+import org.mockito.Mockito.{atLeastOnce, doNothing, reset, times, verify, when}
 import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{Json, JsonValidationError, __}
-import play.api.mvc.Call
+import play.api.mvc.{AnyContentAsEmpty, Call}
 import play.api.test.FakeRequest
 import repositories.AbstractRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -50,21 +51,25 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
   lazy val mockUserService: UserAnswerService = mock[UserAnswerService]
   lazy val mockCacheMap: CacheMap = mock[CacheMap]
   lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
+  lazy val mockAuditService: AuditService = MockitoSugar.mock[AuditService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[AbstractRepository].toInstance(mockRepository),
         bind[UserAnswerService].toInstance(mockUserService),
+        bind[AuditService].toInstance(mockAuditService),
         bind[CacheMap].toInstance(mockCacheMap),
         bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache)
       )
 
   override def beforeEach(): Unit = {
-    reset(mockCharitiesShortLivedCache, mockCacheMap)
+    reset(mockCharitiesShortLivedCache, mockAuditService, mockCacheMap)
   }
 
   lazy val service: CharitiesSave4LaterService = inject[CharitiesSave4LaterService]
+
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
   private val sessionId = s"session-${UUID.randomUUID}"
   private val lastSessionId = s"session-${UUID.randomUUID}"
@@ -125,6 +130,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       when(mockCacheMap.getEntry[Acknowledgement](meq("acknowledgement-Reference"))(meq(Acknowledgement.formats))).thenReturn(mockAcknowledgement)
       when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
       when(mockUserService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
 
     }
 
@@ -960,11 +966,13 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false, "isSwitchOver" -> true))
 
-        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
           res.right.get.data mustBe ua.data
         }
+        verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
+        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
 
       "return SwitchOverError passing existing userAnswers and error in TransformerKeeper" in new LocalSetup with PrivateMethodTester {
@@ -978,11 +986,13 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
           "isSection1Completed" -> false, "isSwitchOver" -> true))
 
-        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
           res.left.get mustBe controllers.routes.SwitchOverErrorController.onPageLoad()
         }
+        verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
+        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
 
       "return SwitchOverAnswersLostError when no existing useranswers and error in TransformerKeeper" in new LocalSetup with PrivateMethodTester {
@@ -993,11 +1003,13 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
         val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj())
 
-        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
           res.left.get mustBe controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad()
         }
+        verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
+        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
 
       "return valid object when no existing useranswers and no error in TransformerKeeper" in new LocalSetup with PrivateMethodTester {
@@ -1008,11 +1020,13 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
         val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj())
 
-        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec)
+        val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
           res.right.get.data mustBe emptyUserAnswers.data
         }
+        verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
+        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
 
     }

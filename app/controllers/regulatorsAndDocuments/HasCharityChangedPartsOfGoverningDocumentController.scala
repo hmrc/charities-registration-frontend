@@ -48,7 +48,7 @@ class HasCharityChangedPartsOfGoverningDocumentController @Inject()(
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getDocumentName(SelectGoverningDocumentPage) { documentName =>
+      getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
 
         val preparedForm = request.userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
           case None => form
@@ -61,7 +61,7 @@ class HasCharityChangedPartsOfGoverningDocumentController @Inject()(
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getDocumentName(SelectGoverningDocumentPage) { documentName =>
+      getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
 
         form.bindFromRequest().fold(
           formWithErrors =>

@@ -71,27 +71,27 @@ error.submissionError.link = ddechrau’ch hawliad eto
 
 # Session Expired
 # ----------------------------------------------------------
-pageNotFound.title = (W)Page not found - Error(W)
-pageNotFound.heading = (W)Page not found(W)
-pageNotFound.p1 = (W)If you typed the web address, check it is correct.(W)
-pageNotFound.p2 = (W)If you pasted the web address, check you copied the entire address.(W)
-pageNotFound.p3 = (W)If the web address is correct or you selected a link or button, you should(W)
-pageNotFound.p3.link = (W)report a technical problem(W)
-pageNotFound.back.start.link = (W)Go back to the start(W)
+pageNotFound.title = Heb ddod o hyd i’r dudalen – Gwall
+pageNotFound.heading = Heb ddod o hyd i’r dudalen
+pageNotFound.p1 = Os gwnaethoch deipio’r cyfeiriad gwe, gwiriwch ei fod yn gywir.
+pageNotFound.p2 = Os gwnaethoch ludo’r cyfeiriad gwe, gwiriwch eich bod wedi copïo’r cyfeiriad yn llawn.
+pageNotFound.p3 = Os yw’r cyfeiriad gwe yn gywir neu os ydych wedi dewis cysylltiad neu fotwm, dylech
+pageNotFound.p3.link = roi gwybod am broblem dechnegol
+pageNotFound.back.start.link = Ewch yn ôl i’r dechrau
 
 # Technical Difficulties error page Messages
 # ----------------------------------------------------------
-technicalDifficultiesError.title = (W)Sorry, there is a problem with the service - Error(W)
-technicalDifficultiesError.heading = (W)Sorry, there is a problem with the service(W)
-technicalDifficultiesError.p1 = (W)Try again later.(W)
-technicalDifficultiesError.p2 = (W)We saved your answers. They will be available for 28 days.(W)
+technicalDifficultiesError.title = Mae’n ddrwg gennym – mae problem gyda’r gwasanaeth – Gwall
+technicalDifficultiesError.heading = Mae’n ddrwg gennym – mae problem gyda’r gwasanaeth
+technicalDifficultiesError.p1 = Rhowch gynnig arall arni yn nes ymlaen.
+technicalDifficultiesError.p2 = Gwnaethom gadw’ch atebion. Byddant ar gael am 28 diwrnod.
 
 # Signed out
 # ----------------------------------------------------------
-signed_out.title = (W)For your security, we signed you out - Error (W)
-signed_out.heading = (W)For your security, we signed you out(W)
-signed_out.status = (W)We saved your answers.(W)
-signed_out.signIn = (W)Sign in(W)
+signed_out.title = Er eich diogelwch, gwnaethom eich allgofnodi – Gwall
+signed_out.heading = Er eich diogelwch, gwnaethom eich allgofnodi
+signed_out.status = Gwnaethom gadw’ch atebion.
+signed_out.signIn = Mewngofnodi
 
 
 # Incorrect Details Error
@@ -107,7 +107,7 @@ incorrect-details.notAnOrganisation.p2.link = greu cyfrif Porth y Llywodraeth ar
 # Timeout Messages
 # ----------------------------------------------------------
 timeout.title = Rydych ar fin cael eich allgofnodi
-timeout.message = (W)For your security, we will sign you out in(W)
+timeout.message = Er eich diogelwch, byddwn yn eich allgofnodi cyn pen
 timeout.keepAlive = Parhau i fod wedi’ch mewngofnodi
 timeout.signOut = Allgofnodi
 
@@ -256,12 +256,12 @@ registrationSent.post.prefer.p = Gallwch
 registrationSent.post.prefer.link = ddilyn y cyfarwyddiadau i anfon dogfennau ategol eich elusen drwy e-bost
 registrationSent.post.prefer.afterLink = .
 
-registrationSent.whatHappensNext.h2 = (W) What happens next (W)
-registrationSent.whatHappensNext.p1 = (W) After we receive your documents, it can take up to 6 weeks to process your registration. (W)
-registrationSent.whatHappensNext.p2 = (W) We will send letters to the officials and the nominee to say that you've given us their details in the application. (W)
+registrationSent.whatHappensNext.h2 = Yr hyn sy’n digwydd nesaf
+registrationSent.whatHappensNext.p1 = Ar ôl i’ch dogfennau ddod i law, gall gymryd hyd at 6 wythnos i brosesu’ch cofrestriad.
+registrationSent.whatHappensNext.p2 = Byddwn yn anfon llythyrau at y swyddogion a’r enwebai i roi gwybod eich bod wedi rhoi eu manylion i ni yn y cais.
 registrationSent.whatHappensNext.p3 = Byddwn hefyd yn anfon llythyr at gyfeiriad post yr elusen a fydd yn rhoi gwybod i chi sut i hawlio Rhodd Cymorth.
-registrationSent.changeSomething = (W) If you need to change something urgently (W)
-registrationSent.changeSomething.p1 = (W) If there is something that you need to change urgently, contact the charities helpline on (W)
+registrationSent.changeSomething = Os oes angen i chi newid rhywbeth ar frys
+registrationSent.changeSomething.p1 = Os oes rhywbeth y mae angen i chi ei newid ar frys, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM ar
 registrationSent.changeSomething.helplineNumber = 0300 200 1900
 registrationSent.changeSomething.afterHelplineNumber = .
 
@@ -273,7 +273,7 @@ registrationSent.p7 = BX9 1ST
 registrationSent.p9 = (mae’n cymryd 30 eiliad).
 registrationSent.warning = Peidiwch ag anfon dogfennau gwreiddiol. Ni allwn ddychwelyd unrhyw ddogfennau yr ydych yn eu hanfon atom.
 registrationSent.link = Beth yw’ch barn am y gwasanaeth hwn?
-registrationSent.printOrDownload = (W)Print or download this page(W)
+registrationSent.printOrDownload = Argraffu neu lawrlwytho’r dudalen hon
 
 # Your application is being processed - submitted in old service messages
 # ----------------------------------------------------------
@@ -299,9 +299,9 @@ switchOverError.p3.link = Ewch yn eich blaen â’ch cais
 
 # Switch over answers lost error page Messages
 # ----------------------------------------------------------
-switchOverAnswersLostError.title = (W)Sorry, your answers have been lost - Error(W)
-switchOverAnswersLostError.heading = (W)Sorry, your answers have been lost(W)
-switchOverAnswersLostError.p1 = (W)We have updated this service since the last time you used it. Something went wrong and your answers have been lost. You will need to start the application again.(W)
+switchOverAnswersLostError.title = Mae’n ddrwg gennym – mae’ch atebion wedi’u colli – Gwall
+switchOverAnswersLostError.heading = Mae’n ddrwg gennym – mae’ch atebion wedi’u colli
+switchOverAnswersLostError.p1 = Rydym wedi diweddaru’r gwasanaeth hwn ers y tro diwethaf i chi ei ddefnyddio. Aeth rhywbeth o’i le, ac mae’ch atebion wedi’u colli. Bydd yn rhaid i chi ddechrau’r cais eto.
 
 # CheckIfCanRegisterPage Messages
 # ----------------------------------------------------------
@@ -507,7 +507,7 @@ startCharityRegulator.b2 = rhifau cofrestru rheolyddion yr elusen
 # ----------------------------------------------------------
 isCharityRegulator.title = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
 isCharityRegulator.heading = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
-isCharityRegulator.hint = (W)A charity regulator helps give the public trust and confidence in charities. They are an independent organisation. For example, the Charity Commission for England and Wales.(W)
+isCharityRegulator.hint = Mae rheoleiddwyr elusennau’n helpu i roi ffydd a hyder i’r cyhoedd mewn elusennau. Maent yn sefydliadau annibynnol. Er enghraifft, y Comisiwn Elusennau ar gyfer Cymru a Lloegr.
 isCharityRegulator.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’i chofrestru â rheolydd elusen
 isCharityRegulator.checkYourAnswersLabel = Wedi’i chofrestru â rheolydd elusen
 
@@ -629,8 +629,20 @@ governingDocumentName.checkYourAnswersLabel = Enw arall
 
 # whenGoverningDocumentApproved Messages
 # ----------------------------------------------------------
-whenGoverningDocumentApproved.title = (W)What date did the {0} become effective?(W)
-whenGoverningDocumentApproved.heading = Ar ba ddyddiad y gwnaeth {0} ddod i rym?
+whenGoverningDocumentApproved.3.title = Ar ba ddyddiad y gwnaeth y weithred ymddiriedolaeth ddod i rym?
+whenGoverningDocumentApproved.2.title = Ar ba ddyddiad y gwnaeth y memorandwm ac erthyglau cymdeithasu ddod i rym?
+whenGoverningDocumentApproved.1.title = Ar ba ddyddiad y gwnaeth y rheolau neu gyfansoddiad ddod i rym?
+whenGoverningDocumentApproved.6.title = Ar ba ddyddiad y gwnaeth y Siarter Frenhinol ddod i rym?
+whenGoverningDocumentApproved.4.title = Ar ba ddyddiad y gwnaeth yr ewyllys ddod i rym?
+whenGoverningDocumentApproved.7.title = Ar ba ddyddiad y gwnaeth y ddogfen lywodraethu ddod i rym?
+
+whenGoverningDocumentApproved.3.heading = Ar ba ddyddiad y gwnaeth y weithred ymddiriedolaeth ddod i rym?
+whenGoverningDocumentApproved.2.heading = Ar ba ddyddiad y gwnaeth y memorandwm ac erthyglau cymdeithasu ddod i rym?
+whenGoverningDocumentApproved.1.heading = Ar ba ddyddiad y gwnaeth y rheolau neu gyfansoddiad ddod i rym?
+whenGoverningDocumentApproved.6.heading = Ar ba ddyddiad y gwnaeth y Siarter Frenhinol ddod i rym?
+whenGoverningDocumentApproved.4.heading = Ar ba ddyddiad y gwnaeth yr ewyllys ddod i rym?
+whenGoverningDocumentApproved.7.heading = Ar ba ddyddiad y gwnaeth y ddogfen lywodraethu ddod i rym?
+
 WhenGoverningDocumentApproved.p1 = Os yw’r elusen yn Sefydliad Corfforedig Elusennol (CIO), dyma’r dyddiad y derbyniwyd yr elusen ar gofrestr y rheolydd.
 WhenGoverningDocumentApproved.hint = Er enghraifft, 27 3 2007
 whenGoverningDocumentApproved.error.invalid = Mae’n rhaid i’r dyddiad y cafodd y ddogfen lywodraethu’i chymeradwyo fod yn ddyddiad go iawn
@@ -643,23 +655,59 @@ whenGoverningDocumentApproved.checkYourAnswersLabel = Dyddiad dod i rym
 
 # IsApprovedGoverningDocument Messages
 # ----------------------------------------------------------
-isApprovedGoverningDocument.title = (W)Is the {0} approved?(W)
-isApprovedGoverningDocument.heading = (W)Is the {0} approved?(W)
+isApprovedGoverningDocument.3.title = A yw’r weithred ymddiriedolaeth wedi’i chymeradwyo?
+isApprovedGoverningDocument.2.title = A yw’r memorandwm ac erthyglau cymdeithasu wedi’u cymeradwyo?
+isApprovedGoverningDocument.1.title = A yw’r rheolau neu gyfansoddiad wedi’u cymeradwyo?
+isApprovedGoverningDocument.6.title = A yw’r Siarter Frenhinol wedi’i chymeradwyo?
+isApprovedGoverningDocument.4.title = A yw’r ewyllys wedi’i chymeradwyo?
+isApprovedGoverningDocument.7.title = A yw’r ddogfen lywodraethu wedi’i chymeradwyo?
+
+isApprovedGoverningDocument.3.heading = A yw’r weithred ymddiriedolaeth wedi’i chymeradwyo?
+isApprovedGoverningDocument.2.heading = A yw’r memorandwm ac erthyglau cymdeithasu wedi’u cymeradwyo?
+isApprovedGoverningDocument.1.heading = A yw’r rheolau neu gyfansoddiad wedi’u cymeradwyo?
+isApprovedGoverningDocument.6.heading = A yw’r Siarter Frenhinol wedi’i chymeradwyo?
+isApprovedGoverningDocument.4.heading = A yw’r ewyllys wedi’i chymeradwyo?
+isApprovedGoverningDocument.7.heading = A yw’r ddogfen lywodraethu wedi’i chymeradwyo?
+
 isApprovedGoverningDocument.error.required = Dewiswch ‘Iawn’ os yw dogfen lywodraethu’r elusen wedi’i chymeradwyo
 isApprovedGoverningDocument.p = Gall y ddogfen lywodraethu gael ei chymeradwyo gan sefydliad cenedlaethol, prif gorff neu brif reolydd.
 isApprovedGoverningDocument.checkYourAnswersLabel = Wedi’i chymeradwyo gan reolydd
 
 # HasCharityChangedPartsOfGoverningDocument Messages
 # ----------------------------------------------------------
-hasCharityChangedPartsOfGoverningDocument.title = (W)Has the charity changed parts of the {0} since it was approved?(W)
-hasCharityChangedPartsOfGoverningDocument.heading = (W)Has the charity changed parts of the {0} since it was approved?(W)
+hasCharityChangedPartsOfGoverningDocument.3.title = A yw’r elusen wedi newid rhannau o’r weithred ymddiriedolaeth ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.2.title = A yw’r elusen wedi newid rhannau o’r memorandwm ac erthyglau cymdeithasu ers iddynt gael eu cymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.1.title = A yw’r elusen wedi newid rhannau o’r rheolau neu gyfansoddiad ers iddynt gael eu cymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.6.title = A yw’r elusen wedi newid rhannau o’r Siarter Frenhinol ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.4.title = A yw’r elusen wedi newid rhannau o’r ewyllys ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.7.title = A yw’r elusen wedi newid rhannau o’r ddogfen lywodraethu ers iddi gael ei chymeradwyo?
+
+hasCharityChangedPartsOfGoverningDocument.3.heading = A yw’r elusen wedi newid rhannau o’r weithred ymddiriedolaeth ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.2.heading = A yw’r elusen wedi newid rhannau o’r memorandwm ac erthyglau cymdeithasu ers iddynt gael eu cymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.1.heading = A yw’r elusen wedi newid rhannau o’r rheolau neu gyfansoddiad ers iddynt gael eu cymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.6.heading = A yw’r elusen wedi newid rhannau o’r Siarter Frenhinol ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.4.heading = A yw’r elusen wedi newid rhannau o’r ewyllys ers iddi gael ei chymeradwyo?
+hasCharityChangedPartsOfGoverningDocument.7.heading = A yw’r elusen wedi newid rhannau o’r ddogfen lywodraethu ers iddi gael ei chymeradwyo?
+
 hasCharityChangedPartsOfGoverningDocument.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi newid y ddogfen lywodraethu ers iddi gael ei chymeradwyo
 hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel = A oes adrannau a chymalau wedi newid?
 
 # SectionsChangedGoverningDocument Messages
 # ----------------------------------------------------------
-sectionsChangedGoverningDocument.title = (W)What sections and clauses have changed in the {0} and why?(W)
-sectionsChangedGoverningDocument.heading = (W)What sections and clauses have changed in the {0} and why?(W)
+sectionsChangedGoverningDocument.3.title = Pa adrannau a chymalau sydd wedi newid yn y weithred ymddiriedolaeth a pham?
+sectionsChangedGoverningDocument.2.title = Pa adrannau a chymalau sydd wedi newid yn y memorandwm ac erthyglau cymdeithasu a pham?
+sectionsChangedGoverningDocument.1.title = Pa adrannau a chymalau sydd wedi newid yn y rheolau neu gyfansoddiad a pham?
+sectionsChangedGoverningDocument.6.title = Pa adrannau a chymalau sydd wedi newid yn y Siarter Frenhinol a pham?
+sectionsChangedGoverningDocument.4.title = Pa adrannau a chymalau sydd wedi newid yn yr ewyllys a pham?
+sectionsChangedGoverningDocument.7.title =Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
+
+sectionsChangedGoverningDocument.3.heading = Pa adrannau a chymalau sydd wedi newid yn y weithred ymddiriedolaeth a pham?
+sectionsChangedGoverningDocument.2.heading = Pa adrannau a chymalau sydd wedi newid yn y memorandwm ac erthyglau cymdeithasu a pham?
+sectionsChangedGoverningDocument.1.heading = Pa adrannau a chymalau sydd wedi newid yn y rheolau neu gyfansoddiad a pham?
+sectionsChangedGoverningDocument.6.heading = Pa adrannau a chymalau sydd wedi newid yn y Siarter Frenhinol a pham?
+sectionsChangedGoverningDocument.4.heading = Pa adrannau a chymalau sydd wedi newid yn yr ewyllys a pham?
+sectionsChangedGoverningDocument.7.heading =Pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham?
+
 sectionsChangedGoverningDocument.error.required = Nodwch pa adrannau a chymalau sydd wedi newid yn y ddogfen lywodraethu a pham
 sectionsChangedGoverningDocument.error.length = Mae’n rhaid i’r adrannau sydd wedi newid yn y ddogfen lywodraethu fod yn 350 o gymeriadau neu lai
 sectionsChangedGoverningDocument.error.format = Mae’n rhaid i’r adrannau sydd wedi newid yn y ddogfen lywodraethu gynnwys llythrennau, rhifau, cysylltnodau, comas, bylchau ac atalnodau llawn yn unig
@@ -823,7 +871,7 @@ otherFundRaising.error.length = Mae’n rhaid i’r hyn a nodwyd ar gyfer y ffor
 isFinancialAccounts.title = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.heading = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi paratoi cyfrifon ariannol
-isFinancialAccounts.hint = (W)If the charity has a set of prepared financial accounts, you will need to email or post us a copy to support the application. Prepared financial accounts are what you would send to a regulator, HMRC or Companies House.(W)
+isFinancialAccounts.hint = Os yw’r elusen wedi paratoi set o gyfrifon ariannol, bydd yn rhaid i chi anfon copi atom drwy e-bost neu drwy’r post er mwyn ategu’r cais. Cyfrifon ariannol sydd wedi’u paratoi yw’r hyn y byddech yn ei anfon at reoleiddiwr, CThEM neu Dŷ’r Cwmnïau.
 isFinancialAccounts.checkYourAnswersLabel = Cyfrifon ariannol
 
 # What is the charity’s estimated income for its current 12 months of operation?

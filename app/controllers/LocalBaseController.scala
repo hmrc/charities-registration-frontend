@@ -67,18 +67,16 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     }.getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))
   }
 
-  def getDocumentName(page: QuestionPage[SelectGoverningDocument])(block: String => Future[Result])(
+  def getDocumentNameKey(page: QuestionPage[SelectGoverningDocument])(block: String => Future[Result])(
     implicit request: DataRequest[AnyContent], messages: Messages): Future[Result] = {
     request.userAnswers.get(page) match {
       case Some(SelectGoverningDocument.Other) =>
        request.userAnswers.get(GoverningDocumentNamePage) match {
-        case Some(otherDocumentName) => block(otherDocumentName)
+        case Some(_) => block("7")
         case None => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
       }
-      case Some(SelectGoverningDocument.RoyalCharacter) =>
-        block(messages(s"selectGoverningDocument.${SelectGoverningDocument.RoyalCharacter}"))
-      case Some(documentName) =>
-        block(messages(s"selectGoverningDocument.$documentName").toLowerCase())
+      case Some(documentNameKey) =>
+        block(s"$documentNameKey")
       case None => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }

@@ -28,17 +28,17 @@ import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 
 class WhenGoverningDocumentApprovedViewSpec extends QuestionViewBehaviours[LocalDate] {
 
-  private val messageKeyPrefix = "whenGoverningDocumentApproved"
+  private val messageKeyPrefix = "whenGoverningDocumentApproved.4"
   val form: Form[LocalDate] = inject[WhenGoverningDocumentApprovedFormProvider].apply()
 
   "WhenGoverningDocumentApprovedView view" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[WhenGoverningDocumentApprovedView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, "Will")(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Will"), section = Some(messages("charityRegulator.section")))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
 
     behave like pageWithBackLink(applyView(form))
 

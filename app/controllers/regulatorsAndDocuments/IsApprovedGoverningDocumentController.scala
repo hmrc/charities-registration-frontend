@@ -48,7 +48,7 @@ class IsApprovedGoverningDocumentController @Inject()(
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getDocumentName(SelectGoverningDocumentPage) { documentName =>
+      getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
 
         val preparedForm = request.userAnswers.get(IsApprovedGoverningDocumentPage) match {
           case None => form
@@ -62,7 +62,7 @@ class IsApprovedGoverningDocumentController @Inject()(
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      getDocumentName(SelectGoverningDocumentPage) { documentName =>
+      getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
 
         form.bindFromRequest().fold(
           formWithErrors =>

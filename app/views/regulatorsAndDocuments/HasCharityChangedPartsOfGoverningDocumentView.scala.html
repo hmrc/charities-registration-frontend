@@ -27,16 +27,15 @@
     button: components.button,
 )
 
-@(form: Form[_], mode: Mode, documentName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, documentNameKey: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "hasCharityChangedPartsOfGoverningDocument.title", Some("charityRegulator.section"), Seq(documentName)))) {
-
+@govukLayout(pageTitle = Some(title(form, s"hasCharityChangedPartsOfGoverningDocument.$documentNameKey.title", Some("charityRegulator.section")))) {
 
     @formHelper(action = HasCharityChangedPartsOfGoverningDocumentController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "hasCharityChangedPartsOfGoverningDocument.heading", headingMessageArgs = Seq(documentName))
+        @yesNoRadio(form, s"hasCharityChangedPartsOfGoverningDocument.$documentNameKey.heading")
 
         @button("site.saveAndContinue")
     }

@@ -140,12 +140,12 @@ class CharitiesSave4LaterService @Inject()(
       ).flatMap { userAnswers =>
         userAnswerService.set(userAnswers).map { _ =>
           if (result.errors.isEmpty) {
-            logger.info(s"CharitiesSwitchOver: ${AuditTypes.CompleteUserTransfer}")
+            logger.warn(s"CharitiesSwitchOver: ${AuditTypes.CompleteUserTransfer}")
             auditService.sendEvent(
               SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id) + ("data" -> userAnswers.data), AuditTypes.CompleteUserTransfer))
             Right(userAnswers)
           } else {
-            logger.info(s"CharitiesSwitchOver: ${AuditTypes.PartialUserTransfer}")
+            logger.warn(s"CharitiesSwitchOver: ${AuditTypes.PartialUserTransfer}")
             auditService.sendEvent(
               SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id) + ("data" -> userAnswers.data), AuditTypes.PartialUserTransfer))
             Left(controllers.routes.SwitchOverErrorController.onPageLoad())
@@ -154,11 +154,11 @@ class CharitiesSave4LaterService @Inject()(
       }
     } else {
       if(result.errors.nonEmpty) {
-        logger.info(s"CharitiesSwitchOver: ${AuditTypes.FailedUserTransfer}")
+        logger.warn(s"CharitiesSwitchOver: ${AuditTypes.FailedUserTransfer}")
         auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.FailedUserTransfer))
         userAnswerService.set(userAnswers).map(_ => Left(controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad()))
       } else {
-        logger.info(s"CharitiesSwitchOver: ${AuditTypes.NewUser}")
+        logger.warn(s"CharitiesSwitchOver: ${AuditTypes.NewUser}")
         auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
         userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
       }
@@ -175,7 +175,7 @@ class CharitiesSave4LaterService @Inject()(
             logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data found")
             Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
           case Some(_) => val userAnswers = UserAnswers(request.internalId)
-            logger.info(s"CharitiesRewriteUser: ${AuditTypes.NewUser}")
+            logger.warn(s"CharitiesRewriteUser: ${AuditTypes.NewUser}")
             auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
             userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
         }

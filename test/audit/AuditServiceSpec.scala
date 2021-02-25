@@ -17,6 +17,7 @@
 package audit
 
 import config.FrontendAppConfig
+import models.AuditTypes.{CharitiesRegistrationSubmission, NewUser, PartialUserTransfer}
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, times, verify, when}
@@ -87,7 +88,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       }
     }
 
-    "successfuly sent SubmissionAuditEvent" in {
+    "successfully sent SubmissionAuditEvent" in {
       val templateCaptor = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
 
       when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
@@ -99,24 +100,41 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
         case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
           auditSource mustBe frontendAppConfig.appName
           tag.get("transactionName") mustBe Some("CharityRegistrationSubmission")
-          auditType mustBe "CharitiesRegistrationSubmission"
+          auditType mustBe CharitiesRegistrationSubmission.toString
           detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
       }
     }
 
-    "successfuly sent SwitchOverAuditEvent" in {
+    "successfully sent SwitchOverAuditEvent" in {
       val templateCaptor = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
 
       when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
 
-      auditService.sendEvent(SwitchOverAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), "PartialUserTransfer"))
+      auditService.sendEvent(SwitchOverAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), PartialUserTransfer))
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
       inside(templateCaptor.getValue) {
         case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
           auditSource mustBe frontendAppConfig.appName
           tag.get("transactionName") mustBe Some("CharitiesSwitchOver")
-          auditType mustBe "PartialUserTransfer"
+          auditType mustBe PartialUserTransfer.toString
+          detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
+      }
+    }
+
+    "successfully sent NormalUserAuditEvent" in {
+      val templateCaptor = ArgumentCaptor.forClass(classOf[ExtendedDataEvent])
+
+      when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
+
+      auditService.sendEvent(NormalUserAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), NewUser))
+      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
+
+      inside(templateCaptor.getValue) {
+        case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+          auditSource mustBe frontendAppConfig.appName
+          tag.get("transactionName") mustBe Some("CharitiesRewriteUser")
+          auditType mustBe NewUser.toString
           detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
       }
     }

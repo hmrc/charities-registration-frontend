@@ -142,7 +142,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
           .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).flatMap(
           _.set(GoverningDocumentNamePage, "other doc name")).success.value)
 
-        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
 
         status(result) mustEqual OK
       }
@@ -152,7 +152,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
           .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).success.value)
 
-        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
 
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
@@ -163,7 +163,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
           .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter).success.value)
 
-        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
 
         status(result) mustEqual OK
       }
@@ -173,7 +173,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
           .set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value)
 
-        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
 
         status(result) mustEqual OK
       }
@@ -182,7 +182,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
-        val result = controller.getDocumentName(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
 
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)

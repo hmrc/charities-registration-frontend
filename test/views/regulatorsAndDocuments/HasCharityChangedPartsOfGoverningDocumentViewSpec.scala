@@ -27,7 +27,7 @@ import views.html.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocume
 
 class HasCharityChangedPartsOfGoverningDocumentViewSpec extends YesNoViewBehaviours  {
 
-  private val messageKeyPrefix = "hasCharityChangedPartsOfGoverningDocument"
+  private val messageKeyPrefix = "hasCharityChangedPartsOfGoverningDocument.4"
   private val section: Option[String] = Some(messages("charityRegulator.section"))
   val form: Form[Boolean] = inject[HasCharityChangedPartsOfGoverningDocumentFormProvider].apply()
 
@@ -35,14 +35,14 @@ class HasCharityChangedPartsOfGoverningDocumentViewSpec extends YesNoViewBehavio
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
           val view = viewFor[HasCharityChangedPartsOfGoverningDocumentView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode, "Will")(fakeRequest, messages, frontendAppConfig)
+          view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Will"), section = section)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.HasCharityChangedPartsOfGoverningDocumentController.onSubmit(NormalMode).url,Seq("Will"), section = section)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.HasCharityChangedPartsOfGoverningDocumentController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }}

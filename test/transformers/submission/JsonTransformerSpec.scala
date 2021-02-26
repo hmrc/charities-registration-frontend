@@ -74,7 +74,7 @@ class JsonTransformerSpec extends SpecBase {
             |        "addressLine1": "7",
             |        "addressLine2": "Morrison street",
             |        "nonUKAddress": true,
-            |        "nonUKCountry":"INDIA"
+            |        "nonUKCountry":"IN"
             |      }
             |     }
             |    }

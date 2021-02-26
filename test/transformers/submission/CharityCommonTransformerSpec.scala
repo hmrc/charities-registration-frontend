@@ -559,7 +559,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        "officialAddress": {
             |          "addressLine1": "7",
             |          "addressLine2": "Morrison street",
-            |          "nonUKCountry": "India",
+            |          "nonUKCountry": "IN",
             |          "nonUKAddress": true
             |        }
             |      }

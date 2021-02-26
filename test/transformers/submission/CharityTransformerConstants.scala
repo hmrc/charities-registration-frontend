@@ -300,7 +300,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "Italy"
+       |            "nonUKCountry": "IT"
        |          }
        |        }
        |      },
@@ -364,7 +364,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "Italy"
+       |            "nonUKCountry": "IT"
        |          }
        |        }
        |      }
@@ -412,7 +412,7 @@ trait CharityTransformerConstants extends SpecBase{
        |        "officialAddress": {
        |          "addressLine1": "7",
        |          "addressLine2": "Morrison street",
-       |          "nonUKCountry": "India",
+       |          "nonUKCountry": "IN",
        |          "nonUKAddress": true
        |        }
        |      }
@@ -531,7 +531,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "Italy"
+       |            "nonUKCountry": "IT"
        |          }
        |        }
        |      }
@@ -580,7 +580,7 @@ trait CharityTransformerConstants extends SpecBase{
        |        "officialAddress": {
        |          "addressLine1": "7",
        |          "addressLine2": "Morrison street",
-       |          "nonUKCountry": "India",
+       |          "nonUKCountry": "IN",
        |          "nonUKAddress": true
        |        }
        |      }
@@ -699,7 +699,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "Italy"
+       |            "nonUKCountry": "IT"
        |          }
        |        }
        |      },
@@ -763,7 +763,7 @@ trait CharityTransformerConstants extends SpecBase{
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "Italy"
+       |            "nonUKCountry": "IT"
        |          }
        |        }
        |      }

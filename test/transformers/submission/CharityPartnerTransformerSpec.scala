@@ -261,7 +261,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0),
-          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FRA", "France"))).success.value
+          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))).success.value
 
         val expectedJson =
           """{
@@ -271,7 +271,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "France"
+            |                    "nonUKCountry": "FR"
             |               }
             |        }
             |  }""".stripMargin
@@ -362,7 +362,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers.set(OrganisationNomineeAddressLookupPage,
-          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FRA", "France"))).success.value
+          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))).success.value
 
         val expectedJson =
           """{
@@ -372,7 +372,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "France"
+            |                    "nonUKCountry": "FR"
             |               }
             |        }
             |  }""".stripMargin
@@ -463,7 +463,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers.set(NomineeIndividualAddressLookupPage,
-          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FRA", "France"))).success.value
+          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))).success.value
 
         val expectedJson =
           """{
@@ -473,7 +473,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "France"
+            |                    "nonUKCountry": "FR"
             |               }
             |        }
             |  }""".stripMargin
@@ -794,7 +794,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers.set(OtherOfficialAddressLookupPage(0),
-          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FRA", "France"))).success.value
+          AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))).success.value
 
         val expectedJson =
           """{
@@ -804,7 +804,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "France"
+            |                    "nonUKCountry": "FR"
             |               }
             |        }
             |  }""".stripMargin
@@ -1006,7 +1006,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        }
              |      },
@@ -1070,7 +1070,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        }
              |      }
@@ -1162,7 +1162,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        }
              |      },
@@ -1226,7 +1226,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        }
              |      },
@@ -1261,7 +1261,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Authorised Street",
              |            "addressLine3": "Authorised Place",
              |            "nonUKAddress": true,
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        },
              |        "paymentDetails": {
@@ -1365,7 +1365,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        }
              |      },
@@ -1429,7 +1429,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        }
              |      },
@@ -1465,7 +1465,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "1",
              |            "addressLine2": "Individual Drive",
              |            "nonUKAddress": true,
-             |            "nonUKCountry": "Italy"
+             |            "nonUKCountry": "IT"
              |          }
              |        },
              |        "paymentDetails": {

@@ -32,7 +32,7 @@ trait JsonTransformer {
 
     ((submissionPath \ 'nonUKAddress).json.copyFrom(isNonUK) and
       isNonUK.flatMap {
-        case JsBoolean(true) => (submissionPath \ 'nonUKCountry).json.copyFrom((userAnswerPath \ 'country \ 'name).json.pick)
+        case JsBoolean(true) => (submissionPath \ 'nonUKCountry).json.copyFrom((userAnswerPath \ 'country \ 'code).json.pick)
         case _ => doNothing
       } and
       (submissionPath \ 'addressLine1).json.copyFrom((userAnswerPath \ 'lines \ 0).json.pick) and

@@ -60,7 +60,8 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
   private val controller: RemoveAuthorisedOfficialsController = inject[RemoveAuthorisedOfficialsController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).
+      flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones"))).success.value
 
   "RemoveAuthorisedOfficialsController" must {
 
@@ -100,6 +101,24 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+
+      val result = controller.onSubmit(Index(0))(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+    }
+
+    "redirect to the next page and remove section completed when valid data is submitted" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val localUserAnswers: UserAnswers =
+        emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

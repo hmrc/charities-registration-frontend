@@ -505,8 +505,8 @@ startCharityRegulator.b2 = rhifau cofrestru rheolyddion yr elusen
 
 # IsCharityRegulatorPage Messages
 # ----------------------------------------------------------
-isCharityRegulator.title = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
-isCharityRegulator.heading = A yw’r elusen wedi’i chofrestru â rheolydd elusen?
+isCharityRegulator.title = A yw’r elusen wedi’i chofrestru â rheoleiddiwr elusen?
+isCharityRegulator.heading = A yw’r elusen wedi’i chofrestru â rheoleiddiwr elusen?
 isCharityRegulator.hint = Mae rheoleiddwyr elusennau’n helpu i roi ffydd a hyder i’r cyhoedd mewn elusennau. Maent yn sefydliadau annibynnol. Er enghraifft, y Comisiwn Elusennau ar gyfer Cymru a Lloegr.
 isCharityRegulator.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’i chofrestru â rheolydd elusen
 isCharityRegulator.checkYourAnswersLabel = Wedi’i chofrestru â rheolydd elusen

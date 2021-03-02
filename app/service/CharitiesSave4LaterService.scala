@@ -25,6 +25,8 @@ import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
 import models.{AuditTypes, UserAnswers}
+import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections.{Section1Page, Section7Page, Section8Page, Section9Page}
 import pages.{IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.Logger
@@ -63,7 +65,7 @@ class CharitiesSave4LaterService @Inject()(
   }
 
   private def isSection7Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
-    userAnswers.get(Section7Page) match {
+    userAnswers.get(AuthorisedOfficialsNamePage(0)) match {
       case Some(_) => userAnswers.set(Section7Page,
         AuthorisedOfficialsStatusHelper.checkComplete(userAnswers) && AuthorisedOfficialsStatusHelper.validateDataFromOldService(userAnswers))
       case _ => Success(userAnswers)
@@ -80,7 +82,7 @@ class CharitiesSave4LaterService @Inject()(
   }
 
   private def isSection8Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
-    userAnswers.get(Section8Page) match {
+    userAnswers.get(OtherOfficialsNamePage(0)) match {
       case Some(_) => userAnswers.set(Section8Page,
         OtherOfficialStatusHelper.checkComplete(userAnswers) && OtherOfficialStatusHelper.validateDataFromOldService(userAnswers))
       case _ => Success(userAnswers)

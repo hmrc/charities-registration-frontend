@@ -307,11 +307,9 @@ class UserAnswerTransformer extends JsonTransformer {
   def toUserAnswersCharityHowManyAuthOfficials: Reads[JsObject] = {
     (__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials).readNullable[Int].flatMap {
       case Some(number) if number > 11 =>
-        ((__ \ 'isAddAnotherOfficial).json.put(JsBoolean(true)) and
-          (__ \ 'isSection7Completed).json.put(JsBoolean(false))).reduce
+        (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(true))
       case Some(_) =>
-        ((__ \ 'isAddAnotherOfficial).json.put(JsBoolean(false)) and
-          (__ \ 'isSection7Completed).json.put(JsBoolean(false))).reduce
+        (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(false))
       case _ => doNothing
     }
   }
@@ -319,11 +317,9 @@ class UserAnswerTransformer extends JsonTransformer {
   def toUserAnswersCharityHowManyOtherOfficials: Reads[JsObject] = {
     (__ \ 'charityHowManyOtherOfficials \ 'numberOfOtherOfficials).readNullable[Int].flatMap {
       case Some(number) if number > 22 =>
-        ((__ \ 'addAnotherOtherOfficial).json.put(JsBoolean(true)) and
-          (__ \ 'isSection8Completed).json.put(JsBoolean(false))).reduce
+        (__ \ 'addAnotherOtherOfficial).json.put(JsBoolean(true))
       case Some(_) =>
-        ((__ \ 'addAnotherOtherOfficial).json.put(JsBoolean(false)) and
-          (__ \ 'isSection8Completed).json.put(JsBoolean(false))).reduce
+        (__ \ 'addAnotherOtherOfficial).json.put(JsBoolean(false))
       case _ => doNothing
     }
   }

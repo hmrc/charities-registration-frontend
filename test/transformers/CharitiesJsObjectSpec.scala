@@ -32,7 +32,8 @@ class CharitiesJsObjectSpec extends SpecBase {
   lazy val howMany: CharityHowManyAuthOfficials = CharityHowManyAuthOfficials(Some(1))
   lazy val userAnswerTransformer: UserAnswerTransformer = new UserAnswerTransformer
 
-  val identityPassport: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("false"), "", OfficialIndividualNationalIdentityCardDetails("PaspNum", "Country", Some(LocalDate.parse("2100-01-01"))))
+  val identityPassport: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("false"), "",
+    OfficialIndividualNationalIdentityCardDetails("PaspNum", "Country", Some(LocalDate.parse("2100-01-01"))))
   val currentAddress: CharityAddress = CharityAddress("current", "address", "", "", "AA1 1AA", "")
   val previousAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("previous", "address", "", "", "AA2 2AA", ""))
   val charityAuthorisedOfficialIndividual: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0008", "First", "Middle", "Last",
@@ -51,7 +52,7 @@ class CharitiesJsObjectSpec extends SpecBase {
             CharityHowManyAuthOfficials.formats)
 
         transformerKeeper.errors mustBe Seq.empty
-        transformerKeeper.accumulator mustBe Json.obj("isAddAnotherOfficial" -> false, "isSection7Completed" -> false)
+        transformerKeeper.accumulator mustBe Json.obj("isAddAnotherOfficial" -> false)
 
       }
 
@@ -71,7 +72,8 @@ class CharitiesJsObjectSpec extends SpecBase {
 
       "failed with JsResultException when the input doesn't match the transformer" in {
         when(mockCacheMap.getEntry[CharityHowManyAuthOfficials](
-          meq("charityHowManyAuthOfficials"))(meq(CharityHowManyAuthOfficials.formats))).thenThrow(JsResultException(List((__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials, List(JsonValidationError(List("error.path.missing")))))))
+          meq("charityHowManyAuthOfficials"))(meq(CharityHowManyAuthOfficials.formats))).thenThrow(
+          JsResultException(List((__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials, List(JsonValidationError(List("error.path.missing")))))))
 
         val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
           .getJson(mockCacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials, "charityHowManyAuthOfficials")(
@@ -266,7 +268,8 @@ class CharitiesJsObjectSpec extends SpecBase {
 
       "failed with JsResultException when the input doesn't match the transformer" in {
         when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](
-          meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenThrow(JsResultException(List((__ \ 'authorisedOfficials, List(JsonValidationError(List("error.path.missing")))))))
+          meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenThrow(
+          JsResultException(List((__ \ 'authorisedOfficials, List(JsonValidationError(List("error.path.missing")))))))
 
         val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
           .getJsonOfficials[CharityAuthorisedOfficialIndividual](

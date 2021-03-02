@@ -381,6 +381,22 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         result.right.get.data mustBe responseJson.data
       }
 
+      "return valid object when its valid for how many auth officials and no auth officials details" in new LocalSetup {
+
+        override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "isAddAnotherOfficial" -> true,
+          "isSwitchOver" -> true
+        ))
+
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
+
+        result.right.get.data mustBe responseJson.data
+      }
+
       "return valid object when its valid for how many auth officials and two auth officials" in new LocalSetup {
 
         override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = Some(charityHowManyAuthOfficials)
@@ -478,6 +494,22 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
               |              "passportNumber": "PaspNum"
               |            }
               |        }""".stripMargin))
+        ))
+
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
+
+        result.right.get.data mustBe responseJson.data
+      }
+
+      "return valid object when its valid for how many auth officials and no other officials details" in new LocalSetup {
+
+        override def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] = Some(charityHowManyOtherOfficials)
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj(
+          "addAnotherOtherOfficial" -> true,
+          "isSwitchOver" -> true
         ))
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))

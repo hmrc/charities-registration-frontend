@@ -150,8 +150,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
 
         Json.obj("charityHowManyAuthOfficials" -> Json.toJson(howMany)).transform(
           jsonTransformer.toUserAnswersCharityHowManyAuthOfficials).asOpt.value mustBe Json.obj(
-          "isAddAnotherOfficial" -> true,
-          "isSection7Completed" -> false
+          "isAddAnotherOfficial" -> true
         )
       }
 
@@ -161,8 +160,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
 
         Json.obj("charityHowManyAuthOfficials" -> Json.toJson(howMany)).transform(
           jsonTransformer.toUserAnswersCharityHowManyAuthOfficials).asOpt.value mustBe Json.obj(
-          "isAddAnotherOfficial" -> false,
-          "isSection7Completed" -> false
+          "isAddAnotherOfficial" -> false
         )
       }
 
@@ -181,8 +179,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
 
         Json.obj("charityHowManyOtherOfficials" -> Json.toJson(howMany)).transform(
           jsonTransformer.toUserAnswersCharityHowManyOtherOfficials).asOpt.value mustBe Json.obj(
-          "addAnotherOtherOfficial" -> true,
-          "isSection8Completed" -> false
+          "addAnotherOtherOfficial" -> true
         )
       }
 
@@ -192,8 +189,7 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
 
         Json.obj("charityHowManyOtherOfficials" -> Json.toJson(howMany)).transform(
           jsonTransformer.toUserAnswersCharityHowManyOtherOfficials).asOpt.value mustBe Json.obj(
-          "addAnotherOtherOfficial" -> false,
-          "isSection8Completed" -> false
+          "addAnotherOtherOfficial" -> false
 
         )
       }
@@ -209,7 +205,8 @@ class UserAnswerTransformerSpec extends SpecBase with TestData {
 
       "convert to an authorised official with nino and previous address" in {
 
-        val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("true"), "AB111111A", OfficialIndividualNationalIdentityCardDetails("", "", None))
+        val identity: OfficialIndividualIdentity = OfficialIndividualIdentity(Some("true"), "AB111111A",
+          OfficialIndividualNationalIdentityCardDetails("", "", None))
         val currentAddress: CharityAddress = CharityAddress("current", "address", "", "", "AA1 1AA", "")
         val previousAddress: OptionalCharityAddress = OptionalCharityAddress(Some("true"), CharityAddress("previous", "address", "", "", "AA2 2AA", ""))
         val authOfficial: CharityAuthorisedOfficialIndividual = CharityAuthorisedOfficialIndividual("0001", "First", "Middle", "Last",

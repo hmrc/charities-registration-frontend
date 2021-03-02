@@ -140,7 +140,7 @@ function timeoutDialog(options) {
     keepAliveButtonText: 'Parhau i fod wedi’ch mewngofnodi',
     signOutButtonText: 'Allgofnodi',
     properties: {
-      minutes: 'funud',
+      minutes: 'o funudau',
       minute: 'funud',
       seconds: 'eiliad',
       second: 'eiliad'

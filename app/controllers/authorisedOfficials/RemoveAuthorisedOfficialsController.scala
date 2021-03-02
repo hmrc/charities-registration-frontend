@@ -73,7 +73,13 @@ class RemoveAuthorisedOfficialsController @Inject()(
               updatedAnswers <- Future.fromTry(request.userAnswers.remove(
                                  if(value) Seq(AuthorisedOfficialsId(index), IsAddAnotherAuthorisedOfficialPage) else Seq()
                                 ))
-              taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section7Page, checkComplete(updatedAnswers)))
+              taskListUpdated <- Future.fromTry(result =
+                if(updatedAnswers.get(AuthorisedOfficialsId(0)).isDefined) {
+                  updatedAnswers.set(Section7Page, checkComplete(updatedAnswers))
+                } else {
+                  updatedAnswers.remove(Section7Page)
+                }
+              )
               _ <- sessionRepository.set(taskListUpdated)
             } yield Redirect(navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, updatedAnswers))
         )

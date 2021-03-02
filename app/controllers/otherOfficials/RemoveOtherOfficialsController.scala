@@ -73,7 +73,13 @@ class RemoveOtherOfficialsController @Inject()(
               updatedAnswers <- Future.fromTry(request.userAnswers.remove(
                                  if(value) Seq(OtherOfficialsId(index), IsAddAnotherOtherOfficialPage) else Seq()
                                 ))
-              taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section8Page, checkComplete(updatedAnswers)))
+              taskListUpdated <- Future.fromTry(result =
+                if(updatedAnswers.get(OtherOfficialsId(0)).isDefined) {
+                  updatedAnswers.set(Section8Page, checkComplete(updatedAnswers))
+                } else {
+                  updatedAnswers.remove(Section8Page)
+                }
+              )
               _ <- sessionRepository.set(taskListUpdated)
             } yield Redirect(navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, updatedAnswers))
         )

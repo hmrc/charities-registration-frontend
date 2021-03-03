@@ -68,7 +68,7 @@ class CharitiesSave4LaterService @Inject()(
     userAnswers.get(AuthorisedOfficialsNamePage(0)) match {
       case Some(_) => userAnswers.set(Section7Page,
         AuthorisedOfficialsStatusHelper.checkComplete(userAnswers) && AuthorisedOfficialsStatusHelper.validateDataFromOldService(userAnswers))
-      case _ => Success(userAnswers)
+      case _ => userAnswers.remove(Section7Page)
     }
   }
 
@@ -85,7 +85,7 @@ class CharitiesSave4LaterService @Inject()(
     userAnswers.get(OtherOfficialsNamePage(0)) match {
       case Some(_) => userAnswers.set(Section8Page,
         OtherOfficialStatusHelper.checkComplete(userAnswers) && OtherOfficialStatusHelper.validateDataFromOldService(userAnswers))
-      case _ => Success(userAnswers)
+      case _ => userAnswers.remove(Section8Page)
     }
   }
 
@@ -170,11 +170,16 @@ class CharitiesSave4LaterService @Inject()(
   private def checkForValidApplicationJourney(request: OptionalDataRequest[_], lastSessionId: Option[String])(
     implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] = {
     (request.userAnswers, lastSessionId) match {
-      case (Some(userAnswers), _) => userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
+      case (Some(userAnswers), _) =>
+        Future.fromTry(result = isSection7Completed(userAnswers)
+          .flatMap(userAnswers => isSection8Completed(userAnswers))
+        ).flatMap { updatedUserAnswers =>
+          userAnswerService.set(updatedUserAnswers).map(_ => Right(updatedUserAnswers))
+        }
       case (None, Some(sessionId)) =>
         sessionRepository.get(sessionId).flatMap {
           case None =>
-            logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data found")
+            logger.warn(s"[CharitiesSave4LaterService][getCacheData] no eligibility data found")
             Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
           case Some(_) => val userAnswers = UserAnswers(request.internalId)
             logger.warn(s"CharitiesRewriteUser: ${AuditTypes.NewUser}")

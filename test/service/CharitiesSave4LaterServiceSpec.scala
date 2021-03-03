@@ -17,7 +17,6 @@
 package service
 
 import java.util.UUID
-
 import audit.{AuditService, SubmissionAuditEvent}
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
@@ -29,6 +28,7 @@ import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{atLeastOnce, doNothing, reset, times, verify, when}
 import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
 import org.scalatestplus.mockito.MockitoSugar
+import pages.sections.{Section7Page, Section8Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{Json, JsonValidationError, __}
@@ -930,6 +930,22 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj())
 
         val optionalDataRequest: OptionalDataRequest[_] = OptionalDataRequest(requestWithSession, "8799940975137654", Some(emptyUserAnswers))
+
+        val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
+
+        result.right.get.data mustBe responseJson.data
+      }
+
+      "return object when request with user answers and invalid data for section 7 and 8 completed status" in new LocalSetup {
+
+        override def mockCache: Option[CacheMap] = None
+
+        initialiseCache()
+
+        val responseJson: UserAnswers = UserAnswers("8799940975137654", Json.obj())
+        val ua: UserAnswers = emptyUserAnswers.set(Section7Page, true).flatMap(_.set(Section8Page, false)).success.value
+
+        val optionalDataRequest: OptionalDataRequest[_] = OptionalDataRequest(requestWithSession, "8799940975137654", Some(ua))
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 

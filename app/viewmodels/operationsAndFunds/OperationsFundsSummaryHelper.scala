@@ -52,7 +52,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
       answer(EstimatedIncomePage, operationFundsRoutes.EstimatedIncomeController.onPageLoad(CheckMode))
 
     def whyNoBankStatementRow: Option[SummaryListRow] =
-      answer(WhyNoBankStatementPage, operationFundsRoutes.WhyNoBankStatementController.onPageLoad(CheckMode))
+      textBoxAnswer(WhyNoBankStatementPage, operationFundsRoutes.WhyNoBankStatementController.onPageLoad(CheckMode))
 
     def actualAmountRow: Option[SummaryListRow] =
       answer(ActualIncomePage, operationFundsRoutes.ActualIncomeController.onPageLoad(CheckMode))

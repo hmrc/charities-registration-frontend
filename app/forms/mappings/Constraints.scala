@@ -105,6 +105,14 @@ trait Constraints extends InputFilter{
         Invalid(errorKey, maximum)
     }
 
+  protected def maxLengthTextArea(maximum: Int, errorKey: String): Constraint[String] =
+    Constraint {
+      case str if str.replaceAll("\\r\\n", " ").replaceAll("\\t", " ").length <= maximum =>
+        Valid
+      case x =>
+        Invalid(errorKey, maximum)
+    }
+
   protected def maxDate(maximum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] =
     Constraint {
       case date if date.isAfter(maximum) =>

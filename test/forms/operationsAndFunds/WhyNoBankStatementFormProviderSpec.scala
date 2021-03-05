@@ -29,7 +29,7 @@ class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
     val requiredKey = "whyNoBankStatement.error.required"
     val lengthKey = "whyNoBankStatement.error.length"
     val invalidKey = "whyNoBankStatement.error.format"
-    val maxLength = 255
+    val maxLength = 350
     val fieldName = "value"
 
     behave like fieldThatBindsValidData(
@@ -55,20 +55,20 @@ class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithNewLine))
     )
   }
 
-  "validatereason" must {
+  "validate reason" must {
 
     "valid for abcd" in {
 
-      "abcd" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldWithNewLine
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "abc@" mustNot fullyMatch regex formProvider.validateFieldWithNewLine
     }
   }
 }

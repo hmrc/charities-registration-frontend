@@ -158,6 +158,27 @@ class ConstraintsSpec extends WordSpec with MustMatchers with ScalaCheckProperty
     }
   }
 
+  "maxLengthTextArea" must {
+
+    lazy val max = maxLengthTextArea(10, "error.length")
+
+    "return Valid for a string shorter than the allowed length" in {
+      max(("a" * 8) + "\r\n") mustEqual Valid
+    }
+
+    "return Valid for an empty string" in {
+      max("") mustEqual Valid
+    }
+
+    "return Valid for a string equal to the allowed length" in {
+      max(("a" * 8) + "\r\n\t") mustEqual Valid
+    }
+
+    "return Invalid for a string longer than the allowed length" in {
+      max("a" * 11) mustEqual Invalid("error.length", 10)
+    }
+  }
+
   "lengthBetween" must {
 
     lazy val lenBet = lengthBetween(10, 20, "error.length")

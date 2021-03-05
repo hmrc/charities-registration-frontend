@@ -57,7 +57,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     answer(SelectWhyNoRegulatorPage, regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode), answerIsMsgKey = true)
 
   def whyNotRegisteredCharityRow: Option[SummaryListRow] =
-    answer(WhyNotRegisteredWithCharityPage, regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode))
+    textBoxAnswer(WhyNotRegisteredWithCharityPage, regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode))
 
 
   private def answerRegistrationName[A](page: QuestionPage[CharityOtherRegulatorDetails],

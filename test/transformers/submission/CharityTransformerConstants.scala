@@ -99,7 +99,7 @@ trait CharityTransformerConstants extends SpecBase{
       _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
       _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
       _.set(CharitableObjectivesPage,
-        "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+        "qwet\tqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre\r\n66"
       ))
   )
     .flatMap(
@@ -448,7 +448,7 @@ trait CharityTransformerConstants extends SpecBase{
        |      },
        |      "orgPurpose": {
        |        "charitableObjectives": {
-       |          "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+       |          "objectivesA": "qwet qwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre 66"
        |        },
        |        "charitablePurposes": {
        |          "reliefOfPoverty": false,

@@ -50,6 +50,20 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
+  def textBoxAnswer[A](page: QuestionPage[A],
+                changeLinkCall: Call,
+                headingMessageArgs: Seq[String] = Seq(),
+                idx: Option[Int] = None)
+               (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+    userAnswers.get(page, idx) map { ans =>
+      summaryListRow(
+        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+        value = HtmlContent(ans.replaceAll("\r\n", "<br>")),
+        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
   def multiLineAnswer[A<: WithOrder](page: QuestionPage[Set[A]],
                                      changeLinkCall: Call)
                                     (implicit reads: Reads[A],

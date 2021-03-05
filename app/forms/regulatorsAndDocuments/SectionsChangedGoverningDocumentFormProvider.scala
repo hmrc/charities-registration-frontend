@@ -27,7 +27,7 @@ class SectionsChangedGoverningDocumentFormProvider @Inject() extends Mappings {
   def apply(): Form[String] =
     Form(
       "value" -> text("sectionsChangedGoverningDocument.error.required")
-         .verifying(maxLength(maxLength, "sectionsChangedGoverningDocument.error.length"))
-        .verifying(regexp(validateFieldWithFullStop,"sectionsChangedGoverningDocument.error.format"))
+         .verifying(maxLengthTextArea(maxLength, "sectionsChangedGoverningDocument.error.length"))
+        .verifying(regexp(validateFieldWithNewLine,"sectionsChangedGoverningDocument.error.format"))
       )
 }

@@ -29,13 +29,13 @@ class CharityObjectivesSummaryHelper(override val userAnswers: UserAnswers)
     with SummaryListRowHelper {
 
     def charitableObjectivesRow: Option[SummaryListRow] =
-      answer(CharitableObjectivesPage, operations.CharitableObjectivesController.onPageLoad(CheckMode))
+      textBoxAnswer(CharitableObjectivesPage, operations.CharitableObjectivesController.onPageLoad(CheckMode))
 
     def charitablePurposesRow: Option[SummaryListRow] =
       multiLineAnswer(CharitablePurposesPage, operations.CharitablePurposesController.onPageLoad(CheckMode))
 
     def publicBenefitsRow: Option[SummaryListRow] =
-      answer(PublicBenefitsPage, operations.PublicBenefitsController.onPageLoad(CheckMode))
+      textBoxAnswer(PublicBenefitsPage, operations.PublicBenefitsController.onPageLoad(CheckMode))
 
     val rows: Seq[SummaryListRow] = Seq(
       charitableObjectivesRow,

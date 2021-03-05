@@ -28,7 +28,7 @@ class WhyNotRegisteredWithCharityFormProvider @Inject() extends Mappings {
   def apply(): Form[String] =
     Form(
       "value" -> text("whyNotRegisteredWithCharity.error.required")
-         .verifying(maxLength(maxLength, "whyNotRegisteredWithCharity.error.length"))
-        .verifying(regexp(validateFieldWithFullStop,"whyNotRegisteredWithCharity.error.format"))
+         .verifying(maxLengthTextArea(maxLength, "whyNotRegisteredWithCharity.error.length"))
+        .verifying(regexp(validateFieldWithNewLine,"whyNotRegisteredWithCharity.error.format"))
       )
 }

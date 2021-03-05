@@ -55,7 +55,7 @@ class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours 
       form,
       fieldName,
       "abc@&",
-      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
+      FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithNewLine))
     )
   }
 
@@ -63,12 +63,12 @@ class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours 
 
     "valid for abcd" in {
 
-      "abcd" must fullyMatch regex formProvider.validateFieldWithFullStop
+      "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldWithNewLine
     }
 
     "valid for abc@" in {
 
-      "abc@" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      "abc@" mustNot fullyMatch regex formProvider.validateFieldWithNewLine
     }
   }
 }

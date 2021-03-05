@@ -36,8 +36,8 @@ class CharitySubmissionTransformer @Inject()(
       .map(jsObj => {
         Json.parse(jsObj.toString()
           .replaceAll("%", " percent")
-          .replaceAllLiterally("\\r", "")
-          .replaceAllLiterally("\\n", "")).as[JsObject]
+          .replaceAllLiterally("\\t", " ")
+          .replaceAllLiterally("\\r\\n", " ")).as[JsObject]
         }
       )
   }

@@ -27,7 +27,7 @@ class CharitableObjectivesFormProvider @Inject() extends Mappings {
   def apply(): Form[String] =
     Form(
       "value" -> text("charitableObjectives.error.required")
-         .verifying(maxLength(maxLength, "charitableObjectives.error.length"))
-        .verifying(regexp(validateFieldWithFullStop,"charitableObjectives.error.format"))
+         .verifying(maxLengthTextArea(maxLength, "charitableObjectives.error.length"))
+        .verifying(regexp(validateFieldWithNewLine,"charitableObjectives.error.format"))
       )
 }

@@ -44,7 +44,7 @@ class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
     answer(HasCharityChangedPartsOfGoverningDocumentPage, documentsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode))
 
   def sectionsChangedGoverningDocumentRow: Option[SummaryListRow] =
-    answer(SectionsChangedGoverningDocumentPage, documentsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode))
+    textBoxAnswer(SectionsChangedGoverningDocumentPage, documentsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode))
 
   val rows: Seq[SummaryListRow] = Seq(
     selectGoverningDocumentRow,

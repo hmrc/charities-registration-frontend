@@ -881,6 +881,7 @@ estimatedIncome.heading = Beth yw incwm amcangyfrifedig yr elusen ar gyfer ei 12
 estimatedIncome.p1 = Dylai’r ffigwr hwn fod yn incwm amcangyfrifedig yr elusen cyn unrhyw ddidyniadau. Os ydych yn trosi i bunnoedd Prydain, dylech ddefnyddio’r gyfradd gyfnewid heddiw.
 estimatedIncome.error.required = Nodwch incwm amcangyfrifedig yr elusen ar gyfer y 12 mis presennol o weithredu
 estimatedIncome.error.format = Mae’n rhaid ysgrifennu’r incwm amcangyfrifedig fel rhif, megis 100.50 neu 110
+estimatedIncome.error.length = Mae’n rhaid i’r incwm amcangyfrifedig fod rhwng 0 a 9,999,999.9
 estimatedIncome.checkYourAnswersLabel = Incwm amcangyfrifedig ar gyfer y 12 mis presennol o weithredu?
 
 # What is the charity’s actual income so far?
@@ -889,7 +890,8 @@ actualIncome.title = Beth yw incwm gwirioneddol yr elusen hyd yn hyn?
 actualIncome.heading = Beth yw incwm gwirioneddol yr elusen hyd yn hyn?
 actualIncome.p1 = Dylai’r ffigwr hwn fod yn incwm gwirioneddol yr elusen cyn unrhyw ddidyniadau. Os ydych yn trosi i bunnoedd Prydain, dylech ddefnyddio’r gyfradd gyfnewid heddiw.
 actualIncome.error.required = Nodwch incwm gwirioneddol yr elusen hyd yn hyn
-actualIncome.error.format = Mae’n rhaid i incwm gwirioneddol yr elusen fod yn swm o arian, megis 100.50 neu 110
+actualIncome.error.format = Mae’n rhaid ysgrifennu’r incwm gwirioneddol fel rhif, megis 100.50 neu 110
+actualIncome.error.length = Mae’n rhaid i’r incwm gwirioneddol fod rhwng 0 a 9,999,999.99
 actualIncome.checkYourAnswersLabel = Incwm gwirioneddol hyd yn hyn
 
 # Does your charity have bank statements

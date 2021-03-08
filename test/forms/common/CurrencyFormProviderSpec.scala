@@ -31,6 +31,6 @@ class CurrencyFormProviderSpec extends DecimalFieldBehaviours {
     behave like decimalFieldWithMinimum(form, "amount", BigDecimal.valueOf(0), FormError("amount", s"$messagePrefix.error.format", List()))
 
     behave like decimalFieldWithMaximum(form, "amount", BigDecimal.valueOf(9999999.99),
-      FormError("amount", s"$messagePrefix.error.format", Seq(BigDecimal(9999999.99))))
+      FormError("amount", s"$messagePrefix.error.length", Seq(BigDecimal(9999999.99))))
   }
 }

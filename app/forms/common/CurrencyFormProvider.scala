@@ -27,7 +27,7 @@ class CurrencyFormProvider @Inject() extends Mappings {
       "amount" -> currency(
         requiredKey     = s"$messagePrefix.error.required",
         invalidCurrency = s"$messagePrefix.error.format"
-      ).verifying(maximumValue(maxNumber, s"$messagePrefix.error.format"))
+      ).verifying(maximumValue(maxNumber, s"$messagePrefix.error.length"))
     )
 }
 

@@ -28,7 +28,7 @@ import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{atLeastOnce, doNothing, reset, times, verify, when}
 import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
 import org.scalatestplus.mockito.MockitoSugar
-import pages.sections.{Section7Page, Section8Page}
+import pages.sections.{Section1Page, Section7Page, Section8Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{Json, JsonValidationError, __}
@@ -41,6 +41,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
 import utils.TestData
 
 import scala.concurrent.Future
+import scala.util.Try
 
 // scalastyle:off number.of.methods
 // scalastyle:off line.size.limit
@@ -1076,7 +1077,51 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
         verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
+    }
 
+    "isSection1Completed" must {
+
+      val data = Json.obj(
+        "charityContactDetails" -> Json.parse("""{"emailAddress":"a@b.com","daytimePhone":"1234567890"}"""),
+        "charityName" -> Json.parse("""{"fullName":"Test123"}"""),
+        "isSection1Completed" -> false,
+        "isSwitchOver" -> true,
+        "charityOfficialAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""),
+        "charityPostalAddress" -> Json.parse("""{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""))
+
+      "return false when sections are not completed" in new LocalSetup with PrivateMethodTester {
+
+        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]]('isSection1Completed)
+
+        val ua: UserAnswers = UserAnswers("8799940975137654", data)
+
+        val result: Try[UserAnswers] = service invokePrivate isSection1Completed(ua)
+
+        result.get.get(Section1Page) mustBe Some(false)
+      }
+
+      "return false when all sections are completed and charity name is more than 60 characters" in new LocalSetup with PrivateMethodTester {
+
+        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]]('isSection1Completed)
+
+        val ua: UserAnswers = UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false)
+          ++ Json.obj("charityName" -> Json.parse("""{"fullName":"canWeSendLettersToThisAddresscanWeSendLettersToThisAddress123"}""")))
+
+        val result: Try[UserAnswers] = service invokePrivate isSection1Completed(ua)
+
+        result.get.get(Section1Page) mustBe Some(false)
+      }
+
+      "return true when all sections are completed" in new LocalSetup with PrivateMethodTester {
+
+        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]]('isSection1Completed)
+
+        val ua: UserAnswers = UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
+
+        val result: Try[UserAnswers] = service invokePrivate isSection1Completed(ua)
+
+        result.get.get(Section1Page) mustBe Some(true)
+      }
     }
   }
 }

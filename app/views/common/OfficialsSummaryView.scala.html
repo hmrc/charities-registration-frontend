@@ -43,46 +43,43 @@
 }
 
 @getTagClass(isCompleted: Boolean) = @{isCompleted match {
-    case true => "hmrc-status-tag govuk-tag govuk-tag--turquoise"
-    case _ => "hmrc-status-tag govuk-tag govuk-tag--yellow"
+    case true => "govuk-tag govuk-tag--turquoise"
+    case _ => "govuk-tag govuk-tag--yellow"
     }
 }
+
 @govukLayout(pageTitle = Some(title(form, s"$section.checkYourAnswers.title.$suffix", section = Some(messages(s"$section.section"))))) {
 
     @errorSummary(form.errors)
 
     @h1(messages(s"$section.checkYourAnswers.heading.$suffix"))
 
-    <div class="govuk-form-group">
-        <ul class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
-            @for(official <- officialAnswers) {
-                <li class="hmrc-add-to-a-list__contents">
-                    <span class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
-                        @{official.name.getFullName}
-                    </span>
-                    <span class="hmrc-add-to-a-list__change">
-                        <a class="govuk-link" href=@{official.changeCall}>
-                            <span aria-hidden="true">@{if(official.isCompleted){messages(s"$section.checkYourAnswers.change")} else {messages(s"$section.checkYourAnswers.continue")}}</span>
-                            <span class="govuk-visually-hidden">@{messages(if(official.isCompleted){s"$section.checkYourAnswers.changeName"} else {s"$section.checkYourAnswers.continueName"}, official.name.getFullName)}</span>
-                        </a>
-                    </span>
-                    <span class="hmrc-add-to-a-list__remove">
-                        <a class="govuk-link" href=@{official.removeCall}>
-                            <span aria-hidden="true">@{messages(s"$section.checkYourAnswers.remove")}</span>
-                            <span class="govuk-visually-hidden">@{messages(s"$section.checkYourAnswers.removeName", official.name.getFullName)}</span>
-                        </a>
-                    </span>
-                    <span class="hmrc-add-to-a-list__remove">
-                        <strong class="@getTagClass(official.isCompleted) official-status-tag">@messages(if(official.isCompleted){"index.section.completed"} else {"index.section.inProgress"})</strong>
-                    </span>
-                </li>
-            }
-        </ul>
-    </div>
+    <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+        @for(official <- officialAnswers) {
+            <div class="hmrc-add-to-a-list__contents">
+                <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+                    @{official.name.getFullName}
+                </dt>
+                <dd class="hmrc-add-to-a-list__change">
+                    <a class="govuk-link" href="@{official.changeCall}">
+                        @{messages(s"$section.checkYourAnswers.change")}<span class="govuk-visually-hidden"> @{official.name.getFullName}</span>
+                    </a>
+                </dd>
+                <dd class="hmrc-add-to-a-list__remove">
+                    <a class="govuk-link" href="@{official.removeCall}">
+                        @{messages(s"$section.checkYourAnswers.remove")}<span class="govuk-visually-hidden"> @{official.name.getFullName}</span>
+                    </a>
+                </dd>
+                <dd class="hmrc-add-to-a-list__remove">
+                    <strong class="@getTagClass(official.isCompleted)">
+                        <span class="govuk-visually-hidden">@{official.name.getFullName}</span> @messages(if(official.isCompleted){"index.section.completed"} else {"index.section.inProgress"})
+                    </strong>
+                </dd>
+            </div>
+        }
+    </dl>
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
-
-
 
         @if(officialAnswers.length == 1 && section == "otherOfficialsSummary") {
 
@@ -96,11 +93,9 @@
                     h2Message = Some(s"$section.addAnotherOfficial.h2"),
                     hintMessage = None
                     )
-
             }
         }
 
         @button("site.confirmAndContinue")
-
     }
 }

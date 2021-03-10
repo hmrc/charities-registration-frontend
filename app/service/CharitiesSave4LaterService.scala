@@ -26,6 +26,7 @@ import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
 import models.{AuditTypes, UserAnswers}
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.contactDetails.CharityNamePage
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections.{Section1Page, Section7Page, Section8Page, Section9Page}
 import pages.{IsSwitchOverUserPage, OldServiceSubmissionPage}
@@ -59,7 +60,8 @@ class CharitiesSave4LaterService @Inject()(
 
   private def isSection1Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
     userAnswers.get(Section1Page) match {
-      case Some(_) => userAnswers.set(Section1Page, CharityInformationStatusHelper.checkComplete(userAnswers))
+      case Some(_) => userAnswers.set(Section1Page, CharityInformationStatusHelper.checkComplete(userAnswers) &&
+        userAnswers.get(CharityNamePage).fold(false)(_.fullName.length<60))
       case _ => Success(userAnswers)
     }
   }

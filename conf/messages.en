@@ -880,7 +880,7 @@ estimatedIncome.title = What is the charity’s estimated income for its current
 estimatedIncome.heading = What is the charity’s estimated income for its current 12 months of operation?
 estimatedIncome.p1 = This figure should be the charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 estimatedIncome.error.required = Enter the charity’s estimated income for the current 12 months of operation
-estimatedIncome.error.format = Estimated income must written as a number, like 100.50 or 110
+estimatedIncome.error.format = Estimated income must be written as a number, like 100.50 or 110
 estimatedIncome.error.length = Estimated income must be between 0 and 9,999,999.99
 estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 months of operation
 
@@ -890,7 +890,7 @@ actualIncome.title = What is the charity’s actual income so far?
 actualIncome.heading = What is the charity’s actual income so far?
 actualIncome.p1 = This figure should be the charity’s actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 actualIncome.error.required = Enter the charity’s actual income so far
-actualIncome.error.format = Actual income must written as a number, like 100.50 or 110
+actualIncome.error.format = Actual income must be written as a number, like 100.50 or 110
 actualIncome.error.length = Actual income must be between 0 and 9,999,999.99
 actualIncome.checkYourAnswersLabel = Actual income so far
 

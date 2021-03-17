@@ -39,11 +39,15 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   val gtmContainer: String = servicesConfig.getString("tracking-consent-frontend.gtm.container")
 
-  def feedbackUrl(implicit request: RequestHeader): String =
+  def feedbackUrl: String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
 
-  def feedbackUnauthenticatedUrl(implicit request: RequestHeader): String =
+  def feedbackUnauthenticatedUrl: String =
     s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier"
+
+  private val exitSurveyHost: String = servicesConfig.getString("feedback-frontend.host")
+
+  def exitSurveyUrl: String = s"$exitSurveyHost/feedback/CHARITIES"
 
   lazy val loginUrl: String = servicesConfig.getString("urls.login")
   lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")

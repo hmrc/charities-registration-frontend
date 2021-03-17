@@ -35,7 +35,7 @@ class ApplicationBeingProcessedViewSpec extends ViewBehaviours with ImplicitDate
 
     behave like normalPage(applyView(), messageKeyPrefix)
 
-    behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.feedbackUrl(fakeRequest), messages("registrationSent.link"))
+    behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.exitSurveyUrl, messages("registrationSent.link"))
 
     "Contains the reference number" in{
       val doc = asDocument(applyView())

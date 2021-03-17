@@ -45,9 +45,9 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
         "p1", "submissionDate", "p3.beforeRefNo", "p3.afterRefNo", "p4.beforeRegistrations", "p4.keyWord", "p4.beforeRegNo", "p4.afterRegNo", "p9",
         "email.prefer.p", "whatHappensNext.p1", "whatHappensNext.p2", "whatHappensNext.p3", "changeSomething.p1")
 
-      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.feedbackUrl(fakeRequest), messages("registrationSent.link"))
+      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.exitSurveyUrl, messages("registrationSent.link"))
 
-      "Contains the reference number" in{
+      "Contains the reference number" in {
        val doc = asDocument(applyView())
         assertContainsText(doc,"080582080582")
       }
@@ -72,7 +72,7 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
         "post.prefer.p", "whatHappensNext.p1", "whatHappensNext.p2", "whatHappensNext.p3", "changeSomething.p1")
 
 
-      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.feedbackUrl(fakeRequest), messages("registrationSent.link"))
+      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.exitSurveyUrl, messages("registrationSent.link"))
 
       "Contains the inset text" in {
         val doc = asDocument(applyView())

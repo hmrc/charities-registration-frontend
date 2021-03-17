@@ -60,6 +60,10 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.feedbackUnauthenticatedUrl mustBe "http://localhost:9250/contact/beta-feedback-unauthenticated?service=iCharities"
       }
 
+      "exitSurveyUrl" in {
+        frontendAppConfig.exitSurveyUrl mustBe "http://localhost:9514/feedback/CHARITIES"
+      }
+
       "loginUrl" in {
         frontendAppConfig.loginUrl mustBe "http://localhost:9949/auth-login-stub/gg-sign-in"
       }

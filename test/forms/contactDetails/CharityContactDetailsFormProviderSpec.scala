@@ -149,15 +149,62 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
   }
 
   "emailAddress" must {
+    "return valid" when {
+      "email is abc@gmail.com" in {
+        "abc@gmail.com" must fullyMatch regex formProvider.validateEmailAddress
+      }
 
-    "valid for abc@gmail.com" in {
+      "email is firstname.o\'lastname@domain.com" in {
+        "firstname.o\'lastname@domain.com" must fullyMatch regex formProvider.validateEmailAddress
+      }
 
-      "abc@gmail.com" must fullyMatch regex formProvider.validateEmailAddress
+      "valid for firstname+lastname@domain.com" in {
+        "firstname+lastname@domain.com" must fullyMatch regex formProvider.validateEmailAddress
+      }
+
+      "valid for email@subdomain.domain.com" in {
+        "email@subdomain.domain.com" must fullyMatch regex formProvider.validateEmailAddress
+      }
     }
 
-    "valid for abc@gmail" in {
+    "return invalid" when {
+      "for email abc@gmail" in {
+        "abc@gmail" mustNot fullyMatch regex formProvider.validateEmailAddress
+      }
 
-      "abc@gmail" mustNot fullyMatch regex formProvider.validateEmailAddress
+      "for email two-dots..in-local@domain.com" in {
+        "two-dots..in-local@domain.com" mustNot fullyMatch regex formProvider.validateEmailAddress
+      }
+
+      "for email pipe-in-domain@example.com|gov.uk" in {
+        "pipe-in-domain@example.com|gov.uk" mustNot fullyMatch regex formProvider.validateEmailAddress
+      }
+
+      "for email brackets(in)local@domain.com" in {
+        "brackets(in)local@domain.com" mustNot fullyMatch regex formProvider.validateEmailAddress
+      }
+
+      "for email comma-in-domain@domain,gov.uk" in {
+        "comma-in-domain@domain,gov.uk" mustNot fullyMatch regex formProvider.validateEmailAddress
+      }
+    }
+  }
+
+  "validateEmailExtraTld" must {
+    "return invalid" when {
+      "email is abc@gmail.com" in {
+        "abc@gmail.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
+      }
+
+      "email is abc@123.com" in {
+        "abc@123.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
+      }
+    }
+
+    "return valid" when {
+      "for email email@123.123.123.123" in {
+        "email@123.123.123.123" must fullyMatch regex formProvider.validateEmailExtraTld
+      }
     }
   }
 

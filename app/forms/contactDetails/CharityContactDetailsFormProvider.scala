@@ -35,9 +35,10 @@ class CharityContactDetailsFormProvider @Inject() extends Mappings {
           .verifying(regexp(validateTelephoneNumber,"charityContactDetails.alternativePhoneNumber.error.format"))),
         "emailAddress" -> text("charityContactDetails.emailAddress.error.required")
           .verifying(maxLength(maxLength, "charityContactDetails.emailAddress.error.length"))
-          .verifying(regexp(validateEmailAddress, "charityContactDetails.emailAddress.error.format")))
-      (CharityContactDetails.apply)(CharityContactDetails.unapply)
-    )
+          .verifying(regexp(validateEmailAddress, "charityContactDetails.emailAddress.error.format"))
+          .verifying("charityContactDetails.emailAddress.error.format", email => !email.contains("\"") && !email.matches(validateEmailExtraTld))
 
+      )(CharityContactDetails.apply)(CharityContactDetails.unapply)
+    )
 }
 

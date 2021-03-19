@@ -33,8 +33,8 @@ class OrganisationNomineeContactDetailsFormProvider @Inject() extends Mappings {
           .verifying(regexp(validateTelephoneNumber,"organisationContactDetails.phoneNumber.error.format")),
         "email" -> text("organisationContactDetails.email.error.required")
           .verifying(maxLength(maxEmailLength, "organisationContactDetails.email.error.length"))
-          .verifying(regexp(validateEmailAddress,"organisationContactDetails.email.error.format")))
-
-      (OrganisationNomineeContactDetails.apply)(OrganisationNomineeContactDetails.unapply)
+          .verifying(regexp(validateEmailAddress,"organisationContactDetails.email.error.format"))
+          .verifying("charityContactDetails.emailAddress.error.format", email => !email.contains("\"") && !email.matches(validateEmailExtraTld))
+      )(OrganisationNomineeContactDetails.apply)(OrganisationNomineeContactDetails.unapply)
     )
 }

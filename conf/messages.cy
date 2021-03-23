@@ -93,6 +93,16 @@ signed_out.heading = Er eich diogelwch, gwnaethom eich allgofnodi
 signed_out.status = Gwnaethom gadw’ch atebion.
 signed_out.signIn = Mewngofnodi
 
+# Deleted Answers
+# ----------------------------------------------------------
+we_deleted_answers.title = Er eich diogelwch, gwnaethom ddileu’ch atebion
+we_deleted_answers.heading = Er eich diogelwch, gwnaethom ddileu’ch atebion
+we_deleted_answers.status = Gwnaethom ddileu’ch atebion oherwydd na wnaethoch unrhyw beth ar y dudalen am 15 munud.
+
+you_deleted_answers.title = Rydych wedi dileu’ch atebion
+you_deleted_answers.heading = Rydych wedi dileu’ch atebion
+
+deleted_answers.startAgain = Dechrau eto
 
 # Incorrect Details Error
 # ----------------------------------------------------------
@@ -106,11 +116,13 @@ incorrect-details.notAnOrganisation.p2.link = greu cyfrif Porth y Llywodraeth ar
 
 # Timeout Messages
 # ----------------------------------------------------------
-timeout.title = Rydych ar fin cael eich allgofnodi
 timeout.message = Er eich diogelwch, byddwn yn eich allgofnodi cyn pen
 timeout.keepAlive = Parhau i fod wedi’ch mewngofnodi
 timeout.signOut = Allgofnodi
 
+userEligibility.timeout.message = Er eich diogelwch, byddwn yn dileu’ch atebion cyn pen
+userEligibility.timeout.keepAlive = Parhau i wirio os yw’r elusen yn gymwys i gofrestru gyda CThEM
+userEligibility.timeout.deleteAnswers = Dileu’ch atebion
 
 # Sections
 # ----------------------------------------------------------

@@ -17,19 +17,20 @@
 package controllers
 
 import base.SpecBase
+import connectors.httpParsers.UnexpectedFailureException
 import controllers.Assets.Redirect
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
-import transformers.submission.CharityTransformerConstants
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
-import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
+import pages.sections._
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import service.{CharitiesRegistrationService, UserAnswerService}
+import transformers.submission.CharityTransformerConstants
 import views.html.DeclarationView
 
 import scala.concurrent.Future
@@ -135,14 +136,15 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       verify(mockCharitiesRegistrationService, never).register(any())(any(), any(), any())
     }
 
-    "redirect to the session expired page for invalid transformation" in {
+    "redirect to the technical difficulties page for invalid transformation" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
-      val result = controller.onSubmit()(fakeRequest)
+      //val result = controller.onSubmit()(fakeRequest)
+      intercept[UnexpectedFailureException] {
+        await(controller.onSubmit()(fakeRequest))
+      }
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCharitiesRegistrationService, never()).register(any())(any(), any(), any())
     }

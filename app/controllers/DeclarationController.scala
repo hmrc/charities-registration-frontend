@@ -27,7 +27,9 @@ import transformers.submission.CharitySubmissionTransformer
 import views.html.DeclarationView
 import java.time.LocalDate
 
+import connectors.httpParsers.UnexpectedFailureException
 import javax.inject.Inject
+
 import scala.concurrent.Future
 
 class DeclarationController @Inject()(
@@ -70,7 +72,7 @@ class DeclarationController @Inject()(
 
         case JsError(err) =>
           logger.error("[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors: " + err)
-          Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+          throw UnexpectedFailureException(err.toString())
       }
     }
   }

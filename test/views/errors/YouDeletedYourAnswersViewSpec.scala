@@ -17,25 +17,16 @@
 package views.errors
 
 import views.behaviours.ViewBehaviours
-import views.html.errors.PageNotFoundView
+import views.html.errors.{WeDeletedYourAnswersView, YouDeletedYourAnswersView}
 
-class PageNotFoundViewSpec extends ViewBehaviours {
+class YouDeletedYourAnswersViewSpec extends ViewBehaviours {
 
-  "PageNotFound view" must {
+  "You Deleted your answers view" must {
 
-    val view = inject[PageNotFoundView]
+    val view = inject[YouDeletedYourAnswersView]
 
-    val applyView = view.apply(signedIn = false)(fakeRequest, messages, frontendAppConfig)
+    val applyView = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView, "pageNotFound")
-
-    "reportLink" should {
-      behave like pageWithHyperLink(applyView, "reportLink",
-        frontendAppConfig.contactUrl, messages("pageNotFound.p3.link"))
-    }
-
-    behave like pageWithHyperLink(applyView, "startLink",
-      controllers.routes.PageNotFoundController.redirectToStartOfJourney().url, messages("pageNotFound.back.start.link"))
-
+    behave like normalPage(applyView, "you_deleted_answers")
   }
 }

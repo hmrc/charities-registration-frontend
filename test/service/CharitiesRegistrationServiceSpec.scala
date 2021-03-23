@@ -19,7 +19,7 @@ package service
 import audit.{AuditService, SubmissionAuditEvent}
 import base.SpecBase
 import connectors.CharitiesConnector
-import connectors.httpParsers.CharitiesInvalidJson
+import connectors.httpParsers.{CharitiesInvalidJson, UnexpectedFailureException}
 import controllers.Assets.SEE_OTHER
 import models.requests.DataRequest
 import models.{RegistrationResponse, UserAnswers}
@@ -91,23 +91,23 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
     }
 
-    "redirect to the session expired page if registration connector failed" in {
+    "redirect to the technical difficulties page if registration connector failed" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
 
       when(mockCharitiesConnector.registerCharities(any(),any())(any(), any())).thenReturn(
         Future.successful(Left(CharitiesInvalidJson))
       )
 
-      val result = service.register(Json.obj())(fakeDataRequest, hc, ec)
+      intercept[UnexpectedFailureException] {
+        await(service.register(Json.obj())(fakeDataRequest, hc, ec))
+      }
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerService, never()).set(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())
     }
 
-    "redirect to the session expired page if UserAnswer Repository failed" in {
+    "redirect to the technical difficulties page if UserAnswer Repository failed" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
 
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.failed(new RuntimeException("failed")))
@@ -115,10 +115,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
         Future.successful(Right(RegistrationResponse("765432")))
       )
 
-      val result = service.register(Json.obj())(fakeDataRequest, hc, ec)
+      intercept[UnexpectedFailureException] {
+        await(service.register(Json.obj())(fakeDataRequest, hc, ec))
+      }
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
       verify(mockAuditService, never()).sendEvent(any())(any(), any())

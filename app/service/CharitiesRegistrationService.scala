@@ -18,6 +18,7 @@ package service
 
 import audit.{AuditService, SubmissionAuditEvent}
 import connectors.CharitiesConnector
+import connectors.httpParsers.UnexpectedFailureException
 import javax.inject.Inject
 import models.requests.DataRequest
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
@@ -56,12 +57,12 @@ class CharitiesRegistrationService @Inject()(
 
           case Left(errors) =>
             logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
-            Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+            throw UnexpectedFailureException(errors.body)
 
         } recover {
           case errors =>
             logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
-            Redirect(controllers.routes.PageNotFoundController.onPageLoad())
+            throw UnexpectedFailureException(errors.getMessage)
         }
 
       case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))

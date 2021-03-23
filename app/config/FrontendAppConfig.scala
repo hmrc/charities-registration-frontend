@@ -16,12 +16,13 @@
 
 package config
 
+import java.net.URLEncoder
+
 import com.google.inject.{Inject, Singleton}
 import play.api.i18n.Lang
-import play.api.mvc.{Request, RequestHeader}
+import play.api.mvc.Request
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
-import java.net.URLEncoder
 import scala.util.Try
 
 @Singleton

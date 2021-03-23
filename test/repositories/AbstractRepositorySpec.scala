@@ -48,6 +48,13 @@ class AbstractRepositorySpec extends MongoUnitSpec with BeforeAndAfterEach with 
           Json.obj("isEligiblePurpose" -> true)
       }
 
+      "delete eligibility user answer" in {
+        await(repository.delete(eligibilityUserAnswers))
+
+        await(collection.find(Json.obj("_id" -> eligibilityUserAnswers.id), None).one[UserAnswers]).getOrElse(emptyUserAnswers).data mustBe
+          Json.obj()
+      }
+
   }
 
   private def givenAnExistingDocument(userAnswers: UserAnswers): Unit = {

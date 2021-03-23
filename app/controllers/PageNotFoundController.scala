@@ -18,15 +18,13 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.SessionIdentifierAction
+import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.auth.core.{AffinityGroup, AuthConnector}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import views.html.errors.PageNotFoundView
-
-import javax.inject.Inject
-import scala.concurrent.Future
 
 class PageNotFoundController @Inject()(
   identify: SessionIdentifierAction,
@@ -36,17 +34,25 @@ class PageNotFoundController @Inject()(
   implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = identify.async { implicit request =>
-      Future.successful(Ok(view()))
+
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
+    authConnector.authorise(AffinityGroup.Organisation, Retrievals.credentials).map {
+      case Some(_) => Ok(view(signedIn = true))
+      case _ => Ok(view(signedIn = false))
+    }.recover{
+      case _ => Ok(view(signedIn = false))
+    }
   }
 
   def redirectToStartOfJourney(): Action[AnyContent] = identify.async { implicit request =>
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-    authConnector.authorise(AffinityGroup.Organisation, Retrievals.credentials).map{
+    authConnector.authorise(AffinityGroup.Organisation, Retrievals.credentials).map {
       case Some(_) => Redirect(controllers.routes.IndexController.onPageLoad(None))
-      case _ => Redirect(controllers.checkEligibility.routes.CheckIfCanRegisterController.onPageLoad())
+      case _ => Redirect(appConfig.signOutUrl).withNewSession
     }.recover{
-      case _ => Redirect(controllers.checkEligibility.routes.CheckIfCanRegisterController.onPageLoad())
+      case _ => Redirect(appConfig.signOutUrl).withNewSession
     }
   }
 }

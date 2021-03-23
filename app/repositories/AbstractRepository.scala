@@ -128,4 +128,17 @@ trait AbstractRepository {
       }
     }
   }
+
+  def delete(userAnswers: UserAnswers): Future[Boolean] = {
+
+    val selector = Json.obj(
+      "_id" -> userAnswers.id
+    )
+
+    collection.flatMap(_.delete(ordered = false)
+      .one(selector)).map {
+      lastError =>
+        lastError.ok
+    }
+  }
 }

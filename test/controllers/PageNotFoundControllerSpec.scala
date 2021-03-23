@@ -57,14 +57,42 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "onPageLoad" must {
 
-      "return OK and the correct view with no user action" in {
+      "return true if user is logged in and load correct view with no user action" in {
+
+        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any()))
+          .thenReturn(Future.successful(Some(Credentials("valid", "org"))))
 
         val result = controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
 
         contentAsString(result) mustEqual
-          view()(fakeRequest, messages, frontendAppConfig).toString
+          view(signedIn = true)(fakeRequest, messages, frontendAppConfig).toString
+      }
+
+      "return false if user is logged in and load correct view with no user action" in {
+
+        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any()))
+          .thenReturn(Future.successful(None))
+
+        val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustEqual OK
+
+        contentAsString(result) mustEqual
+          view(signedIn = false)(fakeRequest, messages, frontendAppConfig).toString
+      }
+
+      "return false if authorisation failed and load correct view with no user action" in {
+
+        when(mockAuthConnector.authorise(any(), any())(any(), any())).thenReturn(Future.failed(new RuntimeException("Exception")))
+
+        val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustEqual OK
+
+        contentAsString(result) mustEqual
+          view(signedIn = false)(fakeRequest, messages, frontendAppConfig).toString
       }
     }
 
@@ -89,7 +117,7 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
         val result = controller.redirectToStartOfJourney()(fakeRequest)
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.CheckIfCanRegisterController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl)
       }
 
       "return false and authorisation failed" in {
@@ -100,7 +128,7 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
         val result = controller.redirectToStartOfJourney()(fakeRequest)
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.CheckIfCanRegisterController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl)
       }
     }
   }

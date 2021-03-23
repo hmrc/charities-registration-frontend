@@ -21,6 +21,8 @@ GET        /page-not-found                              controllers.PageNotFound
 GET        /redirect-to-start-of-journey                controllers.PageNotFoundController.redirectToStartOfJourney()
 GET        /sign-out                                    controllers.SignOutController.signOut
 GET        /error/signed-you-out                        controllers.SignOutController.signedYouOut
+GET        /you-deleted-your-answers                    controllers.DeleteAnswersController.youDeletedAnswers
+GET        /we-deleted-your-answers                     controllers.DeleteAnswersController.weDeletedYourAnswers
 
 ### Dead End Page route
 GET       /in-development                               controllers.DeadEndController.onPageLoad

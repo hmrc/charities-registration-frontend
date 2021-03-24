@@ -29,6 +29,26 @@ class JsonTransformerSpec extends SpecBase {
 
   "JsonTransformer" when {
 
+    "replaceInvalidCharacters" must {
+
+      "newlines form json with spaces" in{
+
+        val input = "Objects \r\n1.To transform. \r\n2. To make .\r\n3.To advance.\r\nchange"
+        val output = "Objects  1.To transform.  2. To make . 3.To advance. change"
+
+        jsonTransformer.replaceInvalidCharacters(input) mustBe output
+      }
+
+      "newlines and tabs form json with spaces" in{
+
+        val input = "1\tWorking.\r\n\r\n2\tEncourage.\r\n\r\n3\tPromote."
+        val output = "1 Working.  2 Encourage.  3 Promote."
+
+        jsonTransformer.replaceInvalidCharacters(input) mustBe output
+      }
+
+    }
+
     "Address" must {
 
       "convert the correct AddressModel" in {

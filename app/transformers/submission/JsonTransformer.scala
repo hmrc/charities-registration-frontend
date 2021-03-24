@@ -22,6 +22,10 @@ import play.api.libs.json._
 
 trait JsonTransformer {
 
+   def replaceInvalidCharacters(jsonString: String): String = {
+     jsonString.replaceAllLiterally("\t", " ").replaceAllLiterally("\r\n", " ")
+   }
+
   val doNothing: Reads[JsObject] = __.json.put(Json.obj())
 
   def getAddress(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {

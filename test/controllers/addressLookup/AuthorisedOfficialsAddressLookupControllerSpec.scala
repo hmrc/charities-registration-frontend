@@ -43,7 +43,7 @@ import scala.concurrent.Future
 class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  private val mockAddressLookupConnector : AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]
+  private val mockAddressLookupConnector: AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

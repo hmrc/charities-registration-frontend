@@ -27,6 +27,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 import views.html.errors.{PageNotFoundView, TechnicalDifficultiesErrorView}
+import scala.language.postfixOps
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}

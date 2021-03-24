@@ -128,7 +128,7 @@ trait CharityTransformerConstants extends SpecBase{
        |      },
        |      "aboutOrganisation": {
        |        "aboutOrgCommon": {
-       |          "otherDocument": "Other Documents for Charity percent",
+       |          "otherDocument": "Other Documents for Charity",
        |          "effectiveDate": "2014-07-01"
        |        },
        |        "documentEnclosed": "2",

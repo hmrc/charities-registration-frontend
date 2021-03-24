@@ -34,10 +34,7 @@ class CharitySubmissionTransformer @Inject()(
       charityTransformer.userAnswersToCharity and
       charityPartnerTransformer.userAnswersToPartner).reduce
       .map(jsObj => {
-        Json.parse(jsObj.toString()
-          .replaceAll("%", " percent")
-          .replaceAllLiterally("\\t", " ")
-          .replaceAllLiterally("\\r\\n", " ")).as[JsObject]
+        Json.parse(replaceInvalidCharacters(jsObj.toString())).as[JsObject]
         }
       )
   }

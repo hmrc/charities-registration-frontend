@@ -121,7 +121,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         _.set(CharitableObjectivesPage,
           "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
         )).flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
-          _.set(GoverningDocumentNamePage, "Other Documents for Charity%")).flatMap(
+          _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
           _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
          _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
           _.set(SectionsChangedGoverningDocumentPage,

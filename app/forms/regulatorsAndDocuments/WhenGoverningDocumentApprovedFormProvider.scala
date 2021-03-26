@@ -25,6 +25,9 @@ import utils.TimeMachine
 
 class WhenGoverningDocumentApprovedFormProvider @Inject()(timeMachine: TimeMachine) extends Mappings {
 
+  private val startYear = 1800
+  private val dayMonth = 1
+
   def apply(): Form[LocalDate] =
     Form(
       "date" -> localDate(
@@ -33,7 +36,8 @@ class WhenGoverningDocumentApprovedFormProvider @Inject()(timeMachine: TimeMachi
         twoRequiredKey = "whenGoverningDocumentApproved.error.required.two",
         requiredKey    = "whenGoverningDocumentApproved.error.required",
         nonNumericKey  = "whenGoverningDocumentApproved.error.nonNumeric"
-      ).verifying(maxDate(timeMachine.now(), "whenGoverningDocumentApproved.error.future", "day", "month", "year"))
+      ).verifying(maxDate(timeMachine.now(), "whenGoverningDocumentApproved.error.future", "day", "month", "year")
+      ).verifying(minDate(LocalDate.of(startYear, dayMonth, dayMonth), "whenGoverningDocumentApproved.error.dateBetween", timeMachine.now().getYear.toString))
     )
 }
 

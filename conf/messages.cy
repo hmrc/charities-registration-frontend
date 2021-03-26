@@ -663,6 +663,7 @@ whenGoverningDocumentApproved.error.required.two = Nodwch y {0} a’r {1} pan dd
 whenGoverningDocumentApproved.error.required = Nodwch y {0} pan ddaeth y ddogfen lywodraethu i rym
 whenGoverningDocumentApproved.error.future = Mae’n rhaid i’r dyddiad y cafodd y ddogfen lywodraethu ei chymeradwyo fod heddiw neu yn y gorffennol
 whenGoverningDocumentApproved.error.nonNumeric = Mae’n rhaid i’r dyddiad y cafodd y ddogfen lywodraethu’i chymeradwyo fod wedi’i ysgrifennu fel rhif
+whenGoverningDocumentApproved.error.dateBetween = Mae’n rhaid i’r flwyddyn y daeth y ddogfen lywodraethu i rym fod rhwng 1800 a {0}
 whenGoverningDocumentApproved.checkYourAnswersLabel = Dyddiad dod i rym
 
 # IsApprovedGoverningDocument Messages

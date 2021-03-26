@@ -663,6 +663,7 @@ whenGoverningDocumentApproved.error.required.two = Enter the {0} and the {1} whe
 whenGoverningDocumentApproved.error.required = Enter the {0} when the governing document became effective
 whenGoverningDocumentApproved.error.future = The date when the governing document was approved must be today or in the past
 whenGoverningDocumentApproved.error.nonNumeric = The date when the governing document was approved must be written as a number
+whenGoverningDocumentApproved.error.dateBetween = The year the governing document became effective must be between 1800 and {0}
 whenGoverningDocumentApproved.checkYourAnswersLabel = Effective date
 
 # IsApprovedGoverningDocument Messages

@@ -26,7 +26,7 @@ class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
 
   private val timeMachine: TimeMachine = inject[TimeMachine]
   private val form: Form[LocalDate] = inject[WhenGoverningDocumentApprovedFormProvider].apply()
-  private val year: Int = 1000
+  private val year: Int = 1800
   private val month: Int = 1
   private val dayOfMonth: Int = 1
   private val fakeNow: LocalDate = timeMachine.now()
@@ -45,6 +45,11 @@ class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
     behave like dateFieldWithMax(form, "date",
       max = fakeNow,
       FormError("date", "whenGoverningDocumentApproved.error.future", List("day", "month", "year"))
+    )
+
+    behave like dateFieldWithMin(form, "date",
+      min = LocalDate.of(year, month, dayOfMonth),
+      FormError("date", s"whenGoverningDocumentApproved.error.dateBetween", List(fakeNow.getYear.toString))
     )
   }
 }

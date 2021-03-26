@@ -33,7 +33,7 @@ trait Formatters {
     override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], String] =
       data.get(key) match {
         case None => Left(Seq(FormError(key, errorKey)))
-        case Some(str) if updateString(str).length == 0 => Left(Seq(FormError(key, errorKey)))
+        case Some(str) if updateString(str).isEmpty => Left(Seq(FormError(key, errorKey)))
         case Some(str) => Right(updateString(str))
       }
 

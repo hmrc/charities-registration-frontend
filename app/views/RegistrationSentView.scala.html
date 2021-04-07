@@ -29,7 +29,7 @@
     bullets: components.bullets
 )
 
-@(sendBeforeDate: String, submissionDate: String, acknowledgementReference: String, emailOrPost: Boolean,
+@(sendBeforeDate: String, submissionDate: String, acknowledgementReference: String, emailOrPost: Boolean, noEmailOrPost: Boolean,
     requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)]
     )(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
@@ -55,10 +55,19 @@
         </div>
     </div>
 
-    @h2(messages(s"registrationSent.$pageSelector.h2"))
-    @p{
-        @link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink"))
+    @if(emailOrPost && noEmailOrPost){
+        @h2{@messages("registrationSent.no.email.h2")}
+        @p(link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink")))
+        @p{@messages("registrationSent.no.email.p1")}
+    } else if(noEmailOrPost) {
+        <h2 class="govuk-heading-l">@messages("registrationSent.h2")</h2>
+        @p{@messages("registrationSent.post.p1")}
+        @p(link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink")))
+    } else {
+        @h2{@messages(s"registrationSent.$pageSelector.h2")}
+        @p(link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink")))
     }
+
     @h2(messages("registrationSent.step1"))
 
     @p {
@@ -68,19 +77,23 @@
         @bullets(requiredDocuments: _*)(foreignAddresses)
     }
 
-    @h2(messages(s"registrationSent.$pageSelector.step2", sendBeforeDate))
+    @if(!noEmailOrPost) {
+        @h2(messages(s"registrationSent.$pageSelector.step2", sendBeforeDate))
+    } else {
+        @h2(messages("registrationSent.post.step2"))
+    }
 
-    @if(emailOrPost) {
+    @if(emailOrPost && !noEmailOrPost) {
         @p{@messages("registrationSent.p4.beforeRegistrations") <strong>@messages("registrationSent.p4.keyWord")</strong> @messages("registrationSent.p4.beforeRegNo") <strong>@acknowledgementReference</strong> @messages("registrationSent.p4.afterRegNo")
         @link(s"mailto:contactcharities@hmrc.gov.uk?subject=Registrations $acknowledgementReference", "registrationSent.p4.link")}
     } else {
         @p{@messages("registrationSent.p4.receiveBy") <strong>@sendBeforeDate</strong>@messages("registrationSent.p4.applyAgain")}
         @p{@messages("registrationSent.p4.postTo")}
         @p{
-            <span class="govuk-body" id="line1">@messages("registrationSent.p5")</span>
+            <span class="govuk-body" id="line1-en">@messages("registrationSent.p5")</span>
             <br>
             @if(messages.lang.code == "cy") {
-                <span class="govuk-body" id="line1">@messages("registrationSent.p5.welsh")</span>
+                <span class="govuk-body" id="line1-cy">@messages("registrationSent.p5.welsh")</span>
                 <br>
             } else {
                 @HtmlFormat.empty
@@ -89,16 +102,17 @@
             <br>
             <span class="govuk-body" id="line3">@messages("registrationSent.p7")</span>
         }
-
         <div class="govuk-inset-text">@messages("registrationSent.warning")</div>
-
     }
 
-    @h2(messages(s"registrationSent.$pageSelector.prefer.h2"))
-    @p{@messages(s"registrationSent.$pageSelector.prefer.p") @link(routes.RegistrationSentController.onChange, s"registrationSent.$pageSelector.prefer.link")@messages(s"registrationSent.$pageSelector.prefer.afterLink")}
+    @if(!noEmailOrPost) {
+        @h2(messages(s"registrationSent.$pageSelector.prefer.h2"))
+        @p{@messages(s"registrationSent.$pageSelector.prefer.p") @link(routes.RegistrationSentController.onChange, s"registrationSent.$pageSelector.prefer.link")@messages(s"registrationSent.$pageSelector.prefer.afterLink")}
+    }
 
     @h2(messages("registrationSent.whatHappensNext.h2"))
     @p{@messages("registrationSent.whatHappensNext.p1")}
+
     @p{@messages("registrationSent.whatHappensNext.p2")}
     @p{@messages("registrationSent.whatHappensNext.p3")}
 

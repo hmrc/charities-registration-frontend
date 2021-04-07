@@ -23,6 +23,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import utils.ImplicitDateFormatter
 import viewmodels.RequiredDocumentsHelper
 import views.html.RegistrationSentView
+
 import javax.inject.Inject
 import service.UserAnswerService
 
@@ -44,13 +45,29 @@ class RegistrationSentController @Inject()(
       request.userAnswers.get(ApplicationSubmissionDatePage)) match {
       case (Some(acknowledgementReference), Some(applicationSubmissionDate)) =>
         request.userAnswers.get(EmailOrPostPage) match {
-          case Some(emailOrPost) =>
+          case Some(emailOrPost) if appConfig.noEmailPost =>
             Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
               dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
+              noEmailOrPost = true,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
               RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
             )))
-          case _ => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))
+          case Some(emailOrPost) =>
+            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
+              dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
+              noEmailOrPost = false,
+              RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+              RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+            )))
+          case _ if appConfig.noEmailPost =>
+            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
+              dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost = false,
+              noEmailOrPost = true,
+              RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+              RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+            )))
+          case _ =>
+            Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))
         }
       case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }

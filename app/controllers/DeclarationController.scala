@@ -61,14 +61,19 @@ class DeclarationController @Inject()(
         updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, "0123 4567 8901")
           .flatMap(_.set(ApplicationSubmissionDatePage, LocalDate.now())))
         _ <- userAnswerService.set(updatedAnswers)
-      } yield
-        Redirect(controllers.routes.EmailOrPostController.onPageLoad())
+      } yield {
+        if(appConfig.noEmailPost){
+          Redirect(controllers.routes.RegistrationSentController.onPageLoad())
+        } else {
+          Redirect(controllers.routes.EmailOrPostController.onPageLoad())
+        }
+      }
     }
     else {
       request.userAnswers.data.transform(transformer.userAnswersToSubmission) match {
         case JsSuccess(requestJson, _) =>
           logger.info("[DeclarationController][onSubmit] userAnswers to submission transformation successful")
-          registrationService.register(requestJson)
+          registrationService.register(requestJson, appConfig.noEmailPost)
 
         case JsError(err) =>
           logger.error("[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors: " + err)

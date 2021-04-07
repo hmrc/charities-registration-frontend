@@ -61,7 +61,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     { result =>
       result must have(
         httpStatus(SEE_OTHER),
-        redirectLocation(controllers.routes.EmailOrPostController.onPageLoad().url)
+        redirectLocation(controllers.routes.RegistrationSentController.onPageLoad().url)
       )
     }
 

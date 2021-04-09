@@ -27,20 +27,20 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
   private val section: Option[String] = Some(messages("declaration.section"))
   private val firstLinkContent: String = "javascript:window.print()"
 
-  "RegistrationSentView for Email" must {
+    "RegistrationSentView for Email" must {
 
       def applyView(): HtmlFormat.Appendable = {
         val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
         view.apply(dayToString(
           inject[TimeMachine].now().plusDays(28)), dayToString(
           inject[TimeMachine].now()), "080582080582",
-          emailOrPost = true, Seq.empty, None)(fakeRequest, messages, frontendAppConfig)
+          emailOrPost = true, noEmailOrPost = false, Seq.empty, None)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix, section = section)
 
       behave like pageWithPrintOrDownloadLink(applyView(), "printOrDownloadlink", firstLinkContent, messages("registrationSent.printOrDownload"))
-      
+
       behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
         "p1", "submissionDate", "p3.beforeRefNo", "p3.afterRefNo", "p4.beforeRegistrations", "p4.keyWord", "p4.beforeRegNo", "p4.afterRegNo", "p9",
         "email.prefer.p", "whatHappensNext.p1", "whatHappensNext.p2", "whatHappensNext.p3", "changeSomething.p1")
@@ -61,7 +61,7 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
         view.apply(dayToString(
           inject[TimeMachine].now().plusDays(28)), dayToString(
           inject[TimeMachine].now()),"080582080582",
-          emailOrPost = false, Seq.empty, None)(fakeRequest, messages, frontendAppConfig)
+          emailOrPost = false, noEmailOrPost = false, Seq.empty, None)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(), messageKeyPrefix, section = section)
@@ -90,6 +90,20 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
        val doc = asDocument(applyView())
         assertContainsText(doc,"080582080582")
       }
+    }
 
+    "RegistrationSentView when noEmailPost is enabled" must {
+
+      def applyView(): HtmlFormat.Appendable = {
+        val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
+        view.apply(dayToString(
+          inject[TimeMachine].now().plusDays(28)), dayToString(
+          inject[TimeMachine].now()),"080582080582",
+          emailOrPost = true, noEmailOrPost = true, Seq.empty, None)(fakeRequest, messages, frontendAppConfig)
+      }
+
+      behave like normalPage(applyView(), messageKeyPrefix, section = section)
+
+      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,"no.email.h2", "no.email.p1")
     }
   }

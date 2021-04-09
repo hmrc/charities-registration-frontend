@@ -148,6 +148,10 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.isExternalTest mustBe false
       }
 
+      "noEmailPost" in {
+        frontendAppConfig.noEmailPost mustBe true
+      }
+
       "save4laterCacheBaseUrl" in {
         frontendAppConfig.save4laterCacheBaseUrl mustBe "http://localhost:9272"
       }

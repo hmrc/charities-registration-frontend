@@ -43,8 +43,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
     "convert to CharitySubmission" in {
 
       val localUserAnswers = baseAnswers
-        .flatMap(
-        _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
+        .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
         .flatMap(
           _.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham"))).flatMap(
         _.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director)).flatMap(
@@ -149,7 +149,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
     "convert with minimum fields" in {
 
-      val userAnswers = localUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")).success.value
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))).success.value
 
       userAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe jsonMinFields
 

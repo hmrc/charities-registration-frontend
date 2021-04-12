@@ -85,6 +85,10 @@ class CharityCommonTransformer extends JsonTransformer {
 
     (getName(localPath \ 'declarationInfo \ 'name, __ \ 'authorisedOfficials \ 0 \ 'officialsName) and
       (localPath \ 'declarationInfo \ 'position).json.copyFrom((__ \ 'authorisedOfficials \ 0 \ 'officialsPosition).json.pick) and
+      ((localPath \ 'declarationInfo \ 'postcode).json.copyFrom(
+        (__ \ 'charityOfficialAddress \ 'postcode).json.pick) orElse doNothing)  and
+      (localPath \ 'declarationInfo \ 'telephoneNumber).json.copyFrom(
+        (__ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone).json.pick) and
       (localPath \ 'declarationInfo \ 'overseas).json.copyFrom(isNonUK) and
       (localPath \ 'declarationInfo \ 'declaration).json.put(JsBoolean(true))).reduce
   }

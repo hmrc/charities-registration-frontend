@@ -202,6 +202,8 @@ trait CharityTransformerConstants extends SpecBase{
        |          "title": "0001"
        |        },
        |        "position": "02",
+       |        "postcode": "G58AN",
+       |        "telephoneNumber": "07700 900 982",
        |        "declaration": true,
        |        "overseas": false
        |      },
@@ -389,6 +391,7 @@ trait CharityTransformerConstants extends SpecBase{
        |          "title": "0001"
        |        },
        |        "position": "02",
+       |        "telephoneNumber": "07700 900 982",
        |        "declaration": true,
        |        "overseas": false
        |      },
@@ -557,6 +560,7 @@ trait CharityTransformerConstants extends SpecBase{
        |          "title": "0001"
        |        },
        |        "position": "23",
+       |        "telephoneNumber": "07700 900 982",
        |        "declaration": true,
        |        "overseas": false
        |      },

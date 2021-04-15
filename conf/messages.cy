@@ -272,8 +272,8 @@ registrationSent.post.prefer.p = Gallwch
 registrationSent.post.prefer.link = ddilyn y cyfarwyddiadau i anfon dogfennau ategol eich elusen drwy e-bost
 registrationSent.post.prefer.afterLink = .
 
-registrationSent.whatHappensNext.h2 = Yr hyn sy’n digwydd nesaf
-registrationSent.whatHappensNext.p1 = Ar ôl i’ch dogfennau ddod i law, gall gymryd hyd at 6 wythnos i brosesu’ch cofrestriad.
+registrationSent.whatHappensNext.h2 = Yr hyn sy’n digwydd ar ôl i’ch dogfennau ddod i law
+registrationSent.whatHappensNext.p1 = Gall gymryd hyd at 6 wythnos i brosesu’ch cofrestriad.
 registrationSent.whatHappensNext.p2 = Byddwn yn anfon llythyrau at y swyddogion a’r enwebai i roi gwybod eich bod wedi rhoi eu manylion i ni yn y cais.
 registrationSent.whatHappensNext.p3 = Byddwn hefyd yn anfon llythyr at gyfeiriad post yr elusen a fydd yn rhoi gwybod i chi sut i hawlio Rhodd Cymorth.
 registrationSent.changeSomething = Os oes angen i chi newid rhywbeth ar frys

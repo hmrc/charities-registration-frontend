@@ -272,8 +272,8 @@ registrationSent.post.prefer.p = You can
 registrationSent.post.prefer.link = follow the instructions to send your charity’s supporting documents by email
 registrationSent.post.prefer.afterLink = .
 
-registrationSent.whatHappensNext.h2 = What happens next
-registrationSent.whatHappensNext.p1 = After we receive your documents, it can take up to 6 weeks to process your registration.
+registrationSent.whatHappensNext.h2 = What happens after we receive your documents
+registrationSent.whatHappensNext.p1 = It can take up to 6 weeks to process your registration.
 registrationSent.whatHappensNext.p2 = We will send letters to the officials and the nominee to say that you’ve given us their details in the application.
 registrationSent.whatHappensNext.p3 = We will also send a letter to the charity’s postal address that will tell you how to claim gift aid.
 registrationSent.changeSomething = If you need to change something urgently

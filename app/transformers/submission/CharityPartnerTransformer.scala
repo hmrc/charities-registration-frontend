@@ -45,11 +45,10 @@ class CharityPartnerTransformer extends JsonTransformer {
 
     val phoneNumbers: Reads[JsObject] = prefix match {
       case "organisationAuthorisedPerson" =>
-        (__ \ 'individualDetails \ 'dayPhoneNumber).json.copyFrom((__ \ 'organisationContactDetails \ 'phoneNumber).json.pick)
+        getPhone(__ \ 'individualDetails \ 'dayPhoneNumber, __ \ 'organisationContactDetails \ 'phoneNumber)
       case _ =>
-        ((__ \ 'individualDetails \ 'dayPhoneNumber).json.copyFrom((__ \ s"${prefix}PhoneNumber" \ 'daytimePhone).json.pick) and
-          ((__ \ 'individualDetails \ 'mobilePhone).json.copyFrom((__ \ s"${prefix}PhoneNumber" \ 'mobilePhone).json.pick) orElse doNothing)).reduce
-
+        (getPhone(__ \ 'individualDetails \ 'dayPhoneNumber, __ \ s"${prefix}PhoneNumber" \ 'daytimePhone) and
+          getOptionalPhone(__ \ 'individualDetails \ 'mobilePhone,  __ \ s"${prefix}PhoneNumber" \ 'mobilePhone)).reduce
     }
 
     val remainingFields = (
@@ -100,7 +99,7 @@ class CharityPartnerTransformer extends JsonTransformer {
   def userAnswersToOrgDetails: Reads[JsObject] = {
 
     ((__ \ 'orgDetails \ 'orgName).json.copyFrom((__ \ "organisationName").json.pick) and
-      (__ \ 'orgDetails \ 'telephoneNumber).json.copyFrom((__ \ 'organisationContactDetails \ 'phoneNumber).json.pick) and
+      getPhone(__ \ 'orgDetails \ 'telephoneNumber, __ \ 'organisationContactDetails \ 'phoneNumber) and
       (__ \ 'orgDetails \ 'emailAddress).json.copyFrom((__ \ 'organisationContactDetails \ 'email).json.pick)
       ).reduce
   }

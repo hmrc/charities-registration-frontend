@@ -52,6 +52,23 @@ trait JsonTransformer {
     } orElse doNothing
   }
 
+  def getPhone(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
+    submissionPath.json.copyFrom(
+      userAnswerPath.read[String].map{
+        phone => if(phone.startsWith("+")) {
+          JsString(phone.replace("+", ""))
+        } else {
+          JsString(phone)
+        }
+      })
+  }
+
+  def getOptionalPhone(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
+    userAnswerPath.read[String].flatMap { _ =>
+      getPhone(submissionPath, userAnswerPath)
+    } orElse doNothing
+  }
+
   def getName(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
 
     ((submissionPath \ 'title).json.copyFrom((userAnswerPath \ 'title).json.pick) and

@@ -17,10 +17,10 @@
 package transformers.submission
 
 import base.SpecBase
-import models.{Name, SelectTitle}
 import models.addressLookup.{AddressModel, CountryModel}
+import models.{Name, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.CharityOfficialAddressLookupPage
-import pages.authorisedOfficials.AuthorisedOfficialsNamePage
+import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage}
 import play.api.libs.json.{Json, __}
 
 class JsonTransformerSpec extends SpecBase {
@@ -146,6 +146,69 @@ class JsonTransformerSpec extends SpecBase {
           __ \ 'charityOfficialAddress)
         ).asOpt.value mustBe Json.parse("""{}""")
       }
+    }
+
+    "getPhone" must {
+
+      "remove + from phone number " in {
+
+        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
+          PhoneNumber("+44 7700 900 982", Some("07700 900 981"))).success.value
+
+        val expectedJson = """{"individualDetails": {"dayPhoneNumber": "44 7700 900 982"}}"""
+
+        userAnswers.data.transform(jsonTransformer.getPhone(
+          __ \ 'individualDetails \ 'dayPhoneNumber ,
+          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone)
+        ).asOpt.value mustBe Json.parse(expectedJson)
+
+      }
+
+      "get the phone number as it is" in {
+
+        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
+          PhoneNumber("07700 900 982", Some("07700 900 981"))).success.value
+
+        val expectedJson = """{"individualDetails": { "dayPhoneNumber": "07700 900 982" }}"""
+
+        userAnswers.data.transform(jsonTransformer.getPhone(
+          __ \ 'individualDetails \ 'dayPhoneNumber ,
+          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone)
+        ).asOpt.value mustBe Json.parse(expectedJson)
+
+      }
+    }
+
+    "getOptionalPhone" must {
+
+      "remove + from phone number " in {
+
+        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
+          PhoneNumber("07700 900 982", Some("+44 7700 900 981"))).success.value
+
+        val expectedJson = """{"individualDetails": {"mobilePhone": "44 7700 900 981"}}"""
+
+        userAnswers.data.transform(jsonTransformer.getOptionalPhone(
+          __ \ 'individualDetails \ 'mobilePhone ,
+          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone)
+        ).asOpt.value mustBe Json.parse(expectedJson)
+
+      }
+
+      "get the phone number as it is" in {
+
+        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
+          PhoneNumber("07700 900 982", Some("07700 900 981"))).success.value
+
+        val expectedJson = """{ "individualDetails": { "mobilePhone": "07700 900 981" } }"""
+
+        userAnswers.data.transform(jsonTransformer.getOptionalPhone(
+          __ \ 'individualDetails \ 'mobilePhone ,
+          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone)
+        ).asOpt.value mustBe Json.parse(expectedJson)
+
+      }
+
     }
 
     "getName" must {

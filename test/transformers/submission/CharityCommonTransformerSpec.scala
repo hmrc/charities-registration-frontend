@@ -295,7 +295,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
           .flatMap(_.set(CharityOfficialAddressLookupPage,
             AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("+44 7700 900 982", Some("07700 900 981"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent)).success.value
 
         val expectedJson =
@@ -311,7 +311,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        },
             |        "position": "23",
             |        "postcode": "G58AN",
-            |        "telephoneNumber": "07700 900 982",
+            |        "telephoneNumber": "44 7700 900 982",
             |        "declaration": true,
             |        "overseas": false
             |      }

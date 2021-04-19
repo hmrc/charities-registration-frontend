@@ -106,6 +106,238 @@ class JsonTransformerSpec extends SpecBase {
           __ \ 'charityOfficialAddress)
         ).asOpt.value mustBe Json.parse(expectedJson)
       }
+
+      "convert the correct AddressModel with UK address" must {
+
+        "Postcode is defined along with line2, line3 and line4" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7 Morrison street", " ", "  ", "   "), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7 Morrison street",
+              |        "addressLine2": "NonUKCode",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+
+        "Postcode is defined along with line3 and line4" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street", "address line 3", "address line 4"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7",
+              |        "addressLine2": "Morrison street",
+              |        "addressLine3": "address line 3",
+              |        "addressLine4": "address line 4, NonUKCode",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+
+        "Postcode is defined along with line3 and line4 where line4 is more than 35 characters" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street", "address line 3", "address line 4 with more than 35 characters"),
+              Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7",
+              |        "addressLine2": "Morrison street",
+              |        "addressLine3": "address line 3",
+              |        "addressLine4": "address line 4 with more than 35 characters",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+
+        "Postcode is defined along with line3 and empty line4" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street", "address line 3", ""), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7",
+              |        "addressLine2": "Morrison street",
+              |        "addressLine3": "address line 3",
+              |        "addressLine4": "NonUKCode",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+
+        "Postcode is defined along with line3 only" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street", "address line 3"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7",
+              |        "addressLine2": "Morrison street",
+              |        "addressLine3": "address line 3",
+              |        "addressLine4": "NonUKCode",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+
+        "Postcode is defined along with line4 without line3" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street", "", "address line 3"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7",
+              |        "addressLine2": "Morrison street",
+              |        "addressLine3": "address line 3",
+              |        "addressLine4": "NonUKCode",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+
+        "Postcode is defined along with empty line4 without line3" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street", "", " "), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7",
+              |        "addressLine2": "Morrison street",
+              |        "addressLine3": "NonUKCode",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+
+        "Postcode is defined along without line3 and line4" in {
+
+          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+
+          val expectedJson =
+            """{
+              |  "charityRegistration": {
+              |   "common": {
+              |    "addressDetails": {
+              |      "officialAddress": {
+              |        "addressLine1": "7",
+              |        "addressLine2": "Morrison street",
+              |        "addressLine3": "NonUKCode",
+              |        "nonUKAddress": true,
+              |        "nonUKCountry":"IN"
+              |      }
+              |     }
+              |    }
+              |  }
+              |}""".stripMargin
+
+          userAnswers.data.transform(jsonTransformer.getAddress(
+            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+            __ \ 'charityOfficialAddress)
+          ).asOpt.value mustBe Json.parse(expectedJson)
+        }
+      }
     }
 
     "getOptionalAddress" must {

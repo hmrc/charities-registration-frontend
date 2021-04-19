@@ -22,9 +22,43 @@ import play.api.libs.json._
 
 trait JsonTransformer {
 
-   def replaceInvalidCharacters(jsonString: String): String = {
-     jsonString.replaceAllLiterally("\t", " ").replaceAllLiterally("\r\n", " ")
-   }
+  private def getNonUKAddressLines(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {
+    (userAnswerPath \ 'postcode).readNullable[String].flatMap {
+      case Some(code) =>
+        (userAnswerPath \ 'lines \ 1).readNullable[String].flatMap { line1 =>
+          (userAnswerPath \ 'lines \ 2).readNullable[String].flatMap { line2 =>
+            (userAnswerPath \ 'lines \ 3).readNullable[String].flatMap { line3 =>
+              List(line1, line2, line3).flatten.filter(_.trim.nonEmpty) match {
+                case l1::Nil =>
+                  ((submissionPath \ 'addressLine2).json.put(JsString(l1)) and
+                    (submissionPath \ 'addressLine3).json.put(JsString(code))).reduce
+                case l1::l2::Nil =>
+                  ((submissionPath \ 'addressLine2).json.put(JsString(l1)) and
+                    (submissionPath \ 'addressLine3).json.put(JsString(l2)) and
+                    (submissionPath \ 'addressLine4).json.put(JsString(code))).reduce
+                case l1::l2::l3::Nil =>
+                  val lineWithPostCode = List(l3, code).filter(_.trim.nonEmpty).mkString(", ")
+                  ((submissionPath \ 'addressLine2).json.put(JsString(l1)) and
+                   (submissionPath \ 'addressLine3).json.put(JsString(l2)) and
+                    (submissionPath \ 'addressLine4).json.put(
+                      if (lineWithPostCode.length > 35) JsString(l3) else JsString(lineWithPostCode)
+                    )).reduce
+                case _ =>
+                  (submissionPath \ 'addressLine2).json.put(JsString(code))
+              }
+            }
+          }
+        }
+      case _ =>
+        (((submissionPath \ 'addressLine2).json.copyFrom((userAnswerPath \ 'lines \ 1).json.pick) orElse doNothing) and
+         ((submissionPath \ 'addressLine3).json.copyFrom((userAnswerPath \ 'lines \ 2).json.pick) orElse doNothing) and
+          ((submissionPath \ 'addressLine4).json.copyFrom((userAnswerPath \ 'lines \ 3).json.pick) orElse doNothing)).reduce
+    }
+  }
+
+  def replaceInvalidCharacters(jsonString: String): String = {
+    jsonString.replaceAllLiterally("\t", " ").replaceAllLiterally("\r\n", " ")
+  }
 
   val doNothing: Reads[JsObject] = __.json.put(Json.obj())
 
@@ -34,16 +68,20 @@ trait JsonTransformer {
       code => JsBoolean(code != "GB")
     }
 
-    ((submissionPath \ 'nonUKAddress).json.copyFrom(isNonUK) and
-      isNonUK.flatMap {
-        case JsBoolean(true) => (submissionPath \ 'nonUKCountry).json.copyFrom((userAnswerPath \ 'country \ 'code).json.pick)
-        case _ => doNothing
-      } and
-      (submissionPath \ 'addressLine1).json.copyFrom((userAnswerPath \ 'lines \ 0).json.pick) and
-      (submissionPath \ 'addressLine2).json.copyFrom((userAnswerPath \ 'lines \ 1).json.pick) and
-      ((submissionPath \ 'addressLine3).json.copyFrom((userAnswerPath \ 'lines \ 2).json.pick) orElse doNothing) and
-      ((submissionPath \ 'addressLine4).json.copyFrom((userAnswerPath \ 'lines \ 3).json.pick) orElse doNothing) and
-      ((submissionPath \ 'postcode).json.copyFrom((userAnswerPath \ 'postcode).json.pick) orElse doNothing)).reduce
+    isNonUK.flatMap {
+      case JsBoolean(true) =>
+        ((submissionPath \ 'nonUKAddress).json.copyFrom(isNonUK) and
+        (submissionPath \ 'addressLine1).json.copyFrom((userAnswerPath \ 'lines \ 0).json.pick) and
+        getNonUKAddressLines(submissionPath, userAnswerPath) and
+        (submissionPath \ 'nonUKCountry).json.copyFrom((userAnswerPath \ 'country \ 'code).json.pick)).reduce
+      case _ =>
+        ((submissionPath \ 'nonUKAddress).json.copyFrom(isNonUK) and
+        (submissionPath \ 'addressLine1).json.copyFrom((userAnswerPath \ 'lines \ 0).json.pick) and
+        (submissionPath \ 'addressLine2).json.copyFrom((userAnswerPath \ 'lines \ 1).json.pick) and
+        ((submissionPath \ 'addressLine3).json.copyFrom((userAnswerPath \ 'lines \ 2).json.pick) orElse doNothing) and
+        ((submissionPath \ 'addressLine4).json.copyFrom((userAnswerPath \ 'lines \ 3).json.pick) orElse doNothing) and
+        ((submissionPath \ 'postcode).json.copyFrom((userAnswerPath \ 'postcode).json.pick) orElse doNothing)).reduce
+    }
   }
 
   def getOptionalAddress(submissionPath: JsPath, userAnswerPath: JsPath): Reads[JsObject] = {

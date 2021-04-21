@@ -115,7 +115,7 @@ trait Constraints extends InputFilter{
 
   protected def maxDate(maximum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] =
     Constraint {
-      case date if maximum.isAfter(date) =>
+      case date if date.isAfter(maximum) =>
         Logger.error(s"invalid scenario - date : $date maximum : $maximum")
         Invalid(errorKey, args: _*)
       case date =>

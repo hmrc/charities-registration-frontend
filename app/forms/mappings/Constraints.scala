@@ -16,9 +16,9 @@
 
 package forms.mappings
 
-import java.time.LocalDate
-
+import java.time.{LocalDate, ZoneId, ZoneOffset}
 import filters.InputFilter
+import play.api.Logger
 import play.api.data.validation.{Constraint, Invalid, Valid}
 
 trait Constraints extends InputFilter{
@@ -115,9 +115,11 @@ trait Constraints extends InputFilter{
 
   protected def maxDate(maximum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] =
     Constraint {
-      case date if date.isAfter(maximum) =>
+      case date if maximum.isAfter(date) =>
+        Logger.error(s"invalid scenario - date : $date maximum : $maximum")
         Invalid(errorKey, args: _*)
-      case _ =>
+      case date =>
+        Logger.error(s"valid scenario - date : $date maximum : $maximum")
         Valid
     }
 

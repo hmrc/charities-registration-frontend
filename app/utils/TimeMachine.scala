@@ -16,12 +16,12 @@
 
 package utils
 
-import java.time.{LocalDate, ZoneOffset}
+import java.time.LocalDate
 
 class TimeMachine() {
 
   def now(): LocalDate = {
-    LocalDate.now(ZoneOffset.UTC)
+    LocalDate.now()
   }
 }
 

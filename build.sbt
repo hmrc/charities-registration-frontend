@@ -12,6 +12,8 @@ lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(ThisBuild / useSuperShell := false)
+  .settings(resolvers += Resolver.jcenterRepo)
+  .settings(resolvers += Resolver.typesafeRepo("releases"))
   .settings(DefaultBuildSettings.scalaSettings: _*)
   .settings(DefaultBuildSettings.defaultSettings(): _*)
   .settings(SbtDistributablesPlugin.publishingSettings: _*)
@@ -55,12 +57,6 @@ lazy val root = (project in file("."))
     retrieveManaged := true,
     evictionWarningOptions in update :=
       EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
-    resolvers := Seq(
-      Resolver.bintrayRepo("hmrc", "releases"),
-      Resolver.bintrayRepo("hmrc", "release-candidates"),
-      Resolver.typesafeRepo("releases"),
-      Resolver.jcenterRepo
-    ),
     Concat.groups := Seq(
       "javascripts/application.js" ->
         group(Seq(

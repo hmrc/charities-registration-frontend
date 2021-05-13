@@ -16,10 +16,10 @@
 
 package forms.mappings
 
-import java.time.LocalDate
-
 import filters.InputFilter
 import play.api.data.validation.{Constraint, Invalid, Valid}
+
+import java.time.LocalDate
 
 trait Constraints extends InputFilter{
 

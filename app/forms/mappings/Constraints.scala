@@ -16,10 +16,12 @@
 
 package forms.mappings
 
-import java.time.{LocalDate, ZoneId, ZoneOffset}
 import filters.InputFilter
 import play.api.Logger
 import play.api.data.validation.{Constraint, Invalid, Valid}
+
+import java.time.{LocalDate, ZoneId, ZonedDateTime}
+import java.util.TimeZone
 
 trait Constraints extends InputFilter{
 
@@ -113,15 +115,22 @@ trait Constraints extends InputFilter{
         Invalid(errorKey, maximum)
     }
 
-  protected def maxDate(maximum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] =
+  protected def maxDate(maximum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] = {
+    val zone = TimeZone.getTimeZone("Europe/London")
+    val zoneTime = LocalDate.now(zone.toZoneId)
+
+    val zonedDateTimeUtcVal: LocalDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDate
+    def zonedDateTimeUtcDef: LocalDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDate
+
     Constraint {
       case date if date.isAfter(maximum) =>
-        Logger.error(s"invalid scenario - date : $date maximum : $maximum")
+        Logger.error(s"invalid scenario - date : $date maximum : $maximum zoneTime : $zoneTime zonedDateTimeUtcVal: $zonedDateTimeUtcVal zonedDateTimeUtcDef: $zonedDateTimeUtcDef")
         Invalid(errorKey, args: _*)
       case date =>
-        Logger.error(s"valid scenario - date : $date maximum : $maximum")
+        Logger.error(s"valid scenario - date : $date maximum : $maximum zoneTime : $zoneTime zonedDateTimeUtcVal: $zonedDateTimeUtcVal zonedDateTimeUtcDef: $zonedDateTimeUtcDef")
         Valid
     }
+  }
 
   protected def minDate(minimum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] =
     Constraint {

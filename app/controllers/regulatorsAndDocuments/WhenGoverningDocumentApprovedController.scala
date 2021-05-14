@@ -45,7 +45,7 @@ class WhenGoverningDocumentApprovedController @Inject()(
     view: WhenGoverningDocumentApprovedView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
-  val form: Form[LocalDate] = formProvider()
+  def form: Form[LocalDate] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 

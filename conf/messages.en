@@ -888,7 +888,7 @@ otherFundRaising.error.length= The other way the charity will raise funds must b
 isFinancialAccounts.title = Has the charity prepared financial accounts?
 isFinancialAccounts.heading = Has the charity prepared financial accounts?
 isFinancialAccounts.error.required = Select yes if the charity has prepared financial accounts
-isFinancialAccounts.hint = If the charity has a set of prepared financial accounts, you will need to email or post us a copy to support the application. Prepared financial accounts are what you would send to a regulator, HMRC or Companies House.
+isFinancialAccounts.hint = If the charity has a set of prepared financial accounts, you will need to post us a copy to support the application. Prepared financial accounts are what you would send to a regulator, HMRC or Companies House.
 isFinancialAccounts.checkYourAnswersLabel = Financial accounts
 
 # What is the charity’s estimated income for its current 12 months of operation?

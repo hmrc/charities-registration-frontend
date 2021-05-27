@@ -18,6 +18,7 @@
 @import config.FrontendAppConfig
 
 @this(
+    config: FrontendAppConfig,
     main_template: templates.GovukLayoutWrapper,
     h1: components.h1,
     link: components.link
@@ -29,10 +30,9 @@
 
     @h1("incorrect-details.heading")
 
-    <p class="govuk-body">@messages("incorrect-details.notAnOrganisation.p1") <a href="https://www.access.service.gov.uk/login/signin/creds" target="_blank">@messages("incorrect-details.notAnOrganisation.p1.link")</a>
+    <p class="govuk-body">@messages("incorrect-details.notAnOrganisation.p1") <a class="govuk-link" href="@routes.IndexController.signInDifferentAccount()">@messages("incorrect-details.notAnOrganisation.p1.link")</a>
     </p>
 
-
-    <p span class="govuk-body">@messages("incorrect-details.notAnOrganisation.p2") <a href="https://www.access.service.gov.uk/registration/email" target="_blank">@messages("incorrect-details.notAnOrganisation.p2.link")</a>
+    <p class="govuk-body">@messages("incorrect-details.notAnOrganisation.p2") <a class="govuk-link" href="@routes.IndexController.registerNewAccount()">@messages("incorrect-details.notAnOrganisation.p2.link")</a>
     </p>
 }

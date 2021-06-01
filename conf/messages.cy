@@ -888,7 +888,7 @@ otherFundRaising.error.length = Mae’n rhaid i’r hyn a nodwyd ar gyfer y ffor
 isFinancialAccounts.title = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.heading = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi paratoi cyfrifon ariannol
-isFinancialAccounts.hint = Os yw’r elusen wedi paratoi set o gyfrifon ariannol, bydd yn rhaid i chi anfon copi atom drwy e-bost neu drwy’r post er mwyn ategu’r cais. Cyfrifon ariannol sydd wedi’u paratoi yw’r hyn y byddech yn ei anfon at reoleiddiwr, CThEM neu Dŷ’r Cwmnïau.
+isFinancialAccounts.hint = Os yw’r elusen wedi paratoi set o gyfrifon ariannol, bydd yn rhaid i chi anfon copi atom drwy’r post er mwyn ategu’r cais. Cyfrifon ariannol sydd wedi’u paratoi yw’r hyn y byddech yn ei anfon at reoleiddiwr, CThEM neu Dŷ’r Cwmnïau.
 isFinancialAccounts.checkYourAnswersLabel = Cyfrifon ariannol
 
 # What is the charity’s estimated income for its current 12 months of operation?

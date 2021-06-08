@@ -54,6 +54,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val registerUrl: String = servicesConfig.getString("urls.register")
   lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")
   lazy val loginContinueUrl: String = servicesConfig.getString("urls.loginContinue")
+  lazy val incorrectDetailsLoginContinueUrl: String = servicesConfig.getString("urls.incorrectDetailsLoginContinue")
   lazy val loginContinueKey: String = servicesConfig.getString("urls.continue")
   lazy val registrationContinueKey: String = servicesConfig.getString("urls.registration")
   lazy val timeout: Int = servicesConfig.getInt("timeout.timeout")

@@ -90,17 +90,17 @@ class IndexController @Inject()(
   }
 
   def signInDifferentAccount: Action[AnyContent] = Action { implicit request =>
-    val continueUrl: String = controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().absoluteURL
-    Redirect(appConfig.loginUrl, Map(appConfig.loginContinueKey -> Seq(continueUrl), "origin" -> Seq(appConfig.appName)))
+    Redirect(appConfig.loginUrl, Map(
+      appConfig.loginContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
+      "origin" -> Seq(appConfig.appName)
+    ))
   }
 
   def registerNewAccount: Action[AnyContent] = Action { implicit request =>
-    val continueUrl: String = controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().absoluteURL()
     Redirect(appConfig.registerUrl, Map(
-      appConfig.registrationContinueKey -> Seq(continueUrl),
+      appConfig.registrationContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
       "origin" -> Seq(appConfig.appName),
       "accountType" -> Seq("organisation")
     ))
   }
-
 }

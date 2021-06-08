@@ -7,6 +7,8 @@ GET        /assets/*file                                controllers.Assets.versi
 GET        /task-list                                   controllers.IndexController.onPageLoad(eligibleJourneyId: Option[String] = None)
 GET        /task-list/:eligibleJourneyId                controllers.IndexController.onPageLoad(eligibleJourneyId: Option[String])
 GET        /keepalive                                   controllers.IndexController.keepalive
+GET        /sign-in-alternative                         controllers.IndexController.signInDifferentAccount
+GET        /register-new-account                        controllers.IndexController.registerNewAccount
 
 ### Section Routes
 ->         /check-eligibility                           checkEligibility.Routes

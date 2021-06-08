@@ -28,8 +28,8 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.logging.SessionId
 import utils.TaskListHelper
 import views.html.TaskList
-import javax.inject.Inject
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IndexController @Inject()(
@@ -87,6 +87,20 @@ class IndexController @Inject()(
     userAnswerService.set(userAnswers).map { _ =>
       NoContent
     }
+  }
+
+  def signInDifferentAccount: Action[AnyContent] = Action { implicit request =>
+    val continueUrl: String = controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().absoluteURL
+    Redirect(appConfig.loginUrl, Map(appConfig.loginContinueKey -> Seq(continueUrl), "origin" -> Seq(appConfig.appName)))
+  }
+
+  def registerNewAccount: Action[AnyContent] = Action { implicit request =>
+    val continueUrl: String = controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().absoluteURL()
+    Redirect(appConfig.registerUrl, Map(
+      appConfig.registrationContinueKey -> Seq(continueUrl),
+      "origin" -> Seq(appConfig.appName),
+      "accountType" -> Seq("organisation")
+    ))
   }
 
 }

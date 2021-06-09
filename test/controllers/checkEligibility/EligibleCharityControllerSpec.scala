@@ -20,7 +20,7 @@ import base.SpecBase
 import models.{NormalMode, UserAnswers}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.SessionId
 import views.html.checkEligibility.EligibleCharityView
 
 class EligibleCharityControllerSpec extends SpecBase {

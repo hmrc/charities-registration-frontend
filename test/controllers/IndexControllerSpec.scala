@@ -38,7 +38,7 @@ import service.{CharitiesSave4LaterService, UserAnswerService}
 import transformers.UserAnswerTransformer
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.SessionId
 import javax.inject.Inject
 
 import scala.concurrent.{ExecutionContext, Future}

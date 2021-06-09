@@ -17,14 +17,13 @@
 package viewModels
 
 import base.SpecBase
-import models.{Name, SelectTitle}
 import models.addressLookup.{AddressModel, CountryModel}
-import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, NomineeIndividualAddressLookupPage, OrganisationNomineeAddressLookupPage, OtherOfficialAddressLookupPage}
+import models.{Name, SelectTitle}
+import pages.addressLookup._
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNamePage}
 import pages.otherOfficials.OtherOfficialsNamePage
 import pages.regulatorsAndDocuments.IsCharityRegulatorPage
-import play.api.Play
 import play.api.i18n.Messages
 import play.api.mvc.Cookie
 import play.api.test.FakeRequest
@@ -42,7 +41,7 @@ class RequiredDocumentsHelperSpec extends SpecBase{
   private val userAnswersUKAuthOfficial1 = emptyUserAnswers
     .set(AuthorisedOfficialAddressLookupPage(0), AddressModel(Seq("aa", "bb"), postcode = None, country = CountryModel("GB", "United Kingdom"))).success.value
 
-  private val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+  private val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
   private lazy val localMessages: Messages = messagesApi.preferred(localRequest)
 
   "RequiredDocumentsHelper" must {

@@ -17,14 +17,13 @@
 package utils
 
 import base.SpecBase
-import java.time.format.DateTimeFormatter
-import java.time.{LocalDate, ZonedDateTime}
-
-import org.joda.time.{LocalDate=>JLocalDate, MonthDay}
-import play.api.Play
+import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import play.api.i18n.Messages
 import play.api.mvc.Cookie
 import play.api.test.FakeRequest
+
+import java.time.format.DateTimeFormatter
+import java.time.{LocalDate, ZonedDateTime}
 
 class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
 
@@ -59,7 +58,7 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
 
   "The implicit date formatter for Welsh" should {
 
-    implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+    implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
     implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
 
     "format dates with single digit values in correct style" in {
@@ -85,7 +84,7 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
     }
 
     "for invalid lang" in {
-      implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "QQ"))
+      implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "QQ"))
       implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
       val result: String = "1 April 2017"
       dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
@@ -123,14 +122,14 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
     }
 
     "format dates in correct style for Welsh" in {
-      val welshRequest = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+      val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
       val welshMessages: Messages = messagesApi.preferred(welshRequest)
       val result: String = "Dydd Mercher 23 Medi 2020"
       dayToString(LocalDate.of(2020, 9, 23))(welshMessages) mustBe result
     }
 
     "format dates in correct style for Welsh without day of week" in {
-      val welshRequest = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+      val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
       val welshMessages: Messages = messagesApi.preferred(welshRequest)
       val result: String = "23 Medi 2020"
       dayToString(LocalDate.of(2020, 9, 23), dayOfWeek = false)(welshMessages) mustBe result

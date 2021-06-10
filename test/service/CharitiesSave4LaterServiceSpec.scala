@@ -36,7 +36,7 @@ import play.api.mvc.{AnyContentAsEmpty, Call}
 import play.api.test.FakeRequest
 import repositories.AbstractRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.SessionId
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
 import utils.TestData
 

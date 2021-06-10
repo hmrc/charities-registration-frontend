@@ -25,7 +25,7 @@ import pages.{AcknowledgementReferencePage, IsSwitchOverUserPage, OldServiceSubm
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import service.{CharitiesSave4LaterService, UserAnswerService}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.SessionId
 import utils.TaskListHelper
 import views.html.TaskList
 

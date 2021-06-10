@@ -17,14 +17,13 @@
 package service
 
 import base.SpecBase
-import play.api.Play
 import play.api.i18n.Messages
 import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 
 class CountryServiceSpec extends SpecBase {
 
-  private val welshRequest = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+  private val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
   private val welshMessages: Messages = messagesApi.preferred(welshRequest)
 
   val service: CountryService = inject[CountryService]

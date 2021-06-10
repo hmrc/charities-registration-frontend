@@ -24,7 +24,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.auth.core.{AffinityGroup, AuthConnector}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 import views.html.errors.{PageNotFoundView, TechnicalDifficultiesErrorView}
 import scala.language.postfixOps
@@ -52,7 +52,7 @@ class ErrorHandler @Inject()(val messagesApi: MessagesApi,
 
   private def isUserSignedIn(request: Request[_]): Future[Boolean] = {
 
-    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     authConnector.authorise(AffinityGroup.Organisation, Retrievals.credentials).map {
       case Some(_) => true

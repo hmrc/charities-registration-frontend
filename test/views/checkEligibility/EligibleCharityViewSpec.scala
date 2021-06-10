@@ -19,7 +19,7 @@ package views.checkEligibility
 import assets.messages.BaseMessages
 import models.NormalMode
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.SessionId
 import views.behaviours.ViewBehaviours
 import views.html.checkEligibility.EligibleCharityView
 

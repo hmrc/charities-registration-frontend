@@ -27,9 +27,7 @@ import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
-import play.api.Play
 import play.api.data.Form
-import play.api.i18n.Messages
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Cookie
@@ -83,7 +81,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
     "return OK and the correct view for a GET for Welsh" in {
 
-      val welshRequest = FakeRequest().withCookies(Cookie(Play.langCookieName(messagesApi), "cy"))
+      val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(
         WhatCountryDoesTheCharityOperateInPage(0), "TH").success.value)))

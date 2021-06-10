@@ -37,7 +37,7 @@ import repositories.AbstractRepository
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.http.logging.SessionId
+import uk.gov.hmrc.http.SessionId
 import utils.ImplicitDateFormatter
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper

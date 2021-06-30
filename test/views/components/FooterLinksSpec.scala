@@ -20,7 +20,7 @@ import assets.messages.FooterLinksMessages
 import base.SpecBase
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
-import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.FooterItem
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 
 class FooterLinksSpec extends SpecBase {
 

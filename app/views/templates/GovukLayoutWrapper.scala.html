@@ -20,6 +20,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
 @import uk.gov.hmrc.hmrcfrontend.views.html.components._
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.{Footer => CustomFooter, Meta => HmrcMeta}
 
 @this(
     govukLayout: GovukLayout,
@@ -32,7 +33,8 @@
     languageSwitch: HmrcLanguageSelect,
     header: HmrcHeader,
     hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
-    hmrcTimeoutDialog: HmrcTimeoutDialog
+    hmrcTimeoutDialog: HmrcTimeoutDialog,
+    hmrcFooter: HmrcFooter
 )
 
 @(pageTitle: Option[String] = None, signOut: Boolean = true, js: Option[Html] = None, backLink: Boolean = true, showDeskproLink: Boolean = true, timeout: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
@@ -128,5 +130,8 @@
   beforeContentBlock = Some(beforeContentBlock),
   bodyEndBlock = None,
   scriptsBlock = Some(scripts),
-  footerItems = FooterLinks.items
+  footerBlock = Some(hmrcFooter(CustomFooter(
+    meta = Some(HmrcMeta(items = Some(FooterLinks.items))),
+    language = if (messages.lang.code == "cy") Cy else En
+  )))
 )(content)

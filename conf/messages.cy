@@ -221,7 +221,7 @@ declaration.p1 = Drwy anfon y cais hwn, rwy’n cadarnhau bod yr wybodaeth a rod
 # Required documents bullets Messages
 # ----------------------------------------------------------
 requiredDocuments.governingDocumentName.answerTrue = dogfennau llywodraethol ac unrhyw newidiadau arfaethedig
-requiredDocuments.isCharityRegulator.answerTrue = hysbysiad o gofrestriad  – y dystysgrif a gafodd yr elusen ar ôl cofrestru gyda’r rheolydd
+requiredDocuments.isCharityRegulator.answerTrue = hysbysiad o gofrestriad  – y dystysgrif a gafodd yr elusen ar ôl cofrestru gyda’r rheoleiddiwr
 requiredDocuments.isCharityRegulator.answerAlternative = tystiolaeth o weithgareddau – rhai deunydd hyrwyddo sy’n esbonio’r hyn y mae’r elusen yn ei wneud
 requiredDocuments.isFinancialAccounts.answerTrue = cyfrifon ariannol cymeradwy – megis yr hyn y byddech yn ei anfon at reolydd neu Dŷ’r Cwmnïau
 requiredDocuments.isBankStatements.answerTrue = copïau o gyfriflenni banc yr elusen ar gyfer y 3 mis diwethaf
@@ -659,7 +659,7 @@ whenGoverningDocumentApproved.6.heading = Ar ba ddyddiad y gwnaeth y Siarter Fre
 whenGoverningDocumentApproved.4.heading = Ar ba ddyddiad y gwnaeth yr ewyllys ddod i rym?
 whenGoverningDocumentApproved.7.heading = Ar ba ddyddiad y gwnaeth y ddogfen lywodraethu ddod i rym?
 
-WhenGoverningDocumentApproved.p1 = Os yw’r elusen yn Sefydliad Corfforedig Elusennol (CIO), dyma’r dyddiad y derbyniwyd yr elusen ar gofrestr y rheolydd.
+WhenGoverningDocumentApproved.p1 = Os yw’r elusen yn Sefydliad Corfforedig Elusennol (CIO), dyma’r dyddiad y derbyniwyd yr elusen ar gofrestr y rheoleiddiwr.
 WhenGoverningDocumentApproved.hint = Er enghraifft, 27 3 2007
 whenGoverningDocumentApproved.error.invalid = Mae’n rhaid i’r dyddiad y cafodd y ddogfen lywodraethu’i chymeradwyo fod yn ddyddiad go iawn
 whenGoverningDocumentApproved.error.required.all = Nodwch y dyddiad y daeth y ddogfen lywodraethol i rym
@@ -687,7 +687,7 @@ isApprovedGoverningDocument.4.heading = A yw’r ewyllys wedi’i chymeradwyo?
 isApprovedGoverningDocument.7.heading = A yw’r ddogfen lywodraethu wedi’i chymeradwyo?
 
 isApprovedGoverningDocument.error.required = Dewiswch ‘Iawn’ os yw dogfen lywodraethu’r elusen wedi’i chymeradwyo
-isApprovedGoverningDocument.p = Gall y ddogfen lywodraethu gael ei chymeradwyo gan sefydliad cenedlaethol, prif gorff neu brif reolydd.
+isApprovedGoverningDocument.p = Gall y ddogfen lywodraethu gael ei chymeradwyo gan sefydliad cenedlaethol, prif gorff neu brif reoleiddiwr.
 isApprovedGoverningDocument.checkYourAnswersLabel = Wedi’i chymeradwyo gan reolydd
 
 # HasCharityChangedPartsOfGoverningDocument Messages

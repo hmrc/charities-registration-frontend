@@ -19,7 +19,7 @@ package views.components
 import config.FrontendAppConfig
 import play.api.i18n.Messages
 import play.api.mvc.Request
-import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.FooterItem
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 
 object FooterLinks {
 

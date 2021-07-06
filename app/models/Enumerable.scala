@@ -16,6 +16,7 @@
 
 package models
 
+import play.api.libs.json.Json.toJson
 import play.api.libs.json._
 
 trait Enumerable[A] {
@@ -31,9 +32,11 @@ object Enumerable {
         entries.toMap.get(str)
      }
 
-  trait Implicits {
+  // type the implicits to allow for typed formats
+  // already in https://github.com/hmrc/import-voluntary-disclosure-frontend/commit/f017fa145ad135f8051b09aede83fe946f53e50a
+  trait Implicits[A] {
 
-    implicit def reads[A](implicit ev: Enumerable[A]): Reads[A] = {
+    implicit def reads(implicit ev: Enumerable[A]): Reads[A] = {
       Reads {
         case JsString(str) =>
           ev.withName(str).map {
@@ -41,11 +44,11 @@ object Enumerable {
           }.getOrElse(JsError("error.invalid"))
         case _ =>
           JsError("error.invalid")
-       }
+      }
     }
 
-    implicit def writes[A: Enumerable]: Writes[A] = {
-      Writes(value => JsString(value.toString))
-    }
+    implicit def writes(implicit ev: Enumerable[A]): Writes[A] =
+        Writes(value => JsString(value.toString))
+
   }
 }

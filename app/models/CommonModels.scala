@@ -18,7 +18,9 @@ package models
 
 import java.time.LocalDate
 
-import play.api.libs.json.{Json, OFormat}
+// includes implicit imports (including for LocalDate)
+import play.api.libs.json._
+import play.api.libs.json.DefaultFormat
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
@@ -26,7 +28,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 sealed trait SelectTitle
 
-object SelectTitle extends Enumerable.Implicits {
+object SelectTitle extends Enumerable.Implicits[SelectTitle] {
 
   case object Mr extends WithName("0001") with SelectTitle
   case object Mrs extends WithName("0002") with SelectTitle
@@ -53,6 +55,9 @@ object SelectTitle extends Enumerable.Implicits {
     Enumerable(valuesAndUnsupported.map(v => v.toString -> v): _*)
 }
 
+// import implicits for Json formatting
+import SelectTitle._
+
 case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {
 
   def getFullName: String = Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
@@ -63,6 +68,8 @@ case class Name(title: SelectTitle, firstName: String, middleName: Option[String
 
 object Name {
 
+//  // TODO: is the implicit Reads sufficient?
+//  implicit val reads: Reads[Name] = Json.reads[Name]
   implicit val formats: OFormat[Name] = Json.format[Name]
 
   override def toString: String = "name"
@@ -79,8 +86,14 @@ object PhoneNumber {
 
 case class Passport(passportNumber: String, country: String, expiryDate: LocalDate)
 
-object Passport {
+/**
+ * EnvWrites contains implicit formatters:
+ * https://www.playframework.com/documentation/2.8.7/api/scala/play/api/libs/json/EnvWrites.html
+ */
+object Passport extends EnvWrites {
 
+//  // TODO: is the implicit Reads sufficient?
+//  implicit val reads: Reads[Passport] = Json.reads[Passport]
   implicit val formats: OFormat[Passport] = Json.format[Passport]
 
   override def toString: String = "passport"

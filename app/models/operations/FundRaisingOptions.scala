@@ -19,12 +19,13 @@ package models.operations
 import models.{Enumerable, WithName, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json.{Format, Json, Writes}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
 sealed trait FundRaisingOptions extends WithOrder
 
-object FundRaisingOptions extends Enumerable.Implicits {
+object FundRaisingOptions extends Enumerable.Implicits[FundRaisingOptions] {
 
   case object Donations extends WithName("donations") with FundRaisingOptions {
     override val order: Int = 1
@@ -68,4 +69,9 @@ object FundRaisingOptions extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[FundRaisingOptions] =
     Enumerable(values.map(v => v.toString -> v): _*)
+
+//  implicit val fmt: Format[FundRaisingOptions] = Json.format[FundRaisingOptions]
+  implicit val setWrites: Writes[Set[FundRaisingOptions]] = Writes.iterableWrites2[FundRaisingOptions, Set[FundRaisingOptions]]
+
+
 }

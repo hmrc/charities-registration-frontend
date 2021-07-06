@@ -21,12 +21,13 @@ import pages.QuestionPage
 import pages.regulatorsAndDocuments._
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json.Writes
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
 sealed trait CharityRegulator extends WithOrder
 
-object CharityRegulator extends Enumerable.Implicits {
+object CharityRegulator extends Enumerable.Implicits[CharityRegulator] {
 
   case object EnglandWales extends WithName("ccew") with CharityRegulator {
     override val order: Int = 1
@@ -65,5 +66,7 @@ object CharityRegulator extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[CharityRegulator] =
     Enumerable(values.map(v => v.toString -> v): _*)
+
+  implicit val setWrites: Writes[Set[CharityRegulator]] = Writes.iterableWrites2[CharityRegulator, Set[CharityRegulator]]
 
 }

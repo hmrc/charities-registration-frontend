@@ -24,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 sealed trait OfficialsPosition
 
-object OfficialsPosition extends Enumerable.Implicits {
+object OfficialsPosition extends Enumerable.Implicits[OfficialsPosition] {
 
   case object BoardMember extends WithName("01") with OfficialsPosition
   case object Bursar extends WithName("02") with OfficialsPosition

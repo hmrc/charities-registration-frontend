@@ -29,7 +29,7 @@ class RichJsValueSpec extends FreeSpec with MustMatchers with ScalaCheckProperty
   val max = 10
   val nonEmptyAlphaStr: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)
 
-  def buildJsObj[B](keys: Seq[String], values: Seq[B])(implicit writes: Writes[B]): JsObject = {
+  def buildJsObj[B](keys: Seq[String], values: Seq[B]): JsObject = {
     keys.zip(values).foldLeft(JsObject.empty) {
       case (acc, (key, value)) => acc + (key -> Json.toJson[B](value))
     }

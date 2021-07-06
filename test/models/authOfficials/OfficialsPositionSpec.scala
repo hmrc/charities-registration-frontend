@@ -16,6 +16,7 @@
 
 package models.authOfficials
 
+import models.authOfficials.OfficialsPosition._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}

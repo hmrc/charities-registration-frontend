@@ -20,17 +20,18 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.CharitablePurposesFormProvider
-import javax.inject.Inject
 import models.Mode
 import models.operations.CharitablePurposes
 import navigation.ObjectivesNavigator
 import pages.operationsAndFunds.CharitablePurposesPage
 import pages.sections.Section4Page
 import play.api.data.Form
+import play.api.libs.json.{Json, OWrites, Writes}
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.CharitablePurposesView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharitablePurposesController @Inject()(
@@ -45,6 +46,7 @@ class CharitablePurposesController @Inject()(
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   val form: Form[Set[CharitablePurposes]] = formProvider()
+//  implicit val writes: OWrites[Set[CharitablePurposes]] = Json.writes[Set[CharitablePurposes]]
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 

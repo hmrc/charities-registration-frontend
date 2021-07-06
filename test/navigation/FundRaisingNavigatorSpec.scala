@@ -284,7 +284,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
        "go to the summary page when clicked continue button" in {
          navigator.nextPage(AccountingPeriodEndDatePage, NormalMode, emptyUserAnswers.set(AccountingPeriodEndDatePage,
            MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))
-         (MongoDateTimeFormats.localDayMonthWrite).success.value) mustBe
+         .success.value) mustBe
            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }
@@ -557,7 +557,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
         "go to the Charity Details Summary page when an answer is given" in {
           navigator.nextPage(AccountingPeriodEndDatePage, CheckMode, emptyUserAnswers.set(AccountingPeriodEndDatePage,
             MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))
-          (MongoDateTimeFormats.localDayMonthWrite).success.value) mustBe
+          .success.value) mustBe
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
       }

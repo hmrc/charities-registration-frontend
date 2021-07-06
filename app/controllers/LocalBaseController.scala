@@ -30,7 +30,7 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait LocalBaseController extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+trait LocalBaseController extends FrontendBaseController with I18nSupport with Enumerable.Implicits[LocalBaseController] {
 
   implicit lazy val ec: ExecutionContext = controllerComponents.executionContext
 

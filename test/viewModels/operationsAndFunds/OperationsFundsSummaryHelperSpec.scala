@@ -44,7 +44,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
   (_.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).flatMap
   (_.set(IsBankStatementsPage, true)).flatMap
   (_.set(AccountingPeriodEndDatePage,
-    MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite)).success.value,
+    MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))).success.value,
     mockCountryService
   )
 

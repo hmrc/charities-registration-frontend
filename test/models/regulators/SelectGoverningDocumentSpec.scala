@@ -20,7 +20,8 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsString, Json}
+import play.api.libs.json._
+import models.regulators.SelectGoverningDocument._
 
 
 class SelectGoverningDocumentSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {

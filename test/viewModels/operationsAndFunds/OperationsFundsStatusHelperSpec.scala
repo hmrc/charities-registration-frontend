@@ -31,7 +31,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
     _.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap(
     _.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).flatMap(
     _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 10, 1).toDate)
-    )(MongoDateTimeFormats.localDayMonthWrite)).success.value
+    )).success.value
 
   "OperationsFundsStatusHelper" must {
 

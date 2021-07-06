@@ -16,6 +16,7 @@
 
 package models.operations
 
+import models.operations.CharitablePurposes._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}

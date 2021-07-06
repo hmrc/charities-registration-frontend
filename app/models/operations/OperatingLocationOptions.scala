@@ -19,12 +19,13 @@ package models.operations
 import models.{Enumerable, WithName, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json.Writes
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
 sealed trait OperatingLocationOptions extends WithOrder
 
-object OperatingLocationOptions extends Enumerable.Implicits {
+object OperatingLocationOptions extends Enumerable.Implicits[OperatingLocationOptions] {
 
   case object England extends WithName("1") with OperatingLocationOptions {
     override val order: Int = 1
@@ -59,5 +60,7 @@ object OperatingLocationOptions extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[OperatingLocationOptions] =
     Enumerable(values.map(v => v.toString -> v): _*)
+
+  implicit val setWrites: Writes[Set[OperatingLocationOptions]] = Writes.iterableWrites2[OperatingLocationOptions, Set[OperatingLocationOptions]]
 
 }

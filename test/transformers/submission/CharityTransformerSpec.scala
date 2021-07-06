@@ -302,7 +302,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object and changes are >255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 12, 25).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 12, 25).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true).flatMap(
             _.set(WhyNoBankStatementPage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
@@ -324,7 +324,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object and changes are <255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 11, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 11, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true).flatMap(
             _.set(WhyNoBankStatementPage,
               "the changes are less than 255 characters long"))
@@ -345,7 +345,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object with no bank statements" in {
 
         val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 15).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 15).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, false)).success.value
 
         val expectedJson =
@@ -405,7 +405,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFunds object for all possible" in {
 
         val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(WhyNoBankStatementPage,
             "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900")
@@ -455,7 +455,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFunds object with all required values" in {
 
         val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
           _.set(ActualIncomePage, BigDecimal(121))).flatMap(
@@ -488,7 +488,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFunds object with Wales, Scotland and Northern Ireland" in {
 
         val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
           _.set(ActualIncomePage, BigDecimal(121))).flatMap(
@@ -521,7 +521,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFunds object with England, Scotland and Northern Ireland" in {
 
         val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
           _.set(ActualIncomePage, BigDecimal(121))).flatMap(
@@ -554,7 +554,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFunds object with England and Northern Ireland" in {
 
         val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
           _.set(ActualIncomePage, BigDecimal(121))).flatMap(
@@ -587,7 +587,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct OperationAndFunds object with England and Wales" in {
 
         val localUserAnswers =  emptyUserAnswers.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
           _.set(ActualIncomePage, BigDecimal(121))).flatMap(
@@ -850,7 +850,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             _.set(SectionsChangedGoverningDocumentPage,
               "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"))
         )).flatMap(_.set(AccountingPeriodEndDatePage,
-          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
           _.set(IsFinancialAccountsPage, true)).flatMap(
           _.set(WhyNoBankStatementPage,
             "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900")
@@ -961,7 +961,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
           _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
           _.set(AccountingPeriodEndDatePage,
-            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
             _.set(IsFinancialAccountsPage, true)).flatMap(
             _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
             _.set(ActualIncomePage, BigDecimal(121))).flatMap(

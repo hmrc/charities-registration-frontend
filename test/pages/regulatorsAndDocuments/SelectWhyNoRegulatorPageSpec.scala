@@ -18,9 +18,10 @@ package pages.regulatorsAndDocuments
 
 import models.UserAnswers
 import models.regulators.SelectWhyNoRegulator
+import models.regulators.SelectWhyNoRegulator._
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 class SelectWhyNoRegulatorPageSpec extends PageBehaviours{
 

@@ -90,7 +90,7 @@ trait CharityTransformerConstants extends SpecBase{
     _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
     _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
     _.set(AccountingPeriodEndDatePage,
-      MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+      MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)).flatMap(
       _.set(IsFinancialAccountsPage, true)).flatMap(
       _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
       _.set(ActualIncomePage, BigDecimal(121))).flatMap(

@@ -24,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 sealed trait SelectGoverningDocument
 
-object SelectGoverningDocument extends Enumerable.Implicits {
+object SelectGoverningDocument extends Enumerable.Implicits[SelectGoverningDocument] {
 
   case object MemorandumArticlesAssociation extends WithName("2") with SelectGoverningDocument
   case object RoyalCharacter extends WithName("6") with SelectGoverningDocument

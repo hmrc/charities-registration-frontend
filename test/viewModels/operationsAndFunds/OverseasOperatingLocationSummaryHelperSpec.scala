@@ -50,7 +50,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
   (_.set(WhatCountryDoesTheCharityOperateInPage(4) ,"AF"))).flatMap
   (_.set(IsBankStatementsPage, true)).flatMap
   (_.set(AccountingPeriodEndDatePage,
-    MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite)).success.value,
+    MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))).success.value,
     mockCountryService,
     NormalMode
   )

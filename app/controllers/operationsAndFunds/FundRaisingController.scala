@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.FundRaisingFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import models.operations.FundRaisingOptions
@@ -27,6 +28,7 @@ import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.FundRaisingPage
 import pages.sections.Section5Page
 import play.api.data.Form
+import play.api.libs.json.{Json, OWrites}
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.FundRaisingView
@@ -45,6 +47,7 @@ class FundRaisingController @Inject()(
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 
   val form: Form[Set[FundRaisingOptions]] = formProvider()
+//  implicit val writes: OWrites[Set[FundRaisingOptions]] = Json.writes[Set[FundRaisingOptions]]
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 

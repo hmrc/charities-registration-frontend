@@ -17,6 +17,7 @@
 package pages.operationsAndFunds
 
 import models.operations.CharityEstablishedOptions
+import models.operations.CharityEstablishedOptions._
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 

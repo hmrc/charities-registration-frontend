@@ -24,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 sealed trait CharityEstablishedOptions
 
-object CharityEstablishedOptions extends Enumerable.Implicits {
+object CharityEstablishedOptions extends Enumerable.Implicits[CharityEstablishedOptions] {
 
   case object England extends WithName("0") with CharityEstablishedOptions
   case object Wales extends WithName("1") with CharityEstablishedOptions

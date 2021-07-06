@@ -18,10 +18,10 @@ package pages.regulatorsAndDocuments
 
 import models.UserAnswers
 import models.regulators.SelectGoverningDocument
-import models.regulators.SelectGoverningDocument.{MemorandumArticlesAssociation, Other}
+import models.regulators.SelectGoverningDocument.{MemorandumArticlesAssociation, Other, _}
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat, Reads}
 
 class SelectGoverningDocumentPageSpec extends PageBehaviours{
 

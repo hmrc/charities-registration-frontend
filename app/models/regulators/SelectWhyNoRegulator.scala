@@ -24,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 sealed trait SelectWhyNoRegulator
 
-object SelectWhyNoRegulator extends Enumerable.Implicits {
+object SelectWhyNoRegulator extends Enumerable.Implicits[SelectWhyNoRegulator] {
 
   case object EnglandWalesUnderThreshold extends WithName("1") with SelectWhyNoRegulator
   case object ExemptOrExcepted extends WithName("5") with SelectWhyNoRegulator

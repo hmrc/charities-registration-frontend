@@ -18,7 +18,6 @@ package controllers
 
 import base.SpecBase
 import connectors.httpParsers.UnexpectedFailureException
-import controllers.Assets.Redirect
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
@@ -28,6 +27,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import pages.sections._
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import service.{CharitiesRegistrationService, UserAnswerService}
 import transformers.submission.CharityTransformerConstants

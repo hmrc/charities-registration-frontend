@@ -21,6 +21,7 @@ import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
+import models.regulators.SelectWhyNoRegulator._
 
 
 class SelectWhyNoRegulatorSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {

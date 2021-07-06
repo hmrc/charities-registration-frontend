@@ -53,7 +53,7 @@ final case class UserAnswers(
   def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] =
     path(page, idx).readNullable[A].reads(data).getOrElse(None)
 
-  def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
+  def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None): Try[UserAnswers] = {
     setData(path(page, idx), value).flatMap {
       d =>
         val updatedAnswers = copy(data = d)

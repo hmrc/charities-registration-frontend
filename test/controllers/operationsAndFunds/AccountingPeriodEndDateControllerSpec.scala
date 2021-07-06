@@ -85,7 +85,7 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
 
      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
        set(AccountingPeriodEndDatePage,MonthDay.fromDateFields(new LocalDate(year,month, dayOfMonth).toDate))
-             (MongoDateTimeFormats.localDayMonthWrite).getOrElse(emptyUserAnswers))))
+             .getOrElse(emptyUserAnswers))))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

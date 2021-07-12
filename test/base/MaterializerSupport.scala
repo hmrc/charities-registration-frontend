@@ -17,9 +17,9 @@
 package base
 
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
+import akka.stream.Materializer
 
 trait MaterializerSupport {
   implicit val system: ActorSystem = ActorSystem("Sys")
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
+  implicit val materializer: Materializer = Materializer(system)
 }

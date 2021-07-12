@@ -17,12 +17,12 @@
 package navigation
 
 import java.time.LocalDate
-
 import base.SpecBase
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import models._
 import models.regulators.SelectGoverningDocument
+import org.mockito.ArgumentMatchers.any
 import pages.IndexPage
 import pages.regulatorsAndDocuments._
 
@@ -82,7 +82,7 @@ class DocumentsNavigatorSpec extends SpecBase {
         "go to the Is Governing Document approved page when a date is submitted" in {
 
           navigator.nextPage(WhenGoverningDocumentApprovedPage, NormalMode,
-            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).success.value) mustBe
+            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth))(MongoDateTimeFormats.localDateWrites).success.value) mustBe
             regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(NormalMode)
         }
       }
@@ -212,7 +212,7 @@ class DocumentsNavigatorSpec extends SpecBase {
         "go to the Is Governing Document summary page when a date is submitted" in {
 
           navigator.nextPage(WhenGoverningDocumentApprovedPage, CheckMode,
-            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).success.value) mustBe
+            emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth))(MongoDateTimeFormats.localDateWrites).success.value) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }
       }

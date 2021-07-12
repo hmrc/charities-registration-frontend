@@ -26,6 +26,8 @@ import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.libs.json.{JsResultException, Json, JsonValidationError, __}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
+import java.util.NoSuchElementException
+
 class CharitiesJsObjectSpec extends SpecBase {
 
   lazy val mockCacheMap: CacheMap = mock[CacheMap]
@@ -64,8 +66,7 @@ class CharitiesJsObjectSpec extends SpecBase {
           .getJson(mockCacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials, "charityHowManyAuthOfficials")(
             CharityHowManyAuthOfficials.formats)
 
-        transformerKeeper.errors mustBe Seq((__ \ 'charityHowManyOtherOfficials \ 'numberOfOtherOfficials,
-          Seq(JsonValidationError(Seq("error.path.missing")))))
+        transformerKeeper.errors mustBe Seq.empty
         transformerKeeper.accumulator mustBe Json.obj()
 
       }
@@ -243,26 +244,20 @@ class CharitiesJsObjectSpec extends SpecBase {
       "not transform correctly when the input doesn't match the transformer" in {
 
         when(mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](
-          meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenReturn(Some(charityAuthorisedOfficialIndividual))
+          meq("authorisedOfficialIndividual2"))(meq(CharityAuthorisedOfficialIndividual.formats))).thenThrow(new NoSuchElementException)
 
-        val transformerKeeper: TransformerKeeper = TransformerKeeper(
-          Json.obj("authorisedOfficials" -> Json.arr(Json.parse(
-            """
-              |{
-              |            "notExistent": "1"
-              |        }""".stripMargin))), Seq.empty)
-          .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-            mockCacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials,
-            "authorisedOfficialIndividual2", "authorisedOfficials")(
-            CharityAuthorisedOfficialIndividual.formats)
-
-        transformerKeeper.errors mustBe Seq((__ \ 'charityHowManyOtherOfficials \ 'numberOfOtherOfficials,
-          Seq(JsonValidationError(Seq("error.path.missing")))))
-        transformerKeeper.accumulator mustBe Json.obj("authorisedOfficials" -> Json.arr(Json.parse(
-          """
-            |{
-            |            "notExistent": "1"
-            |        }""".stripMargin)))
+        intercept[NoSuchElementException] {
+          TransformerKeeper(
+            Json.obj("authorisedOfficials" -> Json.arr(Json.parse(
+              """
+                |{
+                |            "notExistent": "1"
+                |        }""".stripMargin))), Seq.empty)
+            .getJsonOfficials[CharityAuthorisedOfficialIndividual](
+              mockCacheMap, userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials,
+              "authorisedOfficialIndividual2", "authorisedOfficials")(
+              CharityAuthorisedOfficialIndividual.formats)
+        }
 
       }
 

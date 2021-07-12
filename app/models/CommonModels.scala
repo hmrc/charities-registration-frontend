@@ -16,13 +16,14 @@
 
 package models
 
-import java.time.LocalDate
-
-import play.api.libs.json.{Json, OFormat}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
+
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 sealed trait SelectTitle
 
@@ -53,6 +54,7 @@ object SelectTitle extends Enumerable.Implicits {
     Enumerable(valuesAndUnsupported.map(v => v.toString -> v): _*)
 }
 
+
 case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {
 
   def getFullName: String = Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
@@ -79,9 +81,9 @@ object PhoneNumber {
 
 case class Passport(passportNumber: String, country: String, expiryDate: LocalDate)
 
-object Passport {
+object Passport extends MongoDateTimeFormats {
 
-  implicit val formats: OFormat[Passport] = Json.format[Passport]
+  implicit val format: OFormat[Passport] = Json.format[Passport]
 
   override def toString: String = "passport"
 }

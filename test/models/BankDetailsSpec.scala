@@ -16,10 +16,12 @@
 
 package models
 
-import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.libs.json.Json
 
-class BankDetailsSpec extends WordSpec with MustMatchers with OptionValues {
+class BankDetailsSpec extends AnyWordSpec with Matchers with OptionValues {
 
   "A Bank details object" should {
 

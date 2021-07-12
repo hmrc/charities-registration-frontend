@@ -27,12 +27,13 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import service.UserAnswerService
-import utils.{ImplicitDateFormatter, TimeMachine}
+import utils.TimeMachine
+import views.ViewUtils.dayToString
 import views.html.RegistrationSentView
 
 import scala.concurrent.Future
 
-class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter with BeforeAndAfterEach {
+class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
@@ -51,6 +52,9 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
   private val view: RegistrationSentView = injector.instanceOf[RegistrationSentView]
 
   private val controller: RegistrationSentController = inject[RegistrationSentController]
+
+  private val acknowledgementReferenceNo: String = "123456789"
+  private val daysToAdd: Long = 28
 
   "RegistrationSent Controller" must {
 
@@ -73,9 +77,9 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(28)),
+      contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
         dayToString(inject[TimeMachine].now(), dayOfWeek = false),
-        "123456789", emailOrPost = true, noEmailOrPost = false,
+        acknowledgementReferenceNo, emailOrPost = true, noEmailOrPost = false,
         Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
@@ -91,9 +95,9 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(28)),
+      contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
         dayToString(inject[TimeMachine].now(), dayOfWeek = false),
-        "123456789", emailOrPost = true, noEmailOrPost = true,
+        acknowledgementReferenceNo, emailOrPost = true, noEmailOrPost = true,
         Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
@@ -101,14 +105,14 @@ class RegistrationSentControllerSpec extends SpecBase with ImplicitDateFormatter
     "return OK and the correct view for a GET when noEmailPost enabled" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AcknowledgementReferencePage, "123456789")
+        .set(AcknowledgementReferencePage, acknowledgementReferenceNo)
         .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
         .success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(28)),
+      contentAsString(result) mustEqual view(dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
         dayToString(inject[TimeMachine].now(), dayOfWeek = false),
         "123456789", emailOrPost = false, noEmailOrPost = true,
         Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(fakeRequest, messages, frontendAppConfig).toString

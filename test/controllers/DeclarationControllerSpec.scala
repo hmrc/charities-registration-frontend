@@ -18,7 +18,7 @@ package controllers
 
 import base.SpecBase
 import connectors.httpParsers.UnexpectedFailureException
-import controllers.Assets.Redirect
+import play.api.mvc.Results.Redirect
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any

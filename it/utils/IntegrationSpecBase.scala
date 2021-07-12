@@ -17,20 +17,20 @@
 package utils
 
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.{TryValues, _}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import play.api.i18n.MessagesApi
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.{Application, Environment, Mode}
-import service.UserAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext
 
-trait IntegrationSpecBase extends WordSpec with GivenWhenThen with TestSuite with ScalaFutures
-  with IntegrationPatience with MustMatchers with WiremockHelper with GuiceOneServerPerSuite with TryValues
+trait IntegrationSpecBase extends AnyWordSpec with GivenWhenThen with TestSuite with ScalaFutures
+  with IntegrationPatience with Matchers with WiremockHelper with GuiceOneServerPerSuite with TryValues
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with CustomMatchers {
 
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.global

@@ -16,7 +16,8 @@
 
 package models
 
-import play.api.libs.json._
+import play.api.libs.json.{JsError, JsString, JsSuccess, Reads, Writes}
+
 
 trait Enumerable[A] {
 
@@ -44,8 +45,7 @@ object Enumerable {
        }
     }
 
-    implicit def writes[A: Enumerable]: Writes[A] = {
-      Writes(value => JsString(value.toString))
-    }
+    implicit def sequenceWrites[A: Enumerable]: Writes[Set[A]] = Writes.iterableWrites2[A, Set[A]]
+
   }
 }

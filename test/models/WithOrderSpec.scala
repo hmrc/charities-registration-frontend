@@ -16,9 +16,10 @@
 
 package models
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class WithOrderSpec extends WordSpec with MustMatchers {
+class WithOrderSpec extends AnyWordSpec with Matchers {
 
   object Foo extends WithOrder {
     override val order: Int = 1

@@ -16,22 +16,21 @@
 
 package models
 
-import java.time.{Instant, LocalDateTime, ZoneOffset}
-
 import org.joda.time.MonthDay
 import play.api.libs.json._
+
+import java.time.format.DateTimeFormatter
+import java.time.{Instant, LocalDate, LocalDateTime, ZoneOffset}
 
 trait MongoDateTimeFormats {
 
   implicit val localDayMonthRead: Reads[MonthDay] =
-    (__).read[String].map {
+    __.read[String].map {
       dayMonth=>
         MonthDay.parse(dayMonth)
     }
 
-  implicit val localDayMonthWrite: Writes[MonthDay] = new Writes[MonthDay] {
-    def writes(dayMonth: MonthDay): JsValue = JsString(dayMonth.toString)
-  }
+  implicit val localDayMonthWrite: Writes[MonthDay] = (dayMonth: MonthDay) => JsString(dayMonth.toString)
 
   implicit val localDateTimeRead: Reads[LocalDateTime] =
     (__ \ "$date").read[Long].map {
@@ -39,11 +38,18 @@ trait MongoDateTimeFormats {
         LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneOffset.UTC)
     }
 
-  implicit val localDateTimeWrite: Writes[LocalDateTime] = new Writes[LocalDateTime] {
-    def writes(dateTime: LocalDateTime): JsValue = Json.obj(
-      "$date" -> dateTime.atZone(ZoneOffset.UTC).toInstant.toEpochMilli
-    )
-  }
+  implicit val localDateTimeWrite: Writes[LocalDateTime] = (dateTime: LocalDateTime) => Json.obj(
+    "$date" -> dateTime.atZone(ZoneOffset.UTC).toInstant.toEpochMilli
+  )
+
+  implicit val localDateReads: Reads[LocalDate] =
+    __.read[String].map {
+      date =>
+        LocalDate.parse(date)
+    }
+
+  implicit val localDateWrites: Writes[LocalDate] = (date: LocalDate) => JsString(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+
 }
 
 object MongoDateTimeFormats extends MongoDateTimeFormats

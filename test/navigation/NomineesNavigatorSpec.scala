@@ -16,8 +16,6 @@
 
 package navigation
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.nominees.{routes => nomineesRoutes}
@@ -28,6 +26,8 @@ import models.nominees.OrganisationNomineeContactDetails
 import pages.IndexPage
 import pages.addressLookup._
 import pages.nominees._
+
+import java.time.LocalDate
 
 class NomineesNavigatorSpec extends SpecBase {
 
@@ -116,7 +116,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to What is the nominee's phone number page when clicked continue button" in {
           navigator.nextPage(IndividualNomineeDOBPage, NormalMode,
-            emptyUserAnswers.set(IndividualNomineeDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
+            emptyUserAnswers.set(IndividualNomineeDOBPage, LocalDate.now().minusYears(minYear))(MongoDateTimeFormats.localDateWrites).success.value) mustBe
             nomineesRoutes.IndividualNomineesPhoneNumberController.onPageLoad(NormalMode)
 
         }
@@ -449,7 +449,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to Does the nominee have national insurance number page when clicked continue button" in {
           navigator.nextPage(OrganisationAuthorisedPersonDOBPage, NormalMode,
-            emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
+            emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear))(MongoDateTimeFormats.localDateWrites).success.value) mustBe
             nomineesRoutes.IsOrganisationNomineeNinoController.onPageLoad(NormalMode)
 
         }
@@ -592,7 +592,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to summary page when clicked continue button" in {
           navigator.nextPage(IndividualNomineeDOBPage, CheckMode,
-            emptyUserAnswers.set(IndividualNomineeDOBPage,LocalDate.now().minusYears(minYear)).success.value) mustBe
+            emptyUserAnswers.set(IndividualNomineeDOBPage,LocalDate.now().minusYears(minYear))(MongoDateTimeFormats.localDateWrites).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }
@@ -922,7 +922,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
         "go to the summary page when continue button is clicked" in {
           navigator.nextPage(OrganisationAuthorisedPersonDOBPage, CheckMode,
-            emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear)).success.value) mustBe
+            emptyUserAnswers.set(OrganisationAuthorisedPersonDOBPage, LocalDate.now().minusYears(minYear))(MongoDateTimeFormats.localDateWrites).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
       }

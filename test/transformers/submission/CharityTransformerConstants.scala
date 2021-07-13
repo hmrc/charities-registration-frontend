@@ -16,8 +16,6 @@
 
 package transformers.submission
 
-import java.time.LocalDate
-
 import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
@@ -27,15 +25,15 @@ import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.SelectWhyNoRegulator
 import models.{BankDetails, CharityContactDetails, CharityName, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle, UserAnswers}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
-import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials._
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
-import play.api.libs.json.{JsPath, JsValue, Json}
+import play.api.libs.json.{JsValue, Json}
 
+import java.time.LocalDate
 import scala.util.Try
 
 trait CharityTransformerConstants extends SpecBase{
@@ -82,7 +80,7 @@ trait CharityTransformerConstants extends SpecBase{
     .flatMap(
       _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
 
-  val localUserAnswers = baseAnswers
+  val localUserAnswers: UserAnswers = baseAnswers
     .flatMap(
       _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).flatMap(
     _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(

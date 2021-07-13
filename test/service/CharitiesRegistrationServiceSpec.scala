@@ -20,7 +20,6 @@ import audit.{AuditService, SubmissionAuditEvent}
 import base.SpecBase
 import connectors.CharitiesConnector
 import connectors.httpParsers.{CharitiesInvalidJson, UnexpectedFailureException}
-import controllers.Assets.SEE_OTHER
 import models.requests.DataRequest
 import models.{RegistrationResponse, UserAnswers}
 import org.mockito.ArgumentMatchers.any

@@ -83,6 +83,13 @@ class CharityInformationNavigatorSpec extends SpecBase {
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
         }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+            charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
+        }
       }
 
       "from the CanWeSendToThisAddressPage" must {
@@ -125,6 +132,13 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(CharityPostalAddressLookupPage,
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+        }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(CharityPostalAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityPostalAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+            charityInfoRoutes.AmendCharityPostalAddressController.onPageLoad()
         }
       }
 

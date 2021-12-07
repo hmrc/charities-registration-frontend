@@ -45,6 +45,7 @@ class ConfirmOrganisationNomineeAddressController @Inject()(
         getView(controllers.nominees.routes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode),
           OrganisationNomineeAddressLookupPage,
           controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
+          controllers.nominees.routes.AmendNomineeOrganisationAddressController.onSubmit(NormalMode),
           Some(organisationNomineeName))
       }
   }

@@ -1,0 +1,109 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import play.api.mvc.Call
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    button: components.button,
+    inputText: components.inputText,
+    h1: components.h1,
+    fieldset: components.fieldset,
+    p: components.p,
+    bullets: components.bullets,
+    country: components.autocompleteCountryList
+)
+
+@(form: Form[_], messagePrefix: String, submitCall: Call, h1Param: Option[String] = None, countries: Seq[(String, String)])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", None))) {
+
+    @formHelper(action = submitCall) {
+
+        @errorSummary(form.errors)
+
+        @fieldset(s"$messagePrefix.heading", headingMessageArgs = Seq(h1Param.getOrElse(""))) {
+
+            @p{@messages("amendAddress.p1")}
+            @bullets("amendAddress.b1", "amendAddress.b2")()
+
+            @inputText(
+                form,
+                id = "line1",
+                name = "line1",
+                label = "commonAddress.editPage.line1Label",
+                isPageHeading = false,
+                classes = Some("govuk-input--width-20")
+            )
+
+            @inputText(
+                form,
+                id = "line2",
+                name = "line2",
+                label = "commonAddress.editPage.line2Label",
+                isPageHeading = false,
+                classes = Some("govuk-input--width-20")
+            )
+
+            @inputText(
+                form,
+                id = "line3",
+                name = "line3",
+                label = "commonAddress.editPage.line3Label",
+                isPageHeading = false,
+                classes = Some("govuk-input--width-20")
+            )
+
+            @inputText(
+                form,
+                id = "town",
+                name = "town",
+                label = "commonAddress.editPage.townLabel",
+                isPageHeading = false,
+                classes = Some("govuk-input--width-20")
+            )
+
+            @inputText(
+                form,
+                id = "postcode",
+                name = "postcode",
+                label = "commonAddress.editPage.postcodeLabel",
+                isPageHeading = false,
+                classes = Some("govuk-input--width-10")
+            )
+
+            @country(
+                form,
+                id = "country",
+                name = "country",
+                isPageHint = false,
+                isPageHeading = false,
+                isPageHintText = false,
+                label = "commonAddress.editPage.country",
+                hint = None,
+                hintText = "",
+                countries = countries
+            )
+}
+
+        @button("site.saveAndContinue")
+
+    }
+}

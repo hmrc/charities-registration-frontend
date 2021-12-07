@@ -88,6 +88,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+      case Some(address) if address.lines.exists(_.length > 35) => authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, index)
       case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -102,8 +103,10 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
       userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
-      case Some(_) => redirectToPlaybackPage(index)
-      case _ => routes.PageNotFoundController.onPageLoad()
+        case Some(address) if address.lines.exists(_.length > 35) =>
+          authOfficialRoutes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
+        case Some(_) => redirectToPlaybackPage(index)
+        case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case AddedAuthorisedOfficialPage(_) => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
@@ -165,6 +168,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+      case Some(address) if address.lines.exists(_.length > 35) => authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(CheckMode, index)
       case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -178,6 +182,8 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
       userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
+      case Some(address) if address.lines.exists(_.length > 35) =>
+        authOfficialRoutes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
       case Some(_) => redirectToPlaybackPage(index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }

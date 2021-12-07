@@ -19,13 +19,12 @@ package controllers.contactDetails
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
-import models.addressLookup.AddressModel
-import pages.QuestionPage
 import pages.addressLookup.CharityPostalAddressLookupPage
 import play.api.mvc._
-import views.html.common.ConfirmAddressView
-import javax.inject.Inject
 import service.CountryService
+import views.html.common.ConfirmAddressView
+
+import javax.inject.Inject
 
 class ConfirmCharityPostalAddressController @Inject()(
    val identify: AuthIdentifierAction,
@@ -43,7 +42,8 @@ class ConfirmCharityPostalAddressController @Inject()(
     implicit request =>
       getView(controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
         CharityPostalAddressLookupPage,
-        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney(),
+        controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit()
       )
   }
 }

@@ -19,12 +19,13 @@ package navigation
 import config.FrontendAppConfig
 import controllers.contactDetails.{routes => charityInfoRoutes}
 import controllers.routes
-import javax.inject.Inject
 import models._
 import pages.Page
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 import play.api.mvc.Call
+
+import javax.inject.Inject
 
 
 class CharityInformationNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
@@ -46,7 +47,8 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.PageNotFoundController.onPageLoad()
     }
     case CharityOfficialAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityOfficialAddressLookupPage) match {
-      case Some(_) => charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
+      case Some(address) if address.lines.exists(_.length > 35) => charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
+      case Some(_)  => charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
@@ -56,6 +58,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       case _ => routes.PageNotFoundController.onPageLoad()
     }
     case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {
+      case Some(address) if address.lines.exists(_.length > 35) => charityInfoRoutes.AmendCharityPostalAddressController.onPageLoad()
       case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       case _ => routes.PageNotFoundController.onPageLoad()
     }

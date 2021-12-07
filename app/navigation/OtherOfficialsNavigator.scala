@@ -20,13 +20,14 @@ import config.FrontendAppConfig
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
-import javax.inject.Inject
 import models.{CheckMode, Index, NormalMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
 import pages.sections.Section8Page
 import play.api.mvc.Call
+
+import javax.inject.Inject
 
 class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
@@ -88,6 +89,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+      case Some(address) if address.lines.exists(_.length > 35) => otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, index)
       case Some(_) => otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -101,6 +103,8 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
+      case Some(address) if address.lines.exists(_.length > 35) =>
+        otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
       case Some(_) => redirectToPlaybackPage(index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -168,6 +172,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+      case Some(address) if address.lines.exists(_.length > 35) => otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(CheckMode, index)
       case Some(_) => otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -180,6 +185,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case OtherOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
+      case Some(address) if address.lines.exists(_.length > 35) => otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
       case Some(_) => redirectToPlaybackPage(index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }

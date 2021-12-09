@@ -17,6 +17,7 @@
 package navigation
 
 import controllers.routes
+import models.addressLookup.AddressModel
 import models.{CheckMode, Mode, NormalMode, PlaybackMode, UserAnswers}
 import pages.Page
 import play.api.mvc.Call
@@ -36,6 +37,16 @@ trait BaseNavigator {
       checkRouteMap(page)(userAnswers)
     case PlaybackMode =>
       playbackRouteMap(page)(userAnswers)
+  }
+
+  def isNotValidAddress(address: AddressModel): Boolean = {
+
+    val validateFieldWithFullStop = "^[a-zA-Z0-9-, '.]+$"
+    val postcode = address.postcode.getOrElse("")
+
+    address.lines.exists(addr => addr.length > 35 || !addr.matches(validateFieldWithFullStop)) ||
+      (postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop))
+
   }
 
 }

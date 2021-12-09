@@ -20,12 +20,13 @@ import config.FrontendAppConfig
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.nominees.{routes => nomineeRoutes}
 import controllers.routes
-import javax.inject.Inject
 import models._
 import pages.Page
 import pages.addressLookup._
 import pages.nominees._
 import play.api.mvc.Call
+
+import javax.inject.Inject
 
 class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
@@ -101,6 +102,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
 
     case NomineeIndividualAddressLookupPage => userAnswers: UserAnswers =>
       userAnswers.get(NomineeIndividualAddressLookupPage) match {
+        case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
         case Some(_) => nomineeRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(NormalMode)
         case _ => routes.PageNotFoundController.onPageLoad()
       }
@@ -114,6 +116,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case NomineeIndividualPreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
+        case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(NormalMode)
         case Some(_) => nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
         case _ => routes.PageNotFoundController.onPageLoad()
       }
@@ -136,6 +139,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationNomineeAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeAddressLookupPage) match {
+      case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode)
       case Some(_) => nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -149,6 +153,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationNomineePreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
+      case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(NormalMode)
       case Some(_) => nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -243,6 +248,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case NomineeIndividualAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualAddressLookupPage) match {
+      case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeIndividualAddressController.onPageLoad(CheckMode)
       case Some(_) => nomineeRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -255,6 +261,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case NomineeIndividualPreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
+      case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(CheckMode)
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -283,6 +290,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationNomineeAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineeAddressLookupPage) match {
+      case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeOrganisationAddressController.onPageLoad(CheckMode)
       case Some(_) => nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -295,6 +303,7 @@ class NomineesNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig)
     }
 
     case OrganisationNomineePreviousAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
+      case Some(address) if isNotValidAddress(address) => nomineeRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(CheckMode)
       case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
       case _ => routes.PageNotFoundController.onPageLoad()
     }

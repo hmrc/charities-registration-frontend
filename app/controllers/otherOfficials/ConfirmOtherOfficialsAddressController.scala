@@ -45,6 +45,7 @@ class ConfirmOtherOfficialsAddressController @Inject()(
         getView(controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index),
           OtherOfficialAddressLookupPage(index),
           controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode),
+          controllers.otherOfficials.routes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, index),
           Some(otherOfficialsName))
       }
   }

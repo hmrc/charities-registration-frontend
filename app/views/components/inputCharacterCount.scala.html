@@ -14,7 +14,9 @@
  * limitations under the License.
  *@
 
-@this(govukCharacterCount: GovukCharacterCount)
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.CharacterCount
+
+@this(hmrcCharacterCount: HmrcCharacterCount)
 
 @(
         form: Form[_],
@@ -31,7 +33,7 @@
         countMessageClasses: String,
 )(implicit messages: Messages)
 
-@govukCharacterCount(CharacterCount(
+@hmrcCharacterCount(CharacterCount(
   id,
   name,
   rows,

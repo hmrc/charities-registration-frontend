@@ -187,6 +187,7 @@ commonAddress.editPage.line2Label = Address line 2 (optional)
 commonAddress.editPage.line3Label = Address line 3 (optional)
 commonAddress.editPage.townLabel = Town or city
 commonAddress.editPage.postcodeLabel = Postcode or Zipcode (optional)
+commonAddress.editPage.country = Country
 commonAddress.editPage.submitLabel = Continue
 
 commonAddress.confirmPage.infoMessage =
@@ -473,6 +474,31 @@ charityOfficialAddress.confirmPage.changeLinkText = Change charity’s address
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Address
 
+# Charity Amend Address Error Messages
+# ----------------------------------------------------------
+amendAddress.p1 = You need to make sure each line of the address only includes:
+amendAddress.b1 = 35 characters or less
+amendAddress.b2 = letters, numbers, hyphens, apostrophes, commas, spaces and full stops
+amendAddress.addressLine1.error.required = Enter address line 1
+amendAddress.addressLine1.error.length = Address line 1 must be 35 characters or less
+amendAddress.addressLine1.error.format = Address line 1 must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
+amendAddress.addressLine2.error.length = Address line 2 must be 35 characters or less
+amendAddress.addressLine2.error.format = Address line 2 must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
+amendAddress.addressLine3.error.length = Address line 3 must be 35 characters or less
+amendAddress.addressLine3.error.format = Address line 3 must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
+amendAddress.townOrCity.error.required = Enter the town or city
+amendAddress.townOrCity.error.length = Town or city must be 35 characters or less
+amendAddress.townOrCity.error.format = Town or city must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
+amendAddress.postcode.error.format = Enter a valid postcode
+amendAddress.postcode.error.length = Postcode or zipcode must be 35 characters or less
+amendAddress.postcode.error.format.nonUK = Postcode or zipcode must only include letters, numbers, hyphens and spaces
+amendAddress.country.error.required = Enter the country
+
+# Amend Charity Official Address Messages
+# ----------------------------------------------------------
+amendCharityOfficialAddress.title = Amend the charity’s address - Contact details
+amendCharityOfficialAddress.heading = You need to amend the charity’s address
+
 # CanWeSendLettersToThisAddressPage Messages
 # ----------------------------------------------------------
 
@@ -500,6 +526,11 @@ charityPostalAddress.confirmPage.heading = Confirm the charity’s postal addres
 charityPostalAddress.confirmPage.changeLinkText = Change charity’s postal address
 
 charityPostalAddress.addressLookup.checkYourAnswersLabel = Postal address
+
+# Amend Charity Postal Address Messages
+# ----------------------------------------------------------
+amendCharityPostalAddress.title = Amend the charity’s postal address - Contact details
+amendCharityPostalAddress.heading = You need to amend the charity’s postal address
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
@@ -1146,6 +1177,11 @@ authorisedOfficialAddress.confirmPage.changeLinkText = Change authorised officia
 
 authorisedOfficialAddress.checkYourAnswersLabel = Home address
 
+# Amend Authorised Official Address Messages
+# ----------------------------------------------------------
+amendAuthorisedOfficialAddress.title = Amend the authorised official’s home address - Officials and nominees
+amendAuthorisedOfficialAddress.heading = You need to amend {0}’s home address
+
 # Authorised Officials Previous Address Page Messages
 # ----------------------------------------------------------
 isAuthorisedOfficialPreviousAddress.title = Has the authorised official’s address changed in the last 12 months?
@@ -1172,6 +1208,11 @@ authorisedOfficialPreviousAddress.confirmPage.heading = Confirm {0}’s previous
 authorisedOfficialPreviousAddress.confirmPage.changeLinkText = Change authorised official’s previous home address
 
 authorisedOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
+
+# Amend Authorised Official Previous Address Messages
+# ----------------------------------------------------------
+amendAuthorisedOfficialPreviousAddress.title = Amend the authorised official’s previous home address - Officials and nominees
+amendAuthorisedOfficialPreviousAddress.heading = You need to amend {0}’s previous home address
 
 # You have added Authorised Official Page Messages
 # ----------------------------------------------------------
@@ -1330,6 +1371,11 @@ otherOfficialAddress.confirmPage.changeLinkText = Change other official’s home
 
 otherOfficialAddress.checkYourAnswersLabel = Home address
 
+# Amend Other Official Address Messages
+# ----------------------------------------------------------
+amendOtherOfficialAddress.title = Amend the other official’s home address - Officials and nominees
+amendOtherOfficialAddress.heading = You need to amend {0}’s home address
+
 # Other Official Previous Address Messages
 # ----------------------------------------------------------
 isOtherOfficialsPreviousAddress.title = Has the other official’s address changed in the last 12 months?
@@ -1356,6 +1402,11 @@ otherOfficialPreviousAddress.confirmPage.heading = Confirm {0}’s previous home
 otherOfficialPreviousAddress.confirmPage.changeLinkText = Change other official’s previous home address
 
 otherOfficialPreviousAddress.checkYourAnswersLabel = Previous home address
+
+# Amend Other Official Previous Address Messages
+# ----------------------------------------------------------
+amendOtherOfficialPreviousAddress.title = Amend the other official’s previous home address - Officials and nominees
+amendOtherOfficialPreviousAddress.heading = You need to amend {0}’s previous home address
 
 # You have added Other Official Page Messages
 # ----------------------------------------------------------
@@ -1538,6 +1589,11 @@ nomineeIndividualAddress.confirmPage.changeLinkText = Change nominee’s home ad
 
 nomineeIndividualAddress.checkYourAnswersLabel = Home address
 
+# Amend Nominee Individual Address Messages
+# ----------------------------------------------------------
+amendNomineeIndividualAddress.title = Amend the nominee’s home address - Officials and nominees
+amendNomineeIndividualAddress.heading = You need to amend {0}’s home address
+
 # Charity Nominee Individual Previous Address Page Messages
 # ----------------------------------------------------------
 isIndividualNomineePreviousAddress.title = Has the nominee’s address changed in the last 12 months?
@@ -1564,6 +1620,11 @@ nomineeIndividualPreviousAddress.confirmPage.heading = Confirm {0}’s previous 
 nomineeIndividualPreviousAddress.confirmPage.changeLinkText = Change nominee’s previous home address
 
 nomineeIndividualPreviousAddress.checkYourAnswersLabel = Previous home address
+
+# Amend Nominee Individual Previous Address Messages
+# ----------------------------------------------------------
+amendNomineeIndividualPreviousAddress.title = Amend the nominee’s previous home address - Officials and nominees
+amendNomineeIndividualPreviousAddress.heading = You need to amend {0}’s previous home address
 
 # Is Charity Nominee authorised to receive payments Page Messages
 # ----------------------------------------------------------
@@ -1645,6 +1706,11 @@ organisationNomineeAddress.confirmPage.changeLinkText = Change organisation’s 
 
 organisationNomineeAddress.checkYourAnswersLabel = Address
 
+# Amend Nominee Organisation Address Messages
+# ----------------------------------------------------------
+amendNomineeOrganisationAddress.title = Amend the nominee organisation’s address - Officials and nominees
+amendNomineeOrganisationAddress.heading = You need to amend {0}’s home address
+
 # Charity Nominee Organisation Change Address Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineePreviousAddress.title = Has the nominee organisation’s address changed in the last 12 months? - Officials and nominees
@@ -1671,6 +1737,11 @@ nomineeOrganisationPreviousAddress.confirmPage.heading = Confirm {0}’s previou
 nomineeOrganisationPreviousAddress.confirmPage.changeLinkText = Change organisation’s previous address
 
 nomineeOrganisationPreviousAddress.checkYourAnswersLabel = Previous address
+
+# Amend Nominee Organisation Previous Address Messages
+# ----------------------------------------------------------
+amendNomineeOrganisationPreviousAddress.title = Amend the nominee organisation’s previous addres - Officials and nominees
+amendNomineeOrganisationPreviousAddress.heading = You need to amend {0}’s previous home address
 
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------

@@ -182,11 +182,12 @@ commonAddress.selectPage.proposalListLabel =
 commonAddress.selectPage.submitLabel = Yn eich blaen
 commonAddress.selectPage.searchAgainLinkText =
 
-commonAddress.editPage.line1Label = Llinell 1 y cyfeiriad
-commonAddress.editPage.line2Label = Llinell 2 y cyfeiriad (dewisol)
-commonAddress.editPage.line3Label = Llinell 3 y cyfeiriad (dewisol)
+commonAddress.editPage.line1Label = Cyfeiriad – llinell 1
+commonAddress.editPage.line2Label = Cyfeiriad – llinell 2 (dewisol)
+commonAddress.editPage.line3Label = Cyfeiriad – llinell 3 (dewisol)
 commonAddress.editPage.townLabel = Tref neu ddinas
-commonAddress.editPage.postcodeLabel = Cod post (dewisol)
+commonAddress.editPage.postcodeLabel = Cod post neu god ‘zip’ (dewisol)
+commonAddress.editPage.country = Gwlad
 commonAddress.editPage.submitLabel = Yn eich blaen
 
 commonAddress.confirmPage.infoMessage =
@@ -473,6 +474,31 @@ charityOfficialAddress.confirmPage.changeLinkText = Newid cyfeiriad yr elusen
 
 charityOfficialAddress.addressLookup.checkYourAnswersLabel = Cyfeiriad
 
+# Charity Amend Address Error Messages
+# ----------------------------------------------------------
+amendAddress.p1 = Mae angen i chi sicrhau bod pob llinell o’r cyfeiriad ond yn cynnwys:
+amendAddress.b1 = 35 o gymeriadau neu lai
+amendAddress.b2 = llythrennau, rhifau, cysylltnodau, collnodau, comas, bylchau ac atalnodau llawn
+amendAddress.addressLine1.error.required = Nodwch gyfeiriad – llinell 1
+amendAddress.addressLine1.error.length = Mae’n rhaid i gyfeiriad – llinell 1 fod yn 35 o gymeriadau neu lai
+amendAddress.addressLine1.error.format = Mae’n rhaid i gyfeiriad – llinell 1 gynnwys llythrennau, rhifau, cysylltnodau, collnodau, comas, bylchau ac atalnodau llawn yn unig
+amendAddress.addressLine2.error.length = Mae’n rhaid i gyfeiriad – llinell 2 fod yn 35 o gymeriadau neu lai
+amendAddress.addressLine2.error.format = Mae’n rhaid i gyfeiriad – llinell 2 gynnwys llythrennau, rhifau, cysylltnodau, collnodau, comas, bylchau ac atalnodau llawn yn unig
+amendAddress.addressLine3.error.length = Mae’n rhaid i gyfeiriad – llinell 3 fod yn 35 o gymeriadau neu lai
+amendAddress.addressLine3.error.format = Mae’n rhaid i gyfeiriad – llinell 3 gynnwys llythrennau, rhifau, cysylltnodau, collnodau, comas, bylchau ac atalnodau llawn yn unig
+amendAddress.townOrCity.error.required = Nodwch y dref neu’r ddinas
+amendAddress.townOrCity.error.length = Mae’n rhaid i’r dref neu’r ddinas fod yn 35 o gymeriadau neu lai
+amendAddress.townOrCity.error.format = Mae’n rhaid i enw’r dref neu’r ddinas gynnwys llythrennau, rhifau, cysylltnodau, collnodau, comas, bylchau ac atalnodau llawn yn unig
+amendAddress.postcode.error.format = Nodwch god post dilys
+amendAddress.postcode.error.length = Mae’n rhaid i’r cod post neu god ‘zip’ fod yn 35 o gymeriadau neu lai
+amendAddress.postcode.error.format.nonUK = Mae’n rhaid i’r cod post neu god ‘zip’ gynnwys llythrennau, rhifau, cysylltnodau a bylchau yn unig
+amendAddress.country.error.required = Nodwch y wlad
+
+# Amend Charity Official Address Messages
+# ----------------------------------------------------------
+amendCharityOfficialAddress.title = Diwygio cyfeiriad yr elusen - Manylion cyswllt
+amendCharityOfficialAddress.heading = Mae angen i chi ddiwygio cyfeiriad yr elusen
+
 # CanWeSendLettersToThisAddressPage Messages
 # ----------------------------------------------------------
 
@@ -500,6 +526,11 @@ charityPostalAddress.confirmPage.heading = Cadarnhau cyfeiriad post yr elusen
 charityPostalAddress.confirmPage.changeLinkText = Newid cyfeiriad post yr elusen
 
 charityPostalAddress.addressLookup.checkYourAnswersLabel = Cyfeiriad post
+
+# Amend Charity Postal Address Messages
+# ----------------------------------------------------------
+amendCharityPostalAddress.title = Diwygio cyfeiriad post yr elusen - Manylion cyswllt
+amendCharityPostalAddress.heading = Mae angen i chi ddiwygio cyfeiriad post yr elusen
 
 # CharityInformation Summary page
 # ----------------------------------------------------------
@@ -1146,6 +1177,11 @@ authorisedOfficialAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref y
 
 authorisedOfficialAddress.checkYourAnswersLabel = Cyfeiriad cartref
 
+# Amend Authorised Official Address Messages
+# ----------------------------------------------------------
+amendAuthorisedOfficialAddress.title = Diwygio cyfeiriad cartref y swyddog awdurdodedig - Swyddogion ac enwebeion
+amendAuthorisedOfficialAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref {0}
+
 # Authorised Officials Previous Address Page Messages
 # ----------------------------------------------------------
 isAuthorisedOfficialPreviousAddress.title = A yw cyfeiriad y swyddog awdurdodedig wedi newid yn ystod y 12 mis diwethaf?
@@ -1172,6 +1208,11 @@ authorisedOfficialPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad cart
 authorisedOfficialPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref blaenorol y swyddog awdurdodedig
 
 authorisedOfficialPreviousAddress.checkYourAnswersLabel = Cyfeiriad cartref blaenorol
+
+# Amend Authorised Official Previous Address Messages
+# ----------------------------------------------------------
+amendAuthorisedOfficialPreviousAddress.title = Diwygio cyfeiriad cartref blaenorol y swyddog awdurdodedig - Swyddogion ac enwebeion
+amendAuthorisedOfficialPreviousAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref blaenorol {0}
 
 # You have added Authorised Official Page Messages
 # ----------------------------------------------------------
@@ -1330,6 +1371,11 @@ otherOfficialAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref y swyd
 
 otherOfficialAddress.checkYourAnswersLabel = Cyfeiriad cartref
 
+# Amend Other Official Address Messages
+# ----------------------------------------------------------
+amendOtherOfficialAddress.title = Diwygio cyfeiriad cartref y swyddog arall - Swyddogion ac enwebeion
+amendOtherOfficialAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref {0}
+
 # Other Official Previous Address Messages
 # ----------------------------------------------------------
 isOtherOfficialsPreviousAddress.title = A yw cyfeiriad y swyddog arall wedi newid yn ystod y 12 mis diwethaf?
@@ -1356,6 +1402,11 @@ otherOfficialPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad cartref b
 otherOfficialPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref blaenorol y swyddog arall
 
 otherOfficialPreviousAddress.checkYourAnswersLabel = Cyfeiriad cartref blaenorol
+
+# Amend Other Official Previous Address Messages
+# ----------------------------------------------------------
+amendOtherOfficialPreviousAddress.title = Diwygio cyfeiriad cartref blaenorol y swyddog arall - Swyddogion ac enwebeion
+amendOtherOfficialPreviousAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref blaenorol {0}
 
 # You have added Other Official Page Messages
 # ----------------------------------------------------------
@@ -1538,6 +1589,11 @@ nomineeIndividualAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref yr
 
 nomineeIndividualAddress.checkYourAnswersLabel = Cyfeiriad cartref
 
+# Amend Nominee Individual Address Messages
+# ----------------------------------------------------------
+amendNomineeIndividualAddress.title = Diwygio cyfeiriad cartref yr enwebai - Swyddogion ac enwebeion
+amendNomineeIndividualAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref {0}
+
 # Charity Nominee Individual Previous Address Page Messages
 # ----------------------------------------------------------
 isIndividualNomineePreviousAddress.title = A yw cyfeiriad yr enwebai wedi newid yn ystod y 12 mis diwethaf?
@@ -1564,6 +1620,11 @@ nomineeIndividualPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad cartr
 nomineeIndividualPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad cartref blaenorol yr enwebai
 
 nomineeIndividualPreviousAddress.checkYourAnswersLabel = Cyfeiriad cartref blaenorol
+
+# Amend Nominee Individual Previous Address Messages
+# ----------------------------------------------------------
+amendNomineeIndividualPreviousAddress.title = Diwygio cyfeiriad cartref blaenorol yr enwebai - Swyddogion ac enwebeion
+amendNomineeIndividualPreviousAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref blaenorol {0}
 
 # Is Charity Nominee authorised to receive payments Page Messages
 # ----------------------------------------------------------
@@ -1645,6 +1706,11 @@ organisationNomineeAddress.confirmPage.changeLinkText = Newid cyfeiriad y sefydl
 
 organisationNomineeAddress.checkYourAnswersLabel = Cyfeiriad
 
+# Amend Nominee Organisation Address Messages
+# ----------------------------------------------------------
+amendNomineeOrganisationAddress.title = Diwygio cyfeiriad sefydliad yr enwebai - Swyddogion ac enwebeion
+amendNomineeOrganisationAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref {0}
+
 # Charity Nominee Organisation Change Address Page Messages
 # ----------------------------------------------------------
 isOrganisationNomineePreviousAddress.title = A yw cyfeiriad sefydliad yr enwebai wedi newid yn ystod y 12 mis diwethaf? – Swyddogion ac enwebeion
@@ -1671,6 +1737,11 @@ nomineeOrganisationPreviousAddress.confirmPage.heading = Cadarnhau cyfeiriad bla
 nomineeOrganisationPreviousAddress.confirmPage.changeLinkText = Newid cyfeiriad blaenorol y sefydliad
 
 nomineeOrganisationPreviousAddress.checkYourAnswersLabel = Cyfeiriad blaenorol
+
+# Amend Nominee Organisation Previous Address Messages
+# ----------------------------------------------------------
+amendNomineeOrganisationPreviousAddress.title = Diwygio cyfeiriad blaenorol sefydliad yr enwebai - Swyddogion ac enwebeion
+amendNomineeOrganisationPreviousAddress.heading = Mae angen i chi ddiwygio cyfeiriad cartref blaenorol {0}
 
 # Is Charity Nominee Organisation authorised to receive payments Page Messages
 # ----------------------------------------------------------

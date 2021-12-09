@@ -19,15 +19,14 @@ package controllers.authorisedOfficials
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
-import javax.inject.Inject
-import models.addressLookup.AddressModel
 import models.{Index, NormalMode}
-import pages.QuestionPage
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import play.api.mvc._
 import service.CountryService
 import views.html.common.ConfirmAddressView
+
+import javax.inject.Inject
 
 class ConfirmAuthorisedOfficialsAddressController @Inject()(
     val identify: AuthIdentifierAction,
@@ -47,6 +46,7 @@ class ConfirmAuthorisedOfficialsAddressController @Inject()(
         getView(controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index),
           AuthorisedOfficialAddressLookupPage(index),
           controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode),
+          controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, index),
           Some(authorisedOfficialsName))
       }
   }

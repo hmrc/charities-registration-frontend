@@ -80,8 +80,15 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Send letters page when clicked Confirm and continue button" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
             emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+              AddressModel(Seq("7", "Morrison street"), Some(""), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
+        }
+
+        "go to the Amend address page if user entered invalid characters for postcode when clicked Confirm and continue button" in {
+          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN()"), CountryModel("FR", "France"))).success.value) mustBe
+            charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
         }
       }
 
@@ -125,6 +132,13 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(CharityPostalAddressLookupPage,
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+        }
+
+        "go to the Amend address page if user entered invalid characters in address line when clicked Confirm and continue button" in {
+          navigator.nextPage(CharityPostalAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityPostalAddressLookupPage,
+              AddressModel(Seq("7", "Morrison $treet"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+            charityInfoRoutes.AmendCharityPostalAddressController.onPageLoad()
         }
       }
 

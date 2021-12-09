@@ -69,5 +69,6 @@ class CountryServiceImpl extends CountryService {
       countryTranslated.name
     }.getOrElse(country.name)
 
-
 }
+
+object CountryService extends CountryServiceImpl

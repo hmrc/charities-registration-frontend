@@ -20,13 +20,12 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
 import models.NormalMode
-import models.addressLookup.AddressModel
-import pages.QuestionPage
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import play.api.mvc._
-import views.html.common.ConfirmAddressView
-import javax.inject.Inject
 import service.CountryService
+import views.html.common.ConfirmAddressView
+
+import javax.inject.Inject
 
 class ConfirmCharityOfficialAddressController @Inject()(
     val identify: AuthIdentifierAction,
@@ -42,9 +41,12 @@ class ConfirmCharityOfficialAddressController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-    getView(controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(NormalMode),
-      CharityOfficialAddressLookupPage,
-      controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
-    )
+      getView(controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(NormalMode),
+        CharityOfficialAddressLookupPage,
+        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney(),
+        controllers.contactDetails.routes.AmendCharityOfficialAddressController.onPageLoad()
+      )
+
+
   }
 }

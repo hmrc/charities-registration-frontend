@@ -88,6 +88,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+      case Some(address) if isNotValidAddress(address) => authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, index)
       case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -102,14 +103,16 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
       userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
-      case Some(_) => redirectToPlaybackPage(index)
-      case _ => routes.PageNotFoundController.onPageLoad()
+        case Some(address) if isNotValidAddress(address) =>
+          authOfficialRoutes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
+        case Some(_) => redirectToPlaybackPage(index)
+        case _ => routes.PageNotFoundController.onPageLoad()
     }
 
     case AddedAuthorisedOfficialPage(_) => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
 
     case AuthorisedOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
-      case Some(true) if userAnswers.get(Section7Page).contains(true) || userAnswers.get(AuthorisedOfficialsId(1)).nonEmpty =>
+      case Some(true) if userAnswers.get(Section7Page).contains(true).||(userAnswers.get(AuthorisedOfficialsId(1)).nonEmpty) =>
         routes.IndexController.onPageLoad(None)
       case Some(true) => authOfficialRoutes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, 1)
       case Some(false) => routes.IndexController.onPageLoad(None)
@@ -165,6 +168,7 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
     }
 
     case AuthorisedOfficialAddressLookupPage(index) => userAnswers: UserAnswers => userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+      case Some(address) if isNotValidAddress(address) => authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(CheckMode, index)
       case Some(_) => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }
@@ -178,6 +182,8 @@ class AuthorisedOfficialsNavigator @Inject()(implicit frontendAppConfig: Fronten
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) => userAnswers: UserAnswers =>
       userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
+      case Some(address) if isNotValidAddress(address) =>
+        authOfficialRoutes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
       case Some(_) => redirectToPlaybackPage(index)
       case _ => routes.PageNotFoundController.onPageLoad()
     }

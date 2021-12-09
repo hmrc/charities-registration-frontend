@@ -19,14 +19,14 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
-import javax.inject.Inject
-import models.{Index, NormalMode}
-import pages.addressLookup.{OrganisationNomineePreviousAddressLookupPage, OtherOfficialAddressLookupPage}
+import models.NormalMode
+import pages.addressLookup.OrganisationNomineePreviousAddressLookupPage
 import pages.nominees.OrganisationNomineeNamePage
-import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.mvc._
 import service.CountryService
 import views.html.common.ConfirmAddressView
+
+import javax.inject.Inject
 
 class ConfirmOrganisationNomineePreviousAddressController @Inject()(
     val identify: AuthIdentifierAction,
@@ -46,6 +46,7 @@ class ConfirmOrganisationNomineePreviousAddressController @Inject()(
         getView(controllers.nominees.routes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode),
           OrganisationNomineePreviousAddressLookupPage,
           controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode),
+          controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onSubmit(NormalMode),
           Some(organisationNomineeName))
       }
   }

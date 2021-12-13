@@ -35,7 +35,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
           val doc = asDocument(view)
 
-          assert(doc.getElementsByClass("govuk-header__link--service-name").first.text == messages("service.name"),
+          assert(doc.getElementsByClass("hmrc-header__service-name--linked").first.text == messages("service.name"),
             s"\n\nService name did not contain hint text ${messages("site.service_name")}")
         }
 

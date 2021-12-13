@@ -36,6 +36,7 @@ class NomineesNavigatorSpec extends SpecBase {
   private val IndividualNomineePhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
   private val minYear = 16
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+  private val addressMax: AddressModel = AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   private val bankDetails = BankDetails(
     accountName = "fullName",
@@ -214,6 +215,13 @@ class NomineesNavigatorSpec extends SpecBase {
               .success.value) mustBe
             nomineesRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(NormalMode)
         }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressMax)
+              .success.value) mustBe
+            nomineesRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
+        }
       }
 
       "from the IsIndividualNomineePreviousAddressPage" must {
@@ -257,6 +265,13 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, address)
               .success.value) mustBe
             nomineesRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+        }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, addressMax)
+              .success.value) mustBe
+            nomineesRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(NormalMode)
         }
       }
 
@@ -344,6 +359,12 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, address).success.value) mustBe
             nomineesRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode)
         }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(OrganisationNomineeAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, addressMax).success.value) mustBe
+            nomineesRoutes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode)
+        }
       }
 
       "from the IsOrganisationNomineePreviousAddress page" must {
@@ -389,6 +410,12 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, NormalMode,
             emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, address).success.value) mustBe
             nomineesRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
+        }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, addressMax).success.value) mustBe
+            nomineesRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(NormalMode)
         }
       }
 
@@ -687,6 +714,13 @@ class NomineesNavigatorSpec extends SpecBase {
               .success.value) mustBe
             nomineesRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode)
         }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressMax)
+              .success.value) mustBe
+            nomineesRoutes.AmendNomineeIndividualAddressController.onPageLoad(CheckMode)
+        }
       }
 
       "from the IsIndividualNomineePreviousAddressPage" must {
@@ -727,6 +761,12 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, CheckMode,
             emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, address).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
+        }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(NomineeIndividualPreviousAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage, addressMax).success.value) mustBe
+            nomineesRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(CheckMode)
         }
       }
 
@@ -814,6 +854,12 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, address).success.value) mustBe
             nomineesRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode)
         }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(OrganisationNomineeAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(OrganisationNomineeAddressLookupPage, addressMax).success.value) mustBe
+            nomineesRoutes.AmendNomineeOrganisationAddressController.onPageLoad(CheckMode)
+        }
       }
 
       "from the IsOrganisationNomineePreviousAddressPage" must {
@@ -854,6 +900,12 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, CheckMode,
             emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, address).success.value) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
+        }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(OrganisationNomineePreviousAddressLookupPage, CheckMode,
+            emptyUserAnswers.set(OrganisationNomineePreviousAddressLookupPage, addressMax).success.value) mustBe
+            nomineesRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(CheckMode)
         }
       }
 

@@ -69,7 +69,28 @@ class ConfirmOrganisationNomineePreviousAddressControllerSpec extends SpecBase w
       contentAsString(result) mustEqual view.apply(
         organisationNomineePreviousAddressLookup, messageKeyPrefix,
         controllers.nominees.routes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode),
-        controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode), Some("abc"))(fakeRequest, messages, frontendAppConfig).toString
+        controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode),
+        Some("abc"))(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+    }
+
+    "return submitCall as Amend Address if address length is > 35" in {
+
+      val organisationNomineePreviousAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(OrganisationNomineeNamePage, "abc")
+        .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, AddressModel(List("12", "Banner Way near south riverview gardens"), None, CountryModel("GB", "United Kingdom"))))
+        .success.value)))
+
+      val result = controller.onPageLoad()(fakeRequest)
+
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view.apply(
+        organisationNomineePreviousAddressMax, messageKeyPrefix,
+        controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(NormalMode),
+        controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode),
+        Some("abc"))(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

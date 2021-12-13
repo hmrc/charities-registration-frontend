@@ -33,11 +33,16 @@ trait ConfirmAddressController extends LocalBaseController {
   val countryService: CountryService
   val messagePrefix: String
 
-  def getView(submissionCall: Call, page: QuestionPage[AddressModel], changeLinkCall: Call, name: Option[String] = None)
+  def getView(submissionCall: Call, page: QuestionPage[AddressModel], changeLinkCall: Call, amendAddressCall: Call, name: Option[String] = None)
              (implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
     getAddress(page) { (addressLine, country) =>
+      val submitCall = if(addressLine.exists(_.length > 35)) {
+        amendAddressCall
+      } else {
+        submissionCall
+      }
       val addressWithCountry: Seq[String] = addressLine :+ countryService.translatedCountryName(country)
-      Future.successful(Ok(view(addressWithCountry, messagePrefix, submissionCall, changeLinkCall, name)))
+      Future.successful(Ok(view(addressWithCountry, messagePrefix, submitCall, changeLinkCall, name)))
     }
   }
 }

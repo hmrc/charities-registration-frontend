@@ -16,8 +16,6 @@
 
 package navigation
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
@@ -32,12 +30,15 @@ import pages.otherOfficials._
 import pages.sections.Section8Page
 import play.api.mvc.Call
 
+import java.time.LocalDate
+
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: OtherOfficialsNavigator = inject[OtherOfficialsNavigator]
   private val otherOfficialsName: Name = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+  private val addressMax: AddressModel = AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val minYear = 16
 
   def goToPlaybackPage(index: Int): Call = index match {
@@ -190,6 +191,12 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).success.value) mustBe
             otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, Index(0))
         }
+
+        "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+          navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value) mustBe
+            otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
+        }
       }
 
       List(0, 1, 2).foreach(index => {
@@ -242,6 +249,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), address))
                 .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
               goToPlaybackPage(index)
+          }
+
+          "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+            navigator.nextPage(OtherOfficialPreviousAddressLookupPage(index), NormalMode,
+              emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressMax)
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), addressMax))
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), addressMax)).success.value) mustBe
+              otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
           }
         }
 
@@ -493,6 +508,12 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .flatMap(_.set(OtherOfficialAddressLookupPage(index), address)).success.value) mustBe
                 otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
             }
+
+            "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+              navigator.nextPage(OtherOfficialAddressLookupPage(0), CheckMode,
+                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value) mustBe
+                otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(CheckMode, Index(0))
+            }
           }
 
           "from the IsOtherOfficialsPreviousAddressPage" must {
@@ -563,6 +584,12 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), address))
                   .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
                 goToPlaybackPage(index)
+            }
+
+            "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
+              navigator.nextPage(OtherOfficialPreviousAddressLookupPage(0), CheckMode,
+                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressMax).success.value) mustBe
+                otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, Index(0))
             }
 
           }

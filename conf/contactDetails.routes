@@ -12,6 +12,9 @@ POST       /phone-and-email                          controllers.contactDetails.
 GET        /phone-and-email/change                   controllers.contactDetails.CharityContactDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /phone-and-email/change                   controllers.contactDetails.CharityContactDetailsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /amend-entered-address                    controllers.contactDetails.AmendCharityOfficialAddressController.onPageLoad()
+POST       /amend-entered-address                    controllers.contactDetails.AmendCharityOfficialAddressController.onSubmit(mode: Mode = NormalMode)
+
 GET        /confirm-entered-address                  controllers.contactDetails.ConfirmCharityOfficialAddressController.onPageLoad()
 GET        /confirm-entered-postal-address           controllers.contactDetails.ConfirmCharityPostalAddressController.onPageLoad()
 
@@ -19,6 +22,9 @@ GET        /send-letters                             controllers.contactDetails.
 POST       /send-letters                             controllers.contactDetails.CanWeSendToThisAddressController.onSubmit(mode: Mode = NormalMode)
 GET        /send-letters/change                      controllers.contactDetails.CanWeSendToThisAddressController.onPageLoad(mode: Mode = CheckMode)
 POST       /send-letters/change                      controllers.contactDetails.CanWeSendToThisAddressController.onSubmit(mode: Mode = CheckMode)
+
+GET        /amend-entered-postal-address             controllers.contactDetails.AmendCharityPostalAddressController.onPageLoad()
+POST       /amend-entered-postal-address             controllers.contactDetails.AmendCharityPostalAddressController.onSubmit(mode: Mode = NormalMode)
 
 GET        /summary                                  controllers.contactDetails.CharityInformationSummaryController.onPageLoad()
 POST       /summary                                  controllers.contactDetails.CharityInformationSummaryController.onSubmit()

@@ -69,7 +69,28 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
       contentAsString(result) mustEqual view.apply(
         otherOfficialAddressLookup, messageKeyPrefix,
         controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, 0),
-        controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode), Some("Jim John Jones"))(fakeRequest, messages, frontendAppConfig).toString
+        controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode),
+        Some("Jim John Jones"))(fakeRequest, messages, frontendAppConfig).toString
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+    }
+
+    "return submitCall as Amend Address if address length is > 35" in {
+
+      val otherOfficialAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
+        .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .flatMap(_.set(OtherOfficialAddressLookupPage(0), AddressModel(List("12", "Banner Way near south riverview gardens"), None, CountryModel("GB", "United Kingdom"))))
+        .success.value)))
+
+      val result = controller.onPageLoad(Index(0))(fakeRequest)
+
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view.apply(
+        otherOfficialAddressMax, messageKeyPrefix,
+        controllers.otherOfficials.routes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, 0),
+        controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode),
+        Some("Jim John Jones"))(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

@@ -19,13 +19,14 @@ package controllers.otherOfficials
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
-import javax.inject.Inject
 import models.{Index, NormalMode}
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.mvc._
 import service.CountryService
 import views.html.common.ConfirmAddressView
+
+import javax.inject.Inject
 
 class ConfirmOtherOfficialsPreviousAddressController @Inject()(
     val identify: AuthIdentifierAction,
@@ -45,6 +46,7 @@ class ConfirmOtherOfficialsPreviousAddressController @Inject()(
         getView(controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index),
           OtherOfficialPreviousAddressLookupPage(index),
           controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode),
+          controllers.otherOfficials.routes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index),
           Some(otherOfficialsName))
       }
   }

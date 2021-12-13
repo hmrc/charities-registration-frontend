@@ -45,6 +45,7 @@ class ConfirmNomineeIndividualAddressController @Inject()(
         getView(controllers.nominees.routes.IsIndividualNomineePreviousAddressController.onPageLoad(NormalMode),
           NomineeIndividualAddressLookupPage,
           controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode),
+          controllers.nominees.routes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode),
           Some(individualNomineeName))
       }
   }

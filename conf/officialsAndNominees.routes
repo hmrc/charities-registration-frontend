@@ -36,6 +36,16 @@ POST       /:index/authorised-official-passport                                 
 GET        /:index/authorised-official-passport/change                          controllers.authorisedOfficials.AuthorisedOfficialsPassportController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/authorised-official-passport/change                          controllers.authorisedOfficials.AuthorisedOfficialsPassportController.onSubmit(mode: Mode = CheckMode, index: Index)
 
+GET        /:index/authorised-official-amend-entered-address                    controllers.authorisedOfficials.AmendAuthorisedOfficialsAddressController.onPageLoad(mode: Mode = NormalMode, index: Index)
+POST       /:index/authorised-official-amend-entered-address                    controllers.authorisedOfficials.AmendAuthorisedOfficialsAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/authorised-official-amend-entered-address/change             controllers.authorisedOfficials.AmendAuthorisedOfficialsAddressController.onPageLoad(mode: Mode = CheckMode, index: Index)
+POST       /:index/authorised-official-amend-entered-address/change             controllers.authorisedOfficials.AmendAuthorisedOfficialsAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
+
+GET        /:index/authorised-official-amend-entered-previous-address           controllers.authorisedOfficials.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(mode: Mode = NormalMode,index: Index)
+POST       /:index/authorised-official-amend-entered-previous-address           controllers.authorisedOfficials.AmendAuthorisedOfficialsPreviousAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/authorised-official-amend-entered-previous-address/change    controllers.authorisedOfficials.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(mode: Mode = CheckMode,index: Index)
+POST       /:index/authorised-official-amend-entered-previous-address/change    controllers.authorisedOfficials.AmendAuthorisedOfficialsPreviousAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
+
 GET        /:index/authorised-official-confirm-entered-address                  controllers.authorisedOfficials.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index: Index)
 GET        /:index/authorised-official-confirm-entered-previous-address         controllers.authorisedOfficials.ConfirmAuthorisedOfficialsPreviousAddressController.onPageLoad(index: Index)
 
@@ -89,6 +99,16 @@ GET        /:index/other-official-passport                                      
 POST       /:index/other-official-passport                                      controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = NormalMode, index: Index)
 GET        /:index/other-official-passport/change                               controllers.otherOfficials.OtherOfficialsPassportController.onPageLoad(mode: Mode = CheckMode, index: Index)
 POST       /:index/other-official-passport/change                               controllers.otherOfficials.OtherOfficialsPassportController.onSubmit(mode: Mode = CheckMode, index: Index)
+
+GET        /:index/other-official-amend-entered-address                         controllers.otherOfficials.AmendOtherOfficialsAddressController.onPageLoad(mode: Mode = NormalMode,index: Index)
+POST       /:index/other-official-amend-entered-address                         controllers.otherOfficials.AmendOtherOfficialsAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/other-official-amend-entered-address/change                  controllers.otherOfficials.AmendOtherOfficialsAddressController.onPageLoad(mode: Mode = CheckMode,index: Index)
+POST       /:index/other-official-amend-entered-address/change                  controllers.otherOfficials.AmendOtherOfficialsAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
+
+GET        /:index/other-official-amend-previous-address                        controllers.otherOfficials.AmendOtherOfficialsPreviousAddressController.onPageLoad(mode: Mode = NormalMode,index: Index)
+POST       /:index/other-official-amend-previous-address                        controllers.otherOfficials.AmendOtherOfficialsPreviousAddressController.onSubmit(mode: Mode = NormalMode, index: Index)
+GET        /:index/other-official-amend-previous-address/change                 controllers.otherOfficials.AmendOtherOfficialsPreviousAddressController.onPageLoad(mode: Mode = CheckMode,index: Index)
+POST       /:index/other-official-amend-previous-address/change                 controllers.otherOfficials.AmendOtherOfficialsPreviousAddressController.onSubmit(mode: Mode = CheckMode, index: Index)
 
 GET        /:index/other-official-confirm-entered-address                       controllers.otherOfficials.ConfirmOtherOfficialsAddressController.onPageLoad(index: Index)
 GET        /:index/other-official-confirm-entered-previous-address              controllers.otherOfficials.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index: Index)
@@ -149,6 +169,16 @@ POST       /nominee-passport                                                    
 GET        /nominee-passport/change                                             controllers.nominees.IndividualNomineePassportController.onPageLoad(mode: Mode = CheckMode)
 POST       /nominee-passport/change                                             controllers.nominees.IndividualNomineePassportController.onSubmit(mode: Mode = CheckMode)
 
+GET        /nominee-amend-entered-address                                       controllers.nominees.AmendNomineeIndividualAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-amend-entered-address                                       controllers.nominees.AmendNomineeIndividualAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-amend-entered-address/change                                controllers.nominees.AmendNomineeIndividualAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-amend-entered-address/change                                controllers.nominees.AmendNomineeIndividualAddressController.onSubmit(mode: Mode = CheckMode)
+
+GET        /nominee-amend-entered-previous-address                              controllers.nominees.AmendNomineeIndividualPreviousAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-amend-entered-previous-address                              controllers.nominees.AmendNomineeIndividualPreviousAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-amend-entered-previous-address/change                       controllers.nominees.AmendNomineeIndividualPreviousAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-amend-entered-previous-address/change                       controllers.nominees.AmendNomineeIndividualPreviousAddressController.onSubmit(mode: Mode = CheckMode)
+
 GET        /nominee-confirm-entered-address                                     controllers.nominees.ConfirmNomineeIndividualAddressController.onPageLoad()
 GET        /nominee-confirm-entered-previous-address                            controllers.nominees.ConfirmNomineeIndividualPreviousAddressController.onPageLoad()
 
@@ -183,6 +213,16 @@ GET        /nominee-organisation-contact-details/change                         
 POST       /nominee-organisation-contact-details/change                         controllers.nominees.OrganisationNomineeContactDetailsController.onSubmit(mode: Mode = CheckMode)
 
 GET        /authorised-person                                                   controllers.nominees.OrganisationNomineeAuthorisedPersonController.onPageLoad()
+
+GET        /nominee-organisation-amend-entered-address                          controllers.nominees.AmendNomineeOrganisationAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-organisation-amend-entered-address                          controllers.nominees.AmendNomineeOrganisationAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-organisation-amend-entered-address/change                   controllers.nominees.AmendNomineeOrganisationAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-organisation-amend-entered-address/change                   controllers.nominees.AmendNomineeOrganisationAddressController.onSubmit(mode: Mode = CheckMode)
+
+GET        /nominee-organisation-amend-entered-previous-address                 controllers.nominees.AmendNomineeOrganisationPreviousAddressController.onPageLoad(mode: Mode = NormalMode)
+POST       /nominee-organisation-amend-entered-previous-address                 controllers.nominees.AmendNomineeOrganisationPreviousAddressController.onSubmit(mode: Mode = NormalMode)
+GET        /nominee-organisation-amend-entered-previous-address/change          controllers.nominees.AmendNomineeOrganisationPreviousAddressController.onPageLoad(mode: Mode = CheckMode)
+POST       /nominee-organisation-amend-entered-previous-address/change          controllers.nominees.AmendNomineeOrganisationPreviousAddressController.onSubmit(mode: Mode = CheckMode)
 
 GET        /nominee-organisation-confirm-entered-address                        controllers.nominees.ConfirmOrganisationNomineeAddressController.onPageLoad()
 GET        /nominee-organisation-confirm-entered-previous-address               controllers.nominees.ConfirmOrganisationNomineePreviousAddressController.onPageLoad()

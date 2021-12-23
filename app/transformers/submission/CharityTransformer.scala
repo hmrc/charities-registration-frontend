@@ -78,13 +78,13 @@ class CharityTransformer extends JsonTransformer {
           case _ => (__ \ 'aboutOrganisation \ 'governingApprovedWords).json.put(JsBoolean(true))
         } and
         (__ \ 'sectionsChangedGoverningDocument).readNullable[String].flatMap {
-          case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(
+          case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(
             JsString(replaceInvalidCharacters(changes).substring(0,255)))
           case Some(changes) => (__ \ 'aboutOrganisation \ 'governingApprovedChanges).json.put(JsString(replaceInvalidCharacters(changes)))
           case _ => doNothing
         } and
         (__ \ 'sectionsChangedGoverningDocument).readNullable[String].flatMap {
-          case Some(changes) if changes.length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChangesB).json.put(
+          case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'aboutOrganisation \ 'governingApprovedChangesB).json.put(
             JsString(replaceInvalidCharacters(changes).substring(255)))
           case _ => doNothing
         }
@@ -101,13 +101,13 @@ class CharityTransformer extends JsonTransformer {
         (__ \ 'operationAndFundsCommon \ 'accountPeriodEnd).json.put{JsString(("""\d+""".r findAllIn accountPeriod).toList.reverse.mkString)}) and
         (__ \ 'operationAndFundsCommon \ 'financialAccounts).json.copyFrom(hasFinancialAccounts) and
         (__ \ 'whyNoBankStatement).readNullable[String].flatMap {
-          case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(
+          case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(
             JsString(replaceInvalidCharacters(changes).substring(0,255)))
           case Some(changes) => (__ \ 'operationAndFundsCommon \ 'noBankStatements).json.put(JsString(replaceInvalidCharacters(changes)))
           case _ => doNothing
         } and
         (__ \ 'whyNoBankStatement).readNullable[String].flatMap {
-          case Some(changes) if changes.length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatementsB).json.put(
+          case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'operationAndFundsCommon \ 'noBankStatementsB).json.put(
             JsString(replaceInvalidCharacters(changes).substring(255)))
           case _ => doNothing
         }
@@ -158,13 +158,13 @@ class CharityTransformer extends JsonTransformer {
   def userAnswersToCharitableObjectives: Reads[JsObject] = {
     (
       (__ \ 'charitableObjectives).readNullable[String].flatMap {
-        case Some(changes) if changes.length > 255 => (__ \ 'charitableObjectives \ 'objectivesA).json.put(
+        case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'charitableObjectives \ 'objectivesA).json.put(
           JsString(replaceInvalidCharacters(changes).substring(0,255)))
         case Some(changes) => (__ \ 'charitableObjectives \ 'objectivesA).json.put(JsString(replaceInvalidCharacters(changes)))
         case _ => doNothing
       } and
         (__ \ 'charitableObjectives).readNullable[String].flatMap {
-          case Some(changes) if changes.length > 255 => (__ \ 'charitableObjectives \ 'objectivesB).json.put(
+          case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'charitableObjectives \ 'objectivesB).json.put(
             JsString(replaceInvalidCharacters(changes).substring(255)))
           case _ => doNothing
         }
@@ -192,13 +192,13 @@ class CharityTransformer extends JsonTransformer {
   def userAnswersToPublicBenefit: Reads[JsObject] = {
     (
       (__ \ 'publicBenefits).readNullable[String].flatMap {
-        case Some(changes) if changes.length > 255 => (__ \ 'publicBenefit \ 'publicBenefitA).json.put(
+        case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'publicBenefit \ 'publicBenefitA).json.put(
           JsString(replaceInvalidCharacters(changes).substring(0,255)))
         case Some(changes) => (__ \ 'publicBenefit \ 'publicBenefitA).json.put(JsString(replaceInvalidCharacters(changes)))
         case _ => doNothing
       } and
         (__ \ 'publicBenefits).readNullable[String].flatMap {
-          case Some(changes) if changes.length > 255 => (__ \ 'publicBenefit \ 'publicBenefitB).json.put(
+          case Some(changes) if replaceInvalidCharacters(changes).length > 255 => (__ \ 'publicBenefit \ 'publicBenefitB).json.put(
             JsString(replaceInvalidCharacters(changes).substring(255)))
           case _ => doNothing
         }

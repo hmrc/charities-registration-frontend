@@ -272,6 +272,34 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(expectedJson)
       }
 
+      "convert the correct AboutOrganisation object and replace tabs and new line characters with spaces and changes are <255 characters long" in {
+
+        val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
+          _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).flatMap(
+            _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
+            _.set(IsApprovedGoverningDocumentPage, true)).flatMap(
+            _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
+            _.set(SectionsChangedGoverningDocumentPage,
+              "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |    "aboutOrganisation": {
+            |      "aboutOrgCommon": {
+            |        "otherDocument": "Other Documents for Charity",
+            |        "effectiveDate": "2014-07-01"
+            |      },
+            |      "documentEnclosed": "2",
+            |      "governingApprovedDoc": true,
+            |      "governingApprovedWords": true,
+            |      "governingApprovedChanges": "Hello I am writing this story to test replace tab  and new line  characters. If total length of the story is greater than 255 characters after replacing the tab and new line  characters then split first 255 characters in part 1  and remaining in part 2"
+            |    }
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
       "convert the correct AboutOrganisation object when document is not approved and changes are not defined" in {
 
         val localUserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
@@ -336,6 +364,27 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |     "accountPeriodEnd": "0111",
             |     "financialAccounts": true,
             |      "noBankStatements": "the changes are less than 255 characters long"
+            |   }
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFundsCommon).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct OperationAndFundsCommon object and replace tabs and new line characters with spaces and changes are <255 characters long" in {
+
+        val localUserAnswers = emptyUserAnswers.set(AccountingPeriodEndDatePage,
+          MonthDay.fromDateFields(new JLocalDate(2020, 11, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
+          _.set(IsFinancialAccountsPage, true).flatMap(
+            _.set(WhyNoBankStatementPage,
+              "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"))
+        ).success.value
+
+        val expectedJson =
+          """{
+            |    "operationAndFundsCommon": {
+            |     "accountPeriodEnd": "0111",
+            |     "financialAccounts": true,
+            |      "noBankStatements": "Hello I am writing this story to test replace tab  and new line  characters. If total length of the story is greater than 255 characters after replacing the tab and new line  characters then split first 255 characters in part 1  and remaining in part 2"
             |   }
             |}""".stripMargin
 
@@ -652,6 +701,22 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToCharitableObjectives).asOpt.value mustBe Json.parse(expectedJson)
       }
+
+      "convert the correct CharitableObjectives and replace tabs and new line characters with spaces and changes are <255 characters long" in {
+
+        val localUserAnswers = emptyUserAnswers.set(CharitableObjectivesPage,
+          "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"
+        ).success.value
+
+        val expectedJson =
+          """{
+            |   "charitableObjectives": {
+            |      "objectivesA": "Hello I am writing this story to test replace tab  and new line  characters. If total length of the story is greater than 255 characters after replacing the tab and new line  characters then split first 255 characters in part 1  and remaining in part 2"
+            |   }
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharitableObjectives).asOpt.value mustBe Json.parse(expectedJson)
+      }
     }
 
     "userAnswersToCharitablePurposes" must {
@@ -738,6 +803,22 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           """{
             |   "publicBenefit": {
             |      "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+            |   }
+            |}""".stripMargin
+
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToPublicBenefit).asOpt.value mustBe Json.parse(expectedJson)
+      }
+
+      "convert the correct PublicBenefit object and replace tabs and new line characters with spaces and changes are <255 characters long" in {
+
+        val localUserAnswers = emptyUserAnswers.set(PublicBenefitsPage,
+          "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"
+        ).success.value
+
+        val expectedJson =
+          """{
+            |   "publicBenefit": {
+            |      "publicBenefitA": "Hello I am writing this story to test replace tab  and new line  characters. If total length of the story is greater than 255 characters after replacing the tab and new line  characters then split first 255 characters in part 1  and remaining in part 2"
             |   }
             |}""".stripMargin
 

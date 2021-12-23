@@ -37,7 +37,7 @@ Make sure service-manager and service-manager-config are up to date
 Then run the following command to start all services:
 
 ```
-sm --start CHARITIES_REGISTRATION_ALL -f
+sm --start CHARITIES_REGISTRATION_ALL --appendArgs '{"ADDRESS_LOOKUP_FRONTEND":["-J-Dapplication.router=testOnlyDoNotUseInAppConf.Routes","-J-Dmicroservice.hosts.allowList.1=localhost"]}'
 ```
 
 #### Tests:

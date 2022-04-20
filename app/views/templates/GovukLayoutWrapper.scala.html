@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
     govukBackLink: GovukBackLink,
     phaseBanner: components.phaseBanner,
     link: components.link,
-    hmrcReportTechnicalIssue: HmrcReportTechnicalIssue,
+    hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper,
     languageSwitch: HmrcLanguageSelect,
     header: HmrcHeader,
     hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
@@ -104,16 +104,8 @@
     @contentBlock
 </div>
 @if(showDeskproLink){
-
-<div class="govuk-!-font-size-19">
-
-    @hmrcReportTechnicalIssue(
-    uk.gov.hmrc.hmrcfrontend.views.html.components.ReportTechnicalIssue(
-        appConfig.contactFormServiceIdentifier, Some(messages.lang.language),
-        if (messages.lang.code == "cy") Cy else En
-    )
-    )
-</div>}
+    @hmrcReportTechnicalIssueHelper()
+}
 }
 
 @govukLayout(

@@ -45,12 +45,9 @@ case class AddressModel(lines: Seq[String],
   def editLines: (String, Option[String], Option[String], String) = {
 
     val l1 = lines.headOption.getOrElse("")
-
-    val l2 = if (lines.length > 2) lines.lift(1) else None
-
-    val l3 = if (lines.length > 3) lines.lift(2) else None
-
-    val l4 = lines.lastOption.get
+    val l2 = if(lines.length > 2) lines.lift(1) else None
+    val l3 = if(lines.length > 3) lines.lift(2) else None
+    val l4 = lines.lastOption.getOrElse("")
 
     (l1, l2, l3, l4)
   }

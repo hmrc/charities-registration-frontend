@@ -40,6 +40,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val addressMax: AddressModel = AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val minYear = 16
+  private val minAddressLines: AddressModel = AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   def goToPlaybackPage(index: Int): Call = index match {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))
@@ -197,6 +198,13 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value) mustBe
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
         }
+
+        "go to the Amend address page if address lines < 2  when clicked Confirm and continue button" in {
+          navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), minAddressLines).success.value) mustBe
+            otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
+        }
+
       }
 
       List(0, 1, 2).foreach(index => {

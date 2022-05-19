@@ -37,6 +37,7 @@ class NomineesNavigatorSpec extends SpecBase {
   private val minYear = 16
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val addressMax: AddressModel = AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+  private val minAddressLines: AddressModel = AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   private val bankDetails = BankDetails(
     accountName = "fullName",
@@ -219,6 +220,13 @@ class NomineesNavigatorSpec extends SpecBase {
         "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
           navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode,
             emptyUserAnswers.set(NomineeIndividualAddressLookupPage, addressMax)
+              .success.value) mustBe
+            nomineesRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
+        }
+
+        "go to the Amend address page if address lines < 2  when clicked Confirm and continue button" in {
+          navigator.nextPage(NomineeIndividualAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(NomineeIndividualAddressLookupPage, minAddressLines)
               .success.value) mustBe
             nomineesRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
         }

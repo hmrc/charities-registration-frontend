@@ -41,7 +41,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
   private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val addressMax: AddressModel = AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val minYear = 16
-
+  private val minAddressLines: AddressModel = AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
@@ -213,6 +213,15 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .success.value) mustBe
               authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, index)
           }
+
+          "go to the Amend address page if address lines < 2  when clicked Confirm and continue button" in {
+            navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), NormalMode,
+              emptyUserAnswers.set(AuthorisedOfficialAddressLookupPage(0), minAddressLines)
+                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), minAddressLines))
+                .success.value) mustBe
+              authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, index)
+          }
+
         }
 
         s"from the IsAuthorisedOfficialPreviousAddressPage for index $index" must {

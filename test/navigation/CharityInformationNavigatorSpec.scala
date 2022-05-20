@@ -90,6 +90,14 @@ class CharityInformationNavigatorSpec extends SpecBase {
               AddressModel(Seq("7", "Morrison street"), Some("G58AN()"), CountryModel("FR", "France"))).success.value) mustBe
             charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
         }
+
+        "go to the Amend address page if address lines < 2  when clicked Confirm and continue button" in {
+          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
+            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("FR", "France"))).success.value) mustBe
+            charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
+        }
+
       }
 
       "from the CanWeSendToThisAddressPage" must {

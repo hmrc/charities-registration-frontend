@@ -43,8 +43,9 @@ trait BaseNavigator {
 
     val validateFieldWithFullStop = "^[a-zA-Z0-9-, '.]+$"
     val postcode = address.postcode.getOrElse("")
+    val isValidAddressLines = address.lines.length >= 2
 
-    address.lines.exists(addr => addr.length > 35 || !addr.matches(validateFieldWithFullStop)) ||
+    !isValidAddressLines || address.lines.exists(addr => addr.length > 35 || !addr.matches(validateFieldWithFullStop)) ||
       (postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop))
 
   }

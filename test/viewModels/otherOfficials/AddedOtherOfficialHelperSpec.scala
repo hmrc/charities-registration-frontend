@@ -23,11 +23,11 @@ import base.SpecBase
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
+import play.api.i18n.Messages
+import play.api.mvc.Cookie
+import play.api.test.FakeRequest
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
@@ -50,12 +50,15 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
     .set(OtherOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
     .set(IsOtherOfficialsPreviousAddressPage(0), false).success.value
 
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
-  when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+  private val welshRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
+  private lazy val welshMessages: Messages = messagesApi.preferred(welshRequest)
 
+  def helperWelsh(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =
+    new AddedOtherOfficialHelper(index, CheckMode, countryService = CountryService)(userAnswers)(welshMessages)
 
   def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =
-    new AddedOtherOfficialHelper(index, CheckMode, countryService = mockCountryService)(userAnswers)
+    new AddedOtherOfficialHelper(index, CheckMode, countryService = CountryService)(userAnswers)
+
 
 
   "Check Your Answers Helper" must {
@@ -204,6 +207,20 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
+          )
+        )
+      }
+
+
+      "have a correctly formatted summary list row in welsh" in {
+
+        helperWelsh(otherOfficialDetails.set(OtherOfficialPreviousAddressLookupPage(0),
+          ConfirmedAddressConstants.address).success.value, 0).otherOfficialPreviousAddressRow mustBe Some(
+          summaryListRow(
+            welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
+            Text("Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
+            Some(welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
+            controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLinkWelsh
           )
         )
       }

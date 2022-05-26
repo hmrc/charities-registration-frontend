@@ -224,7 +224,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
          value = Text(Seq(Some(address.lines.mkString(", ")),
                      address.postcode,
-                     Some(address.country.name)).flatten.mkString(", ")),
+           CountryService.find(address.country.code).map(c => c.name)).flatten.mkString(", ")),
          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
          changeLinkCall -> messages("site.edit")
        )

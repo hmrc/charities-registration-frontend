@@ -25,6 +25,7 @@ object BaseMessages {
   val continue = "Continue"
   val confirm = "Confirm"
   val changeLink = "Change"
+  val changeLinkWelsh = "Newid"
   val yes = "Yes"
   val no = "No"
   val incomplete = "Incomplete"

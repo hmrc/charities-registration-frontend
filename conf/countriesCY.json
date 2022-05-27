@@ -14,7 +14,7 @@
     "item-hash": "sha-256:d2078aa1d7670b9b99fca56a88b0e53b5267271ead9aa9dbd95de0440644416b",
     "country": "PW",
     "official-name": "The Republic of Palau",
-    "name": "Palau",
+    "name": "Palaw",
     "start-date": "1994-10-01",
     "citizen-names": "Palauan"
   },
@@ -24,7 +24,7 @@
     "item-hash": "sha-256:ce57e3a16ba6645dac61bb4d997f13fbab3de1b0f1d0f592ac510ab94867ec7b",
     "country": "PY",
     "official-name": "The Republic of Paraguay",
-    "name": "Paraguay",
+    "name": "Paragwâi",
     "citizen-names": "Paraguayan"
   },
   "QA": {
@@ -69,7 +69,7 @@
     "item-hash": "sha-256:d97b6f4b277e0af0d61456c75106a38cecace2f362d1bfa29e704a63c84e4328",
     "country": "AG",
     "official-name": "Antigua and Barbuda",
-    "name": "Antigua a Barbuda",
+    "name": "Antigwa a Barbiwda",
     "start-date": "1981-11-01",
     "citizen-names": "Citizen of Antigua and Barbuda"
   },
@@ -135,7 +135,7 @@
     "item-hash": "sha-256:be1bdd0de400a14cbd3142ab1c5ce4e06bb4deddeb13bffd4890058f04de651f",
     "country": "AZ",
     "official-name": "The Republic of Azerbaijan",
-    "name": "Azerbaijani",
+    "name": "Azerbaijan",
     "start-date": "1991-08-30",
     "citizen-names": "Azerbaijani"
   },
@@ -145,7 +145,7 @@
     "item-hash": "sha-256:63bd38f65b44e0fd32785668ed4cda1b9375b802df08aa23aa5934bcf291df74",
     "country": "RO",
     "official-name": "Romania",
-    "name": "România",
+    "name": "Rwmania",
     "citizen-names": "Romanian"
   },
   "BA": {
@@ -246,7 +246,7 @@
     "item-hash": "sha-256:50f7e2bf23b157a5d89ff0139fa453bd98bcfd2331dd98806ce52ef6d33b5a5c",
     "country": "BI",
     "official-name": "The Republic of Burundi",
-    "name": "Burundi",
+    "name": "Bwrwndi",
     "citizen-names": "Citizen of Burundi"
   },
   "BJ": {
@@ -375,7 +375,7 @@
     "item-hash": "sha-256:3f3f84598f5715b91d06fa9755e43b52caf7b174e43a3499015cd56dd155d20b",
     "country": "SI",
     "official-name": "The Republic of Slovenia",
-    "name": "Slovenia",
+    "name": "Slofenia",
     "start-date": "1991-06-25",
     "citizen-names": "Slovene"
   },
@@ -405,7 +405,7 @@
     "item-hash": "sha-256:92938c6db920eab9fdc4ccc0cf1ae113cd6d10d9be062b54ddf559e5d8000649",
     "country": "SK",
     "official-name": "The Slovak Republic",
-    "name": "Slovakia",
+    "name": "Slofacia",
     "start-date": "1993-01-01",
     "citizen-names": "Slovak"
   },
@@ -460,7 +460,7 @@
     "item-hash": "sha-256:54444b35fc2d463178e371aea46ce67f4b08c90e0636b8580c911b34c9f1125a",
     "country": "SR",
     "official-name": "The Republic of Suriname",
-    "name": "Suriname",
+    "name": "Swrinam",
     "start-date": "1975-11-25",
     "citizen-names": "Surinamer"
   },
@@ -536,7 +536,7 @@
     "item-hash": "sha-256:8aa9b6292caa7ebbe1b5afe12fc2b307ed32e4ab822ba2c01a0ef10f8450baef",
     "country": "CH",
     "official-name": "The Swiss Confederation",
-    "name": "Y Swisdir",
+    "name": "Y Swistir",
     "citizen-names": "Swiss"
   },
   "CI": {
@@ -581,7 +581,7 @@
     "item-hash": "sha-256:2de017cea16f6444dcf5e63459385db222c9211a0353ee62da56d1771339842f",
     "country": "CM",
     "official-name": "The Republic of Cameroon",
-    "name": "Cameroon",
+    "name": "Camerŵn",
     "citizen-names": "Cameroonian"
   },
   "CN": {
@@ -711,7 +711,7 @@
     "item-hash": "sha-256:15d6ad4b828394e5db3b24cf15277eed51f6ccbe936d71fd583e071159370e16",
     "country": "TM",
     "official-name": "Turkmenistan",
-    "name": "Turkmenistan",
+    "name": "Twrcmenistan",
     "start-date": "1991-10-27",
     "citizen-names": "Turkmen"
   },
@@ -721,7 +721,7 @@
     "item-hash": "sha-256:e6980aee1234069dcb6188a681696ddda7c33fb3562d69ea0be0d53f2906abc4",
     "country": "TN",
     "official-name": "The Tunisian Republic",
-    "name": "Tunisia",
+    "name": "Tiwnisia",
     "citizen-names": "Tunisian"
   },
   "TO": {
@@ -777,7 +777,7 @@
     "item-hash": "sha-256:f18ade1035a53da478ad84ca73209128fdecc5b4234bde9e37bdbf5e60670dd7",
     "country": "TV",
     "official-name": "Tuvalu",
-    "name": "Tuvalu",
+    "name": "Twfalw",
     "start-date": "1978-10-01",
     "citizen-names": "Tuvaluan"
   },
@@ -834,7 +834,7 @@
     "item-hash": "sha-256:3413d164924f47d3b6b8618a5de30a53b8b8b692bded4f16203090c0808b1e99",
     "country": "UA",
     "official-name": "Ukraine",
-    "name": "Ukrain",
+    "name": "Wcráin",
     "start-date": "1991-08-24",
     "citizen-names": "Ukrainian"
   },
@@ -844,7 +844,7 @@
     "item-hash": "sha-256:c799ac9946bed4885c3e57abce00bbc4700ea9a95b1f65c9fdb88533aa64d47b",
     "country": "UG",
     "official-name": "The Republic of Uganda",
-    "name": "Uganda",
+    "name": "Wganda",
     "citizen-names": "Ugandan"
   },
   "DZ": {
@@ -862,7 +862,7 @@
     "item-hash": "sha-256:80442f4556dbf969424a566ecacf075dc09e5c8a3807d252a12c89f4dbb4769b",
     "country": "EC",
     "official-name": "The Republic of Ecuador",
-    "name": "Ecuador",
+    "name": "Ecwador",
     "citizen-names": "Ecuadorean"
   },
   "US": {
@@ -899,7 +899,7 @@
     "item-hash": "sha-256:bf953faff6c89f0085e220605bbbb8f5ad12d8c53bcc320237b20f554db78eab",
     "country": "UY",
     "official-name": "The Oriental Republic of Uruguay",
-    "name": "Uruguay",
+    "name": "Wrwgwái",
     "citizen-names": "Uruguayan"
   },
   "UZ": {
@@ -908,7 +908,7 @@
     "item-hash": "sha-256:6d37b260df22e583623a29b06f75957661f3baea526964990b8e97beac8a0a35",
     "country": "UZ",
     "official-name": "The Republic of Uzbekistan",
-    "name": "Uzbekistan",
+    "name": "Wsbecistan",
     "start-date": "1991-09-01",
     "citizen-names": "Uzbek"
   },
@@ -965,7 +965,7 @@
     "item-hash": "sha-256:50649b40f1bb4ae51431aec9be3f57cd2dd4a6f642f3471d3940bb2669292ed8",
     "country": "VE",
     "official-name": "The Bolivarian Republic of Venezuela",
-    "name": "Venezuela",
+    "name": "Feneswela",
     "citizen-names": "Venezuelan"
   },
   "VN": {
@@ -1002,7 +1002,7 @@
     "item-hash": "sha-256:dfd316190c8a79880bde587da94d3f0b8eeeb752626a0a64697f2288f1ee4e1f",
     "country": "FJ",
     "official-name": "The Republic of Fiji",
-    "name": "Fiji",
+    "name": "Ffiji",
     "citizen-names": "Citizen of Fiji"
   },
   "FM": {
@@ -1095,7 +1095,7 @@
     "item-hash": "sha-256:21eccd06c2c2d23e3f3cfdd3be61ab6cfa08b15d4a0a7188ea4bb25c28935869",
     "country": "GN",
     "official-name": "The Republic of Guinea",
-    "name": "Guinée",
+    "name": "Gini",
     "citizen-names": "Guinean"
   },
   "GQ": {
@@ -1104,7 +1104,7 @@
     "item-hash": "sha-256:d8f801a489b33a26c7457f9ad9eb49f6a3973f6be2fbfe3bbb6b13e3c7a0b813",
     "country": "GQ",
     "official-name": "The Republic of Equatorial Guinea",
-    "name": "Guinea Gyhydeddol",
+    "name": "Gini Gyhydeddol",
     "citizen-names": "Equatorial Guinean"
   },
   "GR": {
@@ -1131,7 +1131,7 @@
     "item-hash": "sha-256:d0e833cb483fe5bcbbd2484794326fd201b2dc83c9b48c3496aff56478abf57c",
     "country": "GW",
     "official-name": "The Republic of Guinea-Bissau",
-    "name": "Guiné-Bissau",
+    "name": "Gini Bisaw",
     "citizen-names": "Citizen of Guinea-Bissau"
   },
   "GY": {
@@ -1140,7 +1140,7 @@
     "item-hash": "sha-256:36ee7af0d204735abf3d6bebbf2e80fb930bd5db34f4c9471d1f3c231e133157",
     "country": "GY",
     "official-name": "The Co-operative Republic of Guyana",
-    "name": "Guyana",
+    "name": "Guiana",
     "citizen-names": "Guyanese"
   },
   "XK": {
@@ -1418,7 +1418,7 @@
     "item-hash": "sha-256:eb3ee00e6149cd734a7fa7e1f01a5fbf5fb50e1b38a065fd97d6ad3017750351",
     "country": "KW",
     "official-name": "The State of Kuwait",
-    "name": "Kuwait",
+    "name": "Coweit",
     "citizen-names": "Kuwaiti"
   },
   "KZ": {
@@ -1446,7 +1446,7 @@
     "item-hash": "sha-256:d411b3c908d55f6f80daa30ad693c1ebe9f08dd5530365b0f62389b1a13cac94",
     "country": "LB",
     "official-name": "The Lebanese Republic",
-    "name": "Lebanon",
+    "name": "Libanws",
     "citizen-names": "Lebanese"
   },
   "LC": {
@@ -1501,7 +1501,7 @@
     "item-hash": "sha-256:a9a56275429799939c8f38a189f203646efff235f1aa58510896a6d576b17742",
     "country": "LT",
     "official-name": "The Republic of Lithuania",
-    "name": "Lithuania",
+    "name": "Lithwania",
     "start-date": "1990-03-11",
     "citizen-names": "Lithuanian"
   },
@@ -1520,7 +1520,7 @@
     "item-hash": "sha-256:c1de7c598cc2b326018a66b006ad5db9a663ce012d897c223b25db36ca8382d1",
     "country": "LV",
     "official-name": "The Republic of Latvia",
-    "name": "Latvia",
+    "name": "Latfia",
     "start-date": "1990-05-04",
     "citizen-names": "Latvian"
   },
@@ -1530,7 +1530,7 @@
     "item-hash": "sha-256:c1d32fcf8ee4a7f18c5765fddf3a6054ff003824f4e9b4882e43370f88811097",
     "country": "LY",
     "official-name": "Libya",
-    "name": "Libya",
+    "name": "Libia",
     "citizen-names": "Libyan"
   },
   "MA": {
@@ -1557,7 +1557,7 @@
     "item-hash": "sha-256:5c01391d74afde44cf4009333d79d031de97625e8709c9ba6c585c6b7d8c1e0d",
     "country": "MD",
     "official-name": "The Republic of Moldova",
-    "name": "Moldova",
+    "name": "Moldofa",
     "start-date": "1991-08-27",
     "citizen-names": "Moldovan"
   },
@@ -1614,7 +1614,7 @@
     "item-hash": "sha-256:d826a3c8c191b08c3da4c7b61e9e8fc1dcb2d6501211df4814d9075f6b865164",
     "country": "MM",
     "official-name": "The Republic of the Union of Myanmar",
-    "name": "Burma",
+    "name": "Bwrma",
     "citizen-names": "Burmese"
   },
   "MN": {
@@ -1632,7 +1632,7 @@
     "item-hash": "sha-256:f45980872becc3957db957e35eb4e27b9cef3c313e3a94b375f95b3bd6fc72ab",
     "country": "MR",
     "official-name": "The Islamic Republic of Mauritania",
-    "name": "Mauritania",
+    "name": "Mawritania",
     "citizen-names": "Mauritanian"
   },
   "MT": {
@@ -1650,7 +1650,7 @@
     "item-hash": "sha-256:63d01b2084c1abdc65c0bed65aef8c06b8c83b973ef88ee646535a0c1438cd22",
     "country": "MU",
     "official-name": "The Republic of Mauritius",
-    "name": "Mauritius",
+    "name": "Mawritiws",
     "citizen-names": "Mauritian"
   },
   "MV": {
@@ -1695,7 +1695,7 @@
     "item-hash": "sha-256:85f0d2dbe778055ea732d0794269b0d2644ade5abdf38369af812a56aa970a03",
     "country": "MZ",
     "official-name": "The Republic of Mozambique",
-    "name": "Moçambique",
+    "name": "Mosambic",
     "start-date": "1975-06-25",
     "citizen-names": "Mozambican"
   },
@@ -1733,7 +1733,7 @@
     "item-hash": "sha-256:74316f67dff7d0bda653f30601824062a4354ad61edc698e99ce02a3aa065ea9",
     "country": "NI",
     "official-name": "The Republic of Nicaragua",
-    "name": "Nicaragua",
+    "name": "Nicaragwa",
     "citizen-names": "Nicaraguan"
   },
   "NL": {
@@ -1769,7 +1769,7 @@
     "item-hash": "sha-256:cd72b9665e571588335a83b4f35daac33796ce0d9b6abe40888b6567685ab36c",
     "country": "NR",
     "official-name": "The Republic of Nauru",
-    "name": "Nauru",
+    "name": "Nawrw",
     "citizen-names": "Nauruan"
   },
   "NZ": {
@@ -1796,7 +1796,7 @@
     "item-hash": "sha-256:4c1aee395ff77743bdd99a036d4573c527674fa4cdf2f085e3aa8cd99f22ce4e",
     "country": "PA",
     "official-name": "The Republic of Panama",
-    "name": "Panama",
+    "name": "Panamá",
     "citizen-names": "Panamanian"
   },
   "PE": {
@@ -1814,7 +1814,7 @@
     "item-hash": "sha-256:e36519b5b0cb4556af87a0705ac7e4f53ab81e733d01e58965148c49f7eab82c",
     "country": "PG",
     "official-name": "The Independent State of Papua New Guinea",
-    "name": "Papua Guinea Newydd",
+    "name": "Papua Gini Newydd",
     "start-date": "1975-09-16",
     "citizen-names": "Papua New Guinean"
   },

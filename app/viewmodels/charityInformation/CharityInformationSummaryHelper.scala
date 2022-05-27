@@ -24,6 +24,7 @@ import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPa
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
+import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
@@ -119,7 +120,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
           label = messages(s"$messagePrefix.checkYourAnswersLabel"),
           value = Text(Seq(Some(address.lines.mkString(", ")),
             address.postcode,
-            Some(address.country.name)).flatten.mkString(", ")),
+            CountryService.find(address.country.code).map(c => c.name)).flatten.mkString(", ")),
           visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
           actions = changeLinkCall -> messages("site.edit")
         )
@@ -137,7 +138,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
           value = HtmlContent(s"<div>${messages("site.yes")}</div>" +
             HtmlFormat.escape(Seq(Some(address.lines.mkString(", ")),
               address.postcode,
-              Some(address.country.name)).flatten.mkString(", "))),
+              CountryService.find(address.country.code).map(c => c.name)).flatten.mkString(", "))),
           visuallyHiddenText = Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )

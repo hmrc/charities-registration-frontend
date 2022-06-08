@@ -75,7 +75,7 @@ class TaskListHelperSpec extends SpecBase {
 
   private def section7(status:String = "notStarted") = TaskListRow("index.section4.spoke1.label",
     if(status=="completed") {
-      controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onPageLoad()
+      controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onPageLoad
     } else {
       controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad()
     },
@@ -83,7 +83,7 @@ class TaskListHelperSpec extends SpecBase {
 
   private def section8(status:String = "notStarted") = TaskListRow("index.section4.spoke2.label",
     if(status=="completed") {
-      controllers.otherOfficials.routes.OtherOfficialsSummaryController.onPageLoad()
+      controllers.otherOfficials.routes.OtherOfficialsSummaryController.onPageLoad
     } else {
       controllers.otherOfficials.routes.CharityOtherOfficialsController.onPageLoad()
     },
@@ -98,7 +98,7 @@ class TaskListHelperSpec extends SpecBase {
     s"index.section.$status")
 
   private def section10(status:String = "canNotStartYet") = TaskListRow("index.section5.spoke1.label",
-    controllers.routes.StartDeclarationController.onPageLoad(),
+    controllers.routes.StartDeclarationController.onPageLoad,
     s"index.section.$status")
 
   "getTaskListRow" must {

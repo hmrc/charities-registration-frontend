@@ -919,7 +919,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
+        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad
       }
 
       "return object when request with user answers when CacheMap return None" in new LocalSetup {
@@ -977,7 +977,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
+        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad
       }
 
       "return CannotFindApplication when session is not valid" in new LocalSetup {
@@ -989,7 +989,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
         val result: Either[Call, UserAnswers] = await(service.getCacheData(OptionalDataRequest(FakeRequest("", ""), "8799940975137654", None), mockSessionId, mockEligibleJourneyId))
 
-        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad()
+        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad
       }
 
       "throw error if exception is returned from CharitiesShortLivedCache" in {
@@ -1038,7 +1038,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
-          res.left.get mustBe controllers.routes.SwitchOverErrorController.onPageLoad()
+          res.left.get mustBe controllers.routes.SwitchOverErrorController.onPageLoad
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
         verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
@@ -1055,7 +1055,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Future[Either[Call, UserAnswers]] = service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
-          res.left.get mustBe controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad()
+          res.left.get mustBe controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
         verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())

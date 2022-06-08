@@ -298,7 +298,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the AddSecondOtherOfficials page when user answer is empty" in {
           navigator.nextPage(AddedOtherOfficialPage(0), NormalMode, emptyUserAnswers) mustBe
-            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
         }
       }
 
@@ -306,7 +306,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the DoYouWantToAddAnotherOtherOfficial page when user answer is empty" in {
           navigator.nextPage(AddedOtherOfficialPage(1), NormalMode, emptyUserAnswers) mustBe
-            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
         }
       }
 
@@ -314,7 +314,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the Summary page when user answer is empty" in {
           navigator.nextPage(AddedOtherOfficialPage(2), NormalMode, emptyUserAnswers) mustBe
-            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+            otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
         }
       }
 
@@ -624,14 +624,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
             .set(RemoveOtherOfficialsPage, false).flatMap(
             _.set(OtherOfficialsNamePage(0), otherOfficialsName)).success.value
-          ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+          ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
         }
 
         "go to the summary page if Yes is selected and OtherOfficials are present" in {
           navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
             .set(RemoveOtherOfficialsPage, true).flatMap(
             _.set(OtherOfficialsNamePage(0), otherOfficialsName)).success.value
-          ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+          ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
         }
 
         "go to the start of journey if removed all official details and OtherOfficials are not present" in {

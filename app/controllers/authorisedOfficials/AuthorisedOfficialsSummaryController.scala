@@ -56,7 +56,7 @@ class AuthorisedOfficialsSummaryController @Inject()(
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
       Ok(view(form, messagePrefix, maxOfficials = 2,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit(),
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit,
         firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow))
     }
   }
@@ -70,7 +70,7 @@ class AuthorisedOfficialsSummaryController @Inject()(
           Future.successful(
             BadRequest(
               view(formWithErrors, messagePrefix, maxOfficials = 2,
-                controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit(),
+                controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit,
                 firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow)
             )
           ),

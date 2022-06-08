@@ -66,7 +66,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
       contentAsString(result) mustEqual view.apply(
         charityInformationAddressLookup, messageKeyPrefix,
         controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
-        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney(), None)(fakeRequest, messages, frontendAppConfig).toString
+        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney, None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -84,7 +84,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
       contentAsString(result) mustEqual view.apply(
         charityInformationAddressMax, messageKeyPrefix,
         controllers.contactDetails.routes.AmendCharityPostalAddressController.onPageLoad(),
-        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney(), None)(fakeRequest, messages, frontendAppConfig).toString
+        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney, None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

@@ -50,9 +50,9 @@
             signOutButtonText = Some(messages("timeout.signOut")),
             timeout = Some(appConfig.timeout),
             countdown = Some(appConfig.countdown),
-            keepAliveUrl = Some(controllers.routes.IndexController.keepalive().url),
-            signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
-            timeoutUrl = Some(controllers.routes.SignOutController.signedYouOut().url),
+            keepAliveUrl = Some(controllers.routes.IndexController.keepalive.url),
+            signOutUrl = Some(controllers.routes.SignOutController.signOut.url),
+            timeoutUrl = Some(controllers.routes.SignOutController.signedYouOut.url),
             language = if (messages.lang.code == "cy") Some("cy") else Some("en")
         ))
     } else if(timeout) {
@@ -62,9 +62,9 @@
             signOutButtonText = Some(messages("userEligibility.timeout.deleteAnswers")),
             timeout = Some(appConfig.timeout),
             countdown = Some(appConfig.countdown),
-            keepAliveUrl = Some(controllers.routes.IndexController.keepalive().url),
-            signOutUrl = Some(controllers.routes.DeleteAnswersController.youDeletedAnswers().url),
-            timeoutUrl = Some(controllers.routes.DeleteAnswersController.weDeletedYourAnswers().url),
+            keepAliveUrl = Some(controllers.routes.IndexController.keepalive.url),
+            signOutUrl = Some(controllers.routes.DeleteAnswersController.youDeletedAnswers.url),
+            timeoutUrl = Some(controllers.routes.DeleteAnswersController.weDeletedYourAnswers.url),
             language = if (messages.lang.code == "cy") Some("cy") else Some("en")
         ))
     }
@@ -112,7 +112,7 @@
   pageTitle = pageTitle,
   headBlock = Some(head),
   headerBlock = Some(header(Header(
-    signOutHref = if(signOut) Some(controllers.routes.SignOutController.signOut().url) else None,
+    signOutHref = if(signOut) Some(controllers.routes.SignOutController.signOut.url) else None,
     homepageUrl = appConfig.govUK,
     serviceName = Some(messages("service.name")),
     serviceUrl = if(signOut) controllers.routes.IndexController.onPageLoad(None).url else appConfig.signOutUrl,

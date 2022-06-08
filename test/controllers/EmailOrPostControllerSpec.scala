@@ -73,7 +73,7 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -119,7 +119,7 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -133,7 +133,7 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onSubmit()(request)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
     }

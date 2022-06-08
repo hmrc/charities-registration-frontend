@@ -63,9 +63,9 @@ class DeclarationController @Inject()(
         _ <- userAnswerService.set(updatedAnswers)
       } yield {
         if(appConfig.noEmailPost){
-          Redirect(controllers.routes.RegistrationSentController.onPageLoad())
+          Redirect(controllers.routes.RegistrationSentController.onPageLoad)
         } else {
-          Redirect(controllers.routes.EmailOrPostController.onPageLoad())
+          Redirect(controllers.routes.EmailOrPostController.onPageLoad)
         }
       }
     }

@@ -305,7 +305,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the summary page when user answer is empty for 1st loop" in {
           navigator.nextPage(AddedAuthorisedOfficialPage(Index(0)), NormalMode, emptyUserAnswers) mustBe
-            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
         }
       }
 
@@ -313,7 +313,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
         "go to the summary page when user answer is empty for 2nd loop" in {
           navigator.nextPage(AddedAuthorisedOfficialPage(Index(1)), NormalMode, emptyUserAnswers) mustBe
-            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+            authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
         }
       }
 
@@ -359,14 +359,14 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, emptyUserAnswers
             .set(RemoveAuthorisedOfficialsPage, false).flatMap(
             _.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName)).success.value
-          ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+          ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
         }
 
         "go to the summary page if Yes is selected and AuthorisedOfficials are present" in {
           navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, emptyUserAnswers
             .set(RemoveAuthorisedOfficialsPage, true).flatMap(
             _.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName)).success.value
-          ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+          ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
         }
 
         "go to the start of journey if removed all official deatils and AuthorisedOfficials are not present" in {

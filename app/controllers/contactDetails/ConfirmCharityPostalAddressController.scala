@@ -42,7 +42,7 @@ class ConfirmCharityPostalAddressController @Inject()(
     implicit request =>
       getView(controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
         CharityPostalAddressLookupPage,
-        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney(),
+        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney,
         controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit()
       )
   }

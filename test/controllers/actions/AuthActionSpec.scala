@@ -90,7 +90,7 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
       }
     }
 
@@ -108,7 +108,7 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
       }
     }
 
@@ -126,7 +126,7 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
       }
     }
 
@@ -144,7 +144,7 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
       }
     }
 
@@ -162,7 +162,7 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
       }
     }
 

@@ -72,7 +72,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -85,7 +85,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

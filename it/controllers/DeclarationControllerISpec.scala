@@ -18,19 +18,20 @@ package controllers
 
 import models.UserAnswers
 import play.api.Logger
-import play.api.http.Status._
 import play.api.libs.json.{JsValue, Json}
-import play.api.libs.ws.WSResponse
+import play.api.mvc.Result
+import play.api.test.Helpers
+import play.api.test.Helpers._
 import stubs.AuthStub
 import stubs.CharitiesStub._
-import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase, WireMockMethods}
+import utils.{CreateRequestHelper, IntegrationSpecBase, WireMockMethods}
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import scala.concurrent.Future
 import scala.io.Source
 
-class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with WireMockMethods{
+class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with WireMockMethods{
 
   private def readJsonFromFile(filePath: String): JsValue =  {
     val result = Source.fromURL(getClass.getResource(filePath)).mkString
@@ -55,16 +56,13 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     def transformedRequestJson: JsValue = readJsonFromFile(transformedJson)
     stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
 
-    def response: Future[WSResponse] = postRequest("/declare-and-send/declaration", transformedRequestJson)()
+    def response: Future[Result] = route(
+      app,
+      buildPost(routes.DeclarationController.onSubmit.url, transformedRequestJson)
+    ).get
 
-    whenReady(response)
-    { result =>
-      result must have(
-        httpStatus(SEE_OTHER),
-        redirectLocation(controllers.routes.RegistrationSentController.onPageLoad().url)
-      )
-    }
-
+    status(response) mustBe SEE_OTHER
+    Helpers.redirectLocation(response) mustBe(Some(controllers.routes.RegistrationSentController.onPageLoad.url))
   }
 
   "Calling Charities service" when {
@@ -170,14 +168,13 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
         AuthStub.unauthorised()
 
-        val res = postRequest("/declare-and-send/declaration", Json.toJson("status" -> true))()
+        val response = route(
+          app,
+          buildPost(routes.DeclarationController.onSubmit.url, Json.toJson("status" -> true))
+        ).get
 
-        whenReady(res) { result =>
-          result must have(
-            httpStatus(SEE_OTHER),
-            redirectLocation(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad().url)
-          )
-        }
+        status(response) mustBe SEE_OTHER
+        Helpers.redirectLocation(response) mustBe(Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url))
       }
     }
   }

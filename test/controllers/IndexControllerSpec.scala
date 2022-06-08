@@ -62,7 +62,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] = {
       userAnswers match{
         case Some(ua) => Future.successful(Right(ua))
-        case _ => Future.successful(Left(routes.ApplicationBeingProcessedController.onPageLoad()))
+        case _ => Future.successful(Left(routes.ApplicationBeingProcessedController.onPageLoad))
       }
     }
   }
@@ -96,7 +96,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad().url
+      redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -123,7 +123,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       lazy val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad().url
+      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -149,7 +149,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       lazy val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad().url
+      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

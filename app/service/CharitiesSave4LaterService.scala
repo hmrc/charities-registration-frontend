@@ -152,7 +152,7 @@ class CharitiesSave4LaterService @Inject()(
             logger.warn(s"CharitiesSwitchOver: ${AuditTypes.PartialUserTransfer}")
             auditService.sendEvent(
               SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id) + ("data" -> userAnswers.data), AuditTypes.PartialUserTransfer))
-            Left(controllers.routes.SwitchOverErrorController.onPageLoad())
+            Left(controllers.routes.SwitchOverErrorController.onPageLoad)
           }
         }
       }
@@ -160,7 +160,7 @@ class CharitiesSave4LaterService @Inject()(
       if(result.errors.nonEmpty) {
         logger.warn(s"CharitiesSwitchOver: ${AuditTypes.FailedUserTransfer}")
         auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.FailedUserTransfer))
-        userAnswerService.set(userAnswers).map(_ => Left(controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad()))
+        userAnswerService.set(userAnswers).map(_ => Left(controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad))
       } else {
         logger.warn(s"CharitiesSwitchOver: ${AuditTypes.NewUser}")
         auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
@@ -182,14 +182,14 @@ class CharitiesSave4LaterService @Inject()(
         sessionRepository.get(sessionId).flatMap {
           case None =>
             logger.warn(s"[CharitiesSave4LaterService][getCacheData] no eligibility data found")
-            Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
+            Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
           case Some(_) => val userAnswers = UserAnswers(request.internalId)
             logger.warn(s"CharitiesRewriteUser: ${AuditTypes.NewUser}")
             auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
             userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
         }
       case _ => logger.error(s"[CharitiesSave4LaterService][getCacheData] no eligibility data and current session data found")
-        Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad()))
+        Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
     }
   }
 

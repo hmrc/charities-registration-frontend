@@ -37,7 +37,7 @@ class AddressLookupConfiguration @Inject()(callbackUrl: String,
       options = AddressLookupOptionsModel(
         continueUrl = SafeRedirectUrl(appConfig.host + callbackUrl),
         phaseFeedbackLink = SafeRedirectUrl(appConfig.feedbackUrlAddressLookup),
-        signOutHref = SafeRedirectUrl(controllers.routes.SignOutController.signOut().url),
+        signOutHref = SafeRedirectUrl(controllers.routes.SignOutController.signOut.url),
         deskProServiceName = appConfig.contactFormServiceIdentifier,
         showPhaseBanner = true,
         showBackButtons = true,
@@ -56,7 +56,7 @@ class AddressLookupConfiguration @Inject()(callbackUrl: String,
         ),
         timeoutConfig = AddressLookupConfirmTimeoutModel(
           timeoutAmount = appConfig.timeout,
-          timeoutUrl = SafeRedirectUrl(appConfig.host + controllers.routes.SignOutController.signOut())
+          timeoutUrl = SafeRedirectUrl(appConfig.host + controllers.routes.SignOutController.signOut)
         )
       ),
       labels = AddressMessageLanguageModel(

@@ -67,20 +67,20 @@ class TaskListHelper {
 
     val section7: () => TaskListRow = () => getSection("index.section4.spoke1.label",
       if(userAnswers.get(Section7Page).nonEmpty) {
-        authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad()
+        authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad
       } else {
         authOfficialsRoutes.CharityAuthorisedOfficialsController.onPageLoad()
       },
-      authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad(),
+      authOfficialsRoutes.AuthorisedOfficialsSummaryController.onPageLoad,
       Section7Page)(userAnswers)
 
     val section8: () => TaskListRow = () => getSection("index.section4.spoke2.label",
       if(userAnswers.get(Section8Page).nonEmpty) {
-        otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad()
+        otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad
       } else{
         otherOfficialsRoutes.CharityOtherOfficialsController.onPageLoad()
       },
-      otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad(),
+      otherOfficialsRoutes.OtherOfficialsSummaryController.onPageLoad,
       Section8Page)(userAnswers)
 
     val section9: () => TaskListRow = () => getSection("index.section4.spoke3.label",
@@ -91,7 +91,7 @@ class TaskListHelper {
     val section10: Boolean => TaskListRow = (isDependent: Boolean) => {
       TaskListRow(
         "index.section5.spoke1.label",
-        controllers.routes.StartDeclarationController.onPageLoad(),
+        controllers.routes.StartDeclarationController.onPageLoad,
         if (isDependent) "index.section.notStarted" else "index.section.canNotStartYet")
     }
   }

@@ -51,7 +51,7 @@ class EmailOrPostController @Inject()(
     else {
 
       request.userAnswers match {
-        case userAnswers if userAnswers.get(EmailOrPostPage).isDefined => Future.successful(Redirect(routes.RegistrationSentController.onPageLoad()))
+        case userAnswers if userAnswers.get(EmailOrPostPage).isDefined => Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
         case userAnswers =>
           Future.successful(Ok(view(form,
             RequiredDocumentsHelper.getRequiredDocuments(userAnswers),
@@ -74,7 +74,7 @@ class EmailOrPostController @Inject()(
             updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, value))
             _ <- userAnswerService.set(updatedAnswers)
 
-          } yield Redirect(controllers.routes.RegistrationSentController.onPageLoad())
+          } yield Redirect(controllers.routes.RegistrationSentController.onPageLoad)
       )
     }
 }

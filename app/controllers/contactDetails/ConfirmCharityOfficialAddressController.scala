@@ -43,7 +43,7 @@ class ConfirmCharityOfficialAddressController @Inject()(
     implicit request =>
       getView(controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(NormalMode),
         CharityOfficialAddressLookupPage,
-        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney(),
+        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney,
         controllers.contactDetails.routes.AmendCharityOfficialAddressController.onPageLoad()
       )
 

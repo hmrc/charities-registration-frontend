@@ -24,15 +24,15 @@ lazy val root = (project in file("."))
     AutomateHeaderPlugin.autoImport.automateHeaderSettings(IntegrationTest)): _*)
   .settings(
     javaOptions += "-Dlogger.resource=logback-test.xml",
-    unmanagedSourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest)(base => Seq(base / "it")).value,
-    resourceDirectory in IntegrationTest :=(baseDirectory in IntegrationTest)(base => base / "it" / "resources").value,
-    parallelExecution in IntegrationTest := false,
-    Keys.fork in IntegrationTest := true,
+    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
+    IntegrationTest / resourceDirectory :=(IntegrationTest / baseDirectory)(base => base / "it" / "resources").value,
+    IntegrationTest / parallelExecution := false,
+    IntegrationTest / Keys.fork := true,
     addTestReportOption(IntegrationTest, "int-test-reports")
   )
   .settings(majorVersion := 0)
   .settings(
-    scalaVersion := "2.12.12",
+    scalaVersion := "2.12.15",
     name := appName,
     RoutesKeys.routesImport ++= Seq("models._", "models.OptionBinder._"),
     PlayKeys.playDefaultPort := 9457,
@@ -47,10 +47,11 @@ lazy val root = (project in file("."))
       "models.OptionBinder._",
       "controllers.routes._"
     ),
-    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*models.oldCharities.*;.*models.Mode*;.*filters.*;.*handlers.*;.*components.*;.*repositories.*;.*TimeMachine.*;" +
+    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*models.oldCharities.*;" +
+      ".*models.Mode*;.*filters.*;.*handlers.*;.*components.*;.*repositories.*;.*TimeMachine.*;" +
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;" +
       ".*ControllerConfiguration;.*LanguageSwitchController;.*testonly.*;",
-    ScoverageKeys.coverageMinimum := 80,
+    ScoverageKeys.coverageMinimumStmtTotal := 80,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
     scalacOptions ++= Seq("-feature","-Xlint:-unused"),
@@ -67,8 +68,8 @@ lazy val root = (project in file("."))
     ),
     uglifyCompressOptions := Seq("unused=false", "dead_code=false"),
     pipelineStages := Seq(digest),
-    pipelineStages in Assets := Seq(concat,uglify),
-    includeFilter in uglify := GlobFilter("application.js")
+    Assets / pipelineStages := Seq(concat,uglify),
+    uglify / includeFilter := GlobFilter("application.js")
   )
 
 lazy val testSettings: Seq[Def.Setting[_]] = Seq(

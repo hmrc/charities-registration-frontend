@@ -65,7 +65,7 @@ class TaskListViewSpec extends ViewBehaviours {
         "index.section.inProgress")
 
       val section10 = TaskListRow("index.section5.spoke1.label",
-        controllers.routes.StartDeclarationController.onPageLoad(),
+        controllers.routes.StartDeclarationController.onPageLoad,
         "index.section.inProgress")
 
       def applyView(isCompleted: Boolean = false, isSwitchOver:Option[Boolean] = None): HtmlFormat.Appendable = {
@@ -134,7 +134,7 @@ class TaskListViewSpec extends ViewBehaviours {
 
       "Declaration row" must {
         behave like pageWithHyperLink(applyView(),
-          "declaration-info",controllers.routes.StartDeclarationController.onPageLoad().url,"Confirm the declaration and send the supporting documents")
+          "declaration-info",controllers.routes.StartDeclarationController.onPageLoad.url,"Confirm the declaration and send the supporting documents")
       }
 
       "dont display declaration message at the bottom pf page if status is completed" in {

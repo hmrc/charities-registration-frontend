@@ -97,13 +97,13 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCharitiesRegistrationService.register(any(), any())(any(), any(), any())).thenReturn(
-        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad()))
+        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       )
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCharitiesRegistrationService, times(1)).register(any(), any())(any(), any(), any())
     }
@@ -123,13 +123,13 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesRegistrationService.register(any(), any())(any(), any(), any())).thenReturn(
-        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad()))
+        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       )
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
       verify(mockCharitiesRegistrationService, never).register(any(), any())(any(), any(), any())
@@ -150,13 +150,13 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesRegistrationService.register(any(), any())(any(), any(), any())).thenReturn(
-        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad()))
+        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
       )
 
       val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
       verify(mockCharitiesRegistrationService, never).register(any(), any())(any(), any(), any())

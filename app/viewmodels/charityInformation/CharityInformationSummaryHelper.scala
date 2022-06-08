@@ -45,7 +45,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
 
   def officialAddressRow: Seq[SummaryListRow] =
     answerAddress(CharityOfficialAddressLookupPage,
-      controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney(),
+      controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney,
       s"$CharityOfficialAddressLookupPage.addressLookup")
 
   def canWeSendToThisAddressRow: Seq[SummaryListRow] =
@@ -55,7 +55,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
 
   def postalAddressRow: Seq[SummaryListRow] =
     answerAddress(CharityPostalAddressLookupPage,
-      controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney(),
+      controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney,
       s"$CharityPostalAddressLookupPage.addressLookup")
 
   private def answerCharityName(charityName: CharityName,

@@ -19,9 +19,12 @@ package utils
 import org.scalatestplus.play.ServerProvider
 import play.api.Application
 import play.api.libs.json.JsValue
-import play.api.libs.ws.{WSClient, WSResponse}
+import play.api.mvc.AnyContentAsJson
+import play.api.test.FakeRequest
+import play.api.test.Helpers.POST
+import uk.gov.hmrc.http.SessionKeys
 
-import scala.concurrent.Future
+import java.util.UUID
 import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
 
 
@@ -32,13 +35,9 @@ trait CreateRequestHelper extends ServerProvider {
 
   val app: Application
 
-  lazy val ws: WSClient = app.injector.instanceOf(classOf[WSClient])
-
-  def postRequest(path: String, formJson: JsValue, follow: Boolean = false)
-                 (sessionKvs: (String, String)*)(): Future[WSResponse] = {
-    ws.url(s"http://localhost:$port/register-charity-hmrc$path")
-      .withHttpHeaders("Csrf-Token" -> "nocheck")
-      .withFollowRedirects(follow)
-      .post(formJson)
-  }
+  def buildPost(url: String, formJson: JsValue): FakeRequest[AnyContentAsJson] =
+    FakeRequest(POST, url)
+      .withJsonBody(formJson)
+      .withSession(SessionKeys.sessionId -> UUID.randomUUID().toString, SessionKeys.authToken -> SessionKeys.authToken)
+      .withHeaders("Csrf-Token" -> "nocheck")
 }

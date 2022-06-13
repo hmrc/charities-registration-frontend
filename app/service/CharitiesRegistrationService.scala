@@ -54,9 +54,9 @@ class CharitiesRegistrationService @Inject()(
               _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true)))))
             } yield{
               if(noEmailPost){
-                Redirect(controllers.routes.RegistrationSentController.onPageLoad())
+                Redirect(controllers.routes.RegistrationSentController.onPageLoad)
               } else {
-                Redirect(controllers.routes.EmailOrPostController.onPageLoad())
+                Redirect(controllers.routes.EmailOrPostController.onPageLoad)
               }
             }
 
@@ -70,7 +70,7 @@ class CharitiesRegistrationService @Inject()(
             throw UnexpectedFailureException(errors.getMessage)
         }
 
-      case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad()))
+      case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
     }
 
   }

@@ -58,7 +58,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
           navigator.nextPage(CharityContactDetailsPage, NormalMode,
             emptyUserAnswers.set(CharityContactDetailsPage,
               CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
-            controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
+            controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
         }
 
         "go to the ConfirmCharityOfficialAddressController page when CharityOfficialAddressLookupPage is present and clicked continue button" in {
@@ -116,7 +116,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Postal Address Lookup flow when no is selected" in {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
             emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value) mustBe
-            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
         }
 
         "go to the ConfirmCharityPostalAddressController page when CharityOfficialAddressLookupPage is present and clicked continue button" in {
@@ -239,7 +239,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
         "go to the Postal Address Lookup flow when no is selected and postal address in not defined" in {
           navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
             emptyUserAnswers.set(CanWeSendToThisAddressPage,false).success.value) mustBe
-            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
         }
 
         "go to the Postal Address Lookup flow when no is selected and address is defined" in {

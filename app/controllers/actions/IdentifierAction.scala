@@ -59,7 +59,7 @@ class AuthenticatedIdentifierAction @Inject()(
           }
           Redirect(config.loginUrl, Map(config.loginContinueKey -> Seq(redirectUrl), "origin" -> Seq(config.appName)))
         case _: AuthorisationException =>
-          Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad())
+          Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad)
       }
     }
   }

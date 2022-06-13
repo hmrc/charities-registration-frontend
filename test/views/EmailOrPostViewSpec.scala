@@ -39,7 +39,7 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, controllers.routes.EmailOrPostController.onSubmit().url, section = section, isEmailOrPost = true)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, controllers.routes.EmailOrPostController.onSubmit.url, section = section, isEmailOrPost = true)
 
     behave like pageWithSubmitButton(applyView(form), messages("site.continue"))
 

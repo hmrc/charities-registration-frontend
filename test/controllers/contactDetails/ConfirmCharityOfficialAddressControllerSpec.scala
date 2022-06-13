@@ -66,7 +66,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
       contentAsString(result) mustEqual view.apply(
         charityInformationAddressLookup, messageKeyPrefix,
         controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(NormalMode),
-        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney(), None)(fakeRequest, messages, frontendAppConfig).toString
+        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney, None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -84,7 +84,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
       contentAsString(result) mustEqual view.apply(
         charityInformationAddressMax, messageKeyPrefix,
         controllers.contactDetails.routes.AmendCharityOfficialAddressController.onPageLoad(),
-        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney(), None)(fakeRequest, messages, frontendAppConfig).toString
+        controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney, None)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

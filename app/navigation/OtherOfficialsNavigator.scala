@@ -110,7 +110,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case AddedOtherOfficialPage(0) | AddedOtherOfficialPage(1) | AddedOtherOfficialPage(2) => _ =>
-      otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+      otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
 
     case OtherOfficialsSummaryPage => userAnswers: UserAnswers => userAnswers.get(IsAddAnotherOtherOfficialPage) match {
       case Some(_) if userAnswers.get(Section8Page).contains(true).||(userAnswers.get(OtherOfficialsId(2)).nonEmpty) =>
@@ -123,7 +123,7 @@ class OtherOfficialsNavigator @Inject()(implicit frontendAppConfig: FrontendAppC
     }
 
     case RemoveOtherOfficialsPage => userAnswers: UserAnswers => userAnswers.get(OtherOfficialsId(0)) match {
-      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad()
+      case Some(_) => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
       case _ if userAnswers.data.fields.nonEmpty => otherOfficialRoutes.CharityOtherOfficialsController.onPageLoad()
       case _ => routes.PageNotFoundController.onPageLoad()
     }

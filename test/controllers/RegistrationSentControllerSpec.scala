@@ -138,7 +138,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad().url
+      redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -178,7 +178,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad().url
+      redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
     }

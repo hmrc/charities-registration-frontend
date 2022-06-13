@@ -38,7 +38,7 @@
 
     @p{@messages("declaration.p1")}
 
-    @formHelper(action = controllers.routes.DeclarationController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = controllers.routes.DeclarationController.onSubmit, 'autoComplete -> "off") {
 
         @button("site.confirmAndSend")
 

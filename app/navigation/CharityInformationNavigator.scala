@@ -41,7 +41,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
       } else {
         userAnswers.get(CharityOfficialAddressLookupPage) match {
           case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
-          case _ => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney()
+          case _ => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
         }
       }
       case _ => routes.PageNotFoundController.onPageLoad()
@@ -54,7 +54,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
       case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined => charityInfoRoutes.ConfirmCharityPostalAddressController.onPageLoad()
-      case Some(_) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+      case Some(_) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
       case _ => routes.PageNotFoundController.onPageLoad()
     }
     case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {
@@ -85,7 +85,7 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
     case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
       case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
       case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case Some(false) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney()
+      case Some(false) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
       case _ => routes.PageNotFoundController.onPageLoad()
     }
     case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {

@@ -67,7 +67,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
       val result = service.register(Json.obj(), noEmailPost = false)(dataRequestWithAcknowledgement, hc, ec)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
 
     }
 
@@ -83,7 +83,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       val result = service.register(Json.obj(), noEmailPost = false)(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
 
@@ -102,7 +102,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       val result = service.register(Json.obj(), noEmailPost = true)(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
       verify(mockCharitiesConnector, times(1)).registerCharities(any(),any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
 

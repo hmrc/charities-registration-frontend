@@ -37,7 +37,7 @@ class RegistrationDataRequiredActionImpl @Inject()(implicit val executionContext
       case None =>
         Future.successful(Left(Redirect(routes.PageNotFoundController.onPageLoad())))
       case Some(data) if data.get(OldServiceSubmissionPage).isDefined =>
-        Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad())))
+        Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad)))
       case Some(data) =>
         Future.successful(Right(DataRequest(request.request, request.internalId, data)))
     }

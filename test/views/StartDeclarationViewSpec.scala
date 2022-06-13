@@ -39,7 +39,7 @@ class StartDeclarationViewSpec extends ViewBehaviours {
       behave like pageWithBackLink(applyView())
 
       behave like pageWithHyperLink(applyView(), "declarationLink",
-        controllers.routes.DeclarationController.onPageLoad().url, messages("site.continue"))
+        controllers.routes.DeclarationController.onPageLoad.url, messages("site.continue"))
 
     }
   }

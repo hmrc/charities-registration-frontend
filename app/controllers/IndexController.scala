@@ -46,7 +46,7 @@ class IndexController @Inject()(
   def onPageLoad(eligibleJourneyId: Option[String] = None): Action[AnyContent] = (identify andThen getData).async { implicit request =>
     (hc.sessionId, request.userAnswers) match {
       case (Some(_), Some(userAnswers)) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
-        Future.successful(Redirect(routes.RegistrationSentController.onPageLoad()))
+        Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
       case (Some(sessionId), _) =>
         if(appConfig.isExternalTest){
           val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
@@ -71,7 +71,7 @@ class IndexController @Inject()(
           isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
         } yield {
           if(userAnswers.get(OldServiceSubmissionPage).isDefined) {
-            Redirect(routes.ApplicationBeingProcessedController.onPageLoad())
+            Redirect(routes.ApplicationBeingProcessedController.onPageLoad)
           } else {
               val result = taskListHelper.getTaskListRow(userAnswers)
               val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))

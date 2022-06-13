@@ -109,7 +109,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
             messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney() -> BaseMessages.changeLink
+            controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney -> BaseMessages.changeLink
           )
         )
       }
@@ -154,7 +154,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
             messages("charityPostalAddress.addressLookup.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("charityPostalAddress.addressLookup.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney() -> BaseMessages.changeLink
+            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney -> BaseMessages.changeLink
           )
         )
       }

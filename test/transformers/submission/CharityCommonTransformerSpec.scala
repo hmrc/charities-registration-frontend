@@ -21,6 +21,7 @@ import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharityEstablishedOptions
 import models.{BankDetails, CharityContactDetails, CharityName, Name, PhoneNumber, SelectTitle}
+import org.joda.time.LocalDate
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, AuthorisedOfficialsPositionPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
@@ -38,21 +39,21 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct Admin object" in {
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "admin": {
-            |        "acknowledgmentReference": "15 CHARACTERS S",
+            |        "acknowledgmentReference": "",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
-            |        "welshIndicator": false,
-            |        "applicationDate": "1970-01-01"
+            |        "sessionID": "foo",
+            |        "welshIndicator": true,
+            |        "applicationDate": "${LocalDate.now().toString}"
             |      }
             |    }
             |  }
             |}""".stripMargin
 
-        emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequest)).asOpt.value mustBe Json.parse(expectedJson)
+        emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeWelshDataRequest)).asOpt.value mustBe Json.parse(expectedJson)
       }
     }
 
@@ -379,7 +380,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
@@ -402,11 +403,11 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        "overseas": false
             |      },
             |      "admin": {
-            |        "acknowledgmentReference": "15 CHARACTERS S",
+            |        "acknowledgmentReference": "",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+            |        "sessionID": "foo",
             |        "welshIndicator": false,
-            |        "applicationDate": "1970-01-01"
+            |        "applicationDate": "${LocalDate.now.toString}"
             |      },
             |      "organisation": {
             |        "applicationType": "0",
@@ -461,7 +462,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
@@ -484,11 +485,11 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        "overseas": false
             |      },
             |      "admin": {
-            |        "acknowledgmentReference": "15 CHARACTERS S",
+            |        "acknowledgmentReference": "",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+            |        "sessionID": "foo",
             |        "welshIndicator": false,
-            |        "applicationDate": "1970-01-01"
+            |        "applicationDate": "${LocalDate.now.toString}"
             |      },
             |      "organisation": {
             |        "applicationType": "0",
@@ -541,7 +542,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None))).success.value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
@@ -561,11 +562,11 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        "overseas": true
             |      },
             |      "admin": {
-            |        "acknowledgmentReference": "15 CHARACTERS S",
+            |        "acknowledgmentReference": "",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+            |        "sessionID": "foo",
             |        "welshIndicator": false,
-            |        "applicationDate": "1970-01-01"
+            |        "applicationDate": "${LocalDate.now.toString}"
             |      },
             |      "organisation": {
             |        "applicationType": "0",

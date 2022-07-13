@@ -27,6 +27,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.Application
+import play.api.http.HeaderNames
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.{Injector, bind}
@@ -64,7 +65,11 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "").withSession(
     SessionKeys.sessionId -> "foo").withCSRFToken.asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+  lazy val fakeWelshRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
+  .withHeaders(HeaderNames.ACCEPT_LANGUAGE -> "cy").withSession(
+    SessionKeys.sessionId -> "foo").withCSRFToken.asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
   lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
+  lazy val fakeWelshDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeWelshRequest, internalId, emptyUserAnswers)
 
   def onwardRoute: Call = Call("GET", "/foo")
   def fakeDataRequest(headers: (String, String)*): DataRequest[_] = DataRequest(fakeRequest.withHeaders(headers: _*), internalId, emptyUserAnswers)

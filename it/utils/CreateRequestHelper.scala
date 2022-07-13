@@ -24,7 +24,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.POST
 import uk.gov.hmrc.http.SessionKeys
 
-import java.util.UUID
 import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
 
 
@@ -38,6 +37,6 @@ trait CreateRequestHelper extends ServerProvider {
   def buildPost(url: String, formJson: JsValue): FakeRequest[AnyContentAsJson] =
     FakeRequest(POST, url)
       .withJsonBody(formJson)
-      .withSession(SessionKeys.sessionId -> UUID.randomUUID().toString, SessionKeys.authToken -> SessionKeys.authToken)
+      .withSession(SessionKeys.sessionId -> "sessionId", SessionKeys.authToken -> SessionKeys.authToken)
       .withHeaders("Csrf-Token" -> "nocheck")
 }

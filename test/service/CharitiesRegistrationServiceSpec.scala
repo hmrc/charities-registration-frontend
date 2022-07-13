@@ -22,20 +22,23 @@ import connectors.CharitiesConnector
 import connectors.httpParsers.{CharitiesInvalidJson, UnexpectedFailureException}
 import models.requests.DataRequest
 import models.{RegistrationResponse, UserAnswers}
+import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
+import org.scalatest.Inside.inside
 import org.scalatestplus.mockito.MockitoSugar
 import pages.AcknowledgementReferencePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
+import play.api.libs.json.{JsBoolean, JsObject, Json}
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.Helpers._
+import transformers.submission.CharityTransformerConstants
 
 import scala.concurrent.Future
 
-class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach {
+class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerConstants {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   lazy val mockAuditService: AuditService = MockitoSugar.mock[AuditService]
@@ -78,9 +81,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       when(mockCharitiesConnector.registerCharities(any(),any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
-      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
+      val captor = ArgumentCaptor.forClass(classOf[SubmissionAuditEvent])
+      doNothing().when(mockAuditService).sendEvent(captor.capture())(any(), any())
 
-      val result = service.register(Json.obj(), noEmailPost = false)(fakeDataRequest, hc, ec)
+      val result = service.register(jsonAllFields.as[JsObject], noEmailPost = false)(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
@@ -89,6 +93,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
       verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
+      inside(captor.getValue) {
+        case SubmissionAuditEvent(details) =>
+          details mustBe (Json.parse(Json.stringify(jsonAllFields).replaceAll(""""acknowledgmentReference":""""", """"acknowledgmentReference": "765432"""")).as[JsObject]  + ("declaration" -> JsBoolean(true)))
+      }
     }
 
     "redirect to the next page after valid registration response noEmailPost is enabled" in {
@@ -97,9 +105,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       when(mockCharitiesConnector.registerCharities(any(),any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
-      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
+      val captor = ArgumentCaptor.forClass(classOf[SubmissionAuditEvent])
+      doNothing().when(mockAuditService).sendEvent(captor.capture())(any(), any())
 
-      val result = service.register(Json.obj(), noEmailPost = true)(fakeDataRequest, hc, ec)
+      val result = service.register(jsonAllFields.as[JsObject], noEmailPost = true)(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
@@ -108,6 +117,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
       verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
       verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
+      inside(captor.getValue) {
+        case SubmissionAuditEvent(details) =>
+          details mustBe (Json.parse(Json.stringify(jsonAllFields).replaceAll(""""acknowledgmentReference":""""", """"acknowledgmentReference": "765432"""")).as[JsObject]  + ("declaration" -> JsBoolean(true)))
+      }
     }
 
     "redirect to the technical difficulties page if registration connector failed" in {

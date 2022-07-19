@@ -22,11 +22,12 @@ import pages.checkEligibility.IsEligiblePurposePage
 import play.api.libs.json.Json
 import reactivemongo.play.json.collection.Helpers.idWrites
 import reactivemongo.play.json.collection.JSONCollection
-import uk.gov.hmrc.mongo.MongoSpecSupport
+import uk.gov.hmrc.mongo.test.MongoSupport
 
-class AbstractRepositorySpec extends MongoUnitSpec with BeforeAndAfterEach with MongoSpecSupport {
+class AbstractRepositorySpec extends MongoUnitSpec with BeforeAndAfterEach with MongoSupport {
 
   private val repository = inject[SessionRepository]
+
   override protected def collection: JSONCollection = await(repository.collection)
 
   private lazy val eligibilityUserAnswers = emptyUserAnswers
@@ -34,26 +35,26 @@ class AbstractRepositorySpec extends MongoUnitSpec with BeforeAndAfterEach with 
 
   "the eligibility answers session repository" must {
 
-      "get eligibility user answer" in {
-        givenAnExistingDocument(emptyUserAnswers.copy(data = Json.obj(
-          "isEligiblePurpose" -> true)))
+    "get eligibility user answer" in {
+      givenAnExistingDocument(emptyUserAnswers.copy(data = Json.obj(
+        "isEligiblePurpose" -> true)))
 
-        await(repository.get(emptyUserAnswers.id)) mustBe Some(eligibilityUserAnswers)
-      }
+      await(repository.get(emptyUserAnswers.id)) mustBe Some(eligibilityUserAnswers)
+    }
 
-      "set eligibility user answer" in {
-        await(repository.set(eligibilityUserAnswers))
+    "set eligibility user answer" in {
+      await(repository.set(eligibilityUserAnswers))
 
-        await(collection.find(Json.obj("_id" -> eligibilityUserAnswers.id), None).one[UserAnswers]).getOrElse(emptyUserAnswers).data mustBe
-          Json.obj("isEligiblePurpose" -> true)
-      }
+      await(collection.find(Json.obj("_id" -> eligibilityUserAnswers.id), None).one[UserAnswers]).getOrElse(emptyUserAnswers).data mustBe
+        Json.obj("isEligiblePurpose" -> true)
+    }
 
-      "delete eligibility user answer" in {
-        await(repository.delete(eligibilityUserAnswers))
+    "delete eligibility user answer" in {
+      await(repository.delete(eligibilityUserAnswers))
 
-        await(collection.find(Json.obj("_id" -> eligibilityUserAnswers.id), None).one[UserAnswers]).getOrElse(emptyUserAnswers).data mustBe
-          Json.obj()
-      }
+      await(collection.find(Json.obj("_id" -> eligibilityUserAnswers.id), None).one[UserAnswers]).getOrElse(emptyUserAnswers).data mustBe
+        Json.obj()
+    }
 
   }
 

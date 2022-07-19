@@ -16,8 +16,6 @@
 
 package repositories
 
-import java.time.LocalDateTime
-
 import config.FrontendAppConfig
 import models.UserAnswers
 import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
@@ -31,6 +29,7 @@ import reactivemongo.play.json.collection.Helpers.idWrites
 import reactivemongo.play.json.collection.JSONCollection
 import uk.gov.hmrc.crypto.ApplicationCrypto
 
+import java.time.LocalDateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -55,33 +54,33 @@ trait AbstractRepository {
   )
 
   private def index(key: Seq[(String, IndexType)],
-    name: Option[String],
-    unique: Boolean = false,
-    sparse: Boolean = false,
-    background: Boolean = false,
-    options: BSONDocument = BSONDocument.empty): Aux[BSONSerializationPack.type] = Index(
-      key = key,
-      unique = unique,
-      name = name,
-      background = background,
-      sparse = sparse,
-      expireAfterSeconds = None,
-      storageEngine = None,
-      weights = None,
-      defaultLanguage = None,
-      languageOverride = None,
-      textIndexVersion = None,
-      sphereIndexVersion = None,
-      bits = None,
-      min = None,
-      max = None,
-      bucketSize = None,
-      collation = None,
-      wildcardProjection = None,
-      version = None,
-      partialFilter = None,
-      options = options
-    )
+                    name: Option[String],
+                    unique: Boolean = false,
+                    sparse: Boolean = false,
+                    background: Boolean = false,
+                    options: BSONDocument = BSONDocument.empty): Aux[BSONSerializationPack.type] = Index(
+    key = key,
+    unique = unique,
+    name = name,
+    background = background,
+    sparse = sparse,
+    expireAfterSeconds = None,
+    storageEngine = None,
+    weights = None,
+    defaultLanguage = None,
+    languageOverride = None,
+    textIndexVersion = None,
+    sphereIndexVersion = None,
+    bits = None,
+    min = None,
+    max = None,
+    bucketSize = None,
+    collation = None,
+    wildcardProjection = None,
+    version = None,
+    partialFilter = None,
+    options = options
+  )
 
   def ensureTtlIndex(collection: JSONCollection): Future[Unit] = {
     collection.indexesManager.ensure(lastUpdatedIndex) flatMap {
@@ -101,7 +100,7 @@ trait AbstractRepository {
 
   def get(id: String): Future[Option[UserAnswers]] = {
 
-      collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])
+    collection.flatMap(_.find(Json.obj("_id" -> id), None).one[UserAnswers])
   }
 
   def set(userAnswers: UserAnswers): Future[Boolean] = {

@@ -34,7 +34,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{Json, JsonValidationError, __}
 import play.api.mvc.{AnyContentAsEmpty, Call}
 import play.api.test.FakeRequest
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.http.SessionId
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
@@ -48,7 +48,7 @@ import scala.util.Try
 // scalastyle:off magic.number
 class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
 
-  lazy val mockRepository: AbstractRepository = mock[AbstractRepository]
+  lazy val mockRepository: SessionRepository = mock[SessionRepository]
   lazy val mockUserService: UserAnswerService = mock[UserAnswerService]
   lazy val mockCacheMap: CacheMap = mock[CacheMap]
   lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
@@ -57,7 +57,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[AbstractRepository].toInstance(mockRepository),
+        bind[SessionRepository].toInstance(mockRepository),
         bind[UserAnswerService].toInstance(mockUserService),
         bind[AuditService].toInstance(mockAuditService),
         bind[CacheMap].toInstance(mockCacheMap),
@@ -106,7 +106,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
     def mockRepositoryData: Option[UserAnswers] = None
     def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
-    def initialiseCache() {
+    def initialiseCache(): Unit = {
       when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(mockCache))
       when(mockCharitiesShortLivedCache.cache(any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(mockCacheMap))
       when(mockCacheMap.getEntry[CharityContactDetails](meq("charityContactDetails"))(meq(CharityContactDetails.formats))).thenReturn(mockContactDetails)
@@ -132,7 +132,6 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
       when(mockUserService.set(any())(any(), any())).thenReturn(Future.successful(true))
       doNothing().when(mockAuditService).sendEvent(any())(any(), any())
-
     }
 
   }

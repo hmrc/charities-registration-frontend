@@ -28,7 +28,6 @@ import views.html.ApplicationBeingProcessedView
 
 import scala.concurrent.Future
 
-//scalastyle:off magic.number
 class ApplicationBeingProcessedController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,

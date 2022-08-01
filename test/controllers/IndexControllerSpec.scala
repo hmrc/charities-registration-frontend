@@ -33,7 +33,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{Call, RequestHeader}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import service.{CharitiesSave4LaterService, UserAnswerService}
 import transformers.UserAnswerTransformer
 import uk.gov.hmrc.http.HeaderCarrier
@@ -54,7 +54,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
   class FakeCharitiesSave4LaterService@Inject()(
    cache: CharitiesShortLivedCache,
    userAnswerTransformer: UserAnswerTransformer,
-   sessionRepository: AbstractRepository,
+   sessionRepository: SessionRepository,
    userAnswerService: UserAnswerService,
    auditService: AuditService, userAnswers: Option[UserAnswers]) extends
     CharitiesSave4LaterService(cache, userAnswerTransformer, sessionRepository, userAnswerService, auditService, frontendAppConfig){

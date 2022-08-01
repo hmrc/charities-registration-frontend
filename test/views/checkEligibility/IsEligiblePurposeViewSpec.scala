@@ -16,7 +16,7 @@
 
 package views.checkEligibility
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import controllers.checkEligibility.routes
 import forms.checkEligibility.IsEligiblePurposeFormProvider
 import models.NormalMode

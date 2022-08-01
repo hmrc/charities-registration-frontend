@@ -16,8 +16,8 @@
 
 package viewModels.operationsAndFunds
 
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.{BankDetails, CheckMode, UserAnswers}
 import pages.operationsAndFunds.BankDetailsPage

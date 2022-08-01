@@ -16,8 +16,8 @@
 
 package controllers.addressLookup
 
-import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
 import config.FrontendAppConfig
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
@@ -29,7 +29,7 @@ import models.requests.DataRequest
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, when, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import pages.addressLookup.CharityOfficialAddressLookupPage
@@ -37,7 +37,7 @@ import pages.sections.Section1Page
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{AnyContent, MessagesControllerComponents}
-import play.api.test.Helpers.{redirectLocation, status, _}
+import play.api.test.Helpers._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 

@@ -48,6 +48,9 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   private val exitSurveyHost: String = servicesConfig.getString("feedback-frontend.host")
 
+  lazy val userAnswersTimeToLive: Int = servicesConfig.getInt("mongodb.user-eligibility-answers.timeToLiveInSeconds")
+
+
   def exitSurveyUrl: String = s"$exitSurveyHost/feedback/CHARITIES"
 
   lazy val loginUrl: String = servicesConfig.getString("urls.login")

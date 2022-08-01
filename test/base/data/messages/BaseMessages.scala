@@ -14,12 +14,26 @@
  * limitations under the License.
  */
 
-package assets.messages
+package base.data.messages
 
-object PhaseBannerMessages {
+object BaseMessages {
 
-  val content = "This is a new service - your feedback will help us to improve it."
-  val link = "feedback"
-  val tag = "alpha"
+  val saveAndContinue = "Save and continue"
+  val submitAndContinue = "Submit and continue"
+  val acceptAndContinue = "Accept and continue"
+  val confirmAndSubmit = "Confirm and submit"
+  val continue = "Continue"
+  val confirm = "Confirm"
+  val changeLink = "Change"
+  val changeLinkWelsh = "Newid"
+  val yes = "Yes"
+  val no = "No"
+  val incomplete = "Incomplete"
+  val review = "Review"
+  val delete = "Remove"
+  val day = "Day"
+  val month = "Month"
+  val year = "Year"
+  val serviceName = "Register your charity’s details with HMRC"
 
 }

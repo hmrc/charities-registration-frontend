@@ -54,8 +54,6 @@
 
     <logger name="wiremock.org" level="OFF"/>
 
-    <logger name="reactivemongo" level="OFF"/>
-
     <logger name="com.github.tomakehurst.wiremock" level="WARN"/>
     <logger name="wiremock.org" level="ERROR"/>
     <logger name="WireMock" level="WARN"/>

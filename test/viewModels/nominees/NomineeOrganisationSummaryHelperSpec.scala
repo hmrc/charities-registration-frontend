@@ -16,9 +16,9 @@
 
 package viewModels.nominees
 
-import assets.constants.ConfirmedAddressConstants
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
+import base.data.messages.BaseMessages
 import controllers.nominees.{routes => nomineesRoutes}
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, CheckMode, Country, Name, Passport, SelectTitle, UserAnswers}

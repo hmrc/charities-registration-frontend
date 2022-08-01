@@ -19,8 +19,8 @@ package viewModels.operationsAndFunds
 import controllers.operationsAndFunds.{routes => operations}
 import models.{CheckMode, UserAnswers}
 import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.messages.BaseMessages
 import models.operations.CharitablePurposes
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper

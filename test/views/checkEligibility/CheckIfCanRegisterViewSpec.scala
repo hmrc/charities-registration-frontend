@@ -16,7 +16,7 @@
 
 package views.checkEligibility
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import models.NormalMode
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours

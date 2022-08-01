@@ -16,9 +16,8 @@
 
 package views.common
 
+import base.data.messages.BaseMessages
 import java.time.LocalDate
-
-import assets.messages.BaseMessages
 import forms.common.DateOfBirthFormProvider
 import play.api.data.Form
 import play.twirl.api.HtmlFormat

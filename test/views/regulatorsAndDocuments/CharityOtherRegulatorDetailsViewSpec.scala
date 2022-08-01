@@ -16,7 +16,7 @@
 
 package views.regulatorsAndDocuments
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.regulatorsAndDocuments.CharityOtherRegulatorDetailsFormProvider
 import models.{CharityOtherRegulatorDetails, NormalMode}
 import play.api.data.Form

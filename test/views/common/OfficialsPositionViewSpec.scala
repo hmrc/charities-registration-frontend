@@ -16,7 +16,7 @@
 
 package views.common
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.common.OfficialsPositionFormProvider
 import models.authOfficials.OfficialsPosition
 import play.api.data.Form

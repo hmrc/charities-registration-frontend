@@ -28,7 +28,7 @@ import pages.nominees.ChooseNomineePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import service.UserAnswerService
 
 import scala.concurrent.Future
@@ -41,7 +41,7 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-        bind[AbstractRepository].toInstance(mockSessionRepository),
+        bind[SessionRepository].toInstance(mockSessionRepository),
         bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
@@ -105,7 +105,7 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
           .overrides(
             bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[AbstractRepository].toInstance(mockSessionRepository),
+            bind[SessionRepository].toInstance(mockSessionRepository),
             bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
           ).build()

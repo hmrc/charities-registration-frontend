@@ -16,7 +16,7 @@
 
 package views.nominees
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.nominees.OrganisationNomineeNameFormProvider
 import models.NormalMode
 import play.api.data.Form

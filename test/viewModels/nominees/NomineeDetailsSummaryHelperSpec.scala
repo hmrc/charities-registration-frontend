@@ -16,8 +16,8 @@
 
 package viewModels.nominees
 
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.messages.BaseMessages
 import controllers.nominees.{routes => nomineesRoutes}
 import models.{CheckMode, UserAnswers}
 import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage}

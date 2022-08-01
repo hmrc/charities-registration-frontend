@@ -22,11 +22,11 @@ import controllers.actions._
 import javax.inject.Inject
 import navigation.EligibilityNavigator
 import play.api.mvc._
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import views.html.checkEligibility.InEligibleLocationOtherView
 
 class InEligibleLocationOtherController @Inject()(
-    val sessionRepository: AbstractRepository,
+    val sessionRepository: SessionRepository,
     val navigator: EligibilityNavigator,
     identify: SessionIdentifierAction,
     getData: DataRetrievalAction,

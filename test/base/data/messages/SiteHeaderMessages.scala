@@ -14,26 +14,12 @@
  * limitations under the License.
  */
 
-package assets.messages
+package base.data.messages
 
-object BaseMessages {
+object SiteHeaderMessages {
 
-  val saveAndContinue = "Save and continue"
-  val submitAndContinue = "Submit and continue"
-  val acceptAndContinue = "Accept and continue"
-  val confirmAndSubmit = "Confirm and submit"
-  val continue = "Continue"
-  val confirm = "Confirm"
-  val changeLink = "Change"
-  val changeLinkWelsh = "Newid"
-  val yes = "Yes"
-  val no = "No"
-  val incomplete = "Incomplete"
-  val review = "Review"
-  val delete = "Remove"
-  val day = "Day"
-  val month = "Month"
-  val year = "Year"
+  val govUk = "GOV.UK"
   val serviceName = "Register your charity’s details with HMRC"
+  val signOut = "Sign out"
 
 }

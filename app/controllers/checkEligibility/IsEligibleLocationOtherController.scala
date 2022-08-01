@@ -20,18 +20,20 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.checkEligibility.IsEligibleLocationOtherFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligibleLocationOtherPage
+import play.api.data.Form
 import play.api.mvc._
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import views.html.checkEligibility.IsEligibleLocationOtherView
 
 import scala.concurrent.Future
 
 class IsEligibleLocationOtherController @Inject()(
-    val sessionRepository: AbstractRepository,
+    val sessionRepository: SessionRepository,
     val navigator: EligibilityNavigator,
     identify: SessionIdentifierAction,
     getData: DataRetrievalAction,
@@ -40,7 +42,7 @@ class IsEligibleLocationOtherController @Inject()(
     val controllerComponents: MessagesControllerComponents,
     view: IsEligibleLocationOtherView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
+  val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
@@ -61,7 +63,7 @@ class IsEligibleLocationOtherController @Inject()(
       value =>
         for {
         updatedAnswers <- Future.fromTry(request.userAnswers.set(IsEligibleLocationOtherPage, value))
-        _              <- sessionRepository.set(updatedAnswers)
+        _              <- sessionRepository.upsert(updatedAnswers)
       } yield Redirect(navigator.nextPage(IsEligibleLocationOtherPage, mode, updatedAnswers))
     )
   }

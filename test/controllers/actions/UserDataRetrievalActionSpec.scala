@@ -56,7 +56,7 @@ class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaF
       "build a userAnswers object and add it to the request" in {
 
         val userAnswerService = mock[UserAnswerService]
-        when(userAnswerService.get(any())(any(), any())) thenReturn Future(Some(new UserAnswers("id")))
+        when(userAnswerService.get(any())(any(), any())) thenReturn Future(Some(UserAnswers("id")))
         val action = new Harness(userAnswerService)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))

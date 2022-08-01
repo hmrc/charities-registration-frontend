@@ -16,7 +16,7 @@
 
 package views.operationsAndFunds
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.operationsAndFunds.CharityEstablishedInFormProvider
 import models.NormalMode
 import models.operations.CharityEstablishedOptions

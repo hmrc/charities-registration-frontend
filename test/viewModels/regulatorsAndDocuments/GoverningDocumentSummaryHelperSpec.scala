@@ -17,8 +17,8 @@
 package viewModels.regulatorsAndDocuments
 
 import java.time.LocalDate
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.messages.BaseMessages
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation

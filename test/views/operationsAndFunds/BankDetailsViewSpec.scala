@@ -16,7 +16,7 @@
 
 package views.operationsAndFunds
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.common.BankDetailsFormProvider
 import models.{BankDetails, NormalMode, PlaybackMode}
 import play.api.data.Form

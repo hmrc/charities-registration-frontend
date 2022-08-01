@@ -28,7 +28,7 @@ import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import service.UserAnswerService
 
 import scala.concurrent.Future
@@ -41,7 +41,7 @@ class AddedAuthorisedOfficialControllerSpec extends SpecBase with BeforeAndAfter
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-        bind[AbstractRepository].toInstance(mockSessionRepository),
+        bind[SessionRepository].toInstance(mockSessionRepository),
         bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )

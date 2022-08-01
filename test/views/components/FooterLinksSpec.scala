@@ -16,8 +16,8 @@
 
 package views.components
 
-import assets.messages.FooterLinksMessages
 import base.SpecBase
+import base.data.messages.FooterLinksMessages
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem

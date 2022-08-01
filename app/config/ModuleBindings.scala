@@ -19,14 +19,11 @@ package config
 import com.google.inject.AbstractModule
 import connectors.CharitiesShortLivedCache
 import controllers.actions._
-import repositories._
 import uk.gov.hmrc.http.cache.client.ShortLivedCache
 
 class ModuleBindings extends AbstractModule {
 
   override def configure(): Unit = {
-
-    bind(classOf[AbstractRepository]).to(classOf[SessionRepository]).asEagerSingleton()
 
     bind(classOf[DataRetrievalAction]).to(classOf[DataRetrievalActionImpl]).asEagerSingleton()
 

@@ -16,7 +16,7 @@
 
 package views.common
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.common.NameFormProvider
 import models.{Name, SelectTitle}
 import play.api.data.Form

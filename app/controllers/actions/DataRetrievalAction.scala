@@ -19,13 +19,13 @@ package controllers.actions
 import javax.inject.Inject
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import play.api.mvc.ActionTransformer
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DataRetrievalActionImpl @Inject()(val sessionRepository: AbstractRepository)(
+class DataRetrievalActionImpl @Inject()(val sessionRepository: SessionRepository)(
   implicit val executionContext: ExecutionContext) extends DataRetrievalAction {
 
   override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = {

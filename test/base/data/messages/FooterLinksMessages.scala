@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package assets.messages
+package base.data.messages
 
 object FooterLinksMessages {
 

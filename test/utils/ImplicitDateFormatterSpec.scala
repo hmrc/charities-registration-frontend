@@ -27,8 +27,6 @@ import java.time.{LocalDate, ZonedDateTime}
 
 class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
 
-  //scalastyle:off magic.number
-
   "The implicit date formatter" should {
 
     "format dates in correct style" in {

@@ -16,7 +16,7 @@
 
 package views.regulatorsAndDocuments
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.regulatorsAndDocuments.SelectWhyNoRegulatorFormProvider
 import models.NormalMode
 import models.regulators.SelectWhyNoRegulator

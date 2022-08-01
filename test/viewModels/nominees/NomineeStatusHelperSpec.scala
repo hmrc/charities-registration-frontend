@@ -17,9 +17,8 @@
 package viewModels.nominees
 
 import java.time.LocalDate
-
-import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup._
@@ -123,44 +122,44 @@ class NomineeStatusHelperSpec extends SpecBase {
 
         "return true when individual nominee without nino, previous address and payment details (Scenario 10)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino.addPassport) mustBe true
+          helper.checkComplete(nomineeIndividual.removeNino().addPassport()) mustBe true
         }
 
         "return false when individual nominee without nino, passport, previous address and payment details (Scenario 10)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino) mustBe false
+          helper.checkComplete(nomineeIndividual.removeNino()) mustBe false
         }
 
         "return true when individual nominee with payment details and without nino, previous address (Scenario 9)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino.addPassport.addPayment) mustBe true
+          helper.checkComplete(nomineeIndividual.removeNino().addPassport().addPayment()) mustBe true
         }
 
         "return false when individual nominee with payment and without nino, previous address and payment details (Scenario 9)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino.addPassport
+          helper.checkComplete(nomineeIndividual.removeNino().addPassport()
             .set(IsIndividualNomineePaymentsPage, true).success.value) mustBe false
         }
 
         "return true when individual nominee with previous address and without nino, payment details (Scenario 8)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino.addPassport.addIndividualAddress) mustBe true
+          helper.checkComplete(nomineeIndividual.removeNino().addPassport().addIndividualAddress()) mustBe true
         }
 
         "return false when individual nominee with previous address selected and without nino, payment and previous address details (Scenario 8)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino.addPassport
+          helper.checkComplete(nomineeIndividual.removeNino().addPassport()
             .set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe false
         }
 
         "return true when individual nominee with payment, previous address and without nino (Scenario 7)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino.addPassport.addIndividualAddress.addPayment) mustBe true
+          helper.checkComplete(nomineeIndividual.removeNino().addPassport().addIndividualAddress().addPayment()) mustBe true
         }
 
         "return false when individual nominee with payment, previous address selected and without nino, previous address details (Scenario 7)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino.addPassport.addPayment
+          helper.checkComplete(nomineeIndividual.removeNino().addPassport().addPayment()
             .set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe false
         }
 
@@ -171,12 +170,12 @@ class NomineeStatusHelperSpec extends SpecBase {
 
         "return false when individual nominee with nino and without previous address, payment details(Scenario 6)" in {
 
-          helper.checkComplete(nomineeIndividual.removeNino) mustBe false
+          helper.checkComplete(nomineeIndividual.removeNino()) mustBe false
         }
 
         "return true when individual nominee with nino, payment details and without previous address (Scenario 5)" in {
 
-          helper.checkComplete(nomineeIndividual.addPayment) mustBe true
+          helper.checkComplete(nomineeIndividual.addPayment()) mustBe true
         }
 
         "return false when individual nominee with nino, payment and without previous address, payment details (Scenario 5)" in {
@@ -186,7 +185,7 @@ class NomineeStatusHelperSpec extends SpecBase {
 
         "return true when individual nominee with nino, previous address and without previous address payment details(Scenario 4)" in {
 
-          helper.checkComplete(nomineeIndividual.addIndividualAddress) mustBe true
+          helper.checkComplete(nomineeIndividual.addIndividualAddress()) mustBe true
         }
 
         "return false when individual nominee with nino, previous address and without previous address details, payment details (Scenario 4)" in {
@@ -196,17 +195,17 @@ class NomineeStatusHelperSpec extends SpecBase {
 
         "return true when individual nominee with nino, previous address and payment details(Scenario 3)" in {
 
-          helper.checkComplete(nomineeIndividual.addIndividualAddress.addPayment) mustBe true
+          helper.checkComplete(nomineeIndividual.addIndividualAddress().addPayment()) mustBe true
         }
 
         "return false when individual nominee with nino, previous address, payment details and without previous address details (Scenario 3)" in {
 
-          helper.checkComplete(nomineeIndividual.addPayment.set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe false
+          helper.checkComplete(nomineeIndividual.addPayment().set(IsIndividualNomineePreviousAddressPage, true).success.value) mustBe false
         }
 
         "return false when individual nominee with organisation nominee details" in {
 
-          helper.checkComplete(nomineeIndividual.addOrganizationAddress) mustBe false
+          helper.checkComplete(nomineeIndividual.addOrganizationAddress()) mustBe false
         }
       }
 
@@ -214,70 +213,70 @@ class NomineeStatusHelperSpec extends SpecBase {
 
         "return true when organisation nominee with nino, previous address and payment details(Scenario 11)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganizationAddress.addOrganisationPayment) mustBe true
+          helper.checkComplete(nomineeOrganisation.addOrganizationAddress().addOrganisationPayment()) mustBe true
         }
 
         "return false when organisation nominee with nino, previous address, payment details and without previous address details (Scenario 11)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganisationPayment
+          helper.checkComplete(nomineeOrganisation.addOrganisationPayment()
             .set(IsOrganisationNomineePreviousAddressPage, true).success.value) mustBe false
         }
 
         "return true when organisation nominee with previous address, payment details and Passport (Scenario 12)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganizationAddress
-            .addOrganisationPayment.addOrganisationNomineePassport) mustBe true
+          helper.checkComplete(nomineeOrganisation.addOrganizationAddress()
+            .addOrganisationPayment().addOrganisationNomineePassport()) mustBe true
         }
 
         "return false when organisation nominee with previous address, payment details and without passport details (Scenario 12)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganizationAddress
-            .addOrganisationPayment.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe false
+          helper.checkComplete(nomineeOrganisation.addOrganizationAddress()
+            .addOrganisationPayment().set(IsOrganisationNomineeNinoPage, false).success.value) mustBe false
         }
 
         "return true when organisation nominee with previous address, nino and without payment (Scenario 13)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganizationAddress) mustBe true
+          helper.checkComplete(nomineeOrganisation.addOrganizationAddress()) mustBe true
         }
 
         "return false when organisation nominee with previous address, nino and without payment, passport details (Scenario 13)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganizationAddress.removeOrganisationNomineeNino) mustBe false
+          helper.checkComplete(nomineeOrganisation.addOrganizationAddress().removeOrganisationNomineeNino()) mustBe false
         }
 
         "return true when organisation nominee with previous address, Passport and without payment (Scenario 14)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganizationAddress.addOrganisationNomineePassport) mustBe true
+          helper.checkComplete(nomineeOrganisation.addOrganizationAddress().addOrganisationNomineePassport()) mustBe true
         }
 
         "return false when organisation nominee with previous address, passport and without payment, passport details (Scenario 14)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganizationAddress.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe false
+          helper.checkComplete(nomineeOrganisation.addOrganizationAddress().set(IsOrganisationNomineeNinoPage, false).success.value) mustBe false
         }
 
         "return true when organisation nominee with nino, payment details without previous address(Scenario 15)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganisationPayment) mustBe true
+          helper.checkComplete(nomineeOrganisation.addOrganisationPayment()) mustBe true
         }
 
         "return false when organisation nominee with nino, payment details and without previous address, nino details (Scenario 15)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganisationPayment.removeOrganisationNomineeNino) mustBe false
+          helper.checkComplete(nomineeOrganisation.addOrganisationPayment().removeOrganisationNomineeNino()) mustBe false
         }
 
         "return true when organisation nominee with payment details and Passport (Scenario 16)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganisationPayment.addOrganisationNomineePassport) mustBe true
+          helper.checkComplete(nomineeOrganisation.addOrganisationPayment().addOrganisationNomineePassport()) mustBe true
         }
 
         "return false when organisation nominee with payment details and without passport details (Scenario 16)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganisationPayment.set(IsOrganisationNomineeNinoPage, false).success.value) mustBe false
+          helper.checkComplete(nomineeOrganisation.addOrganisationPayment().set(IsOrganisationNomineeNinoPage, false).success.value) mustBe false
         }
 
         "return true when organisation nominee with passport and without payment, previous address (Scenario 17)" in {
 
-          helper.checkComplete(nomineeOrganisation.addOrganisationNomineePassport) mustBe true
+          helper.checkComplete(nomineeOrganisation.addOrganisationNomineePassport()) mustBe true
         }
 
         "return false when organisation nominee with passport and without payment, previous address passport details (Scenario 17)" in {
@@ -292,12 +291,12 @@ class NomineeStatusHelperSpec extends SpecBase {
 
         "return false when organisation nominee with nino and without previous address, payment, nino details (Scenario 18)" in {
 
-          helper.checkComplete(nomineeOrganisation.removeOrganisationNomineeNino) mustBe false
+          helper.checkComplete(nomineeOrganisation.removeOrganisationNomineeNino()) mustBe false
         }
 
         "return false when organisation nominee with individual nominee details" in {
 
-          helper.checkComplete(nomineeOrganisation.addIndividualAddress) mustBe false
+          helper.checkComplete(nomineeOrganisation.addIndividualAddress()) mustBe false
         }
       }
 
@@ -363,6 +362,22 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))).success.value
 
           helper.validateDataFromOldService(nomineeOrganisation) mustBe false
+        }
+
+        "return true when missing nominee" in {
+          val nomineeOrganisation: UserAnswers  = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, false))
+            .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))).success.value
+
+          helper.validateDataFromOldService(nomineeOrganisation) mustBe true
+        }
+
+        "return true when missing authorised person" in {
+          val nomineeOrganisation: UserAnswers  = UserAnswers("id").set(IsAuthoriseNomineePage, true)
+            .flatMap(_.set(ChooseNomineePage, false))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", ""))).success.value
+
+          helper.validateDataFromOldService(nomineeOrganisation) mustBe true
         }
 
       }

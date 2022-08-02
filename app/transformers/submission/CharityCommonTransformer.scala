@@ -17,24 +17,20 @@
 package transformers.submission
 
 import models.requests.DataRequest
-import play.api.i18n.Lang
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
-
-import java.time.LocalDate
 
 class CharityCommonTransformer extends JsonTransformer {
 
   val localPath: JsPath = __ \ 'charityRegistration \ 'common
 
   def userAnswersToAdmin(implicit request: DataRequest[_]): Reads[JsObject] = {
-    ((localPath \ 'admin \ 'applicationDate).json.put(JsString(LocalDate.now().toString)) and
-      (localPath \ 'admin \ 'welshIndicator).json.put(JsBoolean(request.acceptLanguages.contains(Lang("cy")))) and
+    ((localPath \ 'admin \ 'applicationDate).json.put(JsString("1970-01-01")) and
+      (localPath \ 'admin \ 'welshIndicator).json.put(JsBoolean(false)) and
       (localPath \ 'admin \ 'credentialID).json.put(JsString(s"/newauth/credentialId/${request.internalId}")) and
-      (localPath \ 'admin \ 'sessionID).json.put(JsString(request.session.data.getOrElse("sessionId", ""))) and
-      (localPath \ 'admin \ 'acknowledgmentReference).json.put(JsString(""))
-      ).reduce
+      (localPath \ 'admin \ 'sessionID).json.put(JsString("50 CHARACTERS STRING 50 CHARACTERS " + "STRING 50 CHARA")) and
+      (localPath \ 'admin \ 'acknowledgmentReference).json.put(JsString("15 CHARACTERS S"))).reduce
   }
 
   def userAnswersToOrganisation: Reads[JsObject] = {

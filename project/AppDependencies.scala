@@ -16,12 +16,12 @@ object AppDependencies {
     "uk.gov.hmrc"               %% "play-frontend-hmrc"              % "3.21.0-play-28",
     "uk.gov.hmrc"               %% "play-language"                   % "5.3.0-play-28",
     "uk.gov.hmrc"               %% "http-caching-client"             % "9.6.0-play-28",
-    "uk.gov.hmrc"               %% "play-allowlist-filter"           % "1.1.0",
+    "uk.gov.hmrc"               %% "play-allowlist-filter"           % "1.0.0-play-28",
     "com.typesafe.play"         %% "play-json-joda"                  % "2.8.1"
   )
 
   val test: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc"               %%    "reactivemongo-test"          % "5.1.0-play-28",
+    "uk.gov.hmrc"               %%    "reactivemongo-test"          % "5.0.0-play-28",
     "org.scalatest"             %%    "scalatest"                   % "3.1.4",
     "org.scalatestplus.play"    %%    "scalatestplus-play"          % "5.1.0",
     "org.pegdown"               %     "pegdown"                     % "1.6.0",

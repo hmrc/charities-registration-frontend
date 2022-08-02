@@ -16,8 +16,8 @@
 
 package controllers.addressLookup
 
-import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
@@ -34,7 +34,7 @@ import pages.nominees.OrganisationNomineeNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
-import play.api.test.Helpers.{status, _}
+import play.api.test.Helpers._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 

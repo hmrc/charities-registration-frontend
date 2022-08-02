@@ -36,7 +36,6 @@ import views.html.DeclarationView
 import scala.concurrent.Future
 
 class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerConstants {
-  //scalastyle:off magic.number
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   lazy val mockCharitiesRegistrationService: CharitiesRegistrationService = MockitoSugar.mock[CharitiesRegistrationService]

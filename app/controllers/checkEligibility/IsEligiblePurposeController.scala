@@ -20,10 +20,12 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.checkEligibility.IsEligiblePurposeFormProvider
+
 import javax.inject.Inject
 import models.{Mode, UserAnswers}
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligiblePurposePage
+import play.api.data.Form
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.checkEligibility.IsEligiblePurposeView
@@ -39,7 +41,7 @@ class IsEligiblePurposeController @Inject()(
    val controllerComponents: MessagesControllerComponents,
    view: IsEligiblePurposeView
   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
+  val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData).async {
     implicit request =>
@@ -61,7 +63,7 @@ class IsEligiblePurposeController @Inject()(
         value =>
           for {
             updatedAnswers <- Future.fromTry(UserAnswers(request.internalId).set(IsEligiblePurposePage, value))
-            _              <- sessionRepository.set(updatedAnswers)
+            _              <- sessionRepository.upsert(updatedAnswers)
           } yield Redirect(navigator.nextPage(IsEligiblePurposePage, mode, updatedAnswers))
       )
   }

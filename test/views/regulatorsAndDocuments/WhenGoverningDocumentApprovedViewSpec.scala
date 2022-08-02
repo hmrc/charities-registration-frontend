@@ -16,9 +16,8 @@
 
 package views.regulatorsAndDocuments
 
+import base.data.messages.BaseMessages
 import java.time.LocalDate
-
-import assets.messages.BaseMessages
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
 import models.NormalMode
 import play.api.data.Form

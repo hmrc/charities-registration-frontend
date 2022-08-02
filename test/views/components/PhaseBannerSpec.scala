@@ -16,8 +16,8 @@
 
 package views.components
 
-import assets.messages.PhaseBannerMessages
 import base.SpecBase
+import base.data.messages.PhaseBannerMessages
 import org.jsoup.Jsoup
 import play.twirl.api.Html
 import views.html.components.phaseBanner
@@ -47,7 +47,7 @@ class PhaseBannerSpec extends SpecBase {
     }
 
     "Have a unauthenticated link to the contact-frontend service" in {
-      lazy val html: Html = phaseBannerView("alpha", false)(fakeRequest, messages, frontendAppConfig)
+      lazy val html: Html = phaseBannerView("alpha", signOut = false)(fakeRequest, messages, frontendAppConfig)
       lazy val document = Jsoup.parse(html.toString)
       document.select(Selectors.link).attr("href") mustBe frontendAppConfig.feedbackUnauthenticatedUrl
       document.select(Selectors.link).text mustBe PhaseBannerMessages.link

@@ -16,8 +16,8 @@
 
 package connectors.addressLookup
 
-import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
 import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
 import connectors.WireMockHelper

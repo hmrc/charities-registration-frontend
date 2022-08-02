@@ -23,7 +23,6 @@ import play.api.libs.json.Json
 import utils.TestData
 
 class UserAnswerTransformerSpec extends SpecBase with TestData {
-  //scalastyle:off magic.number
   val jsonTransformer: UserAnswerTransformer = new UserAnswerTransformer
 
   "UserAnswerTransformer" when {

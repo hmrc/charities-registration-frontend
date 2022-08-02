@@ -19,6 +19,8 @@ package models
 import org.joda.time.MonthDay
 import play.api.libs.json._
 
+import java.time.Instant.ofEpochMilli
+import java.time.LocalDateTime.ofInstant
 import java.time.format.DateTimeFormatter
 import java.time.{Instant, LocalDate, LocalDateTime, ZoneOffset}
 
@@ -32,15 +34,26 @@ trait MongoDateTimeFormats {
 
   implicit val localDayMonthWrite: Writes[MonthDay] = (dayMonth: MonthDay) => JsString(dayMonth.toString)
 
-  implicit val localDateTimeRead: Reads[LocalDateTime] =
-    (__ \ "$date").read[Long].map {
-      millis =>
-        LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneOffset.UTC)
-    }
+  implicit val localDateTimeFormat: OFormat[LocalDateTime] = new OFormat[LocalDateTime] {
+    override def writes(localDateTime: LocalDateTime): JsObject =
+      Json.obj("$date" -> localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli)
 
-  implicit val localDateTimeWrite: Writes[LocalDateTime] = (dateTime: LocalDateTime) => Json.obj(
-    "$date" -> dateTime.atZone(ZoneOffset.UTC).toInstant.toEpochMilli
-  )
+    override def reads(json: JsValue): JsResult[LocalDateTime] =
+      json match {
+        case JsObject(map) if map.contains("$date") =>
+          map("$date") match {
+            case JsNumber(v) => JsSuccess(ofInstant(ofEpochMilli(v.toLong), ZoneOffset.UTC))
+            case JsObject(stringObject) =>
+              if (stringObject.contains("$numberLong")) {
+                JsSuccess(ofInstant(ofEpochMilli(BigDecimal(stringObject("$numberLong").as[JsString].value).toLong), ZoneOffset.UTC))
+              } else {
+                JsError("Unexpected LocalDateTime Format")
+              }
+            case _ => JsError("Unexpected LocalDateTime Format")
+          }
+        case _ => JsError("Unexpected LocalDateTime Format")
+      }
+  }
 
   implicit val localDateReads: Reads[LocalDate] =
     __.read[String].map {

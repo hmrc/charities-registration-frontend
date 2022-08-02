@@ -16,7 +16,7 @@
 
 package views.common
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import controllers.authorisedOfficials.routes
 import forms.common.YesNoFormProvider
 import models.{Index, NormalMode}

@@ -16,7 +16,7 @@
 
 package views.contactDetails
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.contactDetails.CharityNameFormProvider
 import models.{CharityName, NormalMode}
 import play.api.data.Form

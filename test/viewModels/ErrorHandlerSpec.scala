@@ -25,7 +25,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import uk.gov.hmrc.auth.core.AuthConnector
 import uk.gov.hmrc.auth.core.retrieve.{Credentials, Retrieval}
 import views.html.errors.{PageNotFoundView, TechnicalDifficultiesErrorView}
@@ -39,7 +39,7 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[AbstractRepository].toInstance(mockSessionRepository),
+        bind[SessionRepository].toInstance(mockSessionRepository),
         bind[AuthConnector].toInstance(mockAuthConnector),
         bind[IdentifierAction].to[FakeIdentifierAction]
       )

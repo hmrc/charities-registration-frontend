@@ -16,7 +16,7 @@
 
 package views.otherOfficials
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import models.{Index, NormalMode}
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours

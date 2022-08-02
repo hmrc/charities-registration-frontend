@@ -28,7 +28,7 @@ import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import service.UserAnswerService
 
 import scala.concurrent.Future
@@ -41,7 +41,7 @@ class AddedOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach 
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-        bind[AbstractRepository].toInstance(mockSessionRepository),
+        bind[SessionRepository].toInstance(mockSessionRepository),
         bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )

@@ -37,7 +37,6 @@ import java.time.LocalDate
 import scala.util.Try
 
 trait CharityTransformerConstants extends SpecBase{
-  //scalastyle:off magic.number
 
   private val date = LocalDate.now()
 

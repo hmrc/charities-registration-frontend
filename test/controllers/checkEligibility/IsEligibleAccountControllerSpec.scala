@@ -88,14 +88,14 @@ class IsEligibleAccountControllerSpec extends SpecBase with BeforeAndAfterEach {
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockSessionRepository.set(any())).thenReturn(Future.successful(true))
+      when(mockSessionRepository.upsert(any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockSessionRepository, times(1)).get(any())
-      verify(mockSessionRepository, times(1)).set(any())
+      verify(mockSessionRepository, times(1)).upsert(any())
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -108,7 +108,7 @@ class IsEligibleAccountControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual BAD_REQUEST
       verify(mockSessionRepository, times(1)).get(any())
-      verify(mockSessionRepository, never).set(any())
+      verify(mockSessionRepository, never).upsert(any())
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {

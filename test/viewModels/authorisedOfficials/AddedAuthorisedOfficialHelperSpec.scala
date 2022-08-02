@@ -18,9 +18,9 @@ package viewModels.authorisedOfficials
 
 
 import java.time.LocalDate
-import assets.constants.ConfirmedAddressConstants
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
+import base.data.messages.BaseMessages
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}

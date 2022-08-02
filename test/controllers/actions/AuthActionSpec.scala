@@ -23,7 +23,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{Action, AnyContent, BodyParsers, Results}
 import play.api.test.Helpers._
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import service.UserAnswerService
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
@@ -184,7 +184,7 @@ class AuthActionSpec extends SpecBase {
       "redirect the user to correct for external test environment with session Id" in {
 
         val application = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true").overrides(
-          bind[AbstractRepository].toInstance(mockSessionRepository),
+          bind[SessionRepository].toInstance(mockSessionRepository),
           bind[UserAnswerService].toInstance(mockUserAnswerService),
           bind[IdentifierAction].to[FakeIdentifierAction],
           bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
@@ -205,7 +205,7 @@ class AuthActionSpec extends SpecBase {
       "redirect the user to correct for external test environment without session id" in {
 
         val application = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true").overrides(
-          bind[AbstractRepository].toInstance(mockSessionRepository),
+          bind[SessionRepository].toInstance(mockSessionRepository),
           bind[UserAnswerService].toInstance(mockUserAnswerService),
           bind[IdentifierAction].to[FakeIdentifierAction],
           bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],

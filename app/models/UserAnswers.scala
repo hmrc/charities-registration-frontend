@@ -24,12 +24,11 @@ import play.api.libs.json._
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
-//scalastyle:off magic.number
 final case class UserAnswers(
                               id: String,
-                              data: JsObject = Json.obj(),
-                              lastUpdated: LocalDateTime = LocalDateTime.now,
-                              expiresAt: LocalDateTime = LocalDateTime.now.plusMinutes(15)
+                              data: JsObject,
+                              lastUpdated: LocalDateTime,
+                              expiresAt: LocalDateTime
                             ) {
 
   def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean = {
@@ -97,6 +96,16 @@ final case class UserAnswers(
 
 object UserAnswers {
 
+  def apply(id: String,
+            data: JsObject = Json.obj(),
+            lastUpdated: LocalDateTime = LocalDateTime.now,
+            expiresAt: LocalDateTime = calculateExpireTime): UserAnswers =
+    new UserAnswers(id, data, lastUpdated, expiresAt)
+
+  lazy val expireMinutes = 15
+
+  def calculateExpireTime: LocalDateTime = LocalDateTime.now.plusMinutes(expireMinutes)
+
   implicit lazy val reads: Reads[UserAnswers] = {
 
     import play.api.libs.functional.syntax._
@@ -104,8 +113,8 @@ object UserAnswers {
     (
       (__ \ "_id").read[String] and
         (__ \ "data").read[JsObject] and
-        (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead) and
-        (__ \ "expiresAt").read(MongoDateTimeFormats.localDateTimeRead)
+        (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeFormat) and
+        (__ \ "expiresAt").read(MongoDateTimeFormats.localDateTimeFormat)
       ) (UserAnswers.apply _)
   }
 
@@ -116,8 +125,10 @@ object UserAnswers {
     (
       (__ \ "_id").write[String] and
         (__ \ "data").write[JsObject] and
-        (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite) and
-        (__ \ "expiresAt").write(MongoDateTimeFormats.localDateTimeWrite)
+        (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeFormat) and
+        (__ \ "expiresAt").write(MongoDateTimeFormats.localDateTimeFormat)
       ) (unlift(UserAnswers.unapply))
   }
+
+  implicit  lazy val formats: OFormat[UserAnswers] = OFormat(reads, writes)
 }

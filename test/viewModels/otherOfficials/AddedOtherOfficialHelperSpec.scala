@@ -17,9 +17,9 @@
 package viewModels.otherOfficials
 
 import java.time.LocalDate
-import assets.constants.ConfirmedAddressConstants
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
+import base.data.messages.BaseMessages
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}

@@ -37,14 +37,16 @@ class AuthenticatedIdentifierAction @Inject()(
   )
   (implicit val executionContext: ExecutionContext) extends AuthIdentifierAction with AuthorisedFunctions {
 
+  private lazy val startUUIDIndex = 0
+  private lazy val endUUIDIndex = 16
+
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     if (config.isExternalTest) {
-      //scalastyle:off magic.number
       val internalId: String = UUID.randomUUID.toString.replaceAll(
-        "[^a-zA-Z0-9]", "").toUpperCase.substring(0,16)
+        "[^a-zA-Z0-9]", "").toUpperCase.substring(startUUIDIndex, endUUIDIndex)
       block(IdentifierRequest(request, hc.sessionId.fold(internalId)(_.value)))
     } else {
       authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {

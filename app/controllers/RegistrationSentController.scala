@@ -29,7 +29,6 @@ import service.UserAnswerService
 
 import scala.concurrent.Future
 
-//scalastyle:off magic.number
 class RegistrationSentController @Inject()(
     identify: AuthIdentifierAction,
     getData: UserDataRetrievalAction,
@@ -46,21 +45,21 @@ class RegistrationSentController @Inject()(
       case (Some(acknowledgementReference), Some(applicationSubmissionDate)) =>
         request.userAnswers.get(EmailOrPostPage) match {
           case Some(emailOrPost) if appConfig.noEmailPost =>
-            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
+            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
               dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
               noEmailOrPost = true,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
               RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
             )))
           case Some(emailOrPost) =>
-            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
+            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
               dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
               noEmailOrPost = false,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
               RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
             )))
           case _ if appConfig.noEmailPost =>
-            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(28)),
+            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
               dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost = false,
               noEmailOrPost = true,
               RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),

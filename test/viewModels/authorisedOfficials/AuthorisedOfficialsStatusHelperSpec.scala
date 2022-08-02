@@ -17,9 +17,8 @@
 package viewModels.authorisedOfficials
 
 import java.time.LocalDate
-
-import assets.constants.ConfirmedAddressConstants
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
 import models.authOfficials.OfficialsPosition
 import models.{Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}

@@ -14,33 +14,32 @@
  * limitations under the License.
  */
 
-package assets.constants
+package base.data.constants
 
-import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
 
-object ConfirmedAddressConstants extends SpecBase {
+object ConfirmedAddressConstants {
 
-  val lines = Seq("Test 1", "Test 2")
-  val postcode = "AA00 0AA"
-  val country = CountryModel(
+  val lines: Seq[String] = Seq("Test 1", "Test 2")
+  val postcode: String = "AA00 0AA"
+  val country: CountryModel = CountryModel(
     code = "GB", name = "United Kingdom"
   )
 
-  val address = AddressModel(
+  val address: AddressModel = AddressModel(
     lines,
     postcode = Some(postcode),
     country
   )
 
-  val addressLookupResponse = Json.obj(
+  val addressLookupResponse: JsObject = Json.obj(
     "auditRef" -> "a1fe6969-e3fd-421b-a5fb-c9458c9cfd22",
     "id" -> "GB690091234501",
     "address" -> Json.toJson(address)
   )
 
-  val addressJson = Json.obj(
+  val addressJson: JsObject = Json.obj(
     "lines" -> Json.toJson(lines),
     "postcode" -> "AA00 0AA",
     "country" -> Json.obj(

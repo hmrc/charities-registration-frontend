@@ -16,7 +16,7 @@
 
 package views.operationsAndFunds
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.routes
 import forms.operationsAndFunds.IsFinancialAccountsFormProvider
 import models.NormalMode

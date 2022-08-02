@@ -16,9 +16,9 @@
 
 package viewModels.charityInformation
 
-import assets.constants.ConfirmedAddressConstants
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.constants.ConfirmedAddressConstants
+import base.data.messages.BaseMessages
 import controllers.contactDetails.{routes => charityInfoRoutes}
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}

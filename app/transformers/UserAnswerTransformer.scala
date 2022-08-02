@@ -22,7 +22,6 @@ import play.api.libs.json.{__, _}
 import transformers.submission.JsonTransformer
 
 class UserAnswerTransformer extends JsonTransformer {
-  //scalastyle:off magic.number
 
   private val futureFunds: Reads[JsArray] = for {
     donations <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'donations, "donations")

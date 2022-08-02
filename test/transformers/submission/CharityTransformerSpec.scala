@@ -31,7 +31,6 @@ import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
 class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
-  //scalastyle:off magic.number
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
   "CharityTransformer" when {

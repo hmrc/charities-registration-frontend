@@ -33,7 +33,7 @@ import pages.{IsSwitchOverUserPage, OldServiceSubmissionPage}
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc.{Call, RequestHeader}
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import transformers.{CharitiesJsObject, UserAnswerTransformer}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -44,6 +44,7 @@ import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
+import java.time.LocalTime
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Success, Try}
 
@@ -51,12 +52,16 @@ import scala.util.{Success, Try}
 class CharitiesSave4LaterService @Inject()(
   cache: CharitiesShortLivedCache,
   userAnswerTransformer: UserAnswerTransformer,
-  sessionRepository: AbstractRepository,
+  sessionRepository: SessionRepository,
   userAnswerService: UserAnswerService,
   auditService: AuditService,
   appConfig: FrontendAppConfig) extends ImplicitDateFormatter {
 
   private val logger = Logger(this.getClass)
+
+  private lazy val timeHour: Int = 12
+  private lazy val timeMinutes: Int = 0
+  private lazy val time: LocalTime = LocalTime.of(timeHour, timeMinutes)
 
   private def isSection1Completed(userAnswers: UserAnswers): Try[UserAnswers] = {
     userAnswers.get(Section1Page) match {
@@ -95,7 +100,7 @@ class CharitiesSave4LaterService @Inject()(
     userAnswers.get(OldServiceSubmissionPage) match {
       case Some(submitted) =>
         Success(userAnswers.copy(expiresAt = oldStringToDate(submitted.submissionDate).plusDays(
-          appConfig.timeToLiveInDays).atTime(12, 0))) //scalastyle:off magic.number
+          appConfig.timeToLiveInDays).atTime(time)))
       case _ => Success(userAnswers)
     }
   }

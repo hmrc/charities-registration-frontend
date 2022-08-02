@@ -16,7 +16,7 @@
 
 package views.regulatorsAndDocuments
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import controllers.regulatorsAndDocuments.routes
 import forms.regulatorsAndDocuments.IsCharityRegulatorFormProvider
 import models.NormalMode

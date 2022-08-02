@@ -62,7 +62,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     ).get
 
     status(response) mustBe SEE_OTHER
-    Helpers.redirectLocation(response) mustBe(Some(controllers.routes.RegistrationSentController.onPageLoad.url))
+    Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
   }
 
   "Calling Charities service" when {
@@ -73,7 +73,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
 
-            logger.warn("**********scenario 1**********")
+            logger.info("**********scenario 1**********")
 
             override def internalId: String = "scenario_1_request"
             override def requestJson: String = "/scenario_1_request.json"
@@ -86,7 +86,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
 
-            logger.warn("**********scenario 2**********")
+            logger.info("**********scenario 2**********")
 
             override def internalId: String = "scenario_2_request"
             override def requestJson: String = "/scenario_2_request.json"
@@ -99,7 +99,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
 
-            logger.warn("**********scenario 3**********")
+            logger.info("**********scenario 3**********")
 
             override def internalId: String = "scenario_3_request"
             override def requestJson: String = "/scenario_3_request.json"
@@ -112,7 +112,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
 
-            logger.warn("**********scenario 4**********")
+            logger.info("**********scenario 4**********")
 
             override def internalId: String = "scenario_4_request"
             override def requestJson: String = "/scenario_4_request.json"
@@ -125,7 +125,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
 
-            logger.warn("**********scenario 5**********")
+            logger.info("**********scenario 5**********")
 
             override def internalId: String = "scenario_5_request"
             override def requestJson: String = "/scenario_5_request.json"
@@ -138,7 +138,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
 
-            logger.warn("**********scenario 6**********")
+            logger.info("**********scenario 6**********")
 
             override def internalId: String = "scenario_6_request"
             override def requestJson: String = "/scenario_6_request.json"
@@ -151,7 +151,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
 
-            logger.warn("**********scenario 7**********")
+            logger.info("**********scenario 7**********")
 
             override def internalId: String = "scenario_7_request"
             override def requestJson: String = "/scenario_7_request.json"
@@ -164,7 +164,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     "user not authorised" must {
       "return SEE_OTHER (303)" in {
 
-        logger.warn("**********scenario 8**********")
+        logger.info("**********scenario 8**********")
 
         AuthStub.unauthorised()
 
@@ -174,7 +174,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         ).get
 
         status(response) mustBe SEE_OTHER
-        Helpers.redirectLocation(response) mustBe(Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url))
+        Helpers.redirectLocation(response) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
       }
     }
   }

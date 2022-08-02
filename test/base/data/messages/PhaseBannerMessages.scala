@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package repositories
+package base.data.messages
 
-import base.SpecBase
-import reactivemongo.api.indexes.Index
-import reactivemongo.play.json.collection.JSONCollection
+object PhaseBannerMessages {
 
-trait MongoUnitSpec extends SpecBase {
-
-  protected implicit val ordering: Ordering[Index] = Ordering.by { i: Index => i.name }
-
-  protected def collection: JSONCollection
+  val content = "This is a new service - your feedback will help us to improve it."
+  val link = "feedback"
+  val tag = "alpha"
 
 }

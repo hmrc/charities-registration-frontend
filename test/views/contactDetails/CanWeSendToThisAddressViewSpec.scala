@@ -16,7 +16,7 @@
 
 package views.contactDetails
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import controllers.contactDetails.routes
 import forms.contactDetails.CanWeSendToThisAddressFormProvider
 import models.NormalMode

@@ -16,8 +16,8 @@
 
 package viewModels.regulatorsAndDocuments
 
-import assets.messages.BaseMessages
 import base.SpecBase
+import base.data.messages.BaseMessages
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}

@@ -16,7 +16,7 @@
 
 package views.operationsAndFunds
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import forms.operationsAndFunds.PublicBenefitsFormProvider
 import models.NormalMode
 import play.api.data.Form

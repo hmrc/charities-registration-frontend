@@ -16,7 +16,7 @@
 
 package views.nominees
 
-import assets.messages.BaseMessages
+import base.data.messages.BaseMessages
 import controllers.nominees.routes
 import forms.nominees.IsAuthoriseNomineeFormProvider
 import models.NormalMode

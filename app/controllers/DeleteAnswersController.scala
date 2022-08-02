@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import controllers.actions.{DataRetrievalAction, SessionIdentifierAction}
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.AbstractRepository
+import repositories.SessionRepository
 import views.html.errors.{WeDeletedYourAnswersView, YouDeletedYourAnswersView}
 
 
@@ -28,7 +28,7 @@ class DeleteAnswersController @Inject()(
   val controllerComponents: MessagesControllerComponents,
   getData: DataRetrievalAction,
   identify: SessionIdentifierAction,
-  val sessionRepository: AbstractRepository,
+  val sessionRepository: SessionRepository,
   weDeletedAnswersView: WeDeletedYourAnswersView,
   youDeletedAnswersView: YouDeletedYourAnswersView)(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
 

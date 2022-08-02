@@ -80,7 +80,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
       ).success.value
 
 
-      localUserAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeWelshDataRequest)).asOpt.value mustBe jsonGeneral
+      localUserAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe jsonGeneral
     }
 
     "convert right with all fields filled" in {

@@ -23,8 +23,7 @@ import javax.inject.Inject
 import models.requests.DataRequest
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
-import play.api.libs.json.Json.obj
-import play.api.libs.json.{JsBoolean, JsObject, JsString}
+import play.api.libs.json.{JsBoolean, JsObject}
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
@@ -52,8 +51,7 @@ class CharitiesRegistrationService @Inject()(
               updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference)
                 .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now())))
               _ <- userAnswerService.set(updatedAnswers)
-              _ <- Future.successful(auditService.sendEvent(
-                SubmissionAuditEvent(withAcknowledgmentReference(withDeclaration(requestJson), result.acknowledgementReference))))
+              _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true)))))
             } yield{
               if(noEmailPost){
                 Redirect(controllers.routes.RegistrationSentController.onPageLoad)
@@ -76,17 +74,5 @@ class CharitiesRegistrationService @Inject()(
     }
 
   }
-
-  private def withDeclaration(requestJson: JsObject) = {
-    requestJson + ("declaration" -> JsBoolean(true))
-  }
-
-  private def withAcknowledgmentReference(requestJson: JsObject, acknowledgementReference: String) = {
-    requestJson deepMerge acknowledgmentReference(acknowledgementReference)
-  }
-
-  private def acknowledgmentReference(acknowledgementReference: String): JsObject =
-    obj("charityRegistration" -> obj("common"-> obj("admin"
-      -> obj("acknowledgmentReference" -> JsString(acknowledgementReference)))))
 
 }

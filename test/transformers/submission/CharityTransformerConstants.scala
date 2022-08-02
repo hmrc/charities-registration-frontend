@@ -206,11 +206,11 @@ trait CharityTransformerConstants extends SpecBase{
        |        "overseas": false
        |      },
        |      "admin": {
-       |        "acknowledgmentReference": "",
+       |        "acknowledgmentReference": "15 CHARACTERS S",
        |        "credentialID": "/newauth/credentialId/id",
-       |        "sessionID": "foo",
+       |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
        |        "welshIndicator": false,
-       |        "applicationDate": "${LocalDate.now.toString}"
+       |        "applicationDate": "1970-01-01"
        |      },
        |      "organisation": {
        |        "applicationType": "0",
@@ -394,11 +394,11 @@ trait CharityTransformerConstants extends SpecBase{
        |        "overseas": false
        |      },
        |      "admin": {
-       |        "acknowledgmentReference": "",
+       |        "acknowledgmentReference": "15 CHARACTERS S",
        |        "credentialID": "/newauth/credentialId/id",
-       |        "sessionID": "foo",
+       |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
        |        "welshIndicator": false,
-       |        "applicationDate": "${LocalDate.now.toString}"
+       |        "applicationDate": "1970-01-01"
        |      },
        |      "organisation": {
        |        "applicationType": "0",
@@ -563,11 +563,11 @@ trait CharityTransformerConstants extends SpecBase{
        |        "overseas": false
        |      },
        |      "admin": {
-       |        "acknowledgmentReference": "",
+       |        "acknowledgmentReference": "15 CHARACTERS S",
        |        "credentialID": "/newauth/credentialId/id",
-       |        "sessionID": "foo",
-       |        "welshIndicator": true,
-       |        "applicationDate":"${LocalDate.now.toString}"
+       |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+       |        "welshIndicator": false,
+       |        "applicationDate": "1970-01-01"
        |      },
        |      "organisation": {
        |        "applicationType": "0",

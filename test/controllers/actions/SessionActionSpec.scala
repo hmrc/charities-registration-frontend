@@ -26,7 +26,7 @@ import uk.gov.hmrc.http.SessionKeys
 class SessionActionSpec extends SpecBase {
 
   class Harness(action: SessionIdentifierAction) {
-    def onPageLoad(): Action[AnyContent] = action { _ => Results.Ok }
+    def onPageLoad(): Action[AnyContent] = action(_ => Results.Ok)
   }
 
   "Session Action" when {
@@ -36,9 +36,10 @@ class SessionActionSpec extends SpecBase {
       "redirect to the session expired page" in {
 
         val application = new GuiceApplicationBuilder()
-        .configure(
-          "play.filters.disabled" -> List("filters.SessionIdFilter")
-        ).build()
+          .configure(
+            "play.filters.disabled" -> List("filters.SessionIdFilter")
+          )
+          .build()
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 

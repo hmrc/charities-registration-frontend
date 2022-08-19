@@ -36,19 +36,25 @@ class EligibleCharityViewSpec extends ViewBehaviours {
 
     behave like normalPage(applyView(), messageKeyPrefix)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-      "p1")
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
 
     behave like pageWithBackLink(applyView())
 
-    behave like pageWithHyperLink(applyView(),
-      "linkButton", controllers.routes.IndexController.onPageLoad(None).url, BaseMessages.continue)
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.routes.IndexController.onPageLoad(None).url,
+      BaseMessages.continue
+    )
 
     "with session id" must {
-      behave like pageWithHyperLink(applyView(Some(SessionId("123456"))),
-        "linkButton", controllers.routes.IndexController.onPageLoad(Some("123456")).url, BaseMessages.continue)
+      behave like pageWithHyperLink(
+        applyView(Some(SessionId("123456"))),
+        "linkButton",
+        controllers.routes.IndexController.onPageLoad(Some("123456")).url,
+        BaseMessages.continue
+      )
     }
-
 
   }
 }

@@ -27,21 +27,25 @@ class CharityNomineeViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "charityNominee"
 
-    "CharityNominee View" must {
+  "CharityNominee View" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[CharityNomineeView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2", "p3")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "linkButton",routes.IsAuthoriseNomineeController.onSubmit(NormalMode).url,BaseMessages.continue)
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[CharityNomineeView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2", "p3")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      routes.IsAuthoriseNomineeController.onSubmit(NormalMode).url,
+      BaseMessages.continue
+    )
+
   }
+}

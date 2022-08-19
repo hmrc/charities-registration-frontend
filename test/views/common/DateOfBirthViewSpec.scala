@@ -27,17 +27,21 @@ import views.html.common.DateOfBirthView
 class DateOfBirthViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   private val messageKeyPrefix = "authorisedOfficialsDOB"
-  val form: Form[LocalDate] = inject[DateOfBirthFormProvider].apply(messageKeyPrefix)
+  val form: Form[LocalDate]    = inject[DateOfBirthFormProvider].apply(messageKeyPrefix)
 
   "AuthorisedOfficialsDOBViewSpec view" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[DateOfBirthView](Some(emptyUserAnswers))
-      view.apply(form, "Jack", messageKeyPrefix, onwardRoute)(
-        fakeRequest, messages, frontendAppConfig)
+      view.apply(form, "Jack", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jack"), section = Some(messages("officialsAndNominees.section")))
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      Seq("Jack"),
+      section = Some(messages("officialsAndNominees.section"))
+    )
 
     behave like pageWithBackLink(applyView(form))
 

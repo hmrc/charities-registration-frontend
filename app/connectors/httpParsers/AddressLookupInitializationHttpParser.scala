@@ -29,21 +29,20 @@ object AddressLookupInitializationHttpParser {
 
   implicit object AddressLookupInitializationReads extends HttpReads[AddressLookupInitializationResponse] {
 
-    def read(method: String, url: String, response: HttpResponse): AddressLookupInitializationResponse = {
+    def read(method: String, url: String, response: HttpResponse): AddressLookupInitializationResponse =
       response.status match {
         case ACCEPTED =>
           response.header(HeaderNames.LOCATION) match {
             case Some(url) =>
               Right(AddressLookupOnRamp(url))
-            case None =>
+            case None      =>
               logger.warn(s"[AddressLookupInitializationReads][read]: No Location Header returned from Address Lookup")
               Left(NoLocationHeaderReturned)
           }
-        case status =>
+        case status   =>
           logger.error(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
           Left(DefaultedUnexpectedFailure(status))
       }
-    }
   }
 
   case class AddressLookupOnRamp(url: String)

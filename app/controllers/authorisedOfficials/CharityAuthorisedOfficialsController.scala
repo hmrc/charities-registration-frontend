@@ -27,18 +27,17 @@ import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
 
 import scala.concurrent.Future
 
-
-class CharityAuthorisedOfficialsController @Inject()(
-    val userAnswerService: UserAnswerService,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    val controllerComponents: MessagesControllerComponents,
-    view: CharityAuthorisedOfficialsView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class CharityAuthorisedOfficialsController @Inject() (
+  val userAnswerService: UserAnswerService,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val controllerComponents: MessagesControllerComponents,
+  view: CharityAuthorisedOfficialsView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     Future.successful(Ok(view(Index(0))))
   }
 }

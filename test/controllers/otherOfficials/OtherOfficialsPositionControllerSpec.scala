@@ -53,10 +53,10 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "otherOfficialsPosition"
-  private val view: OfficialsPositionView = injector.instanceOf[OfficialsPositionView]
+  private val messageKeyPrefix: String                    = "otherOfficialsPosition"
+  private val view: OfficialsPositionView                 = injector.instanceOf[OfficialsPositionView]
   private val formProvider: OfficialsPositionFormProvider = injector.instanceOf[OfficialsPositionFormProvider]
-  private val form: Form[OfficialsPosition] = formProvider(messageKeyPrefix)
+  private val form: Form[OfficialsPosition]               = formProvider(messageKeyPrefix)
 
   private val controller: OtherOfficialsPositionController = inject[OtherOfficialsPositionController]
 
@@ -72,16 +72,24 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(OtherOfficialsPositionPage(0), OfficialsPosition.UKAgent).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            localUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.UKAgent).getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

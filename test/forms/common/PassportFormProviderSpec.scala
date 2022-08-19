@@ -22,24 +22,24 @@ import forms.behaviours.StringFieldBehaviours
 import models.Passport
 import play.api.data.{Form, FormError}
 
-class PassportFormProviderSpec extends StringFieldBehaviours{
+class PassportFormProviderSpec extends StringFieldBehaviours {
 
-  private val messagePrefix: String = "authorisedOfficialsPassport"
+  private val messagePrefix: String              = "authorisedOfficialsPassport"
   private val formProvider: PassportFormProvider = inject[PassportFormProvider]
-  private val form: Form[Passport] = formProvider(messagePrefix)
-  private val maxLengthCountry = 50
-  private val maxLengthPassport = 30
+  private val form: Form[Passport]               = formProvider(messagePrefix)
+  private val maxLengthCountry                   = 50
+  private val maxLengthPassport                  = 30
 
-  private val today = LocalDate.now
+  private val today      = LocalDate.now
   private val futureDate = today.plusDays(1)
-  private val pastDate = today.minusDays(1)
+  private val pastDate   = today.minusDays(1)
 
   ".passportNumber" must {
 
-    val fieldName = "passportNumber"
+    val fieldName   = "passportNumber"
     val requiredKey = s"$messagePrefix.passportNumber.error.required"
-    val lengthKey = s"$messagePrefix.passportNumber.error.length"
-    val invalidKey = s"$messagePrefix.passportNumber.error.format"
+    val lengthKey   = s"$messagePrefix.passportNumber.error.length"
+    val invalidKey  = s"$messagePrefix.passportNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -70,10 +70,10 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
 
   ".country" must {
 
-    val fieldName = "country"
+    val fieldName   = "country"
     val requiredKey = s"$messagePrefix.country.error.required"
-    val lengthKey = s"$messagePrefix.country.error.length"
-    val invalidKey = s"$messagePrefix.country.error.format"
+    val lengthKey   = s"$messagePrefix.country.error.length"
+    val invalidKey  = s"$messagePrefix.country.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -109,21 +109,28 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
     behave like mandatoryField(
       form,
       s"$fieldName.day",
-      requiredError = FormError(s"$fieldName.day", s"$messagePrefix.error.required.all", Seq("day", "month", "year")))
+      requiredError = FormError(s"$fieldName.day", s"$messagePrefix.error.required.all", Seq("day", "month", "year"))
+    )
 
     "fail to bind an empty date" in {
 
       val result = form.bind(Map("passportNumber" -> "GB123456", "country" -> "GB"))
 
-      result.errors must contain only FormError(s"$fieldName.day", s"$messagePrefix.error.required.all", Seq("day", "month", "year"))
+      result.errors must contain only FormError(
+        s"$fieldName.day",
+        s"$messagePrefix.error.required.all",
+        Seq("day", "month", "year")
+      )
     }
 
     s"fail to bind a today's date" in {
 
-      val data = Map("passportNumber" -> "GB123456", "country" -> "GB",
+      val data = Map(
+        "passportNumber"    -> "GB123456",
+        "country"           -> "GB",
         s"$fieldName.day"   -> today.getDayOfMonth.toString,
         s"$fieldName.month" -> today.getMonthValue.toString,
-        s"$fieldName.year" -> today.getYear.toString
+        s"$fieldName.year"  -> today.getYear.toString
       )
 
       val result = form.bind(data)
@@ -133,10 +140,12 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
 
     s"fail to bind date in past" in {
 
-      val data = Map("passportNumber" -> "GB123456", "country" -> "GB",
+      val data = Map(
+        "passportNumber"    -> "GB123456",
+        "country"           -> "GB",
         s"$fieldName.day"   -> pastDate.getDayOfMonth.toString,
         s"$fieldName.month" -> pastDate.getMonthValue.toString,
-        s"$fieldName.year" -> pastDate.getYear.toString
+        s"$fieldName.year"  -> pastDate.getYear.toString
       )
 
       val result = form.bind(data)
@@ -145,10 +154,12 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
     }
 
     s"bind valid data if date is in future" in {
-      val data = Map("passportNumber" -> "GB123456", "country" -> "GB",
+      val data = Map(
+        "passportNumber"    -> "GB123456",
+        "country"           -> "GB",
         s"$fieldName.day"   -> futureDate.getDayOfMonth.toString,
         s"$fieldName.month" -> futureDate.getMonthValue.toString,
-        s"$fieldName.year" -> futureDate.getYear.toString
+        s"$fieldName.year"  -> futureDate.getYear.toString
       )
 
       val result = form.bind(data)
@@ -163,15 +174,17 @@ class PassportFormProviderSpec extends StringFieldBehaviours{
 
     "apply AuthorisedOfficialsPassport correctly" in {
 
-      val details = form.bind(
-        Map(
-          "passportNumber" -> authorisedOfficialsPassport.passportNumber,
-          "country" -> authorisedOfficialsPassport.country,
-          "expiryDate.year" -> futureDate.getYear.toString,
-          "expiryDate.month" -> futureDate.getMonthValue.toString,
-          "expiryDate.day" -> futureDate.getDayOfMonth.toString
+      val details = form
+        .bind(
+          Map(
+            "passportNumber"   -> authorisedOfficialsPassport.passportNumber,
+            "country"          -> authorisedOfficialsPassport.country,
+            "expiryDate.year"  -> futureDate.getYear.toString,
+            "expiryDate.month" -> futureDate.getMonthValue.toString,
+            "expiryDate.day"   -> futureDate.getDayOfMonth.toString
+          )
         )
-      ).get
+        .get
 
       details.passportNumber mustBe authorisedOfficialsPassport.passportNumber
       details.country mustBe authorisedOfficialsPassport.country

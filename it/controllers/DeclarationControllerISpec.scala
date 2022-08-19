@@ -31,14 +31,17 @@ import java.time.format.DateTimeFormatter
 import scala.concurrent.Future
 import scala.io.Source
 
-class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with WireMockMethods{
+class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with WireMockMethods {
 
-  private def readJsonFromFile(filePath: String): JsValue =  {
-    val result = Source.fromURL(getClass.getResource(filePath)).mkString
+  private def readJsonFromFile(filePath: String): JsValue = {
+    val source = Source.fromURL(getClass.getResource(filePath))
+    val result =
+      try source.mkString
+      finally source.close()
     Json.parse(result)
   }
 
-  private val today  = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+  private val today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
   private val logger = Logger(this.getClass)
 
@@ -75,8 +78,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.info("**********scenario 1**********")
 
-            override def internalId: String = "scenario_1_request"
-            override def requestJson: String = "/scenario_1_request.json"
+            override def internalId: String      = "scenario_1_request"
+            override def requestJson: String     = "/scenario_1_request.json"
             override def transformedJson: String = "/scenario_1_transformed_request.json"
           }
         }
@@ -88,8 +91,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.info("**********scenario 2**********")
 
-            override def internalId: String = "scenario_2_request"
-            override def requestJson: String = "/scenario_2_request.json"
+            override def internalId: String      = "scenario_2_request"
+            override def requestJson: String     = "/scenario_2_request.json"
             override def transformedJson: String = "/scenario_2_transformed_request.json"
           }
         }
@@ -101,8 +104,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.info("**********scenario 3**********")
 
-            override def internalId: String = "scenario_3_request"
-            override def requestJson: String = "/scenario_3_request.json"
+            override def internalId: String      = "scenario_3_request"
+            override def requestJson: String     = "/scenario_3_request.json"
             override def transformedJson: String = "/scenario_3_transformed_request.json"
           }
         }
@@ -114,8 +117,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.info("**********scenario 4**********")
 
-            override def internalId: String = "scenario_4_request"
-            override def requestJson: String = "/scenario_4_request.json"
+            override def internalId: String      = "scenario_4_request"
+            override def requestJson: String     = "/scenario_4_request.json"
             override def transformedJson: String = "/scenario_4_transformed_request.json"
           }
         }
@@ -127,8 +130,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.info("**********scenario 5**********")
 
-            override def internalId: String = "scenario_5_request"
-            override def requestJson: String = "/scenario_5_request.json"
+            override def internalId: String      = "scenario_5_request"
+            override def requestJson: String     = "/scenario_5_request.json"
             override def transformedJson: String = "/scenario_5_transformed_request.json"
           }
         }
@@ -140,8 +143,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.info("**********scenario 6**********")
 
-            override def internalId: String = "scenario_6_request"
-            override def requestJson: String = "/scenario_6_request.json"
+            override def internalId: String      = "scenario_6_request"
+            override def requestJson: String     = "/scenario_6_request.json"
             override def transformedJson: String = "/scenario_6_transformed_request.json"
           }
         }
@@ -153,8 +156,8 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
 
             logger.info("**********scenario 7**********")
 
-            override def internalId: String = "scenario_7_request"
-            override def requestJson: String = "/scenario_7_request.json"
+            override def internalId: String      = "scenario_7_request"
+            override def requestJson: String     = "/scenario_7_request.json"
             override def transformedJson: String = "/scenario_7_transformed_request.json"
           }
         }
@@ -174,7 +177,9 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
         ).get
 
         status(response) mustBe SEE_OTHER
-        Helpers.redirectLocation(response) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
+        Helpers.redirectLocation(response) mustBe Some(
+          controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url
+        )
       }
     }
   }

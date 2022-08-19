@@ -32,7 +32,7 @@ import views.html.common.PassportView
 
 import scala.concurrent.Future
 
-class OrganisationAuthorisedPersonPassportController @Inject()(
+class OrganisationAuthorisedPersonPassportController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -42,28 +42,37 @@ class OrganisationAuthorisedPersonPassportController @Inject()(
   override val navigator: NomineesNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PassportView
-  )(implicit appConfig: FrontendAppConfig) extends PassportController {
+)(implicit appConfig: FrontendAppConfig)
+    extends PassportController {
 
   override val messagePrefix: String = "organisationAuthorisedPersonPassport"
-  private val form: Form[Passport] = formProvider(messagePrefix)
+  private val form: Form[Passport]   = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OrganisationAuthorisedPersonNamePage) { authorisedPersonsName =>
-
-        Future.successful(getView(OrganisationAuthorisedPersonPassportPage, form, authorisedPersonsName,
-          controllers.nominees.routes.OrganisationAuthorisedPersonPassportController.onSubmit(mode)))
+        Future.successful(
+          getView(
+            OrganisationAuthorisedPersonPassportPage,
+            form,
+            authorisedPersonsName,
+            controllers.nominees.routes.OrganisationAuthorisedPersonPassportController.onSubmit(mode)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OrganisationAuthorisedPersonNamePage) { authorisedPersonsName =>
-
-        postView(mode, OrganisationAuthorisedPersonPassportPage, form, authorisedPersonsName, Section9Page,
-          controllers.nominees.routes.OrganisationAuthorisedPersonPassportController.onSubmit(mode))
+        postView(
+          mode,
+          OrganisationAuthorisedPersonPassportPage,
+          form,
+          authorisedPersonsName,
+          Section9Page,
+          controllers.nominees.routes.OrganisationAuthorisedPersonPassportController.onSubmit(mode)
+        )
       }
   }
 

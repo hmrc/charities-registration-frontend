@@ -27,7 +27,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
-class CharityPostalAddressLookupController @Inject()(
+class CharityPostalAddressLookupController @Inject() (
   override val sessionRepository: UserAnswerService,
   override val navigator: CharityInformationNavigator,
   identify: AuthIdentifierAction,
@@ -36,13 +36,13 @@ class CharityPostalAddressLookupController @Inject()(
   override val addressLookupConnector: AddressLookupConnector,
   override val errorHandler: ErrorHandler,
   val controllerComponents: MessagesControllerComponents
- )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
+)(implicit appConfig: FrontendAppConfig)
+    extends BaseAddressController {
 
   override val messagePrefix: String = "charityPostalAddress"
 
-  def initializeJourney: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      addressLookupInitialize(controllers.addressLookup.routes.CharityPostalAddressLookupController.callback().url)
+  def initializeJourney: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    addressLookupInitialize(controllers.addressLookup.routes.CharityPostalAddressLookupController.callback().url)
   }
 
   def callback(id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {

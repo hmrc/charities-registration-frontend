@@ -36,30 +36,32 @@ object SelectTitle extends Enumerable.Implicits {
   case object UnsupportedTitle extends WithName("unsupported") with SelectTitle
 
   val values: Seq[SelectTitle] = Seq(
-    Mr, Mrs, Miss, Ms
+    Mr,
+    Mrs,
+    Miss,
+    Ms
   )
 
   val valuesAndUnsupported: Seq[SelectTitle] = values :+ UnsupportedTitle
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
-    value =>
-      RadioItem(
-        value = Some(value.toString),
-        content = Text(messages(s"nameTitle.${value.toString}")),
-        checked = form("value").value.contains(value.toString)
-      )
+  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+    RadioItem(
+      value = Some(value.toString),
+      content = Text(messages(s"nameTitle.${value.toString}")),
+      checked = form("value").value.contains(value.toString)
+    )
   }
 
   implicit val enumerable: Enumerable[SelectTitle] =
     Enumerable(valuesAndUnsupported.map(v => v.toString -> v): _*)
 }
 
-
 case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {
 
   def getFullName: String = Seq(Some(firstName), middleName, Some(lastName)).flatten.mkString(" ")
 
-  def getFullNameWithTitle(implicit messages: Messages): String = messages(s"nameTitle.${title.toString}") + s" $getFullName"
+  def getFullNameWithTitle(implicit messages: Messages): String =
+    messages(s"nameTitle.${title.toString}") + s" $getFullName"
 
 }
 

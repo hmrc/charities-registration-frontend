@@ -27,26 +27,27 @@ import play.api.mvc._
 import service.CountryService
 import views.html.common.ConfirmAddressView
 
-class ConfirmNomineeIndividualPreviousAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: ConfirmAddressView,
-    override implicit val appConfig: FrontendAppConfig
-  ) extends ConfirmAddressController {
+class ConfirmNomineeIndividualPreviousAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: ConfirmAddressView,
+  override implicit val appConfig: FrontendAppConfig
+) extends ConfirmAddressController {
 
   override val messagePrefix: String = "nomineeIndividualPreviousAddress"
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-        getView(controllers.nominees.routes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode),
-          NomineeIndividualPreviousAddressLookupPage,
-          controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(NormalMode),
-          controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(NormalMode),
-          Some(individualNomineeName))
-      }
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+      getView(
+        controllers.nominees.routes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode),
+        NomineeIndividualPreviousAddressLookupPage,
+        controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(NormalMode),
+        controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(NormalMode),
+        Some(individualNomineeName)
+      )
+    }
   }
 }

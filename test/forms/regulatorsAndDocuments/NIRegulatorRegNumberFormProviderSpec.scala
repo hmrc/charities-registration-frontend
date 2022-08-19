@@ -22,13 +22,13 @@ import play.api.data.{Form, FormError}
 class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   private val formProvider: NIRegulatorRegNumberFormProvider = inject[NIRegulatorRegNumberFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                             = formProvider()
 
   ".nIRegistrationNumber" must {
 
-    val fieldName = "nIRegistrationNumber"
+    val fieldName   = "nIRegistrationNumber"
     val requiredKey = "nIRegulatorRegNumber.error.required"
-    val invalidKey = "nIRegulatorRegNumber.error.format"
+    val invalidKey  = "nIRegulatorRegNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -56,11 +56,13 @@ class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
     "apply NIRegulatorRegNumber correctly" in {
 
-      val details = form.bind(
-        Map(
-          "nIRegistrationNumber" -> nIRegulatorRegNumber,
+      val details = form
+        .bind(
+          Map(
+            "nIRegistrationNumber" -> nIRegulatorRegNumber
+          )
         )
-      ).get
+        .get
 
       details mustBe nIRegulatorRegNumber
     }
@@ -83,7 +85,5 @@ class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
       "01632 960" mustNot fullyMatch regex formProvider.validateRegistrationNumberNI
     }
   }
-
-
 
 }

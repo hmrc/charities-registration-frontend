@@ -25,25 +25,25 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours
 import views.html.operationsAndFunds.CharitablePurposesView
 
-
 class CharitablePurposesViewSpec extends CheckboxViewBehaviours[CharitablePurposes] {
 
-  private val messageKeyPrefix: String = "charitablePurposes"
-  private val section: String = messages("operationsAndFunds.section")
+  private val messageKeyPrefix: String    = "charitablePurposes"
+  private val section: String             = messages("operationsAndFunds.section")
   val form: Form[Set[CharitablePurposes]] = inject[CharitablePurposesFormProvider].apply()
 
-    "CharitablePurposesView" must {
+  "CharitablePurposesView" must {
 
-      def applyView(form: Form[Set[CharitablePurposes]]): HtmlFormat.Appendable = {
-          val view = viewFor[CharitablePurposesView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[Set[CharitablePurposes]]): HtmlFormat.Appendable = {
+      val view = viewFor[CharitablePurposesView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like checkboxPage(form, applyView, messageKeyPrefix, CharitablePurposes.options(form), section)
+    behave like checkboxPage(form, applyView, messageKeyPrefix, CharitablePurposes.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-  }}
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  }
+}

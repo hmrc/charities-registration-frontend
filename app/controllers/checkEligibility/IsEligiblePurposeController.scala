@@ -32,34 +32,31 @@ import views.html.checkEligibility.IsEligiblePurposeView
 
 import scala.concurrent.Future
 
-class IsEligiblePurposeController @Inject()(
-   val sessionRepository: SessionRepository,
-   val navigator: EligibilityNavigator,
-   identify: SessionIdentifierAction,
-   getData: DataRetrievalAction,
-   formProvider: IsEligiblePurposeFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: IsEligiblePurposeView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class IsEligiblePurposeController @Inject() (
+  val sessionRepository: SessionRepository,
+  val navigator: EligibilityNavigator,
+  identify: SessionIdentifierAction,
+  getData: DataRetrievalAction,
+  formProvider: IsEligiblePurposeFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: IsEligiblePurposeView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData).async {
-    implicit request =>
-
-      val preparedForm = request.userAnswers.flatMap(_.get(IsEligiblePurposePage)) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Future.successful(Ok(view(preparedForm, mode)))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData).async { implicit request =>
+    val preparedForm = request.userAnswers.flatMap(_.get(IsEligiblePurposePage)) match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Future.successful(Ok(view(preparedForm, mode)))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData).async {
-    implicit request =>
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
-
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
         value =>
           for {
             updatedAnswers <- Future.fromTry(UserAnswers(request.internalId).set(IsEligiblePurposePage, value))

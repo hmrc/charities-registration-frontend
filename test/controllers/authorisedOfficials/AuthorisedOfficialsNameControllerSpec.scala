@@ -52,10 +52,10 @@ class AuthorisedOfficialsNameControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "authorisedOfficialsName"
-  private val view: NameView = injector.instanceOf[NameView]
+  private val messageKeyPrefix               = "authorisedOfficialsName"
+  private val view: NameView                 = injector.instanceOf[NameView]
   private val formProvider: NameFormProvider = injector.instanceOf[NameFormProvider]
-  private val form: Form[Name] = formProvider(messageKeyPrefix)
+  private val form: Form[Name]               = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialsNameController = inject[AuthorisedOfficialsNameController]
 
@@ -63,21 +63,25 @@ class AuthorisedOfficialsNameControllerSpec extends SpecBase with BeforeAndAfter
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, messageKeyPrefix,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+      val userAnswers = emptyUserAnswers
+        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -89,10 +93,15 @@ class AuthorisedOfficialsNameControllerSpec extends SpecBase with BeforeAndAfter
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", SelectTitle.values.head.toString), "firstName" -> "FName", "middleName" -> "MName", "lastName" -> "LName")
+      val request = fakeRequest.withFormUrlEncodedBody(
+        ("value", SelectTitle.values.head.toString),
+        "firstName"  -> "FName",
+        "middleName" -> "MName",
+        "lastName"   -> "LName"
+      )
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
@@ -106,7 +115,7 @@ class AuthorisedOfficialsNameControllerSpec extends SpecBase with BeforeAndAfter
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

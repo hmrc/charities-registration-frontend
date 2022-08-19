@@ -53,14 +53,14 @@ class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndA
     reset(mockUserAnswerService)
   }
 
-  private val view: IsApprovedGoverningDocumentView = inject[IsApprovedGoverningDocumentView]
+  private val view: IsApprovedGoverningDocumentView                 = inject[IsApprovedGoverningDocumentView]
   private val formProvider: IsApprovedGoverningDocumentFormProvider = inject[IsApprovedGoverningDocumentFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val form: Form[Boolean]                                   = formProvider()
 
   private val controller: IsApprovedGoverningDocumentController = inject[IsApprovedGoverningDocumentController]
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage,
-    SelectGoverningDocument.Will).success.value
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value
 
   "IsApprovedGoverningDocumentController Controller " must {
 
@@ -75,11 +75,11 @@ class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndA
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsApprovedGoverningDocumentPage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(localUserAnswers.set(IsApprovedGoverningDocumentPage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

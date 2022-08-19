@@ -52,9 +52,10 @@ class IsEligibleLocationOtherControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockSessionRepository)
   }
 
-  private val view: IsEligibleLocationOtherView = injector.instanceOf[IsEligibleLocationOtherView]
-  private val formProvider: IsEligibleLocationOtherFormProvider = injector.instanceOf[IsEligibleLocationOtherFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val view: IsEligibleLocationOtherView                 = injector.instanceOf[IsEligibleLocationOtherView]
+  private val formProvider: IsEligibleLocationOtherFormProvider =
+    injector.instanceOf[IsEligibleLocationOtherFormProvider]
+  private val form: Form[Boolean]                               = formProvider()
 
   private val controller: IsEligibleLocationOtherController = inject[IsEligibleLocationOtherController]
 
@@ -73,13 +74,18 @@ class IsEligibleLocationOtherControllerSpec extends SpecBase with BeforeAndAfter
 
     "return OK and the correct view for a GET when user has already answered" in {
 
-      when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(
-        emptyUserAnswers.set(IsEligibleLocationOtherPage, true).getOrElse(emptyUserAnswers))))
+      when(mockSessionRepository.get(any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(IsEligibleLocationOtherPage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form.fill(true), NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form.fill(true), NormalMode)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      ).toString
       verify(mockSessionRepository, times(1)).get(any())
     }
 

@@ -22,16 +22,16 @@ import play.api.data.{Form, FormError}
 
 class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
-  private val maxLength = 160
+  private val maxLength                                       = 160
   private val formProvider: CharityContactDetailsFormProvider = inject[CharityContactDetailsFormProvider]
-  private val form: Form[CharityContactDetails] = formProvider()
+  private val form: Form[CharityContactDetails]               = formProvider()
 
   ".mainPhoneNumber" must {
 
     val fieldName = "mainPhoneNumber"
 
     val requiredKey = "charityContactDetails.mainPhoneNumber.error.required"
-    val invalidKey = "charityContactDetails.mainPhoneNumber.error.format"
+    val invalidKey  = "charityContactDetails.mainPhoneNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -77,9 +77,9 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
     val fieldName = "emailAddress"
 
-    val lengthKey = "charityContactDetails.emailAddress.error.length"
+    val lengthKey   = "charityContactDetails.emailAddress.error.length"
     val requiredKey = "charityContactDetails.emailAddress.error.required"
-    val invalidKey = "charityContactDetails.emailAddress.error.format"
+    val invalidKey  = "charityContactDetails.emailAddress.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -114,13 +114,15 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "apply CharityContactDetails correctly" in {
 
-      val details = form.bind(
-        Map(
-          "mainPhoneNumber" -> charityContactDetails.daytimePhone,
-          "alternativePhoneNumber" -> charityContactDetails.mobilePhone.get,
-          "emailAddress"-> charityContactDetails.emailAddress
+      val details = form
+        .bind(
+          Map(
+            "mainPhoneNumber"        -> charityContactDetails.daytimePhone,
+            "alternativePhoneNumber" -> charityContactDetails.mobilePhone.get,
+            "emailAddress"           -> charityContactDetails.emailAddress
+          )
         )
-      ).get
+        .get
 
       details.daytimePhone mustBe charityContactDetails.daytimePhone
       details.mobilePhone mustBe charityContactDetails.mobilePhone

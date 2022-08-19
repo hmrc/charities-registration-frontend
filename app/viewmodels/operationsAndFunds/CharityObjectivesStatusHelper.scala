@@ -23,13 +23,12 @@ import viewmodels.StatusHelper
 
 object CharityObjectivesStatusHelper extends StatusHelper {
 
-    private val allPages: Seq[QuestionPage[_]] = Seq(
-      CharitableObjectivesPage,
-      CharitablePurposesPage,
-      PublicBenefitsPage
-    )
+  private val allPages: Seq[QuestionPage[_]] = Seq(
+    CharitableObjectivesPage,
+    CharitablePurposesPage,
+    PublicBenefitsPage
+  )
 
-  override def checkComplete(userAnswers: UserAnswers): Boolean = {
+  override def checkComplete(userAnswers: UserAnswers): Boolean =
     userAnswers.arePagesDefined(allPages)
-  }
 }

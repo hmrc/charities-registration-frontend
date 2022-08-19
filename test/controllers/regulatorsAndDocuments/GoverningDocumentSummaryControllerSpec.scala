@@ -68,10 +68,18 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
 
     "return OK and the correct view for a GET if user has answered section" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(SelectGoverningDocumentPage,
-        SelectGoverningDocument.TrustDeed).flatMap(
-        _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))).flatMap(
-        _.set(IsApprovedGoverningDocumentPage, false)).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(SelectGoverningDocumentPage, SelectGoverningDocument.TrustDeed)
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 

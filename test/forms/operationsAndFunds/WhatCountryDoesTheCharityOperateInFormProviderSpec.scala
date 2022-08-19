@@ -25,7 +25,7 @@ class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBeha
 
   ".country" must {
 
-    val fieldName = "country"
+    val fieldName   = "country"
     val requiredKey = "whatCountryDoesTheCharityOperateIn.error.required"
 
     behave like fieldThatBindsValidData(
@@ -41,6 +41,5 @@ class WhatCountryDoesTheCharityOperateInFormProviderSpec extends StringFieldBeha
     )
 
   }
-
 
 }

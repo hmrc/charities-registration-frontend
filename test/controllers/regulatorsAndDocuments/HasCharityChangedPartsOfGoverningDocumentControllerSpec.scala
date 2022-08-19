@@ -53,14 +53,17 @@ class HasCharityChangedPartsOfGoverningDocumentControllerSpec extends SpecBase w
     reset(mockUserAnswerService)
   }
 
-  private val view: HasCharityChangedPartsOfGoverningDocumentView = inject[HasCharityChangedPartsOfGoverningDocumentView]
-  private val formProvider: HasCharityChangedPartsOfGoverningDocumentFormProvider = inject[HasCharityChangedPartsOfGoverningDocumentFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val view: HasCharityChangedPartsOfGoverningDocumentView                 =
+    inject[HasCharityChangedPartsOfGoverningDocumentView]
+  private val formProvider: HasCharityChangedPartsOfGoverningDocumentFormProvider =
+    inject[HasCharityChangedPartsOfGoverningDocumentFormProvider]
+  private val form: Form[Boolean]                                                 = formProvider()
 
-  private val controller: HasCharityChangedPartsOfGoverningDocumentController = inject[HasCharityChangedPartsOfGoverningDocumentController]
+  private val controller: HasCharityChangedPartsOfGoverningDocumentController =
+    inject[HasCharityChangedPartsOfGoverningDocumentController]
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage,
-    SelectGoverningDocument.Will).success.value
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value
 
   "HasCharityChangedPartsofGoverningDocument Controller" must {
 
@@ -75,11 +78,13 @@ class HasCharityChangedPartsOfGoverningDocumentControllerSpec extends SpecBase w
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(HasCharityChangedPartsOfGoverningDocumentPage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(localUserAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage, true).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

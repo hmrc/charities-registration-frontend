@@ -24,13 +24,13 @@ import scala.util.Try
 
 case object IsAuthoriseNomineePage extends QuestionPage[Boolean] {
 
-  override def path: JsPath = JsPath \"nominee" \ toString
+  override def path: JsPath = JsPath \ "nominee" \ toString
 
   override def toString: String = "isAuthoriseNominee"
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
       case Some(false) => userAnswers.remove(Seq(NomineeOrganisationIdPage, NomineeIndividualIdPage, ChooseNomineePage))
-      case _ => super.cleanup(value, userAnswers)
+      case _           => super.cleanup(value, userAnswers)
     }
 }

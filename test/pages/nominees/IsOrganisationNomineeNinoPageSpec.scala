@@ -18,7 +18,7 @@ package pages.nominees
 
 import pages.behaviours.PageBehaviours
 
-class IsOrganisationNomineeNinoPageSpec extends PageBehaviours{
+class IsOrganisationNomineeNinoPageSpec extends PageBehaviours {
 
   "IsOrganisationNomineeNinoPage" must {
 

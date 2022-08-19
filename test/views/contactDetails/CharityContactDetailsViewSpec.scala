@@ -24,24 +24,23 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.contactDetails.CharityContactDetailsView
 
-
 class CharityContactDetailsViewSpec extends QuestionViewBehaviours[CharityContactDetails] {
 
-  private val messageKeyPrefix = "charityContactDetails"
+  private val messageKeyPrefix          = "charityContactDetails"
   val form: Form[CharityContactDetails] = inject[CharityContactDetailsFormProvider].apply()
 
-    "CharityContactDetailsView" must {
+  "CharityContactDetailsView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[CharityContactDetailsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("contactDetail.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[CharityContactDetailsView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("contactDetail.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

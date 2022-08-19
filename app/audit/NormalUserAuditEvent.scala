@@ -22,8 +22,6 @@ case class NormalUserAuditEvent(submission: JsValue, override val auditType: Str
 
   override def transactionName: String = "CharitiesRewriteUser"
 
-  override def details: JsValue = {
+  override def details: JsValue =
     submission
-  }
 }
-

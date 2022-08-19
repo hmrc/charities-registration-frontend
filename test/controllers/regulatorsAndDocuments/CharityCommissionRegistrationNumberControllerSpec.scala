@@ -52,11 +52,14 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
     reset(mockUserAnswerService)
   }
 
-  private val view: CharityCommissionRegistrationNumberView = injector.instanceOf[CharityCommissionRegistrationNumberView]
-  private val formProvider: CharityCommissionRegistrationNumberFormProvider = injector.instanceOf[CharityCommissionRegistrationNumberFormProvider]
-  private val form: Form[String] = formProvider()
+  private val view: CharityCommissionRegistrationNumberView                 =
+    injector.instanceOf[CharityCommissionRegistrationNumberView]
+  private val formProvider: CharityCommissionRegistrationNumberFormProvider =
+    injector.instanceOf[CharityCommissionRegistrationNumberFormProvider]
+  private val form: Form[String]                                            = formProvider()
 
-  private val controller: CharityCommissionRegistrationNumberController = inject[CharityCommissionRegistrationNumberController]
+  private val controller: CharityCommissionRegistrationNumberController =
+    inject[CharityCommissionRegistrationNumberController]
 
   private val requestArgs = Seq("registrationNumber" -> "1234567")
 
@@ -64,7 +67,7 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -72,7 +75,6 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
@@ -88,10 +90,10 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -105,7 +107,7 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -128,7 +130,7 @@ class CharityCommissionRegistrationNumberControllerSpec extends SpecBase with Be
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 

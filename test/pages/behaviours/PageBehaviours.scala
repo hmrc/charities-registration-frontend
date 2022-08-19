@@ -27,7 +27,13 @@ import pages.QuestionPage
 import play.api.libs.json._
 import utils.Generators
 
-trait PageBehaviours extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with Generators with OptionValues with TryValues {
+trait PageBehaviours
+    extends AnyWordSpec
+    with Matchers
+    with ScalaCheckPropertyChecks
+    with Generators
+    with OptionValues
+    with TryValues {
 
   class BeRetrievable[A] {
     def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A]): Unit = {
@@ -41,10 +47,9 @@ trait PageBehaviours extends AnyWordSpec with Matchers with ScalaCheckPropertyCh
             userAnswers <- arbitrary[UserAnswers]
           } yield (page, userAnswers.remove(page).success.value)
 
-          forAll(gen) {
-            case (page, userAnswers) =>
-              s"the question has not been answered $page" in {
-                userAnswers.get(page) must be(empty)
+          forAll(gen) { case (page, userAnswers) =>
+            s"the question has not been answered $page" in {
+              userAnswers.get(page) must be(empty)
             }
           }
         }
@@ -59,10 +64,9 @@ trait PageBehaviours extends AnyWordSpec with Matchers with ScalaCheckPropertyCh
             userAnswers <- arbitrary[UserAnswers]
           } yield (page, savedValue, userAnswers.set(page, savedValue).success.value)
 
-          forAll(gen) {
-            case (page, savedValue, userAnswers) =>
-              s"the question has been answered $page and $savedValue" in {
-                userAnswers.get(page).value mustEqual savedValue
+          forAll(gen) { case (page, savedValue, userAnswers) =>
+            s"the question has been answered $page and $savedValue" in {
+              userAnswers.get(page).value mustEqual savedValue
             }
           }
         }
@@ -79,11 +83,10 @@ trait PageBehaviours extends AnyWordSpec with Matchers with ScalaCheckPropertyCh
         userAnswers <- arbitrary[UserAnswers]
       } yield (page, newValue, userAnswers)
 
-      forAll(gen) {
-        case (page, newValue, userAnswers) =>
-          s"be able to be set on UserAnswers $page and $newValue" in {
-            val updatedAnswers = userAnswers.set(page, newValue).success.value
-            updatedAnswers.get(page).value mustEqual newValue
+      forAll(gen) { case (page, newValue, userAnswers) =>
+        s"be able to be set on UserAnswers $page and $newValue" in {
+          val updatedAnswers = userAnswers.set(page, newValue).success.value
+          updatedAnswers.get(page).value mustEqual newValue
         }
       }
     }
@@ -97,11 +100,10 @@ trait PageBehaviours extends AnyWordSpec with Matchers with ScalaCheckPropertyCh
         userAnswers <- arbitrary[UserAnswers]
       } yield (page, userAnswers.set(page, savedValue).success.value)
 
-      forAll(gen) {
-        case (page, userAnswers) =>
-          s"be able to be removed from UserAnswers $page" in {
-            val updatedAnswers = userAnswers.remove(page).success.value
-            updatedAnswers.get(page) must be(empty)
+      forAll(gen) { case (page, userAnswers) =>
+        s"be able to be removed from UserAnswers $page" in {
+          val updatedAnswers = userAnswers.remove(page).success.value
+          updatedAnswers.get(page) must be(empty)
         }
       }
     }

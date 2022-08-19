@@ -53,9 +53,9 @@ class CharityEstablishedInControllerSpec extends SpecBase with BeforeAndAfterEac
     reset(mockUserAnswerService)
   }
 
-  private val view: CharityEstablishedInView = inject[CharityEstablishedInView]
+  private val view: CharityEstablishedInView                 = inject[CharityEstablishedInView]
   private val formProvider: CharityEstablishedInFormProvider = inject[CharityEstablishedInFormProvider]
-  private val form: Form[CharityEstablishedOptions] = formProvider()
+  private val form: Form[CharityEstablishedOptions]          = formProvider()
 
   private val controller: CharityEstablishedInController = inject[CharityEstablishedInController]
 
@@ -72,11 +72,17 @@ class CharityEstablishedInControllerSpec extends SpecBase with BeforeAndAfterEac
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(CharityEstablishedInPage, CharityEstablishedOptions.England).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(CharityEstablishedInPage, CharityEstablishedOptions.England)
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

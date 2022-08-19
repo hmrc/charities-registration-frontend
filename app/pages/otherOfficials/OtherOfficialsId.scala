@@ -28,5 +28,3 @@ object OtherOfficialsId {
 
   override def toString: String = "otherOfficials"
 }
-
-

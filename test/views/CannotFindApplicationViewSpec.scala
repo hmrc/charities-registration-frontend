@@ -20,25 +20,29 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.CannotFindApplicationView
 
-
-class CannotFindApplicationViewSpec extends ViewBehaviours  {
+class CannotFindApplicationViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "cannotFindApplication"
 
-    "CannotFindApplicationView" must {
+  "CannotFindApplicationView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[CannotFindApplicationView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix)
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.signOutUrl, messages("cannotFindApplication.p1.link"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[CannotFindApplicationView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix)
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "link",
+      frontendAppConfig.signOutUrl,
+      messages("cannotFindApplication.p1.link")
+    )
+
   }
+}

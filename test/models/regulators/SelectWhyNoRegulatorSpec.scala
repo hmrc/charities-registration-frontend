@@ -24,7 +24,6 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-
 class SelectWhyNoRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with OptionValues {
 
   "SelectWhyNoRegulator" must {
@@ -33,10 +32,11 @@ class SelectWhyNoRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheck
 
       val gen = Gen.oneOf(SelectWhyNoRegulator.values)
 
-      forAll(gen) {
-        selectWhyNoRegulator =>
-
-          JsString(selectWhyNoRegulator.toString).validate[SelectWhyNoRegulator].asOpt.value mustEqual selectWhyNoRegulator
+      forAll(gen) { selectWhyNoRegulator =>
+        JsString(selectWhyNoRegulator.toString)
+          .validate[SelectWhyNoRegulator]
+          .asOpt
+          .value mustEqual selectWhyNoRegulator
       }
     }
 
@@ -44,10 +44,8 @@ class SelectWhyNoRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheck
 
       val gen = arbitrary[String] suchThat (!SelectWhyNoRegulator.values.map(_.toString).contains(_))
 
-      forAll(gen) {
-        invalidValue =>
-
-          JsString(invalidValue).validate[SelectWhyNoRegulator] mustEqual JsError("error.invalid")
+      forAll(gen) { invalidValue =>
+        JsString(invalidValue).validate[SelectWhyNoRegulator] mustEqual JsError("error.invalid")
       }
     }
 
@@ -55,10 +53,8 @@ class SelectWhyNoRegulatorSpec extends AnyWordSpec with Matchers with ScalaCheck
 
       val gen = Gen.oneOf(SelectWhyNoRegulator.values)
 
-      forAll(gen) {
-        selectWhyNoRegulator =>
-
-          Json.toJson(selectWhyNoRegulator) mustEqual JsString(selectWhyNoRegulator.toString)
+      forAll(gen) { selectWhyNoRegulator =>
+        Json.toJson(selectWhyNoRegulator) mustEqual JsString(selectWhyNoRegulator.toString)
       }
     }
   }

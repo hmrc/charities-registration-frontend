@@ -20,7 +20,7 @@ import play.api.libs.json.{JsString, Writes}
 import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
 package object addressLookup {
-  implicit val writesSafeRedirectUrl: Writes[SafeRedirectUrl] = Writes {
-    url => JsString(url.url)
+  implicit val writesSafeRedirectUrl: Writes[SafeRedirectUrl] = Writes { url =>
+    JsString(url.url)
   }
 }

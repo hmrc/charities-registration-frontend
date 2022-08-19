@@ -27,23 +27,20 @@ import views.html.nominees.OrganisationNomineeAuthorisedPersonView
 
 import scala.concurrent.Future
 
+class OrganisationNomineeAuthorisedPersonController @Inject() (
+  val userAnswerService: UserAnswerService,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val controllerComponents: MessagesControllerComponents,
+  view: OrganisationNomineeAuthorisedPersonView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
-class OrganisationNomineeAuthorisedPersonController @Inject()(
-    val userAnswerService: UserAnswerService,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    val controllerComponents: MessagesControllerComponents,
-    view: OrganisationNomineeAuthorisedPersonView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    getOrganisationName(OrganisationNomineeNamePage) { name =>
+      Future.successful(Ok(view(name)))
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      getOrganisationName(OrganisationNomineeNamePage) { name =>
-
-        Future.successful(Ok(view(name)))
-
-      }
+    }
   }
 }

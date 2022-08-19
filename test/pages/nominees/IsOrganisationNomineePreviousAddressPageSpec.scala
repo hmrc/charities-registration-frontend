@@ -18,7 +18,7 @@ package pages.nominees
 
 import pages.behaviours.PageBehaviours
 
-class IsOrganisationNomineePreviousAddressPageSpec extends PageBehaviours{
+class IsOrganisationNomineePreviousAddressPageSpec extends PageBehaviours {
 
   "IsOrganisationNomineePreviousAddressPage" must {
 

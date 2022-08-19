@@ -52,8 +52,10 @@ class AddedAuthorisedOfficialControllerSpec extends SpecBase with BeforeAndAfter
   }
 
   private val controller: AddedAuthorisedOfficialController = inject[AddedAuthorisedOfficialController]
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+  private val localUserAnswers: UserAnswers                 = emptyUserAnswers
+    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .success
+    .value
 
   "AddedAuthorisedOfficialController Controller" must {
 

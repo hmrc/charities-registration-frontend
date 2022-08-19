@@ -23,12 +23,12 @@ import play.api.data.{Form, FormError}
 class PhoneNumberFormProviderSpec extends StringFieldBehaviours {
 
   private val formProvider: PhoneNumberFormProvider = inject[PhoneNumberFormProvider]
-  private val form: Form[PhoneNumber] = formProvider("authorisedOfficialsPhoneNumber")
+  private val form: Form[PhoneNumber]               = formProvider("authorisedOfficialsPhoneNumber")
 
   ".mainPhoneNumber" must {
 
     val requiredKey = "authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required"
-    val invalidKey = "authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format"
+    val invalidKey  = "authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format"
 
     val fieldName = "mainPhoneNumber"
 
@@ -54,7 +54,7 @@ class PhoneNumberFormProviderSpec extends StringFieldBehaviours {
 
   ".alternativePhoneNumber" must {
 
-    val fieldName = "alternativePhoneNumber"
+    val fieldName  = "alternativePhoneNumber"
     val invalidKey = "authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format"
 
     behave like fieldThatBindsValidData(
@@ -78,12 +78,14 @@ class PhoneNumberFormProviderSpec extends StringFieldBehaviours {
 
     "apply AuthorisedOfficialsPhoneNumber correctly" in {
 
-      val details = form.bind(
-        Map(
-          "mainPhoneNumber" -> authorisedOfficialsPhoneNumber.daytimePhone,
-          "alternativePhoneNumber" -> authorisedOfficialsPhoneNumber.mobilePhone.get
+      val details = form
+        .bind(
+          Map(
+            "mainPhoneNumber"        -> authorisedOfficialsPhoneNumber.daytimePhone,
+            "alternativePhoneNumber" -> authorisedOfficialsPhoneNumber.mobilePhone.get
+          )
         )
-      ).get
+        .get
 
       details.daytimePhone mustBe authorisedOfficialsPhoneNumber.daytimePhone
       details.mobilePhone mustBe authorisedOfficialsPhoneNumber.mobilePhone

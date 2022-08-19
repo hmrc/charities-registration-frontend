@@ -24,7 +24,6 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-
 class CharitablePurposesSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with OptionValues {
 
   "CharitablePurposes" must {
@@ -33,10 +32,11 @@ class CharitablePurposesSpec extends AnyWordSpec with Matchers with ScalaCheckPr
 
       val gen = Gen.oneOf(CharitablePurposes.values)
 
-      forAll(gen) {
-        charitablePurposesCheckbox =>
-
-          JsString(charitablePurposesCheckbox.toString).validate[CharitablePurposes].asOpt.value mustEqual charitablePurposesCheckbox
+      forAll(gen) { charitablePurposesCheckbox =>
+        JsString(charitablePurposesCheckbox.toString)
+          .validate[CharitablePurposes]
+          .asOpt
+          .value mustEqual charitablePurposesCheckbox
       }
     }
 
@@ -44,10 +44,8 @@ class CharitablePurposesSpec extends AnyWordSpec with Matchers with ScalaCheckPr
 
       val gen = arbitrary[String] suchThat (!CharitablePurposes.values.map(_.toString).contains(_))
 
-      forAll(gen) {
-        invalidValue =>
-
-          JsString(invalidValue).validate[CharitablePurposes] mustEqual JsError("error.invalid")
+      forAll(gen) { invalidValue =>
+        JsString(invalidValue).validate[CharitablePurposes] mustEqual JsError("error.invalid")
       }
     }
 
@@ -55,10 +53,8 @@ class CharitablePurposesSpec extends AnyWordSpec with Matchers with ScalaCheckPr
 
       val gen = Gen.oneOf(CharitablePurposes.values)
 
-      forAll(gen) {
-        charitablePurposesCheckbox =>
-
-          Json.toJson(charitablePurposesCheckbox) mustEqual JsString(charitablePurposesCheckbox.toString)
+      forAll(gen) { charitablePurposesCheckbox =>
+        Json.toJson(charitablePurposesCheckbox) mustEqual JsString(charitablePurposesCheckbox.toString)
       }
     }
 

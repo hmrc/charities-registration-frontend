@@ -49,28 +49,46 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
     reset(mockUserAnswerService)
   }
 
-  private val view: ConfirmAddressView = injector.instanceOf[ConfirmAddressView]
-  private val controller: ConfirmAuthorisedOfficialsPreviousAddressController = inject[ConfirmAuthorisedOfficialsPreviousAddressController]
-  private val messageKeyPrefix = "authorisedOfficialPreviousAddress"
-  private val authorisedOfficialPreviousAddressLookup = List("12", "Banner Way", "United Kingdom")
+  private val view: ConfirmAddressView                                        = injector.instanceOf[ConfirmAddressView]
+  private val controller: ConfirmAuthorisedOfficialsPreviousAddressController =
+    inject[ConfirmAuthorisedOfficialsPreviousAddressController]
+  private val messageKeyPrefix                                                = "authorisedOfficialPreviousAddress"
+  private val authorisedOfficialPreviousAddressLookup                         = List("12", "Banner Way", "United Kingdom")
 
   "ConfirmAuthorisedOfficialsPreviousAddressController Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-        .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .flatMap(
+                _.set(
+                  AuthorisedOfficialPreviousAddressLookupPage(0),
+                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                )
+              )
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view.apply(
-        authorisedOfficialPreviousAddressLookup, messageKeyPrefix,
-        controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(0),
-        controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(0, NormalMode),
-        Some("Jim John Jones"))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view
+        .apply(
+          authorisedOfficialPreviousAddressLookup,
+          messageKeyPrefix,
+          controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(0),
+          controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
+            .initializeJourney(0, NormalMode),
+          Some("Jim John Jones")
+        )(fakeRequest, messages, frontendAppConfig)
+        .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -78,19 +96,41 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
 
       val authorisedOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-        .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), AddressModel(List("12", "Banner Way near south riverview gardens"), None, CountryModel("GB", "United Kingdom"))))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .flatMap(
+                _.set(
+                  AuthorisedOfficialPreviousAddressLookupPage(0),
+                  AddressModel(
+                    List("12", "Banner Way near south riverview gardens"),
+                    None,
+                    CountryModel("GB", "United Kingdom")
+                  )
+                )
+              )
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view.apply(
-        authorisedOfficialPreviousAddressMax, messageKeyPrefix,
-        controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(NormalMode, 0),
-        controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(0, NormalMode),
-        Some("Jim John Jones"))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view
+        .apply(
+          authorisedOfficialPreviousAddressMax,
+          messageKeyPrefix,
+          controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsPreviousAddressController
+            .onPageLoad(NormalMode, 0),
+          controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
+            .initializeJourney(0, NormalMode),
+          Some("Jim John Jones")
+        )(fakeRequest, messages, frontendAppConfig)
+        .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

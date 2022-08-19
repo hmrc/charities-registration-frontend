@@ -21,14 +21,12 @@ import javax.inject.Inject
 import play.api.data.Form
 
 class CurrencyFormProvider @Inject() extends Mappings {
-  lazy val maxNumber: BigDecimal = BigDecimal.valueOf(9999999.99)
+  lazy val maxNumber: BigDecimal                     = BigDecimal.valueOf(9999999.99)
   def apply(messagePrefix: String): Form[BigDecimal] =
     Form(
       "amount" -> currency(
-        requiredKey     = s"$messagePrefix.error.required",
+        requiredKey = s"$messagePrefix.error.required",
         invalidCurrency = s"$messagePrefix.error.format"
       ).verifying(maximumValue(maxNumber, s"$messagePrefix.error.length"))
     )
 }
-
-

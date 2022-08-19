@@ -23,7 +23,7 @@ import models._
 import pages.checkEligibility._
 import pages.{IndexPage, QuestionPage}
 
-class EligibilityNavigatorSpec extends SpecBase{
+class EligibilityNavigatorSpec extends SpecBase {
 
   private val navigator: EligibilityNavigator = inject[EligibilityNavigator]
 
@@ -35,16 +35,20 @@ class EligibilityNavigatorSpec extends SpecBase{
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsEligiblePurposePage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IsEligibleAccountController page when yes is selected" in {
-          navigator.nextPage(IsEligiblePurposePage, NormalMode, userAnswers(IsEligiblePurposePage, true)) mustBe
+          navigator.nextPage(IsEligiblePurposePage, NormalMode, userAnswers(IsEligiblePurposePage, value = true)) mustBe
             elroutes.IsEligibleAccountController.onPageLoad()
         }
 
         "go to the InEligibleCharitablePurposesController page when No is selected" in {
-          navigator.nextPage(IsEligiblePurposePage, NormalMode, userAnswers(IsEligiblePurposePage, false)) mustBe
+          navigator.nextPage(
+            IsEligiblePurposePage,
+            NormalMode,
+            userAnswers(IsEligiblePurposePage, value = false)
+          ) mustBe
             elroutes.InEligibleCharitablePurposesController.onPageLoad()
         }
       }
@@ -53,16 +57,20 @@ class EligibilityNavigatorSpec extends SpecBase{
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsEligibleAccountPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IsEligibleLocationController page when yes is selected" in {
-          navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnswers(IsEligibleAccountPage, true)) mustBe
+          navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnswers(IsEligibleAccountPage, value = true)) mustBe
             elroutes.IsEligibleLocationController.onPageLoad()
         }
 
         "go to the InEligibleBankController page when No is selected" in {
-          navigator.nextPage(IsEligibleAccountPage, NormalMode, userAnswers(IsEligibleAccountPage, false)) mustBe
+          navigator.nextPage(
+            IsEligibleAccountPage,
+            NormalMode,
+            userAnswers(IsEligibleAccountPage, value = false)
+          ) mustBe
             elroutes.InEligibleBankController.onPageLoad()
         }
       }
@@ -71,16 +79,24 @@ class EligibilityNavigatorSpec extends SpecBase{
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IsEligibleLocationPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IndexController page when yes is selected" in {
-          navigator.nextPage(IsEligibleLocationPage, NormalMode, userAnswers(IsEligibleLocationPage, true)) mustBe
+          navigator.nextPage(
+            IsEligibleLocationPage,
+            NormalMode,
+            userAnswers(IsEligibleLocationPage, value = true)
+          ) mustBe
             elroutes.EligibleCharityController.onPageLoad()
         }
 
         "go to the IsEligibleLocationOtherController page when No is selected" in {
-          navigator.nextPage(IsEligibleLocationPage, NormalMode, userAnswers(IsEligibleLocationPage, false)) mustBe
+          navigator.nextPage(
+            IsEligibleLocationPage,
+            NormalMode,
+            userAnswers(IsEligibleLocationPage, value = false)
+          ) mustBe
             elroutes.IsEligibleLocationOtherController.onPageLoad()
         }
       }
@@ -89,16 +105,24 @@ class EligibilityNavigatorSpec extends SpecBase{
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the IndexController page when yes is selected" in {
-          navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnswers(IsEligibleLocationOtherPage, true)) mustBe
+          navigator.nextPage(
+            IsEligibleLocationOtherPage,
+            NormalMode,
+            userAnswers(IsEligibleLocationOtherPage, value = true)
+          ) mustBe
             elroutes.EligibleCharityController.onPageLoad()
         }
 
         "go to the InEligibleLocationOtherController page when No is selected" in {
-          navigator.nextPage(IsEligibleLocationOtherPage, NormalMode, userAnswers(IsEligibleLocationOtherPage, false)) mustBe
+          navigator.nextPage(
+            IsEligibleLocationOtherPage,
+            NormalMode,
+            userAnswers(IsEligibleLocationOtherPage, value = false)
+          ) mustBe
             elroutes.InEligibleLocationOtherController.onPageLoad()
         }
       }
@@ -127,13 +151,12 @@ class EligibilityNavigatorSpec extends SpecBase{
       "attempting to go to any site" must {
         "go to the PageNotFoundController page" in {
           navigator.nextPage(IsEligibleLocationOtherPage, PlaybackMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
       }
     }
   }
-  
-  def userAnswers(page: QuestionPage[Boolean], value : Boolean): UserAnswers = {
+
+  def userAnswers(page: QuestionPage[Boolean], value: Boolean): UserAnswers =
     emptyUserAnswers.set(page, value).getOrElse(emptyUserAnswers)
-  }
 }

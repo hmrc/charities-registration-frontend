@@ -27,20 +27,20 @@ import views.html.regulatorsAndDocuments.ScottishRegulatorRegNumberView
 class ScottishRegulatorRegNumberViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix = "scottishRegulatorRegNumber"
-  val form: Form[String] = inject[ScottishRegulatorRegNumberFormProvider].apply()
+  val form: Form[String]       = inject[ScottishRegulatorRegNumberFormProvider].apply()
 
-    "ScottishRegulatorRegNumberView" must {
+  "ScottishRegulatorRegNumberView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[ScottishRegulatorRegNumberView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[ScottishRegulatorRegNumberView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

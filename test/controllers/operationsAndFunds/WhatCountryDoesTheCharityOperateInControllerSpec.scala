@@ -41,7 +41,7 @@ import scala.concurrent.Future
 class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -57,11 +57,13 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
     reset(mockUserAnswerService, mockCountryService)
   }
 
-  private val view: WhatCountryDoesTheCharityOperateInView = inject[WhatCountryDoesTheCharityOperateInView]
-  private val formProvider: WhatCountryDoesTheCharityOperateInFormProvider = inject[WhatCountryDoesTheCharityOperateInFormProvider]
-  private val form: Form[String] = formProvider()
+  private val view: WhatCountryDoesTheCharityOperateInView                 = inject[WhatCountryDoesTheCharityOperateInView]
+  private val formProvider: WhatCountryDoesTheCharityOperateInFormProvider =
+    inject[WhatCountryDoesTheCharityOperateInFormProvider]
+  private val form: Form[String]                                           = formProvider()
 
-  private val controller: WhatCountryDoesTheCharityOperateInController = inject[WhatCountryDoesTheCharityOperateInController]
+  private val controller: WhatCountryDoesTheCharityOperateInController =
+    inject[WhatCountryDoesTheCharityOperateInController]
 
   "WhatCountryDoesTheCharityOperateIn Controller " must {
 
@@ -73,7 +75,11 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(("TH", "Thai")), None)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(("TH", "Thai")), None)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      ).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, never()).find(any())(any())
       verify(mockCountryService, times(1)).countries()(any())
@@ -83,8 +89,9 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
       val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(
-        WhatCountryDoesTheCharityOperateInPage(0), "TH").success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TH").success.value))
+      )
       when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
       when(mockCountryService.find(any())(any())).thenReturn(Some(Country("TH", "Thai")))
       when(mockCountryService.isWelsh(any())).thenReturn(true)
@@ -99,7 +106,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0) , "United Kingdom").success.value
+      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "United Kingdom").success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))

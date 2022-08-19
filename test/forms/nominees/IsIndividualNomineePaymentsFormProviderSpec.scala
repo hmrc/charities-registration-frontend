@@ -22,9 +22,9 @@ import play.api.data.{Form, FormError}
 class IsIndividualNomineePaymentsFormProviderSpec extends BooleanFieldBehaviours {
 
   private val formProvider: IsIndividualNomineePaymentsFormProvider = inject[IsIndividualNomineePaymentsFormProvider]
-  private val form: Form[Boolean] = formProvider()
-  private val requiredKey = "isIndividualNomineePayments.error.required"
-  private val invalidKey = "error.boolean"
+  private val form: Form[Boolean]                                   = formProvider()
+  private val requiredKey                                           = "isIndividualNomineePayments.error.required"
+  private val invalidKey                                            = "error.boolean"
 
   ".value" must {
 

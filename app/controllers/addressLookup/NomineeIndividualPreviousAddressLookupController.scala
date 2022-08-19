@@ -29,7 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
-class NomineeIndividualPreviousAddressLookupController @Inject()(
+class NomineeIndividualPreviousAddressLookupController @Inject() (
   override val sessionRepository: UserAnswerService,
   override val navigator: NomineesNavigator,
   identify: AuthIdentifierAction,
@@ -38,22 +38,23 @@ class NomineeIndividualPreviousAddressLookupController @Inject()(
   override val addressLookupConnector: AddressLookupConnector,
   override val errorHandler: ErrorHandler,
   val controllerComponents: MessagesControllerComponents
- )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
+)(implicit appConfig: FrontendAppConfig)
+    extends BaseAddressController {
 
   override val messagePrefix: String = "nomineeIndividualPreviousAddress"
 
   def initializeJourney(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(IndividualNomineeNamePage) { authorisedOfficialsName =>
-
-        val callBack: String = controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.callback(mode).url
+        val callBack: String =
+          controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.callback(mode).url
 
         addressLookupInitialize(callBack, Some(authorisedOfficialsName))
       }
   }
 
-  def callback(mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def callback(mode: Mode, id: Option[String]): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       addressLookupCallback(NomineeIndividualPreviousAddressLookupPage, Section9Page, id, mode)
-  }
+    }
 }

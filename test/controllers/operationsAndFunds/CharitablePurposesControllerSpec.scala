@@ -53,9 +53,9 @@ class CharitablePurposesControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockUserAnswerService)
   }
 
-  private val view: CharitablePurposesView = inject[CharitablePurposesView]
+  private val view: CharitablePurposesView                 = inject[CharitablePurposesView]
   private val formProvider: CharitablePurposesFormProvider = inject[CharitablePurposesFormProvider]
-  private val form: Form[Set[CharitablePurposes]] = formProvider()
+  private val form: Form[Set[CharitablePurposes]]          = formProvider()
 
   private val controller: CharitablePurposesController = inject[CharitablePurposesController]
 
@@ -72,11 +72,15 @@ class CharitablePurposesControllerSpec extends SpecBase with BeforeAndAfterEach 
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(CharitablePurposesPage, CharitablePurposes.values.toSet).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers.set(CharitablePurposesPage, CharitablePurposes.values.toSet).getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

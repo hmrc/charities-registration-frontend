@@ -33,10 +33,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       val gen = Gen.oneOf(SelectTitle.values)
 
-      forAll(gen) {
-        selectTitle =>
-
-          JsString(selectTitle.toString).validate[SelectTitle].asOpt.value mustEqual selectTitle
+      forAll(gen) { selectTitle =>
+        JsString(selectTitle.toString).validate[SelectTitle].asOpt.value mustEqual selectTitle
       }
     }
 
@@ -44,10 +42,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       val gen = arbitrary[String] suchThat (!SelectTitle.values.map(_.toString).contains(_))
 
-      forAll(gen) {
-        invalidValue =>
-
-          JsString(invalidValue).validate[SelectTitle] mustEqual JsError("error.invalid")
+      forAll(gen) { invalidValue =>
+        JsString(invalidValue).validate[SelectTitle] mustEqual JsError("error.invalid")
       }
     }
 
@@ -55,10 +51,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       val gen = Gen.oneOf(SelectTitle.values)
 
-      forAll(gen) {
-        selectTitle =>
-
-          Json.toJson(selectTitle) mustEqual JsString(selectTitle.toString)
+      forAll(gen) { selectTitle =>
+        Json.toJson(selectTitle) mustEqual JsString(selectTitle.toString)
       }
     }
   }
@@ -67,11 +61,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "get correct Name with Title" in {
 
-      val authorisedOfficialsName = Name(
-        SelectTitle.Mr,
-        firstName = "Jack",
-        middleName = Some("Joe"),
-        lastName = "Jill")
+      val authorisedOfficialsName =
+        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("Joe"), lastName = "Jill")
 
       authorisedOfficialsName.getFullNameWithTitle mustBe "Mr Jack Joe Jill"
 
@@ -79,11 +70,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val authorisedOfficialsName = Name(
-        SelectTitle.Mr,
-        firstName = "Jack",
-        middleName = Some("and"),
-        lastName = "Jill")
+      val authorisedOfficialsName =
+        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("and"), lastName = "Jill")
 
       authorisedOfficialsName.getFullName mustBe "Jack and Jill"
 
@@ -91,11 +79,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "middleName is not defined" in {
 
-      val authorisedOfficialsName = Name(
-        SelectTitle.Mr,
-        firstName = "Jack",
-        middleName = None,
-        lastName = "Jill")
+      val authorisedOfficialsName = Name(SelectTitle.Mr, firstName = "Jack", middleName = None, lastName = "Jill")
 
       authorisedOfficialsName.getFullName mustBe "Jack Jill"
 
@@ -111,9 +95,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val authorisedOfficialsPhoneNumber = PhoneNumber(
-        daytimePhone = "01632 960 001",
-        mobilePhone = Some("01632 960 001"))
+      val authorisedOfficialsPhoneNumber =
+        PhoneNumber(daytimePhone = "01632 960 001", mobilePhone = Some("01632 960 001"))
 
       authorisedOfficialsPhoneNumber.daytimePhone mustBe "01632 960 001"
       authorisedOfficialsPhoneNumber.mobilePhone.get mustBe "01632 960 001"

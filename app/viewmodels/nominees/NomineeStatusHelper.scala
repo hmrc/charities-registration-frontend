@@ -67,7 +67,8 @@ object NomineeStatusHelper extends StatusHelper {
     OrganisationAuthorisedPersonPassportPage
   )
 
-  private val individualJourneyPages: Seq[QuestionPage[_]] = individualCommonJourneyPages ++ remainingIndividualJourneyPages
+  private val individualJourneyPages: Seq[QuestionPage[_]] =
+    individualCommonJourneyPages ++ remainingIndividualJourneyPages
 
   private val organisationJourneyPages: Seq[QuestionPage[_]] = {
     organisationCommonJourneyPages ++ remainingOrganisationJourneyPages ++ remainingOrganisationIndividualJourneyPages
@@ -77,17 +78,20 @@ object NomineeStatusHelper extends StatusHelper {
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean = userAnswers.unneededPagesNotPresent(list, allPages)
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+      userAnswers.unneededPagesNotPresent(list, allPages)
 
     (userAnswers.get(IsAuthoriseNomineePage), userAnswers.get(ChooseNomineePage)) match {
 
-      case(Some(false), None) => noAdditionalPagesDefined(Seq(IsAuthoriseNomineePage))
+      case (Some(false), None) => noAdditionalPagesDefined(Seq(IsAuthoriseNomineePage))
 
-      case(Some(true), Some(true)) =>
-        (userAnswers.get(IsIndividualNomineeNinoPage), userAnswers.get(IsIndividualNomineePreviousAddressPage),
-          userAnswers.get(IsIndividualNomineePaymentsPage)) match {
+      case (Some(true), Some(true)) =>
+        (
+          userAnswers.get(IsIndividualNomineeNinoPage),
+          userAnswers.get(IsIndividualNomineePreviousAddressPage),
+          userAnswers.get(IsIndividualNomineePaymentsPage)
+        ) match {
           case (Some(isNino), Some(isPreviousAddress), Some(isPayment)) =>
-
             val newPages = commonJourneyPages ++ individualCommonJourneyPages
               .getIndividualNomineePages(isNino, isPreviousAddress, isPayment)
 
@@ -96,9 +100,12 @@ object NomineeStatusHelper extends StatusHelper {
           case _ => false
         }
 
-      case(Some(true), Some(false)) =>
-        (userAnswers.get(IsOrganisationNomineeNinoPage), userAnswers.get(IsOrganisationNomineePreviousAddressPage),
-          userAnswers.get(IsOrganisationNomineePaymentsPage)) match {
+      case (Some(true), Some(false)) =>
+        (
+          userAnswers.get(IsOrganisationNomineeNinoPage),
+          userAnswers.get(IsOrganisationNomineePreviousAddressPage),
+          userAnswers.get(IsOrganisationNomineePaymentsPage)
+        ) match {
           case (Some(isNino), Some(isPreviousAddress), Some(isPayment)) =>
             val newPages = commonJourneyPages ++ organisationCommonJourneyPages
               .getOrganisationNomineePages(isNino, isPreviousAddress, isPayment)
@@ -112,19 +119,21 @@ object NomineeStatusHelper extends StatusHelper {
     }
   }
 
-  def validateDataFromOldService(userAnswers: UserAnswers): Boolean = {
+  def validateDataFromOldService(userAnswers: UserAnswers): Boolean =
     (userAnswers.get(IsAuthoriseNomineePage), userAnswers.get(ChooseNomineePage)) match {
-      case(Some(true), Some(true)) =>
+      case (Some(true), Some(true))  =>
         userAnswers.get(IndividualNomineeNamePage) match {
           case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
-          case _ => true
+          case _                                                        => true
         }
-      case(Some(true), Some(false)) =>
-        (userAnswers.get(OrganisationAuthorisedPersonNamePage), userAnswers.get(OrganisationNomineeContactDetailsPage)) match {
+      case (Some(true), Some(false)) =>
+        (
+          userAnswers.get(OrganisationAuthorisedPersonNamePage),
+          userAnswers.get(OrganisationNomineeContactDetailsPage)
+        ) match {
           case (Some(name), Some(contact)) => name.title != SelectTitle.UnsupportedTitle && contact.email.nonEmpty
-          case _ => true
+          case _                           => true
         }
-      case _ => true
+      case _                         => true
     }
-  }
 }

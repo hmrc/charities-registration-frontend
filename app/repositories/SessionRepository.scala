@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import models.UserAnswers
 import org.mongodb.scala.model._
 import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
-import play.api.libs.json.Json
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 
@@ -31,22 +30,21 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class SessionRepository @Inject()(
-                                   val mongoComponent: MongoComponent,
-                                   val appConfig: FrontendAppConfig) extends PlayMongoRepository[UserAnswers](
-  collectionName = "user-eligibility-answers",
-  mongoComponent = mongoComponent,
-  domainFormat = UserAnswers.formats,
-  replaceIndexes = true,
-  indexes = Seq(
-    IndexModel(
-      Indexes.ascending("expiresAt"),
-      IndexOptions()
-        .name("dataExpiry")
-        .expireAfter(appConfig.userAnswersTimeToLive, TimeUnit.SECONDS)
-    )
-  )
-) {
+class SessionRepository @Inject() (val mongoComponent: MongoComponent, val appConfig: FrontendAppConfig)
+    extends PlayMongoRepository[UserAnswers](
+      collectionName = "user-eligibility-answers",
+      mongoComponent = mongoComponent,
+      domainFormat = UserAnswers.formats,
+      replaceIndexes = true,
+      indexes = Seq(
+        IndexModel(
+          Indexes.ascending("expiresAt"),
+          IndexOptions()
+            .name("dataExpiry")
+            .expireAfter(appConfig.userAnswersTimeToLive, TimeUnit.SECONDS)
+        )
+      )
+    ) {
 
   private def now: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC)
 
@@ -55,24 +53,26 @@ class SessionRepository @Inject()(
   private def expiryDate(userAnswers: UserAnswers): LocalDateTime =
     (userAnswers.get(AcknowledgementReferencePage), userAnswers.get(OldServiceSubmissionPage)) match {
       case (Some(_), _) | (_, Some(_)) => userAnswers.expiresAt
-      case _ => calculateExpiryTime
+      case _                           => calculateExpiryTime
     }
 
   private def byId(userAnswers: UserAnswers) =
     Filters.equal("_id", userAnswers.id)
 
-  def get(id: String): Future[Option[UserAnswers]] = {
+  def get(id: String): Future[Option[UserAnswers]] =
     collection.find(Filters.equal("_id", id)).headOption()
-  }
 
   def upsert(userAnswers: UserAnswers): Future[Boolean] = {
     val document = userAnswers.copy(lastUpdated = now, expiresAt = expiryDate(userAnswers))
 
-    collection.findOneAndReplace(
-      byId(userAnswers),
-      document,
-      FindOneAndReplaceOptions().upsert(true)
-    ).toFuture().map(_ => true)
+    collection
+      .findOneAndReplace(
+        byId(userAnswers),
+        document,
+        FindOneAndReplaceOptions().upsert(true)
+      )
+      .toFuture()
+      .map(_ => true)
   }
 
   def delete(userAnswers: UserAnswers): Future[Boolean] =

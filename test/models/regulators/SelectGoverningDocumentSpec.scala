@@ -24,7 +24,6 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-
 class SelectGoverningDocumentSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with OptionValues {
 
   "SelectGoverningDocument" must {
@@ -33,10 +32,11 @@ class SelectGoverningDocumentSpec extends AnyWordSpec with Matchers with ScalaCh
 
       val gen = Gen.oneOf(SelectGoverningDocument.values)
 
-      forAll(gen) {
-        selectGoverningDocument =>
-
-          JsString(selectGoverningDocument.toString).validate[SelectGoverningDocument].asOpt.value mustEqual selectGoverningDocument
+      forAll(gen) { selectGoverningDocument =>
+        JsString(selectGoverningDocument.toString)
+          .validate[SelectGoverningDocument]
+          .asOpt
+          .value mustEqual selectGoverningDocument
       }
     }
 
@@ -44,10 +44,8 @@ class SelectGoverningDocumentSpec extends AnyWordSpec with Matchers with ScalaCh
 
       val gen = arbitrary[String] suchThat (!SelectGoverningDocument.values.map(_.toString).contains(_))
 
-      forAll(gen) {
-        invalidValue =>
-
-          JsString(invalidValue).validate[SelectGoverningDocument] mustEqual JsError("error.invalid")
+      forAll(gen) { invalidValue =>
+        JsString(invalidValue).validate[SelectGoverningDocument] mustEqual JsError("error.invalid")
       }
     }
 
@@ -55,10 +53,8 @@ class SelectGoverningDocumentSpec extends AnyWordSpec with Matchers with ScalaCh
 
       val gen = Gen.oneOf(SelectGoverningDocument.values)
 
-      forAll(gen) {
-        selectGoverningDocument =>
-
-          Json.toJson(selectGoverningDocument) mustEqual JsString(selectGoverningDocument.toString)
+      forAll(gen) { selectGoverningDocument =>
+        Json.toJson(selectGoverningDocument) mustEqual JsString(selectGoverningDocument.toString)
       }
     }
   }

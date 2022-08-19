@@ -28,22 +28,22 @@ import views.html.checkEligibility.IsEligibleAccountView
 class IsEligibleAccountViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isEligibleAccount"
-  val form: Form[Boolean] = inject[IsEligibleAccountFormProvider].apply()
+  val form: Form[Boolean]      = inject[IsEligibleAccountFormProvider].apply()
 
-    "IsEligibleAccountView" must {
+  "IsEligibleAccountView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[IsEligibleAccountView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(form), messageKeyPrefix)
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsEligibleAccountController.onSubmit().url)
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[IsEligibleAccountView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix)
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like yesNoPage(form, applyView, messageKeyPrefix)
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+
   }
+}

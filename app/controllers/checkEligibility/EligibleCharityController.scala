@@ -24,10 +24,12 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.checkEligibility.EligibleCharityView
 
-class EligibleCharityController @Inject()(
-    val controllerComponents: MessagesControllerComponents,
-    view: EligibleCharityView
-  )(implicit appConfig: FrontendAppConfig) extends FrontendBaseController with I18nSupport {
+class EligibleCharityController @Inject() (
+  val controllerComponents: MessagesControllerComponents,
+  view: EligibleCharityView
+)(implicit appConfig: FrontendAppConfig)
+    extends FrontendBaseController
+    with I18nSupport {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = Action { implicit request =>
     Ok(view(mode, hc.sessionId))

@@ -52,7 +52,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequest)).asOpt.value mustBe Json.parse(expectedJson)
+        emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequest)).asOpt.value mustBe Json
+          .parse(expectedJson)
       }
     }
 
@@ -60,9 +61,15 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct organisation" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityContactDetailsPage,
+            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+          )
           .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
-          .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Scotland)).success.value
+          .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Scotland))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -81,13 +88,21 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToOrganisation).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToOrganisation).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct organisation with mandatory fields only" in {
-        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityContactDetailsPage,
+            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+          )
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
-          .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).success.value
+          .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -105,13 +120,21 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToOrganisation).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToOrganisation).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct organisation with mandatory fields only with Wales as country of establishment" in {
-        val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityContactDetailsPage,
+            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+          )
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
-          .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales)).success.value
+          .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -129,7 +152,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToOrganisation).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToOrganisation).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
     }
 
@@ -137,9 +162,18 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct AddressDetailsCommon without charityCorrespondenceAddress" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
-          .flatMap(_.set(CanWeSendToThisAddressPage, true)).success.value
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityOfficialAddressLookupPage,
+            AddressModel(
+              Seq("7", "Morrison street", "line3", "line4"),
+              Some("G58AN"),
+              CountryModel("GB", "United Kingdom")
+            )
+          )
+          .flatMap(_.set(CanWeSendToThisAddressPage, true))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -160,16 +194,31 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToAddressDetailsCommon).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToAddressDetailsCommon).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct AddressDetailsCommon with charityCorrespondenceAddress" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityOfficialAddressLookupPage,
+            AddressModel(
+              Seq("7", "Morrison street", "line3", "line4"),
+              Some("G58AN"),
+              CountryModel("GB", "United Kingdom")
+            )
+          )
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
-          .flatMap(_.set(CharityPostalAddressLookupPage,
-          AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom")))).success.value
+          .flatMap(
+            _.set(
+              CharityPostalAddressLookupPage,
+              AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
+            )
+          )
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -196,17 +245,36 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToAddressDetailsCommon).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToAddressDetailsCommon).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
 
       }
 
       "convert the correct AddressDetailsCommon with charityCorrespondenceAddress and both addresses are same" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityOfficialAddressLookupPage,
+            AddressModel(
+              Seq("7", "Morrison street", "line3", "line4"),
+              Some("G58AN"),
+              CountryModel("GB", "United Kingdom")
+            )
+          )
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
-          .flatMap(_.set(CharityPostalAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))).success.value
+          .flatMap(
+            _.set(
+              CharityPostalAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "line3", "line4"),
+                Some("G58AN"),
+                CountryModel("GB", "United Kingdom")
+              )
+            )
+          )
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -235,7 +303,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToAddressDetailsCommon).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToAddressDetailsCommon).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
 
       }
     }
@@ -244,7 +314,10 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct BankDetails" in {
 
-        val userAnswers = emptyUserAnswers.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))).success.value
+        val userAnswers = emptyUserAnswers
+          .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName")))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -265,7 +338,8 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct AddressModel with mandatory fields only" in {
 
-        val userAnswers = emptyUserAnswers.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None)).success.value
+        val userAnswers =
+          emptyUserAnswers.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None)).success.value
 
         val expectedJson =
           """{
@@ -280,7 +354,6 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-
         userAnswers.data.transform(jsonTransformer.userAnswersToBankDetails).asOpt.value mustBe Json.parse(expectedJson)
 
       }
@@ -290,13 +363,28 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct IndDeclarationInfo with UK data" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-          .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
+        val userAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .flatMap(
+            _.set(
+              AuthorisedOfficialAddressLookupPage(0),
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
+            )
+          )
+          .flatMap(
+            _.set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "line3", "line4"),
+                Some("G58AN"),
+                CountryModel("GB", "United Kingdom")
+              )
+            )
+          )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("+44 7700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent)).success.value
+          .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -319,18 +407,31 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToIndDeclarationInfo).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToIndDeclarationInfo).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct IndDeclarationInfo with non UK data" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-          .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
-          .flatMap(_.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
+        val userAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .flatMap(
+            _.set(
+              AuthorisedOfficialAddressLookupPage(0),
+              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+            )
+          )
+          .flatMap(
+            _.set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+            )
+          )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent)).success.value
+          .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -352,7 +453,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToIndDeclarationInfo).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToIndDeclarationInfo).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
     }
@@ -361,22 +464,54 @@ class CharityCommonTransformerSpec extends SpecBase {
 
       "convert the correct Common object with all data" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-          .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))
+        val userAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .flatMap(
+            _.set(
+              AuthorisedOfficialAddressLookupPage(0),
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
+            )
+          )
+          .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
           .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
-          .flatMap(_.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
-          .flatMap(_.set(CanWeSendToThisAddressPage, false)))
+          .flatMap(
+            _.set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "line3", "line4"),
+                Some("G58AN"),
+                CountryModel("GB", "United Kingdom")
+              )
+            )
+              .flatMap(_.set(CanWeSendToThisAddressPage, false))
+          )
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
-          .flatMap(_.set(CharityPostalAddressLookupPage,
-            AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
-            .flatMap(_.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
+          .flatMap(
+            _.set(
+              CharityPostalAddressLookupPage,
+              AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
+            )
+          )
+          .flatMap(
+            _.set(
+              CharityContactDetailsPage,
+              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            )
+              .flatMap(
+                _.set(
+                  CharityOfficialAddressLookupPage,
+                  AddressModel(
+                    Seq("7", "Morrison street", "line3", "line4"),
+                    Some("G58AN"),
+                    CountryModel("GB", "United Kingdom")
+                  )
+                )
+              )
+              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+          )
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -438,27 +573,65 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToCommon(fakeDataRequest)).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToCommon(fakeDataRequest)).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct Common object when officialAddress and correspondenceAddress" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-          .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
+        val userAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .flatMap(
+            _.set(
+              AuthorisedOfficialAddressLookupPage(0),
+              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
+            )
+          )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))
+          .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
-          .flatMap(_.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
+          .flatMap(
+            _.set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "line3", "line4"),
+                Some("G58AN"),
+                CountryModel("GB", "United Kingdom")
+              )
+            )
+          )
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
-          .flatMap(_.set(CharityPostalAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
+          .flatMap(
+            _.set(
+              CharityPostalAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "line3", "line4"),
+                Some("G58AN"),
+                CountryModel("GB", "United Kingdom")
+              )
+            )
+          )
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
-          .flatMap(_.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))))
-          .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))).success.value
+          .flatMap(
+            _.set(
+              CharityContactDetailsPage,
+              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            )
+              .flatMap(
+                _.set(
+                  CharityOfficialAddressLookupPage,
+                  AddressModel(
+                    Seq("7", "Morrison street", "line3", "line4"),
+                    Some("G58AN"),
+                    CountryModel("GB", "United Kingdom")
+                  )
+                )
+              )
+              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+          )
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -522,23 +695,41 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToCommon(fakeDataRequest)).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToCommon(fakeDataRequest)).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct Common object with mandatory fields only" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", None, "Jones"))
-          .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
-          .flatMap(_.set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent))
+        val userAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", None, "Jones"))
+          .flatMap(
+            _.set(
+              AuthorisedOfficialAddressLookupPage(0),
+              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+            )
+          )
+          .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
           .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None)))
-          .flatMap(_.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
-            .flatMap(_.set(CanWeSendToThisAddressPage, true))
-            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
-          .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")))
-          .flatMap(_.set(CharityNamePage, CharityName("ABC", None))).success.value
+          .flatMap(
+            _.set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+            )
+          )
+          .flatMap(_.set(CanWeSendToThisAddressPage, true))
+          .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
+          .flatMap(
+            _.set(
+              CharityContactDetailsPage,
+              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            )
+          )
+          .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -588,7 +779,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.userAnswersToCommon(fakeDataRequest)).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data.transform(jsonTransformer.userAnswersToCommon(fakeDataRequest)).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
     }
   }

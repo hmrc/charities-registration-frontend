@@ -25,24 +25,27 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.{AmendAddressView, PassportView}
 
-class AmendAddressViewSpec extends QuestionViewBehaviours[AmendAddressModel]  {
+class AmendAddressViewSpec extends QuestionViewBehaviours[AmendAddressModel] {
 
-  private val messageKeyPrefix = "charityOfficialAmendAddress"
+  private val messageKeyPrefix               = "charityOfficialAmendAddress"
   override val form: Form[AmendAddressModel] = inject[AmendAddressFormProvider].apply(messageKeyPrefix)
 
-    "AuthorisedOfficialsPassportView" must {
+  "AuthorisedOfficialsPassportView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[AmendAddressView](Some(emptyUserAnswers))
-          view.apply(form, messageKeyPrefix, onwardRoute, countries = Seq(("GB", "United Kingdom")))(
-            fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix)
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[AmendAddressView](Some(emptyUserAnswers))
+      view.apply(form, messageKeyPrefix, onwardRoute, countries = Seq(("GB", "United Kingdom")))(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix)
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

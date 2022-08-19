@@ -24,14 +24,14 @@ import views.html.CannotFindApplicationView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class CannotFindApplicationController @Inject()(
-    identify: AuthIdentifierAction,
-    view: CannotFindApplicationView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class CannotFindApplicationController @Inject() (
+  identify: AuthIdentifierAction,
+  view: CannotFindApplicationView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = identify.async { implicit request =>
-
     Future.successful(Ok(view()))
   }
 

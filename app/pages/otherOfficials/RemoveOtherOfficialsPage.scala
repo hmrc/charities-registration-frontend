@@ -25,4 +25,3 @@ case object RemoveOtherOfficialsPage extends QuestionPage[Boolean] {
 
   override lazy val toString: String = "removeOtherOfficial"
 }
-

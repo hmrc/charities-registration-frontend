@@ -27,26 +27,28 @@ import play.api.mvc._
 import service.CountryService
 import views.html.common.ConfirmAddressView
 
-class ConfirmOtherOfficialsAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: ConfirmAddressView,
-    override implicit val appConfig: FrontendAppConfig
-  ) extends ConfirmAddressController {
+class ConfirmOtherOfficialsAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: ConfirmAddressView,
+  override implicit val appConfig: FrontendAppConfig
+) extends ConfirmAddressController {
 
   override val messagePrefix: String = "otherOfficialAddress"
 
   def onPageLoad(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-        getView(controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index),
+        getView(
+          controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index),
           OtherOfficialAddressLookupPage(index),
           controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode),
           controllers.otherOfficials.routes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, index),
-          Some(otherOfficialsName))
+          Some(otherOfficialsName)
+        )
       }
   }
 }

@@ -26,42 +26,46 @@ import play.api.mvc.Call
 
 import javax.inject.Inject
 
-
-class EligibilityNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class EligibilityNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
-    case IsEligiblePurposePage => userAnswers: UserAnswers => navigate(
-      userAnswers.get(IsEligiblePurposePage),
-      elroutes.IsEligibleAccountController.onPageLoad(),
-      elroutes.InEligibleCharitablePurposesController.onPageLoad()
-    )
-    case IsEligibleAccountPage => userAnswers: UserAnswers => navigate(
-      userAnswers.get(IsEligibleAccountPage),
-      elroutes.IsEligibleLocationController.onPageLoad(),
-      elroutes.InEligibleBankController.onPageLoad()
-    )
-    case IsEligibleLocationPage => userAnswers: UserAnswers => navigate(
-      userAnswers.get(IsEligibleLocationPage),
-      elroutes.EligibleCharityController.onPageLoad(),
-      elroutes.IsEligibleLocationOtherController.onPageLoad()
-    )
-    case IsEligibleLocationOtherPage => userAnswers: UserAnswers => navigate(
-      userAnswers.get(IsEligibleLocationOtherPage),
-      elroutes.EligibleCharityController.onPageLoad(),
-      elroutes.InEligibleLocationOtherController.onPageLoad()
-    )
-    case _ => _ => routes.IndexController.onPageLoad(None)
+    case IsEligiblePurposePage       =>
+      userAnswers: UserAnswers =>
+        navigate(
+          userAnswers.get(IsEligiblePurposePage),
+          elroutes.IsEligibleAccountController.onPageLoad(),
+          elroutes.InEligibleCharitablePurposesController.onPageLoad()
+        )
+    case IsEligibleAccountPage       =>
+      userAnswers: UserAnswers =>
+        navigate(
+          userAnswers.get(IsEligibleAccountPage),
+          elroutes.IsEligibleLocationController.onPageLoad(),
+          elroutes.InEligibleBankController.onPageLoad()
+        )
+    case IsEligibleLocationPage      =>
+      userAnswers: UserAnswers =>
+        navigate(
+          userAnswers.get(IsEligibleLocationPage),
+          elroutes.EligibleCharityController.onPageLoad(),
+          elroutes.IsEligibleLocationOtherController.onPageLoad()
+        )
+    case IsEligibleLocationOtherPage =>
+      userAnswers: UserAnswers =>
+        navigate(
+          userAnswers.get(IsEligibleLocationOtherPage),
+          elroutes.EligibleCharityController.onPageLoad(),
+          elroutes.InEligibleLocationOtherController.onPageLoad()
+        )
+    case _                           => _ => routes.IndexController.onPageLoad(None)
   }
 
-  override val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => routes.IndexController.onPageLoad(None)
-  }
+  override val checkRouteMap: Page => UserAnswers => Call = _ => _ => routes.IndexController.onPageLoad(None)
 
-  def navigate(value: Option[Boolean], ifTrue: Call, ifFalse: Call): Call = {
-    value match{
-      case Some(true) => ifTrue
+  def navigate(value: Option[Boolean], ifTrue: Call, ifFalse: Call): Call =
+    value match {
+      case Some(true)  => ifTrue
       case Some(false) => ifFalse
-      case _ => routes.PageNotFoundController.onPageLoad()
+      case _           => routes.PageNotFoundController.onPageLoad()
     }
-  }
 }

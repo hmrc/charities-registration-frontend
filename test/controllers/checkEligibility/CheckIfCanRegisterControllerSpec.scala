@@ -25,10 +25,11 @@ class CheckIfCanRegisterControllerSpec extends SpecBase {
 
   private val view: CheckIfCanRegisterView = inject[CheckIfCanRegisterView]
 
-  object Controller extends CheckIfCanRegisterController (
-    controllerComponents = messagesControllerComponents,
-    view = view
-  )
+  object Controller
+      extends CheckIfCanRegisterController(
+        controllerComponents = messagesControllerComponents,
+        view = view
+      )
 
   "SessionExpired Controller" must {
 

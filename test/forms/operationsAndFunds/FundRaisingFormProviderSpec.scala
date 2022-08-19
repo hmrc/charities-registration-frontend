@@ -26,7 +26,7 @@ class FundRaisingFormProviderSpec extends CheckboxFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = "selectFundRaising.error.required"
 
     behave like checkboxField[FundRaisingOptions](
@@ -42,6 +42,5 @@ class FundRaisingFormProviderSpec extends CheckboxFieldBehaviours {
       requiredKey
     )
   }
-
 
 }

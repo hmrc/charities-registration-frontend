@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class IsIndividualNomineePreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -52,12 +52,13 @@ class IsIndividualNomineePreviousAddressControllerSpec extends SpecBase with Bef
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "isIndividualNomineePreviousAddress"
-  private val view: IsPreviousAddressView = injector.instanceOf[IsPreviousAddressView]
+  private val messageKeyPrefix: String        = "isIndividualNomineePreviousAddress"
+  private val view: IsPreviousAddressView     = injector.instanceOf[IsPreviousAddressView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
-  private val controller: IsIndividualNomineePreviousAddressController = inject[IsIndividualNomineePreviousAddressController]
+  private val controller: IsIndividualNomineePreviousAddressController =
+    inject[IsIndividualNomineePreviousAddressController]
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
@@ -70,16 +71,22 @@ class IsIndividualNomineePreviousAddressControllerSpec extends SpecBase with Bef
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.nominees.routes. IsIndividualNomineePreviousAddressController.onSubmit(NormalMode))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.nominees.routes.IsIndividualNomineePreviousAddressController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsIndividualNomineePreviousAddressPage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(localUserAnswers.set(IsIndividualNomineePreviousAddressPage, true).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

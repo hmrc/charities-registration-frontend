@@ -20,7 +20,7 @@ import javax.inject.Inject
 import org.joda.time.MonthDay
 import play.api.data.Form
 
-class AccountingPeriodEndDateFormProvider @Inject()extends Mappings {
+class AccountingPeriodEndDateFormProvider @Inject() extends Mappings {
 
   def apply(): Form[MonthDay] =
     Form(

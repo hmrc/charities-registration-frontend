@@ -23,24 +23,29 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
 
   val answer = "answer"
 
-  def textAreaPage(form: Form[String],
-                 createView: Form[String] => HtmlFormat.Appendable,
-                 messageKeyPrefix: String,
-                 expectedHintKey: Option[String] = None,
-                 section: Option[String] = None,
-                 headingArgs: Seq[String] = Seq(),
-                 isPageHeading: Boolean = true
-                ): Unit = {
-
+  def textAreaPage(
+    form: Form[String],
+    createView: Form[String] => HtmlFormat.Appendable,
+    messageKeyPrefix: String,
+    expectedHintKey: Option[String] = None,
+    section: Option[String] = None,
+    headingArgs: Seq[String] = Seq(),
+    isPageHeading: Boolean = true
+  ): Unit =
     "behave like a page with a text area field" when {
 
       "rendered" must {
 
         "contain a label for the value" in {
 
-          val doc = asDocument(createView(form))
+          val doc              = asDocument(createView(form))
           val expectedHintText = expectedHintKey map (k => messages(k))
-          assertContainsLabel(doc, "value", messages(if(isPageHeading)s"$messageKeyPrefix.heading" else s"$messageKeyPrefix.label", headingArgs:_*), expectedHintText)
+          assertContainsLabel(
+            doc,
+            "value",
+            messages(if (isPageHeading) s"$messageKeyPrefix.heading" else s"$messageKeyPrefix.label", headingArgs: _*),
+            expectedHintText
+          )
         }
 
         "contain an input for the value" in {
@@ -75,7 +80,7 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
 
         "show an error associated to the value field" in {
 
-          val doc = asDocument(createView(form.withError(error)))
+          val doc       = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementsByClass("govuk-error-message").first
           errorSpan.text mustBe (messages("error.browser.title.prefix") + " " + messages(errorMessage))
         }
@@ -83,9 +88,15 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
         "show an error prefix in the browser title" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section)}""")
+          assertEqualsValue(
+            doc,
+            "title",
+            s"""${messages("error.browser.title.prefix")} ${title(
+              messages(s"$messageKeyPrefix.title", headingArgs: _*),
+              section
+            )}"""
+          )
         }
       }
     }
-  }
 }

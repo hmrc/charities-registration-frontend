@@ -27,10 +27,10 @@ object CharityInformationStatusHelper extends StatusHelper {
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
     val pagesAlwaysRequired: Seq[QuestionPage[_]] =
       Seq(CharityNamePage, CharityContactDetailsPage, CharityOfficialAddressLookupPage, CanWeSendToThisAddressPage)
-    val charityPostalAddressIsDefined = userAnswers.arePagesDefined(Seq(CharityPostalAddressLookupPage))
+    val charityPostalAddressIsDefined             = userAnswers.arePagesDefined(Seq(CharityPostalAddressLookupPage))
 
     userAnswers.arePagesDefined(pagesAlwaysRequired) && userAnswers.get(CanWeSendToThisAddressPage).exists {
-      case true => !charityPostalAddressIsDefined
+      case true  => !charityPostalAddressIsDefined
       case false => charityPostalAddressIsDefined
     } && userAnswers.get(CharityContactDetailsPage).fold(false)(_.emailAddress.trim.nonEmpty)
   }

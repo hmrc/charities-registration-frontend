@@ -32,7 +32,7 @@ import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
-class IsOrganisationNomineeNinoController @Inject()(
+class IsOrganisationNomineeNinoController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -41,29 +41,37 @@ class IsOrganisationNomineeNinoController @Inject()(
   override val navigator: NomineesNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: YesNoView
-  )(implicit appConfig: FrontendAppConfig) extends IsOfficialsNinoController {
+)(implicit appConfig: FrontendAppConfig)
+    extends IsOfficialsNinoController {
 
   override val messagePrefix: String = "isOrganisationNomineeNino"
-  private val form: Form[Boolean] = formProvider(messagePrefix)
-
+  private val form: Form[Boolean]    = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OrganisationAuthorisedPersonNamePage) { organisationAuthorisedPersonName =>
-
-        Future.successful(getView(IsOrganisationNomineeNinoPage, form, organisationAuthorisedPersonName,
-          controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(mode)))
+        Future.successful(
+          getView(
+            IsOrganisationNomineeNinoPage,
+            form,
+            organisationAuthorisedPersonName,
+            controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(mode)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OrganisationAuthorisedPersonNamePage) { organisationAuthorisedPersonName =>
-
-        postView(mode, IsOrganisationNomineeNinoPage, form, organisationAuthorisedPersonName, Section9Page,
-          controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(mode))
+        postView(
+          mode,
+          IsOrganisationNomineeNinoPage,
+          form,
+          organisationAuthorisedPersonName,
+          Section9Page,
+          controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(mode)
+        )
       }
   }
 }

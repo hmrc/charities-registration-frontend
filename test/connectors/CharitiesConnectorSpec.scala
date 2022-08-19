@@ -28,17 +28,16 @@ import play.api.http.Status._
 import play.api.libs.json.{JsResultException, Json}
 import uk.gov.hmrc.http.{HttpClient, UpstreamErrorResponse}
 
-
 class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSugar {
 
   lazy val mockFrontendAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
   "CharitiesConnector" when {
 
-    val httpClient: HttpClient = injector.instanceOf[HttpClient]
+    val httpClient: HttpClient                      = injector.instanceOf[HttpClient]
     lazy val charitiesConnector: CharitiesConnector = new CharitiesConnector(httpClient, mockFrontendAppConfig)
-    val requestJson = readJsonFromFile("/request.json")
-    val userAnswers: UserAnswers = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value
+    val requestJson                                 = readJsonFromFile("/request.json")
+    val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value
 
     when(mockFrontendAppConfig.getCharitiesBackend) thenReturn getUrl
 
@@ -48,15 +47,18 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "return a Right(Success response)" in {
 
-          stubFor(post(urlEqualTo("/org/1234/submissions/application"))
-            .withRequestBody(equalToJson(Json.stringify(requestJson)))
-            .willReturn(aResponse().withBody(Json.parse("""{"acknowledgementReference":"765432"}""").toString())
-            .withStatus(ACCEPTED)
-            )
+          stubFor(
+            post(urlEqualTo("/org/1234/submissions/application"))
+              .withRequestBody(equalToJson(Json.stringify(requestJson)))
+              .willReturn(
+                aResponse()
+                  .withBody(Json.parse("""{"acknowledgementReference":"765432"}""").toString())
+                  .withStatus(ACCEPTED)
+              )
           )
 
           val expectedResult = Right(RegistrationResponse("765432"))
-          val actualResult = await(charitiesConnector.registerCharities(requestJson, 1234)(hc, ec))
+          val actualResult   = await(charitiesConnector.registerCharities(requestJson, 1234)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -65,11 +67,14 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "returns an exception if response is in incorrect format" in {
 
-          stubFor(post(urlEqualTo("/org/1234/submissions/application"))
-            .withRequestBody(equalToJson(Json.stringify(requestJson)))
-            .willReturn(aResponse().withBody(Json.parse("""{"acknowledgementRef":"765432"}""").toString())
-              .withStatus(ACCEPTED)
-            )
+          stubFor(
+            post(urlEqualTo("/org/1234/submissions/application"))
+              .withRequestBody(equalToJson(Json.stringify(requestJson)))
+              .willReturn(
+                aResponse()
+                  .withBody(Json.parse("""{"acknowledgementRef":"765432"}""").toString())
+                  .withStatus(ACCEPTED)
+              )
           )
 
           intercept[JsResultException] {
@@ -85,13 +90,15 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "return a Left(CharitiesInvalidJson) when failed with invalid input json" in {
 
-          stubFor(post(urlEqualTo("/org/1234/submissions/application"))
-            .withRequestBody(equalToJson(Json.parse("""{"fullName":"Johnson"}""").toString()))
-            .willReturn(aResponse().withStatus(NOT_ACCEPTABLE))
+          stubFor(
+            post(urlEqualTo("/org/1234/submissions/application"))
+              .withRequestBody(equalToJson(Json.parse("""{"fullName":"Johnson"}""").toString()))
+              .willReturn(aResponse().withStatus(NOT_ACCEPTABLE))
           )
 
           val expectedResult = Left(CharitiesInvalidJson)
-          val actualResult = await(charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), 1234)(hc, ec))
+          val actualResult   =
+            await(charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), 1234)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -100,13 +107,15 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "return a Left(EtmpFailed) when failed with unexpected error" in {
 
-          stubFor(post(urlEqualTo("/org/1234/submissions/application"))
-            .withRequestBody(equalToJson(Json.parse("""{"fullName":"Johnson"}""").toString()))
-            .willReturn(aResponse().withStatus(BAD_REQUEST))
+          stubFor(
+            post(urlEqualTo("/org/1234/submissions/application"))
+              .withRequestBody(equalToJson(Json.parse("""{"fullName":"Johnson"}""").toString()))
+              .willReturn(aResponse().withStatus(BAD_REQUEST))
           )
 
           val expectedResult = Left(EtmpFailed)
-          val actualResult = await(charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), 1234)(hc, ec))
+          val actualResult   =
+            await(charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), 1234)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -115,13 +124,14 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "return a Left(DefaultedUnexpectedFailure) for default errors" in {
 
-          stubFor(post(urlEqualTo("/org/1234/submissions/application"))
-            .withRequestBody(equalToJson(Json.stringify(requestJson)))
-            .willReturn(aResponse().withStatus(CONFLICT))
+          stubFor(
+            post(urlEqualTo("/org/1234/submissions/application"))
+              .withRequestBody(equalToJson(Json.stringify(requestJson)))
+              .willReturn(aResponse().withStatus(CONFLICT))
           )
 
           val expectedResult = Left(DefaultedUnexpectedFailure(CONFLICT))
-          val actualResult = await(charitiesConnector.registerCharities(requestJson, 1234)(hc, ec))
+          val actualResult   = await(charitiesConnector.registerCharities(requestJson, 1234)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -148,10 +158,13 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
                                |    }
                                |}""".stripMargin
 
-          stubFor(get(urlEqualTo("/charities-registration/getUserAnswer/id"))
-            .willReturn(aResponse().withBody(responseJson)
-              .withStatus(OK)
-            )
+          stubFor(
+            get(urlEqualTo("/charities-registration/getUserAnswer/id"))
+              .willReturn(
+                aResponse()
+                  .withBody(responseJson)
+                  .withStatus(OK)
+              )
           )
 
           val result = await(charitiesConnector.getUserAnswers("id")(hc, ec))
@@ -163,8 +176,9 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "return None response" in {
 
-          stubFor(get(urlEqualTo("/charities-registration/getUserAnswer/id"))
-            .willReturn(aResponse().withStatus(NO_CONTENT))
+          stubFor(
+            get(urlEqualTo("/charities-registration/getUserAnswer/id"))
+              .willReturn(aResponse().withStatus(NO_CONTENT))
           )
 
           val result = await(charitiesConnector.getUserAnswers("id")(hc, ec))
@@ -176,10 +190,13 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "returns an exception if response is in incorrect format" in {
 
-          stubFor(get(urlEqualTo("/charities-registration/getUserAnswer/id"))
-            .willReturn(aResponse().withBody(Json.parse("""{"status":"failure"}""").toString())
-              .withStatus(OK)
-            )
+          stubFor(
+            get(urlEqualTo("/charities-registration/getUserAnswer/id"))
+              .willReturn(
+                aResponse()
+                  .withBody(Json.parse("""{"status":"failure"}""").toString())
+                  .withStatus(OK)
+              )
           )
 
           intercept[JsResultException] {
@@ -194,11 +211,14 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "return successful response" in {
 
-          stubFor(post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
-            .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
-            .willReturn(aResponse().withBody("""{"status":true}""")
-              .withStatus(OK)
-            )
+          stubFor(
+            post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
+              .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
+              .willReturn(
+                aResponse()
+                  .withBody("""{"status":true}""")
+                  .withStatus(OK)
+              )
           )
 
           val result = await(charitiesConnector.saveUserAnswers(userAnswers)(hc, ec))
@@ -210,11 +230,14 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "returns an exception if response is in incorrect format" in {
 
-          stubFor(post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
-            .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
-            .willReturn(aResponse().withBody(Json.parse("""{"testStatus":"failure"}""").toString())
-              .withStatus(OK)
-            )
+          stubFor(
+            post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
+              .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
+              .willReturn(
+                aResponse()
+                  .withBody(Json.parse("""{"testStatus":"failure"}""").toString())
+                  .withStatus(OK)
+              )
           )
 
           intercept[JsResultException] {
@@ -226,9 +249,10 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
         "return UpstreamErrorResponse for Internal Server Error" in {
 
-          stubFor(post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
-            .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
-            .willReturn(aResponse().withStatus(INTERNAL_SERVER_ERROR))
+          stubFor(
+            post(urlEqualTo("/charities-registration/saveUserAnswer/id"))
+              .withRequestBody(equalToJson(Json.toJson(userAnswers).toString()))
+              .willReturn(aResponse().withStatus(INTERNAL_SERVER_ERROR))
           )
 
           intercept[RuntimeException] {

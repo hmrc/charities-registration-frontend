@@ -54,43 +54,62 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
     reset(mockUserAnswerService)
   }
 
-  private val view: CanWeSendToThisAddressView = inject[CanWeSendToThisAddressView]
+  private val view: CanWeSendToThisAddressView                 = inject[CanWeSendToThisAddressView]
   private val formProvider: CanWeSendToThisAddressFormProvider = inject[CanWeSendToThisAddressFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val form: Form[Boolean]                              = formProvider()
 
   private val country = new CountryModel("UK", "United Kingdom")
 
-  private val addressLookupData: AddressModel = AddressModel(Seq("4 Other Place", "Some District", "Anytown"),Some("ZZ1 1ZZ"), country)
+  private val addressLookupData: AddressModel =
+    AddressModel(Seq("4 Other Place", "Some District", "Anytown"), Some("ZZ1 1ZZ"), country)
 
   private val addressLookupDataParsed = List("4 Other Place", "Some District", "Anytown", "ZZ1 1ZZ", "United Kingdom")
 
-  private val addressUserAnswers: Some[UserAnswers] = Some(emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))
+  private val addressUserAnswers: Some[UserAnswers] = Some(
+    emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers)
+  )
 
   private val controller: CanWeSendToThisAddressController = inject[CanWeSendToThisAddressController]
 
   "CanWeSendToThisAddress Controller " must {
 
-      "return OK and the correct view for a GET" in {
+    "return OK and the correct view for a GET" in {
 
-        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(addressUserAnswers))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(addressUserAnswers))
 
-        val result = controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode, addressLookupDataParsed)(fakeRequest, messages, frontendAppConfig).toString
-        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      }
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode, addressLookupDataParsed)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      ).toString
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+    }
 
     "return OK and the correct view for a GET with no postcode in the address model" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(CharityOfficialAddressLookupPage, AddressModel(Seq("4 Other Place", "Some District", "Anytown"), None, country)).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(
+                CharityOfficialAddressLookupPage,
+                AddressModel(Seq("4 Other Place", "Some District", "Anytown"), None, country)
+              )
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
-        form, NormalMode, List("4 Other Place", "Some District", "Anytown", "United Kingdom")
+        form,
+        NormalMode,
+        List("4 Other Place", "Some District", "Anytown", "United Kingdom")
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
@@ -99,8 +118,11 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
 
       val userAnswers = emptyUserAnswers.set(CanWeSendToThisAddressPage, true).success.value
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers.
-        set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(userAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -151,8 +173,9 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(CanWeSendToThisAddressPage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(CanWeSendToThisAddressPage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onSubmit(NormalMode)(request)
 

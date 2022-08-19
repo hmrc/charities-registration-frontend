@@ -28,7 +28,6 @@ class OtherFundRaisingFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("otherFundRaising.error.required")
         .verifying(maxLength(maxLength, "otherFundRaising.error.length"))
-        .verifying(regexp(validateFieldWithFullStop,"otherFundRaising.error.format"))
+        .verifying(regexp(validateFieldWithFullStop, "otherFundRaising.error.format"))
     )
 }
-

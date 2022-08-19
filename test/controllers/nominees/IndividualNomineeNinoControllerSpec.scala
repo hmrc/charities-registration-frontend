@@ -52,16 +52,15 @@ class IndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfterEa
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "individualNomineesNino"
-  private val view: NinoView = inject[NinoView]
+  private val messageKeyPrefix               = "individualNomineesNino"
+  private val view: NinoView                 = inject[NinoView]
   private val formProvider: NinoFormProvider = inject[NinoFormProvider]
-  private val form: Form[String] = formProvider(messageKeyPrefix)
+  private val form: Form[String]             = formProvider(messageKeyPrefix)
 
   private val controller: IndividualNomineesNinoController = inject[IndividualNomineesNinoController]
 
-    private val localUserAnswers: UserAnswers =
-      emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
-
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   "IndividualNomineesNinoController " must {
 
@@ -71,9 +70,12 @@ class IndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfterEa
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.nominees.routes.IndividualNomineesNinoController.onSubmit(NormalMode))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.nominees.routes.IndividualNomineesNinoController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

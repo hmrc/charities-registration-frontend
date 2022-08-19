@@ -22,12 +22,12 @@ import play.api.data.{Form, FormError}
 
 class OfficialsPositionFormProviderSpec extends OptionFieldBehaviours {
 
-  private val messagePrefix: String = "authorisedOfficialsPosition"
+  private val messagePrefix: String         = "authorisedOfficialsPosition"
   private val form: Form[OfficialsPosition] = inject[OfficialsPositionFormProvider].apply(messagePrefix)
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = s"$messagePrefix.error.required"
 
     behave like optionsField[OfficialsPosition](

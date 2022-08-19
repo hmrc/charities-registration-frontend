@@ -27,26 +27,27 @@ import play.api.mvc._
 import service.CountryService
 import views.html.common.ConfirmAddressView
 
-class ConfirmOrganisationNomineeAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: ConfirmAddressView,
-    override implicit val appConfig: FrontendAppConfig
-  ) extends ConfirmAddressController {
+class ConfirmOrganisationNomineeAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: ConfirmAddressView,
+  override implicit val appConfig: FrontendAppConfig
+) extends ConfirmAddressController {
 
   override val messagePrefix: String = "organisationNomineeAddress"
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
-        getView(controllers.nominees.routes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode),
-          OrganisationNomineeAddressLookupPage,
-          controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
-          controllers.nominees.routes.AmendNomineeOrganisationAddressController.onSubmit(NormalMode),
-          Some(organisationNomineeName))
-      }
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
+      getView(
+        controllers.nominees.routes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode),
+        OrganisationNomineeAddressLookupPage,
+        controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
+        controllers.nominees.routes.AmendNomineeOrganisationAddressController.onSubmit(NormalMode),
+        Some(organisationNomineeName)
+      )
+    }
   }
 }

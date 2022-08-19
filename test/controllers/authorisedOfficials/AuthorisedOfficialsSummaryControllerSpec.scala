@@ -65,10 +65,17 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
     "return OK if the form has data in it" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
-        .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true)).success.value
-      )))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -78,12 +85,23 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
     "return OK if the form has data for two officials in it" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
-        .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")))
-        .success.value
-      )))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
+              .flatMap(
+                _.set(
+                  AuthorisedOfficialsNamePage(1),
+                  Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")
+                )
+              )
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -93,8 +111,16 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -119,19 +145,22 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
     "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
 
       val app =
-        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+        new GuiceApplicationBuilder()
+          .configure("features.isExternalTest" -> "true")
           .overrides(
             bind[UserAnswerService].toInstance(mockUserAnswerService),
             bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          ).build()
+          )
+          .build()
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
-      val controller: AuthorisedOfficialsSummaryController = app.injector.instanceOf[AuthorisedOfficialsSummaryController]
+      val controller: AuthorisedOfficialsSummaryController =
+        app.injector.instanceOf[AuthorisedOfficialsSummaryController]
 
       val result = controller.onSubmit()(request)
 
@@ -144,9 +173,17 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man"))).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
+              .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man")))
+              .success
+              .value
+          )
+        )
+      )
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(request)
@@ -159,21 +196,32 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
     "redirect to the next page when valid data is submitted with two rows of officials and isExternalTest is true" in {
 
       val app =
-        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+        new GuiceApplicationBuilder()
+          .configure("features.isExternalTest" -> "true")
           .overrides(
             bind[UserAnswerService].toInstance(mockUserAnswerService),
             bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          ).build()
+          )
+          .build()
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man"))).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
+              .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man")))
+              .success
+              .value
+          )
+        )
+      )
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
-      val controller: AuthorisedOfficialsSummaryController = app.injector.instanceOf[AuthorisedOfficialsSummaryController]
+      val controller: AuthorisedOfficialsSummaryController =
+        app.injector.instanceOf[AuthorisedOfficialsSummaryController]
 
       val result = controller.onSubmit()(request)
 

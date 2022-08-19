@@ -28,9 +28,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
-                             (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper {
+class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
+    extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
+    with SummaryListRowHelper {
 
   def isCharityRegulatorRow: Option[SummaryListRow] =
     answer(IsCharityRegulatorPage, regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(CheckMode))
@@ -39,33 +40,50 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
     multiLineAnswer(CharityRegulatorPage, regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode))
 
   def charityCommissionRegRow: Option[SummaryListRow] =
-    answer(CharityCommissionRegistrationNumberPage, regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(CheckMode))
+    answer(
+      CharityCommissionRegistrationNumberPage,
+      regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(CheckMode)
+    )
 
   def scottishRegulatorRegRow: Option[SummaryListRow] =
-    answer(ScottishRegulatorRegNumberPage, regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(CheckMode))
+    answer(
+      ScottishRegulatorRegNumberPage,
+      regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(CheckMode)
+    )
 
   def nIRegulatorRegRow: Option[SummaryListRow] =
     answer(NIRegulatorRegNumberPage, regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(CheckMode))
 
   def regulatorNameRow: Option[SummaryListRow] =
-    answerRegistrationName(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
+    answerRegistrationName(
+      CharityOtherRegulatorDetailsPage,
+      regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode)
+    )
 
   def regulatorRegistrationNumberRow: Option[SummaryListRow] =
-    answerRegistrationNumber(CharityOtherRegulatorDetailsPage, regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode))
+    answerRegistrationNumber(
+      CharityOtherRegulatorDetailsPage,
+      regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode)
+    )
 
   def selectWhyNoRegulatorRow: Option[SummaryListRow] =
-    answer(SelectWhyNoRegulatorPage, regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode), answerIsMsgKey = true)
+    answer(
+      SelectWhyNoRegulatorPage,
+      regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode),
+      answerIsMsgKey = true
+    )
 
   def whyNotRegisteredCharityRow: Option[SummaryListRow] =
-    textBoxAnswer(WhyNotRegisteredWithCharityPage, regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode))
+    textBoxAnswer(
+      WhyNotRegisteredWithCharityPage,
+      regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode)
+    )
 
-
-  private def answerRegistrationName[A](page: QuestionPage[CharityOtherRegulatorDetails],
-                                        changeLinkCall: Call)
-                                       (implicit reads: Reads[CharityOtherRegulatorDetails],
-                                        conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
+  private def answerRegistrationName[A](page: QuestionPage[CharityOtherRegulatorDetails], changeLinkCall: Call)(implicit
+    reads: Reads[CharityOtherRegulatorDetails],
+    conversion: CharityOtherRegulatorDetails => String
+  ): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
-
       summaryListRow(
         label = messages(s"$page.name.checkYourAnswersLabel"),
         value = HtmlContent(ans.regulatorName),
@@ -74,12 +92,12 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)
       )
     }
 
-  private def answerRegistrationNumber[A](page: QuestionPage[CharityOtherRegulatorDetails],
-                                          changeLinkCall: Call)
-                                         (implicit reads: Reads[CharityOtherRegulatorDetails],
-                                          conversion: CharityOtherRegulatorDetails => String): Option[SummaryListRow] =
+  private def answerRegistrationNumber[A](page: QuestionPage[CharityOtherRegulatorDetails], changeLinkCall: Call)(
+    implicit
+    reads: Reads[CharityOtherRegulatorDetails],
+    conversion: CharityOtherRegulatorDetails => String
+  ): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
-
       summaryListRow(
         label = messages(s"$page.registrationNumber.checkYourAnswersLabel"),
         value = HtmlContent(ans.registrationNumber),

@@ -24,24 +24,23 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.GoverningDocumentNameView
 
-class
-GoverningDocumentNameViewSpec extends QuestionViewBehaviours[String] {
+class GoverningDocumentNameViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix = "governingDocumentName"
-  val form: Form[String] = inject[GoverningDocumentNameFormProvider].apply()
+  val form: Form[String]       = inject[GoverningDocumentNameFormProvider].apply()
 
-    "GoverningDocumentNameView" must {
+  "GoverningDocumentNameView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[GoverningDocumentNameView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[GoverningDocumentNameView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

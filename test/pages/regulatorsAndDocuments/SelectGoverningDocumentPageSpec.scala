@@ -23,11 +23,11 @@ import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 
-class SelectGoverningDocumentPageSpec extends PageBehaviours{
+class SelectGoverningDocumentPageSpec extends PageBehaviours {
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectGoverningDocument] = Arbitrary {
-      Gen.oneOf(SelectGoverningDocument.values)
-    }
+  implicit lazy val arbitraryCharityContactDetails: Arbitrary[SelectGoverningDocument] = Arbitrary {
+    Gen.oneOf(SelectGoverningDocument.values)
+  }
 
   "SelectGoverningDocument" must {
 
@@ -39,9 +39,11 @@ class SelectGoverningDocumentPageSpec extends PageBehaviours{
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj()).set(SelectGoverningDocumentPage,SelectGoverningDocument.values.head)
-        .flatMap(_.set(GoverningDocumentNamePage, "will")
-        ).success.value
+      val userAnswer = UserAnswers("id", Json.obj())
+        .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
+        .flatMap(_.set(GoverningDocumentNamePage, "will"))
+        .success
+        .value
 
       "setting SelectGoverningDocumentPage to other" must {
 

@@ -32,27 +32,26 @@ case class DefaultedUnexpectedFailure(override val status: Int) extends ErrorRes
 case class UnexpectedFailureException(message: String) extends RuntimeException(message)
 
 object AddressNotFound extends ErrorResponse {
-  override val status: Int = NOT_FOUND
+  override val status: Int  = NOT_FOUND
   override val body: String = "Address not found"
 }
 
 object AddressMalformed extends ErrorResponse {
-  override val status: Int = INTERNAL_SERVER_ERROR
+  override val status: Int  = INTERNAL_SERVER_ERROR
   override val body: String = "Address returned from address lookup was malformed"
 }
 
 object NoLocationHeaderReturned extends ErrorResponse {
-  override val status: Int = INTERNAL_SERVER_ERROR
+  override val status: Int  = INTERNAL_SERVER_ERROR
   override val body: String = "Address Lookup returned ACCEPTED (202) but did not provide a Location header"
 }
 
 object EtmpFailed extends ErrorResponse {
-  override val status: Int = BAD_REQUEST
+  override val status: Int  = BAD_REQUEST
   override val body: String = "Charities returned unexpected Response from ETMP"
 }
 
 object CharitiesInvalidJson extends ErrorResponse {
-  override val status: Int = NOT_ACCEPTABLE
+  override val status: Int  = NOT_ACCEPTABLE
   override val body: String = "Charities returned Json parsing error for invalid json input"
 }
-

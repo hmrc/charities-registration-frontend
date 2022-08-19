@@ -24,25 +24,24 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.TextAreaViewBehaviours
 import views.html.operationsAndFunds.CharitableObjectivesView
 
-
 class CharitableObjectivesViewSpec extends TextAreaViewBehaviours {
 
   private val messageKeyPrefix = "charitableObjectives"
-  val form: Form[String] = inject[CharitableObjectivesFormProvider].apply()
+  val form: Form[String]       = inject[CharitableObjectivesFormProvider].apply()
 
-    "CharitableObjectivesView" must {
+  "CharitableObjectivesView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[CharitableObjectivesView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
-     behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("operationsAndFunds.section")))
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[CharitableObjectivesView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+    behave like textAreaPage(form, applyView, messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
   }
+}

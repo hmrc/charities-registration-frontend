@@ -21,13 +21,14 @@ import play.api.data.{Form, FormError}
 
 class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBehaviours {
 
-  private val formProvider: CharityCommissionRegistrationNumberFormProvider = inject[CharityCommissionRegistrationNumberFormProvider]
-  private val form: Form[String] = formProvider()
+  private val formProvider: CharityCommissionRegistrationNumberFormProvider =
+    inject[CharityCommissionRegistrationNumberFormProvider]
+  private val form: Form[String]                                            = formProvider()
 
   ".registrationNumber" must {
 
     val requiredKey = "charityCommissionRegistrationNumber.error.required"
-    val invalidKey = "charityCommissionRegistrationNumber.error.format"
+    val invalidKey  = "charityCommissionRegistrationNumber.error.format"
 
     val fieldName = "registrationNumber"
 
@@ -57,11 +58,13 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
 
     "apply CharityCommissionRegistrationNumber correctly" in {
 
-      val details = form.bind(
-        Map(
-          "registrationNumber" -> charityCommissionRegistrationNumber,
+      val details = form
+        .bind(
+          Map(
+            "registrationNumber" -> charityCommissionRegistrationNumber
+          )
         )
-      ).get
+        .get
 
       details mustBe charityCommissionRegistrationNumber
     }

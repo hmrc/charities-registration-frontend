@@ -20,9 +20,9 @@ import pages.behaviours.PageBehaviours
 
 class NIRegulatorRegNumberPageSpec extends PageBehaviours {
 
-    beRetrievable[String](NIRegulatorRegNumberPage)
+  beRetrievable[String](NIRegulatorRegNumberPage)
 
-    beSettable[String](NIRegulatorRegNumberPage)
+  beSettable[String](NIRegulatorRegNumberPage)
 
-    beRemovable[String](NIRegulatorRegNumberPage)
+  beRemovable[String](NIRegulatorRegNumberPage)
 }

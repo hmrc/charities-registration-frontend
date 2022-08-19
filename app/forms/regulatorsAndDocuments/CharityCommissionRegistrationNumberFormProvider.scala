@@ -27,8 +27,6 @@ class CharityCommissionRegistrationNumberFormProvider @Inject() extends Mappings
   def apply(): Form[String] =
     Form(
       "registrationNumber" -> text("charityCommissionRegistrationNumber.error.required")
-        .verifying(regexp(validateRegistrationNumber,"charityCommissionRegistrationNumber.error.format"))
+        .verifying(regexp(validateRegistrationNumber, "charityCommissionRegistrationNumber.error.format"))
     )
 }
-
-

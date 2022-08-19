@@ -20,7 +20,7 @@ import models.PhoneNumber
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class IndividualNomineePhoneNumberPageSpec extends PageBehaviours{
+class IndividualNomineePhoneNumberPageSpec extends PageBehaviours {
 
   "IndividualNomineePhoneNumberPage" must {
 

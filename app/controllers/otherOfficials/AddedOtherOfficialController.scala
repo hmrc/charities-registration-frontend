@@ -30,30 +30,35 @@ import views.html.common.AddedOfficialsView
 
 import scala.concurrent.Future
 
-class AddedOtherOfficialController @Inject()(
-   override val sessionRepository: UserAnswerService,
-   override val navigator: OtherOfficialsNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   override val countryService: CountryService,
-   override val view: AddedOfficialsView,
-   override val controllerComponents: MessagesControllerComponents
- )(implicit appConfig: FrontendAppConfig) extends AddedOfficialController {
+class AddedOtherOfficialController @Inject() (
+  override val sessionRepository: UserAnswerService,
+  override val navigator: OtherOfficialsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  override val countryService: CountryService,
+  override val view: AddedOfficialsView,
+  override val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends AddedOfficialController {
 
   override val messagePrefix: String = "addedOtherOfficial"
 
-  def onPageLoad(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-      Future.successful(getView(index, controllers.otherOfficials.routes.AddedOtherOfficialController.onSubmit(index), otherOfficialsName))
-    }
+  def onPageLoad(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
+        Future.successful(
+          getView(
+            index,
+            controllers.otherOfficials.routes.AddedOtherOfficialController.onSubmit(index),
+            otherOfficialsName
+          )
+        )
+      }
   }
 
-  def onSubmit(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    postView(AddedOtherOfficialPage(index), Section8Page)
+  def onSubmit(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      postView(AddedOtherOfficialPage(index), Section8Page)
   }
 }
-

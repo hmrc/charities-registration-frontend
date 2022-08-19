@@ -27,20 +27,20 @@ import views.html.nominees.OrganisationNomineeNameView
 class OrganisationNomineeNameViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix = "nameOfOrganisation"
-  val form: Form[String] = inject[OrganisationNomineeNameFormProvider].apply()
+  val form: Form[String]       = inject[OrganisationNomineeNameFormProvider].apply()
 
-    " OrganisationNomineeNameView" must {
+  " OrganisationNomineeNameView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[OrganisationNomineeNameView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[OrganisationNomineeNameView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

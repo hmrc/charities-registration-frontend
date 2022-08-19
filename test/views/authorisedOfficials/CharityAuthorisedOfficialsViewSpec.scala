@@ -25,7 +25,7 @@ import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
 class CharityAuthorisedOfficialsViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "charityAuthorisedOfficials"
-    List(0, 1).foreach(index => {
+  List(0, 1).foreach { index =>
     s"CharityAuthorisedOfficialsView for index $index" must {
 
       def applyView(index: Index): HtmlFormat.Appendable = {
@@ -33,19 +33,23 @@ class CharityAuthorisedOfficialsViewSpec extends ViewBehaviours {
         view.apply(index)(fakeRequest, messages, frontendAppConfig)
       }
 
-        behave like normalPage(applyView(index), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
+      behave like normalPage(
+        applyView(index),
+        messageKeyPrefix,
+        section = Some(messages("officialsAndNominees.section"))
+      )
 
-        behave like pageWithAdditionalGuidance(applyView(index), messageKeyPrefix,
-          "p1", "p2")
+      behave like pageWithAdditionalGuidance(applyView(index), messageKeyPrefix, "p1", "p2")
 
-        behave like pageWithBackLink(applyView(index))
+      behave like pageWithBackLink(applyView(index))
 
-        behave like pageWithHyperLink(applyView(index), "linkButton",
-          controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, index).url, BaseMessages.continue)
-
-
-
+      behave like pageWithHyperLink(
+        applyView(index),
+        "linkButton",
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, index).url,
+        BaseMessages.continue
+      )
 
     }
-    })
   }
+}

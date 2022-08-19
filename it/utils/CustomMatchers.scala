@@ -21,24 +21,20 @@ import play.api.libs.ws.WSResponse
 
 trait CustomMatchers {
   def httpStatus(expectedValue: Int): HavePropertyMatcher[WSResponse, Int] =
-    new HavePropertyMatcher[WSResponse, Int] {
-      def apply(response: WSResponse): HavePropertyMatchResult[Int] =
-        HavePropertyMatchResult(
-          response.status == expectedValue,
-          "httpStatus",
-          expectedValue,
-          response.status
-        )
-    }
+    (response: WSResponse) =>
+      HavePropertyMatchResult(
+        response.status == expectedValue,
+        "httpStatus",
+        expectedValue,
+        response.status
+      )
 
   def redirectLocation(expectedValue: String): HavePropertyMatcher[WSResponse, Option[String]] =
-    new HavePropertyMatcher[WSResponse, Option[String]] {
-      def apply(response: WSResponse): HavePropertyMatchResult[Option[String]] =
-        HavePropertyMatchResult(
-          response.header("Location").contains(expectedValue),
-          "headerLocation",
-          Some(expectedValue),
-          response.header("Location")
-        )
-    }
+    (response: WSResponse) =>
+      HavePropertyMatchResult(
+        response.header("Location").contains(expectedValue),
+        "headerLocation",
+        Some(expectedValue),
+        response.header("Location")
+      )
 }

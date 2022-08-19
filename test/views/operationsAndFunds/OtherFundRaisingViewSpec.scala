@@ -25,24 +25,23 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.{CheckboxViewBehaviours, QuestionViewBehaviours}
 import views.html.operationsAndFunds.OtherFundRaisingView
 
-
-class OtherFundRaisingViewSpec extends QuestionViewBehaviours[String]  {
+class OtherFundRaisingViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix: String = "otherFundRaising"
-  private val section: String = messages("operationsAndFunds.section")
-  val form: Form[String] = inject[OtherFundRaisingFormProvider].apply()
+  private val section: String          = messages("operationsAndFunds.section")
+  val form: Form[String]               = inject[OtherFundRaisingFormProvider].apply()
 
-    "OtherFundRaisingView" must {
+  "OtherFundRaisingView" must {
 
-      def applyView(form: Form[String]): HtmlFormat.Appendable = {
-          val view = viewFor[OtherFundRaisingView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[String]): HtmlFormat.Appendable = {
+      val view = viewFor[OtherFundRaisingView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

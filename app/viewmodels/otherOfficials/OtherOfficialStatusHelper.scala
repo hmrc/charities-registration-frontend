@@ -58,7 +58,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
   private def officialsTitleIsLegal(userAnswers: UserAnswers, index: Int): Boolean =
     userAnswers.get(OtherOfficialsNamePage(index)) match {
       case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
-      case _ => true
+      case _                                                        => true
     }
 
   def validateDataFromOldService(userAnswers: UserAnswers): Boolean = {
@@ -69,12 +69,16 @@ object OtherOfficialStatusHelper extends StatusHelper {
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean = userAnswers.unneededPagesNotPresent(list, allPages)
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+      userAnswers.unneededPagesNotPresent(list, allPages)
 
-    (userAnswers.get(IsOtherOfficialNinoPage(0)), userAnswers.get(IsOtherOfficialsPreviousAddressPage(0)),
-      userAnswers.get(IsOtherOfficialNinoPage(1)), userAnswers.get(IsOtherOfficialsPreviousAddressPage(1))) match {
+    (
+      userAnswers.get(IsOtherOfficialNinoPage(0)),
+      userAnswers.get(IsOtherOfficialsPreviousAddressPage(0)),
+      userAnswers.get(IsOtherOfficialNinoPage(1)),
+      userAnswers.get(IsOtherOfficialsPreviousAddressPage(1))
+    ) match {
       case (Some(isNino1), Some(isPreviousAddress1), Some(isNino2), Some(isPreviousAddress2)) =>
-
         userAnswers.get(IsAddAnotherOtherOfficialPage) match {
 
           case Some(false) =>
@@ -85,8 +89,10 @@ object OtherOfficialStatusHelper extends StatusHelper {
             userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
 
           case Some(true) =>
-
-            (userAnswers.get(IsOtherOfficialNinoPage(2)), userAnswers.get(IsOtherOfficialsPreviousAddressPage(2))) match {
+            (
+              userAnswers.get(IsOtherOfficialNinoPage(2)),
+              userAnswers.get(IsOtherOfficialsPreviousAddressPage(2))
+            ) match {
               case (Some(isNino3), Some(isPreviousAddress3)) =>
                 val newPages = otherOfficial1common
                   .getOfficialPages(0, isNino1, isPreviousAddress1)
@@ -97,21 +103,23 @@ object OtherOfficialStatusHelper extends StatusHelper {
 
               case _ => false
             }
-          case _ => false
+          case _          => false
         }
-      case _ => false
+      case _                                                                                  => false
     }
   }
 
-  def otherOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean = {
-    (userAnswers.get(IsOtherOfficialNinoPage(index)), userAnswers.get(IsOtherOfficialsPreviousAddressPage(index))) match {
+  def otherOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean =
+    (
+      userAnswers.get(IsOtherOfficialNinoPage(index)),
+      userAnswers.get(IsOtherOfficialsPreviousAddressPage(index))
+    ) match {
       case (Some(isNino), Some(isPreviousAddress)) =>
-        val list  = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)
+        val list = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)
         userAnswers.arePagesDefined(list) &&
-          userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index)) &&
-          officialsTitleIsLegal(userAnswers, index)
+        userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index)) &&
+        officialsTitleIsLegal(userAnswers, index)
 
       case _ => false
     }
-  }
 }

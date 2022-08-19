@@ -22,19 +22,27 @@ import views.html.common.ConfirmAddressView
 
 class ConfirmAddressViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "charityOfficialAddress"
-  val charityInformationAddressLookup = List("12", "Banner Way", "ZZ1 1ZZ")
+  private val messageKeyPrefix                      = "charityOfficialAddress"
+  val charityInformationAddressLookup: List[String] = List("12", "Banner Way", "ZZ1 1ZZ")
 
   "ConfirmAddressView" must {
 
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
-      view.apply(charityInformationAddressLookup, messageKeyPrefix, onwardRoute, onwardRoute, None)(fakeRequest, messages, frontendAppConfig)
+      view.apply(charityInformationAddressLookup, messageKeyPrefix, onwardRoute, onwardRoute, None)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
 
-    def applyViewWithName(name:String): HtmlFormat.Appendable = {
+    def applyViewWithName(name: String): HtmlFormat.Appendable = {
       val view = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
-      view.apply(charityInformationAddressLookup, "authorisedOfficialAddress", onwardRoute, onwardRoute, Some(name))(fakeRequest, messages, frontendAppConfig)
+      view.apply(charityInformationAddressLookup, "authorisedOfficialAddress", onwardRoute, onwardRoute, Some(name))(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
 
     behave like normalPage(applyView(), s"$messageKeyPrefix.confirmPage")
@@ -50,7 +58,12 @@ class ConfirmAddressViewSpec extends ViewBehaviours {
     }
 
     "change link with name" must {
-      behave like pageWithHyperLink(applyViewWithName("John Doe"), "linkButton", onwardRoute.url, "Change authorised official’s home address")
+      behave like pageWithHyperLink(
+        applyViewWithName("John Doe"),
+        "linkButton",
+        onwardRoute.url,
+        "Change authorised official’s home address"
+      )
     }
 
     behave like pageWithHyperLink(applyView(), "confirmAndContinue", onwardRoute.url, "Confirm and continue")

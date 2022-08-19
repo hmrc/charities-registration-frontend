@@ -33,31 +33,35 @@ import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
-class GoverningDocumentSummaryController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: DocumentsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    view: CheckYourAnswersView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+class GoverningDocumentSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: DocumentsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  view: CheckYourAnswersView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val governingDocumentAnswersHelper = new GoverningDocumentSummaryHelper(request.userAnswers)
 
     if (governingDocumentAnswersHelper.rows.isEmpty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
 
-      Ok(view(governingDocumentAnswersHelper.rows, GoverningDocumentSummaryPage,
-        controllers.regulatorsAndDocuments.routes.GoverningDocumentSummaryController.onSubmit()))
+      Ok(
+        view(
+          governingDocumentAnswersHelper.rows,
+          GoverningDocumentSummaryPage,
+          controllers.regulatorsAndDocuments.routes.GoverningDocumentSummaryController.onSubmit()
+        )
+      )
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     for {
       updatedAnswers <- Future.fromTry(request.userAnswers.set(Section3Page, checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)

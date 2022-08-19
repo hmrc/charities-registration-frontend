@@ -32,39 +32,46 @@ import views.html.common.AmendAddressView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class AmendNomineeOrganisationPreviousAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    val formProvider: AmendAddressFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: NomineesNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: AmendAddressView
-  )(implicit appConfig: FrontendAppConfig) extends AmendAddressController {
+class AmendNomineeOrganisationPreviousAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  val formProvider: AmendAddressFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: AmendAddressView
+)(implicit appConfig: FrontendAppConfig)
+    extends AmendAddressController {
 
   override val messagePrefix: String = "amendNomineeOrganisationPreviousAddress"
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getOrganisationName(OrganisationNomineeNamePage) { name =>
-
-        Future.successful(getView(OrganisationNomineePreviousAddressLookupPage,
-          controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onSubmit(mode),
-          countryService.countries(), Some(name)))
+        Future.successful(
+          getView(
+            OrganisationNomineePreviousAddressLookupPage,
+            controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onSubmit(mode),
+            countryService.countries(),
+            Some(name)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getOrganisationName(OrganisationNomineeNamePage) { name =>
-
-        postView(mode, OrganisationNomineePreviousAddressLookupPage, Section9Page,
+        postView(
+          mode,
+          OrganisationNomineePreviousAddressLookupPage,
+          Section9Page,
           controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onSubmit(mode),
-          countryService.countries(), Some(name))
+          countryService.countries(),
+          Some(name)
+        )
       }
   }
 

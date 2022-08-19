@@ -39,7 +39,7 @@ import scala.concurrent.Future
 class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -55,11 +55,8 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
     reset(mockUserAnswerService)
   }
 
-  private val view: OverseasOperatingLocationSummaryView = inject[OverseasOperatingLocationSummaryView]
-  private val formProvider: OverseasOperatingLocationSummaryFormProvider = inject[OverseasOperatingLocationSummaryFormProvider]
-  private val form: Form[Boolean] = formProvider()
-
-  private val controller: OverseasOperatingLocationSummaryController = inject[OverseasOperatingLocationSummaryController]
+  private val controller: OverseasOperatingLocationSummaryController =
+    inject[OverseasOperatingLocationSummaryController]
 
   "OverseasOperatingLocationSummary Controller " must {
 
@@ -68,7 +65,8 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value)))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -76,14 +74,20 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(OverseasOperatingLocationSummaryPage, true)
-        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "TT")).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(OverseasOperatingLocationSummaryPage, true)
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "TT"))
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -93,8 +97,9 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
     "redirect to the correct page if no country is in the UserAnswers" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(OverseasOperatingLocationSummaryPage, true).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(OverseasOperatingLocationSummaryPage, true).success.value))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -110,7 +115,8 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value)))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value))
+      )
 
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
@@ -126,12 +132,16 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0) ,"TH").flatMap(
-        _.set(WhatCountryDoesTheCharityOperateInPage(1) ,"IN")).flatMap(
-        _.set(WhatCountryDoesTheCharityOperateInPage(2) ,"PT")).flatMap(
-        _.set(WhatCountryDoesTheCharityOperateInPage(3) ,"PY")).flatMap(
-        _.set(WhatCountryDoesTheCharityOperateInPage(4) ,"AF")
-      ).success.value
+      val userAnswers = emptyUserAnswers
+        .set(WhatCountryDoesTheCharityOperateInPage(0), "TH")
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "PT"))
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), "PY"))
+        .flatMap(
+          _.set(WhatCountryDoesTheCharityOperateInPage(4), "AF")
+        )
+        .success
+        .value
 
       when(mockCountryService.find(meq("TH"))(any())).thenReturn(Some(Country("TH", "Thai")))
       when(mockCountryService.find(meq("IN"))(any())).thenReturn(Some(Country("IN", "India")))
@@ -141,8 +151,8 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai"),("IN", "INDIA"),
-        ("PT", "Portugal"),("PY", "Paraguay"),("AF", "Afghanistan")))
+      when(mockCountryService.countries()(any()))
+        .thenReturn(Seq(("TH", "Thai"), ("IN", "INDIA"), ("PT", "Portugal"), ("PY", "Paraguay"), ("AF", "Afghanistan")))
 
       val result = controller.onSubmit(NormalMode)(request)
 

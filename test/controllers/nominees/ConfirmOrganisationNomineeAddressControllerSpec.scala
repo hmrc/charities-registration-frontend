@@ -49,28 +49,45 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
     reset(mockUserAnswerService)
   }
 
-  private val view: ConfirmAddressView = injector.instanceOf[ConfirmAddressView]
-  private val controller: ConfirmOrganisationNomineeAddressController = inject[ConfirmOrganisationNomineeAddressController]
-  private val messageKeyPrefix = "organisationNomineeAddress"
-  private val organisationNomineeAddressLookup = List("12", "Banner Way", "United Kingdom")
+  private val view: ConfirmAddressView                                = injector.instanceOf[ConfirmAddressView]
+  private val controller: ConfirmOrganisationNomineeAddressController =
+    inject[ConfirmOrganisationNomineeAddressController]
+  private val messageKeyPrefix                                        = "organisationNomineeAddress"
+  private val organisationNomineeAddressLookup                        = List("12", "Banner Way", "United Kingdom")
 
   "ConfirmOrganisationNomineeAddressController Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(OrganisationNomineeNamePage, "abc")
-        .flatMap(_.set(OrganisationNomineeAddressLookupPage, AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(OrganisationNomineeNamePage, "abc")
+              .flatMap(
+                _.set(
+                  OrganisationNomineeAddressLookupPage,
+                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                )
+              )
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view.apply(
-        organisationNomineeAddressLookup, messageKeyPrefix,
-        controllers.nominees.routes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode),
-        controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
-        Some("abc"))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view
+        .apply(
+          organisationNomineeAddressLookup,
+          messageKeyPrefix,
+          controllers.nominees.routes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode),
+          controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
+          Some("abc")
+        )(fakeRequest, messages, frontendAppConfig)
+        .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -78,19 +95,39 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
 
       val organisationNomineeAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(OrganisationNomineeNamePage, "abc")
-        .flatMap(_.set(OrganisationNomineeAddressLookupPage, AddressModel(List("12", "Banner Way near south riverview gardens"), None, CountryModel("GB", "United Kingdom"))))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(OrganisationNomineeNamePage, "abc")
+              .flatMap(
+                _.set(
+                  OrganisationNomineeAddressLookupPage,
+                  AddressModel(
+                    List("12", "Banner Way near south riverview gardens"),
+                    None,
+                    CountryModel("GB", "United Kingdom")
+                  )
+                )
+              )
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view.apply(
-        organisationNomineeAddressMax, messageKeyPrefix,
-        controllers.nominees.routes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode),
-        controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
-        Some("abc"))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view
+        .apply(
+          organisationNomineeAddressMax,
+          messageKeyPrefix,
+          controllers.nominees.routes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode),
+          controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
+          Some("abc")
+        )(fakeRequest, messages, frontendAppConfig)
+        .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

@@ -32,39 +32,46 @@ import views.html.common.AmendAddressView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class AmendAuthorisedOfficialsAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    val formProvider: AmendAddressFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: AuthorisedOfficialsNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: AmendAddressView
-  )(implicit appConfig: FrontendAppConfig) extends AmendAddressController {
+class AmendAuthorisedOfficialsAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  val formProvider: AmendAddressFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: AuthorisedOfficialsNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: AmendAddressView
+)(implicit appConfig: FrontendAppConfig)
+    extends AmendAddressController {
 
   override val messagePrefix: String = "amendAuthorisedOfficialAddress"
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-
-        Future.successful(getView(AuthorisedOfficialAddressLookupPage(index),
-          controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsAddressController.onSubmit(mode, index),
-          countryService.countries(), Some(authorisedOfficialsName)))
+        Future.successful(
+          getView(
+            AuthorisedOfficialAddressLookupPage(index),
+            controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsAddressController.onSubmit(mode, index),
+            countryService.countries(),
+            Some(authorisedOfficialsName)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-
-        postView(mode, AuthorisedOfficialAddressLookupPage(index), Section7Page,
+        postView(
+          mode,
+          AuthorisedOfficialAddressLookupPage(index),
+          Section7Page,
           controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsAddressController.onSubmit(mode, index),
-          countryService.countries(), Some(authorisedOfficialsName))
+          countryService.countries(),
+          Some(authorisedOfficialsName)
+        )
       }
   }
 

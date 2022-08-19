@@ -18,7 +18,7 @@ package pages.nominees
 
 import pages.behaviours.PageBehaviours
 
-class IndividualNomineerNinoPageSpec extends PageBehaviours{
+class IndividualNomineerNinoPageSpec extends PageBehaviours {
 
   "IndividualNomineeNinoPage" must {
 

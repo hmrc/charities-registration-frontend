@@ -24,18 +24,17 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.nominees.CharityNomineeView
 
-
-class CharityNomineeController @Inject()(
-    val userAnswerService: UserAnswerService,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    val controllerComponents: MessagesControllerComponents,
-    view: CharityNomineeView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class CharityNomineeController @Inject() (
+  val userAnswerService: UserAnswerService,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val controllerComponents: MessagesControllerComponents,
+  view: CharityNomineeView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     Ok(view())
   }
 }

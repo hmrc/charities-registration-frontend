@@ -22,13 +22,14 @@ import play.api.data.{Form, FormError}
 
 class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
-  private val formProvider: OrganisationNomineeContactDetailsFormProvider = inject[OrganisationNomineeContactDetailsFormProvider]
-  private val form: Form[OrganisationNomineeContactDetails] = formProvider()
+  private val formProvider: OrganisationNomineeContactDetailsFormProvider =
+    inject[OrganisationNomineeContactDetailsFormProvider]
+  private val form: Form[OrganisationNomineeContactDetails]               = formProvider()
 
   ".phoneNumber" must {
 
     val requiredKey = "organisationContactDetails.phoneNumber.error.required"
-    val invalidKey = "organisationContactDetails.phoneNumber.error.format"
+    val invalidKey  = "organisationContactDetails.phoneNumber.error.format"
 
     val fieldName = "phoneNumber"
 
@@ -54,7 +55,7 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
   ".email" must {
 
-    val fieldName = "email"
+    val fieldName  = "email"
     val invalidKey = "organisationContactDetails.email.error.format"
     val tooLongKey = "organisationContactDetails.email.error.length"
 
@@ -85,12 +86,14 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
     "apply OrganisationNomineeContactDetailsSpec correctly" in {
 
-      val details = form.bind(
-        Map(
-          "phoneNumber" -> organisationContactDetails.phoneNumber,
-          "email" -> organisationContactDetails.email
+      val details = form
+        .bind(
+          Map(
+            "phoneNumber" -> organisationContactDetails.phoneNumber,
+            "email"       -> organisationContactDetails.email
+          )
         )
-      ).get
+        .get
 
       details.phoneNumber mustBe organisationContactDetails.phoneNumber
       details.email mustBe organisationContactDetails.email

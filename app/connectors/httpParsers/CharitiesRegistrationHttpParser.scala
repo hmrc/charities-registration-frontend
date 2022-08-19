@@ -30,24 +30,29 @@ object CharitiesRegistrationHttpParser {
 
   implicit object CharitiesRegistrationResponseReads extends HttpReads[CharitiesRegistrationResponse] {
 
-    def read(method: String, url: String, response: HttpResponse): CharitiesRegistrationResponse = {
+    def read(method: String, url: String, response: HttpResponse): CharitiesRegistrationResponse =
       response.status match {
-        case ACCEPTED => response.json.validate[RegistrationResponse] match {
-          case JsSuccess(validResponse, _) => Right(validResponse)
-          case JsError(errors) => logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $errors returned")
-            throw JsResultException(errors)
-        }
+        case ACCEPTED =>
+          response.json.validate[RegistrationResponse] match {
+            case JsSuccess(validResponse, _) => Right(validResponse)
+            case JsError(errors)             =>
+              logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $errors returned")
+              throw JsResultException(errors)
+          }
 
-        case NOT_ACCEPTABLE => logger.error(s"[CharitiesRegistrationResponseReads][read]: can not process json, invalid json posted, $NOT_ACCEPTABLE returned")
+        case NOT_ACCEPTABLE =>
+          logger.error(
+            s"[CharitiesRegistrationResponseReads][read]: can not process json, invalid json posted, $NOT_ACCEPTABLE returned"
+          )
           Left(CharitiesInvalidJson)
 
-        case BAD_REQUEST => logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $BAD_REQUEST returned")
+        case BAD_REQUEST =>
+          logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $BAD_REQUEST returned")
           Left(EtmpFailed)
 
         case status =>
           logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, status $status returned")
           Left(DefaultedUnexpectedFailure(status))
       }
-    }
   }
 }

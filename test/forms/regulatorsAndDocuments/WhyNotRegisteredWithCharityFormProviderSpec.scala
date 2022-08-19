@@ -22,15 +22,15 @@ import play.api.data.{Form, FormError}
 class WhyNotRegisteredWithCharityFormProviderSpec extends StringFieldBehaviours {
 
   private val formProvider: WhyNotRegisteredWithCharityFormProvider = inject[WhyNotRegisteredWithCharityFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                                    = formProvider()
 
   ".value" must {
 
     val requiredKey = "whyNotRegisteredWithCharity.error.required"
-    val lengthKey = "whyNotRegisteredWithCharity.error.length"
-    val invalidKey = "whyNotRegisteredWithCharity.error.format"
-    val maxLength = 100
-    val fieldName = "value"
+    val lengthKey   = "whyNotRegisteredWithCharity.error.length"
+    val invalidKey  = "whyNotRegisteredWithCharity.error.format"
+    val maxLength   = 100
+    val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
       form,

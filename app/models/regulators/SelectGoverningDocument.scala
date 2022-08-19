@@ -34,16 +34,20 @@ object SelectGoverningDocument extends Enumerable.Implicits {
   case object Other extends WithName("7") with SelectGoverningDocument
 
   val values: Seq[SelectGoverningDocument] = Seq(
-    MemorandumArticlesAssociation, RoyalCharacter, RulesConstitution, TrustDeed, Will, Other
+    MemorandumArticlesAssociation,
+    RoyalCharacter,
+    RulesConstitution,
+    TrustDeed,
+    Will,
+    Other
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
-    value =>
-      RadioItem(
-        value = Some(value.toString),
-        content = Text(messages(s"selectGoverningDocument.${value.toString}")),
-        checked = form("value").value.contains(value.toString)
-      )
+  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+    RadioItem(
+      value = Some(value.toString),
+      content = Text(messages(s"selectGoverningDocument.${value.toString}")),
+      checked = form("value").value.contains(value.toString)
+    )
   }
 
   implicit val enumerable: Enumerable[SelectGoverningDocument] =

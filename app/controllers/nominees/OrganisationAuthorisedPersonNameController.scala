@@ -30,7 +30,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.NameView
 
-class OrganisationAuthorisedPersonNameController @Inject()(
+class OrganisationAuthorisedPersonNameController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -39,23 +39,29 @@ class OrganisationAuthorisedPersonNameController @Inject()(
   override val navigator: NomineesNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: NameView
-  )(implicit appConfig: FrontendAppConfig) extends NameController {
+)(implicit appConfig: FrontendAppConfig)
+    extends NameController {
 
   override val messagePrefix: String = "organisationAuthorisedPersonName"
-  private val form: Form[Name] = formProvider(messagePrefix)
+  private val form: Form[Name]       = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-
-      getView(OrganisationAuthorisedPersonNamePage, form,
-        controllers.nominees.routes.OrganisationAuthorisedPersonNameController.onSubmit(mode))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    getView(
+      OrganisationAuthorisedPersonNamePage,
+      form,
+      controllers.nominees.routes.OrganisationAuthorisedPersonNameController.onSubmit(mode)
+    )
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      postView(mode, OrganisationAuthorisedPersonNamePage, form, Section9Page,
-        controllers.nominees.routes.OrganisationAuthorisedPersonNameController.onSubmit(mode))
+      postView(
+        mode,
+        OrganisationAuthorisedPersonNamePage,
+        form,
+        Section9Page,
+        controllers.nominees.routes.OrganisationAuthorisedPersonNameController.onSubmit(mode)
+      )
   }
 
 }

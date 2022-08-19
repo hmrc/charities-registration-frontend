@@ -24,35 +24,42 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.operationsAndFunds.BankDetailsView
 
-
 class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
-  private val messageKeyPrefix = "bankDetails"
+  private val messageKeyPrefix    = "bankDetails"
   private val sectionName: String = "operationsAndFunds.section"
-  val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix, "charityName")
+  val form: Form[BankDetails]     = inject[BankDetailsFormProvider].apply(messageKeyPrefix, "charityName")
 
-    "BankDetailsView" must {
+  "BankDetailsView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[BankDetailsView](Some(emptyUserAnswers))
-          view.apply(form, "charityName", controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
-            messageKeyPrefix, sectionName, None)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithWarningText(applyView(form), messages("bankDetails.basc.warning"))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
-      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix,
-        "p1", "accountName", "accountName.hint")
-
-      behave like pageWithHyperLink(applyView(form), "changeLink",
-        controllers.contactDetails.routes.CharityNameController.onPageLoad(PlaybackMode).url,
-        messages("site.edit") + messages("bankDetails.accountName"))
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[BankDetailsView](Some(emptyUserAnswers))
+      view.apply(
+        form,
+        "charityName",
+        controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
+        messageKeyPrefix,
+        sectionName,
+        None
+      )(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithWarningText(applyView(form), messages("bankDetails.basc.warning"))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "p1", "accountName", "accountName.hint")
+
+    behave like pageWithHyperLink(
+      applyView(form),
+      "changeLink",
+      controllers.contactDetails.routes.CharityNameController.onPageLoad(PlaybackMode).url,
+      messages("site.edit") + messages("bankDetails.accountName")
+    )
+
   }
+}

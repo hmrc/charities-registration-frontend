@@ -27,96 +27,130 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class NomineeIndividualSummaryHelper(countryService: CountryService)(override val userAnswers: UserAnswers)
-                                    (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper {
+class NomineeIndividualSummaryHelper(countryService: CountryService)(override val userAnswers: UserAnswers)(implicit
+  val messages: Messages
+) extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
+    with SummaryListRowHelper {
   def nomineeName: Option[SummaryListRow] =
-    answerFullName(IndividualNomineeNamePage,
+    answerFullName(
+      IndividualNomineeNamePage,
       routes.IndividualNomineeNameController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineeName")
+      messagePrefix = "individualNomineeName"
+    )
 
   def nomineeDOB: Option[SummaryListRow] =
-    answerPrefix(IndividualNomineeDOBPage,
-    routes.IndividualNomineeDOBController.onPageLoad(CheckMode),
-    messagePrefix = "individualNomineeDOB")
+    answerPrefix(
+      IndividualNomineeDOBPage,
+      routes.IndividualNomineeDOBController.onPageLoad(CheckMode),
+      messagePrefix = "individualNomineeDOB"
+    )
 
   def nomineeMainPhone: Option[SummaryListRow] =
-    answerMainPhoneNo(IndividualNomineesPhoneNumberPage,
+    answerMainPhoneNo(
+      IndividualNomineesPhoneNumberPage,
       routes.IndividualNomineesPhoneNumberController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesPhoneNumber.mainPhoneNumber")
+      messagePrefix = "individualNomineesPhoneNumber.mainPhoneNumber"
+    )
 
   def nomineeAltPhone: Option[SummaryListRow] =
-    answerAlternativePhoneNo(IndividualNomineesPhoneNumberPage,
+    answerAlternativePhoneNo(
+      IndividualNomineesPhoneNumberPage,
       routes.IndividualNomineesPhoneNumberController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesPhoneNumber.alternativePhoneNumber")
+      messagePrefix = "individualNomineesPhoneNumber.alternativePhoneNumber"
+    )
 
   def nomineeHasNino: Option[SummaryListRow] =
-    answerPrefix(IsIndividualNomineeNinoPage,
+    answerPrefix(
+      IsIndividualNomineeNinoPage,
       routes.IsIndividualNomineeNinoController.onPageLoad(CheckMode),
-      messagePrefix = "isIndividualNomineeNino")
+      messagePrefix = "isIndividualNomineeNino"
+    )
 
   def nomineeNino: Option[SummaryListRow] =
-    answerPrefix(IndividualNomineesNinoPage,
+    answerPrefix(
+      IndividualNomineesNinoPage,
       routes.IndividualNomineesNinoController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesNino")
+      messagePrefix = "individualNomineesNino"
+    )
 
   def nomineePassportNumber: Option[SummaryListRow] =
-    answerPassportNo(IndividualNomineesPassportPage,
+    answerPassportNo(
+      IndividualNomineesPassportPage,
       routes.IndividualNomineePassportController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesPassport")
+      messagePrefix = "individualNomineesPassport"
+    )
 
   def nomineePassportCountry: Option[SummaryListRow] =
-    answerCountryOfIssue(IndividualNomineesPassportPage,
+    answerCountryOfIssue(
+      IndividualNomineesPassportPage,
       routes.IndividualNomineePassportController.onPageLoad(CheckMode),
       messagePrefix = "individualNomineesPassport",
-      countryService)
+      countryService
+    )
 
   def nomineePassportExpiry: Option[SummaryListRow] =
-    answerExpiryDate(IndividualNomineesPassportPage,
+    answerExpiryDate(
+      IndividualNomineesPassportPage,
       routes.IndividualNomineePassportController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesPassport")
+      messagePrefix = "individualNomineesPassport"
+    )
 
   def nomineeAddress: Option[SummaryListRow] =
-    answerAddress(NomineeIndividualAddressLookupPage,
+    answerAddress(
+      NomineeIndividualAddressLookupPage,
       controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(CheckMode),
-      messagePrefix = "nomineeIndividualAddress")
+      messagePrefix = "nomineeIndividualAddress"
+    )
 
   def nomineeAddressChanged: Option[SummaryListRow] =
-    answerPrefix(IsIndividualNomineePreviousAddressPage,
+    answerPrefix(
+      IsIndividualNomineePreviousAddressPage,
       routes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode),
-      messagePrefix = "isIndividualNomineePreviousAddress")
+      messagePrefix = "isIndividualNomineePreviousAddress"
+    )
 
   def nomineePreviousAddress: Option[SummaryListRow] =
-    answerAddress(NomineeIndividualPreviousAddressLookupPage,
+    answerAddress(
+      NomineeIndividualPreviousAddressLookupPage,
       controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController.initializeJourney(CheckMode),
-      messagePrefix = "nomineeIndividualPreviousAddress")
+      messagePrefix = "nomineeIndividualPreviousAddress"
+    )
 
   def nomineeCanBePaid: Option[SummaryListRow] =
-    answerPrefix(IsIndividualNomineePaymentsPage,
-    routes.IsIndividualNomineePaymentsController.onPageLoad(CheckMode),
-    messagePrefix = "isIndividualNomineePayments")
+    answerPrefix(
+      IsIndividualNomineePaymentsPage,
+      routes.IsIndividualNomineePaymentsController.onPageLoad(CheckMode),
+      messagePrefix = "isIndividualNomineePayments"
+    )
 
   def nomineeAccountName: Option[SummaryListRow] =
-    answerAccountName(IndividualNomineesBankDetailsPage,
-    routes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode),
-    messagePrefix = "individualNomineesBankDetails.accountName")
+    answerAccountName(
+      IndividualNomineesBankDetailsPage,
+      routes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode),
+      messagePrefix = "individualNomineesBankDetails.accountName"
+    )
 
   def nomineeSortCode: Option[SummaryListRow] =
-    answerSortCode(IndividualNomineesBankDetailsPage,
+    answerSortCode(
+      IndividualNomineesBankDetailsPage,
       routes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesBankDetails.sortCode")
+      messagePrefix = "individualNomineesBankDetails.sortCode"
+    )
 
   def nomineeAccountNumber: Option[SummaryListRow] =
-    answerAccountNumber(IndividualNomineesBankDetailsPage,
+    answerAccountNumber(
+      IndividualNomineesBankDetailsPage,
       routes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesBankDetails.accountNumber")
+      messagePrefix = "individualNomineesBankDetails.accountNumber"
+    )
 
   def nomineeBuildingRoll: Option[SummaryListRow] =
-    answerRollNumber(IndividualNomineesBankDetailsPage,
+    answerRollNumber(
+      IndividualNomineesBankDetailsPage,
       routes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode),
-      messagePrefix = "individualNomineesBankDetails.rollNumber")
-
-
+      messagePrefix = "individualNomineesBankDetails.rollNumber"
+    )
 
   val rows: NomineeSummary = NomineeSummary(
     Seq(

@@ -18,7 +18,7 @@ package pages.nominees
 
 import pages.behaviours.PageBehaviours
 
-class OrganisationAuthorisedPersonNinoPageSpec extends PageBehaviours{
+class OrganisationAuthorisedPersonNinoPageSpec extends PageBehaviours {
 
   "OrganisationAuthorisedPersonNinoPage" must {
 

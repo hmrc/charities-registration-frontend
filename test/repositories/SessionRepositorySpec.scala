@@ -32,7 +32,7 @@ import scala.concurrent.duration.DurationInt
 
 class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach with MongoSupport {
 
-  private val config = inject[FrontendAppConfig]
+  private val config          = inject[FrontendAppConfig]
   private lazy val repository = new SessionRepository(mongoComponent, config)
 
   private lazy val collection: MongoCollection[UserAnswers] = repository.collection
@@ -41,21 +41,26 @@ class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach w
     await(collection.find(Filters.equal("_id", id)).headOption().map(_.getOrElse(defaultValue)))
 
   private lazy val eligibilityUserAnswers = emptyUserAnswers
-    .set(IsEligiblePurposePage, true).success.value
+    .set(IsEligiblePurposePage, true)
+    .success
+    .value
 
-  private def givenAnExistingDocument(userAnswers: UserAnswers): Unit = {
-    await(repository.collection.findOneAndReplace(
-      Filters.equal("_id", userAnswers.id),
-      userAnswers,
-      FindOneAndReplaceOptions().upsert(true)
-    ).toFuture().map(_ => Future.unit))
-  }
+  private def givenAnExistingDocument(userAnswers: UserAnswers): Unit =
+    await(
+      repository.collection
+        .findOneAndReplace(
+          Filters.equal("_id", userAnswers.id),
+          userAnswers,
+          FindOneAndReplaceOptions().upsert(true)
+        )
+        .toFuture()
+        .map(_ => Future.unit)
+    )
 
   "the eligibility answers session repository" must {
 
     "get eligibility user answer" in {
-      givenAnExistingDocument(emptyUserAnswers.copy(data = Json.obj(
-        "isEligiblePurpose" -> true)))
+      givenAnExistingDocument(emptyUserAnswers.copy(data = Json.obj("isEligiblePurpose" -> true)))
 
       await(repository.get(emptyUserAnswers.id)) mustBe Some(eligibilityUserAnswers)
     }
@@ -76,7 +81,8 @@ class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach w
       val expectedIndexes = List(
         IndexModel(
           Indexes.ascending("expiresAt"),
-          IndexOptions().name("dataExpiry").expireAfter(config.userAnswersTimeToLive, TimeUnit.SECONDS)),
+          IndexOptions().name("dataExpiry").expireAfter(config.userAnswersTimeToLive, TimeUnit.SECONDS)
+        ),
         IndexModel(Indexes.ascending("_id"), IndexOptions().name("_id_"))
       )
 

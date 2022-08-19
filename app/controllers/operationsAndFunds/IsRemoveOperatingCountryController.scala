@@ -33,28 +33,31 @@ import javax.inject.Inject
 
 import scala.concurrent.Future
 
-class IsRemoveOperatingCountryController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: YesNoFormProvider,
-    val sessionRepository: UserAnswerService,
-    val navigator: FundRaisingNavigator,
-    val controllerComponents: MessagesControllerComponents,
-    val countryService: CountryService,
-    val view: YesNoView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class IsRemoveOperatingCountryController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  val sessionRepository: UserAnswerService,
+  val navigator: FundRaisingNavigator,
+  val controllerComponents: MessagesControllerComponents,
+  val countryService: CountryService,
+  val view: YesNoView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   private val messagePrefix: String = "isRemoveOperatingCountry"
-  private val form: Form[Boolean] = formProvider(messagePrefix)
+  private val form: Form[Boolean]   = formProvider(messagePrefix)
 
-  def getCountryName(page: QuestionPage[String])(block: String => Future[Result])
-                    (implicit request: DataRequest[AnyContent]): Future[Result] = {
-
-    request.userAnswers.get(page).map {
-      countryCode => block(countryService.find(countryCode).fold(countryCode)(_.name))
-    }.getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))
-  }
+  def getCountryName(
+    page: QuestionPage[String]
+  )(block: String => Future[Result])(implicit request: DataRequest[AnyContent]): Future[Result] =
+    request.userAnswers
+      .get(page)
+      .map { countryCode =>
+        block(countryService.find(countryCode).fold(countryCode)(_.name))
+      }
+      .getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
@@ -62,9 +65,18 @@ class IsRemoveOperatingCountryController @Inject()(
         Future.successful(Redirect(navigator.nextPage(IsRemoveOperatingCountryPage, NormalMode, request.userAnswers)))
       } else {
         getCountryName(WhatCountryDoesTheCharityOperateInPage(index)) { countryName =>
-          Future.successful(Ok(view(form, countryName, messagePrefix,
-            controllers.operationsAndFunds.routes.IsRemoveOperatingCountryController.onSubmit(mode, index),
-            "operationsAndFunds", Seq(countryName))))
+          Future.successful(
+            Ok(
+              view(
+                form,
+                countryName,
+                messagePrefix,
+                controllers.operationsAndFunds.routes.IsRemoveOperatingCountryController.onSubmit(mode, index),
+                "operationsAndFunds",
+                Seq(countryName)
+              )
+            )
+          )
         }
       }
   }
@@ -72,19 +84,39 @@ class IsRemoveOperatingCountryController @Inject()(
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getCountryName(WhatCountryDoesTheCharityOperateInPage(index)) { countryName =>
-        form.bindFromRequest().fold(
-          formWithErrors =>
-            Future.successful(BadRequest(view(formWithErrors, countryName, messagePrefix,
-              controllers.operationsAndFunds.routes.IsRemoveOperatingCountryController.onSubmit(mode, index),
-              "operationsAndFunds", Seq(countryName)))),
-          removeOrNot =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(
-                                 if (removeOrNot) Seq(WhatCountryDoesTheCharityOperateInDeletePage(index), OverseasOperatingLocationSummaryPage) else Seq()
-                                ).flatMap(_.set(IsRemoveOperatingCountryPage, removeOrNot)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index - 1), mode, updatedAnswers))
-        )
+        form
+          .bindFromRequest()
+          .fold(
+            formWithErrors =>
+              Future.successful(
+                BadRequest(
+                  view(
+                    formWithErrors,
+                    countryName,
+                    messagePrefix,
+                    controllers.operationsAndFunds.routes.IsRemoveOperatingCountryController.onSubmit(mode, index),
+                    "operationsAndFunds",
+                    Seq(countryName)
+                  )
+                )
+              ),
+            removeOrNot =>
+              for {
+                updatedAnswers <-
+                  Future.fromTry(
+                    request.userAnswers
+                      .remove(
+                        if (removeOrNot)
+                          Seq(WhatCountryDoesTheCharityOperateInDeletePage(index), OverseasOperatingLocationSummaryPage)
+                        else Seq()
+                      )
+                      .flatMap(_.set(IsRemoveOperatingCountryPage, removeOrNot))
+                  )
+                _              <- sessionRepository.set(updatedAnswers)
+              } yield Redirect(
+                navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index - 1), mode, updatedAnswers)
+              )
+          )
       }
   }
 }

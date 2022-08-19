@@ -37,12 +37,15 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityNamePage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityContactDetailsController page when clicked continue button" in {
-          navigator.nextPage(CharityNamePage, NormalMode,
-            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value) mustBe
+          navigator.nextPage(
+            CharityNamePage,
+            NormalMode,
+            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+          ) mustBe
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
         }
       }
@@ -51,21 +54,42 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityContactDetailsPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityInformationAddressLookupController page when clicked continue button" in {
-          navigator.nextPage(CharityContactDetailsPage, NormalMode,
-            emptyUserAnswers.set(CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
+          navigator.nextPage(
+            CharityContactDetailsPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(
+                CharityContactDetailsPage,
+                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+              )
+              .success
+              .value
+          ) mustBe
             controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
         }
 
         "go to the ConfirmCharityOfficialAddressController page when CharityOfficialAddressLookupPage is present and clicked continue button" in {
-          navigator.nextPage(CharityContactDetailsPage, NormalMode,
-            emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com"))
-              .flatMap(_.set(CharityOfficialAddressLookupPage,
-                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
+          navigator.nextPage(
+            CharityContactDetailsPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(
+                CharityContactDetailsPage,
+                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+              )
+              .flatMap(
+                _.set(
+                  CharityOfficialAddressLookupPage,
+                  AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                )
+              )
+              .success
+              .value
+          ) mustBe
             controllers.contactDetails.routes.ConfirmCharityOfficialAddressController.onPageLoad()
         }
       }
@@ -74,27 +98,51 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Send letters page when clicked Confirm and continue button" in {
-          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
-            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some(""), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+          navigator.nextPage(
+            CharityOfficialAddressLookupPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(
+                CharityOfficialAddressLookupPage,
+                AddressModel(Seq("7", "Morrison street"), Some(""), CountryModel("UK", "United Kingdom"))
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
         }
 
         "go to the Amend address page if user entered invalid characters for postcode when clicked Confirm and continue button" in {
-          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
-            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN()"), CountryModel("FR", "France"))).success.value) mustBe
+          navigator.nextPage(
+            CharityOfficialAddressLookupPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(
+                CharityOfficialAddressLookupPage,
+                AddressModel(Seq("7", "Morrison street"), Some("G58AN()"), CountryModel("FR", "France"))
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
         }
 
         "go to the Amend address page if address lines < 2  when clicked Confirm and continue button" in {
-          navigator.nextPage(CharityOfficialAddressLookupPage, NormalMode,
-            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("FR", "France"))).success.value) mustBe
+          navigator.nextPage(
+            CharityOfficialAddressLookupPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(
+                CharityOfficialAddressLookupPage,
+                AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("FR", "France"))
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
         }
 
@@ -104,26 +152,42 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CanWeSendToThisAddressPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when yes is selected" in {
-          navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage, true).success.value) mustBe
+          navigator.nextPage(
+            CanWeSendToThisAddressPage,
+            NormalMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage, true).success.value
+          ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
 
         "go to the Postal Address Lookup flow when no is selected" in {
-          navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value) mustBe
+          navigator.nextPage(
+            CanWeSendToThisAddressPage,
+            NormalMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value
+          ) mustBe
             controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
         }
 
         "go to the ConfirmCharityPostalAddressController page when CharityOfficialAddressLookupPage is present and clicked continue button" in {
-          navigator.nextPage(CanWeSendToThisAddressPage, NormalMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage, false)
-              .flatMap(_.set(CharityPostalAddressLookupPage,
-                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
+          navigator.nextPage(
+            CanWeSendToThisAddressPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(CanWeSendToThisAddressPage, false)
+              .flatMap(
+                _.set(
+                  CharityPostalAddressLookupPage,
+                  AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                )
+              )
+              .success
+              .value
+          ) mustBe
             controllers.contactDetails.routes.ConfirmCharityPostalAddressController.onPageLoad()
         }
       }
@@ -132,20 +196,36 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityPostalAddressLookupPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when clicked Confirm and continue button" in {
-          navigator.nextPage(CharityPostalAddressLookupPage, NormalMode,
-            emptyUserAnswers.set(CharityPostalAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+          navigator.nextPage(
+            CharityPostalAddressLookupPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(
+                CharityPostalAddressLookupPage,
+                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
 
         "go to the Amend address page if user entered invalid characters in address line when clicked Confirm and continue button" in {
-          navigator.nextPage(CharityPostalAddressLookupPage, NormalMode,
-            emptyUserAnswers.set(CharityPostalAddressLookupPage,
-              AddressModel(Seq("7", "Morrison $treet"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+          navigator.nextPage(
+            CharityPostalAddressLookupPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(
+                CharityPostalAddressLookupPage,
+                AddressModel(Seq("7", "Morrison $treet"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.AmendCharityPostalAddressController.onPageLoad()
         }
       }
@@ -181,14 +261,17 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityNamePage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when an answer is given" in {
 
-          navigator.nextPage(CharityNamePage, CheckMode,
-            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value) mustBe
-              charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          navigator.nextPage(
+            CharityNamePage,
+            CheckMode,
+            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+          ) mustBe
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
 
@@ -196,14 +279,22 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityContactDetailsPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when an answer is given" in {
 
-          navigator.nextPage(CharityContactDetailsPage, CheckMode,
-            emptyUserAnswers.set(CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")).success.value) mustBe
+          navigator.nextPage(
+            CharityContactDetailsPage,
+            CheckMode,
+            emptyUserAnswers
+              .set(
+                CharityContactDetailsPage,
+                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -212,13 +303,21 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityOfficialAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Send letters page when clicked continue button" in {
-          navigator.nextPage(CharityOfficialAddressLookupPage, CheckMode,
-            emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+          navigator.nextPage(
+            CharityOfficialAddressLookupPage,
+            CheckMode,
+            emptyUserAnswers
+              .set(
+                CharityOfficialAddressLookupPage,
+                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -227,25 +326,42 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CanWeSendToThisAddressPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when yes is selected" in {
-          navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage,true).success.value) mustBe
+          navigator.nextPage(
+            CanWeSendToThisAddressPage,
+            CheckMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage, true).success.value
+          ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
 
         "go to the Postal Address Lookup flow when no is selected and postal address in not defined" in {
-          navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage,false).success.value) mustBe
+          navigator.nextPage(
+            CanWeSendToThisAddressPage,
+            CheckMode,
+            emptyUserAnswers.set(CanWeSendToThisAddressPage, false).success.value
+          ) mustBe
             controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
         }
 
         "go to the Postal Address Lookup flow when no is selected and address is defined" in {
-          navigator.nextPage(CanWeSendToThisAddressPage, CheckMode,
-            emptyUserAnswers.set(CanWeSendToThisAddressPage,false).flatMap(_.set(CharityPostalAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom")))).success.value) mustBe
+          navigator.nextPage(
+            CanWeSendToThisAddressPage,
+            CheckMode,
+            emptyUserAnswers
+              .set(CanWeSendToThisAddressPage, false)
+              .flatMap(
+                _.set(
+                  CharityPostalAddressLookupPage,
+                  AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                )
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -254,13 +370,21 @@ class CharityInformationNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharityPostalAddressLookupPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Charity Details Summary page when clicked Confirm and continue button" in {
-          navigator.nextPage(CharityPostalAddressLookupPage, CheckMode,
-            emptyUserAnswers.set(CharityPostalAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value) mustBe
+          navigator.nextPage(
+            CharityPostalAddressLookupPage,
+            CheckMode,
+            emptyUserAnswers
+              .set(
+                CharityPostalAddressLookupPage,
+                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+              )
+              .success
+              .value
+          ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
       }
@@ -278,14 +402,20 @@ class CharityInformationNavigatorSpec extends SpecBase {
       }
 
       "go to the BankDetailsController page" in {
-        navigator.nextPage(CharityNamePage, PlaybackMode, emptyUserAnswers
-          .set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value) mustBe
+        navigator.nextPage(
+          CharityNamePage,
+          PlaybackMode,
+          emptyUserAnswers
+            .set(CharityNamePage, CharityName("CName", Some("OpName")))
+            .success
+            .value
+        ) mustBe
           controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode)
       }
 
       "go to the PageNotFoundController page" in {
         navigator.nextPage(CharityNamePage, PlaybackMode, emptyUserAnswers) mustBe
-           routes.PageNotFoundController.onPageLoad()
+          routes.PageNotFoundController.onPageLoad()
       }
     }
   }

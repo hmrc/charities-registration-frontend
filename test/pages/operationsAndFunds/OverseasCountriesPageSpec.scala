@@ -18,8 +18,7 @@ package pages.operationsAndFunds
 
 import pages.behaviours.PageBehaviours
 
-class OverseasCountriesPageSpec extends PageBehaviours{
-
+class OverseasCountriesPageSpec extends PageBehaviours {
 
   "OverseasCountriesPage" must {
 

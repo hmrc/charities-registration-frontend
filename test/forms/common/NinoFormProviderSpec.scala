@@ -21,14 +21,14 @@ import play.api.data.{Form, FormError}
 
 class NinoFormProviderSpec extends StringFieldBehaviours {
 
-  private val messagePrefix: String = "authorisedOfficialsNino"
+  private val messagePrefix: String          = "authorisedOfficialsNino"
   private val formProvider: NinoFormProvider = inject[NinoFormProvider]
-  private val form: Form[String] = formProvider(messagePrefix)
+  private val form: Form[String]             = formProvider(messagePrefix)
 
   ".nationalInsuranceNumber" must {
 
     val requiredKey = s"$messagePrefix.error.required"
-    val invalidKey = s"$messagePrefix.error.format"
+    val invalidKey  = s"$messagePrefix.error.format"
 
     val fieldName = "nino"
 
@@ -58,11 +58,13 @@ class NinoFormProviderSpec extends StringFieldBehaviours {
 
     "apply nationlInsuranceNumber correctly" in {
 
-      val details = form.bind(
-        Map(
-          "nino" -> nino,
+      val details = form
+        .bind(
+          Map(
+            "nino" -> nino
+          )
         )
-      ).get
+        .get
 
       details mustBe nino
     }

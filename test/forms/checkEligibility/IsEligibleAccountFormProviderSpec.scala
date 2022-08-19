@@ -21,8 +21,8 @@ import play.api.data.{Form, FormError}
 
 class IsEligibleAccountFormProviderSpec extends BooleanFieldBehaviours {
 
-  private val requiredKey = "isEligibleAccount.error.required"
-  private val invalidKey = "error.boolean"
+  private val requiredKey         = "isEligibleAccount.error.required"
+  private val invalidKey          = "error.boolean"
   private val form: Form[Boolean] = inject[IsEligibleAccountFormProvider].apply()
 
   ".value" must {

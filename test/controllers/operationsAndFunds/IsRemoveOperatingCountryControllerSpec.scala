@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -56,16 +56,18 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "isRemoveOperatingCountry"
-  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val messageKeyPrefix: String        = "isRemoveOperatingCountry"
+  private val view: YesNoView                 = injector.instanceOf[YesNoView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: IsRemoveOperatingCountryController = inject[IsRemoveOperatingCountryController]
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(WhatCountryDoesTheCharityOperateInPage(0), "XX").success.value
+      .set(WhatCountryDoesTheCharityOperateInPage(0), "XX")
+      .success
+      .value
 
   "IsRemoveOperatingCountry Controller" must {
 
@@ -87,9 +89,14 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "CountryCountry", messageKeyPrefix,
-        controllers.operationsAndFunds.routes.IsRemoveOperatingCountryController.onSubmit(NormalMode, Index(0)), "operationsAndFunds", Seq("CountryCountry"))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "CountryCountry",
+        messageKeyPrefix,
+        controllers.operationsAndFunds.routes.IsRemoveOperatingCountryController.onSubmit(NormalMode, Index(0)),
+        "operationsAndFunds",
+        Seq("CountryCountry")
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
 
     }

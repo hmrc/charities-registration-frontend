@@ -33,19 +33,20 @@ import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
-class RemoveOtherOfficialsController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: YesNoFormProvider,
-    val sessionRepository: UserAnswerService,
-    val navigator: OtherOfficialsNavigator,
-    val controllerComponents: MessagesControllerComponents,
-    val view: YesNoView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class RemoveOtherOfficialsController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  val sessionRepository: UserAnswerService,
+  val navigator: OtherOfficialsNavigator,
+  val controllerComponents: MessagesControllerComponents,
+  val view: YesNoView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   private val messagePrefix: String = "removeOtherOfficial"
-  private val form: Form[Boolean] = formProvider(messagePrefix)
+  private val form: Form[Boolean]   = formProvider(messagePrefix)
 
   def onPageLoad(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
@@ -53,9 +54,17 @@ class RemoveOtherOfficialsController @Inject()(
         Future.successful(Redirect(navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, request.userAnswers)))
       } else {
         getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-          Future.successful(Ok(view(form, otherOfficialsName, messagePrefix,
-            controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(index),
-            "officialsAndNominees")))
+          Future.successful(
+            Ok(
+              view(
+                form,
+                otherOfficialsName,
+                messagePrefix,
+                controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(index),
+                "officialsAndNominees"
+              )
+            )
+          )
         }
       }
   }
@@ -63,26 +72,37 @@ class RemoveOtherOfficialsController @Inject()(
   def onSubmit(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-        form.bindFromRequest().fold(
-          formWithErrors =>
-            Future.successful(BadRequest(view(formWithErrors, otherOfficialsName, messagePrefix,
-              controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(index),
-              "officialsAndNominees"))),
-          value =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(
-                                 if(value) Seq(OtherOfficialsId(index), IsAddAnotherOtherOfficialPage) else Seq()
-                                ))
-              taskListUpdated <- Future.fromTry(result =
-                if(updatedAnswers.get(OtherOfficialsId(0)).isDefined) {
-                  updatedAnswers.set(Section8Page, checkComplete(updatedAnswers))
-                } else {
-                  updatedAnswers.remove(Section8Page)
-                }
-              )
-              _ <- sessionRepository.set(taskListUpdated)
-            } yield Redirect(navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, updatedAnswers))
-        )
+        form
+          .bindFromRequest()
+          .fold(
+            formWithErrors =>
+              Future.successful(
+                BadRequest(
+                  view(
+                    formWithErrors,
+                    otherOfficialsName,
+                    messagePrefix,
+                    controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(index),
+                    "officialsAndNominees"
+                  )
+                )
+              ),
+            value =>
+              for {
+                updatedAnswers  <- Future.fromTry(
+                                     request.userAnswers.remove(
+                                       if (value) Seq(OtherOfficialsId(index), IsAddAnotherOtherOfficialPage)
+                                       else Seq()
+                                     )
+                                   )
+                taskListUpdated <- Future.fromTry(result = if (updatedAnswers.get(OtherOfficialsId(0)).isDefined) {
+                                     updatedAnswers.set(Section8Page, checkComplete(updatedAnswers))
+                                   } else {
+                                     updatedAnswers.remove(Section8Page)
+                                   })
+                _               <- sessionRepository.set(taskListUpdated)
+              } yield Redirect(navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, updatedAnswers))
+          )
       }
   }
 }

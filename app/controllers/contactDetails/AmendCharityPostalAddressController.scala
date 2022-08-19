@@ -31,31 +31,40 @@ import views.html.common.AmendAddressView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class AmendCharityPostalAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    val formProvider: AmendAddressFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: CharityInformationNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: AmendAddressView
-  )(implicit appConfig: FrontendAppConfig) extends AmendAddressController {
+class AmendCharityPostalAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  val formProvider: AmendAddressFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: CharityInformationNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: AmendAddressView
+)(implicit appConfig: FrontendAppConfig)
+    extends AmendAddressController {
 
   override val messagePrefix: String = "amendCharityPostalAddress"
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-      Future.successful(getView(CharityPostalAddressLookupPage,
-        controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit(), countryService.countries()))
+    Future.successful(
+      getView(
+        CharityPostalAddressLookupPage,
+        controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit(),
+        countryService.countries()
+      )
+    )
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      postView(mode, CharityPostalAddressLookupPage, Section1Page,
-        controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit(), countryService.countries())
+      postView(
+        mode,
+        CharityPostalAddressLookupPage,
+        Section1Page,
+        controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit(),
+        countryService.countries()
+      )
   }
 
 }

@@ -30,12 +30,20 @@ class PageNotFoundViewSpec extends ViewBehaviours {
     behave like normalPage(applyView, "pageNotFound")
 
     "reportLink" should {
-      behave like pageWithHyperLink(applyView, "reportLink",
-        frontendAppConfig.contactUrl, messages("pageNotFound.p3.link"))
+      behave like pageWithHyperLink(
+        applyView,
+        "reportLink",
+        frontendAppConfig.contactUrl,
+        messages("pageNotFound.p3.link")
+      )
     }
 
-    behave like pageWithHyperLink(applyView, "startLink",
-      controllers.routes.PageNotFoundController.redirectToStartOfJourney().url, messages("pageNotFound.back.start.link"))
+    behave like pageWithHyperLink(
+      applyView,
+      "startLink",
+      controllers.routes.PageNotFoundController.redirectToStartOfJourney().url,
+      messages("pageNotFound.back.start.link")
+    )
 
   }
 }

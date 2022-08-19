@@ -27,22 +27,23 @@ import views.html.regulatorsAndDocuments.IsCharityRegulatorView
 
 class IsCharityRegulatorViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isCharityRegulator"
+  private val messageKeyPrefix      = "isCharityRegulator"
   private val section: Some[String] = Some(messages("charityRegulator.section"))
-  val form: Form[Boolean] = inject[IsCharityRegulatorFormProvider].apply()
+  val form: Form[Boolean]           = inject[IsCharityRegulatorFormProvider].apply()
 
-    "IsCharityRegulatorView" must {
+  "IsCharityRegulatorView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[IsCharityRegulatorView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[IsCharityRegulatorView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsCharityRegulatorController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-  }}
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  }
+}

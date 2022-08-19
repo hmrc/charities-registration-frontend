@@ -32,47 +32,51 @@ import utils.TimeMachine
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
-class CharitiesRegistrationService @Inject()(
+class CharitiesRegistrationService @Inject() (
   userAnswerService: UserAnswerService,
   auditService: AuditService,
   charitiesConnector: CharitiesConnector,
   timeMachine: TimeMachine
-  ) {
+) {
 
   private val logger = Logger(this.getClass)
 
-  def register(requestJson: JsObject, noEmailPost: Boolean)(implicit request: DataRequest[_], hc: HeaderCarrier, ec: ExecutionContext): Future[Result] = {
-
+  def register(requestJson: JsObject, noEmailPost: Boolean)(implicit
+    request: DataRequest[_],
+    hc: HeaderCarrier,
+    ec: ExecutionContext
+  ): Future[Result] =
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case None =>
         charitiesConnector.registerCharities(requestJson, Random.nextInt()).flatMap {
           case Right(result) =>
             for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(AcknowledgementReferencePage, result.acknowledgementReference)
-                .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now())))
-              _ <- userAnswerService.set(updatedAnswers)
-              _ <- Future.successful(auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true)))))
-            } yield{
-              if(noEmailPost){
+              updatedAnswers <- Future.fromTry(
+                                  request.userAnswers
+                                    .set(AcknowledgementReferencePage, result.acknowledgementReference)
+                                    .flatMap(_.set(ApplicationSubmissionDatePage, timeMachine.now()))
+                                )
+              _              <- userAnswerService.set(updatedAnswers)
+              _              <- Future.successful(
+                                  auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true))))
+                                )
+            } yield
+              if (noEmailPost) {
                 Redirect(controllers.routes.RegistrationSentController.onPageLoad)
               } else {
                 Redirect(controllers.routes.EmailOrPostController.onPageLoad)
               }
-            }
 
           case Left(errors) =>
             logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
             throw UnexpectedFailureException(errors.body)
 
-        } recover {
-          case errors =>
-            logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
-            throw UnexpectedFailureException(errors.getMessage)
+        } recover { case errors =>
+          logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
+          throw UnexpectedFailureException(errors.getMessage)
         }
 
       case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
     }
-
-  }
 
 }

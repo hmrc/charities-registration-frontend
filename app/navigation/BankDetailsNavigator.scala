@@ -24,7 +24,7 @@ import pages.Page
 import pages.operationsAndFunds._
 import play.api.mvc.Call
 
-class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class BankDetailsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
 
@@ -44,6 +44,6 @@ class BankDetailsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConf
 
   private def navigate(userAnswers: UserAnswers): Call = userAnswers.get(BankDetailsPage) match {
     case Some(_) => controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
-    case _ => routes.PageNotFoundController.onPageLoad()
+    case _       => routes.PageNotFoundController.onPageLoad()
   }
 }

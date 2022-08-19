@@ -44,7 +44,8 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
     AuthorisedOfficialPreviousAddressLookupPage(index)
   )
 
-  private val authorisedOfficial1common: Seq[QuestionPage[_]] = journeyCommon(0) ++ Seq(IsAddAnotherAuthorisedOfficialPage)
+  private val authorisedOfficial1common: Seq[QuestionPage[_]] =
+    journeyCommon(0) ++ Seq(IsAddAnotherAuthorisedOfficialPage)
 
   private val authorisedOfficial2common: Seq[QuestionPage[_]] = journeyCommon(1)
 
@@ -55,9 +56,9 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
 
   private def officialsTitleIsLegal(userAnswers: UserAnswers, index: Int): Boolean =
     userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
-    case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
-    case _ => true
-  }
+      case Some(name) if name.title == SelectTitle.UnsupportedTitle => false
+      case _                                                        => true
+    }
 
   def validateDataFromOldService(userAnswers: UserAnswers): Boolean = {
     val range = if (userAnswers.get(IsAddAnotherAuthorisedOfficialPage).contains(true)) Seq(0, 1) else Seq(0)
@@ -65,47 +66,52 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
     range.forall(index => officialsTitleIsLegal(userAnswers, index))
   }
 
-
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean = userAnswers.unneededPagesNotPresent(list, allPages)
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+      userAnswers.unneededPagesNotPresent(list, allPages)
 
-    (userAnswers.get(IsAuthorisedOfficialNinoPage(0)), userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(0))) match {
+    (
+      userAnswers.get(IsAuthorisedOfficialNinoPage(0)),
+      userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(0))
+    ) match {
       case (Some(isNino1), Some(isPreviousAddress1)) =>
-
         userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
           case Some(false) =>
             val newPages = authorisedOfficial1common.getOfficialPages(0, isNino1, isPreviousAddress1)
 
             userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
-          case Some(true) =>
-
-            (userAnswers.get(IsAuthorisedOfficialNinoPage(1)), userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(1))) match {
+          case Some(true)  =>
+            (
+              userAnswers.get(IsAuthorisedOfficialNinoPage(1)),
+              userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(1))
+            ) match {
               case (Some(isNino2), Some(isPreviousAddress2)) =>
                 val newPages = authorisedOfficial1common
                   .getOfficialPages(0, isNino1, isPreviousAddress1)
                   .getOfficialPages(1, isNino2, isPreviousAddress2, authorisedOfficial2common)
 
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
-              case _ => false
+              case _                                         => false
             }
-          case _ => false
+          case _           => false
         }
-      case _ => false
+      case _                                         => false
     }
   }
 
-
-  def authorisedOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean = {
-    (userAnswers.get(IsAuthorisedOfficialNinoPage(index)), userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index))) match {
+  def authorisedOfficialCompleted(index: Index, userAnswers: UserAnswers): Boolean =
+    (
+      userAnswers.get(IsAuthorisedOfficialNinoPage(index)),
+      userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index))
+    ) match {
       case (Some(isNino), Some(isPreviousAddress)) =>
-        val list  = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)
+        val list = journeyCommon(index).getOfficialPages(index, isNino, isPreviousAddress)
         userAnswers.arePagesDefined(list) &&
-          userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index)) &&
-          officialsTitleIsLegal(userAnswers, index)
+        userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index)) &&
+        officialsTitleIsLegal(userAnswers, index)
 
       case _ => false
     }
-  }
 
 }

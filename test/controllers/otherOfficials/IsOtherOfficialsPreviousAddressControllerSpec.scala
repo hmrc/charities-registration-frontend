@@ -52,34 +52,42 @@ class IsOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Before
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "isOtherOfficialsPreviousAddress"
-  private val view: IsPreviousAddressView = inject[IsPreviousAddressView]
+  private val messageKeyPrefix                = "isOtherOfficialsPreviousAddress"
+  private val view: IsPreviousAddressView     = inject[IsPreviousAddressView]
   private val formProvider: YesNoFormProvider = inject[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: IsOtherOfficialsPreviousAddressController = inject[IsOtherOfficialsPreviousAddressController]
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
-    Name(SelectTitle.values.head, "FName", Some("MName"), "LName")).success.value
+  private val localUserAnswers: UserAnswers = emptyUserAnswers
+    .set(OtherOfficialsNamePage(0), Name(SelectTitle.values.head, "FName", Some("MName"), "LName"))
+    .success
+    .value
 
   "OtherOfficialsPreviousAddress Controller" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
-      val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
-        controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "FName MName LName",
+        messageKeyPrefix,
+        controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsOtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(localUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

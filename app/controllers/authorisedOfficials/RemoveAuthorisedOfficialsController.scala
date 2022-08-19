@@ -33,19 +33,20 @@ import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
-class RemoveAuthorisedOfficialsController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: YesNoFormProvider,
-    val sessionRepository: UserAnswerService,
-    val navigator: AuthorisedOfficialsNavigator,
-    val controllerComponents: MessagesControllerComponents,
-    val view: YesNoView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class RemoveAuthorisedOfficialsController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  val sessionRepository: UserAnswerService,
+  val navigator: AuthorisedOfficialsNavigator,
+  val controllerComponents: MessagesControllerComponents,
+  val view: YesNoView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   private val messagePrefix: String = "removeAuthorisedOfficial"
-  private val form: Form[Boolean] = formProvider(messagePrefix)
+  private val form: Form[Boolean]   = formProvider(messagePrefix)
 
   def onPageLoad(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
@@ -53,9 +54,17 @@ class RemoveAuthorisedOfficialsController @Inject()(
         Future.successful(Redirect(navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, request.userAnswers)))
       } else {
         getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-          Future.successful(Ok(view(form, authorisedOfficialsName, messagePrefix,
-            controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(index),
-            "officialsAndNominees")))
+          Future.successful(
+            Ok(
+              view(
+                form,
+                authorisedOfficialsName,
+                messagePrefix,
+                controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(index),
+                "officialsAndNominees"
+              )
+            )
+          )
         }
       }
   }
@@ -63,26 +72,37 @@ class RemoveAuthorisedOfficialsController @Inject()(
   def onSubmit(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-        form.bindFromRequest().fold(
-          formWithErrors =>
-            Future.successful(BadRequest(view(formWithErrors, authorisedOfficialsName, messagePrefix,
-              controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(index),
-              "officialsAndNominees"))),
-          value =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(
-                                 if(value) Seq(AuthorisedOfficialsId(index), IsAddAnotherAuthorisedOfficialPage) else Seq()
-                                ))
-              taskListUpdated <- Future.fromTry(result =
-                if(updatedAnswers.get(AuthorisedOfficialsId(0)).isDefined) {
-                  updatedAnswers.set(Section7Page, checkComplete(updatedAnswers))
-                } else {
-                  updatedAnswers.remove(Section7Page)
-                }
-              )
-              _ <- sessionRepository.set(taskListUpdated)
-            } yield Redirect(navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, updatedAnswers))
-        )
+        form
+          .bindFromRequest()
+          .fold(
+            formWithErrors =>
+              Future.successful(
+                BadRequest(
+                  view(
+                    formWithErrors,
+                    authorisedOfficialsName,
+                    messagePrefix,
+                    controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(index),
+                    "officialsAndNominees"
+                  )
+                )
+              ),
+            value =>
+              for {
+                updatedAnswers  <- Future.fromTry(
+                                     request.userAnswers.remove(
+                                       if (value) Seq(AuthorisedOfficialsId(index), IsAddAnotherAuthorisedOfficialPage)
+                                       else Seq()
+                                     )
+                                   )
+                taskListUpdated <- Future.fromTry(result = if (updatedAnswers.get(AuthorisedOfficialsId(0)).isDefined) {
+                                     updatedAnswers.set(Section7Page, checkComplete(updatedAnswers))
+                                   } else {
+                                     updatedAnswers.remove(Section7Page)
+                                   })
+                _               <- sessionRepository.set(taskListUpdated)
+              } yield Redirect(navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, updatedAnswers))
+          )
       }
   }
 }

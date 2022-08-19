@@ -55,9 +55,9 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
     reset(mockUserAnswerService)
   }
 
-  private val view: SelectWhyNoRegulatorView = inject[SelectWhyNoRegulatorView]
+  private val view: SelectWhyNoRegulatorView                 = inject[SelectWhyNoRegulatorView]
   private val formProvider: SelectWhyNoRegulatorFormProvider = inject[SelectWhyNoRegulatorFormProvider]
-  private val form: Form[SelectWhyNoRegulator] = formProvider()
+  private val form: Form[SelectWhyNoRegulator]               = formProvider()
 
   private val controller: SelectWhyNoRegulatorController = inject[SelectWhyNoRegulatorController]
 
@@ -74,11 +74,13 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -103,8 +105,12 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
 
     "redirect to the next page when valid data is submitted after changing the selection" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", SelectWhyNoRegulator.ExemptOrExcepted.toString))
-      val userAnswer = emptyUserAnswers.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other).flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd")).success.value
+      val request    = fakeRequest.withFormUrlEncodedBody(("value", SelectWhyNoRegulator.ExemptOrExcepted.toString))
+      val userAnswer = emptyUserAnswers
+        .set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
+        .flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd"))
+        .success
+        .value
       when(mockUserAnswerService.get(meq("id"))(any(), any())).thenReturn(Future.successful(Some(userAnswer)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
@@ -114,8 +120,7 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerService, times(1)).get(meq("id"))(any(), any())
       theUserAnswers.id mustBe "id"
-      theUserAnswers.data mustBe Json.parse(
-        """{"isSection2Completed" : false,
+      theUserAnswers.data mustBe Json.parse("""{"isSection2Completed" : false,
           |"selectWhyNoRegulator" : "5"
           |}""".stripMargin)
       def theUserAnswers: UserAnswers = {

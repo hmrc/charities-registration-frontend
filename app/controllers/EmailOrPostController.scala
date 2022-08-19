@@ -30,51 +30,62 @@ import views.html.EmailOrPostView
 
 import scala.concurrent.Future
 
-class EmailOrPostController @Inject()(
-    val userAnswerService: UserAnswerService,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: RegistrationDataRequiredAction,
-    formProvider: YesNoFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: EmailOrPostView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class EmailOrPostController @Inject() (
+  val userAnswerService: UserAnswerService,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: RegistrationDataRequiredAction,
+  formProvider: YesNoFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: EmailOrPostView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val messagePrefix: String = "emailOrPost"
-  val form: Form[Boolean] = formProvider(messagePrefix)
+  val form: Form[Boolean]   = formProvider(messagePrefix)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     if (!isAllSectionsCompleted()) {
       Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
-    }
-    else {
+    } else {
 
       request.userAnswers match {
-        case userAnswers if userAnswers.get(EmailOrPostPage).isDefined => Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
-        case userAnswers =>
-          Future.successful(Ok(view(form,
-            RequiredDocumentsHelper.getRequiredDocuments(userAnswers),
-            RequiredDocumentsHelper.getForeignOfficialsMessages(userAnswers))))
+        case userAnswers if userAnswers.get(EmailOrPostPage).isDefined =>
+          Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
+        case userAnswers                                               =>
+          Future.successful(
+            Ok(
+              view(
+                form,
+                RequiredDocumentsHelper.getRequiredDocuments(userAnswers),
+                RequiredDocumentsHelper.getForeignOfficialsMessages(userAnswers)
+              )
+            )
+          )
       }
     }
   }
 
-    def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-      form.bindFromRequest().fold(
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
         formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors,
-            RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-            RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-          ))),
-
+          Future.successful(
+            BadRequest(
+              view(
+                formWithErrors,
+                RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+                RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+              )
+            )
+          ),
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, value))
-            _ <- userAnswerService.set(updatedAnswers)
+            _              <- userAnswerService.set(updatedAnswers)
 
           } yield Redirect(controllers.routes.RegistrationSentController.onPageLoad)
       )
-    }
+  }
 }

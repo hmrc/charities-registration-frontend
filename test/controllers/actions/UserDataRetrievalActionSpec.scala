@@ -41,7 +41,7 @@ class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaF
 
         val userAnswerService = mock[UserAnswerService]
         when(userAnswerService.get(any())(any(), any())) thenReturn Future(None)
-        val action = new Harness(userAnswerService)
+        val action            = new Harness(userAnswerService)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
@@ -57,7 +57,7 @@ class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaF
 
         val userAnswerService = mock[UserAnswerService]
         when(userAnswerService.get(any())(any(), any())) thenReturn Future(Some(UserAnswers("id")))
-        val action = new Harness(userAnswerService)
+        val action            = new Harness(userAnswerService)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 

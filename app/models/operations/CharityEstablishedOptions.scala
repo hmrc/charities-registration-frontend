@@ -33,19 +33,21 @@ object CharityEstablishedOptions extends Enumerable.Implicits {
   case object Overseas extends WithName("4") with CharityEstablishedOptions
 
   val values: Seq[CharityEstablishedOptions] = Seq(
-    England, Wales, Scotland, NorthernIreland, Overseas
+    England,
+    Wales,
+    Scotland,
+    NorthernIreland,
+    Overseas
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
-    value =>
-      RadioItem(
-        value = Some(value.toString),
-        content = Text(messages(s"charityEstablishedIn.${value.toString}")),
-        checked = form("value").value.contains(value.toString)
-      )
+  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+    RadioItem(
+      value = Some(value.toString),
+      content = Text(messages(s"charityEstablishedIn.${value.toString}")),
+      checked = form("value").value.contains(value.toString)
+    )
   }
 
   implicit val enumerable: Enumerable[CharityEstablishedOptions] =
     Enumerable(values.map(v => v.toString -> v): _*)
 }
-

@@ -52,35 +52,40 @@ class OtherOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeAndAft
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "otherOfficialsPhoneNumber"
-  private val view: PhoneNumberView = inject[PhoneNumberView]
+  private val messageKeyPrefix                      = "otherOfficialsPhoneNumber"
+  private val view: PhoneNumberView                 = inject[PhoneNumberView]
   private val formProvider: PhoneNumberFormProvider = inject[PhoneNumberFormProvider]
-  private val form: Form[PhoneNumber] = formProvider(messageKeyPrefix)
+  private val form: Form[PhoneNumber]               = formProvider(messageKeyPrefix)
 
   private val controller: OtherOfficialsPhoneNumberController = inject[OtherOfficialsPhoneNumberController]
 
-  private val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982","alternativePhoneNumber"->"07700 900 982")
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
-
+  private val requestArgs                   = Seq("mainPhoneNumber" -> "07700 900 982", "alternativePhoneNumber" -> "07700 900 982")
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   "OtherOfficialsPhoneNumberController Controller " must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
-      val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.otherOfficials.routes.OtherOfficialsPhoneNumberController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.otherOfficials.routes.OtherOfficialsPhoneNumberController.onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(OtherOfficialsPhoneNumberPage(0),
-        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
+      val userAnswers = localUserAnswers
+        .set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -91,10 +96,12 @@ class OtherOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeAndAft
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val userAnswers = localUserAnswers.set(OtherOfficialsPhoneNumberPage(0),
-        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
+      val userAnswers = localUserAnswers
+        .set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .success
+        .value
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

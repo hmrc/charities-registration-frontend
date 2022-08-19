@@ -22,14 +22,14 @@ import play.api.data.{Form, FormError}
 
 class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehaviours {
 
-  private val maxLength = 100
-  private val messagePrefix: String = "authorisedOfficialsName"
+  private val maxLength                      = 100
+  private val messagePrefix: String          = "authorisedOfficialsName"
   private val formProvider: NameFormProvider = inject[NameFormProvider]
-  private val form: Form[Name] = formProvider(messagePrefix)
+  private val form: Form[Name]               = formProvider(messagePrefix)
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = s"$messagePrefix.title.error.required"
 
     behave like optionsField[SelectTitle](
@@ -48,10 +48,10 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
   ".firstName" must {
 
-    val fieldName = "firstName"
+    val fieldName   = "firstName"
     val requiredKey = s"$messagePrefix.firstName.error.required"
-    val lengthKey = s"$messagePrefix.firstName.error.length"
-    val invalidKey = s"$messagePrefix.firstName.error.format"
+    val lengthKey   = s"$messagePrefix.firstName.error.length"
+    val invalidKey  = s"$messagePrefix.firstName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -82,8 +82,8 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
   ".middleName" must {
 
-    val fieldName = "middleName"
-    val lengthKey = s"$messagePrefix.middleName.error.length"
+    val fieldName  = "middleName"
+    val lengthKey  = s"$messagePrefix.middleName.error.length"
     val invalidKey = s"$messagePrefix.middleName.error.format"
 
     behave like fieldThatBindsValidData(
@@ -109,10 +109,10 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
   ".lastName" must {
 
-    val fieldName = "lastName"
+    val fieldName   = "lastName"
     val requiredKey = s"$messagePrefix.lastName.error.required"
-    val lengthKey = s"$messagePrefix.lastName.error.length"
-    val invalidKey = s"$messagePrefix.lastName.error.format"
+    val lengthKey   = s"$messagePrefix.lastName.error.length"
+    val invalidKey  = s"$messagePrefix.lastName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -140,21 +140,23 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
       FormError(fieldName, invalidKey, Seq(formProvider.validateFieldWithFullStop))
     )
   }
-  
+
   "AuthorisedOfficialsNameFormProvider" must {
 
     val authorisedOfficialsName = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
 
     "apply AuthorisedOfficialsName correctly" in {
 
-      val details = form.bind(
-        Map(
-          "value" -> SelectTitle.values.head.toString,
-          "firstName" -> authorisedOfficialsName.firstName,
-          "middleName" -> authorisedOfficialsName.middleName.getOrElse(""),
-          "lastName" -> authorisedOfficialsName.lastName
+      val details = form
+        .bind(
+          Map(
+            "value"      -> SelectTitle.values.head.toString,
+            "firstName"  -> authorisedOfficialsName.firstName,
+            "middleName" -> authorisedOfficialsName.middleName.getOrElse(""),
+            "lastName"   -> authorisedOfficialsName.lastName
+          )
         )
-      ).get
+        .get
 
       details.title mustBe authorisedOfficialsName.title
       details.firstName mustBe authorisedOfficialsName.firstName

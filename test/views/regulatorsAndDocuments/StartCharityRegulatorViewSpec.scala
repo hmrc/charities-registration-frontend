@@ -24,21 +24,25 @@ import views.html.regulatorsAndDocuments.StartCharityRegulatorView
 class StartCharityRegulatorViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startCharityRegulator"
-  private val section: String = messages("charityRegulator.section")
+  private val section: String  = messages("charityRegulator.section")
 
   "StartCharityRegulatorView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[StartCharityRegulatorView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "b1", "b2")
-
-      behave like pageWithHyperLink(applyView(), "linkButton", controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url, messages("site.continue"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[StartCharityRegulatorView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "b1", "b2")
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url,
+      messages("site.continue")
+    )
+
   }
+}

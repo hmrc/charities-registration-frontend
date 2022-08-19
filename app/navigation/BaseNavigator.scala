@@ -31,9 +31,9 @@ trait BaseNavigator {
   val playbackRouteMap: Page => UserAnswers => Call = _ => _ => routes.PageNotFoundController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode =>
+    case NormalMode   =>
       normalRoutes(page)(userAnswers)
-    case CheckMode =>
+    case CheckMode    =>
       checkRouteMap(page)(userAnswers)
     case PlaybackMode =>
       playbackRouteMap(page)(userAnswers)
@@ -42,11 +42,13 @@ trait BaseNavigator {
   def isNotValidAddress(address: AddressModel): Boolean = {
 
     val validateFieldWithFullStop = "^[a-zA-Z0-9-, '.]+$"
-    val postcode = address.postcode.getOrElse("")
-    val isValidAddressLines = address.lines.length >= 2
+    val postcode                  = address.postcode.getOrElse("")
+    val isValidAddressLines       = address.lines.length >= 2
 
-    !isValidAddressLines || address.lines.exists(addr => addr.length > 35 || !addr.matches(validateFieldWithFullStop)) ||
-      (postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop))
+    !isValidAddressLines || address.lines.exists(addr =>
+      addr.length > 35 || !addr.matches(validateFieldWithFullStop)
+    ) ||
+    (postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop))
 
   }
 

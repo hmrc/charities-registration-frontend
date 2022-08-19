@@ -29,17 +29,25 @@ class ApplicationBeingProcessedViewSpec extends ViewBehaviours with ImplicitDate
 
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[ApplicationBeingProcessedView](Some(emptyUserAnswers))
-      view.apply(dayToString(inject[TimeMachine].now(), dayOfWeek = false),
-        "080582080582")(fakeRequest, messages, frontendAppConfig)
+      view.apply(dayToString(inject[TimeMachine].now(), dayOfWeek = false), "080582080582")(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
 
     behave like normalPage(applyView(), messageKeyPrefix)
 
-    behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.exitSurveyUrl, messages("registrationSent.link"))
+    behave like pageWithHyperLink(
+      applyView(),
+      "link",
+      frontendAppConfig.exitSurveyUrl,
+      messages("registrationSent.link")
+    )
 
-    "Contains the reference number" in{
+    "Contains the reference number" in {
       val doc = asDocument(applyView())
-      assertContainsText(doc,"080582080582")
+      assertContainsText(doc, "080582080582")
     }
 
   }

@@ -41,7 +41,7 @@ import scala.concurrent.Future
 class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -57,22 +57,27 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
     reset(mockUserAnswerService, mockCountryService)
   }
 
-  private val messageKeyPrefix = "organisationAuthorisedPersonPassport"
-  private val view: PassportView = inject[PassportView]
+  private val messageKeyPrefix                      = "organisationAuthorisedPersonPassport"
+  private val view: PassportView                    = inject[PassportView]
   private val formProvider: DateOfBirthFormProvider = inject[DateOfBirthFormProvider]
-  private val form: Form[LocalDate] = formProvider(messageKeyPrefix)
+  private val form: Form[LocalDate]                 = formProvider(messageKeyPrefix)
 
-  private val controller: OrganisationAuthorisedPersonPassportController = inject[OrganisationAuthorisedPersonPassportController]
+  private val controller: OrganisationAuthorisedPersonPassportController =
+    inject[OrganisationAuthorisedPersonPassportController]
 
   private val futureDate: LocalDate = LocalDate.now().plusDays(1)
 
-  private val requestArgs = Seq("passportNumber" -> "123", "country" -> "United Kingdom",
-    "expiryDate.year" -> futureDate.getYear.toString,
+  private val requestArgs                   = Seq(
+    "passportNumber"   -> "123",
+    "country"          -> "United Kingdom",
+    "expiryDate.year"  -> futureDate.getYear.toString,
     "expiryDate.month" -> futureDate.getMonthValue.toString,
-    "expiryDate.day" -> futureDate.getDayOfMonth.toString)
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OrganisationAuthorisedPersonNamePage,
-    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
-
+    "expiryDate.day"   -> futureDate.getDayOfMonth.toString
+  )
+  private val localUserAnswers: UserAnswers = emptyUserAnswers
+    .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .success
+    .value
 
   "OrganisationAuthorisedPersonPassport Controller " must {
 
@@ -84,17 +89,23 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
         controllers.nominees.routes.OrganisationAuthorisedPersonPassportController.onSubmit(NormalMode),
-        Seq(("GB", "United Kingdom")))(fakeRequest, messages, frontendAppConfig).toString
+        Seq(("GB", "United Kingdom"))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(OrganisationAuthorisedPersonPassportPage,
-        Passport("hello", "gb", LocalDate.now.plusDays(1))).success.value
+      val userAnswers = localUserAnswers
+        .set(OrganisationAuthorisedPersonPassportPage, Passport("hello", "gb", LocalDate.now.plusDays(1)))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -108,7 +119,7 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

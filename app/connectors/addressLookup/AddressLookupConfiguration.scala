@@ -22,15 +22,16 @@ import models.addressLookup._
 import play.api.i18n.{Lang, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
-class AddressLookupConfiguration @Inject()(callbackUrl: String,
-                                           messagePrefix: String,
-                                           fullName: Option[String],
-                                           allowedCountryCodes: Option[Set[String]])
-                                          (implicit appConfig: FrontendAppConfig, messages: MessagesApi) {
+class AddressLookupConfiguration @Inject() (
+  callbackUrl: String,
+  messagePrefix: String,
+  fullName: Option[String],
+  allowedCountryCodes: Option[Set[String]]
+)(implicit appConfig: FrontendAppConfig, messages: MessagesApi) {
 
   def apply: AddressLookupConfigurationModel = {
     val english = Lang("en")
-    val welsh = Lang("cy")
+    val welsh   = Lang("cy")
 
     AddressLookupConfigurationModel(
       version = 2,
@@ -45,7 +46,7 @@ class AddressLookupConfiguration @Inject()(callbackUrl: String,
         allowedCountryCodes = allowedCountryCodes,
         ukMode = false,
         disableTranslations = false,
-        selectPageConfig = AddressLookupSelectConfigModel (
+        selectPageConfig = AddressLookupSelectConfigModel(
           showSearchAgainLink = true
         ),
         confirmPageConfig = AddressLookupConfirmConfigModel(
@@ -62,7 +63,6 @@ class AddressLookupConfiguration @Inject()(callbackUrl: String,
       labels = AddressMessageLanguageModel(
         en = AddressMessagesModel.forLang(english, messagePrefix, fullName),
         cy = AddressMessagesModel.forLang(welsh, messagePrefix, fullName)
-
       )
     )
   }

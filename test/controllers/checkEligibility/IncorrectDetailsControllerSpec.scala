@@ -24,10 +24,11 @@ class IncorrectDetailsControllerSpec extends SpecBase {
 
   private val view: IncorrectDetailsView = inject[IncorrectDetailsView]
 
-  object Controller extends IncorrectDetailsController (
-    controllerComponents = messagesControllerComponents,
-    view = view
-  )
+  object Controller
+      extends IncorrectDetailsController(
+        controllerComponents = messagesControllerComponents,
+        view = view
+      )
 
   "SessionExpired Controller" must {
 

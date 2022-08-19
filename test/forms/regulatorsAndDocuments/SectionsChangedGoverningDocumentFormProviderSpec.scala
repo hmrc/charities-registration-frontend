@@ -21,16 +21,17 @@ import play.api.data.{Form, FormError}
 
 class SectionsChangedGoverningDocumentFormProviderSpec extends StringFieldBehaviours {
 
-  private val formProvider: SectionsChangedGoverningDocumentFormProvider = inject[SectionsChangedGoverningDocumentFormProvider]
-  private val form: Form[String] = formProvider()
+  private val formProvider: SectionsChangedGoverningDocumentFormProvider =
+    inject[SectionsChangedGoverningDocumentFormProvider]
+  private val form: Form[String]                                         = formProvider()
 
   ".value" must {
 
     val requiredKey = "sectionsChangedGoverningDocument.error.required"
-    val lengthKey = "sectionsChangedGoverningDocument.error.length"
-    val invalidKey = "sectionsChangedGoverningDocument.error.format"
-    val maxLength = 350
-    val fieldName = "value"
+    val lengthKey   = "sectionsChangedGoverningDocument.error.length"
+    val invalidKey  = "sectionsChangedGoverningDocument.error.format"
+    val maxLength   = 350
+    val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
       form,

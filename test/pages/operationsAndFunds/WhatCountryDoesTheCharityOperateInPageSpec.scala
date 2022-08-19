@@ -18,8 +18,7 @@ package pages.operationsAndFunds
 
 import pages.behaviours.PageBehaviours
 
-class WhatCountryDoesTheCharityOperateInPageSpec extends PageBehaviours{
-
+class WhatCountryDoesTheCharityOperateInPageSpec extends PageBehaviours {
 
   "WhatCountryDoesTheCharityOperateInPage" must {
 

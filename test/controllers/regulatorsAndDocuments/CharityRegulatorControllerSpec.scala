@@ -55,9 +55,9 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerService)
   }
 
-  private val view: CharityRegulatorView = inject[CharityRegulatorView]
+  private val view: CharityRegulatorView                 = inject[CharityRegulatorView]
   private val formProvider: CharityRegulatorFormProvider = inject[CharityRegulatorFormProvider]
-  private val form: Form[Set[CharityRegulator]] = formProvider()
+  private val form: Form[Set[CharityRegulator]]          = formProvider()
 
   private val controller: CharityRegulatorController = inject[CharityRegulatorController]
 
@@ -74,11 +74,13 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(CharityRegulatorPage, CharityRegulator.values.toSet).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(emptyUserAnswers.set(CharityRegulatorPage, CharityRegulator.values.toSet).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -103,13 +105,17 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to the next page when valid data is submitted after changing the selection" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", CharityRegulator.values.head.toString))
-      val userAnswer = emptyUserAnswers.set(CharityRegulatorPage, CharityRegulator.values.toSet)
-        .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
-        .flatMap(_.set(ScottishRegulatorRegNumberPage, "registrationNumber"))
-        .flatMap(_.set(NIRegulatorRegNumberPage, "registrationNumber"))
-        .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567")))
-        ).success.value
+      val request    = fakeRequest.withFormUrlEncodedBody(("value[0]", CharityRegulator.values.head.toString))
+      val userAnswer = emptyUserAnswers
+        .set(CharityRegulatorPage, CharityRegulator.values.toSet)
+        .flatMap(
+          _.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+            .flatMap(_.set(ScottishRegulatorRegNumberPage, "registrationNumber"))
+            .flatMap(_.set(NIRegulatorRegNumberPage, "registrationNumber"))
+            .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567")))
+        )
+        .success
+        .value
 
       when(mockUserAnswerService.get(meq("id"))(any(), any())).thenReturn(Future.successful(Some(userAnswer)))
       when(mockUserAnswerService.set(any[UserAnswers])(any(), any())).thenReturn(Future.successful(true))
@@ -121,8 +127,7 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).get(meq("id"))(any(), any())
 
       theUserAnswers.id mustBe "id"
-      theUserAnswers.data mustBe Json.parse(
-        """{"isSection2Completed":false,
+      theUserAnswers.data mustBe Json.parse("""{"isSection2Completed":false,
           |"charityRegulator":["ccew"],
           |"charityCommissionRegistrationNumber":"registrationNumber"
           |}""".stripMargin)

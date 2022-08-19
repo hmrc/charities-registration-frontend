@@ -25,18 +25,17 @@ import views.html.DeadEndView
 
 import scala.concurrent.Future
 
-
-class DeadEndController @Inject()(
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    userAnswerService: UserAnswerService,
-    requireData: DataRequiredAction,
-    view: DeadEndView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class DeadEndController @Inject() (
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  userAnswerService: UserAnswerService,
+  requireData: DataRequiredAction,
+  view: DeadEndView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     Future.successful(Ok(view()))
   }
 

@@ -25,4 +25,3 @@ case object IsRemoveOperatingCountryPage extends QuestionPage[Boolean] {
 
   override lazy val toString: String = "isRemoveOperatingCountry"
 }
-

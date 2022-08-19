@@ -32,26 +32,25 @@ import views.html.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocume
 
 import scala.concurrent.Future
 
-class HasCharityChangedPartsOfGoverningDocumentController @Inject()(
-    sessionRepository: UserAnswerService,
-    navigator: DocumentsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: HasCharityChangedPartsOfGoverningDocumentFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: HasCharityChangedPartsOfGoverningDocumentView
- )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class HasCharityChangedPartsOfGoverningDocumentController @Inject() (
+  sessionRepository: UserAnswerService,
+  navigator: DocumentsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: HasCharityChangedPartsOfGoverningDocumentFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: HasCharityChangedPartsOfGoverningDocumentView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
-
         val preparedForm = request.userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
-          case None => form
+          case None        => form
           case Some(value) => form.fill(value)
         }
         Future.successful(Ok(view(preparedForm, mode, documentName)))
@@ -60,20 +59,21 @@ class HasCharityChangedPartsOfGoverningDocumentController @Inject()(
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
-
-        form.bindFromRequest().fold(
-          formWithErrors =>
-            Future.successful(BadRequest(view(formWithErrors, mode, documentName))),
-
-          value =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(HasCharityChangedPartsOfGoverningDocumentPage, value)
-                .flatMap(_.set(Section3Page, false)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, mode, updatedAnswers))
-        )
+        form
+          .bindFromRequest()
+          .fold(
+            formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode, documentName))),
+            value =>
+              for {
+                updatedAnswers <- Future.fromTry(
+                                    request.userAnswers
+                                      .set(HasCharityChangedPartsOfGoverningDocumentPage, value)
+                                      .flatMap(_.set(Section3Page, false))
+                                  )
+                _              <- sessionRepository.set(updatedAnswers)
+              } yield Redirect(navigator.nextPage(HasCharityChangedPartsOfGoverningDocumentPage, mode, updatedAnswers))
+          )
       }
   }
 }

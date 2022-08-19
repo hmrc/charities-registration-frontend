@@ -21,10 +21,10 @@ import java.time.LocalDate
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class IndividualNomineeDOBPageSpec extends PageBehaviours{
+class IndividualNomineeDOBPageSpec extends PageBehaviours {
 
-  private val year = 2002
-  private val month = 1
+  private val year       = 2002
+  private val month      = 1
   private val dayInMonth = 1
 
   implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {

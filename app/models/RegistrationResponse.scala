@@ -16,13 +16,12 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class RegistrationResponse(acknowledgementReference: String)
 
 object RegistrationResponse {
 
-  implicit val formats = Json.format[RegistrationResponse]
+  implicit val formats: OFormat[RegistrationResponse] = Json.format[RegistrationResponse]
 
 }
-

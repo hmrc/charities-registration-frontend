@@ -52,9 +52,9 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
     reset(mockUserAnswerService)
   }
 
-  private val view: GoverningDocumentNameView = injector.instanceOf[GoverningDocumentNameView]
+  private val view: GoverningDocumentNameView                 = injector.instanceOf[GoverningDocumentNameView]
   private val formProvider: GoverningDocumentNameFormProvider = injector.instanceOf[GoverningDocumentNameFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                              = formProvider()
 
   private val controller: GoverningDocumentNameController = inject[GoverningDocumentNameController]
 
@@ -64,7 +64,7 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -72,7 +72,6 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
@@ -88,10 +87,10 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -105,7 +104,7 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -128,7 +127,7 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 

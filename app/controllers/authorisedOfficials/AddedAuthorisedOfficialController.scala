@@ -30,30 +30,36 @@ import views.html.common.AddedOfficialsView
 
 import scala.concurrent.Future
 
-class AddedAuthorisedOfficialController @Inject()(
-    override val sessionRepository: UserAnswerService,
-    override val navigator: AuthorisedOfficialsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    override val countryService: CountryService,
-    override val view: AddedOfficialsView,
-    override val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends AddedOfficialController {
+class AddedAuthorisedOfficialController @Inject() (
+  override val sessionRepository: UserAnswerService,
+  override val navigator: AuthorisedOfficialsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  override val countryService: CountryService,
+  override val view: AddedOfficialsView,
+  override val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends AddedOfficialController {
 
   override val messagePrefix: String = "addedAuthorisedOfficial"
 
-  def onPageLoad(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
+        Future.successful(
+          getView(
+            index,
+            controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onSubmit(index),
+            authorisedOfficialsName
+          )
+        )
 
-    getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
+      }
+  }
 
-      Future.successful(getView(index, controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onSubmit(index), authorisedOfficialsName))
-
-  }}
-
-  def onSubmit(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    postView(AddedAuthorisedOfficialPage(index), Section7Page)
+  def onSubmit(index: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      postView(AddedAuthorisedOfficialPage(index), Section7Page)
   }
 }
-

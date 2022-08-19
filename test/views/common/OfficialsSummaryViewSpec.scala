@@ -25,20 +25,27 @@ import views.html.common.OfficialsSummaryView
 class OfficialsSummaryViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix: String = "authorisedOfficialsSummary.checkYourAnswers"
-  private val section: String = messages("officialsAndNominees.section")
-  val form: Form[Boolean] = inject[YesNoFormProvider].apply("authorisedOfficialsSummary")
+  private val section: String          = messages("officialsAndNominees.section")
+  val form: Form[Boolean]              = inject[YesNoFormProvider].apply("authorisedOfficialsSummary")
 
   "OfficialsSummaryView" must {
 
     def applyView(form: Form[Boolean]): HtmlFormat.Appendable = {
       val view = viewFor[OfficialsSummaryView](Some(emptyUserAnswers))
-      view.apply(form, "authorisedOfficialsSummary", 2,
-        controllers.routes.IndexController.onPageLoad(None)
-      )(
-        fakeRequest, messages, frontendAppConfig)
+      view.apply(form, "authorisedOfficialsSummary", 2, controllers.routes.IndexController.onPageLoad(None))(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq(), section = Some(section), postHeadingString = ".addedOne")
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      Seq(),
+      section = Some(section),
+      postHeadingString = ".addedOne"
+    )
 
     behave like pageWithBackLink(applyView(form))
 

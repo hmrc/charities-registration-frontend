@@ -24,15 +24,13 @@ import uk.gov.hmrc.http.HeaderCarrier
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class UserAnswerService @Inject()(
+class UserAnswerService @Inject() (
   charitiesConnector: CharitiesConnector
-  ) {
+) {
 
-  def get(id: String)(implicit executionContext: ExecutionContext, hc: HeaderCarrier): Future[Option[UserAnswers]] = {
+  def get(id: String)(implicit executionContext: ExecutionContext, hc: HeaderCarrier): Future[Option[UserAnswers]] =
     charitiesConnector.getUserAnswers(id)
-  }
 
-  def set(userAnswers: UserAnswers)(implicit executionContext: ExecutionContext, hc: HeaderCarrier): Future[Boolean] = {
+  def set(userAnswers: UserAnswers)(implicit executionContext: ExecutionContext, hc: HeaderCarrier): Future[Boolean] =
     charitiesConnector.saveUserAnswers(userAnswers)
-  }
 }

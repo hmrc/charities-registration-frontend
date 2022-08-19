@@ -38,36 +38,38 @@ trait CountryService {
 @Singleton
 class CountryServiceImpl extends CountryService {
 
-  private def getCountries(resourceFile: String): Seq[Country] = {
-    Json.parse(getClass.getResourceAsStream(resourceFile)).as[Map[String, FcoCountry]].map {
-      country =>
+  private def getCountries(resourceFile: String): Seq[Country] =
+    Json
+      .parse(getClass.getResourceAsStream(resourceFile))
+      .as[Map[String, FcoCountry]]
+      .map { country =>
         Country(country._2.country, country._2.name)
-    }.toSeq.sortWith(_.name < _.name)
-  }
+      }
+      .toSeq
+      .sortWith(_.name < _.name)
 
   private lazy val countriesEN: Seq[Country] = getCountries("/countriesEN.json")
 
   private lazy val countriesCY: Seq[Country] = getCountries("/countriesCY.json")
 
-  override def isWelsh(implicit messages: Messages) = messages.lang.code == "cy"
+  override def isWelsh(implicit messages: Messages): Boolean = messages.lang.code == "cy"
 
   override def countries()(implicit messages: Messages): Seq[(String, String)] = {
 
     val countries = if (isWelsh) countriesCY else countriesEN
 
-    countries.map { c => c.code -> c.name }
+    countries.map(c => c.code -> c.name)
   }
 
-  override def find(code: String)(implicit messages: Messages): Option[Country] = {
-
+  override def find(code: String)(implicit messages: Messages): Option[Country] =
     if (isWelsh) countriesCY.find(_.code == code) else countriesEN.find(_.code == code)
 
-  }
-
   override def translatedCountryName(country: Country)(implicit messages: Messages): String =
-    find(country.code).map { countryTranslated =>
-      countryTranslated.name
-    }.getOrElse(country.name)
+    find(country.code)
+      .map { countryTranslated =>
+        countryTranslated.name
+      }
+      .getOrElse(country.name)
 
 }
 

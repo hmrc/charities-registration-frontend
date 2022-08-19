@@ -25,24 +25,25 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentView
 
-class HasCharityChangedPartsOfGoverningDocumentViewSpec extends YesNoViewBehaviours  {
+class HasCharityChangedPartsOfGoverningDocumentViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "hasCharityChangedPartsOfGoverningDocument.4"
+  private val messageKeyPrefix        = "hasCharityChangedPartsOfGoverningDocument.4"
   private val section: Option[String] = Some(messages("charityRegulator.section"))
-  val form: Form[Boolean] = inject[HasCharityChangedPartsOfGoverningDocumentFormProvider].apply()
+  val form: Form[Boolean]             = inject[HasCharityChangedPartsOfGoverningDocumentFormProvider].apply()
 
-    "HasCharityChangedPartsOfGoverningDocument View" must {
+  "HasCharityChangedPartsOfGoverningDocument View" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[HasCharityChangedPartsOfGoverningDocumentView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[HasCharityChangedPartsOfGoverningDocumentView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.HasCharityChangedPartsOfGoverningDocumentController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-  }}
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  }
+}

@@ -20,18 +20,20 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.CharitableObjectivesFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.ObjectivesNavigator
 import pages.operationsAndFunds.CharitableObjectivesPage
 import pages.sections.Section4Page
+import play.api.data.Form
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.CharitableObjectivesView
 
 import scala.concurrent.Future
 
-class CharitableObjectivesController @Inject()(
+class CharitableObjectivesController @Inject() (
   val sessionRepository: UserAnswerService,
   val navigator: ObjectivesNavigator,
   identify: AuthIdentifierAction,
@@ -40,30 +42,32 @@ class CharitableObjectivesController @Inject()(
   formProvider: CharitableObjectivesFormProvider,
   val controllerComponents: MessagesControllerComponents,
   view: CharitableObjectivesView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
+  val form: Form[String] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val preparedForm = request.userAnswers.get(CharitableObjectivesPage) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(CharitableObjectivesPage, value).flatMap(_.set(Section4Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(CharitableObjectivesPage, mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <-
+                Future
+                  .fromTry(request.userAnswers.set(CharitableObjectivesPage, value).flatMap(_.set(Section4Page, false)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(CharitableObjectivesPage, mode, updatedAnswers))
+        )
   }
 }

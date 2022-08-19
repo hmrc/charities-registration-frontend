@@ -29,31 +29,32 @@ import play.api.mvc._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
-class OrganisationNomineeAddressLookupController @Inject()(
-    override val sessionRepository: UserAnswerService,
-    override val navigator: NomineesNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    override val addressLookupConnector: AddressLookupConnector,
-    override val errorHandler: ErrorHandler,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
+class OrganisationNomineeAddressLookupController @Inject() (
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  override val addressLookupConnector: AddressLookupConnector,
+  override val errorHandler: ErrorHandler,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends BaseAddressController {
 
   override val messagePrefix: String = "organisationNomineeAddress"
 
   def initializeJourney(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getOrganisationName(OrganisationNomineeNamePage) { organisationName =>
-
-        val callBack: String = controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.callback(mode).url
+        val callBack: String =
+          controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.callback(mode).url
 
         addressLookupInitialize(callBack, Some(organisationName))
       }
   }
 
-  def callback(mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def callback(mode: Mode, id: Option[String]): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       addressLookupCallback(OrganisationNomineeAddressLookupPage, Section9Page, id, mode)
-  }
+    }
 }

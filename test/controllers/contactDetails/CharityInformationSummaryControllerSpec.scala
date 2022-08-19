@@ -58,7 +58,8 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("aaa", None)).success.value)))
+        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("aaa", None)).success.value))
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -92,7 +93,10 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
     "redirect to the next page when valid data is submitted with some pages answered" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)))
+        Future.successful(
+          Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)
+        )
+      )
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit()(fakeRequest)
@@ -105,16 +109,21 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
     "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
 
       val app =
-        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+        new GuiceApplicationBuilder()
+          .configure("features.isExternalTest" -> "true")
           .overrides(
             bind[UserAnswerService].toInstance(mockUserAnswerService),
             bind[SessionRepository].toInstance(mockSessionRepository),
             bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          ).build()
+          )
+          .build()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)))
+        Future.successful(
+          Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)
+        )
+      )
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val controller: CharityInformationSummaryController = app.injector.instanceOf[CharityInformationSummaryController]

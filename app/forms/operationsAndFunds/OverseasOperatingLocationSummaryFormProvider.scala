@@ -25,5 +25,5 @@ class OverseasOperatingLocationSummaryFormProvider @Inject() extends Mappings {
   def apply(): Form[Boolean] =
     Form(
       "value" -> boolean("overseasOperatingLocationSummary.addAnotherCountry.error.required")
-      )
+    )
 }

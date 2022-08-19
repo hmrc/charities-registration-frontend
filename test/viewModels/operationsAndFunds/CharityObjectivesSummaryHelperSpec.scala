@@ -28,10 +28,13 @@ import viewmodels.operationsAndFunds.CharityObjectivesSummaryHelper
 
 class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-  private val helper = new CharityObjectivesSummaryHelper(UserAnswers("id")
-    .set(CharitableObjectivesPage, "Charitable Objectives").flatMap
-  (_.set(CharitablePurposesPage, CharitablePurposes.values.toSet)).flatMap
-  (_.set(PublicBenefitsPage,"Public Benefits")).success.value
+  private val helper = new CharityObjectivesSummaryHelper(
+    UserAnswers("id")
+      .set(CharitableObjectivesPage, "Charitable Objectives")
+      .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
+      .flatMap(_.set(PublicBenefitsPage, "Public Benefits"))
+      .success
+      .value
   )
 
   "Check your answers helper" must {
@@ -55,8 +58,9 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row" in {
 
-        val purposeList = CharitablePurposes.values.sortBy(_.order).foldLeft("")(
-          (str, key) => str + s"""<div>${messages(s"charitablePurposes.${key.toString}")}</div>""")
+        val purposeList = CharitablePurposes.values
+          .sortBy(_.order)
+          .foldLeft("")((str, key) => str + s"""<div>${messages(s"charitablePurposes.${key.toString}")}</div>""")
 
         helper.charitablePurposesRow mustBe Some(
           summaryListRow(

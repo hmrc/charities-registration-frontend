@@ -27,26 +27,24 @@ import views.html.common.IsOfficialsNinoView
 
 class IsOfficialsNinoViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isAuthorisedOfficialPosition"
+  private val messageKeyPrefix        = "isAuthorisedOfficialPosition"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean]             = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
-    "AuthorisedOfficialsNameView" must {
+  "AuthorisedOfficialsNameView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[IsOfficialsNinoView](Some(emptyUserAnswers))
-        view.apply(form, "test", messageKeyPrefix, onwardRoute)(
-          fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, Seq("test"), section = section)
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like yesNoPage(form, applyView, messageKeyPrefix,
-        routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode, Index(0)).url, Seq("test"), section = section)
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[IsOfficialsNinoView](Some(emptyUserAnswers))
+      view.apply(form, "test", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, Seq("test"), section = section)
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like yesNoPage(form, applyView, messageKeyPrefix, Seq("test"), section = section)
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

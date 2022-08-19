@@ -24,22 +24,25 @@ class DeadEndViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "deadEnd"
 
-    "deadEndView" must {
+  "deadEndView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[DeadEndView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix)
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "taskListLink",
-        controllers.routes.IndexController.onPageLoad(None).url, messages("site.gotoTaskList"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[DeadEndView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix)
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "taskListLink",
+      controllers.routes.IndexController.onPageLoad(None).url,
+      messages("site.gotoTaskList")
+    )
+
   }
+}

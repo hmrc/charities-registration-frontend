@@ -58,8 +58,8 @@ class RegulatorsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any()))
+        .thenReturn(Future.successful(Some(emptyUserAnswers.set(IsCharityRegulatorPage, true).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -89,7 +89,6 @@ class RegulatorsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
 
   }
 }

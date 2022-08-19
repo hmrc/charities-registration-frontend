@@ -24,21 +24,25 @@ import views.html.contactDetails.StartInformationView
 class StartInformationViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startInformation"
-  private val section: String = messages("contactDetail.section")
+  private val section: String  = messages("contactDetail.section")
 
-    "StartInformationView" must {
+  "StartInformationView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[StartInformationView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "b1", "b2", "b3")
-
-      behave like pageWithHyperLink(applyView(), "linkButton", controllers.contactDetails.routes.CharityNameController.onPageLoad(NormalMode).url, messages("site.continue"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[StartInformationView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "b1", "b2", "b3")
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.contactDetails.routes.CharityNameController.onPageLoad(NormalMode).url,
+      messages("site.continue")
+    )
+
   }
+}

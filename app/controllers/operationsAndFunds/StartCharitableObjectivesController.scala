@@ -25,14 +25,16 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.UserAnswerService
 import views.html.operationsAndFunds.StartCharitableObjectivesView
 
-class StartCharitableObjectivesController @Inject()(
-    val userAnswerService: UserAnswerService,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    val controllerComponents: MessagesControllerComponents,
-    view: StartCharitableObjectivesView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController with I18nSupport {
+class StartCharitableObjectivesController @Inject() (
+  val userAnswerService: UserAnswerService,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val controllerComponents: MessagesControllerComponents,
+  view: StartCharitableObjectivesView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController
+    with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view())

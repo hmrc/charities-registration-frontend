@@ -24,26 +24,24 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.common.IsNomineePaymentsView
 
-class IsNomineePaymentsViewSpec extends YesNoViewBehaviours  {
+class IsNomineePaymentsViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isIndividualNomineePayments"
+  private val messageKeyPrefix        = "isIndividualNomineePayments"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean]             = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
   "IsIndividualNomineePaymentsView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[IsNomineePaymentsView](Some(emptyUserAnswers))
-      view.apply(form, "Jim Jam", messageKeyPrefix, onwardRoute)(
-        fakeRequest, messages, frontendAppConfig)
+      view.apply(form, "Jim Jam", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jam"), section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix,
-      controllers.nominees.routes.IsIndividualNomineeNinoController.onSubmit(NormalMode).url, Seq("Jim Jam"), section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, Seq("Jim Jam"), section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

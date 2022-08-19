@@ -25,26 +25,25 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours
 import views.html.operationsAndFunds.FundRaisingView
 
-
 class FundRaisingViewSpec extends CheckboxViewBehaviours[FundRaisingOptions] {
 
-  private val messageKeyPrefix: String = "selectFundRaising"
-  private val section: String = messages("operationsAndFunds.section")
+  private val messageKeyPrefix: String    = "selectFundRaising"
+  private val section: String             = messages("operationsAndFunds.section")
   val form: Form[Set[FundRaisingOptions]] = inject[FundRaisingFormProvider].apply()
 
-    "SelectFundRaisingView" must {
+  "SelectFundRaisingView" must {
 
-      def applyView(form: Form[Set[FundRaisingOptions]]): HtmlFormat.Appendable = {
-          val view = viewFor[FundRaisingView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[Set[FundRaisingOptions]]): HtmlFormat.Appendable = {
+      val view = viewFor[FundRaisingView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like checkboxPage(form, applyView, messageKeyPrefix, FundRaisingOptions.options(form), section)
+    behave like checkboxPage(form, applyView, messageKeyPrefix, FundRaisingOptions.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

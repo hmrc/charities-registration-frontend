@@ -32,37 +32,46 @@ import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
-class IsOtherOfficialNinoController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: YesNoFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: OtherOfficialsNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: YesNoView
-  )(implicit appConfig: FrontendAppConfig) extends IsOfficialsNinoController {
+class IsOtherOfficialNinoController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: OtherOfficialsNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: YesNoView
+)(implicit appConfig: FrontendAppConfig)
+    extends IsOfficialsNinoController {
 
   override val messagePrefix: String = "isOtherOfficialNino"
-  private val form: Form[Boolean] = formProvider(messagePrefix)
+  private val form: Form[Boolean]    = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        Future.successful(getView(IsOtherOfficialNinoPage(index), form, otherOfficialsName,
-          controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(mode, index)))
+        Future.successful(
+          getView(
+            IsOtherOfficialNinoPage(index),
+            form,
+            otherOfficialsName,
+            controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(mode, index)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        postView(mode, IsOtherOfficialNinoPage(index), form, otherOfficialsName, Section8Page,
-          controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(mode, index))
+        postView(
+          mode,
+          IsOtherOfficialNinoPage(index),
+          form,
+          otherOfficialsName,
+          Section8Page,
+          controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(mode, index)
+        )
       }
   }
 }

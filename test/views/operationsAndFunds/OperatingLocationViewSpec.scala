@@ -25,26 +25,25 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours
 import views.html.operationsAndFunds.OperatingLocationView
 
-
 class OperatingLocationViewSpec extends CheckboxViewBehaviours[OperatingLocationOptions] {
 
-  private val messageKeyPrefix: String = "operatingLocation"
-  private val section: String = messages("operationsAndFunds.section")
+  private val messageKeyPrefix: String          = "operatingLocation"
+  private val section: String                   = messages("operationsAndFunds.section")
   val form: Form[Set[OperatingLocationOptions]] = inject[OperatingLocationFormProvider].apply()
 
-    "OperatingLocationView" must {
+  "OperatingLocationView" must {
 
-      def applyView(form: Form[Set[OperatingLocationOptions]]): HtmlFormat.Appendable = {
-          val view = viewFor[OperatingLocationView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[Set[OperatingLocationOptions]]): HtmlFormat.Appendable = {
+      val view = viewFor[OperatingLocationView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like checkboxPage(form, applyView, messageKeyPrefix, OperatingLocationOptions.options(form), section)
+    behave like checkboxPage(form, applyView, messageKeyPrefix, OperatingLocationOptions.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

@@ -34,42 +34,51 @@ import views.html.contactDetails.CharityNameView
 
 import scala.concurrent.Future
 
-class CharityNameController @Inject()(
-   val sessionRepository: UserAnswerService,
-   val navigator: CharityInformationNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: CharityNameFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: CharityNameView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class CharityNameController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: CharityInformationNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: CharityNameFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: CharityNameView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val form: Form[CharityName] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val preparedForm = request.userAnswers.get(CharityNamePage) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-
-      value =>
-        for {
-          updatedBankDetails <- request.userAnswers.get(BankDetailsPage).fold(Future.successful(request.userAnswers))(bakDetails =>
-                                Future.fromTry(request.userAnswers.set(BankDetailsPage, bakDetails.copy(accountName = value.fullName))))
-          updatedAnswers <- Future.fromTry(updatedBankDetails.set(CharityNamePage, value).flatMap(_.set(Section1Page, checkComplete(updatedBankDetails))))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(CharityNamePage, mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedBankDetails <-
+                request.userAnswers
+                  .get(BankDetailsPage)
+                  .fold(Future.successful(request.userAnswers))(bakDetails =>
+                    Future
+                      .fromTry(request.userAnswers.set(BankDetailsPage, bakDetails.copy(accountName = value.fullName)))
+                  )
+              updatedAnswers     <- Future.fromTry(
+                                      updatedBankDetails
+                                        .set(CharityNamePage, value)
+                                        .flatMap(_.set(Section1Page, checkComplete(updatedBankDetails)))
+                                    )
+              _                  <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(CharityNamePage, mode, updatedAnswers))
+        )
   }
 }

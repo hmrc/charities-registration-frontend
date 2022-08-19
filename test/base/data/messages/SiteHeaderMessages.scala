@@ -18,8 +18,8 @@ package base.data.messages
 
 object SiteHeaderMessages {
 
-  val govUk = "GOV.UK"
+  val govUk       = "GOV.UK"
   val serviceName = "Register your charity’s details with HMRC"
-  val signOut = "Sign out"
+  val signOut     = "Sign out"
 
 }

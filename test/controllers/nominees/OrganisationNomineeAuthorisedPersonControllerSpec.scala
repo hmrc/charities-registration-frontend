@@ -33,7 +33,7 @@ import scala.concurrent.Future
 
 class OrganisationNomineeAuthorisedPersonControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -47,9 +47,11 @@ class OrganisationNomineeAuthorisedPersonControllerSpec extends SpecBase with Be
     reset(mockUserAnswerService)
   }
 
-  private val view: OrganisationNomineeAuthorisedPersonView = injector.instanceOf[OrganisationNomineeAuthorisedPersonView]
+  private val view: OrganisationNomineeAuthorisedPersonView =
+    injector.instanceOf[OrganisationNomineeAuthorisedPersonView]
 
-  private val controller: OrganisationNomineeAuthorisedPersonController = inject[OrganisationNomineeAuthorisedPersonController]
+  private val controller: OrganisationNomineeAuthorisedPersonController =
+    inject[OrganisationNomineeAuthorisedPersonController]
 
   private val company = "TestCompany"
 

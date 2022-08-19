@@ -44,7 +44,7 @@ import viewmodels.ErrorHandler
 import scala.concurrent.Future
 
 class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers]             = Some(emptyUserAnswers)
   private val mockAddressLookupConnector: AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -52,7 +52,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
-        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
@@ -60,20 +60,25 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerService, mockAddressLookupConnector)
   }
 
-  class TestAddressLookupController @Inject()(
-                                               override val sessionRepository: UserAnswerService,
-                                               override val navigator: CharityInformationNavigator,
-                                               override val addressLookupConnector: AddressLookupConnector,
-                                               override val errorHandler: ErrorHandler,
-                                               val controllerComponents: MessagesControllerComponents
-   )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
+  class TestAddressLookupController @Inject() (
+    override val sessionRepository: UserAnswerService,
+    override val navigator: CharityInformationNavigator,
+    override val addressLookupConnector: AddressLookupConnector,
+    override val errorHandler: ErrorHandler,
+    val controllerComponents: MessagesControllerComponents
+  )(implicit appConfig: FrontendAppConfig)
+      extends BaseAddressController {
     override val messagePrefix: String = "testPrefix"
   }
 
-
-  lazy val controller: TestAddressLookupController = new TestAddressLookupController(mockUserAnswerService,
-    FakeCharityInformationNavigator, mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
-  val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
+  lazy val controller: TestAddressLookupController = new TestAddressLookupController(
+    mockUserAnswerService,
+    FakeCharityInformationNavigator,
+    mockAddressLookupConnector,
+    inject[ErrorHandler],
+    messagesControllerComponents
+  )
+  val request: DataRequest[AnyContent]             = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
   "BaseAddress Controller" when {
 
@@ -86,7 +91,8 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
           "redirect to the on ramp" in {
 
             when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
+              .thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
             val result = controller.addressLookupInitialize("testCallback")(request, implicitly)
 
@@ -95,13 +101,13 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
           }
         }
 
-
         "when the on ramp call is unsuccessful" must {
 
           "render ISE" in {
 
             when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
+              .thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
             val result = controller.addressLookupInitialize("testCallback")(request, implicitly)
 
@@ -124,9 +130,11 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
+                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-              val result = controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
+              val result =
+                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
 
               status(result) mustEqual SEE_OTHER
               redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -139,9 +147,11 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
             "render ISE for invalid address" in {
 
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Left(AddressMalformed)))
+              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
+                .thenReturn(Future.successful(Left(AddressMalformed)))
 
-              val result = controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
+              val result =
+                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
               contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
@@ -151,9 +161,11 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
             "render ISE" in {
 
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
+                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-              val result = controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, None)(request)
+              val result =
+                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, None)(request)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
               contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString

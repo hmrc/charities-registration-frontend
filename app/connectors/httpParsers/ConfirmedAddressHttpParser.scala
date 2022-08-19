@@ -30,22 +30,21 @@ object ConfirmedAddressHttpParser {
 
   implicit object ConfirmedAddressReads extends HttpReads[ConfirmedAddressResponse] {
 
-    def read(method: String, url: String, response: HttpResponse): ConfirmedAddressResponse = {
+    def read(method: String, url: String, response: HttpResponse): ConfirmedAddressResponse =
       response.status match {
-        case OK =>
+        case OK        =>
           response.json.validate[AddressModel](AddressModel.responseReads) match {
             case JsSuccess(address, _) => Right(address)
-            case JsError(errors) =>
+            case JsError(errors)       =>
               logger.error(s"[ConfirmedAddressReads][read] Json validation errors $errors")
               Left(AddressMalformed)
           }
         case NOT_FOUND =>
           logger.error(s"[ConfirmedAddressReads][read] Address could not be found")
           Left(AddressNotFound)
-        case status =>
+        case status    =>
           logger.warn(s"[ConfirmedAddressReads][read]: Unexpected response, status $status returned")
           Left(DefaultedUnexpectedFailure(status))
       }
-    }
   }
 }

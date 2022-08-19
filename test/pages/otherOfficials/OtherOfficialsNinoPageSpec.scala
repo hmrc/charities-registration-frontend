@@ -18,7 +18,7 @@ package pages.otherOfficials
 
 import pages.behaviours.PageBehaviours
 
-class OtherOfficialsNinoPageSpec extends PageBehaviours{
+class OtherOfficialsNinoPageSpec extends PageBehaviours {
 
   "OtherOfficialsNinoPage" must {
 

@@ -19,7 +19,7 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.nominees.IsAuthoriseNomineeFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class IsAuthoriseNomineeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -52,9 +52,9 @@ class IsAuthoriseNomineeControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockUserAnswerService)
   }
 
-  private val view: IsAuthoriseNomineeView = injector.instanceOf[IsAuthoriseNomineeView]
+  private val view: IsAuthoriseNomineeView                 = injector.instanceOf[IsAuthoriseNomineeView]
   private val formProvider: IsAuthoriseNomineeFormProvider = injector.instanceOf[IsAuthoriseNomineeFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val form: Form[Boolean]                          = formProvider()
 
   private val controller: IsAuthoriseNomineeController = inject[IsAuthoriseNomineeController]
 
@@ -71,11 +71,11 @@ class IsAuthoriseNomineeControllerSpec extends SpecBase with BeforeAndAfterEach 
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(IsAuthoriseNomineePage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(IsAuthoriseNomineePage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

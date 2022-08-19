@@ -21,11 +21,11 @@ import play.api.data.{Form, FormError}
 
 class YesNoFormProviderSpec extends BooleanFieldBehaviours {
 
-  private val messagePrefix: String = "isAuthorisedOfficialNino"
+  private val messagePrefix: String           = "isAuthorisedOfficialNino"
   private val formProvider: YesNoFormProvider = inject[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messagePrefix)
-  private val requiredKey = s"$messagePrefix.error.required"
-  private val invalidKey = "error.boolean"
+  private val form: Form[Boolean]             = formProvider(messagePrefix)
+  private val requiredKey                     = s"$messagePrefix.error.required"
+  private val invalidKey                      = "error.boolean"
 
   ".value" must {
 

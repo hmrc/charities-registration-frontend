@@ -28,26 +28,25 @@ import views.html.ApplicationBeingProcessedView
 
 import scala.concurrent.Future
 
-class ApplicationBeingProcessedController @Inject()(
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    view: ApplicationBeingProcessedView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with LocalBaseController {
+class ApplicationBeingProcessedController @Inject() (
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  view: ApplicationBeingProcessedView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends ImplicitDateFormatter
+    with LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
-
     request.userAnswers match {
-      case None =>
+      case None       =>
         Future.successful(Redirect(routes.PageNotFoundController.onPageLoad()))
       case Some(data) =>
         data.get(OldServiceSubmissionPage) match {
 
           case Some(oldServiceSubmission) =>
-
             val date = oldStringToDate(oldServiceSubmission.submissionDate)
-            Future.successful(Ok(view(dayToString(date, dayOfWeek = false), oldServiceSubmission.refNumber
-            )))
+            Future.successful(Ok(view(dayToString(date, dayOfWeek = false), oldServiceSubmission.refNumber)))
 
           case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
         }

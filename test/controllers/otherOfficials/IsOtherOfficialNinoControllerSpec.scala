@@ -52,10 +52,10 @@ class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "isOtherOfficialNino"
-  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val messageKeyPrefix: String        = "isOtherOfficialNino"
+  private val view: YesNoView                 = injector.instanceOf[YesNoView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: IsOtherOfficialNinoController = inject[IsOtherOfficialNinoController]
 
@@ -66,21 +66,26 @@ class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
-        controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(NormalMode, Index(0)), "officialsAndNominees")(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(NormalMode, Index(0)),
+        "officialsAndNominees"
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsOtherOfficialNinoPage(0), true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(localUserAnswers.set(IsOtherOfficialNinoPage(0), true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

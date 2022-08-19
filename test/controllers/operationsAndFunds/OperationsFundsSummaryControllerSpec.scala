@@ -65,10 +65,18 @@ class OperationsFundsSummaryControllerSpec extends SpecBase with BeforeAndAfterE
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(IsFinancialAccountsPage, true).flatMap(
-        _.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap(
-        _.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(IsFinancialAccountsPage, true)
+              .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12)))
+              .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(11123.12)))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 

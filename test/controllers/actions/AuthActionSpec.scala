@@ -35,7 +35,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class AuthActionSpec extends SpecBase {
 
   class Harness(authAction: AuthIdentifierAction) {
-    def onPageLoad(): Action[AnyContent] = authAction { _ => Results.Ok }
+    def onPageLoad(): Action[AnyContent] = authAction(_ => Results.Ok)
   }
 
   "Auth Action" when {
@@ -48,9 +48,13 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeFailingAuthConnector(new MissingBearerToken), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeFailingAuthConnector(new MissingBearerToken),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
 
@@ -66,9 +70,13 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeFailingAuthConnector(new BearerTokenExpired), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeFailingAuthConnector(new BearerTokenExpired),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
 
@@ -84,13 +92,19 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeFailingAuthConnector(new InsufficientEnrolments), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeFailingAuthConnector(new InsufficientEnrolments),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
+        redirectLocation(result) mustBe Some(
+          controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url
+        )
       }
     }
 
@@ -102,13 +116,19 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeFailingAuthConnector(new InsufficientConfidenceLevel), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeFailingAuthConnector(new InsufficientConfidenceLevel),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
+        redirectLocation(result) mustBe Some(
+          controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url
+        )
       }
     }
 
@@ -120,13 +140,19 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeFailingAuthConnector(new UnsupportedAuthProvider), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeFailingAuthConnector(new UnsupportedAuthProvider),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
+        redirectLocation(result) mustBe Some(
+          controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url
+        )
       }
     }
 
@@ -138,13 +164,19 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeFailingAuthConnector(new UnsupportedAffinityGroup), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeFailingAuthConnector(new UnsupportedAffinityGroup),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
+        redirectLocation(result) mustBe Some(
+          controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url
+        )
       }
     }
 
@@ -156,13 +188,19 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeFailingAuthConnector(new UnsupportedCredentialRole), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeFailingAuthConnector(new UnsupportedCredentialRole),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url)
+        redirectLocation(result) mustBe Some(
+          controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad.url
+        )
       }
     }
 
@@ -174,51 +212,69 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
       }
 
       "redirect the user to correct for external test environment with session Id" in {
 
-        val application = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true").overrides(
-          bind[SessionRepository].toInstance(mockSessionRepository),
-          bind[UserAnswerService].toInstance(mockUserAnswerService),
-          bind[IdentifierAction].to[FakeIdentifierAction],
-          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
-          bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
-          bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
-        ).build()
+        val application = new GuiceApplicationBuilder()
+          .configure("features.isExternalTest" -> "true")
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository),
+            bind[UserAnswerService].toInstance(mockUserAnswerService),
+            bind[IdentifierAction].to[FakeIdentifierAction],
+            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+            bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
+            bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
+          )
+          .build()
 
-        val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
+        val bodyParsers                          = application.injector.instanceOf[BodyParsers.Default]
         val frontendAppConfig: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest.withSession(SessionKeys.sessionId -> "foo"))
+        val result     = controller.onPageLoad()(fakeRequest.withSession(SessionKeys.sessionId -> "foo"))
 
         status(result) mustBe OK
       }
 
       "redirect the user to correct for external test environment without session id" in {
 
-        val application = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true").overrides(
-          bind[SessionRepository].toInstance(mockSessionRepository),
-          bind[UserAnswerService].toInstance(mockUserAnswerService),
-          bind[IdentifierAction].to[FakeIdentifierAction],
-          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
-          bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
-          bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
-        ).build()
+        val application = new GuiceApplicationBuilder()
+          .configure("features.isExternalTest" -> "true")
+          .overrides(
+            bind[SessionRepository].toInstance(mockSessionRepository),
+            bind[UserAnswerService].toInstance(mockUserAnswerService),
+            bind[IdentifierAction].to[FakeIdentifierAction],
+            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+            bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
+            bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
+          )
+          .build()
 
-        val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
+        val bodyParsers                          = application.injector.instanceOf[BodyParsers.Default]
         val frontendAppConfig: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))), frontendAppConfig, bodyParsers)
+        val authAction = new AuthenticatedIdentifierAction(
+          new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))),
+          frontendAppConfig,
+          bodyParsers
+        )
         val controller = new Harness(authAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result     = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
       }
@@ -233,10 +289,11 @@ class AuthActionSpec extends SpecBase {
 
         val bodyParsers = application.injector.instanceOf[BodyParsers.Default]
 
-        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector(None), frontendAppConfig, bodyParsers)
+        val authAction =
+          new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector(None), frontendAppConfig, bodyParsers)
         val controller = new Harness(authAction)
 
-        intercept[UnauthorizedException]{
+        intercept[UnauthorizedException] {
           await(controller.onPageLoad()(fakeRequest))
         }
 
@@ -245,14 +302,18 @@ class AuthActionSpec extends SpecBase {
   }
 }
 
-
-
-class FakeSuccessAuthConnector[B] @Inject()(response: B) extends AuthConnector {
-  override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[A] =
+class FakeSuccessAuthConnector[B] @Inject() (response: B) extends AuthConnector {
+  override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit
+    hc: HeaderCarrier,
+    ec: ExecutionContext
+  ): Future[A] =
     Future.successful(response.asInstanceOf[A])
 }
 
-class FakeFailingAuthConnector @Inject()(exceptionToReturn: Throwable) extends AuthConnector {
-  override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[A] =
+class FakeFailingAuthConnector @Inject() (exceptionToReturn: Throwable) extends AuthConnector {
+  override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit
+    hc: HeaderCarrier,
+    ec: ExecutionContext
+  ): Future[A] =
     Future.failed(exceptionToReturn)
 }

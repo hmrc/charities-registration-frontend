@@ -24,19 +24,21 @@ import play.api.data.Forms._
 
 class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
 
-  private[regulatorsAndDocuments] val maxLengthRegulatorName = 100
+  private[regulatorsAndDocuments] val maxLengthRegulatorName      = 100
   private[regulatorsAndDocuments] val maxLengthRegistrationNumber = 20
 
   def apply(): Form[CharityOtherRegulatorDetails] =
     Form(
       mapping(
-        "regulatorName" -> text("charityOtherRegulatorDetails.regulatorName.error.required")
+        "regulatorName"      -> text("charityOtherRegulatorDetails.regulatorName.error.required")
           .verifying(maxLength(maxLengthRegulatorName, "charityOtherRegulatorDetails.regulatorName.error.length"))
-          .verifying(regexp(validateFieldWithFullStop,"charityOtherRegulatorDetails.regulatorName.error.format")),
-
-      "registrationNumber" -> text("charityOtherRegulatorDetails.registrationNumber.error.required")
-        .verifying(maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length"))
-        .verifying(regexp(validateFieldWithFullStop,"charityOtherRegulatorDetails.registrationNumber.error.format"))
-      )(CharityOtherRegulatorDetails.apply)(CharityOtherRegulatorDetails.unapply))
+          .verifying(regexp(validateFieldWithFullStop, "charityOtherRegulatorDetails.regulatorName.error.format")),
+        "registrationNumber" -> text("charityOtherRegulatorDetails.registrationNumber.error.required")
+          .verifying(
+            maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length")
+          )
+          .verifying(regexp(validateFieldWithFullStop, "charityOtherRegulatorDetails.registrationNumber.error.format"))
+      )(CharityOtherRegulatorDetails.apply)(CharityOtherRegulatorDetails.unapply)
+    )
 
 }

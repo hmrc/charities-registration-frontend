@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class IsOrganisationNomineePaymentsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -51,10 +51,10 @@ class IsOrganisationNomineePaymentsControllerSpec extends SpecBase with BeforeAn
     super.beforeEach()
     reset(mockUserAnswerService)
   }
-  val messagePrefix: String = "isOrganisationNomineePayments"
-  private val view: IsNomineePaymentsView = injector.instanceOf[IsNomineePaymentsView]
-  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messagePrefix)
+  val messagePrefix: String                                  = "isOrganisationNomineePayments"
+  private val view: IsNomineePaymentsView                    = injector.instanceOf[IsNomineePaymentsView]
+  private val formProvider: YesNoFormProvider                = injector.instanceOf[YesNoFormProvider]
+  private val form: Form[Boolean]                            = formProvider(messagePrefix)
 
   private val controller: IsOrganisationNomineePaymentsController = inject[IsOrganisationNomineePaymentsController]
 
@@ -69,16 +69,20 @@ class IsOrganisationNomineePaymentsControllerSpec extends SpecBase with BeforeAn
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim", messagePrefix,
-        controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(NormalMode))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim",
+        messagePrefix,
+        controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsIndividualNomineePaymentsPage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(localUserAnswers.set(IsIndividualNomineePaymentsPage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

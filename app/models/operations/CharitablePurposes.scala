@@ -79,15 +79,27 @@ object CharitablePurposes extends Enumerable.Implicits {
   }
 
   val values: Seq[CharitablePurposes] = Seq(
-    AmateurSport, AnimalWelfare, ArtsCultureHeritageScience, CitizenshipCommunity, Education, EnvironmentalProtection,
-    Health, HumanRights,PromotionOfEfficiency, ReliefOfPoverty, ReliefOfThoseInNeed, Religion, Other
+    AmateurSport,
+    AnimalWelfare,
+    ArtsCultureHeritageScience,
+    CitizenshipCommunity,
+    Education,
+    EnvironmentalProtection,
+    Health,
+    HumanRights,
+    PromotionOfEfficiency,
+    ReliefOfPoverty,
+    ReliefOfThoseInNeed,
+    Religion,
+    Other
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
-        id = Some(if(index==0){ "value" } else { "value-" + index.toString }),
+        id = Some(if (index == 0) { "value" }
+        else { "value-" + index.toString }),
         value = value.toString,
         content = Text(messages(s"charitablePurposes.${value.toString}")),
         checked = form.data.exists(_._2 == value.toString)

@@ -53,15 +53,18 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "authorisedOfficialsPosition"
-  private val view: OfficialsPositionView = injector.instanceOf[OfficialsPositionView]
+  private val messageKeyPrefix: String                    = "authorisedOfficialsPosition"
+  private val view: OfficialsPositionView                 = injector.instanceOf[OfficialsPositionView]
   private val formProvider: OfficialsPositionFormProvider = injector.instanceOf[OfficialsPositionFormProvider]
-  private val form: Form[OfficialsPosition] = formProvider(messageKeyPrefix)
+  private val form: Form[OfficialsPosition]               = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialsPositionController = inject[AuthorisedOfficialsPositionController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .success
+      .value
 
   "AuthorisedOfficialsPosition Controller" must {
 
@@ -69,19 +72,29 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
-      val result = controller.onPageLoad(NormalMode,Index(0))(fakeRequest)
+      val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsPositionController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsPositionController.onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(AuthorisedOfficialsPositionPage(0),  OfficialsPosition.UKAgent).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            localUserAnswers
+              .set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent)
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

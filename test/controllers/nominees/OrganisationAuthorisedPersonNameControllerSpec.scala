@@ -52,12 +52,13 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "organisationAuthorisedPersonName"
-  private val view: NameView = injector.instanceOf[NameView]
+  private val messageKeyPrefix               = "organisationAuthorisedPersonName"
+  private val view: NameView                 = injector.instanceOf[NameView]
   private val formProvider: NameFormProvider = injector.instanceOf[NameFormProvider]
-  private val form: Form[Name] = formProvider(messageKeyPrefix)
+  private val form: Form[Name]               = formProvider(messageKeyPrefix)
 
-  private val controller: OrganisationAuthorisedPersonNameController = inject[OrganisationAuthorisedPersonNameController]
+  private val controller: OrganisationAuthorisedPersonNameController =
+    inject[OrganisationAuthorisedPersonNameController]
 
   "OrganisationAuthorisedPersonName Controller" must {
 
@@ -68,16 +69,20 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, messageKeyPrefix,
-        controllers.nominees.routes.OrganisationAuthorisedPersonNameController.onSubmit(NormalMode))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        messageKeyPrefix,
+        controllers.nominees.routes.OrganisationAuthorisedPersonNameController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+      val userAnswers = emptyUserAnswers
+        .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -89,7 +94,12 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", SelectTitle.values.head.toString), "firstName" -> "FName", "middleName" -> "MName", "lastName" -> "LName")
+      val request = fakeRequest.withFormUrlEncodedBody(
+        ("value", SelectTitle.values.head.toString),
+        "firstName"  -> "FName",
+        "middleName" -> "MName",
+        "lastName"   -> "LName"
+      )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

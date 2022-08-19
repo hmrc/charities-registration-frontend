@@ -30,9 +30,8 @@ case object CharityRegulatorPage extends QuestionPage[Set[CharityRegulator]] {
   override def toString: String = "charityRegulator"
 
   override def cleanup(value: Option[Set[CharityRegulator]], userAnswers: UserAnswers): Try[UserAnswers] = value match {
-    case Some(value) => {
+    case Some(value) =>
       userAnswers.remove(CharityRegulator.pageMap.filterNot(p => value.contains(p._1)).values.toSeq)
-    }
-    case _ => super.cleanup(value, userAnswers)
+    case _           => super.cleanup(value, userAnswers)
   }
 }

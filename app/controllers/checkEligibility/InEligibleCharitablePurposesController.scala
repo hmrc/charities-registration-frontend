@@ -25,18 +25,18 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.checkEligibility.InEligibleCharitablePurposesView
 
-class InEligibleCharitablePurposesController @Inject()(
-    val sessionRepository: SessionRepository,
-    val navigator: EligibilityNavigator,
-    identify: SessionIdentifierAction,
-    getData: DataRetrievalAction,
-    requireData: DataRequiredAction,
-    val controllerComponents: MessagesControllerComponents,
-    view: InEligibleCharitablePurposesView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class InEligibleCharitablePurposesController @Inject() (
+  val sessionRepository: SessionRepository,
+  val navigator: EligibilityNavigator,
+  identify: SessionIdentifierAction,
+  getData: DataRetrievalAction,
+  requireData: DataRequiredAction,
+  val controllerComponents: MessagesControllerComponents,
+  view: InEligibleCharitablePurposesView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     Ok(view())
   }
 }

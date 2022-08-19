@@ -52,22 +52,25 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "removeOtherOfficial"
-  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val messageKeyPrefix: String        = "removeOtherOfficial"
+  private val view: YesNoView                 = injector.instanceOf[YesNoView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: RemoveOtherOfficialsController = inject[RemoveOtherOfficialsController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).
-      flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones"))).success.value
+    emptyUserAnswers
+      .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones")))
+      .success
+      .value
 
   "RemoveOtherOfficialsController" must {
 
     "redirect to correct start page is if Other officials details are not present" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
@@ -76,21 +79,26 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
-        controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(Index(0)), "officialsAndNominees")(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(Index(0)),
+        "officialsAndNominees"
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsOtherOfficialNinoPage(0), true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(localUserAnswers.set(IsOtherOfficialNinoPage(0), true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
@@ -118,7 +126,10 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val localUserAnswers: UserAnswers =
-        emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+        emptyUserAnswers
+          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .success
+          .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

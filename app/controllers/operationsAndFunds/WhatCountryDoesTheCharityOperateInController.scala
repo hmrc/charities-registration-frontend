@@ -33,60 +33,81 @@ import javax.inject.Inject
 
 import scala.concurrent.Future
 
-class WhatCountryDoesTheCharityOperateInController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: FundRaisingNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: WhatCountryDoesTheCharityOperateInFormProvider,
-    view: WhatCountryDoesTheCharityOperateInView,
-    val countryService: CountryService,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class WhatCountryDoesTheCharityOperateInController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: FundRaisingNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: WhatCountryDoesTheCharityOperateInFormProvider,
+  view: WhatCountryDoesTheCharityOperateInView,
+  val countryService: CountryService,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   private val form: Form[String] = formProvider()
 
   private def getCountries(implicit request: DataRequest[_]): Option[String] = {
 
-    val result = for(i <- 0 to 4) yield request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
+    val result      = for (i <- 0 to 4) yield request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
     val countryList = result.filter(_.nonEmpty).flatten.map(code => countryService.find(code).fold(code)(_.name))
-    if(countryList.nonEmpty) {
-      if(countryService.isWelsh){
+    if (countryList.nonEmpty) {
+      if (countryService.isWelsh) {
         Some(countryList.mkString(", "))
-      }
-      else {
-        Some(countryList.mkString(", ")
-        .replaceFirst(",(?=[^,]+$)", s" ${messagesApi.preferred(request).apply("service.separator.and")}"))
+      } else {
+        Some(
+          countryList
+            .mkString(", ")
+            .replaceFirst(",(?=[^,]+$)", s" ${messagesApi.preferred(request).apply("service.separator.and")}")
+        )
       }
     } else {
       None
     }
   }
 
-  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request =>
+      val preparedForm = request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)) match {
+        case None        => form
+        case Some(value) => form.fill(value)
+      }
 
-    val preparedForm = request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)) match {
-      case None => form
-      case Some(value) => form.fill(value)
-    }
-
-    Ok(view(preparedForm, mode,index, countryService.countries().filter(country => country._1 != "GB"), getCountries))
+      Ok(
+        view(preparedForm, mode, index, countryService.countries().filter(country => country._1 != "GB"), getCountries)
+      )
   }
 
-  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors => {
-        Future.successful(BadRequest(view(formWithErrors, mode,index, countryService.countries()
-          .filter(country => country._1 != "GB"), getCountries)))},
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(WhatCountryDoesTheCharityOperateInPage(index), value).flatMap(_.set(Section5Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index), mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors =>
+            Future.successful(
+              BadRequest(
+                view(
+                  formWithErrors,
+                  mode,
+                  index,
+                  countryService
+                    .countries()
+                    .filter(country => country._1 != "GB"),
+                  getCountries
+                )
+              )
+            ),
+          value =>
+            for {
+              updatedAnswers <- Future.fromTry(
+                                  request.userAnswers
+                                    .set(WhatCountryDoesTheCharityOperateInPage(index), value)
+                                    .flatMap(_.set(Section5Page, false))
+                                )
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(WhatCountryDoesTheCharityOperateInPage(index), mode, updatedAnswers))
+        )
   }
 
 }

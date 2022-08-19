@@ -36,77 +36,94 @@ import play.api.libs.json.{JsValue, Json}
 import java.time.LocalDate
 import scala.util.Try
 
-trait CharityTransformerConstants extends SpecBase{
+trait CharityTransformerConstants extends SpecBase {
 
   private val date = LocalDate.now()
 
-  val day: Int = 11
+  val day: Int   = 11
   val month: Int = 12
-  val year: Int = 2000
+  val year: Int  = 2000
 
-  lazy val baseAnswers: Try[UserAnswers] = emptyUserAnswers.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None))
-    .flatMap(_.set(CharityOfficialAddressLookupPage,
-      AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))))
+  lazy val baseAnswers: Try[UserAnswers] = emptyUserAnswers
+    .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None))
+    .flatMap(
+      _.set(
+        CharityOfficialAddressLookupPage,
+        AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+      )
+    )
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
-    .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")))
+    .flatMap(
+      _.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
+    )
     .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
     .flatMap(_.set(IsCharityRegulatorPage, false))
     .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+    .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
+    .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
+    .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
     .flatMap(
-      _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
+      _.set(
+        AuthorisedOfficialAddressLookupPage(0),
+        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+      )
+    )
+    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+    .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
+    .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
+    .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+    .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
     .flatMap(
-      _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
+      _.set(
+        OtherOfficialAddressLookupPage(0),
+        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+      )
+    )
     .flatMap(
-      _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-    .flatMap(
-      _.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
-    .flatMap(
-      _.set(AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))))
-    .flatMap(
-      _.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))).flatMap(
-    _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar)).flatMap(
-    _.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day))).flatMap(
-    _.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))).flatMap(
-    _.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")).flatMap(
-    _.set(OtherOfficialAddressLookupPage(0),
-      AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))))
-    .flatMap(
-      _.set(PublicBenefitsPage,
-        "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"))
-    .flatMap(
-      _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation))
-    .flatMap(
-      _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+      _.set(
+        PublicBenefitsPage,
+        "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
+      )
+    )
+    .flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation))
+    .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
 
   val localUserAnswers: UserAnswers = baseAnswers
+    .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
+    .flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation))
+    .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
+    .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
+    .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
     .flatMap(
-      _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold)).flatMap(
-    _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)).flatMap(
-    _.set(GoverningDocumentNamePage, "Other Documents for Charity")).flatMap(
-    _.set(IsApprovedGoverningDocumentPage, false)).flatMap(
-    _.set(HasCharityChangedPartsOfGoverningDocumentPage, false)).flatMap(
-    _.set(AccountingPeriodEndDatePage,
-      MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite).flatMap(
-      _.set(IsFinancialAccountsPage, true)).flatMap(
-      _.set(EstimatedIncomePage, BigDecimal(123))).flatMap(
-      _.set(ActualIncomePage, BigDecimal(121))).flatMap(
-      _.set(FundRaisingPage, FundRaisingOptions.values.toSet)).flatMap(
-      _.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales)).flatMap(
-      _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
-      _.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))).flatMap(
-      _.set(CharitableObjectivesPage,
-        "qwet\tqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre\r\n66"
-      ))
-  )
+      _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+        MongoDateTimeFormats.localDayMonthWrite
+      ).flatMap(_.set(IsFinancialAccountsPage, true))
+        .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
+        .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+        .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
+        .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
+        .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
+        .flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare)))
+        .flatMap(
+          _.set(
+            CharitableObjectivesPage,
+            "qwet\tqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre\r\n66"
+          )
+        )
+    )
+    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "David", None, "Beckham")))
+    .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Director))
     .flatMap(
-      _.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr,"David", None, "Beckham"))).flatMap(
-    _.set(OtherOfficialsPositionPage(0), OfficialsPosition.Director)).flatMap(
-    _.set(OtherOfficialAddressLookupPage(0),
-      AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy")))).success.value
+      _.set(
+        OtherOfficialAddressLookupPage(0),
+        AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+      )
+    )
+    .success
+    .value
 
-  lazy val jsonAllFields: JsValue = Json.parse(
-    s"""{
+  lazy val jsonAllFields: JsValue = Json.parse(s"""{
        |  "charityRegistration": {
        |    "charity": {
        |      "charityOrganisation": {
@@ -371,8 +388,7 @@ trait CharityTransformerConstants extends SpecBase{
        |  }
        |}""".stripMargin)
 
-  lazy val jsonMinFields: JsValue = Json.parse(
-    s"""{
+  lazy val jsonMinFields: JsValue = Json.parse(s"""{
        |  "charityRegistration": {
        |    "common": {
        |      "bankDetails": {
@@ -773,4 +789,3 @@ trait CharityTransformerConstants extends SpecBase{
        |}""".stripMargin
   )
 }
-

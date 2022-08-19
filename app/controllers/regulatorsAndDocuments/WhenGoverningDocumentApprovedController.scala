@@ -34,46 +34,49 @@ import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 
 import scala.concurrent.Future
 
-class WhenGoverningDocumentApprovedController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: DocumentsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: WhenGoverningDocumentApprovedFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: WhenGoverningDocumentApprovedView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class WhenGoverningDocumentApprovedController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: DocumentsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: WhenGoverningDocumentApprovedFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: WhenGoverningDocumentApprovedView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def form: Form[LocalDate] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
+        val preparedForm = request.userAnswers.get(WhenGoverningDocumentApprovedPage) match {
+          case None        => form
+          case Some(value) => form.fill(value)
+        }
 
-    getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
-
-      val preparedForm = request.userAnswers.get(WhenGoverningDocumentApprovedPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
+        Future.successful(Ok(view(preparedForm, mode, documentName)))
       }
-
-      Future.successful(Ok(view(preparedForm, mode, documentName)))
-    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode, documentName))),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(WhenGoverningDocumentApprovedPage, value).flatMap(_.set(Section3Page, false)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(WhenGoverningDocumentApprovedPage, mode, updatedAnswers))
-      )
-    }
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getDocumentNameKey(SelectGoverningDocumentPage) { documentName =>
+        form
+          .bindFromRequest()
+          .fold(
+            formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode, documentName))),
+            value =>
+              for {
+                updatedAnswers <- Future.fromTry(
+                                    request.userAnswers
+                                      .set(WhenGoverningDocumentApprovedPage, value)
+                                      .flatMap(_.set(Section3Page, false))
+                                  )
+                _              <- sessionRepository.set(updatedAnswers)
+              } yield Redirect(navigator.nextPage(WhenGoverningDocumentApprovedPage, mode, updatedAnswers))
+          )
+      }
   }
 }

@@ -22,24 +22,34 @@ import views.html.checkEligibility.InEligibleCharitablePurposesView
 
 class InEligibleCharitablePurposesViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "notEligible"
-  private val messageLink= messages("notEligible.p3.link")
+  private val messageKeyPrefix   = "notEligible"
+  private val messageLink        = messages("notEligible.p3.link")
   private val messageTabOrWindow = messages("site.opensInNewWindowOrTab")
 
+  "InEligibleCharitablePurposesView" must {
 
-    "InEligibleCharitablePurposesView" must {
-
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[InEligibleCharitablePurposesView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix)
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "charitablePurposes.p1", "p2", "p3", "p3.link")
-
-      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[InEligibleCharitablePurposesView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix)
+
+    behave like pageWithAdditionalGuidance(
+      applyView(),
+      messageKeyPrefix,
+      "charitablePurposes.p1",
+      "p2",
+      "p3",
+      "p3.link"
+    )
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "link",
+      frontendAppConfig.getRecognition,
+      messages(s"$messageLink $messageTabOrWindow")
+    )
+
   }
+}

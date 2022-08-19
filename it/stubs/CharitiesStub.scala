@@ -28,25 +28,26 @@ import java.time.LocalDate
 object CharitiesStub extends WireMockMethods {
 
   private val charitiesRegistration = "^/org/-?([0-9]*)/submissions/application"
-  private val saveUserAnswer = "/charities-registration/saveUserAnswer/"
-  private val getUserAnswer = "/charities-registration/getUserAnswer/"
+  private val saveUserAnswer        = "/charities-registration/saveUserAnswer/"
+  private val getUserAnswer         = "/charities-registration/getUserAnswer/"
 
-  def stubScenario(requestJson: String): StubMapping = {
-
+  def stubScenario(requestJson: String): StubMapping =
     when(method = POST, uri = charitiesRegistration, body = Some(requestJson))
       .thenReturn(status = ACCEPTED, body = Json.parse("""{"acknowledgementReference":"765432"}"""))
-  }
 
   def stubUserAnswerPost(ua: UserAnswers, userId: String): StubMapping = {
-    val requestJson = Json.stringify(Json.toJson(ua.set(AcknowledgementReferencePage, "765432").flatMap(
-      _.set(ApplicationSubmissionDatePage, LocalDate.now())).get))
+    val requestJson = Json.stringify(
+      Json.toJson(
+        ua.set(AcknowledgementReferencePage, "765432")
+          .flatMap(_.set(ApplicationSubmissionDatePage, LocalDate.now()))
+          .get
+      )
+    )
 
     when(method = POST, uri = s"$saveUserAnswer$userId", body = Some(requestJson))
       .thenReturn(status = OK, body = Json.parse("""{"status":true}"""))
   }
 
-  def stubUserAnswerGet(ua: UserAnswers, userId: String): StubMapping = {
-
+  def stubUserAnswerGet(ua: UserAnswers, userId: String): StubMapping =
     when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = Json.toJson(ua))
-  }
 }

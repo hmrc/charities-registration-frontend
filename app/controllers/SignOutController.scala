@@ -22,10 +22,9 @@ import views.html.errors.SignedYouOutView
 
 import javax.inject.Inject
 
-
-class SignOutController @Inject()(
-  val controllerComponents: MessagesControllerComponents,
-  view: SignedYouOutView)(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class SignOutController @Inject() (val controllerComponents: MessagesControllerComponents, view: SignedYouOutView)(
+  implicit appConfig: FrontendAppConfig
+) extends LocalBaseController {
 
   def signOut: Action[AnyContent] = Action { _ =>
     Redirect(appConfig.signOutUrl).withNewSession

@@ -22,15 +22,15 @@ import play.api.data.{Form, FormError}
 class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
 
   private val formProvider: OrganisationNomineeNameFormProvider = inject[OrganisationNomineeNameFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                                = formProvider()
 
   ".name" must {
 
     val requiredKey = "nameOfOrganisation.error.required"
-    val invalidKey = "nameOfOrganisation.error.format"
-    val lengthKey = "nameOfOrganisation.error.length"
-    val maxLength = 160
-    val fieldName = "name"
+    val invalidKey  = "nameOfOrganisation.error.format"
+    val lengthKey   = "nameOfOrganisation.error.length"
+    val maxLength   = 160
+    val fieldName   = "name"
 
     behave like fieldThatBindsValidData(
       form,
@@ -65,11 +65,13 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
 
     "apply organisationName correctly" in {
 
-      val details = form.bind(
-        Map(
-          "name" -> organisationName,
+      val details = form
+        .bind(
+          Map(
+            "name" -> organisationName
+          )
         )
-      ).get
+        .get
 
       details mustBe organisationName
     }

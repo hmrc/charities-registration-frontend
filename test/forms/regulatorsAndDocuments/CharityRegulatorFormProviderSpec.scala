@@ -26,7 +26,7 @@ class CharityRegulatorFormProviderSpec extends CheckboxFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = "charityRegulator.error.required"
 
     behave like checkboxField[CharityRegulator](

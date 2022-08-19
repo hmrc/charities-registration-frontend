@@ -42,16 +42,18 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
 
   private val mockAuditConnector = mock[AuditConnector]
 
-  override lazy val app: Application = new GuiceApplicationBuilder().overrides(
+  override lazy val app: Application = new GuiceApplicationBuilder()
+    .overrides(
       bind[AuditConnector].toInstance(mockAuditConnector)
-    ).build()
+    )
+    .build()
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     reset(mockAuditConnector)
   }
 
-  private val auditService = app.injector.instanceOf[AuditService]
+  private val auditService      = app.injector.instanceOf[AuditService]
   private val frontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
   case class TestAuditEvent(eventData: String) extends AuditEvent {
@@ -79,12 +81,11 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
 
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) {
-        case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
-          auditSource mustBe frontendAppConfig.appName
-          auditType mustBe "TestAudit"
-          tag.get("transactionName") mustBe Some("testTransactionName")
-          detail mustBe Json.parse("""{"test-audit": { "foo": "test" }}""")
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+        auditSource mustBe frontendAppConfig.appName
+        auditType mustBe "TestAudit"
+        tag.get("transactionName") mustBe Some("testTransactionName")
+        detail mustBe Json.parse("""{"test-audit": { "foo": "test" }}""")
       }
     }
 
@@ -96,12 +97,11 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       auditService.sendEvent(SubmissionAuditEvent(Json.parse("""{"this": { "is": "a test" }}""")))
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) {
-        case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
-          auditSource mustBe frontendAppConfig.appName
-          tag.get("transactionName") mustBe Some("CharityRegistrationSubmission")
-          auditType mustBe CharitiesRegistrationSubmission.toString
-          detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+        auditSource mustBe frontendAppConfig.appName
+        tag.get("transactionName") mustBe Some("CharityRegistrationSubmission")
+        auditType mustBe CharitiesRegistrationSubmission.toString
+        detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
       }
     }
 
@@ -113,12 +113,11 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       auditService.sendEvent(SwitchOverAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), PartialUserTransfer))
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) {
-        case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
-          auditSource mustBe frontendAppConfig.appName
-          tag.get("transactionName") mustBe Some("CharitiesSwitchOver")
-          auditType mustBe PartialUserTransfer.toString
-          detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+        auditSource mustBe frontendAppConfig.appName
+        tag.get("transactionName") mustBe Some("CharitiesSwitchOver")
+        auditType mustBe PartialUserTransfer.toString
+        detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
       }
     }
 
@@ -130,12 +129,11 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       auditService.sendEvent(NormalUserAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), NewUser))
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) {
-        case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
-          auditSource mustBe frontendAppConfig.appName
-          tag.get("transactionName") mustBe Some("CharitiesRewriteUser")
-          auditType mustBe NewUser.toString
-          detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+        auditSource mustBe frontendAppConfig.appName
+        tag.get("transactionName") mustBe Some("CharitiesRewriteUser")
+        auditType mustBe NewUser.toString
+        detail mustBe Json.parse("""{"this": { "is": "a test" }}""")
       }
     }
 
@@ -149,11 +147,10 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
 
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) {
-        case ExtendedDataEvent(auditSource, auditType, _, _, detail, _) =>
-          auditSource mustBe frontendAppConfig.appName
-          auditType mustBe "TestAudit"
-          detail mustBe Json.parse("""{"test-audit": { "foo": "test" }}""")
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, _, detail, _) =>
+        auditSource mustBe frontendAppConfig.appName
+        auditType mustBe "TestAudit"
+        detail mustBe Json.parse("""{"test-audit": { "foo": "test" }}""")
       }
     }
 

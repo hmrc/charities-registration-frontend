@@ -25,26 +25,25 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.operationsAndFunds.IsFinancialAccountsView
 
-
 class IsFinancialAccountsViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isFinancialAccounts"
-  private val section = Option(messages("operationsAndFunds.section"))
-  val form: Form[Boolean] = inject[IsFinancialAccountsFormProvider].apply()
+  private val section          = Option(messages("operationsAndFunds.section"))
+  val form: Form[Boolean]      = inject[IsFinancialAccountsFormProvider].apply()
 
-    "IsFinancialAccountsView" must {
+  "IsFinancialAccountsView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[IsFinancialAccountsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[IsFinancialAccountsView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsFinancialAccountsController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

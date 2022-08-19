@@ -25,13 +25,19 @@ import viewmodels.operationsAndFunds.OperationsFundsStatusHelper
 
 class OperationsFundsStatusHelperSpec extends SpecBase {
 
-   private val helper = OperationsFundsStatusHelper
+  private val helper = OperationsFundsStatusHelper
 
-  val commonData: UserAnswers = emptyUserAnswers.set(IsFinancialAccountsPage, true).flatMap(
-    _.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap(
-    _.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).flatMap(
-    _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 10, 1).toDate)
-    )(MongoDateTimeFormats.localDayMonthWrite)).success.value
+  val commonData: UserAnswers = emptyUserAnswers
+    .set(IsFinancialAccountsPage, true)
+    .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12)))
+    .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(11123.12)))
+    .flatMap(
+      _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 10, 1).toDate))(
+        MongoDateTimeFormats.localDayMonthWrite
+      )
+    )
+    .success
+    .value
 
   "OperationsFundsStatusHelper" must {
 
@@ -43,180 +49,257 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
       }
 
       "return false when one of answer is defined" in {
-        helper.checkComplete(emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.values.toSet).success.value) mustBe false
+        helper.checkComplete(
+          emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.values.toSet).success.value
+        ) mustBe false
       }
 
       "return true when other fund raising, overseas countries, no bank statement, one overseas country and related questions are answered correctly (Scenario 2)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, false)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, false))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return false when other fund raising, overseas countries, no bank statement, one overseas country not answered correctly (Scenario 2)" in {
-        helper.checkComplete(emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, false)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe false
+        helper.checkComplete(
+          emptyUserAnswers
+            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, false))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe false
       }
 
       "return true when other fund raising, overseas countries, yes bank statement and related questions are answered correctly (Scenario 3)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(1), "IN")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return false when other fund raising, overseas countries, yes bank statement and additional data (Scenario 3)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(1), "IN")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe false
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe false
       }
 
       "return false when other fund raising, overseas countries, yes bank statement not answered correctly (Scenario 3)" in {
-        helper.checkComplete(emptyUserAnswers.set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(1), "IN")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).success.value) mustBe false
+        helper.checkComplete(
+          emptyUserAnswers
+            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .success
+            .value
+        ) mustBe false
       }
 
       "return true when other fund raising, overseas countries, no bank statement, multiple overseas country and related questions are answered correctly (Scenario 4)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(1), "IN")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(2), "AS")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, false)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "AS"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, false))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return true when other fund raising, overseas countries, yes bank statement, multiple overseas country and related questions are answered correctly (Scenario 5)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(1), "IN")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(2), "AS")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "AS"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return true when  something other than 'other' fund raising, overseas countries, no bank statement, one overseas country and related questions are answered correctly (Scenario 6)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, false)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, false))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return false when  something other than 'other' fund raising, overseas countries, no bank statement, one overseas country and additional questions are answered (Scenario 6)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, false)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe false
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, false))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe false
       }
 
       "return false when  something other than 'other' fund raising, overseas countries, no bank statement, one overseas country not answered correctly (Scenario 6)" in {
-        helper.checkComplete(emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, false)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe false
+        helper.checkComplete(
+          emptyUserAnswers
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, false))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe false
       }
 
       "return true when  something other than 'other' fund raising, overseas countries, yes bank statement, one overseas country and related questions are answered correctly (Scenario 7)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return false when  something other than 'other' fund raising, overseas countries, yes bank statement, one overseas country and additional questions are answered (Scenario 7)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe false
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe false
       }
 
       "return false when  something other than 'other' fund raising, overseas countries, yes bank statement, one overseas country not answered correctly (Scenario 7)" in {
-        helper.checkComplete(emptyUserAnswers.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(OtherFundRaisingPage, "sdf")).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).success.value) mustBe false
+        helper.checkComplete(
+          emptyUserAnswers
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(OtherFundRaisingPage, "sdf"))
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .success
+            .value
+        ) mustBe false
       }
 
       "return true when  something other than 'other' fund raising, overseas countries, no bank statement, multiple overseas country and related questions are answered correctly (Scenario 8)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(1), "FR")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, false)).flatMap(
-          _.set(WhyNoBankStatementPage,"something")).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "FR"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, false))
+            .flatMap(_.set(WhyNoBankStatementPage, "something"))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return true when  something other than 'other' fund raising, overseas countries, yes bank statement, mutliple overseas country and related questions are answered correctly (Scenario 9)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap(
-          _.set(OverseasOperatingLocationSummaryPage, true)).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(0), "PL")).flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(1), "FR")).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+            .flatMap(_.set(OverseasOperatingLocationSummaryPage, true))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+            .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "FR"))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .success
+            .value
+        ) mustBe true
       }
 
       "return false when Some data is saved for section 5, but not all of the data in any of the scenarios above (Scenario 10)" in {
@@ -224,11 +307,16 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
       }
 
       "return true when  something other than 'other' fund raising, no overseas countries, yes bank statement, mutliple overseas country and related questions are answered correctly (Scenario 11)" in {
-        helper.checkComplete(commonData.set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations)).flatMap(
-          _.set(CharityEstablishedInPage, CharityEstablishedOptions.England)).flatMap(
-          _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))).flatMap(
-          _.set(IsFinancialAccountsPage, true)).flatMap(
-          _.set(IsBankStatementsPage, true)).success.value) mustBe true
+        helper.checkComplete(
+          commonData
+            .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
+            .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
+            .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
+            .flatMap(_.set(IsFinancialAccountsPage, true))
+            .flatMap(_.set(IsBankStatementsPage, true))
+            .success
+            .value
+        ) mustBe true
       }
 
     }

@@ -24,14 +24,14 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.io.Source
 
-trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach with MockitoSugar{
+trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach with MockitoSugar {
   this: Suite =>
 
-  private val wireHost = "localhost"
-  private val wirePort = 20001
-  private val wireMockServer = new WireMockServer(wirePort)
+  private val wireHost                   = "localhost"
+  private val wirePort                   = 20001
+  private val wireMockServer             = new WireMockServer(wirePort)
   protected lazy val wireMockUrl: String = s"http://$wireHost:$wirePort"
-  protected def getUrl: String = s"http://$wireHost:$wirePort"
+  protected def getUrl: String           = s"http://$wireHost:$wirePort"
 
   override def beforeAll(): Unit = {
     wireMockServer.start()
@@ -50,7 +50,10 @@ trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach with Mock
   }
 
   def readJsonFromFile(filePath: String): JsValue = {
-    val path = Source.fromURL(getClass.getResource(filePath)).mkString
+    val source = Source.fromURL(getClass.getResource(filePath))
+    val path   =
+      try source.mkString
+      finally source.close()
     Json.parse(path)
   }
 }

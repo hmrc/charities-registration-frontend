@@ -24,34 +24,37 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
 
-
-class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[String]  {
+class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix: String = "whatCountryDoesTheCharityOperateIn"
-  private val section: String = messages("operationsAndFunds.section")
-  val form: Form[String] = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply()
+  private val section: String          = messages("operationsAndFunds.section")
+  val form: Form[String]               = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply()
 
-    "WhatCountryDoesTheCharityOperateInView" must {
+  "WhatCountryDoesTheCharityOperateInView" must {
 
-      def applyView(form: Form[String], countriesList: Option[String] = None): HtmlFormat.Appendable = {
-          val view = viewFor[WhatCountryDoesTheCharityOperateInView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode,Index(0),Seq(("GB", "United Kingdom")), countriesList)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[String], countriesList: Option[String] = None): HtmlFormat.Appendable = {
+      val view = viewFor[WhatCountryDoesTheCharityOperateInView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode, Index(0), Seq(("GB", "United Kingdom")), countriesList)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "hint")
+    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "hint")
 
-      "When Countries are populated" must {
-        "display the correct guidance" in {
+    "When Countries are populated" must {
+      "display the correct guidance" in {
 
-          val doc = asDocument(applyView(form, Some("United Kingdom")))
-          assertContainsText(doc, messages(s"$messageKeyPrefix.countries.hint", "United Kingdom"))
-        }
+        val doc = asDocument(applyView(form, Some("United Kingdom")))
+        assertContainsText(doc, messages(s"$messageKeyPrefix.countries.hint", "United Kingdom"))
       }
+    }
   }
 }

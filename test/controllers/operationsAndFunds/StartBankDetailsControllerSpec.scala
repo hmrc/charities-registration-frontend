@@ -56,9 +56,17 @@ class StartBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(CharityNamePage, CharityName("CName", Some("OpName")))
-        .flatMap(_.set(Section1Page, true)).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .flatMap(_.set(Section1Page, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -81,9 +89,17 @@ class StartBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to Tasklist for a GET if Section1Page is not completed" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(CharityNamePage, CharityName("CName", Some("OpName")))
-        .flatMap(_.set(Section1Page, false)).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .flatMap(_.set(Section1Page, false))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 

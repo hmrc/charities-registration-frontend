@@ -67,8 +67,8 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "return OK and the correct view for a GET when Nominee is present" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(
-        emptyUserAnswers.set(ChooseNomineePage, true).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any()))
+        .thenReturn(Future.successful(Some(emptyUserAnswers.set(ChooseNomineePage, true).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -78,8 +78,8 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "return OK and the correct view for a GET when Nominee is not present" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(
-        emptyUserAnswers.set(ChooseNomineePage, false).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any()))
+        .thenReturn(Future.successful(Some(emptyUserAnswers.set(ChooseNomineePage, false).success.value)))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -102,13 +102,15 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
     "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
 
       val app =
-        new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true")
+        new GuiceApplicationBuilder()
+          .configure("features.isExternalTest" -> "true")
           .overrides(
             bind[UserAnswerService].toInstance(mockUserAnswerService),
             bind[SessionRepository].toInstance(mockSessionRepository),
             bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          ).build()
+          )
+          .build()
 
       val controller: NomineeDetailsSummaryController = app.injector.instanceOf[NomineeDetailsSummaryController]
 

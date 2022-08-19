@@ -31,37 +31,74 @@ import views.html.common.AmendAddressView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class AmendCharityOfficialAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    val formProvider: AmendAddressFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: CharityInformationNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: AmendAddressView
-  ) (implicit appConfig: FrontendAppConfig) extends AmendAddressController {
+class AmendCharityOfficialAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  val formProvider: AmendAddressFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: CharityInformationNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: AmendAddressView
+)(implicit appConfig: FrontendAppConfig)
+    extends AmendAddressController {
 
   override val messagePrefix: String = "amendCharityOfficialAddress"
 
-  private val countryCodes = Set("AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IS",
-    "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "GB")
+  private val countryCodes = Set(
+    "AT",
+    "BE",
+    "BG",
+    "HR",
+    "CY",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IS",
+    "IE",
+    "IT",
+    "LV",
+    "LI",
+    "LT",
+    "LU",
+    "MT",
+    "NL",
+    "NO",
+    "PL",
+    "PT",
+    "RO",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
+    "GB"
+  )
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      Future.successful(getView(CharityOfficialAddressLookupPage,
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    Future.successful(
+      getView(
+        CharityOfficialAddressLookupPage,
         controllers.contactDetails.routes.AmendCharityOfficialAddressController.onSubmit(),
-        countryService.countries().filter(country => countryCodes.contains(country._1))))
+        countryService.countries().filter(country => countryCodes.contains(country._1))
+      )
+    )
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      postView(mode, CharityOfficialAddressLookupPage, Section1Page,
+      postView(
+        mode,
+        CharityOfficialAddressLookupPage,
+        Section1Page,
         controllers.contactDetails.routes.AmendCharityOfficialAddressController.onSubmit(),
-        countryService.countries().filter(country => countryCodes.contains(country._1)))
+        countryService.countries().filter(country => countryCodes.contains(country._1))
+      )
   }
 
 }

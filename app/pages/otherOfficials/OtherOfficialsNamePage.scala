@@ -26,4 +26,3 @@ case class OtherOfficialsNamePage(index: Int) extends QuestionPage[Name] {
 
   override lazy val toString: String = "officialsName"
 }
-

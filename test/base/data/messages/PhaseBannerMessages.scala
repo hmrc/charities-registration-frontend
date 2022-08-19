@@ -19,7 +19,7 @@ package base.data.messages
 object PhaseBannerMessages {
 
   val content = "This is a new service - your feedback will help us to improve it."
-  val link = "feedback"
-  val tag = "alpha"
+  val link    = "feedback"
+  val tag     = "alpha"
 
 }

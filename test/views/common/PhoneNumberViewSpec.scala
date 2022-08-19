@@ -27,18 +27,21 @@ import views.html.common.PhoneNumberView
 class PhoneNumberViewSpec extends QuestionViewBehaviours[PhoneNumber] {
 
   private val messageKeyPrefix = "authorisedOfficialsPhoneNumber"
-  val form: Form[PhoneNumber] = inject[PhoneNumberFormProvider].apply(messageKeyPrefix)
-
+  val form: Form[PhoneNumber]  = inject[PhoneNumberFormProvider].apply(messageKeyPrefix)
 
   "AuthorisedOfficialsPhoneNumberView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[PhoneNumberView](Some(emptyUserAnswers))
-      view.apply(form, "Jim Jones", messageKeyPrefix, onwardRoute)(
-        fakeRequest, messages, frontendAppConfig)
+      view.apply(form, "Jim Jones", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jones"), section = Some(messages("officialsAndNominees.section")))
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      Seq("Jim Jones"),
+      section = Some(messages("officialsAndNominees.section"))
+    )
 
     behave like pageWithBackLink(applyView(form))
 

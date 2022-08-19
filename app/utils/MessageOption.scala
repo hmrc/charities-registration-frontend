@@ -20,7 +20,7 @@ import play.api.i18n.{Lang, MessagesApi}
 
 object MessageOption {
   def apply(key: String, lang: Lang, params: String*)(implicit messagesApi: MessagesApi): Option[String] = {
-    val message = messagesApi.translate(key, params.toSeq)(lang)
+    val message       = messagesApi.translate(key, params.toSeq)(lang)
     val keyNotDefined = message.exists(_.isEmpty)
 
     if (keyNotDefined || message.isEmpty) None else message

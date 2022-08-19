@@ -23,32 +23,37 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 
 object FooterLinks {
 
-  def cookieLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
-    Some(messages("footer.cookies")),
-    Some(appConfig.cookies)
-  )
+  def cookieLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+    FooterItem(
+      Some(messages("footer.cookies")),
+      Some(appConfig.cookies)
+    )
 
-  def privacyLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
-    Some(messages("footer.privacy")),
-    Some(appConfig.privacy)
-  )
+  def privacyLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+    FooterItem(
+      Some(messages("footer.privacy")),
+      Some(appConfig.privacy)
+    )
 
-  def termsConditionsLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
-    Some(messages("footer.termsConditions")),
-    Some(appConfig.termsConditions)
-  )
+  def termsConditionsLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+    FooterItem(
+      Some(messages("footer.termsConditions")),
+      Some(appConfig.termsConditions)
+    )
 
-  def govukHelpLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
-    Some(messages("footer.govukHelp")),
-    Some(appConfig.govUKHelp)
-  )
+  def govukHelpLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+    FooterItem(
+      Some(messages("footer.govukHelp")),
+      Some(appConfig.govUKHelp)
+    )
 
-  def accessibilityLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem = FooterItem(
-    Some(messages("footer.accessibility")),
-    Some(appConfig.accessibilityStatementFrontendUrl)
-  )
+  def accessibilityLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+    FooterItem(
+      Some(messages("footer.accessibility")),
+      Some(appConfig.accessibilityStatementFrontendUrl)
+    )
 
-  def items(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]) = Seq(
+  def items(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): Seq[FooterItem] = Seq(
     cookieLink,
     accessibilityLink,
     privacyLink,

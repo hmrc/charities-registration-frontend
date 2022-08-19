@@ -51,4 +51,3 @@ class EligibleCharityControllerSpec extends SpecBase {
     }
   }
 }
-

@@ -18,7 +18,7 @@ package pages.nominees
 
 import pages.behaviours.PageBehaviours
 
-class IsAuthoriseNomineePageSpec extends PageBehaviours{
+class IsAuthoriseNomineePageSpec extends PageBehaviours {
 
   "IsAuthoriseNomineePage" must {
 

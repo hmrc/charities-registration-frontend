@@ -18,10 +18,10 @@ package models
 
 object AuditTypes extends Enumeration {
 
-  val CompleteUserTransfer: AuditTypes.Value = Value("CompleteUserTransfer")
-  val PartialUserTransfer: AuditTypes.Value = Value("PartialUserTransfer")
-  val FailedUserTransfer: AuditTypes.Value = Value("FailedUserTransfer")
-  val NewUser: AuditTypes.Value = Value("NewUser")
+  val CompleteUserTransfer: AuditTypes.Value            = Value("CompleteUserTransfer")
+  val PartialUserTransfer: AuditTypes.Value             = Value("PartialUserTransfer")
+  val FailedUserTransfer: AuditTypes.Value              = Value("FailedUserTransfer")
+  val NewUser: AuditTypes.Value                         = Value("NewUser")
   val CharitiesRegistrationSubmission: AuditTypes.Value = Value("CharitiesRegistrationSubmission")
 
 }

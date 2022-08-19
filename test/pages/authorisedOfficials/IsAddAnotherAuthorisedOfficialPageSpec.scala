@@ -18,7 +18,7 @@ package pages.authorisedOfficials
 
 import pages.behaviours.PageBehaviours
 
-class IsAddAnotherAuthorisedOfficialPageSpec extends PageBehaviours{
+class IsAddAnotherAuthorisedOfficialPageSpec extends PageBehaviours {
 
   "IsAddAnotherAuthorisedOfficialPage" must {
 

@@ -27,7 +27,7 @@ class PublicBenefitsFormProvider @Inject() extends Mappings {
   def apply(): Form[String] =
     Form(
       "value" -> text("publicBenefits.error.required")
-         .verifying(maxLengthTextArea(maxLength, "publicBenefits.error.length"))
-         .verifying(regexp(validateFieldWithNewLine,"publicBenefits.error.format"))
-      )
+        .verifying(maxLengthTextArea(maxLength, "publicBenefits.error.length"))
+        .verifying(regexp(validateFieldWithNewLine, "publicBenefits.error.format"))
+    )
 }

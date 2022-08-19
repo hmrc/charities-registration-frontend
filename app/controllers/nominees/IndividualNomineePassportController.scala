@@ -32,7 +32,7 @@ import views.html.common.PassportView
 
 import scala.concurrent.Future
 
-class IndividualNomineePassportController @Inject()(
+class IndividualNomineePassportController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -42,28 +42,37 @@ class IndividualNomineePassportController @Inject()(
   override val navigator: NomineesNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PassportView
-  )(implicit appConfig: FrontendAppConfig) extends PassportController {
+)(implicit appConfig: FrontendAppConfig)
+    extends PassportController {
 
   override val messagePrefix: String = "individualNomineesPassport"
-  private val form: Form[Passport] = formProvider(messagePrefix)
+  private val form: Form[Passport]   = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-        Future.successful(getView(IndividualNomineesPassportPage, form, individualNomineeName,
-          controllers.nominees.routes.IndividualNomineePassportController.onSubmit(mode)))
+        Future.successful(
+          getView(
+            IndividualNomineesPassportPage,
+            form,
+            individualNomineeName,
+            controllers.nominees.routes.IndividualNomineePassportController.onSubmit(mode)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(IndividualNomineeNamePage) { authorisedPersonName =>
-
-        postView(mode, IndividualNomineesPassportPage, form, authorisedPersonName, Section9Page,
-          controllers.nominees.routes.IndividualNomineePassportController.onSubmit(mode))
+        postView(
+          mode,
+          IndividualNomineesPassportPage,
+          form,
+          authorisedPersonName,
+          Section9Page,
+          controllers.nominees.routes.IndividualNomineePassportController.onSubmit(mode)
+        )
       }
   }
 

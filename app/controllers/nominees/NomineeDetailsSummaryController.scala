@@ -33,39 +33,47 @@ import views.html.nominees.NomineeDetailsSummaryView
 
 import scala.concurrent.Future
 
-class NomineeDetailsSummaryController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: NomineesNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    val countryService: CountryService,
-    view: NomineeDetailsSummaryView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+class NomineeDetailsSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: NomineesNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val countryService: CountryService,
+  view: NomineeDetailsSummaryView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val nomineeSummaryHelper = new NomineeDetailsSummaryHelper(request.userAnswers)
 
     val nomineeSummaryRows = request.userAnswers.get(ChooseNomineePage) match {
-      case Some(true) => Some(new NomineeIndividualSummaryHelper(countryService)(request.userAnswers).rows)
+      case Some(true)  => Some(new NomineeIndividualSummaryHelper(countryService)(request.userAnswers).rows)
       case Some(false) => Some(new NomineeOrganisationSummaryHelper(countryService)(request.userAnswers).rows)
-      case None => None
+      case None        => None
     }
     if (nomineeSummaryHelper.rows == Seq.empty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
-      Ok(view(nomineeSummaryHelper.rows, nomineeSummaryRows, "nomineeDetailsSummary",
-        controllers.nominees.routes.NomineeDetailsSummaryController.onSubmit()))
+      Ok(
+        view(
+          nomineeSummaryHelper.rows,
+          nomineeSummaryRows,
+          "nomineeDetailsSummary",
+          controllers.nominees.routes.NomineeDetailsSummaryController.onSubmit()
+        )
+      )
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section9Page,
-        if(appConfig.isExternalTest) true else checkComplete(request.userAnswers)))
+      updatedAnswers <-
+        Future.fromTry(result =
+          request.userAnswers
+            .set(Section9Page, if (appConfig.isExternalTest) true else checkComplete(request.userAnswers))
+        )
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(NomineeDetailsSummaryPage, NormalMode, updatedAnswers))
 

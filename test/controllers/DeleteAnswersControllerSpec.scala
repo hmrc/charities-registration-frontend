@@ -48,7 +48,7 @@ class DeleteAnswersControllerSpec extends SpecBase with BeforeAndAfterEach {
   }
 
   private val youDeletedAnswersview: YouDeletedYourAnswersView = injector.instanceOf[YouDeletedYourAnswersView]
-  private val weDeletedAnswersview: WeDeletedYourAnswersView = injector.instanceOf[WeDeletedYourAnswersView]
+  private val weDeletedAnswersview: WeDeletedYourAnswersView   = injector.instanceOf[WeDeletedYourAnswersView]
 
   private val controller: DeleteAnswersController = inject[DeleteAnswersController]
 
@@ -70,8 +70,9 @@ class DeleteAnswersControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "delete UserAnswers and return OK and the correct view for a GET when user has already answered" in {
 
-        when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(
-          emptyUserAnswers.set(IsEligiblePurposePage, true).getOrElse(emptyUserAnswers))))
+        when(mockSessionRepository.get(any())).thenReturn(
+          Future.successful(Some(emptyUserAnswers.set(IsEligiblePurposePage, true).getOrElse(emptyUserAnswers)))
+        )
 
         val result = controller.youDeletedAnswers()(fakeRequest)
 
@@ -98,8 +99,9 @@ class DeleteAnswersControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "delete UserAnswers and return OK and the correct view for a GET when user has already answered" in {
 
-        when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(
-          emptyUserAnswers.set(IsEligiblePurposePage, true).getOrElse(emptyUserAnswers))))
+        when(mockSessionRepository.get(any())).thenReturn(
+          Future.successful(Some(emptyUserAnswers.set(IsEligiblePurposePage, true).getOrElse(emptyUserAnswers)))
+        )
 
         val result = controller.weDeletedYourAnswers()(fakeRequest)
 

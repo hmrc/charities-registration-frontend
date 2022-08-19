@@ -26,11 +26,11 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import scala.util.Try
 
 @Singleton
-class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
+class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
-  lazy val host: String = servicesConfig.getString("host")
+  lazy val host: String    = servicesConfig.getString("host")
   lazy val appName: String = servicesConfig.getString("appName")
-  lazy val govUK: String = servicesConfig.getString("urls.govUK")
+  lazy val govUK: String   = servicesConfig.getString("urls.govUK")
 
   private val contactHost: String = servicesConfig.getString("contact-frontend.host")
 
@@ -50,41 +50,39 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   lazy val userAnswersTimeToLive: Int = servicesConfig.getInt("mongodb.user-eligibility-answers.timeToLiveInSeconds")
 
-
   def exitSurveyUrl: String = s"$exitSurveyHost/feedback/CHARITIES"
 
-  lazy val loginUrl: String = servicesConfig.getString("urls.login")
-  lazy val registerUrl: String = servicesConfig.getString("urls.register")
-  lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")
-  lazy val loginContinueUrl: String = servicesConfig.getString("urls.loginContinue")
+  lazy val loginUrl: String                         = servicesConfig.getString("urls.login")
+  lazy val registerUrl: String                      = servicesConfig.getString("urls.register")
+  lazy val signOutUrl: String                       = servicesConfig.getString("urls.signOut")
+  lazy val loginContinueUrl: String                 = servicesConfig.getString("urls.loginContinue")
   lazy val incorrectDetailsLoginContinueUrl: String = servicesConfig.getString("urls.incorrectDetailsLoginContinue")
-  lazy val loginContinueKey: String = servicesConfig.getString("urls.continue")
-  lazy val registrationContinueKey: String = servicesConfig.getString("urls.registration")
-  lazy val timeout: Int = servicesConfig.getInt("timeout.timeout")
-  lazy val countdown: Int = servicesConfig.getInt("timeout.countdown")
+  lazy val loginContinueKey: String                 = servicesConfig.getString("urls.continue")
+  lazy val registrationContinueKey: String          = servicesConfig.getString("urls.registration")
+  lazy val timeout: Int                             = servicesConfig.getInt("timeout.timeout")
+  lazy val countdown: Int                           = servicesConfig.getInt("timeout.countdown")
 
   // Address lookup
   lazy val addressLookupFrontend: String = servicesConfig.baseUrl("address-lookup-frontend")
-  lazy val retrieveAddressUrl: String = addressLookupFrontend + "/api/v2/confirmed"
+  lazy val retrieveAddressUrl: String    = addressLookupFrontend + "/api/v2/confirmed"
 
   def feedbackUrlAddressLookup: String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
 
   //Footer Links
-  lazy val cookies: String = host + servicesConfig.getString("urls.footer.cookies")
-  lazy val privacy: String = host + servicesConfig.getString("urls.footer.privacy")
-  lazy val termsConditions: String = host + servicesConfig.getString("urls.footer.termsConditions")
-  lazy val govUKHelp: String = servicesConfig.getString("urls.footer.govukHelp")
+  lazy val cookies: String                = host + servicesConfig.getString("urls.footer.cookies")
+  lazy val privacy: String                = host + servicesConfig.getString("urls.footer.privacy")
+  lazy val termsConditions: String        = host + servicesConfig.getString("urls.footer.termsConditions")
+  lazy val govUKHelp: String              = servicesConfig.getString("urls.footer.govukHelp")
   lazy val accessibilityStatement: String = host + servicesConfig.getString("urls.footer.accessibilityStatement")
-  lazy val platformHost: String = Try(servicesConfig.getString("platform.frontend.host")).getOrElse("")
+  lazy val platformHost: String           = Try(servicesConfig.getString("platform.frontend.host")).getOrElse("")
 
-  def accessibilityStatementFrontendUrl()(implicit request: Request[_]): String = {
+  def accessibilityStatementFrontendUrl()(implicit request: Request[_]): String =
     s"$accessibilityStatement?referrerUrl=${URLEncoder.encode(s"$platformHost${request.path}", "UTF-8")}"
-  }
 
   def languageTranslationEnabled: Boolean = servicesConfig.getBoolean("features.welshLanguage")
-  lazy val isExternalTest: Boolean = servicesConfig.getBoolean("features.isExternalTest")
-  lazy val noEmailPost: Boolean = servicesConfig.getBoolean("features.noEmailPost")
+  lazy val isExternalTest: Boolean        = servicesConfig.getBoolean("features.isExternalTest")
+  lazy val noEmailPost: Boolean           = servicesConfig.getBoolean("features.noEmailPost")
 
   def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
 
@@ -93,7 +91,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val getCharitiesBackend: String = servicesConfig.baseUrl("charities")
 
   lazy val save4laterCacheBaseUrl: String = servicesConfig.baseUrl("cachable.short-lived-cache")
-  lazy val save4laterDomain: String = servicesConfig.getConfString("cachable.short-lived-cache.domain", "save4later")
+  lazy val save4laterDomain: String       = servicesConfig.getConfString("cachable.short-lived-cache.domain", "save4later")
 
   lazy val timeToLiveInDays: Int = servicesConfig.getInt("user-answers.timeToLiveInDays")
 

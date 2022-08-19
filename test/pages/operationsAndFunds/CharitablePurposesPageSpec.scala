@@ -20,7 +20,7 @@ import models.operations.CharitablePurposes
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
-class CharitablePurposesPageSpec extends PageBehaviours{
+class CharitablePurposesPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryCharityRegulatorCheckbox: Arbitrary[CharitablePurposes] =
     Arbitrary {
@@ -35,5 +35,5 @@ class CharitablePurposesPageSpec extends PageBehaviours{
 
     beRemovable[Set[CharitablePurposes]](CharitablePurposesPage)
 
-      }
+  }
 }

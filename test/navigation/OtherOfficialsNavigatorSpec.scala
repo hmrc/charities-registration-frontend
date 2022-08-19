@@ -34,13 +34,19 @@ import java.time.LocalDate
 
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
-  private val navigator: OtherOfficialsNavigator = inject[OtherOfficialsNavigator]
-  private val otherOfficialsName: Name = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+  private val navigator: OtherOfficialsNavigator     = inject[OtherOfficialsNavigator]
+  private val otherOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
-  private val address: AddressModel = AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-  private val addressMax: AddressModel = AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-  private val minYear = 16
-  private val minAddressLines: AddressModel = AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+  private val address: AddressModel                  =
+    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+  private val addressMax: AddressModel               = AddressModel(
+    Seq("7", "Morrison street near riverview gardens"),
+    Some("G58AN"),
+    CountryModel("UK", "United Kingdom")
+  )
+  private val minYear                                = 16
+  private val minAddressLines: AddressModel          =
+    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   def goToPlaybackPage(index: Int): Call = index match {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))
@@ -51,7 +57,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
   def previousOrSameIndex(index: Int): Int = index match {
     case nonZero: Int if nonZero > 0 => nonZero - 1
-    case _ => 0
+    case _                           => 0
   }
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
@@ -62,12 +68,15 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialsNamePage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What is [Full name]'s date of birth? when save and continue button clicked" in {
-          navigator.nextPage(OtherOfficialsNamePage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialsNamePage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).success.value
+          ) mustBe
             otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -76,12 +85,15 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialsDOBPage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What is [full name]'s phone number? when save and continue button clicked" in {
-          navigator.nextPage(OtherOfficialsDOBPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialsDOBPage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear)).success.value
+          ) mustBe
             otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -90,12 +102,15 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialsPhoneNumberPage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What is [full name]'s position in charity? page when clicked continue button" in {
-          navigator.nextPage(OtherOfficialsPhoneNumberPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialsPhoneNumberPage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).success.value
+          ) mustBe
             otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -104,12 +119,15 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialsPositionPage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to Does [Full name] have a National Insurance number? when clicked continue button" in {
-          navigator.nextPage(OtherOfficialsPositionPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialsPositionPage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember).success.value
+          ) mustBe
             otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -118,18 +136,24 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsOtherOfficialNinoPage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What is [full name]’s National Insurance number? when yes is selected" in {
-          navigator.nextPage(IsOtherOfficialNinoPage(0), NormalMode,
-            emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true).success.value) mustBe
+          navigator.nextPage(
+            IsOtherOfficialNinoPage(0),
+            NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true).success.value
+          ) mustBe
             otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, Index(0))
         }
 
         "go to the OtherOfficialsPassport page when no is selected" in {
-          navigator.nextPage(IsOtherOfficialNinoPage(0), NormalMode,
-            emptyUserAnswers.set(IsOtherOfficialNinoPage(0),false).success.value) mustBe
+          navigator.nextPage(
+            IsOtherOfficialNinoPage(0),
+            NormalMode,
+            emptyUserAnswers.set(IsOtherOfficialNinoPage(0), false).success.value
+          ) mustBe
             otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(NormalMode, Index(0))
         }
       }
@@ -138,22 +162,32 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialsPassportPage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What is [Full name]’s home address? when clicked continue button" in {
-          navigator.nextPage(OtherOfficialsPassportPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+          navigator.nextPage(
+            OtherOfficialsPassportPage(0),
+            NormalMode,
+            emptyUserAnswers
+              .set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
               .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("1223", "gb", LocalDate.now())))
-              .success.value) mustBe
+              .success
+              .value
+          ) mustBe
             addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode)
         }
 
         "go to the ConfirmOtherOfficialsAddressController page when OtherOfficialAddressLookupPage is present and clicked continue button" in {
-          navigator.nextPage(OtherOfficialsPassportPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+          navigator.nextPage(
+            OtherOfficialsPassportPage(0),
+            NormalMode,
+            emptyUserAnswers
+              .set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
               .flatMap(_.set(OtherOfficialAddressLookupPage(0), address))
-              .success.value) mustBe
+              .success
+              .value
+          ) mustBe
             otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(0)
         }
       }
@@ -162,20 +196,28 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the What is [Full name]’s home address? when clicked continue button" in {
-          navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialsNinoPage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value
+          ) mustBe
             addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0), NormalMode)
         }
 
         "go to the ConfirmOtherOfficialsAddressController page when OtherOfficialAddressLookupPage is present and clicked continue button" in {
-          navigator.nextPage(OtherOfficialsNinoPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 A")
+          navigator.nextPage(
+            OtherOfficialsNinoPage(0),
+            NormalMode,
+            emptyUserAnswers
+              .set(OtherOfficialsNinoPage(0), "QQ 12 34 56 A")
               .flatMap(_.set(OtherOfficialAddressLookupPage(0), address))
-              .success.value) mustBe
+              .success
+              .value
+          ) mustBe
             otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(0)
         }
       }
@@ -184,62 +226,87 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Has [Full name]’s home address changed in the last 12 months? page when clicked continue button" in {
-          navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialAddressLookupPage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address).success.value
+          ) mustBe
             otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, Index(0))
         }
 
         "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
-          navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialAddressLookupPage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value
+          ) mustBe
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
         }
 
         "go to the Amend address page if address lines < 2  when clicked Confirm and continue button" in {
-          navigator.nextPage(OtherOfficialAddressLookupPage(0), NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), minAddressLines).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialAddressLookupPage(0),
+            NormalMode,
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), minAddressLines).success.value
+          ) mustBe
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
         }
 
       }
 
-      List(0, 1, 2).foreach(index => {
-
+      List(0, 1, 2).foreach { index =>
         s"from the IsOtherOfficialsPreviousAddressPage for $index" must {
 
           "go to the PageNotFoundController page when user answer is empty" in {
             navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), NormalMode, emptyUserAnswers) mustBe
-               routes.PageNotFoundController.onPageLoad()
+              routes.PageNotFoundController.onPageLoad()
           }
 
           "go to the Previous Address Lookup flow when yes is selected" in {
-            navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), NormalMode,
-              emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
+            navigator.nextPage(
+              IsOtherOfficialsPreviousAddressPage(index),
+              NormalMode,
+              emptyUserAnswers
+                .set(IsOtherOfficialsPreviousAddressPage(0), true)
                 .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
-                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true)).success.value) mustBe
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
+                .success
+                .value
+            ) mustBe
               addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
           }
 
           "go to the ConfirmOtherOfficialsPreviousAddressController page when yes is selected and OtherOfficialPreviousAddressLookupPage is present and clicked continue button" in {
-            navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), NormalMode,
-              emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
+            navigator.nextPage(
+              IsOtherOfficialsPreviousAddressPage(index),
+              NormalMode,
+              emptyUserAnswers
+                .set(IsOtherOfficialsPreviousAddressPage(0), true)
                 .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
                 .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
                 .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(0), address))
                 .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address))
-                .success.value) mustBe
+                .success
+                .value
+            ) mustBe
               otherOfficialRoutes.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index)
           }
 
           "go to the You have added one/second/third other official page when no is selected" in {
-            navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), NormalMode,
-              emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), false)
+            navigator.nextPage(
+              IsOtherOfficialsPreviousAddressPage(index),
+              NormalMode,
+              emptyUserAnswers
+                .set(IsOtherOfficialsPreviousAddressPage(0), false)
                 .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
-                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), false)).success.value) mustBe
+                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), false))
+                .success
+                .value
+            ) mustBe
               goToPlaybackPage(index)
           }
         }
@@ -248,36 +315,54 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
           "go to the PageNotFoundController page when user answer is empty" in {
             navigator.nextPage(OtherOfficialPreviousAddressLookupPage(index), NormalMode, emptyUserAnswers) mustBe
-               routes.PageNotFoundController.onPageLoad()
+              routes.PageNotFoundController.onPageLoad()
           }
 
           "go to the You have added one/second/third other official page when no is selected" in {
-            navigator.nextPage(OtherOfficialPreviousAddressLookupPage(index), NormalMode,
-              emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), address)
+            navigator.nextPage(
+              OtherOfficialPreviousAddressLookupPage(index),
+              NormalMode,
+              emptyUserAnswers
+                .set(OtherOfficialPreviousAddressLookupPage(0), address)
                 .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), address))
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address))
+                .success
+                .value
+            ) mustBe
               goToPlaybackPage(index)
           }
 
           "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
-            navigator.nextPage(OtherOfficialPreviousAddressLookupPage(index), NormalMode,
-              emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressMax)
+            navigator.nextPage(
+              OtherOfficialPreviousAddressLookupPage(index),
+              NormalMode,
+              emptyUserAnswers
+                .set(OtherOfficialPreviousAddressLookupPage(0), addressMax)
                 .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), addressMax))
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), addressMax)).success.value) mustBe
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), addressMax))
+                .success
+                .value
+            ) mustBe
               otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
           }
         }
 
-      })
+      }
 
       "from the IsOtherOfficialsPreviousAddressPage" must {
 
         "go to you have added three other official when No is selected and index is 3" in {
-          navigator.nextPage(IsOtherOfficialsPreviousAddressPage(3), NormalMode,
-            emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true).flatMap
-            (_.set(IsOtherOfficialsPreviousAddressPage(1), true)).flatMap
-            (_.set(IsOtherOfficialsPreviousAddressPage(2), false)).flatMap
-            (_.set(IsOtherOfficialsPreviousAddressPage(3), false)).success.value) mustBe
+          navigator.nextPage(
+            IsOtherOfficialsPreviousAddressPage(3),
+            NormalMode,
+            emptyUserAnswers
+              .set(IsOtherOfficialsPreviousAddressPage(0), true)
+              .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(1), true))
+              .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(2), false))
+              .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(3), false))
+              .success
+              .value
+          ) mustBe
             goToPlaybackPage(3)
         }
       }
@@ -285,11 +370,17 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       "from the OtherOfficialPreviousAddressLookupPage" must {
 
         "go to you have added three other official when address is selected and index is 3" in {
-          navigator.nextPage(OtherOfficialPreviousAddressLookupPage(3), NormalMode,
-            emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), address).flatMap
-            (_.set(OtherOfficialPreviousAddressLookupPage(1), address)).flatMap
-            (_.set(OtherOfficialPreviousAddressLookupPage(2), address)).flatMap
-            (_.set(OtherOfficialPreviousAddressLookupPage(3), address)).success.value) mustBe
+          navigator.nextPage(
+            OtherOfficialPreviousAddressLookupPage(3),
+            NormalMode,
+            emptyUserAnswers
+              .set(OtherOfficialPreviousAddressLookupPage(0), address)
+              .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(1), address))
+              .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(2), address))
+              .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(3), address))
+              .success
+              .value
+          ) mustBe
             goToPlaybackPage(3)
         }
       }
@@ -322,36 +413,56 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the index if Yes is selected and the section is complete" in {
-          navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
-            .set(IsAddAnotherOtherOfficialPage, true)
-            .flatMap(_.set(Section8Page, true)).success.value
+          navigator.nextPage(
+            OtherOfficialsSummaryPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(IsAddAnotherOtherOfficialPage, true)
+              .flatMap(_.set(Section8Page, true))
+              .success
+              .value
           ) mustBe routes.IndexController.onPageLoad(None)
         }
 
         "go to the index if No is selected and the section is complete" in {
-          navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
-            .set(IsAddAnotherOtherOfficialPage, false)
-            .flatMap(_.set(Section8Page, true)).success.value
+          navigator.nextPage(
+            OtherOfficialsSummaryPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(IsAddAnotherOtherOfficialPage, false)
+              .flatMap(_.set(Section8Page, true))
+              .success
+              .value
           ) mustBe routes.IndexController.onPageLoad(None)
         }
 
         "go to the 2nd other official's name page if section isn't completed yet" in {
-          navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
-            .set(OtherOfficialsNamePage(0), otherOfficialsName)
-            .flatMap(_.set(Section8Page, false)).success.value
+          navigator.nextPage(
+            OtherOfficialsSummaryPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(OtherOfficialsNamePage(0), otherOfficialsName)
+              .flatMap(_.set(Section8Page, false))
+              .success
+              .value
           ) mustBe otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode, 1)
         }
 
         "go to the 3rd other official's name page if Yes is selected and the section isn't completed yet" in {
-          navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
-            .set(IsAddAnotherOtherOfficialPage, true)
-            .flatMap(_.set(OtherOfficialsNamePage(0), otherOfficialsName))
-            .flatMap(_.set(OtherOfficialsNamePage(1), otherOfficialsName))
-            .flatMap(_.set(Section8Page, false)).success.value
+          navigator.nextPage(
+            OtherOfficialsSummaryPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(IsAddAnotherOtherOfficialPage, true)
+              .flatMap(_.set(OtherOfficialsNamePage(0), otherOfficialsName))
+              .flatMap(_.set(OtherOfficialsNamePage(1), otherOfficialsName))
+              .flatMap(_.set(Section8Page, false))
+              .success
+              .value
           ) mustBe otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(NormalMode, 2)
         }
       }
@@ -374,14 +485,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialsNamePage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(OtherOfficialsNamePage(index), CheckMode,
-                emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName)
+              navigator.nextPage(
+                OtherOfficialsNamePage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(OtherOfficialsNamePage(0), otherOfficialsName)
                   .flatMap(_.set(OtherOfficialsNamePage(previousOrSameIndex(index)), otherOfficialsName))
-                  .flatMap(_.set(OtherOfficialsNamePage(index), otherOfficialsName)).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialsNamePage(index), otherOfficialsName))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
           }
@@ -390,14 +507,22 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialsDOBPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(OtherOfficialsDOBPage(index), CheckMode,
-                emptyUserAnswers.set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear))
-                  .flatMap(_.set(OtherOfficialsDOBPage(previousOrSameIndex(index)), LocalDate.now().minusYears(minYear)))
-                  .flatMap(_.set(OtherOfficialsDOBPage(index), LocalDate.now().minusYears(minYear))).success.value) mustBe
+              navigator.nextPage(
+                OtherOfficialsDOBPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(OtherOfficialsDOBPage(0), LocalDate.now().minusYears(minYear))
+                  .flatMap(
+                    _.set(OtherOfficialsDOBPage(previousOrSameIndex(index)), LocalDate.now().minusYears(minYear))
+                  )
+                  .flatMap(_.set(OtherOfficialsDOBPage(index), LocalDate.now().minusYears(minYear)))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
           }
@@ -406,14 +531,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialsPhoneNumberPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(OtherOfficialsPhoneNumberPage(index), CheckMode,
-                emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber)
+              navigator.nextPage(
+                OtherOfficialsPhoneNumberPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber)
                   .flatMap(_.set(OtherOfficialsPhoneNumberPage(previousOrSameIndex(index)), otherOfficialsPhoneNumber))
-                  .flatMap(_.set(OtherOfficialsPhoneNumberPage(index), otherOfficialsPhoneNumber)).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialsPhoneNumberPage(index), otherOfficialsPhoneNumber))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
           }
@@ -422,14 +553,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialsPositionPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(OtherOfficialsPositionPage(index), CheckMode,
-                emptyUserAnswers.set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember)
+              navigator.nextPage(
+                OtherOfficialsPositionPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(OtherOfficialsPositionPage(0), OfficialsPosition.BoardMember)
                   .flatMap(_.set(OtherOfficialsPositionPage(previousOrSameIndex(index)), OfficialsPosition.BoardMember))
-                  .flatMap(_.set(OtherOfficialsPositionPage(index), OfficialsPosition.BoardMember)).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialsPositionPage(index), OfficialsPosition.BoardMember))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
           }
@@ -438,50 +575,84 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(IsOtherOfficialNinoPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the OtherOfficialsNINOPage if Yes is selected and previously the user's passport details were provided" in {
-              navigator.nextPage(IsOtherOfficialNinoPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true)
+              navigator.nextPage(
+                IsOtherOfficialNinoPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
                   .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(OtherOfficialsPassportPage(previousOrSameIndex(index)), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
-                  otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(CheckMode, index)
+                  .flatMap(
+                    _.set(
+                      OtherOfficialsPassportPage(previousOrSameIndex(index)),
+                      Passport("123", "gb", LocalDate.now())
+                    )
+                  )
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .success
+                  .value
+              ) mustBe
+                otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(CheckMode, index)
             }
 
             "go to the OtherOfficialsPassportPage if No is selected and previously the user's NINO details were provided" in {
-              navigator.nextPage(IsOtherOfficialNinoPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), false)
+              navigator.nextPage(
+                IsOtherOfficialNinoPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
                   .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
                   .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .success
+                  .value
+              ) mustBe
                 otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(CheckMode, index)
             }
 
             "go to the Playback page when Yes is selected and previously the user's NINO details were provided" in {
-              navigator.nextPage(IsOtherOfficialNinoPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), true)
+              navigator.nextPage(
+                IsOtherOfficialNinoPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
                   .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
                   .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
 
             "go to the Playback page when No is selected and previously the user's passport details were provided" in {
-              navigator.nextPage(IsOtherOfficialNinoPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), false)
+              navigator.nextPage(
+                IsOtherOfficialNinoPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
                   .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(OtherOfficialsPassportPage(previousOrSameIndex(index)), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+                  .flatMap(
+                    _.set(
+                      OtherOfficialsPassportPage(previousOrSameIndex(index)),
+                      Passport("123", "gb", LocalDate.now())
+                    )
+                  )
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
           }
@@ -490,14 +661,20 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialsNinoPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the What is [Full name]’s home address? when clicked continue button" in {
-              navigator.nextPage(OtherOfficialsNinoPage(index), CheckMode,
-                emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")
+              navigator.nextPage(
+                OtherOfficialsNinoPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")
                   .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C")).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
           }
@@ -506,20 +683,29 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialAddressLookupPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the Have you previously changed your address page when continue button is clicked" in {
-              navigator.nextPage(OtherOfficialAddressLookupPage(index), CheckMode,
-                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), address)
+              navigator.nextPage(
+                OtherOfficialAddressLookupPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(OtherOfficialAddressLookupPage(0), address)
                   .flatMap(_.set(OtherOfficialAddressLookupPage(previousOrSameIndex(index)), address))
-                  .flatMap(_.set(OtherOfficialAddressLookupPage(index), address)).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialAddressLookupPage(index), address))
+                  .success
+                  .value
+              ) mustBe
                 otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
             }
 
             "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
-              navigator.nextPage(OtherOfficialAddressLookupPage(0), CheckMode,
-                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value) mustBe
+              navigator.nextPage(
+                OtherOfficialAddressLookupPage(0),
+                CheckMode,
+                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value
+              ) mustBe
                 otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(CheckMode, Index(0))
             }
           }
@@ -528,33 +714,51 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the check your answers page when yes and prev address is defined is selected" in {
-              navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
+              navigator.nextPage(
+                IsOtherOfficialsPreviousAddressPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialsPreviousAddressPage(0), true)
                   .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
                   .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(0), address))
                   .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), address))
-                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
 
             "go to the Previous Address Lookup flow when yes is selected" in {
-              navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), true)
+              navigator.nextPage(
+                IsOtherOfficialsPreviousAddressPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialsPreviousAddressPage(0), true)
                   .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), true))
-                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true)).success.value) mustBe
+                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
+                  .success
+                  .value
+              ) mustBe
                 addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
             }
 
             "go to the You have added one other official page when no is selected" in {
-              navigator.nextPage(IsOtherOfficialsPreviousAddressPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialsPreviousAddressPage(0), false)
+              navigator.nextPage(
+                IsOtherOfficialsPreviousAddressPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialsPreviousAddressPage(0), false)
                   .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
-                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), false)).success.value) mustBe
+                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), false))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
 
@@ -564,17 +768,28 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialsPassportPage(0), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the check your answers page when clicked continue button" in {
-              navigator.nextPage(OtherOfficialsPassportPage(index), CheckMode,
-                emptyUserAnswers.set(IsOtherOfficialNinoPage(0), false)
+              navigator.nextPage(
+                OtherOfficialsPassportPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
                   .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(OtherOfficialsPassportPage(previousOrSameIndex(index)), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now()))).success.value) mustBe
+                  .flatMap(
+                    _.set(
+                      OtherOfficialsPassportPage(previousOrSameIndex(index)),
+                      Passport("123", "gb", LocalDate.now())
+                    )
+                  )
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
           }
@@ -583,20 +798,29 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
             "go to the PageNotFoundController page when user answer is empty" in {
               navigator.nextPage(OtherOfficialPreviousAddressLookupPage(index), CheckMode, emptyUserAnswers) mustBe
-                 routes.PageNotFoundController.onPageLoad()
+                routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the You have added one other official page when no is selected" in {
-              navigator.nextPage(OtherOfficialPreviousAddressLookupPage(index), CheckMode,
-                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), address)
+              navigator.nextPage(
+                OtherOfficialPreviousAddressLookupPage(index),
+                CheckMode,
+                emptyUserAnswers
+                  .set(OtherOfficialPreviousAddressLookupPage(0), address)
                   .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), address))
-                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address)).success.value) mustBe
+                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address))
+                  .success
+                  .value
+              ) mustBe
                 goToPlaybackPage(index)
             }
 
             "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
-              navigator.nextPage(OtherOfficialPreviousAddressLookupPage(0), CheckMode,
-                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressMax).success.value) mustBe
+              navigator.nextPage(
+                OtherOfficialPreviousAddressLookupPage(0),
+                CheckMode,
+                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressMax).success.value
+              ) mustBe
                 otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, Index(0))
             }
 
@@ -605,46 +829,72 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
       })
 
       "go to the PageNotFoundController page when continue button is clicked on any of loop page and index is invalid" in {
-        navigator.nextPage(OtherOfficialsNamePage(3), CheckMode,
-          emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName)
+        navigator.nextPage(
+          OtherOfficialsNamePage(3),
+          CheckMode,
+          emptyUserAnswers
+            .set(OtherOfficialsNamePage(0), otherOfficialsName)
             .flatMap(_.set(OtherOfficialsNamePage(1), otherOfficialsName))
             .flatMap(_.set(OtherOfficialsNamePage(2), otherOfficialsName))
-            .flatMap(_.set(OtherOfficialsNamePage(3), otherOfficialsName)).success.value) mustBe
-           routes.PageNotFoundController.onPageLoad()
+            .flatMap(_.set(OtherOfficialsNamePage(3), otherOfficialsName))
+            .success
+            .value
+        ) mustBe
+          routes.PageNotFoundController.onPageLoad()
       }
 
       "from the RemoveOtherOfficialsPage" must {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the summary page if No is selected and OtherOfficials are present" in {
-          navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
-            .set(RemoveOtherOfficialsPage, false).flatMap(
-            _.set(OtherOfficialsNamePage(0), otherOfficialsName)).success.value
+          navigator.nextPage(
+            RemoveOtherOfficialsPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(RemoveOtherOfficialsPage, false)
+              .flatMap(_.set(OtherOfficialsNamePage(0), otherOfficialsName))
+              .success
+              .value
           ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
         }
 
         "go to the summary page if Yes is selected and OtherOfficials are present" in {
-          navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
-            .set(RemoveOtherOfficialsPage, true).flatMap(
-            _.set(OtherOfficialsNamePage(0), otherOfficialsName)).success.value
+          navigator.nextPage(
+            RemoveOtherOfficialsPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(RemoveOtherOfficialsPage, true)
+              .flatMap(_.set(OtherOfficialsNamePage(0), otherOfficialsName))
+              .success
+              .value
           ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
         }
 
         "go to the start of journey if removed all official details and OtherOfficials are not present" in {
-          navigator.nextPage(RemoveOtherOfficialsPage, NormalMode, emptyUserAnswers
-            .set(RemoveOtherOfficialsPage, true).flatMap(
-            _.set(CharityNamePage, CharityName("ABC", Some("OpName")))).success.value
+          navigator.nextPage(
+            RemoveOtherOfficialsPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(RemoveOtherOfficialsPage, true)
+              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+              .success
+              .value
           ) mustBe otherOfficialRoutes.CharityOtherOfficialsController.onPageLoad()
         }
 
         "go to the index if No is selected" in {
-          navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, emptyUserAnswers
-            .set(IsAddAnotherOtherOfficialPage, false).success.value
-          ) mustBe  routes.PageNotFoundController.onPageLoad()
+          navigator.nextPage(
+            OtherOfficialsSummaryPage,
+            NormalMode,
+            emptyUserAnswers
+              .set(IsAddAnotherOtherOfficialPage, false)
+              .success
+              .value
+          ) mustBe routes.PageNotFoundController.onPageLoad()
         }
       }
 
@@ -663,7 +913,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
         "go to the SessionExpired page when user answer is empty" in {
           navigator.nextPage(IndexPage, PlaybackMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
       }
     }

@@ -29,38 +29,58 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
-                                     (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper {
+class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
+    extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
+    with SummaryListRowHelper {
 
   def charityNameRows: Seq[SummaryListRow] =
-    userAnswers.get(CharityNamePage).map{ name =>
-      answerCharityName(name, controllers.contactDetails.routes.CharityNameController.onPageLoad(CheckMode))
-    }.fold(List[SummaryListRow]())(_.toList)
+    userAnswers
+      .get(CharityNamePage)
+      .map { name =>
+        answerCharityName(name, controllers.contactDetails.routes.CharityNameController.onPageLoad(CheckMode))
+      }
+      .fold(List[SummaryListRow]())(_.toList)
 
   def charityContactDetailsRows: Seq[SummaryListRow] =
-    userAnswers.get(CharityContactDetailsPage).map{ contact =>
-      answerCharityContactDetails(contact, controllers.contactDetails.routes.CharityContactDetailsController.onPageLoad(CheckMode))
-    }.fold(List[SummaryListRow]())(_.toList)
+    userAnswers
+      .get(CharityContactDetailsPage)
+      .map { contact =>
+        answerCharityContactDetails(
+          contact,
+          controllers.contactDetails.routes.CharityContactDetailsController.onPageLoad(CheckMode)
+        )
+      }
+      .fold(List[SummaryListRow]())(_.toList)
 
   def officialAddressRow: Seq[SummaryListRow] =
-    answerAddress(CharityOfficialAddressLookupPage,
+    answerAddress(
+      CharityOfficialAddressLookupPage,
       controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney,
-      s"$CharityOfficialAddressLookupPage.addressLookup")
+      s"$CharityOfficialAddressLookupPage.addressLookup"
+    )
 
   def canWeSendToThisAddressRow: Seq[SummaryListRow] =
-    userAnswers.get(CanWeSendToThisAddressPage).map{ boolean =>
-      answerCanWeSendToThisAddress(boolean, controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(CheckMode))
-    }.fold(List[SummaryListRow]())(_.toList)
+    userAnswers
+      .get(CanWeSendToThisAddressPage)
+      .map { boolean =>
+        answerCanWeSendToThisAddress(
+          boolean,
+          controllers.contactDetails.routes.CanWeSendToThisAddressController.onPageLoad(CheckMode)
+        )
+      }
+      .fold(List[SummaryListRow]())(_.toList)
 
   def postalAddressRow: Seq[SummaryListRow] =
-    answerAddress(CharityPostalAddressLookupPage,
+    answerAddress(
+      CharityPostalAddressLookupPage,
       controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney,
-      s"$CharityPostalAddressLookupPage.addressLookup")
+      s"$CharityPostalAddressLookupPage.addressLookup"
+    )
 
-  private def answerCharityName(charityName: CharityName,
-                                changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-
+  private def answerCharityName(charityName: CharityName, changeLinkCall: Call)(implicit
+    messages: Messages
+  ): Seq[SummaryListRow] = Seq(
     Some(
       summaryListRow(
         label = messages("charityName.fullName.checkYourAnswersLabel"),
@@ -69,7 +89,6 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
         changeLinkCall -> messages("site.edit")
       )
     ),
-
     charityName.operatingName.map(name =>
       summaryListRow(
         label = messages("charityName.operatingName.checkYourAnswersLabel"),
@@ -80,9 +99,9 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
     )
   ).flatten
 
-  private def answerCharityContactDetails(charityContactDetails: CharityContactDetails,
-                                          changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] =
-
+  private def answerCharityContactDetails(charityContactDetails: CharityContactDetails, changeLinkCall: Call)(implicit
+    messages: Messages
+  ): Seq[SummaryListRow] =
     Seq(
       Some(
         summaryListRow(
@@ -110,34 +129,40 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
       )
     ).flatten
 
-  private def answerAddress(page: QuestionPage[AddressModel],
-                            changeLinkCall: Call,
-                            messagePrefix: String)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-    userAnswers.get(page).flatMap(address =>
-      Some(
-        summaryListRow(
-          label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-          value = Text(Seq(Some(address.lines.mkString(", ")),
-            address.postcode,
-            Some(address.country.name)).flatten.mkString(", ")),
-          visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
-          actions = changeLinkCall -> messages("site.edit")
+  private def answerAddress(page: QuestionPage[AddressModel], changeLinkCall: Call, messagePrefix: String)(implicit
+    messages: Messages
+  ): Seq[SummaryListRow] = Seq(
+    userAnswers
+      .get(page)
+      .flatMap(address =>
+        Some(
+          summaryListRow(
+            label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+            value = Text(
+              Seq(Some(address.lines.mkString(", ")), address.postcode, Some(address.country.name)).flatten
+                .mkString(", ")
+            ),
+            visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+            actions = changeLinkCall -> messages("site.edit")
+          )
         )
       )
-    )
   ).flatten
 
-  private def answerCanWeSendToThisAddress(canWeSendToThisAddress: Boolean,
-                                           changeLinkCall: Call)(implicit messages: Messages): Seq[SummaryListRow] = Seq(
-
+  private def answerCanWeSendToThisAddress(canWeSendToThisAddress: Boolean, changeLinkCall: Call)(implicit
+    messages: Messages
+  ): Seq[SummaryListRow] = Seq(
     if (canWeSendToThisAddress) {
       userAnswers.get(CharityOfficialAddressLookupPage).map { address =>
         summaryListRow(
           label = messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-          value = HtmlContent(s"<div>${messages("site.yes")}</div>" +
-            HtmlFormat.escape(Seq(Some(address.lines.mkString(", ")),
-              address.postcode,
-              Some(address.country.name)).flatten.mkString(", "))),
+          value = HtmlContent(
+            s"<div>${messages("site.yes")}</div>" +
+              HtmlFormat.escape(
+                Seq(Some(address.lines.mkString(", ")), address.postcode, Some(address.country.name)).flatten
+                  .mkString(", ")
+              )
+          ),
           visuallyHiddenText = Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
           changeLinkCall -> messages("site.edit")
         )
@@ -152,7 +177,6 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)
         )
       )
     }
-
   ).flatten
 
   val rows: Seq[SummaryListRow] = Seq(

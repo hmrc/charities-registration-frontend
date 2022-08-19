@@ -52,9 +52,9 @@ class OtherFundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerService)
   }
 
-  private val view: OtherFundRaisingView = inject[OtherFundRaisingView]
+  private val view: OtherFundRaisingView                 = inject[OtherFundRaisingView]
   private val formProvider: OtherFundRaisingFormProvider = inject[OtherFundRaisingFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                         = formProvider()
 
   private val controller: OtherFundRaisingController = inject[OtherFundRaisingController]
 
@@ -71,11 +71,13 @@ class OtherFundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(OtherFundRaisingPage, "FundRaiserValue").getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(emptyUserAnswers.set(OtherFundRaisingPage, "FundRaiserValue").getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

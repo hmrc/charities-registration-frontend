@@ -25,20 +25,23 @@ class StartGoverningDocumentViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startGoverningDocument"
 
+  "StartGoverningDocumentView" must {
 
-    "StartGoverningDocumentView" must {
-
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[StartGoverningDocumentView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("regulatorsSummary.section")))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "b1", "b2")
-
-      behave like pageWithHyperLink(applyView(), "linkButton", controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url, messages("site.continue"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[StartGoverningDocumentView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("regulatorsSummary.section")))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "b1", "b2")
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url,
+      messages("site.continue")
+    )
+
   }
+}

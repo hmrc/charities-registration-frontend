@@ -22,17 +22,17 @@ import play.api.data.{Form, FormError}
 
 class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours {
 
-  private val maxLengthRegulatorName = 100
-  private val maxLengthRegistrationNumber = 20
+  private val maxLengthRegulatorName                                 = 100
+  private val maxLengthRegistrationNumber                            = 20
   private val formProvider: CharityOtherRegulatorDetailsFormProvider = inject[CharityOtherRegulatorDetailsFormProvider]
-  private val form: Form[CharityOtherRegulatorDetails] = formProvider()
+  private val form: Form[CharityOtherRegulatorDetails]               = formProvider()
 
   ".regulatorName" must {
 
-    val fieldName = "regulatorName"
+    val fieldName   = "regulatorName"
     val requiredKey = "charityOtherRegulatorDetails.regulatorName.error.required"
-    val lengthKey = "charityOtherRegulatorDetails.regulatorName.error.length"
-    val invalidKey = "charityOtherRegulatorDetails.regulatorName.error.format"
+    val lengthKey   = "charityOtherRegulatorDetails.regulatorName.error.length"
+    val invalidKey  = "charityOtherRegulatorDetails.regulatorName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -63,10 +63,10 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
 
   ".registrationNumber" must {
 
-    val fieldName = "registrationNumber"
+    val fieldName   = "registrationNumber"
     val requiredKey = "charityOtherRegulatorDetails.registrationNumber.error.required"
-    val lengthKey = "charityOtherRegulatorDetails.registrationNumber.error.length"
-    val invalidKey = "charityOtherRegulatorDetails.registrationNumber.error.format"
+    val lengthKey   = "charityOtherRegulatorDetails.registrationNumber.error.length"
+    val invalidKey  = "charityOtherRegulatorDetails.registrationNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -95,19 +95,20 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
     )
   }
 
-
   "CharityOtherRegulatorDetailsFormProvider" must {
 
     val charityOtherRegulatorDetails = CharityOtherRegulatorDetails("ORegulatorName", "1234567")
 
     "apply CharityOtherRegulatorDetails correctly" in {
 
-      val details = form.bind(
-        Map(
-          "regulatorName" -> charityOtherRegulatorDetails.regulatorName,
-          "registrationNumber" -> charityOtherRegulatorDetails.registrationNumber,
+      val details = form
+        .bind(
+          Map(
+            "regulatorName"      -> charityOtherRegulatorDetails.regulatorName,
+            "registrationNumber" -> charityOtherRegulatorDetails.registrationNumber
+          )
         )
-      ).get
+        .get
 
       details.regulatorName mustBe charityOtherRegulatorDetails.regulatorName
       details.registrationNumber mustBe charityOtherRegulatorDetails.registrationNumber

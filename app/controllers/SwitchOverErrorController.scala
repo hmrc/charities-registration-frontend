@@ -24,15 +24,14 @@ import views.html.SwitchOverErrorView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-
-class SwitchOverErrorController @Inject()(
-    identify: AuthIdentifierAction,
-    view: SwitchOverErrorView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class SwitchOverErrorController @Inject() (
+  identify: AuthIdentifierAction,
+  view: SwitchOverErrorView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = identify.async { implicit request =>
-
     Future.successful(Ok(view()))
   }
 

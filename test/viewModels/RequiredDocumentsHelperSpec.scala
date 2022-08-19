@@ -29,17 +29,29 @@ import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import viewmodels.RequiredDocumentsHelper
 
-class RequiredDocumentsHelperSpec extends SpecBase{
+class RequiredDocumentsHelperSpec extends SpecBase {
 
   private val john: Name = Name(SelectTitle.Mr, "John", None, "Smith")
 
   private val userAnswersForeignAuthOfficial1 = emptyUserAnswers
     .set(AuthorisedOfficialsNamePage(0), john)
-    .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), AddressModel(Seq("aa", "bb"), postcode = None, country = CountryModel("AA", "Aaa"))))
-    .flatMap(_.set(IsCharityRegulatorPage, true)).success.value
+    .flatMap(
+      _.set(
+        AuthorisedOfficialAddressLookupPage(0),
+        AddressModel(Seq("aa", "bb"), postcode = None, country = CountryModel("AA", "Aaa"))
+      )
+    )
+    .flatMap(_.set(IsCharityRegulatorPage, true))
+    .success
+    .value
 
   private val userAnswersUKAuthOfficial1 = emptyUserAnswers
-    .set(AuthorisedOfficialAddressLookupPage(0), AddressModel(Seq("aa", "bb"), postcode = None, country = CountryModel("GB", "United Kingdom"))).success.value
+    .set(
+      AuthorisedOfficialAddressLookupPage(0),
+      AddressModel(Seq("aa", "bb"), postcode = None, country = CountryModel("GB", "United Kingdom"))
+    )
+    .success
+    .value
 
   private val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
   private lazy val localMessages: Messages = messagesApi.preferred(localRequest)
@@ -56,7 +68,11 @@ class RequiredDocumentsHelperSpec extends SpecBase{
 
       "return None if page condition is not as expected" in {
 
-        RequiredDocumentsHelper.checkPageCondition(userAnswersForeignAuthOfficial1, IsCharityRegulatorPage, false) mustBe
+        RequiredDocumentsHelper.checkPageCondition(
+          userAnswersForeignAuthOfficial1,
+          IsCharityRegulatorPage,
+          false
+        ) mustBe
           None
       }
     }
@@ -119,7 +135,9 @@ class RequiredDocumentsHelperSpec extends SpecBase{
       }
 
       "format correctly for 4 or more names" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john, john)) mustBe "John Smith, John Smith, John Smith and John Smith"
+        RequiredDocumentsHelper.formatNames(
+          Seq(john, john, john, john)
+        ) mustBe "John Smith, John Smith, John Smith and John Smith"
 
       }
 
@@ -129,12 +147,16 @@ class RequiredDocumentsHelperSpec extends SpecBase{
       }
 
       "format correctly for 3 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john))(localMessages) mustBe "John Smith, John Smith, John Smith"
+        RequiredDocumentsHelper.formatNames(Seq(john, john, john))(
+          localMessages
+        ) mustBe "John Smith, John Smith, John Smith"
 
       }
 
       "format correctly for 4 or more names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john, john))(localMessages) mustBe "John Smith, John Smith, John Smith, John Smith"
+        RequiredDocumentsHelper.formatNames(Seq(john, john, john, john))(
+          localMessages
+        ) mustBe "John Smith, John Smith, John Smith, John Smith"
 
       }
     }

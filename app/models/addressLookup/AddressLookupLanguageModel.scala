@@ -26,16 +26,20 @@ object AddressMessageLanguageModel {
   implicit val writes: Writes[AddressMessageLanguageModel] = Json.writes[AddressMessageLanguageModel]
 }
 
-case class AddressMessagesModel(appLevelLabels: AppLevelMessagesModel,
-                                lookupPageLabels: LookupPageMessagesModel,
-                                selectPageLabels: SelectPageMessagesModel,
-                                editPageLabels: EditPageMessagesModel,
-                                confirmPageLabels: ConfirmPageMessagesModel)
+case class AddressMessagesModel(
+  appLevelLabels: AppLevelMessagesModel,
+  lookupPageLabels: LookupPageMessagesModel,
+  selectPageLabels: SelectPageMessagesModel,
+  editPageLabels: EditPageMessagesModel,
+  confirmPageLabels: ConfirmPageMessagesModel
+)
 
 object AddressMessagesModel {
   implicit val writes: Writes[AddressMessagesModel] = Json.writes[AddressMessagesModel]
 
-  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit messagesApi: MessagesApi): AddressMessagesModel = {
+  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit
+    messagesApi: MessagesApi
+  ): AddressMessagesModel =
     AddressMessagesModel(
       appLevelLabels = AppLevelMessagesModel.forLang(lang),
       lookupPageLabels = LookupPageMessagesModel.forLang(lang, messagePrefix, fullName),
@@ -43,7 +47,6 @@ object AddressMessagesModel {
       editPageLabels = EditPageMessagesModel.forLang(lang, messagePrefix, fullName),
       confirmPageLabels = ConfirmPageMessagesModel.forLang(lang, messagePrefix, fullName)
     )
-  }
 }
 
 case class AppLevelMessagesModel(navTitle: String)
@@ -58,21 +61,24 @@ object AppLevelMessagesModel {
   }
 }
 
-case class LookupPageMessagesModel(title: Option[String],
-                                   heading: Option[String],
-                                   filterLabel: Option[String],
-                                   postcodeLabel: Option[String],
-                                   submitLabel: Option[String],
-                                   noResultsFoundMessage: Option[String],
-                                   resultLimitExceededMessage: Option[String],
-                                   manualAddressLinkText: Option[String]
-                                  )
+case class LookupPageMessagesModel(
+  title: Option[String],
+  heading: Option[String],
+  filterLabel: Option[String],
+  postcodeLabel: Option[String],
+  submitLabel: Option[String],
+  noResultsFoundMessage: Option[String],
+  resultLimitExceededMessage: Option[String],
+  manualAddressLinkText: Option[String]
+)
 
 object LookupPageMessagesModel {
   implicit val writes: Writes[LookupPageMessagesModel] = Json.writes[LookupPageMessagesModel]
 
-  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit messagesApi: MessagesApi): LookupPageMessagesModel = {
-    LookupPageMessagesModel (
+  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit
+    messagesApi: MessagesApi
+  ): LookupPageMessagesModel =
+    LookupPageMessagesModel(
       title = MessageOption(s"$messagePrefix.lookupPage.title", lang),
       heading = MessageOption(s"$messagePrefix.lookupPage.heading", lang, fullName.getOrElse("")),
       filterLabel = MessageOption(s"commonAddress.lookupPage.filterLabel", lang),
@@ -80,51 +86,57 @@ object LookupPageMessagesModel {
       submitLabel = MessageOption(s"commonAddress.lookupPage.submitLabel", lang),
       noResultsFoundMessage = MessageOption(s"commonAddress.lookupPage.noResultsFoundMessage", lang),
       resultLimitExceededMessage = MessageOption(s"commonAddress.lookupPage.resultLimitExceededMessage", lang),
-      manualAddressLinkText = MessageOption(s"$messagePrefix.lookupPage.manualAddressLinkText", lang, fullName.getOrElse(""))
+      manualAddressLinkText =
+        MessageOption(s"$messagePrefix.lookupPage.manualAddressLinkText", lang, fullName.getOrElse(""))
     )
-  }
 }
 
-case class SelectPageMessagesModel(title: Option[String],
-                                   heading: Option[String],
-                                   headingWithPostcode: Option[String],
-                                   proposalListLabel: Option[String],
-                                   submitLabel: Option[String],
-                                   searchAgainLinkText: Option[String],
-                                   editAddressLinkText: Option[String]
-                                  )
+case class SelectPageMessagesModel(
+  title: Option[String],
+  heading: Option[String],
+  headingWithPostcode: Option[String],
+  proposalListLabel: Option[String],
+  submitLabel: Option[String],
+  searchAgainLinkText: Option[String],
+  editAddressLinkText: Option[String]
+)
 
 object SelectPageMessagesModel {
   implicit val writes: Writes[SelectPageMessagesModel] = Json.writes[SelectPageMessagesModel]
 
-  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit messagesApi: MessagesApi): SelectPageMessagesModel = {
+  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit
+    messagesApi: MessagesApi
+  ): SelectPageMessagesModel =
     SelectPageMessagesModel(
       title = MessageOption(s"$messagePrefix.selectPage.title", lang),
       heading = MessageOption(s"$messagePrefix.selectPage.heading", lang, fullName.getOrElse("")),
       headingWithPostcode = MessageOption(s"commonAddress.selectPage.headingWithPostcode", lang),
       proposalListLabel = MessageOption(s"commonAddress.selectPage.proposalListLabel", lang),
       submitLabel = MessageOption(s"commonAddress.selectPage.submitLabel", lang),
-      searchAgainLinkText = MessageOption(s"$messagePrefix.selectPage.searchAgainLinkText", lang, fullName.getOrElse("")),
-      editAddressLinkText = MessageOption(s"$messagePrefix.selectPage.editAddressLinkText", lang, fullName.getOrElse(""))
+      searchAgainLinkText =
+        MessageOption(s"$messagePrefix.selectPage.searchAgainLinkText", lang, fullName.getOrElse("")),
+      editAddressLinkText =
+        MessageOption(s"$messagePrefix.selectPage.editAddressLinkText", lang, fullName.getOrElse(""))
     )
-  }
 }
 
-case class EditPageMessagesModel(title: Option[String],
-                                 heading: Option[String],
-                                 line1Label: Option[String],
-                                 line2Label: Option[String],
-                                 townLabel: Option[String],
-                                 line3Label: Option[String],
-                                 postcodeLabel: Option[String],
-                                 submitLabel: Option[String]
-                                )
+case class EditPageMessagesModel(
+  title: Option[String],
+  heading: Option[String],
+  line1Label: Option[String],
+  line2Label: Option[String],
+  townLabel: Option[String],
+  line3Label: Option[String],
+  postcodeLabel: Option[String],
+  submitLabel: Option[String]
+)
 
 object EditPageMessagesModel {
   implicit val writes: Writes[EditPageMessagesModel] = Json.writes[EditPageMessagesModel]
 
-  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit messagesApi: MessagesApi): EditPageMessagesModel = {
-
+  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit
+    messagesApi: MessagesApi
+  ): EditPageMessagesModel =
     EditPageMessagesModel(
       title = MessageOption(s"$messagePrefix.editPage.title", lang),
       heading = MessageOption(s"$messagePrefix.editPage.heading", lang, fullName.getOrElse("")),
@@ -135,23 +147,25 @@ object EditPageMessagesModel {
       postcodeLabel = MessageOption(s"commonAddress.editPage.postcodeLabel", lang),
       submitLabel = MessageOption(s"commonAddress.editPage.submitLabel", lang)
     )
-  }
 }
 
-case class ConfirmPageMessagesModel(title: Option[String],
-                                    heading: Option[String],
-                                    infoSubheading: Option[String],
-                                    infoMessage: Option[String],
-                                    submitLabel: Option[String],
-                                    searchAgainLinkText: Option[String],
-                                    changeLinkText: Option[String],
-                                    confirmChangeText: Option[String]
-                                   )
+case class ConfirmPageMessagesModel(
+  title: Option[String],
+  heading: Option[String],
+  infoSubheading: Option[String],
+  infoMessage: Option[String],
+  submitLabel: Option[String],
+  searchAgainLinkText: Option[String],
+  changeLinkText: Option[String],
+  confirmChangeText: Option[String]
+)
 
 object ConfirmPageMessagesModel {
   implicit val writes: Writes[ConfirmPageMessagesModel] = Json.writes[ConfirmPageMessagesModel]
 
-  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit messagesApi: MessagesApi): ConfirmPageMessagesModel = {
+  def forLang(lang: Lang, messagePrefix: String, fullName: Option[String])(implicit
+    messagesApi: MessagesApi
+  ): ConfirmPageMessagesModel =
     ConfirmPageMessagesModel(
       title = MessageOption(s"$messagePrefix.confirmPage.title", lang),
       heading = MessageOption(s"$messagePrefix.confirmPage.heading", lang, fullName.getOrElse("")),
@@ -162,5 +176,4 @@ object ConfirmPageMessagesModel {
       changeLinkText = MessageOption(s"$messagePrefix.confirmPage.changeLinkText", lang, fullName.getOrElse("")),
       confirmChangeText = MessageOption(s"commonAddress.confirmPage.confirmChangeText", lang)
     )
-  }
 }

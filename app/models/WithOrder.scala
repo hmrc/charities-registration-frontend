@@ -16,6 +16,6 @@
 
 package models
 
-trait WithOrder{
+trait WithOrder {
   val order: Int
 }

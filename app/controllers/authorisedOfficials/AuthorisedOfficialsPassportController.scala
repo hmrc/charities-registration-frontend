@@ -32,7 +32,7 @@ import views.html.common.PassportView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialsPassportController @Inject()(
+class AuthorisedOfficialsPassportController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -42,28 +42,37 @@ class AuthorisedOfficialsPassportController @Inject()(
   override val navigator: AuthorisedOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PassportView
-  )(implicit appConfig: FrontendAppConfig) extends PassportController {
+)(implicit appConfig: FrontendAppConfig)
+    extends PassportController {
 
   override val messagePrefix: String = "authorisedOfficialsPassport"
-  private val form: Form[Passport] = formProvider(messagePrefix)
+  private val form: Form[Passport]   = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-
-        Future.successful(getView(AuthorisedOfficialsPassportPage(index), form, authorisedOfficialsName,
-          controllers.authorisedOfficials.routes.AuthorisedOfficialsPassportController.onSubmit(mode, index)))
+        Future.successful(
+          getView(
+            AuthorisedOfficialsPassportPage(index),
+            form,
+            authorisedOfficialsName,
+            controllers.authorisedOfficials.routes.AuthorisedOfficialsPassportController.onSubmit(mode, index)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-
-        postView(mode, AuthorisedOfficialsPassportPage(index), form, authorisedOfficialsName, Section7Page,
-          controllers.authorisedOfficials.routes.AuthorisedOfficialsPassportController.onSubmit(mode, index))
+        postView(
+          mode,
+          AuthorisedOfficialsPassportPage(index),
+          form,
+          authorisedOfficialsName,
+          Section7Page,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialsPassportController.onSubmit(mode, index)
+        )
       }
   }
 

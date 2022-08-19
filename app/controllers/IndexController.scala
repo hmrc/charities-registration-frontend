@@ -32,55 +32,57 @@ import views.html.TaskList
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class IndexController @Inject()(
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   charitiesSave4LaterService: CharitiesSave4LaterService,
-   cache: CharitiesShortLivedCache,
-   userAnswerService: UserAnswerService,
-   taskListHelper: TaskListHelper,
-   view: TaskList,
-   val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class IndexController @Inject() (
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  charitiesSave4LaterService: CharitiesSave4LaterService,
+  cache: CharitiesShortLivedCache,
+  userAnswerService: UserAnswerService,
+  taskListHelper: TaskListHelper,
+  view: TaskList,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
-  def onPageLoad(eligibleJourneyId: Option[String] = None): Action[AnyContent] = (identify andThen getData).async { implicit request =>
-    (hc.sessionId, request.userAnswers) match {
-      case (Some(_), Some(userAnswers)) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
-        Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
-      case (Some(sessionId), _) =>
-        if(appConfig.isExternalTest){
-          val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-          userAnswerService.set(userAnswers).map { _ =>
-            val result = taskListHelper.getTaskListRow(userAnswers)
-            val completed = result.forall(_.state.equals("index.section.completed"))
-            Ok(view(result, status = completed, None))
+  def onPageLoad(eligibleJourneyId: Option[String] = None): Action[AnyContent] = (identify andThen getData).async {
+    implicit request =>
+      (hc.sessionId, request.userAnswers) match {
+        case (Some(_), Some(userAnswers)) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
+          Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
+        case (Some(sessionId), _)                                                                    =>
+          if (appConfig.isExternalTest) {
+            val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+            userAnswerService.set(userAnswers).map { _ =>
+              val result    = taskListHelper.getTaskListRow(userAnswers)
+              val completed = result.forall(_.state.equals("index.section.completed"))
+              Ok(view(result, status = completed, None))
+            }
+          } else {
+            getTaskList(sessionId, eligibleJourneyId)
           }
-        } else {
-          getTaskList(sessionId, eligibleJourneyId)
-        }
-      case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
-    }
+        case _                                                                                       => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+      }
 
   }
 
-  private def getTaskList(sessionId: SessionId, eligibleJourneyId: Option[String])(
-    implicit request: OptionalDataRequest[_], hc: HeaderCarrier): Future[Result] = {
+  private def getTaskList(sessionId: SessionId, eligibleJourneyId: Option[String])(implicit
+    request: OptionalDataRequest[_],
+    hc: HeaderCarrier
+  ): Future[Result] =
     charitiesSave4LaterService.getCacheData(request, sessionId, eligibleJourneyId).flatMap {
       case Right(userAnswers) =>
         for {
           isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
-        } yield {
-          if(userAnswers.get(OldServiceSubmissionPage).isDefined) {
+        } yield
+          if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
             Redirect(routes.ApplicationBeingProcessedController.onPageLoad)
           } else {
-              val result = taskListHelper.getTaskListRow(userAnswers)
-              val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+            val result    = taskListHelper.getTaskListRow(userAnswers)
+            val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
             Ok(view(result, status = completed, isSwitchOver))
           }
-        }
-      case Left(call) => Future.successful(Redirect(call))
+      case Left(call)         => Future.successful(Redirect(call))
     }
-  }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
@@ -90,17 +92,23 @@ class IndexController @Inject()(
   }
 
   def signInDifferentAccount: Action[AnyContent] = Action { implicit request =>
-    Redirect(appConfig.loginUrl, Map(
-      appConfig.loginContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
-      "origin" -> Seq(appConfig.appName)
-    ))
+    Redirect(
+      appConfig.loginUrl,
+      Map(
+        appConfig.loginContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
+        "origin"                   -> Seq(appConfig.appName)
+      )
+    )
   }
 
   def registerNewAccount: Action[AnyContent] = Action { implicit request =>
-    Redirect(appConfig.registerUrl, Map(
-      appConfig.registrationContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
-      "origin" -> Seq(appConfig.appName),
-      "accountType" -> Seq("organisation")
-    ))
+    Redirect(
+      appConfig.registerUrl,
+      Map(
+        appConfig.registrationContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
+        "origin"                          -> Seq(appConfig.appName),
+        "accountType"                     -> Seq("organisation")
+      )
+    )
   }
 }

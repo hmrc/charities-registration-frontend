@@ -20,7 +20,7 @@ import models.{Name, SelectTitle}
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class OrganisationAuthorisedPersonNamePageSpec extends PageBehaviours{
+class OrganisationAuthorisedPersonNamePageSpec extends PageBehaviours {
 
   "OrganisationAuthorisedPersonNamePage" must {
 

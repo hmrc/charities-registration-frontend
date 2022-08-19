@@ -34,7 +34,9 @@ class ConfirmedAddressHttpParserSpec extends SpecBase {
         "return the address" in {
 
           val expectedResult = Right(ConfirmedAddressConstants.address)
-          val actualResult = ConfirmedAddressReads.read("", "",
+          val actualResult   = ConfirmedAddressReads.read(
+            "",
+            "",
             HttpResponse(Status.OK, json = ConfirmedAddressConstants.addressLookupResponse, Map.empty)
           )
 
@@ -47,7 +49,9 @@ class ConfirmedAddressHttpParserSpec extends SpecBase {
         "return a AddressMalformed err" in {
 
           val expectedResult = Left(AddressMalformed)
-          val actualResult = ConfirmedAddressReads.read("", "",
+          val actualResult   = ConfirmedAddressReads.read(
+            "",
+            "",
             HttpResponse(Status.OK, json = Json.obj("address" -> Json.obj()), Map.empty)
           )
 
@@ -61,7 +65,7 @@ class ConfirmedAddressHttpParserSpec extends SpecBase {
       "return a Left(AddressNotFound)" in {
 
         val expectedResult = Left(AddressNotFound)
-        val actualResult = ConfirmedAddressReads.read("", "", HttpResponse(Status.NOT_FOUND, ""))
+        val actualResult   = ConfirmedAddressReads.read("", "", HttpResponse(Status.NOT_FOUND, ""))
 
         actualResult mustBe expectedResult
       }
@@ -69,7 +73,7 @@ class ConfirmedAddressHttpParserSpec extends SpecBase {
       "return a Left(UnexpectedFailure)" in {
 
         val expectedResult = Left(DefaultedUnexpectedFailure(status = Status.INTERNAL_SERVER_ERROR))
-        val actualResult = ConfirmedAddressReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR, ""))
+        val actualResult   = ConfirmedAddressReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR, ""))
 
         actualResult mustBe expectedResult
       }

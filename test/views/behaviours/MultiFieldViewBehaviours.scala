@@ -21,21 +21,18 @@ import play.twirl.api.HtmlFormat
 
 trait MultiFieldViewBehaviours[T <: Form[_]] extends ViewBehaviours {
 
-  def pageWithMultiFieldForm(form: T,
-                             view: HtmlFormat.Appendable,
-                             expectedLabels: Map[String, String]): Unit = {
-
+  def pageWithMultiFieldForm(view: HtmlFormat.Appendable, expectedLabels: Map[String, String]): Unit =
     "behave link a page with a multi field form" when {
 
       "rendered" should {
 
         "contain a label for each of the inputs" in {
-          val doc = asDocument(view)
-          val labels = doc.select("label")
+          val doc      = asDocument(view)
+          val labels   = doc.select("label")
           val forAttrs = labels.eachAttr("for")
 
-          expectedLabels.map {
-            case (id, _) => assert(forAttrs.contains(id))
+          expectedLabels.map { case (id, _) =>
+            assert(forAttrs.contains(id))
           }
 
           assert(forAttrs.size == expectedLabels.size)
@@ -44,15 +41,13 @@ trait MultiFieldViewBehaviours[T <: Form[_]] extends ViewBehaviours {
         "have the right content for each label" in {
           val doc = asDocument(view)
 
-          expectedLabels.map {
-            case (id, expectedText) => assert(doc.select(s"label[for=$id]").text() == expectedText)
+          expectedLabels.map { case (id, expectedText) =>
+            assert(doc.select(s"label[for=$id]").text() == expectedText)
           }
         }
 
       }
 
     }
-
-  }
 
 }

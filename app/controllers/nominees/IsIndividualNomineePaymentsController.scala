@@ -32,38 +32,46 @@ import views.html.common.IsNomineePaymentsView
 
 import scala.concurrent.Future
 
+class IsIndividualNomineePaymentsController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  val sessionRepository: UserAnswerService,
+  val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  val view: IsNomineePaymentsView
+)(implicit appConfig: FrontendAppConfig)
+    extends IsNomineePaymentsController {
 
-class IsIndividualNomineePaymentsController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: YesNoFormProvider,
-    val sessionRepository: UserAnswerService,
-    val navigator: NomineesNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    val view: IsNomineePaymentsView
-  )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
-
-  val messagePrefix: String = "isIndividualNomineePayments"
+  val messagePrefix: String       = "isIndividualNomineePayments"
   private val form: Form[Boolean] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-        getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-          Future.successful(getView(IsIndividualNomineePaymentsPage, form, individualNomineeName,
-            controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(mode)))
-        }
+      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+        Future.successful(
+          getView(
+            IsIndividualNomineePaymentsPage,
+            form,
+            individualNomineeName,
+            controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(mode)
+          )
+        )
+      }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-        postView(mode, IsIndividualNomineePaymentsPage, form, individualNomineeName, Section9Page,
-          controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(mode))
+        postView(
+          mode,
+          IsIndividualNomineePaymentsPage,
+          form,
+          individualNomineeName,
+          Section9Page,
+          controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(mode)
+        )
       }
   }
 }

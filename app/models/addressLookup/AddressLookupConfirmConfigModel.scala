@@ -18,10 +18,12 @@ package models.addressLookup
 
 import play.api.libs.json.{Json, Writes}
 
-case class AddressLookupConfirmConfigModel(showChangeLinkcontinueUrl: Boolean,
-                                           showSubHeadingAndInfo: Boolean,
-                                           showSearchAgainLink: Boolean,
-                                           showConfirmChangeText: Boolean)
+case class AddressLookupConfirmConfigModel(
+  showChangeLinkcontinueUrl: Boolean,
+  showSubHeadingAndInfo: Boolean,
+  showSearchAgainLink: Boolean,
+  showConfirmChangeText: Boolean
+)
 
 object AddressLookupConfirmConfigModel {
   implicit val writes: Writes[AddressLookupConfirmConfigModel] = Json.writes[AddressLookupConfirmConfigModel]

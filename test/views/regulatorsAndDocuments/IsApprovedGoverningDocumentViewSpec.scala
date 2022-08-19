@@ -27,24 +27,25 @@ import views.html.regulatorsAndDocuments.IsApprovedGoverningDocumentView
 
 class IsApprovedGoverningDocumentViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isApprovedGoverningDocument.4"
+  private val messageKeyPrefix        = "isApprovedGoverningDocument.4"
   private val section: Option[String] = Some(messages("charityRegulator.section"))
-  val form: Form[Boolean] = inject[IsApprovedGoverningDocumentFormProvider].apply()
+  val form: Form[Boolean]             = inject[IsApprovedGoverningDocumentFormProvider].apply()
 
-    "IsApprovedGoverningDocumentView" must {
+  "IsApprovedGoverningDocumentView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[IsApprovedGoverningDocumentView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[IsApprovedGoverningDocumentView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithAdditionalGuidance(applyView(form), "isApprovedGoverningDocument", "p")
+    behave like pageWithAdditionalGuidance(applyView(form), "isApprovedGoverningDocument", "p")
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsApprovedGoverningDocumentController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-  }}
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  }
+}

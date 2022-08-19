@@ -32,7 +32,7 @@ import views.html.common.PassportView
 
 import scala.concurrent.Future
 
-class OtherOfficialsPassportController @Inject()(
+class OtherOfficialsPassportController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -42,29 +42,38 @@ class OtherOfficialsPassportController @Inject()(
   override val navigator: OtherOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: PassportView
-  )(implicit appConfig: FrontendAppConfig) extends PassportController {
+)(implicit appConfig: FrontendAppConfig)
+    extends PassportController {
 
   override val messagePrefix: String = "otherOfficialsPassport"
-  private val form: Form[Passport] = formProvider(messagePrefix)
+  private val form: Form[Passport]   = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        Future.successful(getView(OtherOfficialsPassportPage(index), form, otherOfficialsName,
-          controllers.otherOfficials.routes.OtherOfficialsPassportController.onSubmit(mode, index)))
+        Future.successful(
+          getView(
+            OtherOfficialsPassportPage(index),
+            form,
+            otherOfficialsName,
+            controllers.otherOfficials.routes.OtherOfficialsPassportController.onSubmit(mode, index)
+          )
+        )
 
       }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        postView(mode, OtherOfficialsPassportPage(index), form, otherOfficialsName, Section8Page,
-          controllers.otherOfficials.routes.OtherOfficialsPassportController.onSubmit(mode, index))
+        postView(
+          mode,
+          OtherOfficialsPassportPage(index),
+          form,
+          otherOfficialsName,
+          Section8Page,
+          controllers.otherOfficials.routes.OtherOfficialsPassportController.onSubmit(mode, index)
+        )
       }
   }
 

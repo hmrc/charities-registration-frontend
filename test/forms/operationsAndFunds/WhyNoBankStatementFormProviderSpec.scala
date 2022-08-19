@@ -22,15 +22,15 @@ import play.api.data.{Form, FormError}
 class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
 
   private val formProvider: WhyNoBankStatementFormProvider = inject[WhyNoBankStatementFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                           = formProvider()
 
   ".value" must {
 
     val requiredKey = "whyNoBankStatement.error.required"
-    val lengthKey = "whyNoBankStatement.error.length"
-    val invalidKey = "whyNoBankStatement.error.format"
-    val maxLength = 350
-    val fieldName = "value"
+    val lengthKey   = "whyNoBankStatement.error.length"
+    val invalidKey  = "whyNoBankStatement.error.format"
+    val maxLength   = 350
+    val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
       form,

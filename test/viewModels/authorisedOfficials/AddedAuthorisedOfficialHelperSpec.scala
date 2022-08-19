@@ -16,7 +16,6 @@
 
 package viewModels.authorisedOfficials
 
-
 import java.time.LocalDate
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
@@ -36,29 +35,36 @@ import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
 
 class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
-  private val year = 2000
-  private val month = 1
+  private val year       = 2000
+  private val month      = 1
   private val dayOfMonth = 2
 
   private def authorisedOfficialDetails(title: SelectTitle = SelectTitle.Mr): UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(title, firstName = "John", None, lastName = "Jones")).flatMap(
-    _.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth))).flatMap(
-    _.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
-                                             mobilePhone = Some("07700 900 982")))).flatMap(
-    _.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head)).flatMap(
-    _.set(IsAuthorisedOfficialNinoPage(0), true)).flatMap(
-    _.set(AuthorisedOfficialsNinoPage(0), "AA123456A")).flatMap(
-    _.set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))).flatMap(
-    _.set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address)).flatMap(
-    _.set(IsAuthorisedOfficialPreviousAddressPage(0), false)).success.value
+    .set(AuthorisedOfficialsNamePage(0), Name(title, firstName = "John", None, lastName = "Jones"))
+    .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)))
+    .flatMap(
+      _.set(
+        AuthorisedOfficialsPhoneNumberPage(0),
+        PhoneNumber(daytimePhone = "07700 900 982", mobilePhone = Some("07700 900 982"))
+      )
+    )
+    .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head))
+    .flatMap(_.set(IsAuthorisedOfficialNinoPage(0), true))
+    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+    .flatMap(
+      _.set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))
+    )
+    .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address))
+    .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
+    .success
+    .value
 
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
   when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
-  def helper(userAnswers: UserAnswers = authorisedOfficialDetails(), index: Index) =  new AddedAuthorisedOfficialHelper(
-    index, CheckMode, mockCountryService)(userAnswers)
-
+  def helper(userAnswers: UserAnswers = authorisedOfficialDetails(), index: Index) =
+    new AddedAuthorisedOfficialHelper(index, CheckMode, mockCountryService)(userAnswers)
 
   "Check Your Answers Helper" must {
 
@@ -66,23 +72,25 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
 
       "have a correctly formatted summary list rows" in {
 
-        helper(authorisedOfficialDetails(), 0).authOfficialNamesRow mustBe Some(summaryListRow(
-          messages("authorisedOfficialsName.checkYourAnswersLabel"),
-          HtmlContent("Mr John Jones"),
-          Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
-          authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-        )
+        helper(authorisedOfficialDetails(), 0).authOfficialNamesRow mustBe Some(
+          summaryListRow(
+            messages("authorisedOfficialsName.checkYourAnswersLabel"),
+            HtmlContent("Mr John Jones"),
+            Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
         )
       }
 
       "have a correctly formatted summary list rows if title is unsupported" in {
 
-        helper(authorisedOfficialDetails(SelectTitle.UnsupportedTitle), 0).authOfficialNamesRow mustBe Some(summaryListRow(
-          messages("authorisedOfficialsName.checkYourAnswersLabel"),
-          HtmlContent("John Jones"),
-          Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
-          authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-        )
+        helper(authorisedOfficialDetails(SelectTitle.UnsupportedTitle), 0).authOfficialNamesRow mustBe Some(
+          summaryListRow(
+            messages("authorisedOfficialsName.checkYourAnswersLabel"),
+            HtmlContent("John Jones"),
+            Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
+            authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
         )
       }
     }
@@ -112,10 +120,10 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
             HtmlContent("07700 900 982"),
             Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-          ))
+          )
+        )
       }
     }
-
 
     "For the Authorised Official Alternative Phone Number answer" must {
 
@@ -127,7 +135,8 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
             HtmlContent("07700 900 982"),
             Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-          ))
+          )
+        )
       }
     }
 
@@ -204,8 +213,16 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
 
       "have a correctly formatted summary list rows for country of issue if code is Unknown" in {
 
-        helper(authorisedOfficialDetails().set(AuthorisedOfficialsPassportPage(0),
-          Passport("GB12345", "Unknown", LocalDate.of(year, month, dayOfMonth))).success.value, 0).authOfficialCountryOfIssueRow mustBe Some(
+        helper(
+          authorisedOfficialDetails()
+            .set(
+              AuthorisedOfficialsPassportPage(0),
+              Passport("GB12345", "Unknown", LocalDate.of(year, month, dayOfMonth))
+            )
+            .success
+            .value,
+          0
+        ).authOfficialCountryOfIssueRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
             HtmlContent("Unknown"),
@@ -237,7 +254,8 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
             messages("authorisedOfficialAddress.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("authorisedOfficialAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
+            controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController
+              .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -252,7 +270,8 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
             messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel"),
             HtmlContent(s"${messages("site.no")}"),
             Some(messages("isAuthorisedOfficialPreviousAddress.checkYourAnswersLabel")),
-            authOfficials.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+            authOfficials.IsAuthorisedOfficialPreviousAddressController
+              .onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
         )
       }
@@ -262,13 +281,19 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
 
       "have a correctly formatted summary list row" in {
 
-        helper(authorisedOfficialDetails().set(AuthorisedOfficialPreviousAddressLookupPage(0),
-          ConfirmedAddressConstants.address).success.value, 0).authOfficialPreviousAddressRow mustBe Some(
+        helper(
+          authorisedOfficialDetails()
+            .set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address)
+            .success
+            .value,
+          0
+        ).authOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
+            controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
+              .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
         )
       }

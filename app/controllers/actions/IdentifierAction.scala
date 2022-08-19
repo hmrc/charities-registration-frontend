@@ -30,34 +30,35 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthenticatedIdentifierAction @Inject()(
-   override val authConnector: AuthConnector,
-   config: FrontendAppConfig,
-   val parser: BodyParsers.Default
-  )
-  (implicit val executionContext: ExecutionContext) extends AuthIdentifierAction with AuthorisedFunctions {
+class AuthenticatedIdentifierAction @Inject() (
+  override val authConnector: AuthConnector,
+  config: FrontendAppConfig,
+  val parser: BodyParsers.Default
+)(implicit val executionContext: ExecutionContext)
+    extends AuthIdentifierAction
+    with AuthorisedFunctions {
 
   private lazy val startUUIDIndex = 0
-  private lazy val endUUIDIndex = 16
+  private lazy val endUUIDIndex   = 16
 
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     if (config.isExternalTest) {
-      val internalId: String = UUID.randomUUID.toString.replaceAll(
-        "[^a-zA-Z0-9]", "").toUpperCase.substring(startUUIDIndex, endUUIDIndex)
+      val internalId: String =
+        UUID.randomUUID.toString.replaceAll("[^a-zA-Z0-9]", "").toUpperCase.substring(startUUIDIndex, endUUIDIndex)
       block(IdentifierRequest(request, hc.sessionId.fold(internalId)(_.value)))
     } else {
       authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {
-        _.map {
-          credentials => block(IdentifierRequest(request, credentials.providerId))
+        _.map { credentials =>
+          block(IdentifierRequest(request, credentials.providerId))
         }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
       } recover {
-        case _: NoActiveSession =>
+        case _: NoActiveSession        =>
           val redirectUrl = hc.sessionId match {
             case Some(id) => s"${config.loginContinueUrl}/${id.value}"
-            case None => config.loginContinueUrl
+            case None     => config.loginContinueUrl
           }
           Redirect(config.loginUrl, Map(config.loginContinueKey -> Seq(redirectUrl), "origin" -> Seq(config.appName)))
         case _: AuthorisationException =>
@@ -67,13 +68,14 @@ class AuthenticatedIdentifierAction @Inject()(
   }
 }
 
-trait AuthIdentifierAction extends ActionBuilder[IdentifierRequest, AnyContent] with ActionFunction[Request, IdentifierRequest]
+trait AuthIdentifierAction
+    extends ActionBuilder[IdentifierRequest, AnyContent]
+    with ActionFunction[Request, IdentifierRequest]
 
-
-class SessionIdentifierAction @Inject()(
-   val parser: BodyParsers.Default
- )
- (implicit val executionContext: ExecutionContext) extends IdentifierAction {
+class SessionIdentifierAction @Inject() (
+  val parser: BodyParsers.Default
+)(implicit val executionContext: ExecutionContext)
+    extends IdentifierAction {
 
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
 
@@ -82,10 +84,12 @@ class SessionIdentifierAction @Inject()(
     hc.sessionId match {
       case Some(session) =>
         block(IdentifierRequest(request, session.value))
-      case None =>
+      case None          =>
         Future.successful(Redirect(routes.PageNotFoundController.onPageLoad()))
     }
   }
 }
 
-trait IdentifierAction extends ActionBuilder[IdentifierRequest, AnyContent] with ActionFunction[Request, IdentifierRequest]
+trait IdentifierAction
+    extends ActionBuilder[IdentifierRequest, AnyContent]
+    with ActionFunction[Request, IdentifierRequest]

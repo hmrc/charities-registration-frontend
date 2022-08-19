@@ -40,7 +40,7 @@ class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutur
 
         val sessionRepository = mock[SessionRepository]
         when(sessionRepository.get("id")) thenReturn Future(None)
-        val action = new Harness(sessionRepository)
+        val action            = new Harness(sessionRepository)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
@@ -56,7 +56,7 @@ class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutur
 
         val sessionRepository = mock[SessionRepository]
         when(sessionRepository.get("id")) thenReturn Future(Some(UserAnswers("id")))
-        val action = new Harness(sessionRepository)
+        val action            = new Harness(sessionRepository)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
 

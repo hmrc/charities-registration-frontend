@@ -27,12 +27,14 @@ import viewmodels.StatusHelper
 object RegulatorsStatusHelper extends StatusHelper {
 
   private val allPages: Seq[QuestionPage[_]] = Seq(
-    IsCharityRegulatorPage, CharityRegulatorPage,
+    IsCharityRegulatorPage,
+    CharityRegulatorPage,
     CharityCommissionRegistrationNumberPage,
     ScottishRegulatorRegNumberPage,
     NIRegulatorRegNumberPage,
     CharityOtherRegulatorDetailsPage,
-    SelectWhyNoRegulatorPage, WhyNotRegisteredWithCharityPage
+    SelectWhyNoRegulatorPage,
+    WhyNotRegisteredWithCharityPage
   )
 
   implicit class RegulatorsStatus(list: Seq[QuestionPage[_]]) {
@@ -48,13 +50,12 @@ object RegulatorsStatusHelper extends StatusHelper {
 
     def withSelectWhyNoRegulator: Seq[QuestionPage[_]] = list ++ Seq(SelectWhyNoRegulatorPage)
 
-    def withNotRegisteredCause(cause: SelectWhyNoRegulator): Seq[QuestionPage[_]] = {
+    def withNotRegisteredCause(cause: SelectWhyNoRegulator): Seq[QuestionPage[_]] =
       if (cause.equals(Other)) {
         list ++ Seq(WhyNotRegisteredWithCharityPage)
       } else {
         list
       }
-    }
 
     def withRegulators(regulators: Set[CharityRegulator]): Seq[QuestionPage[_]] =
       list ++ regulators.map(regulator => requiredPairs(regulator))
@@ -62,7 +63,6 @@ object RegulatorsStatusHelper extends StatusHelper {
   }
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
-
 
     lazy val common: Seq[QuestionPage[_]] = Seq(IsCharityRegulatorPage)
 
@@ -72,7 +72,7 @@ object RegulatorsStatusHelper extends StatusHelper {
           case Some(regulatorSet) if regulatorSet.nonEmpty =>
             val pagesInJourney = common.withCharityRegulator.withRegulators(regulatorSet)
             userAnswers.arePagesDefined(pagesInJourney) && userAnswers.unneededPagesNotPresent(pagesInJourney, allPages)
-          case _ => false
+          case _                                           => false
         }
 
       case Some(false) =>
@@ -80,7 +80,7 @@ object RegulatorsStatusHelper extends StatusHelper {
           case Some(causeForNotRegistered) =>
             val pagesInJourney = common.withSelectWhyNoRegulator.withNotRegisteredCause(causeForNotRegistered)
             userAnswers.arePagesDefined(pagesInJourney) && userAnswers.unneededPagesNotPresent(pagesInJourney, allPages)
-          case _ => false
+          case _                           => false
         }
 
       case _ => false

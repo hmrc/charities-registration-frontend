@@ -24,24 +24,32 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.PassportView
 
-class PassportViewSpec extends QuestionViewBehaviours[Passport]  {
+class PassportViewSpec extends QuestionViewBehaviours[Passport] {
 
-  private val messageKeyPrefix = "authorisedOfficialsPassport"
+  private val messageKeyPrefix      = "authorisedOfficialsPassport"
   override val form: Form[Passport] = inject[PassportFormProvider].apply(messageKeyPrefix)
 
-    "AuthorisedOfficialsPassportView" must {
+  "AuthorisedOfficialsPassportView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[PassportView](Some(emptyUserAnswers))
-          view.apply(form, "Jim John Jones", messageKeyPrefix, onwardRoute, Seq(("GB", "United Kingdom")))(
-            fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim John Jones"), section = Some(messages("officialsAndNominees.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[PassportView](Some(emptyUserAnswers))
+      view.apply(form, "Jim John Jones", messageKeyPrefix, onwardRoute, Seq(("GB", "United Kingdom")))(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
+
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      Seq("Jim John Jones"),
+      section = Some(messages("officialsAndNominees.section"))
+    )
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

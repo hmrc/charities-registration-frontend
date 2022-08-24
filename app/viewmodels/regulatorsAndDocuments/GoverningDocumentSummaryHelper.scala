@@ -24,27 +24,41 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)
-                                    (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper {
+class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
+    extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
+    with SummaryListRowHelper {
 
   def selectGoverningDocumentRow: Option[SummaryListRow] =
-    answer(SelectGoverningDocumentPage, documentsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),answerIsMsgKey = true)
+    answer(
+      SelectGoverningDocumentPage,
+      documentsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode),
+      answerIsMsgKey = true
+    )
 
- def whatIsTheGoverningDocumentNameRow: Option[SummaryListRow] =
+  def whatIsTheGoverningDocumentNameRow: Option[SummaryListRow] =
     answer(GoverningDocumentNamePage, documentsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode))
 
   def dateApprovedGoverningDocumentRow: Option[SummaryListRow] =
-    answer(WhenGoverningDocumentApprovedPage, documentsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode))
+    answer(
+      WhenGoverningDocumentApprovedPage,
+      documentsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode)
+    )
 
   def isApprovedGoverningDocumentRow: Option[SummaryListRow] =
     answer(IsApprovedGoverningDocumentPage, documentsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode))
 
   def hasCharityChangedPartsOfGoverningDocumentRow: Option[SummaryListRow] =
-    answer(HasCharityChangedPartsOfGoverningDocumentPage, documentsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode))
+    answer(
+      HasCharityChangedPartsOfGoverningDocumentPage,
+      documentsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode)
+    )
 
   def sectionsChangedGoverningDocumentRow: Option[SummaryListRow] =
-    textBoxAnswer(SectionsChangedGoverningDocumentPage, documentsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode))
+    textBoxAnswer(
+      SectionsChangedGoverningDocumentPage,
+      documentsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode)
+    )
 
   val rows: Seq[SummaryListRow] = Seq(
     selectGoverningDocumentRow,

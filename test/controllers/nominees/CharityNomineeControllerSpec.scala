@@ -18,6 +18,7 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
@@ -31,7 +32,7 @@ import scala.concurrent.Future
 
 class CharityNomineeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

@@ -55,10 +55,10 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "emailOrPost"
-  private val view: EmailOrPostView = injector.instanceOf[EmailOrPostView]
+  private val messageKeyPrefix: String        = "emailOrPost"
+  private val view: EmailOrPostView           = injector.instanceOf[EmailOrPostView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: EmailOrPostController = inject[EmailOrPostController]
 
@@ -66,9 +66,16 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -77,44 +84,59 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
-
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-      .set(Section1Page, true)
-        .flatMap(_.set(Section2Page, true))
-        .flatMap(_.set(Section3Page, true))
-        .flatMap(_.set(Section4Page, true))
-        .flatMap(_.set(Section5Page, true))
-        .flatMap(_.set(Section6Page, true))
-        .flatMap(_.set(Section7Page, true))
-        .flatMap(_.set(Section8Page, true))
-        .flatMap(_.set(Section9Page, true))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(Section1Page, true)
+              .flatMap(_.set(Section2Page, true))
+              .flatMap(_.set(Section3Page, true))
+              .flatMap(_.set(Section4Page, true))
+              .flatMap(_.set(Section5Page, true))
+              .flatMap(_.set(Section6Page, true))
+              .flatMap(_.set(Section7Page, true))
+              .flatMap(_.set(Section8Page, true))
+              .flatMap(_.set(Section9Page, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None
-      )(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      ).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "redirect to RegistrationSent page when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(EmailOrPostPage, true)
-        .flatMap(_.set(Section1Page, true))
-        .flatMap(_.set(Section2Page, true))
-        .flatMap(_.set(Section3Page, true))
-        .flatMap(_.set(Section4Page, true))
-        .flatMap(_.set(Section5Page, true))
-        .flatMap(_.set(Section6Page, true))
-        .flatMap(_.set(Section7Page, true))
-        .flatMap(_.set(Section8Page, true))
-        .flatMap(_.set(Section9Page, true))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(EmailOrPostPage, true)
+              .flatMap(_.set(Section1Page, true))
+              .flatMap(_.set(Section2Page, true))
+              .flatMap(_.set(Section3Page, true))
+              .flatMap(_.set(Section4Page, true))
+              .flatMap(_.set(Section5Page, true))
+              .flatMap(_.set(Section6Page, true))
+              .flatMap(_.set(Section7Page, true))
+              .flatMap(_.set(Section8Page, true))
+              .flatMap(_.set(Section9Page, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -178,10 +200,17 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to Tasklist for a GET if SectionPage is not completed" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(Section1Page, false)
-        .flatMap(_.set(Section2Page, true))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(Section1Page, false)
+              .flatMap(_.set(Section2Page, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 

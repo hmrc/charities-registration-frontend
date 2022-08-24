@@ -33,60 +33,82 @@ import views.html.operationsAndFunds.BankDetailsView
 
 import scala.concurrent.Future
 
-class BankDetailsController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: BankDetailsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: BankDetailsFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: BankDetailsView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class BankDetailsController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: BankDetailsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: BankDetailsFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: BankDetailsView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val messagePrefix: String = "bankDetails"
-  val sectionName: String = "operationsAndFunds.section"
+  val sectionName: String   = "operationsAndFunds.section"
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      if (!request.userAnswers.get(Section1Page).contains(true)) {
+        Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+      } else {
 
-    if (!request.userAnswers.get(Section1Page).contains(true)){
-      Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
-    }
-    else {
+        request.userAnswers.get(CharityNamePage) match {
+          case Some(charityName) =>
+            val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
 
-      request.userAnswers.get(CharityNamePage) match {
-        case Some(charityName) =>
+            val preparedForm = request.userAnswers.get(BankDetailsPage) match {
+              case None        => form
+              case Some(value) => form.fill(value)
+            }
 
-          val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
-
-          val preparedForm = request.userAnswers.get(BankDetailsPage) match {
-            case None => form
-            case Some(value) => form.fill(value)
-          }
-
-          Future.successful(Ok(view(preparedForm, charityName.fullName, controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
-            messagePrefix, sectionName, None)))
-        case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+            Future.successful(
+              Ok(
+                view(
+                  preparedForm,
+                  charityName.fullName,
+                  controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
+                  messagePrefix,
+                  sectionName,
+                  None
+                )
+              )
+            )
+          case _                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+        }
       }
-    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    request.userAnswers.get(CharityNamePage) match {
-      case Some(charityName) =>
-        val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
-        form.bindFromRequest().fold(
-          formWithErrors =>
-              Future.successful(BadRequest(view(formWithErrors, charityName.fullName,
-                controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
-                messagePrefix, sectionName, None))),
-          value =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(BankDetailsPage, value).flatMap(_.set(Section6Page, false)))
-              _              <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
-        )
-      case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
-    }
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      request.userAnswers.get(CharityNamePage) match {
+        case Some(charityName) =>
+          val form: Form[BankDetails] = formProvider(messagePrefix, charityName.fullName)
+          form
+            .bindFromRequest()
+            .fold(
+              formWithErrors =>
+                Future.successful(
+                  BadRequest(
+                    view(
+                      formWithErrors,
+                      charityName.fullName,
+                      controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
+                      messagePrefix,
+                      sectionName,
+                      None
+                    )
+                  )
+                ),
+              value =>
+                for {
+                  updatedAnswers <-
+                    Future.fromTry(request.userAnswers.set(BankDetailsPage, value).flatMap(_.set(Section6Page, false)))
+                  _              <- sessionRepository.set(updatedAnswers)
+                } yield Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
+            )
+        case _                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+      }
   }
 }

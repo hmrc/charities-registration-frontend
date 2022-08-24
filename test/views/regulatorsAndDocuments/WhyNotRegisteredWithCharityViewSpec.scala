@@ -27,21 +27,21 @@ import views.html.regulatorsAndDocuments.WhyNotRegisteredWithCharityView
 class WhyNotRegisteredWithCharityViewSpec extends TextAreaViewBehaviours {
 
   private val messageKeyPrefix = "whyNotRegisteredWithCharity"
-  val form: Form[String] = inject[WhyNotRegisteredWithCharityFormProvider].apply()
+  val form: Form[String]       = inject[WhyNotRegisteredWithCharityFormProvider].apply()
 
-    "WhyNotRegisteredWithCharityView" must {
+  "WhyNotRegisteredWithCharityView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[WhyNotRegisteredWithCharityView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
-     behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("charityRegulator.section")))
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[WhyNotRegisteredWithCharityView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+    behave like textAreaPage(form, applyView, messageKeyPrefix, section = Some(messages("charityRegulator.section")))
   }
+}

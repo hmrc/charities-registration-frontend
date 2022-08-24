@@ -26,7 +26,7 @@ class OperatingLocationFormProviderSpec extends CheckboxFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = "operatingLocation.error.required"
 
     behave like checkboxField[OperatingLocationOptions](

@@ -26,15 +26,14 @@ import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
 class OverseasOperatingLocationSummaryViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix: String = "overseasOperatingLocationSummary.checkYourAnswers"
-  private val section: String = messages("operationsAndFunds.section")
-  val form: Form[Boolean] = inject[OverseasOperatingLocationSummaryFormProvider].apply()
+  private val section: String          = messages("operationsAndFunds.section")
+  val form: Form[Boolean]              = inject[OverseasOperatingLocationSummaryFormProvider].apply()
 
   "OverseasOperatingLocationSummaryView" must {
 
     def applyView(form: Form[Boolean]): HtmlFormat.Appendable = {
       val view = viewFor[OverseasOperatingLocationSummaryView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, Seq())(
-        fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, Seq())(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, Seq(), section = Some(section))

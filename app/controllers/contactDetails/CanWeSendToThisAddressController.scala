@@ -33,25 +33,25 @@ import views.html.contactDetails.CanWeSendToThisAddressView
 
 import scala.concurrent.Future
 
-class CanWeSendToThisAddressController @Inject()(
-   sessionRepository: UserAnswerService,
-   navigator: CharityInformationNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   val countryService: CountryService,
-   formProvider: CanWeSendToThisAddressFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: CanWeSendToThisAddressView
- )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class CanWeSendToThisAddressController @Inject() (
+  sessionRepository: UserAnswerService,
+  navigator: CharityInformationNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val countryService: CountryService,
+  formProvider: CanWeSendToThisAddressFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: CanWeSendToThisAddressView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       val form = formProvider()
 
       val preparedForm = request.userAnswers.get(CanWeSendToThisAddressPage) match {
-        case None => form
+        case None        => form
         case Some(value) => form.fill(value)
       }
 
@@ -63,21 +63,25 @@ class CanWeSendToThisAddressController @Inject()(
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       val form = formProvider()
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          getAddress(CharityOfficialAddressLookupPage) { (charityAddress, country) =>
-            val addressWithTranslatedCountry: Seq[String] = charityAddress :+ countryService.translatedCountryName(country)
-            Future.successful(BadRequest(view(formWithErrors, mode, addressWithTranslatedCountry)))
-          },
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(CanWeSendToThisAddressPage, value).flatMap(_.set(Section1Page, false)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CanWeSendToThisAddressPage, mode, updatedAnswers))
-      )
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors =>
+            getAddress(CharityOfficialAddressLookupPage) { (charityAddress, country) =>
+              val addressWithTranslatedCountry: Seq[String] =
+                charityAddress :+ countryService.translatedCountryName(country)
+              Future.successful(BadRequest(view(formWithErrors, mode, addressWithTranslatedCountry)))
+            },
+          value =>
+            for {
+              updatedAnswers <-
+                Future.fromTry(
+                  request.userAnswers.set(CanWeSendToThisAddressPage, value).flatMap(_.set(Section1Page, false))
+                )
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(CanWeSendToThisAddressPage, mode, updatedAnswers))
+        )
   }
 }

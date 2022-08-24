@@ -52,9 +52,10 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
     reset(mockUserAnswerService)
   }
 
-  private val view: CharityOtherRegulatorDetailsView = injector.instanceOf[CharityOtherRegulatorDetailsView]
-  private val formProvider: CharityOtherRegulatorDetailsFormProvider = injector.instanceOf[CharityOtherRegulatorDetailsFormProvider]
-  private val form: Form[CharityOtherRegulatorDetails] = formProvider()
+  private val view: CharityOtherRegulatorDetailsView                 = injector.instanceOf[CharityOtherRegulatorDetailsView]
+  private val formProvider: CharityOtherRegulatorDetailsFormProvider =
+    injector.instanceOf[CharityOtherRegulatorDetailsFormProvider]
+  private val form: Form[CharityOtherRegulatorDetails]               = formProvider()
 
   private val controller: CharityOtherRegulatorDetailsController = inject[CharityOtherRegulatorDetailsController]
 
@@ -64,7 +65,7 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -73,10 +74,12 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567")).success.value
+      val userAnswers = emptyUserAnswers
+        .set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -88,10 +91,10 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -105,7 +108,7 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -128,7 +131,7 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 

@@ -25,17 +25,17 @@ import views.html.StartDeclarationView
 
 import scala.concurrent.Future
 
-class StartDeclarationController @Inject()(
-     identify: AuthIdentifierAction,
-     getData: UserDataRetrievalAction,
-     userAnswerService: UserAnswerService,
-     requireData: DataRequiredAction,
-     view: StartDeclarationView,
-     val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class StartDeclarationController @Inject() (
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  userAnswerService: UserAnswerService,
+  requireData: DataRequiredAction,
+  view: StartDeclarationView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     if (!isAllSectionsCompleted()) {
       Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
     } else {

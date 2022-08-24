@@ -27,8 +27,8 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
   ".value" should {
 
     val validData = daysBetween(
-      min = new LocalDate(2001,1,1),
-      max = new LocalDate(2001,12,31)
+      min = new LocalDate(2001, 1, 1),
+      max = new LocalDate(2001, 12, 31)
     )
 
     ".value" should {
@@ -37,7 +37,9 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
       behave like mandatoryDateField(form, "date", "accountingPeriodEndDate.error.required.all", Seq("day", "month"))
 
-      behave like dayMonthFieldFailOn29Feb(form, "date",
+      behave like dayMonthFieldFailOn29Feb(
+        form,
+        "date",
         FormError("date.day", "accountingPeriodEndDate.error.invalid", List())
       )
     }

@@ -27,22 +27,23 @@ import views.html.regulatorsAndDocuments.CharityRegulatorView
 
 class CharityRegulatorViewSpec extends CheckboxViewBehaviours[CharityRegulator] {
 
-  private val messageKeyPrefix: String = "charityRegulator"
-  private val section: String = messages("charityRegulator.section")
+  private val messageKeyPrefix: String  = "charityRegulator"
+  private val section: String           = messages("charityRegulator.section")
   val form: Form[Set[CharityRegulator]] = inject[CharityRegulatorFormProvider].apply()
 
-    "CharityRegulatorView" must {
+  "CharityRegulatorView" must {
 
-      def applyView(form: Form[Set[CharityRegulator]]): HtmlFormat.Appendable = {
-          val view = viewFor[CharityRegulatorView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[Set[CharityRegulator]]): HtmlFormat.Appendable = {
+      val view = viewFor[CharityRegulatorView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like checkboxPage(form, applyView, messageKeyPrefix, CharityRegulator.options(form), section)
+    behave like checkboxPage(form, applyView, messageKeyPrefix, CharityRegulator.options(form), section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-  }}
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  }
+}

@@ -25,15 +25,16 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class UserDataRetrievalActionImpl @Inject()(val userAnswerService: UserAnswerService)(
-  implicit val executionContext: ExecutionContext) extends UserDataRetrievalAction {
+class UserDataRetrievalActionImpl @Inject() (val userAnswerService: UserAnswerService)(implicit
+  val executionContext: ExecutionContext
+) extends UserDataRetrievalAction {
 
   override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = {
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     userAnswerService.get(request.identifier).map {
-      case None =>
+      case None              =>
         OptionalDataRequest(request.request, request.identifier, None)
       case Some(userAnswers) =>
         OptionalDataRequest(request.request, request.identifier, Some(userAnswers))

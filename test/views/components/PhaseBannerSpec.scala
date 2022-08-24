@@ -25,12 +25,12 @@ import views.html.components.phaseBanner
 class PhaseBannerSpec extends SpecBase {
 
   lazy val phaseBannerView: phaseBanner = inject[phaseBanner]
-  lazy val html: Html = phaseBannerView("alpha")(fakeRequest, messages, frontendAppConfig)
+  lazy val html: Html                   = phaseBannerView("alpha")(fakeRequest, messages, frontendAppConfig)
 
   object Selectors {
-    val link = "a"
+    val link    = "a"
     val content = "span.govuk-phase-banner__text"
-    val phase = "strong.govuk-tag"
+    val phase   = "strong.govuk-tag"
   }
 
   s"phaseBanner component" must {
@@ -48,7 +48,7 @@ class PhaseBannerSpec extends SpecBase {
 
     "Have a unauthenticated link to the contact-frontend service" in {
       lazy val html: Html = phaseBannerView("alpha", signOut = false)(fakeRequest, messages, frontendAppConfig)
-      lazy val document = Jsoup.parse(html.toString)
+      lazy val document   = Jsoup.parse(html.toString)
       document.select(Selectors.link).attr("href") mustBe frontendAppConfig.feedbackUnauthenticatedUrl
       document.select(Selectors.link).text mustBe PhaseBannerMessages.link
     }

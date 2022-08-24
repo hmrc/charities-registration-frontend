@@ -27,20 +27,20 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DataRequiredActionImpl @Inject()(implicit val executionContext: ExecutionContext) extends DataRequiredAction {
+class DataRequiredActionImpl @Inject() (implicit val executionContext: ExecutionContext) extends DataRequiredAction {
 
   override protected def refine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] = {
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     request.userAnswers match {
-      case None =>
+      case None       =>
         Future.successful(Left(Redirect(routes.PageNotFoundController.onPageLoad())))
       case Some(data) =>
         (data.get(AcknowledgementReferencePage), data.get(OldServiceSubmissionPage)) match {
           case (_, Some(_)) => Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad)))
           case (Some(_), _) => Future.successful(Left(Redirect(routes.EmailOrPostController.onPageLoad)))
-          case _ =>
+          case _            =>
             Future.successful(Right(DataRequest(request.request, request.internalId, data)))
         }
     }

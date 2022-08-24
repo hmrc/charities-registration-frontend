@@ -36,31 +36,38 @@ import views.html.CheckYourAnswersView
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.Future
 
-class RegulatorsSummaryController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: RegulatorsAndDocumentsNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    view: CheckYourAnswersView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+class RegulatorsSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: RegulatorsAndDocumentsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  view: CheckYourAnswersView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val regulatorsAnswersHelper = new RegulatorsSummaryHelper(request.userAnswers)
     if (regulatorsAnswersHelper.rows.isEmpty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
-      Ok(view(regulatorsAnswersHelper.rows, RegulatorsSummaryPage,
-        controllers.regulatorsAndDocuments.routes.RegulatorsSummaryController.onSubmit()))
+      Ok(
+        view(
+          regulatorsAnswersHelper.rows,
+          RegulatorsSummaryPage,
+          controllers.regulatorsAndDocuments.routes.RegulatorsSummaryController.onSubmit()
+        )
+      )
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section2Page, RegulatorsStatusHelper.checkComplete(request.userAnswers)))
+      updatedAnswers <-
+        Future.fromTry(result =
+          request.userAnswers.set(Section2Page, RegulatorsStatusHelper.checkComplete(request.userAnswers))
+        )
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(RegulatorsSummaryPage, NormalMode, updatedAnswers))
 

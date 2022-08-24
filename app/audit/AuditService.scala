@@ -29,17 +29,16 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.language.implicitConversions
 import scala.util.{Failure, Success}
 
-class AuditService @Inject()(config: FrontendAppConfig, connector: AuditConnector){
+class AuditService @Inject() (config: FrontendAppConfig, connector: AuditConnector) {
 
   private val logger = Logger(this.getClass)
 
   def sendEvent[T <: AuditEvent](event: T)(implicit rh: RequestHeader, ec: ExecutionContext): Unit = {
 
-    implicit def toHc(request: RequestHeader): AuditHeaderCarrier = {
+    implicit def toHc(request: RequestHeader): AuditHeaderCarrier =
       auditHeaderCarrier(
         HeaderCarrierConverter.fromRequestAndSession(request, request.session)
       )
-    }
 
     lazy val result: Future[AuditResult] = connector.sendExtendedEvent(
       ExtendedDataEvent(

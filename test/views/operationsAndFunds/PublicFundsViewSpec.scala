@@ -27,21 +27,21 @@ import views.html.operationsAndFunds.PublicBenefitsView
 class PublicFundsViewSpec extends TextAreaViewBehaviours {
 
   private val messageKeyPrefix = "publicBenefits"
-  val form: Form[String] = inject[PublicBenefitsFormProvider].apply()
+  val form: Form[String]       = inject[PublicBenefitsFormProvider].apply()
 
-    "PublicBenefitsView" must {
+  "PublicBenefitsView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[PublicBenefitsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
-      behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("operationsAndFunds.section")))
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[PublicBenefitsView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+    behave like textAreaPage(form, applyView, messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
   }
+}

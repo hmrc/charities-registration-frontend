@@ -23,10 +23,12 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.checkEligibility.IncorrectDetailsView
 
-
-class IncorrectDetailsController @Inject()(val controllerComponents: MessagesControllerComponents,
-                                           view: IncorrectDetailsView
-                                      )(implicit appConfig: FrontendAppConfig) extends FrontendBaseController with I18nSupport {
+class IncorrectDetailsController @Inject() (
+  val controllerComponents: MessagesControllerComponents,
+  view: IncorrectDetailsView
+)(implicit appConfig: FrontendAppConfig)
+    extends FrontendBaseController
+    with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(view())

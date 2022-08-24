@@ -54,17 +54,18 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "authorisedOfficialsDOB"
-  private val view: DateOfBirthView = inject[DateOfBirthView]
+  private val messageKeyPrefix                      = "authorisedOfficialsDOB"
+  private val view: DateOfBirthView                 = inject[DateOfBirthView]
   private val formProvider: DateOfBirthFormProvider = inject[DateOfBirthFormProvider]
-  private val form: Form[LocalDate] = formProvider(messageKeyPrefix)
+  private val form: Form[LocalDate]                 = formProvider(messageKeyPrefix)
 
   private val controller: AuthorisedOfficialsDOBController = inject[AuthorisedOfficialsDOBController]
 
-  private val requestArgs = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
-
+  private val requestArgs                   = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
+  private val localUserAnswers: UserAnswers = emptyUserAnswers
+    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .success
+    .value
 
   "AuthorisedOfficialsDOBController Controller " must {
 
@@ -74,16 +75,18 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsDOBController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsDOBController.onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0),
-        LocalDate.of(2002, 1, 1)).success.value
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(2002, 1, 1)).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -95,7 +98,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

@@ -52,7 +52,7 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
   private implicit val request: FakeRequest[_] = fakeRequest
 
   val technicalDifficultiesErrorView: TechnicalDifficultiesErrorView = inject[TechnicalDifficultiesErrorView]
-  val pageNotFoundView: PageNotFoundView = inject[PageNotFoundView]
+  val pageNotFoundView: PageNotFoundView                             = inject[PageNotFoundView]
 
   "ErrorHandler" must {
 
@@ -69,7 +69,9 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return true if user is logged in and load correct view with no user action" in {
 
-        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any()))
+        when(
+          mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any())
+        )
           .thenReturn(Future.successful(Some(Credentials("valid", "org"))))
 
         errorHandler.notFoundTemplate mustBe
@@ -78,7 +80,9 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return false if user is logged in and load correct view with no user action" in {
 
-        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any()))
+        when(
+          mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any())
+        )
           .thenReturn(Future.successful(None))
 
         errorHandler.notFoundTemplate mustBe
@@ -87,7 +91,8 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return false if authorisation failed and load correct view with no user action" in {
 
-        when(mockAuthConnector.authorise(any(), any())(any(), any())).thenReturn(Future.failed(new RuntimeException("Exception")))
+        when(mockAuthConnector.authorise(any(), any())(any(), any()))
+          .thenReturn(Future.failed(new RuntimeException("Exception")))
 
         errorHandler.notFoundTemplate mustBe
           pageNotFoundView(signedIn = false)(request, messages, frontendAppConfig)

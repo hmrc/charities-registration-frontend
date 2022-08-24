@@ -24,23 +24,24 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.TextAreaViewBehaviours
 import views.html.regulatorsAndDocuments.SectionsChangedGoverningDocumentView
 
-class SectionsChangedGoverningDocumentViewSpec extends TextAreaViewBehaviours  {
+class SectionsChangedGoverningDocumentViewSpec extends TextAreaViewBehaviours {
 
   private val messageKeyPrefix = "sectionsChangedGoverningDocument.4"
-  val form: Form[String] = inject[SectionsChangedGoverningDocumentFormProvider].apply()
+  val form: Form[String]       = inject[SectionsChangedGoverningDocumentFormProvider].apply()
 
-    "SectionsChangedGoverningDocument View" must {
+  "SectionsChangedGoverningDocument View" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[SectionsChangedGoverningDocumentView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[SectionsChangedGoverningDocumentView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like textAreaPage(form, applyView, messageKeyPrefix, section=Some(messages("charityRegulator.section")))
-  }}
+    behave like textAreaPage(form, applyView, messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+  }
+}

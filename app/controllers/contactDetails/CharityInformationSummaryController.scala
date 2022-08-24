@@ -33,33 +33,40 @@ import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
-class CharityInformationSummaryController @Inject()(
-   val sessionRepository: UserAnswerService,
-   val navigator: CharityInformationNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   view: CheckYourAnswersView,
-   val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+class CharityInformationSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: CharityInformationNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  view: CheckYourAnswersView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val charityInformationAnswersHelper = new CharityInformationSummaryHelper(request.userAnswers)
 
     if (charityInformationAnswersHelper.rows.isEmpty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
-      Ok(view(charityInformationAnswersHelper.rows, CharityInformationSummaryPage,
-        controllers.contactDetails.routes.CharityInformationSummaryController.onSubmit()))
+      Ok(
+        view(
+          charityInformationAnswersHelper.rows,
+          CharityInformationSummaryPage,
+          controllers.contactDetails.routes.CharityInformationSummaryController.onSubmit()
+        )
+      )
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section1Page,
-        if(appConfig.isExternalTest) true else checkComplete(request.userAnswers)))
+      updatedAnswers <-
+        Future.fromTry(result =
+          request.userAnswers
+            .set(Section1Page, if (appConfig.isExternalTest) true else checkComplete(request.userAnswers))
+        )
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityInformationSummaryPage, NormalMode, updatedAnswers))
 

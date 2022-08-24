@@ -27,10 +27,12 @@ class PhoneNumberFormProvider @Inject() extends Mappings {
   def apply(messagePrefix: String): Form[PhoneNumber] =
     Form(
       mapping(
-        "mainPhoneNumber" -> text(s"$messagePrefix.mainPhoneNumber.error.required")
-          .verifying(regexp(validateTelephoneNumber,s"$messagePrefix.mainPhoneNumber.error.format")),
-        "alternativePhoneNumber" -> optional(text()
-          .verifying(regexp(validateTelephoneNumber,s"$messagePrefix.alternativePhoneNumber.error.format"))))
-    (PhoneNumber.apply)(PhoneNumber.unapply)
-  )
+        "mainPhoneNumber"        -> text(s"$messagePrefix.mainPhoneNumber.error.required")
+          .verifying(regexp(validateTelephoneNumber, s"$messagePrefix.mainPhoneNumber.error.format")),
+        "alternativePhoneNumber" -> optional(
+          text()
+            .verifying(regexp(validateTelephoneNumber, s"$messagePrefix.alternativePhoneNumber.error.format"))
+        )
+      )(PhoneNumber.apply)(PhoneNumber.unapply)
+    )
 }

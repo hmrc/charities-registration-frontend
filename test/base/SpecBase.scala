@@ -42,37 +42,48 @@ import viewmodels.ErrorHandler
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport with Injecting {
+trait SpecBase
+    extends PlaySpec
+    with GuiceOneAppPerSuite
+    with TryValues
+    with ScalaFutures
+    with IntegrationPatience
+    with MaterializerSupport
+    with Injecting {
 
-  lazy val injector: Injector = app.injector
-  lazy val internalId = "id"
-  lazy val emptyUserAnswers: UserAnswers = UserAnswers(internalId, Json.obj())
+  lazy val injector: Injector               = app.injector
+  lazy val internalId                       = "id"
+  lazy val emptyUserAnswers: UserAnswers    = UserAnswers(internalId, Json.obj())
   lazy val userAnswers: Option[UserAnswers] = None
 
-  lazy val messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  lazy val dataRequiredAction: DataRequiredActionImpl = injector.instanceOf[DataRequiredActionImpl]
-  lazy val mockSessionRepository: SessionRepository = MockitoSugar.mock[SessionRepository]
-  lazy val mockUserAnswerService: UserAnswerService = MockitoSugar.mock[UserAnswerService]
+  lazy val messagesControllerComponents: MessagesControllerComponents =
+    injector.instanceOf[MessagesControllerComponents]
+  lazy val dataRequiredAction: DataRequiredActionImpl                 = injector.instanceOf[DataRequiredActionImpl]
+  lazy val mockSessionRepository: SessionRepository                   = MockitoSugar.mock[SessionRepository]
+  lazy val mockUserAnswerService: UserAnswerService                   = MockitoSugar.mock[UserAnswerService]
 
-  implicit val defaultTimeout: FiniteDuration = 5.seconds
+  implicit val defaultTimeout: FiniteDuration       = 5.seconds
   implicit val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-  implicit val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
-  implicit val messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-  implicit val messages: Messages = messagesApi.preferred(fakeRequest)
-  implicit val errorHandler: ErrorHandler = injector.instanceOf[ErrorHandler]
-  implicit val hc: HeaderCarrier = HeaderCarrier()
+  implicit val ec: ExecutionContext                 = injector.instanceOf[ExecutionContext]
+  implicit val messagesApi: MessagesApi             = injector.instanceOf[MessagesApi]
+  implicit val messages: Messages                   = messagesApi.preferred(fakeRequest)
+  implicit val errorHandler: ErrorHandler           = injector.instanceOf[ErrorHandler]
+  implicit val hc: HeaderCarrier                    = HeaderCarrier()
 
-  lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "").withSession(
-    SessionKeys.sessionId -> "foo").withCSRFToken.asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+  lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
+    .withSession(SessionKeys.sessionId -> "foo")
+    .withCSRFToken
+    .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
   lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
-  def onwardRoute: Call = Call("GET", "/foo")
-  def fakeDataRequest(headers: (String, String)*): DataRequest[_] = DataRequest(fakeRequest.withHeaders(headers: _*), internalId, emptyUserAnswers)
-  def fakeDataRequest(userAnswers: UserAnswers): DataRequest[_] = DataRequest(fakeRequest, internalId, userAnswers)
-  def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)
+  def onwardRoute: Call                                                                   = Call("GET", "/foo")
+  def fakeDataRequest(headers: (String, String)*): DataRequest[_]                         =
+    DataRequest(fakeRequest.withHeaders(headers: _*), internalId, emptyUserAnswers)
+  def fakeDataRequest(userAnswers: UserAnswers): DataRequest[_]                           = DataRequest(fakeRequest, internalId, userAnswers)
+  def await[A](future: Future[A])(implicit timeout: Duration): A                          = Await.result(future, timeout)
   def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
     s"$heading - ${section.fold("")(_ + " - ")}${messages("service.name")} - ${messages("site.govuk")}"
-  def titleOf(result: String): String = Jsoup.parse(result).title
+  def titleOf(result: String): String                                                     = Jsoup.parse(result).title
 
   protected def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

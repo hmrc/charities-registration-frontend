@@ -25,5 +25,5 @@ class IsFinancialAccountsFormProvider @Inject() extends Mappings {
   def apply(): Form[Boolean] =
     Form(
       "value" -> boolean("isFinancialAccounts.error.required")
-      )
+    )
 }

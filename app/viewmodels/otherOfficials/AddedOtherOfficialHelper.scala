@@ -27,80 +27,105 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class AddedOtherOfficialHelper(index: Index, mode: Mode, countryService: CountryService)(override val userAnswers: UserAnswers)
-                                 (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper {
+class AddedOtherOfficialHelper(index: Index, mode: Mode, countryService: CountryService)(
+  override val userAnswers: UserAnswers
+)(implicit val messages: Messages)
+    extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
+    with SummaryListRowHelper {
 
   def otherOfficialNamesRow: Option[SummaryListRow] =
-    answerFullName(OtherOfficialsNamePage(index),
-                  otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(mode, index),
-                  messagePrefix = "otherOfficialsName")
+    answerFullName(
+      OtherOfficialsNamePage(index),
+      otherOfficialRoutes.OtherOfficialsNameController.onPageLoad(mode, index),
+      messagePrefix = "otherOfficialsName"
+    )
 
   def otherOfficialDobRow: Option[SummaryListRow] =
-    answerPrefix(OtherOfficialsDOBPage(index),
-                 otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(mode, index),
-                 messagePrefix = "otherOfficialsDOB")
+    answerPrefix(
+      OtherOfficialsDOBPage(index),
+      otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(mode, index),
+      messagePrefix = "otherOfficialsDOB"
+    )
 
   def otherOfficialMainPhoneNoRow: Option[SummaryListRow] =
-    answerMainPhoneNo(OtherOfficialsPhoneNumberPage(index),
+    answerMainPhoneNo(
+      OtherOfficialsPhoneNumberPage(index),
       otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(mode, index),
-      messagePrefix = "otherOfficialsPhoneNumber.mainPhoneNumber")
+      messagePrefix = "otherOfficialsPhoneNumber.mainPhoneNumber"
+    )
 
   def otherOfficialAlternativePhoneNoRow: Option[SummaryListRow] =
-    answerAlternativePhoneNo(OtherOfficialsPhoneNumberPage(index),
+    answerAlternativePhoneNo(
+      OtherOfficialsPhoneNumberPage(index),
       otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(mode, index),
-      messagePrefix = "otherOfficialsPhoneNumber.alternativePhoneNumber")
-
+      messagePrefix = "otherOfficialsPhoneNumber.alternativePhoneNumber"
+    )
 
   def otherOfficialPositionRow: Option[SummaryListRow] =
-    answerPrefix(OtherOfficialsPositionPage(index),
-                 otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(mode, index),
-                 answerIsMsgKey = true,
-                 messagePrefix = "officialsPosition")
+    answerPrefix(
+      OtherOfficialsPositionPage(index),
+      otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(mode, index),
+      answerIsMsgKey = true,
+      messagePrefix = "officialsPosition"
+    )
 
-  def otherOfficialHasNinoRow: Option[SummaryListRow] = {
-    answerPrefix(IsOtherOfficialNinoPage(index),
-                 otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(mode, index),
-                 messagePrefix = "isOtherOfficialNino")
-  }
+  def otherOfficialHasNinoRow: Option[SummaryListRow] =
+    answerPrefix(
+      IsOtherOfficialNinoPage(index),
+      otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(mode, index),
+      messagePrefix = "isOtherOfficialNino"
+    )
 
   def otherOfficialNinoRow: Option[SummaryListRow] =
-    answerPrefix(OtherOfficialsNinoPage(index),
-                 otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(mode, index),
-                 messagePrefix = "otherOfficialsNino")
+    answerPrefix(
+      OtherOfficialsNinoPage(index),
+      otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(mode, index),
+      messagePrefix = "otherOfficialsNino"
+    )
 
   def otherOfficialPassportNumberRow: Option[SummaryListRow] =
-    answerPassportNo(OtherOfficialsPassportPage(index),
+    answerPassportNo(
+      OtherOfficialsPassportPage(index),
       otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
-      messagePrefix = "otherOfficialsPassport")
+      messagePrefix = "otherOfficialsPassport"
+    )
 
   def otherOfficialCountryOfIssueRow: Option[SummaryListRow] =
-    answerCountryOfIssue(OtherOfficialsPassportPage(index),
+    answerCountryOfIssue(
+      OtherOfficialsPassportPage(index),
       otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
       messagePrefix = "otherOfficialsPassport",
-      countryService)
+      countryService
+    )
 
   def otherOfficialExpiryDateRow: Option[SummaryListRow] =
-    answerExpiryDate(OtherOfficialsPassportPage(index),
+    answerExpiryDate(
+      OtherOfficialsPassportPage(index),
       otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
-      messagePrefix = "otherOfficialsPassport")
-
+      messagePrefix = "otherOfficialsPassport"
+    )
 
   def otherOfficialAddressRow: Option[SummaryListRow] =
-    answerAddress(OtherOfficialAddressLookupPage(index),
-                  controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index, mode),
-                  messagePrefix = "otherOfficialAddress")
+    answerAddress(
+      OtherOfficialAddressLookupPage(index),
+      controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(index, mode),
+      messagePrefix = "otherOfficialAddress"
+    )
 
   def otherOfficialHadPreviousAddressRow: Option[SummaryListRow] =
-    answerPrefix(IsOtherOfficialsPreviousAddressPage(index),
-                 otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(mode, index),
-                 messagePrefix = "isOtherOfficialsPreviousAddress")
+    answerPrefix(
+      IsOtherOfficialsPreviousAddressPage(index),
+      otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(mode, index),
+      messagePrefix = "isOtherOfficialsPreviousAddress"
+    )
 
   def otherOfficialPreviousAddressRow: Option[SummaryListRow] =
-    answerAddress(OtherOfficialPreviousAddressLookupPage(index),
+    answerAddress(
+      OtherOfficialPreviousAddressLookupPage(index),
       controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, mode),
-      messagePrefix = "otherOfficialPreviousAddress")
-
+      messagePrefix = "otherOfficialPreviousAddress"
+    )
 
   val rows: Seq[SummaryListRow] = Seq(
     otherOfficialNamesRow,

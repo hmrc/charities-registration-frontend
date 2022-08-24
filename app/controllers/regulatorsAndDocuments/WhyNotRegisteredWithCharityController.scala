@@ -20,50 +20,55 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.WhyNotRegisteredWithCharityFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.RegulatorsAndDocumentsNavigator
 import pages.regulatorsAndDocuments.WhyNotRegisteredWithCharityPage
 import pages.sections.Section2Page
+import play.api.data.Form
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.WhyNotRegisteredWithCharityView
 
 import scala.concurrent.Future
 
-class WhyNotRegisteredWithCharityController @Inject()(
-   val sessionRepository: UserAnswerService,
-   val navigator: RegulatorsAndDocumentsNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: WhyNotRegisteredWithCharityFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: WhyNotRegisteredWithCharityView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
+class WhyNotRegisteredWithCharityController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: RegulatorsAndDocumentsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: WhyNotRegisteredWithCharityFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: WhyNotRegisteredWithCharityView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
+  val form: Form[String] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val preparedForm = request.userAnswers.get(WhyNotRegisteredWithCharityPage) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(WhyNotRegisteredWithCharityPage, value).flatMap(_.set(Section2Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(WhyNotRegisteredWithCharityPage, mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <-
+                Future.fromTry(
+                  request.userAnswers.set(WhyNotRegisteredWithCharityPage, value).flatMap(_.set(Section2Page, false))
+                )
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(WhyNotRegisteredWithCharityPage, mode, updatedAnswers))
+        )
   }
 }

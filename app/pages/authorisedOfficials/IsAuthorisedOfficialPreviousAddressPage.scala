@@ -32,6 +32,6 @@ case class IsAuthorisedOfficialPreviousAddressPage(index: Int) extends QuestionP
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
       case Some(false) => userAnswers.remove(AuthorisedOfficialPreviousAddressLookupPage(index))
-      case _ => super.cleanup(value, userAnswers)
+      case _           => super.cleanup(value, userAnswers)
     }
 }

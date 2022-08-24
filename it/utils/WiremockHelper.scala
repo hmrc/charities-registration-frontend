@@ -27,7 +27,7 @@ import org.scalatestplus.play.BaseOneServerPerSuite
 object WiremockHelper {
   val wiremockPort = 11111
   val wiremockHost = "localhost"
-  val wiremockURL = s"http://$wiremockHost:$wiremockPort"
+  val wiremockURL  = s"http://$wiremockHost:$wiremockPort"
 }
 
 trait WiremockHelper {
@@ -35,9 +35,9 @@ trait WiremockHelper {
 
   import WiremockHelper._
   lazy val wmConfig: WireMockConfiguration = wireMockConfig().port(wiremockPort)
-  val wireMockServer = new WireMockServer(wmConfig)
+  val wireMockServer                       = new WireMockServer(wmConfig)
 
-  implicit val system: ActorSystem = ActorSystem("my-system")
+  implicit val system: ActorSystem        = ActorSystem("my-system")
   implicit val materializer: Materializer = Materializer(system)
 
   def startWiremock(): Unit = {

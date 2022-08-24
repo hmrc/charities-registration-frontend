@@ -30,7 +30,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.NameView
 
-class AuthorisedOfficialsNameController @Inject()(
+class AuthorisedOfficialsNameController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -39,23 +39,30 @@ class AuthorisedOfficialsNameController @Inject()(
   override val navigator: AuthorisedOfficialsNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: NameView
-  )(implicit appConfig: FrontendAppConfig) extends NameController {
+)(implicit appConfig: FrontendAppConfig)
+    extends NameController {
 
   override val messagePrefix: String = "authorisedOfficialsName"
-  private val form: Form[Name] = formProvider(messagePrefix)
+  private val form: Form[Name]       = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
-
-      getView(AuthorisedOfficialsNamePage(index), form,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index))
+      getView(
+        AuthorisedOfficialsNamePage(index),
+        form,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index)
+      )
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      postView(mode, AuthorisedOfficialsNamePage(index), form, Section7Page,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index))
+      postView(
+        mode,
+        AuthorisedOfficialsNamePage(index),
+        form,
+        Section7Page,
+        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index)
+      )
   }
 
 }

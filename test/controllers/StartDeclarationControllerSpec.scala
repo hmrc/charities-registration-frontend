@@ -55,19 +55,24 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(Section1Page, true)
-        .flatMap(_.set(Section2Page, true))
-        .flatMap(_.set(Section3Page, true))
-        .flatMap(_.set(Section4Page, true))
-        .flatMap(_.set(Section5Page, true))
-        .flatMap(_.set(Section6Page, true))
-        .flatMap(_.set(Section7Page, true))
-        .flatMap(_.set(Section8Page, true))
-        .flatMap(_.set(Section9Page, true))
-      .success.value)))
-
-
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(Section1Page, true)
+              .flatMap(_.set(Section2Page, true))
+              .flatMap(_.set(Section3Page, true))
+              .flatMap(_.set(Section4Page, true))
+              .flatMap(_.set(Section5Page, true))
+              .flatMap(_.set(Section6Page, true))
+              .flatMap(_.set(Section7Page, true))
+              .flatMap(_.set(Section8Page, true))
+              .flatMap(_.set(Section9Page, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -90,10 +95,17 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
   }
   "redirect to Tasklist for a GET if SectionPage is not completed" in {
 
-    when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-      .set(Section1Page, false)
-      .flatMap(_.set(Section2Page, true))
-      .success.value)))
+    when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+      Future.successful(
+        Some(
+          emptyUserAnswers
+            .set(Section1Page, false)
+            .flatMap(_.set(Section2Page, true))
+            .success
+            .value
+        )
+      )
+    )
 
     val result = controller.onPageLoad()(fakeRequest)
 

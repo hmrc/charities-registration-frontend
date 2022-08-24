@@ -18,8 +18,7 @@ package pages.operationsAndFunds
 
 import pages.behaviours.PageBehaviours
 
-class OtherFundRaisingPageSpec extends PageBehaviours{
-
+class OtherFundRaisingPageSpec extends PageBehaviours {
 
   "OtherFundRaisingPage" must {
 

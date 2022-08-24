@@ -23,15 +23,15 @@ import play.api.data.format.Formatter
 
 import scala.util.{Failure, Success, Try}
 
-
 private[mappings] class LocalDateFormatter(
-                                            invalidKey: String,
-                                            allRequiredKey: String,
-                                            twoRequiredKey: String,
-                                            requiredKey: String,
-                                            nonNumericKey: String,
-                                            args: Seq[String] = Seq.empty
-                                          ) extends Formatter[LocalDate] with GenericDateFormatter {
+  invalidKey: String,
+  allRequiredKey: String,
+  twoRequiredKey: String,
+  requiredKey: String,
+  nonNumericKey: String,
+  args: Seq[String] = Seq.empty
+) extends Formatter[LocalDate]
+    with GenericDateFormatter {
 
   val fieldKeys: List[String] = List("day", "month", "year")
 
@@ -39,7 +39,7 @@ private[mappings] class LocalDateFormatter(
     Try(LocalDate.of(year, month, day)) match {
       case Success(date) =>
         Right(date)
-      case Failure(_) =>
+      case Failure(_)    =>
         Left(Seq(FormError(keyWithError(key, "day"), invalidKey, args)))
     }
 
@@ -66,15 +66,17 @@ private[mappings] class LocalDateFormatter(
 
     fields(key, dataWithoutSpaces).count(_._2.isDefined) match {
       case 3 if illegalFields(key, dataWithoutSpaces).nonEmpty | illegalZero(key, dataWithoutSpaces).nonEmpty =>
-        Left(List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields)
-          ++ illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero))
-      case 3 =>
+        Left(
+          List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields)
+            ++ illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero)
+        )
+      case 3                                                                                                  =>
         formatDate(key, dataWithoutSpaces)
-      case 2 =>
-       leftErrors(key, dataWithoutSpaces, requiredKey, invalidKey, args)
-      case 1 =>
+      case 2                                                                                                  =>
+        leftErrors(key, dataWithoutSpaces, requiredKey, invalidKey, args)
+      case 1                                                                                                  =>
         leftErrors(key, dataWithoutSpaces, twoRequiredKey, invalidKey, args)
-      case _ =>
+      case _                                                                                                  =>
         leftErrors(key, dataWithoutSpaces, allRequiredKey, invalidKey, args)
     }
 
@@ -82,8 +84,8 @@ private[mappings] class LocalDateFormatter(
 
   override def unbind(key: String, value: LocalDate): Map[String, String] =
     Map(
-      s"$key.day" -> value.getDayOfMonth.toString,
+      s"$key.day"   -> value.getDayOfMonth.toString,
       s"$key.month" -> value.getMonthValue.toString,
-      s"$key.year" -> value.getYear.toString
+      s"$key.year"  -> value.getYear.toString
     )
 }

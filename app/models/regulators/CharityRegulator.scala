@@ -42,21 +42,25 @@ object CharityRegulator extends Enumerable.Implicits {
   }
 
   val values: Seq[CharityRegulator] = Seq(
-    EnglandWales, Scottish, NorthernIreland, Other
+    EnglandWales,
+    Scottish,
+    NorthernIreland,
+    Other
   )
 
   val pageMap: Map[CharityRegulator, QuestionPage[_]] = Map(
-    EnglandWales -> CharityCommissionRegistrationNumberPage,
-    Scottish -> ScottishRegulatorRegNumberPage,
+    EnglandWales    -> CharityCommissionRegistrationNumberPage,
+    Scottish        -> ScottishRegulatorRegNumberPage,
     NorthernIreland -> NIRegulatorRegNumberPage,
-    Other -> CharityOtherRegulatorDetailsPage
+    Other           -> CharityOtherRegulatorDetailsPage
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
-        id = Some(if(index==0){ "value" } else { "value-" + index.toString }),
+        id = Some(if (index == 0) { "value" }
+        else { "value-" + index.toString }),
         value = value.toString,
         content = Text(messages(s"charityRegulator.${value.toString}")),
         checked = form.data.exists(_._2 == value.toString)

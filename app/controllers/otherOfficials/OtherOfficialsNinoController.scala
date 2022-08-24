@@ -32,37 +32,46 @@ import views.html.common.NinoView
 
 import scala.concurrent.Future
 
-class OtherOfficialsNinoController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: NinoFormProvider,
-   override val sessionRepository: UserAnswerService,
-   override val navigator: OtherOfficialsNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: NinoView
-  )(implicit appConfig: FrontendAppConfig) extends NinoController {
+class OtherOfficialsNinoController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: NinoFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: OtherOfficialsNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: NinoView
+)(implicit appConfig: FrontendAppConfig)
+    extends NinoController {
 
   override val messagePrefix: String = "otherOfficialsNino"
-  private val form: Form[String] = formProvider(messagePrefix)
+  private val form: Form[String]     = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        Future.successful(getView(OtherOfficialsNinoPage(index), form, otherOfficialsName,
-          controllers.otherOfficials.routes.OtherOfficialsNinoController.onSubmit(mode, index)))
+        Future.successful(
+          getView(
+            OtherOfficialsNinoPage(index),
+            form,
+            otherOfficialsName,
+            controllers.otherOfficials.routes.OtherOfficialsNinoController.onSubmit(mode, index)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        postView(mode, OtherOfficialsNinoPage(index), form, otherOfficialsName, Section8Page,
-          controllers.otherOfficials.routes.OtherOfficialsNinoController.onSubmit(mode, index))
+        postView(
+          mode,
+          OtherOfficialsNinoPage(index),
+          form,
+          otherOfficialsName,
+          Section8Page,
+          controllers.otherOfficials.routes.OtherOfficialsNinoController.onSubmit(mode, index)
+        )
       }
   }
 

@@ -18,7 +18,6 @@ package models
 
 import play.api.libs.json.{JsError, JsString, JsSuccess, Reads, Writes}
 
-
 trait Enumerable[A] {
 
   def withName(str: String): Option[A]
@@ -27,23 +26,21 @@ trait Enumerable[A] {
 object Enumerable {
 
   def apply[A](entries: (String, A)*): Enumerable[A] =
-    new Enumerable[A] {
-      override def withName(str: String): Option[A] =
-        entries.toMap.get(str)
-     }
+    (str: String) => entries.toMap.get(str)
 
   trait Implicits {
 
-    implicit def reads[A](implicit ev: Enumerable[A]): Reads[A] = {
+    implicit def reads[A](implicit ev: Enumerable[A]): Reads[A] =
       Reads {
         case JsString(str) =>
-          ev.withName(str).map {
-            s => JsSuccess(s)
-          }.getOrElse(JsError("error.invalid"))
-        case _ =>
+          ev.withName(str)
+            .map { s =>
+              JsSuccess(s)
+            }
+            .getOrElse(JsError("error.invalid"))
+        case _             =>
           JsError("error.invalid")
-       }
-    }
+      }
 
     implicit def sequenceWrites[A: Enumerable]: Writes[Set[A]] = Writes.iterableWrites2[A, Set[A]]
 

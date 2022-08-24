@@ -21,14 +21,15 @@ import play.twirl.api.HtmlFormat
 
 trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
 
-  def yesNoPage(form: Form[Boolean],
-                createView: Form[Boolean] => HtmlFormat.Appendable,
-                messageKeyPrefix: String,
-                expectedFormAction: String,
-                headingArgs: Seq[String] = Seq(),
-                section: Option[String] = None,
-                legendKey :Option[String] = None,
-                isEmailOrPost: Boolean = false): Unit = {
+  def yesNoPage(
+    form: Form[Boolean],
+    createView: Form[Boolean] => HtmlFormat.Appendable,
+    messageKeyPrefix: String,
+    headingArgs: Seq[String] = Seq(),
+    section: Option[String] = None,
+    legendKey: Option[String] = None,
+    isEmailOrPost: Boolean = false
+  ): Unit = {
 
     "behave like a page with a Yes/No question" when {
 
@@ -37,7 +38,7 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         if (!isEmailOrPost) {
           "contain a legend for the question" in {
 
-            val doc = asDocument(createView(form))
+            val doc     = asDocument(createView(form))
             val legends = doc.getElementsByTag("legend")
             legends.size mustBe 1
             legendKey.fold {
@@ -71,12 +72,12 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
 
       "rendered with a value of true" must {
 
-        behave like answeredYesNoPage(createView, true)
+        behave like answeredYesNoPage(createView, answer = true)
       }
 
       "rendered with a value of false" must {
 
-        behave like answeredYesNoPage(createView, false)
+        behave like answeredYesNoPage(createView, answer = false)
       }
 
       "rendered with an error" must {
@@ -89,7 +90,7 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
 
         "show an error associated with the value field" in {
 
-          val doc = asDocument(createView(form.withError(error)))
+          val doc       = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementsByClass("govuk-error-message").first
 
           errorSpan.text mustBe messages("error.browser.title.prefix") + " " + messages(errorMessage)
@@ -99,26 +100,32 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         "show an error prefix in the browser title" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section)}""")
+          assertEqualsValue(
+            doc,
+            "title",
+            s"""${messages("error.browser.title.prefix")} ${title(
+              messages(s"$messageKeyPrefix.title", headingArgs: _*),
+              section
+            )}"""
+          )
         }
       }
     }
-  }
 
+    def answeredYesNoPage(createView: Form[Boolean] => HtmlFormat.Appendable, answer: Boolean): Unit = {
 
-  def answeredYesNoPage(createView: Form[Boolean] => HtmlFormat.Appendable, answer: Boolean): Unit = {
+      "have only the correct value checked" in {
 
-    "have only the correct value checked" in {
+        val doc = asDocument(createView(form.fill(answer)))
+        assert(doc.select("input[value='true']").hasAttr("checked") == answer)
+        assert(doc.select("input[value='false']").hasAttr("checked") != answer)
+      }
 
-      val doc = asDocument(createView(form.fill(answer)))
-      assert(doc.select("input[value='true']").hasAttr("checked") == answer)
-      assert(doc.select("input[value='false']").hasAttr("checked") != answer)
-    }
+      "not render an error summary" in {
 
-    "not render an error summary" in {
-
-      val doc = asDocument(createView(form.fill(answer)))
-      assertNotRenderedById(doc, "error-summary_header")
+        val doc = asDocument(createView(form.fill(answer)))
+        assertNotRenderedById(doc, "error-summary_header")
+      }
     }
   }
 }

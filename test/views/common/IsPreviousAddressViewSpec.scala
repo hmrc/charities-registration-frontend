@@ -27,26 +27,23 @@ import views.html.common.IsPreviousAddressView
 
 class IsPreviousAddressViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isAuthorisedOfficialPreviousAddress"
+  private val messageKeyPrefix      = "isAuthorisedOfficialPreviousAddress"
   private val section: Some[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean]           = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
   "AuthorisedOfficialPreviousAddressView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[IsPreviousAddressView](Some(emptyUserAnswers))
-      view.apply(form, "Jim Jones", messageKeyPrefix, onwardRoute)(
-        fakeRequest, messages, frontendAppConfig)
+      view.apply(form, "Jim Jones", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jones"), section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsAuthorisedOfficialPreviousAddressController
-      .onSubmit(NormalMode, Index(0)).url, Seq("Jim Jones"), section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, Seq("Jim Jones"), section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }
-

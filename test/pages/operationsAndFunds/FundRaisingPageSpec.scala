@@ -20,7 +20,7 @@ import models.operations.FundRaisingOptions
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
-class FundRaisingPageSpec extends PageBehaviours{
+class FundRaisingPageSpec extends PageBehaviours {
 
   implicit lazy val arbitrarySelectFundRaisingCheckbox: Arbitrary[FundRaisingOptions] =
     Arbitrary {

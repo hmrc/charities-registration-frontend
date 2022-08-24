@@ -24,7 +24,6 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-
 class CharityEstablishedInSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with OptionValues {
 
   "CharityEstablishedIn" must {
@@ -33,10 +32,11 @@ class CharityEstablishedInSpec extends AnyWordSpec with Matchers with ScalaCheck
 
       val gen = Gen.oneOf(CharityEstablishedOptions.values)
 
-      forAll(gen) {
-        charityEstablishedOptions =>
-
-          JsString(charityEstablishedOptions.toString).validate[CharityEstablishedOptions].asOpt.value mustEqual charityEstablishedOptions
+      forAll(gen) { charityEstablishedOptions =>
+        JsString(charityEstablishedOptions.toString)
+          .validate[CharityEstablishedOptions]
+          .asOpt
+          .value mustEqual charityEstablishedOptions
       }
     }
 
@@ -44,10 +44,8 @@ class CharityEstablishedInSpec extends AnyWordSpec with Matchers with ScalaCheck
 
       val gen = arbitrary[String] suchThat (!CharityEstablishedOptions.values.map(_.toString).contains(_))
 
-      forAll(gen) {
-        invalidValue =>
-
-          JsString(invalidValue).validate[CharityEstablishedOptions] mustEqual JsError("error.invalid")
+      forAll(gen) { invalidValue =>
+        JsString(invalidValue).validate[CharityEstablishedOptions] mustEqual JsError("error.invalid")
       }
     }
 
@@ -55,10 +53,8 @@ class CharityEstablishedInSpec extends AnyWordSpec with Matchers with ScalaCheck
 
       val gen = Gen.oneOf(CharityEstablishedOptions.values)
 
-      forAll(gen) {
-        charityEstablishedOptions =>
-
-          Json.toJson(charityEstablishedOptions) mustEqual JsString(charityEstablishedOptions.toString)
+      forAll(gen) { charityEstablishedOptions =>
+        Json.toJson(charityEstablishedOptions) mustEqual JsString(charityEstablishedOptions.toString)
       }
     }
   }

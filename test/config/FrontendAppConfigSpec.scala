@@ -113,7 +113,8 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "accessibilityStatementFrontendUrl" in {
-        frontendAppConfig.accessibilityStatementFrontendUrl() mustBe "http://localhost:9457/accessibility-statement/register-charity-hmrc?referrerUrl="
+        frontendAppConfig
+          .accessibilityStatementFrontendUrl() mustBe "http://localhost:9457/accessibility-statement/register-charity-hmrc?referrerUrl="
       }
 
       "privacy" in {

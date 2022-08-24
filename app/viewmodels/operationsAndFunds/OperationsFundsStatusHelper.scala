@@ -43,17 +43,19 @@ object OperationsFundsStatusHelper extends StatusHelper {
     OverseasCountriesPage
   )
 
-  private val f1 = (list: Seq[QuestionPage[_]], isOtherFundRaising: Boolean) => if(isOtherFundRaising) list ++ Seq(OtherFundRaisingPage) else list
+  private val f1 = (list: Seq[QuestionPage[_]], isOtherFundRaising: Boolean) =>
+    if (isOtherFundRaising) list ++ Seq(OtherFundRaisingPage) else list
 
   private val f2 = (list: Seq[QuestionPage[_]], isOverseas: Boolean) => {
-    if(isOverseas) list ++ Seq(OverseasOperatingLocationSummaryPage, OverseasCountriesPage) else list
+    if (isOverseas) list ++ Seq(OverseasOperatingLocationSummaryPage, OverseasCountriesPage) else list
   }
 
   private val f3 = (list: Seq[QuestionPage[_]]) => list ++ Seq(WhyNoBankStatementPage)
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean = userAnswers.unneededPagesNotPresent(list, allPages)
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+      userAnswers.unneededPagesNotPresent(list, allPages)
 
     userAnswers.get(FundRaisingPage) match {
       case Some(fundRaisingOptions) =>
@@ -67,14 +69,14 @@ object OperationsFundsStatusHelper extends StatusHelper {
               case Some(false) =>
                 val newPages = f3(f2(f1(common, isFundRaising), isOverseas))
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
-              case _ =>
+              case _           =>
                 val newPages = f2(f1(common, isFundRaising), isOverseas)
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
             }
-          case _ =>
+          case _               =>
             false
         }
-      case _ => false
+      case _                        => false
     }
   }
 

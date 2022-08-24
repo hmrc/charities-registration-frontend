@@ -27,7 +27,6 @@ class ScottishRegulatorRegNumberFormProvider @Inject() extends Mappings {
   def apply(): Form[String] =
     Form(
       "registrationNumber" -> text("scottishRegulatorRegNumber.error.required")
-        .verifying(regexp(validateRegistrationNumber,"scottishRegulatorRegNumber.error.format"))
+        .verifying(regexp(validateRegistrationNumber, "scottishRegulatorRegNumber.error.format"))
     )
 }
-

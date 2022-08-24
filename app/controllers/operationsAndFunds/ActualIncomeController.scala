@@ -32,39 +32,50 @@ import views.html.common.CurrencyView
 
 import scala.concurrent.Future
 
-class ActualIncomeController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: FundRaisingNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: CurrencyFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: CurrencyView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+class ActualIncomeController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: FundRaisingNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: CurrencyFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: CurrencyView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val form: Form[BigDecimal] = formProvider("actualIncome")
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val preparedForm = request.userAnswers.get(ActualIncomePage) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, "actualIncome", controllers.operationsAndFunds.routes.ActualIncomeController.onSubmit(mode)))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, "actualIncome", controllers.operationsAndFunds.routes.ActualIncomeController.onSubmit(mode)))),
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(ActualIncomePage, value).flatMap(_.set(Section5Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(ActualIncomePage, mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors =>
+            Future.successful(
+              BadRequest(
+                view(
+                  formWithErrors,
+                  "actualIncome",
+                  controllers.operationsAndFunds.routes.ActualIncomeController.onSubmit(mode)
+                )
+              )
+            ),
+          value =>
+            for {
+              updatedAnswers <-
+                Future.fromTry(request.userAnswers.set(ActualIncomePage, value).flatMap(_.set(Section5Page, false)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(ActualIncomePage, mode, updatedAnswers))
+        )
   }
 }

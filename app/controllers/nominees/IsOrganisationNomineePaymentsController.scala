@@ -32,38 +32,46 @@ import views.html.common.IsNomineePaymentsView
 
 import scala.concurrent.Future
 
-class IsOrganisationNomineePaymentsController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: YesNoFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: NomineesNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: IsNomineePaymentsView
-  )(implicit appConfig: FrontendAppConfig) extends IsNomineePaymentsController {
+class IsOrganisationNomineePaymentsController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: IsNomineePaymentsView
+)(implicit appConfig: FrontendAppConfig)
+    extends IsNomineePaymentsController {
 
   override val messagePrefix: String = "isOrganisationNomineePayments"
-  private val form: Form[Boolean] = formProvider(messagePrefix)
-
+  private val form: Form[Boolean]    = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
-
-        Future.successful(getView(IsOrganisationNomineePaymentsPage, form, organisationNomineeName,
-          controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(mode)))
+        Future.successful(
+          getView(
+            IsOrganisationNomineePaymentsPage,
+            form,
+            organisationNomineeName,
+            controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(mode)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
-
-        postView(mode, IsOrganisationNomineePaymentsPage, form, organisationNomineeName, Section9Page,
-          controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(mode))
+        postView(
+          mode,
+          IsOrganisationNomineePaymentsPage,
+          form,
+          organisationNomineeName,
+          Section9Page,
+          controllers.nominees.routes.IsOrganisationNomineePaymentsController.onSubmit(mode)
+        )
       }
   }
 }

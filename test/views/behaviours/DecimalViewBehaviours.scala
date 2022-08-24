@@ -23,12 +23,13 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
 
   val number = 123.12
 
-  def decimalPage(form: Form[BigDecimal],
-                  createView: Form[BigDecimal] => HtmlFormat.Appendable,
-                  messageKeyPrefix: String,
-                  expectedFormAction: String,
-                  headingArgs: Seq[String] = Seq(),
-                  section: Option[String] = None): Unit = {
+  def decimalPage(
+    form: Form[BigDecimal],
+    createView: Form[BigDecimal] => HtmlFormat.Appendable,
+    messageKeyPrefix: String,
+    headingArgs: Seq[String] = Seq(),
+    section: Option[String] = None
+  ): Unit = {
 
     "behave like a page with a decimal value field" when {
 
@@ -37,7 +38,7 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
         "contain a label for the value" in {
 
           val doc = asDocument(createView(form))
-          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label", headingArgs:_*))
+          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label", headingArgs: _*))
         }
 
         "contain an input for the value" in {
@@ -66,7 +67,7 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
 
         "show an error associated with the value field" in {
 
-          val doc = asDocument(createView(form.withError(error)))
+          val doc       = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementsByClass("govuk-error-message").first
           errorSpan.text mustBe (messages("error.browser.title.prefix") + " " + messages(errorMessage))
         }
@@ -74,40 +75,47 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
         "show an error prefix in the browser title" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section)}""")
+          assertEqualsValue(
+            doc,
+            "title",
+            s"""${messages("error.browser.title.prefix")} ${title(
+              messages(s"$messageKeyPrefix.title", headingArgs: _*),
+              section
+            )}"""
+          )
         }
       }
     }
-  }
 
-  def currencyPage(createView: Form[BigDecimal] => HtmlFormat.Appendable) = {
+    def currencyPage(createView: Form[BigDecimal] => HtmlFormat.Appendable): Unit = {
 
-    val doc = asDocument(createView(form))
+      val doc = asDocument(createView(form))
 
-    "behave like a currency page" which {
+      "behave like a currency page" which {
 
-      "has the currency input class on the input field" in {
-        doc.select("input").hasClass("govuk-currency-input__inner__input") mustBe true
-      }
+        "has the currency input class on the input field" in {
+          doc.select("input").hasClass("govuk-currency-input__inner__input") mustBe true
+        }
 
-      "has a span for the currency unit with a pound sign" in {
-        doc.select("span.govuk-currency-input__inner__unit").text mustBe "£"
+        "has a span for the currency unit with a pound sign" in {
+          doc.select("span.govuk-currency-input__inner__unit").text mustBe "£"
+        }
       }
     }
-  }
 
-  def percentagePage(createView: Form[BigDecimal] => HtmlFormat.Appendable) = {
+    def percentagePage(createView: Form[BigDecimal] => HtmlFormat.Appendable): Unit = {
 
-    val doc = asDocument(createView(form))
+      val doc = asDocument(createView(form))
 
-    "behave like a percentage page" which {
+      "behave like a percentage page" which {
 
-      "has the percentage input class on the input field" in {
-        doc.select("input").hasClass("govuk-percentage-input__inner__input") mustBe true
-      }
+        "has the percentage input class on the input field" in {
+          doc.select("input").hasClass("govuk-percentage-input__inner__input") mustBe true
+        }
 
-      "has a span for the percentage unit with a percent sign" in {
-        doc.select("span.govuk-percentage-input__inner__unit").text mustBe "%"
+        "has a span for the percentage unit with a percent sign" in {
+          doc.select("span.govuk-percentage-input__inner__unit").text mustBe "%"
+        }
       }
     }
   }

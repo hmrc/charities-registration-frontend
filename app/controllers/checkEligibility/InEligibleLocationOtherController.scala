@@ -25,18 +25,18 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.checkEligibility.InEligibleLocationOtherView
 
-class InEligibleLocationOtherController @Inject()(
-    val sessionRepository: SessionRepository,
-    val navigator: EligibilityNavigator,
-    identify: SessionIdentifierAction,
-    getData: DataRetrievalAction,
-    requireData: DataRequiredAction,
-    val controllerComponents: MessagesControllerComponents,
-    view: InEligibleLocationOtherView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class InEligibleLocationOtherController @Inject() (
+  val sessionRepository: SessionRepository,
+  val navigator: EligibilityNavigator,
+  identify: SessionIdentifierAction,
+  getData: DataRetrievalAction,
+  requireData: DataRequiredAction,
+  val controllerComponents: MessagesControllerComponents,
+  view: InEligibleLocationOtherView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     Ok(view())
   }
 }

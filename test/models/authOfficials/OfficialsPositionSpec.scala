@@ -24,7 +24,6 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-
 class OfficialsPositionSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with OptionValues {
 
   "AuthorisedOfficialsPosition" must {
@@ -33,10 +32,11 @@ class OfficialsPositionSpec extends AnyWordSpec with Matchers with ScalaCheckPro
 
       val gen = Gen.oneOf(OfficialsPosition.values)
 
-      forAll(gen) {
-        authorisedOfficialsPosition =>
-
-          JsString(authorisedOfficialsPosition.toString).validate[OfficialsPosition].asOpt.value mustEqual authorisedOfficialsPosition
+      forAll(gen) { authorisedOfficialsPosition =>
+        JsString(authorisedOfficialsPosition.toString)
+          .validate[OfficialsPosition]
+          .asOpt
+          .value mustEqual authorisedOfficialsPosition
       }
     }
 
@@ -44,10 +44,8 @@ class OfficialsPositionSpec extends AnyWordSpec with Matchers with ScalaCheckPro
 
       val gen = arbitrary[String] suchThat (!OfficialsPosition.values.map(_.toString).contains(_))
 
-      forAll(gen) {
-        invalidValue =>
-
-          JsString(invalidValue).validate[OfficialsPosition] mustEqual JsError("error.invalid")
+      forAll(gen) { invalidValue =>
+        JsString(invalidValue).validate[OfficialsPosition] mustEqual JsError("error.invalid")
       }
     }
 
@@ -55,10 +53,8 @@ class OfficialsPositionSpec extends AnyWordSpec with Matchers with ScalaCheckPro
 
       val gen = Gen.oneOf(OfficialsPosition.values)
 
-      forAll(gen) {
-        authorisedOfficialsPosition =>
-
-          Json.toJson(authorisedOfficialsPosition) mustEqual JsString(authorisedOfficialsPosition.toString)
+      forAll(gen) { authorisedOfficialsPosition =>
+        Json.toJson(authorisedOfficialsPosition) mustEqual JsString(authorisedOfficialsPosition.toString)
       }
     }
   }

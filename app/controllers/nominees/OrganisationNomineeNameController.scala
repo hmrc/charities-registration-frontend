@@ -20,50 +20,55 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.nominees.OrganisationNomineeNameFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
 import pages.nominees.OrganisationNomineeNamePage
 import pages.sections.Section9Page
+import play.api.data.Form
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.nominees.OrganisationNomineeNameView
 
 import scala.concurrent.Future
 
-class OrganisationNomineeNameController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: NomineesNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: OrganisationNomineeNameFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: OrganisationNomineeNameView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
-  val form = formProvider()
+class OrganisationNomineeNameController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: NomineesNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: OrganisationNomineeNameFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: OrganisationNomineeNameView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
+  val form: Form[String] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val preparedForm = request.userAnswers.get(OrganisationNomineeNamePage) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(OrganisationNomineeNamePage, value).flatMap(_.set(Section9Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(OrganisationNomineeNamePage, mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <-
+                Future.fromTry(
+                  request.userAnswers.set(OrganisationNomineeNamePage, value).flatMap(_.set(Section9Page, false))
+                )
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(OrganisationNomineeNamePage, mode, updatedAnswers))
+        )
   }
 }

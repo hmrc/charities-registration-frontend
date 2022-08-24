@@ -48,25 +48,41 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
     reset(mockUserAnswerService)
   }
 
-  private val view: ConfirmAddressView = injector.instanceOf[ConfirmAddressView]
+  private val view: ConfirmAddressView                          = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmCharityPostalAddressController = inject[ConfirmCharityPostalAddressController]
-  private val messageKeyPrefix = "charityPostalAddress"
-  private val charityInformationAddressLookup = List("12", "Banner Way", "United Kingdom")
+  private val messageKeyPrefix                                  = "charityPostalAddress"
+  private val charityInformationAddressLookup                   = List("12", "Banner Way", "United Kingdom")
 
   "ConfirmCharityPostalAddressController Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(CharityPostalAddressLookupPage, AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(
+                CharityPostalAddressLookupPage,
+                AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+              )
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view.apply(
-        charityInformationAddressLookup, messageKeyPrefix,
-        controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
-        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney, None)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view
+        .apply(
+          charityInformationAddressLookup,
+          messageKeyPrefix,
+          controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
+          controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney,
+          None
+        )(fakeRequest, messages, frontendAppConfig)
+        .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -74,17 +90,36 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
 
       val charityInformationAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(CharityPostalAddressLookupPage, AddressModel(List("12", "Banner Way near south riverview gardens"), None, CountryModel("GB", "United Kingdom")))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(
+                CharityPostalAddressLookupPage,
+                AddressModel(
+                  List("12", "Banner Way near south riverview gardens"),
+                  None,
+                  CountryModel("GB", "United Kingdom")
+                )
+              )
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view.apply(
-        charityInformationAddressMax, messageKeyPrefix,
-        controllers.contactDetails.routes.AmendCharityPostalAddressController.onPageLoad(),
-        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney, None)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view
+        .apply(
+          charityInformationAddressMax,
+          messageKeyPrefix,
+          controllers.contactDetails.routes.AmendCharityPostalAddressController.onPageLoad(),
+          controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney,
+          None
+        )(fakeRequest, messages, frontendAppConfig)
+        .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

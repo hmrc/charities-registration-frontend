@@ -52,9 +52,9 @@ class WhyNoBankStatementControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockUserAnswerService)
   }
 
-  private val view: WhyNoBankStatementView = inject[WhyNoBankStatementView]
+  private val view: WhyNoBankStatementView                 = inject[WhyNoBankStatementView]
   private val formProvider: WhyNoBankStatementFormProvider = inject[WhyNoBankStatementFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                           = formProvider()
 
   private val controller: WhyNoBankStatementController = inject[WhyNoBankStatementController]
 
@@ -71,11 +71,13 @@ class WhyNoBankStatementControllerSpec extends SpecBase with BeforeAndAfterEach 
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(WhyNoBankStatementPage, "WhyNoBankStatementValue").getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(emptyUserAnswers.set(WhyNoBankStatementPage, "WhyNoBankStatementValue").getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -132,7 +134,7 @@ class WhyNoBankStatementControllerSpec extends SpecBase with BeforeAndAfterEach 
 
       status(result) mustEqual SEE_OTHER
 
-        redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
   }

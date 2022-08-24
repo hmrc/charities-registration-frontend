@@ -26,7 +26,7 @@ class WhatCountryWasTheCharityEstablisedInFormProviderSpec extends OptionFieldBe
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = "charityEstablishedIn.error.required"
 
     behave like optionsField[CharityEstablishedOptions](

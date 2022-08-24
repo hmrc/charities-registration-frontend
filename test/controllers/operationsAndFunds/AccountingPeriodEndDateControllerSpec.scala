@@ -53,20 +53,20 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerService)
   }
 
-  private val view: AccountingPeriodEndDateView = inject[AccountingPeriodEndDateView]
+  private val view: AccountingPeriodEndDateView                 = inject[AccountingPeriodEndDateView]
   private val formProvider: AccountingPeriodEndDateFormProvider = inject[AccountingPeriodEndDateFormProvider]
-  private val form: Form[MonthDay] = formProvider()
+  private val form: Form[MonthDay]                              = formProvider()
 
   private val controller: AccountingPeriodEndDateController = inject[AccountingPeriodEndDateController]
 
-  private val year = 2000
-  private val month = 10
+  private val year       = 2000
+  private val month      = 10
   private val dayOfMonth = 1
 
-  val requestArgs = Seq(
-    "date.day" -> dayOfMonth.toString,
+  val requestArgs: Seq[(String, String)] = Seq(
+    "date.day"   -> dayOfMonth.toString,
     "date.month" -> month.toString
-    )
+  )
 
   "AccountingPeriodEndDate Controller " must {
 
@@ -81,11 +81,19 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
- "populate the view correctly on a GET when the question has previously been answered" in {
+    "populate the view correctly on a GET when the question has previously been answered" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-       set(AccountingPeriodEndDatePage,MonthDay.fromDateFields(new LocalDate(year,month, dayOfMonth).toDate))
-             (MongoDateTimeFormats.localDayMonthWrite).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new LocalDate(year, month, dayOfMonth).toDate))(
+                MongoDateTimeFormats.localDayMonthWrite
+              )
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -95,7 +103,7 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

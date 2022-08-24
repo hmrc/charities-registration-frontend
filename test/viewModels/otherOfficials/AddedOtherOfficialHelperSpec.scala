@@ -35,20 +35,38 @@ import viewmodels.otherOfficials.AddedOtherOfficialHelper
 
 class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
-  private val year = 2000
-  private val month = 1
+  private val year       = 2000
+  private val month      = 1
   private val dayOfMonth = 2
 
   private val otherOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")).success.value
-    .set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)).success.value
-    .set(OtherOfficialsPhoneNumberPage(0), PhoneNumber(daytimePhone = "07700 900 982",
-                                             mobilePhone = Some("07700 900 982"))).success.value
-    .set(OtherOfficialsPositionPage(0), OfficialsPosition.values.head).success.value
-    .set(IsOtherOfficialNinoPage(0), true).success.value
-    .set(OtherOfficialsNinoPage(0), "AA123456A").success.value
-    .set(OtherOfficialAddressLookupPage(0), ConfirmedAddressConstants.address).success.value
-    .set(IsOtherOfficialsPreviousAddressPage(0), false).success.value
+    .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+    .success
+    .value
+    .set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth))
+    .success
+    .value
+    .set(
+      OtherOfficialsPhoneNumberPage(0),
+      PhoneNumber(daytimePhone = "07700 900 982", mobilePhone = Some("07700 900 982"))
+    )
+    .success
+    .value
+    .set(OtherOfficialsPositionPage(0), OfficialsPosition.values.head)
+    .success
+    .value
+    .set(IsOtherOfficialNinoPage(0), true)
+    .success
+    .value
+    .set(OtherOfficialsNinoPage(0), "AA123456A")
+    .success
+    .value
+    .set(OtherOfficialAddressLookupPage(0), ConfirmedAddressConstants.address)
+    .success
+    .value
+    .set(IsOtherOfficialsPreviousAddressPage(0), false)
+    .success
+    .value
 
   private val welshRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
   private lazy val welshMessages: Messages = messagesApi.preferred(welshRequest)
@@ -59,20 +77,19 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
   def helper(userAnswers: UserAnswers = otherOfficialDetails, index: Index) =
     new AddedOtherOfficialHelper(index, CheckMode, countryService = CountryService)(userAnswers)
 
-
-
   "Check Your Answers Helper" must {
 
     "For the Other Official names answers" must {
 
       "have a correctly formatted summary list rows" in {
 
-        helper(otherOfficialDetails, 0).otherOfficialNamesRow mustBe Some(summaryListRow(
-          messages("otherOfficialsName.checkYourAnswersLabel"),
-          HtmlContent("Mr John Jones"),
-          Some(messages("otherOfficialsName.checkYourAnswersLabel")),
-          otherOfficials.OtherOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-        )
+        helper(otherOfficialDetails, 0).otherOfficialNamesRow mustBe Some(
+          summaryListRow(
+            messages("otherOfficialsName.checkYourAnswersLabel"),
+            HtmlContent("Mr John Jones"),
+            Some(messages("otherOfficialsName.checkYourAnswersLabel")),
+            otherOfficials.OtherOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
+          )
         )
       }
     }
@@ -102,10 +119,10 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
             HtmlContent("07700 900 982"),
             Some(messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-          ))
+          )
+        )
       }
     }
-
 
     "For the Other Official Alternative Phone Number answer" must {
 
@@ -117,7 +134,8 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
             HtmlContent("07700 900 982"),
             Some(messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
-          ))
+          )
+        )
       }
     }
 
@@ -175,7 +193,8 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
             messages("otherOfficialAddress.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("otherOfficialAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
+            controllers.addressLookup.routes.OtherOfficialsAddressLookupController
+              .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
         )
       }
@@ -200,27 +219,38 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper(otherOfficialDetails.set(OtherOfficialPreviousAddressLookupPage(0),
-          ConfirmedAddressConstants.address).success.value, 0).otherOfficialPreviousAddressRow mustBe Some(
+        helper(
+          otherOfficialDetails
+            .set(OtherOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address)
+            .success
+            .value,
+          0
+        ).otherOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLink
+            controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
+              .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
           )
         )
       }
 
-
       "have a correctly formatted summary list row in welsh" in {
 
-        helperWelsh(otherOfficialDetails.set(OtherOfficialPreviousAddressLookupPage(0),
-          ConfirmedAddressConstants.address).success.value, 0).otherOfficialPreviousAddressRow mustBe Some(
+        helperWelsh(
+          otherOfficialDetails
+            .set(OtherOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address)
+            .success
+            .value,
+          0
+        ).otherOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
             Some(welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(0, CheckMode) -> BaseMessages.changeLinkWelsh
+            controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
+              .initializeJourney(0, CheckMode) -> BaseMessages.changeLinkWelsh
           )
         )
       }

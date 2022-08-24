@@ -18,8 +18,7 @@ package pages.operationsAndFunds
 
 import pages.behaviours.PageBehaviours
 
-class WhyNoBankStatementPageSpec extends PageBehaviours{
-
+class WhyNoBankStatementPageSpec extends PageBehaviours {
 
   "WhyNoBankStatementPage" must {
 

@@ -20,6 +20,6 @@ import akka.actor.ActorSystem
 import akka.stream.Materializer
 
 trait MaterializerSupport {
-  implicit val system: ActorSystem = ActorSystem("Sys")
+  implicit val system: ActorSystem        = ActorSystem("Sys")
   implicit val materializer: Materializer = Materializer(system)
 }

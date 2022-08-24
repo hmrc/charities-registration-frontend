@@ -26,7 +26,7 @@ class SelectGoverningDocumentFormProviderSpec extends OptionFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = "selectGoverningDocument.error.required"
 
     behave like optionsField[SelectGoverningDocument](

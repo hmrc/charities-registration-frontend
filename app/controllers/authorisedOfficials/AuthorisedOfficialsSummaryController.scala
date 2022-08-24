@@ -35,59 +35,78 @@ import views.html.common.OfficialsSummaryView
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialsSummaryController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: AuthorisedOfficialsNavigator,
-    val formProvider: YesNoFormProvider,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    view: OfficialsSummaryView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController with OfficialSummaryRowHelper {
+class AuthorisedOfficialsSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: AuthorisedOfficialsNavigator,
+  val formProvider: YesNoFormProvider,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  view: OfficialsSummaryView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController
+    with OfficialSummaryRowHelper {
 
   private val messagePrefix: String = "authorisedOfficialsSummary"
-  private val form: Form[Boolean] = formProvider(messagePrefix)
-
+  private val form: Form[Boolean]   = formProvider(messagePrefix)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     if ((firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow) == Seq.empty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
-      Ok(view(form, messagePrefix, maxOfficials = 2,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit,
-        firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow))
+      Ok(
+        view(
+          form,
+          messagePrefix,
+          maxOfficials = 2,
+          controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit,
+          firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow
+        )
+      )
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     if (secondAuthorisedOfficialRow.isEmpty) {
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(
-            BadRequest(
-              view(formWithErrors, messagePrefix, maxOfficials = 2,
-                controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit,
-                firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow)
-            )
-          ),
-
-        value =>
-          for {
-            updatedAnswers  <- Future.fromTry(result = request.userAnswers.set(IsAddAnotherAuthorisedOfficialPage, value))
-            taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section7Page,
-              if(appConfig.isExternalTest) true else checkComplete(updatedAnswers)))
-            _               <- sessionRepository.set(taskListUpdated)
-          } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, taskListUpdated))
-      )
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors =>
+            Future.successful(
+              BadRequest(
+                view(
+                  formWithErrors,
+                  messagePrefix,
+                  maxOfficials = 2,
+                  controllers.authorisedOfficials.routes.AuthorisedOfficialsSummaryController.onSubmit,
+                  firstAuthorisedOfficialRow ++ secondAuthorisedOfficialRow
+                )
+              )
+            ),
+          value =>
+            for {
+              updatedAnswers  <-
+                Future.fromTry(result = request.userAnswers.set(IsAddAnotherAuthorisedOfficialPage, value))
+              taskListUpdated <- Future.fromTry(result =
+                                   updatedAnswers.set(
+                                     Section7Page,
+                                     if (appConfig.isExternalTest) true
+                                     else checkComplete(updatedAnswers)
+                                   )
+                                 )
+              _               <- sessionRepository.set(taskListUpdated)
+            } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, taskListUpdated))
+        )
     } else {
 
       for {
-        updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section7Page,
-          if(appConfig.isExternalTest) true else checkComplete(request.userAnswers)))
+        updatedAnswers <-
+          Future.fromTry(result =
+            request.userAnswers
+              .set(Section7Page, if (appConfig.isExternalTest) true else checkComplete(request.userAnswers))
+          )
         _              <- sessionRepository.set(updatedAnswers)
       } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, updatedAnswers))
     }

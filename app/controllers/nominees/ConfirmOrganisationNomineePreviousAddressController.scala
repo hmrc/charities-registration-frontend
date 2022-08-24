@@ -28,26 +28,28 @@ import views.html.common.ConfirmAddressView
 
 import javax.inject.Inject
 
-class ConfirmOrganisationNomineePreviousAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: ConfirmAddressView,
-    override implicit val appConfig: FrontendAppConfig
-  ) extends ConfirmAddressController {
+class ConfirmOrganisationNomineePreviousAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: ConfirmAddressView,
+  override implicit val appConfig: FrontendAppConfig
+) extends ConfirmAddressController {
 
   override val messagePrefix: String = "nomineeOrganisationPreviousAddress"
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
-        getView(controllers.nominees.routes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode),
-          OrganisationNomineePreviousAddressLookupPage,
-          controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode),
-          controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onSubmit(NormalMode),
-          Some(organisationNomineeName))
-      }
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
+      getView(
+        controllers.nominees.routes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode),
+        OrganisationNomineePreviousAddressLookupPage,
+        controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController
+          .initializeJourney(NormalMode),
+        controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onSubmit(NormalMode),
+        Some(organisationNomineeName)
+      )
+    }
   }
 }

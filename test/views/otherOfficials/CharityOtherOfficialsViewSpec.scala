@@ -26,23 +26,25 @@ class CharityOtherOfficialsViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "charityOtherOfficials"
 
-    "CharityOtherOfficialsView" must {
+  "CharityOtherOfficialsView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[CharityOtherOfficialsView](Some(emptyUserAnswers))
-        view.apply(Index(0))(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2", "p3")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "linkButton",
-        controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, Index(0)).url,BaseMessages.continue)
-
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[CharityOtherOfficialsView](Some(emptyUserAnswers))
+      view.apply(Index(0))(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2", "p3")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, Index(0)).url,
+      BaseMessages.continue
+    )
+
   }
+}

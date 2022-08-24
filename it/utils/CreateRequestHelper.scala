@@ -27,10 +27,9 @@ import uk.gov.hmrc.http.SessionKeys
 import java.util.UUID
 import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
 
-
 trait CreateRequestHelper extends ServerProvider {
 
-  val defaultSeconds = 5
+  val defaultSeconds                           = 5
   implicit val defaultDuration: FiniteDuration = Duration.apply(defaultSeconds, SECONDS)
 
   val app: Application

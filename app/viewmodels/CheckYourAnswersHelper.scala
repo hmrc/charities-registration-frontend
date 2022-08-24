@@ -35,26 +35,28 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   val userAnswers: UserAnswers
 
-  def answer[A](page: QuestionPage[A],
-                changeLinkCall: Call,
-                answerIsMsgKey: Boolean = false,
-                headingMessageArgs: Seq[String] = Seq(),
-                idx: Option[Int] = None)
-               (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+  def answer[A](
+    page: QuestionPage[A],
+    changeLinkCall: Call,
+    answerIsMsgKey: Boolean = false,
+    headingMessageArgs: Seq[String] = Seq(),
+    idx: Option[Int] = None
+  )(implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
-        value = if (answerIsMsgKey) HtmlContent(messages(s"$page.$ans")) else  HtmlContent(ans),
+        value = if (answerIsMsgKey) HtmlContent(messages(s"$page.$ans")) else HtmlContent(ans),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
         changeLinkCall -> messages("site.edit")
       )
     }
 
-  def textBoxAnswer[A](page: QuestionPage[A],
-                changeLinkCall: Call,
-                headingMessageArgs: Seq[String] = Seq(),
-                idx: Option[Int] = None)
-               (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+  def textBoxAnswer[A](
+    page: QuestionPage[A],
+    changeLinkCall: Call,
+    headingMessageArgs: Seq[String] = Seq(),
+    idx: Option[Int] = None
+  )(implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
@@ -64,39 +66,43 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def multiLineAnswer[A<: WithOrder](page: QuestionPage[Set[A]],
-                                     changeLinkCall: Call)
-                                    (implicit reads: Reads[A],
-                               conversion: A => String): Option[SummaryListRow] =
+  def multiLineAnswer[A <: WithOrder](page: QuestionPage[Set[A]], changeLinkCall: Call)(implicit
+    reads: Reads[A],
+    conversion: A => String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { ans =>
-
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel"),
-        HtmlContent(ans.toList.sortBy(_.order).foldLeft("")((accumulator, item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>")),
+        HtmlContent(
+          ans.toList
+            .sortBy(_.order)
+            .foldLeft("")((accumulator, item) => accumulator + "<div>" + messages(s"$page.$item") + "</div>")
+        ),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
     }
 
-  def answerFullName(page: QuestionPage[Name],
-                     changeLinkCall: Call,
-                     messagePrefix: String): Option[SummaryListRow] =
+  def answerFullName(page: QuestionPage[Name], changeLinkCall: Call, messagePrefix: String): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-        value = HtmlContent(if (ans.title == SelectTitle.UnsupportedTitle) ans.getFullName else ans.getFullNameWithTitle(messages)),
+        value = HtmlContent(
+          if (ans.title == SelectTitle.UnsupportedTitle) ans.getFullName else ans.getFullNameWithTitle(messages)
+        ),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
         changeLinkCall -> messages("site.edit")
       )
     }
 
-  def answerPrefix[A](page: QuestionPage[A],
-                changeLinkCall: Call,
-                answerIsMsgKey: Boolean = false,
-                messagePrefix: String,
-                headingMessageArgs: Seq[String] = Seq(),
-                idx: Option[Int] = None)
-               (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+  def answerPrefix[A](
+    page: QuestionPage[A],
+    changeLinkCall: Call,
+    answerIsMsgKey: Boolean = false,
+    messagePrefix: String,
+    headingMessageArgs: Seq[String] = Seq(),
+    idx: Option[Int] = None
+  )(implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs: _*),
@@ -106,10 +112,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerMainPhoneNo(page: QuestionPage[PhoneNumber],
-                        changeLinkCall: Call,
-                        messagePrefix: String): Option[SummaryListRow] =
-
+  def answerMainPhoneNo(
+    page: QuestionPage[PhoneNumber],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
@@ -119,10 +126,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerAlternativePhoneNo(page: QuestionPage[PhoneNumber],
-                               changeLinkCall: Call,
-                               messagePrefix: String): Option[SummaryListRow] =
-
+  def answerAlternativePhoneNo(
+    page: QuestionPage[PhoneNumber],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).flatMap { contactDetails =>
       contactDetails.mobilePhone.map { mobilePhone =>
         summaryListRow(
@@ -134,10 +142,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       }
     }
 
-  def answerOrgPhoneNumber(page: QuestionPage[OrganisationNomineeContactDetails],
-                           changeLinkCall: Call,
-                           messagePrefix: String): Option[SummaryListRow] =
-
+  def answerOrgPhoneNumber(
+    page: QuestionPage[OrganisationNomineeContactDetails],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
@@ -147,10 +156,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerOrgEmailAddress(page: QuestionPage[OrganisationNomineeContactDetails],
-                            changeLinkCall: Call,
-                            messagePrefix: String): Option[SummaryListRow] =
-
+  def answerOrgEmailAddress(
+    page: QuestionPage[OrganisationNomineeContactDetails],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
@@ -160,10 +170,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerAccountName(page: QuestionPage[BankDetails],
-                        changeLinkCall: Call,
-                        messagePrefix: String): Option[SummaryListRow] =
-
+  def answerAccountName(
+    page: QuestionPage[BankDetails],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
@@ -173,10 +184,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerSortCode(page: QuestionPage[BankDetails],
-                     changeLinkCall: Call,
-                     messagePrefix: String): Option[SummaryListRow] =
-
+  def answerSortCode(
+    page: QuestionPage[BankDetails],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
@@ -186,10 +198,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerAccountNumber(page: QuestionPage[BankDetails],
-                          changeLinkCall: Call,
-                          messagePrefix: String): Option[SummaryListRow] =
-
+  def answerAccountNumber(
+    page: QuestionPage[BankDetails],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { contactDetails =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
@@ -199,10 +212,11 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
-  def answerRollNumber(page: QuestionPage[BankDetails],
-                       changeLinkCall: Call,
-                       messagePrefix: String): Option[SummaryListRow] =
-
+  def answerRollNumber(
+    page: QuestionPage[BankDetails],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).flatMap { contactDetails =>
       contactDetails.rollNumber.map { rollNumber =>
         summaryListRow(
@@ -214,26 +228,31 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       }
     }
 
+  def answerAddress(
+    page: QuestionPage[AddressModel],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
+    userAnswers.get(page) map { address =>
+      summaryListRow(
+        label = messages(s"$messagePrefix.checkYourAnswersLabel"),
+        value = Text(
+          Seq(
+            Some(address.lines.mkString(", ")),
+            address.postcode,
+            CountryService.find(address.country.code).map(c => c.name)
+          ).flatten.mkString(", ")
+        ),
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
 
-   def answerAddress(page: QuestionPage[AddressModel],
-                     changeLinkCall: Call,
-                     messagePrefix: String): Option[SummaryListRow] =
-
-     userAnswers.get(page) map { address =>
-       summaryListRow(
-         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
-         value = Text(Seq(Some(address.lines.mkString(", ")),
-                     address.postcode,
-           CountryService.find(address.country.code).map(c => c.name)).flatten.mkString(", ")),
-         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel")),
-         changeLinkCall -> messages("site.edit")
-       )
-     }
-
-  def answerPassportNo(page: QuestionPage[Passport],
-                       changeLinkCall: Call,
-                       messagePrefix: String): Option[SummaryListRow] = {
-
+  def answerPassportNo(
+    page: QuestionPage[Passport],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { passport =>
       summaryListRow(
         label = messages(s"$messagePrefix.passportNumber.checkYourAnswersLabel"),
@@ -242,13 +261,13 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
         changeLinkCall -> messages("site.edit")
       )
     }
-  }
 
-  def answerCountryOfIssue(page: QuestionPage[Passport],
-                       changeLinkCall: Call,
-                       messagePrefix: String,
-                       countryService: CountryService): Option[SummaryListRow] = {
-
+  def answerCountryOfIssue(
+    page: QuestionPage[Passport],
+    changeLinkCall: Call,
+    messagePrefix: String,
+    countryService: CountryService
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { passport =>
       summaryListRow(
         label = messages(s"$messagePrefix.country.checkYourAnswersLabel"),
@@ -257,12 +276,12 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
         changeLinkCall -> messages("site.edit")
       )
     }
-  }
 
-  def answerExpiryDate(page: QuestionPage[Passport],
-                       changeLinkCall: Call,
-                       messagePrefix: String): Option[SummaryListRow] = {
-
+  def answerExpiryDate(
+    page: QuestionPage[Passport],
+    changeLinkCall: Call,
+    messagePrefix: String
+  ): Option[SummaryListRow] =
     userAnswers.get(page).map { passport =>
       summaryListRow(
         label = messages(s"$messagePrefix.expiryDate.checkYourAnswersLabel"),
@@ -271,11 +290,10 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
         changeLinkCall -> messages("site.edit")
       )
     }
-  }
 
   implicit val yesNoValue: Boolean => String = {
     case true => messages("site.yes")
-    case _ => messages("site.no")
+    case _    => messages("site.no")
   }
 
   implicit def bigDecToString: BigDecimal => String = number => {

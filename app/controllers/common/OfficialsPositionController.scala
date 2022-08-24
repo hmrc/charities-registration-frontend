@@ -38,28 +38,35 @@ trait OfficialsPositionController extends LocalBaseController {
   protected val messagePrefix: String
 
   def getView(page: QuestionPage[OfficialsPosition], form: Form[OfficialsPosition], fullName: String, submitCall: Call)(
-    implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
+    implicit
+    appConfig: FrontendAppConfig,
+    request: DataRequest[AnyContent]
+  ): Result = {
 
     val preparedForm = request.userAnswers.get(page) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, fullName, messagePrefix, submitCall))
   }
 
-  def postView(mode: Mode, page: QuestionPage[OfficialsPosition], form: Form[OfficialsPosition], fullName: String,
-               section: QuestionPage[Boolean], submitCall: Call)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, fullName, messagePrefix, submitCall))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(page, value).flatMap(_.set(section, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
-    )
-  }
+  def postView(
+    mode: Mode,
+    page: QuestionPage[OfficialsPosition],
+    form: Form[OfficialsPosition],
+    fullName: String,
+    section: QuestionPage[Boolean],
+    submitCall: Call
+  )(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] =
+    form
+      .bindFromRequest()
+      .fold(
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors, fullName, messagePrefix, submitCall))),
+        value =>
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(page, value).flatMap(_.set(section, false)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
+      )
 }

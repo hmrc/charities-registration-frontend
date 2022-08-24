@@ -20,12 +20,11 @@ import org.joda.time.{LocalDate, MonthDay}
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
+class AccountingPeriodEndDatePageSpec extends PageBehaviours {
 
-class AccountingPeriodEndDatePageSpec extends PageBehaviours{
-
-  val year = 2020
+  val year       = 2020
   val yearInPast = 1000
-  val month = 1
+  val month      = 1
   val dayInMonth = 1
 
   implicit lazy val arbitraryLocalDate: Arbitrary[MonthDay] = Arbitrary {

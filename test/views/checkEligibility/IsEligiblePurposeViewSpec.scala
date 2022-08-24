@@ -28,24 +28,24 @@ import views.html.checkEligibility.IsEligiblePurposeView
 class IsEligiblePurposeViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isEligiblePurpose"
-  val form: Form[Boolean] = inject[IsEligiblePurposeFormProvider].apply()
+  val form: Form[Boolean]      = inject[IsEligiblePurposeFormProvider].apply()
 
-    "IsEligiblePurposeView" must {
+  "IsEligiblePurposeView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[IsEligiblePurposeView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(form), messageKeyPrefix)
-
-      behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "p")
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsEligiblePurposeController.onSubmit().url, legendKey = Some("heading"))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[IsEligiblePurposeView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix)
+
+    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "p")
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like yesNoPage(form, applyView, messageKeyPrefix, legendKey = Some("heading"))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+
   }
+}

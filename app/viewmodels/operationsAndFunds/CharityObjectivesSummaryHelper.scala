@@ -24,23 +24,24 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class CharityObjectivesSummaryHelper(override val userAnswers: UserAnswers)
-                                    (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
+class CharityObjectivesSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
+    extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
     with SummaryListRowHelper {
 
-    def charitableObjectivesRow: Option[SummaryListRow] =
-      textBoxAnswer(CharitableObjectivesPage, operations.CharitableObjectivesController.onPageLoad(CheckMode))
+  def charitableObjectivesRow: Option[SummaryListRow] =
+    textBoxAnswer(CharitableObjectivesPage, operations.CharitableObjectivesController.onPageLoad(CheckMode))
 
-    def charitablePurposesRow: Option[SummaryListRow] =
-      multiLineAnswer(CharitablePurposesPage, operations.CharitablePurposesController.onPageLoad(CheckMode))
+  def charitablePurposesRow: Option[SummaryListRow] =
+    multiLineAnswer(CharitablePurposesPage, operations.CharitablePurposesController.onPageLoad(CheckMode))
 
-    def publicBenefitsRow: Option[SummaryListRow] =
-      textBoxAnswer(PublicBenefitsPage, operations.PublicBenefitsController.onPageLoad(CheckMode))
+  def publicBenefitsRow: Option[SummaryListRow] =
+    textBoxAnswer(PublicBenefitsPage, operations.PublicBenefitsController.onPageLoad(CheckMode))
 
-    val rows: Seq[SummaryListRow] = Seq(
-      charitableObjectivesRow,
-      charitablePurposesRow,
-      publicBenefitsRow
-    ).flatten
+  val rows: Seq[SummaryListRow] = Seq(
+    charitableObjectivesRow,
+    charitablePurposesRow,
+    publicBenefitsRow
+  ).flatten
 
-  }
+}

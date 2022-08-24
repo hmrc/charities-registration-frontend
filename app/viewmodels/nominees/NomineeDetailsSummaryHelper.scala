@@ -24,18 +24,21 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class NomineeDetailsSummaryHelper(override val userAnswers: UserAnswers)
-                                 (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
-  with SummaryListRowHelper {
+class NomineeDetailsSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
+    extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
+    with SummaryListRowHelper {
 
   def authoriseNomineeRow: Option[SummaryListRow] =
     answer(IsAuthoriseNomineePage, routes.IsAuthoriseNomineeController.onPageLoad(CheckMode))
 
   def nomineeTypeRow: Option[SummaryListRow] =
-    answerPrefix(ChooseNomineePage,
+    answerPrefix(
+      ChooseNomineePage,
       routes.ChooseNomineeController.onPageLoad(CheckMode),
       answerIsMsgKey = true,
-      messagePrefix = "chooseNominee")
+      messagePrefix = "chooseNominee"
+    )
 
   val rows: Seq[SummaryListRow] = Seq(
     authoriseNomineeRow,

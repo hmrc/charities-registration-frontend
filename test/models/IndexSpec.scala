@@ -26,11 +26,11 @@ class IndexSpec extends AnyWordSpecLike with Matchers with OptionValues {
     val binder = Index.indexPathBindable
 
     "bind a valid index" in {
-      binder.bind("index", "1") mustEqual Right(Index(0))
+      binder.bind("index", "1") mustBe Right(Index(0))
     }
 
     "fail to bind an index with negative value" in {
-      binder.bind("index", "-1") mustEqual Left("Index binding failed")
+      binder.bind("index", "-1") mustBe Left("Index binding failed")
     }
 
     "unbind an index" in {

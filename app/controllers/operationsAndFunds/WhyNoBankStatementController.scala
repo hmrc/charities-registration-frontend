@@ -20,50 +20,54 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.WhyNoBankStatementFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.WhyNoBankStatementPage
 import pages.sections.Section5Page
+import play.api.data.Form
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.WhyNoBankStatementView
 
 import scala.concurrent.Future
 
-class WhyNoBankStatementController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: FundRaisingNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: WhyNoBankStatementFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: WhyNoBankStatementView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class WhyNoBankStatementController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: FundRaisingNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: WhyNoBankStatementFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: WhyNoBankStatementView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
-  val form = formProvider()
+  val form: Form[String] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
-    val preparedForm = request.userAnswers.get(WhyNoBankStatementPage)   match {
-      case None => form
+    val preparedForm = request.userAnswers.get(WhyNoBankStatementPage) match {
+      case None        => form
       case Some(value) => form.fill(value)
     }
     Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(WhyNoBankStatementPage, value).flatMap(_.set(Section5Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(WhyNoBankStatementPage, mode, updatedAnswers))
-   )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <-
+                Future
+                  .fromTry(request.userAnswers.set(WhyNoBankStatementPage, value).flatMap(_.set(Section5Page, false)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(WhyNoBankStatementPage, mode, updatedAnswers))
+        )
   }
 }

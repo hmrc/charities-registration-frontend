@@ -30,26 +30,51 @@ import viewmodels.charityInformation.CharityInformationSummaryHelper
 class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val officialAddress: UserAnswers = emptyUserAnswers
-    .set(CharityNamePage, CharityName(fullName = "Believe",
-                                      operatingName = Some("Original Charity"))).success.value
-    .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
-                                                          mobilePhone = Some("07700 900 982"),
-                                                          emailAddress = "japan@china.com")).success.value
-    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address).success.value
-    .set(CanWeSendToThisAddressPage, true).success.value
+    .set(CharityNamePage, CharityName(fullName = "Believe", operatingName = Some("Original Charity")))
+    .success
+    .value
+    .set(
+      CharityContactDetailsPage,
+      CharityContactDetails(
+        daytimePhone = "07700 900 982",
+        mobilePhone = Some("07700 900 982"),
+        emailAddress = "japan@china.com"
+      )
+    )
+    .success
+    .value
+    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address)
+    .success
+    .value
+    .set(CanWeSendToThisAddressPage, true)
+    .success
+    .value
 
   private val postalAnswers: UserAnswers = emptyUserAnswers
-    .set(CharityNamePage, CharityName(fullName = "Believe",
-      operatingName = Some("Original Charity"))).success.value
-    .set(CharityContactDetailsPage, CharityContactDetails(daytimePhone = "07700 900 982",
-                                                          mobilePhone = Some("07700 900 982"),
-                                                          emailAddress = "japan@china.com")).success.value
-    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address).success.value
-    .set(CanWeSendToThisAddressPage, false).success.value
-    .set(CharityPostalAddressLookupPage, ConfirmedAddressConstants.address).success.value
+    .set(CharityNamePage, CharityName(fullName = "Believe", operatingName = Some("Original Charity")))
+    .success
+    .value
+    .set(
+      CharityContactDetailsPage,
+      CharityContactDetails(
+        daytimePhone = "07700 900 982",
+        mobilePhone = Some("07700 900 982"),
+        emailAddress = "japan@china.com"
+      )
+    )
+    .success
+    .value
+    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address)
+    .success
+    .value
+    .set(CanWeSendToThisAddressPage, false)
+    .success
+    .value
+    .set(CharityPostalAddressLookupPage, ConfirmedAddressConstants.address)
+    .success
+    .value
 
-  def helper(userAnswers: UserAnswers = officialAddress) =   new CharityInformationSummaryHelper(userAnswers)
-
+  def helper(userAnswers: UserAnswers = officialAddress) = new CharityInformationSummaryHelper(userAnswers)
 
   "Check Your Answers Helper" must {
 
@@ -57,18 +82,19 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
 
       "have a correctly formatted summary list rows" in {
 
-        helper().charityNameRows mustBe Seq(summaryListRow(
-          messages("charityName.fullName.checkYourAnswersLabel"),
-          HtmlContent("Believe"),
-          Some(messages("charityName.fullName.checkYourAnswersLabel")),
-          charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ),
-        summaryListRow(
-          messages("charityName.operatingName.checkYourAnswersLabel"),
-          HtmlContent("Original Charity"),
-          Some(messages("charityName.operatingName.checkYourAnswersLabel")),
-          charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        )
+        helper().charityNameRows mustBe Seq(
+          summaryListRow(
+            messages("charityName.fullName.checkYourAnswersLabel"),
+            HtmlContent("Believe"),
+            Some(messages("charityName.fullName.checkYourAnswersLabel")),
+            charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          ),
+          summaryListRow(
+            messages("charityName.operatingName.checkYourAnswersLabel"),
+            HtmlContent("Original Charity"),
+            Some(messages("charityName.operatingName.checkYourAnswersLabel")),
+            charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
         )
       }
     }
@@ -79,10 +105,10 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
 
         helper().charityContactDetailsRows mustBe Seq(
           summaryListRow(
-          messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel"),
+            messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel"),
             HtmlContent("07700 900 982"),
-          Some(messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel")),
-          charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+            Some(messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel")),
+            charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel"),
@@ -121,10 +147,10 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
 
         helper().canWeSendToThisAddressRow mustBe Seq(
           summaryListRow(
-           messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
+            messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
             HtmlContent(s"<div>${messages("site.yes")}</div>${"Test 1, Test 2, AA00 0AA, United Kingdom"}"),
-           Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
-           charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+            Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
+            charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
         )
       }

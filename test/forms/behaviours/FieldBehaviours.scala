@@ -24,33 +24,26 @@ import utils.Generators
 
 trait FieldBehaviours extends FormSpec with ScalaCheckPropertyChecks with Generators {
 
-  def fieldThatBindsValidData(form: Form[_],
-                              fieldName: String,
-                              validDataGenerator: Gen[String]): Unit = {
-
-      forAll(validDataGenerator -> "validDataItem") {
-        dataItem: String =>
-        s"bind valid data value $dataItem" in {
-          val result = form.bind(Map(fieldName -> dataItem)).apply(fieldName)
-          result.value.value mustBe dataItem
+  def fieldThatBindsValidData(form: Form[_], fieldName: String, validDataGenerator: Gen[String]): Unit =
+    forAll(validDataGenerator -> "validDataItem") { dataItem: String =>
+      s"bind valid data value $dataItem" in {
+        val result = form.bind(Map(fieldName -> dataItem)).apply(fieldName)
+        result.value.value mustBe dataItem
       }
     }
-  }
 
-  def mandatoryField(form: Form[_],
-                     fieldName: String,
-                     requiredError: FormError): Unit = {
+  def mandatoryField(form: Form[_], fieldName: String, requiredError: FormError): Unit = {
 
     s"not bind when key is not present at all for field $fieldName" in {
 
       val result = form.bind(emptyForm).apply(fieldName)
-      result.errors.headOption mustEqual Some(requiredError)
+      result.errors.headOption mustBe Some(requiredError)
     }
 
     s"not bind blank values for field $fieldName" in {
 
       val result = form.bind(Map(fieldName -> "")).apply(fieldName)
-      result.errors.headOption mustEqual Some(requiredError)
+      result.errors.headOption mustBe Some(requiredError)
     }
   }
 }

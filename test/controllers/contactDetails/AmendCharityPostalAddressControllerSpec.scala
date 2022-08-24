@@ -41,7 +41,7 @@ import scala.concurrent.Future
 class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -57,26 +57,39 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     reset(mockUserAnswerService, mockCountryService)
   }
 
-  private val messageKeyPrefix = "amendCharityPostalAddress"
-  private val view: AmendAddressView = inject[AmendAddressView]
+  private val messageKeyPrefix                       = "amendCharityPostalAddress"
+  private val view: AmendAddressView                 = inject[AmendAddressView]
   private val formProvider: AmendAddressFormProvider = inject[AmendAddressFormProvider]
-  private val form: Form[AmendAddressModel] = formProvider(messageKeyPrefix)
+  private val form: Form[AmendAddressModel]          = formProvider(messageKeyPrefix)
 
   private val controller: AmendCharityPostalAddressController = inject[AmendCharityPostalAddressController]
 
-  private val requestArgs = Seq("line1" -> "23", "line2" -> "Morrison street", "line3" -> "",
-    "town" -> "Paris",
+  private val requestArgs                   = Seq(
+    "line1"    -> "23",
+    "line2"    -> "Morrison street",
+    "line3"    -> "",
+    "town"     -> "Paris",
     "postcode" -> "",
-    "country" -> "FR")
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(CharityPostalAddressLookupPage,
-    AddressModel(Seq("7 Morrison street near riverview gardens", "Glasgow"), Some("G58AN"), CountryModel("GB", "United Kingdom"))).success.value
-
+    "country"  -> "FR"
+  )
+  private val localUserAnswers: UserAnswers = emptyUserAnswers
+    .set(
+      CharityPostalAddressLookupPage,
+      AddressModel(
+        Seq("7 Morrison street near riverview gardens", "Glasgow"),
+        Some("G58AN"),
+        CountryModel("GB", "United Kingdom")
+      )
+    )
+    .success
+    .value
 
   "AmendCharityPostalAddressController Controller " must {
 
     "return OK and the correct view for a GET" in {
 
-      val amendCharitiesPostalsAddress = AmendAddressModel("7 Morrison street near riverview gardens", Some(""), Some(""), "Glasgow", "G58AN", "GB")
+      val amendCharitiesPostalsAddress =
+        AmendAddressModel("7 Morrison street near riverview gardens", Some(""), Some(""), "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -84,17 +97,22 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form.fill(amendCharitiesPostalsAddress), messageKeyPrefix,
+      contentAsString(result) mustEqual view(
+        form.fill(amendCharitiesPostalsAddress),
+        messageKeyPrefix,
         controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit(),
-        countries = Seq(("GB", "United Kingdom")))(fakeRequest, messages, frontendAppConfig).toString
+        countries = Seq(("GB", "United Kingdom"))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(AmendAddressPage,
-        AmendAddressModel("23", Some("Morrison street"), Some(""), "Glasgow", "G58AN", "GB")).success.value
+      val userAnswers = localUserAnswers
+        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), Some(""), "Glasgow", "G58AN", "GB"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -106,22 +124,22 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
       verify(mockCountryService, times(1)).countries()(any())
     }
 
-     "redirect to the next page when valid data is submitted" in {
+    "redirect to the next page when valid data is submitted" in {
 
-       val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
 
-       val result = controller.onSubmit(NormalMode)(request)
+      val result = controller.onSubmit(NormalMode)(request)
 
-       status(result) mustBe SEE_OTHER
-       redirectLocation(result) mustBe Some(onwardRoute.url)
-       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-       verify(mockCountryService, times(1)).countries()(any())
-     }
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      verify(mockCountryService, times(1)).countries()(any())
+    }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 

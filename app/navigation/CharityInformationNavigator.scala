@@ -27,41 +27,54 @@ import play.api.mvc.Call
 
 import javax.inject.Inject
 
-
-class CharityInformationNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class CharityInformationNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
-    case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
-        case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => if(frontendAppConfig.isExternalTest){
-        charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      } else {
-        userAnswers.get(CharityOfficialAddressLookupPage) match {
-          case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
-          case _ => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
+    case CharityNamePage                  =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityNamePage) match {
+          case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
+          case _       => routes.PageNotFoundController.onPageLoad()
         }
-      }
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CharityOfficialAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityOfficialAddressLookupPage) match {
-      case Some(address) if isNotValidAddress(address) => charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
-      case Some(_)  => charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
-      case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined => charityInfoRoutes.ConfirmCharityPostalAddressController.onPageLoad()
-      case Some(_) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {
-      case Some(address) if isNotValidAddress(address) => charityInfoRoutes.AmendCharityPostalAddressController.onPageLoad()
-      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
+    case CharityContactDetailsPage        =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityContactDetailsPage) match {
+          case Some(_) =>
+            if (frontendAppConfig.isExternalTest) {
+              charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+            } else {
+              userAnswers.get(CharityOfficialAddressLookupPage) match {
+                case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
+                case _       => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
+              }
+            }
+          case _       => routes.PageNotFoundController.onPageLoad()
+        }
+    case CharityOfficialAddressLookupPage =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityOfficialAddressLookupPage) match {
+          case Some(address) if isNotValidAddress(address) =>
+            charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
+          case Some(_)                                     => charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(NormalMode)
+          case _                                           => routes.PageNotFoundController.onPageLoad()
+        }
+    case CanWeSendToThisAddressPage       =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CanWeSendToThisAddressPage) match {
+          case Some(true)                                                               => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined =>
+            charityInfoRoutes.ConfirmCharityPostalAddressController.onPageLoad()
+          case Some(_)                                                                  => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
+          case _                                                                        => routes.PageNotFoundController.onPageLoad()
+        }
+    case CharityPostalAddressLookupPage   =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityPostalAddressLookupPage) match {
+          case Some(address) if isNotValidAddress(address) =>
+            charityInfoRoutes.AmendCharityPostalAddressController.onPageLoad()
+          case Some(_)                                     => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case _                                           => routes.PageNotFoundController.onPageLoad()
+        }
 
     case CharityInformationSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
@@ -70,38 +83,51 @@ class CharityInformationNavigator @Inject()(implicit frontendAppConfig: Frontend
 
   override val checkRouteMap: Page => UserAnswers => Call = {
 
-    case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
-      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CharityContactDetailsPage => userAnswers: UserAnswers => userAnswers.get(CharityContactDetailsPage) match {
-      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CharityOfficialAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityOfficialAddressLookupPage) match {
-      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CanWeSendToThisAddressPage => userAnswers: UserAnswers => userAnswers.get(CanWeSendToThisAddressPage) match {
-      case Some(true) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case Some(false) => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
-    case CharityPostalAddressLookupPage => userAnswers: UserAnswers => userAnswers.get(CharityPostalAddressLookupPage) match {
-      case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
+    case CharityNamePage                  =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityNamePage) match {
+          case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case _       => routes.PageNotFoundController.onPageLoad()
+        }
+    case CharityContactDetailsPage        =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityContactDetailsPage) match {
+          case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case _       => routes.PageNotFoundController.onPageLoad()
+        }
+    case CharityOfficialAddressLookupPage =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityOfficialAddressLookupPage) match {
+          case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case _       => routes.PageNotFoundController.onPageLoad()
+        }
+    case CanWeSendToThisAddressPage       =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CanWeSendToThisAddressPage) match {
+          case Some(true)                                                               => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case Some(false) if userAnswers.get(CharityPostalAddressLookupPage).isDefined =>
+            charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case Some(false)                                                              => controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney
+          case _                                                                        => routes.PageNotFoundController.onPageLoad()
+        }
+    case CharityPostalAddressLookupPage   =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityPostalAddressLookupPage) match {
+          case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
+          case _       => routes.PageNotFoundController.onPageLoad()
+        }
 
     case _ => _ => routes.IndexController.onPageLoad(None)
   }
 
   override val playbackRouteMap: Page => UserAnswers => Call = {
 
-    case CharityNamePage => userAnswers: UserAnswers => userAnswers.get(CharityNamePage) match {
-      case Some(_) => controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode)
-      case _ => routes.PageNotFoundController.onPageLoad()
-    }
+    case CharityNamePage =>
+      userAnswers: UserAnswers =>
+        userAnswers.get(CharityNamePage) match {
+          case Some(_) => controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode)
+          case _       => routes.PageNotFoundController.onPageLoad()
+        }
 
     case _ => _ => routes.IndexController.onPageLoad(None)
   }

@@ -33,32 +33,37 @@ import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
-class OperationsFundsSummaryController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: FundRaisingNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    countryService: CountryService,
-    view: CheckYourAnswersView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+class OperationsFundsSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: FundRaisingNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  countryService: CountryService,
+  view: CheckYourAnswersView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val operationsFundsSummaryHelper = new OperationsFundsSummaryHelper(request.userAnswers, countryService)
     if (operationsFundsSummaryHelper.rows.isEmpty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
-      Ok(view(operationsFundsSummaryHelper.rows, OperationsFundsSummaryPage,
-        controllers.operationsAndFunds.routes.OperationsFundsSummaryController.onSubmit()))
+      Ok(
+        view(
+          operationsFundsSummaryHelper.rows,
+          OperationsFundsSummaryPage,
+          controllers.operationsAndFunds.routes.OperationsFundsSummaryController.onSubmit()
+        )
+      )
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     for {
-      updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section5Page, checkComplete(request.userAnswers)))
+      updatedAnswers <-
+        Future.fromTry(result = request.userAnswers.set(Section5Page, checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(OperationsFundsSummaryPage, NormalMode, updatedAnswers))
 

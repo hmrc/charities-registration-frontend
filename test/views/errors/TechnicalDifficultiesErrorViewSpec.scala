@@ -26,7 +26,7 @@ class TechnicalDifficultiesErrorViewSpec extends ViewBehaviours {
 
     val view = inject[TechnicalDifficultiesErrorView]
 
-    val applyView = view.apply("title", "heading", "content")(fakeRequest, messages, frontendAppConfig)
+    val applyView     = view.apply("title", "heading", "content")(fakeRequest, messages, frontendAppConfig)
     lazy val document = Jsoup.parse(applyView.toString)
 
     "Have the correct pageTitle" in {
@@ -38,7 +38,9 @@ class TechnicalDifficultiesErrorViewSpec extends ViewBehaviours {
     }
 
     "Have the correct content" in {
-      document.select("main p.govuk-body").text mustBe "Try again later. We saved your answers. They will be available for 28 days."
+      document
+        .select("main p.govuk-body")
+        .text mustBe "Try again later. We saved your answers. They will be available for 28 days."
     }
   }
 }

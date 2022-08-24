@@ -52,22 +52,25 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "removeAuthorisedOfficial"
-  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val messageKeyPrefix: String        = "removeAuthorisedOfficial"
+  private val view: YesNoView                 = injector.instanceOf[YesNoView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: RemoveAuthorisedOfficialsController = inject[RemoveAuthorisedOfficialsController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).
-      flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones"))).success.value
+    emptyUserAnswers
+      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones")))
+      .success
+      .value
 
   "RemoveAuthorisedOfficialsController" must {
 
     "redirect to correct start page is if Authorised officials details are not present" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
@@ -76,21 +79,26 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
-        controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(Index(0)), "officialsAndNominees")(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(Index(0)),
+        "officialsAndNominees"
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsAuthorisedOfficialNinoPage(0), true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(localUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(Index(0))(fakeRequest)
 
@@ -118,7 +126,10 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val localUserAnswers: UserAnswers =
-        emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+        emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .success
+          .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

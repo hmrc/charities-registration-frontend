@@ -24,24 +24,23 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.operationsAndFunds.WhyNoBankStatementView
 
-
 class WhyNoBankStatementViewSpec extends QuestionViewBehaviours[String] {
 
   private val messageKeyPrefix: String = "whyNoBankStatement"
-  private val section: String = messages("operationsAndFunds.section")
-  val form: Form[String] = inject[WhyNoBankStatementFormProvider].apply()
+  private val section: String          = messages("operationsAndFunds.section")
+  val form: Form[String]               = inject[WhyNoBankStatementFormProvider].apply()
 
-    "WhyNoBankStatementView" must {
+  "WhyNoBankStatementView" must {
 
-      def applyView(form: Form[String]): HtmlFormat.Appendable = {
-          val view = viewFor[WhyNoBankStatementView](Some (emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[String]): HtmlFormat.Appendable = {
+      val view = viewFor[WhyNoBankStatementView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

@@ -53,11 +53,13 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
     reset(mockUserAnswerService)
   }
 
-  private val view: OrganisationNomineeContactDetailsView = injector.instanceOf[OrganisationNomineeContactDetailsView]
-  private val formProvider: OrganisationNomineeContactDetailsFormProvider = injector.instanceOf[OrganisationNomineeContactDetailsFormProvider]
-  private val form: Form[OrganisationNomineeContactDetails] = formProvider()
+  private val view: OrganisationNomineeContactDetailsView                 = injector.instanceOf[OrganisationNomineeContactDetailsView]
+  private val formProvider: OrganisationNomineeContactDetailsFormProvider =
+    injector.instanceOf[OrganisationNomineeContactDetailsFormProvider]
+  private val form: Form[OrganisationNomineeContactDetails]               = formProvider()
 
-  private val controller: OrganisationNomineeContactDetailsController = inject[OrganisationNomineeContactDetailsController]
+  private val controller: OrganisationNomineeContactDetailsController =
+    inject[OrganisationNomineeContactDetailsController]
 
   private val requestArgs = Seq("phoneNumber" -> "0123123123", "email" -> "test@email.com")
 
@@ -74,15 +76,20 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, company, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, company, NormalMode)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      ).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com"))
-        .success.value
+      val userAnswers = localUserAnswers
+        .set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -94,7 +101,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
@@ -134,7 +141,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 

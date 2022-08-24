@@ -35,14 +35,16 @@ class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
   "cleanup" when {
 
-    val userAnswer = UserAnswers("id", Json.obj()).set(IsAuthorisedOfficialNinoPage(0),true)
+    val userAnswer = UserAnswers("id", Json.obj())
+      .set(IsAuthorisedOfficialNinoPage(0), true)
       .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123123", "UK", LocalDate.now())))
-      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AB111111A")).success.value
+      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AB111111A"))
+      .success
+      .value
 
     "setting IsAuthorisedOfficialNinoPage to false" must {
 
-      val result = userAnswer.set(IsAuthorisedOfficialNinoPage(0),false).success.value
-
+      val result = userAnswer.set(IsAuthorisedOfficialNinoPage(0), false).success.value
 
       "remove AuthorisedOfficialsNinoPage" in {
 
@@ -52,7 +54,7 @@ class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
     "setting IsAuthorisedOfficialNinoPage to true" must {
 
-      val result = userAnswer.set(IsAuthorisedOfficialNinoPage(0),true).success.value
+      val result = userAnswer.set(IsAuthorisedOfficialNinoPage(0), true).success.value
 
       "remove AuthorisedOfficialsPassportPage" in {
 

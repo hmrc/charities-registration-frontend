@@ -24,23 +24,22 @@ class DeclarationViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "declaration"
 
-    "declarationView" must {
+  "declarationView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[DeclarationView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("declaration.section")))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithWarningText(applyView(), messages("declaration.warning"))
-
-      behave like pageWithSubmitButton(applyView(), messages("site.confirmAndSend"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[DeclarationView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("declaration.section")))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithWarningText(applyView(), messages("declaration.warning"))
+
+    behave like pageWithSubmitButton(applyView(), messages("site.confirmAndSend"))
+
   }
+}

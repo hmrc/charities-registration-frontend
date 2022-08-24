@@ -34,16 +34,20 @@ object GoverningDocumentStatusHelper extends StatusHelper {
     SectionsChangedGoverningDocumentPage
   )
 
-  private val common = Seq(WhenGoverningDocumentApprovedPage, SelectGoverningDocumentPage, IsApprovedGoverningDocumentPage)
+  private val common            =
+    Seq(WhenGoverningDocumentApprovedPage, SelectGoverningDocumentPage, IsApprovedGoverningDocumentPage)
   private val commonWithDocName = common ++ Seq(GoverningDocumentNamePage)
 
-  private val governingDoc = (documentType: SelectGoverningDocument) => if(documentType == Other) commonWithDocName else common
-  private val hasCharityChanged = (list: Seq[QuestionPage[_]]) => list ++ Seq(HasCharityChangedPartsOfGoverningDocumentPage)
-  private val sectionsChanged = (list: Seq[QuestionPage[_]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
+  private val governingDoc      = (documentType: SelectGoverningDocument) =>
+    if (documentType == Other) commonWithDocName else common
+  private val hasCharityChanged = (list: Seq[QuestionPage[_]]) =>
+    list ++ Seq(HasCharityChangedPartsOfGoverningDocumentPage)
+  private val sectionsChanged   = (list: Seq[QuestionPage[_]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean = userAnswers.unneededPagesNotPresent(list, allPages)
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+      userAnswers.unneededPagesNotPresent(list, allPages)
 
     userAnswers.get(SelectGoverningDocumentPage) match {
       case Some(governingDocument) =>
@@ -51,17 +55,17 @@ object GoverningDocumentStatusHelper extends StatusHelper {
           case Some(false) =>
             val newPages = governingDoc(governingDocument)
             userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
-          case _ =>
+          case _           =>
             userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
               case Some(false) =>
                 val newPages = (governingDoc andThen hasCharityChanged)(governingDocument)
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
-              case _ =>
+              case _           =>
                 val pages = (governingDoc andThen hasCharityChanged andThen sectionsChanged)(governingDocument)
                 userAnswers.arePagesDefined(pages) && noAdditionalPagesDefined(pages)
             }
         }
-      case _=> false
+      case _                       => false
     }
   }
 

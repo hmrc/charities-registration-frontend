@@ -24,27 +24,37 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.BankAccountDetailsView
 
-class BankAccountDetailsViewSpec extends QuestionViewBehaviours[BankDetails]  {
+class BankAccountDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
-  private val messageKeyPrefix = "organisationNomineesBankDetails"
+  private val messageKeyPrefix    = "organisationNomineesBankDetails"
   private val sectionName: String = "officialsAndNominees.section"
-  val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
+  val form: Form[BankDetails]     = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
 
-    "BankAccountDetailsView" must {
+  "BankAccountDetailsView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
-          view.apply(form, controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
-            messageKeyPrefix, sectionName, Some("Jim Jam"))(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jam"), section = Some(messages("officialsAndNominees.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithWarningText(applyView(form), messages("organisationNomineesBankDetails.basc.warning"))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
+      view.apply(
+        form,
+        controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
+        messageKeyPrefix,
+        sectionName,
+        Some("Jim Jam")
+      )(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      Seq("Jim Jam"),
+      section = Some(messages("officialsAndNominees.section"))
+    )
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithWarningText(applyView(form), messages("organisationNomineesBankDetails.basc.warning"))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

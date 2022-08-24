@@ -27,18 +27,30 @@ import uk.gov.hmrc.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AddressLookupConnector @Inject()(httpClient: HttpClient, implicit val appConfig: FrontendAppConfig) {
+class AddressLookupConnector @Inject() (httpClient: HttpClient, implicit val appConfig: FrontendAppConfig) {
 
   private[connectors] lazy val addressLookupInitUrl: String = s"${appConfig.addressLookupFrontend}/api/v2/init"
 
-  def initialize(callbackUrl: String, messagePrefix: String, fullName: Option[String], allowedCountryCodes: Option[Set[String]])
-                (implicit hc: HeaderCarrier, ec: ExecutionContext, messages: MessagesApi): Future[AddressLookupInitializationResponse] = {
-    httpClient.POST(addressLookupInitUrl, new AddressLookupConfiguration(callbackUrl, messagePrefix, fullName, allowedCountryCodes).apply)(
-      AddressLookupConfigurationModel.writes, AddressLookupInitializationReads, hc, ec
+  def initialize(
+    callbackUrl: String,
+    messagePrefix: String,
+    fullName: Option[String],
+    allowedCountryCodes: Option[Set[String]]
+  )(implicit
+    hc: HeaderCarrier,
+    ec: ExecutionContext,
+    messages: MessagesApi
+  ): Future[AddressLookupInitializationResponse] =
+    httpClient.POST(
+      addressLookupInitUrl,
+      new AddressLookupConfiguration(callbackUrl, messagePrefix, fullName, allowedCountryCodes).apply
+    )(
+      AddressLookupConfigurationModel.writes,
+      AddressLookupInitializationReads,
+      hc,
+      ec
     )
-  }
 
-  def retrieveAddress(id: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[ConfirmedAddressResponse] = {
+  def retrieveAddress(id: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[ConfirmedAddressResponse] =
     httpClient.GET(appConfig.retrieveAddressUrl, queryParams = Seq("id" -> id))(ConfirmedAddressReads, hc, ec)
-  }
 }

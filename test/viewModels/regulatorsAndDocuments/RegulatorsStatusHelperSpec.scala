@@ -29,12 +29,14 @@ class RegulatorsStatusHelperSpec extends SpecBase {
   "RegulatorsStatusHelper" must {
     "go complete if form submitted with regulator, all but other, with valid data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland)))
           .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
           .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
           .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe true
@@ -42,13 +44,20 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go complete if form submitted with regulator, all with other, with valid data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))
           .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
           .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
           .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
-          .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")))
-          .success.value
+          .flatMap(
+            _.set(
+              CharityOtherRegulatorDetailsPage,
+              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+            )
+          )
+          .success
+          .value
       )
 
       result mustBe true
@@ -56,10 +65,12 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go complete if form submitted with regulator, only one without other, with valid data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish)))
           .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe true
@@ -67,10 +78,17 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go complete if form submitted with regulator, only other, with valid data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
-          .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")))
-          .success.value
+          .flatMap(
+            _.set(
+              CharityOtherRegulatorDetailsPage,
+              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+            )
+          )
+          .success
+          .value
       )
 
       result mustBe true
@@ -78,9 +96,11 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go complete if form submitted without regulator, no other, with valid data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, false)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, false)
           .flatMap(_.set(SelectWhyNoRegulatorPage, EnglandWalesUnderThreshold))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe true
@@ -88,10 +108,12 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go complete if form submitted without regulator, with other, with valid data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, false)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, false)
           .flatMap(_.set(SelectWhyNoRegulatorPage, models.regulators.SelectWhyNoRegulator.Other))
           .flatMap(_.set(WhyNotRegisteredWithCharityPage, "dummy reason"))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe true
@@ -99,11 +121,13 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted with regulator, all but other, with missing data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland)))
           .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
           .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -111,14 +135,21 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted with regulator, all with other, with additional data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))
           .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
           .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
           .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
-          .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")))
+          .flatMap(
+            _.set(
+              CharityOtherRegulatorDetailsPage,
+              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+            )
+          )
           .flatMap(_.set(SelectWhyNoRegulatorPage, EnglandWalesUnderThreshold))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -126,9 +157,11 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted with regulator, empty set, with missing data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator]()))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -136,9 +169,11 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted with regulator, only one without other, with missing data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish)))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -146,11 +181,13 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted with regulator, only one without other, with additional data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish)))
           .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
           .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -158,9 +195,11 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted with regulator, only other, with missing data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -168,11 +207,18 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted with regulator, only other, with additional data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, true)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
           .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
-          .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")))
-          .success.value
+          .flatMap(
+            _.set(
+              CharityOtherRegulatorDetailsPage,
+              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+            )
+          )
+          .success
+          .value
       )
 
       result mustBe false
@@ -180,8 +226,7 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted without regulator, no other, with missing data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, false)
-          .success.value
+        emptyUserAnswers.set(IsCharityRegulatorPage, false).success.value
       )
 
       result mustBe false
@@ -189,10 +234,12 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted without regulator, no other, with additional data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, false)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, false)
           .flatMap(_.set(SelectWhyNoRegulatorPage, EnglandWalesUnderThreshold))
           .flatMap(_.set(WhyNotRegisteredWithCharityPage, "dummy reason"))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -200,9 +247,11 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted without regulator, with other, with missing data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, false)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, false)
           .flatMap(_.set(SelectWhyNoRegulatorPage, models.regulators.SelectWhyNoRegulator.Other))
-          .success.value
+          .success
+          .value
       )
 
       result mustBe false
@@ -210,11 +259,18 @@ class RegulatorsStatusHelperSpec extends SpecBase {
 
     "go incomplete if form submitted without regulator, with other, with additional data" in {
       val result = RegulatorsStatusHelper.checkComplete(
-        emptyUserAnswers.set(IsCharityRegulatorPage, false)
+        emptyUserAnswers
+          .set(IsCharityRegulatorPage, false)
           .flatMap(_.set(SelectWhyNoRegulatorPage, models.regulators.SelectWhyNoRegulator.Other))
           .flatMap(_.set(WhyNotRegisteredWithCharityPage, "dummy reason"))
-          .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")))
-          .success.value
+          .flatMap(
+            _.set(
+              CharityOtherRegulatorDetailsPage,
+              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+            )
+          )
+          .success
+          .value
       )
 
       result mustBe false

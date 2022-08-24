@@ -32,9 +32,9 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
 
   implicit class ContentExtension(x: Content) {
     def text: String = x match {
-      case Text(text) => text
+      case Text(text)        => text
       case HtmlContent(html) => Jsoup.parse(html.toString).text
-      case _ => ""
+      case _                 => ""
     }
   }
 
@@ -43,10 +43,10 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
   def assertEqualsMessage(doc: Document, cssSelector: String, expectedMessageKey: String): Assertion =
     assertEqualsValue(doc, cssSelector, messages(expectedMessageKey))
 
-  def assertEqualsValue(doc : Document, cssSelector : String, expectedValue: String): Assertion = {
+  def assertEqualsValue(doc: Document, cssSelector: String, expectedValue: String): Assertion = {
     val elements = doc.select(cssSelector)
 
-    if(elements.isEmpty) throw new IllegalArgumentException(s"CSS Selector $cssSelector wasn't rendered.")
+    if (elements.isEmpty) throw new IllegalArgumentException(s"CSS Selector $cssSelector wasn't rendered.")
 
     //<p> HTML elements are rendered out with a carriage return on some pages, so discount for comparison
     assert(elements.first().html().replace("\n", "") == expectedValue)
@@ -55,53 +55,61 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
   def assertPageTitleEqualsMessage(doc: Document, expectedMessageKey: String, args: Any*): Assertion = {
     val headers = doc.getElementsByTag("h1")
     headers.size mustBe 1
-    headers.first.text.replaceAll("\u00a0", " ") mustBe messages(expectedMessageKey, args:_*).replaceAll("&nbsp;", " ")
+    headers.first.text.replaceAll("\u00a0", " ") mustBe messages(expectedMessageKey, args: _*).replaceAll("&nbsp;", " ")
   }
 
-  def assertContainsText(doc:Document, text: String): Assertion = assert(doc.toString.contains(text), "\n\ntext " + text + " was not rendered on the page.\n")
+  def assertContainsText(doc: Document, text: String): Assertion =
+    assert(doc.toString.contains(text), "\n\ntext " + text + " was not rendered on the page.\n")
 
-  def assertContainsMessages(doc: Document, expectedMessageKeys: String*): Unit = {
+  def assertContainsMessages(doc: Document, expectedMessageKeys: String*): Unit =
     for (key <- expectedMessageKeys) assertContainsText(doc, messages(key))
-  }
 
-  def assertRenderedById(doc: Document, id: String): Assertion = {
+  def assertRenderedById(doc: Document, id: String): Assertion                  =
     assert(doc.getElementById(id) != null, "\n\nElement " + id + " was not rendered on the page.\n")
-  }
 
-  def assertNotRenderedById(doc: Document, id: String): Assertion = {
+  def assertNotRenderedById(doc: Document, id: String): Assertion =
     assert(doc.getElementById(id) == null, "\n\nElement " + id + " was rendered on the page.\n")
-  }
 
-  def assertRenderedByCssSelector(doc: Document, cssSelector: String): Assertion = {
+  def assertRenderedByCssSelector(doc: Document, cssSelector: String): Assertion =
     assert(!doc.select(cssSelector).isEmpty, "Element " + cssSelector + " was not rendered on the page.")
-  }
 
-  def assertNotRenderedByCssSelector(doc: Document, cssSelector: String): Assertion = {
+  def assertNotRenderedByCssSelector(doc: Document, cssSelector: String): Assertion =
     assert(doc.select(cssSelector).isEmpty, "\n\nElement " + cssSelector + " was rendered on the page.\n")
-  }
 
   def assertNotContainsLabel(doc: Document, forElement: String): Assertion = {
     val labels = doc.getElementsByAttributeValue("for", forElement)
     assert(labels.isEmpty, "\n\nLabel for " + forElement + " was rendered on the page.\n")
   }
 
-  def assertContainsLabel(doc: Document, forElement: String, expectedText: String, expectedHintText: Option[String] = None): Any = {
+  def assertContainsLabel(
+    doc: Document,
+    forElement: String,
+    expectedText: String,
+    expectedHintText: Option[String] = None
+  ): Any = {
     val labels = doc.getElementsByAttributeValue("for", forElement)
     assert(labels.size == 1, s"\n\nLabel for $forElement was not rendered on the page.")
-    val label = labels.first
+    val label  = labels.first
     assert(label.text().contains(expectedText), s"\n\nLabel for $forElement was not $expectedText")
 
     if (expectedHintText.isDefined) {
-      assert(label.getElementsByClass("form-hint").first.text == expectedHintText.get,
-        s"\n\nLabel for $forElement did not contain hint text $expectedHintText")
+      assert(
+        label.getElementsByClass("form-hint").first.text == expectedHintText.get,
+        s"\n\nLabel for $forElement did not contain hint text $expectedHintText"
+      )
     }
   }
 
-  def assertElementHasClass(doc: Document, id: String, expectedClass: String): Assertion = {
+  def assertElementHasClass(doc: Document, id: String, expectedClass: String): Assertion =
     assert(doc.getElementById(id).hasClass(expectedClass), s"\n\nElement $id does not have class $expectedClass")
-  }
 
-  def assertContainsRadioButton(doc: Document, id: String, name: String, value: String, isChecked: Boolean): Assertion = {
+  def assertContainsRadioButton(
+    doc: Document,
+    id: String,
+    name: String,
+    value: String,
+    isChecked: Boolean
+  ): Assertion = {
     assertRenderedById(doc, id)
     val radio = doc.getElementById(id)
     assert(radio.attr("name") == name, s"\n\nElement $id does not have name $name")
@@ -113,16 +121,14 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
     }
   }
 
-  def checkYourAnswersRowChecks(id: Int, expectedRowData: (String, String)*)(implicit document: Document): Unit = {
-
+  def checkYourAnswersRowChecks(id: Int, expectedRowData: (String, String)*)(implicit document: Document): Unit =
     expectedRowData.zipWithIndex.foreach { case ((heading, value), i) =>
-
       val rowPosition = i + 1
 
       s"have the correct answer row at position $rowPosition" which {
 
         s"should have the correct heading of '$heading'" in {
-          document.select(checkAnswersHeading(id,rowPosition)).first.text mustBe heading
+          document.select(checkAnswersHeading(id, rowPosition)).first.text mustBe heading
         }
 
         s"should have the correct value of '$value'" in {
@@ -130,8 +136,7 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
         }
       }
     }
-  }
 
-  def currency(amt: BigDecimal): String = f"£$amt%,1.2f".replace(".00","")
+  def currency(amt: BigDecimal): String = f"£$amt%,1.2f".replace(".00", "")
 
 }

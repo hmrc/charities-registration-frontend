@@ -18,7 +18,7 @@ package pages.nominees
 
 import pages.behaviours.PageBehaviours
 
-class IsIndividualNomineePaymentsPageSpec extends PageBehaviours{
+class IsIndividualNomineePaymentsPageSpec extends PageBehaviours {
 
   "IsIndividualNomineePaymentsPage" must {
 

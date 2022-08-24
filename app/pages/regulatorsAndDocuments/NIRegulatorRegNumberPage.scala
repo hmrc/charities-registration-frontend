@@ -16,9 +16,7 @@
 
 package pages.regulatorsAndDocuments
 
-class NIRegulatorRegNumberPage {
-
-}
+class NIRegulatorRegNumberPage {}
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 

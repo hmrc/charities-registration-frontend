@@ -52,9 +52,9 @@ class EstimatedIncomeControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerService)
   }
 
-  private val view: CurrencyView = inject[CurrencyView]
+  private val view: CurrencyView                 = inject[CurrencyView]
   private val formProvider: CurrencyFormProvider = inject[CurrencyFormProvider]
-  private val form: Form[BigDecimal] = formProvider("estimatedIncome")
+  private val form: Form[BigDecimal]             = formProvider("estimatedIncome")
 
   private val controller: EstimatedIncomeController = inject[EstimatedIncomeController]
 
@@ -67,16 +67,21 @@ class EstimatedIncomeControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "estimatedIncome", controllers.operationsAndFunds.routes.EstimatedIncomeController.onSubmit(NormalMode)
+      contentAsString(result) mustEqual view(
+        form,
+        "estimatedIncome",
+        controllers.operationsAndFunds.routes.EstimatedIncomeController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(EstimatedIncomePage, BigDecimal.valueOf(123.12)).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(emptyUserAnswers.set(EstimatedIncomePage, BigDecimal.valueOf(123.12)).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

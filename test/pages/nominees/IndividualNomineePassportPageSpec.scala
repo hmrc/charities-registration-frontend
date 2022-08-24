@@ -22,13 +22,13 @@ import models.Passport
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class IndividualNomineePassportPageSpec extends PageBehaviours{
+class IndividualNomineePassportPageSpec extends PageBehaviours {
 
   "IndividualNomineePassportPage" must {
 
-      implicit lazy val arbitraryAuthorisedOfficialsPassport: Arbitrary[Passport] = Arbitrary {
-        Passport("123", "gb", LocalDate.now())
-      }
+    implicit lazy val arbitraryAuthorisedOfficialsPassport: Arbitrary[Passport] = Arbitrary {
+      Passport("123", "gb", LocalDate.now())
+    }
 
     beRetrievable[Passport](IndividualNomineesPassportPage)
 

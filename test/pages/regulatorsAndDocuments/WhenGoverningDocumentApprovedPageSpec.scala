@@ -21,13 +21,11 @@ import java.time.LocalDate
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
+class WhenGoverningDocumentApprovedPageSpec extends PageBehaviours {
 
-
-class WhenGoverningDocumentApprovedPageSpec extends PageBehaviours{
-
-  val year = 2020
+  val year       = 2020
   val yearInPast = 1000
-  val month = 1
+  val month      = 1
   val dayInMonth = 1
 
   implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {

@@ -27,16 +27,17 @@ object BankDetails {
     import play.api.libs.functional.syntax._
     (
       (__ \ "accountName").write[String] and
-      (__ \ "sortCode").write[String] and
-      (__ \ "accountNumber").write[String] and
-      (__ \ "rollNumber").writeNullable[String]
-    )(
-      bankDetails => (
+        (__ \ "sortCode").write[String] and
+        (__ \ "accountNumber").write[String] and
+        (__ \ "rollNumber").writeNullable[String]
+    )(bankDetails =>
+      (
         bankDetails.accountName,
         bankDetails.sortCode.filter(_.isDigit).mkString,
         bankDetails.accountNumber.filter(_.isDigit).mkString,
-        bankDetails.rollNumber)
+        bankDetails.rollNumber
       )
+    )
   }
 
   implicit val formats: Reads[BankDetails] = Json.format[BankDetails]

@@ -27,41 +27,47 @@ import javax.inject.Inject
 class AmendAddressFormProvider @Inject() extends Mappings {
 
   // scalastyle:off line.size.limit
-  private[common] val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) ?[0-9][A-Z]{2})$"""
-  private[common] val maxLength = 35
+  private[common] val postcodePattern =
+    """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) ?[0-9][A-Z]{2})$"""
+  private[common] val maxLength       = 35
 
   def apply(messagePrefix: String): Form[AmendAddressModel] =
     Form(
       mapping(
-        "line1" -> text(s"$messagePrefix.addressLine1.error.required")
+        "line1"    -> text(s"$messagePrefix.addressLine1.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.addressLine1.error.length"))
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine1.error.format")),
-        "line2" -> optional(text()
-          .verifying(maxLength(maxLength, s"$messagePrefix.addressLine2.error.length"))
-          .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine2.error.format"))),
-        "line3" -> optional(text()
-          .verifying(maxLength(maxLength, s"$messagePrefix.addressLine3.error.length"))
-          .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine3.error.format"))),
-        "town" -> text(s"$messagePrefix.townOrCity.error.required")
+        "line2"    -> optional(
+          text()
+            .verifying(maxLength(maxLength, s"$messagePrefix.addressLine2.error.length"))
+            .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine2.error.format"))
+        ),
+        "line3"    -> optional(
+          text()
+            .verifying(maxLength(maxLength, s"$messagePrefix.addressLine3.error.length"))
+            .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine3.error.format"))
+        ),
+        "town"     -> text(s"$messagePrefix.townOrCity.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.townOrCity.error.length"))
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.townOrCity.error.format")),
         "postcode" -> default(posttext, ""),
-        "country" -> text(s"$messagePrefix.country.error.required")
+        "country"  -> text(s"$messagePrefix.country.error.required")
       )(AmendAddressModel.apply)(AmendAddressModel.unapply)
     )
 
   def validatePostCode(form: Form[AmendAddressModel])(implicit messages: Messages): Form[AmendAddressModel] = {
 
     val isGB: Boolean = form("country").value.fold(true)(_ == "GB")
-    val postcode = form("postcode").value.getOrElse("")
+    val postcode      = form("postcode").value.getOrElse("")
 
     (isGB, postcode) match {
-      case (true, _) if postcode.nonEmpty && !postcode.matches(postcodePattern) => form.withError("postcode", messages(s"amendAddress.postcode.error.format"))
-      case(false, _) if postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop) => form.withError("postcode", messages(s"amendAddress.postcode.error.format.nonUK"))
-      case(false, _) if postcode.nonEmpty && postcode.length > maxLength => form.withError("postcode", messages(s"amendAddress.postcode.error.length"))
-      case _ => form
+      case (true, _) if postcode.nonEmpty && !postcode.matches(postcodePattern)            =>
+        form.withError("postcode", messages(s"amendAddress.postcode.error.format"))
+      case (false, _) if postcode.nonEmpty && !postcode.matches(validateFieldWithFullStop) =>
+        form.withError("postcode", messages(s"amendAddress.postcode.error.format.nonUK"))
+      case (false, _) if postcode.nonEmpty && postcode.length > maxLength                  =>
+        form.withError("postcode", messages(s"amendAddress.postcode.error.length"))
+      case _                                                                               => form
     }
   }
 }
-
-

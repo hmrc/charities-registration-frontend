@@ -22,13 +22,12 @@ import play.api.data.Form
 
 class WhyNotRegisteredWithCharityFormProvider @Inject() extends Mappings {
 
-
   private[regulatorsAndDocuments] val maxLength = 100
 
   def apply(): Form[String] =
     Form(
       "value" -> text("whyNotRegisteredWithCharity.error.required")
-         .verifying(maxLengthTextArea(maxLength, "whyNotRegisteredWithCharity.error.length"))
-        .verifying(regexp(validateFieldWithNewLine,"whyNotRegisteredWithCharity.error.format"))
-      )
+        .verifying(maxLengthTextArea(maxLength, "whyNotRegisteredWithCharity.error.length"))
+        .verifying(regexp(validateFieldWithNewLine, "whyNotRegisteredWithCharity.error.format"))
+    )
 }

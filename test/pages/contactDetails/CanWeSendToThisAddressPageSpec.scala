@@ -34,9 +34,13 @@ class CanWeSendToThisAddressPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj()).set(CharityPostalAddressLookupPage,
-        AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))).success.value
-
+      val userAnswer = UserAnswers("id", Json.obj())
+        .set(
+          CharityPostalAddressLookupPage,
+          AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+        )
+        .success
+        .value
 
       "setting CanWeSendLettersToThisAddress to true" must {
 

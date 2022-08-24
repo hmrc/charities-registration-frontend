@@ -22,20 +22,17 @@ import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json.Reads.JsObjectReducer
 import play.api.libs.json.{JsObject, Json, Reads}
 
-class CharitySubmissionTransformer @Inject()(
-    charityTransformer: CharityTransformer,
-    charityPartnerTransformer: CharityPartnerTransformer,
-    charityCommonTransformer: CharityCommonTransformer
-  ) extends JsonTransformer {
+class CharitySubmissionTransformer @Inject() (
+  charityTransformer: CharityTransformer,
+  charityPartnerTransformer: CharityPartnerTransformer,
+  charityCommonTransformer: CharityCommonTransformer
+) extends JsonTransformer {
 
-  def userAnswersToSubmission(implicit request: DataRequest[_]): Reads[JsObject] = {
-
+  def userAnswersToSubmission(implicit request: DataRequest[_]): Reads[JsObject] =
     (charityCommonTransformer.userAnswersToCommon and
       charityTransformer.userAnswersToCharity and
       charityPartnerTransformer.userAnswersToPartner).reduce
-      .map(jsObj => {
+      .map { jsObj =>
         Json.parse(replaceInvalidCharacters(jsObj.toString())).as[JsObject]
-        }
-      )
-  }
+      }
 }

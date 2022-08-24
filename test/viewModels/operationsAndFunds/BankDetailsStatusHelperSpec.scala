@@ -31,12 +31,21 @@ class BankDetailsStatusHelperSpec extends SpecBase {
         result mustBe false
       }
 
-     "all data is provided" in {
-        val result = BankDetailsStatusHelper.checkComplete(emptyUserAnswers
-          .set(BankDetailsPage, BankDetails(accountName = "PM Cares",
-            sortCode = "abc",
-            accountNumber = "43444546",
-            rollNumber = Some("765431234"))).success.value)
+      "all data is provided" in {
+        val result = BankDetailsStatusHelper.checkComplete(
+          emptyUserAnswers
+            .set(
+              BankDetailsPage,
+              BankDetails(
+                accountName = "PM Cares",
+                sortCode = "abc",
+                accountNumber = "43444546",
+                rollNumber = Some("765431234")
+              )
+            )
+            .success
+            .value
+        )
 
         result mustBe true
       }

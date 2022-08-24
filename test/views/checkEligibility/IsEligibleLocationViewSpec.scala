@@ -28,22 +28,22 @@ import views.html.checkEligibility.IsEligibleLocationView
 class IsEligibleLocationViewSpec extends YesNoViewBehaviours {
 
   private val messageKeyPrefix = "isEligibleLocation"
-  val form: Form[Boolean] = inject[IsEligibleLocationFormProvider].apply()
+  val form: Form[Boolean]      = inject[IsEligibleLocationFormProvider].apply()
 
-    "IsEligibleLocationView" must {
+  "IsEligibleLocationView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[IsEligibleLocationView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(form), messageKeyPrefix)
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsEligibleLocationController.onSubmit().url)
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[IsEligibleLocationView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix)
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like yesNoPage(form, applyView, messageKeyPrefix)
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+
   }
+}

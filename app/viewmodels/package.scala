@@ -23,12 +23,17 @@ import pages.sections.Section7Page
 
 package object viewmodels {
 
-  implicit class OfficialStatus(override val commonPages: Seq[QuestionPage[_]])(implicit sectionPage: QuestionPage[Boolean]) extends StatusUtil {
+  implicit class OfficialStatus(override val commonPages: Seq[QuestionPage[_]])(implicit
+    sectionPage: QuestionPage[Boolean]
+  ) extends StatusUtil {
 
     def equivalentPages(index: Int): Map[String, (QuestionPage[_], QuestionPage[_])] = Map(
       ("nino", (AuthorisedOfficialsNinoPage(index), OtherOfficialsNinoPage(index))),
       ("passport", (AuthorisedOfficialsPassportPage(index), OtherOfficialsPassportPage(index))),
-      ("previousAddress", (AuthorisedOfficialPreviousAddressLookupPage(index), OtherOfficialPreviousAddressLookupPage(index)))
+      (
+        "previousAddress",
+        (AuthorisedOfficialPreviousAddressLookupPage(index), OtherOfficialPreviousAddressLookupPage(index))
+      )
     )
 
     def getPage(section: QuestionPage[Boolean], page: String, index: Int): Seq[QuestionPage[_]] = Seq(
@@ -55,26 +60,43 @@ package object viewmodels {
         )
       }
 
-    def getOfficialPages(index: Int, isNino: Boolean, isPreviousAddress: Boolean, previousPages: Seq[QuestionPage[_]] = Seq.empty): Seq[QuestionPage[_]] = {
-      commonPages.indexedOfficialStartOfJourney(index, isNino, previousPages)
+    def getOfficialPages(
+      index: Int,
+      isNino: Boolean,
+      isPreviousAddress: Boolean,
+      previousPages: Seq[QuestionPage[_]] = Seq.empty
+    ): Seq[QuestionPage[_]] =
+      commonPages
+        .indexedOfficialStartOfJourney(index, isNino, previousPages)
         .previousAddressEntry(isPreviousAddress, index)
-    }
 
   }
 
   implicit class NomineeStatus(override val commonPages: Seq[QuestionPage[_]]) extends StatusUtil {
 
-    def getIndividualNomineePages(isNino: Boolean, isPreviousAddress: Boolean, isPayment: Boolean): Seq[QuestionPage[_]] = {
-        commonPages.updateAvailablePages(isNino, Seq(IndividualNomineesNinoPage), Seq(IndividualNomineesPassportPage))
-          .updateAvailablePages(isPreviousAddress, Seq(NomineeIndividualPreviousAddressLookupPage))
-          .updateAvailablePages(isPayment, Seq(IndividualNomineesBankDetailsPage))
-    }
+    def getIndividualNomineePages(
+      isNino: Boolean,
+      isPreviousAddress: Boolean,
+      isPayment: Boolean
+    ): Seq[QuestionPage[_]] =
+      commonPages
+        .updateAvailablePages(isNino, Seq(IndividualNomineesNinoPage), Seq(IndividualNomineesPassportPage))
+        .updateAvailablePages(isPreviousAddress, Seq(NomineeIndividualPreviousAddressLookupPage))
+        .updateAvailablePages(isPayment, Seq(IndividualNomineesBankDetailsPage))
 
-    def getOrganisationNomineePages(isNino: Boolean, isPreviousAddress: Boolean, isPayment: Boolean): Seq[QuestionPage[_]] = {
-        commonPages.updateAvailablePages(isNino, Seq(OrganisationAuthorisedPersonNinoPage), Seq(OrganisationAuthorisedPersonPassportPage))
-          .updateAvailablePages(isPreviousAddress, Seq(OrganisationNomineePreviousAddressLookupPage))
-          .updateAvailablePages(isPayment, Seq(OrganisationNomineesBankDetailsPage))
-    }
+    def getOrganisationNomineePages(
+      isNino: Boolean,
+      isPreviousAddress: Boolean,
+      isPayment: Boolean
+    ): Seq[QuestionPage[_]] =
+      commonPages
+        .updateAvailablePages(
+          isNino,
+          Seq(OrganisationAuthorisedPersonNinoPage),
+          Seq(OrganisationAuthorisedPersonPassportPage)
+        )
+        .updateAvailablePages(isPreviousAddress, Seq(OrganisationNomineePreviousAddressLookupPage))
+        .updateAvailablePages(isPayment, Seq(OrganisationNomineesBankDetailsPage))
 
   }
 }

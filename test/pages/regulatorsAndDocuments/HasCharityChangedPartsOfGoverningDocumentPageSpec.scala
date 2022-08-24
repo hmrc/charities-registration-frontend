@@ -32,22 +32,24 @@ class HasCharityChangedPartsOfGoverningDocumentPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj()).set(HasCharityChangedPartsOfGoverningDocumentPage,true)
-        .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Section One")
-        ).success.value
+      val userAnswer = UserAnswers("id", Json.obj())
+        .set(HasCharityChangedPartsOfGoverningDocumentPage, true)
+        .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Section One"))
+        .success
+        .value
 
       "setting HasCharityChangedPartsOfGoverningDocumentPage to SectionsChangedGoverningDocumentPage" must {
 
         "remove SectionsChangedGoverningDocumentPage" in {
 
-          val result = userAnswer.set(HasCharityChangedPartsOfGoverningDocumentPage,false).success.value
+          val result = userAnswer.set(HasCharityChangedPartsOfGoverningDocumentPage, false).success.value
 
           result.get(SectionsChangedGoverningDocumentPage) mustNot be(defined)
         }
 
         "not remove SectionsChangedGoverningDocumentPage" in {
 
-          val result = userAnswer.set(HasCharityChangedPartsOfGoverningDocumentPage,true).success.value
+          val result = userAnswer.set(HasCharityChangedPartsOfGoverningDocumentPage, true).success.value
 
           result.get(SectionsChangedGoverningDocumentPage) must be(defined)
         }

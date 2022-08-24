@@ -20,7 +20,7 @@ import models.operations.OperatingLocationOptions
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
-class OperatingLocationPageSpec extends PageBehaviours{
+class OperatingLocationPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryOperatingLocationOptions: Arbitrary[OperatingLocationOptions] =
     Arbitrary {

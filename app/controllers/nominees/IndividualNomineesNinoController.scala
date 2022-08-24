@@ -32,35 +32,46 @@ import views.html.common.NinoView
 
 import scala.concurrent.Future
 
-class IndividualNomineesNinoController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: NinoFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: NomineesNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: NinoView
-  )(implicit appConfig: FrontendAppConfig) extends NinoController {
+class IndividualNomineesNinoController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: NinoFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: NinoView
+)(implicit appConfig: FrontendAppConfig)
+    extends NinoController {
 
   override val messagePrefix: String = "individualNomineesNino"
-  private val form: Form[String] = formProvider(messagePrefix)
+  private val form: Form[String]     = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-      Future.successful(getView(IndividualNomineesNinoPage, form, individualNomineeName,
-        controllers.nominees.routes.IndividualNomineesNinoController.onSubmit(mode)))
-    }
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+        Future.successful(
+          getView(
+            IndividualNomineesNinoPage,
+            form,
+            individualNomineeName,
+            controllers.nominees.routes.IndividualNomineesNinoController.onSubmit(mode)
+          )
+        )
+      }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-      postView(mode, IndividualNomineesNinoPage, form, individualNomineeName, Section9Page,
-        controllers.nominees.routes.IndividualNomineesNinoController.onSubmit(mode))
-    }
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+        postView(
+          mode,
+          IndividualNomineesNinoPage,
+          form,
+          individualNomineeName,
+          Section9Page,
+          controllers.nominees.routes.IndividualNomineesNinoController.onSubmit(mode)
+        )
+      }
   }
 }

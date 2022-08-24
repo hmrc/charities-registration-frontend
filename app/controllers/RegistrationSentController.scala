@@ -29,46 +29,70 @@ import service.UserAnswerService
 
 import scala.concurrent.Future
 
-class RegistrationSentController @Inject()(
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    userAnswerService: UserAnswerService,
-    requireData: RegistrationDataRequiredAction,
-    view: RegistrationSentView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends ImplicitDateFormatter with LocalBaseController {
+class RegistrationSentController @Inject() (
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  userAnswerService: UserAnswerService,
+  requireData: RegistrationDataRequiredAction,
+  view: RegistrationSentView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends ImplicitDateFormatter
+    with LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    (request.userAnswers.get(AcknowledgementReferencePage),
-      request.userAnswers.get(ApplicationSubmissionDatePage)) match {
+    (
+      request.userAnswers.get(AcknowledgementReferencePage),
+      request.userAnswers.get(ApplicationSubmissionDatePage)
+    ) match {
       case (Some(acknowledgementReference), Some(applicationSubmissionDate)) =>
         request.userAnswers.get(EmailOrPostPage) match {
           case Some(emailOrPost) if appConfig.noEmailPost =>
-            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-              dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
-              noEmailOrPost = true,
-              RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-              RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-            )))
-          case Some(emailOrPost) =>
-            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-              dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost,
-              noEmailOrPost = false,
-              RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-              RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-            )))
-          case _ if appConfig.noEmailPost =>
-            Future.successful(Ok(view(dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-              dayToString(applicationSubmissionDate, dayOfWeek = false), acknowledgementReference, emailOrPost = false,
-              noEmailOrPost = true,
-              RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-              RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-            )))
-          case _ =>
+            Future.successful(
+              Ok(
+                view(
+                  dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
+                  dayToString(applicationSubmissionDate, dayOfWeek = false),
+                  acknowledgementReference,
+                  emailOrPost,
+                  noEmailOrPost = true,
+                  RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+                  RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+                )
+              )
+            )
+          case Some(emailOrPost)                          =>
+            Future.successful(
+              Ok(
+                view(
+                  dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
+                  dayToString(applicationSubmissionDate, dayOfWeek = false),
+                  acknowledgementReference,
+                  emailOrPost,
+                  noEmailOrPost = false,
+                  RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+                  RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+                )
+              )
+            )
+          case _ if appConfig.noEmailPost                 =>
+            Future.successful(
+              Ok(
+                view(
+                  dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
+                  dayToString(applicationSubmissionDate, dayOfWeek = false),
+                  acknowledgementReference,
+                  emailOrPost = false,
+                  noEmailOrPost = true,
+                  RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+                  RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+                )
+              )
+            )
+          case _                                          =>
             Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
         }
-      case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+      case _                                                                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 
@@ -79,7 +103,7 @@ class RegistrationSentController @Inject()(
           updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailOrPostPage, !emailOrPost))
           _              <- userAnswerService.set(updatedAnswers)
         } yield Redirect(routes.RegistrationSentController.onPageLoad)
-      case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+      case _                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 }

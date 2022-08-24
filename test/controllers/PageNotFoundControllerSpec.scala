@@ -59,7 +59,9 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return true if user is logged in and load correct view with no user action" in {
 
-        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any()))
+        when(
+          mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any())
+        )
           .thenReturn(Future.successful(Some(Credentials("valid", "org"))))
 
         val result = controller.onPageLoad()(fakeRequest)
@@ -72,7 +74,9 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return false if user is logged in and load correct view with no user action" in {
 
-        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any()))
+        when(
+          mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any())
+        )
           .thenReturn(Future.successful(None))
 
         val result = controller.onPageLoad()(fakeRequest)
@@ -85,7 +89,8 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return false if authorisation failed and load correct view with no user action" in {
 
-        when(mockAuthConnector.authorise(any(), any())(any(), any())).thenReturn(Future.failed(new RuntimeException("Exception")))
+        when(mockAuthConnector.authorise(any(), any())(any(), any()))
+          .thenReturn(Future.failed(new RuntimeException("Exception")))
 
         val result = controller.onPageLoad()(fakeRequest)
 
@@ -101,7 +106,9 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
       "return true if user is already logged in" in {
 
         when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any()))
+        when(
+          mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any())
+        )
           .thenReturn(Future.successful(Some(Credentials("valid", "org"))))
         val result = controller.redirectToStartOfJourney()(fakeRequest)
 
@@ -112,7 +119,9 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
       "return false if user is not logged in" in {
 
         when(mockSessionRepository.get(any())).thenReturn(Future.successful(None))
-        when(mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any())).thenReturn(Future.successful(None))
+        when(
+          mockAuthConnector.authorise[Option[Credentials]](any(), any[Retrieval[Option[Credentials]]]())(any(), any())
+        ).thenReturn(Future.successful(None))
 
         val result = controller.redirectToStartOfJourney()(fakeRequest)
 
@@ -123,7 +132,8 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
       "return false and authorisation failed" in {
 
         when(mockSessionRepository.get(any())).thenReturn(Future.successful(None))
-        when(mockAuthConnector.authorise(any(), any())(any(), any())).thenReturn(Future.failed(new RuntimeException("Exception")))
+        when(mockAuthConnector.authorise(any(), any())(any(), any()))
+          .thenReturn(Future.failed(new RuntimeException("Exception")))
 
         val result = controller.redirectToStartOfJourney()(fakeRequest)
 

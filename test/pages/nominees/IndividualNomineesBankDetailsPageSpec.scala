@@ -20,7 +20,7 @@ import models.BankDetails
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class IndividualNomineesBankDetailsPageSpec extends PageBehaviours{
+class IndividualNomineesBankDetailsPageSpec extends PageBehaviours {
 
   "IndividualNomineesBankAccountDetailsPage" must {
 

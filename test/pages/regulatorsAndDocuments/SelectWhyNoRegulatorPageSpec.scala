@@ -22,7 +22,7 @@ import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 
-class SelectWhyNoRegulatorPageSpec extends PageBehaviours{
+class SelectWhyNoRegulatorPageSpec extends PageBehaviours {
 
   "SelectWhyNoRegulatorPage" must {
 
@@ -37,9 +37,11 @@ class SelectWhyNoRegulatorPageSpec extends PageBehaviours{
     beRemovable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)
 
     "cleanup" when {
-      val userAnswer = UserAnswers("id", Json.obj()).set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
-          .flatMap(_.set(WhyNotRegisteredWithCharityPage,"office closed")
-        ).success.value
+      val userAnswer = UserAnswers("id", Json.obj())
+        .set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
+        .flatMap(_.set(WhyNotRegisteredWithCharityPage, "office closed"))
+        .success
+        .value
 
       "setting SelectWhyNoRegulator to ExemptOrExcepted" must {
 
@@ -55,6 +57,6 @@ class SelectWhyNoRegulatorPageSpec extends PageBehaviours{
           result.get(SelectWhyNoRegulatorPage) must be(defined)
         }
       }
-      }
+    }
   }
 }

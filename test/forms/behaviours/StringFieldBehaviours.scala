@@ -20,45 +20,32 @@ import play.api.data.{Form, FormError}
 
 trait StringFieldBehaviours extends FieldBehaviours {
 
-  def fieldWithMaxLength(form: Form[_],
-                         fieldName: String,
-                         maxLength: Int,
-                         lengthError: FormError): Unit = {
-
-    forAll(stringsLongerThan(maxLength) -> "longString") {
-      string =>
+  def fieldWithMaxLength(form: Form[_], fieldName: String, maxLength: Int, lengthError: FormError): Unit =
+    forAll(stringsLongerThan(maxLength) -> "longString") { string =>
       s"not bind strings longer than $maxLength characters for $string" in {
         val result = form.bind(Map(fieldName -> string)).apply(fieldName)
-        result.errors.headOption mustEqual Some(lengthError)
+        result.errors.headOption mustBe scala.Some(lengthError)
       }
     }
-  }
 
-  def fieldWithRegex(form: Form[_],
-                     fieldName: String,
-                     invalidString: String,
-                     error: FormError): Unit = {
-
+  def fieldWithRegex(form: Form[_], fieldName: String, invalidString: String, error: FormError): Unit =
     s"not bind $invalidString invalidated by regex" in {
       val result = form.bind(Map(fieldName -> invalidString)).apply(fieldName)
       result.errors mustEqual Seq(error)
     }
-  }
 
-  def bindValidValues(form: Form[String], fieldName: String)(values: String*): Unit = {
+  def bindValidValues(form: Form[String], fieldName: String)(values: String*): Unit =
     values.foreach { value =>
       s"bind valid value $value" in {
         form.bind(Map(fieldName -> value)).hasErrors mustBe false
       }
     }
-  }
 
-  def notBindInvalidValues(form: Form[String], fieldName: String, error: String, args: Any*)(values: String*): Unit = {
+  def notBindInvalidValues(form: Form[String], fieldName: String, error: String, args: Any*)(values: String*): Unit =
     values.foreach { value =>
       s"not bind invalid value $value" in {
         val result = form.bind(Map(fieldName -> value))
-        result.errors.headOption mustBe Some(FormError(fieldName, error, args))
+        result.errors.headOption mustBe scala.Some(FormError(fieldName, error, args))
       }
     }
-  }
 }

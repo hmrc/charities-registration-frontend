@@ -50,9 +50,9 @@ class IsEligiblePurposeControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockSessionRepository)
   }
 
-  private val view: IsEligiblePurposeView = injector.instanceOf[IsEligiblePurposeView]
+  private val view: IsEligiblePurposeView                 = injector.instanceOf[IsEligiblePurposeView]
   private val formProvider: IsEligiblePurposeFormProvider = injector.instanceOf[IsEligiblePurposeFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val form: Form[Boolean]                         = formProvider()
 
   private val controller: IsEligiblePurposeController = inject[IsEligiblePurposeController]
 
@@ -71,13 +71,18 @@ class IsEligiblePurposeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "return OK and the correct view for a GET when user has already answered" in {
 
-      when(mockSessionRepository.get(any())).thenReturn(Future.successful(Some(
-        emptyUserAnswers.set(IsEligiblePurposePage, true).getOrElse(emptyUserAnswers))))
+      when(mockSessionRepository.get(any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(IsEligiblePurposePage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form.fill(true), NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form.fill(true), NormalMode)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      ).toString
       verify(mockSessionRepository, times(1)).get(any())
     }
 

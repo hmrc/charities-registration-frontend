@@ -26,6 +26,3 @@ case class OtherOfficialsPhoneNumberPage(index: Int) extends QuestionPage[PhoneN
 
   override lazy val toString: String = "officialsPhoneNumber"
 }
-
-
-

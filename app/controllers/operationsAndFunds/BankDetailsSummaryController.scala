@@ -33,7 +33,7 @@ import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
-class BankDetailsSummaryController @Inject()(
+class BankDetailsSummaryController @Inject() (
   val sessionRepository: UserAnswerService,
   val navigator: BankDetailsNavigator,
   identify: AuthIdentifierAction,
@@ -41,10 +41,10 @@ class BankDetailsSummaryController @Inject()(
   requireData: DataRequiredAction,
   view: CheckYourAnswersView,
   val controllerComponents: MessagesControllerComponents
-)(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val bankDetailsSummaryHelper = new BankDetailsSummaryHelper(request.userAnswers)
 
     if (bankDetailsSummaryHelper.rows.isEmpty) {
@@ -53,17 +53,22 @@ class BankDetailsSummaryController @Inject()(
 
     } else {
 
-      Ok(view(bankDetailsSummaryHelper.rows, BankDetailsSummaryPage,
-        controllers.operationsAndFunds.routes.BankDetailsSummaryController.onSubmit()))
+      Ok(
+        view(
+          bankDetailsSummaryHelper.rows,
+          BankDetailsSummaryPage,
+          controllers.operationsAndFunds.routes.BankDetailsSummaryController.onSubmit()
+        )
+      )
     }
 
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     for {
-    updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
-    _              <- sessionRepository.set(updatedAnswers)
+      updatedAnswers <-
+        Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
+      _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(BankDetailsSummaryPage, NormalMode, updatedAnswers))
 
   }

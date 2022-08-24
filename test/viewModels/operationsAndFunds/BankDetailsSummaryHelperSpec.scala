@@ -27,12 +27,20 @@ import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 
 class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-  private val helper = new BankDetailsSummaryHelper(UserAnswers("id")
-    .set(BankDetailsPage, BankDetails(accountName = "PM Cares",
-      sortCode = "176534",
-      accountNumber = "43444546",
-      rollNumber = Some("765431234"))).success.value)
-
+  private val helper = new BankDetailsSummaryHelper(
+    UserAnswers("id")
+      .set(
+        BankDetailsPage,
+        BankDetails(
+          accountName = "PM Cares",
+          sortCode = "176534",
+          accountNumber = "43444546",
+          rollNumber = Some("765431234")
+        )
+      )
+      .success
+      .value
+  )
 
   "Bank Details Check Your Answers Helper" must {
 
@@ -40,30 +48,31 @@ class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list rows" in {
 
-        helper.rows mustBe Seq(summaryListRow(
-          messages("bankDetails.accountName.checkYourAnswersLabel"),
-          HtmlContent("PM Cares"),
-          Some(messages("bankDetails.accountName.checkYourAnswersLabel")),
-          operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ),
-        summaryListRow(
-          messages("bankDetails.sortCode.checkYourAnswersLabel"),
-          HtmlContent("176534"),
-          Some(messages("bankDetails.sortCode.checkYourAnswersLabel")),
-          operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ),
-        summaryListRow(
-          messages("bankDetails.accountNumber.checkYourAnswersLabel"),
-          HtmlContent("43444546"),
-          Some(messages("bankDetails.accountNumber.checkYourAnswersLabel")),
-          operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ),
-        summaryListRow(
-          messages("bankDetails.rollNumber.checkYourAnswersLabel"),
-          HtmlContent("765431234"),
-          Some(messages("bankDetails.rollNumber.checkYourAnswersLabel")),
-          operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        )
+        helper.rows mustBe Seq(
+          summaryListRow(
+            messages("bankDetails.accountName.checkYourAnswersLabel"),
+            HtmlContent("PM Cares"),
+            Some(messages("bankDetails.accountName.checkYourAnswersLabel")),
+            operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          ),
+          summaryListRow(
+            messages("bankDetails.sortCode.checkYourAnswersLabel"),
+            HtmlContent("176534"),
+            Some(messages("bankDetails.sortCode.checkYourAnswersLabel")),
+            operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          ),
+          summaryListRow(
+            messages("bankDetails.accountNumber.checkYourAnswersLabel"),
+            HtmlContent("43444546"),
+            Some(messages("bankDetails.accountNumber.checkYourAnswersLabel")),
+            operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          ),
+          summaryListRow(
+            messages("bankDetails.rollNumber.checkYourAnswersLabel"),
+            HtmlContent("765431234"),
+            Some(messages("bankDetails.rollNumber.checkYourAnswersLabel")),
+            operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
         )
       }
     }

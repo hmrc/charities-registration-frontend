@@ -22,9 +22,7 @@ import viewmodels.StatusHelper
 
 object BankDetailsStatusHelper extends StatusHelper {
 
-  override def checkComplete(userAnswers: UserAnswers): Boolean = {
+  override def checkComplete(userAnswers: UserAnswers): Boolean =
+    userAnswers.get(BankDetailsPage).isDefined
 
-   userAnswers.get(BankDetailsPage).isDefined
-
-  }
 }

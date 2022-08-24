@@ -52,10 +52,10 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
     reset(mockUserAnswerService)
   }
 
-  val messagePrefix: String = "organisationNomineesBankDetails"
-  private val view: BankAccountDetailsView = injector.instanceOf[BankAccountDetailsView]
+  val messagePrefix: String                         = "organisationNomineesBankDetails"
+  private val view: BankAccountDetailsView          = injector.instanceOf[BankAccountDetailsView]
   private val formProvider: BankDetailsFormProvider = injector.instanceOf[BankDetailsFormProvider]
-  private val form: Form[BankDetails] = formProvider(messagePrefix)
+  private val form: Form[BankDetails]               = formProvider(messagePrefix)
 
   private val controller: OrganisationNomineesBankDetailsController = inject[OrganisationNomineesBankDetailsController]
 
@@ -78,17 +78,19 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
-        messagePrefix, "officialsAndNominees.section", Some("TESCO"))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
+        messagePrefix,
+        "officialsAndNominees.section",
+        Some("TESCO")
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(OrganisationNomineesBankDetailsPage,
-        bankDetails).success.value
+      val userAnswers = localUserAnswers.set(OrganisationNomineesBankDetailsPage, bankDetails).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -100,11 +102,15 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody("accountName" -> "fullName", "sortCode" -> "123456",
-        "accountNumber" -> "12345678", "rollNumber" -> "operatingName")
+      val request = fakeRequest.withFormUrlEncodedBody(
+        "accountName"   -> "fullName",
+        "sortCode"      -> "123456",
+        "accountNumber" -> "12345678",
+        "rollNumber"    -> "operatingName"
+      )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 

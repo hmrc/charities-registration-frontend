@@ -26,44 +26,42 @@ import views.html.common.NameView
 
 class NameViewSpec extends QuestionViewBehaviours[Name] {
 
-  private val messageKeyPrefix = "authorisedOfficialsName"
+  private val messageKeyPrefix  = "authorisedOfficialsName"
   override val form: Form[Name] = inject[NameFormProvider].apply(messageKeyPrefix)
 
-    "AuthorisedOfficialsNameView" must {
+  "AuthorisedOfficialsNameView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[NameView](Some(emptyUserAnswers))
-          view.apply(form, messageKeyPrefix, onwardRoute)(
-            fakeRequest, messages, frontendAppConfig)
-        }
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[NameView](Some(emptyUserAnswers))
+      view.apply(form, messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      SelectTitle.options(form).zipWithIndex.foreach { case (option, i) =>
+    SelectTitle.options(form).zipWithIndex.foreach { case (option, i) =>
+      val id = if (i == 0) "value" else s"value-${i + 1}"
 
-        val id = if (i == 0) "value" else s"value-${i + 1}"
+      s"contain radio buttons for the value '${option.value.get}'" in {
 
-        s"contain radio buttons for the value '${option.value.get}'" in {
-
-          val doc = asDocument(applyView(form))
-          assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = false)
-        }
-
-        s"rendered with a value of '${option.value.get}'" must {
-
-          s"have the '${option.value.get}' radio button selected" in {
-
-            val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
-            val doc = asDocument(applyView(formWithData))
-
-            assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = true)
-          }
-        }
+        val doc = asDocument(applyView(form))
+        assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = false)
       }
 
+      s"rendered with a value of '${option.value.get}'" must {
+
+        s"have the '${option.value.get}' radio button selected" in {
+
+          val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
+          val doc          = asDocument(applyView(formWithData))
+
+          assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = true)
+        }
+      }
     }
+
   }
+}

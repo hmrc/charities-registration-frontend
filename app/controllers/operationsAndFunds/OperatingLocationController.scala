@@ -33,41 +33,42 @@ import views.html.operationsAndFunds.OperatingLocationView
 
 import scala.concurrent.Future
 
-class OperatingLocationController @Inject()(
-   sessionRepository: UserAnswerService,
-   navigator: FundRaisingNavigator,
-   identify: AuthIdentifierAction,
-   getData: UserDataRetrievalAction,
-   requireData: DataRequiredAction,
-   formProvider: OperatingLocationFormProvider,
-   val controllerComponents: MessagesControllerComponents,
-   view: OperatingLocationView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class OperatingLocationController @Inject() (
+  sessionRepository: UserAnswerService,
+  navigator: FundRaisingNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: OperatingLocationFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: OperatingLocationView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val form: Form[Set[OperatingLocationOptions]] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val preparedForm = request.userAnswers.get(OperatingLocationPage) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-
-      value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(OperatingLocationPage, value).flatMap(_.set(Section5Page, false)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(OperatingLocationPage, mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <-
+                Future
+                  .fromTry(request.userAnswers.set(OperatingLocationPage, value).flatMap(_.set(Section5Page, false)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(OperatingLocationPage, mode, updatedAnswers))
+        )
   }
 }
-

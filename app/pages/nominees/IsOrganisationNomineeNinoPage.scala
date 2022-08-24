@@ -31,7 +31,7 @@ case object IsOrganisationNomineeNinoPage extends QuestionPage[Boolean] {
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
       case Some(true) => userAnswers.remove(OrganisationAuthorisedPersonPassportPage)
-      case _ => userAnswers.remove(OrganisationAuthorisedPersonNinoPage)
+      case _          => userAnswers.remove(OrganisationAuthorisedPersonNinoPage)
 
     }
 }

@@ -42,36 +42,42 @@ trait AmendAddressController extends LocalBaseController {
 
   private val form: Form[AmendAddressModel] = formProvider("amendAddress")
 
-  def getView(page: QuestionPage[AddressModel], submitCall: Call,
-              allowedCountries: Seq[(String, String)], name: Option[String] = None)(
-    implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
+  def getView(
+    page: QuestionPage[AddressModel],
+    submitCall: Call,
+    allowedCountries: Seq[(String, String)],
+    name: Option[String] = None
+  )(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
 
     val preparedForm = request.userAnswers.get(page) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value.toEdit)
     }
 
     Ok(view(preparedForm, messagePrefix, submitCall, name, allowedCountries))
   }
 
-  def postView(mode: Mode, page: QuestionPage[AddressModel], section: QuestionPage[Boolean],
-               submitCall: Call, allowedCountries: Seq[(String, String)], name: Option[String] = None)
-              (implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
+  def postView(
+    mode: Mode,
+    page: QuestionPage[AddressModel],
+    section: QuestionPage[Boolean],
+    submitCall: Call,
+    allowedCountries: Seq[(String, String)],
+    name: Option[String] = None
+  )(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
 
     val validatedForm = formProvider.validatePostCode(form.bindFromRequest())
 
     validatedForm.fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, messagePrefix, submitCall, name, allowedCountries))),
-
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(page, value.toConfirmableAddress).flatMap(_.set(section, false)))
+          updatedAnswers <-
+            Future.fromTry(request.userAnswers.set(page, value.toConfirmableAddress).flatMap(_.set(section, false)))
           _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
     )
   }
-
-
 
 }

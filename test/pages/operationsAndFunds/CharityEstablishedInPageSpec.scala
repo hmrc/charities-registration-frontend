@@ -20,11 +20,11 @@ import models.operations.CharityEstablishedOptions
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
-class CharityEstablishedInPageSpec extends PageBehaviours{
+class CharityEstablishedInPageSpec extends PageBehaviours {
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityEstablishedOptions] = Arbitrary {
-      Gen.oneOf(CharityEstablishedOptions.values)
-    }
+  implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityEstablishedOptions] = Arbitrary {
+    Gen.oneOf(CharityEstablishedOptions.values)
+  }
 
   "WhatCountryWasTheCharityEstablishedIn" must {
 

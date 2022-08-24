@@ -33,7 +33,7 @@ class BankDetailsSpec extends AnyWordSpec with Matchers with OptionValues {
         accountNumber = "12 34 56 78",
         rollNumber = Some("operatingName")
       )
-      val result = Json.toJson(bankDetails)(BankDetails.writes)
+      val result      = Json.toJson(bankDetails)(BankDetails.writes)
 
       "we have a accountName" in {
         (result \ "accountName").as[String] mustBe "fullName"

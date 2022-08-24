@@ -26,25 +26,35 @@ import views.html.common.BankAccountDetailsView
 
 class IndividualNomineesBankDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
-  private val messageKeyPrefix = "individualNomineesBankDetails"
+  private val messageKeyPrefix    = "individualNomineesBankDetails"
   private val sectionName: String = "officialsAndNominees.section"
-  val form: Form[BankDetails] = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
+  val form: Form[BankDetails]     = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
 
-    "IndividualNomineesBankDetailsView" must {
+  "IndividualNomineesBankDetailsView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
-          view.apply(form, controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
-            messageKeyPrefix, sectionName, Some("Jim Jam"))(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jim Jam"), section = Some(messages("officialsAndNominees.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithWarningText(applyView(form), messages("individualNomineesBankDetails.basc.warning"))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
+      view.apply(
+        form,
+        controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
+        messageKeyPrefix,
+        sectionName,
+        Some("Jim Jam")
+      )(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      Seq("Jim Jam"),
+      section = Some(messages("officialsAndNominees.section"))
+    )
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithWarningText(applyView(form), messages("individualNomineesBankDetails.basc.warning"))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

@@ -23,23 +23,24 @@ import play.api.data.format.Formatter
 import scala.util.{Failure, Success, Try}
 
 private[mappings] class LocalDateFormatterDayMonth(
-    invalidKey: String,
-    allRequiredKey: String,
-    requiredKey: String,
-    nonNumericKey: String,
-    leapYearKey: String,
-    args: Seq[String] = Seq.empty
-  ) extends Formatter[MonthDay] with GenericDateFormatter {
+  invalidKey: String,
+  allRequiredKey: String,
+  requiredKey: String,
+  nonNumericKey: String,
+  leapYearKey: String,
+  args: Seq[String] = Seq.empty
+) extends Formatter[MonthDay]
+    with GenericDateFormatter {
 
   val fieldKeys: List[String] = List("day", "month")
 
   private def toDate(key: String, day: Int, month: Int): Either[Seq[FormError], MonthDay] =
-   Try(MonthDay.fromDateFields(new LocalDate(LocalDate.now().getYear, month, day).toDate)) match {
+    Try(MonthDay.fromDateFields(new LocalDate(LocalDate.now().getYear, month, day).toDate)) match {
       case Success(date) if date.getDayOfMonth == 29 && date.getMonthOfYear == 2 =>
         Left(Seq(FormError(keyWithError(key, "day"), leapYearKey, args)))
-      case Success(date) =>
+      case Success(date)                                                         =>
         Right(date)
-      case Failure(_) =>
+      case Failure(_)                                                            =>
         Left(Seq(FormError(keyWithError(key, "day"), invalidKey, args)))
     }
 
@@ -65,20 +66,22 @@ private[mappings] class LocalDateFormatterDayMonth(
 
     fields(key, dataWithoutSpaces).count(_._2.isDefined) match {
       case 2 if illegalFields(key, dataWithoutSpaces).nonEmpty | illegalZero(key, dataWithoutSpaces).nonEmpty =>
-        Left(List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields) ++
-          illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero))
-      case 2 =>
+        Left(
+          List() ++ illegalErrors(key, dataWithoutSpaces, nonNumericKey, args, illegalFields) ++
+            illegalErrors(key, dataWithoutSpaces, invalidKey, args, illegalZero)
+        )
+      case 2                                                                                                  =>
         formatDate(key, dataWithoutSpaces)
-      case 1 =>
+      case 1                                                                                                  =>
         leftErrors(key, dataWithoutSpaces, requiredKey, invalidKey, args)
-      case _ =>
+      case _                                                                                                  =>
         leftErrors(key, dataWithoutSpaces, allRequiredKey, invalidKey, args)
     }
   }
 
   override def unbind(key: String, value: MonthDay): Map[String, String] =
     Map(
-      s"$key.day" -> value.getDayOfMonth.toString,
+      s"$key.day"   -> value.getDayOfMonth.toString,
       s"$key.month" -> value.getMonthOfYear.toString
     )
 }

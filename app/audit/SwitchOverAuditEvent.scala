@@ -22,8 +22,6 @@ case class SwitchOverAuditEvent(submission: JsValue, override val auditType: Str
 
   override def transactionName: String = "CharitiesSwitchOver"
 
-  override def details: JsValue = {
+  override def details: JsValue =
     submission
-  }
 }
-

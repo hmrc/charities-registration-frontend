@@ -33,7 +33,6 @@ case object OperatingLocationPage extends QuestionPage[Set[OperatingLocationOpti
   override def cleanup(value: Option[Set[OperatingLocationOptions]], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
       case Some(notOverseas) if !notOverseas.contains(Overseas) =>
-
         userAnswers.remove(Seq(OverseasOperatingLocationSummaryPage, OverseasCountriesPage))
 
       case _ => super.cleanup(value, userAnswers)

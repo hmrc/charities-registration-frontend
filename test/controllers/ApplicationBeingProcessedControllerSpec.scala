@@ -58,15 +58,24 @@ class ApplicationBeingProcessedControllerSpec extends SpecBase with ImplicitDate
 
     "return OK and the correct view for a GET if application was submitted in the old service" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(OldServiceSubmissionPage, OldServiceSubmission("123456789", "11:59am, Monday 14 September 2020"))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(OldServiceSubmissionPage, OldServiceSubmission("123456789", "11:59am, Monday 14 September 2020"))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(dayToString(LocalDate.parse("2020-09-14"), dayOfWeek = false),
-        "123456789")(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        dayToString(LocalDate.parse("2020-09-14"), dayOfWeek = false),
+        "123456789"
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

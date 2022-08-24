@@ -23,30 +23,27 @@ import play.api.data.Form
 import play.api.data.Forms._
 import utils.TimeMachine
 
-class PassportFormProvider @Inject()(timeMachine: TimeMachine) extends Mappings {
+class PassportFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings {
 
-  private[common] val maxLengthCountry = 50
+  private[common] val maxLengthCountry  = 50
   private[common] val maxLengthPassport = 30
 
   def apply(messagePrefix: String): Form[Passport] =
     Form(
       mapping(
-
         "passportNumber" -> textWithOneSpace(s"$messagePrefix.passportNumber.error.required")
-              .verifying(maxLength(maxLengthPassport, s"$messagePrefix.passportNumber.error.length"))
-              .verifying(regexp(validateFieldWithFullStop,s"$messagePrefix.passportNumber.error.format")),
-        "country" -> text(s"$messagePrefix.country.error.required")
+          .verifying(maxLength(maxLengthPassport, s"$messagePrefix.passportNumber.error.length"))
+          .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.passportNumber.error.format")),
+        "country"        -> text(s"$messagePrefix.country.error.required")
           .verifying(maxLength(maxLengthCountry, s"$messagePrefix.country.error.length"))
-          .verifying(regexp(validateField,s"$messagePrefix.country.error.format")),
-        "expiryDate" -> localDate(
-          invalidKey     = s"$messagePrefix.error.invalid",
+          .verifying(regexp(validateField, s"$messagePrefix.country.error.format")),
+        "expiryDate"     -> localDate(
+          invalidKey = s"$messagePrefix.error.invalid",
           allRequiredKey = s"$messagePrefix.error.required.all",
           twoRequiredKey = s"$messagePrefix.error.required.two",
-          requiredKey    = s"$messagePrefix.error.required.one",
-          nonNumericKey  = s"$messagePrefix.error.nonNumeric"
+          requiredKey = s"$messagePrefix.error.required.one",
+          nonNumericKey = s"$messagePrefix.error.nonNumeric"
         ).verifying(minDate(timeMachine.now().plusDays(1), s"$messagePrefix.error.minimum", "day", "month", "year"))
       )(Passport.apply)(Passport.unapply)
     )
 }
-
-

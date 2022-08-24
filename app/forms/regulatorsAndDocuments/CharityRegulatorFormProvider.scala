@@ -31,5 +31,3 @@ class CharityRegulatorFormProvider @Inject() extends Mappings {
     )
 
 }
-
-

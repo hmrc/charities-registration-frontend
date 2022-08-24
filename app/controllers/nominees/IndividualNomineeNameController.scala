@@ -30,7 +30,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.NameView
 
-class IndividualNomineeNameController @Inject()(
+class IndividualNomineeNameController @Inject() (
   val identify: AuthIdentifierAction,
   val getData: UserDataRetrievalAction,
   val requireData: DataRequiredAction,
@@ -39,23 +39,25 @@ class IndividualNomineeNameController @Inject()(
   override val navigator: NomineesNavigator,
   override val controllerComponents: MessagesControllerComponents,
   override val view: NameView
-  )(implicit appConfig: FrontendAppConfig) extends NameController {
+)(implicit appConfig: FrontendAppConfig)
+    extends NameController {
 
   override val messagePrefix: String = "individualNomineeName"
-  private val form: Form[Name] = formProvider(messagePrefix)
+  private val form: Form[Name]       = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-
-      getView(IndividualNomineeNamePage, form,
-        controllers.nominees.routes.IndividualNomineeNameController.onSubmit(mode))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    getView(IndividualNomineeNamePage, form, controllers.nominees.routes.IndividualNomineeNameController.onSubmit(mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      postView(mode, IndividualNomineeNamePage, form, Section9Page,
-        controllers.nominees.routes.IndividualNomineeNameController.onSubmit(mode))
+      postView(
+        mode,
+        IndividualNomineeNamePage,
+        form,
+        Section9Page,
+        controllers.nominees.routes.IndividualNomineeNameController.onSubmit(mode)
+      )
   }
 
 }

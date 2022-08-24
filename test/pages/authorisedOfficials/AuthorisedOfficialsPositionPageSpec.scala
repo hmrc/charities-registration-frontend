@@ -20,11 +20,11 @@ import models.authOfficials.OfficialsPosition
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
-class AuthorisedOfficialsPositionPageSpec extends PageBehaviours{
+class AuthorisedOfficialsPositionPageSpec extends PageBehaviours {
 
   "AuthorisedOfficialsPosition" must {
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[OfficialsPosition] =  Arbitrary {
+    implicit lazy val arbitraryCharityContactDetails: Arbitrary[OfficialsPosition] = Arbitrary {
       Gen.oneOf(OfficialsPosition.values)
     }
 

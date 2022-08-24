@@ -28,7 +28,7 @@ import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 class WhenGoverningDocumentApprovedViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   private val messageKeyPrefix = "whenGoverningDocumentApproved.4"
-  val form: Form[LocalDate] = inject[WhenGoverningDocumentApprovedFormProvider].apply()
+  val form: Form[LocalDate]    = inject[WhenGoverningDocumentApprovedFormProvider].apply()
 
   "WhenGoverningDocumentApprovedView view" must {
 

@@ -23,13 +23,13 @@ import play.api.data.Form
 class NinoFormProvider @Inject() extends Mappings {
 
   // scalastyle:off line.size.limit
-  private[common] val ninoPattern = """^[ \t]*[A-Za-z]{1}[ \t]*[ \t]*[A-Za-z]{1}[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[A-Da-d]{1}[ \t]*$""".r.anchored.toString()
+  private[common] val ninoPattern =
+    """^[ \t]*[A-Za-z]{1}[ \t]*[ \t]*[A-Za-z]{1}[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[A-Da-d]{1}[ \t]*$""".r.anchored
+      .toString()
 
   def apply(messagePrefix: String): Form[String] =
     Form(
       "nino" -> text(s"$messagePrefix.error.required")
-          .verifying(regexp(ninoPattern,s"$messagePrefix.error.format"))
+        .verifying(regexp(ninoPattern, s"$messagePrefix.error.format"))
     )
 }
-
-

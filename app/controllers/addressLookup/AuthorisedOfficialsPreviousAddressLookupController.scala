@@ -29,7 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
-class AuthorisedOfficialsPreviousAddressLookupController @Inject()(
+class AuthorisedOfficialsPreviousAddressLookupController @Inject() (
   override val sessionRepository: UserAnswerService,
   override val navigator: AuthorisedOfficialsNavigator,
   identify: AuthIdentifierAction,
@@ -38,22 +38,23 @@ class AuthorisedOfficialsPreviousAddressLookupController @Inject()(
   override val addressLookupConnector: AddressLookupConnector,
   override val errorHandler: ErrorHandler,
   val controllerComponents: MessagesControllerComponents
- )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
+)(implicit appConfig: FrontendAppConfig)
+    extends BaseAddressController {
 
   override val messagePrefix: String = "authorisedOfficialPreviousAddress"
 
-  def initializeJourney(index: Index, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def initializeJourney(index: Index, mode: Mode): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-
-        val callBack: String = controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.callback(index, mode).url
+        val callBack: String =
+          controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.callback(index, mode).url
 
         addressLookupInitialize(callBack, Some(authorisedOfficialsName))
       }
-  }
+    }
 
-  def callback(index: Index, mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def callback(index: Index, mode: Mode, id: Option[String]): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       addressLookupCallback(AuthorisedOfficialPreviousAddressLookupPage(index), Section7Page, id, mode)
-  }
+    }
 }

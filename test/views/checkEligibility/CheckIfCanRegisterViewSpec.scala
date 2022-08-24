@@ -35,13 +35,16 @@ class CheckIfCanRegisterViewSpec extends ViewBehaviours {
 
     behave like normalPage(applyView(), messageKeyPrefix)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-      "p1")
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
 
     behave like pageWithBackLink(applyView())
 
-    behave like pageWithHyperLink(applyView(),
-      "linkButton", controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url, BaseMessages.continue)
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url,
+      BaseMessages.continue
+    )
 
   }
 }

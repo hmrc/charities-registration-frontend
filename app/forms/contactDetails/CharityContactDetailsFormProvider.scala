@@ -29,16 +29,19 @@ class CharityContactDetailsFormProvider @Inject() extends Mappings {
   def apply(): Form[CharityContactDetails] =
     Form(
       mapping(
-        "mainPhoneNumber" -> text("charityContactDetails.mainPhoneNumber.error.required")
-          .verifying(regexp(validateTelephoneNumber,"charityContactDetails.mainPhoneNumber.error.format")),
-        "alternativePhoneNumber" -> optional(text()
-          .verifying(regexp(validateTelephoneNumber,"charityContactDetails.alternativePhoneNumber.error.format"))),
-        "emailAddress" -> text("charityContactDetails.emailAddress.error.required")
+        "mainPhoneNumber"        -> text("charityContactDetails.mainPhoneNumber.error.required")
+          .verifying(regexp(validateTelephoneNumber, "charityContactDetails.mainPhoneNumber.error.format")),
+        "alternativePhoneNumber" -> optional(
+          text()
+            .verifying(regexp(validateTelephoneNumber, "charityContactDetails.alternativePhoneNumber.error.format"))
+        ),
+        "emailAddress"           -> text("charityContactDetails.emailAddress.error.required")
           .verifying(maxLength(maxLength, "charityContactDetails.emailAddress.error.length"))
           .verifying(regexp(validateEmailAddress, "charityContactDetails.emailAddress.error.format"))
-          .verifying("charityContactDetails.emailAddress.error.format", email => !email.contains("\"") && !email.matches(validateEmailExtraTld))
-
+          .verifying(
+            "charityContactDetails.emailAddress.error.format",
+            email => !email.contains("\"") && !email.matches(validateEmailExtraTld)
+          )
       )(CharityContactDetails.apply)(CharityContactDetails.unapply)
     )
 }
-

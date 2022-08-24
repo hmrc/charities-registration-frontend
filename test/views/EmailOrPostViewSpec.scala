@@ -24,22 +24,26 @@ import views.html.EmailOrPostView
 
 class EmailOrPostViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "emailOrPost"
-  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
+  private val messageKeyPrefix        = "emailOrPost"
+  val form: Form[Boolean]             = inject[YesNoFormProvider].apply(messageKeyPrefix)
   private val section: Option[String] = Some(messages("declaration.section"))
 
   "EmailOrPostView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[EmailOrPostView](Some(emptyUserAnswers))
-      view.apply(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, controllers.routes.EmailOrPostController.onSubmit.url, section = section, isEmailOrPost = true)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section, isEmailOrPost = true)
 
     behave like pageWithSubmitButton(applyView(form), messages("site.continue"))
 

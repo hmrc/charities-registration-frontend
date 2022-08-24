@@ -32,41 +32,40 @@ import views.html.operationsAndFunds.IsBankStatementsView
 
 import scala.concurrent.Future
 
-class IsBankStatementsController @Inject()(
-    sessionRepository: UserAnswerService,
-    navigator: FundRaisingNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: IsBankStatementsFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: IsBankStatementsView
- )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class IsBankStatementsController @Inject() (
+  sessionRepository: UserAnswerService,
+  navigator: FundRaisingNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: IsBankStatementsFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: IsBankStatementsView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-
-      val preparedForm = request.userAnswers.get(IsBankStatementsPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm, mode))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    val preparedForm = request.userAnswers.get(IsBankStatementsPage) match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Ok(view(preparedForm, mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(IsBankStatementsPage, value).flatMap(_.set(Section5Page, false)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(IsBankStatementsPage, mode, updatedAnswers))
-      )
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <-
+                Future.fromTry(request.userAnswers.set(IsBankStatementsPage, value).flatMap(_.set(Section5Page, false)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(IsBankStatementsPage, mode, updatedAnswers))
+        )
   }
 }

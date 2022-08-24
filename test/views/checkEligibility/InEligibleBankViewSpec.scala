@@ -22,23 +22,27 @@ import views.html.checkEligibility.InEligibleBankView
 
 class InEligibleBankViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "notEligible"
-  private val messageLink= messages("notEligible.p3.link")
+  private val messageKeyPrefix   = "notEligible"
+  private val messageLink        = messages("notEligible.p3.link")
   private val messageTabOrWindow = messages("site.opensInNewWindowOrTab")
 
-    "InEligibleBankView" must {
+  "InEligibleBankView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[InEligibleBankView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix)
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "bank.p1", "p2", "p3", "p3.link")
-
-      behave like pageWithHyperLink(applyView(), "link", frontendAppConfig.getRecognition, messages(s"$messageLink $messageTabOrWindow"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[InEligibleBankView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix)
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "bank.p1", "p2", "p3", "p3.link")
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "link",
+      frontendAppConfig.getRecognition,
+      messages(s"$messageLink $messageTabOrWindow")
+    )
+
   }
+}

@@ -53,15 +53,17 @@ class SectionsChangedGoverningDocumentControllerSpec extends SpecBase with Befor
     reset(mockUserAnswerService)
   }
 
-  private val view: SectionsChangedGoverningDocumentView = inject[SectionsChangedGoverningDocumentView]
-  private val formProvider: SectionsChangedGoverningDocumentFormProvider = inject[SectionsChangedGoverningDocumentFormProvider]
-  private val form: Form[String] = formProvider()
+  private val view: SectionsChangedGoverningDocumentView                 = inject[SectionsChangedGoverningDocumentView]
+  private val formProvider: SectionsChangedGoverningDocumentFormProvider =
+    inject[SectionsChangedGoverningDocumentFormProvider]
+  private val form: Form[String]                                         = formProvider()
 
-  private val controller: SectionsChangedGoverningDocumentController = inject[SectionsChangedGoverningDocumentController]
-  private val requestArgs = Seq("value" -> "Governing document change")
+  private val controller: SectionsChangedGoverningDocumentController =
+    inject[SectionsChangedGoverningDocumentController]
+  private val requestArgs                                            = Seq("value" -> "Governing document change")
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage,
-    SelectGoverningDocument.Will).success.value
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value
 
   "SectionsChangedGoverningDocument Controller" must {
 
@@ -76,13 +78,17 @@ class SectionsChangedGoverningDocumentControllerSpec extends SpecBase with Befor
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(SectionsChangedGoverningDocumentPage, "Governing document change").success.value
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(SectionsChangedGoverningDocumentPage, "Governing document change").getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            localUserAnswers
+              .set(SectionsChangedGoverningDocumentPage, "Governing document change")
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -92,7 +98,7 @@ class SectionsChangedGoverningDocumentControllerSpec extends SpecBase with Befor
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

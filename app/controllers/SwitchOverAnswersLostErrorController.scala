@@ -24,15 +24,14 @@ import views.html.SwitchOverAnswersLostErrorView
 
 import scala.concurrent.Future
 
-
-class SwitchOverAnswersLostErrorController @Inject()(
-    identify: AuthIdentifierAction,
-    view: SwitchOverAnswersLostErrorView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class SwitchOverAnswersLostErrorController @Inject() (
+  identify: AuthIdentifierAction,
+  view: SwitchOverAnswersLostErrorView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = identify.async { implicit request =>
-
     Future.successful(Ok(view()))
   }
 

@@ -40,34 +40,46 @@ trait BaseAddressController extends LocalBaseController {
 
   private val logger = Logger(this.getClass)
 
-  def addressLookupInitialize(callbackUrl: String, fullName: Option[String] = None, allowedCountryCodes: Option[Set[String]] = None)(
-    implicit request: DataRequest[AnyContent], ec: ExecutionContext): Future[Result] = {
-
-    addressLookupConnector.initialize(callbackUrl, messagePrefix, fullName, allowedCountryCodes)(hc, ec, messagesApi) map {
+  def addressLookupInitialize(
+    callbackUrl: String,
+    fullName: Option[String] = None,
+    allowedCountryCodes: Option[Set[String]] = None
+  )(implicit request: DataRequest[AnyContent], ec: ExecutionContext): Future[Result] =
+    addressLookupConnector.initialize(callbackUrl, messagePrefix, fullName, allowedCountryCodes)(
+      hc,
+      ec,
+      messagesApi
+    ) map {
       case Right(AddressLookupOnRamp(url)) => Redirect(url)
-      case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+      case Left(_)                         => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
-  }
 
-  def addressLookupCallback(page: QuestionPage[AddressModel], pageSection: QuestionPage[Boolean], id: Option[String], mode: Mode = NormalMode)(
-    implicit request: DataRequest[AnyContent]): Future[Result] = {
-
+  def addressLookupCallback(
+    page: QuestionPage[AddressModel],
+    pageSection: QuestionPage[Boolean],
+    id: Option[String],
+    mode: Mode = NormalMode
+  )(implicit request: DataRequest[AnyContent]): Future[Result] =
     id match {
       case Some(addressId) =>
         addressLookupConnector.retrieveAddress(addressId) flatMap {
           case Right(address) =>
             for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(page, address).flatMap(_.set(pageSection, false)))
+              updatedAnswers <-
+                Future.fromTry(request.userAnswers.set(page, address).flatMap(_.set(pageSection, false)))
               _              <- sessionRepository.set(updatedAnswers)
             } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
-          case _ =>
-            logger.error(s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup")
+          case _              =>
+            logger.error(
+              s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup"
+            )
             Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
         }
-      case _ =>
-        logger.error(s"[BaseAddressController][addressLookupCallback][$page] No ID was returned on callback from address lookup")
+      case _               =>
+        logger.error(
+          s"[BaseAddressController][addressLookupCallback][$page] No ID was returned on callback from address lookup"
+        )
         Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
-  }
 
 }

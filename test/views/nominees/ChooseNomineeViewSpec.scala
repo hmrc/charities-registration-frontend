@@ -27,9 +27,9 @@ import views.html.nominees.ChooseNomineeView
 
 class ChooseNomineeViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "chooseNominee"
+  private val messageKeyPrefix        = "chooseNominee"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[ChooseNomineeFormProvider].apply()
+  val form: Form[Boolean]             = inject[ChooseNomineeFormProvider].apply()
 
   "ChooseNomineeView" must {
 
@@ -42,7 +42,7 @@ class ChooseNomineeViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.ChooseNomineeController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }

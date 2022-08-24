@@ -34,16 +34,17 @@ import views.html.common.DateOfBirthView
 
 import scala.concurrent.Future
 
-class IndividualNomineeDOBController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: DateOfBirthFormProvider,
-   override val sessionRepository: UserAnswerService,
-   override val navigator: NomineesNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: DateOfBirthView
-   )(implicit appConfig: FrontendAppConfig) extends DateOfBirthController {
+class IndividualNomineeDOBController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: DateOfBirthFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: DateOfBirthView
+)(implicit appConfig: FrontendAppConfig)
+    extends DateOfBirthController {
 
   override val messagePrefix: String = "individualNomineeDOB"
 
@@ -51,21 +52,29 @@ class IndividualNomineeDOBController @Inject()(
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-        Future.successful(getView(IndividualNomineeDOBPage, form, individualNomineeName,
-          controllers.nominees.routes.IndividualNomineeDOBController.onSubmit(mode)))
+        Future.successful(
+          getView(
+            IndividualNomineeDOBPage,
+            form,
+            individualNomineeName,
+            controllers.nominees.routes.IndividualNomineeDOBController.onSubmit(mode)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-        postView(mode, IndividualNomineeDOBPage, form, individualNomineeName, Section9Page,
-          controllers.nominees.routes.IndividualNomineeDOBController.onSubmit(mode))
+        postView(
+          mode,
+          IndividualNomineeDOBPage,
+          form,
+          individualNomineeName,
+          Section9Page,
+          controllers.nominees.routes.IndividualNomineeDOBController.onSubmit(mode)
+        )
       }
   }
 }

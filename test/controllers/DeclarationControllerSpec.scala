@@ -37,8 +37,9 @@ import scala.concurrent.Future
 
 class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with CharityTransformerConstants {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCharitiesRegistrationService: CharitiesRegistrationService = MockitoSugar.mock[CharitiesRegistrationService]
+  override lazy val userAnswers: Option[UserAnswers]                      = Some(emptyUserAnswers)
+  lazy val mockCharitiesRegistrationService: CharitiesRegistrationService =
+    MockitoSugar.mock[CharitiesRegistrationService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -61,17 +62,24 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(Section1Page, true)
-        .flatMap(_.set(Section2Page, true))
-        .flatMap(_.set(Section3Page, true))
-        .flatMap(_.set(Section4Page, true))
-        .flatMap(_.set(Section5Page, true))
-        .flatMap(_.set(Section6Page, true))
-        .flatMap(_.set(Section7Page, true))
-        .flatMap(_.set(Section8Page, true))
-        .flatMap(_.set(Section9Page, true))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(Section1Page, true)
+              .flatMap(_.set(Section2Page, true))
+              .flatMap(_.set(Section3Page, true))
+              .flatMap(_.set(Section4Page, true))
+              .flatMap(_.set(Section5Page, true))
+              .flatMap(_.set(Section6Page, true))
+              .flatMap(_.set(Section7Page, true))
+              .flatMap(_.set(Section8Page, true))
+              .flatMap(_.set(Section9Page, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -109,13 +117,14 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
     "redirect to the EmailOrPost page without calling service if external test is enabled and noEmailPost is disabled" in {
 
-      val app = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true",
-          "features.noEmailPost" -> "false")
-          .overrides(
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          ).build()
+      val app = new GuiceApplicationBuilder()
+        .configure("features.isExternalTest" -> "true", "features.noEmailPost" -> "false")
+        .overrides(
+          bind[UserAnswerService].toInstance(mockUserAnswerService),
+          bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
+          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+        )
+        .build()
 
       val controller: DeclarationController = app.injector.instanceOf[DeclarationController]
 
@@ -136,13 +145,14 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
     "redirect to the EmailOrPost page without calling service if external test is enabled and noEmailPost is enabled" in {
 
-      val app = new GuiceApplicationBuilder().configure("features.isExternalTest" -> "true",
-          "features.noEmailPost" -> "true")
-          .overrides(
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          ).build()
+      val app = new GuiceApplicationBuilder()
+        .configure("features.isExternalTest" -> "true", "features.noEmailPost" -> "true")
+        .overrides(
+          bind[UserAnswerService].toInstance(mockUserAnswerService),
+          bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
+          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+        )
+        .build()
 
       val controller: DeclarationController = app.injector.instanceOf[DeclarationController]
 
@@ -188,10 +198,17 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
     "redirect to Tasklist for a GET if SectionPage is not completed" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers
-        .set(Section1Page, false)
-        .flatMap(_.set(Section2Page, true))
-        .success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(Section1Page, false)
+              .flatMap(_.set(Section2Page, true))
+              .success
+              .value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 

@@ -32,39 +32,39 @@ import views.html.checkEligibility.IsEligibleLocationOtherView
 
 import scala.concurrent.Future
 
-class IsEligibleLocationOtherController @Inject()(
-    val sessionRepository: SessionRepository,
-    val navigator: EligibilityNavigator,
-    identify: SessionIdentifierAction,
-    getData: DataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: IsEligibleLocationOtherFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: IsEligibleLocationOtherView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class IsEligibleLocationOtherController @Inject() (
+  val sessionRepository: SessionRepository,
+  val navigator: EligibilityNavigator,
+  identify: SessionIdentifierAction,
+  getData: DataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: IsEligibleLocationOtherFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: IsEligibleLocationOtherView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val preparedForm = request.userAnswers.get(IsEligibleLocationOtherPage) match {
-      case None => form
+      case None        => form
       case Some(value) => form.fill(value)
     }
 
     Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-
-      value =>
-        for {
-        updatedAnswers <- Future.fromTry(request.userAnswers.set(IsEligibleLocationOtherPage, value))
-        _              <- sessionRepository.upsert(updatedAnswers)
-      } yield Redirect(navigator.nextPage(IsEligibleLocationOtherPage, mode, updatedAnswers))
-    )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(IsEligibleLocationOtherPage, value))
+              _              <- sessionRepository.upsert(updatedAnswers)
+            } yield Redirect(navigator.nextPage(IsEligibleLocationOtherPage, mode, updatedAnswers))
+        )
   }
 }

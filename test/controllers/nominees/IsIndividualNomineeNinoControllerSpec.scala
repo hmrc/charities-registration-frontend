@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class IsIndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -52,10 +52,10 @@ class IsIndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "isIndividualNomineeNino"
-  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val messageKeyPrefix: String        = "isIndividualNomineeNino"
+  private val view: YesNoView                 = injector.instanceOf[YesNoView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: IsIndividualNomineeNinoController = inject[IsIndividualNomineeNinoController]
 
@@ -70,16 +70,21 @@ class IsIndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfter
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.nominees.routes.IsIndividualNomineeNinoController.onSubmit(NormalMode), "officialsAndNominees")(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.nominees.routes.IsIndividualNomineeNinoController.onSubmit(NormalMode),
+        "officialsAndNominees"
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsIndividualNomineeNinoPage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(localUserAnswers.set(IsIndividualNomineeNinoPage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

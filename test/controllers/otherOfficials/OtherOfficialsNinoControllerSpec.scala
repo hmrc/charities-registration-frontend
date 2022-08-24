@@ -52,15 +52,17 @@ class OtherOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfterEach 
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "otherOfficialsNino"
-  private val view: NinoView = inject[NinoView]
+  private val messageKeyPrefix               = "otherOfficialsNino"
+  private val view: NinoView                 = inject[NinoView]
   private val formProvider: NinoFormProvider = inject[NinoFormProvider]
-  private val form: Form[String] = formProvider(messageKeyPrefix)
+  private val form: Form[String]             = formProvider(messageKeyPrefix)
 
   private val controller: OtherOfficialsNinoController = inject[OtherOfficialsNinoController]
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OtherOfficialsNamePage(0),
-    Name(SelectTitle.values.head, "FName", Some("MName"), "LName")).success.value
+  private val localUserAnswers: UserAnswers = emptyUserAnswers
+    .set(OtherOfficialsNamePage(0), Name(SelectTitle.values.head, "FName", Some("MName"), "LName"))
+    .success
+    .value
 
   "OtherOfficialsNinoController Controller " must {
 
@@ -70,9 +72,12 @@ class OtherOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfterEach 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "FName MName LName", messageKeyPrefix,
-        controllers.otherOfficials.routes.OtherOfficialsNinoController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "FName MName LName",
+        messageKeyPrefix,
+        controllers.otherOfficials.routes.OtherOfficialsNinoController.onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

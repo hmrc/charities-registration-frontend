@@ -37,12 +37,15 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitableObjectivesPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharitablePurposes page when clicked button" in {
-          navigator.nextPage(CharitableObjectivesPage, NormalMode,
-            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
+          navigator.nextPage(
+            CharitableObjectivesPage,
+            NormalMode,
+            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)
+          ) mustBe
             operations.CharitablePurposesController.onPageLoad(NormalMode)
         }
       }
@@ -51,12 +54,15 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitablePurposesPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
-          navigator.nextPage(CharitablePurposesPage, NormalMode,
-            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value) mustBe
+          navigator.nextPage(
+            CharitablePurposesPage,
+            NormalMode,
+            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value
+          ) mustBe
             operations.PublicBenefitsController.onPageLoad(NormalMode)
         }
       }
@@ -65,12 +71,15 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(PublicBenefitsPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
-          navigator.nextPage(PublicBenefitsPage, NormalMode,
-            emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)) mustBe
+          navigator.nextPage(
+            PublicBenefitsPage,
+            NormalMode,
+            emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)
+          ) mustBe
             operations.CharityObjectivesSummaryController.onPageLoad()
         }
       }
@@ -98,25 +107,32 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitableObjectivesPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharitablePurposes page when clicked button" in {
-          navigator.nextPage(CharitableObjectivesPage, CheckMode,
-            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)) mustBe
-            operations.CharityObjectivesSummaryController.onPageLoad()        }
+          navigator.nextPage(
+            CharitableObjectivesPage,
+            CheckMode,
+            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)
+          ) mustBe
+            operations.CharityObjectivesSummaryController.onPageLoad()
+        }
       }
 
       "from the CharitablePurposesPage" must {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(CharitablePurposesPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to How does your charity benefit the public? page when selected any option and clicked continue" in {
-          navigator.nextPage(CharitablePurposesPage, CheckMode,
-            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value) mustBe
+          navigator.nextPage(
+            CharitablePurposesPage,
+            CheckMode,
+            emptyUserAnswers.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)).success.value
+          ) mustBe
             operations.CharityObjectivesSummaryController.onPageLoad()
         }
       }
@@ -125,12 +141,15 @@ class ObjectivesNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(PublicBenefitsPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
-          navigator.nextPage(PublicBenefitsPage, CheckMode,
-            emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)) mustBe
+          navigator.nextPage(
+            PublicBenefitsPage,
+            CheckMode,
+            emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)
+          ) mustBe
             operations.CharityObjectivesSummaryController.onPageLoad()
         }
       }
@@ -148,7 +167,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
       "attempting to go to any site" must {
         "go to the PageNotFoundController page" in {
           navigator.nextPage(PublicBenefitsPage, PlaybackMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
       }
     }

@@ -20,7 +20,7 @@ import models.{Name, SelectTitle}
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-class IndividualNomineeNamePageSpec extends PageBehaviours{
+class IndividualNomineeNamePageSpec extends PageBehaviours {
 
   "IndividualNomineeNamePage" must {
 

@@ -28,26 +28,29 @@ import views.html.common.ConfirmAddressView
 
 import javax.inject.Inject
 
-class ConfirmOtherOfficialsPreviousAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: ConfirmAddressView,
-    override implicit val appConfig: FrontendAppConfig
-  ) extends ConfirmAddressController {
+class ConfirmOtherOfficialsPreviousAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: ConfirmAddressView,
+  override implicit val appConfig: FrontendAppConfig
+) extends ConfirmAddressController {
 
   override val messagePrefix: String = "otherOfficialPreviousAddress"
 
   def onPageLoad(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-        getView(controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index),
+        getView(
+          controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index),
           OtherOfficialPreviousAddressLookupPage(index),
-          controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode),
+          controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
+            .initializeJourney(index, NormalMode),
           controllers.otherOfficials.routes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index),
-          Some(otherOfficialsName))
+          Some(otherOfficialsName)
+        )
       }
   }
 }

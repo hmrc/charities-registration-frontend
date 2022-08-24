@@ -26,24 +26,24 @@ import views.html.common.ConfirmAddressView
 
 import javax.inject.Inject
 
-class ConfirmCharityPostalAddressController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val countryService: CountryService,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: ConfirmAddressView,
-   override implicit val appConfig: FrontendAppConfig
- ) extends ConfirmAddressController {
+class ConfirmCharityPostalAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: ConfirmAddressView,
+  override implicit val appConfig: FrontendAppConfig
+) extends ConfirmAddressController {
 
   override val messagePrefix: String = "charityPostalAddress"
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      getView(controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
-        CharityPostalAddressLookupPage,
-        controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney,
-        controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit()
-      )
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    getView(
+      controllers.contactDetails.routes.CharityInformationSummaryController.onPageLoad(),
+      CharityPostalAddressLookupPage,
+      controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney,
+      controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit()
+    )
   }
 }

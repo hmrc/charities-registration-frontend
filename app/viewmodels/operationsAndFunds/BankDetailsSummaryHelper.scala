@@ -24,35 +24,44 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
 
-class BankDetailsSummaryHelper(override val userAnswers: UserAnswers)
-                              (implicit val messages: Messages) extends ImplicitDateFormatter with CheckYourAnswersHelper
+class BankDetailsSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
+    extends ImplicitDateFormatter
+    with CheckYourAnswersHelper
     with SummaryListRowHelper {
 
   def accountName: Option[SummaryListRow] =
-    answerAccountName(BankDetailsPage,
+    answerAccountName(
+      BankDetailsPage,
       controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
-      messagePrefix = "bankDetails.accountName")
+      messagePrefix = "bankDetails.accountName"
+    )
 
   def accountSortCode: Option[SummaryListRow] =
-    answerSortCode(BankDetailsPage,
+    answerSortCode(
+      BankDetailsPage,
       controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
-      messagePrefix = "bankDetails.sortCode")
+      messagePrefix = "bankDetails.sortCode"
+    )
 
   def accountNumber: Option[SummaryListRow] =
-    answerAccountNumber(BankDetailsPage,
+    answerAccountNumber(
+      BankDetailsPage,
       controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
-      messagePrefix = "bankDetails.accountNumber")
+      messagePrefix = "bankDetails.accountNumber"
+    )
 
   def accountRollNumber: Option[SummaryListRow] =
-    answerRollNumber(BankDetailsPage,
+    answerRollNumber(
+      BankDetailsPage,
       controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
-      messagePrefix = "bankDetails.rollNumber")
+      messagePrefix = "bankDetails.rollNumber"
+    )
 
-    val rows: Seq[SummaryListRow] = Seq(
-      accountName,
-      accountSortCode,
-      accountNumber,
-      accountRollNumber
-    ).flatten
+  val rows: Seq[SummaryListRow] = Seq(
+    accountName,
+    accountSortCode,
+    accountNumber,
+    accountRollNumber
+  ).flatten
 
-  }
+}

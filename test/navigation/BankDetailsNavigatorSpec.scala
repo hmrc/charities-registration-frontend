@@ -41,12 +41,15 @@ class BankDetailsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(BankDetailsPage, NormalMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
-          navigator.nextPage(BankDetailsPage, NormalMode,
-            emptyUserAnswers.set(BankDetailsPage, bankDetails).getOrElse(emptyUserAnswers)) mustBe
+          navigator.nextPage(
+            BankDetailsPage,
+            NormalMode,
+            emptyUserAnswers.set(BankDetailsPage, bankDetails).getOrElse(emptyUserAnswers)
+          ) mustBe
             controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
         }
       }
@@ -74,12 +77,15 @@ class BankDetailsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(BankDetailsPage, CheckMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the Summary page when clicked continue button" in {
-          navigator.nextPage(BankDetailsPage, CheckMode,
-            emptyUserAnswers.set(BankDetailsPage, bankDetails).getOrElse(emptyUserAnswers)) mustBe
+          navigator.nextPage(
+            BankDetailsPage,
+            CheckMode,
+            emptyUserAnswers.set(BankDetailsPage, bankDetails).getOrElse(emptyUserAnswers)
+          ) mustBe
             controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad()
         }
       }
@@ -97,7 +103,7 @@ class BankDetailsNavigatorSpec extends SpecBase {
       "attempting to go to any site" must {
         "go to the PageNotFoundController page" in {
           navigator.nextPage(BankDetailsPage, PlaybackMode, emptyUserAnswers) mustBe
-             routes.PageNotFoundController.onPageLoad()
+            routes.PageNotFoundController.onPageLoad()
         }
       }
     }

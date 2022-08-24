@@ -21,10 +21,11 @@ import play.api.data.{Form, FormError}
 
 class HasCharityChangedPartsOfGoverningDocumentFormProviderSpec extends BooleanFieldBehaviours {
 
-  private val formProvider: HasCharityChangedPartsOfGoverningDocumentFormProvider = inject[HasCharityChangedPartsOfGoverningDocumentFormProvider]
-  private val form: Form[Boolean] = formProvider()
-  private val requiredKey = "hasCharityChangedPartsOfGoverningDocument.error.required"
-  private val invalidKey = "error.boolean"
+  private val formProvider: HasCharityChangedPartsOfGoverningDocumentFormProvider =
+    inject[HasCharityChangedPartsOfGoverningDocumentFormProvider]
+  private val form: Form[Boolean]                                                 = formProvider()
+  private val requiredKey                                                         = "hasCharityChangedPartsOfGoverningDocument.error.required"
+  private val invalidKey                                                          = "error.boolean"
 
   ".value" must {
 

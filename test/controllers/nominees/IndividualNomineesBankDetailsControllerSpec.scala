@@ -52,14 +52,14 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
     reset(mockUserAnswerService)
   }
 
-  val messagePrefix: String = "individualNomineesBankDetails"
-  private val view: BankAccountDetailsView = injector.instanceOf[BankAccountDetailsView]
+  val messagePrefix: String                         = "individualNomineesBankDetails"
+  private val view: BankAccountDetailsView          = injector.instanceOf[BankAccountDetailsView]
   private val formProvider: BankDetailsFormProvider = injector.instanceOf[BankDetailsFormProvider]
-  private val form: Form[BankDetails] = formProvider(messagePrefix)
+  private val form: Form[BankDetails]               = formProvider(messagePrefix)
 
   private val controller: IndividualNomineesBankDetailsController = inject[IndividualNomineesBankDetailsController]
 
-  private val bankDetails =  BankDetails(
+  private val bankDetails = BankDetails(
     accountName = "fullName",
     sortCode = "123456",
     accountNumber = "12345678",
@@ -78,17 +78,19 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
-        messagePrefix, "officialsAndNominees.section", Some("Jim John Jones"))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
+        messagePrefix,
+        "officialsAndNominees.section",
+        Some("Jim John Jones")
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(IndividualNomineesBankDetailsPage,
-        bankDetails).success.value
+      val userAnswers = localUserAnswers.set(IndividualNomineesBankDetailsPage, bankDetails).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -100,11 +102,15 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody("accountName" -> "fullName", "sortCode" -> "123456",
-        "accountNumber" -> "12345678", "rollNumber" -> "operatingName")
+      val request = fakeRequest.withFormUrlEncodedBody(
+        "accountName"   -> "fullName",
+        "sortCode"      -> "123456",
+        "accountNumber" -> "12345678",
+        "rollNumber"    -> "operatingName"
+      )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 

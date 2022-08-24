@@ -34,16 +34,17 @@ import views.html.common.DateOfBirthView
 
 import scala.concurrent.Future
 
-class OrganisationAuthorisedPersonDOBController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: DateOfBirthFormProvider,
-   override val sessionRepository: UserAnswerService,
-   override val navigator: NomineesNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: DateOfBirthView
-   )(implicit appConfig: FrontendAppConfig) extends DateOfBirthController {
+class OrganisationAuthorisedPersonDOBController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: DateOfBirthFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: DateOfBirthView
+)(implicit appConfig: FrontendAppConfig)
+    extends DateOfBirthController {
 
   override val messagePrefix: String = "organisationAuthorisedPersonDOB"
 
@@ -51,21 +52,29 @@ class OrganisationAuthorisedPersonDOBController @Inject()(
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OrganisationAuthorisedPersonNamePage) { organisationAuthorisedPersonName =>
-
-        Future.successful(getView(OrganisationAuthorisedPersonDOBPage, form, organisationAuthorisedPersonName,
-          controllers.nominees.routes.OrganisationAuthorisedPersonDOBController.onSubmit(mode)))
+        Future.successful(
+          getView(
+            OrganisationAuthorisedPersonDOBPage,
+            form,
+            organisationAuthorisedPersonName,
+            controllers.nominees.routes.OrganisationAuthorisedPersonDOBController.onSubmit(mode)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OrganisationAuthorisedPersonNamePage) { organisationAuthorisedPersonName =>
-
-        postView(mode, OrganisationAuthorisedPersonDOBPage, form, organisationAuthorisedPersonName, Section9Page,
-          controllers.nominees.routes.OrganisationAuthorisedPersonDOBController.onSubmit(mode))
+        postView(
+          mode,
+          OrganisationAuthorisedPersonDOBPage,
+          form,
+          organisationAuthorisedPersonName,
+          Section9Page,
+          controllers.nominees.routes.OrganisationAuthorisedPersonDOBController.onSubmit(mode)
+        )
       }
   }
 }

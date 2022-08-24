@@ -24,22 +24,25 @@ import views.html.operationsAndFunds.StartBankDetailsView
 class StartBankDetailsViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startBankDetails"
-  private val section: String = messages("operationsAndFunds.section")
+  private val section: String  = messages("operationsAndFunds.section")
 
-    "StartBankDetailsView" must {
+  "StartBankDetailsView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[StartBankDetailsView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "p2")
-
-      behave like pageWithHyperLink(applyView(), "linkButton",
-        controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url, messages("site.continue"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[StartBankDetailsView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2")
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url,
+      messages("site.continue")
+    )
+
   }
+}

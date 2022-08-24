@@ -38,26 +38,28 @@ trait AddedOfficialController extends LocalBaseController {
   protected val messagePrefix: String
   protected val countryService: CountryService
 
-  def getView(index: Index, submitCall: Call, officialsName: String)(implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Result = {
+  def getView(index: Index, submitCall: Call, officialsName: String)(implicit
+    appConfig: FrontendAppConfig,
+    request: DataRequest[AnyContent]
+  ): Result = {
 
     val rows = messagePrefix match {
       case "addedAuthorisedOfficial" =>
         new AddedAuthorisedOfficialHelper(index, CheckMode, countryService)(request.userAnswers).rows
-      case "addedOtherOfficial" =>
+      case "addedOtherOfficial"      =>
         new AddedOtherOfficialHelper(index, CheckMode, countryService)(request.userAnswers).rows
     }
 
     Ok(view(rows, submitCall, officialsName, messagePrefix))
   }
 
-  def postView(page: QuestionPage[String], section: QuestionPage[Boolean])(
-    implicit appConfig: FrontendAppConfig, request: DataRequest[AnyContent]): Future[Result] = {
-
+  def postView(page: QuestionPage[String], section: QuestionPage[Boolean])(implicit
+    appConfig: FrontendAppConfig,
+    request: DataRequest[AnyContent]
+  ): Future[Result] =
     for {
       updatedAnswers <- Future.fromTry(result = request.userAnswers.set(section, false))
-      _ <- sessionRepository.set(updatedAnswers)
+      _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(page, NormalMode, updatedAnswers))
-  }
 
 }
-

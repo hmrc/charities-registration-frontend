@@ -30,13 +30,16 @@ import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 
 class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-  private val helper = new GoverningDocumentSummaryHelper(UserAnswers("id")
-    .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head).flatMap
-  (_.set(GoverningDocumentNamePage,"will")).flatMap
-  (_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2))).flatMap
-  (_.set(IsApprovedGoverningDocumentPage,true)).flatMap
-  (_.set(SectionsChangedGoverningDocumentPage,"Governing document change")).flatMap
-  (_.set(HasCharityChangedPartsOfGoverningDocumentPage,true)).success.value
+  private val helper = new GoverningDocumentSummaryHelper(
+    UserAnswers("id")
+      .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
+      .flatMap(_.set(GoverningDocumentNamePage, "will"))
+      .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2)))
+      .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
+      .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Governing document change"))
+      .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
+      .success
+      .value
   )
 
   "Check Your Answers Helper" must {
@@ -45,12 +48,14 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row when one added" in {
 
-        helper.selectGoverningDocumentRow mustBe Some(summaryListRow(
-          messages("selectGoverningDocument.checkYourAnswersLabel"),
-          HtmlContent(messages(s"selectGoverningDocument.$MemorandumArticlesAssociation")),
-          Some(messages("selectGoverningDocument.checkYourAnswersLabel")),
-          regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.selectGoverningDocumentRow mustBe Some(
+          summaryListRow(
+            messages("selectGoverningDocument.checkYourAnswersLabel"),
+            HtmlContent(messages(s"selectGoverningDocument.$MemorandumArticlesAssociation")),
+            Some(messages("selectGoverningDocument.checkYourAnswersLabel")),
+            regulatorDocsRoutes.SelectGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -58,12 +63,14 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row when one added" in {
 
-        helper.whatIsTheGoverningDocumentNameRow mustBe Some(summaryListRow(
-          messages("governingDocumentName.checkYourAnswersLabel"),
-          HtmlContent("will"),
-          Some(messages("governingDocumentName.checkYourAnswersLabel")),
-          regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.whatIsTheGoverningDocumentNameRow mustBe Some(
+          summaryListRow(
+            messages("governingDocumentName.checkYourAnswersLabel"),
+            HtmlContent("will"),
+            Some(messages("governingDocumentName.checkYourAnswersLabel")),
+            regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -71,12 +78,14 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row" in {
 
-        helper.dateApprovedGoverningDocumentRow mustBe Some(summaryListRow(
-          messages("whenGoverningDocumentApproved.checkYourAnswersLabel"),
-          HtmlContent("2 January 2000"),
-          Some(messages("whenGoverningDocumentApproved.checkYourAnswersLabel")),
-          regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.dateApprovedGoverningDocumentRow mustBe Some(
+          summaryListRow(
+            messages("whenGoverningDocumentApproved.checkYourAnswersLabel"),
+            HtmlContent("2 January 2000"),
+            Some(messages("whenGoverningDocumentApproved.checkYourAnswersLabel")),
+            regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -84,12 +93,14 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row" in {
 
-        helper.isApprovedGoverningDocumentRow  mustBe Some(summaryListRow(
-          messages("isApprovedGoverningDocument.checkYourAnswersLabel"),
-          HtmlContent(BaseMessages.yes),
-          Some(messages("isApprovedGoverningDocument.checkYourAnswersLabel")),
-          regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.isApprovedGoverningDocumentRow mustBe Some(
+          summaryListRow(
+            messages("isApprovedGoverningDocument.checkYourAnswersLabel"),
+            HtmlContent(BaseMessages.yes),
+            Some(messages("isApprovedGoverningDocument.checkYourAnswersLabel")),
+            regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -97,12 +108,16 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row" in {
 
-        helper.hasCharityChangedPartsOfGoverningDocumentRow  mustBe Some(summaryListRow(
-          messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel"),
-          HtmlContent(BaseMessages.yes),
-          Some(messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel")),
-          regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.hasCharityChangedPartsOfGoverningDocumentRow mustBe Some(
+          summaryListRow(
+            messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel"),
+            HtmlContent(BaseMessages.yes),
+            Some(messages("hasCharityChangedPartsOfGoverningDocument.checkYourAnswersLabel")),
+            regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(
+              CheckMode
+            ) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -110,12 +125,16 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
       "have a correctly formatted summary list row" in {
 
-        helper.sectionsChangedGoverningDocumentRow  mustBe Some(summaryListRow(
-          messages("sectionsChangedGoverningDocument.checkYourAnswersLabel"),
-          HtmlContent("Governing document change"),
-          Some(messages("sectionsChangedGoverningDocument.checkYourAnswersLabel")),
-          regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.sectionsChangedGoverningDocumentRow mustBe Some(
+          summaryListRow(
+            messages("sectionsChangedGoverningDocument.checkYourAnswersLabel"),
+            HtmlContent("Governing document change"),
+            Some(messages("sectionsChangedGoverningDocument.checkYourAnswersLabel")),
+            regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(
+              CheckMode
+            ) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 

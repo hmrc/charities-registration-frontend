@@ -34,19 +34,22 @@ object SelectWhyNoRegulator extends Enumerable.Implicits {
   case object Other extends WithName("7") with SelectWhyNoRegulator
 
   val values: Seq[SelectWhyNoRegulator] = Seq(
-    EnglandWalesUnderThreshold, ExemptOrExcepted, NoRegulatorInCountry, ParochialChurchCouncils, UniformedYouthGroup, Other
+    EnglandWalesUnderThreshold,
+    ExemptOrExcepted,
+    NoRegulatorInCountry,
+    ParochialChurchCouncils,
+    UniformedYouthGroup,
+    Other
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
-    value =>
-      RadioItem(
-        value = Some(value.toString),
-        content = Text(messages(s"selectWhyNoRegulator.${value.toString}")),
-        checked = form("value").value.contains(value.toString)
-      )
+  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+    RadioItem(
+      value = Some(value.toString),
+      content = Text(messages(s"selectWhyNoRegulator.${value.toString}")),
+      checked = form("value").value.contains(value.toString)
+    )
   }
 
   implicit val enumerable: Enumerable[SelectWhyNoRegulator] =
     Enumerable(values.map(v => v.toString -> v): _*)
 }
-

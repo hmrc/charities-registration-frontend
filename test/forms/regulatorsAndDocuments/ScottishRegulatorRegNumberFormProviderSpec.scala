@@ -22,13 +22,13 @@ import play.api.data.{Form, FormError}
 class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   private val formProvider: ScottishRegulatorRegNumberFormProvider = inject[ScottishRegulatorRegNumberFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                                   = formProvider()
 
   ".registrationNumber" must {
 
-    val fieldName = "registrationNumber"
+    val fieldName   = "registrationNumber"
     val requiredKey = "scottishRegulatorRegNumber.error.required"
-    val invalidKey = "scottishRegulatorRegNumber.error.format"
+    val invalidKey  = "scottishRegulatorRegNumber.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -56,17 +56,19 @@ class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
     "apply ScottishRegulatorRegNumber correctly" in {
 
-      val details = form.bind(
-        Map(
-          "registrationNumber" -> scottishRegulatorRegNumber,
+      val details = form
+        .bind(
+          Map(
+            "registrationNumber" -> scottishRegulatorRegNumber
+          )
         )
-      ).get
+        .get
 
       details mustBe scottishRegulatorRegNumber
     }
 
     "unapply ScottishRegulatorRegNumber correctly" in {
-   val filled = form.fill(scottishRegulatorRegNumber)
+      val filled = form.fill(scottishRegulatorRegNumber)
       filled("registrationNumber").value.value mustBe scottishRegulatorRegNumber
     }
   }

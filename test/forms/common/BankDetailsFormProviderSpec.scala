@@ -23,17 +23,17 @@ import play.api.data.{Form, FormError}
 
 class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
-  val messagePrefix: String = "individualNomineesBankDetails"
+  val messagePrefix: String                         = "individualNomineesBankDetails"
   private val formProvider: BankDetailsFormProvider = inject[BankDetailsFormProvider]
-  private val form: Form[BankDetails] = formProvider(messagePrefix)
+  private val form: Form[BankDetails]               = formProvider(messagePrefix)
 
   ".accountName" must {
 
-    val fieldName = "accountName"
-    val maxLength = 60
+    val fieldName   = "accountName"
+    val maxLength   = 60
     val requiredKey = s"$messagePrefix.accountName.error.required"
-    val lengthKey = s"$messagePrefix.accountName.error.length"
-    val invalidKey = s"$messagePrefix.accountName.error.format"
+    val lengthKey   = s"$messagePrefix.accountName.error.length"
+    val invalidKey  = s"$messagePrefix.accountName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -64,13 +64,13 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
   ".sortCode" must {
 
-    val fieldName = "sortCode"
+    val fieldName   = "sortCode"
     val requiredKey = s"$messagePrefix.sortCode.error.required"
-    val invalidKey = s"$messagePrefix.sortCode.error.format"
+    val invalidKey  = s"$messagePrefix.sortCode.error.format"
 
     val validSortCodeGen = for {
       firstDigits     <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
-      firstSeparator <- Gen.oneOf(' ', '-').map(_.toString)
+      firstSeparator  <- Gen.oneOf(' ', '-').map(_.toString)
       secondDigits    <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
       secondSeparator <- Gen.oneOf(' ', '-').map(_.toString)
       thirdDigits     <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
@@ -116,19 +116,19 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     }
 
     "not bind sort codes with characters" in {
-      val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
+      val result        = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
       val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind sort codes with less than 6 digit" in {
-      val result = form.bind(Map(fieldName -> "12   34  5")).apply(fieldName)
+      val result        = form.bind(Map(fieldName -> "12   34  5")).apply(fieldName)
       val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind sort codes with more than 6 digit" in {
-      val result = form.bind(Map(fieldName -> "12   34  5678")).apply(fieldName)
+      val result        = form.bind(Map(fieldName -> "12   34  5678")).apply(fieldName)
       val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
       result.errors.head.key mustEqual expectedError.key
     }
@@ -136,11 +136,11 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
   ".accountNumber" must {
 
-    val fieldName = "accountNumber"
+    val fieldName   = "accountNumber"
     val requiredKey = s"$messagePrefix.accountNumber.error.required"
-    val invalidKey = s"$messagePrefix.accountNumber.error.format"
-    val minLength = 6
-    val maxLength = 8
+    val invalidKey  = s"$messagePrefix.accountNumber.error.format"
+    val minLength   = 6
+    val maxLength   = 8
 
     val validAccountNumberGen = for {
       length <- Gen.choose(minLength, maxLength)
@@ -172,19 +172,19 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     }
 
     "not bind strings with characters" in {
-      val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
+      val result        = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
       val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind strings with less than 6 digit" in {
-      val result = form.bind(Map(fieldName -> "12 34   5")).apply(fieldName)
+      val result        = form.bind(Map(fieldName -> "12 34   5")).apply(fieldName)
       val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind strings with more than 8 digit" in {
-      val result = form.bind(Map(fieldName -> "12 34 56 789")).apply(fieldName)
+      val result        = form.bind(Map(fieldName -> "12 34 56 789")).apply(fieldName)
       val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
@@ -192,9 +192,9 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
   ".rollNumber" must {
 
-    val maxLength = 18
-    val fieldName = "rollNumber"
-    val lengthKey = s"$messagePrefix.rollNumber.error.length"
+    val maxLength  = 18
+    val fieldName  = "rollNumber"
+    val lengthKey  = s"$messagePrefix.rollNumber.error.length"
     val invalidKey = s"$messagePrefix.rollNumber.error.format"
 
     behave like fieldThatBindsValidData(
@@ -223,14 +223,16 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     }
 
     "not bind strings with characters any other character apart from letters a to z, numbers, hyphens, spaces and full stops" in {
-      val result = form.bind(Map(fieldName -> "roll-Number, .!?")).apply(fieldName)
-      val expectedError = FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+      val result        = form.bind(Map(fieldName -> "roll-Number, .!?")).apply(fieldName)
+      val expectedError =
+        FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind strings with more than 18 characters" in {
-      val result = form.bind(Map(fieldName -> "01234567890123456789")).apply(fieldName)
-      val expectedError = FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+      val result        = form.bind(Map(fieldName -> "01234567890123456789")).apply(fieldName)
+      val expectedError =
+        FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
   }
@@ -246,14 +248,16 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "apply BankDetails correctly" in {
 
-      val details = form.bind(
-        Map(
-          "accountName" -> bankDetails.accountName,
-          "sortCode" -> bankDetails.sortCode,
-          "accountNumber" -> bankDetails.accountNumber,
-          "rollNumber" -> bankDetails.rollNumber.getOrElse("")
+      val details = form
+        .bind(
+          Map(
+            "accountName"   -> bankDetails.accountName,
+            "sortCode"      -> bankDetails.sortCode,
+            "accountNumber" -> bankDetails.accountNumber,
+            "rollNumber"    -> bankDetails.rollNumber.getOrElse("")
+          )
         )
-      ).get
+        .get
 
       details.accountName mustBe bankDetails.accountName
       details.sortCode mustBe bankDetails.sortCode
@@ -283,13 +287,15 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
     "apply BankDetails correctly" in {
 
-      val details = form.bind(
-        Map(
-          "sortCode" -> bankDetails.sortCode,
-          "accountNumber" -> bankDetails.accountNumber,
-          "rollNumber" -> bankDetails.rollNumber.getOrElse("")
+      val details = form
+        .bind(
+          Map(
+            "sortCode"      -> bankDetails.sortCode,
+            "accountNumber" -> bankDetails.accountNumber,
+            "rollNumber"    -> bankDetails.rollNumber.getOrElse("")
+          )
         )
-      ).get
+        .get
 
       details.accountName mustBe bankDetails.accountName
       details.sortCode mustBe bankDetails.sortCode

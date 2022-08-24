@@ -28,37 +28,47 @@ trait OfficialSummaryRowHelper {
 
   private def authorisedOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
     val isCompleted = authorisedOfficialCompleted(index, request.userAnswers)
-    request.userAnswers.get[Name](AuthorisedOfficialsNamePage(index)).map(name =>
-      OfficialSummaryListRow(name,
-        if(isCompleted){
-          controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(index)
-        } else {
-          controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, index)
-        },
-        controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(index),
-        isCompleted
+    request.userAnswers
+      .get[Name](AuthorisedOfficialsNamePage(index))
+      .map(name =>
+        OfficialSummaryListRow(
+          name,
+          if (isCompleted) {
+            controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(index)
+          } else {
+            controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, index)
+          },
+          controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onPageLoad(index),
+          isCompleted
+        )
       )
-    ).foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
+      .foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
   }
 
   private def otherOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
     val isCompleted = otherOfficialCompleted(index, request.userAnswers)
-    request.userAnswers.get[Name](OtherOfficialsNamePage(index)).map(name =>
-      OfficialSummaryListRow(name,
-        if(isCompleted){
-          controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index)
-        } else {
-          controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, index)
-        },
-        controllers.otherOfficials.routes.RemoveOtherOfficialsController.onPageLoad(index),
-        isCompleted
+    request.userAnswers
+      .get[Name](OtherOfficialsNamePage(index))
+      .map(name =>
+        OfficialSummaryListRow(
+          name,
+          if (isCompleted) {
+            controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(index)
+          } else {
+            controllers.otherOfficials.routes.OtherOfficialsNameController.onPageLoad(NormalMode, index)
+          },
+          controllers.otherOfficials.routes.RemoveOtherOfficialsController.onPageLoad(index),
+          isCompleted
+        )
       )
-    ).foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
+      .foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
   }
 
-  def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = authorisedOfficialAnswers(0)
+  def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+    authorisedOfficialAnswers(0)
 
-  def secondAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = authorisedOfficialAnswers(1)
+  def secondAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+    authorisedOfficialAnswers(1)
 
   def firstOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(0)
 

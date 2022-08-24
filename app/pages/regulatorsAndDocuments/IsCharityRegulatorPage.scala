@@ -30,15 +30,19 @@ case object IsCharityRegulatorPage extends QuestionPage[Boolean] {
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(true) =>
+      case Some(true)  =>
         userAnswers.remove(Seq(SelectWhyNoRegulatorPage, WhyNotRegisteredWithCharityPage))
       case Some(false) =>
-        userAnswers.remove(Seq(CharityRegulatorPage,
-          CharityCommissionRegistrationNumberPage,
-          ScottishRegulatorRegNumberPage,
-          NIRegulatorRegNumberPage,
-          CharityOtherRegulatorDetailsPage))
-      case _ =>
+        userAnswers.remove(
+          Seq(
+            CharityRegulatorPage,
+            CharityCommissionRegistrationNumberPage,
+            ScottishRegulatorRegNumberPage,
+            NIRegulatorRegNumberPage,
+            CharityOtherRegulatorDetailsPage
+          )
+        )
+      case _           =>
         super.cleanup(value, userAnswers)
     }
 }

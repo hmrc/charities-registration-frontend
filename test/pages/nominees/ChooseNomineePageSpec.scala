@@ -18,7 +18,7 @@ package pages.nominees
 
 import pages.behaviours.PageBehaviours
 
-class ChooseNomineePageSpec extends PageBehaviours{
+class ChooseNomineePageSpec extends PageBehaviours {
 
   "ChooseNomineePage" must {
 

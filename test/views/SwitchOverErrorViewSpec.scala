@@ -20,24 +20,29 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.SwitchOverErrorView
 
-class SwitchOverErrorViewSpec extends ViewBehaviours  {
+class SwitchOverErrorViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "switchOverError"
 
-    "SwitchOverErrorView" must {
+  "SwitchOverErrorView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[SwitchOverErrorView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix)
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "link", controllers.routes.IndexController.onPageLoad(None).url, messages("switchOverError.p3.link"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[SwitchOverErrorView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix)
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "link",
+      controllers.routes.IndexController.onPageLoad(None).url,
+      messages("switchOverError.p3.link")
+    )
+
   }
+}

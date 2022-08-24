@@ -19,21 +19,22 @@ package models.addressLookup
 import play.api.libs.json.{Json, Writes}
 import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
-case class AddressLookupOptionsModel(continueUrl: SafeRedirectUrl,
-                                     phaseFeedbackLink: SafeRedirectUrl,
-                                     signOutHref: SafeRedirectUrl,
-                                     deskProServiceName: String,
-                                     showPhaseBanner: Boolean,
-                                     showBackButtons: Boolean,
-                                     includeHMRCBranding: Boolean,
-                                     allowedCountryCodes: Option[Set[String]],
-                                     ukMode: Boolean,
-                                     disableTranslations: Boolean,
-                                     selectPageConfig: AddressLookupSelectConfigModel,
-                                     confirmPageConfig: AddressLookupConfirmConfigModel,
-                                     timeoutConfig: AddressLookupConfirmTimeoutModel)
+case class AddressLookupOptionsModel(
+  continueUrl: SafeRedirectUrl,
+  phaseFeedbackLink: SafeRedirectUrl,
+  signOutHref: SafeRedirectUrl,
+  deskProServiceName: String,
+  showPhaseBanner: Boolean,
+  showBackButtons: Boolean,
+  includeHMRCBranding: Boolean,
+  allowedCountryCodes: Option[Set[String]],
+  ukMode: Boolean,
+  disableTranslations: Boolean,
+  selectPageConfig: AddressLookupSelectConfigModel,
+  confirmPageConfig: AddressLookupConfirmConfigModel,
+  timeoutConfig: AddressLookupConfirmTimeoutModel
+)
 
 object AddressLookupOptionsModel {
   implicit val writes: Writes[AddressLookupOptionsModel] = Json.writes[AddressLookupOptionsModel]
 }
-

@@ -31,8 +31,6 @@ case class IsOtherOfficialNinoPage(index: Int) extends QuestionPage[Boolean] {
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
       case Some(true) => userAnswers.remove(OtherOfficialsPassportPage(index))
-      case _ => userAnswers.remove(OtherOfficialsNinoPage(index))
+      case _          => userAnswers.remove(OtherOfficialsNinoPage(index))
     }
 }
-
-

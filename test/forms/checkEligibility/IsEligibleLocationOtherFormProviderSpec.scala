@@ -21,8 +21,8 @@ import play.api.data.{Form, FormError}
 
 class IsEligibleLocationOtherFormProviderSpec extends BooleanFieldBehaviours {
 
-  private val requiredKey = "isEligibleLocationOther.error.required"
-  private val invalidKey = "error.boolean"
+  private val requiredKey         = "isEligibleLocationOther.error.required"
+  private val invalidKey          = "error.boolean"
   private val form: Form[Boolean] = inject[IsEligibleLocationOtherFormProvider].apply()
 
   ".value" must {

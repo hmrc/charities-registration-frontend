@@ -33,37 +33,46 @@ import views.html.common.OfficialsPositionView
 
 import scala.concurrent.Future
 
-class OtherOfficialsPositionController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: OfficialsPositionFormProvider,
-   override val sessionRepository: UserAnswerService,
-   override val navigator: OtherOfficialsNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: OfficialsPositionView
- )(implicit appConfig: FrontendAppConfig) extends OfficialsPositionController {
+class OtherOfficialsPositionController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: OfficialsPositionFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: OtherOfficialsNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: OfficialsPositionView
+)(implicit appConfig: FrontendAppConfig)
+    extends OfficialsPositionController {
 
-  override val messagePrefix: String = "otherOfficialsPosition"
+  override val messagePrefix: String        = "otherOfficialsPosition"
   private val form: Form[OfficialsPosition] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        Future.successful(getView(OtherOfficialsPositionPage(index), form, otherOfficialsName,
-          controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(mode, index)))
+        Future.successful(
+          getView(
+            OtherOfficialsPositionPage(index),
+            form,
+            otherOfficialsName,
+            controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(mode, index)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        postView(mode, OtherOfficialsPositionPage(index), form, otherOfficialsName, Section8Page,
-          controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(mode, index))
+        postView(
+          mode,
+          OtherOfficialsPositionPage(index),
+          form,
+          otherOfficialsName,
+          Section8Page,
+          controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(mode, index)
+        )
       }
   }
 }

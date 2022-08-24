@@ -30,7 +30,7 @@ import scala.concurrent.Future
 
 class UserAnswerServiceSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers]  = Some(emptyUserAnswers)
   lazy val mockCharitiesConnector: CharitiesConnector = MockitoSugar.mock[CharitiesConnector]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -75,7 +75,6 @@ class UserAnswerServiceSpec extends SpecBase with BeforeAndAfterEach {
       result mustBe false
       verify(mockCharitiesConnector, times(1)).saveUserAnswers(any())(any(), any())
     }
-
 
   }
 

@@ -29,12 +29,24 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext
 
-trait IntegrationSpecBase extends AnyWordSpec with GivenWhenThen with TestSuite with ScalaFutures
-  with IntegrationPatience with Matchers with WiremockHelper with GuiceOneServerPerSuite with TryValues
-  with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with CustomMatchers {
+trait IntegrationSpecBase
+    extends AnyWordSpec
+    with GivenWhenThen
+    with TestSuite
+    with ScalaFutures
+    with IntegrationPatience
+    with Matchers
+    with WiremockHelper
+    with GuiceOneServerPerSuite
+    with TryValues
+    with BeforeAndAfterEach
+    with BeforeAndAfterAll
+    with Eventually
+    with CreateRequestHelper
+    with CustomMatchers {
 
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.global
-  implicit val hc: HeaderCarrier = HeaderCarrier()
+  implicit val hc: HeaderCarrier    = HeaderCarrier()
 
   override implicit lazy val app: Application = new GuiceApplicationBuilder()
     .in(Environment.simple(mode = Mode.Dev))
@@ -45,28 +57,26 @@ trait IntegrationSpecBase extends AnyWordSpec with GivenWhenThen with TestSuite 
   val mockPort: String = WiremockHelper.wiremockPort.toString
 
   def config: Map[String, String] = Map(
-    "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
-    "microservice.services.auth.host" -> mockHost,
-    "microservice.services.auth.port" -> mockPort,
+    "play.filters.csrf.header.bypassHeaders.Csrf-Token"  -> "nocheck",
+    "microservice.services.auth.host"                    -> mockHost,
+    "microservice.services.auth.port"                    -> mockPort,
     "microservice.services.address-lookup-frontend.host" -> mockHost,
     "microservice.services.address-lookup-frontend.port" -> mockPort,
-    "microservice.services.charities.host" -> mockHost,
-    "microservice.services.charities.port" -> mockPort
+    "microservice.services.charities.host"               -> mockHost,
+    "microservice.services.charities.port"               -> mockPort
   )
 
-  lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "").withSession("sessionId" -> "sessionId")
+  lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type]     =
+    FakeRequest("", "").withSession("sessionId" -> "sessionId")
 
   lazy val dataFakeRequest: FakeRequest[AnyContentAsEmpty.type] = fakeRequest
 
-  override def beforeEach(): Unit = {
+  override def beforeEach(): Unit =
     resetWiremock()
-  }
 
-  override def beforeAll(): Unit = {
+  override def beforeAll(): Unit =
     startWiremock()
-  }
 
-  override def afterAll(): Unit = {
+  override def afterAll(): Unit =
     stopWiremock()
-  }
 }

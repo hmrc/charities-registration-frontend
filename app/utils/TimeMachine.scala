@@ -20,9 +20,8 @@ import java.time.{LocalDate, ZoneOffset}
 
 class TimeMachine() {
 
-  def now(): LocalDate = {
+  def now(): LocalDate =
     LocalDate.now(ZoneOffset.UTC)
-  }
 }
 
 object TimeMachine

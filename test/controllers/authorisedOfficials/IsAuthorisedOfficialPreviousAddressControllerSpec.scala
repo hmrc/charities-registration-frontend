@@ -51,15 +51,19 @@ class IsAuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Be
     super.beforeEach()
     reset(mockUserAnswerService)
   }
-  private val messageKeyPrefix = "isAuthorisedOfficialPreviousAddress"
-  private val view: IsPreviousAddressView = injector.instanceOf[IsPreviousAddressView]
-  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val messageKeyPrefix                               = "isAuthorisedOfficialPreviousAddress"
+  private val view: IsPreviousAddressView                    = injector.instanceOf[IsPreviousAddressView]
+  private val formProvider: YesNoFormProvider                = injector.instanceOf[YesNoFormProvider]
+  private val form: Form[Boolean]                            = formProvider(messageKeyPrefix)
 
-  private val controller: IsAuthorisedOfficialPreviousAddressController = inject[IsAuthorisedOfficialPreviousAddressController]
+  private val controller: IsAuthorisedOfficialPreviousAddressController =
+    inject[IsAuthorisedOfficialPreviousAddressController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .success
+      .value
 
   "AuthorisedOfficialPreviousAddress Controller" must {
 
@@ -70,16 +74,23 @@ class IsAuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Be
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form,"Jim John Jones", messageKeyPrefix,
-        controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController.onSubmit(NormalMode, Index(0)))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController
+          .onSubmit(NormalMode, Index(0))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsAuthorisedOfficialPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(localUserAnswers.set(IsAuthorisedOfficialPreviousAddressPage(0), true).getOrElse(emptyUserAnswers))
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

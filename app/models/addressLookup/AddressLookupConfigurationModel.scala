@@ -18,9 +18,11 @@ package models.addressLookup
 
 import play.api.libs.json.{Json, Writes}
 
-case class AddressLookupConfigurationModel(version: Int,
-                                           options: AddressLookupOptionsModel,
-                                           labels: AddressMessageLanguageModel)
+case class AddressLookupConfigurationModel(
+  version: Int,
+  options: AddressLookupOptionsModel,
+  labels: AddressMessageLanguageModel
+)
 
 object AddressLookupConfigurationModel {
   implicit val writes: Writes[AddressLookupConfigurationModel] = Json.writes[AddressLookupConfigurationModel]

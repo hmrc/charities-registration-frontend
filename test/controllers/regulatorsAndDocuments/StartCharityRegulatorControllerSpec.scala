@@ -23,6 +23,7 @@ import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import base.SpecBase
+import models.UserAnswers
 import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.StartCharityRegulatorView
@@ -31,7 +32,7 @@ import scala.concurrent.Future
 
 class StartCharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers = Some(emptyUserAnswers)
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

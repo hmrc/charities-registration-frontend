@@ -29,7 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
-class OtherOfficialsPreviousAddressLookupController @Inject()(
+class OtherOfficialsPreviousAddressLookupController @Inject() (
   override val sessionRepository: UserAnswerService,
   override val navigator: OtherOfficialsNavigator,
   identify: AuthIdentifierAction,
@@ -38,22 +38,23 @@ class OtherOfficialsPreviousAddressLookupController @Inject()(
   override val addressLookupConnector: AddressLookupConnector,
   override val errorHandler: ErrorHandler,
   val controllerComponents: MessagesControllerComponents
- )(implicit appConfig: FrontendAppConfig) extends BaseAddressController {
+)(implicit appConfig: FrontendAppConfig)
+    extends BaseAddressController {
 
   override val messagePrefix: String = "otherOfficialPreviousAddress"
 
-  def initializeJourney(index: Index, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def initializeJourney(index: Index, mode: Mode): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-        val callBack: String = controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.callback(index, mode).url
+        val callBack: String =
+          controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController.callback(index, mode).url
 
         addressLookupInitialize(callBack, Some(otherOfficialsName))
       }
-  }
+    }
 
-  def callback(index: Index, mode: Mode, id: Option[String]): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def callback(index: Index, mode: Mode, id: Option[String]): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       addressLookupCallback(OtherOfficialPreviousAddressLookupPage(index), Section8Page, id, mode)
-  }
+    }
 }

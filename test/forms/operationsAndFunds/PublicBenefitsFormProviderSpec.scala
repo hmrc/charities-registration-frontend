@@ -22,15 +22,15 @@ import play.api.data.{Form, FormError}
 class PublicBenefitsFormProviderSpec extends StringFieldBehaviours {
 
   private val formProvider: PublicBenefitsFormProvider = inject[PublicBenefitsFormProvider]
-  private val form: Form[String] = formProvider()
+  private val form: Form[String]                       = formProvider()
 
   ".value" must {
 
     val requiredKey = "publicBenefits.error.required"
-    val lengthKey = "publicBenefits.error.length"
-    val invalidKey = "publicBenefits.error.format"
-    val maxLength = 500
-    val fieldName = "value"
+    val lengthKey   = "publicBenefits.error.length"
+    val invalidKey  = "publicBenefits.error.format"
+    val maxLength   = 500
+    val fieldName   = "value"
 
     behave like fieldThatBindsValidData(
       form,

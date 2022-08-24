@@ -27,21 +27,30 @@ class OrganisationNomineeAuthorisedPersonViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "organisationNomineeAuthorisedPerson"
 
-    "OrganisationNomineeAuthorisedPerson View" must {
+  "OrganisationNomineeAuthorisedPerson View" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[OrganisationNomineeAuthorisedPersonView](Some(emptyUserAnswers))
-        view.apply("organisation name")(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, Seq("organisation name"), section = Some(messages("officialsAndNominees.section")))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "linkButton",routes.OrganisationAuthorisedPersonNameController.onSubmit(NormalMode).url,BaseMessages.continue)
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[OrganisationNomineeAuthorisedPersonView](Some(emptyUserAnswers))
+      view.apply("organisation name")(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(
+      applyView(),
+      messageKeyPrefix,
+      Seq("organisation name"),
+      section = Some(messages("officialsAndNominees.section"))
+    )
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      routes.OrganisationAuthorisedPersonNameController.onSubmit(NormalMode).url,
+      BaseMessages.continue
+    )
+
   }
+}

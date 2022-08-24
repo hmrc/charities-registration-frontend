@@ -25,23 +25,23 @@ import play.api.libs.json.{Json, __}
 
 class JsonTransformerSpec extends SpecBase {
 
-  val jsonTransformer: JsonTransformer = new JsonTransformer{}
+  val jsonTransformer: JsonTransformer = new JsonTransformer {}
 
   "JsonTransformer" when {
 
     "replaceInvalidCharacters" must {
 
-      "newlines form json with spaces" in{
+      "newlines form json with spaces" in {
 
-        val input = "Objects \r\n1.To transform. \r\n2. To make .\r\n3.To advance.\r\nchange"
+        val input  = "Objects \r\n1.To transform. \r\n2. To make .\r\n3.To advance.\r\nchange"
         val output = "Objects  1.To transform.  2. To make . 3.To advance. change"
 
         jsonTransformer.replaceInvalidCharacters(input) mustBe output
       }
 
-      "newlines and tabs form json with spaces" in{
+      "newlines and tabs form json with spaces" in {
 
-        val input = "1\tWorking.\r\n\r\n2\tEncourage.\r\n\r\n3\tPromote."
+        val input  = "1\tWorking.\r\n\r\n2\tEncourage.\r\n\r\n3\tPromote."
         val output = "1 Working.  2 Encourage.  3 Promote."
 
         jsonTransformer.replaceInvalidCharacters(input) mustBe output
@@ -53,8 +53,17 @@ class JsonTransformerSpec extends SpecBase {
 
       "convert the correct AddressModel" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))).success.value
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityOfficialAddressLookupPage,
+            AddressModel(
+              Seq("7", "Morrison street", "line3", "line4"),
+              Some("G58AN"),
+              CountryModel("GB", "United Kingdom")
+            )
+          )
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -74,16 +83,26 @@ class JsonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.getAddress(
-          __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-          __ \ 'charityOfficialAddress)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getAddress(
+              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+              __ \ 'charityOfficialAddress
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
       }
 
       "convert the correct AddressModel with mandatory fields only" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "INDIA"))).success.value
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityOfficialAddressLookupPage,
+            AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "INDIA"))
+          )
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -101,18 +120,28 @@ class JsonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.getAddress(
-          __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-          __ \ 'charityOfficialAddress)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getAddress(
+              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+              __ \ 'charityOfficialAddress
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
       }
 
       "convert the correct AddressModel with UK address" must {
 
         "Postcode is defined along with line2, line3 and line4" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7 Morrison street", " ", "  ", "   "), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7 Morrison street", " ", "  ", "   "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -130,16 +159,30 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
 
         "Postcode is defined along with line3 and line4" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "address line 3", "address line 4"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "address line 3", "address line 4"),
+                Some("NonUKCode"),
+                CountryModel("IN", "INDIA")
+              )
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -159,17 +202,30 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
 
         "Postcode is defined along with line3 and line4 where line4 is more than 35 characters" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "address line 3", "address line 4 with more than 35 characters"),
-              Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "address line 3", "address line 4 with more than 35 characters"),
+                Some("NonUKCode"),
+                CountryModel("IN", "INDIA")
+              )
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -189,16 +245,30 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
 
         "Postcode is defined along with line3 and empty line4" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "address line 3", ""), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "address line 3", ""),
+                Some("NonUKCode"),
+                CountryModel("IN", "INDIA")
+              )
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -218,16 +288,30 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
 
         "Postcode is defined along with line3 only" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "address line 3"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "address line 3"),
+                Some("NonUKCode"),
+                CountryModel("IN", "INDIA")
+              )
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -247,16 +331,30 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
 
         "Postcode is defined along with line4 without line3" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "", "address line 3"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(
+                Seq("7", "Morrison street", "", "address line 3"),
+                Some("NonUKCode"),
+                CountryModel("IN", "INDIA")
+              )
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -276,16 +374,26 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
 
         "Postcode is defined along with empty line4 without line3" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street", "", " "), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street", "", " "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -304,16 +412,26 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
 
         "Postcode is defined along without line3 and line4" in {
 
-          val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street"), Some("NonUKCode"), CountryModel("IN", "INDIA"))).success.value
+          val userAnswers = emptyUserAnswers
+            .set(
+              CharityOfficialAddressLookupPage,
+              AddressModel(Seq("7", "Morrison street"), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+            )
+            .success
+            .value
 
           val expectedJson =
             """{
@@ -332,10 +450,15 @@ class JsonTransformerSpec extends SpecBase {
               |  }
               |}""".stripMargin
 
-          userAnswers.data.transform(jsonTransformer.getAddress(
-            __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-            __ \ 'charityOfficialAddress)
-          ).asOpt.value mustBe Json.parse(expectedJson)
+          userAnswers.data
+            .transform(
+              jsonTransformer.getAddress(
+                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
+                __ \ 'charityOfficialAddress
+              )
+            )
+            .asOpt
+            .value mustBe Json.parse(expectedJson)
         }
       }
     }
@@ -344,8 +467,17 @@ class JsonTransformerSpec extends SpecBase {
 
       "convert the correct OptionalAddress" in {
 
-        val userAnswers = emptyUserAnswers.set(CharityOfficialAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street", "line3", "line4"), Some("G58AN"), CountryModel("GB", "United Kingdom"))).success.value
+        val userAnswers = emptyUserAnswers
+          .set(
+            CharityOfficialAddressLookupPage,
+            AddressModel(
+              Seq("7", "Morrison street", "line3", "line4"),
+              Some("G58AN"),
+              CountryModel("GB", "United Kingdom")
+            )
+          )
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -365,18 +497,28 @@ class JsonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.getOptionalAddress(
-          __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'charityCorrespondenceAddress,
-          __ \ 'charityOfficialAddress)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getOptionalAddress(
+              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'charityCorrespondenceAddress,
+              __ \ 'charityOfficialAddress
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
       }
 
       "return none if no address is defined" in {
 
-        emptyUserAnswers.data.transform(jsonTransformer.getOptionalAddress(
-          __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'charityCorrespondenceAddress,
-          __ \ 'charityOfficialAddress)
-        ).asOpt.value mustBe Json.parse("""{}""")
+        emptyUserAnswers.data
+          .transform(
+            jsonTransformer.getOptionalAddress(
+              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'charityCorrespondenceAddress,
+              __ \ 'charityOfficialAddress
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse("""{}""")
       }
     }
 
@@ -384,29 +526,43 @@ class JsonTransformerSpec extends SpecBase {
 
       "remove + from phone number " in {
 
-        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
-          PhoneNumber("+44 7700 900 982", Some("07700 900 981"))).success.value
+        val userAnswers: UserAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("+44 7700 900 982", Some("07700 900 981")))
+          .success
+          .value
 
         val expectedJson = """{"individualDetails": {"dayPhoneNumber": "44 7700 900 982"}}"""
 
-        userAnswers.data.transform(jsonTransformer.getPhone(
-          __ \ 'individualDetails \ 'dayPhoneNumber ,
-          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getPhone(
+              __ \ 'individualDetails \ 'dayPhoneNumber,
+              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
 
       }
 
       "get the phone number as it is" in {
 
-        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
-          PhoneNumber("07700 900 982", Some("07700 900 981"))).success.value
+        val userAnswers: UserAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))
+          .success
+          .value
 
         val expectedJson = """{"individualDetails": { "dayPhoneNumber": "07700 900 982" }}"""
 
-        userAnswers.data.transform(jsonTransformer.getPhone(
-          __ \ 'individualDetails \ 'dayPhoneNumber ,
-          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getPhone(
+              __ \ 'individualDetails \ 'dayPhoneNumber,
+              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
 
       }
     }
@@ -415,29 +571,43 @@ class JsonTransformerSpec extends SpecBase {
 
       "remove + from phone number " in {
 
-        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
-          PhoneNumber("07700 900 982", Some("+44 7700 900 981"))).success.value
+        val userAnswers: UserAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("+44 7700 900 981")))
+          .success
+          .value
 
         val expectedJson = """{"individualDetails": {"mobilePhone": "44 7700 900 981"}}"""
 
-        userAnswers.data.transform(jsonTransformer.getOptionalPhone(
-          __ \ 'individualDetails \ 'mobilePhone ,
-          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getOptionalPhone(
+              __ \ 'individualDetails \ 'mobilePhone,
+              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
 
       }
 
       "get the phone number as it is" in {
 
-        val userAnswers: UserAnswers = emptyUserAnswers.set(AuthorisedOfficialsPhoneNumberPage(0),
-          PhoneNumber("07700 900 982", Some("07700 900 981"))).success.value
+        val userAnswers: UserAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))
+          .success
+          .value
 
         val expectedJson = """{ "individualDetails": { "mobilePhone": "07700 900 981" } }"""
 
-        userAnswers.data.transform(jsonTransformer.getOptionalPhone(
-          __ \ 'individualDetails \ 'mobilePhone ,
-          __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getOptionalPhone(
+              __ \ 'individualDetails \ 'mobilePhone,
+              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
 
       }
 
@@ -447,8 +617,10 @@ class JsonTransformerSpec extends SpecBase {
 
       "convert the correct Name object" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-          Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+        val userAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -466,16 +638,23 @@ class JsonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-        userAnswers.data.transform(jsonTransformer.getName(
-          __ \ 'charityRegistration \ 'common \ 'declarationInfo \ 'name,
-          __ \ 'authorisedOfficials \ 0 \ 'officialsName)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getName(
+              __ \ 'charityRegistration \ 'common \ 'declarationInfo \ 'name,
+              __ \ 'authorisedOfficials \ 0 \ 'officialsName
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
       }
 
       "convert the correct AddressModel with mandatory fields only" in {
 
-        val userAnswers = emptyUserAnswers.set(AuthorisedOfficialsNamePage(0),
-          Name(SelectTitle.Mrs, "Jim", None, "Jones")).success.value
+        val userAnswers = emptyUserAnswers
+          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mrs, "Jim", None, "Jones"))
+          .success
+          .value
 
         val expectedJson =
           """{
@@ -492,11 +671,15 @@ class JsonTransformerSpec extends SpecBase {
             |  }
             |}""".stripMargin
 
-
-        userAnswers.data.transform(jsonTransformer.getName(
-          __ \ 'charityRegistration \ 'common \ 'declarationInfo \ 'name,
-          __ \ 'authorisedOfficials \ 0 \ 'officialsName)
-        ).asOpt.value mustBe Json.parse(expectedJson)
+        userAnswers.data
+          .transform(
+            jsonTransformer.getName(
+              __ \ 'charityRegistration \ 'common \ 'declarationInfo \ 'name,
+              __ \ 'authorisedOfficials \ 0 \ 'officialsName
+            )
+          )
+          .asOpt
+          .value mustBe Json.parse(expectedJson)
 
       }
     }

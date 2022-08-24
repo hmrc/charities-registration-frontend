@@ -26,22 +26,21 @@ import views.html.regulatorsAndDocuments.CharityOtherRegulatorDetailsView
 
 class CharityOtherRegulatorDetailsViewSpec extends QuestionViewBehaviours[CharityOtherRegulatorDetails] {
 
-  private val messageKeyPrefix = "charityOtherRegulatorDetails"
+  private val messageKeyPrefix                 = "charityOtherRegulatorDetails"
   val form: Form[CharityOtherRegulatorDetails] = inject[CharityOtherRegulatorDetailsFormProvider].apply()
 
-    "CharityOtherRegulatorDetailsView" must {
+  "CharityOtherRegulatorDetailsView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[CharityOtherRegulatorDetailsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[CharityOtherRegulatorDetailsView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
-  }
 
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+  }
+}

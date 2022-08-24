@@ -32,39 +32,46 @@ import views.html.common.AmendAddressView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class AmendNomineeIndividualPreviousAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    val formProvider: AmendAddressFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: NomineesNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: AmendAddressView
-  )(implicit appConfig: FrontendAppConfig) extends AmendAddressController {
+class AmendNomineeIndividualPreviousAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  val formProvider: AmendAddressFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: AmendAddressView
+)(implicit appConfig: FrontendAppConfig)
+    extends AmendAddressController {
 
   override val messagePrefix: String = "amendNomineeIndividualPreviousAddress"
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-        Future.successful(getView(NomineeIndividualPreviousAddressLookupPage,
-          controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(mode),
-          countryService.countries(), Some(individualNomineeName)))
+        Future.successful(
+          getView(
+            NomineeIndividualPreviousAddressLookupPage,
+            controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(mode),
+            countryService.countries(),
+            Some(individualNomineeName)
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-        postView(mode, NomineeIndividualPreviousAddressLookupPage, Section9Page,
+        postView(
+          mode,
+          NomineeIndividualPreviousAddressLookupPage,
+          Section9Page,
           controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(mode),
-          countryService.countries(), Some(individualNomineeName))
+          countryService.countries(),
+          Some(individualNomineeName)
+        )
       }
   }
 

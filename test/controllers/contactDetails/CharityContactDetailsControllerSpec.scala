@@ -52,19 +52,23 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
     reset(mockUserAnswerService)
   }
 
-  private val view: CharityContactDetailsView = injector.instanceOf[CharityContactDetailsView]
+  private val view: CharityContactDetailsView                 = injector.instanceOf[CharityContactDetailsView]
   private val formProvider: CharityContactDetailsFormProvider = injector.instanceOf[CharityContactDetailsFormProvider]
-  private val form: Form[CharityContactDetails] = formProvider()
+  private val form: Form[CharityContactDetails]               = formProvider()
 
   private val controller: CharityContactDetailsController = inject[CharityContactDetailsController]
 
-  private val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982", "alternativePhoneNumber"->"07700 900 982", "emailAddress" -> "abc@gmail.com")
+  private val requestArgs = Seq(
+    "mainPhoneNumber"        -> "07700 900 982",
+    "alternativePhoneNumber" -> "07700 900 982",
+    "emailAddress"           -> "abc@gmail.com"
+  )
 
   "CharityContactDetails Controller " must {
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -73,10 +77,12 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")).success.value
+      val userAnswers = emptyUserAnswers
+        .set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -88,10 +94,10 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -105,7 +111,7 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -128,7 +134,7 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 

@@ -25,9 +25,6 @@ case class SubmissionAuditEvent(submission: JsValue) extends AuditEvent {
 
   override def transactionName: String = "CharityRegistrationSubmission"
 
-  override def details: JsValue = {
+  override def details: JsValue =
     submission
-  }
 }
-
-

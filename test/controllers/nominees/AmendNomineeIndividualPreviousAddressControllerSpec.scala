@@ -42,7 +42,7 @@ import scala.concurrent.Future
 class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -58,27 +58,41 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
     reset(mockUserAnswerService, mockCountryService)
   }
 
-  private val messageKeyPrefix = "amendNomineeIndividualPreviousAddress"
-  private val view: AmendAddressView = inject[AmendAddressView]
+  private val messageKeyPrefix                       = "amendNomineeIndividualPreviousAddress"
+  private val view: AmendAddressView                 = inject[AmendAddressView]
   private val formProvider: AmendAddressFormProvider = inject[AmendAddressFormProvider]
-  private val form: Form[AmendAddressModel] = formProvider(messageKeyPrefix)
+  private val form: Form[AmendAddressModel]          = formProvider(messageKeyPrefix)
 
-  private val controller: AmendNomineeIndividualPreviousAddressController = inject[AmendNomineeIndividualPreviousAddressController]
+  private val controller: AmendNomineeIndividualPreviousAddressController =
+    inject[AmendNomineeIndividualPreviousAddressController]
 
-  private val requestArgs = Seq("line1" -> "23", "line2" -> "Morrison street", "line3" -> "",
-    "town" -> "Glasgow",
+  private val requestArgs                   = Seq(
+    "line1"    -> "23",
+    "line2"    -> "Morrison street",
+    "line3"    -> "",
+    "town"     -> "Glasgow",
     "postcode" -> "G58AN",
-    "country" -> "GB")
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(NomineeIndividualPreviousAddressLookupPage,
-    AddressModel(Seq("7", "Morrison street near riverview gardens", "Glasgow"), Some("G58AN"), CountryModel("GB", "United Kingdom")))
-    .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))).success.value
-
+    "country"  -> "GB"
+  )
+  private val localUserAnswers: UserAnswers = emptyUserAnswers
+    .set(
+      NomineeIndividualPreviousAddressLookupPage,
+      AddressModel(
+        Seq("7", "Morrison street near riverview gardens", "Glasgow"),
+        Some("G58AN"),
+        CountryModel("GB", "United Kingdom")
+      )
+    )
+    .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")))
+    .success
+    .value
 
   "AmendNomineeIndividualPreviousAddressController Controller " must {
 
     "return OK and the correct view for a GET" in {
 
-      val amendNomineeIndividualPreviousAddress = AmendAddressModel("7", Some("Morrison street near riverview gardens"), Some(""), "Glasgow", "G58AN", "GB")
+      val amendNomineeIndividualPreviousAddress =
+        AmendAddressModel("7", Some("Morrison street near riverview gardens"), Some(""), "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -86,17 +100,23 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form.fill(amendNomineeIndividualPreviousAddress), messageKeyPrefix,
+      contentAsString(result) mustEqual view(
+        form.fill(amendNomineeIndividualPreviousAddress),
+        messageKeyPrefix,
         controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(NormalMode),
-        Some("Jim John Jones"), countries = Seq(("GB", "United Kingdom")))(fakeRequest, messages, frontendAppConfig).toString
+        Some("Jim John Jones"),
+        countries = Seq(("GB", "United Kingdom"))
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(AmendAddressPage,
-        AmendAddressModel("23", Some("Morrison street"), Some(""), "Glasgow", "G58AN", "GB")).success.value
+      val userAnswers = localUserAnswers
+        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), Some(""), "Glasgow", "G58AN", "GB"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -110,37 +130,44 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
 
     "populate the view correctly on a GET when the question has previously been answered is empty" in {
 
-      val userAnswers = emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+      val userAnswers = emptyUserAnswers
+        .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
-      contentAsString(result) mustEqual view(form, messageKeyPrefix,
+      contentAsString(result) mustEqual view(
+        form,
+        messageKeyPrefix,
         controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onSubmit(NormalMode),
-        Some("Jim John Jones"), countries = Seq(("GB", "United Kingdom")))(fakeRequest, messages, frontendAppConfig).toString
+        Some("Jim John Jones"),
+        countries = Seq(("GB", "United Kingdom"))
+      )(fakeRequest, messages, frontendAppConfig).toString
 
       status(result) mustEqual OK
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
     }
 
-     "redirect to the next page when valid data is submitted" in {
+    "redirect to the next page when valid data is submitted" in {
 
-       val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
 
-       val result = controller.onSubmit(NormalMode)(request)
+      val result = controller.onSubmit(NormalMode)(request)
 
-       status(result) mustBe SEE_OTHER
-       redirectLocation(result) mustBe Some(onwardRoute.url)
-       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-       verify(mockCountryService, times(1)).countries()(any())
-     }
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      verify(mockCountryService, times(1)).countries()(any())
+    }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 

@@ -32,42 +32,40 @@ import views.html.nominees.ChooseNomineeView
 
 import scala.concurrent.Future
 
-
-class ChooseNomineeController @Inject()(
-     sessionRepository: UserAnswerService,
-     navigator: NomineesNavigator,
-     identify: AuthIdentifierAction,
-     getData: UserDataRetrievalAction,
-     requireData: DataRequiredAction,
-     formProvider: ChooseNomineeFormProvider,
-     val controllerComponents: MessagesControllerComponents,
-     view: ChooseNomineeView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class ChooseNomineeController @Inject() (
+  sessionRepository: UserAnswerService,
+  navigator: NomineesNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: ChooseNomineeFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: ChooseNomineeView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-
-      val preparedForm = request.userAnswers.get(ChooseNomineePage) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm, mode))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    val preparedForm = request.userAnswers.get(ChooseNomineePage) match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Ok(view(preparedForm, mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(ChooseNomineePage, value).flatMap(_.set(Section9Page, false)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ChooseNomineePage, mode, updatedAnswers))
-      )
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+          value =>
+            for {
+              updatedAnswers <-
+                Future.fromTry(request.userAnswers.set(ChooseNomineePage, value).flatMap(_.set(Section9Page, false)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(ChooseNomineePage, mode, updatedAnswers))
+        )
   }
 }

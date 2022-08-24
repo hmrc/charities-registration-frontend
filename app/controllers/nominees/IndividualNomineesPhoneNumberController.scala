@@ -32,35 +32,46 @@ import views.html.common.PhoneNumberView
 
 import scala.concurrent.Future
 
-class IndividualNomineesPhoneNumberController @Inject()(
-   val identify: AuthIdentifierAction,
-   val getData: UserDataRetrievalAction,
-   val requireData: DataRequiredAction,
-   val formProvider: PhoneNumberFormProvider,
-   override val sessionRepository: UserAnswerService,
-   override val navigator: NomineesNavigator,
-   override val controllerComponents: MessagesControllerComponents,
-   override val view: PhoneNumberView
-  )(implicit appConfig: FrontendAppConfig) extends PhoneNumberController {
+class IndividualNomineesPhoneNumberController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: PhoneNumberFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: NomineesNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: PhoneNumberView
+)(implicit appConfig: FrontendAppConfig)
+    extends PhoneNumberController {
 
-  override val messagePrefix: String = "individualNomineesPhoneNumber"
+  override val messagePrefix: String  = "individualNomineesPhoneNumber"
   private val form: Form[PhoneNumber] = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-      Future.successful(getView(IndividualNomineesPhoneNumberPage, form, individualNomineeName,
-        controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(mode)))
-    }
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+        Future.successful(
+          getView(
+            IndividualNomineesPhoneNumberPage,
+            form,
+            individualNomineeName,
+            controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(mode)
+          )
+        )
+      }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getFullName(IndividualNomineeNamePage) { individualNomineeName =>
-
-      postView(mode, IndividualNomineesPhoneNumberPage, form, individualNomineeName, Section9Page,
-        controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(mode))
-    }
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(IndividualNomineeNamePage) { individualNomineeName =>
+        postView(
+          mode,
+          IndividualNomineesPhoneNumberPage,
+          form,
+          individualNomineeName,
+          Section9Page,
+          controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(mode)
+        )
+      }
   }
 }

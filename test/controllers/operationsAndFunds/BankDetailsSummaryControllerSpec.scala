@@ -68,7 +68,13 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
 
     "return OK and the correct view for a GET" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.set(BankDetailsPage, BankDetails("aaa", "123456", "00733445",Some("123"))).success.value)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers.set(BankDetailsPage, BankDetails("aaa", "123456", "00733445", Some("123"))).success.value
+          )
+        )
+      )
 
       val result = controller.onPageLoad()(fakeRequest)
 

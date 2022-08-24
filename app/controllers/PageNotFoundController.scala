@@ -26,33 +26,39 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import views.html.errors.PageNotFoundView
 
-class PageNotFoundController @Inject()(
+class PageNotFoundController @Inject() (
   identify: SessionIdentifierAction,
   view: PageNotFoundView,
   authConnector: AuthConnector,
-  val controllerComponents: MessagesControllerComponents)(
-  implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = identify.async { implicit request =>
-
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
-    authConnector.authorise(AffinityGroup.Organisation, Retrievals.credentials).map {
-      case Some(_) => Ok(view(signedIn = true))
-      case _ => Ok(view(signedIn = false))
-    }.recover{
-      case _ => Ok(view(signedIn = false))
-    }
+    authConnector
+      .authorise(AffinityGroup.Organisation, Retrievals.credentials)
+      .map {
+        case Some(_) => Ok(view(signedIn = true))
+        case _       => Ok(view(signedIn = false))
+      }
+      .recover { case _ =>
+        Ok(view(signedIn = false))
+      }
   }
 
   def redirectToStartOfJourney(): Action[AnyContent] = identify.async { implicit request =>
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
-    authConnector.authorise(AffinityGroup.Organisation, Retrievals.credentials).map {
-      case Some(_) => Redirect(controllers.routes.IndexController.onPageLoad(None))
-      case _ => Redirect(appConfig.signOutUrl).withNewSession
-    }.recover{
-      case _ => Redirect(appConfig.signOutUrl).withNewSession
-    }
+    authConnector
+      .authorise(AffinityGroup.Organisation, Retrievals.credentials)
+      .map {
+        case Some(_) => Redirect(controllers.routes.IndexController.onPageLoad(None))
+        case _       => Redirect(appConfig.signOutUrl).withNewSession
+      }
+      .recover { case _ =>
+        Redirect(appConfig.signOutUrl).withNewSession
+      }
   }
 }

@@ -22,9 +22,9 @@ import play.api.data.{Form, FormError}
 class CanWeSendToThisAddressFormProviderSpec extends BooleanFieldBehaviours {
 
   private val formProvider: CanWeSendToThisAddressFormProvider = inject[CanWeSendToThisAddressFormProvider]
-  private val form: Form[Boolean] = formProvider()
-  private val requiredKey = "canWeSendLettersToThisAddress.error.required"
-  private val invalidKey = "error.boolean"
+  private val form: Form[Boolean]                              = formProvider()
+  private val requiredKey                                      = "canWeSendLettersToThisAddress.error.required"
+  private val invalidKey                                       = "error.boolean"
 
   ".value" must {
 

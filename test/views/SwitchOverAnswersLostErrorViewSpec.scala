@@ -20,24 +20,29 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.SwitchOverAnswersLostErrorView
 
-class SwitchOverAnswersLostErrorViewSpec extends ViewBehaviours  {
+class SwitchOverAnswersLostErrorViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "switchOverAnswersLostError"
 
-    "SwitchOverAnswersLostErrorView" must {
+  "SwitchOverAnswersLostErrorView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[SwitchOverAnswersLostErrorView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix)
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "linkButton", controllers.routes.IndexController.onPageLoad(None).url, messages("site.continue"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[SwitchOverAnswersLostErrorView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix)
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.routes.IndexController.onPageLoad(None).url,
+      messages("site.continue")
+    )
+
   }
+}

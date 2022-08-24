@@ -52,9 +52,10 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
     reset(mockUserAnswerService)
   }
 
-  private val view: ScottishRegulatorRegNumberView = injector.instanceOf[ScottishRegulatorRegNumberView]
-  private val formProvider: ScottishRegulatorRegNumberFormProvider = injector.instanceOf[ScottishRegulatorRegNumberFormProvider]
-  private val form: Form[String] = formProvider()
+  private val view: ScottishRegulatorRegNumberView                 = injector.instanceOf[ScottishRegulatorRegNumberView]
+  private val formProvider: ScottishRegulatorRegNumberFormProvider =
+    injector.instanceOf[ScottishRegulatorRegNumberFormProvider]
+  private val form: Form[String]                                   = formProvider()
 
   private val controller: ScottishRegulatorRegNumberController = inject[ScottishRegulatorRegNumberController]
 
@@ -64,7 +65,7 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -72,7 +73,6 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
@@ -88,10 +88,10 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -105,7 +105,7 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -128,7 +128,7 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 

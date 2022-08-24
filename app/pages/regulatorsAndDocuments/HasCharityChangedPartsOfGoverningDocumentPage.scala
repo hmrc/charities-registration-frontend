@@ -32,7 +32,7 @@ case object HasCharityChangedPartsOfGoverningDocumentPage extends QuestionPage[B
     value match {
       case Some(false) =>
         userAnswers.remove(SectionsChangedGoverningDocumentPage)
-      case _ =>
+      case _           =>
         super.cleanup(value, userAnswers)
     }
 }

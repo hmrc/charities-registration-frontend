@@ -33,8 +33,14 @@ class IncorrectDetailsViewSpec extends ViewBehaviours {
 
     behave like normalPage(applyView(), messageKeyPrefix)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-      "notAnOrganisation.p1", "notAnOrganisation.p2", "notAnOrganisation.p1.link", "notAnOrganisation.p2.link")
+    behave like pageWithAdditionalGuidance(
+      applyView(),
+      messageKeyPrefix,
+      "notAnOrganisation.p1",
+      "notAnOrganisation.p2",
+      "notAnOrganisation.p1.link",
+      "notAnOrganisation.p2.link"
+    )
 
     behave like pageWithBackLink(applyView())
   }

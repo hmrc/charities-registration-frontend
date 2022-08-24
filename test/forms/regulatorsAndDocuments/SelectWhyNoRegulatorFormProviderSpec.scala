@@ -26,13 +26,13 @@ class SelectWhyNoRegulatorFormProviderSpec extends OptionFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = "selectWhyNoRegulator.error.required"
 
     behave like optionsField[SelectWhyNoRegulator](
       form,
       fieldName,
-      validValues  = SelectWhyNoRegulator.values,
+      validValues = SelectWhyNoRegulator.values,
       invalidError = FormError(fieldName, "error.invalid")
     )
 

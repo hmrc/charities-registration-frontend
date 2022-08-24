@@ -21,16 +21,25 @@ import play.api.data.{Form, FormError}
 
 class CurrencyFormProviderSpec extends DecimalFieldBehaviours {
 
-  private val messagePrefix: String = "estimatedIncome"
+  private val messagePrefix: String  = "estimatedIncome"
   private val form: Form[BigDecimal] = inject[CurrencyFormProvider].apply(messagePrefix)
 
   ".value" should {
 
     behave like decimalField(form, "amount", FormError("amount", s"$messagePrefix.error.format", List()))
 
-    behave like decimalFieldWithMinimum(form, "amount", BigDecimal.valueOf(0), FormError("amount", s"$messagePrefix.error.format", List()))
+    behave like decimalFieldWithMinimum(
+      form,
+      "amount",
+      BigDecimal.valueOf(0),
+      FormError("amount", s"$messagePrefix.error.format", List())
+    )
 
-    behave like decimalFieldWithMaximum(form, "amount", BigDecimal.valueOf(9999999.99),
-      FormError("amount", s"$messagePrefix.error.length", Seq(BigDecimal(9999999.99))))
+    behave like decimalFieldWithMaximum(
+      form,
+      "amount",
+      BigDecimal.valueOf(9999999.99),
+      FormError("amount", s"$messagePrefix.error.length", Seq(BigDecimal(9999999.99)))
+    )
   }
 }

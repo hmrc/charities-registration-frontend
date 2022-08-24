@@ -24,29 +24,31 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.common.YesNoView
 
-class YesNoViewSpec extends YesNoViewBehaviours  {
+class YesNoViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "removeAuthorisedOfficial"
-  private val section: String = messages("officialsAndNominees.section")
+  private val messageKeyPrefix   = "removeAuthorisedOfficial"
+  private val section: String    = messages("officialsAndNominees.section")
   private val firstOfficialsName = "Jane Johnson"
-  val form: Form[Boolean] = inject[YesNoFormProvider].apply(messageKeyPrefix)
+  val form: Form[Boolean]        = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
-    "YesNoView" must {
+  "YesNoView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[YesNoView](Some(emptyUserAnswers))
-        view.apply(form, firstOfficialsName, messageKeyPrefix, onwardRoute, "officialsAndNominees")(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(form), messageKeyPrefix, Seq(firstOfficialsName), Some(section))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like yesNoPage(form, applyView, messageKeyPrefix,
-        routes.RemoveAuthorisedOfficialsController.onSubmit(0).url,
-        Seq(firstOfficialsName), section = Some(section))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[YesNoView](Some(emptyUserAnswers))
+      view.apply(form, firstOfficialsName, messageKeyPrefix, onwardRoute, "officialsAndNominees")(
+        fakeRequest,
+        messages,
+        frontendAppConfig
+      )
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, Seq(firstOfficialsName), Some(section))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like yesNoPage(form, applyView, messageKeyPrefix, Seq(firstOfficialsName), section = Some(section))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
   }
+}

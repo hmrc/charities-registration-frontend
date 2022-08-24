@@ -18,12 +18,14 @@ package viewmodels
 
 import pages.QuestionPage
 
-
 trait StatusUtil {
 
   val commonPages: Seq[QuestionPage[_]] = Seq.empty
 
-  def updateAvailablePages(condition: Boolean, addIfTrue: Seq[QuestionPage[_]], elseAdd: Seq[QuestionPage[_]]= Seq.empty): Seq[QuestionPage[_]] = {
+  def updateAvailablePages(
+    condition: Boolean,
+    addIfTrue: Seq[QuestionPage[_]],
+    elseAdd: Seq[QuestionPage[_]] = Seq.empty
+  ): Seq[QuestionPage[_]] =
     if (condition) commonPages ++ addIfTrue else commonPages ++ elseAdd
-  }
 }

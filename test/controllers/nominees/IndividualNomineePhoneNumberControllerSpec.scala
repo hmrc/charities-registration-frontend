@@ -52,17 +52,16 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix = "individualNomineesPhoneNumber"
-  private val view: PhoneNumberView = inject[PhoneNumberView]
+  private val messageKeyPrefix                      = "individualNomineesPhoneNumber"
+  private val view: PhoneNumberView                 = inject[PhoneNumberView]
   private val formProvider: PhoneNumberFormProvider = inject[PhoneNumberFormProvider]
-  private val form: Form[PhoneNumber] = formProvider(messageKeyPrefix)
+  private val form: Form[PhoneNumber]               = formProvider(messageKeyPrefix)
 
   private val controller: IndividualNomineesPhoneNumberController = inject[IndividualNomineesPhoneNumberController]
 
-  private val requestArgs = Seq("mainPhoneNumber" -> "07700 900 982","alternativePhoneNumber"->"07700 900 982")
-    private val localUserAnswers: UserAnswers =
-      emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
-
+  private val requestArgs                   = Seq("mainPhoneNumber" -> "07700 900 982", "alternativePhoneNumber" -> "07700 900 982")
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
   "IndividualNomineesPhoneNumberController " must {
 
@@ -72,16 +71,21 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(NormalMode))(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(IndividualNomineesPhoneNumberPage,
-        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
+      val userAnswers = localUserAnswers
+        .set(IndividualNomineesPhoneNumberPage, PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -92,10 +96,12 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val userAnswers = localUserAnswers.set(IndividualNomineesPhoneNumberPage,
-        PhoneNumber("07700 900 982", Some("07700 900 982"))).success.value
+      val userAnswers = localUserAnswers
+        .set(IndividualNomineesPhoneNumberPage, PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .success
+        .value
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

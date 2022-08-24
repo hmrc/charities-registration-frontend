@@ -32,35 +32,46 @@ import views.html.common.PhoneNumberView
 
 import scala.concurrent.Future
 
-class OtherOfficialsPhoneNumberController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val formProvider: PhoneNumberFormProvider,
-    override val sessionRepository: UserAnswerService,
-    override val navigator: OtherOfficialsNavigator,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: PhoneNumberView
-  )(implicit appConfig: FrontendAppConfig) extends PhoneNumberController {
+class OtherOfficialsPhoneNumberController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val formProvider: PhoneNumberFormProvider,
+  override val sessionRepository: UserAnswerService,
+  override val navigator: OtherOfficialsNavigator,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: PhoneNumberView
+)(implicit appConfig: FrontendAppConfig)
+    extends PhoneNumberController {
 
-  override val messagePrefix: String = "otherOfficialsPhoneNumber"
+  override val messagePrefix: String  = "otherOfficialsPhoneNumber"
   private val form: Form[PhoneNumber] = formProvider(messagePrefix)
 
-  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-      Future.successful(getView(OtherOfficialsPhoneNumberPage(index), form, otherOfficialsName,
-        controllers.otherOfficials.routes.OtherOfficialsPhoneNumberController.onSubmit(mode, index)))
-    }
+  def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
+        Future.successful(
+          getView(
+            OtherOfficialsPhoneNumberPage(index),
+            form,
+            otherOfficialsName,
+            controllers.otherOfficials.routes.OtherOfficialsPhoneNumberController.onSubmit(mode, index)
+          )
+        )
+      }
   }
 
-  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
-
-      postView(mode, OtherOfficialsPhoneNumberPage(index), form, otherOfficialsName, Section8Page,
-        controllers.otherOfficials.routes.OtherOfficialsPhoneNumberController.onSubmit(mode, index))
-    }
+  def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      getFullName(OtherOfficialsNamePage(index)) { otherOfficialsName =>
+        postView(
+          mode,
+          OtherOfficialsPhoneNumberPage(index),
+          form,
+          otherOfficialsName,
+          Section8Page,
+          controllers.otherOfficials.routes.OtherOfficialsPhoneNumberController.onSubmit(mode, index)
+        )
+      }
   }
 }

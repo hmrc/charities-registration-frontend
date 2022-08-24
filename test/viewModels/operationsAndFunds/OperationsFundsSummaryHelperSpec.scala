@@ -35,16 +35,22 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
 
-  private val helper = new OperationsFundsSummaryHelper(UserAnswers("id")
-    .set(FundRaisingPage, FundRaisingOptions.values.toSet).flatMap
-  (_.set(CharityEstablishedInPage, CharityEstablishedOptions.values.head)).flatMap
-  (_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet)).flatMap
-  (_.set(IsFinancialAccountsPage, true)).flatMap
-  (_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12))).flatMap
-  (_.set(ActualIncomePage, BigDecimal.valueOf(11123.12))).flatMap
-  (_.set(IsBankStatementsPage, true)).flatMap
-  (_.set(AccountingPeriodEndDatePage,
-    MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(MongoDateTimeFormats.localDayMonthWrite)).success.value,
+  private val helper = new OperationsFundsSummaryHelper(
+    UserAnswers("id")
+      .set(FundRaisingPage, FundRaisingOptions.values.toSet)
+      .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.values.head))
+      .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))
+      .flatMap(_.set(IsFinancialAccountsPage, true))
+      .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12)))
+      .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(11123.12)))
+      .flatMap(_.set(IsBankStatementsPage, true))
+      .flatMap(
+        _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(
+          MongoDateTimeFormats.localDayMonthWrite
+        )
+      )
+      .success
+      .value,
     mockCountryService
   )
 
@@ -54,8 +60,9 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
       "have a correctly formatted summary list row" in {
 
-        val fundRaisingList = FundRaisingOptions.values.sortBy(_.order).foldLeft("")(
-          (str, key) => str + s"""<div>${messages(s"selectFundRaising.${key.toString}")}</div>""")
+        val fundRaisingList = FundRaisingOptions.values
+          .sortBy(_.order)
+          .foldLeft("")((str, key) => str + s"""<div>${messages(s"selectFundRaising.${key.toString}")}</div>""")
 
         helper.fundRaisingRow mustBe Some(
           summaryListRow(
@@ -72,12 +79,14 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
       "have a correctly formatted summary list row when one added" in {
 
-        helper.countryOfEstablishmentRow mustBe Some(summaryListRow(
-          messages("charityEstablishedIn.checkYourAnswersLabel"),
-          HtmlContent(messages(s"charityEstablishedIn.$England")),
-          Some(messages("charityEstablishedIn.checkYourAnswersLabel")),
-          operationFundsRoutes.CharityEstablishedInController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.countryOfEstablishmentRow mustBe Some(
+          summaryListRow(
+            messages("charityEstablishedIn.checkYourAnswersLabel"),
+            HtmlContent(messages(s"charityEstablishedIn.$England")),
+            Some(messages("charityEstablishedIn.checkYourAnswersLabel")),
+            operationFundsRoutes.CharityEstablishedInController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -85,8 +94,9 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
 
       "have a correctly formatted summary list row" in {
 
-        val operatingLocationList = OperatingLocationOptions.values.sortBy(_.order).foldLeft("")(
-          (str, key) => str + s"""<div>${messages(s"operatingLocation.${key.toString}")}</div>""")
+        val operatingLocationList = OperatingLocationOptions.values
+          .sortBy(_.order)
+          .foldLeft("")((str, key) => str + s"""<div>${messages(s"operatingLocation.${key.toString}")}</div>""")
 
         helper.operatingLocationRow mustBe Some(
           summaryListRow(

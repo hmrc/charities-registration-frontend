@@ -52,9 +52,9 @@ class IsFinancialAccountsControllerSpec extends SpecBase with BeforeAndAfterEach
     reset(mockUserAnswerService)
   }
 
-  private val view: IsFinancialAccountsView = inject[IsFinancialAccountsView]
+  private val view: IsFinancialAccountsView                 = inject[IsFinancialAccountsView]
   private val formProvider: IsFinancialAccountsFormProvider = inject[IsFinancialAccountsFormProvider]
-  private val form: Form[Boolean] = formProvider()
+  private val form: Form[Boolean]                           = formProvider()
 
   private val controller: IsFinancialAccountsController = inject[IsFinancialAccountsController]
 
@@ -71,11 +71,11 @@ class IsFinancialAccountsControllerSpec extends SpecBase with BeforeAndAfterEach
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(IsFinancialAccountsPage, true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(emptyUserAnswers.set(IsFinancialAccountsPage, true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

@@ -27,20 +27,20 @@ import views.html.operationsAndFunds.StartBankDetailsView
 
 import scala.concurrent.Future
 
-class StartBankDetailsController @Inject()(
-    val userAnswerService: UserAnswerService,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    val controllerComponents: MessagesControllerComponents,
-    view: StartBankDetailsView
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class StartBankDetailsController @Inject() (
+  val userAnswerService: UserAnswerService,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val controllerComponents: MessagesControllerComponents,
+  view: StartBankDetailsView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     if (!request.userAnswers.get(Section1Page).contains(true)) {
       Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
-    }
-    else {
+    } else {
       Future.successful(Ok(view()))
     }
   }

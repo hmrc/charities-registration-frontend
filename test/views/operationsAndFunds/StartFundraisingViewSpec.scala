@@ -24,22 +24,25 @@ import views.html.operationsAndFunds.StartFundraisingView
 class StartFundraisingViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startFundraising"
-  private val section: String = messages("operationsAndFunds.section")
+  private val section: String  = messages("operationsAndFunds.section")
 
-    "StartFundraisingView" must {
+  "StartFundraisingView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[StartFundraisingView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p1", "b1", "b2", "b3")
-
-      behave like pageWithHyperLink(applyView(), "linkButton",
-        controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url, messages("site.continue"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[StartFundraisingView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "b1", "b2", "b3")
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode).url,
+      messages("site.continue")
+    )
+
   }
+}

@@ -21,10 +21,11 @@ import play.api.libs.json.{JsObject, Json}
 
 object ConfirmedAddressConstants {
 
-  val lines: Seq[String] = Seq("Test 1", "Test 2")
-  val postcode: String = "AA00 0AA"
+  val lines: Seq[String]    = Seq("Test 1", "Test 2")
+  val postcode: String      = "AA00 0AA"
   val country: CountryModel = CountryModel(
-    code = "GB", name = "United Kingdom"
+    code = "GB",
+    name = "United Kingdom"
   )
 
   val address: AddressModel = AddressModel(
@@ -35,14 +36,14 @@ object ConfirmedAddressConstants {
 
   val addressLookupResponse: JsObject = Json.obj(
     "auditRef" -> "a1fe6969-e3fd-421b-a5fb-c9458c9cfd22",
-    "id" -> "GB690091234501",
-    "address" -> Json.toJson(address)
+    "id"       -> "GB690091234501",
+    "address"  -> Json.toJson(address)
   )
 
   val addressJson: JsObject = Json.obj(
-    "lines" -> Json.toJson(lines),
+    "lines"    -> Json.toJson(lines),
     "postcode" -> "AA00 0AA",
-    "country" -> Json.obj(
+    "country"  -> Json.obj(
       "code" -> "GB",
       "name" -> "United Kingdom"
     )

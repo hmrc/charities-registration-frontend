@@ -25,11 +25,11 @@ import utils.TimeMachine
 class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
 
   private val timeMachine: TimeMachine = inject[TimeMachine]
-  private val form: Form[LocalDate] = inject[WhenGoverningDocumentApprovedFormProvider].apply()
-  private val year: Int = 1800
-  private val month: Int = 1
-  private val dayOfMonth: Int = 1
-  private val fakeNow: LocalDate = timeMachine.now()
+  private val form: Form[LocalDate]    = inject[WhenGoverningDocumentApprovedFormProvider].apply()
+  private val year: Int                = 1800
+  private val month: Int               = 1
+  private val dayOfMonth: Int          = 1
+  private val fakeNow: LocalDate       = timeMachine.now()
 
   ".value" should {
 
@@ -40,14 +40,23 @@ class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
 
     behave like dateField(form, "date", validData)
 
-    behave like mandatoryDateField(form, "date", "whenGoverningDocumentApproved.error.required.all", Seq("day", "month", "year"))
+    behave like mandatoryDateField(
+      form,
+      "date",
+      "whenGoverningDocumentApproved.error.required.all",
+      Seq("day", "month", "year")
+    )
 
-    behave like dateFieldWithMax(form, "date",
+    behave like dateFieldWithMax(
+      form,
+      "date",
       max = fakeNow,
       FormError("date", "whenGoverningDocumentApproved.error.future", List("day", "month", "year"))
     )
 
-    behave like dateFieldWithMin(form, "date",
+    behave like dateFieldWithMin(
+      form,
+      "date",
       min = LocalDate.of(year, month, dayOfMonth),
       FormError("date", s"whenGoverningDocumentApproved.error.dateBetween", List(fakeNow.getYear.toString))
     )

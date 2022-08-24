@@ -22,17 +22,17 @@ import play.api.data.{Form, FormError}
 
 class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
-  private val maxLength = 160
-  private val fullNameMaxLength = 60
+  private val maxLength                             = 160
+  private val fullNameMaxLength                     = 60
   private val formProvider: CharityNameFormProvider = inject[CharityNameFormProvider]
-  private val form: Form[CharityName] = formProvider()
+  private val form: Form[CharityName]               = formProvider()
 
   ".fullName" must {
 
-    val fieldName = "fullName"
+    val fieldName   = "fullName"
     val requiredKey = "charityName.fullName.error.required"
-    val lengthKey = "charityName.fullName.error.length"
-    val invalidKey = "charityName.fullName.error.format"
+    val lengthKey   = "charityName.fullName.error.length"
+    val invalidKey  = "charityName.fullName.error.format"
 
     behave like fieldThatBindsValidData(
       form,
@@ -63,8 +63,8 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
   ".operatingName" must {
 
-    val fieldName = "operatingName"
-    val lengthKey = "charityName.operatingName.error.length"
+    val fieldName  = "operatingName"
+    val lengthKey  = "charityName.operatingName.error.length"
     val invalidKey = "charityName.operatingName.error.format"
 
     behave like fieldThatBindsValidData(
@@ -94,12 +94,14 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
     "apply CharityName correctly" in {
 
-      val details = form.bind(
-        Map(
-          "fullName" -> charityName.fullName,
-          "operatingName" -> charityName.operatingName.getOrElse("")
+      val details = form
+        .bind(
+          Map(
+            "fullName"      -> charityName.fullName,
+            "operatingName" -> charityName.operatingName.getOrElse("")
+          )
         )
-      ).get
+        .get
 
       details.fullName mustBe charityName.fullName
       details.operatingName mustBe charityName.operatingName

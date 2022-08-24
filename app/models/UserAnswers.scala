@@ -25,81 +25,77 @@ import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
 final case class UserAnswers(
-                              id: String,
-                              data: JsObject,
-                              lastUpdated: LocalDateTime,
-                              expiresAt: LocalDateTime
-                            ) {
+  id: String,
+  data: JsObject,
+  lastUpdated: LocalDateTime,
+  expiresAt: LocalDateTime
+) {
 
-  def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean = {
+  def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean =
     if (pages.isEmpty) {
       false
     } else {
       pages.forall(page => checkDataPresent(page).nonEmpty)
     }
-  }
 
-  def checkDataPresent[A](page: QuestionPage[A], idx: Option[Int] = None): Option[JsValue] = {
+  def checkDataPresent[A](page: QuestionPage[A], idx: Option[Int] = None): Option[JsValue] =
     path(page, idx).readNullable[JsValue].reads(data).getOrElse(None)
-  }
 
-  def unneededPagesNotPresent(neededPages: Seq[QuestionPage[_]], allPages: Seq[QuestionPage[_]]): Boolean = {
+  def unneededPagesNotPresent(neededPages: Seq[QuestionPage[_]], allPages: Seq[QuestionPage[_]]): Boolean =
     (allPages diff neededPages).forall(page => checkDataPresent(page).isEmpty)
-  }
 
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 
   def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] =
     path(page, idx).readNullable[A].reads(data).getOrElse(None)
 
-  def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
-    setData(path(page, idx), value).flatMap {
-      d =>
-        val updatedAnswers = copy(data = d)
-        page.cleanup(Some(value), updatedAnswers)
+  def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] =
+    setData(path(page, idx), value).flatMap { d =>
+      val updatedAnswers = copy(data = d)
+      page.cleanup(Some(value), updatedAnswers)
     }
-  }
 
-  private def setData[A](path: JsPath, value: A)(implicit writes: Writes[A]): Try[JsObject] = {
+  private def setData[A](path: JsPath, value: A)(implicit writes: Writes[A]): Try[JsObject] =
     data.setObject(path, Json.toJson(value)) match {
       case JsSuccess(jsValue, _) =>
         Success(jsValue)
-      case JsError(errors) =>
+      case JsError(errors)       =>
         Failure(JsResultException(errors))
     }
-  }
 
   def remove[A](page: QuestionPage[A], idx: Option[Int] = None): Try[UserAnswers] = {
 
     val updatedData = data.removeObject(path(page, idx)) match {
       case JsSuccess(jsValue, _) =>
         Success(jsValue)
-      case JsError(_) =>
+      case JsError(_)            =>
         Success(data)
     }
 
-    updatedData.map { d => copy(data = d) }
+    updatedData.map(d => copy(data = d))
   }
 
   def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
 
   @tailrec
-  private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] = {
-    if (pages.isEmpty) Success(userAnswers) else {
+  private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] =
+    if (pages.isEmpty) Success(userAnswers)
+    else {
       userAnswers.remove(pages.head) match {
-        case Success(answers) => recursivelyClearQuestions(pages.tail, answers)
-        case failure@Failure(_) => failure
+        case Success(answers)     => recursivelyClearQuestions(pages.tail, answers)
+        case failure @ Failure(_) => failure
       }
     }
-  }
 }
 
 object UserAnswers {
 
-  def apply(id: String,
-            data: JsObject = Json.obj(),
-            lastUpdated: LocalDateTime = LocalDateTime.now,
-            expiresAt: LocalDateTime = calculateExpireTime): UserAnswers =
+  def apply(
+    id: String,
+    data: JsObject = Json.obj(),
+    lastUpdated: LocalDateTime = LocalDateTime.now,
+    expiresAt: LocalDateTime = calculateExpireTime
+  ): UserAnswers =
     new UserAnswers(id, data, lastUpdated, expiresAt)
 
   lazy val expireMinutes = 15
@@ -115,7 +111,7 @@ object UserAnswers {
         (__ \ "data").read[JsObject] and
         (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeFormat) and
         (__ \ "expiresAt").read(MongoDateTimeFormats.localDateTimeFormat)
-      ) (UserAnswers.apply _)
+    )(UserAnswers.apply _)
   }
 
   implicit lazy val writes: OWrites[UserAnswers] = {
@@ -127,8 +123,8 @@ object UserAnswers {
         (__ \ "data").write[JsObject] and
         (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeFormat) and
         (__ \ "expiresAt").write(MongoDateTimeFormats.localDateTimeFormat)
-      ) (unlift(UserAnswers.unapply))
+    )(unlift(UserAnswers.unapply))
   }
 
-  implicit  lazy val formats: OFormat[UserAnswers] = OFormat(reads, writes)
+  implicit lazy val formats: OFormat[UserAnswers] = OFormat(reads, writes)
 }

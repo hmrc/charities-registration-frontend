@@ -24,7 +24,7 @@ import views.html.operationsAndFunds.StartCharitableObjectivesView
 class StartCharitableObjectivesViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startCharitableObjectives"
-  private val section: String = messages("operationsAndFunds.section")
+  private val section: String  = messages("operationsAndFunds.section")
 
   "StartCharitableObjectivesView" must {
 
@@ -35,10 +35,14 @@ class StartCharitableObjectivesViewSpec extends ViewBehaviours {
 
     behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-      "p1", "b1", "b2", "b3")
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "b1", "b2", "b3")
 
-    behave like pageWithHyperLink(applyView(), "linkButton", controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url, messages("site.continue"))
+    behave like pageWithHyperLink(
+      applyView(),
+      "linkButton",
+      controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode).url,
+      messages("site.continue")
+    )
 
   }
 }

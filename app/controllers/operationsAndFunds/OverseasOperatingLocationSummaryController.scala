@@ -32,55 +32,57 @@ import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
 
 import scala.concurrent.Future
 
-class OverseasOperatingLocationSummaryController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: FundRaisingNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    countryService: CountryService,
-    formProvider: OverseasOperatingLocationSummaryFormProvider,
-    view: OverseasOperatingLocationSummaryView,
-    val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController{
+class OverseasOperatingLocationSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: FundRaisingNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  countryService: CountryService,
+  formProvider: OverseasOperatingLocationSummaryFormProvider,
+  view: OverseasOperatingLocationSummaryView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   private val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService, mode)
 
     request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(0)) match {
       case Some(_) => Ok(view(form, mode, summaryHelper.rows))
-      case None => Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, request.userAnswers))
+      case None    => Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, request.userAnswers))
     }
 
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService, mode)
 
-    val summaryHelper = new OverseasOperatingLocationSummaryHelper(request.userAnswers, countryService, mode)
+      if (summaryHelper.rows.length < 5) {
 
-    if(summaryHelper.rows.length < 5) {
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode, summaryHelper.rows))),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(result = request.userAnswers.set(
-              OverseasOperatingLocationSummaryPage, value).flatMap(_.set(Section5Page, false)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
-      )
-    } else {
-      for {
-        updatedAnswers <- Future.fromTry(result = request.userAnswers.set(
-          OverseasOperatingLocationSummaryPage, true))
-        _ <- sessionRepository.set(updatedAnswers)
-      } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
-    }
+        form
+          .bindFromRequest()
+          .fold(
+            formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode, summaryHelper.rows))),
+            value =>
+              for {
+                updatedAnswers <- Future.fromTry(result =
+                                    request.userAnswers
+                                      .set(OverseasOperatingLocationSummaryPage, value)
+                                      .flatMap(_.set(Section5Page, false))
+                                  )
+                _              <- sessionRepository.set(updatedAnswers)
+              } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
+          )
+      } else {
+        for {
+          updatedAnswers <- Future.fromTry(result = request.userAnswers.set(OverseasOperatingLocationSummaryPage, true))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(OverseasOperatingLocationSummaryPage, mode, updatedAnswers))
+      }
   }
 
 }

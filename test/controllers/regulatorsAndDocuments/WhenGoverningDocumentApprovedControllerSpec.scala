@@ -55,19 +55,21 @@ class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAn
     reset(mockUserAnswerService)
   }
 
-  private val view: WhenGoverningDocumentApprovedView = inject[WhenGoverningDocumentApprovedView]
-  private val formProvider: WhenGoverningDocumentApprovedFormProvider = inject[WhenGoverningDocumentApprovedFormProvider]
-  private val form: Form[LocalDate] = formProvider()
+  private val view: WhenGoverningDocumentApprovedView                 = inject[WhenGoverningDocumentApprovedView]
+  private val formProvider: WhenGoverningDocumentApprovedFormProvider =
+    inject[WhenGoverningDocumentApprovedFormProvider]
+  private val form: Form[LocalDate]                                   = formProvider()
 
   private val controller: WhenGoverningDocumentApprovedController = inject[WhenGoverningDocumentApprovedController]
 
-  private val year = 2020
-  private val month = 1
+  private val year       = 2020
+  private val month      = 1
   private val dayOfMonth = 1
 
-  private val requestArgs = Seq("date.year" -> year.toString, "date.month" -> month.toString, "date.day" -> dayOfMonth.toString)
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(SelectGoverningDocumentPage,
-    SelectGoverningDocument.Will).success.value
+  private val requestArgs                   =
+    Seq("date.year" -> year.toString, "date.month" -> month.toString, "date.day" -> dayOfMonth.toString)
+  private val localUserAnswers: UserAnswers =
+    emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value
 
   "WhenGoverningDocumentApproved Controller " must {
 
@@ -84,12 +86,19 @@ class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAn
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val year = 2020
-      val month = 1
+      val year       = 2020
+      val month      = 1
       val dayOfMonth = 1
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth)).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            localUserAnswers
+              .set(WhenGoverningDocumentApprovedPage, LocalDate.of(year, month, dayOfMonth))
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -99,7 +108,7 @@ class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAn
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

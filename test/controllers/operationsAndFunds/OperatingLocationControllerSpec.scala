@@ -53,9 +53,9 @@ class OperatingLocationControllerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockUserAnswerService)
   }
 
-  private val view: OperatingLocationView = inject[OperatingLocationView]
+  private val view: OperatingLocationView                 = inject[OperatingLocationView]
   private val formProvider: OperatingLocationFormProvider = inject[OperatingLocationFormProvider]
-  private val form: Form[Set[OperatingLocationOptions]] = formProvider()
+  private val form: Form[Set[OperatingLocationOptions]]   = formProvider()
 
   private val controller: OperatingLocationController = inject[OperatingLocationController]
 
@@ -72,11 +72,17 @@ class OperatingLocationControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(OperatingLocationPage, OperatingLocationOptions.values.toSet).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers
+              .set(OperatingLocationPage, OperatingLocationOptions.values.toSet)
+              .getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

@@ -27,9 +27,9 @@ import views.html.nominees.IsAuthoriseNomineeView
 
 class IsAuthoriseNomineeViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isAuthoriseNominee"
+  private val messageKeyPrefix        = "isAuthoriseNominee"
   private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean] = inject[IsAuthoriseNomineeFormProvider].apply()
+  val form: Form[Boolean]             = inject[IsAuthoriseNomineeFormProvider].apply()
 
   "IsAuthoriseNomineeView" must {
 
@@ -42,7 +42,7 @@ class IsAuthoriseNomineeViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.IsAuthoriseNomineeController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }

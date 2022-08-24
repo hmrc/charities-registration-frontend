@@ -20,16 +20,15 @@ import forms.behaviours.StringFieldBehaviours
 import play.api.data.{Form, FormError}
 
 class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
-  private val form: Form[String] = inject[OtherFundRaisingFormProvider].apply()
+  private val form: Form[String]                         = inject[OtherFundRaisingFormProvider].apply()
   private val formProvider: OtherFundRaisingFormProvider = inject[OtherFundRaisingFormProvider]
 
-
   val requiredKey = "otherFundRaising.error.required"
-  val invalidKey = "otherFundRaising.error.format"
-  val lengthKey = "otherFundRaising.error.length"
-  val maxLength = 95
+  val invalidKey  = "otherFundRaising.error.format"
+  val lengthKey   = "otherFundRaising.error.length"
+  val maxLength   = 95
 
-  ".value" must {
+  ".value"                       must {
     val fieldName = "value"
     behave like fieldThatBindsValidData(
       form,
@@ -62,11 +61,13 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
 
     "apply otherFundRaisingMethod correctly" in {
 
-      val details = form.bind(
-        Map(
-          "value" -> otherFundRaisingMethod,
+      val details = form
+        .bind(
+          Map(
+            "value" -> otherFundRaisingMethod
+          )
         )
-      ).get
+        .get
 
       details mustBe otherFundRaisingMethod
     }
@@ -76,6 +77,5 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
       filled("value").value.value mustBe otherFundRaisingMethod
     }
   }
-
 
 }

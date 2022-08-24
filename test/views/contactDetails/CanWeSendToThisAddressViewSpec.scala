@@ -27,9 +27,9 @@ import views.html.contactDetails.CanWeSendToThisAddressView
 
 class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "canWeSendLettersToThisAddress"
+  private val messageKeyPrefix      = "canWeSendLettersToThisAddress"
   private val section: Some[String] = Some(messages("contactDetail.section"))
-  val form: Form[Boolean] = inject[CanWeSendToThisAddressFormProvider].apply()
+  val form: Form[Boolean]           = inject[CanWeSendToThisAddressFormProvider].apply()
 
   "CanWeSendToThisAddressViewView" must {
 
@@ -44,8 +44,7 @@ class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix,
-      routes.CanWeSendToThisAddressController.onSubmit(NormalMode).url, charityInformationAddressLookup, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, charityInformationAddressLookup, section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }

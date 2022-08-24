@@ -52,35 +52,43 @@ class IsAuthorisedOfficialNinoControllerSpec extends SpecBase with BeforeAndAfte
     reset(mockUserAnswerService)
   }
 
-  private val messageKeyPrefix: String = "isAuthorisedOfficialNino"
-  private val view: YesNoView = injector.instanceOf[YesNoView]
+  private val messageKeyPrefix: String        = "isAuthorisedOfficialNino"
+  private val view: YesNoView                 = injector.instanceOf[YesNoView]
   private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean] = formProvider(messageKeyPrefix)
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: IsAuthorisedOfficialNinoController = inject[IsAuthorisedOfficialNinoController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .success
+      .value
 
   "IsAuthorisedOfficialPosition Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Jim John Jones", messageKeyPrefix,
-        controllers.authorisedOfficials.routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode, Index(0)), "officialsAndNominees")(
-        fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form,
+        "Jim John Jones",
+        messageKeyPrefix,
+        controllers.authorisedOfficials.routes.IsAuthorisedOfficialNinoController.onSubmit(NormalMode, Index(0)),
+        "officialsAndNominees"
+      )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers.
-        set(IsAuthorisedOfficialNinoPage(0), true).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(Some(localUserAnswers.set(IsAuthorisedOfficialNinoPage(0), true).getOrElse(emptyUserAnswers)))
+      )
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 

@@ -53,9 +53,10 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerService)
   }
 
-  private val view: OrganisationNomineeNameView = injector.instanceOf[OrganisationNomineeNameView]
-  private val formProvider: OrganisationNomineeNameFormProvider = injector.instanceOf[OrganisationNomineeNameFormProvider]
-  private val form: Form[String] = formProvider()
+  private val view: OrganisationNomineeNameView                 = injector.instanceOf[OrganisationNomineeNameView]
+  private val formProvider: OrganisationNomineeNameFormProvider =
+    injector.instanceOf[OrganisationNomineeNameFormProvider]
+  private val form: Form[String]                                = formProvider()
 
   private val controller: OrganisationNomineeNameController = inject[OrganisationNomineeNameController]
 
@@ -65,7 +66,7 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
 
     "return OK and the correct view for a GET" in {
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -73,7 +74,6 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
@@ -89,10 +89,10 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-     when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -106,7 +106,7 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
 
       val request = fakeRequest.withFormUrlEncodedBody()
 
-     when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -129,7 +129,7 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs :_*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 

@@ -23,14 +23,15 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
 import views.html.errors.{WeDeletedYourAnswersView, YouDeletedYourAnswersView}
 
-
-class DeleteAnswersController @Inject()(
+class DeleteAnswersController @Inject() (
   val controllerComponents: MessagesControllerComponents,
   getData: DataRetrievalAction,
   identify: SessionIdentifierAction,
   val sessionRepository: SessionRepository,
   weDeletedAnswersView: WeDeletedYourAnswersView,
-  youDeletedAnswersView: YouDeletedYourAnswersView)(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+  youDeletedAnswersView: YouDeletedYourAnswersView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
   def youDeletedAnswers: Action[AnyContent] = (identify andThen getData) { implicit request =>
     request.userAnswers.map { userAnswer =>

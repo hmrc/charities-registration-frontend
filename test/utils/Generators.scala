@@ -44,35 +44,29 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
 
     Arbitrary {
       for {
-        id <- nonEmptyString
+        id   <- nonEmptyString
         data <- Gen.const(Map[QuestionPage[_], JsValue]())
       } yield UserAnswers(
         id = id,
-        data = data.foldLeft(Json.obj()) {
-          case (obj, (path, value)) =>
-            obj.setObject(path.path, value).get
+        data = data.foldLeft(Json.obj()) { case (obj, (path, value)) =>
+          obj.setObject(path.path, value).get
         }
       )
     }
   }
 
-  def genIntersperseString(gen: Gen[String],
-                           value: String,
-                           frequencyV: Int = 1,
-                           frequencyN: Int = 10): Gen[String] = {
+  def genIntersperseString(gen: Gen[String], value: String, frequencyV: Int = 1, frequencyN: Int = 10): Gen[String] = {
 
     val genValue: Gen[Option[String]] = Gen.frequency(frequencyN -> None, frequencyV -> Gen.const(Some(value)))
 
     for {
       seq1 <- gen
       seq2 <- Gen.listOfN(seq1.length, genValue)
-    } yield {
-      seq1.toSeq.zip(seq2).foldRight("") {
-        case ((n, Some(v)), m) =>
-          m + n + v
-        case ((n, _), m) =>
-          m + n
-      }
+    } yield seq1.toSeq.zip(seq2).foldRight("") {
+      case ((n, Some(v)), m) =>
+        m + n + v
+      case ((n, _), m)       =>
+        m + n
     }
   }
 
@@ -82,49 +76,49 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
   }
 
   def decimalInRangeWithCommas(min: BigDecimal, max: BigDecimal): Gen[String] = {
-    val numberGen = arbitrary[BigDecimal] suchThat(x => x >= min && x <= max)
+    val numberGen = arbitrary[BigDecimal] suchThat (x => x >= min && x <= max)
     genIntersperseString(numberGen.toString, ",")
   }
 
   def intsLargerThanMaxValue: Gen[BigInt] =
-    arbitrary[BigInt] suchThat(x => x > Int.MaxValue)
+    arbitrary[BigInt] suchThat (x => x > Int.MaxValue)
 
   def intsSmallerThanMinValue: Gen[BigInt] =
-    arbitrary[BigInt] suchThat(x => x < Int.MinValue)
+    arbitrary[BigInt] suchThat (x => x < Int.MinValue)
 
   def nonNumerics: Gen[String] =
-    alphaStr suchThat(_.nonEmpty)
+    alphaStr suchThat (_.nonEmpty)
 
   def decimals: Gen[String] =
     arbitrary[BigDecimal]
       .suchThat(_.abs < Int.MaxValue)
       .suchThat(!_.isValidInt)
-      .map(_.formatted("%f"))
+      .map("%f".format(_))
 
   def intsBelowValue(value: Int): Gen[Int] =
-    arbitrary[Int] suchThat(_ < value)
+    arbitrary[Int] suchThat (_ < value)
 
   def intsAboveValue(value: Int): Gen[Int] =
-    arbitrary[Int] suchThat(_ > value)
+    arbitrary[Int] suchThat (_ > value)
 
   def intsOutsideRange(min: Int, max: Int): Gen[Int] =
-    arbitrary[Int] suchThat(x => x < min || x > max)
+    arbitrary[Int] suchThat (x => x < min || x > max)
 
   def nonBooleans: Gen[String] =
     nonEmptyString
-      .suchThat (_.nonEmpty)
-      .suchThat (_ != "true")
-      .suchThat (_ != "false")
+      .suchThat(_.nonEmpty)
+      .suchThat(_ != "true")
+      .suchThat(_ != "false")
 
   def nonEmptyString: Gen[String] = for {
-    length    <- Gen.chooseNum(1, 10)
-    chars     <- listOfN(length, randomChar)
+    length <- Gen.chooseNum(1, 10)
+    chars  <- listOfN(length, randomChar)
   } yield chars.mkString
 
   def stringsWithMaxLength(maxLength: Int): Gen[String] =
     for {
       length <- choose(1, maxLength)
-      chars <- listOfN(length, randomChar)
+      chars  <- listOfN(length, randomChar)
     } yield chars.mkString
 
   def stringsLongerThan(minLength: Int): Gen[String] = for {
@@ -149,28 +143,25 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
     def toMillis(date: LocalDate): Long =
       date.atStartOfDay.atZone(ZoneOffset.UTC).toInstant.toEpochMilli
 
-    Gen.choose(toMillis(min), toMillis(max)).map {
-      millis =>
-        Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
+    Gen.choose(toMillis(min), toMillis(max)).map { millis =>
+      Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
     }
   }
 
-  def daysBetween(min: JodaLocalDate, max: JodaLocalDate): Gen[JodaLocalDate] = {
-    Gen.choose(min.toDateTimeAtStartOfDay().getMillis, max.toDateTimeAtStartOfDay.getMillis).map {
-      millis =>
-       val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate match {
-         case leap if leap.getDayOfMonth == 29 && leap.getMonthValue == 2 => leap.plusDays(1)
-         case nonLeap => nonLeap
-       }
-        new JodaLocalDate(date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant.toEpochMilli)
+  def daysBetween(min: JodaLocalDate, max: JodaLocalDate): Gen[JodaLocalDate] =
+    Gen.choose(min.toDateTimeAtStartOfDay().getMillis, max.toDateTimeAtStartOfDay.getMillis).map { millis =>
+      val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate match {
+        case leap if leap.getDayOfMonth == 29 && leap.getMonthValue == 2 => leap.plusDays(1)
+        case nonLeap                                                     => nonLeap
+      }
+      new JodaLocalDate(date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant.toEpochMilli)
     }
-  }
 
   private val unicodeCapitalEnglish: NumericRange.Inclusive[Char] = '\u0041' to '\u005A'
-  private val unicodeLowerEnglish: NumericRange.Inclusive[Char] = '\u0061' to '\u007A'
-  private val unicodeNumbers: NumericRange.Inclusive[Char] = '\u0030' to '\u0039'
-  private val specialCharacters: List[Char] = """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~""".getBytes(
-    StandardCharsets.UTF_8).map(_.toChar).toList
-  def randomChar: Gen[Char] = Gen.oneOf(specialCharacters ++ List(unicodeCapitalEnglish,
-    unicodeLowerEnglish, unicodeNumbers).flatten)
+  private val unicodeLowerEnglish: NumericRange.Inclusive[Char]   = '\u0061' to '\u007A'
+  private val unicodeNumbers: NumericRange.Inclusive[Char]        = '\u0030' to '\u0039'
+  private val specialCharacters: List[Char]                       =
+    """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~""".getBytes(StandardCharsets.UTF_8).map(_.toChar).toList
+  def randomChar: Gen[Char]                                       =
+    Gen.oneOf(specialCharacters ++ List(unicodeCapitalEnglish, unicodeLowerEnglish, unicodeNumbers).flatten)
 }

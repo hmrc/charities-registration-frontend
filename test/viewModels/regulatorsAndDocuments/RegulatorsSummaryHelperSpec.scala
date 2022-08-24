@@ -29,21 +29,24 @@ import viewmodels.regulatorsAndDocuments.RegulatorsSummaryHelper
 
 class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
-  private val helper = new RegulatorsSummaryHelper(UserAnswers("id")
-    .set(IsCharityRegulatorPage, true).flatMap
-     (_.set(CharityRegulatorPage, CharityRegulator.values.toSet)).flatMap
-     (_.set(CharityCommissionRegistrationNumberPage, "123456")).flatMap
-     (_.set(ScottishRegulatorRegNumberPage, "SC123456")).flatMap
-     (_.set(NIRegulatorRegNumberPage, "123456")).flatMap
-     (_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("test", "123423"))).flatMap
-     (_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.values.head)).flatMap
-     (_.set(WhyNotRegisteredWithCharityPage,"office closed")).success.value
+  private val helper = new RegulatorsSummaryHelper(
+    UserAnswers("id")
+      .set(IsCharityRegulatorPage, true)
+      .flatMap(_.set(CharityRegulatorPage, CharityRegulator.values.toSet))
+      .flatMap(_.set(CharityCommissionRegistrationNumberPage, "123456"))
+      .flatMap(_.set(ScottishRegulatorRegNumberPage, "SC123456"))
+      .flatMap(_.set(NIRegulatorRegNumberPage, "123456"))
+      .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("test", "123423")))
+      .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.values.head))
+      .flatMap(_.set(WhyNotRegisteredWithCharityPage, "office closed"))
+      .success
+      .value
   )
 
   private val englandAndWales = CharityRegulator.EnglandWales
-  private val scottish = CharityRegulator.Scottish
+  private val scottish        = CharityRegulator.Scottish
   private val northernIreland = CharityRegulator.NorthernIreland
-  private val other = CharityRegulator.Other
+  private val other           = CharityRegulator.Other
 
   "Check Your Answers Helper" must {
 
@@ -51,12 +54,14 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper.isCharityRegulatorRow mustBe Some(summaryListRow(
-          messages("isCharityRegulator.checkYourAnswersLabel"),
-          HtmlContent(BaseMessages.yes),
-          Some(messages("isCharityRegulator.checkYourAnswersLabel")),
-          regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.isCharityRegulatorRow mustBe Some(
+          summaryListRow(
+            messages("isCharityRegulator.checkYourAnswersLabel"),
+            HtmlContent(BaseMessages.yes),
+            Some(messages("isCharityRegulator.checkYourAnswersLabel")),
+            regulatorDocsRoutes.IsCharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -64,13 +69,18 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper.charityRegulatorRow mustBe Some(summaryListRow(
-          messages("charityRegulator.checkYourAnswersLabel"),
-          HtmlContent(
-            s"""<div>${messages(s"charityRegulator.$englandAndWales")}</div><div>${messages(s"charityRegulator.$scottish")}</div><div>${messages(s"charityRegulator.$northernIreland")}</div><div>${messages(s"charityRegulator.$other")}</div>""".stripMargin),
-          Some(messages("charityRegulator.checkYourAnswersLabel")),
-          regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.charityRegulatorRow mustBe Some(
+          summaryListRow(
+            messages("charityRegulator.checkYourAnswersLabel"),
+            HtmlContent(s"""<div>${messages(s"charityRegulator.$englandAndWales")}</div><div>${messages(
+              s"charityRegulator.$scottish"
+            )}</div><div>${messages(s"charityRegulator.$northernIreland")}</div><div>${messages(
+              s"charityRegulator.$other"
+            )}</div>""".stripMargin),
+            Some(messages("charityRegulator.checkYourAnswersLabel")),
+            regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -78,12 +88,16 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper.charityCommissionRegRow mustBe Some(summaryListRow(
-          messages("charityCommissionRegistrationNumber.checkYourAnswersLabel"),
-          HtmlContent("123456"),
-          Some(messages("charityCommissionRegistrationNumber.checkYourAnswersLabel")),
-          regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.charityCommissionRegRow mustBe Some(
+          summaryListRow(
+            messages("charityCommissionRegistrationNumber.checkYourAnswersLabel"),
+            HtmlContent("123456"),
+            Some(messages("charityCommissionRegistrationNumber.checkYourAnswersLabel")),
+            regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(
+              CheckMode
+            ) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -91,12 +105,14 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper.scottishRegulatorRegRow mustBe Some(summaryListRow(
-          messages("scottishRegulatorRegNumber.checkYourAnswersLabel"),
-          HtmlContent("SC123456"),
-          Some(messages("scottishRegulatorRegNumber.checkYourAnswersLabel")),
-          regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.scottishRegulatorRegRow mustBe Some(
+          summaryListRow(
+            messages("scottishRegulatorRegNumber.checkYourAnswersLabel"),
+            HtmlContent("SC123456"),
+            Some(messages("scottishRegulatorRegNumber.checkYourAnswersLabel")),
+            regulatorDocsRoutes.ScottishRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -104,12 +120,14 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper.nIRegulatorRegRow mustBe Some(summaryListRow(
-          messages("nIRegulatorRegNumber.checkYourAnswersLabel"),
-          HtmlContent("123456"),
-          Some(messages("nIRegulatorRegNumber.checkYourAnswersLabel")),
-          regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.nIRegulatorRegRow mustBe Some(
+          summaryListRow(
+            messages("nIRegulatorRegNumber.checkYourAnswersLabel"),
+            HtmlContent("123456"),
+            Some(messages("nIRegulatorRegNumber.checkYourAnswersLabel")),
+            regulatorDocsRoutes.NIRegulatorRegNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -117,22 +135,26 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row for Registration Name" in {
 
-        helper.regulatorNameRow mustBe Some(summaryListRow(
-          messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel"),
-          HtmlContent(s"test"),
-          Some(messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel")),
-          regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.regulatorNameRow mustBe Some(
+          summaryListRow(
+            messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel"),
+            HtmlContent(s"test"),
+            Some(messages("charityOtherRegulatorDetails.name.checkYourAnswersLabel")),
+            regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
 
       "have a correctly formatted summary list row for Registration Number" in {
 
-        helper.regulatorRegistrationNumberRow mustBe Some(summaryListRow(
-          messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel"),
-          HtmlContent(s"${"123423"}"),
-          Some(messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel")),
-          regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.regulatorRegistrationNumberRow mustBe Some(
+          summaryListRow(
+            messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel"),
+            HtmlContent(s"${"123423"}"),
+            Some(messages("charityOtherRegulatorDetails.registrationNumber.checkYourAnswersLabel")),
+            regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -140,12 +162,14 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row when one added" in {
 
-        helper.selectWhyNoRegulatorRow mustBe Some(summaryListRow(
-          messages("selectWhyNoRegulator.checkYourAnswersLabel"),
-          HtmlContent(messages(s"selectWhyNoRegulator.$EnglandWalesUnderThreshold")),
-          Some(messages("selectWhyNoRegulator.checkYourAnswersLabel")),
-          regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.selectWhyNoRegulatorRow mustBe Some(
+          summaryListRow(
+            messages("selectWhyNoRegulator.checkYourAnswersLabel"),
+            HtmlContent(messages(s"selectWhyNoRegulator.$EnglandWalesUnderThreshold")),
+            Some(messages("selectWhyNoRegulator.checkYourAnswersLabel")),
+            regulatorDocsRoutes.SelectWhyNoRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
 
@@ -153,12 +177,14 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
       "have a correctly formatted summary list row" in {
 
-        helper.whyNotRegisteredCharityRow mustBe Some(summaryListRow(
-          messages("whyNotRegisteredWithCharity.checkYourAnswersLabel"),
-          HtmlContent("office closed"),
-          Some(messages("whyNotRegisteredWithCharity.checkYourAnswersLabel")),
-          regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
+        helper.whyNotRegisteredCharityRow mustBe Some(
+          summaryListRow(
+            messages("whyNotRegisteredWithCharity.checkYourAnswersLabel"),
+            HtmlContent("office closed"),
+            Some(messages("whyNotRegisteredWithCharity.checkYourAnswersLabel")),
+            regulatorDocsRoutes.WhyNotRegisteredWithCharityController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          )
+        )
       }
     }
   }

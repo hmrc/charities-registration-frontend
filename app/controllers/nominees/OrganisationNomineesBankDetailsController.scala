@@ -32,53 +32,72 @@ import views.html.common.BankAccountDetailsView
 
 import scala.concurrent.Future
 
-class OrganisationNomineesBankDetailsController @Inject()(
-    val sessionRepository: UserAnswerService,
-    val navigator: NomineesNavigator,
-    identify: AuthIdentifierAction,
-    getData: UserDataRetrievalAction,
-    requireData: DataRequiredAction,
-    formProvider: BankDetailsFormProvider,
-    val controllerComponents: MessagesControllerComponents,
-    view: BankAccountDetailsView
-  )(implicit appConfig: FrontendAppConfig) extends LocalBaseController {
+class OrganisationNomineesBankDetailsController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: NomineesNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  formProvider: BankDetailsFormProvider,
+  val controllerComponents: MessagesControllerComponents,
+  view: BankAccountDetailsView
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController {
 
-  private val messagePrefix: String = "organisationNomineesBankDetails"
-  private val sectionName: String = "officialsAndNominees.section"
+  private val messagePrefix: String   = "organisationNomineesBankDetails"
+  private val sectionName: String     = "officialsAndNominees.section"
   private val form: Form[BankDetails] = formProvider(messagePrefix)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       val preparedForm = request.userAnswers.get(OrganisationNomineesBankDetailsPage) match {
-        case None => form
+        case None        => form
         case Some(value) => form.fill(value)
       }
 
       getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
-
-        Future.successful(Ok(view(preparedForm,
-          controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(mode),
-          messagePrefix, sectionName, Some(organisationNomineeName))))
+        Future.successful(
+          Ok(
+            view(
+              preparedForm,
+              controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(mode),
+              messagePrefix,
+              sectionName,
+              Some(organisationNomineeName)
+            )
+          )
+        )
       }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
-            Future.successful(BadRequest(view(formWithErrors,
-              controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(mode),
-              messagePrefix, sectionName, Some(organisationNomineeName))))
-          },
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(OrganisationNomineesBankDetailsPage, value).flatMap(_.set(Section9Page, false)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(OrganisationNomineesBankDetailsPage, mode, updatedAnswers))
-      )
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors =>
+            getOrganisationName(OrganisationNomineeNamePage) { organisationNomineeName =>
+              Future.successful(
+                BadRequest(
+                  view(
+                    formWithErrors,
+                    controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(mode),
+                    messagePrefix,
+                    sectionName,
+                    Some(organisationNomineeName)
+                  )
+                )
+              )
+            },
+          value =>
+            for {
+              updatedAnswers <- Future.fromTry(
+                                  request.userAnswers
+                                    .set(OrganisationNomineesBankDetailsPage, value)
+                                    .flatMap(_.set(Section9Page, false))
+                                )
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(OrganisationNomineesBankDetailsPage, mode, updatedAnswers))
+        )
   }
 }

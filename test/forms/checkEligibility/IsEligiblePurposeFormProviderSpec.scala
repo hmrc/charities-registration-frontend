@@ -21,8 +21,8 @@ import play.api.data.{Form, FormError}
 
 class IsEligiblePurposeFormProviderSpec extends BooleanFieldBehaviours {
 
-  private val requiredKey = "isEligiblePurpose.error.required"
-  private val invalidKey = "error.boolean"
+  private val requiredKey         = "isEligiblePurpose.error.required"
+  private val invalidKey          = "error.boolean"
   private val form: Form[Boolean] = inject[IsEligiblePurposeFormProvider].apply()
 
   ".value" must {

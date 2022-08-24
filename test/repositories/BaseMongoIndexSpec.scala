@@ -29,27 +29,32 @@ trait BaseMongoIndexSpec extends SpecBase {
 
   protected def getIndexes(collection: MongoCollection[_]): Seq[IndexModel] =
     await(
-      collection.listIndexes().toFuture().map(_.map(document => {
-        val indexFields = document.get("key").map(_.asDocument().keySet().asScala).getOrElse(Set.empty[String]).toSeq
-        val name = document.getString("name")
-        val isUnique = document.getBoolean("unique", false)
-        val expire = document.getLong("expireAfterSeconds")
-        IndexModel(Indexes.ascending(indexFields: _*),
-          IndexOptions().name(name).unique(isUnique).expireAfter(expire, TimeUnit.SECONDS)
-        )
-      }))
+      collection
+        .listIndexes()
+        .toFuture()
+        .map(_.map { document =>
+          val indexFields = document.get("key").map(_.asDocument().keySet().asScala).getOrElse(Set.empty[String]).toSeq
+          val name        = document.getString("name")
+          val isUnique    = document.getBoolean("unique", false)
+          val expire      = document.getLong("expireAfterSeconds")
+          IndexModel(
+            Indexes.ascending(indexFields: _*),
+            IndexOptions().name(name).unique(isUnique).expireAfter(expire, TimeUnit.SECONDS)
+          )
+        })
     )
 
   protected def assertIndexes(expectedIndexes: Iterable[IndexModel], actualIndexes: Iterable[IndexModel]): Unit = {
     actualIndexes.size mustBe expectedIndexes.size
 
-    expectedIndexes.zip(actualIndexes)
-      .foreach(indexTuple => {
+    expectedIndexes
+      .zip(actualIndexes)
+      .foreach { indexTuple =>
         val expectedIndex = indexTuple._1
-        val actualIndex = indexTuple._2
+        val actualIndex   = indexTuple._2
 
         assertIndex(expectedIndex, actualIndex)
-      })
+      }
   }
 
   private def assertIndex(expectedIndex: IndexModel, actualIndex: IndexModel): Unit = {

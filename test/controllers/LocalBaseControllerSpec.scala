@@ -47,35 +47,43 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
-
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     reset(mockUserAnswerService)
   }
 
-  private def block(test: String): Future[Result] = {
+  private def block(test: String): Future[Result] =
     Future.successful(Results.Ok(test))
-  }
 
-  private def blockForAddress(test: Seq[String], country: Country): Future[Result] = {
+  private def blockForAddress(test: Seq[String]) =
     Future.successful(Results.Ok(test.mkString(",")))
-  }
 
-  class TestAuthorisedOfficialsController @Inject()(
+  class TestAuthorisedOfficialsController @Inject() (
     val controllerComponents: MessagesControllerComponents
-   )(implicit appConfig: FrontendAppConfig) extends LocalBaseController
+  )(implicit appConfig: FrontendAppConfig)
+      extends LocalBaseController
 
-  private lazy val controller: TestAuthorisedOfficialsController = new TestAuthorisedOfficialsController(messagesControllerComponents)
-  private val addressUserAnswers: UserAnswers = emptyUserAnswers.set(
-    AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-  ).success.value
+  private lazy val controller: TestAuthorisedOfficialsController = new TestAuthorisedOfficialsController(
+    messagesControllerComponents
+  )
+  private val addressUserAnswers: UserAnswers                    = emptyUserAnswers
+    .set(
+      AuthorisedOfficialsNamePage(0),
+      Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+    )
+    .success
+    .value
 
-  private val contactDetailsNominee: UserAnswers = emptyUserAnswers.set(
-    OrganisationNomineeNamePage, "testName"
-  ).success.value
+  private val contactDetailsNominee: UserAnswers = emptyUserAnswers
+    .set(
+      OrganisationNomineeNamePage,
+      "testName"
+    )
+    .success
+    .value
 
   private val sectionUserAnswers: UserAnswers = emptyUserAnswers
     .set(Section1Page, true)
@@ -87,14 +95,15 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     .flatMap(_.set(Section7Page, true))
     .flatMap(_.set(Section8Page, true))
     .flatMap(_.set(Section9Page, true))
-    .success.value
+    .success
+    .value
 
   "LocalBase Controller" must {
 
     "calling the .getAuthorisedOfficialName() is successful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, addressUserAnswers)
-      val result = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
+      val result                           = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
 
       status(result) mustEqual OK
     }
@@ -102,16 +111,16 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     "calling the .getAuthorisedOfficialName() is unsuccessful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
-      val result = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
+      val result                           = controller.getFullName(AuthorisedOfficialsNamePage(Index(0)))(block)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.PageNotFoundController.onPageLoad().url)
     }
 
     "calling the .getOrganisationName() is successful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, contactDetailsNominee)
-      val result = controller.getOrganisationName(OrganisationNomineeNamePage)(block)(request)
+      val result                           = controller.getOrganisationName(OrganisationNomineeNamePage)(block)(request)
 
       status(result) mustEqual OK
     }
@@ -119,17 +128,29 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     "calling the .getOrganisationName() is unsuccessful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
-      val result = controller.getOrganisationName(OrganisationNomineeNamePage)(block)(request)
+      val result                           = controller.getOrganisationName(OrganisationNomineeNamePage)(block)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.PageNotFoundController.onPageLoad().url)
     }
 
     "calling the .getAddress() is successful" in {
 
-      val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
-        .set(CharityOfficialAddressLookupPage, AddressModel(List("12", "Banner Way"), Some("NE128UZ"), CountryModel("GB", "GB"))).success.value)
-      val result = controller.getAddress(CharityOfficialAddressLookupPage)(blockForAddress)(request)
+      val request: DataRequest[AnyContent] = DataRequest(
+        fakeRequest,
+        internalId,
+        emptyUserAnswers
+          .set(
+            CharityOfficialAddressLookupPage,
+            AddressModel(List("12", "Banner Way"), Some("NE128UZ"), CountryModel("GB", "GB"))
+          )
+          .success
+          .value
+      )
+      val result                           =
+        controller.getAddress(CharityOfficialAddressLookupPage)((test: Seq[String], _: Country) =>
+          blockForAddress(test)
+        )(request)
 
       status(result) mustEqual OK
     }
@@ -138,42 +159,66 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return other document name" in {
 
-        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
-          .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).flatMap(
-          _.set(GoverningDocumentNamePage, "other doc name")).success.value)
+        val request: DataRequest[AnyContent] = DataRequest(
+          fakeRequest,
+          internalId,
+          emptyUserAnswers
+            .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
+            .flatMap(_.set(GoverningDocumentNamePage, "other doc name"))
+            .success
+            .value
+        )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
 
         status(result) mustEqual OK
       }
 
       "return SessionExpired if other document name not present" in {
 
-        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
-          .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).success.value)
+        val request: DataRequest[AnyContent] = DataRequest(
+          fakeRequest,
+          internalId,
+          emptyUserAnswers
+            .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
+            .success
+            .value
+        )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.PageNotFoundController.onPageLoad().url)
       }
 
       "return RoyalCharacter if its selected" in {
 
-        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
-          .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter).success.value)
+        val request: DataRequest[AnyContent] = DataRequest(
+          fakeRequest,
+          internalId,
+          emptyUserAnswers
+            .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
+            .success
+            .value
+        )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
 
         status(result) mustEqual OK
       }
 
       "return other document types if its selected" in {
 
-        val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers
-          .set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value)
+        val request: DataRequest[AnyContent] = DataRequest(
+          fakeRequest,
+          internalId,
+          emptyUserAnswers
+            .set(SelectGoverningDocumentPage, SelectGoverningDocument.Will)
+            .success
+            .value
+        )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
 
         status(result) mustEqual OK
       }
@@ -182,17 +227,17 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request,messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some( routes.PageNotFoundController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(routes.PageNotFoundController.onPageLoad().url)
       }
     }
 
     "calling the .isAllSectionsCompleted is not successful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
-      val result = controller.isAllSectionsCompleted()(request)
+      val result                           = controller.isAllSectionsCompleted()(request)
 
       result mustBe false
     }
@@ -200,7 +245,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     "calling the .isAllSectionsCompleted is successful" in {
 
       val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, sectionUserAnswers)
-      val result = controller.isAllSectionsCompleted()(request)
+      val result                           = controller.isAllSectionsCompleted()(request)
 
       result mustBe true
     }

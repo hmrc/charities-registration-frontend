@@ -49,28 +49,41 @@ class CharitiesShortLivedCacheSpec extends SpecBase with WireMockHelper with Moc
 
       val responseJson = readJsonFromFile("/keyStore_response_1.json")
 
-      stubFor(get(urlEqualTo("/keystore/charities-frontend/8799940975137654"))
-        .willReturn(aResponse().withBody(responseJson.toString())
-          .withStatus(OK)
-        )
+      stubFor(
+        get(urlEqualTo("/keystore/charities-frontend/8799940975137654"))
+          .willReturn(
+            aResponse()
+              .withBody(responseJson.toString())
+              .withStatus(OK)
+          )
       )
 
       val result = await(connector.fetch("8799940975137654"))
 
-      result mustBe Some(CacheMap("8799940975137654",Map(
-        "charityContactDetails" -> JsString("4qzUjOWJ6HphbjwvSR/lfreYvnR8MhW9QYXJu4i/QCg7HyoScxGYYoJZIYbpr0CVVObRC7E04IiX5zkjHOEheg=="),
-        "charityOfficialAddress" -> JsString("F5Thos0HUSsOgbEobmArahKVB6ims41e3ESts4t+nFGJ8KPqMprK5FagjH8h8BNrDqebMCMpGVS6JEfCV6Yrs7mkqXmWU9ScmKGCcKBXHeVLret25PRg5jp2Ibxe6zVXQpYex/9nt7xK97gcOzjRF7BeEGPdXf9CG5/2dgV7EdUbkVQyvm1o1UfQLJ3Bl1DEVObRC7E04IiX5zkjHOEheg=="))
-      ))
+      result mustBe Some(
+        CacheMap(
+          "8799940975137654",
+          Map(
+            "charityContactDetails"  -> JsString(
+              "4qzUjOWJ6HphbjwvSR/lfreYvnR8MhW9QYXJu4i/QCg7HyoScxGYYoJZIYbpr0CVVObRC7E04IiX5zkjHOEheg=="
+            ),
+            "charityOfficialAddress" -> JsString(
+              "F5Thos0HUSsOgbEobmArahKVB6ims41e3ESts4t+nFGJ8KPqMprK5FagjH8h8BNrDqebMCMpGVS6JEfCV6Yrs7mkqXmWU9ScmKGCcKBXHeVLret25PRg5jp2Ibxe6zVXQpYex/9nt7xK97gcOzjRF7BeEGPdXf9CG5/2dgV7EdUbkVQyvm1o1UfQLJ3Bl1DEVObRC7E04IiX5zkjHOEheg=="
+            )
+          )
+        )
+      )
 
     }
 
     "fetch without data" in {
 
-
-      stubFor(get(urlEqualTo("/keystore/charities-frontend/8799940975137654"))
-        .willReturn(aResponse()
-          .withStatus(NOT_FOUND)
-        )
+      stubFor(
+        get(urlEqualTo("/keystore/charities-frontend/8799940975137654"))
+          .willReturn(
+            aResponse()
+              .withStatus(NOT_FOUND)
+          )
       )
 
       val result = await(connector.fetch("8799940975137654"))

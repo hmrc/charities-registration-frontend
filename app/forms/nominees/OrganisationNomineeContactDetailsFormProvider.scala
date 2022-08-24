@@ -30,11 +30,14 @@ class OrganisationNomineeContactDetailsFormProvider @Inject() extends Mappings {
     Form(
       mapping(
         "phoneNumber" -> text("organisationContactDetails.phoneNumber.error.required")
-          .verifying(regexp(validateTelephoneNumber,"organisationContactDetails.phoneNumber.error.format")),
-        "email" -> text("organisationContactDetails.email.error.required")
+          .verifying(regexp(validateTelephoneNumber, "organisationContactDetails.phoneNumber.error.format")),
+        "email"       -> text("organisationContactDetails.email.error.required")
           .verifying(maxLength(maxEmailLength, "organisationContactDetails.email.error.length"))
-          .verifying(regexp(validateEmailAddress,"organisationContactDetails.email.error.format"))
-          .verifying("charityContactDetails.emailAddress.error.format", email => !email.contains("\"") && !email.matches(validateEmailExtraTld))
+          .verifying(regexp(validateEmailAddress, "organisationContactDetails.email.error.format"))
+          .verifying(
+            "charityContactDetails.emailAddress.error.format",
+            email => !email.contains("\"") && !email.matches(validateEmailExtraTld)
+          )
       )(OrganisationNomineeContactDetails.apply)(OrganisationNomineeContactDetails.unapply)
     )
 }

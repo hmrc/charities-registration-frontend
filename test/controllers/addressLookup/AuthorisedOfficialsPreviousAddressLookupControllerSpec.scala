@@ -42,15 +42,15 @@ import scala.concurrent.Future
 
 class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  private val mockAddressLookupConnector : AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]
+  override lazy val userAnswers: Option[UserAnswers]             = Some(emptyUserAnswers)
+  private val mockAddressLookupConnector: AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[AuthorisedOfficialsNavigator].toInstance(FakeAuthorisedOfficialsNavigator),
-        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
@@ -58,15 +58,25 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
     reset(mockUserAnswerService, mockAddressLookupConnector)
   }
 
-  private lazy val controller: AuthorisedOfficialsPreviousAddressLookupController = new AuthorisedOfficialsPreviousAddressLookupController(mockUserAnswerService,
-    FakeAuthorisedOfficialsNavigator, inject[FakeAuthIdentifierAction], inject[UserDataRetrievalAction], inject[DataRequiredAction],
-    mockAddressLookupConnector, inject[ErrorHandler], messagesControllerComponents)
+  private lazy val controller: AuthorisedOfficialsPreviousAddressLookupController =
+    new AuthorisedOfficialsPreviousAddressLookupController(
+      mockUserAnswerService,
+      FakeAuthorisedOfficialsNavigator,
+      inject[FakeAuthIdentifierAction],
+      inject[UserDataRetrievalAction],
+      inject[DataRequiredAction],
+      mockAddressLookupConnector,
+      inject[ErrorHandler],
+      messagesControllerComponents
+    )
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(
-    AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+  private val localUserAnswers: UserAnswers = emptyUserAnswers
+    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .success
+    .value
 
-  override lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, localUserAnswers)
-
+  override lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] =
+    DataRequest(fakeRequest, internalId, localUserAnswers)
 
   "AuthorisedOfficialsPreviousAddressLookup Controller" when {
 
@@ -79,7 +89,8 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
           "redirect to the on ramp" in {
 
             when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
+              .thenReturn(Future.successful(Right(AddressLookupOnRamp("/foo"))))
 
             val result = controller.initializeJourney(Index(0), NormalMode)(fakeDataRequest)
 
@@ -93,7 +104,8 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
           "render ISE" in {
 
             when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any())).thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
+            when(mockAddressLookupConnector.initialize(any(), any(), any(), any())(any(), any(), any()))
+              .thenReturn(Future.successful(Left(NoLocationHeaderReturned)))
 
             val result = controller.initializeJourney(Index(0), NormalMode)(fakeDataRequest)
 
@@ -123,49 +135,51 @@ class AuthorisedOfficialsPreviousAddressLookupControllerSpec extends SpecBase wi
 
         "an ID is provided" when {
 
-            "an address is retrieved" must {
+          "an address is retrieved" must {
 
-              "redirect to the next page" in {
+            "redirect to the next page" in {
 
-                when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-                when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-                when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
+                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-                val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
+              val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
 
-                status(result) mustEqual SEE_OTHER
-                redirectLocation(result) mustBe Some(onwardRoute.url)
-                verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
-              }
+              status(result) mustEqual SEE_OTHER
+              redirectLocation(result) mustBe Some(onwardRoute.url)
+              verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
+            }
+          }
+
+          "an address is not retrieved successfully" must {
+
+            "render ISE for invalid address" in {
+
+              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
+                .thenReturn(Future.successful(Left(AddressMalformed)))
+
+              val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
+
+              status(result) mustEqual INTERNAL_SERVER_ERROR
+              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
             }
 
-            "an address is not retrieved successfully" must {
+            "render ISE" in {
 
-              "render ISE for invalid address" in {
+              when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
+              when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
+                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
 
-                when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-                when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Left(AddressMalformed)))
+              val result = controller.callback(Index(0), NormalMode, None)(fakeDataRequest)
 
-                val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
-
-                status(result) mustEqual INTERNAL_SERVER_ERROR
-                contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
-                verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
-              }
-
-              "render ISE" in {
-
-                when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-                when(mockAddressLookupConnector.retrieveAddress(any())(any(), any())).thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
-
-                val result = controller.callback(Index(0), NormalMode, None)(fakeDataRequest)
-
-                status(result) mustEqual INTERNAL_SERVER_ERROR
-                contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
-                verify(mockAddressLookupConnector, never()).retrieveAddress(any())(any(), any())
-              }
+              status(result) mustEqual INTERNAL_SERVER_ERROR
+              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              verify(mockAddressLookupConnector, never()).retrieveAddress(any())(any(), any())
             }
-
+          }
 
           "redirect to Session Expired for a GET if no existing data is found" in {
 

@@ -35,58 +35,77 @@ import views.html.common.OfficialsSummaryView
 
 import scala.concurrent.Future
 
-class OtherOfficialsSummaryController @Inject()(
-     val sessionRepository: UserAnswerService,
-     val navigator: OtherOfficialsNavigator,
-     identify: AuthIdentifierAction,
-     getData: UserDataRetrievalAction,
-     requireData: DataRequiredAction,
-     val formProvider: YesNoFormProvider,
-     view: OfficialsSummaryView,
-     val controllerComponents: MessagesControllerComponents
-)(implicit appConfig: FrontendAppConfig) extends LocalBaseController with OfficialSummaryRowHelper {
+class OtherOfficialsSummaryController @Inject() (
+  val sessionRepository: UserAnswerService,
+  val navigator: OtherOfficialsNavigator,
+  identify: AuthIdentifierAction,
+  getData: UserDataRetrievalAction,
+  requireData: DataRequiredAction,
+  val formProvider: YesNoFormProvider,
+  view: OfficialsSummaryView,
+  val controllerComponents: MessagesControllerComponents
+)(implicit appConfig: FrontendAppConfig)
+    extends LocalBaseController
+    with OfficialSummaryRowHelper {
 
   val messagePrefix: String = "otherOfficialsSummary"
-  val form: Form[Boolean] = formProvider(messagePrefix)
+  val form: Form[Boolean]   = formProvider(messagePrefix)
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData){ implicit request =>
-
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     if ((firstOtherOfficialRow ++ secondOtherOfficialRow ++ thirdOtherOfficialRow) == Seq.empty) {
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
     } else {
-      Ok(view(form, messagePrefix, maxOfficials = 3,
-        controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit,
-        firstOtherOfficialRow ++ secondOtherOfficialRow ++ thirdOtherOfficialRow))
+      Ok(
+        view(
+          form,
+          messagePrefix,
+          maxOfficials = 3,
+          controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit,
+          firstOtherOfficialRow ++ secondOtherOfficialRow ++ thirdOtherOfficialRow
+        )
+      )
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     if (firstOtherOfficialRow.nonEmpty && secondOtherOfficialRow.nonEmpty && thirdOtherOfficialRow.isEmpty) {
 
-      form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(
-            BadRequest(
-              view(formWithErrors, messagePrefix, maxOfficials = 3,
-                controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit,
-                firstOtherOfficialRow ++ secondOtherOfficialRow ++ thirdOtherOfficialRow)
-            )
-          ),
-
-        value =>
-          for {
-            updatedAnswers  <- Future.fromTry(result = request.userAnswers.set(IsAddAnotherOtherOfficialPage, value))
-            taskListUpdated <- Future.fromTry(result = updatedAnswers.set(Section8Page,
-              if(appConfig.isExternalTest) true else checkComplete(updatedAnswers)))
-            _               <- sessionRepository.set(taskListUpdated)
-          } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, taskListUpdated))
-      )
+      form
+        .bindFromRequest()
+        .fold(
+          formWithErrors =>
+            Future.successful(
+              BadRequest(
+                view(
+                  formWithErrors,
+                  messagePrefix,
+                  maxOfficials = 3,
+                  controllers.otherOfficials.routes.OtherOfficialsSummaryController.onSubmit,
+                  firstOtherOfficialRow ++ secondOtherOfficialRow ++ thirdOtherOfficialRow
+                )
+              )
+            ),
+          value =>
+            for {
+              updatedAnswers  <- Future.fromTry(result = request.userAnswers.set(IsAddAnotherOtherOfficialPage, value))
+              taskListUpdated <- Future.fromTry(result =
+                                   updatedAnswers.set(
+                                     Section8Page,
+                                     if (appConfig.isExternalTest) true
+                                     else checkComplete(updatedAnswers)
+                                   )
+                                 )
+              _               <- sessionRepository.set(taskListUpdated)
+            } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, taskListUpdated))
+        )
     } else {
 
       for {
-        updatedAnswers <- Future.fromTry(result = request.userAnswers.set(Section8Page,
-          if(appConfig.isExternalTest) true else checkComplete(request.userAnswers)))
+        updatedAnswers <-
+          Future.fromTry(result =
+            request.userAnswers
+              .set(Section8Page, if (appConfig.isExternalTest) true else checkComplete(request.userAnswers))
+          )
         _              <- sessionRepository.set(updatedAnswers)
       } yield Redirect(navigator.nextPage(OtherOfficialsSummaryPage, NormalMode, updatedAnswers))
     }

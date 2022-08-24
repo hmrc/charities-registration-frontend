@@ -53,9 +53,9 @@ class SelectGoverningDocumentControllerSpec extends SpecBase with BeforeAndAfter
     reset(mockUserAnswerService)
   }
 
-  private val view: SelectGoverningDocumentView = inject[SelectGoverningDocumentView]
+  private val view: SelectGoverningDocumentView                 = inject[SelectGoverningDocumentView]
   private val formProvider: SelectGoverningDocumentFormProvider = inject[SelectGoverningDocumentFormProvider]
-  private val form: Form[SelectGoverningDocument] = formProvider()
+  private val form: Form[SelectGoverningDocument]               = formProvider()
 
   private val controller: SelectGoverningDocumentController = inject[SelectGoverningDocumentController]
 
@@ -72,11 +72,15 @@ class SelectGoverningDocumentControllerSpec extends SpecBase with BeforeAndAfter
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers.
-        set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers))))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+        Future.successful(
+          Some(
+            emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Other).getOrElse(emptyUserAnswers)
+          )
+        )
+      )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 

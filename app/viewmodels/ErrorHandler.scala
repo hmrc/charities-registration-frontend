@@ -32,14 +32,18 @@ import scala.language.postfixOps
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 
+class ErrorHandler @Inject() (
+  val messagesApi: MessagesApi,
+  technicalDifficultiesErrorView: TechnicalDifficultiesErrorView,
+  pageNotFoundView: PageNotFoundView,
+  authConnector: AuthConnector
+)(implicit appConfig: FrontendAppConfig, ex: ExecutionContext)
+    extends FrontendErrorHandler
+    with I18nSupport {
 
-class ErrorHandler @Inject()(val messagesApi: MessagesApi,
-   technicalDifficultiesErrorView: TechnicalDifficultiesErrorView,
-   pageNotFoundView: PageNotFoundView,
-   authConnector: AuthConnector
-  )(implicit appConfig: FrontendAppConfig, ex: ExecutionContext) extends FrontendErrorHandler with I18nSupport{
-
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit
+    rh: Request[_]
+  ): Html =
     technicalDifficultiesErrorView(pageTitle, heading, message)
 
   override def notFoundTemplate(implicit request: Request[_]): Html = {
@@ -54,12 +58,15 @@ class ErrorHandler @Inject()(val messagesApi: MessagesApi,
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
-    authConnector.authorise(AffinityGroup.Organisation, Retrievals.credentials).map {
-      case Some(_) => true
-      case _ => false
-    }.recover{
-      case _ => false
-    }
+    authConnector
+      .authorise(AffinityGroup.Organisation, Retrievals.credentials)
+      .map {
+        case Some(_) => true
+        case _       => false
+      }
+      .recover { case _ =>
+        false
+      }
   }
 
 }

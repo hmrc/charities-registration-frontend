@@ -34,7 +34,7 @@ case object SelectGoverningDocumentPage extends QuestionPage[SelectGoverningDocu
     value match {
       case Some(item) if item != Other =>
         userAnswers.remove(Seq(GoverningDocumentNamePage))
-      case _ =>
+      case _                           =>
         super.cleanup(value, userAnswers)
     }
 }

@@ -24,22 +24,25 @@ class StartDeclarationViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix = "startDeclaration"
 
-    "startDeclarationView" must {
+  "startDeclarationView" must {
 
-      def applyView(): HtmlFormat.Appendable = {
-        val view = viewFor[StartDeclarationView](Some(emptyUserAnswers))
-        view.apply()(fakeRequest, messages, frontendAppConfig)
-      }
-
-      behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("declaration.section")))
-
-      behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix,
-        "p")
-
-      behave like pageWithBackLink(applyView())
-
-      behave like pageWithHyperLink(applyView(), "declarationLink",
-        controllers.routes.DeclarationController.onPageLoad.url, messages("site.continue"))
-
+    def applyView(): HtmlFormat.Appendable = {
+      val view = viewFor[StartDeclarationView](Some(emptyUserAnswers))
+      view.apply()(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("declaration.section")))
+
+    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p")
+
+    behave like pageWithBackLink(applyView())
+
+    behave like pageWithHyperLink(
+      applyView(),
+      "declarationLink",
+      controllers.routes.DeclarationController.onPageLoad.url,
+      messages("site.continue")
+    )
+
   }
+}

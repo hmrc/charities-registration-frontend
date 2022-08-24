@@ -32,14 +32,16 @@ class IsApprovedGoverningDocumentPageSpec extends PageBehaviours {
 
     "cleanup" when {
 
-      val userAnswer = UserAnswers("id", Json.obj()).set(IsApprovedGoverningDocumentPage,true)
+      val userAnswer = UserAnswers("id", Json.obj())
+        .set(IsApprovedGoverningDocumentPage, true)
         .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
-        .flatMap(_.set(SectionsChangedGoverningDocumentPage, "change")
-        ).success.value
+        .flatMap(_.set(SectionsChangedGoverningDocumentPage, "change"))
+        .success
+        .value
 
       "setting IsApprovedGoverningDocumentPage to false" must {
 
-        val result = userAnswer.set(IsApprovedGoverningDocumentPage,false).success.value
+        val result = userAnswer.set(IsApprovedGoverningDocumentPage, false).success.value
 
         "remove HasCharityChangedPartsOfGoverningDocumentPage" in {
 
@@ -54,7 +56,7 @@ class IsApprovedGoverningDocumentPageSpec extends PageBehaviours {
 
       "setting IsApprovedGoverningDocumentPage to true" must {
 
-        val result = userAnswer.set(IsApprovedGoverningDocumentPage,true).success.value
+        val result = userAnswer.set(IsApprovedGoverningDocumentPage, true).success.value
 
         "not remove HasCharityChangedPartsOfGoverningDocumentPage" in {
 

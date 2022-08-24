@@ -26,21 +26,26 @@ import pages.Page
 import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
 
-class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class DocumentsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
 
-    case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, NormalMode)
+    case SelectGoverningDocumentPage =>
+      userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, NormalMode)
 
     case GoverningDocumentNamePage => userAnswers: UserAnswers => governingDocumentNamePageNav(userAnswers, NormalMode)
 
-    case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, NormalMode)
+    case WhenGoverningDocumentApprovedPage =>
+      userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, NormalMode)
 
-    case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
+    case IsApprovedGoverningDocumentPage =>
+      userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
 
-    case HasCharityChangedPartsOfGoverningDocumentPage => userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, NormalMode)
+    case HasCharityChangedPartsOfGoverningDocumentPage =>
+      userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, NormalMode)
 
-    case SectionsChangedGoverningDocumentPage => userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, NormalMode)
+    case SectionsChangedGoverningDocumentPage =>
+      userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, NormalMode)
 
     case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
@@ -49,67 +54,78 @@ class DocumentsNavigator @Inject()(implicit frontendAppConfig: FrontendAppConfig
 
   override val checkRouteMap: Page => UserAnswers => Call = {
 
-    case SelectGoverningDocumentPage => userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
+    case SelectGoverningDocumentPage =>
+      userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
 
     case GoverningDocumentNamePage => userAnswers: UserAnswers => governingDocumentNamePageNav(userAnswers, CheckMode)
 
-    case WhenGoverningDocumentApprovedPage => userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
+    case WhenGoverningDocumentApprovedPage =>
+      userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
 
-    case IsApprovedGoverningDocumentPage => userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
+    case IsApprovedGoverningDocumentPage =>
+      userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
 
-    case HasCharityChangedPartsOfGoverningDocumentPage => userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, CheckMode)
+    case HasCharityChangedPartsOfGoverningDocumentPage =>
+      userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, CheckMode)
 
-    case SectionsChangedGoverningDocumentPage => userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, CheckMode)
+    case SectionsChangedGoverningDocumentPage =>
+      userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, CheckMode)
 
     case _ => _ => routes.IndexController.onPageLoad(None)
 
   }
 
-  private def selectGoverningDocumentPagePageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(SelectGoverningDocumentPage) match {
-    case Some(Other) if mode == CheckMode => userAnswers.get(GoverningDocumentNamePage) match {
-      case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case _ => regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(mode)
+  private def selectGoverningDocumentPagePageNav(userAnswers: UserAnswers, mode: Mode): Call =
+    userAnswers.get(SelectGoverningDocumentPage) match {
+      case Some(Other) if mode == CheckMode =>
+        userAnswers.get(GoverningDocumentNamePage) match {
+          case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+          case _       => regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(mode)
+        }
+      case Some(Other)                      => regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(mode)
+      case Some(_) if mode == CheckMode     => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(_)                          => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
+      case _                                => routes.PageNotFoundController.onPageLoad()
     }
-    case Some(Other) => regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(mode)
-    case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
-    case _ => routes.PageNotFoundController.onPageLoad()
-  }
 
-  private def governingDocumentNamePageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(GoverningDocumentNamePage) match {
-    case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case Some(_) => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
-    case _ => routes.PageNotFoundController.onPageLoad()
-  }
+  private def governingDocumentNamePageNav(userAnswers: UserAnswers, mode: Mode): Call =
+    userAnswers.get(GoverningDocumentNamePage) match {
+      case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(_)                      => regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(mode)
+      case _                            => routes.PageNotFoundController.onPageLoad()
+    }
 
-  private def whenGoverningDocumentApprovedPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(WhenGoverningDocumentApprovedPage) match {
-    case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case Some(_) => regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(mode)
-    case _ => routes.PageNotFoundController.onPageLoad()
-  }
+  private def whenGoverningDocumentApprovedPageNav(userAnswers: UserAnswers, mode: Mode): Call =
+    userAnswers.get(WhenGoverningDocumentApprovedPage) match {
+      case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(_)                      => regulatorDocsRoutes.IsApprovedGoverningDocumentController.onPageLoad(mode)
+      case _                            => routes.PageNotFoundController.onPageLoad()
+    }
 
-  private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call = userAnswers.get(IsApprovedGoverningDocumentPage) match {
-    case Some(true) if mode == CheckMode && userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage).isDefined =>
-      regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case Some(true) => regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(mode)
-    case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case _ => routes.PageNotFoundController.onPageLoad()
-  }
+  private def isApprovedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =
+    userAnswers.get(IsApprovedGoverningDocumentPage) match {
+      case Some(true)
+          if mode == CheckMode && userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage).isDefined =>
+        regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(true)  => regulatorDocsRoutes.HasCharityChangedPartsOfGoverningDocumentController.onPageLoad(mode)
+      case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _           => routes.PageNotFoundController.onPageLoad()
+    }
 
   private def hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =
     userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
-    case Some(true) if mode == CheckMode && userAnswers.get(SectionsChangedGoverningDocumentPage).isDefined =>
-      regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case Some(true) => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
-    case Some(false) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case _ => routes.PageNotFoundController.onPageLoad()
-  }
+      case Some(true) if mode == CheckMode && userAnswers.get(SectionsChangedGoverningDocumentPage).isDefined =>
+        regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(true)                                                                                         => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
+      case Some(false)                                                                                        => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _                                                                                                  => routes.PageNotFoundController.onPageLoad()
+    }
 
   private def sectionsChangedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =
     userAnswers.get(SectionsChangedGoverningDocumentPage) match {
-    case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case Some(_) => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-    case _ => routes.PageNotFoundController.onPageLoad()
-  }
+      case Some(_) if mode == CheckMode => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case Some(_)                      => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _                            => routes.PageNotFoundController.onPageLoad()
+    }
 
 }

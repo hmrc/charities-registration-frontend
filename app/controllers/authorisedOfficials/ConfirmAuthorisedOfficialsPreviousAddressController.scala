@@ -28,26 +28,30 @@ import views.html.common.ConfirmAddressView
 
 import javax.inject.Inject
 
-class ConfirmAuthorisedOfficialsPreviousAddressController @Inject()(
-    val identify: AuthIdentifierAction,
-    val getData: UserDataRetrievalAction,
-    val requireData: DataRequiredAction,
-    val countryService: CountryService,
-    override val controllerComponents: MessagesControllerComponents,
-    override val view: ConfirmAddressView,
-    override implicit val appConfig: FrontendAppConfig
-  ) extends ConfirmAddressController {
+class ConfirmAuthorisedOfficialsPreviousAddressController @Inject() (
+  val identify: AuthIdentifierAction,
+  val getData: UserDataRetrievalAction,
+  val requireData: DataRequiredAction,
+  val countryService: CountryService,
+  override val controllerComponents: MessagesControllerComponents,
+  override val view: ConfirmAddressView,
+  override implicit val appConfig: FrontendAppConfig
+) extends ConfirmAddressController {
 
   override val messagePrefix: String = "authorisedOfficialPreviousAddress"
 
   def onPageLoad(index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       getFullName(AuthorisedOfficialsNamePage(index)) { authorisedOfficialsName =>
-        getView(controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(index),
+        getView(
+          controllers.authorisedOfficials.routes.AddedAuthorisedOfficialController.onPageLoad(index),
           AuthorisedOfficialPreviousAddressLookupPage(index),
-          controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode),
-          controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(NormalMode, index),
-          Some(authorisedOfficialsName))
+          controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
+            .initializeJourney(index, NormalMode),
+          controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsPreviousAddressController
+            .onPageLoad(NormalMode, index),
+          Some(authorisedOfficialsName)
+        )
       }
   }
 }

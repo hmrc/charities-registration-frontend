@@ -33,17 +33,25 @@ class CharityObjectivesStatusHelperSpec extends SpecBase {
       }
 
       "some but not all data is provided" in {
-        val result = CharityObjectivesStatusHelper.checkComplete(emptyUserAnswers
-          .set(CharitableObjectivesPage, "Charitable objective").success.value)
+        val result = CharityObjectivesStatusHelper.checkComplete(
+          emptyUserAnswers
+            .set(CharitableObjectivesPage, "Charitable objective")
+            .success
+            .value
+        )
 
         result mustBe false
       }
 
       "all information is provided" in {
-        val result = CharityObjectivesStatusHelper.checkComplete(emptyUserAnswers
-        .set(CharitableObjectivesPage, "Charitable objective")
-        .flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)))
-        .flatMap(_.set(PublicBenefitsPage, "a benefit")).success.value)
+        val result = CharityObjectivesStatusHelper.checkComplete(
+          emptyUserAnswers
+            .set(CharitableObjectivesPage, "Charitable objective")
+            .flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport)))
+            .flatMap(_.set(PublicBenefitsPage, "a benefit"))
+            .success
+            .value
+        )
 
         result mustBe true
       }

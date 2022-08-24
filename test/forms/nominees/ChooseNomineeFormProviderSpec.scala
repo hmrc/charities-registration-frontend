@@ -22,9 +22,9 @@ import play.api.data.{Form, FormError}
 class ChooseNomineeFormProviderSpec extends BooleanFieldBehaviours {
 
   private val formProvider: ChooseNomineeFormProvider = inject[ChooseNomineeFormProvider]
-  private val form: Form[Boolean] = formProvider()
-  private val requiredKey = "chooseNominee.error.required"
-  private val invalidKey = "error.boolean"
+  private val form: Form[Boolean]                     = formProvider()
+  private val requiredKey                             = "chooseNominee.error.required"
+  private val invalidKey                              = "error.boolean"
 
   ".value" must {
 

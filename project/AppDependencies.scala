@@ -11,7 +11,7 @@ object AppDependencies {
     "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-28"            % mongoHmrcVersion,
     "uk.gov.hmrc"       %% "logback-json-logger"           % "5.2.0",
     "uk.gov.hmrc"       %% "play-conditional-form-mapping" % "1.11.0-play-28",
-    "uk.gov.hmrc"       %% "bootstrap-frontend-play-28"    % "5.25.0",
+    "uk.gov.hmrc"       %% "bootstrap-frontend-play-28"    % "6.4.0",
     "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "3.24.0-play-28",
     "uk.gov.hmrc"       %% "play-language"                 % "5.3.0-play-28",
     "uk.gov.hmrc"       %% "http-caching-client"           % "9.6.0-play-28",

@@ -63,7 +63,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
   when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
-  def helper(userAnswers: UserAnswers = authorisedOfficialDetails(), index: Index) =
+  def helper(userAnswers: UserAnswers = authorisedOfficialDetails(), index: Index): AddedAuthorisedOfficialHelper =
     new AddedAuthorisedOfficialHelper(index, CheckMode, mockCountryService)(userAnswers)
 
   "Check Your Answers Helper" must {

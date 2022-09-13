@@ -51,6 +51,10 @@ below command will help to run unit tests, integration tests and coverage
 ```
 
 ### Journey tests and prototype
+Please run the app with mocked address lookup for journey tests with script:
+```
+./run_for_journey_tests.sh
+```
 
 | Repositories  | Link                                                             |
 |---------------|------------------------------------------------------------------|

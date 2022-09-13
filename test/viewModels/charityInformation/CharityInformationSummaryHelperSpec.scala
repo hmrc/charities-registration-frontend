@@ -74,7 +74,8 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .success
     .value
 
-  def helper(userAnswers: UserAnswers = officialAddress) = new CharityInformationSummaryHelper(userAnswers)
+  def helper(userAnswers: UserAnswers = officialAddress): CharityInformationSummaryHelper =
+    new CharityInformationSummaryHelper(userAnswers)
 
   "Check Your Answers Helper" must {
 

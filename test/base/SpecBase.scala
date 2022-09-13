@@ -76,14 +76,14 @@ trait SpecBase
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
   lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
-  def onwardRoute: Call                                                                   = Call("GET", "/foo")
-  def fakeDataRequest(headers: (String, String)*): DataRequest[_]                         =
+  def onwardRoute: Call                                                                           = Call("GET", "/foo")
+  def fakeDataRequest(headers: (String, String)*): DataRequest[_]                                 =
     DataRequest(fakeRequest.withHeaders(headers: _*), internalId, emptyUserAnswers)
-  def fakeDataRequest(userAnswers: UserAnswers): DataRequest[_]                           = DataRequest(fakeRequest, internalId, userAnswers)
-  def await[A](future: Future[A])(implicit timeout: Duration): A                          = Await.result(future, timeout)
-  def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
+  def fakeDataRequest(userAnswers: UserAnswers): DataRequest[_]                                   = DataRequest(fakeRequest, internalId, userAnswers)
+  def await[A](future: Future[A])(implicit timeout: Duration): A                                  = Await.result(future, timeout)
+  def title(heading: String, section: Option[String] = None)(implicit messages: Messages): String =
     s"$heading - ${section.fold("")(_ + " - ")}${messages("service.name")} - ${messages("site.govuk")}"
-  def titleOf(result: String): String                                                     = Jsoup.parse(result).title
+  def titleOf(result: String): String                                                             = Jsoup.parse(result).title
 
   protected def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

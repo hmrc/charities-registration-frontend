@@ -34,9 +34,10 @@ trait BaseSelectors {
   val whoCanClaim             = "#who-can-claim"
   val button                  = ".govuk-button"
 
-  def checkAnswersHeading(id: Int, row: Int)     = s"dl:nth-of-type($id) div:nth-of-type($row) > dt"
-  def checkAnswersAnswerValue(id: Int, row: Int) = s"dl:nth-of-type($id) div:nth-of-type($row) > dd:nth-of-type(1)"
-  def reviewEmployeesRowLabel(row: Int)          = s"table tr:nth-of-type($row) th"
-  def reviewEmployeesRowAction(row: Int)         = s"table tr:nth-of-type($row) td a"
+  def checkAnswersHeading(id: Int, row: Int): String     = s"dl:nth-of-type($id) div:nth-of-type($row) > dt"
+  def checkAnswersAnswerValue(id: Int, row: Int): String =
+    s"dl:nth-of-type($id) div:nth-of-type($row) > dd:nth-of-type(1)"
+  def reviewEmployeesRowLabel(row: Int): String          = s"table tr:nth-of-type($row) th"
+  def reviewEmployeesRowAction(row: Int): String         = s"table tr:nth-of-type($row) td a"
 
 }

@@ -10,12 +10,12 @@ registered details (agents, nominees, bank details) online.
 
 ### Dependencies
 
-|Service                |Link                                                 |
-|-----------------------|-----------------------------------------------------|
-| address-lookup-frontend |https://github.com/hmrc/address-lookup-frontend.git|
-| auth                    |https://github.com/hmrc/auth                       |
-| charities               |https://github.com/hmrc/charities.git              |
-| save4later              |https://github.com/hmrc/save4later.git             |
+| Service                 | Link                                                |
+|-------------------------|-----------------------------------------------------|
+| address-lookup-frontend | https://github.com/hmrc/address-lookup-frontend.git |
+| auth                    | https://github.com/hmrc/auth                        |
+| charities               | https://github.com/hmrc/charities.git               |
+| save4later              | https://github.com/hmrc/save4later.git              |
 
 ### Running the Application
 
@@ -47,16 +47,16 @@ sbt test
 ```
 below command will help to run unit tests, integration tests and coverage 
 ```
-./check.sh
-```
-this can also be done with below command
-```
-sbt clean scalastyle coverage test coverageReport
+./run_all_tests.sh
 ```
 
 ### Journey tests and prototype
+Please run the app with mocked address lookup for journey tests with script:
+```
+./run_for_journey_tests.sh
+```
 
-|Repositories     |Link                                                                   |
-|-----------------|-----------------------------------------------------------------------|
-|Journey tests    |https://github.com/hmrc/charities-registration-journey-tests.git       |
-|Prototype        |https://charities-prototype-v1.herokuapp.com/admin/listings            |
+| Repositories  | Link                                                             |
+|---------------|------------------------------------------------------------------|
+| Journey tests | https://github.com/hmrc/charities-registration-journey-tests.git |
+| Prototype     | https://charities-prototype-v1.herokuapp.com/admin/listings      |

@@ -81,7 +81,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
 
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
         auditType mustBe "TestAudit"
         tag.get("transactionName") mustBe Some("testTransactionName")
@@ -97,7 +97,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       auditService.sendEvent(SubmissionAuditEvent(Json.parse("""{"this": { "is": "a test" }}""")))
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
         tag.get("transactionName") mustBe Some("CharityRegistrationSubmission")
         auditType mustBe CharitiesRegistrationSubmission.toString
@@ -113,7 +113,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       auditService.sendEvent(SwitchOverAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), PartialUserTransfer))
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
         tag.get("transactionName") mustBe Some("CharitiesSwitchOver")
         auditType mustBe PartialUserTransfer.toString
@@ -129,7 +129,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       auditService.sendEvent(NormalUserAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), NewUser))
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _) =>
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
         tag.get("transactionName") mustBe Some("CharitiesRewriteUser")
         auditType mustBe NewUser.toString
@@ -147,7 +147,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
 
       verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
 
-      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, _, detail, _) =>
+      inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, _, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
         auditType mustBe "TestAudit"
         detail mustBe Json.parse("""{"test-audit": { "foo": "test" }}""")

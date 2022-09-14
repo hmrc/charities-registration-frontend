@@ -38,6 +38,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
     lazy val charitiesConnector: CharitiesConnector = new CharitiesConnector(httpClient, mockFrontendAppConfig)
     val requestJson                                 = readJsonFromFile("/request.json")
     val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value
+    val organizationId                              = 1234
 
     when(mockFrontendAppConfig.getCharitiesBackend) thenReturn getUrl
 
@@ -58,7 +59,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
           )
 
           val expectedResult = Right(RegistrationResponse("765432"))
-          val actualResult   = await(charitiesConnector.registerCharities(requestJson, 1234)(hc, ec))
+          val actualResult   = await(charitiesConnector.registerCharities(requestJson, organizationId)(hc, ec))
 
           actualResult mustBe expectedResult
 
@@ -78,7 +79,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
           )
 
           intercept[JsResultException] {
-            await(charitiesConnector.registerCharities(requestJson, 1234)(hc, ec))
+            await(charitiesConnector.registerCharities(requestJson, organizationId)(hc, ec))
           }
 
           verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
@@ -98,7 +99,9 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           val expectedResult = Left(CharitiesInvalidJson)
           val actualResult   =
-            await(charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), 1234)(hc, ec))
+            await(
+              charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), organizationId)(hc, ec)
+            )
 
           actualResult mustBe expectedResult
 
@@ -115,7 +118,9 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           val expectedResult = Left(EtmpFailed)
           val actualResult   =
-            await(charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), 1234)(hc, ec))
+            await(
+              charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), organizationId)(hc, ec)
+            )
 
           actualResult mustBe expectedResult
 
@@ -131,7 +136,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
           )
 
           val expectedResult = Left(DefaultedUnexpectedFailure(CONFLICT))
-          val actualResult   = await(charitiesConnector.registerCharities(requestJson, 1234)(hc, ec))
+          val actualResult   = await(charitiesConnector.registerCharities(requestJson, organizationId)(hc, ec))
 
           actualResult mustBe expectedResult
 

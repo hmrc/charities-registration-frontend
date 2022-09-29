@@ -31,48 +31,38 @@ trait IntViewBehaviours extends QuestionViewBehaviours[Int] {
     section: Option[String] = None
   ): Unit =
     "behave like a page with an integer value field" when {
-
       "rendered" must {
-
         "contain a label for the value" in {
-
           val doc = asDocument(createView(form))
           assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label"))
         }
 
         "contain an input for the value" in {
-
           val doc = asDocument(createView(form))
           assertRenderedById(doc, "value")
         }
       }
 
       "rendered with a valid form" must {
-
         "include the form's value in the value input" in {
-
           val doc = asDocument(createView(form.fill(number)))
           doc.getElementById("value").attr("value") mustBe number.toString
         }
       }
 
       "rendered with an error" must {
-
         "show an error summary" in {
-
           val doc = asDocument(createView(form.withError(error)))
           assertRenderedById(doc, "error-summary-title")
         }
 
         "show an error associated with the value field" in {
-
           val doc       = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementsByClass("govuk-error-message").first
           errorSpan.text mustBe (messages("error.browser.title.prefix") + " " + messages(errorMessage))
         }
 
         "show an error prefix in the browser title" in {
-
           val doc = asDocument(createView(form.withError(error)))
           assertEqualsValue(
             doc,

@@ -28,7 +28,7 @@ class AccountingPeriodEndDatePageSpec extends PageBehaviours {
   val dayInMonth = 1
 
   implicit lazy val arbitraryLocalDate: Arbitrary[MonthDay] = Arbitrary {
-    MonthDay.fromDateFields(new LocalDate(2020, month, 1).toDate)
+    MonthDay.fromDateFields(new LocalDate(year, month, dayInMonth).toDate)
   }
 
   "AccountingPeriodEndDate" must {

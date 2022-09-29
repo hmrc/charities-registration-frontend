@@ -18,16 +18,13 @@ package controllers.regulatorsAndDocuments
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{CharityOtherRegulatorDetails, UserAnswers}
-import models.regulators.CharityRegulator
-import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
-import models.regulators.SelectWhyNoRegulator.EnglandWalesUnderThreshold
+import models.UserAnswers
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.{CharityCommissionRegistrationNumberPage, CharityOtherRegulatorDetailsPage, CharityRegulatorPage, IsCharityRegulatorPage, NIRegulatorRegNumberPage, ScottishRegulatorRegNumberPage, SelectWhyNoRegulatorPage, WhyNotRegisteredWithCharityPage}
+import pages.regulatorsAndDocuments.IsCharityRegulatorPage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers.{redirectLocation, status, _}

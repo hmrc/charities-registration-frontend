@@ -34,6 +34,5 @@ class CharitiesShortLivedCache @Inject() (
   val shortLiveCache: CharitiesShortLivedHttpCaching,
   applicationCrypto: ApplicationCrypto
 ) extends ShortLivedCache {
-
   override implicit lazy val crypto: CompositeSymmetricCrypto = applicationCrypto.JsonCrypto
 }

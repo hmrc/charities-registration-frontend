@@ -25,9 +25,9 @@ import play.api.data.Forms.of
 
 trait Mappings extends Formatters with Constraints {
 
-  val validateField             = "^[a-zA-Z0-9-, ']+$"
-  val validateFieldWithFullStop = "^[a-zA-Z0-9-, '.]+$"
-  val validateFieldWithNewLine  = "^[a-zA-Z0-9-, '.\n\r\t]+$"
+  val validateField             = "^[a-zA-Z0-9-, '’]+$"
+  val validateFieldWithFullStop = "^[a-zA-Z0-9-, '’.]+$"
+  val validateFieldWithNewLine  = "^[a-zA-Z0-9-, '’.\n\r\t]+$"
   val validateTelephoneNumber   = """^\+?(?:\s*\d){10,13}$"""
   val validateEmailExtraTld     = """^.*(@([0-9]+.)+)$"""
   // scalastyle:off line.size.limit

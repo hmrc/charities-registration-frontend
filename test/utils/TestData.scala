@@ -20,7 +20,7 @@ import models.oldCharities.{Acknowledgement, _}
 import org.joda.time.{LocalDate, MonthDay}
 
 trait TestData {
-
+  // scalastyle:off magic.number
   val contactDetails: CharityContactDetails                                     = CharityContactDetails("Test123", None, "1234567890", None, None, None)
   val charityAddress: CharityAddress                                            = CharityAddress("Test123", "line2", "", "", "postcode", "")
   val correspondenceAddress: OptionalCharityAddress                             =
@@ -350,5 +350,5 @@ trait TestData {
     )
   )
   val acknowledgement: Acknowledgement                                          = Acknowledgement("080582080582", "9:56am, Tuesday 1 December 2020")
-
+  // scalastyle:on magic.number
 }

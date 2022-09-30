@@ -26,13 +26,14 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
   private val messageKeyPrefix         = "registrationSent"
   private val section: Option[String]  = Some(messages("declaration.section"))
   private val firstLinkContent: String = "javascript:window.print()"
+  private val registrationExpiryLimit  = 28
 
   "RegistrationSentView for Email" must {
 
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
       view.apply(
-        dayToString(inject[TimeMachine].now().plusDays(28)),
+        dayToString(inject[TimeMachine].now().plusDays(registrationExpiryLimit)),
         dayToString(inject[TimeMachine].now()),
         "080582080582",
         emailOrPost = true,
@@ -89,7 +90,7 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
       view.apply(
-        dayToString(inject[TimeMachine].now().plusDays(28)),
+        dayToString(inject[TimeMachine].now().plusDays(registrationExpiryLimit)),
         dayToString(inject[TimeMachine].now()),
         "080582080582",
         emailOrPost = false,
@@ -149,7 +150,7 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[RegistrationSentView](Some(emptyUserAnswers))
       view.apply(
-        dayToString(inject[TimeMachine].now().plusDays(28)),
+        dayToString(inject[TimeMachine].now().plusDays(registrationExpiryLimit)),
         dayToString(inject[TimeMachine].now()),
         "080582080582",
         emailOrPost = true,

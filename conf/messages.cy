@@ -1,4 +1,4 @@
-service.name = Cofrestru manylion eich elusen gyda CThEM
+service.name = Cofrestru manylion eich elusen gyda CThEF
 
 service.separator.and = a
 
@@ -121,7 +121,7 @@ timeout.keepAlive = Parhau i fod wedi’ch mewngofnodi
 timeout.signOut = Allgofnodi
 
 userEligibility.timeout.message = Er eich diogelwch, byddwn yn dileu’ch atebion cyn pen
-userEligibility.timeout.keepAlive = Parhau i wirio os yw’r elusen yn gymwys i gofrestru gyda CThEM
+userEligibility.timeout.keepAlive = Parhau i wirio os yw’r elusen yn gymwys i gofrestru gyda CThEF
 userEligibility.timeout.deleteAnswers = Dileu’ch atebion
 
 # Sections
@@ -278,13 +278,13 @@ registrationSent.whatHappensNext.p1 = Gall gymryd hyd at 6 wythnos i brosesu’c
 registrationSent.whatHappensNext.p2 = Byddwn yn anfon llythyrau at y swyddogion a’r enwebai i roi gwybod eich bod wedi rhoi eu manylion i ni yn y cais.
 registrationSent.whatHappensNext.p3 = Byddwn hefyd yn anfon llythyr at gyfeiriad post yr elusen a fydd yn rhoi gwybod i chi sut i hawlio Rhodd Cymorth.
 registrationSent.changeSomething = Os oes angen i chi newid rhywbeth ar frys
-registrationSent.changeSomething.p1 = Os oes rhywbeth y mae angen i chi ei newid ar frys, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM ar
+registrationSent.changeSomething.p1 = Os oes rhywbeth y mae angen i chi ei newid ar frys, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEF ar
 registrationSent.changeSomething.helplineNumber = 0300 200 1900
 registrationSent.changeSomething.afterHelplineNumber = .
 
 registrationSent.p1 = Eich cyfeirnod
 registrationSent.p5 = Elusennau, Cynilion a Rhyngwladol
-registrationSent.p5.welsh = Gwasanaeth Cwsmeriaid Cymraeg CThEM
+registrationSent.p5.welsh = Gwasanaeth Cwsmeriaid Cymraeg CThEF
 registrationSent.p6 = HMRC
 registrationSent.p7 = BX9 1ST
 registrationSent.p9 = (mae’n cymryd 30 eiliad).
@@ -385,9 +385,9 @@ isEligibleLocationOther.error.required = Dewiswch ‘Iawn’ os yw’r elusen we
 
 # InEligible Page Messages
 # ----------------------------------------------------------
-notEligible.title = Ni allwch gofrestru’r elusen gyda CThEM
-notEligible.heading = Ni allwch gofrestru’r elusen gyda CThEM
-notEligible.p2 = Os yw pethau’n newid, dylech wirio eto i weld a allwch gofrestru’r elusen gyda CThEM.
+notEligible.title = Ni allwch gofrestru’r elusen gyda CThEF
+notEligible.heading = Ni allwch gofrestru’r elusen gyda CThEF
+notEligible.p2 = Os yw pethau’n newid, dylech wirio eto i weld a allwch gofrestru’r elusen gyda CThEF.
 notEligible.p3 = I gael rhagor o wybodaeth,
 notEligible.p3.link = gwiriwch yr arweiniad ar ddibenion elusennol
 
@@ -919,7 +919,7 @@ otherFundRaising.error.length = Mae’n rhaid i’r hyn a nodwyd ar gyfer y ffor
 isFinancialAccounts.title = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.heading = A yw’r elusen wedi paratoi cyfrifon ariannol?
 isFinancialAccounts.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi paratoi cyfrifon ariannol
-isFinancialAccounts.hint = Os yw’r elusen wedi paratoi set o gyfrifon ariannol, bydd yn rhaid i chi anfon copi atom drwy’r post er mwyn ategu’r cais. Cyfrifon ariannol sydd wedi’u paratoi yw’r hyn y byddech yn ei anfon at reoleiddiwr, CThEM neu Dŷ’r Cwmnïau.
+isFinancialAccounts.hint = Os yw’r elusen wedi paratoi set o gyfrifon ariannol, bydd yn rhaid i chi anfon copi atom drwy’r post er mwyn ategu’r cais. Cyfrifon ariannol sydd wedi’u paratoi yw’r hyn y byddech yn ei anfon at reoleiddiwr, CThEF neu Dŷ’r Cwmnïau.
 isFinancialAccounts.checkYourAnswersLabel = Cyfrifon ariannol
 
 # What is the charity’s estimated income for its current 12 months of operation?
@@ -1006,7 +1006,7 @@ bankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 bankDetails.rollNumber.hint = Bydd hyn ar gerdyn banc, cyfriflen neu baslyfr yr elusen
 bankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
 bankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
-bankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEM i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
+bankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 bankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
 bankDetails.sortCode.checkYourAnswersLabel = Cod didoli
 bankDetails.accountNumber.checkYourAnswersLabel = Rhif y cyfrif
@@ -1655,7 +1655,7 @@ individualNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os o
 individualNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
 individualNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
 individualNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
-individualNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEM i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
+individualNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
 individualNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
 individualNomineesBankDetails.sortCode.checkYourAnswersLabel = Cod didoli
@@ -1772,7 +1772,7 @@ organisationNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os
 organisationNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
 organisationNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
 organisationNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
-organisationNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEM i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
+organisationNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
 organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
 organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = Cod didoli

@@ -26,12 +26,12 @@ import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 import java.time.{LocalDateTime, ZoneOffset}
 import java.util.concurrent.TimeUnit
 import javax.inject.{Inject, Singleton}
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class SessionRepository @Inject() (val mongoComponent: MongoComponent, val appConfig: FrontendAppConfig)
-    extends PlayMongoRepository[UserAnswers](
+class SessionRepository @Inject() (val mongoComponent: MongoComponent, val appConfig: FrontendAppConfig)(implicit
+  ec: ExecutionContext
+) extends PlayMongoRepository[UserAnswers](
       collectionName = "user-eligibility-answers",
       mongoComponent = mongoComponent,
       domainFormat = UserAnswers.formats,

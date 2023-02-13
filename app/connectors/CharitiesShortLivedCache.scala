@@ -17,8 +17,9 @@
 package connectors
 
 import config.FrontendAppConfig
+
 import javax.inject.Inject
-import uk.gov.hmrc.crypto.{ApplicationCrypto, CompositeSymmetricCrypto}
+import uk.gov.hmrc.crypto.{ApplicationCrypto, CompositeSymmetricCrypto, Decrypter, Encrypter}
 import uk.gov.hmrc.http.cache.client.{ShortLivedCache, ShortLivedHttpCaching}
 import uk.gov.hmrc.http.HttpClient
 
@@ -34,5 +35,5 @@ class CharitiesShortLivedCache @Inject() (
   val shortLiveCache: CharitiesShortLivedHttpCaching,
   applicationCrypto: ApplicationCrypto
 ) extends ShortLivedCache {
-  override implicit lazy val crypto: CompositeSymmetricCrypto = applicationCrypto.JsonCrypto
+  override implicit lazy val crypto: Encrypter with Decrypter = applicationCrypto.JsonCrypto
 }

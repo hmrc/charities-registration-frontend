@@ -23,7 +23,7 @@ import models.operations.CharityEstablishedOptions.England
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.operationsAndFunds._
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent

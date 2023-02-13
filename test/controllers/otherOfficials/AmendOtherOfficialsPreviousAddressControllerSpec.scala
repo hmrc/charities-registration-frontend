@@ -26,7 +26,7 @@ import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.contactDetails.AmendAddressPage
 import pages.otherOfficials.OtherOfficialsNamePage

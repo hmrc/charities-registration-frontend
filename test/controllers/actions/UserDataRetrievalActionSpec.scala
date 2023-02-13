@@ -19,11 +19,10 @@ package controllers.actions
 import base.SpecBase
 import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
-import org.mockito.Mockito._
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatestplus.mockito.MockitoSugar
-import service.UserAnswerService
 import org.mockito.ArgumentMatchers.any
+import org.mockito.MockitoSugar
+import org.scalatest.concurrent.ScalaFutures
+import service.UserAnswerService
 
 import scala.concurrent.Future
 

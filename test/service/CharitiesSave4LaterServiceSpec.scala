@@ -27,7 +27,7 @@ import models.transformers.TransformerKeeper
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{atLeastOnce, doNothing, reset, times, verify, when}
 import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.sections.{Section1Page, Section7Page, Section8Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -186,7 +186,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         .thenReturn(mockAcknowledgement)
       when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
       when(mockUserService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
+      doNothing.when(mockAuditService).sendEvent(any())(any(), any())
     }
 
   }
@@ -1219,7 +1219,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           res.right.get.data mustBe ua.data
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
-        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
+        verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
 
       "return SwitchOverError passing existing userAnswers and error in TransformerKeeper" in new LocalSetup
@@ -1250,7 +1250,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           res.left.get mustBe controllers.routes.SwitchOverErrorController.onPageLoad
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
-        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
+        verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
 
       "return SwitchOverAnswersLostError when no existing useranswers and error in TransformerKeeper" in new LocalSetup
@@ -1273,7 +1273,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           res.left.get mustBe controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
-        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
+        verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
 
       "return valid object when no existing useranswers and no error in TransformerKeeper" in new LocalSetup
@@ -1293,7 +1293,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           res.right.get.data mustBe emptyUserAnswers.data
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
-        verify(mockAuditService, atLeastOnce()).sendEvent(any[SubmissionAuditEvent])(any(), any())
+        verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())
       }
     }
 

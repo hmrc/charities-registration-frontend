@@ -25,7 +25,7 @@ import navigation.FakeNavigators.{FakeFundRaisingNavigator, FakeOtherOfficialsNa
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import pages.otherOfficials.{IsOtherOfficialNinoPage, OtherOfficialsNamePage}
 import play.api.data.Form

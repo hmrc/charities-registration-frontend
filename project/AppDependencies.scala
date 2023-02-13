@@ -22,11 +22,11 @@ object AppDependencies {
     "org.scalatestplus.play" %% "scalatestplus-play"          % "5.1.0",
     "org.jsoup"               % "jsoup"                       % "1.15.3",
     "com.typesafe.play"      %% "play-test"                   % "2.8.19",
-    "org.mockito"             % "mockito-core"                % "4.8.0",
+    //"org.mockito"             % "mockito-core"                % "4.8.0",
     "org.scalacheck"         %% "scalacheck"                  % "1.17.0",
     "org.scalamock"          %% "scalamock-scalatest-support" % "3.6.0",
     "com.github.tomakehurst"  % "wiremock-standalone"         % "2.27.2",
-    "org.scalatestplus"      %% "mockito-3-4"                 % "3.2.10.0",
+    "org.mockito"            %% "mockito-scala-scalatest"     % "1.17.12",
     "org.scalatestplus"      %% "scalacheck-1-15"             % "3.2.11.0",
     "com.vladsch.flexmark"    % "flexmark-all"                % "0.62.2"
   ).map(_ % "test, it")

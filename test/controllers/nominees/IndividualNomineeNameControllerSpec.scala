@@ -23,7 +23,7 @@ import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.NomineesNavigator
 import navigation.FakeNavigators.FakeNomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.IndividualNomineeNamePage

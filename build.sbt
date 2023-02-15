@@ -9,11 +9,9 @@ lazy val appName: String = "charities-registration-frontend"
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
-  .settings(ThisBuild / useSuperShell := false)
   .settings(DefaultBuildSettings.scalaSettings: _*)
   .settings(DefaultBuildSettings.defaultSettings(): _*)
   .settings(inConfig(Test)(testSettings): _*)
-  .settings(HeaderPlugin.autoImport.headerSettings(IntegrationTest))
   .configs(IntegrationTest)
   .settings(
     inConfig(IntegrationTest)(

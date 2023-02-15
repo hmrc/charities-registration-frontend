@@ -9,14 +9,9 @@ lazy val appName: String = "charities-registration-frontend"
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
-  .settings(ThisBuild / useSuperShell := false)
-  .settings(resolvers += Resolver.jcenterRepo)
-  .settings(resolvers += Resolver.typesafeRepo("releases"))
   .settings(DefaultBuildSettings.scalaSettings: _*)
   .settings(DefaultBuildSettings.defaultSettings(): _*)
-  .settings(SbtDistributablesPlugin.publishingSettings: _*)
   .settings(inConfig(Test)(testSettings): _*)
-  .settings(HeaderPlugin.autoImport.headerSettings(IntegrationTest))
   .configs(IntegrationTest)
   .settings(
     inConfig(IntegrationTest)(
@@ -84,5 +79,5 @@ lazy val testSettings: Seq[Def.Setting[_]] = Seq(
   )
 )
 
-addCommandAlias("scalafmtAll", "all scalafmtSbt scalafmt test:scalafmt it:scalafmt")
-addCommandAlias("scalastyleAll", "all scalastyle test:scalastyle it:scalastyle")
+addCommandAlias("scalafmtAll", "all scalafmtSbt scalafmt Test/scalafmt IntegrationTest/scalafmt")
+addCommandAlias("scalastyleAll", "all scalastyle Test/scalastyle IntegrationTest/scalastyle")

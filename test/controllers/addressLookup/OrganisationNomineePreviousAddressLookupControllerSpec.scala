@@ -29,7 +29,7 @@ import navigation.FakeNavigators.{FakeAuthorisedOfficialsNavigator, FakeNominees
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.nominees.OrganisationNomineeNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder

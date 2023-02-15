@@ -25,7 +25,7 @@ import models.{RegistrationResponse, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.AcknowledgementReferencePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder

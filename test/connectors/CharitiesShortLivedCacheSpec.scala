@@ -19,8 +19,7 @@ package connectors
 import base.SpecBase
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, stubFor, urlEqualTo}
 import config.FrontendAppConfig
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import play.api.http.Status.{NOT_FOUND, OK}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder

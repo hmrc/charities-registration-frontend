@@ -67,6 +67,9 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
   def assertRenderedById(doc: Document, id: String): Assertion                  =
     assert(doc.getElementById(id) != null, "\n\nElement " + id + " was not rendered on the page.\n")
 
+  def assertRenderedByClass(doc: Document, cssClass: String): Assertion =
+    assert(!doc.getElementsByClass(cssClass).isEmpty, "\n\nElement " + cssClass + " was not rendered on the page.\n")
+
   def assertNotRenderedById(doc: Document, id: String): Assertion =
     assert(doc.getElementById(id) == null, "\n\nElement " + id + " was rendered on the page.\n")
 

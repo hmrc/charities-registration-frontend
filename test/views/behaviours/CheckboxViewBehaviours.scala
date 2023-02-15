@@ -89,7 +89,7 @@ trait CheckboxViewBehaviours[A] extends ViewBehaviours {
 
       "not render an error summary" in {
         val doc = asDocument(createView(form))
-        assertNotRenderedById(doc, "error-summary-title")
+        assertNotRenderedById(doc, "govuk-error-summary__title")
       }
 
       "show error in the title" in {
@@ -99,7 +99,7 @@ trait CheckboxViewBehaviours[A] extends ViewBehaviours {
 
       "show an error summary" in {
         val doc = asDocument(createView(form.withError(FormError(fieldKey, "error.invalid"))))
-        assertRenderedById(doc, "error-summary-title")
+        assertRenderedByClass(doc, "govuk-error-summary__title")
       }
 
       "show an error associated with the value field" in {

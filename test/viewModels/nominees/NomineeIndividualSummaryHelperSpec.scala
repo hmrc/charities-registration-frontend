@@ -24,7 +24,7 @@ import controllers.nominees.{routes => nomineesRoutes}
 import models.{BankDetails, CheckMode, Country, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
 import pages.nominees._
 import service.CountryService

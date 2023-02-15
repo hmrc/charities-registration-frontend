@@ -18,11 +18,9 @@ package audit
 
 import config.FrontendAppConfig
 import models.AuditTypes.{CharitiesRegistrationSubmission, NewUser, PartialUserTransfer}
-import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, times, verify, when}
+import org.mockito.{ArgumentCaptor, MockitoSugar}
 import org.scalatest._
-import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
@@ -79,7 +77,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
 
       auditService.sendEvent(testAuditEvent)
 
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
+      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
 
       inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
@@ -95,7 +93,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
 
       auditService.sendEvent(SubmissionAuditEvent(Json.parse("""{"this": { "is": "a test" }}""")))
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
+      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
 
       inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
@@ -111,7 +109,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
 
       auditService.sendEvent(SwitchOverAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), PartialUserTransfer))
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
+      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
 
       inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
@@ -127,7 +125,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
       when(mockAuditConnector.sendExtendedEvent(any())(any(), any())).thenReturn(Future(Success))
 
       auditService.sendEvent(NormalUserAuditEvent(Json.parse("""{"this": { "is": "a test" }}"""), NewUser))
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
+      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
 
       inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, tag, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName
@@ -145,7 +143,7 @@ class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside wit
 
       auditService.sendEvent(testAuditEvent)
 
-      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())
+      verify(mockAuditConnector, times(1)).sendExtendedEvent(templateCaptor.capture())(any(), any())
 
       inside(templateCaptor.getValue) { case ExtendedDataEvent(auditSource, auditType, _, _, detail, _, _, _) =>
         auditSource mustBe frontendAppConfig.appName

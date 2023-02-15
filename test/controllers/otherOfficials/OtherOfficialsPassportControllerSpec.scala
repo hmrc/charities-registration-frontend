@@ -27,7 +27,7 @@ import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPassportPage}
 import play.api.data.Form
 import play.api.inject.bind

@@ -22,7 +22,7 @@ import models.transformers.TransformerKeeper
 import org.joda.time.LocalDate
 import org.mockito.ArgumentMatchers.{eq => meq}
 import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar.mock
+import org.mockito.MockitoSugar.mock
 import play.api.libs.json.{JsResultException, Json, JsonValidationError, __}
 import uk.gov.hmrc.http.cache.client.CacheMap
 

@@ -23,9 +23,8 @@ import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.{OldServiceSubmission, UserAnswers}
 import models.requests.OptionalDataRequest
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
 import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
@@ -257,7 +256,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
 
       status(result) mustEqual SEE_OTHER
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, never()).set(any())(any(), any())
+      verify(mockUserAnswerService, never).set(any())(any(), any())
     }
 
     "redirect to the task list without calling save4later service if external test is enabled" in {

@@ -18,14 +18,13 @@ package connectors.addressLookup
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
+import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
 import connectors.WireMockHelper
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, AddressNotFound, DefaultedUnexpectedFailure, NoLocationHeaderReturned}
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import play.api.http.HeaderNames
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -75,7 +74,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
           actualResult mustBe expectedResult
 
-          verify(postRequestedFor(urlEqualTo("/api/v2/init")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/api/v2/init")))
         }
       }
 
@@ -102,7 +101,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
           actualResult mustBe expectedResult
 
-          verify(postRequestedFor(urlEqualTo("/api/v2/init")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/api/v2/init")))
         }
 
         "return a Left(DefaultedUnexpectedFailure) when unexpected response" in {
@@ -126,7 +125,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
           actualResult mustBe expectedResult
 
-          verify(postRequestedFor(urlEqualTo("/api/v2/init")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/api/v2/init")))
         }
 
       }
@@ -152,7 +151,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
           actualResult mustBe expectedResult
 
-          verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
+          WireMock.verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
         }
       }
 
@@ -174,7 +173,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
           actualResult mustBe expectedResult
 
-          verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
+          WireMock.verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
         }
 
         "return Left(AddressNotFound) when address couldn't found" in {
@@ -189,7 +188,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
           actualResult mustBe expectedResult
 
-          verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
+          WireMock.verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
         }
 
         "return a Left(DefaultedUnexpectedFailure) when unexpected response" in {
@@ -207,7 +206,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with Mocki
 
           actualResult mustBe expectedResult
 
-          verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
+          WireMock.verify(getRequestedFor(urlEqualTo("/api/confirmed?id=id")))
         }
 
       }

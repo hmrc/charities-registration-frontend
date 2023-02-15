@@ -24,7 +24,7 @@ import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, CheckMode, Country, Name, Passport, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
 import pages.nominees._
 import service.CountryService

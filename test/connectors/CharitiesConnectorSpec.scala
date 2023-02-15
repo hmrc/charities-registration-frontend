@@ -17,16 +17,16 @@
 package connectors
 
 import base.SpecBase
+import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
 import connectors.httpParsers.{CharitiesInvalidJson, DefaultedUnexpectedFailure, EtmpFailed}
 import models.{CharityName, RegistrationResponse, UserAnswers}
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.contactDetails.CharityNamePage
 import play.api.http.Status._
 import play.api.libs.json.{JsResultException, Json}
-import uk.gov.hmrc.http.{HttpClient, UpstreamErrorResponse}
+import uk.gov.hmrc.http.HttpClient
 
 class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSugar {
 
@@ -63,7 +63,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           actualResult mustBe expectedResult
 
-          verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
         }
 
         "returns an exception if response is in incorrect format" in {
@@ -82,7 +82,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
             await(charitiesConnector.registerCharities(requestJson, organizationId)(hc, ec))
           }
 
-          verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
         }
 
       }
@@ -105,7 +105,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           actualResult mustBe expectedResult
 
-          verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
         }
 
         "return a Left(EtmpFailed) when failed with unexpected error" in {
@@ -124,7 +124,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           actualResult mustBe expectedResult
 
-          verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
         }
 
         "return a Left(DefaultedUnexpectedFailure) for default errors" in {
@@ -140,7 +140,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           actualResult mustBe expectedResult
 
-          verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
         }
       }
 
@@ -176,7 +176,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           result.get.data mustBe userAnswers.data
 
-          verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
+          WireMock.verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
         }
 
         "return None response" in {
@@ -190,7 +190,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           result mustBe None
 
-          verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
+          WireMock.verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
         }
 
         "returns an exception if response is in incorrect format" in {
@@ -208,7 +208,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
             await(charitiesConnector.getUserAnswers("id")(hc, ec))
           }
 
-          verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
+          WireMock.verify(getRequestedFor(urlEqualTo("/charities-registration/getUserAnswer/id")))
         }
       }
 
@@ -230,7 +230,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
 
           result mustBe true
 
-          verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
         }
 
         "returns an exception if response is in incorrect format" in {
@@ -249,7 +249,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
             await(charitiesConnector.saveUserAnswers(userAnswers)(hc, ec))
           }
 
-          verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
         }
 
         "return UpstreamErrorResponse for Internal Server Error" in {
@@ -264,7 +264,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSu
             await(charitiesConnector.saveUserAnswers(userAnswers)(hc, ec))
           }
 
-          verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
+          WireMock.verify(postRequestedFor(urlEqualTo("/charities-registration/saveUserAnswer/id")))
         }
       }
     }

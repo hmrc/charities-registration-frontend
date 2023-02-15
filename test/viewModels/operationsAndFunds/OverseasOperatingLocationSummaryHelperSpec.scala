@@ -25,7 +25,7 @@ import models.{Country, Index, MongoDateTimeFormats, NormalMode, UserAnswers}
 import org.joda.time.{LocalDate, MonthDay}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.operationsAndFunds._
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent

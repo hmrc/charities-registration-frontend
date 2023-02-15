@@ -25,7 +25,7 @@ import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.MockitoSugar
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
 import service.CountryService

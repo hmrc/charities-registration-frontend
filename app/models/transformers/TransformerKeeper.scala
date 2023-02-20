@@ -17,5 +17,6 @@
 package models.transformers
 
 import play.api.libs.json.{JsObject, JsPath, JsonValidationError}
+import scala.collection.Seq
 
 case class TransformerKeeper(accumulator: JsObject, errors: Seq[(JsPath, Seq[JsonValidationError])])

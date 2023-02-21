@@ -422,7 +422,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
               MongoDateTimeFormats.localDayMonthWrite
             )
             .flatMap(_.set(IsFinancialAccountsPage, true)
-              .map(_.set(WhyNoBankStatementPage, reason))
+              .flatMap(_.set(WhyNoBankStatementPage, reason))
             )
             .success
             .value
@@ -716,14 +716,6 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       }
 
       "convert the correct OperationAndFunds object with England, Scotland and Northern Ireland" in {
-
-        {
-          "operationAndFunds": {"incomeReceivedToDate": 121, "northernIreland": true, "otherAreaOperation": true, "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions", "ukWide": true, "operationAndFundsCommon": {"financialAccounts": true, "accountPeriodEnd": "0101"}, "englandAndWales": true, "estimatedGrossIncome": 123, "scotland": true, "overseas": false}
-        }
-        {
-          "operationAndFunds": {"operationAndFundsCommon": {"accountPeriodEnd": "0101", "financialAccounts": true}, "estimatedGrossIncome": 123, "incomeReceivedToDate": 121, "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome", "otherAreaOperation": true, "englandAndWales": true, "scotland": true, "northernIreland": true, "ukWide": true, "overseas": false}
-        }
-
 
         val localUserAnswers = emptyUserAnswers
           .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
@@ -1409,7 +1401,5 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         )
       }
     }
-
   }
-
 }

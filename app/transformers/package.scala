@@ -51,8 +51,8 @@ package object transformers {
           throw ex
       }
 
-    def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(implicit
-                                                                                                            format: OFormat[T]
+    def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(
+      implicit format: OFormat[T]
     ): TransformerKeeper =
       Try(cacheMap.getEntry[T](key)) match {
         case Success(Some(result)) =>

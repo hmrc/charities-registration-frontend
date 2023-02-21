@@ -23,43 +23,43 @@ import play.api.libs.json.{__, _}
 
 class CharityCommonTransformer extends JsonTransformer {
 
-  val localPath: JsPath = __ \ 'charityRegistration \ 'common
+  val localPath: JsPath = __ \ "charityRegistration" \ "common"
 
   def userAnswersToAdmin(implicit request: DataRequest[_]): Reads[JsObject] =
-    ((localPath \ 'admin \ 'applicationDate).json.put(JsString("1970-01-01")) and
-      (localPath \ 'admin \ 'welshIndicator).json.put(JsBoolean(false)) and
-      (localPath \ 'admin \ 'credentialID).json.put(JsString(s"/newauth/credentialId/${request.internalId}")) and
-      (localPath \ 'admin \ 'sessionID).json.put(
+    ((localPath \ "admin" \ "applicationDate").json.put(JsString("1970-01-01")) and
+      (localPath \ "admin" \ "welshIndicator").json.put(JsBoolean(false)) and
+      (localPath \ "admin" \ "credentialID").json.put(JsString(s"/newauth/credentialId/${request.internalId}")) and
+      (localPath \ "admin" \ "sessionID").json.put(
         JsString("50 CHARACTERS STRING 50 CHARACTERS " + "STRING 50 CHARA")
       ) and
-      (localPath \ 'admin \ 'acknowledgmentReference).json.put(JsString("15 CHARACTERS S"))).reduce
+      (localPath \ "admin" \ "acknowledgmentReference").json.put(JsString("15 CHARACTERS S"))).reduce
 
   def userAnswersToOrganisation: Reads[JsObject] =
-    ((localPath \ 'organisation \ 'applicationType).json.put(JsString("0")) and
-      (localPath \ 'organisation \ 'orgName).json.copyFrom((__ \ 'charityName \ 'fullName).json.pick) and
-      ((localPath \ 'organisation \ 'operatingName).json.copyFrom(
-        (__ \ 'charityName \ 'operatingName).json.pick
+    ((localPath \ "organisation" \ "applicationType").json.put(JsString("0")) and
+      (localPath \ "organisation" \ "orgName").json.copyFrom((__ \ "charityName" \ "fullName").json.pick) and
+      ((localPath \ "organisation" \ "operatingName").json.copyFrom(
+        (__ \ "charityName" \ "operatingName").json.pick
       ) orElse doNothing) and
-      getPhone(localPath \ 'organisation \ 'telephoneNumber, __ \ 'charityContactDetails \ 'daytimePhone) and
-      getOptionalPhone(localPath \ 'organisation \ 'mobileNumber, __ \ 'charityContactDetails \ 'mobilePhone) and
-      ((localPath \ 'organisation \ 'emailAddress).json.copyFrom(
-        (__ \ 'charityContactDetails \ 'emailAddress).json.pick
+      getPhone(localPath \ "organisation" \ "telephoneNumber", __ \ "charityContactDetails" \ "daytimePhone") and
+      getOptionalPhone(localPath \ "organisation" \ "mobileNumber", __ \ "charityContactDetails" \ "mobilePhone") and
+      ((localPath \ "organisation" \ "emailAddress").json.copyFrom(
+        (__ \ "charityContactDetails" \ "emailAddress").json.pick
       ) orElse doNothing) and
-      (localPath \ 'organisation \ 'countryEstd).json.copyFrom(
-        (__ \ 'charityEstablishedIn).read[String].map(value => if (value == "0") JsString("1") else JsString(value))
+      (localPath \ "organisation" \ "countryEstd").json.copyFrom(
+        (__ \ "charityEstablishedIn").read[String].map(value => if (value == "0") JsString("1") else JsString(value))
       )).reduce
 
   def userAnswersToAddressDetailsCommon: Reads[JsObject] = {
 
-    val differentCorrespondenceAddress = (__ \ 'canWeSendLettersToThisAddress).read[Boolean].flatMap { isDiff =>
-      getOptionalAddress(localPath \ 'addressDetails \ 'correspondenceAddress, __ \ 'charityPostalAddress).flatMap {
+    val differentCorrespondenceAddress = (__ \ "canWeSendLettersToThisAddress").read[Boolean].flatMap { isDiff =>
+      getOptionalAddress(localPath \ "addressDetails" \ "correspondenceAddress", __ \ "charityPostalAddress").flatMap {
         correspondenceAddress =>
-          getAddress(localPath \ 'addressDetails \ 'officialAddress, __ \ 'charityOfficialAddress).map {
+          getAddress(localPath \ "addressDetails" \ "officialAddress", __ \ "charityOfficialAddress").map {
             officialAddress =>
               val result = for {
-                v1 <- officialAddress.transform((localPath \ 'addressDetails \ 'officialAddress).json.pick).asOpt
+                v1 <- officialAddress.transform((localPath \ "addressDetails" \ "officialAddress").json.pick).asOpt
                 v2 <- correspondenceAddress
-                        .transform((localPath \ 'addressDetails \ 'correspondenceAddress).json.pick)
+                        .transform((localPath \ "addressDetails" \ "correspondenceAddress").json.pick)
                         .asOpt
               } yield v1 != v2
               JsBoolean(result.fold(false)(r => r && !isDiff))
@@ -67,44 +67,44 @@ class CharityCommonTransformer extends JsonTransformer {
       }
     }
 
-    (getAddress(localPath \ 'addressDetails \ 'officialAddress, __ \ 'charityOfficialAddress) and
-      (localPath \ 'addressDetails \ 'differentCorrespondence).json.copyFrom(differentCorrespondenceAddress) and
-      getOptionalAddress(localPath \ 'addressDetails \ 'correspondenceAddress, __ \ 'charityPostalAddress)).reduce
+    (getAddress(localPath \ "addressDetails" \ "officialAddress", __ \ "charityOfficialAddress") and
+      (localPath \ "addressDetails" \ "differentCorrespondence").json.copyFrom(differentCorrespondenceAddress) and
+      getOptionalAddress(localPath \ "addressDetails" \ "correspondenceAddress", __ \ "charityPostalAddress")).reduce
   }
 
   def userAnswersToBankDetails: Reads[JsObject] =
     (
-      (localPath \ 'bankDetails \ 'accountName).json.copyFrom((__ \ 'bankDetails \ 'accountName).json.pick) and
-        (__ \ 'bankDetails \ 'sortCode).read[String].flatMap { n =>
-          (localPath \ 'bankDetails \ 'sortCode).json.put(JsNumber(n.toInt))
+      (localPath \ "bankDetails" \ "accountName").json.copyFrom((__ \ "bankDetails" \ "accountName").json.pick) and
+        (__ \ "bankDetails" \ "sortCode").read[String].flatMap { n =>
+          (localPath \ "bankDetails" \ "sortCode").json.put(JsNumber(n.toInt))
         } and
-        (__ \ 'bankDetails \ 'accountNumber).read[String].flatMap { n =>
-          (localPath \ 'bankDetails \ 'accountNumber).json.put(JsNumber(n.toInt))
+        (__ \ "bankDetails" \ "accountNumber").read[String].flatMap { n =>
+          (localPath \ "bankDetails" \ "accountNumber").json.put(JsNumber(n.toInt))
         } and
-        ((localPath \ 'bankDetails \ 'rollNumber).json.copyFrom(
-          (__ \ 'bankDetails \ 'rollNumber).json.pick
+        ((localPath \ "bankDetails" \ "rollNumber").json.copyFrom(
+          (__ \ "bankDetails" \ "rollNumber").json.pick
         ) orElse doNothing)
     ).reduce
 
   def userAnswersToIndDeclarationInfo: Reads[JsObject] = {
 
-    val isNonUK = (__ \ 'authorisedOfficials \ 0 \ 'officialAddress \ 'country \ 'code).read[String].map { code =>
+    val isNonUK = (__ \ "authorisedOfficials" \ 0 \ "officialAddress" \ "country" \ "code").read[String].map { code =>
       JsBoolean(code != "GB")
     }
 
-    (getName(localPath \ 'declarationInfo \ 'name, __ \ 'authorisedOfficials \ 0 \ 'officialsName) and
-      (localPath \ 'declarationInfo \ 'position).json.copyFrom(
-        (__ \ 'authorisedOfficials \ 0 \ 'officialsPosition).json.pick
+    (getName(localPath \ "declarationInfo" \ "name", __ \ "authorisedOfficials" \ 0 \ "officialsName") and
+      (localPath \ "declarationInfo" \ "position").json.copyFrom(
+        (__ \ "authorisedOfficials" \ 0 \ "officialsPosition").json.pick
       ) and
-      ((localPath \ 'declarationInfo \ 'postcode).json.copyFrom(
-        (__ \ 'charityOfficialAddress \ 'postcode).json.pick
+      ((localPath \ "declarationInfo" \ "postcode").json.copyFrom(
+        (__ \ "charityOfficialAddress" \ "postcode").json.pick
       ) orElse doNothing) and
       getPhone(
-        localPath \ 'declarationInfo \ 'telephoneNumber,
-        __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone
+        localPath \ "declarationInfo" \ "telephoneNumber",
+        __ \ "authorisedOfficials" \ 0 \ "officialsPhoneNumber" \ "daytimePhone"
       ) and
-      (localPath \ 'declarationInfo \ 'overseas).json.copyFrom(isNonUK) and
-      (localPath \ 'declarationInfo \ 'declaration).json.put(JsBoolean(true))).reduce
+      (localPath \ "declarationInfo" \ "overseas").json.copyFrom(isNonUK) and
+      (localPath \ "declarationInfo" \ "declaration").json.put(JsBoolean(true))).reduce
   }
 
   def userAnswersToCommon(implicit request: DataRequest[_]): Reads[JsObject] =

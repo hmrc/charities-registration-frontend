@@ -27,8 +27,8 @@ package object transformers {
 
   implicit class CharitiesJsObject(val transformerKeeper: TransformerKeeper) {
 
-    def getJson[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String)(implicit
-      format: OFormat[T]
+    def getJson[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String)(
+      implicit format: OFormat[T]
     ): TransformerKeeper =
       Try(cacheMap.getEntry[T](key)) match {
         case Success(Some(result)) =>
@@ -36,27 +36,23 @@ package object transformers {
             case JsSuccess(requestJson, _) =>
               logger.info(s"[CharitiesJsObject][getJson] $key transformation successful")
               TransformerKeeper(transformerKeeper.accumulator ++ requestJson, transformerKeeper.errors)
-
             case JsError(err) =>
               logger.error(s"[CharitiesJsObject][getJson] $key transformation failed with errors: " + err)
               TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
           }
-        case Success(None)         =>
-          transformerKeeper
-
+        case Success(None) => transformerKeeper
         case Failure(ex: JsResultException) =>
           logger.info(
             s"[CharitiesJsObject][getJson] $key transformation failed with JsResultException: " + ex.getMessage
           )
           TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ ex.errors)
-
         case Failure(ex) =>
           logger.error(s"[CharitiesJsObject][getJson] $key exception during transformation: " + ex.getMessage)
           throw ex
       }
 
     def getJsonOfficials[T](cacheMap: CacheMap, transformer: Reads[JsObject], key: String, goalKey: String)(implicit
-      format: OFormat[T]
+                                                                                                            format: OFormat[T]
     ): TransformerKeeper =
       Try(cacheMap.getEntry[T](key)) match {
         case Success(Some(result)) =>
@@ -77,14 +73,17 @@ package object transformers {
               logger.error(s"[CharitiesJsObject][getJsonOfficials] $key transformation failed with errors: " + err)
               TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
           }
-        case Success(None)         =>
+        case Success(None) =>
           transformerKeeper
 
         case Failure(ex: JsResultException) =>
           logger.info(
             s"[CharitiesJsObject][getJsonOfficials] $key transformation failed with JsResultException: " + ex.getMessage
           )
-          TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ ex.errors)
+          TransformerKeeper(
+            transformerKeeper.accumulator,
+            transformerKeeper.errors ++ ex.errors
+          )
 
         case Failure(ex) =>
           logger.error(s"[CharitiesJsObject][getJsonOfficials] $key exception during transformation: " + ex.getMessage)

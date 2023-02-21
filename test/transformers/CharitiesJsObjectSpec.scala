@@ -68,7 +68,7 @@ class CharitiesJsObjectSpec extends SpecBase {
           )
         ).thenReturn(Some(howMany))
 
-        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
           .getJson(
             mockCacheMap,
             userAnswerTransformer.toUserAnswersCharityHowManyAuthOfficials,
@@ -87,7 +87,7 @@ class CharitiesJsObjectSpec extends SpecBase {
           )
         ).thenReturn(Some(howMany))
 
-        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
           .getJson(
             mockCacheMap,
             userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials,
@@ -115,7 +115,7 @@ class CharitiesJsObjectSpec extends SpecBase {
           )
         )
 
-        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
           .getJson(
             mockCacheMap,
             userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials,
@@ -140,7 +140,7 @@ class CharitiesJsObjectSpec extends SpecBase {
         ).thenThrow(new RuntimeException)
 
         intercept[RuntimeException] {
-          TransformerKeeper(Json.obj(), Seq.empty)
+          TransformerKeeper(Json.obj(), List.empty)
             .getJson(
               mockCacheMap,
               userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials,
@@ -201,7 +201,7 @@ class CharitiesJsObjectSpec extends SpecBase {
               |            },
               |            "officialsNino": "AB111111A"
               |        }""".stripMargin))),
-          Seq.empty
+          List.empty
         )
           .getJsonOfficials[CharityAuthorisedOfficialIndividual](
             mockCacheMap,
@@ -316,7 +316,7 @@ class CharitiesJsObjectSpec extends SpecBase {
                 |{
                 |            "notExistent": "1"
                 |        }""".stripMargin))),
-            Seq.empty
+            List.empty
           )
             .getJsonOfficials[CharityAuthorisedOfficialIndividual](
               mockCacheMap,
@@ -337,7 +337,7 @@ class CharitiesJsObjectSpec extends SpecBase {
           JsResultException(List((__ \ 'authorisedOfficials, List(JsonValidationError(List("error.path.missing"))))))
         )
 
-        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+        val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
           .getJsonOfficials[CharityAuthorisedOfficialIndividual](
             mockCacheMap,
             userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),
@@ -360,7 +360,7 @@ class CharitiesJsObjectSpec extends SpecBase {
         ).thenThrow(new RuntimeException)
 
         intercept[RuntimeException] {
-          TransformerKeeper(Json.obj(), Seq.empty)
+          TransformerKeeper(Json.obj(), List.empty)
             .getJsonOfficials[CharityAuthorisedOfficialIndividual](
               mockCacheMap,
               userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),

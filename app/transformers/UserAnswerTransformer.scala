@@ -24,16 +24,16 @@ import transformers.submission.JsonTransformer
 class UserAnswerTransformer extends JsonTransformer {
 
   private val futureFunds: Reads[JsArray] = for {
-    donations               <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'donations, "donations")
-    fundraising             <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'fundraising, "fundraising")
-    grants                  <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'grants, "grants")
+    donations               <- nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "donations", "donations")
+    fundraising             <- nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "fundraising", "fundraising")
+    grants                  <- nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "grants", "grants")
     membershipSubscriptions <-
-      nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'membershipSubscriptions, "membershipSubscriptions")
-    tradingIncome           <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'tradingIncome, "tradingIncome")
+      nodeBooleanData(__ \ Symbol("operationAndFunds") \ "futureFunds" \ "membershipSubscriptions", "membershipSubscriptions")
+    tradingIncome           <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "futureFunds" \ "tradingIncome", "tradingIncome")
     tradingSubsidiaries     <-
-      nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'tradingSubsidiaries, "tradingSubsidiaries")
-    investmentIncome        <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'investmentIncome, "investmentIncome")
-    other                   <- nodeBooleanData(__ \ 'operationAndFunds \ 'futureFunds \ 'other, "other")
+      nodeBooleanData(__ \ Symbol("operationAndFunds") \ "futureFunds" \ "tradingSubsidiaries", "tradingSubsidiaries")
+    investmentIncome        <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "futureFunds" \ "investmentIncome", "investmentIncome")
+    other                   <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "futureFunds" \ "other", "other")
   } yield JsArray(
     Seq(
       donations,
@@ -48,27 +48,27 @@ class UserAnswerTransformer extends JsonTransformer {
   )
 
   private val whereWillCharityOperate = for {
-    overseas <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'overseas, "5")
-    england  <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'englandAndWales, "1")
-    wales    <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'englandAndWales, "2")
-    oscrv    <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'scotland, "3")
-    ccni     <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'northernIreland, "4")
-    ukwide   <- nodeBooleanData(__ \ 'operationAndFunds \ 'whereWillCharityOperate \ 'ukWide, "6")
+    overseas <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "whereWillCharityOperate" \ "overseas", "5")
+    england  <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "whereWillCharityOperate" \ "englandAndWales", "1")
+    wales    <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "whereWillCharityOperate" \ "englandAndWales", "2")
+    oscrv    <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "whereWillCharityOperate" \ "scotland", "3")
+    ccni     <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "whereWillCharityOperate" \ "northernIreland", "4")
+    ukwide   <- nodeBooleanData(__ \ Symbol("operationAndFunds") \ "whereWillCharityOperate" \ "ukWide", "6")
   } yield JsArray(Seq(england, wales, oscrv, ccni, overseas, ukwide))
 
   private val otherCountries: Reads[JsArray] = for {
-    country1 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas1).readNullable[JsString]
-    country2 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas2).readNullable[JsString]
-    country3 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas3).readNullable[JsString]
-    country4 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas4).readNullable[JsString]
-    country5 <- (__ \ 'operationAndFunds \ 'otherCountriesOfOperation \ 'overseas5).readNullable[JsString]
+    country1 <- (__ \ Symbol("operationAndFunds") \ "otherCountriesOfOperation" \ "overseas1").readNullable[JsString]
+    country2 <- (__ \ Symbol("operationAndFunds") \ "otherCountriesOfOperation" \ "overseas2").readNullable[JsString]
+    country3 <- (__ \ Symbol("operationAndFunds") \ "otherCountriesOfOperation" \ "overseas3").readNullable[JsString]
+    country4 <- (__ \ Symbol("operationAndFunds") \ "otherCountriesOfOperation" \ "overseas4").readNullable[JsString]
+    country5 <- (__ \ Symbol("operationAndFunds") \ "otherCountriesOfOperation" \ "overseas5").readNullable[JsString]
   } yield JsArray(
     Seq(country1, country2, country3, country4, country5).flatten
       .map(countryName => Json.obj("overseasCountry" -> countryName))
   )
 
   private lazy val overseasLocations: Reads[JsObject] = otherCountries.flatMap { countries =>
-    (__ \ 'whatCountryDoesTheCharityOperateIn).json.put(countries)
+    (__ \ "whatCountryDoesTheCharityOperateIn").json.put(countries)
   }
 
   private val updatedWhereWillCharityOperate: Reads[JsObject] = whereWillCharityOperate.flatMap { arr =>
@@ -76,44 +76,44 @@ class UserAnswerTransformer extends JsonTransformer {
 
     arr.value.toList match {
       case _ if containsList(Seq(JsString("5"), JsString("6"))) =>
-        ((__ \ 'operatingLocation).json.put(
+        ((__ \ "operatingLocation").json.put(
           JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"), JsString("5")))
         ) and
           overseasLocations).reduce
       case _ if containsList(Seq(JsString("5")))                =>
-        ((__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("5")))) and overseasLocations).reduce
+        ((__ \ "operatingLocation").json.put(JsArray(Seq(JsString("5")))) and overseasLocations).reduce
       case _ if containsList(Seq(JsString("6")))                =>
-        (__ \ 'operatingLocation).json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"))))
+        (__ \ "operatingLocation").json.put(JsArray(Seq(JsString("1"), JsString("2"), JsString("3"), JsString("4"))))
       case list if list.exists(_ != JsString(""))               =>
-        (__ \ 'operatingLocation).json.put(JsArray(arr.value.filter(_ != JsString(""))))
+        (__ \ "operatingLocation").json.put(JsArray(arr.value.filter(_ != JsString(""))))
       case _                                                    => doNothing
     }
   }
 
   private val charitablePurposes: Reads[JsArray] = for {
-    reliefOfPoverty                   <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'reliefOfPoverty, "reliefOfPoverty")
-    education                         <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'education, "education")
-    religion                          <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'religion, "religion")
+    reliefOfPoverty                   <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "reliefOfPoverty", "reliefOfPoverty")
+    education                         <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "education", "education")
+    religion                          <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "religion", "religion")
     healthOrSavingOfLives             <-
-      nodeBooleanData(__ \ 'whatYourCharityDoes \ 'healthOrSavingOfLives, "healthOrSavingOfLives")
+      nodeBooleanData(__ \ "whatYourCharityDoes" \ "healthOrSavingOfLives", "healthOrSavingOfLives")
     citizenshipOrCommunityDevelopment <- nodeBooleanData(
-                                           __ \ 'whatYourCharityDoes \ 'citizenshipOrCommunityDevelopment,
+                                           __ \ "whatYourCharityDoes" \ "citizenshipOrCommunityDevelopment",
                                            "citizenshipOrCommunityDevelopment"
                                          )
     artsCultureOrScience              <-
-      nodeBooleanData(__ \ 'whatYourCharityDoes \ 'artsCultureHeritageOrScience, "artsCultureOrScience")
-    amateurSport                      <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'amateurSport, "amateurSport")
-    humanRights                       <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'humanRights, "humanRights")
+      nodeBooleanData(__ \ "whatYourCharityDoes" \ "artsCultureHeritageOrScience", "artsCultureOrScience")
+    amateurSport                      <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "amateurSport", "amateurSport")
+    humanRights                       <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "humanRights", "humanRights")
     environmentalProtection           <-
-      nodeBooleanData(__ \ 'whatYourCharityDoes \ 'environmentalProtectionOrImprovement, "environmentalProtection")
-    reliefOfYouthAge                  <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'reliefOfThoseInNeed, "reliefOfYouthAge")
-    animalWelfare                     <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'animalWelfare, "animalWelfare")
+      nodeBooleanData(__ \ "whatYourCharityDoes" \ "environmentalProtectionOrImprovement", "environmentalProtection")
+    reliefOfYouthAge                  <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "reliefOfThoseInNeed", "reliefOfYouthAge")
+    animalWelfare                     <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "animalWelfare", "animalWelfare")
     armedForcesOfTheCrown             <-
       nodeBooleanData(
-        __ \ 'whatYourCharityDoes \ 'promotionOfEfficiencyInArmedForcesPoliceFireAndRescueService,
+        __ \ "whatYourCharityDoes" \ "promotionOfEfficiencyInArmedForcesPoliceFireAndRescueService",
         "armedForcesOfTheCrown"
       )
-    other                             <- nodeBooleanData(__ \ 'whatYourCharityDoes \ 'whatYourCharityDoesOther, "other")
+    other                             <- nodeBooleanData(__ \ "whatYourCharityDoes" \ "whatYourCharityDoesOther", "other")
   } yield JsArray(
     Seq(
       reliefOfPoverty,
@@ -133,10 +133,10 @@ class UserAnswerTransformer extends JsonTransformer {
   )
 
   private val regulator: Reads[JsArray] = for {
-    ccew  <- nodeBooleanData(__ \ 'charityRegulator \ 'ccew \ 'isCharityRegulatorSelected, "ccew")
-    oscrv <- nodeBooleanData(__ \ 'charityRegulator \ 'oscr \ 'isCharityRegulatorSelected, "oscr")
-    ccni  <- nodeBooleanData(__ \ 'charityRegulator \ 'ccni \ 'isCharityRegulatorSelected, "ccni")
-    other <- nodeBooleanData(__ \ 'charityRegulator \ 'other \ 'isCharityOtherRegulatorSelected, "otherRegulator")
+    ccew  <- nodeBooleanData(__ \ "charityRegulator" \ "ccew" \ "isCharityRegulatorSelected", "ccew")
+    oscrv <- nodeBooleanData(__ \ "charityRegulator" \ "oscr" \ "isCharityRegulatorSelected", "oscr")
+    ccni  <- nodeBooleanData(__ \ "charityRegulator" \ "ccni" \ "isCharityRegulatorSelected", "ccni")
+    other <- nodeBooleanData(__ \ "charityRegulator" \ "other" \ "isCharityOtherRegulatorSelected", "otherRegulator")
   } yield JsArray(Seq(ccew, oscrv, ccni, other))
 
   private def nodeBooleanData(jsonPath: JsPath, value: String): Reads[JsString] =
@@ -153,24 +153,24 @@ class UserAnswerTransformer extends JsonTransformer {
 
   private def commonAddress(oldPath: JsPath, uaPath: JsPath) = {
     val lines = for {
-      line1 <- (oldPath \ 'addressLine1).read[String].map(JsString)
-      line2 <- (oldPath \ 'addressLine2).read[String].map(JsString)
-      line3 <- (oldPath \ 'addressLine3).read[String].map(JsString)
-      line4 <- (oldPath \ 'addressLine4).read[String].map(JsString)
+      line1 <- (oldPath \ "addressLine1").read[String].map(JsString)
+      line2 <- (oldPath \ "addressLine2").read[String].map(JsString)
+      line3 <- (oldPath \ "addressLine3").read[String].map(JsString)
+      line4 <- (oldPath \ "addressLine4").read[String].map(JsString)
     } yield JsArray(Seq(line1, line2, line3, line4))
 
-    nodeJsArrayData(lines, uaPath \ 'lines) and
-      (oldPath \ 'postcode).read[String].flatMap { postcode =>
+    nodeJsArrayData(lines, uaPath \ "lines") and
+      (oldPath \ "postcode").read[String].flatMap { postcode =>
         if (postcode != "") {
-          (uaPath \ 'postcode).json.put(JsString(postcode))
+          (uaPath \ "postcode").json.put(JsString(postcode))
         } else {
           doNothing
         }
       } and
-      (uaPath \ 'country \ 'code).json.copyFrom((oldPath \ 'country).read[String].map { country =>
+      (uaPath \ "country" \ "code").json.copyFrom((oldPath \ "country").read[String].map { country =>
         if (country == "") JsString("GB") else JsString("XX")
       }) and
-      (uaPath \ 'country \ 'name).json.copyFrom((oldPath \ 'country).read[String].map { country =>
+      (uaPath \ "country" \ "name").json.copyFrom((oldPath \ "country").read[String].map { country =>
         if (country == "") JsString("United Kingdom") else JsString(country)
       })
   }
@@ -182,9 +182,9 @@ class UserAnswerTransformer extends JsonTransformer {
     expectedFlag: Boolean = false
   ): Reads[JsObject] = {
     val negativeFlag = !expectedFlag
-    (oldPath \ 'toggle).readNullable[String].flatMap { toggle =>
+    (oldPath \ "toggle").readNullable[String].flatMap { toggle =>
       if (toggle.contains("true")) {
-        (commonAddress(oldPath \ 'address, uaPath) and
+        (commonAddress(oldPath \ "address", uaPath) and
           newFlagPath.json.put(JsBoolean(negativeFlag))).reduce
       } else {
         (doNothing and newFlagPath.json.put(JsBoolean(expectedFlag))).reduce
@@ -199,17 +199,17 @@ class UserAnswerTransformer extends JsonTransformer {
     oldSchemaPath: JsPath
   ): Reads[JsObject] = {
 
-    val passportPath = oldSchemaPath \ 'officialIndividualIdentityCardDetails
+    val passportPath = oldSchemaPath \ "officialIndividualIdentityCardDetails"
 
-    (oldSchemaPath \ 'nationalInsuranceNumberPossession).readNullable[String].flatMap {
+    (oldSchemaPath \ "nationalInsuranceNumberPossession").readNullable[String].flatMap {
       case Some("true") =>
         (uaFlagPath.json.put(JsBoolean(true)) and
-          uaPathNino.json.copyFrom((oldSchemaPath \ 'niNumberUK).json.pick)).reduce
+          uaPathNino.json.copyFrom((oldSchemaPath \ "niNumberUK").json.pick)).reduce
       case _            =>
         (uaFlagPath.json.put(JsBoolean(false)) and
-          (uaPathPassport \ 'passportNumber).json.copyFrom((passportPath \ 'identityCardNumber).json.pick) and
-          (uaPathPassport \ 'country).json.copyFrom((passportPath \ 'countryOfIssue).json.pick) and
-          (uaPathPassport \ 'expiryDate).json.copyFrom((passportPath \ 'expiryDate).json.pick)).reduce
+          (uaPathPassport \ "passportNumber").json.copyFrom((passportPath \ "identityCardNumber").json.pick) and
+          (uaPathPassport \ "country").json.copyFrom((passportPath \ "countryOfIssue").json.pick) and
+          (uaPathPassport \ "expiryDate").json.copyFrom((passportPath \ "expiryDate").json.pick)).reduce
     }
   }
 
@@ -221,13 +221,13 @@ class UserAnswerTransformer extends JsonTransformer {
     }
 
   private def bankDetails(oldPath: JsPath, uaFlagPath: JsPath, uaPath: JsPath): Reads[JsObject] = {
-    val commonBankPath = oldPath \ 'nomineePaymentDetails \ 'nomineeCommonPaymentDetails
-    (oldPath \ 'authorisedToReceivePayments).read[String].flatMap { toggle =>
+    val commonBankPath = oldPath \ "nomineePaymentDetails" \ "nomineeCommonPaymentDetails"
+    (oldPath \ "authorisedToReceivePayments").read[String].flatMap { toggle =>
       if (toggle.contains("true")) {
-        ((uaPath \ 'accountName).json.copyFrom((commonBankPath \ 'accountName).json.pick) and
-          (uaPath \ 'accountNumber).json.copyFrom((commonBankPath \ 'accountNumber).json.pick) and
-          (uaPath \ 'sortCode).json.copyFrom((commonBankPath \ 'sortCode).json.pick) and
-          ((uaPath \ 'rollNumber).json.copyFrom((commonBankPath \ 'rollNumber).json.pick) orElse doNothing) and
+        ((uaPath \ "accountName").json.copyFrom((commonBankPath \ "accountName").json.pick) and
+          (uaPath \ "accountNumber").json.copyFrom((commonBankPath \ "accountNumber").json.pick) and
+          (uaPath \ "sortCode").json.copyFrom((commonBankPath \ "sortCode").json.pick) and
+          ((uaPath \ "rollNumber").json.copyFrom((commonBankPath \ "rollNumber").json.pick) orElse doNothing) and
           uaFlagPath.json.put(JsBoolean(true))).reduce
       } else {
         (doNothing and uaFlagPath.json.put(JsBoolean(false))).reduce
@@ -236,7 +236,7 @@ class UserAnswerTransformer extends JsonTransformer {
   }
 
   private def selectWhyNoRegulator(path: JsPath): Reads[JsObject] =
-    (__ \ 'charityRegulator \ 'reasonForNotRegistering \ 'charityRegulator).read[String].flatMap {
+    (__ \ "charityRegulator" \ "reasonForNotRegistering" \ "charityRegulator").read[String].flatMap {
       case "5"  => path.json.put(JsString("1"))
       case "6"  => path.json.put(JsString("2"))
       case "7"  => path.json.put(JsString("3"))
@@ -247,92 +247,92 @@ class UserAnswerTransformer extends JsonTransformer {
 
   def toUserAnswerCharityContactDetails: Reads[JsObject] =
     (
-      (__ \ 'charityName \ 'fullName).json
-        .copyFrom((__ \ 'charityContactDetails \ 'fullName).json.pick) and
-        ((__ \ 'charityName \ 'operatingName).json
-          .copyFrom((__ \ 'charityContactDetails \ 'operatingName).json.pick) orElse doNothing) and
-        (__ \ 'charityContactDetails \ 'daytimePhone).json
-          .copyFrom((__ \ 'charityContactDetails \ 'daytimePhone).json.pick) and
-        ((__ \ 'charityContactDetails \ 'mobilePhone).json
-          .copyFrom((__ \ 'charityContactDetails \ 'mobilePhone).json.pick) orElse doNothing) and
-        (__ \ 'charityContactDetails \ 'emailAddress).json
+      (__ \ "charityName" \ "fullName").json
+        .copyFrom((__ \ "charityContactDetails" \ "fullName").json.pick) and
+        ((__ \ "charityName" \ "operatingName").json
+          .copyFrom((__ \ "charityContactDetails" \ "operatingName").json.pick) orElse doNothing) and
+        (__ \ "charityContactDetails" \ "daytimePhone").json
+          .copyFrom((__ \ "charityContactDetails" \ "daytimePhone").json.pick) and
+        ((__ \ "charityContactDetails" \ "mobilePhone").json
+          .copyFrom((__ \ "charityContactDetails" \ "mobilePhone").json.pick) orElse doNothing) and
+        (__ \ "charityContactDetails" \ "emailAddress").json
           .copyFrom(
-            (__ \ 'charityContactDetails \ 'email).readNullable[String].map(value => value.fold(JsString(""))(JsString))
+            (__ \ "charityContactDetails" \ "email").readNullable[String].map(value => value.fold(JsString(""))(JsString))
           ) and
-        (__ \ 'isSection1Completed).json.put(JsBoolean(false))
+        (__ \ "isSection1Completed").json.put(JsBoolean(false))
     ).reduce
 
   def toUserAnswerCharityOfficialAddress: Reads[JsObject] =
-    commonAddress(__ \ 'charityOfficialAddress, __ \ 'charityOfficialAddress).reduce
+    commonAddress(__ \ "charityOfficialAddress", __ \ "charityOfficialAddress").reduce
 
   def toUserAnswerCorrespondenceAddress: Reads[JsObject] =
     optionalAddress(
-      __ \ 'correspondenceAddress,
-      __ \ 'canWeSendLettersToThisAddress,
-      __ \ 'charityPostalAddress,
+      __ \ "correspondenceAddress",
+      __ \ "canWeSendLettersToThisAddress",
+      __ \ "charityPostalAddress",
       expectedFlag = true
     )
 
   def toUserAnswersCharityRegulator: Reads[JsObject] =
     regulator.flatMap { arr =>
       if (arr.value.exists(_ != JsString(""))) {
-        ((__ \ 'isCharityRegulator).json.put(JsBoolean(true)) and
-          (__ \ 'charityRegulator).json.put(JsArray(arr.value.filter(_ != JsString("")))) and
-          ((__ \ 'charityCommissionRegistrationNumber).json.copyFrom(
-            (__ \ 'charityRegulator \ 'ccew \ 'charityRegistrationNumber).json.pick
+        ((__ \ "isCharityRegulator").json.put(JsBoolean(true)) and
+          (__ \ "charityRegulator").json.put(JsArray(arr.value.filter(_ != JsString("")))) and
+          ((__ \ "charityCommissionRegistrationNumber").json.copyFrom(
+            (__ \ "charityRegulator" \ "ccew" \ "charityRegistrationNumber").json.pick
           ) orElse doNothing) and
-          ((__ \ 'scottishRegulatorRegNumber).json.copyFrom(
-            (__ \ 'charityRegulator \ 'oscr \ 'charityRegistrationNumber).json.pick
+          ((__ \ "scottishRegulatorRegNumber").json.copyFrom(
+            (__ \ "charityRegulator" \ "oscr" \ "charityRegistrationNumber").json.pick
           ) orElse doNothing) and
-          ((__ \ 'nIRegulatorRegNumber).json.copyFrom(
-            (__ \ 'charityRegulator \ 'ccni \ 'charityRegistrationNumber).json.pick
+          ((__ \ "nIRegulatorRegNumber").json.copyFrom(
+            (__ \ "charityRegulator" \ "ccni" \ "charityRegistrationNumber").json.pick
           ) orElse doNothing) and
-          ((__ \ 'charityOtherRegulatorDetails \ 'regulatorName).json.copyFrom(
-            (__ \ 'charityRegulator \ 'other \ 'charityRegulatorName).json.pick
+          ((__ \ "charityOtherRegulatorDetails" \ "regulatorName").json.copyFrom(
+            (__ \ "charityRegulator" \ "other" \ "charityRegulatorName").json.pick
           ) orElse doNothing) and
-          ((__ \ 'charityOtherRegulatorDetails \ 'registrationNumber).json.copyFrom(
-            (__ \ 'charityRegulator \ 'other \ 'charityOtherRegistrationNumber).json.pick
+          ((__ \ "charityOtherRegulatorDetails" \ "registrationNumber").json.copyFrom(
+            (__ \ "charityRegulator" \ "other" \ "charityOtherRegistrationNumber").json.pick
           ) orElse doNothing) and
-          (__ \ 'isSection2Completed).json.put(JsBoolean(false))).reduce
+          (__ \ "isSection2Completed").json.put(JsBoolean(false))).reduce
       } else {
-        ((__ \ 'isCharityRegulator).json.put(JsBoolean(false)) and
-          selectWhyNoRegulator(__ \ 'selectWhyNoRegulator) and
-          ((__ \ 'whyNotRegisteredWithCharity).json.copyFrom(
-            (__ \ 'charityRegulator \ 'reasonForNotRegistering \ 'notRegReasonOtherDescription).json.pick
+        ((__ \ "isCharityRegulator").json.put(JsBoolean(false)) and
+          selectWhyNoRegulator(__ \ "selectWhyNoRegulator") and
+          ((__ \ "whyNotRegisteredWithCharity").json.copyFrom(
+            (__ \ "charityRegulator" \ "reasonForNotRegistering" \ "notRegReasonOtherDescription").json.pick
           ) orElse doNothing) and
-          (__ \ 'isSection2Completed).json.put(JsBoolean(false))).reduce
+          (__ \ "isSection2Completed").json.put(JsBoolean(false))).reduce
       }
     }
 
   def toUserAnswersCharityGoverningDocument: Reads[JsObject] =
     (
-      (__ \ 'selectGoverningDocument).json.copyFrom((__ \ 'charityGoverningDocument \ 'docType).json.pick) and
-        (__ \ 'governingDocumentName).json.copyFrom((__ \ 'charityGoverningDocument \ 'nameOtherDoc).json.pick) and
-        ((__ \ 'whenGoverningDocumentApproved).json.copyFrom(
-          (__ \ 'charityGoverningDocument \ 'effectiveDate).json.pick
+      (__ \ "selectGoverningDocument").json.copyFrom((__ \ "charityGoverningDocument" \ "docType").json.pick) and
+        (__ \ "governingDocumentName").json.copyFrom((__ \ "charityGoverningDocument" \ "nameOtherDoc").json.pick) and
+        ((__ \ "whenGoverningDocumentApproved").json.copyFrom(
+          (__ \ "charityGoverningDocument" \ "effectiveDate").json.pick
         ) orElse doNothing) and
-        (__ \ 'sectionsChangedGoverningDocument).json.copyFrom(
-          (__ \ 'charityGoverningDocument \ 'govDocApprovedWording).json.pick
+        (__ \ "sectionsChangedGoverningDocument").json.copyFrom(
+          (__ \ "charityGoverningDocument" \ "govDocApprovedWording").json.pick
         ) and
-        (__ \ 'isApprovedGoverningDocument).json.copyFrom(
-          (__ \ 'charityGoverningDocument \ 'governingApprovedDoc).json.pick
+        (__ \ "isApprovedGoverningDocument").json.copyFrom(
+          (__ \ "charityGoverningDocument" \ "governingApprovedDoc").json.pick
         ) and
-        (__ \ 'isSection3Completed).json.put(JsBoolean(false))
+        (__ \ "isSection3Completed").json.put(JsBoolean(false))
     ).reduce
 
   def toUserAnswersWhatYourCharityDoes: Reads[JsObject] =
     charitablePurposes.flatMap { arr =>
       if (arr.value.exists(_ != JsString(""))) {
         (
-          (__ \ 'charitableObjectives).json.copyFrom((__ \ 'whatYourCharityDoes \ 'charitableObjectives).json.pick) and
-            (__ \ 'charitablePurposes).json.put(JsArray(arr.value.filter(_ != JsString("")))) and
-            (__ \ 'whatYourCharityDoesOtherReason).json.copyFrom(
-              (__ \ 'whatYourCharityDoes \ 'whatYourCharityDoesOtherReason).json.pick
+          (__ \ "charitableObjectives").json.copyFrom((__ \ "whatYourCharityDoes" \ "charitableObjectives").json.pick) and
+            (__ \ "charitablePurposes").json.put(JsArray(arr.value.filter(_ != JsString("")))) and
+            (__ \ "whatYourCharityDoesOtherReason").json.copyFrom(
+              (__ \ "whatYourCharityDoes" \ "whatYourCharityDoesOtherReason").json.pick
             ) and
-            ((__ \ 'publicBenefits).json.copyFrom(
-              (__ \ 'whatYourCharityDoes \ 'charityThingsBenefitThePublic).json.pick
+            ((__ \ "publicBenefits").json.copyFrom(
+              (__ \ "whatYourCharityDoes" \ "charityThingsBenefitThePublic").json.pick
             ) orElse doNothing) and
-            (__ \ 'isSection4Completed).json.put(JsBoolean(false))
+            (__ \ "isSection4Completed").json.put(JsBoolean(false))
         ).reduce
       } else {
         doNothing
@@ -341,46 +341,46 @@ class UserAnswerTransformer extends JsonTransformer {
 
   def toUserAnswersOperationAndFunds: Reads[JsObject] =
     (
-      nodeJsArrayData(futureFunds, __ \ 'selectFundRaising) and updatedWhereWillCharityOperate and
-        (__ \ 'accountingPeriodEndDate).json.copyFrom {
-          (__ \ 'operationAndFunds \ 'operationAndFundsCommon \ 'accountPeriodEnd).json.pick
+      nodeJsArrayData(futureFunds, __ \ Symbol("selectFundRaising")) and updatedWhereWillCharityOperate and
+        (__ \ Symbol("accountingPeriodEndDate")).json.copyFrom {
+          (__ \ Symbol("operationAndFunds") \ Symbol("operationAndFundsCommon") \ Symbol("accountPeriodEnd")).json.pick
         } and
-        (__ \ 'isFinancialAccounts).json.copyFrom(
-          (__ \ 'operationAndFunds \ 'operationAndFundsCommon \ 'financialAccounts).json.pick
+        (__ \ Symbol("isFinancialAccounts")).json.copyFrom(
+          (__ \ Symbol("operationAndFunds") \ Symbol("operationAndFundsCommon") \ Symbol("financialAccounts")).json.pick
         ) and
-        (__ \ 'isBankStatements).json.copyFrom(
-          (__ \ 'operationAndFunds \ 'operationAndFundsCommon \ 'bankStatements).json.pick
+        (__ \ Symbol("isBankStatements")).json.copyFrom(
+          (__ \ Symbol("operationAndFunds") \ Symbol("operationAndFundsCommon") \ Symbol("bankStatements")).json.pick
         ) and
-        ((__ \ 'whyNoBankStatement).json.copyFrom(
-          (__ \ 'operationAndFunds \ 'operationAndFundsCommon \ 'noBankStatements).json.pick
+        ((__ \ Symbol("whyNoBankStatement")).json.copyFrom(
+          (__ \ Symbol("operationAndFunds") \ Symbol("operationAndFundsCommon") \ Symbol("noBankStatements")).json.pick
         ) orElse doNothing) and
-        ((__ \ 'otherFundRaising).json.copyFrom(
-          (__ \ 'operationAndFunds \ 'futureFundsOther).json.pick
+        ((__ \ Symbol("otherFundRaising")).json.copyFrom(
+          (__ \ Symbol("operationAndFunds") \ Symbol("futureFundsOther")).json.pick
         ) orElse doNothing) and
-        ((__ \ 'estimatedIncome).json.copyFrom(
-          (__ \ 'operationAndFunds \ 'estimatedGrossIncome).json.pick
+        ((__ \ Symbol("estimatedIncome")).json.copyFrom(
+          (__ \ Symbol("operationAndFunds") \ Symbol("estimatedGrossIncome")).json.pick
         ) orElse doNothing) and
-        ((__ \ 'actualIncome).json.copyFrom(
-          (__ \ 'operationAndFunds \ 'incomeReceivedToDate).json.pick
+        ((__ \ Symbol("actualIncome")).json.copyFrom(
+          (__ \ Symbol("operationAndFunds") \ Symbol("incomeReceivedToDate")).json.pick
         ) orElse doNothing) and
-        (__ \ 'isSection5Completed).json.put(JsBoolean(false))
+        (__ \ Symbol("isSection5Completed")).json.put(JsBoolean(false))
     ).reduce
 
   def toUserAnswersCharityHowManyAuthOfficials: Reads[JsObject] =
-    (__ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials).readNullable[Int].flatMap {
+    (__ \ Symbol("charityHowManyAuthOfficials") \ Symbol("numberOfAuthOfficials")).readNullable[Int].flatMap {
       case Some(number) if number > 11 =>
-        (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(true))
+        (__ \ Symbol("isAddAnotherOfficial")).json.put(JsBoolean(true))
       case Some(_)                     =>
-        (__ \ 'isAddAnotherOfficial).json.put(JsBoolean(false))
+        (__ \ Symbol("isAddAnotherOfficial")).json.put(JsBoolean(false))
       case _                           => doNothing
     }
 
   def toUserAnswersCharityHowManyOtherOfficials: Reads[JsObject] =
-    (__ \ 'charityHowManyOtherOfficials \ 'numberOfOtherOfficials).readNullable[Int].flatMap {
+    (__ \ Symbol("charityHowManyOtherOfficials") \ Symbol("numberOfOtherOfficials")).readNullable[Int].flatMap {
       case Some(number) if number > 22 =>
-        (__ \ 'addAnotherOtherOfficial).json.put(JsBoolean(true))
+        (__ \ Symbol("addAnotherOtherOfficial")).json.put(JsBoolean(true))
       case Some(_)                     =>
-        (__ \ 'addAnotherOtherOfficial).json.put(JsBoolean(false))
+        (__ \ Symbol("addAnotherOtherOfficial")).json.put(JsBoolean(false))
       case _                           => doNothing
     }
 
@@ -390,37 +390,37 @@ class UserAnswerTransformer extends JsonTransformer {
   // scalastyle:off method.length
   def toOneOfficial(index: Int, authOrOther: String): Reads[JsObject] =
     (
-      getTitle(__ \ 'officialsName \ 'title, authorisedOfficialOriginalKey(index, authOrOther) \ 'title) and
-        (__ \ 'officialsName \ 'firstName).json
-          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ 'firstName).json.pick) and
-        ((__ \ 'officialsName \ 'middleName).json
-          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ 'middleName).json.pick) orElse doNothing) and
-        (__ \ 'officialsName \ 'lastName).json
-          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ 'lastName).json.pick) and
-        (__ \ 'officialsDOB).json
-          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ 'dateOfBirth).json.pick) and
-        (__ \ 'officialsPhoneNumber \ 'daytimePhone).json
-          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ 'dayPhoneNumber).json.pick) and
-        ((__ \ 'officialsPhoneNumber \ 'mobilePhone).json
+      getTitle(__ \ Symbol("officialsName") \ Symbol("title"), authorisedOfficialOriginalKey(index, authOrOther) \ "title") and
+        (__ \ Symbol("officialsName") \ Symbol("firstName")).json
+          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ Symbol("firstName")).json.pick) and
+        ((__ \ Symbol("officialsName") \ Symbol("middleName")).json
+          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ Symbol("middleName")).json.pick) orElse doNothing) and
+        (__ \ Symbol("officialsName") \ Symbol("lastName")).json
+          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ Symbol("lastName")).json.pick) and
+        (__ \ Symbol("officialsDOB")).json
+          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ Symbol("dateOfBirth")).json.pick) and
+        (__ \ Symbol("officialsPhoneNumber") \ Symbol("daytimePhone")).json
+          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ Symbol("dayPhoneNumber")).json.pick) and
+        ((__ \ Symbol("officialsPhoneNumber") \ Symbol("mobilePhone")).json
           .copyFrom(
-            (authorisedOfficialOriginalKey(index, authOrOther) \ 'telephoneNumber).json.pick
+            (authorisedOfficialOriginalKey(index, authOrOther) \ "telephoneNumber").json.pick
           ) orElse doNothing) and
-        (__ \ 'officialsPosition).json
-          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ 'positionType).json.pick) and
+        (__ \ "officialsPosition").json
+          .copyFrom((authorisedOfficialOriginalKey(index, authOrOther) \ "positionType").json.pick) and
         ninoOrPassport(
-          __ \ 'officialsNino,
-          __ \ 'officialsPassport,
-          __ \ 'isOfficialNino,
-          authorisedOfficialOriginalKey(index, authOrOther) \ 'charityAuthorisedOfficialIndividualIdentity
+          __ \ "officialsNino",
+          __ \ "officialsPassport",
+          __ \ "isOfficialNino",
+          authorisedOfficialOriginalKey(index, authOrOther) \ "charityAuthorisedOfficialIndividualIdentity"
         ) and
         commonAddress(
-          authorisedOfficialOriginalKey(index, authOrOther) \ 'charityAuthorisedOfficialAddress,
-          __ \ 'officialAddress
+          authorisedOfficialOriginalKey(index, authOrOther) \ "charityAuthorisedOfficialAddress",
+          __ \ "officialAddress"
         ).reduce and
         optionalAddress(
-          authorisedOfficialOriginalKey(index, authOrOther) \ 'charityAuthorisedOfficialPreviousAddress,
+          authorisedOfficialOriginalKey(index, authOrOther) \ "charityAuthorisedOfficialPreviousAddress",
           __ \ s"isOfficial${if (authOrOther == "other") "s" else ""}PreviousAddress",
-          __ \ 'officialPreviousAddress
+          __ \ "officialPreviousAddress"
         )
     ).reduce
 
@@ -433,130 +433,130 @@ class UserAnswerTransformer extends JsonTransformer {
 
   def toUserAnswersCharityBankAccountDetails: Reads[JsObject] =
     (
-      (__ \ 'bankDetails \ 'accountName).json.copyFrom((__ \ 'charityBankAccountDetails \ 'accountName).json.pick) and
-        (__ \ 'bankDetails \ 'accountNumber).json.copyFrom(
-          (__ \ 'charityBankAccountDetails \ 'accountNumber).json.pick
+      (__ \ "bankDetails" \ "accountName").json.copyFrom((__ \ "charityBankAccountDetails" \ "accountName").json.pick) and
+        (__ \ "bankDetails" \ "accountNumber").json.copyFrom(
+          (__ \ "charityBankAccountDetails" \ "accountNumber").json.pick
         ) and
-        (__ \ 'bankDetails \ 'sortCode).json.copyFrom((__ \ 'charityBankAccountDetails \ 'sortCode).json.pick) and
-        ((__ \ 'bankDetails \ 'rollNumber).json.copyFrom(
-          (__ \ 'charityBankAccountDetails \ 'rollNumber).json.pick
+        (__ \ "bankDetails" \ "sortCode").json.copyFrom((__ \ "charityBankAccountDetails" \ "sortCode").json.pick) and
+        ((__ \ "bankDetails" \ "rollNumber").json.copyFrom(
+          (__ \ "charityBankAccountDetails" \ "rollNumber").json.pick
         ) orElse doNothing) and
-        (__ \ 'isSection6Completed).json.put(JsBoolean(false))
+        (__ \ "isSection6Completed").json.put(JsBoolean(false))
     ).reduce
 
   def toUserAnswersCharityAddNominee: Reads[JsObject] =
-    ((__ \ 'nominee \ 'isAuthoriseNominee).json.copyFrom(
-      (__ \ 'charityAddNominee \ 'nominee).readNullable[Boolean].map {
+    ((__ \ "nominee" \ "isAuthoriseNominee").json.copyFrom(
+      (__ \ "charityAddNominee" \ "nominee").readNullable[Boolean].map {
         case Some(x) => JsBoolean(x)
         case _       => JsBoolean(false)
       }
     ) and
-      (__ \ 'isSection9Completed).json.put(JsBoolean(false))).reduce
+      (__ \ "isSection9Completed").json.put(JsBoolean(false))).reduce
 
   def toUserAnswersCharityNomineeStatus: Reads[JsObject] =
-    (__ \ 'charityNomineeStatus \ 'nomineeStatus).readNullable[String].flatMap {
+    (__ \ "charityNomineeStatus" \ "nomineeStatus").readNullable[String].flatMap {
       case Some("individual") =>
-        ((__ \ 'nominee \ 'chooseNominee).json.put(JsBoolean(true)) and
-          (__ \ 'nominee \ 'isAuthoriseNominee).json.put(JsBoolean(true))).reduce
+        ((__ \ "nominee" \ "chooseNominee").json.put(JsBoolean(true)) and
+          (__ \ "nominee" \ "isAuthoriseNominee").json.put(JsBoolean(true))).reduce
       case Some(_)            =>
-        ((__ \ 'nominee \ 'chooseNominee).json.put(JsBoolean(false)) and
-          (__ \ 'nominee \ 'isAuthoriseNominee).json.put(JsBoolean(true))).reduce
+        ((__ \ "nominee" \ "chooseNominee").json.put(JsBoolean(false)) and
+          (__ \ "nominee" \ "isAuthoriseNominee").json.put(JsBoolean(true))).reduce
       case _                  => doNothing
     }
 
   def toUserAnswersCharityNomineeIndividual: Reads[JsObject] = {
-    val individual        = __ \ 'nominee \ 'individual
-    val individualOldPath = __ \ 'charityNomineeIndividual
+    val individual        = __ \ "nominee" \ "individual"
+    val individualOldPath = __ \ "charityNomineeIndividual"
     (
-      (__ \ 'nominee \ 'isAuthoriseNominee).json.put(JsBoolean(true)) and
-        (__ \ 'nominee \ 'chooseNominee).json.put(JsBoolean(true)) and
-        getTitle(individual \ 'individualName \ 'title, individualOldPath \ 'title) and
-        (individual \ 'individualName \ 'firstName).json.copyFrom((individualOldPath \ 'firstName).json.pick) and
-        ((individual \ 'individualName \ 'middleName).json.copyFrom(
-          (individualOldPath \ 'middleName).json.pick
+      (__ \ "nominee" \ "isAuthoriseNominee").json.put(JsBoolean(true)) and
+        (__ \ "nominee" \ "chooseNominee").json.put(JsBoolean(true)) and
+        getTitle(individual \ "individualName" \ "title", individualOldPath \ "title") and
+        (individual \ "individualName" \ "firstName").json.copyFrom((individualOldPath \ "firstName").json.pick) and
+        ((individual \ "individualName" \ "middleName").json.copyFrom(
+          (individualOldPath \ "middleName").json.pick
         ) orElse doNothing) and
-        (individual \ 'individualName \ 'lastName).json.copyFrom((individualOldPath \ 'lastName).json.pick) and
-        (individual \ 'individualDOB).json.copyFrom((individualOldPath \ 'dateOfBirth).json.pick) and
-        (individual \ 'individualPhoneNumber \ 'daytimePhone).json.copyFrom(
-          (individualOldPath \ 'dayTimePhoneNumber).json.pick
+        (individual \ "individualName" \ "lastName").json.copyFrom((individualOldPath \ "lastName").json.pick) and
+        (individual \ "individualDOB").json.copyFrom((individualOldPath \ "dateOfBirth").json.pick) and
+        (individual \ "individualPhoneNumber" \ "daytimePhone").json.copyFrom(
+          (individualOldPath \ "dayTimePhoneNumber").json.pick
         ) and
-        ((individual \ 'individualPhoneNumber \ 'daytimePhone).json.copyFrom(
-          (individualOldPath \ 'mobilePhoneNumber).json.pick
+        ((individual \ "individualPhoneNumber" \ "daytimePhone").json.copyFrom(
+          (individualOldPath \ "mobilePhoneNumber").json.pick
         ) orElse doNothing) and
         ninoOrPassport(
-          individual \ 'individualNino,
-          individual \ 'individualPassport,
-          individual \ 'isIndividualNino,
-          individualOldPath \ 'nomineeIndividualIdentity
+          individual \ "individualNino",
+          individual \ "individualPassport",
+          individual \ "isIndividualNino",
+          individualOldPath \ "nomineeIndividualIdentity"
         ) and
-        commonAddress(individualOldPath \ 'nomineeIndividualHomeAddress, individual \ 'individualAddress).reduce and
+        commonAddress(individualOldPath \ "nomineeIndividualHomeAddress", individual \ "individualAddress").reduce and
         optionalAddress(
-          individualOldPath \ 'nomineeIndividualPreviousAddress,
-          individual \ 'isIndividualPreviousAddress,
-          individual \ 'individualPreviousAddress
+          individualOldPath \ "nomineeIndividualPreviousAddress",
+          individual \ "isIndividualPreviousAddress",
+          individual \ "individualPreviousAddress"
         ) and
         bankDetails(
-          individualOldPath \ 'nomineeIndividualBankDetails,
-          individual \ 'isIndividualNomineePayments,
-          individual \ 'individualBankDetails
+          individualOldPath \ "nomineeIndividualBankDetails",
+          individual \ "isIndividualNomineePayments",
+          individual \ "individualBankDetails"
         )
     ).reduce
   }
 
   def toUserAnswersCharityNomineeOrganisation: Reads[JsObject] = {
-    val organisation        = __ \ 'nominee \ 'organisation
-    val organisationOldPath = __ \ 'charityNomineeOrganisation
+    val organisation        = __ \ "nominee" \ "organisation"
+    val organisationOldPath = __ \ "charityNomineeOrganisation"
     (
-      (__ \ 'nominee \ 'isAuthoriseNominee).json.put(JsBoolean(true)) and
-        (__ \ 'nominee \ 'chooseNominee).json.put(JsBoolean(false)) and
-        (organisation \ 'organisationName).json.copyFrom((organisationOldPath \ 'orgFullName).json.pick) and
-        (organisation \ 'organisationContactDetails \ 'phoneNumber).json.copyFrom(
-          (organisationOldPath \ 'orgPhoneNumber).json.pick
+      (__ \ "nominee" \ "isAuthoriseNominee").json.put(JsBoolean(true)) and
+        (__ \ "nominee" \ "chooseNominee").json.put(JsBoolean(false)) and
+        (organisation \ "organisationName").json.copyFrom((organisationOldPath \ "orgFullName").json.pick) and
+        (organisation \ "organisationContactDetails" \ "phoneNumber").json.copyFrom(
+          (organisationOldPath \ "orgPhoneNumber").json.pick
         ) and
-        (organisation \ 'organisationContactDetails \ 'email).json.put(JsString("")) and
-        commonAddress(organisationOldPath \ 'address, organisation \ 'organisationAddress).reduce and
+        (organisation \ "organisationContactDetails" \ "email").json.put(JsString("")) and
+        commonAddress(organisationOldPath \ "address", organisation \ "organisationAddress").reduce and
         optionalAddress(
-          organisationOldPath \ 'nomineeOrgPreviousAddress,
-          organisation \ 'isOrganisationPreviousAddress,
-          organisation \ 'organisationPreviousAddress
+          organisationOldPath \ "nomineeOrgPreviousAddress",
+          organisation \ "isOrganisationPreviousAddress",
+          organisation \ "organisationPreviousAddress"
         ) and
         getTitle(
-          organisation \ 'organisationAuthorisedPersonName \ 'title,
-          organisationOldPath \ 'nomineeOrgPersonalDetails \ 'title
+          organisation \ "organisationAuthorisedPersonName" \ "title",
+          organisationOldPath \ "nomineeOrgPersonalDetails" \ "title"
         ) and
-        (organisation \ 'organisationAuthorisedPersonName \ 'firstName).json.copyFrom(
-          (organisationOldPath \ 'nomineeOrgPersonalDetails \ 'firstName).json.pick
+        (organisation \ "organisationAuthorisedPersonName" \ "firstName").json.copyFrom(
+          (organisationOldPath \ "nomineeOrgPersonalDetails" \ "firstName").json.pick
         ) and
-        ((organisation \ 'organisationAuthorisedPersonName \ 'middleName).json.copyFrom(
-          (organisationOldPath \ 'nomineeOrgPersonalDetails \ 'middleName).json.pick
+        ((organisation \ "organisationAuthorisedPersonName" \ "middleName").json.copyFrom(
+          (organisationOldPath \ "nomineeOrgPersonalDetails" \ "middleName").json.pick
         ) orElse doNothing) and
-        (organisation \ 'organisationAuthorisedPersonName \ 'lastName).json.copyFrom(
-          (organisationOldPath \ 'nomineeOrgPersonalDetails \ 'lastName).json.pick
+        (organisation \ "organisationAuthorisedPersonName" \ "lastName").json.copyFrom(
+          (organisationOldPath \ "nomineeOrgPersonalDetails" \ "lastName").json.pick
         ) and
-        (organisation \ 'organisationAuthorisedPersonDOB).json.copyFrom(
-          (organisationOldPath \ 'nomineeOrgPersonalDetails \ 'dateOfBirth).json.pick
+        (organisation \ "organisationAuthorisedPersonDOB").json.copyFrom(
+          (organisationOldPath \ "nomineeOrgPersonalDetails" \ "dateOfBirth").json.pick
         ) and
         ninoOrPassport(
-          organisation \ 'organisationAuthorisedPersonNino,
-          organisation \ 'organisationAuthorisedPersonPassport,
-          organisation \ 'isOrganisationNino,
-          organisationOldPath \ 'nomineeOrgNIDetails
+          organisation \ "organisationAuthorisedPersonNino",
+          organisation \ "organisationAuthorisedPersonPassport",
+          organisation \ "isOrganisationNino",
+          organisationOldPath \ "nomineeOrgNIDetails"
         ) and
         bankDetails(
-          organisationOldPath \ 'nomineeBankAccountDetails,
-          organisation \ 'isOrganisationNomineePayments,
-          organisation \ 'organisationBankDetails
+          organisationOldPath \ "nomineeBankAccountDetails",
+          organisation \ "isOrganisationNomineePayments",
+          organisation \ "organisationBankDetails"
         )
     ).reduce
   }
 
   def toUserAnswersOldAcknowledgement: Reads[JsObject] =
     (
-      (__ \ 'oldAcknowledgement \ 'refNumber).json.copyFrom(
-        (__ \ "acknowledgement-Reference" \ 'formBundle).json.pick
+      (__ \ "oldAcknowledgement" \ "refNumber").json.copyFrom(
+        (__ \ "acknowledgement-Reference" \ "formBundle").json.pick
       ) and
-        (__ \ 'oldAcknowledgement \ 'submissionDate).json.copyFrom(
-          (__ \ "acknowledgement-Reference" \ 'timeStamp).json.pick
+        (__ \ "oldAcknowledgement" \ "submissionDate").json.copyFrom(
+          (__ \ "acknowledgement-Reference" \ "timeStamp").json.pick
         )
     ).reduce
 }

@@ -32,7 +32,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "organisationContactDetails.title",Some("officialsAndNominees.section")))) {
 
- @formHelper(action = OrganisationNomineeContactDetailsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+ @formHelper(action = OrganisationNomineeContactDetailsController.onSubmit(mode), args = Symbol("novalidate") -> "novalidate") {
 
   @errorSummary(form.errors)
 

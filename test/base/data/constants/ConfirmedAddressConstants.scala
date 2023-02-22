@@ -19,7 +19,6 @@ package base.data.constants
 import models.addressLookup.{AddressModel, CountryModel}
 import play.api.libs.json.{JsObject, Json}
 
-
 object ConfirmedAddressConstants {
 
   val lines: Seq[String]    = Seq("Test 1", "Test 2")

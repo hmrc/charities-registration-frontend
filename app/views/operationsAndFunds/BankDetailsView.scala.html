@@ -35,7 +35,7 @@
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some(sectionName)))) {
 
-    @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
+    @formHelper(action = submitCall, args = Symbol("novalidate") -> "novalidate") {
 
         @errorSummary(form.errors)
 

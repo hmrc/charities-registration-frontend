@@ -17,6 +17,7 @@
 package transformers.submission
 
 import base.SpecBase
+import com.stephenn.scalatest.jsonassert.JsonMatchers
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
@@ -28,10 +29,9 @@ import pages.operationsAndFunds._
 import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
-
 import java.time.LocalDate
 
-class CharityTransformerSpec extends  CharityTransformerConstants {
+class CharityTransformerSpec extends CharityTransformerConstants with JsonMatchers {
 
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
@@ -608,7 +608,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |      },
             |      "estimatedGrossIncome": 2000.00,
             |      "incomeReceivedToDate": 19999.99,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -625,9 +625,11 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with all required values" in {
@@ -655,7 +657,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -665,9 +667,11 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with Wales, Scotland and Northern Ireland" in {
@@ -702,7 +706,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -712,9 +716,11 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with England, Scotland and Northern Ireland" in {
@@ -749,7 +755,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -759,9 +765,11 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with England and Northern Ireland" in {
@@ -792,7 +800,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -802,9 +810,11 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with England and Wales" in {
@@ -835,7 +845,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -845,10 +855,11 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        println(localUserAnswers.data  + "***********\n")
-        println(localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value + "***********\n")
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe
-          Json.parse(expectedJson)
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
     }
 
@@ -1261,7 +1272,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |        },
             |        "estimatedGrossIncome": 2000.00,
             |        "incomeReceivedToDate": 19999.99,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |        "otherAreaOperation": true,
             |        "englandAndWales": true,
             |        "scotland": true,
@@ -1369,7 +1380,7 @@ class CharityTransformerSpec extends  CharityTransformerConstants {
             |        },
             |        "estimatedGrossIncome": 123.00,
             |        "incomeReceivedToDate": 121.00,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |        "otherAreaOperation": true,
             |        "englandAndWales": true,
             |        "scotland": false,

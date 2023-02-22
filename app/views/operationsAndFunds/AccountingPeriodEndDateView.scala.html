@@ -31,7 +31,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "accountingPeriodEndDate.title", Some("operationsAndFunds.section")))) {
 
-    @formHelper(action = AccountingPeriodEndDateController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+    @formHelper(action = AccountingPeriodEndDateController.onSubmit(mode), args = Symbol("novalidate") -> "novalidate") {
 
         @errorSummary(form.errors)
 

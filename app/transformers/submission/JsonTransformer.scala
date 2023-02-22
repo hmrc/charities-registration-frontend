@@ -51,8 +51,10 @@ trait JsonTransformer {
           }
         }
       case _          =>
-        (((submissionPath \ "addressLine2").json.copyFrom((userAnswerPath \ "lines" \ 1).json.pick) orElse doNothing) and
-          ((submissionPath \ "addressLine3").json.copyFrom((userAnswerPath \ "lines" \ 2).json.pick) orElse doNothing) and
+        (((submissionPath \ "addressLine2").json
+          .copyFrom((userAnswerPath \ "lines" \ 1).json.pick) orElse doNothing) and
+          ((submissionPath \ "addressLine3").json
+            .copyFrom((userAnswerPath \ "lines" \ 2).json.pick) orElse doNothing) and
           ((submissionPath \ "addressLine4").json
             .copyFrom((userAnswerPath \ "lines" \ 3).json.pick) orElse doNothing)).reduce
     }
@@ -78,9 +80,15 @@ trait JsonTransformer {
         ((submissionPath \ "nonUKAddress").json.copyFrom(isNonUK) and
           (submissionPath \ "addressLine1").json.copyFrom((userAnswerPath \ "lines" \ 0).json.pick) and
           (submissionPath \ "addressLine2").json.copyFrom((userAnswerPath \ "lines" \ 1).json.pick) and
-          ((submissionPath \ "addressLine3").json.copyFrom((userAnswerPath \ "lines" \ 2).json.pick) orElse doNothing) and
-          ((submissionPath \ "addressLine4").json.copyFrom((userAnswerPath \ "lines" \ 3).json.pick) orElse doNothing) and
-          ((submissionPath \ "postcode").json.copyFrom((userAnswerPath \ "postcode").json.pick) orElse doNothing)).reduce
+          ((submissionPath \ "addressLine3").json.copyFrom(
+            (userAnswerPath \ "lines" \ 2).json.pick
+          ) orElse doNothing) and
+          ((submissionPath \ "addressLine4").json.copyFrom(
+            (userAnswerPath \ "lines" \ 3).json.pick
+          ) orElse doNothing) and
+          ((submissionPath \ "postcode").json.copyFrom(
+            (userAnswerPath \ "postcode").json.pick
+          ) orElse doNothing)).reduce
     }
   }
 

@@ -21,8 +21,8 @@ lazy val root = (project in file("."))
   )
   .settings(
     javaOptions += "-Dlogger.resource=logback-test.xml",
-    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory) (base => Seq(base / "it")).value,
-    IntegrationTest / resourceDirectory := (IntegrationTest / baseDirectory) (base => base / "it" / "resources").value,
+    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
+    IntegrationTest / resourceDirectory := (IntegrationTest / baseDirectory)(base => base / "it" / "resources").value,
     IntegrationTest / parallelExecution := false,
     IntegrationTest / Keys.fork := true,
     addTestReportOption(IntegrationTest, "int-test-reports")
@@ -51,19 +51,10 @@ lazy val root = (project in file("."))
     ScoverageKeys.coverageMinimumStmtTotal := 80,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
-    scalacOptions ++= Seq(
-      "-feature",
-      "-Xlint:-unused",
-      "-Wconf:cat=unused-imports&site=.*views.html.*:s", // Silence import warnings in Play html files
-      "-Wconf:cat=unused-imports&site=<empty>:s", // Silence import warnings on Play `routes` files
-      "-Wconf:cat=unused-imports&site=router:s", // Silence import warnings on Play `routes` files
-      "-Wconf:cat=unused-imports&site=v1:s", // Silence import warnings on Play `v1.routes` files
-      "-Wconf:cat=unused-imports&site=v2:s", // Silence import warnings on Play `v2.routes` files
-      "-Wconf:cat=unused-imports&site=views.v1:s", // Silence import warnings on Play `views.v1.routes` files
-      "-Wconf:cat=deprecation&site=controllers\\.v1.*&origin=scala.util.Either.right:s", // Silence deprecations in generated Controller classes
-      "-Wconf:cat=deprecation&site=.*v1.Routes.*&origin=scala.util.Either.right:s"
-    ),
+    scalacOptions ++= Seq("-feature", "-Xlint:-unused", "-Wconf:src=routes/.*:s,src=views/.*:s"),
     libraryDependencies ++= AppDependencies(),
+    // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
+    libraryDependencySchemes ++= Seq("org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always),
     retrieveManaged := true,
     Concat.groups := Seq(
       "javascripts/application.js" ->

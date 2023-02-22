@@ -36,7 +36,6 @@ import play.api.libs.json.{JsValue, Json}
 import java.time.LocalDate
 import scala.util.Try
 
-
 trait CharityTransformerConstants extends SpecBase {
 
   private val date = LocalDate.now()
@@ -124,7 +123,8 @@ trait CharityTransformerConstants extends SpecBase {
     .success
     .value
 
-  lazy val jsonAllFields: JsValue = Json.parse(s"""{
+  lazy val jsonAllFields =
+    s"""{
        |  "charityRegistration": {
        |    "charity": {
        |      "charityOrganisation": {
@@ -161,7 +161,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 2000.00,
        |        "incomeReceivedToDate": 19999.99,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": true,
@@ -387,9 +387,10 @@ trait CharityTransformerConstants extends SpecBase {
        |      }
        |    ]
        |  }
-       |}""".stripMargin)
+       |}""".stripMargin
 
-  lazy val jsonMinFields: JsValue = Json.parse(s"""{
+  lazy val jsonMinFields =
+    s"""{
        |  "charityRegistration": {
        |    "common": {
        |      "bankDetails": {
@@ -455,7 +456,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 123.00,
        |        "incomeReceivedToDate": 121.00,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": false,
@@ -555,9 +556,9 @@ trait CharityTransformerConstants extends SpecBase {
        |    ]
        |  }
        |}
-       |""".stripMargin)
+       |""".stripMargin
 
-  lazy val jsonGeneral: JsValue = Json.parse(
+  lazy val jsonGeneral =
     s"""{
        |  "charityRegistration": {
        |    "common": {
@@ -624,7 +625,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 123.00,
        |        "incomeReceivedToDate": 121.00,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": false,
@@ -788,5 +789,4 @@ trait CharityTransformerConstants extends SpecBase {
        |    ]
        |  }
        |}""".stripMargin
-  )
 }

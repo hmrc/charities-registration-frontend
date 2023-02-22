@@ -22,7 +22,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
 
-
 class CharityPartnerTransformer extends JsonTransformer {
 
   val localPath: JsPath               = __ \ "charityRegistration" \ "partner"
@@ -49,7 +48,10 @@ class CharityPartnerTransformer extends JsonTransformer {
         getPhone(__ \ "individualDetails" \ "dayPhoneNumber", __ \ "organisationContactDetails" \ "phoneNumber")
       case _                              =>
         (getPhone(__ \ "individualDetails" \ "dayPhoneNumber", __ \ s"${prefix}PhoneNumber" \ "daytimePhone") and
-          getOptionalPhone(__ \ "individualDetails" \ "mobilePhone", __ \ s"${prefix}PhoneNumber" \ "mobilePhone")).reduce
+          getOptionalPhone(
+            __ \ "individualDetails" \ "mobilePhone",
+            __ \ s"${prefix}PhoneNumber" \ "mobilePhone"
+          )).reduce
     }
 
     val remainingFields = (
@@ -90,7 +92,9 @@ class CharityPartnerTransformer extends JsonTransformer {
   def userAnswersToOrgDetails: Reads[JsObject] =
     ((__ \ "orgDetails" \ "orgName").json.copyFrom((__ \ "organisationName").json.pick) and
       getPhone(__ \ "orgDetails" \ "telephoneNumber", __ \ "organisationContactDetails" \ "phoneNumber") and
-      (__ \ "orgDetails" \ "emailAddress").json.copyFrom((__ \ "organisationContactDetails" \ "email").json.pick)).reduce
+      (__ \ "orgDetails" \ "emailAddress").json.copyFrom(
+        (__ \ "organisationContactDetails" \ "email").json.pick
+      )).reduce
 
   def userAnswersToBankDetails(pathKey: String): Reads[JsObject] =
     (

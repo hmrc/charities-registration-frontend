@@ -36,7 +36,7 @@
 
     @errorSummary(form.errors, Try(form.error("expiryDate").get.args.head.toString).toOption)
 
-    @formHelper(action = submitCall, args = 'novalidate -> "novalidate") {
+    @formHelper(action = submitCall, args = Symbol("novalidate") -> "novalidate") {
 
         @fieldset(messages(s"$messagePrefix.heading", fullName)) {
 

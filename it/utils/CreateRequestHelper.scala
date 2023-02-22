@@ -19,7 +19,7 @@ package utils
 import org.scalatestplus.play.ServerProvider
 import play.api.Application
 import play.api.libs.json.JsValue
-import play.api.mvc.AnyContentAsJson
+import play.api.mvc.{AnyContentAsEmpty, AnyContentAsJson}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.POST
 import uk.gov.hmrc.http.SessionKeys
@@ -34,9 +34,8 @@ trait CreateRequestHelper extends ServerProvider {
 
   val app: Application
 
-  def buildPost(url: String, formJson: JsValue): FakeRequest[AnyContentAsJson] =
+  def buildPost(url: String): FakeRequest[AnyContentAsEmpty.type] =
     FakeRequest(POST, url)
-      .withJsonBody(formJson)
       .withSession(SessionKeys.sessionId -> UUID.randomUUID().toString, SessionKeys.authToken -> SessionKeys.authToken)
       .withHeaders("Csrf-Token" -> "nocheck")
 }

@@ -21,7 +21,6 @@ import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
 import transformers.submission.JsonTransformer
 
-
 class UserAnswerTransformer extends JsonTransformer {
 
   private val futureFunds: Reads[JsArray] = for {
@@ -33,7 +32,8 @@ class UserAnswerTransformer extends JsonTransformer {
     tradingIncome           <- nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "tradingIncome", "tradingIncome")
     tradingSubsidiaries     <-
       nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "tradingSubsidiaries", "tradingSubsidiaries")
-    investmentIncome        <- nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "investmentIncome", "investmentIncome")
+    investmentIncome        <-
+      nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "investmentIncome", "investmentIncome")
     other                   <- nodeBooleanData(__ \ "operationAndFunds" \ "futureFunds" \ "other", "other")
   } yield JsArray(
     Seq(
@@ -258,7 +258,9 @@ class UserAnswerTransformer extends JsonTransformer {
           .copyFrom((__ \ "charityContactDetails" \ "mobilePhone").json.pick) orElse doNothing) and
         (__ \ "charityContactDetails" \ "emailAddress").json
           .copyFrom(
-            (__ \ "charityContactDetails" \ "email").readNullable[String].map(value => value.fold(JsString(""))(JsString))
+            (__ \ "charityContactDetails" \ "email")
+              .readNullable[String]
+              .map(value => value.fold(JsString(""))(JsString))
           ) and
         (__ \ "isSection1Completed").json.put(JsBoolean(false))
     ).reduce
@@ -325,7 +327,9 @@ class UserAnswerTransformer extends JsonTransformer {
     charitablePurposes.flatMap { arr =>
       if (arr.value.exists(_ != JsString(""))) {
         (
-          (__ \ "charitableObjectives").json.copyFrom((__ \ "whatYourCharityDoes" \ "charitableObjectives").json.pick) and
+          (__ \ "charitableObjectives").json.copyFrom(
+            (__ \ "whatYourCharityDoes" \ "charitableObjectives").json.pick
+          ) and
             (__ \ "charitablePurposes").json.put(JsArray(arr.value.filter(_ != JsString("")))) and
             (__ \ "whatYourCharityDoesOtherReason").json.copyFrom(
               (__ \ "whatYourCharityDoes" \ "whatYourCharityDoesOtherReason").json.pick
@@ -434,7 +438,9 @@ class UserAnswerTransformer extends JsonTransformer {
 
   def toUserAnswersCharityBankAccountDetails: Reads[JsObject] =
     (
-      (__ \ "bankDetails" \ "accountName").json.copyFrom((__ \ "charityBankAccountDetails" \ "accountName").json.pick) and
+      (__ \ "bankDetails" \ "accountName").json.copyFrom(
+        (__ \ "charityBankAccountDetails" \ "accountName").json.pick
+      ) and
         (__ \ "bankDetails" \ "accountNumber").json.copyFrom(
           (__ \ "charityBankAccountDetails" \ "accountNumber").json.pick
         ) and

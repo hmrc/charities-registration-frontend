@@ -16,8 +16,9 @@
 
 package transformers.submission
 
-import java.time.LocalDate
+import com.stephenn.scalatest.jsonassert.JsonMatchers
 
+import java.time.LocalDate
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
@@ -34,8 +35,7 @@ import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
 
-
-class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
+class CharitySubmissionTransformerSpec extends CharityTransformerConstants with JsonMatchers {
 
   val jsonTransformer = new CharitySubmissionTransformer(
     new CharityTransformer,
@@ -99,7 +99,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
       localUserAnswers.data
         .transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest))
         .asOpt
-        .value mustBe jsonGeneral
+        .value
+        .toString() must matchJson(jsonGeneral)
     }
 
     "convert right with all fields filled" in {
@@ -211,7 +212,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
       userAnswers.data
         .transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest))
         .asOpt
-        .value mustBe jsonAllFields
+        .value
+        .toString() must matchJson(jsonAllFields)
     }
 
     "convert with minimum fields" in {
@@ -225,9 +227,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
       userAnswers.data
         .transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest))
         .asOpt
-        .value mustBe jsonMinFields
-
+        .value
+        .toString() must matchJson(jsonMinFields)
     }
-
   }
 }

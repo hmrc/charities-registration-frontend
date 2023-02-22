@@ -23,6 +23,7 @@ import play.api.mvc.Result
 import play.api.test.Helpers
 import play.api.test.Helpers._
 import stubs.AuthStub
+import stubs.AuthStub.authorised
 import stubs.CharitiesStub._
 import utils.{CreateRequestHelper, IntegrationSpecBase, WireMockMethods}
 
@@ -41,27 +42,22 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     Json.parse(result)
   }
 
-  private val today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-
-  private val logger = Logger(this.getClass)
-
   trait LocalSetup {
+
     def internalId: String
-    def requestJson: String
-    def transformedJson: String
+
+    private val requestJson: String = s"/$internalId.json"
 
     def ua: UserAnswers = readJsonFromFile(requestJson).as[UserAnswers]
+
     stubUserAnswerGet(ua, internalId)
     stubUserAnswerPost(ua, internalId)
-
-    AuthStub.authorised(internalId)
-
-    def transformedRequestJson: JsValue = readJsonFromFile(transformedJson)
-    stubScenario(transformedRequestJson.toString().replaceAll("T_O_D_A_Y", today))
+    authorised(internalId)
+    stubScenario()
 
     def response: Future[Result] = route(
       app,
-      buildPost(routes.DeclarationController.onSubmit.url, transformedRequestJson)
+      buildPost(routes.DeclarationController.onSubmit.url)
     ).get
 
     status(response) mustBe SEE_OTHER
@@ -75,12 +71,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
       "completed all the sections with minimum data" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
-
-            logger.info("**********scenario 1**********")
-
-            override def internalId: String      = "scenario_1_request"
-            override def requestJson: String     = "/scenario_1_request.json"
-            override def transformedJson: String = "/scenario_1_transformed_request.json"
+            override def internalId: String = "scenario_1_request"
           }
         }
       }
@@ -88,12 +79,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
       "completed all the sections with different data changes for section 1 to 6" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
-
-            logger.info("**********scenario 2**********")
-
-            override def internalId: String      = "scenario_2_request"
-            override def requestJson: String     = "/scenario_2_request.json"
-            override def transformedJson: String = "/scenario_2_transformed_request.json"
+            override def internalId: String = "scenario_2_request"
           }
         }
       }
@@ -101,12 +87,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
       "completed all the sections with different data changes for section 1 to 8" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
-
-            logger.info("**********scenario 3**********")
-
-            override def internalId: String      = "scenario_3_request"
-            override def requestJson: String     = "/scenario_3_request.json"
-            override def transformedJson: String = "/scenario_3_transformed_request.json"
+            override def internalId: String = "scenario_3_request"
           }
         }
       }
@@ -114,12 +95,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
       "completed all the sections with another set of minimum data" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
-
-            logger.info("**********scenario 4**********")
-
-            override def internalId: String      = "scenario_4_request"
-            override def requestJson: String     = "/scenario_4_request.json"
-            override def transformedJson: String = "/scenario_4_transformed_request.json"
+            override def internalId: String = "scenario_4_request"
           }
         }
       }
@@ -127,12 +103,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
       "completed all the sections with mixed data sets" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
-
-            logger.info("**********scenario 5**********")
-
-            override def internalId: String      = "scenario_5_request"
-            override def requestJson: String     = "/scenario_5_request.json"
-            override def transformedJson: String = "/scenario_5_transformed_request.json"
+            override def internalId: String = "scenario_5_request"
           }
         }
       }
@@ -140,12 +111,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
       "completed all the sections with mixed data sets with nominee as organisation" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
-
-            logger.info("**********scenario 6**********")
-
-            override def internalId: String      = "scenario_6_request"
-            override def requestJson: String     = "/scenario_6_request.json"
-            override def transformedJson: String = "/scenario_6_transformed_request.json"
+            override def internalId: String = "scenario_6_request"
           }
         }
       }
@@ -153,12 +119,7 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
       "completed all the sections with mixed data sets with nominee as individual" must {
         "submitting the data for charities registration" must {
           "redirect to registration set page" in new LocalSetup {
-
-            logger.info("**********scenario 7**********")
-
-            override def internalId: String      = "scenario_7_request"
-            override def requestJson: String     = "/scenario_7_request.json"
-            override def transformedJson: String = "/scenario_7_transformed_request.json"
+            override def internalId: String = "scenario_7_request"
           }
         }
       }
@@ -167,13 +128,11 @@ class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestH
     "user not authorised" must {
       "return SEE_OTHER (303)" in {
 
-        logger.info("**********scenario 8**********")
-
         AuthStub.unauthorised()
 
         val response = route(
           app,
-          buildPost(routes.DeclarationController.onSubmit.url, Json.toJson("status" -> true))
+          buildPost(routes.DeclarationController.onSubmit.url)
         ).get
 
         status(response) mustBe SEE_OTHER

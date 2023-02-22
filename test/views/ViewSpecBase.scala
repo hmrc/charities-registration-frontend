@@ -24,7 +24,6 @@ import org.scalatest.Assertion
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 
-
 import scala.reflect.ClassTag
 
 trait ViewSpecBase extends SpecBase with BaseSelectors {

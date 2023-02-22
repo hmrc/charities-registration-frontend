@@ -23,17 +23,17 @@ import uk.gov.hmrc.http.cache.client.{ShortLivedCache, ShortLivedHttpCaching}
 
 import javax.inject.Inject
 
-class CharitiesShortLivedHttpCaching @Inject()(val http: HttpClient, appConfig: FrontendAppConfig)
-  extends ShortLivedHttpCaching {
+class CharitiesShortLivedHttpCaching @Inject() (val http: HttpClient, appConfig: FrontendAppConfig)
+    extends ShortLivedHttpCaching {
 
   override lazy val defaultSource: String = "charities-frontend"
-  override lazy val baseUri: String = appConfig.save4laterCacheBaseUrl
-  override lazy val domain: String = appConfig.save4laterDomain
+  override lazy val baseUri: String       = appConfig.save4laterCacheBaseUrl
+  override lazy val domain: String        = appConfig.save4laterDomain
 }
 
-class CharitiesShortLivedCache @Inject()(
-                                          val shortLiveCache: CharitiesShortLivedHttpCaching,
-                                          applicationCrypto: ApplicationCrypto
-                                        ) extends ShortLivedCache {
+class CharitiesShortLivedCache @Inject() (
+  val shortLiveCache: CharitiesShortLivedHttpCaching,
+  applicationCrypto: ApplicationCrypto
+) extends ShortLivedCache {
   override implicit lazy val crypto: Encrypter with Decrypter = applicationCrypto.JsonCrypto
 }

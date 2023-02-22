@@ -20,7 +20,6 @@ import models.addressLookup.{AddressModel, CountryModel}
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-
 class CharityOfficialAddressLookupPageSpec extends PageBehaviours {
 
   "CharityOfficialAddressLookupPage" must {

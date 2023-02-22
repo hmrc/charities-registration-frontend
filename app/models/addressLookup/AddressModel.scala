@@ -20,7 +20,6 @@ import play.api.i18n.Messages
 import play.api.libs.json.{Format, JsPath, Json, Reads}
 import service.CountryService
 
-
 case class CountryModel(code: String, name: String)
 
 object CountryModel {

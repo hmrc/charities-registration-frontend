@@ -48,7 +48,6 @@ import java.time.LocalTime
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Success, Try}
 
-
 @Singleton
 class CharitiesSave4LaterService @Inject() (
   cache: CharitiesShortLivedCache,
@@ -121,7 +120,7 @@ class CharitiesSave4LaterService @Inject() (
     }
 
   private def getSwitchOverJsonData(cacheMap: CacheMap): TransformerKeeper =
-    TransformerKeeper(Json.obj(), Seq.empty)
+    TransformerKeeper(Json.obj(), List.empty)
       .getJson[CharityContactDetails](
         cacheMap,
         userAnswerTransformer.toUserAnswerCharityContactDetails,

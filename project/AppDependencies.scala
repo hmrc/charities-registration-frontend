@@ -24,7 +24,7 @@ object AppDependencies {
     "org.jsoup"               % "jsoup"                       % "1.15.3",
     "com.typesafe.play"      %% "play-test"                   % "2.8.19",
     "org.scalacheck"         %% "scalacheck"                  % "1.17.0",
-    "org.scalamock"          %% "scalamock-scalatest-support" % "3.6.0",
+    "org.scalamock"          %% "scalamock"                   % "5.2.0",
     "com.github.tomakehurst"  % "wiremock-standalone"         % "2.27.2",
     "org.mockito"            %% "mockito-scala-scalatest"     % "1.17.12",
     "org.scalatestplus"      %% "scalacheck-1-15"             % "3.2.11.0",

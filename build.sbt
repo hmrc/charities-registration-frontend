@@ -29,7 +29,7 @@ lazy val root = (project in file("."))
   )
   .settings(majorVersion := 0)
   .settings(
-    scalaVersion := "2.12.16",
+    scalaVersion := "2.13.10",
     name := appName,
     RoutesKeys.routesImport ++= Seq("models._", "models.OptionBinder._"),
     PlayKeys.playDefaultPort := 9457,

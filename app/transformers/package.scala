@@ -36,14 +36,12 @@ package object transformers {
             case JsSuccess(requestJson, _) =>
               logger.info(s"[CharitiesJsObject][getJson] $key transformation successful")
               TransformerKeeper(transformerKeeper.accumulator ++ requestJson, transformerKeeper.errors)
-
             case JsError(err) =>
               logger.error(s"[CharitiesJsObject][getJson] $key transformation failed with errors: " + err)
               TransformerKeeper(transformerKeeper.accumulator, transformerKeeper.errors ++ err)
           }
         case Success(None)         =>
           transformerKeeper
-
         case Failure(ex: JsResultException) =>
           logger.info(
             s"[CharitiesJsObject][getJson] $key transformation failed with JsResultException: " + ex.getMessage

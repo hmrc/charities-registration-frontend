@@ -58,7 +58,7 @@ trait JsonTransformer {
     }
 
   def replaceInvalidCharacters(jsonString: String): String =
-    jsonString.replaceAllLiterally("\t", " ").replaceAllLiterally("\r\n", " ")
+    jsonString.replace("\t", " ").replace("\r\n", " ")
 
   val doNothing: Reads[JsObject] = __.json.put(Json.obj())
 

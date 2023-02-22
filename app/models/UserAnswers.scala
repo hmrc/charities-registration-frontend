@@ -36,9 +36,7 @@ final case class UserAnswers(id: String, data: JsObject, lastUpdated: LocalDateT
     path(page, idx).readNullable[JsValue].reads(data).getOrElse(None)
 
   def unneededPagesNotPresent(neededPages: Seq[QuestionPage[_]], allPages: Seq[QuestionPage[_]]): Boolean =
-    allPages
-      .diff(neededPages)
-      .forall(page => checkDataPresent(page).isEmpty)
+    (allPages diff neededPages).forall(page => checkDataPresent(page).isEmpty)
 
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 

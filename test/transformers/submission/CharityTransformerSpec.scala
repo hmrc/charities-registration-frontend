@@ -31,6 +31,7 @@ import play.api.libs.json.Json
 import java.time.LocalDate
 
 class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
+
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
   val reason =
@@ -597,32 +598,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |    "operationAndFunds": {
-            |      "operationAndFundsCommon": {
-            |       "accountPeriodEnd": "0101",
-            |       "financialAccounts": true,
-            |        "noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |        "noBankStatementsB": "11223344556677889900"
-            |      },
-            |      "estimatedGrossIncome": 2000.00,
-            |      "incomeReceivedToDate": 19999.99,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |      "otherAreaOperation": true,
-            |      "englandAndWales": true,
-            |      "scotland": true,
-            |      "northernIreland": true,
-            |      "ukWide": true,
-            |      "overseas": true,
-            |      "otherCountriesOfOperation": {
-            |        "overseas1": "Country 1",
-            |        "overseas2": "Country 2",
-            |        "overseas3": "Country 3",
-            |        "overseas4": "Country 4",
-            |        "overseas5": "Country 5"
-            |        }
-            |    }
-            |}""".stripMargin
+          """
+            |{"operationAndFunds":{"incomeReceivedToDate":19999.99,"northernIreland":true,"otherCountriesOfOperation":{"overseas1":"Country 1","overseas2":"Country 2","overseas3":"Country 3","overseas4":"Country 4","overseas5":"Country 5"},"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":true,"operationAndFundsCommon":{"noBankStatementsB":"11223344556677889900","financialAccounts":true,"accountPeriodEnd":"0101","noBankStatements":"qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643"},"englandAndWales":true,"estimatedGrossIncome":2000,"scotland":true,"overseas":true}}
+            |""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe
           Json.parse(expectedJson)
@@ -645,23 +623,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |    "operationAndFunds": {
-            |      "operationAndFundsCommon": {
-            |       "accountPeriodEnd": "0101",
-            |       "financialAccounts": true
-            |      },
-            |     "estimatedGrossIncome": 123.00,
-            |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |      "otherAreaOperation": true,
-            |      "englandAndWales": true,
-            |      "scotland": false,
-            |      "northernIreland": false,
-            |      "ukWide": false,
-            |      "overseas": false
-            |    }
-            |}""".stripMargin
+          """
+            |{"operationAndFunds":{"incomeReceivedToDate":121,"northernIreland":false,"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":false,"operationAndFundsCommon":{"financialAccounts":true,"accountPeriodEnd":"0101"},"englandAndWales":true,"estimatedGrossIncome":123,"scotland":false,"overseas":false}}
+            |""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
           expectedJson
@@ -692,23 +656,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |    "operationAndFunds": {
-            |      "operationAndFundsCommon": {
-            |       "accountPeriodEnd": "0101",
-            |       "financialAccounts": true
-            |      },
-            |     "estimatedGrossIncome": 123.00,
-            |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |      "otherAreaOperation": true,
-            |      "englandAndWales": true,
-            |      "scotland": true,
-            |      "northernIreland": true,
-            |      "ukWide": true,
-            |      "overseas": false
-            |    }
-            |}""".stripMargin
+          """
+            |{"operationAndFunds":{"incomeReceivedToDate":121,"northernIreland":true,"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":true,"operationAndFundsCommon":{"financialAccounts":true,"accountPeriodEnd":"0101"},"englandAndWales":true,"estimatedGrossIncome":123,"scotland":true,"overseas":false}}
+            |""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
           expectedJson
@@ -739,23 +689,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |    "operationAndFunds": {
-            |      "operationAndFundsCommon": {
-            |       "accountPeriodEnd": "0101",
-            |       "financialAccounts": true
-            |      },
-            |     "estimatedGrossIncome": 123.00,
-            |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |      "otherAreaOperation": true,
-            |      "englandAndWales": true,
-            |      "scotland": true,
-            |      "northernIreland": true,
-            |      "ukWide": true,
-            |      "overseas": false
-            |    }
-            |}""".stripMargin
+          """
+            |{"operationAndFunds":{"incomeReceivedToDate":121,"northernIreland":true,"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":true,"operationAndFundsCommon":{"financialAccounts":true,"accountPeriodEnd":"0101"},"englandAndWales":true,"estimatedGrossIncome":123,"scotland":true,"overseas":false}}
+            |""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
           expectedJson
@@ -782,23 +718,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |    "operationAndFunds": {
-            |      "operationAndFundsCommon": {
-            |       "accountPeriodEnd": "0101",
-            |       "financialAccounts": true
-            |      },
-            |     "estimatedGrossIncome": 123.00,
-            |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |      "otherAreaOperation": true,
-            |      "englandAndWales": true,
-            |      "scotland": false,
-            |      "northernIreland": true,
-            |      "ukWide": false,
-            |      "overseas": false
-            |    }
-            |}""".stripMargin
+          """
+            |{"operationAndFunds":{"incomeReceivedToDate":121,"northernIreland":true,"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":false,"operationAndFundsCommon":{"financialAccounts":true,"accountPeriodEnd":"0101"},"englandAndWales":true,"estimatedGrossIncome":123,"scotland":false,"overseas":false}}
+            |""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
           expectedJson
@@ -825,330 +747,12 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |    "operationAndFunds": {
-            |      "operationAndFundsCommon": {
-            |       "accountPeriodEnd": "0101",
-            |       "financialAccounts": true
-            |      },
-            |     "estimatedGrossIncome": 123.00,
-            |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |      "otherAreaOperation": true,
-            |      "englandAndWales": true,
-            |      "scotland": false,
-            |      "northernIreland": false,
-            |      "ukWide": false,
-            |      "overseas": false
-            |    }
-            |}""".stripMargin
+          """
+            |{"operationAndFunds":{"incomeReceivedToDate":121,"northernIreland":false,"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":false,"operationAndFundsCommon":{"financialAccounts":true,"accountPeriodEnd":"0101"},"englandAndWales":true,"estimatedGrossIncome":123,"scotland":false,"overseas":false}}
+            |""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
-      }
-    }
-
-    "userAnswersToCharitableObjectives" must {
-
-      "convert the correct CharitableObjectives" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            CharitableObjectivesPage,
-            reason
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |   "charitableObjectives": {
-            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |      "objectivesB": "11223344556677889900"
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharitableObjectives).asOpt.value mustBe Json
-          .parse(expectedJson)
-      }
-
-      "convert the correct CharitableObjectives with few selections" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            CharitableObjectivesPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |   "charitableObjectives": {
-            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharitableObjectives).asOpt.value mustBe Json
-          .parse(expectedJson)
-      }
-
-      "convert the correct CharitableObjectives and replace tabs and new line characters with spaces and changes are <255 characters long" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            CharitableObjectivesPage,
-            "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |   "charitableObjectives": {
-            |      "objectivesA": "Hello I am writing this story to test replace tab  and new line  characters. If total length of the story is greater than 255 characters after replacing the tab and new line  characters then split first 255 characters in part 1  and remaining in part 2"
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharitableObjectives).asOpt.value mustBe Json
-          .parse(expectedJson)
-      }
-    }
-
-    "userAnswersToCharitablePurposes" must {
-
-      "convert the correct CharitablePurposes object" in {
-
-        val localUserAnswers =
-          emptyUserAnswers.set(CharitablePurposesPage, CharitablePurposes.values.toSet).success.value
-
-        val expectedJson =
-          """{
-            |   "charitablePurposes": {
-            |      "reliefOfPoverty": true,
-            |      "education": true,
-            |      "religion": true,
-            |      "healthOrSavingOfLives": true,
-            |      "citizenshipOrCommunityDevelopment": true,
-            |      "artsCultureOrScience": true,
-            |      "amateurSport": true,
-            |      "humanRights": true,
-            |      "environmentalProtection": true,
-            |      "reliefOfYouthAge": true,
-            |      "animalWelfare": true,
-            |      "armedForcesOfTheCrown": true,
-            |      "other": true
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharitablePurposes).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
-      }
-
-      "convert the correct CharitablePurposes object with few selections" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare))
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |   "charitablePurposes": {
-            |      "reliefOfPoverty": false,
-            |      "education": false,
-            |      "religion": false,
-            |      "healthOrSavingOfLives": false,
-            |      "citizenshipOrCommunityDevelopment": false,
-            |      "artsCultureOrScience": false,
-            |      "amateurSport": true,
-            |      "humanRights": false,
-            |      "environmentalProtection": false,
-            |      "reliefOfYouthAge": false,
-            |      "animalWelfare": true,
-            |      "armedForcesOfTheCrown": false,
-            |      "other": false
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharitablePurposes).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
-      }
-    }
-
-    "userAnswersToPublicBenefit" must {
-
-      "convert the correct PublicBenefit object" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            PublicBenefitsPage,
-            reason
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |   "publicBenefit": {
-            |      "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |      "publicBenefitB": "11223344556677889900"
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToPublicBenefit).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
-      }
-
-      "convert the correct PublicBenefit object with few selections" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |   "publicBenefit": {
-            |      "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToPublicBenefit).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
-      }
-
-      "convert the correct PublicBenefit object and replace tabs and new line characters with spaces and changes are <255 characters long" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            PublicBenefitsPage,
-            "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |   "publicBenefit": {
-            |      "publicBenefitA": "Hello I am writing this story to test replace tab  and new line  characters. If total length of the story is greater than 255 characters after replacing the tab and new line  characters then split first 255 characters in part 1  and remaining in part 2"
-            |   }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToPublicBenefit).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
-      }
-    }
-
-    "userAnswersToOrgPurpose" must {
-
-      "convert the correct OrgPurpose object all objects" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            PublicBenefitsPage,
-            reason
-          )
-          .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
-          .flatMap(
-            _.set(
-              CharitableObjectivesPage,
-              reason
-            )
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |"orgPurpose": {
-            |   "charitableObjectives": {
-            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |      "objectivesB": "11223344556677889900"
-            |   },
-            |   "charitablePurposes": {
-            |      "reliefOfPoverty": true,
-            |      "education": true,
-            |      "religion": true,
-            |      "healthOrSavingOfLives": true,
-            |      "citizenshipOrCommunityDevelopment": true,
-            |      "artsCultureOrScience": true,
-            |      "amateurSport": true,
-            |      "humanRights": true,
-            |      "environmentalProtection": true,
-            |      "reliefOfYouthAge": true,
-            |      "animalWelfare": true,
-            |      "armedForcesOfTheCrown": true,
-            |      "other": true
-            |   },
-            |   "publicBenefit": {
-            |        "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |        "publicBenefitB": "11223344556677889900"
-            |   }
-            |  }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOrgPurpose).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
-      }
-
-      "convert the correct OrgPurpose object with minimum objects" in {
-
-        val localUserAnswers = emptyUserAnswers
-          .set(
-            PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-          )
-          .flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare)))
-          .flatMap(
-            _.set(
-              CharitableObjectivesPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-            )
-          )
-          .success
-          .value
-
-        val expectedJson =
-          """{
-            |"orgPurpose": {
-            |   "charitableObjectives": {
-            |      "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-            |   },
-            |   "charitablePurposes": {
-            |      "reliefOfPoverty": false,
-            |      "education": false,
-            |      "religion": false,
-            |      "healthOrSavingOfLives": false,
-            |      "citizenshipOrCommunityDevelopment": false,
-            |      "artsCultureOrScience": false,
-            |      "amateurSport": true,
-            |      "humanRights": false,
-            |      "environmentalProtection": false,
-            |      "reliefOfYouthAge": false,
-            |      "animalWelfare": true,
-            |      "armedForcesOfTheCrown": false,
-            |      "other": false
-            |   },
-            |   "publicBenefit": {
-            |        "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-            |   }
-            |  }
-            |}""".stripMargin
-
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOrgPurpose).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
     }
 
@@ -1216,86 +820,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |  "charityRegistration": {
-            |    "charity": {
-            |      "charityOrganisation": {
-            |        "registeredRegulator": true,
-            |        "regulator": {
-            |          "ccew": true,
-            |          "ccewRegistrationNumber": "123456",
-            |          "oscr": true,
-            |          "oscrRegistrationNumber": "SC123456",
-            |          "ccni": true,
-            |          "ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
-            |          "otherRegulator": true,
-            |          "otherRegulatorName": "Other Regulator Name",
-            |          "otherRegulatorRegistrationNumber": "12345678901234567890"
-            |        }
-            |      },
-            |      "aboutOrganisation": {
-            |        "aboutOrgCommon": {
-            |          "otherDocument": "Other Documents for Charity",
-            |          "effectiveDate": "2014-07-01"
-            |        },
-            |        "documentEnclosed": "2",
-            |        "governingApprovedDoc": true,
-            |        "governingApprovedWords": true,
-            |        "governingApprovedChanges": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |        "governingApprovedChangesB": "11223344556677889900"
-            |      },
-            |      "operationAndFunds": {
-            |        "operationAndFundsCommon": {
-            |          "accountPeriodEnd": "0101",
-            |          "financialAccounts": true,
-            |          "noBankStatements": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |          "noBankStatementsB": "11223344556677889900"
-            |        },
-            |        "estimatedGrossIncome": 2000.00,
-            |        "incomeReceivedToDate": 19999.99,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |        "otherAreaOperation": true,
-            |        "englandAndWales": true,
-            |        "scotland": true,
-            |        "northernIreland": true,
-            |        "ukWide": true,
-            |        "overseas": true,
-            |        "otherCountriesOfOperation": {
-            |          "overseas1": "Country 1",
-            |          "overseas2": "Country 2",
-            |          "overseas3": "Country 3",
-            |          "overseas4": "Country 4",
-            |          "overseas5": "Country 5"
-            |        }
-            |      },
-            |      "orgPurpose": {
-            |        "charitableObjectives": {
-            |          "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |          "objectivesB": "11223344556677889900"
-            |        },
-            |        "charitablePurposes": {
-            |          "reliefOfPoverty": true,
-            |          "education": true,
-            |          "religion": true,
-            |          "healthOrSavingOfLives": true,
-            |          "citizenshipOrCommunityDevelopment": true,
-            |          "artsCultureOrScience": true,
-            |          "amateurSport": true,
-            |          "humanRights": true,
-            |          "environmentalProtection": true,
-            |          "reliefOfYouthAge": true,
-            |          "animalWelfare": true,
-            |          "armedForcesOfTheCrown": true,
-            |          "other": true
-            |        },
-            |        "publicBenefit": {
-            |          "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643",
-            |          "publicBenefitB": "11223344556677889900"
-            |        }
-            |      }
-            |    }
-            |  }
-            |}""".stripMargin
+          """
+            |{"charityRegistration":{"charity":{"operationAndFunds":{"incomeReceivedToDate":19999.99,"northernIreland":true,"otherCountriesOfOperation":{"overseas1":"Country 1","overseas2":"Country 2","overseas3":"Country 3","overseas4":"Country 4","overseas5":"Country 5"},"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":true,"operationAndFundsCommon":{"noBankStatementsB":"11223344556677889900","financialAccounts":true,"accountPeriodEnd":"0101","noBankStatements":"qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643"},"englandAndWales":true,"estimatedGrossIncome":2000,"scotland":true,"overseas":true},"charityOrganisation":{"registeredRegulator":true,"regulator":{"otherRegulatorName":"Other Regulator Name","ccni":true,"oscr":true,"ccewRegistrationNumber":"123456","oscrRegistrationNumber":"SC123456","ccew":true,"otherRegulator":true,"ccniRegistrationNumber":"ABCDEFGHIJ1234567890","otherRegulatorRegistrationNumber":"12345678901234567890"}},"orgPurpose":{"charitablePurposes":{"other":true,"education":true,"animalWelfare":true,"humanRights":true,"healthOrSavingOfLives":true,"religion":true,"artsCultureOrScience":true,"amateurSport":true,"citizenshipOrCommunityDevelopment":true,"environmentalProtection":true,"reliefOfPoverty":true,"armedForcesOfTheCrown":true,"reliefOfYouthAge":true},"charitableObjectives":{"objectivesB":"11223344556677889900","objectivesA":"qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643"},"publicBenefit":{"publicBenefitB":"11223344556677889900","publicBenefitA":"qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643"}},"aboutOrganisation":{"governingApprovedDoc":true,"governingApprovedChangesB":"11223344556677889900","documentEnclosed":"2","aboutOrgCommon":{"otherDocument":"Other Documents for Charity","effectiveDate":"2014-07-01"},"governingApprovedChanges":"qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6643","governingApprovedWords":true}}}}
+            |""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToCharity).asOpt.value mustBe Json.parse(
           expectedJson
@@ -1338,63 +865,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
-            |  "charityRegistration": {
-            |    "charity": {
-            |      "charityOrganisation": {
-            |        "registeredRegulator": false,
-            |        "nonRegReason": "1"
-            |      },
-            |      "aboutOrganisation": {
-            |        "aboutOrgCommon": {
-            |          "otherDocument": "Other Documents for Charity",
-            |          "effectiveDate": "2014-07-01"
-            |        },
-            |        "documentEnclosed": "2",
-            |        "governingApprovedDoc": false,
-            |        "governingApprovedWords": true
-            |      },
-            |      "operationAndFunds": {
-            |        "operationAndFundsCommon": {
-            |          "accountPeriodEnd": "0101",
-            |          "financialAccounts": true
-            |        },
-            |        "estimatedGrossIncome": 123.00,
-            |        "incomeReceivedToDate": 121.00,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
-            |        "otherAreaOperation": true,
-            |        "englandAndWales": true,
-            |        "scotland": false,
-            |        "northernIreland": false,
-            |        "ukWide": false,
-            |        "overseas": false
-            |      },
-            |      "orgPurpose": {
-            |        "charitableObjectives": {
-            |          "objectivesA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-            |        },
-            |        "charitablePurposes": {
-            |          "reliefOfPoverty": false,
-            |          "education": false,
-            |          "religion": false,
-            |          "healthOrSavingOfLives": false,
-            |          "citizenshipOrCommunityDevelopment": false,
-            |          "artsCultureOrScience": false,
-            |          "amateurSport": true,
-            |          "humanRights": false,
-            |          "environmentalProtection": false,
-            |          "reliefOfYouthAge": false,
-            |          "animalWelfare": true,
-            |          "armedForcesOfTheCrown": false,
-            |          "other": false
-            |        },
-            |        "publicBenefit": {
-            |          "publicBenefitA": "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-            |        }
-            |      }
-            |    }
-            |  }
-            |}""".stripMargin
+          """
+            | {"charityRegistration":{"charity":{"operationAndFunds":{"incomeReceivedToDate":121,"northernIreland":false,"otherAreaOperation":true,"futureFunds":"other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions","ukWide":false,"operationAndFundsCommon":{"financialAccounts":true,"accountPeriodEnd":"0101"},"englandAndWales":true,"estimatedGrossIncome":123,"scotland":false,"overseas":false},"charityOrganisation":{"nonRegReason":"1","registeredRegulator":false},"orgPurpose":{"charitablePurposes":{"other":false,"education":false,"animalWelfare":true,"humanRights":false,"healthOrSavingOfLives":false,"religion":false,"artsCultureOrScience":false,"amateurSport":true,"citizenshipOrCommunityDevelopment":false,"environmentalProtection":false,"reliefOfPoverty":false,"armedForcesOfTheCrown":false,"reliefOfYouthAge":false},"charitableObjectives":{"objectivesA":"qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"},"publicBenefit":{"publicBenefitA":"qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"}},"aboutOrganisation":{"governingApprovedDoc":false,"documentEnclosed":"2","aboutOrgCommon":{"otherDocument":"Other Documents for Charity","effectiveDate":"2014-07-01"},"governingApprovedWords":true}}}}
+            |""".stripMargin
 
         localUserAnswers.data.transform(jsonTransformer.userAnswersToCharity).asOpt.value mustBe Json.parse(
           expectedJson

@@ -120,7 +120,7 @@ class CharitiesSave4LaterService @Inject() (
     }
 
   private def getSwitchOverJsonData(cacheMap: CacheMap): TransformerKeeper =
-    TransformerKeeper(Json.obj(), List.empty)
+    TransformerKeeper(Json.obj(), Seq.empty)
       .getJson[CharityContactDetails](
         cacheMap,
         userAnswerTransformer.toUserAnswerCharityContactDetails,

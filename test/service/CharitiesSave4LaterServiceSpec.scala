@@ -1199,7 +1199,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] =
           PrivateMethod[Future[Either[Call, UserAnswers]]](Symbol("updateSwitchOverUserAnswer"))
 
-        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
 
         val ua: UserAnswers = UserAnswers(
           "8799940975137654",
@@ -1281,7 +1281,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] =
           PrivateMethod[Future[Either[Call, UserAnswers]]](Symbol("updateSwitchOverUserAnswer"))
 
-        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
 
         val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj())
 
@@ -1325,7 +1325,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       "return false when all sections are completed and charity name is more than 60 characters" in new LocalSetup
         with PrivateMethodTester {
 
-        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]]("isSection1Completed")
+        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
 
         val ua: UserAnswers = UserAnswers(
           "8799940975137654",

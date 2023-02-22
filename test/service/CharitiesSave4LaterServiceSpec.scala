@@ -25,7 +25,6 @@ import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.mockito.Mockito.{atLeastOnce, doNothing, reset, times, verify, when}
 import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
 import org.mockito.MockitoSugar
 import pages.sections.{Section1Page, Section7Page, Section8Page}
@@ -202,7 +201,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe Json.obj()
+        result.toOption.get.data mustBe Json.obj()
       }
 
       "return valid object when its valid for contactDetails only" in new LocalSetup {
@@ -225,7 +224,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails and charityAddress" in new LocalSetup {
@@ -251,7 +250,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress and correspondenceAddress" in new LocalSetup {
@@ -282,7 +281,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress and regulator" in new LocalSetup {
@@ -323,7 +322,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator and charityGoverningDocument2" in new LocalSetup {
@@ -371,7 +370,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2 and whatYourCharityDoes" in new LocalSetup {
@@ -425,7 +424,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2, whatYourCharityDoes and operationAndFunds" in new LocalSetup {
@@ -497,7 +496,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for how many auth officials and no auth officials details" in new LocalSetup {
@@ -518,7 +517,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for how many auth officials and two auth officials" in new LocalSetup {
@@ -630,7 +629,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for how many auth officials and no other officials details" in new LocalSetup {
@@ -651,7 +650,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes, operationAndFunds, charityBankAccountDetails, how many auth officials and two auth officials, how many other officials and two other officials" in new LocalSetup {
@@ -960,7 +959,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityAddNominee" in new LocalSetup {
@@ -981,7 +980,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityNomineeStatus" in new LocalSetup {
@@ -1003,7 +1002,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityNomineeStatus, charityNomineeIndividual" in new LocalSetup {
@@ -1031,7 +1030,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid charityNomineeStatus, charityNomineeOrganisation" in new LocalSetup {
@@ -1064,7 +1063,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return valid object when its valid Acknowledgement" in new LocalSetup {
@@ -1085,7 +1084,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return CannotFindApplication when CacheMap return None for switchover case" in new LocalSetup {
@@ -1114,7 +1113,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return object when request with user answers and invalid data for section 7 and 8 completed status" in new LocalSetup {
@@ -1132,7 +1131,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return object when request without user answers, last session with data and when CacheMap return None" in new LocalSetup {
@@ -1148,7 +1147,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.right.get.data mustBe responseJson.data
+        result.toOption.get.data mustBe responseJson.data
       }
 
       "return CannotFindApplication when request without user answers, last session with data and when CacheMap return None" in new LocalSetup {
@@ -1216,7 +1215,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
-          res.right.get.data mustBe ua.data
+          res.toOption.get.data mustBe ua.data
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
         verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())
@@ -1290,7 +1289,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
-          res.right.get.data mustBe emptyUserAnswers.data
+          res.toOption.get.data mustBe emptyUserAnswers.data
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
         verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())

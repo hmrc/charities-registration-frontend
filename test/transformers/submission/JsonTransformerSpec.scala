@@ -86,8 +86,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getAddress(
-              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-              __ \ 'charityOfficialAddress
+              __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+              __ \ "charityOfficialAddress"
             )
           )
           .asOpt
@@ -123,8 +123,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getAddress(
-              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-              __ \ 'charityOfficialAddress
+              __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+              __ \ "charityOfficialAddress"
             )
           )
           .asOpt
@@ -162,8 +162,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -205,8 +205,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -248,8 +248,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -291,8 +291,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -334,8 +334,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -377,8 +377,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -415,8 +415,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -453,8 +453,8 @@ class JsonTransformerSpec extends SpecBase {
           userAnswers.data
             .transform(
               jsonTransformer.getAddress(
-                __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'officialAddress,
-                __ \ 'charityOfficialAddress
+                __ \ "charityRegistration" \ "common" \ "addressDetails" \ "officialAddress",
+                __ \ "charityOfficialAddress"
               )
             )
             .asOpt
@@ -500,8 +500,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getOptionalAddress(
-              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'charityCorrespondenceAddress,
-              __ \ 'charityOfficialAddress
+              __ \ "charityRegistration" \ "common" \ "addressDetails" \ "charityCorrespondenceAddress",
+              __ \ "charityOfficialAddress"
             )
           )
           .asOpt
@@ -513,8 +513,8 @@ class JsonTransformerSpec extends SpecBase {
         emptyUserAnswers.data
           .transform(
             jsonTransformer.getOptionalAddress(
-              __ \ 'charityRegistration \ 'common \ 'addressDetails \ 'charityCorrespondenceAddress,
-              __ \ 'charityOfficialAddress
+              __ \ "charityRegistration" \ "common" \ "addressDetails" \ "charityCorrespondenceAddress",
+              __ \ "charityOfficialAddress"
             )
           )
           .asOpt
@@ -536,8 +536,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getPhone(
-              __ \ 'individualDetails \ 'dayPhoneNumber,
-              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone
+              __ \ "individualDetails" \ "dayPhoneNumber",
+              __ \ "authorisedOfficials" \ 0 \ "officialsPhoneNumber" \ "daytimePhone"
             )
           )
           .asOpt
@@ -557,8 +557,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getPhone(
-              __ \ 'individualDetails \ 'dayPhoneNumber,
-              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'daytimePhone
+              __ \ "individualDetails" \ "dayPhoneNumber",
+              __ \ "authorisedOfficials" \ 0 \ "officialsPhoneNumber" \ "daytimePhone"
             )
           )
           .asOpt
@@ -581,8 +581,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getOptionalPhone(
-              __ \ 'individualDetails \ 'mobilePhone,
-              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone
+              __ \ "individualDetails" \ "mobilePhone",
+              __ \ "authorisedOfficials" \ 0 \ "officialsPhoneNumber" \ "mobilePhone"
             )
           )
           .asOpt
@@ -602,8 +602,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getOptionalPhone(
-              __ \ 'individualDetails \ 'mobilePhone,
-              __ \ 'authorisedOfficials \ 0 \ 'officialsPhoneNumber \ 'mobilePhone
+              __ \ "individualDetails" \ "mobilePhone",
+              __ \ "authorisedOfficials" \ 0 \ "officialsPhoneNumber" \ "mobilePhone"
             )
           )
           .asOpt
@@ -641,8 +641,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getName(
-              __ \ 'charityRegistration \ 'common \ 'declarationInfo \ 'name,
-              __ \ 'authorisedOfficials \ 0 \ 'officialsName
+              __ \ "charityRegistration" \ "common" \ "declarationInfo" \ "name",
+              __ \ "authorisedOfficials" \ 0 \ "officialsName"
             )
           )
           .asOpt
@@ -674,8 +674,8 @@ class JsonTransformerSpec extends SpecBase {
         userAnswers.data
           .transform(
             jsonTransformer.getName(
-              __ \ 'charityRegistration \ 'common \ 'declarationInfo \ 'name,
-              __ \ 'authorisedOfficials \ 0 \ 'officialsName
+              __ \ "charityRegistration" \ "common" \ "declarationInfo" \ "name",
+              __ \ "authorisedOfficials" \ 0 \ "officialsName"
             )
           )
           .asOpt

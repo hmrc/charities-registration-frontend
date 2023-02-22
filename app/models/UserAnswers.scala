@@ -24,12 +24,8 @@ import play.api.libs.json._
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
-final case class UserAnswers(
-  id: String,
-  data: JsObject,
-  lastUpdated: LocalDateTime,
-  expiresAt: LocalDateTime
-) {
+
+final case class UserAnswers(id: String, data: JsObject, lastUpdated: LocalDateTime, expiresAt: LocalDateTime) {
 
   def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean =
     if (pages.isEmpty) {

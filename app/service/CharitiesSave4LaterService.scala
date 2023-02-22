@@ -48,6 +48,7 @@ import java.time.LocalTime
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Success, Try}
 
+
 @Singleton
 class CharitiesSave4LaterService @Inject() (
   cache: CharitiesShortLivedCache,

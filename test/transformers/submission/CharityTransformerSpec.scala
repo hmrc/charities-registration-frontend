@@ -16,7 +16,6 @@
 
 package transformers.submission
 
-import java.time.LocalDate
 import base.SpecBase
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
@@ -25,12 +24,15 @@ import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
-import org.mockito.ArgumentMatchers.any
 import pages.operationsAndFunds._
 import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
-class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
+
+import java.time.LocalDate
+
+class CharityTransformerSpec extends  CharityTransformerConstants {
+
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
   "CharityTransformer" when {
@@ -843,9 +845,10 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        println(localUserAnswers.data  + "***********\n")
+        println(localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value + "***********\n")
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
     }
 
@@ -1401,9 +1404,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |  }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharity).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharity).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
     }
 

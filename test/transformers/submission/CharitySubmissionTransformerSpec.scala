@@ -34,6 +34,7 @@ import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
 
+
 class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
   val jsonTransformer = new CharitySubmissionTransformer(

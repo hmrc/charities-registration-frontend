@@ -17,29 +17,27 @@
 package controllers
 
 import config.FrontendAppConfig
-import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
-import javax.inject.Inject
-import models.requests.DataRequest
+import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import pages.OldServiceSubmissionPage
-import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import utils.ImplicitDateFormatter
 import views.html.ApplicationBeingProcessedView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
-class ApplicationBeingProcessedController @Inject() (
-  identify: AuthIdentifierAction,
-  getData: UserDataRetrievalAction,
-  view: ApplicationBeingProcessedView,
-  val controllerComponents: MessagesControllerComponents
-)(implicit appConfig: FrontendAppConfig)
-    extends ImplicitDateFormatter
+class ApplicationBeingProcessedController @Inject()(
+                                                     identify: AuthIdentifierAction,
+                                                     getData: UserDataRetrievalAction,
+                                                     view: ApplicationBeingProcessedView,
+                                                     val controllerComponents: MessagesControllerComponents
+                                                   )(implicit appConfig: FrontendAppConfig)
+  extends ImplicitDateFormatter
     with LocalBaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     request.userAnswers match {
-      case None       =>
+      case None =>
         Future.successful(Redirect(routes.PageNotFoundController.onPageLoad()))
       case Some(data) =>
         data.get(OldServiceSubmissionPage) match {

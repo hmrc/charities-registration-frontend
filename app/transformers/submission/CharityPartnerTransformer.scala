@@ -22,6 +22,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
 
+
 class CharityPartnerTransformer extends JsonTransformer {
 
   val localPath: JsPath               = __ \ "charityRegistration" \ "partner"

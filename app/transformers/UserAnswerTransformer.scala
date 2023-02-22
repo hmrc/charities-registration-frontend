@@ -21,6 +21,7 @@ import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
 import transformers.submission.JsonTransformer
 
+
 class UserAnswerTransformer extends JsonTransformer {
 
   private val futureFunds: Reads[JsArray] = for {

@@ -36,6 +36,7 @@ import play.api.libs.json.{JsValue, Json}
 import java.time.LocalDate
 import scala.util.Try
 
+
 trait CharityTransformerConstants extends SpecBase {
 
   private val date = LocalDate.now()

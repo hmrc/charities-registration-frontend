@@ -20,6 +20,7 @@ import models.addressLookup.{AddressModel, CountryModel}
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
+
 class NomineeIndividualAddressLookupPageSpec extends PageBehaviours {
 
   "NomineeIndividualAddressLookupPage" must {

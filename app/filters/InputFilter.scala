@@ -37,10 +37,13 @@ trait InputFilter {
 
   def filter(input: String): String = {
     @tailrec
-    def applyFilters(filters: Seq[Pattern], sanitizedOuput: String): String = filters match {
-      case Nil            => sanitizedOuput.filterNot(_ == '|')
-      case filter :: tail => applyFilters(tail, filter.matcher(sanitizedOuput).replaceAll(""))
-    }
+    def applyFilters(filters: Seq[Pattern], sanitizedOutput: String): String =
+      filters match {
+        case Nil            => sanitizedOutput.filterNot(_ == '|')
+        case filter :: tail => applyFilters(tail, filter.matcher(sanitizedOutput).replaceAll(""))
+        case _              => throw new RuntimeException("[InputFilter][applyFilters] Unable to match filters")
+      }
+
     applyFilters(filters, input)
   }
 }

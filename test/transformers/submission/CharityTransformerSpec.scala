@@ -16,7 +16,6 @@
 
 package transformers.submission
 
-import base.SpecBase
 import com.stephenn.scalatest.jsonassert.JsonMatchers
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
@@ -32,6 +31,13 @@ import play.api.libs.json.Json
 import java.time.LocalDate
 
 class CharityTransformerSpec extends CharityTransformerConstants with JsonMatchers {
+
+  //scalastyle:off magic.number
+
+  val reason =
+    "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre" +
+      "664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxa" +
+      "sxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
 
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
@@ -251,7 +257,10 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct AboutOrganisationCommon object when other is not defined" in {
 
         val localUserAnswers =
-          emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).success.value
+          emptyUserAnswers
+            .set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            .success
+            .value
 
         val expectedJson =
           """{
@@ -279,7 +288,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
               .flatMap(
                 _.set(
                   SectionsChangedGoverningDocumentPage,
-                  "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+                  reason
                 )
               )
           )
@@ -421,7 +430,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             _.set(IsFinancialAccountsPage, true).flatMap(
               _.set(
                 WhyNoBankStatementPage,
-                "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+                reason
               )
             )
           )
@@ -580,7 +589,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
           .flatMap(
             _.set(
               WhyNoBankStatementPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00)))
@@ -726,9 +735,10 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFunds object with England, Scotland and Northern Ireland" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
-            MongoDateTimeFormats.localDayMonthWrite
-          )
+          .set(
+            AccountingPeriodEndDatePage,
+            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)
+          )(MongoDateTimeFormats.localDayMonthWrite)
           .flatMap(_.set(IsFinancialAccountsPage, true))
           .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
           .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
@@ -870,7 +880,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(
             CharitableObjectivesPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+            reason
           )
           .success
           .value
@@ -913,7 +923,9 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(
             CharitableObjectivesPage,
-            "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"
+            "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. " +
+              "If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters " +
+              "then split first 255 characters in part 1 \r\nand remaining in part 2"
           )
           .success
           .value
@@ -1000,7 +1012,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(
             PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+            reason
           )
           .success
           .value
@@ -1070,13 +1082,13 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(
             PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+            reason
           )
           .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
           .flatMap(
             _.set(
               CharitableObjectivesPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .success
@@ -1185,14 +1197,14 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
           .flatMap(
             _.set(
               PublicBenefitsPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
           .flatMap(
             _.set(
               CharitableObjectivesPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .flatMap(
@@ -1201,24 +1213,14 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
                 .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
-                .flatMap(
-                  _.set(
-                    SectionsChangedGoverningDocumentPage,
-                    "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-                  )
-                )
+                .flatMap(_.set(SectionsChangedGoverningDocumentPage, reason))
             )
           )
           .flatMap(
             _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
               MongoDateTimeFormats.localDayMonthWrite
             ).flatMap(_.set(IsFinancialAccountsPage, true))
-              .flatMap(
-                _.set(
-                  WhyNoBankStatementPage,
-                  "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-                )
-              )
+              .flatMap(_.set(WhyNoBankStatementPage, reason))
               .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00)))
               .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(19999.99)))
               .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))

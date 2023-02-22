@@ -99,8 +99,10 @@ package object models {
           val updatedJsArray = valueToRemoveFrom.value.slice(0, index) ++ valueToRemoveFrom.value
             .slice(index + 1, valueToRemoveFrom.value.size)
           JsSuccess(JsArray(updatedJsArray))
-        case valueToRemoveFrom: JsArray                                                         => JsError(s"array index out of bounds: $index, $valueToRemoveFrom")
-        case _                                                                                  => JsError(s"cannot set an index on $valueToRemoveFrom")
+        case valueToRemoveFrom: JsArray                                                         =>
+          JsError(s"array index out of bounds: $index, $valueToRemoveFrom")
+        case _                                                                                  =>
+          JsError(s"cannot set an index on $valueToRemoveFrom")
       }
     }
 
@@ -118,12 +120,16 @@ package object models {
 
     def remove(path: JsPath): JsResult[JsValue] =
       (path.path, jsValue) match {
-        case (Nil, _)                                                                  => JsError("path cannot be empty")
-        case ((n: KeyPathNode) :: Nil, value: JsObject) if value.keys.contains(n.key)  => JsSuccess(value - n.key)
+        case (Nil, _)                                                                  =>
+          JsError("path cannot be empty")
+        case ((n: KeyPathNode) :: Nil, value: JsObject) if value.keys.contains(n.key)  =>
+          JsSuccess(value - n.key)
         case ((n: KeyPathNode) :: Nil, value: JsObject) if !value.keys.contains(n.key) =>
           JsError("cannot find value at path")
-        case ((n: IdxPathNode) :: Nil, value: JsArray)                                 => removeIndexNode(n, value)
-        case ((_: KeyPathNode) :: Nil, _)                                              => JsError(s"cannot remove a key on $jsValue")
+        case ((n: IdxPathNode) :: Nil, value: JsArray)                                 =>
+          removeIndexNode(n, value)
+        case ((_: KeyPathNode) :: Nil, _)                                              =>
+          JsError(s"cannot remove a key on $jsValue")
         case (first :: second :: rest, oldValue)                                       =>
           Reads
             .optionNoError(Reads.at[JsValue](JsPath(first :: Nil)))
@@ -147,6 +153,7 @@ package object models {
                   }
                 }
             }
+        case _                                                                         => throw new RuntimeException("[RichJsValue][remove] unable to match JsPath or JsValue")
       }
   }
 }

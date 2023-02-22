@@ -26,6 +26,7 @@ import pages.IndexPage
 import pages.operationsAndFunds._
 
 class FundRaisingNavigatorSpec extends SpecBase {
+  //scalastyle:off magic.number
 
   private val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
 
@@ -149,27 +150,29 @@ class FundRaisingNavigatorSpec extends SpecBase {
             routes.PageNotFoundController.onPageLoad()
         }
 
-        "go to What countries does the charity operate in summary page when country is entered and clicked continue when summary wasn't visited before" in {
-          navigator.nextPage(
-            WhatCountryDoesTheCharityOperateInPage(0),
-            NormalMode,
-            emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "PL").success.value
-          ) mustBe
-            operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
-        }
+        "go to What countries does the charity operate in summary page when country is entered and clicked continue when " +
+          "summary WASN'T visited before" in {
+            navigator.nextPage(
+              WhatCountryDoesTheCharityOperateInPage(0),
+              NormalMode,
+              emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "PL").success.value
+            ) mustBe
+              operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
+          }
 
-        "go to What countries does the charity operate in summary page when country is entered and clicked continue when summary was visited before" in {
-          navigator.nextPage(
-            WhatCountryDoesTheCharityOperateInPage(0),
-            NormalMode,
-            emptyUserAnswers
-              .set(OverseasOperatingLocationSummaryPage, true)
-              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
-              .success
-              .value
-          ) mustBe
-            operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
-        }
+        "go to What countries does the charity operate in summary page when country is entered and clicked continue when " +
+          "summary WAS visited before" in {
+            navigator.nextPage(
+              WhatCountryDoesTheCharityOperateInPage(0),
+              NormalMode,
+              emptyUserAnswers
+                .set(OverseasOperatingLocationSummaryPage, true)
+                .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+                .success
+                .value
+            ) mustBe
+              operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
+          }
 
         "go to What countries does the charity operate page when country is entered and clicked continue when" +
           "summary was visited before but answered OverseasOperatingLocationSummaryPage" in {
@@ -388,9 +391,10 @@ class FundRaisingNavigatorSpec extends SpecBase {
             AccountingPeriodEndDatePage,
             NormalMode,
             emptyUserAnswers
-              .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(
-                MongoDateTimeFormats.localDayMonthWrite
-              )
+              .set(
+                AccountingPeriodEndDatePage,
+                MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate)
+              )(MongoDateTimeFormats.localDayMonthWrite)
               .success
               .value
           ) mustBe
@@ -446,17 +450,18 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.OtherFundRaisingController.onPageLoad(CheckMode)
         }
 
-        "go to the Summary page when user answer is 'other', the 'other fundraising methods' page has already been answered, and clicked continue button" in {
-          navigator.nextPage(
-            FundRaisingPage,
-            CheckMode,
-            emptyUserAnswers
-              .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other))
-              .flatMap(_.set(OtherFundRaisingPage, "some fundraising method"))
-              .getOrElse(emptyUserAnswers)
-          ) mustBe
-            operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
-        }
+        "go to the Summary page when user answer is 'other', the 'other fundraising methods' page has already been answered," +
+          " and clicked continue button" in {
+            navigator.nextPage(
+              FundRaisingPage,
+              CheckMode,
+              emptyUserAnswers
+                .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Other))
+                .flatMap(_.set(OtherFundRaisingPage, "some fundraising method"))
+                .getOrElse(emptyUserAnswers)
+            ) mustBe
+              operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
+          }
       }
 
       "from the What Country was your charity established in page" must {
@@ -513,16 +518,17 @@ class FundRaisingNavigatorSpec extends SpecBase {
             operationFundsRoutes.OperationsFundsSummaryController.onPageLoad()
         }
 
-        "go to What country does you charity operate in page when user answer has overseas but no previous country input, and clicked continue button" in {
-          navigator.nextPage(
-            OperatingLocationPage,
-            CheckMode,
-            emptyUserAnswers
-              .set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas))
-              .getOrElse(emptyUserAnswers)
-          ) mustBe
-            operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, 0)
-        }
+        "go to What country does you charity operate in page when user answer has overseas but no previous country input," +
+          " and clicked continue button" in {
+            navigator.nextPage(
+              OperatingLocationPage,
+              CheckMode,
+              emptyUserAnswers
+                .set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas))
+                .getOrElse(emptyUserAnswers)
+            ) mustBe
+              operationFundsRoutes.WhatCountryDoesTheCharityOperateInController.onPageLoad(CheckMode, 0)
+          }
 
         "go to OperationsFundsSummary page when user answer has overseas and previous country input, and clicked continue button" in {
           navigator.nextPage(
@@ -680,6 +686,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the ActualIncome page" must {
+
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(ActualIncomePage, CheckMode, emptyUserAnswers) mustBe
             routes.PageNotFoundController.onPageLoad()
@@ -696,6 +703,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
       }
 
       "from the IsBankStatements page" must {
+
         "go to the PageNotFoundController page when user answer is empty" in {
           navigator.nextPage(IsBankStatementsPage, CheckMode, emptyUserAnswers) mustBe
             routes.PageNotFoundController.onPageLoad()

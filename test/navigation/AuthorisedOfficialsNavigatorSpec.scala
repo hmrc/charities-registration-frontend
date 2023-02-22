@@ -315,21 +315,22 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .initializeJourney(index, NormalMode)
           }
 
-          "go to the ConfirmAuthorisedOfficialsPreviousAddressController page when yes is selected and AuthorisedOfficialPreviousAddressLookupPage is present and clicked continue button" in {
-            navigator.nextPage(
-              IsAuthorisedOfficialPreviousAddressPage(index),
-              NormalMode,
-              emptyUserAnswers
-                .set(IsAuthorisedOfficialPreviousAddressPage(0), true)
-                .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
-                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
-                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address))
-                .success
-                .value
-            ) mustBe
-              controllers.authorisedOfficials.routes.ConfirmAuthorisedOfficialsPreviousAddressController
-                .onPageLoad(index)
-          }
+          "go to the ConfirmAuthorisedOfficialsPreviousAddressController page when yes is selected and " +
+            "AuthorisedOfficialPreviousAddressLookupPage is present and clicked continue button" in {
+              navigator.nextPage(
+                IsAuthorisedOfficialPreviousAddressPage(index),
+                NormalMode,
+                emptyUserAnswers
+                  .set(IsAuthorisedOfficialPreviousAddressPage(0), true)
+                  .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
+                  .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
+                  .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address))
+                  .success
+                  .value
+              ) mustBe
+                controllers.authorisedOfficials.routes.ConfirmAuthorisedOfficialsPreviousAddressController
+                  .onPageLoad(index)
+            }
 
           "go to the You have added one authorised official page when no is selected" in {
             navigator.nextPage(

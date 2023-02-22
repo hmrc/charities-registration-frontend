@@ -25,7 +25,7 @@ import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
+import org.scalatest.{BeforeAndAfterEach, OptionValues, PrivateMethodTester}
 import org.mockito.MockitoSugar
 import pages.sections.{Section1Page, Section7Page, Section8Page}
 import play.api.inject.bind
@@ -45,8 +45,8 @@ import scala.util.Try
 // scalastyle:off number.of.methods
 // scalastyle:off line.size.limit
 // scalastyle:off magic.number
-class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
 
+class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
   lazy val mockRepository: SessionRepository                      = mock[SessionRepository]
   lazy val mockUserService: UserAnswerService                     = mock[UserAnswerService]
   lazy val mockCacheMap: CacheMap                                 = mock[CacheMap]
@@ -78,31 +78,56 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
   override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
 
   trait LocalSetup {
-    def mockContactDetails: Option[CharityContactDetails]                                     = None
-    def mockCharityAddress: Option[CharityAddress]                                            = None
-    def mockCorrespondenceAddress: Option[OptionalCharityAddress]                             = None
-    def mockCharityRegulator: Option[CharityRegulator]                                        = None
-    def mockCharityGoverningDocument: Option[CharityGoverningDocument]                        = None
-    def mockWhatYourCharityDoes: Option[WhatYourCharityDoes]                                  = None
-    def mockOperationAndFunds: Option[OperationAndFunds]                                      = None
-    def mockCharityBankAccountDetails: Option[CharityBankAccountDetails]                      = None
-    def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials]                  = None
+
+    def mockContactDetails: Option[CharityContactDetails] = None
+
+    def mockCharityAddress: Option[CharityAddress] = None
+
+    def mockCorrespondenceAddress: Option[OptionalCharityAddress] = None
+
+    def mockCharityRegulator: Option[CharityRegulator] = None
+
+    def mockCharityGoverningDocument: Option[CharityGoverningDocument] = None
+
+    def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = None
+
+    def mockOperationAndFunds: Option[OperationAndFunds] = None
+
+    def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = None
+
+    def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = None
+
     def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
+
     def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
-    def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials]                = None
-    def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual]      = None
-    def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual]      = None
-    def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual]      = None
-    def mockCharityAddNominee: Option[CharityAddNominee]                                      = None
-    def mockCharityNomineeStatus: Option[CharityNomineeStatus]                                = None
-    def mockCharityNomineeIndividual: Option[CharityNomineeIndividual]                        = None
-    def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation]                    = None
-    def mockAcknowledgement: Option[Acknowledgement]                                          = None
-    def mockSessionId: SessionId                                                              = SessionId(sessionId)
-    def mockEligibleJourneyId: Option[String]                                                 = None
-    def mockCache: Option[CacheMap]                                                           = Some(mockCacheMap)
-    def mockRepositoryData: Option[UserAnswers]                                               = None
-    def removeResponse(): Future[HttpResponse]                                                = Future.successful(HttpResponse.apply(204, ""))
+
+    def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] = None
+
+    def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
+
+    def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
+
+    def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] = None
+
+    def mockCharityAddNominee: Option[CharityAddNominee] = None
+
+    def mockCharityNomineeStatus: Option[CharityNomineeStatus] = None
+
+    def mockCharityNomineeIndividual: Option[CharityNomineeIndividual] = None
+
+    def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] = None
+
+    def mockAcknowledgement: Option[Acknowledgement] = None
+
+    def mockSessionId: SessionId = SessionId(sessionId)
+
+    def mockEligibleJourneyId: Option[String] = None
+
+    def mockCache: Option[CacheMap] = Some(mockCacheMap)
+
+    def mockRepositoryData: Option[UserAnswers] = None
+
+    def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache(): Unit = {
       when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(mockCache))
@@ -230,7 +255,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       "return valid object when its valid for contactDetails and charityAddress" in new LocalSetup {
 
         override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
-        override def mockCharityAddress: Option[CharityAddress]        = Some(charityAddress)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
 
         initialiseCache()
 
@@ -255,8 +281,10 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid for contactDetails, charityAddress and correspondenceAddress" in new LocalSetup {
 
-        override def mockContactDetails: Option[CharityContactDetails]         = Some(contactDetails)
-        override def mockCharityAddress: Option[CharityAddress]                = Some(charityAddress)
+        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
+
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
 
         initialiseCache()
@@ -286,10 +314,13 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress and regulator" in new LocalSetup {
 
-        override def mockContactDetails: Option[CharityContactDetails]         = Some(contactDetails)
-        override def mockCharityAddress: Option[CharityAddress]                = Some(charityAddress)
+        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
+
         override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
-        override def mockCharityRegulator: Option[CharityRegulator]            = Some(charityRegulator)
+
+        override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
 
         initialiseCache()
 
@@ -327,10 +358,14 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator and charityGoverningDocument2" in new LocalSetup {
 
-        override def mockContactDetails: Option[CharityContactDetails]              = Some(contactDetails)
-        override def mockCharityAddress: Option[CharityAddress]                     = Some(charityAddress)
-        override def mockCorrespondenceAddress: Option[OptionalCharityAddress]      = Some(correspondenceAddress)
-        override def mockCharityRegulator: Option[CharityRegulator]                 = Some(charityRegulator)
+        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
+
+        override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
+
+        override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
+
         override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
 
         initialiseCache()
@@ -375,12 +410,17 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2 and whatYourCharityDoes" in new LocalSetup {
 
-        override def mockContactDetails: Option[CharityContactDetails]              = Some(contactDetails)
-        override def mockCharityAddress: Option[CharityAddress]                     = Some(charityAddress)
-        override def mockCorrespondenceAddress: Option[OptionalCharityAddress]      = Some(correspondenceAddress)
-        override def mockCharityRegulator: Option[CharityRegulator]                 = Some(charityRegulator)
+        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
+
+        override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
+
+        override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
+
         override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
-        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes]           = Some(whatYourCharityDoes)
+
+        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
 
         initialiseCache()
 
@@ -429,13 +469,19 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument2, whatYourCharityDoes and operationAndFunds" in new LocalSetup {
 
-        override def mockContactDetails: Option[CharityContactDetails]              = Some(contactDetails)
-        override def mockCharityAddress: Option[CharityAddress]                     = Some(charityAddress)
-        override def mockCorrespondenceAddress: Option[OptionalCharityAddress]      = Some(correspondenceAddress)
-        override def mockCharityRegulator: Option[CharityRegulator]                 = Some(charityRegulator)
+        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
+
+        override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
+
+        override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
+
         override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
-        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes]           = Some(whatYourCharityDoes)
-        override def mockOperationAndFunds: Option[OperationAndFunds]               = Some(operationAndFunds)
+
+        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
+
+        override def mockOperationAndFunds: Option[OperationAndFunds] = Some(operationAndFunds)
 
         initialiseCache()
 
@@ -522,10 +568,12 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid for how many auth officials and two auth officials" in new LocalSetup {
 
-        override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials]                  =
+        override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] =
           Some(charityHowManyAuthOfficials)
+
         override def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] =
           Some(charityAuthorisedOfficialIndividual1)
+
         override def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] =
           Some(charityAuthorisedOfficialIndividual2)
 
@@ -539,89 +587,89 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
             "isSection7Completed"  -> false,
             "authorisedOfficials"  -> Json.arr(
               Json.parse("""
-              |{
-              |            "isOfficialPreviousAddress": true,
-              |            "officialsPhoneNumber": {
-              |                "mobilePhone": "0123123124",
-              |                "daytimePhone": "0123123123"
-              |            },
-              |            "officialsPosition": "01",
-              |            "officialsDOB": "1990-01-01",
-              |            "isOfficialNino": true,
-              |            "officialAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA1 1AA",
-              |                "lines": [
-              |                    "current",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialPreviousAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA2 2AA",
-              |                "lines": [
-              |                    "previous",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialsName": {
-              |                "firstName": "First",
-              |                "lastName": "Last",
-              |                "middleName": "Middle",
-              |                "title": "0001"
-              |            },
-              |            "officialsNino": "AB111111A"
-              |        }""".stripMargin),
+                  |{
+                  |            "isOfficialPreviousAddress": true,
+                  |            "officialsPhoneNumber": {
+                  |                "mobilePhone": "0123123124",
+                  |                "daytimePhone": "0123123123"
+                  |            },
+                  |            "officialsPosition": "01",
+                  |            "officialsDOB": "1990-01-01",
+                  |            "isOfficialNino": true,
+                  |            "officialAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA1 1AA",
+                  |                "lines": [
+                  |                    "current",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialPreviousAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA2 2AA",
+                  |                "lines": [
+                  |                    "previous",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialsName": {
+                  |                "firstName": "First",
+                  |                "lastName": "Last",
+                  |                "middleName": "Middle",
+                  |                "title": "0001"
+                  |            },
+                  |            "officialsNino": "AB111111A"
+                  |        }""".stripMargin),
               Json.parse("""
-              |{
-              |            "isOfficialPreviousAddress": true,
-              |            "officialsPhoneNumber": {
-              |                "mobilePhone": "0123123124",
-              |                "daytimePhone": "0123123123"
-              |            },
-              |            "officialsPosition": "01",
-              |            "officialsDOB": "1990-01-01",
-              |            "isOfficialNino": false,
-              |            "officialAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA1 1AA",
-              |                "lines": [
-              |                    "current",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialPreviousAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA2 2AA",
-              |                "lines": [
-              |                    "previous",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialsName": {
-              |                "firstName": "First",
-              |                "lastName": "Last",
-              |                "middleName": "Middle",
-              |                "title": "unsupported"
-              |            },
-              |            "officialsPassport": {
-              |              "country": "Country",
-              |              "expiryDate": "2100-01-01",
-              |              "passportNumber": "PaspNum"
-              |            }
-              |        }""".stripMargin)
+                  |{
+                  |            "isOfficialPreviousAddress": true,
+                  |            "officialsPhoneNumber": {
+                  |                "mobilePhone": "0123123124",
+                  |                "daytimePhone": "0123123123"
+                  |            },
+                  |            "officialsPosition": "01",
+                  |            "officialsDOB": "1990-01-01",
+                  |            "isOfficialNino": false,
+                  |            "officialAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA1 1AA",
+                  |                "lines": [
+                  |                    "current",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialPreviousAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA2 2AA",
+                  |                "lines": [
+                  |                    "previous",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialsName": {
+                  |                "firstName": "First",
+                  |                "lastName": "Last",
+                  |                "middleName": "Middle",
+                  |                "title": "unsupported"
+                  |            },
+                  |            "officialsPassport": {
+                  |              "country": "Country",
+                  |              "expiryDate": "2100-01-01",
+                  |              "passportNumber": "PaspNum"
+                  |            }
+                  |        }""".stripMargin)
             )
           )
         )
@@ -655,27 +703,41 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid for contactDetails, charityAddress, correspondenceAddress, regulator, charityGoverningDocument, whatYourCharityDoes, operationAndFunds, charityBankAccountDetails, how many auth officials and two auth officials, how many other officials and two other officials" in new LocalSetup {
 
-        override def mockContactDetails: Option[CharityContactDetails]                                     = Some(contactDetails)
-        override def mockCharityAddress: Option[CharityAddress]                                            = Some(charityAddress)
-        override def mockCorrespondenceAddress: Option[OptionalCharityAddress]                             = Some(correspondenceAddress)
-        override def mockCharityRegulator: Option[CharityRegulator]                                        = Some(charityRegulator)
-        override def mockCharityGoverningDocument: Option[CharityGoverningDocument]                        = Some(charityGoverningDocument2)
-        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes]                                  = Some(whatYourCharityDoes)
-        override def mockOperationAndFunds: Option[OperationAndFunds]                                      = Some(operationAndFunds)
-        override def mockCharityBankAccountDetails: Option[CharityBankAccountDetails]                      = Some(charityBankAccountDetails)
-        override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials]                  =
+        override def mockContactDetails: Option[CharityContactDetails] = Some(contactDetails)
+
+        override def mockCharityAddress: Option[CharityAddress] = Some(charityAddress)
+
+        override def mockCorrespondenceAddress: Option[OptionalCharityAddress] = Some(correspondenceAddress)
+
+        override def mockCharityRegulator: Option[CharityRegulator] = Some(charityRegulator)
+
+        override def mockCharityGoverningDocument: Option[CharityGoverningDocument] = Some(charityGoverningDocument2)
+
+        override def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = Some(whatYourCharityDoes)
+
+        override def mockOperationAndFunds: Option[OperationAndFunds] = Some(operationAndFunds)
+
+        override def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = Some(charityBankAccountDetails)
+
+        override def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] =
           Some(charityHowManyAuthOfficials)
+
         override def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] =
           Some(charityAuthorisedOfficialIndividual1)
+
         override def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] =
           Some(charityAuthorisedOfficialIndividual2)
-        override def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials]                =
+
+        override def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] =
           Some(charityHowManyOtherOfficials)
-        override def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual]      =
+
+        override def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] =
           Some(charityOtherOfficialIndividual1)
-        override def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual]      =
+
+        override def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] =
           Some(charityOtherOfficialIndividual2)
-        override def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual]      =
+
+        override def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] =
           Some(charityOtherOfficialIndividual3)
 
         initialiseCache()
@@ -739,219 +801,219 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
             "isSection7Completed"                 -> false,
             "authorisedOfficials"                 -> Json.arr(
               Json.parse("""
-              |{
-              |            "isOfficialPreviousAddress": true,
-              |            "officialsPhoneNumber": {
-              |                "mobilePhone": "0123123124",
-              |                "daytimePhone": "0123123123"
-              |            },
-              |            "officialsPosition": "01",
-              |            "officialsDOB": "1990-01-01",
-              |            "isOfficialNino": true,
-              |            "officialAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA1 1AA",
-              |                "lines": [
-              |                    "current",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialPreviousAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA2 2AA",
-              |                "lines": [
-              |                    "previous",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialsName": {
-              |                "firstName": "First",
-              |                "lastName": "Last",
-              |                "middleName": "Middle",
-              |                "title": "0001"
-              |            },
-              |            "officialsNino": "AB111111A"
-              |        }""".stripMargin),
+                  |{
+                  |            "isOfficialPreviousAddress": true,
+                  |            "officialsPhoneNumber": {
+                  |                "mobilePhone": "0123123124",
+                  |                "daytimePhone": "0123123123"
+                  |            },
+                  |            "officialsPosition": "01",
+                  |            "officialsDOB": "1990-01-01",
+                  |            "isOfficialNino": true,
+                  |            "officialAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA1 1AA",
+                  |                "lines": [
+                  |                    "current",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialPreviousAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA2 2AA",
+                  |                "lines": [
+                  |                    "previous",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialsName": {
+                  |                "firstName": "First",
+                  |                "lastName": "Last",
+                  |                "middleName": "Middle",
+                  |                "title": "0001"
+                  |            },
+                  |            "officialsNino": "AB111111A"
+                  |        }""".stripMargin),
               Json.parse("""
-              |{
-              |            "isOfficialPreviousAddress": true,
-              |            "officialsPhoneNumber": {
-              |                "mobilePhone": "0123123124",
-              |                "daytimePhone": "0123123123"
-              |            },
-              |            "officialsPosition": "01",
-              |            "officialsDOB": "1990-01-01",
-              |            "isOfficialNino": false,
-              |            "officialAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA1 1AA",
-              |                "lines": [
-              |                    "current",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialPreviousAddress": {
-              |                "country": {
-              |                    "code": "GB",
-              |                    "name": "United Kingdom"
-              |                },
-              |                "postcode": "AA2 2AA",
-              |                "lines": [
-              |                    "previous",
-              |                    "address"
-              |                ]
-              |            },
-              |            "officialsName": {
-              |                "firstName": "First",
-              |                "lastName": "Last",
-              |                "middleName": "Middle",
-              |                "title": "unsupported"
-              |            },
-              |            "officialsPassport": {
-              |              "country": "Country",
-              |              "expiryDate": "2100-01-01",
-              |              "passportNumber": "PaspNum"
-              |            }
-              |        }""".stripMargin)
+                  |{
+                  |            "isOfficialPreviousAddress": true,
+                  |            "officialsPhoneNumber": {
+                  |                "mobilePhone": "0123123124",
+                  |                "daytimePhone": "0123123123"
+                  |            },
+                  |            "officialsPosition": "01",
+                  |            "officialsDOB": "1990-01-01",
+                  |            "isOfficialNino": false,
+                  |            "officialAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA1 1AA",
+                  |                "lines": [
+                  |                    "current",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialPreviousAddress": {
+                  |                "country": {
+                  |                    "code": "GB",
+                  |                    "name": "United Kingdom"
+                  |                },
+                  |                "postcode": "AA2 2AA",
+                  |                "lines": [
+                  |                    "previous",
+                  |                    "address"
+                  |                ]
+                  |            },
+                  |            "officialsName": {
+                  |                "firstName": "First",
+                  |                "lastName": "Last",
+                  |                "middleName": "Middle",
+                  |                "title": "unsupported"
+                  |            },
+                  |            "officialsPassport": {
+                  |              "country": "Country",
+                  |              "expiryDate": "2100-01-01",
+                  |              "passportNumber": "PaspNum"
+                  |            }
+                  |        }""".stripMargin)
             ),
             "addAnotherOtherOfficial"             -> true,
             "isSection8Completed"                 -> false,
             "otherOfficials"                      -> Json.arr(
               Json.parse("""{
-                |  "isOfficialNino": true,
-                |  "isOfficialsPreviousAddress": true,
-                |  "officialAddress": {
-                |    "country": {
-                |      "code": "GB",
-                |      "name": "United Kingdom"
-                |    },
-                |    "lines": [
-                |      "current",
-                |      "address"
-                |    ],
-                |    "postcode": "AA1 1AA"
-                |  },
-                |  "officialPreviousAddress": {
-                |    "country": {
-                |      "code": "GB",
-                |      "name": "United Kingdom"
-                |    },
-                |    "lines": [
-                |      "previous",
-                |      "address"
-                |    ],
-                |    "postcode": "AA2 2AA"
-                |  },
-                |  "officialsDOB": "1990-01-01",
-                |  "officialsName": {
-                |    "firstName": "First",
-                |    "lastName": "Last",
-                |    "middleName": "Middle",
-                |    "title": "0001"
-                |  },
-                |  "officialsNino": "AB111111A",
-                |  "officialsPhoneNumber": {
-                |    "daytimePhone": "0123123123",
-                |    "mobilePhone": "0123123124"
-                |  },
-                |  "officialsPosition": "01"
-                |}
-                |""".stripMargin),
+                  |  "isOfficialNino": true,
+                  |  "isOfficialsPreviousAddress": true,
+                  |  "officialAddress": {
+                  |    "country": {
+                  |      "code": "GB",
+                  |      "name": "United Kingdom"
+                  |    },
+                  |    "lines": [
+                  |      "current",
+                  |      "address"
+                  |    ],
+                  |    "postcode": "AA1 1AA"
+                  |  },
+                  |  "officialPreviousAddress": {
+                  |    "country": {
+                  |      "code": "GB",
+                  |      "name": "United Kingdom"
+                  |    },
+                  |    "lines": [
+                  |      "previous",
+                  |      "address"
+                  |    ],
+                  |    "postcode": "AA2 2AA"
+                  |  },
+                  |  "officialsDOB": "1990-01-01",
+                  |  "officialsName": {
+                  |    "firstName": "First",
+                  |    "lastName": "Last",
+                  |    "middleName": "Middle",
+                  |    "title": "0001"
+                  |  },
+                  |  "officialsNino": "AB111111A",
+                  |  "officialsPhoneNumber": {
+                  |    "daytimePhone": "0123123123",
+                  |    "mobilePhone": "0123123124"
+                  |  },
+                  |  "officialsPosition": "01"
+                  |}
+                  |""".stripMargin),
               Json.parse("""
-                |{
-                |  "isOfficialNino": false,
-                |  "isOfficialsPreviousAddress": true,
-                |  "officialAddress": {
-                |    "country": {
-                |      "code": "GB",
-                |      "name": "United Kingdom"
-                |    },
-                |    "lines": [
-                |      "current",
-                |      "address"
-                |    ],
-                |    "postcode": "AA1 1AA"
-                |  },
-                |  "officialPreviousAddress": {
-                |    "country": {
-                |      "code": "GB",
-                |      "name": "United Kingdom"
-                |    },
-                |    "lines": [
-                |      "previous",
-                |      "address"
-                |    ],
-                |    "postcode": "AA2 2AA"
-                |  },
-                |  "officialsDOB": "1990-01-01",
-                |  "officialsName": {
-                |    "firstName": "First",
-                |    "lastName": "Last",
-                |    "middleName": "Middle",
-                |    "title": "unsupported"
-                |  },
-                |  "officialsPassport": {
-                |    "country": "Country",
-                |    "expiryDate": "2100-01-01",
-                |    "passportNumber": "PaspNum"
-                |  },
-                |  "officialsPhoneNumber": {
-                |    "daytimePhone": "0123123123",
-                |    "mobilePhone": "0123123124"
-                |  },
-                |  "officialsPosition": "01"
-                |}
-                |""".stripMargin),
+                  |{
+                  |  "isOfficialNino": false,
+                  |  "isOfficialsPreviousAddress": true,
+                  |  "officialAddress": {
+                  |    "country": {
+                  |      "code": "GB",
+                  |      "name": "United Kingdom"
+                  |    },
+                  |    "lines": [
+                  |      "current",
+                  |      "address"
+                  |    ],
+                  |    "postcode": "AA1 1AA"
+                  |  },
+                  |  "officialPreviousAddress": {
+                  |    "country": {
+                  |      "code": "GB",
+                  |      "name": "United Kingdom"
+                  |    },
+                  |    "lines": [
+                  |      "previous",
+                  |      "address"
+                  |    ],
+                  |    "postcode": "AA2 2AA"
+                  |  },
+                  |  "officialsDOB": "1990-01-01",
+                  |  "officialsName": {
+                  |    "firstName": "First",
+                  |    "lastName": "Last",
+                  |    "middleName": "Middle",
+                  |    "title": "unsupported"
+                  |  },
+                  |  "officialsPassport": {
+                  |    "country": "Country",
+                  |    "expiryDate": "2100-01-01",
+                  |    "passportNumber": "PaspNum"
+                  |  },
+                  |  "officialsPhoneNumber": {
+                  |    "daytimePhone": "0123123123",
+                  |    "mobilePhone": "0123123124"
+                  |  },
+                  |  "officialsPosition": "01"
+                  |}
+                  |""".stripMargin),
               Json.parse("""
-                |{
-                |  "isOfficialNino": true,
-                |  "isOfficialsPreviousAddress": true,
-                |  "officialAddress": {
-                |    "country": {
-                |      "code": "GB",
-                |      "name": "United Kingdom"
-                |    },
-                |    "lines": [
-                |      "current",
-                |      "address"
-                |    ],
-                |  "postcode": "AA1 1AA"
-                |  },
-                |  "officialPreviousAddress": {
-                |    "country": {
-                |      "code": "GB",
-                |      "name": "United Kingdom"
-                |    },
-                |    "lines": [
-                |      "previous",
-                |      "address"
-                |    ],
-                |    "postcode": "AA2 2AA"
-                |  },
-                |  "officialsDOB": "1990-01-01",
-                |  "officialsName": {
-                |    "firstName": "First",
-                |    "lastName": "Last",
-                |    "middleName": "Middle",
-                |    "title": "unsupported"
-                |  },
-                |  "officialsNino": "AB111111A",
-                |  "officialsPhoneNumber": {
-                |    "daytimePhone": "0123123123",
-                |    "mobilePhone": "0123123124"
-                |  },
-                |  "officialsPosition": "01"
-                |}
-                |""".stripMargin)
+                  |{
+                  |  "isOfficialNino": true,
+                  |  "isOfficialsPreviousAddress": true,
+                  |  "officialAddress": {
+                  |    "country": {
+                  |      "code": "GB",
+                  |      "name": "United Kingdom"
+                  |    },
+                  |    "lines": [
+                  |      "current",
+                  |      "address"
+                  |    ],
+                  |  "postcode": "AA1 1AA"
+                  |  },
+                  |  "officialPreviousAddress": {
+                  |    "country": {
+                  |      "code": "GB",
+                  |      "name": "United Kingdom"
+                  |    },
+                  |    "lines": [
+                  |      "previous",
+                  |      "address"
+                  |    ],
+                  |    "postcode": "AA2 2AA"
+                  |  },
+                  |  "officialsDOB": "1990-01-01",
+                  |  "officialsName": {
+                  |    "firstName": "First",
+                  |    "lastName": "Last",
+                  |    "middleName": "Middle",
+                  |    "title": "unsupported"
+                  |  },
+                  |  "officialsNino": "AB111111A",
+                  |  "officialsPhoneNumber": {
+                  |    "daytimePhone": "0123123123",
+                  |    "mobilePhone": "0123123124"
+                  |  },
+                  |  "officialsPosition": "01"
+                  |}
+                  |""".stripMargin)
             )
           )
         )
@@ -985,7 +1047,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid charityNomineeStatus" in new LocalSetup {
 
-        override def mockCharityAddNominee: Option[CharityAddNominee]       = Some(charityAddNominee)
+        override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
+
         override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusInd)
 
         initialiseCache()
@@ -1007,8 +1070,10 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid charityNomineeStatus, charityNomineeIndividual" in new LocalSetup {
 
-        override def mockCharityAddNominee: Option[CharityAddNominee]               = Some(charityAddNominee)
-        override def mockCharityNomineeStatus: Option[CharityNomineeStatus]         = Some(charityNomineeStatusInd)
+        override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
+
+        override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusInd)
+
         override def mockCharityNomineeIndividual: Option[CharityNomineeIndividual] = Some(charityNomineeIndividual)
 
         initialiseCache()
@@ -1019,11 +1084,11 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
             "isSwitchOver"        -> true,
             "isSection9Completed" -> false,
             "nominee"             -> Json.parse("""{"chooseNominee":true,"isAuthoriseNominee":true,
-              |"individual":{"isIndividualPreviousAddress":false,"individualDOB":"2000-10-10","isIndividualNino":true,
-              |"individualAddress":{"country":{"code":"XX","name":"UK"},"lines":["Line1","Line2","Line3","Line5"]},
-              |"isIndividualNomineePayments":false,"individualNino":"CS700100A",
-              |"individualName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
-              |"individualPhoneNumber":{"daytimePhone":""}}}""".stripMargin)
+                |"individual":{"isIndividualPreviousAddress":false,"individualDOB":"2000-10-10","isIndividualNino":true,
+                |"individualAddress":{"country":{"code":"XX","name":"UK"},"lines":["Line1","Line2","Line3","Line5"]},
+                |"isIndividualNomineePayments":false,"individualNino":"CS700100A",
+                |"individualName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
+                |"individualPhoneNumber":{"daytimePhone":""}}}""".stripMargin)
           )
         )
 
@@ -1035,8 +1100,10 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return valid object when its valid charityNomineeStatus, charityNomineeOrganisation" in new LocalSetup {
 
-        override def mockCharityAddNominee: Option[CharityAddNominee]                   = Some(charityAddNominee)
-        override def mockCharityNomineeStatus: Option[CharityNomineeStatus]             = Some(charityNomineeStatusOrg)
+        override def mockCharityAddNominee: Option[CharityAddNominee] = Some(charityAddNominee)
+
+        override def mockCharityNomineeStatus: Option[CharityNomineeStatus] = Some(charityNomineeStatusOrg)
+
         override def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] =
           Some(charityNomineeOrganisation)
 
@@ -1048,15 +1115,15 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
             "isSwitchOver"        -> true,
             "isSection9Completed" -> false,
             "nominee"             -> Json.parse("""{"chooseNominee":false,"isAuthoriseNominee":true,
-              |"organisation":{"isOrganisationPreviousAddress":true,"isOrganisationNino":false,
-              |"isOrganisationNomineePayments":true,"organisationName":"Tesco",
-              |"organisationPreviousAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
-              |"organisationAuthorisedPersonName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
-              |"organisationAuthorisedPersonDOB":"2000-10-10",
-              |"organisationAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
-              |"organisationBankDetails":{"accountName":"AABB","rollNumber":"BB","accountNumber":"12345678","sortCode":"123456"},
-              |"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
-              |"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)
+                |"organisation":{"isOrganisationPreviousAddress":true,"isOrganisationNino":false,
+                |"isOrganisationNomineePayments":true,"organisationName":"Tesco",
+                |"organisationPreviousAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
+                |"organisationAuthorisedPersonName":{"firstName":"firstName","lastName":"lastName","middleName":"middleName","title":"unsupported"},
+                |"organisationAuthorisedPersonDOB":"2000-10-10",
+                |"organisationAddress":{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]},
+                |"organisationBankDetails":{"accountName":"AABB","rollNumber":"BB","accountNumber":"12345678","sortCode":"123456"},
+                |"organisationAuthorisedPersonPassport":{"passportNumber":"AK123456K","expiryDate":"2000-10-10","country":"UK"},
+                |"organisationContactDetails":{"phoneNumber":"1234567890","email":""}}}""".stripMargin)
           )
         )
 
@@ -1096,7 +1163,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad
+        result.swap.value mustBe controllers.routes.CannotFindApplicationController.onPageLoad
       }
 
       "return object when request with user answers when CacheMap return None" in new LocalSetup {
@@ -1136,8 +1203,10 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return object when request without user answers, last session with data and when CacheMap return None" in new LocalSetup {
 
-        override def mockCache: Option[CacheMap]             = None
-        override def mockEligibleJourneyId: Option[String]   = Some(lastSessionId)
+        override def mockCache: Option[CacheMap] = None
+
+        override def mockEligibleJourneyId: Option[String] = Some(lastSessionId)
+
         override def mockRepositoryData: Option[UserAnswers] = Some(emptyUserAnswers)
 
         initialiseCache()
@@ -1152,7 +1221,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return CannotFindApplication when request without user answers, last session with data and when CacheMap return None" in new LocalSetup {
 
-        override def mockCache: Option[CacheMap]           = None
+        override def mockCache: Option[CacheMap] = None
+
         override def mockEligibleJourneyId: Option[String] = Some(lastSessionId)
 
         initialiseCache()
@@ -1160,12 +1230,14 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val result: Either[Call, UserAnswers] =
           await(service.getCacheData(optionalDataRequest, mockSessionId, mockEligibleJourneyId))
 
-        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad
+        result.swap.value mustBe controllers.routes.CannotFindApplicationController.onPageLoad
       }
 
       "return CannotFindApplication when session is not valid" in new LocalSetup {
-        override def mockCache: Option[CacheMap]             = None
-        override def mockEligibleJourneyId: Option[String]   = None
+        override def mockCache: Option[CacheMap] = None
+
+        override def mockEligibleJourneyId: Option[String] = None
+
         override def mockRepositoryData: Option[UserAnswers] = Some(emptyUserAnswers)
 
         initialiseCache()
@@ -1178,7 +1250,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           )
         )
 
-        result.left.get mustBe controllers.routes.CannotFindApplicationController.onPageLoad
+        result.swap.value mustBe controllers.routes.CannotFindApplicationController.onPageLoad
       }
 
       "throw error if exception is returned from CharitiesShortLivedCache" in {
@@ -1199,7 +1271,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] =
           PrivateMethod[Future[Either[Call, UserAnswers]]](Symbol("updateSwitchOverUserAnswer"))
 
-        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
 
         val ua: UserAnswers = UserAnswers(
           "8799940975137654",
@@ -1246,7 +1318,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
-          res.left.get mustBe controllers.routes.SwitchOverErrorController.onPageLoad
+          res.swap.value mustBe controllers.routes.SwitchOverErrorController.onPageLoad
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
         verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())
@@ -1269,7 +1341,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
           service invokePrivate updateSwitchOverUserAnswer(ua, transformKeeper, hc, ec, request)
 
         whenReady(result) { res =>
-          res.left.get mustBe controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad
+          res.swap.value mustBe controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad
         }
         verify(mockAuditService, times(1)).sendEvent(any())(any(), any())
         verify(mockAuditService, atLeastOnce).sendEvent(any[SubmissionAuditEvent])(any(), any())
@@ -1281,7 +1353,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         val updateSwitchOverUserAnswer: PrivateMethod[Future[Either[Call, UserAnswers]]] =
           PrivateMethod[Future[Either[Call, UserAnswers]]](Symbol("updateSwitchOverUserAnswer"))
 
-        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
+        val transformKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), List.empty)
 
         val ua: UserAnswers = UserAnswers("8799940975137654", Json.obj())
 
@@ -1313,7 +1385,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return false when sections are not completed" in new LocalSetup with PrivateMethodTester {
 
-        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
+        val isSection1Completed: PrivateMethod[Try[UserAnswers]] =
+          PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
 
         val ua: UserAnswers = UserAnswers("8799940975137654", data)
 
@@ -1325,7 +1398,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       "return false when all sections are completed and charity name is more than 60 characters" in new LocalSetup
         with PrivateMethodTester {
 
-        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
+        val isSection1Completed: PrivateMethod[Try[UserAnswers]] =
+          PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
 
         val ua: UserAnswers = UserAnswers(
           "8799940975137654",
@@ -1344,7 +1418,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 
       "return true when all sections are completed" in new LocalSetup with PrivateMethodTester {
 
-        val isSection1Completed: PrivateMethod[Try[UserAnswers]] = PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
+        val isSection1Completed: PrivateMethod[Try[UserAnswers]] =
+          PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
 
         val ua: UserAnswers          =
           UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))

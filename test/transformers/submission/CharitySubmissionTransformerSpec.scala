@@ -17,8 +17,6 @@
 package transformers.submission
 
 import com.stephenn.scalatest.jsonassert.JsonMatchers
-
-import java.time.LocalDate
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
@@ -35,13 +33,21 @@ import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
 
+import java.time.LocalDate
+
 class CharitySubmissionTransformerSpec extends CharityTransformerConstants with JsonMatchers {
+  //scalastyle:off magic.number
 
   val jsonTransformer = new CharitySubmissionTransformer(
     new CharityTransformer,
     new CharityPartnerTransformer,
     new CharityCommonTransformer
   )
+
+  val reason =
+    "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6" +
+      "64354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxa" +
+      "sxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
 
   "CharitySubmissionTransformer" must {
 
@@ -159,17 +165,11 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         )
         .flatMap(_.set(IsCharityRegulatorPage, true))
         .flatMap(
-          _.set(
-            PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-          )
+          _.set(PublicBenefitsPage, reason)
         )
         .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
         .flatMap(
-          _.set(
-            CharitableObjectivesPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-          )
+          _.set(CharitableObjectivesPage, reason)
         )
         .flatMap(
           _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
@@ -177,10 +177,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
             .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
             .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
             .flatMap(
-              _.set(
-                SectionsChangedGoverningDocumentPage,
-                "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-              )
+              _.set(SectionsChangedGoverningDocumentPage, reason)
             )
         )
         .flatMap(
@@ -188,13 +185,10 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
             MongoDateTimeFormats.localDayMonthWrite
           ).flatMap(_.set(IsFinancialAccountsPage, true))
             .flatMap(
-              _.set(
-                WhyNoBankStatementPage,
-                "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-              )
+              _.set(WhyNoBankStatementPage, reason)
             )
-            .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00)))
-            .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(19999.99)))
+            .flatMap(_.set(EstimatedIncomePage, BigDecimal(2000.00)))
+            .flatMap(_.set(ActualIncomePage, BigDecimal(19999.99)))
             .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
             .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
             .flatMap(_.set(OperatingLocationPage, OperatingLocationOptions.values.toSet))

@@ -83,8 +83,7 @@ object NomineeStatusHelper extends StatusHelper {
 
     (userAnswers.get(IsAuthoriseNomineePage), userAnswers.get(ChooseNomineePage)) match {
 
-      case (Some(false), None) => noAdditionalPagesDefined(Seq(IsAuthoriseNomineePage))
-
+      case (Some(false), None)      => noAdditionalPagesDefined(Seq(IsAuthoriseNomineePage))
       case (Some(true), Some(true)) =>
         (
           userAnswers.get(IsIndividualNomineeNinoPage),

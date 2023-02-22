@@ -57,7 +57,8 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockAddressLookupConnector)
+    reset(mockUserAnswerService)
+    reset(mockAddressLookupConnector)
   }
 
   class TestAddressLookupController @Inject() (

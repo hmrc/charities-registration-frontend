@@ -131,8 +131,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(NomineeIndividualAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
-          case Some(_)                                     => nomineeRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(NormalMode)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            nomineeRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(NormalMode)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsIndividualNomineePreviousAddressPage =>
@@ -143,8 +145,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
           case Some(true)                                                                          =>
             controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
               .initializeJourney(NormalMode)
-          case Some(false)                                                                         => nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
-          case _                                                                                   => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                         =>
+            nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+          case _                                                                                   =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case NomineeIndividualPreviousAddressLookupPage =>
@@ -152,8 +156,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(NormalMode)
-          case Some(_)                                     => nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineeNamePage =>
@@ -171,8 +177,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
               nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
             } else {
               userAnswers.get(OrganisationNomineeAddressLookupPage) match {
-                case Some(_) => nomineeRoutes.ConfirmOrganisationNomineeAddressController.onPageLoad()
-                case _       => addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
+                case Some(_) =>
+                  nomineeRoutes.ConfirmOrganisationNomineeAddressController.onPageLoad()
+                case _       =>
+                  addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
               }
             }
           case _       => routes.PageNotFoundController.onPageLoad()
@@ -183,8 +191,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(OrganisationNomineeAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode)
-          case Some(_)                                     => nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOrganisationNomineePreviousAddressPage =>
@@ -194,8 +204,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
             nomineeRoutes.ConfirmOrganisationNomineePreviousAddressController.onPageLoad()
           case Some(true)                                                                            =>
             addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(NormalMode)
-          case Some(false)                                                                           => nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
-          case _                                                                                     => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                           =>
+            nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
+          case _                                                                                     =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineePreviousAddressLookupPage =>
@@ -203,8 +215,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(NormalMode)
-          case Some(_)                                     => nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOrganisationNomineePaymentsPage =>
@@ -307,11 +321,14 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(IsIndividualNomineeNinoPage) match {
           case Some(true) if userAnswers.get(IndividualNomineesNinoPage).isDefined      =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case Some(true)                                                               => nomineeRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode)
+          case Some(true)                                                               =>
+            nomineeRoutes.IndividualNomineesNinoController.onPageLoad(CheckMode)
           case Some(false) if userAnswers.get(IndividualNomineesPassportPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case Some(false)                                                              => nomineeRoutes.IndividualNomineePassportController.onPageLoad(CheckMode)
-          case _                                                                        => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                              =>
+            nomineeRoutes.IndividualNomineePassportController.onPageLoad(CheckMode)
+          case _                                                                        =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IndividualNomineesPassportPage =>
@@ -333,8 +350,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(NomineeIndividualAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeIndividualAddressController.onPageLoad(CheckMode)
-          case Some(_)                                     => nomineeRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            nomineeRoutes.IsIndividualNomineePreviousAddressController.onPageLoad(CheckMode)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsIndividualNomineePreviousAddressPage =>
@@ -344,8 +363,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case Some(true)                                                                          =>
             addressLookupRoutes.NomineeIndividualPreviousAddressLookupController.initializeJourney(CheckMode)
-          case Some(false)                                                                         => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case _                                                                                   => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                         =>
+            nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+          case _                                                                                   =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case NomineeIndividualPreviousAddressLookupPage =>
@@ -362,9 +383,12 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(IsIndividualNomineePaymentsPage) match {
           case Some(true) if userAnswers.get(IndividualNomineesBankDetailsPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case Some(true)                                                                 => nomineeRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode)
-          case Some(false)                                                                => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case _                                                                          => routes.PageNotFoundController.onPageLoad()
+          case Some(true)                                                                 =>
+            nomineeRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode)
+          case Some(false)                                                                =>
+            nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+          case _                                                                          =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IndividualNomineesBankDetailsPage =>
@@ -393,8 +417,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(OrganisationNomineeAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationAddressController.onPageLoad(CheckMode)
-          case Some(_)                                     => nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            nomineeRoutes.IsOrganisationNomineePreviousAddressController.onPageLoad(CheckMode)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOrganisationNomineePreviousAddressPage =>
@@ -404,8 +430,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case Some(true)                                                                            =>
             addressLookupRoutes.OrganisationNomineePreviousAddressLookupController.initializeJourney(CheckMode)
-          case Some(false)                                                                           => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case _                                                                                     => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                           =>
+            nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+          case _                                                                                     =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineePreviousAddressLookupPage =>
@@ -413,8 +441,10 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(CheckMode)
-          case Some(_)                                     => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOrganisationNomineePaymentsPage =>
@@ -422,9 +452,12 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(IsOrganisationNomineePaymentsPage) match {
           case Some(true) if userAnswers.get(OrganisationNomineesBankDetailsPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case Some(true)                                                                   => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode)
-          case Some(false)                                                                  => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case _                                                                            => routes.PageNotFoundController.onPageLoad()
+          case Some(true)                                                                   =>
+            nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode)
+          case Some(false)                                                                  =>
+            nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
+          case _                                                                            =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineesBankDetailsPage =>
@@ -453,11 +486,14 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
         userAnswers.get(IsOrganisationNomineeNinoPage) match {
           case Some(true) if userAnswers.get(OrganisationAuthorisedPersonNinoPage).isDefined      =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case Some(true)                                                                         => nomineeRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(CheckMode)
+          case Some(true)                                                                         =>
+            nomineeRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(CheckMode)
           case Some(false) if userAnswers.get(OrganisationAuthorisedPersonPassportPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
-          case Some(false)                                                                        => nomineeRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode)
-          case _                                                                                  => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                        =>
+            nomineeRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(CheckMode)
+          case _                                                                                  =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationAuthorisedPersonNinoPage =>

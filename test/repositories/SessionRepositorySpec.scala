@@ -92,7 +92,7 @@ class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach w
         assertIndexes(expectedIndexes.sorted, getIndexes(repository.collection).sorted)
       }
 
-      await(repository.collection.drop.toFuture())
+      await(repository.collection.drop().toFuture())
     }
   }
 

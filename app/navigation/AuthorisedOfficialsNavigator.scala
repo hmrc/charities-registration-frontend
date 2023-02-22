@@ -110,8 +110,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
         userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, index)
-          case Some(_)                                     => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(NormalMode, index)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsAuthorisedOfficialPreviousAddressPage(index) =>
@@ -121,8 +123,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
             authOfficialRoutes.ConfirmAuthorisedOfficialsPreviousAddressController.onPageLoad(index)
           case Some(true)                                                                                  =>
             addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
-          case Some(false)                                                                                 => redirectToPlaybackPage(index)
-          case _                                                                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                                 =>
+            redirectToPlaybackPage(index)
+          case _                                                                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) =>
@@ -193,11 +197,14 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
         userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
           case Some(true) if userAnswers.get(AuthorisedOfficialsNinoPage(index)).isDefined      =>
             redirectToPlaybackPage(index)
-          case Some(true)                                                                       => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index)
+          case Some(true)                                                                       =>
+            authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, index)
           case Some(false) if userAnswers.get(AuthorisedOfficialsPassportPage(index)).isDefined =>
             redirectToPlaybackPage(index)
-          case Some(false)                                                                      => authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, index)
-          case _                                                                                => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                      =>
+            authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, index)
+          case _                                                                                =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsNinoPage(index) =>
@@ -219,8 +226,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
         userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(CheckMode, index)
-          case Some(_)                                     => authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            authOfficialRoutes.IsAuthorisedOfficialPreviousAddressController.onPageLoad(CheckMode, index)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsAuthorisedOfficialPreviousAddressPage(index) =>
@@ -230,8 +239,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
             redirectToPlaybackPage(index)
           case Some(true)                                                                                  =>
             addressLookupRoutes.AuthorisedOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
-          case Some(false)                                                                                 => redirectToPlaybackPage(index)
-          case _                                                                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                                 =>
+            redirectToPlaybackPage(index)
+          case _                                                                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) =>

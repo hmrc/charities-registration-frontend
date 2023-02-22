@@ -33,6 +33,8 @@ class DateMappingsDayMonthSpec
     with OptionValues
     with Mappings {
 
+  //scalastyle:off magic.number
+
   lazy val form: Form[MonthDay] = Form(
     "value" -> localDateDayMonth(
       invalidKey = "error.invalid",

@@ -55,7 +55,8 @@ class NomineeIndividualAddressLookupControllerSpec extends SpecBase with BeforeA
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockAddressLookupConnector)
+    reset(mockUserAnswerService)
+    reset(mockAddressLookupConnector)
   }
 
   private lazy val controller: NomineeIndividualAddressLookupController = new NomineeIndividualAddressLookupController(

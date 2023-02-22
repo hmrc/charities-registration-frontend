@@ -21,6 +21,7 @@ import play.api.data.FormError
 private[mappings] trait GenericDateFormatter extends Formatters with Constraints {
 
   val fieldKeys: List[String]
+
   def keyWithError(id: String, error: String): String =
     id + "." + error
 

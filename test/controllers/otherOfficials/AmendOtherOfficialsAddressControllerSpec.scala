@@ -55,7 +55,8 @@ class AmendOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAndAf
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockCountryService)
+    reset(mockUserAnswerService)
+    reset(mockCountryService)
   }
 
   private val messageKeyPrefix                       = "amendOtherOfficialAddress"

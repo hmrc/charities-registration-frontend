@@ -84,7 +84,10 @@ class IndividualNomineeDOBControllerSpec extends SpecBase with BeforeAndAfterEac
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(IndividualNomineeDOBPage, LocalDate.of(2002, 1, 1)).success.value
+      val userAnswers = localUserAnswers
+        .set(IndividualNomineeDOBPage, LocalDate.of(2002, 1, 1))
+        .success
+        .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

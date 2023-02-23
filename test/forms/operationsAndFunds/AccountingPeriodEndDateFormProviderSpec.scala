@@ -22,6 +22,8 @@ import play.api.data.{Form, FormError}
 
 class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
+  //scalastyle:off magic.number
+
   private val form: Form[MonthDay] = inject[AccountingPeriodEndDateFormProvider].apply()
 
   ".value" should {

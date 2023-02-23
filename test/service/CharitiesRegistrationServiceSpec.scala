@@ -57,7 +57,9 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockAuditService, mockCharitiesConnector)
+    reset(mockUserAnswerService)
+    reset(mockAuditService)
+    reset(mockCharitiesConnector)
   }
 
   private val service: CharitiesRegistrationService = inject[CharitiesRegistrationService]

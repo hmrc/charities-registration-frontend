@@ -153,7 +153,8 @@ package object models {
                   }
                 }
             }
-        case _                                                                         => throw new RuntimeException("[RichJsValue][remove] unable to match JsPath or JsValue")
+        case _                                                                         =>
+          throw new RuntimeException("[RichJsValue][remove] unable to match JsPath or JsValue")
       }
   }
 }

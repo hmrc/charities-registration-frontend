@@ -33,6 +33,7 @@ import java.time.LocalDate
 class CharityTransformerSpec extends CharityTransformerConstants with JsonMatchers {
 
   //scalastyle:off magic.number
+  //scalastyle:off line.size.limit
 
   val reason =
     "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre" +
@@ -76,9 +77,8 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |      }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToRegulator).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToRegulator).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
 
       "convert the correct Regulator object without other regulator" in {
@@ -310,9 +310,8 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
 
       "convert the correct AboutOrganisation object and changes are <255 characters long" in {

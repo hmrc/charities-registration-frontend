@@ -48,16 +48,17 @@ private[mappings] trait GenericDateFormatter extends Formatters with Constraints
       .map(_._1)
       .toList
 
-  lazy val illegalErrors
-    : (String, Map[String, String], String, Seq[String], (String, Map[String, String]) => List[String]) => Option[
-      FormError
-    ] =
-    (key, data, invalidKey, args, validate) =>
-      validate(key, data) match {
-        case emptyList if emptyList.isEmpty => None
-        case foundErrors                    =>
-          Some(FormError(keyWithError(key, validate(key, data).head), invalidKey, foundErrors ++ args))
-      }
+  def illegalErrors(
+    key: String,
+    data: Map[String, String],
+    invalidKey: String,
+    args: Seq[String],
+    validate: (String, Map[String, String]) => List[String]
+  ): Option[FormError] =
+    validate(key, data) match {
+      case emptyList if emptyList.isEmpty => None
+      case foundErrors                    => Some(FormError(keyWithError(key, validate(key, data).head), invalidKey, foundErrors ++ args))
+    }
 
   def leftErrors(
     key: String,
@@ -68,15 +69,14 @@ private[mappings] trait GenericDateFormatter extends Formatters with Constraints
   ): Left[Seq[FormError], Nothing] =
     Left(
       List(
-        FormError(keyWithError(key, missingFields(key, data).head), missingMessage, missingFields(key, data) ++ args)
-      )
-        ++ illegalErrors(key, data, invalidMessage, args, illegalFields) ++ illegalErrors(
-          key,
-          data,
-          invalidMessage,
-          args,
-          illegalZero
+        FormError(
+          keyWithError(key, missingFields(key, data).head),
+          missingMessage,
+          missingFields(key, data) ++ args
         )
+      ) ++
+        illegalErrors(key, data, invalidMessage, args, illegalFields) ++
+        illegalErrors(key, data, invalidMessage, args, illegalZero)
     )
 
 }

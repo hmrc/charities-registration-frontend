@@ -34,6 +34,8 @@ class DateMappingsSpec
     with OptionValues
     with Mappings {
 
+  //scalastyle:off magic.number
+
   val form: Form[LocalDate] = Form(
     "value" -> localDate(
       requiredKey = "error.required",

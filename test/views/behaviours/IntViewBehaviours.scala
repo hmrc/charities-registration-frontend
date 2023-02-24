@@ -21,6 +21,8 @@ import play.twirl.api.HtmlFormat
 
 trait IntViewBehaviours extends QuestionViewBehaviours[Int] {
 
+  //scalastyle:off method.length
+
   val number = 123
 
   def intPage(

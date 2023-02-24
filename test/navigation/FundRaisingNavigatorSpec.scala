@@ -410,7 +410,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
         }
       }
 
-      "from any UnKnownPage" must {
+      "from any Unknown page" must {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
@@ -783,7 +783,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
         }
       }
 
-      "from any UnKnownPage" must {
+      "from any Unknown page" must {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe

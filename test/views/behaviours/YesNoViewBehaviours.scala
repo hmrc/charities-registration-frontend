@@ -21,6 +21,8 @@ import play.twirl.api.HtmlFormat
 
 trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
 
+  //scalastyle:off method.length
+
   def yesNoPage(
     form: Form[Boolean],
     createView: Form[Boolean] => HtmlFormat.Appendable,

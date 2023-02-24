@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.common.YesNoFormProvider
-import javax.inject.Inject
 import models.{Index, NormalMode}
 import navigation.OtherOfficialsNavigator
 import pages.otherOfficials.{IsAddAnotherOtherOfficialPage, OtherOfficialsId, OtherOfficialsNamePage, RemoveOtherOfficialsPage}
@@ -31,6 +30,7 @@ import service.UserAnswerService
 import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.YesNoView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class RemoveOtherOfficialsController @Inject() (
@@ -91,8 +91,11 @@ class RemoveOtherOfficialsController @Inject() (
               for {
                 updatedAnswers  <- Future.fromTry(
                                      request.userAnswers.remove(
-                                       if (value) Seq(OtherOfficialsId(index), IsAddAnotherOtherOfficialPage)
-                                       else Seq()
+                                       if (value) {
+                                         Seq(OtherOfficialsId(index), IsAddAnotherOtherOfficialPage)
+                                       } else {
+                                         Seq()
+                                       }
                                      )
                                    )
                 taskListUpdated <- Future.fromTry(result = if (updatedAnswers.get(OtherOfficialsId(0)).isDefined) {

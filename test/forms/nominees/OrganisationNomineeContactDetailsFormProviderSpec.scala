@@ -72,11 +72,13 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
       FormError(fieldName, invalidKey, Seq(formProvider.validateEmailAddress))
     )
 
+    val maxNumberOfChars = 160
+
     behave like fieldWithMaxLength(
       form,
       fieldName,
-      160,
-      FormError(fieldName, tooLongKey, Seq(160))
+      maxNumberOfChars,
+      FormError(fieldName, tooLongKey, Seq(maxNumberOfChars))
     )
   }
 

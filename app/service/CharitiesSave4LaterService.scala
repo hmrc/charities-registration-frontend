@@ -58,6 +58,8 @@ class CharitiesSave4LaterService @Inject() (
   appConfig: FrontendAppConfig
 ) extends ImplicitDateFormatter {
 
+  // scalastyle:off method.length
+
   private val logger = Logger(this.getClass)
 
   private lazy val timeHour: Int    = 12

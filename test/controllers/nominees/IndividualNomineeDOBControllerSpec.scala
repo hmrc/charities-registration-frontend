@@ -16,9 +16,8 @@
 
 package controllers.nominees
 
-import java.time.LocalDate
-
 import base.SpecBase
+import base.data.constants.DateConstants.january1st2002
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
@@ -35,6 +34,7 @@ import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class IndividualNomineeDOBControllerSpec extends SpecBase with BeforeAndAfterEach {
@@ -84,10 +84,7 @@ class IndividualNomineeDOBControllerSpec extends SpecBase with BeforeAndAfterEac
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers
-        .set(IndividualNomineeDOBPage, LocalDate.of(2002, 1, 1))
-        .success
-        .value
+      val userAnswers = localUserAnswers.set(IndividualNomineeDOBPage, january1st2002).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

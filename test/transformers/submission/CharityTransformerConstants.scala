@@ -39,6 +39,7 @@ import scala.util.Try
 trait CharityTransformerConstants extends SpecBase {
 
   //scalastyle:off magic.number
+  //scalastyle:off line.size.limit
 
   private val date = LocalDate.now()
 

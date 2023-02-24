@@ -41,8 +41,11 @@ trait JsonTransformer {
                   ((submissionPath \ "addressLine2").json.put(JsString(l1)) and
                     (submissionPath \ "addressLine3").json.put(JsString(l2)) and
                     (submissionPath \ "addressLine4").json.put(
-                      if (lineWithPostCode.length > 35) JsString(l3)
-                      else JsString(lineWithPostCode)
+                      if (lineWithPostCode.length > 35) {
+                        JsString(l3)
+                      } else {
+                        JsString(lineWithPostCode)
+                      }
                     )).reduce
                 case _                     =>
                   (submissionPath \ "addressLine2").json.put(JsString(code))

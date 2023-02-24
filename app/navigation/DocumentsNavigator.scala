@@ -19,12 +19,13 @@ package navigation
 import config.FrontendAppConfig
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
-import javax.inject.Inject
 import models._
 import models.regulators.SelectGoverningDocument.Other
 import pages.Page
 import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
+
+import javax.inject.Inject
 
 class DocumentsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
 
@@ -116,9 +117,12 @@ class DocumentsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfi
     userAnswers.get(HasCharityChangedPartsOfGoverningDocumentPage) match {
       case Some(true) if mode == CheckMode && userAnswers.get(SectionsChangedGoverningDocumentPage).isDefined =>
         regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case Some(true)                                                                                         => regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
-      case Some(false)                                                                                        => regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
-      case _                                                                                                  => routes.PageNotFoundController.onPageLoad()
+      case Some(true)                                                                                         =>
+        regulatorDocsRoutes.SectionsChangedGoverningDocumentController.onPageLoad(mode)
+      case Some(false)                                                                                        =>
+        regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
+      case _                                                                                                  =>
+        routes.PageNotFoundController.onPageLoad()
     }
 
   private def sectionsChangedGoverningDocumentPageNav(userAnswers: UserAnswers, mode: Mode): Call =

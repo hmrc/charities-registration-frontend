@@ -16,6 +16,7 @@
 
 package models
 
+import base.data.constants.DateConstants.feb1st2018
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
@@ -27,7 +28,7 @@ class MongoDateTimeFormatsSpec extends AnyFreeSpec with Matchers with OptionValu
 
   "a LocalDateTime" - {
 
-    val date = LocalDate.of(2018, 2, 1).atStartOfDay
+    val date = feb1st2018.atStartOfDay
 
     val dateMillis = 1517443200000L
 

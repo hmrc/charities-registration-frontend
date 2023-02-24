@@ -16,11 +16,10 @@
 
 package models
 
-import java.time.LocalDateTime
-
 import pages._
 import play.api.libs.json._
 
+import java.time.LocalDateTime
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
@@ -74,8 +73,9 @@ final case class UserAnswers(id: String, data: JsObject, lastUpdated: LocalDateT
 
   @tailrec
   private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] =
-    if (pages.isEmpty) Success(userAnswers)
-    else {
+    if (pages.isEmpty) {
+      Success(userAnswers)
+    } else {
       userAnswers.remove(pages.head) match {
         case Success(answers)     => recursivelyClearQuestions(pages.tail, answers)
         case failure @ Failure(_) => failure

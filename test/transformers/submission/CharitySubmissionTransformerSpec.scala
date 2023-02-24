@@ -36,6 +36,7 @@ import pages.regulatorsAndDocuments._
 import java.time.LocalDate
 
 class CharitySubmissionTransformerSpec extends CharityTransformerConstants with JsonMatchers {
+
   //scalastyle:off magic.number
 
   val jsonTransformer = new CharitySubmissionTransformer(

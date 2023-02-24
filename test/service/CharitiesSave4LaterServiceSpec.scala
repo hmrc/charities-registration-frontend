@@ -42,11 +42,13 @@ import utils.TestData
 import scala.concurrent.Future
 import scala.util.Try
 
+//scalastyle:off method.length
 // scalastyle:off number.of.methods
 // scalastyle:off line.size.limit
 // scalastyle:off magic.number
 
 class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
+
   lazy val mockRepository: SessionRepository                      = mock[SessionRepository]
   lazy val mockUserService: UserAnswerService                     = mock[UserAnswerService]
   lazy val mockCacheMap: CacheMap                                 = mock[CacheMap]

@@ -17,8 +17,8 @@
 package controllers.regulatorsAndDocuments
 
 import java.time.LocalDate
-
 import base.SpecBase
+import base.data.constants.DateConstants.july1st2014
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import models.regulators.SelectGoverningDocument
@@ -73,7 +73,7 @@ class GoverningDocumentSummaryControllerSpec extends SpecBase with BeforeAndAfte
           Some(
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.TrustDeed)
-              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, july1st2014))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
               .success
               .value

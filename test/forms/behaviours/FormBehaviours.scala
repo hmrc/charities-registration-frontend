@@ -22,6 +22,8 @@ import play.api.data.Form
 
 trait FormBehaviours extends FormSpec {
 
+  //scalastyle:off method.length
+
   val validData: Map[String, String]
 
   val form: Form[_]
@@ -106,6 +108,7 @@ trait FormBehaviours extends FormSpec {
   }
 
   def formWithDateField(field: String): Unit = {
+
     s"fail to bind when $field day is omitted" in {
       val data          = validData - s"$field.day"
       val expectedError = error(s"$field.day", "error.date.day_blank")

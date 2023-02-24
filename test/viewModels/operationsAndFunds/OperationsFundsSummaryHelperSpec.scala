@@ -33,6 +33,8 @@ import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 
 class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
+  //scalastyle:off magic.number
+
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
 
   private val helper = new OperationsFundsSummaryHelper(

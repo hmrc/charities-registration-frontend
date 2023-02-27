@@ -1420,7 +1420,5 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
           Json.parse(expectedJson)
       }
     }
-
   }
-
 }

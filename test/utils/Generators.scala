@@ -33,6 +33,8 @@ import scala.collection.immutable.NumericRange
 
 trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
 
+  //scalastyle:off magic.number
+
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
     PropertyCheckConfiguration(minSuccessful = 1)
 

@@ -74,7 +74,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |}""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result
           .transform(jsonTransformer.userAnswersToIndividualDetails("organisationAuthorisedPerson"))
           .asOpt
@@ -113,7 +113,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |}""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'individual).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToIndividualDetails("individual")).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -151,7 +151,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'authorisedOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToIndividualDetails("officials")).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -189,7 +189,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'authorisedOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToIndividualDetails("officials")).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -222,7 +222,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'authorisedOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToIndividualDetails("officials")).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -258,7 +258,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ 'authorisedOfficials \ 0).json.pick).asOpt.get
+        val result       = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -307,7 +307,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ 'authorisedOfficials \ 0).json.pick).asOpt.get
+        val result       = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -334,7 +334,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'authorisedOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -360,7 +360,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'authorisedOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
     }
@@ -394,7 +394,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsOrganisation).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -445,7 +445,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsOrganisation).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -474,7 +474,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsOrganisation).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -502,7 +502,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsOrganisation).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -538,7 +538,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ 'nominee \ 'individual).json.pick).asOpt.get
+        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsIndividual).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -589,7 +589,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ 'nominee \ 'individual).json.pick).asOpt.get
+        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsIndividual).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -618,7 +618,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'individual).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsIndividual).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -646,7 +646,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'individual).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsIndividual).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -716,7 +716,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        }
              |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToOrgDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
     }
@@ -740,7 +740,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        }
              |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToBankDetails("organisationBankDetails")).asOpt.value mustBe Json
           .parse(expectedJson)
       }
@@ -761,7 +761,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        }
              |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToBankDetails("organisationBankDetails")).asOpt.value mustBe Json
           .parse(expectedJson)
       }
@@ -783,7 +783,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |   }
             |}""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result
           .transform(
             jsonTransformer.userAnswersToPaymentDetails("organisationBankDetails", "isOrganisationNomineePayments")
@@ -812,7 +812,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |   }
             |}""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'nominee \ 'organisation).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result
           .transform(
             jsonTransformer.userAnswersToPaymentDetails("organisationBankDetails", "isOrganisationNomineePayments")
@@ -923,7 +923,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'otherOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "otherOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToIndividualDetails("officials")).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -956,7 +956,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'otherOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "otherOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToIndividualDetails("officials")).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -992,7 +992,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ 'otherOfficials \ 0).json.pick).asOpt.get
+        val result       = localUserAnswers.data.transform((__ \ "otherOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -1019,7 +1019,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'otherOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "otherOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -1045,7 +1045,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |        }
             |  }""".stripMargin
 
-        val result = localUserAnswers.data.transform((__ \ 'otherOfficials \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "otherOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
     }

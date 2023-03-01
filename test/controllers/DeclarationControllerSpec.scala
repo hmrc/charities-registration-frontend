@@ -51,7 +51,8 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockCharitiesRegistrationService)
+    reset(mockUserAnswerService)
+    reset(mockCharitiesRegistrationService)
   }
 
   private val view: DeclarationView = injector.instanceOf[DeclarationView]

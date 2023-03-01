@@ -67,7 +67,8 @@ class CharitiesShortLivedCacheSpec extends SpecBase with WireMockHelper with Moc
               "4qzUjOWJ6HphbjwvSR/lfreYvnR8MhW9QYXJu4i/QCg7HyoScxGYYoJZIYbpr0CVVObRC7E04IiX5zkjHOEheg=="
             ),
             "charityOfficialAddress" -> JsString(
-              "F5Thos0HUSsOgbEobmArahKVB6ims41e3ESts4t+nFGJ8KPqMprK5FagjH8h8BNrDqebMCMpGVS6JEfCV6Yrs7mkqXmWU9ScmKGCcKBXHeVLret25PRg5jp2Ibxe6zVXQpYex/9nt7xK97gcOzjRF7BeEGPdXf9CG5/2dgV7EdUbkVQyvm1o1UfQLJ3Bl1DEVObRC7E04IiX5zkjHOEheg=="
+              "F5Thos0HUSsOgbEobmArahKVB6ims41e3ESts4t+nFGJ8KPqMprK5FagjH8h8BNrDqebMCMpGVS6JEfCV6Yrs7mkqXmWU9Scm" +
+                "KGCcKBXHeVLret25PRg5jp2Ibxe6zVXQpYex/9nt7xK97gcOzjRF7BeEGPdXf9CG5/2dgV7EdUbkVQyvm1o1UfQLJ3Bl1DEVObRC7E04IiX5zkjHOEheg=="
             )
           )
         )

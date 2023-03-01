@@ -82,8 +82,10 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
               redirectToPlaybackPage(index)
             } else {
               userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
-                case Some(_) => otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
-                case _       => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
+                case Some(_) =>
+                  otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
+                case _       =>
+                  addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
               }
             }
           case _       => routes.PageNotFoundController.onPageLoad()
@@ -109,8 +111,10 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
         userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, index)
-          case Some(_)                                     => otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOtherOfficialsPreviousAddressPage(index) =>
@@ -120,8 +124,10 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
             otherOfficialRoutes.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index)
           case Some(true)                                                                             =>
             addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
-          case Some(false)                                                                            => redirectToPlaybackPage(index)
-          case _                                                                                      => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                            =>
+            redirectToPlaybackPage(index)
+          case _                                                                                      =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialPreviousAddressLookupPage(index) =>
@@ -193,12 +199,16 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
     case IsOtherOfficialNinoPage(index) =>
       userAnswers: UserAnswers =>
         userAnswers.get(IsOtherOfficialNinoPage(index)) match {
-          case Some(true) if userAnswers.get(OtherOfficialsNinoPage(index)).isDefined      => redirectToPlaybackPage(index)
-          case Some(true)                                                                  => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(CheckMode, index)
+          case Some(true) if userAnswers.get(OtherOfficialsNinoPage(index)).isDefined      =>
+            redirectToPlaybackPage(index)
+          case Some(true)                                                                  =>
+            otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(CheckMode, index)
           case Some(false) if userAnswers.get(OtherOfficialsPassportPage(index)).isDefined =>
             redirectToPlaybackPage(index)
-          case Some(false)                                                                 => otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(CheckMode, index)
-          case _                                                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                 =>
+            otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(CheckMode, index)
+          case _                                                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsNinoPage(index) =>
@@ -220,8 +230,10 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
         userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(CheckMode, index)
-          case Some(_)                                     => otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
-          case _                                           => routes.PageNotFoundController.onPageLoad()
+          case Some(_)                                     =>
+            otherOfficialRoutes.IsOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
+          case _                                           =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOtherOfficialsPreviousAddressPage(index) =>
@@ -231,8 +243,10 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
             redirectToPlaybackPage(index)
           case Some(true)                                                                             =>
             addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, CheckMode)
-          case Some(false)                                                                            => redirectToPlaybackPage(index)
-          case _                                                                                      => routes.PageNotFoundController.onPageLoad()
+          case Some(false)                                                                            =>
+            redirectToPlaybackPage(index)
+          case _                                                                                      =>
+            routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialPreviousAddressLookupPage(index) =>

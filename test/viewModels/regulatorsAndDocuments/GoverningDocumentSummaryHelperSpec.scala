@@ -30,6 +30,8 @@ import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
 
 class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
+  //scalastyle:off magic.number
+
   private val helper = new GoverningDocumentSummaryHelper(
     UserAnswers("id")
       .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)

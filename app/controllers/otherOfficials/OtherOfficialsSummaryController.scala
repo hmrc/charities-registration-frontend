@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.common.YesNoFormProvider
-import javax.inject.Inject
 import models.NormalMode
 import navigation.OtherOfficialsNavigator
 import pages.IndexPage
@@ -33,6 +32,7 @@ import viewmodels.officials.OfficialSummaryRowHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.OfficialsSummaryView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OtherOfficialsSummaryController @Inject() (
@@ -91,8 +91,11 @@ class OtherOfficialsSummaryController @Inject() (
               taskListUpdated <- Future.fromTry(result =
                                    updatedAnswers.set(
                                      Section8Page,
-                                     if (appConfig.isExternalTest) true
-                                     else checkComplete(updatedAnswers)
+                                     if (appConfig.isExternalTest) {
+                                       true
+                                     } else {
+                                       checkComplete(updatedAnswers)
+                                     }
                                    )
                                  )
               _               <- sessionRepository.set(taskListUpdated)

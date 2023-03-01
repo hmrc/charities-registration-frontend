@@ -24,7 +24,7 @@ import play.api.libs.json.{__, _}
 
 class CharityPartnerTransformer extends JsonTransformer {
 
-  val localPath: JsPath               = __ \ 'charityRegistration \ 'partner
+  val localPath: JsPath               = __ \ "charityRegistration" \ "partner"
   private val action                  = "1"
   private val relationOO              = "1"
   private val relationAO              = "2"
@@ -39,68 +39,73 @@ class CharityPartnerTransformer extends JsonTransformer {
     }
 
     val position = prefix match {
-      case "officials" => (__ \ 'individualDetails \ 'position).json.copyFrom((__ \ s"${prefix}Position").json.pick)
-      case _           => (__ \ 'individualDetails \ 'position).json.put(JsString("01"))
+      case "officials" => (__ \ "individualDetails" \ "position").json.copyFrom((__ \ s"${prefix}Position").json.pick)
+      case _           => (__ \ "individualDetails" \ "position").json.put(JsString("01"))
     }
 
     val phoneNumbers: Reads[JsObject] = prefix match {
       case "organisationAuthorisedPerson" =>
-        getPhone(__ \ 'individualDetails \ 'dayPhoneNumber, __ \ 'organisationContactDetails \ 'phoneNumber)
+        getPhone(__ \ "individualDetails" \ "dayPhoneNumber", __ \ "organisationContactDetails" \ "phoneNumber")
       case _                              =>
-        (getPhone(__ \ 'individualDetails \ 'dayPhoneNumber, __ \ s"${prefix}PhoneNumber" \ 'daytimePhone) and
-          getOptionalPhone(__ \ 'individualDetails \ 'mobilePhone, __ \ s"${prefix}PhoneNumber" \ 'mobilePhone)).reduce
+        (getPhone(__ \ "individualDetails" \ "dayPhoneNumber", __ \ s"${prefix}PhoneNumber" \ "daytimePhone") and
+          getOptionalPhone(
+            __ \ "individualDetails" \ "mobilePhone",
+            __ \ s"${prefix}PhoneNumber" \ "mobilePhone"
+          )).reduce
     }
 
     val remainingFields = (
-      getName(__ \ 'individualDetails \ 'name, __ \ s"${prefix}Name") and
-        (__ \ 'individualDetails \ 'dateOfBirth).json.copyFrom((__ \ s"${prefix}DOB").json.pick) and
-        ((__ \ 'individualDetails \ 'nino).json.copyFrom(nino) orElse doNothing) and
-        ((__ \ 'individualDetails \ 'nationalIdentityNumber).json
-          .copyFrom((__ \ s"${prefix}Passport" \ 'passportNumber).json.pick) orElse doNothing) and
-        ((__ \ 'individualDetails \ 'nationalIDCardIssuingCountry).json
-          .copyFrom((__ \ s"${prefix}Passport" \ 'country).json.pick) orElse doNothing) and
-        ((__ \ 'individualDetails \ 'nationalIDCardExpiryDate).json
-          .copyFrom((__ \ s"${prefix}Passport" \ 'expiryDate).json.pick) orElse doNothing)
+      getName(__ \ "individualDetails" \ "name", __ \ s"${prefix}Name") and
+        (__ \ "individualDetails" \ "dateOfBirth").json.copyFrom((__ \ s"${prefix}DOB").json.pick) and
+        ((__ \ "individualDetails" \ "nino").json.copyFrom(nino) orElse doNothing) and
+        ((__ \ "individualDetails" \ "nationalIdentityNumber").json
+          .copyFrom((__ \ s"${prefix}Passport" \ "passportNumber").json.pick) orElse doNothing) and
+        ((__ \ "individualDetails" \ "nationalIDCardIssuingCountry").json
+          .copyFrom((__ \ s"${prefix}Passport" \ "country").json.pick) orElse doNothing) and
+        ((__ \ "individualDetails" \ "nationalIDCardExpiryDate").json
+          .copyFrom((__ \ s"${prefix}Passport" \ "expiryDate").json.pick) orElse doNothing)
     ).reduce
 
     (position and phoneNumbers and remainingFields).reduce
   }
 
   def userAnswersToPartnerAddressDetails: Reads[JsObject] =
-    (getAddress(__ \ 'addressDetails \ 'currentAddress, __ \ "officialAddress") and
-      getOptionalAddress(__ \ 'addressDetails \ 'previousAddress, __ \ "officialPreviousAddress")).reduce
+    (getAddress(__ \ "addressDetails" \ "currentAddress", __ \ "officialAddress") and
+      getOptionalAddress(__ \ "addressDetails" \ "previousAddress", __ \ "officialPreviousAddress")).reduce
 
   def userAnswersToPartnerAddressDetailsOrganisation: Reads[JsObject] =
-    (getAddress(__ \ 'addressDetails \ 'currentAddress, __ \ "organisationAddress") and
-      getOptionalAddress(__ \ 'addressDetails \ 'previousAddress, __ \ "organisationPreviousAddress")).reduce
+    (getAddress(__ \ "addressDetails" \ "currentAddress", __ \ "organisationAddress") and
+      getOptionalAddress(__ \ "addressDetails" \ "previousAddress", __ \ "organisationPreviousAddress")).reduce
 
   def userAnswersToPartnerAddressDetailsIndividual: Reads[JsObject] =
-    (getAddress(__ \ 'addressDetails \ 'currentAddress, __ \ "individualAddress") and
-      getOptionalAddress(__ \ 'addressDetails \ 'previousAddress, __ \ "individualPreviousAddress")).reduce
+    (getAddress(__ \ "addressDetails" \ "currentAddress", __ \ "individualAddress") and
+      getOptionalAddress(__ \ "addressDetails" \ "previousAddress", __ \ "individualPreviousAddress")).reduce
 
   def userAnswersToResponsiblePerson(action: String, relation: String): Reads[JsObject] =
-    ((__ \ 'responsiblePerson \ 'action).json.put(JsString(action)) and
-      (__ \ 'responsiblePerson \ 'relation).json.put(JsString(relation))).reduce
+    ((__ \ "responsiblePerson" \ "action").json.put(JsString(action)) and
+      (__ \ "responsiblePerson" \ "relation").json.put(JsString(relation))).reduce
 
   def userAnswersToAddPartner(partnerType: String): Reads[JsObject] =
-    ((__ \ 'type).json.put(JsString(partnerType)) and
-      (__ \ 'addPartner \ 'effectiveDateOfChange).json.put(JsString(LocalDate.now().toString))).reduce
+    ((__ \ "type").json.put(JsString(partnerType)) and
+      (__ \ "addPartner" \ "effectiveDateOfChange").json.put(JsString(LocalDate.now().toString))).reduce
 
   def userAnswersToOrgDetails: Reads[JsObject] =
-    ((__ \ 'orgDetails \ 'orgName).json.copyFrom((__ \ "organisationName").json.pick) and
-      getPhone(__ \ 'orgDetails \ 'telephoneNumber, __ \ 'organisationContactDetails \ 'phoneNumber) and
-      (__ \ 'orgDetails \ 'emailAddress).json.copyFrom((__ \ 'organisationContactDetails \ 'email).json.pick)).reduce
+    ((__ \ "orgDetails" \ "orgName").json.copyFrom((__ \ "organisationName").json.pick) and
+      getPhone(__ \ "orgDetails" \ "telephoneNumber", __ \ "organisationContactDetails" \ "phoneNumber") and
+      (__ \ "orgDetails" \ "emailAddress").json.copyFrom(
+        (__ \ "organisationContactDetails" \ "email").json.pick
+      )).reduce
 
   def userAnswersToBankDetails(pathKey: String): Reads[JsObject] =
     (
-      (__ \ 'bankDetails \ 'accountName).json.copyFrom((__ \ pathKey \ 'accountName).json.pick) and
-        (__ \ pathKey \ 'sortCode).read[String].flatMap { n =>
-          (__ \ 'bankDetails \ 'sortCode).json.put(JsNumber(n.toInt))
+      (__ \ "bankDetails" \ "accountName").json.copyFrom((__ \ pathKey \ "accountName").json.pick) and
+        (__ \ pathKey \ "sortCode").read[String].flatMap { n =>
+          (__ \ "bankDetails" \ "sortCode").json.put(JsNumber(n.toInt))
         } and
-        (__ \ pathKey \ 'accountNumber).read[String].flatMap { n =>
-          (__ \ 'bankDetails \ 'accountNumber).json.put(JsNumber(n.toInt))
+        (__ \ pathKey \ "accountNumber").read[String].flatMap { n =>
+          (__ \ "bankDetails" \ "accountNumber").json.put(JsNumber(n.toInt))
         } and
-        ((__ \ 'bankDetails \ 'rollNumber).json.copyFrom((__ \ pathKey \ 'rollNumber).json.pick) orElse doNothing)
+        ((__ \ "bankDetails" \ "rollNumber").json.copyFrom((__ \ pathKey \ "rollNumber").json.pick) orElse doNothing)
     ).reduce
 
   def userAnswersToPaymentDetails(pathKey: String, authorisedKey: String): Reads[JsObject] = {
@@ -109,8 +114,8 @@ class CharityPartnerTransformer extends JsonTransformer {
     }
 
     (
-      (__ \ 'paymentDetails \ 'authorisedPayments).json.copyFrom(paymentsAuthorised) and
-        (__ \ 'paymentDetails).json.copyFrom(paymentsAuthorised.flatMap {
+      (__ \ "paymentDetails" \ "authorisedPayments").json.copyFrom(paymentsAuthorised) and
+        (__ \ "paymentDetails").json.copyFrom(paymentsAuthorised.flatMap {
           case JsTrue => userAnswersToBankDetails(pathKey)
           case _      => doNothing
         })
@@ -120,16 +125,16 @@ class CharityPartnerTransformer extends JsonTransformer {
   def userAnswersToPartner: Reads[JsObject] = {
 
     val partners = for {
-      authorisedOfficials <- (__ \ 'authorisedOfficials)
+      authorisedOfficials <- (__ \ "authorisedOfficials")
                                .readNullable(Reads.seq(getOfficials(action, relationAO, partnerTypeIndividual)))
                                .map(x => x.fold(JsArray())(JsArray(_)))
-      otherOfficials      <- (__ \ 'otherOfficials)
+      otherOfficials      <- (__ \ "otherOfficials")
                                .readNullable(Reads.seq(getOfficials(action, relationOO, partnerTypeIndividual)))
                                .map(x => x.fold(JsArray())(JsArray(_)))
       organisation        <-
-        (__ \\ 'organisation).readNullable(getOrganisationNominee(action)).map(x => x.fold(JsArray())(Json.arr(_)))
+        (__ \\ "organisation").readNullable(getOrganisationNominee(action)).map(x => x.fold(JsArray())(Json.arr(_)))
       individual          <-
-        (__ \\ 'individual).readNullable(getIndividualNominee(action)).map(x => x.fold(JsArray())(Json.arr(_)))
+        (__ \\ "individual").readNullable(getIndividualNominee(action)).map(x => x.fold(JsArray())(Json.arr(_)))
 
     } yield authorisedOfficials ++ otherOfficials ++ organisation ++ individual
 

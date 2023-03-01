@@ -16,16 +16,15 @@
 
 package controllers.authorisedOfficials
 
-import java.time.LocalDate
-
 import base.SpecBase
+import base.data.constants.DateConstants.january1st2002
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
 import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.{AuthorisedOfficialsDOBPage, AuthorisedOfficialsNamePage}
 import play.api.data.Form
@@ -35,6 +34,7 @@ import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterEach {
@@ -86,7 +86,7 @@ class AuthorisedOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterE
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(2002, 1, 1)).success.value
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsDOBPage(0), january1st2002).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

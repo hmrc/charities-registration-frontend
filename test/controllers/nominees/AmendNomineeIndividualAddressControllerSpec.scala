@@ -55,7 +55,8 @@ class AmendNomineeIndividualAddressControllerSpec extends SpecBase with BeforeAn
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockCountryService)
+    reset(mockUserAnswerService)
+    reset(mockCountryService)
   }
 
   private val messageKeyPrefix                       = "amendNomineeIndividualAddress"

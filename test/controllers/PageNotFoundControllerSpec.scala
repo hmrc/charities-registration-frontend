@@ -46,7 +46,8 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockSessionRepository, mockAuthConnector)
+    reset(mockSessionRepository)
+    reset(mockAuthConnector)
   }
 
   private val view: PageNotFoundView = inject[PageNotFoundView]

@@ -24,6 +24,7 @@ import pages.regulatorsAndDocuments._
 import viewmodels.regulatorsAndDocuments.GoverningDocumentStatusHelper
 
 class GoverningDocumentStatusHelperSpec extends SpecBase {
+  //scalastyle:off magic.number
 
   private val helper = GoverningDocumentStatusHelper
 
@@ -127,19 +128,20 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
         ) mustBe false
       }
 
-      "return true when other, document approved(Yes), HasCharityChangedParts(Yes) and related questions are answered correctly (Scenario 4)" in {
-        helper.checkComplete(
-          emptyUserAnswers
-            .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
-            .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
-            .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
-            .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
-            .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
-            .success
-            .value
-        ) mustBe true
-      }
+      "return true when other, document approved(Yes), HasCharityChangedParts(Yes) " +
+        "and related questions are answered correctly (Scenario 4)" in {
+          helper.checkComplete(
+            emptyUserAnswers
+              .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
+              .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
+              .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
+              .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
+              .success
+              .value
+          ) mustBe true
+        }
 
       "return false when other, document approved(Yes), HasCharityChangedParts(Yes) and no other data (Scenario 4)" in {
         helper.checkComplete(
@@ -187,74 +189,79 @@ class GoverningDocumentStatusHelperSpec extends SpecBase {
         ) mustBe false
       }
 
-      "return true when something other than 'other', document approved(Yes), HasCharityChangedParts(No) and related questions are answered correctly (Scenario 6)" in {
-        helper.checkComplete(
-          emptyUserAnswers
-            .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
-            .flatMap(
-              _.set(IsApprovedGoverningDocumentPage, true)
-                .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
-            )
-            .success
-            .value
-        ) mustBe true
-      }
+      "return true when something other than 'other', document approved(Yes), HasCharityChangedParts(No) and related " +
+        "questions are answered correctly (Scenario 6)" in {
+          helper.checkComplete(
+            emptyUserAnswers
+              .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(
+                _.set(IsApprovedGoverningDocumentPage, true)
+                  .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
+              )
+              .success
+              .value
+          ) mustBe true
+        }
 
-      "return false when something other than 'other', document approved(Yes), HasCharityChangedParts(No) and additional questions are answered (Scenario 6)" in {
-        helper.checkComplete(
-          emptyUserAnswers
-            .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
-            .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
-            .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
-            .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
-            .success
-            .value
-        ) mustBe false
-      }
+      "return false when something other than 'other', document approved(Yes), HasCharityChangedParts(No) and additional " +
+        "questions are answered (Scenario 6)" in {
+          helper.checkComplete(
+            emptyUserAnswers
+              .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
+              .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
+              .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
+              .success
+              .value
+          ) mustBe false
+        }
 
-      "return false when something other than 'other', document approved(Yes), HasCharityChangedParts(No) and no other data (Scenario 6)" in {
-        helper.checkComplete(
-          emptyUserAnswers
-            .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
-            .flatMap(
-              _.set(IsApprovedGoverningDocumentPage, true)
-                .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
-            )
-            .success
-            .value
-        ) mustBe false
-      }
+      "return false when something other than 'other', document approved(Yes), " +
+        "HasCharityChangedParts(No) and no other data (Scenario 6)" in {
+          helper.checkComplete(
+            emptyUserAnswers
+              .set(SelectGoverningDocumentPage, SelectGoverningDocument.RoyalCharacter)
+              .flatMap(
+                _.set(IsApprovedGoverningDocumentPage, true)
+                  .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
+              )
+              .success
+              .value
+          ) mustBe false
+        }
 
-      "return true when something other than 'other', document approved(Yes), HasCharityChangedParts(Yes) and related questions are answered correctly (Scenario 7)" in {
-        helper.checkComplete(
-          emptyUserAnswers
-            .set(SelectGoverningDocumentPage, SelectGoverningDocument.RulesConstitution)
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
-            .flatMap(
-              _.set(IsApprovedGoverningDocumentPage, true)
-                .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
-                .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
-            )
-            .success
-            .value
-        ) mustBe true
-      }
+      "return true when something other than 'other', document approved(Yes), " +
+        "HasCharityChangedParts(Yes) and related questions are answered correctly (Scenario 7)" in {
+          helper.checkComplete(
+            emptyUserAnswers
+              .set(SelectGoverningDocumentPage, SelectGoverningDocument.RulesConstitution)
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(
+                _.set(IsApprovedGoverningDocumentPage, true)
+                  .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
+                  .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
+              )
+              .success
+              .value
+          ) mustBe true
+        }
 
-      "return false when something other than 'other', document approved(Yes), HasCharityChangedParts(Yes) and additional questions are answered correctly (Scenario 7)" in {
-        helper.checkComplete(
-          emptyUserAnswers
-            .set(SelectGoverningDocumentPage, SelectGoverningDocument.RulesConstitution)
-            .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
-            .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
-            .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
-            .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
-            .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
-            .success
-            .value
-        ) mustBe false
-      }
+      "return false when something other than 'other', document approved(Yes), " +
+        "HasCharityChangedParts(Yes) and additional questions are answered correctly (Scenario 7)" in {
+          helper.checkComplete(
+            emptyUserAnswers
+              .set(SelectGoverningDocumentPage, SelectGoverningDocument.RulesConstitution)
+              .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+              .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
+              .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))
+              .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Test Change"))
+              .flatMap(_.set(GoverningDocumentNamePage, "Test Document"))
+              .success
+              .value
+          ) mustBe false
+        }
 
       "return false when something other than 'other', document approved(Yes), HasCharityChangedParts(Yes) and no other data (Scenario 7)" in {
         helper.checkComplete(

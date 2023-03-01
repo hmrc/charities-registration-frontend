@@ -20,13 +20,12 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage, EmailOrPostPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import service.UserAnswerService
 import utils.ImplicitDateFormatter
 import viewmodels.RequiredDocumentsHelper
 import views.html.RegistrationSentView
 
 import javax.inject.Inject
-import service.UserAnswerService
-
 import scala.concurrent.Future
 
 class RegistrationSentController @Inject() (
@@ -46,51 +45,21 @@ class RegistrationSentController @Inject() (
       request.userAnswers.get(ApplicationSubmissionDatePage)
     ) match {
       case (Some(acknowledgementReference), Some(applicationSubmissionDate)) =>
+        val renderView = (emailOrPost: Boolean, noEmailOrPost: Boolean) =>
+          view(
+            dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
+            dayToString(applicationSubmissionDate, dayOfWeek = false),
+            acknowledgementReference,
+            emailOrPost,
+            noEmailOrPost = noEmailOrPost,
+            RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
+            RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
+          )
         request.userAnswers.get(EmailOrPostPage) match {
-          case Some(emailOrPost) if appConfig.noEmailPost =>
-            Future.successful(
-              Ok(
-                view(
-                  dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-                  dayToString(applicationSubmissionDate, dayOfWeek = false),
-                  acknowledgementReference,
-                  emailOrPost,
-                  noEmailOrPost = true,
-                  RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-                  RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-                )
-              )
-            )
-          case Some(emailOrPost)                          =>
-            Future.successful(
-              Ok(
-                view(
-                  dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-                  dayToString(applicationSubmissionDate, dayOfWeek = false),
-                  acknowledgementReference,
-                  emailOrPost,
-                  noEmailOrPost = false,
-                  RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-                  RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-                )
-              )
-            )
-          case _ if appConfig.noEmailPost                 =>
-            Future.successful(
-              Ok(
-                view(
-                  dayToString(applicationSubmissionDate.plusDays(appConfig.timeToLiveInDays)),
-                  dayToString(applicationSubmissionDate, dayOfWeek = false),
-                  acknowledgementReference,
-                  emailOrPost = false,
-                  noEmailOrPost = true,
-                  RequiredDocumentsHelper.getRequiredDocuments(request.userAnswers),
-                  RequiredDocumentsHelper.getForeignOfficialsMessages(request.userAnswers)
-                )
-              )
-            )
-          case _                                          =>
-            Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
+          case Some(emailOrPost) if appConfig.noEmailPost => Future.successful(Ok(renderView(emailOrPost, true)))
+          case Some(emailOrPost)                          => Future.successful(Ok(renderView(emailOrPost, false)))
+          case _ if appConfig.noEmailPost                 => Future.successful(Ok(renderView(false, true)))
+          case _                                          => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
         }
       case _                                                                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }

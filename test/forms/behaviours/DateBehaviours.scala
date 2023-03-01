@@ -25,6 +25,8 @@ import play.api.data.{Form, FormError}
 
 class DateBehaviours extends FieldBehaviours {
 
+  //scalastyle:off magic.number
+
   def dateField(form: Form[_], key: String, validData: Gen[LocalDate]): Unit =
     forAll(validData -> "valid date") { date =>
       s"bind valid data for $date" in {

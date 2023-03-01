@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-package models.transformers
+package base.data.constants
 
-import play.api.libs.json.{JsObject, JsPath, JsonValidationError}
+import models.addressLookup.{AddressModel, CountryModel}
 
-case class TransformerKeeper(accumulator: JsObject, errors: Iterable[(JsPath, Iterable[JsonValidationError])])
+object AddressModelConstants {
+
+  val address: AddressModel =
+    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+
+  val addressModelMax: AddressModel =
+    AddressModel(Seq("7", "Morrison street near riverview gardens"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+
+  val addressModelMin: AddressModel =
+    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+
+}

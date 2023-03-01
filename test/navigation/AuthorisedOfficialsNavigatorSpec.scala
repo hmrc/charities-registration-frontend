@@ -17,10 +17,10 @@
 package navigation
 
 import base.SpecBase
+import base.data.constants.AddressModelConstants._
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
-import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
@@ -36,22 +36,15 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: AuthorisedOfficialsNavigator = inject[AuthorisedOfficialsNavigator]
 
-  private val authorisedOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-  private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
-  private val address: AddressModel                       =
-    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-  private val addressMax: AddressModel                    = AddressModel(
-    Seq("7", "Morrison street near riverview gardens"),
-    Some("G58AN"),
-    CountryModel("UK", "United Kingdom")
-  )
   private val minYear                                     = 16
-  private val minAddressLines: AddressModel               =
-    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+  private val authorisedOfficialsName: Name               =
+    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+  private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {
+
       List(0, 1).foreach { index =>
         s"from the AuthorisedOfficialsNamePage for index $index" must {
 
@@ -82,7 +75,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               routes.PageNotFoundController.onPageLoad()
           }
 
-          "go to the What is [full name]'s phone number? page when clicked continue button" in {
+          "go to the AuthorisedOfficialsPhoneNumberPage when clicked continue button" in {
             navigator.nextPage(
               AuthorisedOfficialsDOBPage(index),
               NormalMode,
@@ -103,7 +96,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               routes.PageNotFoundController.onPageLoad()
           }
 
-          "go to the What is [full name]'s position in charity? page when clicked continue button" in {
+          "go to the AuthorisedOfficialsPositionPage when clicked continue button" in {
             navigator.nextPage(
               AuthorisedOfficialsPhoneNumberPage(index),
               NormalMode,
@@ -112,8 +105,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(index), authorisedOfficialsPhoneNumber))
                 .success
                 .value
-            ) mustBe
-              authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(NormalMode, index)
+            ) mustBe authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(NormalMode, index)
           }
         }
 
@@ -158,7 +150,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(NormalMode, index)
           }
 
-          "go to the Passport page when no is selected" in {
+          "go to the Passport page when No is selected" in {
             navigator.nextPage(
               IsAuthorisedOfficialNinoPage(index),
               NormalMode,
@@ -271,8 +263,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AuthorisedOfficialAddressLookupPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(AuthorisedOfficialAddressLookupPage(0), addressMax)
-                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), addressMax))
+                .set(AuthorisedOfficialAddressLookupPage(0), addressModelMax)
+                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), addressModelMax))
                 .success
                 .value
             ) mustBe
@@ -284,8 +276,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AuthorisedOfficialAddressLookupPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(AuthorisedOfficialAddressLookupPage(0), minAddressLines)
-                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), minAddressLines))
+                .set(AuthorisedOfficialAddressLookupPage(0), addressModelMin)
+                .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), addressModelMin))
                 .success
                 .value
             ) mustBe
@@ -315,21 +307,22 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 .initializeJourney(index, NormalMode)
           }
 
-          "go to the ConfirmAuthorisedOfficialsPreviousAddressController page when yes is selected and AuthorisedOfficialPreviousAddressLookupPage is present and clicked continue button" in {
-            navigator.nextPage(
-              IsAuthorisedOfficialPreviousAddressPage(index),
-              NormalMode,
-              emptyUserAnswers
-                .set(IsAuthorisedOfficialPreviousAddressPage(0), true)
-                .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
-                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
-                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address))
-                .success
-                .value
-            ) mustBe
-              controllers.authorisedOfficials.routes.ConfirmAuthorisedOfficialsPreviousAddressController
-                .onPageLoad(index)
-          }
+          "go to the ConfirmAuthorisedOfficialsPreviousAddressController page when yes is selected and " +
+            "AuthorisedOfficialPreviousAddressLookupPage is present and clicked continue button" in {
+              navigator.nextPage(
+                IsAuthorisedOfficialPreviousAddressPage(index),
+                NormalMode,
+                emptyUserAnswers
+                  .set(IsAuthorisedOfficialPreviousAddressPage(0), true)
+                  .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
+                  .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
+                  .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address))
+                  .success
+                  .value
+              ) mustBe
+                controllers.authorisedOfficials.routes.ConfirmAuthorisedOfficialsPreviousAddressController
+                  .onPageLoad(index)
+            }
 
           "go to the You have added one authorised official page when no is selected" in {
             navigator.nextPage(
@@ -378,8 +371,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AuthorisedOfficialPreviousAddressLookupPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(AuthorisedOfficialPreviousAddressLookupPage(0), addressMax)
-                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), addressMax))
+                .set(AuthorisedOfficialPreviousAddressLookupPage(0), addressModelMax)
+                .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), addressModelMax))
                 .success
                 .value
             ) mustBe
@@ -388,8 +381,10 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      s"from the IsAuthorisedOfficialPreviousAddressPage for index 3" must {
-        "go to the You have added one authorised official page when no is selected" in {
+      "from the IsAuthorisedOfficialPreviousAddressPage for index 3" must {
+
+        "go to the PageNotFound page when no is selected" in {
+
           navigator.nextPage(
             IsAuthorisedOfficialPreviousAddressPage(2),
             NormalMode,
@@ -419,42 +414,36 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the summary page" must {
+      "from the AuthorisedOfficialsSummaryPage" must {
+
+        val nextPage = navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, _)
 
         "go to the PageNotFoundController page when user answer is empty" in {
-          navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, emptyUserAnswers) mustBe
-            routes.PageNotFoundController.onPageLoad()
+          nextPage(emptyUserAnswers) mustBe routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the index if Yes is selected and the section is complete" in {
-          navigator.nextPage(
-            AuthorisedOfficialsSummaryPage,
-            NormalMode,
+          nextPage(
             emptyUserAnswers
               .set(IsAddAnotherAuthorisedOfficialPage, true)
               .flatMap(_.set(Section7Page, true))
               .success
               .value
-          ) mustBe
-            routes.IndexController.onPageLoad(None)
+          ) mustBe routes.IndexController.onPageLoad(None)
         }
 
         "go to the index if No is selected" in {
-          navigator.nextPage(
-            AuthorisedOfficialsSummaryPage,
-            NormalMode,
+
+          nextPage(
             emptyUserAnswers
               .set(IsAddAnotherAuthorisedOfficialPage, false)
               .success
               .value
-          ) mustBe
-            routes.IndexController.onPageLoad(None)
+          ) mustBe routes.IndexController.onPageLoad(None)
         }
 
         "go to the 2nd authorised official's name page if Yes is selected and the section isn't completed yet" in {
-          navigator.nextPage(
-            AuthorisedOfficialsSummaryPage,
-            NormalMode,
+          nextPage(
             emptyUserAnswers
               .set(IsAddAnotherAuthorisedOfficialPage, true)
               .flatMap(_.set(Section7Page, false))
@@ -467,15 +456,15 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
       "from the RemoveAuthorisedOfficialsPage" must {
 
+        val nextPage = navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, _)
+
         "go to the PageNotFoundController page when user answer is empty" in {
-          navigator.nextPage(RemoveAuthorisedOfficialsPage, NormalMode, emptyUserAnswers) mustBe
-            routes.PageNotFoundController.onPageLoad()
+          nextPage(emptyUserAnswers) mustBe routes.PageNotFoundController.onPageLoad()
         }
 
-        "go to the summary page if No is selected and AuthorisedOfficials are present" in {
-          navigator.nextPage(
-            RemoveAuthorisedOfficialsPage,
-            NormalMode,
+        "go to the AuthorisedOfficialsSummary if No is selected and AuthorisedOfficials are present" in {
+
+          nextPage(
             emptyUserAnswers
               .set(RemoveAuthorisedOfficialsPage, false)
               .flatMap(_.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName))
@@ -484,10 +473,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
         }
 
-        "go to the summary page if Yes is selected and AuthorisedOfficials are present" in {
-          navigator.nextPage(
-            RemoveAuthorisedOfficialsPage,
-            NormalMode,
+        "go to the AuthorisedOfficialsSummaryPage if Yes is selected and AuthorisedOfficials are present" in {
+          nextPage(
             emptyUserAnswers
               .set(RemoveAuthorisedOfficialsPage, true)
               .flatMap(_.set(AuthorisedOfficialsNamePage(0), authorisedOfficialsName))
@@ -496,10 +483,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           ) mustBe authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
         }
 
-        "go to the start of journey if removed all official deatils and AuthorisedOfficials are not present" in {
-          navigator.nextPage(
-            RemoveAuthorisedOfficialsPage,
-            NormalMode,
+        "go to the start of journey if removed all official details and AuthorisedOfficials are not present" in {
+          nextPage(
             emptyUserAnswers
               .set(RemoveAuthorisedOfficialsPage, true)
               .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
@@ -507,39 +492,28 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               .value
           ) mustBe authOfficialRoutes.CharityAuthorisedOfficialsController.onPageLoad()
         }
-
-        "go to the index if No is selected" in {
-          navigator.nextPage(
-            AuthorisedOfficialsSummaryPage,
-            NormalMode,
-            emptyUserAnswers
-              .set(IsAddAnotherAuthorisedOfficialPage, false)
-              .success
-              .value
-          ) mustBe
-            routes.IndexController.onPageLoad(None)
-        }
       }
 
-      "from any UnKnownPage" must {
+      "from any Unknown page" must {
 
         "go to the IndexController page when user answer is empty" in {
-          navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad(None)
+          navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe routes.IndexController.onPageLoad(None)
         }
       }
     }
 
     "in Check mode" when {
 
-      def goToPlaybackPage(index: Int): Call = index match {
-        case 0 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
-        case 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(1))
-        case _ => routes.PageNotFoundController.onPageLoad()
-      }
+      def goToPlaybackPage(index: Int): Call =
+        index match {
+          case 0 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(0))
+          case 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(1))
+          case _ => routes.PageNotFoundController.onPageLoad()
+        }
 
       List(0, 1).foreach(index => {
         s"in Playback mode for index $index" when {
+
           "from the AuthorisedOfficialsNamePage" must {
 
             "go to the PageNotFoundController page when user answer is empty" in {
@@ -736,15 +710,14 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
           "from the AuthorisedOfficialAddressLookupPage" must {
 
+            val nextPageCheckModeIndex = navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), CheckMode, _)
+
             "go to the PageNotFoundController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialAddressLookupPage(index), CheckMode, emptyUserAnswers) mustBe
-                routes.PageNotFoundController.onPageLoad()
+              nextPageCheckModeIndex(emptyUserAnswers) mustBe routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the Have you previously changed your address page when continue button is clicked" in {
-              navigator.nextPage(
-                AuthorisedOfficialAddressLookupPage(index),
-                CheckMode,
+              nextPageCheckModeIndex(
                 emptyUserAnswers
                   .set(AuthorisedOfficialAddressLookupPage(0), address)
                   .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), address))
@@ -755,12 +728,11 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             }
 
             "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
-              navigator.nextPage(
-                AuthorisedOfficialAddressLookupPage(index),
-                CheckMode,
+
+              nextPageCheckModeIndex(
                 emptyUserAnswers
-                  .set(AuthorisedOfficialAddressLookupPage(0), addressMax)
-                  .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), addressMax))
+                  .set(AuthorisedOfficialAddressLookupPage(0), addressModelMax)
+                  .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), addressModelMax))
                   .success
                   .value
               ) mustBe
@@ -770,15 +742,15 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
           "from the IsAuthorisedOfficialPreviousAddressPage" must {
 
+            val nextPageCheckModeIndex =
+              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode, _)
+
             "go to the PageNotFoundController page when user answer is empty" in {
-              navigator.nextPage(IsAuthorisedOfficialPreviousAddressPage(index), CheckMode, emptyUserAnswers) mustBe
-                routes.PageNotFoundController.onPageLoad()
+              nextPageCheckModeIndex(emptyUserAnswers) mustBe routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the Previous Address Lookup flow when yes is selected" in {
-              navigator.nextPage(
-                IsAuthorisedOfficialPreviousAddressPage(index),
-                CheckMode,
+              nextPageCheckModeIndex(
                 emptyUserAnswers
                   .set(IsAuthorisedOfficialPreviousAddressPage(0), true)
                   .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
@@ -790,9 +762,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             }
 
             "go to the You have added one authorised official page when no is selected" in {
-              navigator.nextPage(
-                IsAuthorisedOfficialPreviousAddressPage(index),
-                CheckMode,
+              nextPageCheckModeIndex(
                 emptyUserAnswers
                   .set(IsAuthorisedOfficialPreviousAddressPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), false))
@@ -803,9 +773,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
             }
 
             "go to the You have added one authorised official page when Yes is selected and home address is defined" in {
-              navigator.nextPage(
-                IsAuthorisedOfficialPreviousAddressPage(index),
-                CheckMode,
+              nextPageCheckModeIndex(
                 emptyUserAnswers
                   .set(IsAuthorisedOfficialPreviousAddressPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(index), true))
@@ -819,45 +787,41 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
           "from the AuthorisedOfficialPreviousAddressLookupPage" must {
 
+            val nextPageCheckModeIndex =
+              navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(index), CheckMode, _)
+
             "go to the PageNotFoundController page when user answer is empty" in {
-              navigator.nextPage(AuthorisedOfficialPreviousAddressLookupPage(0), CheckMode, emptyUserAnswers) mustBe
-                routes.PageNotFoundController.onPageLoad()
+              nextPageCheckModeIndex(emptyUserAnswers) mustBe routes.PageNotFoundController.onPageLoad()
             }
 
             "go to the summary page when continue button is clicked" in {
-              navigator.nextPage(
-                AuthorisedOfficialPreviousAddressLookupPage(index),
-                CheckMode,
+              nextPageCheckModeIndex(
                 emptyUserAnswers
                   .set(AuthorisedOfficialPreviousAddressLookupPage(0), address)
                   .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), address))
                   .success
                   .value
-              ) mustBe
-                goToPlaybackPage(index)
+              ) mustBe goToPlaybackPage(index)
             }
+
             "go to the Amend address page if one or more address lines length >35 characters when clicked Confirm and continue button" in {
-              navigator.nextPage(
-                AuthorisedOfficialPreviousAddressLookupPage(index),
-                CheckMode,
+              nextPageCheckModeIndex(
                 emptyUserAnswers
-                  .set(AuthorisedOfficialPreviousAddressLookupPage(0), addressMax)
-                  .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), addressMax))
+                  .set(AuthorisedOfficialPreviousAddressLookupPage(0), addressModelMax)
+                  .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(index), addressModelMax))
                   .success
                   .value
               ) mustBe
                 authOfficialRoutes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(CheckMode, index)
             }
-
           }
         }
       })
 
-      "from any UnKnownPage" must {
+      "from any Unknown page" must {
 
         "go to the IndexController page when user answer is empty" in {
-          navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
-            routes.IndexController.onPageLoad(None)
+          navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe routes.IndexController.onPageLoad(None)
         }
       }
 
@@ -866,8 +830,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
     "in Playback mode" when {
 
       "any page is called should go to SessionExpired page" in {
-        navigator.nextPage(IndexPage, PlaybackMode, emptyUserAnswers) mustBe
-          routes.PageNotFoundController.onPageLoad()
+        navigator.nextPage(IndexPage, PlaybackMode, emptyUserAnswers) mustBe routes.PageNotFoundController.onPageLoad()
       }
     }
   }

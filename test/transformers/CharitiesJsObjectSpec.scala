@@ -108,7 +108,7 @@ class CharitiesJsObjectSpec extends SpecBase {
           JsResultException(
             List(
               (
-                __ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials,
+                __ \ "charityHowManyAuthOfficials" \ "numberOfAuthOfficials",
                 List(JsonValidationError(List("error.path.missing")))
               )
             )
@@ -124,7 +124,7 @@ class CharitiesJsObjectSpec extends SpecBase {
 
         transformerKeeper.errors mustBe Seq(
           (
-            __ \ 'charityHowManyAuthOfficials \ 'numberOfAuthOfficials,
+            __ \ "charityHowManyAuthOfficials" \ "numberOfAuthOfficials",
             Seq(JsonValidationError(Seq("error.path.missing")))
           )
         )
@@ -334,7 +334,7 @@ class CharitiesJsObjectSpec extends SpecBase {
             meq(CharityAuthorisedOfficialIndividual.formats)
           )
         ).thenThrow(
-          JsResultException(List((__ \ 'authorisedOfficials, List(JsonValidationError(List("error.path.missing"))))))
+          JsResultException(List((__ \ "authorisedOfficials", List(JsonValidationError(List("error.path.missing"))))))
         )
 
         val transformerKeeper: TransformerKeeper = TransformerKeeper(Json.obj(), Seq.empty)
@@ -346,7 +346,7 @@ class CharitiesJsObjectSpec extends SpecBase {
           )(CharityAuthorisedOfficialIndividual.formats)
 
         transformerKeeper.errors mustBe Seq(
-          (__ \ 'authorisedOfficials, Seq(JsonValidationError(Seq("error.path.missing"))))
+          (__ \ "authorisedOfficials", Seq(JsonValidationError(Seq("error.path.missing"))))
         )
         transformerKeeper.accumulator mustBe Json.obj()
 

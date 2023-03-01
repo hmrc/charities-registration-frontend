@@ -28,7 +28,6 @@ import scala.concurrent.Future
 class DeadEndController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
-  userAnswerService: UserAnswerService,
   requireData: DataRequiredAction,
   view: DeadEndView,
   val controllerComponents: MessagesControllerComponents

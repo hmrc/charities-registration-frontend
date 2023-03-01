@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter
 import java.time.{LocalDate, ZonedDateTime}
 
 class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
+  //scalastyle:off magic.number
 
   "The implicit date formatter" should {
 
@@ -73,12 +74,18 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
 
     "format MonthDay in correct style" in {
       val result: String = "30 Mehefin"
-      monthToString(MonthDay.fromDateFields(new JLocalDate(2017, 6, 30).toDate))(localMessages) mustBe result
+      monthToString(
+        MonthDay.fromDateFields(
+          new JLocalDate(2017, 6, 30).toDate
+        )
+      )(localMessages) mustBe result
     }
 
     "format MonthDay with single digit values in correct style" in {
       val result: String = "1 Tachwedd"
-      monthToString(MonthDay.fromDateFields(new JLocalDate(2017, 11, 1).toDate))(localMessages) mustBe result
+      monthToString(
+        MonthDay.fromDateFields(new JLocalDate(2017, 11, 1).toDate)
+      )(localMessages) mustBe result
     }
 
     "for invalid lang" in {
@@ -130,7 +137,10 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
       val welshRequest            = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
       val welshMessages: Messages = messagesApi.preferred(welshRequest)
       val result: String          = "23 Medi 2020"
-      dayToString(LocalDate.of(2020, 9, 23), dayOfWeek = false)(welshMessages) mustBe result
+      dayToString(
+        date = LocalDate.of(2020, 9, 23),
+        dayOfWeek = false
+      )(welshMessages) mustBe result
     }
 
   }

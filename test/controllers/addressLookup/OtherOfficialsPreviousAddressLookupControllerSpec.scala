@@ -55,7 +55,8 @@ class OtherOfficialsPreviousAddressLookupControllerSpec extends SpecBase with Be
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockAddressLookupConnector)
+    reset(mockUserAnswerService)
+    reset(mockAddressLookupConnector)
   }
 
   private lazy val controller: OtherOfficialsPreviousAddressLookupController =

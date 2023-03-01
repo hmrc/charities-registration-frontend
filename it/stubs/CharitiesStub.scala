@@ -18,6 +18,7 @@ package stubs
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import models.UserAnswers
+import org.mockito.ArgumentMatchers.any
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.http.Status.{ACCEPTED, OK}
 import play.api.libs.json.{JsValue, Json}
@@ -31,8 +32,8 @@ object CharitiesStub extends WireMockMethods {
   private val saveUserAnswer        = "/charities-registration/saveUserAnswer/"
   private val getUserAnswer         = "/charities-registration/getUserAnswer/"
 
-  def stubScenario(requestJson: String): StubMapping =
-    when(method = POST, uri = charitiesRegistration, body = Some(requestJson))
+  def stubScenario(): StubMapping =
+    when(method = POST, uri = charitiesRegistration)
       .thenReturn(status = ACCEPTED, body = Json.parse("""{"acknowledgementReference":"765432"}"""))
 
   def stubUserAnswerPost(ua: UserAnswers, userId: String): StubMapping = {

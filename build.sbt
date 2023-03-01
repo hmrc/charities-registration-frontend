@@ -29,7 +29,7 @@ lazy val root = (project in file("."))
   )
   .settings(majorVersion := 0)
   .settings(
-    scalaVersion := "2.12.16",
+    scalaVersion := "2.13.10",
     name := appName,
     RoutesKeys.routesImport ++= Seq("models._", "models.OptionBinder._"),
     PlayKeys.playDefaultPort := 9457,
@@ -51,8 +51,10 @@ lazy val root = (project in file("."))
     ScoverageKeys.coverageMinimumStmtTotal := 80,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
-    scalacOptions ++= Seq("-feature", "-Xlint:-unused"),
+    scalacOptions ++= Seq("-feature", "-Xlint:-unused", "-Wconf:src=routes/.*:s,src=views/.*:s"),
     libraryDependencies ++= AppDependencies(),
+    // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
+    libraryDependencySchemes ++= Seq("org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always),
     retrieveManaged := true,
     Concat.groups := Seq(
       "javascripts/application.js" ->

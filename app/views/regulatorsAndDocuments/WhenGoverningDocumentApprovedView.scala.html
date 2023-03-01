@@ -32,7 +32,7 @@
 
 @govukLayout(pageTitle = Some(title(form, s"whenGoverningDocumentApproved.$documentNameKey.title", Some("charityRegulator.section")))) {
 
-    @formHelper(action = WhenGoverningDocumentApprovedController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+    @formHelper(action = WhenGoverningDocumentApprovedController.onSubmit(mode), args = Symbol("novalidate") -> "novalidate") {
 
         @errorSummary(form.errors)
 

@@ -60,7 +60,8 @@ class IndexController @Inject() (
           } else {
             getTaskList(sessionId, eligibleJourneyId)
           }
-        case _                                                                                       => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+        case _                                                                                       =>
+          Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
       }
 
   }

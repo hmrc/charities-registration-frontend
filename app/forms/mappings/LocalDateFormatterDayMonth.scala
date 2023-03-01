@@ -54,9 +54,9 @@ private[mappings] class LocalDateFormatterDayMonth(
     )
 
     for {
-      day   <- int.bind(s"$key.day", data).right
-      month <- int.bind(s"$key.month", data).right
-      date  <- toDate(key, day, month).right
+      day   <- int.bind(s"$key.day", data)
+      month <- int.bind(s"$key.month", data)
+      date  <- toDate(key, day, month)
     } yield date
   }
 

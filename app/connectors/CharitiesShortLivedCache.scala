@@ -17,11 +17,11 @@
 package connectors
 
 import config.FrontendAppConfig
+import uk.gov.hmrc.crypto.{ApplicationCrypto, Decrypter, Encrypter}
+import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.cache.client.{ShortLivedCache, ShortLivedHttpCaching}
 
 import javax.inject.Inject
-import uk.gov.hmrc.crypto.{ApplicationCrypto, CompositeSymmetricCrypto, Decrypter, Encrypter}
-import uk.gov.hmrc.http.cache.client.{ShortLivedCache, ShortLivedHttpCaching}
-import uk.gov.hmrc.http.HttpClient
 
 class CharitiesShortLivedHttpCaching @Inject() (val http: HttpClient, appConfig: FrontendAppConfig)
     extends ShortLivedHttpCaching {

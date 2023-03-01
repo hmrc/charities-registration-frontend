@@ -25,6 +25,8 @@ import viewmodels.operationsAndFunds.OperationsFundsStatusHelper
 
 class OperationsFundsStatusHelperSpec extends SpecBase {
 
+  //scalastyle:off magic.number
+
   private val helper = OperationsFundsStatusHelper
 
   val commonData: UserAnswers = emptyUserAnswers

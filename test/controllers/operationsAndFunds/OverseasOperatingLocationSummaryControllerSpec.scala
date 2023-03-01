@@ -18,21 +18,18 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.operationsAndFunds.OverseasOperatingLocationSummaryFormProvider
 import models.{Country, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.mockito.Mockito.{reset, verify, _}
-import org.scalatest.BeforeAndAfterEach
+import org.mockito.Mockito._
 import org.mockito.MockitoSugar
+import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInPage}
-import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import service.{CountryService, UserAnswerService}
-import views.html.operationsAndFunds.OverseasOperatingLocationSummaryView
 
 import scala.concurrent.Future
 
@@ -137,9 +134,7 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
         .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
         .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "PT"))
         .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), "PY"))
-        .flatMap(
-          _.set(WhatCountryDoesTheCharityOperateInPage(4), "AF")
-        )
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), "AF"))
         .success
         .value
 

@@ -22,7 +22,7 @@ import play.api.libs.json._
 import java.time.Instant.ofEpochMilli
 import java.time.LocalDateTime.ofInstant
 import java.time.format.DateTimeFormatter
-import java.time.{Instant, LocalDate, LocalDateTime, ZoneOffset}
+import java.time.{LocalDate, LocalDateTime, ZoneOffset}
 
 trait MongoDateTimeFormats {
 

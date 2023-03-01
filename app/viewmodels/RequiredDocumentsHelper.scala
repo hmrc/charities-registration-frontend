@@ -19,7 +19,7 @@ package viewmodels
 import models.{Name, UserAnswers}
 import models.addressLookup.AddressModel
 import models.regulators.SelectWhyNoRegulator
-import pages.QuestionPage
+import pages.{DeadEndPage, QuestionPage}
 import pages.addressLookup._
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNamePage}
@@ -54,12 +54,17 @@ object RequiredDocumentsHelper {
       .filter(_ == expectedValue)
       .map(_ => requiredDocumentsKey + page.toString + stringSuffix)
 
-  def getNamePageFromAddressPage(address: QuestionPage[AddressModel]): QuestionPage[Name] = address match {
-    case AuthorisedOfficialAddressLookupPage(index) => AuthorisedOfficialsNamePage(index)
-    case OtherOfficialAddressLookupPage(index)      => OtherOfficialsNamePage(index)
-    case NomineeIndividualAddressLookupPage         => IndividualNomineeNamePage
-    case OrganisationNomineeAddressLookupPage       => OrganisationAuthorisedPersonNamePage
-  }
+  def getNamePageFromAddressPage(address: QuestionPage[AddressModel]): QuestionPage[Name] =
+    address match {
+      case AuthorisedOfficialAddressLookupPage(index) => AuthorisedOfficialsNamePage(index)
+      case OtherOfficialAddressLookupPage(index)      => OtherOfficialsNamePage(index)
+      case NomineeIndividualAddressLookupPage         => IndividualNomineeNamePage
+      case OrganisationNomineeAddressLookupPage       => OrganisationAuthorisedPersonNamePage
+      case _                                          =>
+        throw new RuntimeException(
+          "[RequiredDocumentsHelper][getNamePageFromAddressPage] could not match address to a question page"
+        )
+    }
 
   def getOfficialsAndNomineesNames(userAnswers: UserAnswers): Seq[Name] =
     addressesList.flatMap(page =>

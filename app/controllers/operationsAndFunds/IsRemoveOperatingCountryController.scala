@@ -29,8 +29,8 @@ import play.api.data.Form
 import play.api.mvc._
 import service.{CountryService, UserAnswerService}
 import views.html.common.YesNoView
-import javax.inject.Inject
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsRemoveOperatingCountryController @Inject() (
@@ -106,9 +106,11 @@ class IsRemoveOperatingCountryController @Inject() (
                   Future.fromTry(
                     request.userAnswers
                       .remove(
-                        if (removeOrNot)
+                        if (removeOrNot) {
                           Seq(WhatCountryDoesTheCharityOperateInDeletePage(index), OverseasOperatingLocationSummaryPage)
-                        else Seq()
+                        } else {
+                          Seq()
+                        }
                       )
                       .flatMap(_.set(IsRemoveOperatingCountryPage, removeOrNot))
                   )

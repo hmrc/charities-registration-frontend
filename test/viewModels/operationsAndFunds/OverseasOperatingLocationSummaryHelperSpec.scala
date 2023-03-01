@@ -35,6 +35,8 @@ import viewmodels.operationsAndFunds.OverseasOperatingLocationSummaryHelper
 
 class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
+  //scalastyle:off magic.number
+
   lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
 
   private val helper = new OverseasOperatingLocationSummaryHelper(
@@ -42,8 +44,8 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
       .set(FundRaisingPage, FundRaisingOptions.values.toSet)
       .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](England, Overseas)))
       .flatMap(_.set(IsFinancialAccountsPage, true))
-      .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12)))
-      .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(11123.12)))
+      .flatMap(_.set(EstimatedIncomePage, BigDecimal(1123.12)))
+      .flatMap(_.set(ActualIncomePage, BigDecimal(11123.12)))
       .flatMap(
         _.set(WhatCountryDoesTheCharityOperateInPage(0), "TH")
           .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))

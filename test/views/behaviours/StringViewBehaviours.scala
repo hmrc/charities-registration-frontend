@@ -21,6 +21,8 @@ import play.twirl.api.HtmlFormat
 
 trait StringViewBehaviours extends QuestionViewBehaviours[String] {
 
+  //scalastyle:off method.length
+
   val answer = "answer"
 
   def stringPage(

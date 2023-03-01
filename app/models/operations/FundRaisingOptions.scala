@@ -29,50 +29,61 @@ object FundRaisingOptions extends Enumerable.Implicits {
   case object Donations extends WithName("donations") with FundRaisingOptions {
     override val order: Int = 1
   }
+
   case object Fundraising extends WithName("fundraising") with FundRaisingOptions {
     override val order: Int = 2
   }
+
   case object Grants extends WithName("grants") with FundRaisingOptions {
     override val order: Int = 3
   }
+
   case object MembershipSubscriptions extends WithName("membershipSubscriptions") with FundRaisingOptions {
     override val order: Int = 4
   }
+
   case object TradingIncome extends WithName("tradingIncome") with FundRaisingOptions {
     override val order: Int = 5
   }
+
   case object TradingSubsidiaries extends WithName("tradingSubsidiaries") with FundRaisingOptions {
     override val order: Int = 6
   }
+
   case object InvestmentIncome extends WithName("investmentIncome") with FundRaisingOptions {
     override val order: Int = 7
   }
+
   case object Other extends WithName("other") with FundRaisingOptions {
     override val order: Int = 8
   }
 
-  val values: Seq[FundRaisingOptions] = Seq(
-    Donations,
-    Fundraising,
-    Grants,
-    MembershipSubscriptions,
-    TradingIncome,
-    TradingSubsidiaries,
-    InvestmentIncome,
-    Other
-  )
+  val values: Seq[FundRaisingOptions] =
+    Seq(
+      Donations,
+      Fundraising,
+      Grants,
+      MembershipSubscriptions,
+      TradingIncome,
+      TradingSubsidiaries,
+      InvestmentIncome,
+      Other
+    )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
-    case (value, index) =>
+  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] =
+    values.zipWithIndex.map { case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
-        id = Some(if (index == 0) { "value" }
-        else { "value-" + index.toString }),
+        id = Some(if (index == 0) {
+          "value"
+        } else {
+          "value-" + index.toString
+        }),
         value = value.toString,
         content = Text(messages(s"selectFundRaising.${value.toString}")),
         checked = form.data.exists(_._2 == value.toString)
       )
-  }
+    }
 
   implicit val enumerable: Enumerable[FundRaisingOptions] =
     Enumerable(values.map(v => v.toString -> v): _*)

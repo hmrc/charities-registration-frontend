@@ -16,8 +16,7 @@
 
 package transformers.submission
 
-import java.time.LocalDate
-import base.SpecBase
+import com.stephenn.scalatest.jsonassert.JsonMatchers
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
@@ -25,12 +24,22 @@ import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
-import org.mockito.ArgumentMatchers.any
 import pages.operationsAndFunds._
 import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
-class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
+import java.time.LocalDate
+
+class CharityTransformerSpec extends CharityTransformerConstants with JsonMatchers {
+
+  //scalastyle:off magic.number
+  //scalastyle:off line.size.limit
+
+  val reason =
+    "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre" +
+      "664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxa" +
+      "sxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+
   val jsonTransformer: CharityTransformer = new CharityTransformer
 
   "CharityTransformer" when {
@@ -68,9 +77,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToRegulator).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToRegulator).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
 
       "convert the correct Regulator object without other regulator" in {
@@ -249,7 +257,10 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
       "convert the correct AboutOrganisationCommon object when other is not defined" in {
 
         val localUserAnswers =
-          emptyUserAnswers.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)).success.value
+          emptyUserAnswers
+            .set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            .success
+            .value
 
         val expectedJson =
           """{
@@ -277,7 +288,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
               .flatMap(
                 _.set(
                   SectionsChangedGoverningDocumentPage,
-                  "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+                  reason
                 )
               )
           )
@@ -299,9 +310,8 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToAboutOrganisation).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
 
       "convert the correct AboutOrganisation object and changes are <255 characters long" in {
@@ -419,7 +429,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             _.set(IsFinancialAccountsPage, true).flatMap(
               _.set(
                 WhyNoBankStatementPage,
-                "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+                reason
               )
             )
           )
@@ -578,7 +588,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .flatMap(
             _.set(
               WhyNoBankStatementPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00)))
@@ -606,7 +616,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |      "estimatedGrossIncome": 2000.00,
             |      "incomeReceivedToDate": 19999.99,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -623,9 +633,11 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with all required values" in {
@@ -653,7 +665,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -663,9 +675,11 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with Wales, Scotland and Northern Ireland" in {
@@ -700,7 +714,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -710,17 +724,20 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with England, Scotland and Northern Ireland" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
-            MongoDateTimeFormats.localDayMonthWrite
-          )
+          .set(
+            AccountingPeriodEndDatePage,
+            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)
+          )(MongoDateTimeFormats.localDayMonthWrite)
           .flatMap(_.set(IsFinancialAccountsPage, true))
           .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
           .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
@@ -747,7 +764,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": true,
@@ -757,9 +774,11 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with England and Northern Ireland" in {
@@ -790,7 +809,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -800,9 +819,11 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
 
       "convert the correct OperationAndFunds object with England and Wales" in {
@@ -833,7 +854,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |      },
             |     "estimatedGrossIncome": 123.00,
             |     "incomeReceivedToDate": 121.00,
-            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |      "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |      "otherAreaOperation": true,
             |      "englandAndWales": true,
             |      "scotland": false,
@@ -843,9 +864,11 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data
+          .transform(jsonTransformer.userAnswersToOperationAndFunds)
+          .asOpt
+          .value
+          .toString() must matchJson(expectedJson)
       }
     }
 
@@ -856,7 +879,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(
             CharitableObjectivesPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+            reason
           )
           .success
           .value
@@ -899,7 +922,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(
             CharitableObjectivesPage,
-            "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters then split first 255 characters in part 1 \r\nand remaining in part 2"
+            "Hello I am writing this story to test replace tab \r\nand new line \r\ncharacters. " +
+              "If total length of the story is greater than 255 characters after replacing the tab and new line \r\ncharacters " +
+              "then split first 255 characters in part 1 \r\nand remaining in part 2"
           )
           .success
           .value
@@ -986,7 +1011,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(
             PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+            reason
           )
           .success
           .value
@@ -1056,13 +1081,13 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(
             PublicBenefitsPage,
-            "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+            reason
           )
           .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
           .flatMap(
             _.set(
               CharitableObjectivesPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .success
@@ -1171,14 +1196,14 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
           .flatMap(
             _.set(
               PublicBenefitsPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
           .flatMap(
             _.set(
               CharitableObjectivesPage,
-              "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
+              reason
             )
           )
           .flatMap(
@@ -1187,24 +1212,14 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
                 .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
-                .flatMap(
-                  _.set(
-                    SectionsChangedGoverningDocumentPage,
-                    "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-                  )
-                )
+                .flatMap(_.set(SectionsChangedGoverningDocumentPage, reason))
             )
           )
           .flatMap(
             _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
               MongoDateTimeFormats.localDayMonthWrite
             ).flatMap(_.set(IsFinancialAccountsPage, true))
-              .flatMap(
-                _.set(
-                  WhyNoBankStatementPage,
-                  "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
-                )
-              )
+              .flatMap(_.set(WhyNoBankStatementPage, reason))
               .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(2000.00)))
               .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(19999.99)))
               .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
@@ -1258,7 +1273,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |        },
             |        "estimatedGrossIncome": 2000.00,
             |        "incomeReceivedToDate": 19999.99,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |        "otherAreaOperation": true,
             |        "englandAndWales": true,
             |        "scotland": true,
@@ -1366,7 +1381,7 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |        },
             |        "estimatedGrossIncome": 123.00,
             |        "incomeReceivedToDate": 121.00,
-            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+            |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
             |        "otherAreaOperation": true,
             |        "englandAndWales": true,
             |        "scotland": false,
@@ -1401,12 +1416,9 @@ class CharityTransformerSpec extends SpecBase with CharityTransformerConstants {
             |  }
             |}""".stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharity).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharity).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
     }
-
   }
-
 }

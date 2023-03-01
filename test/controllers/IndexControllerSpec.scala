@@ -20,13 +20,13 @@ import audit.AuditService
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{OldServiceSubmission, UserAnswers}
 import models.requests.OptionalDataRequest
+import models.{OldServiceSubmission, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.scalatest.BeforeAndAfterEach
 import org.mockito.MockitoSugar
-import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
+import org.scalatest.BeforeAndAfterEach
 import pages.sections.{Section1Page, Section2Page}
+import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{Call, RequestHeader}
@@ -35,11 +35,10 @@ import play.api.test.Helpers._
 import repositories.SessionRepository
 import service.{CharitiesSave4LaterService, UserAnswerService}
 import transformers.UserAnswerTransformer
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.http.SessionId
-import javax.inject.Inject
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach {
@@ -316,7 +315,8 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
         val result = controller.signInDifferentAccount()(fakeRequest)
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(
-          "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fregister-charity-hmrc%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend"
+          "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fregister-charity-hmrc" +
+            "%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend"
         )
       }
 
@@ -327,7 +327,8 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
         val result = controller.registerNewAccount()(fakeRequest)
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(
-          "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fregister-charity-hmrc%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend&accountType=organisation"
+          "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http%3A%2F%2Flocalhost%3A9457%2Fregister-charity-hmrc" +
+            "%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend&accountType=organisation"
         )
       }
     }

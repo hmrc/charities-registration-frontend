@@ -38,6 +38,9 @@ import scala.util.Try
 
 trait CharityTransformerConstants extends SpecBase {
 
+  //scalastyle:off magic.number
+  //scalastyle:off line.size.limit
+
   private val date = LocalDate.now()
 
   val day: Int   = 11
@@ -96,9 +99,11 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
     .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
     .flatMap(
-      _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
-        MongoDateTimeFormats.localDayMonthWrite
-      ).flatMap(_.set(IsFinancialAccountsPage, true))
+      _.set(
+        AccountingPeriodEndDatePage,
+        MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)
+      )(MongoDateTimeFormats.localDayMonthWrite)
+        .flatMap(_.set(IsFinancialAccountsPage, true))
         .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
         .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
         .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
@@ -123,7 +128,8 @@ trait CharityTransformerConstants extends SpecBase {
     .success
     .value
 
-  lazy val jsonAllFields: JsValue = Json.parse(s"""{
+  lazy val jsonAllFields =
+    s"""{
        |  "charityRegistration": {
        |    "charity": {
        |      "charityOrganisation": {
@@ -160,7 +166,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 2000.00,
        |        "incomeReceivedToDate": 19999.99,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": true,
@@ -386,9 +392,10 @@ trait CharityTransformerConstants extends SpecBase {
        |      }
        |    ]
        |  }
-       |}""".stripMargin)
+       |}""".stripMargin
 
-  lazy val jsonMinFields: JsValue = Json.parse(s"""{
+  lazy val jsonMinFields =
+    s"""{
        |  "charityRegistration": {
        |    "common": {
        |      "bankDetails": {
@@ -454,7 +461,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 123.00,
        |        "incomeReceivedToDate": 121.00,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": false,
@@ -554,9 +561,9 @@ trait CharityTransformerConstants extends SpecBase {
        |    ]
        |  }
        |}
-       |""".stripMargin)
+       |""".stripMargin
 
-  lazy val jsonGeneral: JsValue = Json.parse(
+  lazy val jsonGeneral =
     s"""{
        |  "charityRegistration": {
        |    "common": {
@@ -623,7 +630,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "estimatedGrossIncome": 123.00,
        |        "incomeReceivedToDate": 121.00,
-       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, grants, membershipSubscriptions, investmentIncome",
+       |        "futureFunds": "other, donations, tradingSubsidiaries, tradingIncome, fundraising, investmentIncome, grants, membershipSubscriptions",
        |        "otherAreaOperation": true,
        |        "englandAndWales": true,
        |        "scotland": false,
@@ -787,5 +794,4 @@ trait CharityTransformerConstants extends SpecBase {
        |    ]
        |  }
        |}""".stripMargin
-  )
 }

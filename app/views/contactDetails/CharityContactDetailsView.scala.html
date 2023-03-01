@@ -35,7 +35,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "charityContactDetails.title",Some("contactDetail.section")))) {
 
-    @formHelper(action = CharityContactDetailsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+    @formHelper(action = CharityContactDetailsController.onSubmit(mode), args = Symbol("novalidate") -> "novalidate") {
 
         @errorSummary(form.errors)
 

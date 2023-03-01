@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.common.YesNoFormProvider
-import javax.inject.Inject
 import models.{Index, NormalMode}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.{AuthorisedOfficialsId, AuthorisedOfficialsNamePage, IsAddAnotherAuthorisedOfficialPage, RemoveAuthorisedOfficialsPage}
@@ -31,6 +30,7 @@ import service.UserAnswerService
 import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
 import views.html.common.YesNoView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class RemoveAuthorisedOfficialsController @Inject() (
@@ -91,8 +91,11 @@ class RemoveAuthorisedOfficialsController @Inject() (
               for {
                 updatedAnswers  <- Future.fromTry(
                                      request.userAnswers.remove(
-                                       if (value) Seq(AuthorisedOfficialsId(index), IsAddAnotherAuthorisedOfficialPage)
-                                       else Seq()
+                                       if (value) {
+                                         Seq(AuthorisedOfficialsId(index), IsAddAnotherAuthorisedOfficialPage)
+                                       } else {
+                                         Seq()
+                                       }
                                      )
                                    )
                 taskListUpdated <- Future.fromTry(result = if (updatedAnswers.get(AuthorisedOfficialsId(0)).isDefined) {

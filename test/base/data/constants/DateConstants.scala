@@ -14,8 +14,18 @@
  * limitations under the License.
  */
 
-package models.transformers
+package base.data.constants
 
-import play.api.libs.json.{JsObject, JsPath, JsonValidationError}
+import java.time.LocalDate
 
-case class TransformerKeeper(accumulator: JsObject, errors: Iterable[(JsPath, Iterable[JsonValidationError])])
+object DateConstants {
+
+  //scalastyle:off magic.number
+
+  val july1st2014 = LocalDate.of(2014, 7, 1)
+
+  val january1st2002 = LocalDate.of(2002, 1, 1)
+
+  val feb1st2018 = LocalDate.of(2018, 2, 1)
+
+}

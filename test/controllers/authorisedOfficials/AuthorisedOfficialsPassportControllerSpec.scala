@@ -54,7 +54,8 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockCountryService)
+    reset(mockUserAnswerService)
+    reset(mockCountryService)
   }
 
   private val messageKeyPrefix                      = "authorisedOfficialsPassport"

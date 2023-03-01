@@ -17,15 +17,13 @@
 package controllers
 
 import config.FrontendAppConfig
-import controllers.actions.{AuthIdentifierAction, RegistrationDataRequiredAction, UserDataRetrievalAction}
-import javax.inject.Inject
-import models.requests.DataRequest
+import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import pages.OldServiceSubmissionPage
-import play.api.mvc.Results.Redirect
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import utils.ImplicitDateFormatter
 import views.html.ApplicationBeingProcessedView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class ApplicationBeingProcessedController @Inject() (

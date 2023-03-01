@@ -39,11 +39,12 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
   private val address: AddressModel                  =
     AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-  private val addressMax: AddressModel               = AddressModel(
-    Seq("7", "Morrison street near riverview gardens"),
-    Some("G58AN"),
-    CountryModel("UK", "United Kingdom")
-  )
+  private val addressMax: AddressModel               =
+    AddressModel(
+      Seq("7", "Morrison street near riverview gardens"),
+      Some("G58AN"),
+      CountryModel("UK", "United Kingdom")
+    )
   private val minYear                                = 16
   private val minAddressLines: AddressModel          =
     AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
@@ -280,21 +281,22 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               addressLookupRoutes.OtherOfficialsPreviousAddressLookupController.initializeJourney(index, NormalMode)
           }
 
-          "go to the ConfirmOtherOfficialsPreviousAddressController page when yes is selected and OtherOfficialPreviousAddressLookupPage is present and clicked continue button" in {
-            navigator.nextPage(
-              IsOtherOfficialsPreviousAddressPage(index),
-              NormalMode,
-              emptyUserAnswers
-                .set(IsOtherOfficialsPreviousAddressPage(0), true)
-                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
-                .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(0), address))
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address))
-                .success
-                .value
-            ) mustBe
-              otherOfficialRoutes.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index)
-          }
+          "go to the ConfirmOtherOfficialsPreviousAddressController page when yes is selected and " +
+            "OtherOfficialPreviousAddressLookupPage is present and clicked continue button" in {
+              navigator.nextPage(
+                IsOtherOfficialsPreviousAddressPage(index),
+                NormalMode,
+                emptyUserAnswers
+                  .set(IsOtherOfficialsPreviousAddressPage(0), true)
+                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(previousOrSameIndex(index)), false))
+                  .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(index), true))
+                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(0), address))
+                  .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), address))
+                  .success
+                  .value
+              ) mustBe
+                otherOfficialRoutes.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index)
+            }
 
           "go to the You have added one/second/third other official page when no is selected" in {
             navigator.nextPage(
@@ -467,7 +469,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from any UnKnownPage" must {
+      "from any Unknown page" must {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, NormalMode, emptyUserAnswers) mustBe
@@ -898,7 +900,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from any UnKnownPage" must {
+      "from any Unknown page" must {
 
         "go to the IndexController page when user answer is empty" in {
           navigator.nextPage(IndexPage, CheckMode, emptyUserAnswers) mustBe
@@ -909,7 +911,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
     "in Playback mode" when {
 
-      "from any UnKnownPage" must {
+      "from any Unknown page" must {
 
         "go to the SessionExpired page when user answer is empty" in {
           navigator.nextPage(IndexPage, PlaybackMode, emptyUserAnswers) mustBe

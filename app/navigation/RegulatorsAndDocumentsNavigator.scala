@@ -175,8 +175,11 @@ class RegulatorsAndDocumentsNavigator @Inject() (implicit frontendAppConfig: Fro
               .fold(
                 regulatorDocsRoutes.CharityOtherRegulatorDetailsController.onPageLoad(mode)
               )(_ => checkNextNav(seqPages.tail))
+          case _                                       =>
+            routes.PageNotFoundController.onPageLoad()
         }
       }
+
     checkNextNav(res)
   }
 

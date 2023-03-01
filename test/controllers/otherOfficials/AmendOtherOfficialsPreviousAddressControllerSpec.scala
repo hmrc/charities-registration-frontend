@@ -24,9 +24,9 @@ import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
-import org.scalatest.BeforeAndAfterEach
+import org.mockito.Mockito._
 import org.mockito.MockitoSugar
+import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.contactDetails.AmendAddressPage
 import pages.otherOfficials.OtherOfficialsNamePage
@@ -55,7 +55,8 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockCountryService)
+    reset(mockUserAnswerService)
+    reset(mockCountryService)
   }
 
   private val messageKeyPrefix                       = "amendOtherOfficialPreviousAddress"

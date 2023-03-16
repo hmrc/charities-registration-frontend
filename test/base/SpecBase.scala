@@ -39,6 +39,7 @@ import service.UserAnswerService
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import viewmodels.ErrorHandler
 
+import java.time.temporal.ChronoUnit
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 
@@ -55,7 +56,11 @@ trait SpecBase
 
   lazy val injector: Injector               = app.injector
   lazy val internalId                       = "id"
-  lazy val emptyUserAnswers: UserAnswers    = UserAnswers(internalId, Json.obj())
+  lazy val baseInternalUserAnswers          = UserAnswers(internalId, Json.obj())
+  lazy val emptyUserAnswers: UserAnswers    = baseInternalUserAnswers.copy(
+    lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
+    expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
+  )
   lazy val userAnswers: Option[UserAnswers] = None
 
   lazy val messagesControllerComponents: MessagesControllerComponents =

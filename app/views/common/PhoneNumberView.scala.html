@@ -45,6 +45,7 @@
                 label = s"$messagePrefix.mainPhoneNumber.label",
                 isPageHeading = false,
                 classes = Some("govuk-input govuk-!-width-one-half"),
+                hint = Some(Html(messages(s"$messagePrefix.mainPhoneNumber.hint"))),
                 inputType = "tel",
                 isTelephone = true
             )
@@ -56,6 +57,7 @@
                 label = s"$messagePrefix.alternativePhoneNumber.label",
                 isPageHeading = false,
                 classes = Some("govuk-input govuk-!-width-one-half"),
+                hint = Some(Html(messages(s"$messagePrefix.alternativePhoneNumber.hint"))),
                 inputType = "tel",
                 isTelephone = true
             )

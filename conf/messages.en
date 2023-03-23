@@ -443,16 +443,18 @@ charityName.operatingName.checkYourAnswersLabel = Operating name
 charityContactDetails.title = The charity’s contact details
 charityContactDetails.heading = The charity’s contact details
 charityContactDetails.mainPhoneNumber.label = Main phone number
-charityContactDetails.mainPhoneNumber.error.format = Enter the charity’s main phone number, like 01632 960 001
+charityContactDetails.mainPhoneNumber.error.format = Enter the charity’s main phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 charityContactDetails.mainPhoneNumber.error.required = Enter the charity’s main phone number
+charityContactDetails.mainPhoneNumber.hint = For international numbers include the country code
+charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 charityContactDetails.alternativePhoneNumber.label = Alternative phone number (optional)
-charityContactDetails.alternativePhoneNumber.error.format = Enter the charity’s alternative phone number, like 01632 960 001
+charityContactDetails.alternativePhoneNumber.error.format = Enter the charity’s alternative phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
+charityContactDetails.alternativePhoneNumber.hint = For international numbers include the country code
+charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 charityContactDetails.emailAddress.label = Email address
 charityContactDetails.emailAddress.error.required = Enter the charity’s email address
 charityContactDetails.emailAddress.error.format = Enter the charity’s email address in the correct format, like name@example.com
 charityContactDetails.emailAddress.error.length = Email address must be 160 characters or less
-charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Main phone number
-charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 charityContactDetails.emailAddress.checkYourAnswersLabel = Email address
 
 # Charity Official Address Messages
@@ -1075,12 +1077,14 @@ authorisedOfficialsDOB.checkYourAnswersLabel = Date of birth
 authorisedOfficialsPhoneNumber.title = Authorised official’s phone numbers
 authorisedOfficialsPhoneNumber.heading = {0}’s phone numbers
 authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
-authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001
+authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter the authorised official’s main phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
+authorisedOfficialsPhoneNumber.mainPhoneNumber.hint = For international numbers include the country code
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number (optional)
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter the authorised official’s alternative phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.hint = For international numbers include the country code
 
 authorisedOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
 
@@ -1291,13 +1295,14 @@ otherOfficialsDOB.checkYourAnswersLabel = Date of birth
 otherOfficialsPhoneNumber.title = Other official’s phone numbers
 otherOfficialsPhoneNumber.heading = {0}’s phone numbers
 otherOfficialsPhoneNumber.mainPhoneNumber.label = Main phone number
-otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001
+otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Enter the official’s main phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
+otherOfficialsPhoneNumber.mainPhoneNumber.hint = For international numbers include the country code
 otherOfficialsPhoneNumber.alternativePhoneNumber.label = Alternative phone number (optional)
-otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001
+otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Enter the official’s alternative phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
-
+otherOfficialsPhoneNumber.alternativePhoneNumber.hint = For international numbers include the country code
 otherOfficialsPhoneNumber.checkYourAnswersLabel = Phone Number
 
 # Other Official Position Messages
@@ -1519,12 +1524,13 @@ individualNomineeDOB.checkYourAnswersLabel = Date of birth
 individualNomineesPhoneNumber.title = Nominee’s phone numbers
 individualNomineesPhoneNumber.heading = {0}’s phone numbers
 individualNomineesPhoneNumber.mainPhoneNumber.label = Main phone number
-individualNomineesPhoneNumber.mainPhoneNumber.error.format = Enter their main phone number, like 01632 960 001
+individualNomineesPhoneNumber.mainPhoneNumber.error.format = Enter the nominee’s main phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 individualNomineesPhoneNumber.mainPhoneNumber.error.required = Enter their main phone number
+individualNomineesPhoneNumber.mainPhoneNumber.hint = For international numbers include the country code
 individualNomineesPhoneNumber.alternativePhoneNumber.label = Alternative phone number (optional)
-individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Enter their alternative phone number, like 01632 960 001, 07700 900 982 or +44 0808 157 019
+individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Enter the nominee’s alternative phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Enter their alternative phone number
-
+individualNomineesPhoneNumber.alternativePhoneNumber.hint = For international numbers include the country code
 individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Main phone number
 individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Alternative phone number
 
@@ -1677,7 +1683,8 @@ nameOfOrganisation.checkYourAnswersLabel = Name
 organisationContactDetails.title = Nominee organisation’s contact details
 organisationContactDetails.heading = {0}’s contact details
 organisationContactDetails.phoneNumber.label = Phone number
-organisationContactDetails.phoneNumber.error.format = Enter the organisation’s main phone number, like 01632 960 001
+organisationContactDetails.phoneNumber.hint = For international numbers include the country code
+organisationContactDetails.phoneNumber.error.format = Enter the organisation’s phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
 organisationContactDetails.phoneNumber.error.required = Enter the organisation’s phone number
 organisationContactDetails.email.label = Email address
 organisationContactDetails.email.error.format = Enter the email address in the correct format, like name@example.com

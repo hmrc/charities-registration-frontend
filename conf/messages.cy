@@ -442,17 +442,22 @@ charityName.operatingName.checkYourAnswersLabel = Enw gweithredol
 # ----------------------------------------------------------
 charityContactDetails.title = Manylion cyswllt yr elusen
 charityContactDetails.heading = Manylion cyswllt yr elusen
+
 charityContactDetails.mainPhoneNumber.label = Prif rif ffôn
-charityContactDetails.mainPhoneNumber.error.format = Nodwch brif rif ffôn yr elusen, megis 01632 960 001
+charityContactDetails.mainPhoneNumber.error.format = Nodwch brif rif ffôn yr elusen, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 charityContactDetails.mainPhoneNumber.error.required = Nodwch brif rif ffôn yr elusen
+charityContactDetails.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
+charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
+
 charityContactDetails.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
-charityContactDetails.alternativePhoneNumber.error.format = Nodwch brif rif ffôn arall yr elusen, megis 01632 960 001
+charityContactDetails.alternativePhoneNumber.error.format = Nodwch rif ffôn arall yr elusen, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
+charityContactDetails.alternativePhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
+charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
+
 charityContactDetails.emailAddress.label = Cyfeiriad e-bost
 charityContactDetails.emailAddress.error.required = Nodwch gyfeiriad e-bost yr elusen
 charityContactDetails.emailAddress.error.format = Nodwch gyfeiriad e-bost yr elusen yn y fformat cywir, fel enw@enghraifft.com
 charityContactDetails.emailAddress.error.length = Mae’n rhaid i’r cyfeiriad e-bost fod yn 160 o gymeriadau neu lai
-charityContactDetails.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
-charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
 charityContactDetails.emailAddress.checkYourAnswersLabel = Cyfeiriad e-bost
 
 # Charity Official Address Messages
@@ -1075,13 +1080,15 @@ authorisedOfficialsDOB.checkYourAnswersLabel = Dyddiad geni
 authorisedOfficialsPhoneNumber.title = Rhifau ffôn y swyddog awdurdodedig
 authorisedOfficialsPhoneNumber.heading = Rhifau ffôn {0}
 authorisedOfficialsPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
-authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch ei brif rif ffôn, megis 01632 960 001
+authorisedOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch brif rif ffôn y swyddog awdurdodedig, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
+authorisedOfficialsPhoneNumber.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
+
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
-authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch ei rif ffôn arall, megis 01632 960 001
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch rif ffôn arall y swyddog awdurdodedig, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
 authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
-
+authorisedOfficialsPhoneNumber.alternativePhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
 authorisedOfficialsPhoneNumber.checkYourAnswersLabel = Rhif ffôn
 
 # Authorised Official Position  Messages
@@ -1291,12 +1298,15 @@ otherOfficialsDOB.checkYourAnswersLabel = Dyddiad geni
 otherOfficialsPhoneNumber.title = Rhifau ffôn y swyddog arall
 otherOfficialsPhoneNumber.heading = Rhifau ffôn {0}
 otherOfficialsPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
-otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch ei brif rif ffôn, megis 01632 960 001
+otherOfficialsPhoneNumber.mainPhoneNumber.error.format = Nodwch brif rif ffôn y swyddog, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
+otherOfficialsPhoneNumber.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
+
 otherOfficialsPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
-otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch ei rif ffôn arall, megis 01632 960 001
+otherOfficialsPhoneNumber.alternativePhoneNumber.error.format = Nodwch rif ffôn arall y swyddog, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
 otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
+otherOfficialsPhoneNumber.alternativePhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
 
 otherOfficialsPhoneNumber.checkYourAnswersLabel = Rhif ffôn
 
@@ -1519,12 +1529,14 @@ individualNomineeDOB.checkYourAnswersLabel = Dyddiad geni
 individualNomineesPhoneNumber.title = Rhifau ffôn yr enwebai
 individualNomineesPhoneNumber.heading = Rhifau ffôn {0}
 individualNomineesPhoneNumber.mainPhoneNumber.label = Prif rif ffôn
-individualNomineesPhoneNumber.mainPhoneNumber.error.format = Nodwch ei brif rif ffôn, megis 01632 960 001
+individualNomineesPhoneNumber.mainPhoneNumber.error.format = Nodwch brif rif ffôn yr enwebai, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 individualNomineesPhoneNumber.mainPhoneNumber.error.required = Nodwch ei brif rif ffôn
-individualNomineesPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
-individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Nodwch ei rif ffôn arall, fel 01632 960 001, 07700 900 982 neu +44 0808 157 019
-individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Nodwch ei rif ffôn arall
+individualNomineesPhoneNumber.mainPhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
 
+individualNomineesPhoneNumber.alternativePhoneNumber.label = Rhif ffôn arall (dewisol)
+individualNomineesPhoneNumber.alternativePhoneNumber.error.format = Nodwch rif ffôn arall yr enwebai, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
+individualNomineesPhoneNumber.alternativePhoneNumber.error.required = Nodwch ei rif ffôn arall
+individualNomineesPhoneNumber.alternativePhoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
 individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel = Prif rif ffôn
 individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel = Rhif ffôn arall
 
@@ -1677,7 +1689,8 @@ nameOfOrganisation.checkYourAnswersLabel = Enw
 organisationContactDetails.title = Manylion cyswllt sefydliad yr enwebai
 organisationContactDetails.heading = Manylion cyswllt {0}
 organisationContactDetails.phoneNumber.label = Rhif ffôn
-organisationContactDetails.phoneNumber.error.format = Nodwch brif rif ffôn y sefydliad, megis 01632 960 001
+organisationContactDetails.phoneNumber.hint = Ar gyfer rhifau rhyngwladol, cofiwch gynnwys cod y wlad
+organisationContactDetails.phoneNumber.error.format = Nodwch rif ffôn y sefydliad, megis 01632 960 001, 07700 900 982 neu +44 808 157 0192
 organisationContactDetails.phoneNumber.error.required = Nodwch rif ffôn y sefydliad
 organisationContactDetails.email.label = Cyfeiriad e-bost
 organisationContactDetails.email.error.format = Nodwch y cyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com

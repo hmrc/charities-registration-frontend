@@ -48,7 +48,7 @@
 )(contentBlock: Html)(implicit request: Request[_], requestHeader: RequestHeader, messages: Messages, appConfig: config.FrontendAppConfig)
 
 @head = {
-    @hmrcTrackingConsentSnippet(CSPNonce.get(requestHeader))
+    @hmrcTrackingConsentSnippet()
     <!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
     <!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
 

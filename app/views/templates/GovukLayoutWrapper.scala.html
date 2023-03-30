@@ -43,6 +43,7 @@
     signOut: Boolean = true,
     js: Option[Html] = None,
     backLink: Boolean = true,
+    customBackLinkUrl: Option[String] = None,
     showDeskproLink: Boolean = true,
     timeout: Boolean = true
 )(contentBlock: Html)(implicit request: Request[_], requestHeader: RequestHeader, messages: Messages, appConfig: config.FrontendAppConfig)
@@ -94,8 +95,9 @@
 
     @phaseBanner("beta", signOut)
 
+
     @if(backLink == true) {
-        @govukBackLink(BackLink(href = "javascript:history.back()", content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))
+        @govukBackLink(BackLink(href = customBackLinkUrl.fold("#")(customUrl => customUrl), content = Text("Back"), attributes = Map("id" -> "back-link")))
     }
 
     @if(appConfig.languageTranslationEnabled) {

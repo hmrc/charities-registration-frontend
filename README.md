@@ -36,9 +36,12 @@ Make sure service-manager and service-manager-config are up to date
 
 Then run the following command to start all services:
 
+
 ```
-sm --start CHARITIES_REGISTRATION_ALL --appendArgs '{"ADDRESS_LOOKUP_FRONTEND":["-J-Dapplication.router=testOnlyDoNotUseInAppConf.Routes","-J-Dmicroservice.hosts.allowList.1=localhost"]}'
+sm --start CHARITIES_REGISTRATION_ALL -r --appendArgs '{"CHARITIES_REGISTRATION_FRONTEND": ["-J-Dmicroservice.services.address-lookup-frontend.port=6001"]}'
 ```
+
+**Ensure CHARITIES_REGISTRATION_FRONTEND uses port 6001 for address-lookup-frontend. Note: Update address-lookup-frontend port to 6001 in the application.conf of charities-registration-frontend**
 
 #### Tests:
 Please run tests with any work changes

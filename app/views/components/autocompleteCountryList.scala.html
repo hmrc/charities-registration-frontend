@@ -14,8 +14,11 @@
  * limitations under the License.
  *@
 
+@import views.html.helper.CSPNonce
+
 @import uk.gov.hmrc.govukfrontend.views.html.{components => hmrcComponent}
 @import uk.gov.hmrc.govukfrontend.views.html.components.{toClasses => govukToClasses}
+
 @this(select: GovukSelect)
 
 @(form: Form[_],
@@ -28,7 +31,7 @@
   headingMessageArgs: Seq[String] = Seq(),
   hint: String,
   hintText: String,
-  countries: Seq[(String, String)])(implicit messages: Messages)
+  countries: Seq[(String, String)])(implicit messages: Messages, requestHeader: RequestHeader)
 
 <div class="@govukToClasses("govuk-form-group", if(form(id).hasErrors) "govuk-form-group--error" else "")">
 
@@ -60,9 +63,9 @@
     formGroupClasses = "form-field-group"
 ))
 </div>
-<script src="@controllers.routes.Assets.versioned("javascripts/autocomplete.js")" ></script>
+<script @CSPNonce.attr src="@controllers.routes.Assets.versioned("javascripts/autocomplete.js")" ></script>
 
-<script>
+<script @CSPNonce.attr>
     accessibleAutocomplete.enhanceSelectElement({
         selectElement: document.getElementById("country"),
         name: 'countryCodeAutocomplete',

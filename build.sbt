@@ -48,7 +48,7 @@ lazy val root = (project in file("."))
       ".*models.Mode*;.*handlers.*;.*components.*;.*TimeMachine.*;" +
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;" +
       ".*ControllerConfiguration;.*testonly.*;",
-    ScoverageKeys.coverageMinimumStmtTotal := 80,
+    ScoverageKeys.coverageMinimumStmtTotal := 98,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
     scalacOptions ++= Seq("-feature", "-Xlint:-unused", "-Wconf:src=routes/.*:s,src=views/.*:s"),

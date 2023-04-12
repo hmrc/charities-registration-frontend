@@ -115,9 +115,29 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
       "01632 960 001" must fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be valid for 01632 960" in {
+    "be invalid for short numbers like 01632 960" in {
 
       "01632 960" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    }
+
+    "be invalid for special chars like (0)1632 960 001" in {
+
+      "(0)1632 960 001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    }
+
+    "be invalid for hyphens like 1-632-960-001" in {
+
+      "1-632-960-001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    }
+
+    "be invalid for dots like 1.632.960.001" in {
+
+      "1.632.960.001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    }
+
+    "be valid for international numbers like +44 777 777 7777" in {
+
+      "+44 777 777 7777" must fullyMatch regex formProvider.validateTelephoneNumber
     }
   }
 

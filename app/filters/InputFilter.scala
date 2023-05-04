@@ -22,7 +22,7 @@ import java.util.regex.Pattern._
 import scala.annotation.tailrec
 
 trait InputFilter {
-  val filters: Seq[Pattern] = Seq(
+  private val filters: Seq[Pattern] = Seq(
     compile("<script>(.*?)</script>", CASE_INSENSITIVE),
     compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", CASE_INSENSITIVE | MULTILINE | DOTALL),
     compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", CASE_INSENSITIVE | MULTILINE | DOTALL),
@@ -35,15 +35,14 @@ trait InputFilter {
     compile("onload(.*?)=", CASE_INSENSITIVE | MULTILINE | DOTALL)
   )
 
-  def filter(input: String): String = {
-    @tailrec
-    def applyFilters(filters: Seq[Pattern], sanitizedOutput: String): String =
-      filters match {
-        case Nil            => sanitizedOutput.filterNot(_ == '|')
-        case filter :: tail => applyFilters(tail, filter.matcher(sanitizedOutput).replaceAll(""))
-        case _              => throw new RuntimeException("[InputFilter][applyFilters] Unable to match filters")
-      }
+  @tailrec
+  final def applyFilters(filters: Seq[Pattern], sanitizedOutput: String): String =
+    filters match {
+      case Nil            => sanitizedOutput.filterNot(_ == '|')
+      case filter :: tail => applyFilters(tail, filter.matcher(sanitizedOutput).replaceAll(""))
+      case _              => throw new RuntimeException("[InputFilter][applyFilters] Unable to match filters")
+    }
 
-    applyFilters(filters, input)
-  }
+  def filter(input: String): String = applyFilters(filters, input)
+
 }

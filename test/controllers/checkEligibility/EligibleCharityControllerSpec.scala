@@ -47,7 +47,7 @@ class EligibleCharityControllerSpec extends SpecBase {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(NormalMode, Some(SessionId("foo")))(fakeRequest, messages, frontendAppConfig).toString
+        view(NormalMode, Some(SessionId(fakeSessionId)))(fakeRequest, messages, frontendAppConfig).toString
     }
   }
 }

@@ -25,7 +25,7 @@ import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficial
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, AuthorisedOfficialsPositionPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import pages.operationsAndFunds.{BankDetailsPage, CharityEstablishedInPage}
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, __}
 
 class CharityCommonTransformerSpec extends SpecBase {
 
@@ -38,13 +38,13 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct Admin object" in {
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "admin": {
             |        "acknowledgmentReference": "15 CHARACTERS S",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+            |        "sessionID": "$fakeSessionId",
             |        "welshIndicator": false,
             |        "applicationDate": "1970-01-01"
             |      }
@@ -55,6 +55,47 @@ class CharityCommonTransformerSpec extends SpecBase {
         emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequest)).asOpt.value mustBe Json
           .parse(expectedJson)
       }
+
+      "convert the correct Admin object when no session Id" in {
+        val json      =
+          emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestNoSessionId)).asOpt.value
+        val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
+
+        sessionId must have length 50
+        sessionId must not be empty
+      }
+
+      "convert the correct Admin object when empty session Id" in {
+        val json      =
+          emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestEmptySessionId)).asOpt.value
+        val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
+
+        sessionId must have length 50
+        sessionId must not be empty
+      }
+
+      "convert the correct Admin object when less than 50 is length of session Id" in {
+        val json      =
+          emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestShortSessionId)).asOpt.value
+        val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
+
+        sessionId must have length 50
+        sessionId must not be empty
+        sessionId must startWith("short id here not 50 chars")
+      }
+
+      "convert the correct Admin object when more than 50 is length of session Id" in {
+        val json      = emptyUserAnswers.data
+          .transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestTooLongSessionId))
+          .asOpt
+          .value
+        val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
+
+        sessionId must have length 50
+        sessionId must not be empty
+        sessionId mustBe ("short id here not 50 chars" * 10).take(50)
+      }
+
     }
 
     "userAnswersToOrganisation" must {
@@ -514,7 +555,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
@@ -539,7 +580,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "admin": {
             |        "acknowledgmentReference": "15 CHARACTERS S",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+            |        "sessionID": "$fakeSessionId",
             |        "welshIndicator": false,
             |        "applicationDate": "1970-01-01"
             |      },
@@ -634,7 +675,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
@@ -659,7 +700,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "admin": {
             |        "acknowledgmentReference": "15 CHARACTERS S",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+            |        "sessionID": "$fakeSessionId",
             |        "welshIndicator": false,
             |        "applicationDate": "1970-01-01"
             |      },
@@ -732,7 +773,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
@@ -754,7 +795,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "admin": {
             |        "acknowledgmentReference": "15 CHARACTERS S",
             |        "credentialID": "/newauth/credentialId/id",
-            |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+            |        "sessionID": "$fakeSessionId",
             |        "welshIndicator": false,
             |        "applicationDate": "1970-01-01"
             |      },

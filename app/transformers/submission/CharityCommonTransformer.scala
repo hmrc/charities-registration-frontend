@@ -19,9 +19,26 @@ package transformers.submission
 import models.requests.DataRequest
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{JsObjectReducer, _}
-import play.api.libs.json.{__, _}
+import play.api.libs.json._
+import uk.gov.hmrc.http.SessionKeys
+
+import java.util.UUID
 
 class CharityCommonTransformer extends JsonTransformer {
+
+  val sessionIdLength         = 50
+  private def newUUID: String = UUID.randomUUID.toString // will be 36 chars long
+
+  private def getSessionId(implicit request: DataRequest[_]): String = {
+    val veryLongUuid = "-" + newUUID + "-" + newUUID + "-" + newUUID
+    val reqSessionId = request.session.data.getOrElse(SessionKeys.sessionId, newUUID)
+    val sessionId    = if (reqSessionId.length < sessionIdLength) {
+      reqSessionId + veryLongUuid.take(sessionIdLength - reqSessionId.length)
+    } else {
+      reqSessionId.take(sessionIdLength)
+    }
+    sessionId
+  }
 
   val localPath: JsPath = __ \ "charityRegistration" \ "common"
 
@@ -29,9 +46,7 @@ class CharityCommonTransformer extends JsonTransformer {
     ((localPath \ "admin" \ "applicationDate").json.put(JsString("1970-01-01")) and
       (localPath \ "admin" \ "welshIndicator").json.put(JsBoolean(false)) and
       (localPath \ "admin" \ "credentialID").json.put(JsString(s"/newauth/credentialId/${request.internalId}")) and
-      (localPath \ "admin" \ "sessionID").json.put(
-        JsString("50 CHARACTERS STRING 50 CHARACTERS " + "STRING 50 CHARA")
-      ) and
+      (localPath \ "admin" \ "sessionID").json.put(JsString(getSessionId)) and
       (localPath \ "admin" \ "acknowledgmentReference").json.put(JsString("15 CHARACTERS S"))).reduce
 
   def userAnswersToOrganisation: Reads[JsObject] =

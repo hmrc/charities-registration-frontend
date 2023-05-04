@@ -21,9 +21,9 @@ import controllers.actions._
 import models.UserAnswers
 import models.requests.DataRequest
 import org.jsoup.Jsoup
-import org.scalatest.{EitherValues, OptionValues, TryValues}
-import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.mockito.MockitoSugar
+import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatest.{EitherValues, OptionValues, TryValues}
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.Application
@@ -54,14 +54,14 @@ trait SpecBase
     with OptionValues
     with EitherValues {
 
-  lazy val injector: Injector               = app.injector
-  lazy val internalId                       = "id"
-  lazy val baseInternalUserAnswers          = UserAnswers(internalId, Json.obj())
-  lazy val emptyUserAnswers: UserAnswers    = baseInternalUserAnswers.copy(
+  lazy val injector: Injector                   = app.injector
+  lazy val internalId: String                   = "id"
+  lazy val baseInternalUserAnswers: UserAnswers = UserAnswers(internalId, Json.obj())
+  lazy val emptyUserAnswers: UserAnswers        = baseInternalUserAnswers.copy(
     lastUpdated = baseInternalUserAnswers.lastUpdated.truncatedTo(ChronoUnit.MILLIS),
     expiresAt = baseInternalUserAnswers.expiresAt.truncatedTo(ChronoUnit.MILLIS)
   )
-  lazy val userAnswers: Option[UserAnswers] = None
+  lazy val userAnswers: Option[UserAnswers]     = None
 
   lazy val messagesControllerComponents: MessagesControllerComponents =
     injector.instanceOf[MessagesControllerComponents]
@@ -77,11 +77,43 @@ trait SpecBase
   implicit val errorHandler: ErrorHandler           = injector.instanceOf[ErrorHandler]
   implicit val hc: HeaderCarrier                    = HeaderCarrier()
 
+  //with session id
+  lazy val fakeSessionId                                        = "this must be 50 chars long and so on and so forth!"
   lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
-    .withSession(SessionKeys.sessionId -> "foo")
+    .withSession(SessionKeys.sessionId -> fakeSessionId)
     .withCSRFToken
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
   lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
+
+  //without session id
+  lazy val fakeRequestNoSessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "").withCSRFToken
+    .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+  lazy val fakeDataRequestNoSessionId: DataRequest[AnyContentAsEmpty.type] =
+    DataRequest(fakeRequestNoSessionId, internalId, emptyUserAnswers)
+
+  //with empty session id
+  lazy val fakeRequestEmptySessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
+    .withSession(SessionKeys.sessionId -> "")
+    .withCSRFToken
+    .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+  lazy val fakeDataRequestEmptySessionId: DataRequest[AnyContentAsEmpty.type] =
+    DataRequest(fakeRequestEmptySessionId, internalId, emptyUserAnswers)
+
+  //with less length than required session id
+  lazy val fakeRequestShortSessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
+    .withSession(SessionKeys.sessionId -> "short id here not 50 chars")
+    .withCSRFToken
+    .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+  lazy val fakeDataRequestShortSessionId: DataRequest[AnyContentAsEmpty.type] =
+    DataRequest(fakeRequestShortSessionId, internalId, emptyUserAnswers)
+
+  //with more length than required session id
+  lazy val fakeRequestTooLongSessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
+    .withSession(SessionKeys.sessionId -> "short id here not 50 chars" * 10)
+    .withCSRFToken
+    .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+  lazy val fakeDataRequestTooLongSessionId: DataRequest[AnyContentAsEmpty.type] =
+    DataRequest(fakeRequestTooLongSessionId, internalId, emptyUserAnswers)
 
   def onwardRoute: Call = Call("GET", "/foo")
 

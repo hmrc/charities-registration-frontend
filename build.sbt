@@ -9,22 +9,16 @@ lazy val appName: String = "charities-registration-frontend"
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
-  .settings(DefaultBuildSettings.scalaSettings: _*)
-  .settings(DefaultBuildSettings.defaultSettings(): _*)
-  .settings(inConfig(Test)(testSettings): _*)
+  .settings(DefaultBuildSettings.scalaSettings)
+  .settings(DefaultBuildSettings.defaultSettings())
+  .settings(inConfig(IntegrationTest)(DefaultBuildSettings.integrationTestSettings()))
   .configs(IntegrationTest)
-  .settings(
-    inConfig(IntegrationTest)(
-      Defaults.itSettings ++
-        AutomateHeaderPlugin.autoImport.automateHeaderSettings(IntegrationTest)
-    ): _*
-  )
   .settings(
     javaOptions += "-Dlogger.resource=logback-test.xml",
     IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
     IntegrationTest / resourceDirectory := (IntegrationTest / baseDirectory)(base => base / "it" / "resources").value,
     IntegrationTest / parallelExecution := false,
-    IntegrationTest / Keys.fork := true,
+    IntegrationTest / fork := true,
     addTestReportOption(IntegrationTest, "int-test-reports")
   )
   .settings(majorVersion := 0)
@@ -72,14 +66,6 @@ lazy val root = (project in file("."))
     Assets / pipelineStages := Seq(concat, uglify),
     uglify / includeFilter := GlobFilter("application.js")
   )
-
-lazy val testSettings: Seq[Def.Setting[_]] = Seq(
-  fork := true,
-  javaOptions ++= Seq(
-    "-Dconfig.resource=test.application.conf",
-    "-Dlogger.resource=logback-test.xml"
-  )
-)
 
 addCommandAlias("scalafmtAll", "all scalafmtSbt scalafmt Test/scalafmt IntegrationTest/scalafmt")
 addCommandAlias("scalastyleAll", "all scalastyle Test/scalastyle IntegrationTest/scalastyle")

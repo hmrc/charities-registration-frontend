@@ -128,7 +128,7 @@ trait CharityTransformerConstants extends SpecBase {
     .success
     .value
 
-  lazy val jsonAllFields =
+  lazy val jsonAllFields: String =
     s"""{
        |  "charityRegistration": {
        |    "charity": {
@@ -230,7 +230,7 @@ trait CharityTransformerConstants extends SpecBase {
        |      "admin": {
        |        "acknowledgmentReference": "15 CHARACTERS S",
        |        "credentialID": "/newauth/credentialId/id",
-       |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+       |        "sessionID": "$fakeSessionId",
        |        "welshIndicator": false,
        |        "applicationDate": "1970-01-01"
        |      },
@@ -394,7 +394,7 @@ trait CharityTransformerConstants extends SpecBase {
        |  }
        |}""".stripMargin
 
-  lazy val jsonMinFields =
+  lazy val jsonMinFields: String =
     s"""{
        |  "charityRegistration": {
        |    "common": {
@@ -418,7 +418,7 @@ trait CharityTransformerConstants extends SpecBase {
        |      "admin": {
        |        "acknowledgmentReference": "15 CHARACTERS S",
        |        "credentialID": "/newauth/credentialId/id",
-       |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+       |        "sessionID": "$fakeSessionId",
        |        "welshIndicator": false,
        |        "applicationDate": "1970-01-01"
        |      },
@@ -563,7 +563,7 @@ trait CharityTransformerConstants extends SpecBase {
        |}
        |""".stripMargin
 
-  lazy val jsonGeneral =
+  lazy val jsonGeneral: String =
     s"""{
        |  "charityRegistration": {
        |    "common": {
@@ -587,7 +587,7 @@ trait CharityTransformerConstants extends SpecBase {
        |      "admin": {
        |        "acknowledgmentReference": "15 CHARACTERS S",
        |        "credentialID": "/newauth/credentialId/id",
-       |        "sessionID": "50 CHARACTERS STRING 50 CHARACTERS STRING 50 CHARA",
+       |        "sessionID": "$fakeSessionId",
        |        "welshIndicator": false,
        |        "applicationDate": "1970-01-01"
        |      },

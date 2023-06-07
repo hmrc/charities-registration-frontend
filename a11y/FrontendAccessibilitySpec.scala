@@ -15,16 +15,18 @@
  */
 
 import config.FrontendAppConfig
+import forms.operationsAndFunds.CharitablePurposesFormProvider
+import forms.regulatorsAndDocuments.CharityRegulatorFormProvider
+import models.regulators.CharityRegulator
 import models._
 import models.operations.CharitablePurposes
-import models.regulators.CharityRegulator
-import org.joda.time.DateTime
 import org.scalacheck.Arbitrary
 import play.api.data.Form
 import play.api.data.Forms._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import uk.gov.hmrc.scalatestaccessibilitylinter.views.AutomaticAccessibilitySpec
+import utils.TestData
 import viewmodels.OfficialSummaryListRow
 import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
 import views.html.checkEligibility._
@@ -37,9 +39,7 @@ import views.html.otherOfficials.CharityOtherOfficialsView
 import views.html.regulatorsAndDocuments._
 import views.html.templates.GovukLayoutWrapper
 
-import scala.util.Try
-
-class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec {
+class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData {
 
   // Some view template parameters can't be completely arbitrary,
   // but need to have same values for pages to render properly.
@@ -66,28 +66,9 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec {
   private val name = Name(SelectTitle.Mr, "Martin", middleName = None, "Odersky")
   implicit val arbOffSummaryListInput: Arbitrary[Seq[OfficialSummaryListRow]] = fixed(Seq(OfficialSummaryListRow(name, call, call, isCompleted = true)))
 
-//  implicit val arbCharityRegulatorInput: Arbitrary[Form[Set[CharityRegulator]]] = fixed(
-//    Form(
-//      mapping(
-//        "value" -> ignored(CharityRegulator.values.toSet)
-//      )(Set(CharityRegulator))(Option(Set(CharityRegulator)))
-//    )
-//  )
+  implicit val arbCharityRegulatorInput: Arbitrary[Form[Set[CharityRegulator]]] = fixed(new CharityRegulatorFormProvider()())
 
-//  implicit val arbCharitablePurposesInput: Arbitrary[Form[Set[CharitablePurposes]]] = fixed(Form(
-//    mapping(
-//
-//
-//      Set(CharitablePurposes.Other))
-//
-//  ))
-
-  // Another limitation of the framework is that it can generate Arbitrary[T] but not Arbitrary[T[_]],
-  // so any nested types (like a Play `Form[]`) must similarly be provided by wrapping
-  // a concrete value using `fixed()`.  Usually, you'll have a value you can use somewhere else
-  // in your codebase - either in your production code or another test.
-  // Note - these values are declared as `implicit` to simplify calls to `render()` below
-  // e.g implicit val arbReportProblemPage: Arbitrary[Form[ReportProblemForm]] = fixed(reportProblemForm)
+  implicit val arbCharitablePurposesInput: Arbitrary[Form[Set[CharitablePurposes]]] = fixed(new CharitablePurposesFormProvider()())
 
   // This is the package where the page templates are located in your service
   val viewPackageName = "views.html"
@@ -152,7 +133,7 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec {
     case accountingPeriodEndDateView: AccountingPeriodEndDateView => render(accountingPeriodEndDateView)
     case bankDetailsView: BankDetailsView => render(bankDetailsView)
     case charitableObjectivesView: CharitableObjectivesView => render(charitableObjectivesView)
-//    case charitablePurposesView: CharitablePurposesView => render(charitablePurposesView) // todo fix implicit
+    case charitablePurposesView: CharitablePurposesView => render(charitablePurposesView)
     case charityEstablishedInView: CharityEstablishedInView => render(charityEstablishedInView)
     case fundRaisingView: FundRaisingView => render(fundRaisingView)
     case isBankStatementsView: IsBankStatementsView => render(isBankStatementsView)
@@ -171,7 +152,7 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec {
       // regulators and documents
     case charityCommissionRegistrationNumberView: CharityCommissionRegistrationNumberView => render(charityCommissionRegistrationNumberView)
     case charityOtherRegulatorDetailsView: CharityOtherRegulatorDetailsView => render(charityOtherRegulatorDetailsView)
-//    case charityRegulatorView: CharityRegulatorView => render(charityRegulatorView) // todo fix implicit
+    case charityRegulatorView: CharityRegulatorView => render(charityRegulatorView)
     case governingDocumentNameView: GoverningDocumentNameView => render(governingDocumentNameView)
     case hasCharityChangedPartsOfGoverningDocumentView: HasCharityChangedPartsOfGoverningDocumentView => render(hasCharityChangedPartsOfGoverningDocumentView)
     case isApprovedGoverningDocumentView: IsApprovedGoverningDocumentView => render(isApprovedGoverningDocumentView)
@@ -188,16 +169,4 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec {
   }
 
   runAccessibilityTests()
-
-  // TODO We are missing the following views as they were clashing with others, the ideal will be to
-  //  separate and isolate them in different view tests instead of just running all the AccessibilityTests together,
-  //  see https://github.com/hmrc/sbt-accessibility-linter#running-accessibility-checks for more info.
-  //    case zero_declaration: zero_declaration => render(zero_declaration)
-  //    case dashboard: dashboard => render(dashboard)
-
-  // TODO These views are not picked up as accessible pending for missing wiring,
-  //  tobacco_input is the main template for these views so they can be tested individually in their own view tests.
-  //    case no_of_sticks_input: no_of_sticks_input => render(no_of_sticks_input)
-  //    case no_of_sticks_weight_or_volume_input: no_of_sticks_weight_or_volume_input => render(no_of_sticks_weight_or_volume_input)
-  //    case weight_or_volume_input: weight_or_volume_input => render(weight_or_volume_input)
 }

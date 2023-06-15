@@ -28,6 +28,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import uk.gov.hmrc.scalatestaccessibilitylinter.views.AutomaticAccessibilitySpec
 import utils.TestData
 import viewmodels.OfficialSummaryListRow
+import views.html._
 import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
 import views.html.checkEligibility._
 import views.html.common._
@@ -49,6 +50,10 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData
 
   private val booleanForm: Form[Boolean] = Form("value" -> boolean)
 
+  private val name = Name(SelectTitle.Mr, "Martin", middleName = None, "Odersky")
+
+  private val countries = Seq(("GB", "United Kingdom"))
+
   implicit val arbConfig: Arbitrary[FrontendAppConfig] = fixed(appConfig)
 
   implicit val arbForm: Arbitrary[Form[Boolean]] = fixed(booleanForm)
@@ -61,14 +66,17 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData
 
   implicit val arbSelectGoverningFormInput: Arbitrary[Form[_]] = fixed(booleanForm)
 
+  implicit val arbCountries: Arbitrary[Seq[(String, String)]] = fixed(countries)
+
   implicit val arbSelectGoverningDocInput: Arbitrary[(Form[_], Mode)] = fixed((booleanForm, NormalMode))
 
-  private val name = Name(SelectTitle.Mr, "Martin", middleName = None, "Odersky")
   implicit val arbOffSummaryListInput: Arbitrary[Seq[OfficialSummaryListRow]] = fixed(Seq(OfficialSummaryListRow(name, call, call, isCompleted = true)))
 
   implicit val arbCharityRegulatorInput: Arbitrary[Form[Set[CharityRegulator]]] = fixed(new CharityRegulatorFormProvider()())
 
   implicit val arbCharitablePurposesInput: Arbitrary[Form[Set[CharitablePurposes]]] = fixed(new CharitablePurposesFormProvider()())
+
+  override implicit val arbAsciiString: Arbitrary[String] = fixed("testString")
 
   // This is the package where the page templates are located in your service
   val viewPackageName = "views.html"
@@ -80,9 +88,9 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData
   // this partial function wires up the generic render() functions with arbitrary instances of the correct types.
   // Important: there's a known issue with intellij incorrectly displaying warnings here, you should be able to ignore these for now.
   override def renderViewByClass: PartialFunction[Any, Html] = {
-    // authorisedOfficials
+      // authorisedOfficials
     case charityAuthorisedOfficialsView: CharityAuthorisedOfficialsView => render(charityAuthorisedOfficialsView)
-    // checkEligibility
+      // checkEligibility
     case checkIfCanRegisterView: CheckIfCanRegisterView => render(checkIfCanRegisterView)
     case eligibleCharityView: EligibleCharityView => render(eligibleCharityView)
     case incorrectDetailsView: IncorrectDetailsView => render(incorrectDetailsView)
@@ -93,7 +101,7 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData
     case isEligibleLocationOtherView: IsEligibleLocationOtherView => render(isEligibleLocationOtherView)
     case isEligibleLocationView: IsEligibleLocationView => render(isEligibleLocationView)
     case isEligiblePurposeView: IsEligiblePurposeView => render(isEligiblePurposeView)
-    // common
+      // common
     case addedOfficialsView: AddedOfficialsView => render(addedOfficialsView)
     case amendAddressView: AmendAddressView => render(amendAddressView)
     case bankAccountDetailsView: BankAccountDetailsView => render(bankAccountDetailsView)
@@ -110,7 +118,7 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData
     case passportView: PassportView => render(passportView)
     case phoneNumberView: PhoneNumberView => render(phoneNumberView)
     case yesNoView: YesNoView => render(yesNoView)
-    // contactDetails
+      // contactDetails
     case canWeSendToThisAddressView: CanWeSendToThisAddressView => render(canWeSendToThisAddressView)
     case charityContactDetailsView: CharityContactDetailsView => render(charityContactDetailsView)
     case charityNameView: CharityNameView => render(charityNameView)
@@ -166,6 +174,18 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData
     case startGoverningDocumentView: StartGoverningDocumentView => render(startGoverningDocumentView)
     case whenGoverningDocumentApprovedView: WhenGoverningDocumentApprovedView => render(whenGoverningDocumentApprovedView)
     case whyNotRegisteredWithCharityView: WhyNotRegisteredWithCharityView => render(whyNotRegisteredWithCharityView)
+      // others
+    case applicationBeingProcessedView: ApplicationBeingProcessedView => render(applicationBeingProcessedView)
+    case cannotFindApplicationView: CannotFindApplicationView => render(cannotFindApplicationView)
+    case checkYourAnswersView: CheckYourAnswersView => render(checkYourAnswersView)
+    case deadEndView: DeadEndView => render(deadEndView)
+    case declarationView: DeclarationView => render(declarationView)
+    case emailOrPostView: EmailOrPostView => render(emailOrPostView)
+    case registrationSentView: RegistrationSentView => render(registrationSentView)
+    case startDeclarationView: StartDeclarationView => render(startDeclarationView)
+    case switchOverAnswersLostErrorView: SwitchOverAnswersLostErrorView => render(switchOverAnswersLostErrorView)
+    case switchOverErrorView: SwitchOverErrorView => render(switchOverErrorView)
+    case taskList: TaskList => render(taskList)
   }
 
   runAccessibilityTests()

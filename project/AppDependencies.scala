@@ -1,4 +1,4 @@
-import sbt.*
+import sbt._
 
 object AppDependencies {
 
@@ -24,7 +24,7 @@ object AppDependencies {
     "com.github.tomakehurst" % "wiremock-standalone"       % "2.27.2",
     "org.mockito"           %% "mockito-scala-scalatest"   % "1.17.14",
     "org.scalatestplus"     %% "scalacheck-1-17"           % "3.2.15.0",
-    "com.vladsch.flexmark"   % "flexmark-all"              % "0.64.4",
+    "com.vladsch.flexmark"   % "flexmark-all"              % "0.64.6",
     "com.stephenn"          %% "scalatest-json-jsonassert" % "0.2.5"
   ).map(_ % "test, it")
 

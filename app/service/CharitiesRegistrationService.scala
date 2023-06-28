@@ -19,16 +19,17 @@ package service
 import audit.{AuditService, SubmissionAuditEvent}
 import connectors.CharitiesConnector
 import connectors.httpParsers.UnexpectedFailureException
-import javax.inject.Inject
 import models.requests.DataRequest
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
-import play.api.libs.json.{JsBoolean, JsObject}
+import play.api.libs.json.Reads._
+import play.api.libs.json._
 import play.api.mvc.Result
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.TimeMachine
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
@@ -58,7 +59,7 @@ class CharitiesRegistrationService @Inject() (
                                 )
               _              <- userAnswerService.set(updatedAnswers)
               _              <- Future.successful(
-                                  auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true))))
+                                  auditService.sendEvent(SubmissionAuditEvent(prepareAuditJson(requestJson)))
                                 )
             } yield
               if (noEmailPost) {
@@ -78,5 +79,25 @@ class CharitiesRegistrationService @Inject() (
 
       case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
     }
+
+  private def prepareAuditJson(requestJson: JsObject): JsValue = {
+    //Auditing has requested that some data reflects the input data, rather than the ETMP model
+    val pathToAlter: JsPath = __ \ "charityRegistration" \ "common" \ "bankDetails"
+
+    val accountNumberUpdate =
+      (pathToAlter \ "accountNumber").json.update(__.read[Int].map(n => JsString(f"$n%08d")))
+    val sortCodeUpdate      =
+      (pathToAlter \ "sortCode").json.update(__.read[Int].map(n => JsString(f"$n%08d")))
+
+    requestJson.transform(accountNumberUpdate.andThen(sortCodeUpdate)) match {
+      case JsSuccess(value, _) => value + ("declaration" -> JsBoolean(true))
+      case JsError(errors)     =>
+        logger.error(
+          s"[CharitiesRegistrationService][prepareAuditJson]: CharitiesRegistrationSubmission json transforms for auditing failed with errors: " + errors
+        )
+        throw UnexpectedFailureException(errors.toString())
+    }
+
+  }
 
 }

@@ -24,12 +24,12 @@ import models.requests.DataRequest
 import models.{RegistrationResponse, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
 import org.mockito.MockitoSugar
+import org.scalatest.BeforeAndAfterEach
 import pages.AcknowledgementReferencePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.Helpers._
 
@@ -46,6 +46,20 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
     .value
   lazy val dataRequestWithAcknowledgement: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequest, internalId, userAnswersWithAcknowledgement)
+
+  val expectedJsonObject: JsObject =
+    Json
+      .parse("""{
+               |  "charityRegistration": {
+               |    "common": {
+               |      "bankDetails": {
+               |        "sortCode": 123,
+               |        "accountNumber": 123
+               |      }
+               |    }
+               |  }
+               |}""".stripMargin)
+      .asInstanceOf[JsObject]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -84,9 +98,10 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
         Future.successful(Right(RegistrationResponse("765432")))
       )
+
       doNothing().when(mockAuditService).sendEvent(any())(any(), any())
 
-      val result = service.register(Json.obj(), noEmailPost = false)(fakeDataRequest, hc, ec)
+      val result = service.register(expectedJsonObject, noEmailPost = false)(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
@@ -105,7 +120,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       )
       doNothing().when(mockAuditService).sendEvent(any())(any(), any())
 
-      val result = service.register(Json.obj(), noEmailPost = true)(fakeDataRequest, hc, ec)
+      val result = service.register(expectedJsonObject, noEmailPost = true)(fakeDataRequest, hc, ec)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
@@ -143,6 +158,24 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       intercept[UnexpectedFailureException] {
         await(service.register(Json.obj(), noEmailPost = false)(fakeDataRequest, hc, ec))
       }
+
+      verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
+      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      verify(mockAuditService, never()).sendEvent(any())(any(), any())
+    }
+
+    "redirect to the technical difficulties page if submission data is missing required fields for Auditing" in {
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
+        Future.successful(Right(RegistrationResponse("765432")))
+      )
+      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
+
+      val result = intercept[UnexpectedFailureException] {
+        await(service.register(Json.obj(), noEmailPost = true)(fakeDataRequest, hc, ec))
+      }
+      result.getMessage must include("JsonValidationError(List(error.path.missing)")
 
       verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())

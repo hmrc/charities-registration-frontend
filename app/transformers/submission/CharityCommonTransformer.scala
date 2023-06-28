@@ -91,10 +91,10 @@ class CharityCommonTransformer extends JsonTransformer {
     (
       (localPath \ "bankDetails" \ "accountName").json.copyFrom((__ \ "bankDetails" \ "accountName").json.pick) and
         (__ \ "bankDetails" \ "sortCode").read[String].flatMap { n =>
-          (localPath \ "bankDetails" \ "sortCode").json.put(JsNumber(n.toInt))
+          (localPath \ "bankDetails" \ "sortCode").json.put(JsString(n))
         } and
         (__ \ "bankDetails" \ "accountNumber").read[String].flatMap { n =>
-          (localPath \ "bankDetails" \ "accountNumber").json.put(JsNumber(n.toInt))
+          (localPath \ "bankDetails" \ "accountNumber").json.put(JsString(n))
         } and
         ((localPath \ "bankDetails" \ "rollNumber").json.copyFrom(
           (__ \ "bankDetails" \ "rollNumber").json.pick

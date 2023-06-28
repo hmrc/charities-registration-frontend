@@ -49,7 +49,7 @@ class CharitiesRegistrationService @Inject() (
   ): Future[Result] =
     request.userAnswers.get(AcknowledgementReferencePage) match {
       case None =>
-        charitiesConnector.registerCharities(requestJson, Random.nextInt()).flatMap {
+        charitiesConnector.registerCharities(convertInputsForModel(requestJson), Random.nextInt()).flatMap {
           case Right(result) =>
             for {
               updatedAnswers <- Future.fromTry(
@@ -59,7 +59,7 @@ class CharitiesRegistrationService @Inject() (
                                 )
               _              <- userAnswerService.set(updatedAnswers)
               _              <- Future.successful(
-                                  auditService.sendEvent(SubmissionAuditEvent(prepareAuditJson(requestJson)))
+                                  auditService.sendEvent(SubmissionAuditEvent(requestJson + ("declaration" -> JsBoolean(true))))
                                 )
             } yield
               if (noEmailPost) {
@@ -80,20 +80,20 @@ class CharitiesRegistrationService @Inject() (
       case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
     }
 
-  private def prepareAuditJson(requestJson: JsObject): JsValue = {
-    //Auditing has requested that some data reflects the input data, rather than the ETMP model
+  private def convertInputsForModel(requestJson: JsObject): JsValue = {
+    //Auditing has requested that some data reflects the input data, it is re-aligned to the the ETMP model here
     val pathToAlter: JsPath = __ \ "charityRegistration" \ "common" \ "bankDetails"
 
     val accountNumberUpdate =
-      (pathToAlter \ "accountNumber").json.update(__.read[Int].map(n => JsString(f"$n%08d")))
+      (pathToAlter \ "accountNumber").json.update(__.read[String].map(n => JsNumber(n.toInt)))
     val sortCodeUpdate      =
-      (pathToAlter \ "sortCode").json.update(__.read[Int].map(n => JsString(f"$n%08d")))
+      (pathToAlter \ "sortCode").json.update(__.read[String].map(n => JsNumber(n.toInt)))
 
     requestJson.transform(accountNumberUpdate.andThen(sortCodeUpdate)) match {
-      case JsSuccess(value, _) => value + ("declaration" -> JsBoolean(true))
+      case JsSuccess(value, _) => value
       case JsError(errors)     =>
         logger.error(
-          s"[CharitiesRegistrationService][prepareAuditJson]: CharitiesRegistrationSubmission json transforms for auditing failed with errors: " + errors
+          s"[CharitiesRegistrationService][convertInputsForModel]: CharitiesRegistrationSubmission transforms to ETMP model failed with errors: " + errors
         )
         throw UnexpectedFailureException(errors.toString())
     }

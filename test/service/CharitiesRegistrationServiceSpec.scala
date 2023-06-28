@@ -53,8 +53,8 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
                |  "charityRegistration": {
                |    "common": {
                |      "bankDetails": {
-               |        "sortCode": 123,
-               |        "accountNumber": 123
+               |        "sortCode": "000123",
+               |        "accountNumber": "00000123"
                |      }
                |    }
                |  }
@@ -139,7 +139,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       )
 
       intercept[UnexpectedFailureException] {
-        await(service.register(Json.obj(), noEmailPost = false)(fakeDataRequest, hc, ec))
+        await(service.register(expectedJsonObject, noEmailPost = false)(fakeDataRequest, hc, ec))
       }
 
       verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
@@ -156,7 +156,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       )
 
       intercept[UnexpectedFailureException] {
-        await(service.register(Json.obj(), noEmailPost = false)(fakeDataRequest, hc, ec))
+        await(service.register(expectedJsonObject, noEmailPost = false)(fakeDataRequest, hc, ec))
       }
 
       verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
@@ -164,22 +164,15 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       verify(mockAuditService, never()).sendEvent(any())(any(), any())
     }
 
-    "redirect to the technical difficulties page if submission data is missing required fields for Auditing" in {
+    "redirect to the technical difficulties page if submission data is missing keys that need to be transformed " in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
-        Future.successful(Right(RegistrationResponse("765432")))
-      )
-      doNothing().when(mockAuditService).sendEvent(any())(any(), any())
 
       val result = intercept[UnexpectedFailureException] {
         await(service.register(Json.obj(), noEmailPost = true)(fakeDataRequest, hc, ec))
       }
       result.getMessage must include("JsonValidationError(List(error.path.missing)")
 
-      verify(mockCharitiesConnector, times(1)).registerCharities(any(), any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-      verify(mockAuditService, never()).sendEvent(any())(any(), any())
     }
 
   }

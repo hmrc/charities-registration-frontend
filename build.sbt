@@ -25,7 +25,7 @@ lazy val root = (project in file("."))
   // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
   .settings(dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1")
   .settings(
-    scalaVersion := "2.13.10",
+    scalaVersion := "2.13.11",
     name := appName,
     RoutesKeys.routesImport ++= Seq("models._", "models.OptionBinder._"),
     PlayKeys.playDefaultPort := 9457,

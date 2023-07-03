@@ -367,8 +367,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "bankDetails": {
             |        "accountName": "fullName",
             |        "rollNumber": "operatingName",
-            |        "accountNumber": 12345678,
-            |        "sortCode": 123456
+            |        "accountNumber": "12345678",
+            |        "sortCode": "123456"
             |      }
             |    }
             |  }
@@ -388,8 +388,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |    "common": {
             |      "bankDetails": {
             |        "accountName": "fullName",
-            |        "accountNumber": 12345678,
-            |        "sortCode": 123456
+            |        "accountNumber": "12345678",
+            |        "sortCode": "123456"
             |      }
             |    }
             |  }
@@ -561,8 +561,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "bankDetails": {
             |        "accountName": "fullName",
             |        "rollNumber": "operatingName",
-            |        "accountNumber": 12345678,
-            |        "sortCode": 123456
+            |        "accountNumber": "12345678",
+            |        "sortCode": "123456"
             |      },
             |      "declarationInfo": {
             |        "name": {
@@ -681,8 +681,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "bankDetails": {
             |        "accountName": "fullName",
             |        "rollNumber": "operatingName",
-            |        "accountNumber": 12345678,
-            |        "sortCode": 123456
+            |        "accountNumber": "12345678",
+            |        "sortCode": "123456"
             |      },
             |      "declarationInfo": {
             |        "name": {
@@ -778,8 +778,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |    "common": {
             |      "bankDetails": {
             |        "accountName": "fullName",
-            |        "accountNumber": 12345678,
-            |        "sortCode": 123456
+            |        "accountNumber": "12345678",
+            |        "sortCode": "123456"
             |      },
             |      "declarationInfo": {
             |        "name": {

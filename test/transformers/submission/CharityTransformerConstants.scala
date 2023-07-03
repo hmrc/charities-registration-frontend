@@ -211,8 +211,8 @@ trait CharityTransformerConstants extends SpecBase {
        |      "bankDetails": {
        |        "accountName": "fullName",
        |        "rollNumber": "operatingName",
-       |        "accountNumber": 12345678,
-       |        "sortCode": 123456
+       |        "accountNumber": "12345678",
+       |        "sortCode": "123456"
        |      },
        |      "declarationInfo": {
        |        "name": {
@@ -400,8 +400,8 @@ trait CharityTransformerConstants extends SpecBase {
        |    "common": {
        |      "bankDetails": {
        |        "accountName": "fullName",
-       |        "accountNumber": 12345678,
-       |        "sortCode": 123456
+       |        "accountNumber": "12345678",
+       |        "sortCode": "123456"
        |      },
        |      "declarationInfo": {
        |        "name": {
@@ -569,8 +569,8 @@ trait CharityTransformerConstants extends SpecBase {
        |    "common": {
        |      "bankDetails": {
        |        "accountName": "fullName",
-       |        "accountNumber": 12345678,
-       |        "sortCode": 123456
+       |        "accountNumber": "12345678",
+       |        "sortCode": "123456"
        |      },
        |      "declarationInfo": {
        |        "name": {

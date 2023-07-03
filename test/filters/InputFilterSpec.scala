@@ -37,7 +37,7 @@ class InputFilterSpec extends SpecBase with InputFilter {
 
     "exception thrown when there is null instead of filters" in {
       val thrown = intercept[RuntimeException] {
-        applyFilters(null, "abc")
+        applyFilters(None.orNull, "abc")
       }
       thrown.getMessage mustBe "[InputFilter][applyFilters] Unable to match filters"
     }

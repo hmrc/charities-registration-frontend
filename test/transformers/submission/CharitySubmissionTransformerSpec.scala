@@ -45,7 +45,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
     new CharityCommonTransformer
   )
 
-  val reason =
+  val reason: String =
     "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6" +
       "64354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxa" +
       "sxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"

@@ -17,15 +17,13 @@
 package controllers
 
 import config.FrontendAppConfig
-import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import models.UserAnswers
 import models.requests.OptionalDataRequest
-import pages.{AcknowledgementReferencePage, IsSwitchOverUserPage, OldServiceSubmissionPage}
+import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import service.{CharitiesSave4LaterService, UserAnswerService}
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.SessionId
+import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils.TaskListHelper
 import views.html.TaskList
 
@@ -36,7 +34,7 @@ class IndexController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   charitiesSave4LaterService: CharitiesSave4LaterService,
-  cache: CharitiesShortLivedCache,
+//  cache: CharitiesShortLivedCache,
   userAnswerService: UserAnswerService,
   taskListHelper: TaskListHelper,
   view: TaskList,
@@ -70,19 +68,31 @@ class IndexController @Inject() (
     request: OptionalDataRequest[_],
     hc: HeaderCarrier
   ): Future[Result] =
-    charitiesSave4LaterService.getCacheData(request, sessionId, eligibleJourneyId).flatMap {
+//    charitiesSave4LaterService.getCacheData(request, sessionId, eligibleJourneyId).flatMap {
+    charitiesSave4LaterService.checkForValidApplicationJourney(request, eligibleJourneyId).flatMap {
       case Right(userAnswers) =>
-        for {
-          isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
-        } yield
-          if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
+        if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
+          Future(
             Redirect(routes.ApplicationBeingProcessedController.onPageLoad)
-          } else {
-            val result    = taskListHelper.getTaskListRow(userAnswers)
-            val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-            Ok(view(result, status = completed, isSwitchOver))
-          }
-      case Left(call)         => Future.successful(Redirect(call))
+          )
+        } else {
+          val result    = taskListHelper.getTaskListRow(userAnswers)
+          val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+          Future(
+            Ok(view(result, status = completed, None))
+          )
+        }
+//        for {
+//          isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
+//        } yield
+//          if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
+//            Redirect(routes.ApplicationBeingProcessedController.onPageLoad)
+//          } else {
+//            val result    = taskListHelper.getTaskListRow(userAnswers)
+//            val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+//            Ok(view(result, status = completed, Some(false)))
+//          }
+      case Left(call)         => Future(Redirect(call))
     }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>

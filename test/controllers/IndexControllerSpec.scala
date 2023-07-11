@@ -57,7 +57,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
     auditService: AuditService,
     userAnswers: Option[UserAnswers]
   ) extends CharitiesSave4LaterService(
-        cache,
+//        cache,
         userAnswerTransformer,
         sessionRepository,
         userAnswerService,

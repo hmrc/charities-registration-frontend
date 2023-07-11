@@ -81,15 +81,11 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
       userAnswers: UserAnswers =>
         userAnswers.get(IndividualNomineesPassportPage) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
-            } else {
-              userAnswers.get(NomineeIndividualAddressLookupPage) match {
-                case Some(_) => nomineeRoutes.ConfirmNomineeIndividualAddressController.onPageLoad()
-                case _       =>
-                  controllers.addressLookup.routes.NomineeIndividualAddressLookupController
-                    .initializeJourney(NormalMode)
-              }
+            userAnswers.get(NomineeIndividualAddressLookupPage) match {
+              case Some(_) => nomineeRoutes.ConfirmNomineeIndividualAddressController.onPageLoad()
+              case _       =>
+                controllers.addressLookup.routes.NomineeIndividualAddressLookupController
+                  .initializeJourney(NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }
@@ -98,15 +94,11 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
       userAnswers: UserAnswers =>
         userAnswers.get(IndividualNomineesNinoPage) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              nomineeRoutes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode)
-            } else {
-              userAnswers.get(NomineeIndividualAddressLookupPage) match {
-                case Some(_) => nomineeRoutes.ConfirmNomineeIndividualAddressController.onPageLoad()
-                case _       =>
-                  controllers.addressLookup.routes.NomineeIndividualAddressLookupController
-                    .initializeJourney(NormalMode)
-              }
+            userAnswers.get(NomineeIndividualAddressLookupPage) match {
+              case Some(_) => nomineeRoutes.ConfirmNomineeIndividualAddressController.onPageLoad()
+              case _       =>
+                controllers.addressLookup.routes.NomineeIndividualAddressLookupController
+                  .initializeJourney(NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }
@@ -173,15 +165,11 @@ class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig
       userAnswers: UserAnswers =>
         userAnswers.get(OrganisationNomineeContactDetailsPage) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              nomineeRoutes.IsOrganisationNomineePaymentsController.onPageLoad(NormalMode)
-            } else {
-              userAnswers.get(OrganisationNomineeAddressLookupPage) match {
-                case Some(_) =>
-                  nomineeRoutes.ConfirmOrganisationNomineeAddressController.onPageLoad()
-                case _       =>
-                  addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
-              }
+            userAnswers.get(OrganisationNomineeAddressLookupPage) match {
+              case Some(_) =>
+                nomineeRoutes.ConfirmOrganisationNomineeAddressController.onPageLoad()
+              case _       =>
+                addressLookupRoutes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }

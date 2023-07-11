@@ -40,13 +40,9 @@ class CharityInformationNavigator @Inject() (implicit frontendAppConfig: Fronten
       userAnswers: UserAnswers =>
         userAnswers.get(CharityContactDetailsPage) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-            } else {
-              userAnswers.get(CharityOfficialAddressLookupPage) match {
-                case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
-                case _       => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
-              }
+            userAnswers.get(CharityOfficialAddressLookupPage) match {
+              case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
+              case _       => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }

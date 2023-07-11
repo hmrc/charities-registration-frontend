@@ -14,24 +14,3 @@
  * limitations under the License.
  */
 
-package pages
-
-import models.OldServiceSubmission
-import org.scalacheck.Arbitrary
-import pages.behaviours.PageBehaviours
-
-class OldServiceSubmissionPageSpec extends PageBehaviours {
-
-  implicit lazy val arbitraryOldServiceSubmission: Arbitrary[OldServiceSubmission] = Arbitrary {
-    OldServiceSubmission("num", "date")
-  }
-
-  "OldServiceSubmissionPage" must {
-
-    beRetrievable[OldServiceSubmission](OldServiceSubmissionPage)
-
-    beSettable[OldServiceSubmission](OldServiceSubmissionPage)
-
-    beRemovable[OldServiceSubmission](OldServiceSubmissionPage)
-  }
-}

@@ -16,8 +16,6 @@
 
 package transformers.submission
 
-import java.time.LocalDate
-
 import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
@@ -28,6 +26,8 @@ import pages.authorisedOfficials._
 import pages.nominees._
 import pages.otherOfficials._
 import play.api.libs.json._
+
+import java.time.LocalDate
 
 //scalastyle:off file.size.limit
 class CharityPartnerTransformerSpec extends SpecBase {
@@ -224,9 +224,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |  }""".stripMargin
 
         val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
-        result.transform(jsonTransformer.userAnswersToIndividualDetails("officials")).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+        result.transform(jsonTransformer.userAnswersToIndividualDetails("officials")).asOpt.value mustBe
+          Json.parse(expectedJson)
       }
     }
 

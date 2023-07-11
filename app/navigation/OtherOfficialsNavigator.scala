@@ -16,7 +16,6 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
@@ -29,7 +28,7 @@ import play.api.mvc.Call
 
 import javax.inject.Inject
 
-class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class OtherOfficialsNavigator @Inject() extends BaseNavigator {
 
   def redirectToPlaybackPage(index: Int): Call = index match {
     case x if x >= 0 && x <= 2 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(x))
@@ -78,15 +77,11 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
       userAnswers: UserAnswers =>
         userAnswers.get(OtherOfficialsPassportPage(index)) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              redirectToPlaybackPage(index)
-            } else {
-              userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
-                case Some(_) =>
-                  otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
-                case _       =>
-                  addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
-              }
+            userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+              case Some(_) =>
+                otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
+              case _       =>
+                addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }
@@ -95,13 +90,9 @@ class OtherOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendApp
       userAnswers: UserAnswers =>
         userAnswers.get(OtherOfficialsNinoPage(index)) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              redirectToPlaybackPage(index)
-            } else {
-              userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
-                case Some(_) => otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
-                case _       => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
-              }
+            userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
+              case Some(_) => otherOfficialRoutes.ConfirmOtherOfficialsAddressController.onPageLoad(index)
+              case _       => addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(index, NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }

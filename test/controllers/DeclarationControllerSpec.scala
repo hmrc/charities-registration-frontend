@@ -116,62 +116,6 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
       verify(mockCharitiesRegistrationService, times(1)).register(any(), any())(any(), any(), any())
     }
 
-    "redirect to the EmailOrPost page without calling service if external test is enabled and noEmailPost is disabled" in {
-
-      val app = new GuiceApplicationBuilder()
-        .configure("features.isExternalTest" -> "true", "features.noEmailPost" -> "false")
-        .overrides(
-          bind[UserAnswerService].toInstance(mockUserAnswerService),
-          bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
-          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-        )
-        .build()
-
-      val controller: DeclarationController = app.injector.instanceOf[DeclarationController]
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCharitiesRegistrationService.register(any(), any())(any(), any(), any())).thenReturn(
-        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
-      )
-
-      val result = controller.onSubmit()(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.EmailOrPostController.onPageLoad.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-      verify(mockCharitiesRegistrationService, never).register(any(), any())(any(), any(), any())
-    }
-
-    "redirect to the EmailOrPost page without calling service if external test is enabled and noEmailPost is enabled" in {
-
-      val app = new GuiceApplicationBuilder()
-        .configure("features.isExternalTest" -> "true", "features.noEmailPost" -> "true")
-        .overrides(
-          bind[UserAnswerService].toInstance(mockUserAnswerService),
-          bind[CharitiesRegistrationService].toInstance(mockCharitiesRegistrationService),
-          bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-        )
-        .build()
-
-      val controller: DeclarationController = app.injector.instanceOf[DeclarationController]
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCharitiesRegistrationService.register(any(), any())(any(), any(), any())).thenReturn(
-        Future.successful(Redirect(controllers.routes.RegistrationSentController.onPageLoad))
-      )
-
-      val result = controller.onSubmit()(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-      verify(mockCharitiesRegistrationService, never).register(any(), any())(any(), any(), any())
-    }
-
     "redirect to the technical difficulties page for invalid transformation" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))

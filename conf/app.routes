@@ -44,9 +44,6 @@ POST      /declare-and-send/email-or-post               controllers.EmailOrPostC
 GET       /declare-and-send/registration-sent           controllers.RegistrationSentController.onPageLoad
 GET       /declare-and-send/registration-sent/change    controllers.RegistrationSentController.onChange
 
-### Application Being Processed Page route
-GET       /application-being-processed                  controllers.ApplicationBeingProcessedController.onPageLoad
-
 ### Cannot find Application route
 GET       /we-cannot-find-your-application              controllers.CannotFindApplicationController.onPageLoad
 

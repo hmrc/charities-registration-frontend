@@ -65,7 +65,7 @@ class CharityInformationSummaryController @Inject() (
       updatedAnswers <-
         Future.fromTry(result =
           request.userAnswers
-            .set(Section1Page, if (appConfig.isExternalTest) true else checkComplete(request.userAnswers))
+            .set(Section1Page, checkComplete(request.userAnswers))
         )
       _              <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(CharityInformationSummaryPage, NormalMode, updatedAnswers))

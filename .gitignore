@@ -22,6 +22,7 @@ project/project
 project/target
 project/.bloop
 project/metals.sbt
+project/.bloop
 /RUNNING_PID
 server.pid
 /.settings
@@ -32,3 +33,6 @@ tmp
 .idea_modules
 bin
 .bsp
+.bloop
+.metals
+.vscode

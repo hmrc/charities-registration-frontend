@@ -64,15 +64,15 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
         auditService,
         frontendAppConfig
       ) {
-    override def getCacheData(
-      request: OptionalDataRequest[_],
-      sessionId: SessionId,
-      eligibleJourneyId: Option[String]
-    )(implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] =
-      userAnswers match {
-        case Some(ua) => Future.successful(Right(ua))
-        case _        => Future.successful(Left(routes.ApplicationBeingProcessedController.onPageLoad))
-      }
+//    override def getCacheData(
+//      request: OptionalDataRequest[_],
+//      sessionId: SessionId,
+//      eligibleJourneyId: Option[String]
+//    )(implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] =
+//      userAnswers match {
+//        case Some(ua) => Future.successful(Right(ua))
+//        case _        => Future.successful(Left(routes.ApplicationBeingProcessedController.onPageLoad))
+//      }
   }
 
   lazy val service = new FakeCharitiesSave4LaterService(

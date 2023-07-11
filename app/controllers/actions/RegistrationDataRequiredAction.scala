@@ -19,7 +19,6 @@ package controllers.actions
 import javax.inject.Inject
 import controllers.routes
 import models.requests.{DataRequest, OptionalDataRequest}
-import pages.OldServiceSubmissionPage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, Result}
 
@@ -30,11 +29,9 @@ class RegistrationDataRequiredActionImpl @Inject() (implicit val executionContex
 
   override protected def refine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] =
     request.userAnswers match {
-      case None                                                       =>
+      case None       =>
         Future.successful(Left(Redirect(routes.PageNotFoundController.onPageLoad())))
-      case Some(data) if data.get(OldServiceSubmissionPage).isDefined =>
-        Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad)))
-      case Some(data)                                                 =>
+      case Some(data) =>
         Future.successful(Right(DataRequest(request.request, request.internalId, data)))
     }
 }

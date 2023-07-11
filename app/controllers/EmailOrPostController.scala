@@ -27,6 +27,7 @@ import service.UserAnswerService
 import viewmodels.RequiredDocumentsHelper
 import views.html.EmailOrPostView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class EmailOrPostController @Inject() (
@@ -45,14 +46,14 @@ class EmailOrPostController @Inject() (
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     if (!isAllSectionsCompleted()) {
-      Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+      Future(Redirect(controllers.routes.IndexController.onPageLoad(None)))
     } else {
 
       request.userAnswers match {
         case userAnswers if userAnswers.get(EmailOrPostPage).isDefined =>
-          Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
+          Future(Redirect(routes.RegistrationSentController.onPageLoad))
         case userAnswers                                               =>
-          Future.successful(
+          Future(
             Ok(
               view(
                 form,
@@ -70,7 +71,7 @@ class EmailOrPostController @Inject() (
       .bindFromRequest()
       .fold(
         formWithErrors =>
-          Future.successful(
+          Future(
             BadRequest(
               view(
                 formWithErrors,

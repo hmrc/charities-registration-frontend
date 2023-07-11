@@ -48,9 +48,7 @@ object FakeNavigators extends SpecBase {
       extends AuthorisedOfficialsNavigator()(frontendAppConfig: FrontendAppConfig)
       with FakeMainNavigator
 
-  object FakeOtherOfficialsNavigator
-      extends OtherOfficialsNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeOtherOfficialsNavigator extends OtherOfficialsNavigator() with FakeMainNavigator
 
   object FakeNomineesNavigator extends NomineesNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
 }

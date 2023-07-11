@@ -23,9 +23,9 @@ import models.{BankDetails, CharityName, NormalMode, OldServiceSubmission, UserA
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{AcknowledgementReferencePage, EmailOrPostPage, OldServiceSubmissionPage}
+import pages.{AcknowledgementReferencePage, EmailOrPostPage}
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import play.api.data.Form
@@ -60,7 +60,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: CharityNameController = inject[CharityNameController]
 
-  "CharityName Controller" must {
+  "CharityNameController" must {
 
     "redirect to EmailOrPost page when acknowledgement reference is present" in {
 
@@ -80,26 +80,6 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
-
-    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
-              .success
-              .value
-          )
-        )
-      )
-
-      val result = controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

@@ -77,14 +77,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
       userAnswers: UserAnswers =>
         userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              redirectToPlaybackPage(index)
-            } else {
-              userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-                case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
-                case _       =>
-                  addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
-              }
+            userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+              case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
+              case _       =>
+                addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }
@@ -93,14 +89,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
       userAnswers: UserAnswers =>
         userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              redirectToPlaybackPage(index)
-            } else {
-              userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-                case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
-                case _       =>
-                  addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
-              }
+            userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+              case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
+              case _       =>
+                addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }

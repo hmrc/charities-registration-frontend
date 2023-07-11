@@ -16,7 +16,6 @@
 
 package controllers.actions
 
-import java.util.UUID
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.routes
@@ -45,25 +44,19 @@ class AuthenticatedIdentifierAction @Inject() (
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
-    if (config.isExternalTest) {
-      val internalId: String =
-        UUID.randomUUID.toString.replaceAll("[^a-zA-Z0-9]", "").toUpperCase.substring(startUUIDIndex, endUUIDIndex)
-      block(IdentifierRequest(request, hc.sessionId.fold(internalId)(_.value)))
-    } else {
-      authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {
-        _.map { credentials =>
-          block(IdentifierRequest(request, credentials.providerId))
-        }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
-      } recover {
-        case _: NoActiveSession        =>
-          val redirectUrl = hc.sessionId match {
-            case Some(id) => s"${config.loginContinueUrl}/${id.value}"
-            case None     => config.loginContinueUrl
-          }
-          Redirect(config.loginUrl, Map(config.loginContinueKey -> Seq(redirectUrl), "origin" -> Seq(config.appName)))
-        case _: AuthorisationException =>
-          Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad)
-      }
+    authorised(AffinityGroup.Organisation).retrieve(Retrievals.credentials) {
+      _.map { credentials =>
+        block(IdentifierRequest(request, credentials.providerId))
+      }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
+    } recover {
+      case _: NoActiveSession        =>
+        val redirectUrl = hc.sessionId match {
+          case Some(id) => s"${config.loginContinueUrl}/${id.value}"
+          case None     => config.loginContinueUrl
+        }
+        Redirect(config.loginUrl, Map(config.loginContinueKey -> Seq(redirectUrl), "origin" -> Seq(config.appName)))
+      case _: AuthorisationException =>
+        Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad)
     }
   }
 }

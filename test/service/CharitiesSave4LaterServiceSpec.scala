@@ -16,29 +16,27 @@
 
 package service
 
-import java.util.UUID
-import audit.{AuditService, SubmissionAuditEvent}
+import audit.AuditService
 import base.SpecBase
 import connectors.CharitiesShortLivedCache
 import models.UserAnswers
 import models.oldCharities._
 import models.requests.OptionalDataRequest
-import models.transformers.TransformerKeeper
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.scalatest.{BeforeAndAfterEach, OptionValues, PrivateMethodTester}
 import org.mockito.MockitoSugar
-import pages.sections.{Section1Page, Section7Page, Section8Page}
+import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
+import pages.sections.Section1Page
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{Json, JsonValidationError, __}
-import play.api.mvc.{AnyContentAsEmpty, Call}
+import play.api.libs.json.Json
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.http.SessionId
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionKeys}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionId, SessionKeys}
 import utils.TestData
 
+import java.util.UUID
 import scala.concurrent.Future
 import scala.util.Try
 
@@ -243,7 +241,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"           -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"   -> false,
+//            "isCharityInformationStatusSectionCompleted"   -> false,
 //            "isSwitchOver"          -> true
 //          )
 //        )
@@ -267,7 +265,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails"  -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"            -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"    -> false,
+//            "isCharityInformationStatusSectionCompleted"    -> false,
 //            "isSwitchOver"           -> true,
 //            "charityOfficialAddress" -> Json.parse(
 //              """{"postcode":"postcode","country":{"code":"GB","name":"United Kingdom"},"lines":["Test123","line2"]}"""
@@ -296,7 +294,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails"         -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"                   -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"           -> false,
+//            "isCharityInformationStatusSectionCompleted"           -> false,
 //            "isSwitchOver"                  -> true,
 //            "canWeSendLettersToThisAddress" -> false,
 //            "charityOfficialAddress"        -> Json.parse(
@@ -331,7 +329,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails"               -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"                         -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"                 -> false,
+//            "isCharityInformationStatusSectionCompleted"                 -> false,
 //            "isSwitchOver"                        -> true,
 //            "canWeSendLettersToThisAddress"       -> false,
 //            "charityOfficialAddress"              -> Json.parse(
@@ -378,7 +376,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //            "charityContactDetails"               -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"                         -> Json.parse("""{"fullName":"Test123"}"""),
 //            "isSwitchOver"                        -> true,
-//            "isSection1Completed"                 -> false,
+//            "isCharityInformationStatusSectionCompleted"                 -> false,
 //            "canWeSendLettersToThisAddress"       -> false,
 //            "charityOfficialAddress"              -> Json.parse(
 //              """{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""
@@ -431,7 +429,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails"               -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"                         -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"                 -> false,
+//            "isCharityInformationStatusSectionCompleted"                 -> false,
 //            "isSwitchOver"                        -> true,
 //            "canWeSendLettersToThisAddress"       -> false,
 //            "charityOfficialAddress"              -> Json.parse(
@@ -492,7 +490,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails"               -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"                         -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"                 -> false,
+//            "isCharityInformationStatusSectionCompleted"                 -> false,
 //            "isSwitchOver"                        -> true,
 //            "canWeSendLettersToThisAddress"       -> false,
 //            "charityOfficialAddress"              -> Json.parse(
@@ -750,7 +748,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //            "charityContactDetails"               -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"                         -> Json.parse("""{"fullName":"Test123"}"""),
 //            "isSwitchOver"                        -> true,
-//            "isSection1Completed"                 -> false,
+//            "isCharityInformationStatusSectionCompleted"                 -> false,
 //            "canWeSendLettersToThisAddress"       -> false,
 //            "charityOfficialAddress"              -> Json.parse(
 //              """{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""
@@ -1280,7 +1278,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"           -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"   -> false,
+//            "isCharityInformationStatusSectionCompleted"   -> false,
 //            "isSwitchOver"          -> true
 //          )
 //        )
@@ -1311,7 +1309,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //          Json.obj(
 //            "charityContactDetails" -> Json.parse("""{"emailAddress":"","daytimePhone":"1234567890"}"""),
 //            "charityName"           -> Json.parse("""{"fullName":"Test123"}"""),
-//            "isSection1Completed"   -> false,
+//            "isCharityInformationStatusSectionCompleted"   -> false,
 //            "isSwitchOver"          -> true
 //          )
 //        )
@@ -1370,38 +1368,36 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
 //      }
 //    }
 
-    "isSection1Completed" must {
+    "isCharityInformationStatusSectionCompleted" must {
 
       val data = Json.obj(
-        "charityContactDetails"  -> Json.parse("""{"emailAddress":"a@b.com","daytimePhone":"1234567890"}"""),
-        "charityName"            -> Json.parse("""{"fullName":"Test123"}"""),
-        "isSection1Completed"    -> false,
-        "isSwitchOver"           -> true,
-        "charityOfficialAddress" -> Json.parse(
+        "charityContactDetails"                      -> Json.parse("""{"emailAddress":"a@b.com","daytimePhone":"1234567890"}"""),
+        "charityName"                                -> Json.parse("""{"fullName":"Test123"}"""),
+        "isCharityInformationStatusSectionCompleted" -> false,
+        "isSwitchOver"                               -> true,
+        "charityOfficialAddress"                     -> Json.parse(
           """{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""
         ),
-        "charityPostalAddress"   -> Json.parse(
+        "charityPostalAddress"                       -> Json.parse(
           """{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""
         )
       )
 
       "return false when sections are not completed" in new LocalSetup with PrivateMethodTester {
 
-        val isSection1Completed: PrivateMethod[Try[UserAnswers]] =
-          PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
+//        val isCharityInformationStatusSectionCompleted: PrivateMethod[Try[UserAnswers]] =
+//          PrivateMethod[Try[UserAnswers]](Symbol("isCharityInformationStatusSectionCompleted"))
 
         val ua: UserAnswers = UserAnswers("8799940975137654", data)
 
-        val result: Try[UserAnswers] = service invokePrivate isSection1Completed(ua)
+//        val result: Try[UserAnswers] = service invokePrivate isCharityInformationStatusSectionCompleted(ua)
+
+        val result = service.isCharityInformationStatusSectionCompleted(ua)
 
         result.get.get(Section1Page) mustBe Some(false)
       }
 
-      "return false when all sections are completed and charity name is more than 60 characters" in new LocalSetup
-        with PrivateMethodTester {
-
-        val isSection1Completed: PrivateMethod[Try[UserAnswers]] =
-          PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
+      "return false when all sections are completed and charity name is more than 60 characters" in new LocalSetup {
 
         val ua: UserAnswers = UserAnswers(
           "8799940975137654",
@@ -1413,20 +1409,25 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
             )
         )
 
-        val result: Try[UserAnswers] = service invokePrivate isSection1Completed(ua)
+        val result = service.isCharityInformationStatusSectionCompleted(ua)
 
         result.get.get(Section1Page) mustBe Some(false)
       }
 
       "return true when all sections are completed" in new LocalSetup with PrivateMethodTester {
 
-        val isSection1Completed: PrivateMethod[Try[UserAnswers]] =
-          PrivateMethod[Try[UserAnswers]](Symbol("isSection1Completed"))
+//        val isCharityInformationStatusSectionCompleted: PrivateMethod[Try[UserAnswers]] =
+//          PrivateMethod[Try[UserAnswers]](Symbol("isCharityInformationStatusSectionCompleted"))
 
-        val ua: UserAnswers          =
+//        val ua: UserAnswers          =
+//          UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
+
+        val ua: UserAnswers =
           UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
 
-        val result: Try[UserAnswers] = service invokePrivate isSection1Completed(ua)
+        val result          = service.isCharityInformationStatusSectionCompleted(ua)
+
+//        val result: Try[UserAnswers] = service invokePrivate isCharityInformationStatusSectionCompleted(ua)
 
         result.get.get(Section1Page) mustBe Some(true)
       }

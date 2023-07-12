@@ -23,6 +23,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import utils.ImplicitDateFormatter
 import views.html.ApplicationBeingProcessedView
 
+import java.time.LocalDate
 import javax.inject.Inject
 import scala.concurrent.Future
 
@@ -40,13 +41,21 @@ class ApplicationBeingProcessedController @Inject() (
       case None       =>
         Future.successful(Redirect(routes.PageNotFoundController.onPageLoad()))
       case Some(data) =>
+//        data.get(OldServiceSubmissionPage) match {
+//
+//          case Some(oldServiceSubmission) =>
+//            val date = oldStringToDate(oldServiceSubmission.submissionDate)
+//            Future.successful(Ok(view(dayToString(date, dayOfWeek = false), oldServiceSubmission.refNumber)))
+//
+//          case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+//        }
         data.get(OldServiceSubmissionPage) match {
 
-          case Some(oldServiceSubmission) =>
-            val date = oldStringToDate(oldServiceSubmission.submissionDate)
-            Future.successful(Ok(view(dayToString(date, dayOfWeek = false), oldServiceSubmission.refNumber)))
+//          case Some(oldServiceSubmission) =>
+//            val date = oldStringToDate(oldServiceSubmission.submissionDate)
+//            Future.successful(Ok(view(dayToString(date, dayOfWeek = false), oldServiceSubmission.refNumber)))
 
-          case _ => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+          case _ => Future(Ok(view(dayToString(LocalDate.now(), false), "Mikey ref")))
         }
     }
 

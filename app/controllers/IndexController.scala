@@ -71,17 +71,13 @@ class IndexController @Inject() (
 //    charitiesSave4LaterService.getCacheData(request, sessionId, eligibleJourneyId).flatMap {
     charitiesSave4LaterService.checkForValidApplicationJourney(request, eligibleJourneyId).flatMap {
       case Right(userAnswers) =>
-        if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
-          Future(
-            Redirect(routes.ApplicationBeingProcessedController.onPageLoad)
-          )
-        } else {
+//        if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
+//          Future(Redirect(routes.ApplicationBeingProcessedController.onPageLoad))
+//        } else {
           val result    = taskListHelper.getTaskListRow(userAnswers)
           val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-          Future(
-            Ok(view(result, status = completed, None))
-          )
-        }
+          Future(Ok(view(result, status = completed, None)))
+//        }
 //        for {
 //          isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
 //        } yield

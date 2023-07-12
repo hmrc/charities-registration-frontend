@@ -68,7 +68,7 @@ class CharitiesSave4LaterService @Inject() (
       case _       => Success(userAnswers)
     }
 
-  private def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
+  private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
     userAnswers.get(Section1Page) match {
       case Some(_) =>
         userAnswers.set(
@@ -79,7 +79,7 @@ class CharitiesSave4LaterService @Inject() (
       case _       => Success(userAnswers)
     }
 
-  private def isAuthorisedOfficialsSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
+  private[service] def isAuthorisedOfficialsSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
     userAnswers.get(AuthorisedOfficialsNamePage(0)) match {
       case Some(_) =>
         userAnswers.set(
@@ -90,7 +90,7 @@ class CharitiesSave4LaterService @Inject() (
       case _       => userAnswers.remove(Section7Page)
     }
 
-  private def isOtherOfficialStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
+  private[service] def isOtherOfficialStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
     userAnswers.get(OtherOfficialsNamePage(0)) match {
       case Some(_) =>
         userAnswers.set(
@@ -101,7 +101,7 @@ class CharitiesSave4LaterService @Inject() (
       case _       => userAnswers.remove(Section8Page)
     }
 
-  private def isNomineeStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
+  private[service] def isNomineeStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
     userAnswers.get(Section9Page) match {
       case Some(_) =>
         userAnswers.set(
@@ -112,7 +112,7 @@ class CharitiesSave4LaterService @Inject() (
       case _       => Success(userAnswers)
     }
 
-  private def expiryTimeIfCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
+  private[service] def expiryTimeIfCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
     userAnswers.get(OldServiceSubmissionPage) match {
       case Some(submitted) =>
         Success(

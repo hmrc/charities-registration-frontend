@@ -19,22 +19,20 @@ package controllers
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{Index, Name, NormalMode, OldServiceSubmission, SelectTitle, UserAnswers}
+import models.UserAnswers
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{EmailOrPostPage, OldServiceSubmissionPage}
-import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialNinoPage}
-import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
+import pages.EmailOrPostPage
+import pages.sections._
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.EmailOrPostView
-import views.html.common.YesNoView
 
 import scala.concurrent.Future
 
@@ -64,25 +62,25 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   "EmailOrPost Controller" must {
 
-    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
-              .success
-              .value
-          )
-        )
-      )
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
+//    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
+//
+//      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+//        Future.successful(
+//          Some(
+//            emptyUserAnswers
+//              .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
+//              .success
+//              .value
+//          )
+//        )
+//      )
+//
+//      val result = controller.onPageLoad()(fakeRequest)
+//
+//      status(result) mustEqual SEE_OTHER
+//      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
+//      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+//    }
 
     "return OK and the correct view for a GET" in {
 

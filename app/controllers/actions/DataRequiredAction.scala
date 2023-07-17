@@ -16,31 +16,30 @@
 
 package controllers.actions
 
-import javax.inject.Inject
 import controllers.routes
 import models.requests.{DataRequest, OptionalDataRequest}
-import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
+import pages.AcknowledgementReferencePage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class DataRequiredActionImpl @Inject() (implicit val executionContext: ExecutionContext) extends DataRequiredAction {
 
   override protected def refine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] = {
 
-    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
+//    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     request.userAnswers match {
       case None       =>
         Future.successful(Left(Redirect(routes.PageNotFoundController.onPageLoad())))
       case Some(data) =>
-        (data.get(AcknowledgementReferencePage), data.get(OldServiceSubmissionPage)) match {
-          case (_, Some(_)) => Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad)))
-          case (Some(_), _) => Future.successful(Left(Redirect(routes.EmailOrPostController.onPageLoad)))
-          case _            =>
+        data.get(AcknowledgementReferencePage) match {
+          case Some(_) => Future.successful(Left(Redirect(routes.EmailOrPostController.onPageLoad)))
+          case _       =>
             Future.successful(Right(DataRequest(request.request, request.internalId, data)))
         }
     }

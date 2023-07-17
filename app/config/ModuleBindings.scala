@@ -17,9 +17,9 @@
 package config
 
 import com.google.inject.AbstractModule
-import connectors.CharitiesShortLivedCache
+//import connectors.CharitiesShortLivedCache
 import controllers.actions._
-import uk.gov.hmrc.http.cache.client.ShortLivedCache
+//import uk.gov.hmrc.http.cache.client.ShortLivedCache
 
 class ModuleBindings extends AbstractModule {
 
@@ -34,6 +34,6 @@ class ModuleBindings extends AbstractModule {
     bind(classOf[IdentifierAction]).to(classOf[SessionIdentifierAction]).asEagerSingleton()
     bind(classOf[AuthIdentifierAction]).to(classOf[AuthenticatedIdentifierAction]).asEagerSingleton()
 
-    bind(classOf[ShortLivedCache]).to(classOf[CharitiesShortLivedCache])
+//    bind(classOf[ShortLivedCache]).to(classOf[CharitiesShortLivedCache])
   }
 }

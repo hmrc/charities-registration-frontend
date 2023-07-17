@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.NameController
 import forms.common.NameFormProvider
-import javax.inject.Inject
 import models.{Index, Mode, Name}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
@@ -29,6 +28,8 @@ import play.api.data.Form
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.NameView
+
+import javax.inject.Inject
 
 class AuthorisedOfficialsNameController @Inject() (
   val identify: AuthIdentifierAction,
@@ -48,20 +49,20 @@ class AuthorisedOfficialsNameController @Inject() (
   def onPageLoad(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
       getView(
-        AuthorisedOfficialsNamePage(index),
-        form,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index)
+        page = AuthorisedOfficialsNamePage(index),
+        form = form,
+        submitCall = controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index)
       )
   }
 
   def onSubmit(mode: Mode, index: Index): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       postView(
-        mode,
-        AuthorisedOfficialsNamePage(index),
-        form,
-        Section7Page,
-        controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index)
+        mode = mode,
+        page = AuthorisedOfficialsNamePage(index),
+        form = form,
+        section = Section7Page,
+        submitCall = controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onSubmit(mode, index)
       )
   }
 

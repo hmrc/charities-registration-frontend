@@ -20,7 +20,6 @@ import audit.{AuditService, NormalUserAuditEvent}
 import config.FrontendAppConfig
 import models.requests.OptionalDataRequest
 import models.{AuditTypes, UserAnswers}
-import pages.OldServiceSubmissionPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.CharityNamePage
 import pages.otherOfficials.OtherOfficialsNamePage
@@ -29,7 +28,6 @@ import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc.{Call, RequestHeader}
 import repositories.SessionRepository
-import transformers.UserAnswerTransformer
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.ImplicitDateFormatter
 import viewmodels.EligibiltyStatusHelper
@@ -45,8 +43,6 @@ import scala.util.{Success, Try}
 
 @Singleton
 class CharitiesSave4LaterService @Inject() (
-//  cache: CharitiesShortLivedCache,
-  userAnswerTransformer: UserAnswerTransformer,
   sessionRepository: SessionRepository,
   userAnswerService: UserAnswerService,
   auditService: AuditService,
@@ -69,14 +65,13 @@ class CharitiesSave4LaterService @Inject() (
     }
 
   private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
-    userAnswers.get(Section1Page) match {
-      case Some(_) =>
-        userAnswers.set(
-          Section1Page,
-          CharityInformationStatusHelper.checkComplete(userAnswers) &&
-            userAnswers.get(CharityNamePage).fold(false)(_.fullName.length < 60)
-        )
-      case _       => Success(userAnswers)
+    if (
+      CharityInformationStatusHelper.checkComplete(userAnswers) &&
+      userAnswers.get(CharityNamePage).fold(false)(_.fullName.length < 60)
+    ) {
+      userAnswers.set(Section1Page, true)
+    } else {
+      userAnswers.set(Section1Page, false)
     }
 
   private[service] def isAuthorisedOfficialsSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
@@ -112,173 +107,26 @@ class CharitiesSave4LaterService @Inject() (
       case _       => Success(userAnswers)
     }
 
-  private[service] def expiryTimeIfCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
-    userAnswers.get(OldServiceSubmissionPage) match {
-      case Some(submitted) =>
-        Success(
-          userAnswers.copy(expiresAt =
-            oldStringToDate(submitted.submissionDate).plusDays(appConfig.timeToLiveInDays).atTime(time)
-          )
-        )
-      case _               => Success(userAnswers)
-    }
+//  private[service] def expiryTimeIfCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
+//    userAnswers.get(OldServiceSubmissionPage) match {
+//      case Some(submitted) =>
+//        Success(
+//          userAnswers.copy(expiresAt =
+//            oldStringToDate(submitted.submissionDate).plusDays(appConfig.timeToLiveInDays).atTime(time)
+//          )
+//        )
+//      case _               => Success(userAnswers)
+//    }
 
-  //TODO: New method
   def checkAllSectionsCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
     for {
-      checkEligibilty          <- isEligibiltyComplete(userAnswers)
-      checkCharityInfo         <- isCharityInformationStatusSectionCompleted(checkEligibilty)
+      checkCharityInfo         <- isCharityInformationStatusSectionCompleted(userAnswers)
       checkAuthorisedOfficials <- isAuthorisedOfficialsSectionCompleted(checkCharityInfo)
       checkOtherOfficialStatus <- isOtherOfficialStatusSectionCompleted(checkAuthorisedOfficials)
       checkNomineeStatus       <- isNomineeStatusSectionCompleted(checkOtherOfficialStatus)
-      allSectionsComplete      <- expiryTimeIfCompleted(checkNomineeStatus)
+      allSectionsComplete       =
+        checkNomineeStatus.copy(expiresAt = checkNomineeStatus.expiresAt.plusDays(appConfig.timeToLiveInDays).toLocalDate.atTime(time))
     } yield allSectionsComplete
-
-//  private def getSwitchOverJsonData(cacheMap: CacheMap): TransformerKeeper =
-//    TransformerKeeper(Json.obj(), Seq.empty)
-//      .getJson[CharityContactDetails](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswerCharityContactDetails,
-//        "charityContactDetails"
-//      )
-//      .getJson[CharityAddress](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswerCharityOfficialAddress,
-//        "charityOfficialAddress"
-//      )
-//      .getJson[OptionalCharityAddress](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswerCorrespondenceAddress,
-//        "correspondenceAddress"
-//      )
-//      .getJson[CharityRegulator](cacheMap, userAnswerTransformer.toUserAnswersCharityRegulator, "charityRegulator")
-//      .getJson[CharityGoverningDocument](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityGoverningDocument,
-//        "charityGoverningDocument"
-//      )
-//      .getJson[WhatYourCharityDoes](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersWhatYourCharityDoes,
-//        "whatYourCharityDoes"
-//      )
-//      .getJson[OperationAndFunds](cacheMap, userAnswerTransformer.toUserAnswersOperationAndFunds, "operationAndFunds")
-//      .getJson[CharityBankAccountDetails](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityBankAccountDetails,
-//        "charityBankAccountDetails"
-//      )
-//      .getJson[CharityHowManyAuthOfficials](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityHowManyAuthOfficials,
-//        "charityHowManyAuthOfficials"
-//      )
-//      .getJson[CharityAuthorisedOfficialIndividual](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "authorised"),
-//        "authorisedOfficialIndividual1"
-//      )
-//      .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "authorised"),
-//        "authorisedOfficialIndividual2",
-//        "authorisedOfficials"
-//      )
-//      .getJson[CharityHowManyOtherOfficials](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityHowManyOtherOfficials,
-//        "charityHowManyOtherOfficials"
-//      )
-//      .getJson[CharityAuthorisedOfficialIndividual](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(0, "other"),
-//        "otherOfficialIndividual1"
-//      )
-//      .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(1, "other"),
-//        "otherOfficialIndividual2",
-//        "otherOfficials"
-//      )
-//      .getJsonOfficials[CharityAuthorisedOfficialIndividual](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityAuthorisedOfficialIndividual(2, "other"),
-//        "otherOfficialIndividual3",
-//        "otherOfficials"
-//      )
-//      .getJson[CharityAddNominee](cacheMap, userAnswerTransformer.toUserAnswersCharityAddNominee, "charityAddNominee")
-//      .getJson[CharityNomineeStatus](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityNomineeStatus,
-//        "charityNomineeStatus"
-//      )
-//      .getJson[CharityNomineeIndividual](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityNomineeIndividual,
-//        "charityNomineeIndividual"
-//      )
-//      .getJson[CharityNomineeOrganisation](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersCharityNomineeOrganisation,
-//        "charityNomineeOrganisation"
-//      )
-//      .getJson[Acknowledgement](
-//        cacheMap,
-//        userAnswerTransformer.toUserAnswersOldAcknowledgement,
-//        "acknowledgement-Reference"
-//      )
-
-//  private def updateSwitchOverUserAnswer(userAnswers: UserAnswers, result: TransformerKeeper)(implicit
-//    hc: HeaderCarrier,
-//    ec: ExecutionContext,
-//    rh: RequestHeader
-//  ): Future[Either[Call, UserAnswers]] =
-//    if (userAnswers.data.fields.nonEmpty) {
-//      Future
-//        .fromTry(result =
-//          isCharityInformationStatusSectionCompleted(userAnswers)
-//            .flatMap(userAnswers => isAuthorisedOfficialsSectionCompleted(userAnswers))
-//            .flatMap(userAnswers => isOtherOfficialStatusSectionCompleted(userAnswers))
-//            .flatMap(userAnswers => isNomineeStatusSectionCompleted(userAnswers))
-//            .flatMap(userAnswers => expiryTimeIfCompleted(userAnswers))
-//            .flatMap(_.set(IsSwitchOverUserPage, true))
-//        )
-//        .flatMap { userAnswers =>
-//          userAnswerService.set(userAnswers).map { _ =>
-//            if (result.errors.isEmpty) {
-//              logger.warn(s"CharitiesSwitchOver: ${AuditTypes.CompleteUserTransfer}")
-//              auditService.sendEvent(
-//                SwitchOverAuditEvent(
-//                  Json.obj("id" -> userAnswers.id) + ("data" -> userAnswers.data),
-//                  AuditTypes.CompleteUserTransfer
-//                )
-//              )
-//              Right(userAnswers)
-//            } else {
-//              logger.warn(s"CharitiesSwitchOver: ${AuditTypes.PartialUserTransfer}")
-//              auditService.sendEvent(
-//                SwitchOverAuditEvent(
-//                  Json.obj("id" -> userAnswers.id) + ("data" -> userAnswers.data),
-//                  AuditTypes.PartialUserTransfer
-//                )
-//              )
-//              Left(controllers.routes.SwitchOverErrorController.onPageLoad)
-//            }
-//          }
-//        }
-//    } else {
-//      if (result.errors.nonEmpty) {
-//        logger.warn(s"CharitiesSwitchOver: ${AuditTypes.FailedUserTransfer}")
-//        auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.FailedUserTransfer))
-//        userAnswerService
-//          .set(userAnswers)
-//          .map(_ => Left(controllers.routes.SwitchOverAnswersLostErrorController.onPageLoad))
-//      } else {
-//        logger.warn(s"CharitiesSwitchOver: ${AuditTypes.NewUser}")
-//        auditService.sendEvent(SwitchOverAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
-//        userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
-//      }
-//    }
 
   def checkForValidApplicationJourney(request: OptionalDataRequest[_], lastSessionId: Option[String])(implicit
     hc: HeaderCarrier,
@@ -288,10 +136,7 @@ class CharitiesSave4LaterService @Inject() (
     (request.userAnswers, lastSessionId) match {
       case (Some(userAnswers), _)  =>
         Future
-          .fromTry(result =
-            checkAllSectionsCompleted(userAnswers)
-//            isAuthorisedOfficialsSectionCompleted(userAnswers).flatMap(userAnswers => isOtherOfficialStatusSectionCompleted(userAnswers))
-          )
+          .fromTry(result = checkAllSectionsCompleted(userAnswers))
           .flatMap { updatedUserAnswers =>
             userAnswerService.set(updatedUserAnswers).map(_ => Right(updatedUserAnswers))
           }
@@ -312,31 +157,4 @@ class CharitiesSave4LaterService @Inject() (
         )
         Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
     }
-
-//  def getCacheData(request: OptionalDataRequest[_], sessionId: SessionId, eligibleJourneyId: Option[String])(implicit
-//    hc: HeaderCarrier,
-//    ec: ExecutionContext,
-//    rh: RequestHeader
-//  ): Future[Either[Call, UserAnswers]] =
-////    cache
-////      .fetch(request.internalId)
-////      .flatMap {
-////        case Some(cacheMap) if true =>
-////          for {
-////            result                   <- Future.successful(getSwitchOverJsonData(cacheMap))
-////            _                        <- cache.cache(sessionId.value, IsSwitchOverUserPage, true)
-////            updatedAnswersWithErrors <-
-////              updateSwitchOverUserAnswer(UserAnswers(request.internalId, result.accumulator), result)
-////          } yield updatedAnswersWithErrors
-////        case _                                             =>
-////          checkForValidApplicationJourney(request, eligibleJourneyId)
-////      }
-//    checkForValidApplicationJourney(request, eligibleJourneyId)
-//
-//  //      .recover { case errors: Throwable =>
-////        logger.error(
-////          s"[CharitiesSave4LaterService][getCacheData] get existing charities data failed with error $errors"
-////        )
-////        throw errors
-////      }
 }

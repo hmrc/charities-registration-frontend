@@ -19,9 +19,9 @@ package controllers.addressLookup
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import controllers.LocalBaseController
-import models.{Mode, NormalMode}
 import models.addressLookup.AddressModel
 import models.requests.DataRequest
+import models.{Mode, NormalMode}
 import navigation.BaseNavigator
 import pages.QuestionPage
 import play.api.Logger
@@ -73,13 +73,13 @@ trait BaseAddressController extends LocalBaseController {
             logger.error(
               s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup"
             )
-            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+            Future(InternalServerError(errorHandler.internalServerErrorTemplate))
         }
       case _               =>
         logger.error(
           s"[BaseAddressController][addressLookupCallback][$page] No ID was returned on callback from address lookup"
         )
-        Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        Future(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
 
 }

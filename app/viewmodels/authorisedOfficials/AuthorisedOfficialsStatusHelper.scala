@@ -21,28 +21,29 @@ import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials._
 import pages.sections.Section7Page
-import viewmodels.StatusHelper
-import viewmodels._
+import viewmodels.{StatusHelper, _}
 
 object AuthorisedOfficialsStatusHelper extends StatusHelper {
 
   implicit val sectionPage: QuestionPage[Boolean] = Section7Page
 
-  private def journeyCommon(index: Int): Seq[QuestionPage[_]] = Seq(
-    AuthorisedOfficialsNamePage(index),
-    AuthorisedOfficialsDOBPage(index),
-    AuthorisedOfficialsPhoneNumberPage(index),
-    AuthorisedOfficialsPositionPage(index),
-    IsAuthorisedOfficialNinoPage(index),
-    AuthorisedOfficialAddressLookupPage(index),
-    IsAuthorisedOfficialPreviousAddressPage(index)
-  )
+  private def journeyCommon(index: Int): Seq[QuestionPage[_]] =
+    Seq(
+      AuthorisedOfficialsNamePage(index),
+      AuthorisedOfficialsDOBPage(index),
+      AuthorisedOfficialsPhoneNumberPage(index),
+      AuthorisedOfficialsPositionPage(index),
+      IsAuthorisedOfficialNinoPage(index),
+      AuthorisedOfficialAddressLookupPage(index),
+      IsAuthorisedOfficialPreviousAddressPage(index)
+    )
 
-  private def remainingJourneyPages(index: Int): Seq[QuestionPage[_]] = Seq(
-    AuthorisedOfficialsNinoPage(index),
-    AuthorisedOfficialsPassportPage(index),
-    AuthorisedOfficialPreviousAddressLookupPage(index)
-  )
+  private def remainingJourneyPages(index: Int): Seq[QuestionPage[_]] =
+    Seq(
+      AuthorisedOfficialsNinoPage(index),
+      AuthorisedOfficialsPassportPage(index),
+      AuthorisedOfficialPreviousAddressLookupPage(index)
+    )
 
   private val authorisedOfficial1common: Seq[QuestionPage[_]] =
     journeyCommon(0) ++ Seq(IsAddAnotherAuthorisedOfficialPage)
@@ -79,7 +80,6 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
         userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
           case Some(false) =>
             val newPages = authorisedOfficial1common.getOfficialPages(0, isNino1, isPreviousAddress1)
-
             userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
           case Some(true)  =>
             (
@@ -87,9 +87,10 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
               userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(1))
             ) match {
               case (Some(isNino2), Some(isPreviousAddress2)) =>
-                val newPages = authorisedOfficial1common
-                  .getOfficialPages(0, isNino1, isPreviousAddress1)
-                  .getOfficialPages(1, isNino2, isPreviousAddress2, authorisedOfficial2common)
+                val newPages =
+                  authorisedOfficial1common
+                    .getOfficialPages(0, isNino1, isPreviousAddress1)
+                    .getOfficialPages(1, isNino2, isPreviousAddress2, authorisedOfficial2common)
 
                 userAnswers.arePagesDefined(newPages) && noAdditionalPagesDefined(newPages)
               case _                                         => false
@@ -110,8 +111,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
         userAnswers.arePagesDefined(list) &&
         userAnswers.unneededPagesNotPresent(list, remainingJourneyPages(index)) &&
         officialsTitleIsLegal(userAnswers, index)
-
-      case _ => false
+      case _                                       => false
     }
 
 }

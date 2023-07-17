@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, UserDataRetrievalAction}
 import models.UserAnswers
 import models.requests.OptionalDataRequest
-import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
+import pages.AcknowledgementReferencePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import service.{CharitiesSave4LaterService, UserAnswerService}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
@@ -34,7 +34,6 @@ class IndexController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
   charitiesSave4LaterService: CharitiesSave4LaterService,
-//  cache: CharitiesShortLivedCache,
   userAnswerService: UserAnswerService,
   taskListHelper: TaskListHelper,
   view: TaskList,
@@ -53,10 +52,15 @@ class IndexController @Inject() (
             userAnswerService.set(userAnswers).map { _ =>
               val result    = taskListHelper.getTaskListRow(userAnswers)
               val completed = result.forall(_.state.equals("index.section.completed"))
-              Ok(view(result, status = completed, None))
+              Ok(view(result = result, status = completed, isSwitchOver = None))
             }
           } else {
-            getTaskList(sessionId, eligibleJourneyId)
+            val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+            userAnswerService.set(userAnswers).map { _ =>
+              val result    = taskListHelper.getTaskListRow(userAnswers)
+              val completed = result.forall(_.state.equals("index.section.completed"))
+              Ok(view(result = result, status = completed, isSwitchOver = None))
+            }
           }
         case _                                                                                       =>
           Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
@@ -68,27 +72,13 @@ class IndexController @Inject() (
     request: OptionalDataRequest[_],
     hc: HeaderCarrier
   ): Future[Result] =
-//    charitiesSave4LaterService.getCacheData(request, sessionId, eligibleJourneyId).flatMap {
     charitiesSave4LaterService.checkForValidApplicationJourney(request, eligibleJourneyId).flatMap {
       case Right(userAnswers) =>
-//        if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
-//          Future(Redirect(routes.ApplicationBeingProcessedController.onPageLoad))
-//        } else {
-          val result    = taskListHelper.getTaskListRow(userAnswers)
-          val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-          Future(Ok(view(result, status = completed, None)))
-//        }
-//        for {
-//          isSwitchOver <- cache.fetchAndGetEntry[Boolean](sessionId.value, IsSwitchOverUserPage)
-//        } yield
-//          if (userAnswers.get(OldServiceSubmissionPage).isDefined) {
-//            Redirect(routes.ApplicationBeingProcessedController.onPageLoad)
-//          } else {
-//            val result    = taskListHelper.getTaskListRow(userAnswers)
-//            val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
-//            Ok(view(result, status = completed, Some(false)))
-//          }
-      case Left(call)         => Future(Redirect(call))
+        val result    = taskListHelper.getTaskListRow(userAnswers)
+        val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))
+        Future(Ok(view(result, status = completed, None)))
+      case Left(call)         =>
+        Future(Redirect(call))
     }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>

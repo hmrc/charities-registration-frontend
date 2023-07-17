@@ -18,7 +18,11 @@ package controllers
 
 import audit.AuditService
 import base.SpecBase
-import connectors.CharitiesShortLivedCache
+import models.addressLookup.{AddressModel, CountryModel}
+import models.{CharityContactDetails, CharityName}
+import pages.addressLookup.CharityOfficialAddressLookupPage
+import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+//import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
@@ -32,68 +36,53 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepository
 import service.{CharitiesSave4LaterService, UserAnswerService}
-import transformers.UserAnswerTransformer
-import uk.gov.hmrc.http.cache.client.CacheMap
+//import uk.gov.hmrc.http.cache.client.CacheMap
 
 import javax.inject.Inject
 import scala.concurrent.Future
 
 class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers]              = Some(emptyUserAnswers)
-  lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
-  lazy val mockCacheMap: CacheMap                                 = mock[CacheMap]
-  lazy val mockUserAnswerTransformer: UserAnswerTransformer       = mock[UserAnswerTransformer]
-  lazy val mockAuditService: AuditService                         = MockitoSugar.mock[AuditService]
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+//  lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
+//  lazy val mockUserAnswerTransformer: UserAnswerTransformer = mock[UserAnswerTransformer]
+  lazy val mockAuditService: AuditService            = MockitoSugar.mock[AuditService]
 
   class FakeCharitiesSave4LaterService @Inject() (
-    cache: CharitiesShortLivedCache,
-    userAnswerTransformer: UserAnswerTransformer,
     sessionRepository: SessionRepository,
     userAnswerService: UserAnswerService,
     auditService: AuditService,
     userAnswers: Option[UserAnswers]
   ) extends CharitiesSave4LaterService(
-//        cache,
-        userAnswerTransformer,
         sessionRepository,
         userAnswerService,
         auditService,
         frontendAppConfig
-      ) {
-//    override def getCacheData(
-//      request: OptionalDataRequest[_],
-//      sessionId: SessionId,
-//      eligibleJourneyId: Option[String]
-//    )(implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] =
-//      userAnswers match {
-//        case Some(ua) => Future.successful(Right(ua))
-//        case _        => Future.successful(Left(routes.ApplicationBeingProcessedController.onPageLoad))
-//      }
-  }
+      )
 
-  lazy val service = new FakeCharitiesSave4LaterService(
-    mockCharitiesShortLivedCache,
-    mockUserAnswerTransformer,
-    mockSessionRepository,
-    mockUserAnswerService,
-    mockAuditService,
-    Some(emptyUserAnswers)
-  )
+  lazy val service =
+    new FakeCharitiesSave4LaterService(
+      mockSessionRepository,
+      mockUserAnswerService,
+      mockAuditService,
+      Some(emptyUserAnswers)
+    )
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-        bind[CacheMap].toInstance(mockCacheMap),
-        bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
+//        bind[CacheMap].toInstance(mockCacheMap),
         bind[CharitiesSave4LaterService].toInstance(service),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockCharitiesShortLivedCache)
+    reset(
+      mockUserAnswerService
+//      mockCharitiesShortLivedCache
+    )
   }
 
   lazy val controller: IndexController = inject[IndexController]
@@ -153,28 +142,23 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
 //    }
 
     "Redirect to error page if the charitiesSave4LaterService returning error" in {
-      lazy val service = new FakeCharitiesSave4LaterService(
-        mockCharitiesShortLivedCache,
-        mockUserAnswerTransformer,
-        mockSessionRepository,
-        mockUserAnswerService,
-        mockAuditService,
-        Some(emptyUserAnswers)
-      )
+      lazy val service =
+        new FakeCharitiesSave4LaterService(
+          mockSessionRepository,
+          mockUserAnswerService,
+          mockAuditService,
+          Some(emptyUserAnswers)
+        )
       val app          =
         new GuiceApplicationBuilder()
           .overrides(
             bind[CharitiesSave4LaterService].toInstance(service),
             bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
           )
           .build()
 
       val controller: IndexController = app.injector.instanceOf[IndexController]
-
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(None))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(Some(emptyUserAnswers))
@@ -184,29 +168,28 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       lazy val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      titleOf(contentAsString(result)) mustBe "Add information about the charity - Register your charity’s details with HMRC - GOV.UK" //task-list
-//      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad.url
+      titleOf(
+        contentAsString(result)
+      ) mustBe "Add information about the charity - Register your charity’s details with HMRC - GOV.UK" //task-list
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "Set answers and redirect to the next page (start of journey page)" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(Some(true)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onPageLoad()(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.CannotFindApplicationController.onPageLoad.url
+      status(result) mustEqual OK
+      titleOf(
+        contentAsString(result)
+      ) mustBe "Add information about the charity - Register your charity’s details with HMRC - GOV.UK" //task-list
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "Fetch user answers and redirect to the next page (start of journey page)" in {
 
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(Some(true)))
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(emptyUserAnswers.set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)
@@ -216,7 +199,14 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
 
       val result = controller.onPageLoad()(fakeRequest)
 
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustEqual routes.CannotFindApplicationController.onPageLoad.url
+      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+
       status(result) mustEqual OK
+      titleOf(
+        contentAsString(result)
+      ) mustBe "Add information about the charity - Register your charity’s details with HMRC - GOV.UK" //task-list
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -245,14 +235,11 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
           .overrides(
             bind[CharitiesSave4LaterService].toInstance(service),
             bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
             bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
           )
           .build()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(Some(true)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val controller: IndexController = app.injector.instanceOf[IndexController]
@@ -262,7 +249,6 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       status(result) mustEqual OK
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-      verify(mockCharitiesShortLivedCache, never).fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())
     }
 
     "For keepalive" in {

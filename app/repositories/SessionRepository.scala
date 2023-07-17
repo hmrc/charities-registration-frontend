@@ -19,7 +19,7 @@ package repositories
 import config.FrontendAppConfig
 import models.UserAnswers
 import org.mongodb.scala.model._
-import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
+import pages.AcknowledgementReferencePage
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 
@@ -51,8 +51,8 @@ class SessionRepository @Inject() (val mongoComponent: MongoComponent, val appCo
   private def calculateExpiryTime: LocalDateTime = now.plusSeconds(appConfig.userAnswersTimeToLive)
 
   private def expiryDate(userAnswers: UserAnswers): LocalDateTime =
-    (userAnswers.get(AcknowledgementReferencePage), userAnswers.get(OldServiceSubmissionPage)) match {
-      case (Some(_), _) | (_, Some(_)) => userAnswers.expiresAt
+    userAnswers.get(AcknowledgementReferencePage) match {
+      case Some(_) => userAnswers.expiresAt
       case _                           => calculateExpiryTime
     }
 

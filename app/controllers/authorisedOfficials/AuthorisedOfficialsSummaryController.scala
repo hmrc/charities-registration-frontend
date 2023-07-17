@@ -69,7 +69,6 @@ class AuthorisedOfficialsSummaryController @Inject() (
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     if (secondAuthorisedOfficialRow.isEmpty) {
-
       form
         .bindFromRequest()
         .fold(

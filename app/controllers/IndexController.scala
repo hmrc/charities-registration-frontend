@@ -41,34 +41,6 @@ class IndexController @Inject() (
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
 
-  def onPageLoad(eligibleJourneyId: Option[String] = None): Action[AnyContent] = (identify andThen getData).async {
-    implicit request =>
-      (hc.sessionId, request.userAnswers) match {
-        case (Some(_), Some(userAnswers)) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
-          Future.successful(Redirect(routes.RegistrationSentController.onPageLoad))
-        case (Some(sessionId), _)                                                                    =>
-          if (appConfig.isExternalTest) {
-            val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-            userAnswerService.set(userAnswers).map { _ =>
-              val result    = taskListHelper.getTaskListRow(userAnswers)
-              val completed = result.forall(_.state.equals("index.section.completed"))
-              Ok(view(result = result, status = completed, isSwitchOver = None))
-            }
-          } else {
-            getTaskList(sessionId, eligibleJourneyId)
-//            val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-//            userAnswerService.set(userAnswers).map { _ =>
-//              val result    = taskListHelper.getTaskListRow(userAnswers)
-//              val completed = result.forall(_.state.equals("index.section.completed"))
-//              Ok(view(result = result, status = completed, isSwitchOver = None))
-//            }
-          }
-        case _                                                                                       =>
-          Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
-      }
-
-  }
-
   private def getTaskList(sessionId: SessionId, eligibleJourneyId: Option[String])(implicit
     request: OptionalDataRequest[_],
     hc: HeaderCarrier
@@ -81,6 +53,19 @@ class IndexController @Inject() (
       case Left(call)         =>
         Future(Redirect(call))
     }
+
+  def onPageLoad(eligibleJourneyId: Option[String] = None): Action[AnyContent] = (identify andThen getData).async {
+    implicit request =>
+      (hc.sessionId, request.userAnswers) match {
+        case (Some(_), Some(userAnswers)) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
+          Future(Redirect(routes.RegistrationSentController.onPageLoad))
+        case (Some(sessionId), _)                                                                    =>
+          getTaskList(sessionId, eligibleJourneyId)
+        case _                                                                                       =>
+          Future(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+      }
+
+  }
 
   def keepalive: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))

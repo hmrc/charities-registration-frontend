@@ -176,30 +176,6 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       verify(mockUserAnswerService, never).set(any())(any(), any())
     }
 
-    "redirect to the task list without calling save4later service if external test is enabled" in {
-
-      val app =
-        new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[CharitiesSave4LaterService].toInstance(service),
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val controller: IndexController = app.injector.instanceOf[IndexController]
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-    }
-
     "For keepalive" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))

@@ -17,19 +17,16 @@
 package controllers
 
 import config.FrontendAppConfig
+import connectors.httpParsers.UnexpectedFailureException
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
-import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.{CharitiesRegistrationService, UserAnswerService}
 import transformers.submission.CharitySubmissionTransformer
 import views.html.DeclarationView
-import java.time.LocalDate
 
-import connectors.httpParsers.UnexpectedFailureException
 import javax.inject.Inject
-
 import scala.concurrent.Future
 
 class DeclarationController @Inject() (
@@ -38,7 +35,6 @@ class DeclarationController @Inject() (
   requireData: DataRequiredAction,
   registrationService: CharitiesRegistrationService,
   transformer: CharitySubmissionTransformer,
-  userAnswerService: UserAnswerService,
   view: DeclarationView,
   val controllerComponents: MessagesControllerComponents
 )(implicit appConfig: FrontendAppConfig)
@@ -48,39 +44,22 @@ class DeclarationController @Inject() (
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     if (!isAllSectionsCompleted()) {
-      Future.successful(Redirect(controllers.routes.IndexController.onPageLoad(None)))
+      Future(Redirect(controllers.routes.IndexController.onPageLoad(None)))
     } else {
-      Future.successful(Ok(view()))
+      Future(Ok(view()))
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if (appConfig.isExternalTest) {
-      for {
-        updatedAnswers <- Future.fromTry(
-                            request.userAnswers
-                              .set(AcknowledgementReferencePage, "0123 4567 8901")
-                              .flatMap(_.set(ApplicationSubmissionDatePage, LocalDate.now()))
-                          )
-        _              <- userAnswerService.set(updatedAnswers)
-      } yield
-        if (appConfig.noEmailPost) {
-          Redirect(controllers.routes.RegistrationSentController.onPageLoad)
-        } else {
-          Redirect(controllers.routes.EmailOrPostController.onPageLoad)
-        }
-    } else {
-      request.userAnswers.data.transform(transformer.userAnswersToSubmission) match {
-        case JsSuccess(requestJson, _) =>
-          logger.info("[DeclarationController][onSubmit] userAnswers to submission transformation successful")
-          registrationService.register(requestJson, appConfig.noEmailPost)
-
-        case JsError(err) =>
-          logger.error(
-            "[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors: " + err
-          )
-          throw UnexpectedFailureException(err.toString())
-      }
+    request.userAnswers.data.transform(transformer.userAnswersToSubmission) match {
+      case JsSuccess(requestJson, _) =>
+        logger.info("[DeclarationController][onSubmit] userAnswers to submission transformation successful")
+        registrationService.register(requestJson, appConfig.noEmailPost)
+      case JsError(err)              =>
+        logger.error(
+          "[DeclarationController][onSubmit] userAnswers to submission transformation failed with errors: " + err
+        )
+        throw UnexpectedFailureException(err.toString())
     }
   }
 }

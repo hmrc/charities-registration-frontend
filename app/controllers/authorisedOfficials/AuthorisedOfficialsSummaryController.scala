@@ -91,27 +91,21 @@ class AuthorisedOfficialsSummaryController @Inject() (
               taskListUpdated <- Future.fromTry(result =
                                    updatedAnswers.set(
                                      Section7Page,
-                                     if (appConfig.isExternalTest) {
-                                       true
-                                     } else {
-                                       checkComplete(updatedAnswers)
-                                     }
+                                     checkComplete(updatedAnswers)
                                    )
                                  )
               _               <- sessionRepository.set(taskListUpdated)
             } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, taskListUpdated))
         )
     } else {
-
       for {
         updatedAnswers <-
           Future.fromTry(result =
             request.userAnswers
-              .set(Section7Page, if (appConfig.isExternalTest) true else checkComplete(request.userAnswers))
+              .set(Section7Page, checkComplete(request.userAnswers))
           )
         _              <- sessionRepository.set(updatedAnswers)
       } yield Redirect(navigator.nextPage(AuthorisedOfficialsSummaryPage, NormalMode, updatedAnswers))
     }
-
   }
 }

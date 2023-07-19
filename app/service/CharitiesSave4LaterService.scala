@@ -17,7 +17,6 @@
 package service
 
 import audit.{AuditService, NormalUserAuditEvent}
-import config.FrontendAppConfig
 import models.requests.OptionalDataRequest
 import models.{AuditTypes, UserAnswers}
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
@@ -30,13 +29,11 @@ import play.api.mvc.{Call, RequestHeader}
 import repositories.SessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.ImplicitDateFormatter
-import viewmodels.EligibiltyStatusHelper
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
-import java.time.LocalTime
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Success, Try}
@@ -46,33 +43,19 @@ class CharitiesSave4LaterService @Inject() (
   sessionRepository: SessionRepository,
   userAnswerService: UserAnswerService,
   auditService: AuditService
-//  appConfig: FrontendAppConfig
 ) extends ImplicitDateFormatter {
 
   // scalastyle:off method.length
 
   private val logger = Logger(this.getClass)
 
-  private lazy val timeHour: Int    = 12
-  private lazy val timeMinutes: Int = 0
-  private lazy val time: LocalTime  = LocalTime.of(timeHour, timeMinutes)
-
-//  def isEligibiltyComplete(userAnswers: UserAnswers): Try[UserAnswers] =
-//    userAnswers.get(EligibiltyPage) match {
-//      case Some(_) =>
-//        userAnswers.set(EligibiltyPage, EligibiltyStatusHelper.checkComplete(userAnswers))
-//      case _       => Success(userAnswers)
-//    }
-
-  private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
-    if (
+  private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] = {
+    val sectionPredicate =
       CharityInformationStatusHelper.checkComplete(userAnswers) &&
-      userAnswers.get(CharityNamePage).fold(false)(_.fullName.length < 60)
-    ) {
-      userAnswers.set(Section1Page, true)
-    } else {
-      userAnswers.set(Section1Page, false)
-    }
+        userAnswers.get(CharityNamePage).fold(false)(_.fullName.length < 60)
+
+    userAnswers.set(Section1Page, sectionPredicate)
+  }
 
   private[service] def isAuthorisedOfficialsSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
     userAnswers.get(AuthorisedOfficialsNamePage(0)) match {
@@ -106,29 +89,6 @@ class CharitiesSave4LaterService @Inject() (
         )
       case _       => Success(userAnswers)
     }
-
-//  private[service] def expiryTimeIfCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
-//    userAnswers.get(OldServiceSubmissionPage) match {
-//      case Some(submitted) =>
-//        Success(
-//          userAnswers.copy(expiresAt =
-//            oldStringToDate(submitted.submissionDate).plusDays(appConfig.timeToLiveInDays).atTime(time)
-//          )
-//        )
-//      case _               => Success(userAnswers)
-//    }
-
-//  def checkAllSectionsCompleted(userAnswers: UserAnswers): Try[UserAnswers] =
-//    for {
-//      checkCharityInfo                     <- isCharityInformationStatusSectionCompleted(userAnswers)
-//      checkAuthorisedOfficials             <- isAuthorisedOfficialsSectionCompleted(checkCharityInfo)
-//      checkOtherOfficialStatus             <- isOtherOfficialStatusSectionCompleted(checkAuthorisedOfficials)
-//      checkNomineeStatus                   <- isNomineeStatusSectionCompleted(checkOtherOfficialStatus)
-//      checkAllSectionsWithUpdatedExpiryTime =
-//        checkNomineeStatus.copy(expiresAt =
-//          checkNomineeStatus.expiresAt.plusDays(appConfig.timeToLiveInDays).toLocalDate.atTime(time)
-//        )
-//    } yield checkAllSectionsWithUpdatedExpiryTime
 
   def checkForValidApplicationJourney(request: OptionalDataRequest[_], lastSessionId: Option[String])(implicit
     hc: HeaderCarrier,

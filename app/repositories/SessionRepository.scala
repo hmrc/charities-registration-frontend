@@ -53,7 +53,7 @@ class SessionRepository @Inject() (val mongoComponent: MongoComponent, val appCo
   private def expiryDate(userAnswers: UserAnswers): LocalDateTime =
     userAnswers.get(AcknowledgementReferencePage) match {
       case Some(_) => userAnswers.expiresAt
-      case _                           => calculateExpiryTime
+      case _       => calculateExpiryTime
     }
 
   private def byId(userAnswers: UserAnswers) =

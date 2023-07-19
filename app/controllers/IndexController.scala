@@ -55,12 +55,13 @@ class IndexController @Inject() (
               Ok(view(result = result, status = completed, isSwitchOver = None))
             }
           } else {
-            val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
-            userAnswerService.set(userAnswers).map { _ =>
-              val result    = taskListHelper.getTaskListRow(userAnswers)
-              val completed = result.forall(_.state.equals("index.section.completed"))
-              Ok(view(result = result, status = completed, isSwitchOver = None))
-            }
+            getTaskList(sessionId, eligibleJourneyId)
+//            val userAnswers = request.userAnswers.getOrElse[UserAnswers](UserAnswers(request.internalId))
+//            userAnswerService.set(userAnswers).map { _ =>
+//              val result    = taskListHelper.getTaskListRow(userAnswers)
+//              val completed = result.forall(_.state.equals("index.section.completed"))
+//              Ok(view(result = result, status = completed, isSwitchOver = None))
+//            }
           }
         case _                                                                                       =>
           Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))

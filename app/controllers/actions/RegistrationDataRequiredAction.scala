@@ -29,19 +29,16 @@ import scala.concurrent.{ExecutionContext, Future}
 class RegistrationDataRequiredActionImpl @Inject() (implicit val executionContext: ExecutionContext)
     extends RegistrationDataRequiredAction {
 
-  override protected def refine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] = {
-
+  override protected def refine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] =
 //    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
-
     request.userAnswers match {
-      case None                                                       =>
+      case None       =>
         Future.successful(Left(Redirect(routes.PageNotFoundController.onPageLoad())))
 //      case Some(data) if data.get(OldServiceSubmissionPage).isDefined =>
 //        Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad)))
-      case Some(data)                                                 =>
+      case Some(data) =>
         Future.successful(Right(DataRequest(request.request, request.internalId, data)))
     }
-  }
 }
 
 trait RegistrationDataRequiredAction extends ActionRefiner[OptionalDataRequest, DataRequest]

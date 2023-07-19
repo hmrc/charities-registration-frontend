@@ -40,7 +40,7 @@ lazy val root = (project in file("."))
       "models.OptionBinder._",
       "controllers.routes._"
     ),
-    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;" +
+    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*views.*;" +
       ".*models.Mode*;.*handlers.*;.*components.*;.*TimeMachine.*;" +
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;" +
       ".*ControllerConfiguration;.*testonly.*;",

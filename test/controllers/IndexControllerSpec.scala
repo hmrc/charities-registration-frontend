@@ -18,11 +18,6 @@ package controllers
 
 import audit.AuditService
 import base.SpecBase
-import models.addressLookup.{AddressModel, CountryModel}
-import models.{CharityContactDetails, CharityName}
-import pages.addressLookup.CharityOfficialAddressLookupPage
-import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
-//import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
@@ -36,7 +31,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepository
 import service.{CharitiesSave4LaterService, UserAnswerService}
-//import uk.gov.hmrc.http.cache.client.CacheMap
 
 import javax.inject.Inject
 import scala.concurrent.Future
@@ -44,8 +38,6 @@ import scala.concurrent.Future
 class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-//  lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
-//  lazy val mockUserAnswerTransformer: UserAnswerTransformer = mock[UserAnswerTransformer]
   lazy val mockAuditService: AuditService            = MockitoSugar.mock[AuditService]
 
   class FakeCharitiesSave4LaterService @Inject() (
@@ -56,8 +48,8 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
   ) extends CharitiesSave4LaterService(
         sessionRepository,
         userAnswerService,
-        auditService,
-        frontendAppConfig
+        auditService
+//        frontendAppConfig
       )
 
   lazy val service =
@@ -72,17 +64,13 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-//        bind[CacheMap].toInstance(mockCacheMap),
         bind[CharitiesSave4LaterService].toInstance(service),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(
-      mockUserAnswerService
-//      mockCharitiesShortLivedCache
-    )
+    reset(mockUserAnswerService)
   }
 
   lazy val controller: IndexController = inject[IndexController]
@@ -107,39 +95,6 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
-//    "Redirect to registration sent page if the submission was completed in the old service" in {
-//      lazy val service = new FakeCharitiesSave4LaterService(
-//        cache = mockCharitiesShortLivedCache,
-//        userAnswerTransformer = mockUserAnswerTransformer,
-//        sessionRepository = mockSessionRepository,
-//        userAnswerService = mockUserAnswerService,
-//        auditService = mockAuditService,
-//        userAnswers = None
-//      )
-//      val app          =
-//        new GuiceApplicationBuilder()
-//          .overrides(
-//            bind[CharitiesSave4LaterService].toInstance(service),
-//            bind[UserAnswerService].toInstance(mockUserAnswerService),
-//            bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
-//            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-//          )
-//          .build()
-//
-//      val controller: IndexController = app.injector.instanceOf[IndexController]
-//
-//      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-//        .thenReturn(Future.successful(None))
-//
-//      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-//
-//      lazy val result = controller.onPageLoad()(fakeRequest)
-//
-//      status(result) mustEqual SEE_OTHER
-//      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad.url
-//      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-//    }
 
     "Redirect to error page if the charitiesSave4LaterService returning error" in {
       lazy val service =
@@ -181,10 +136,8 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
 
       val result = controller.onPageLoad()(fakeRequest)
 
-      status(result) mustEqual OK
-      titleOf(
-        contentAsString(result)
-      ) mustBe "Add information about the charity - Register your charity’s details with HMRC - GOV.UK" //task-list
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustEqual routes.CannotFindApplicationController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
@@ -198,10 +151,6 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
       val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.CannotFindApplicationController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
 
       status(result) mustEqual OK
       titleOf(

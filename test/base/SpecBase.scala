@@ -86,32 +86,36 @@ trait SpecBase
   lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
   //without session id
-  lazy val fakeRequestNoSessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "").withCSRFToken
+  lazy val fakeRequestNoSessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "").withCSRFToken
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+
   lazy val fakeDataRequestNoSessionId: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequestNoSessionId, internalId, emptyUserAnswers)
 
   //with empty session id
-  lazy val fakeRequestEmptySessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
+  lazy val fakeRequestEmptySessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
     .withSession(SessionKeys.sessionId -> "")
     .withCSRFToken
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+
   lazy val fakeDataRequestEmptySessionId: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequestEmptySessionId, internalId, emptyUserAnswers)
 
   //with less length than required session id
-  lazy val fakeRequestShortSessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
+  lazy val fakeRequestShortSessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
     .withSession(SessionKeys.sessionId -> "short id here not 50 chars")
     .withCSRFToken
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+
   lazy val fakeDataRequestShortSessionId: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequestShortSessionId, internalId, emptyUserAnswers)
 
   //with more length than required session id
-  lazy val fakeRequestTooLongSessionId: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
+  lazy val fakeRequestTooLongSessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
     .withSession(SessionKeys.sessionId -> "short id here not 50 chars" * 10)
     .withCSRFToken
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+
   lazy val fakeDataRequestTooLongSessionId: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequestTooLongSessionId, internalId, emptyUserAnswers)
 

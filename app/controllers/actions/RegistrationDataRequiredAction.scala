@@ -30,7 +30,6 @@ class RegistrationDataRequiredActionImpl @Inject() (implicit val executionContex
     extends RegistrationDataRequiredAction {
 
   override protected def refine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] =
-
     request.userAnswers match {
       case None       =>
         Future.successful(Left(Redirect(routes.PageNotFoundController.onPageLoad())))

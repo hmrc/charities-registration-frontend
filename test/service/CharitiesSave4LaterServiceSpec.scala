@@ -49,7 +49,6 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
   lazy val mockRepository: SessionRepository  = mock[SessionRepository]
   lazy val mockUserService: UserAnswerService = mock[UserAnswerService]
   lazy val mockCacheMap: CacheMap             = mock[CacheMap]
-//  lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
   lazy val mockAuditService: AuditService     = MockitoSugar.mock[AuditService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -59,7 +58,6 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
         bind[UserAnswerService].toInstance(mockUserService),
         bind[AuditService].toInstance(mockAuditService),
         bind[CacheMap].toInstance(mockCacheMap)
-//        bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache)
       )
 
   override def beforeEach(): Unit =
@@ -129,9 +127,6 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
     def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache(): Unit = {
-//      when(mockCharitiesShortLivedCache.fetch(any())(any(), any())).thenReturn(Future.successful(mockCache))
-//      when(mockCharitiesShortLivedCache.cache(any(), any(), any())(any(), any(), any()))
-//        .thenReturn(Future.successful(mockCacheMap))
       when(
         mockCacheMap.getEntry[CharityContactDetails](meq("charityContactDetails"))(meq(CharityContactDetails.formats))
       ).thenReturn(mockContactDetails)
@@ -258,12 +253,6 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
       }
 
       "return true when all sections are completed" in new LocalSetup {
-
-//        val isCharityInformationStatusSectionCompleted: PrivateMethod[Try[UserAnswers]] =
-//          PrivateMethod[Try[UserAnswers]](Symbol("isCharityInformationStatusSectionCompleted"))
-
-//        val ua: UserAnswers          =
-//          UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
 
         val ua: UserAnswers =
           UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))

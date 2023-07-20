@@ -108,8 +108,9 @@ class CharitiesSave4LaterService @Inject() (
       case (None, Some(sessionId)) =>
         sessionRepository.get(sessionId).flatMap {
           case None    =>
-            logger.warn(s"[CharitiesSave4LaterService][checkForValidApplicationJourney] no eligibility data found")
-            Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
+            logger
+              .warn(s"[CharitiesSave4LaterService][checkForValidApplicationJourney] no eligibility user-answers found")
+            Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
           case Some(_) =>
             val userAnswers = UserAnswers(request.internalId)
             logger.warn(s"CharitiesRewriteUser: ${AuditTypes.NewUser}")
@@ -118,8 +119,8 @@ class CharitiesSave4LaterService @Inject() (
         }
       case _                       =>
         logger.error(
-          s"[CharitiesSave4LaterService][checkForValidApplicationJourney] no eligibility data and no current session id/data found"
+          s"[CharitiesSave4LaterService][checkForValidApplicationJourney] no charities backend user answers found and no current session id/data"
         )
-        Future.successful(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
+        Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
     }
 }

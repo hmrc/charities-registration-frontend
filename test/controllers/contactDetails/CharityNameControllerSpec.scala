@@ -60,7 +60,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: CharityNameController = inject[CharityNameController]
 
-  "CharityName Controller" must {
+  "CharityNameController" must {
 
     "redirect to EmailOrPost page when acknowledgement reference is present" in {
 
@@ -82,26 +82,6 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
-//    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
-//
-//      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-//        Future.successful(
-//          Some(
-//            emptyUserAnswers
-//              .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
-//              .success
-//              .value
-//          )
-//        )
-//      )
-//
-//      val result = controller.onPageLoad(NormalMode)(fakeRequest)
-//
-//      status(result) mustEqual SEE_OTHER
-//      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
-//      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-//    }
 
     "return OK and the correct view for a GET" in {
 

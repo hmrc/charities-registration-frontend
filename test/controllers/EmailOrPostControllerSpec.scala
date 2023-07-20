@@ -62,26 +62,6 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   "EmailOrPost Controller" must {
 
-//    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
-//
-//      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-//        Future.successful(
-//          Some(
-//            emptyUserAnswers
-//              .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
-//              .success
-//              .value
-//          )
-//        )
-//      )
-//
-//      val result = controller.onPageLoad()(fakeRequest)
-//
-//      status(result) mustEqual SEE_OTHER
-//      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
-//      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-//    }
-
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
@@ -106,11 +86,12 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      ).toString
+      contentAsString(result) mustEqual
+        view(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
+          fakeRequest,
+          messages,
+          frontendAppConfig
+        ).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

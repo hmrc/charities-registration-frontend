@@ -27,7 +27,6 @@ import pages.AcknowledgementReferencePage
 import pages.sections.{Section1Page, Section2Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepository
 import service.{CharitiesSave4LaterService, UserAnswerService}
@@ -43,21 +42,18 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
   class FakeCharitiesSave4LaterService @Inject() (
     sessionRepository: SessionRepository,
     userAnswerService: UserAnswerService,
-    auditService: AuditService,
-    userAnswers: Option[UserAnswers]
+    auditService: AuditService
   ) extends CharitiesSave4LaterService(
         sessionRepository,
         userAnswerService,
         auditService
-//        frontendAppConfig
       )
 
   lazy val service =
     new FakeCharitiesSave4LaterService(
       mockSessionRepository,
       mockUserAnswerService,
-      mockAuditService,
-      Some(emptyUserAnswers)
+      mockAuditService
     )
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -75,111 +71,109 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
 
   lazy val controller: IndexController = inject[IndexController]
 
-  "Index Controller" must {
+  "Index Controller" when {
 
-    "Redirect to registration sent page if the acknowledgement reference number is already present" in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(AcknowledgementReferencePage, "0123123")
-              .success
-              .value
+    "the acknowledgement reference number is already present" must {
+
+      "redirect to RegistrationSent page" in {
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+          Future(
+            Some(
+              emptyUserAnswers
+                .set(AcknowledgementReferencePage, "0123123")
+                .success
+                .value
+            )
           )
         )
-      )
 
-      val result = controller.onPageLoad()(fakeRequest)
+        val result = controller.onPageLoad()(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      }
     }
 
-    "Redirect to error page if the charitiesSave4LaterService returning error" in {
-      lazy val service =
-        new FakeCharitiesSave4LaterService(
-          mockSessionRepository,
-          mockUserAnswerService,
-          mockAuditService,
-          Some(emptyUserAnswers)
-        )
-      val app          =
-        new GuiceApplicationBuilder()
-          .overrides(
-            bind[CharitiesSave4LaterService].toInstance(service),
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
+    "there are no user-answers and no session id" must {
 
-      val controller: IndexController = app.injector.instanceOf[IndexController]
+      "redirect to CannotFindApplication page" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers))
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+        val controller: IndexController = applicationBuilder().injector.instanceOf[IndexController]
 
-      lazy val result = controller.onPageLoad()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
 
-      status(result) mustEqual OK
-      titleOf(
-        contentAsString(result)
-      ) mustBe "Add information about the charity - Register your charity’s details with HMRC - GOV.UK" //task-list
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        lazy val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustEqual 303
+        redirectLocation(result).value mustBe controllers.routes.CannotFindApplicationController.onPageLoad.url
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+
+      }
     }
 
-    "Set answers and redirect to the next page (start of journey page)" in {
+    "there are  empty useranswers and a session id" must {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      "redirect to the task-list page" in {
 
-      val result = controller.onPageLoad()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.CannotFindApplicationController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustEqual OK
+        titleOf(contentAsString(result)) mustBe
+          "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      }
     }
 
-    "Fetch user answers and redirect to the next page (start of journey page)" in {
+    "Fetch user answers and redirect to the task-list page" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(emptyUserAnswers.set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      val userAnswers =
+        emptyUserAnswers
+          .set(Section1Page, true)
+          .flatMap(_.set(Section2Page, false))
+          .success
+          .value
 
+      when(mockUserAnswerService.get(any())(any(), any()))
+        .thenReturn(Future(Some(userAnswers)))
+
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      titleOf(
-        contentAsString(result)
-      ) mustBe "Add information about the charity - Register your charity’s details with HMRC - GOV.UK" //task-list
+      titleOf(contentAsString(result)) mustBe
+        "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
+
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+
     }
 
     "redirect to the session expired page if no valid session id for switchover journey" in {
 
-      val requestWithoutSession = FakeRequest()
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(emptyUserAnswers.set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      val userAnswers =
+        emptyUserAnswers
+          .set(Section1Page, true)
+          .flatMap(_.set(Section2Page, false))
+          .success
+          .value
 
-      val result = controller.onPageLoad()(requestWithoutSession)
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(userAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+
+      val result = controller.onPageLoad()(fakeRequestNoSessionId)
 
       status(result) mustEqual SEE_OTHER
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockUserAnswerService, never).set(any())(any(), any())
     }
 
-    "For keepalive" in {
+    "for keepalive" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
       val result = controller.keepalive()(fakeRequest)
 
@@ -188,10 +182,10 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
     }
 
-    "For keepalive no UserAnswer" in {
+    "for keepalive no UserAnswer" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
+      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
       val result = controller.keepalive()(fakeRequest)
 
@@ -201,7 +195,9 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
     }
 
     "signInDifferentAccount" should {
+
       "redirect to the loginUrl" in {
+
         val result = controller.signInDifferentAccount()(fakeRequest)
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(
@@ -209,10 +205,10 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
             "%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend"
         )
       }
-
     }
 
     "registerNewAccount" should {
+
       "redirect to the registerUrl" in {
         val result = controller.registerNewAccount()(fakeRequest)
         status(result) mustEqual SEE_OTHER

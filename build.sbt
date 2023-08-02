@@ -1,25 +1,20 @@
 import play.sbt.routes.RoutesKeys
 import scoverage.ScoverageKeys
-import uk.gov.hmrc.DefaultBuildSettings
-import uk.gov.hmrc.DefaultBuildSettings.addTestReportOption
-import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
+import uk.gov.hmrc.DefaultBuildSettings.*
 
 lazy val appName: String = "charities-registration-frontend"
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
-  .settings(DefaultBuildSettings.scalaSettings)
-  .settings(DefaultBuildSettings.defaultSettings())
-  .settings(inConfig(IntegrationTest)(DefaultBuildSettings.integrationTestSettings()))
+  .settings(scalaSettings)
+  .settings(defaultSettings())
+  .settings(inConfig(IntegrationTest)(integrationTestSettings()))
   .configs(IntegrationTest)
   .settings(
     javaOptions += "-Dlogger.resource=logback-test.xml",
-    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
     IntegrationTest / resourceDirectory := (IntegrationTest / baseDirectory)(base => base / "it" / "resources").value,
-    IntegrationTest / parallelExecution := false,
-    IntegrationTest / fork := true,
-    addTestReportOption(IntegrationTest, "int-test-reports")
+    IntegrationTest / fork := true
   )
   .settings(majorVersion := 0)
   // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align

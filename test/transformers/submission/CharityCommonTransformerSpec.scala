@@ -25,7 +25,7 @@ import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficial
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, AuthorisedOfficialsPositionPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
 import pages.operationsAndFunds.{BankDetailsPage, CharityEstablishedInPage}
-import play.api.libs.json.{Json, __}
+import play.api.libs.json.Json
 
 class CharityCommonTransformerSpec extends SpecBase {
 
@@ -34,6 +34,8 @@ class CharityCommonTransformerSpec extends SpecBase {
   "CharityCommonTransformer" when {
 
     "userAnswersToAdmin" must {
+
+      val sessionIdLength: Int = 50
 
       "convert the correct Admin object" in {
 
@@ -61,7 +63,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestNoSessionId)).asOpt.value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
       }
 
@@ -70,7 +72,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestEmptySessionId)).asOpt.value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
       }
 
@@ -79,7 +81,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestShortSessionId)).asOpt.value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
         sessionId must startWith("short id here not 50 chars")
       }
@@ -91,9 +93,9 @@ class CharityCommonTransformerSpec extends SpecBase {
           .value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
-        sessionId mustBe ("short id here not 50 chars" * 10).take(50)
+        sessionId mustBe ("short id here not 50 chars" * 10).take(sessionIdLength)
       }
 
     }

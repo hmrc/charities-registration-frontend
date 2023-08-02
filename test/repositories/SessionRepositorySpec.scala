@@ -19,7 +19,7 @@ package repositories
 import config.FrontendAppConfig
 import models.UserAnswers
 import org.mongodb.scala.MongoCollection
-import org.mongodb.scala.model.{Filters, FindOneAndReplaceOptions, IndexModel, IndexOptions, Indexes}
+import org.mongodb.scala.model._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.Eventually.eventually
 import pages.checkEligibility.IsEligiblePurposePage
@@ -32,15 +32,15 @@ import scala.concurrent.duration.DurationInt
 
 class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach with MongoSupport {
 
-  private val config          = inject[FrontendAppConfig]
-  private lazy val repository = new SessionRepository(mongoComponent, config)
+  private val config: FrontendAppConfig = inject[FrontendAppConfig]
 
+  private lazy val repository: SessionRepository            = new SessionRepository(mongoComponent, config)
   private lazy val collection: MongoCollection[UserAnswers] = repository.collection
 
   private def findById(id: String, defaultValue: UserAnswers): UserAnswers =
     await(collection.find(Filters.equal("_id", id)).headOption().map(_.getOrElse(defaultValue)))
 
-  private lazy val eligibilityUserAnswers = emptyUserAnswers
+  private lazy val eligibilityUserAnswers: UserAnswers = emptyUserAnswers
     .set(IsEligiblePurposePage, true)
     .success
     .value
@@ -86,7 +86,7 @@ class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach w
         IndexModel(Indexes.ascending("_id"), IndexOptions().name("_id_"))
       )
 
-      await(repository.ensureIndexes)
+      await(repository.ensureIndexes())
 
       eventually(timeout(5.seconds), interval(100.milliseconds)) {
         assertIndexes(expectedIndexes.sorted, getIndexes(repository.collection).sorted)

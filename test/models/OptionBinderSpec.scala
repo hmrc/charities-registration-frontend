@@ -28,8 +28,8 @@ class OptionBinderSpec extends SpecBase {
 
       val pathBindable = implicitly[PathBindable[Option[Int]]]
 
-      val bind: Either[String, Option[Int]] = pathBindable.bind("foo", "123")
-      bind.value mustBe Some(123)
+      val bind: Either[String, Option[Int]] = pathBindable.bind("foo", "3")
+      bind.value mustBe Some(3)
     }
 
     "must bind value to Left" in {
@@ -44,9 +44,9 @@ class OptionBinderSpec extends SpecBase {
     "must unbind path" in {
 
       val pathBindable = implicitly[PathBindable[Option[Int]]]
-      val bindValue    = pathBindable.unbind("foo", Some(123))
+      val bindValue    = pathBindable.unbind("foo", Some(3))
 
-      bindValue mustBe "123"
+      bindValue mustBe "3"
     }
   }
 

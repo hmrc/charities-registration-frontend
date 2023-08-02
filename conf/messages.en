@@ -350,38 +350,16 @@ isEligibleLocation.error.required = Select yes if the charity is based in the UK
 
 # IsEligibleLocationOtherPage Messages
 # ----------------------------------------------------------
-isEligibleLocationOther.title = Is the charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.heading = Is the charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.details = Countries in the European Union
-isEligibleLocationOther.austria = Austria
-isEligibleLocationOther.belgium = Belgium
-isEligibleLocationOther.bulgaria = Bulgaria
-isEligibleLocationOther.croatia = Croatia
-isEligibleLocationOther.republicOfCyprus = Republic of Cyprus
-isEligibleLocationOther.czechRepublic = Czech Republic
-isEligibleLocationOther.denmark = Denmark
-isEligibleLocationOther.estonia = Estonia
-isEligibleLocationOther.finland = Finland
-isEligibleLocationOther.france = France
-isEligibleLocationOther.germany = Germany
-isEligibleLocationOther.greece = Greece
-isEligibleLocationOther.hungary = Hungary
-isEligibleLocationOther.ireland = Ireland
-isEligibleLocationOther.italy = Italy
-isEligibleLocationOther.latvia = Latvia
-isEligibleLocationOther.lithuania = Lithuania
-isEligibleLocationOther.luxembourg = Luxembourg
-isEligibleLocationOther.malta = Malta
-isEligibleLocationOther.netherlands = Netherlands
-isEligibleLocationOther.poland = Poland
-isEligibleLocationOther.portugal = Portugal
-isEligibleLocationOther.romania = Romania
-isEligibleLocationOther.slovakia = Slovakia
-isEligibleLocationOther.slovenia = Slovenia
-isEligibleLocationOther.spain = Spain
-isEligibleLocationOther.sweden = Sweden
-isEligibleLocationOther.checkYourAnswersLabel = Is your charity based in the European Union, Iceland, Liechtenstein or Norway?
-isEligibleLocationOther.error.required = Select yes if the charity is based in the European Union, Iceland, Liechtenstein or Norway
+isEligibleLocationOther.title = Charities that are not based in the UK
+isEligibleLocationOther.heading = Charities that are not based in the UK
+isEligibleLocationOther.h2 = Is the charity governed by the law of England and Wales, Northern Ireland or Scotland?
+isEligibleLocationOther.p1 = If the charity is not based in the UK you may still be able to register if it is governed by the law of England and Wales, Northern Ireland or Scotland.
+isEligibleLocationOther.p2 = The charity is governed by the law of England and Wales, Northern Ireland or Scotland if (one or more of the following apply):
+isEligibleLocationOther.b1 = the charity’s governing document adopts the law of England and Wales, Northern Ireland or Scotland to govern it
+isEligibleLocationOther.b2 = most of the charity’s trustees live in the UK
+isEligibleLocationOther.b3 = most of the charity’s property is in the UK
+isEligibleLocationOther.b4 = the charity’s general administration is done in the UK
+isEligibleLocationOther.error.required = Select yes if the charity is governed by the law of England and Wales, Northern Ireland or Scotland.
 
 # InEligible Page Messages
 # ----------------------------------------------------------

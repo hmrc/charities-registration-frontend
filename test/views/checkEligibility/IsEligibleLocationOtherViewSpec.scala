@@ -39,45 +39,11 @@ class IsEligibleLocationOtherViewSpec extends YesNoViewBehaviours {
 
     behave like normalPage(applyView(form), messageKeyPrefix)
 
-    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "details")
-
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, legendKey = Some("h2"))
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
 
-    "display EU countries list" in {
-      assertContainsMessages(
-        asDocument(applyView(form)),
-        s"$messageKeyPrefix.austria",
-        s"$messageKeyPrefix.belgium",
-        s"$messageKeyPrefix.bulgaria",
-        s"$messageKeyPrefix.croatia",
-        s"$messageKeyPrefix.republicOfCyprus",
-        s"$messageKeyPrefix.czechRepublic",
-        s"$messageKeyPrefix.denmark",
-        s"$messageKeyPrefix.estonia",
-        s"$messageKeyPrefix.finland",
-        s"$messageKeyPrefix.france",
-        s"$messageKeyPrefix.germany",
-        s"$messageKeyPrefix.greece",
-        s"$messageKeyPrefix.hungary",
-        s"$messageKeyPrefix.ireland",
-        s"$messageKeyPrefix.italy",
-        s"$messageKeyPrefix.latvia",
-        s"$messageKeyPrefix.lithuania",
-        s"$messageKeyPrefix.luxembourg",
-        s"$messageKeyPrefix.malta",
-        s"$messageKeyPrefix.netherlands",
-        s"$messageKeyPrefix.poland",
-        s"$messageKeyPrefix.portugal",
-        s"$messageKeyPrefix.romania",
-        s"$messageKeyPrefix.slovakia",
-        s"$messageKeyPrefix.slovenia",
-        s"$messageKeyPrefix.spain",
-        s"$messageKeyPrefix.sweden"
-      )
-    }
   }
 }

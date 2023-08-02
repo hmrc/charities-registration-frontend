@@ -23,7 +23,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 sealed trait SelectTitle
 

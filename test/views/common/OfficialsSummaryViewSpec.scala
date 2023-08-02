@@ -28,27 +28,65 @@ class OfficialsSummaryViewSpec extends ViewBehaviours {
   private val section: String          = messages("officialsAndNominees.section")
   val form: Form[Boolean]              = inject[YesNoFormProvider].apply("authorisedOfficialsSummary")
 
-  "OfficialsSummaryView" must {
+  private val view: OfficialsSummaryView = viewFor[OfficialsSummaryView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[Boolean]): HtmlFormat.Appendable = {
-      val view = viewFor[OfficialsSummaryView](Some(emptyUserAnswers))
-      view.apply(form, "authorisedOfficialsSummary", 2, controllers.routes.IndexController.onPageLoad(None))(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply(
+    form,
+    "authorisedOfficialsSummary",
+    2,
+    controllers.routes.IndexController.onPageLoad(None),
+    Seq.empty
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like normalPage(
-      applyView(form),
-      messageKeyPrefix,
-      Seq(),
-      section = Some(section),
-      postHeadingString = ".addedOne"
+  private val viewViaRender: HtmlFormat.Appendable = view.render(
+    form,
+    "authorisedOfficialsSummary",
+    2,
+    controllers.routes.IndexController.onPageLoad(None),
+    Seq.empty,
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
+
+  private val viewViaF: HtmlFormat.Appendable = view.f(
+    form,
+    "authorisedOfficialsSummary",
+    2,
+    controllers.routes.IndexController.onPageLoad(None),
+    Seq.empty
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
+
+  "OfficialsSummaryView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(
+          view,
+          messageKeyPrefix,
+          Seq(),
+          section = Some(section),
+          postHeadingString = ".addedOne"
+        )
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, messages("site.confirmAndContinue"))
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    behave like pageWithBackLink(applyView(form))
-
-    behave like pageWithSubmitButton(applyView(form), messages("site.confirmAndContinue"))
+    input.foreach(args => (test _).tupled(args))
   }
 }

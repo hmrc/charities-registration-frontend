@@ -18,7 +18,6 @@ package controllers.addressLookup
 
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
-import config.FrontendAppConfig
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
@@ -67,8 +66,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
     override val addressLookupConnector: AddressLookupConnector,
     override val errorHandler: ErrorHandler,
     val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig)
-      extends BaseAddressController {
+  ) extends BaseAddressController {
     override val messagePrefix: String = "testPrefix"
   }
 

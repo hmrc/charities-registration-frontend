@@ -17,7 +17,6 @@
 package pages.nominees
 
 import pages.behaviours.PageBehaviours
-import pages.otherOfficials.OtherOfficialsId
 
 class NomineeIndividualIdPageSpec extends PageBehaviours {
 

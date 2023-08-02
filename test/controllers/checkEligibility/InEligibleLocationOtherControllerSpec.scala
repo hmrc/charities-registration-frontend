@@ -28,7 +28,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.SessionRepository
-import views.html.checkEligibility.{InEligibleCharitablePurposesView, InEligibleLocationOtherView}
+import views.html.checkEligibility.InEligibleLocationOtherView
 
 import scala.concurrent.Future
 

@@ -25,12 +25,12 @@ import models.oldCharities._
 import models.requests.OptionalDataRequest
 import models.transformers.TransformerKeeper
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.scalatest.{BeforeAndAfterEach, OptionValues, PrivateMethodTester}
+import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
 import org.mockito.MockitoSugar
 import pages.sections.{Section1Page, Section7Page, Section8Page}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{Json, JsonValidationError, __}
+import play.api.libs.json._
 import play.api.mvc.{AnyContentAsEmpty, Call}
 import play.api.test.FakeRequest
 import repositories.SessionRepository
@@ -45,6 +45,7 @@ import scala.util.Try
 //scalastyle:off method.length
 // scalastyle:off number.of.methods
 // scalastyle:off line.size.limit
+//scalastyle:off file.size.limit
 // scalastyle:off magic.number
 
 class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
@@ -1433,3 +1434,8 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
     }
   }
 }
+//scalastyle:on method.length
+// scalastyle:on number.of.methods
+// scalastyle:on line.size.limit
+//scalastyle:on file.size.limit
+// scalastyle:on magic.number

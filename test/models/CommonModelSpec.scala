@@ -18,7 +18,6 @@ package models
 
 import java.time.LocalDate
 import base.SpecBase
-import models.nominees.OrganisationNomineeContactDetails
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.OptionValues

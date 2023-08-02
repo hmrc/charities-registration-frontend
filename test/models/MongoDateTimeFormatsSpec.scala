@@ -18,37 +18,52 @@ package models
 
 import base.data.constants.DateConstants.feb1st2018
 import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
-import play.api.libs.json.Json
+import play.api.libs.json._
+import java.time.LocalDateTime
 
-import java.time.{LocalDate, LocalDateTime}
+import org.scalatest.wordspec.AnyWordSpec
 
-class MongoDateTimeFormatsSpec extends AnyFreeSpec with Matchers with OptionValues with MongoDateTimeFormats {
+class MongoDateTimeFormatsSpec extends AnyWordSpec with Matchers with OptionValues with MongoDateTimeFormats {
 
-  "a LocalDateTime" - {
+  private val date: LocalDateTime = feb1st2018.atStartOfDay
+  private val dateMillis: Long    = 1517443200000L
+  private val json: JsObject      = Json.obj(
+    f"$$date" -> dateMillis
+  )
 
-    val date = feb1st2018.atStartOfDay
+  "MongoDateTimeFormats" when {
+    ".localDateTimeFormat" must {
+      "serialise to json" in {
+        val result: JsValue = Json.toJson(date)
 
-    val dateMillis = 1517443200000L
+        result mustEqual json
+      }
 
-    val json = Json.obj(
-      f"$$date" -> dateMillis
-    )
+      "deserialise from json" in {
+        val result: LocalDateTime = json.as[LocalDateTime]
 
-    "must serialise to json" in {
-      val result = Json.toJson(date)
-      result mustEqual json
-    }
+        result mustEqual date
+      }
 
-    "must deserialise from json" in {
-      val result = json.as[LocalDateTime]
-      result mustEqual date
-    }
+      "serialise/deserialise to the same value" in {
+        val result: LocalDateTime = Json.toJson(date).as[LocalDateTime]
 
-    "must serialise/deserialise to the same value" in {
-      val result = Json.toJson(date).as[LocalDateTime]
-      result mustEqual date
+        result mustEqual date
+      }
+
+      def test(json: JsObject): Unit =
+        s"produce a JsError when converting from $json" in {
+          val result: JsResult[LocalDateTime] = json.validate[LocalDateTime]
+
+          result mustBe JsError("Unexpected LocalDateTime Format")
+        }
+
+      Seq(
+        Json.obj(s"$$date" -> JsBoolean(true)),
+        Json.obj(s"$$date" -> Json.obj()),
+        Json.obj()
+      ).foreach(test)
     }
   }
 }

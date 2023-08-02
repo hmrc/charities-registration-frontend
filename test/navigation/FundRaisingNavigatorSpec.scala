@@ -20,11 +20,12 @@ import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models._
-import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
+import models.operations._
 import org.joda.time.{LocalDate, MonthDay}
 import pages.IndexPage
 import pages.operationsAndFunds._
 
+//scalastyle:off file.size.limit
 class FundRaisingNavigatorSpec extends SpecBase {
   //scalastyle:off magic.number
 
@@ -802,3 +803,5 @@ class FundRaisingNavigatorSpec extends SpecBase {
     }
   }
 }
+//scalastyle:on file.size.limit
+//scalastyle:on magic.number

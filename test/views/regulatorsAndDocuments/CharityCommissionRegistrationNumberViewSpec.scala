@@ -26,21 +26,36 @@ import views.html.regulatorsAndDocuments.CharityCommissionRegistrationNumberView
 
 class CharityCommissionRegistrationNumberViewSpec extends QuestionViewBehaviours[String] {
 
-  private val messageKeyPrefix = "charityCommissionRegistrationNumber"
-  val form: Form[String]       = inject[CharityCommissionRegistrationNumberFormProvider].apply()
+  private val messageKeyPrefix: String = "charityCommissionRegistrationNumber"
+  val form: Form[String]               = inject[CharityCommissionRegistrationNumberFormProvider].apply()
 
-  "CharityCommissionRegistrationNumberView" must {
+  private val view: CharityCommissionRegistrationNumberView =
+    viewFor[CharityCommissionRegistrationNumberView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[CharityCommissionRegistrationNumberView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "CharityCommissionRegistrationNumberView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("charityRegulator.section")))
 
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

@@ -27,21 +27,36 @@ import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 
 class WhenGoverningDocumentApprovedViewSpec extends QuestionViewBehaviours[LocalDate] {
 
-  private val messageKeyPrefix = "whenGoverningDocumentApproved.4"
-  val form: Form[LocalDate]    = inject[WhenGoverningDocumentApprovedFormProvider].apply()
+  private val messageKeyPrefix: String = "whenGoverningDocumentApproved.4"
+  val form: Form[LocalDate]            = inject[WhenGoverningDocumentApprovedFormProvider].apply()
 
-  "WhenGoverningDocumentApprovedView view" must {
+  private val view: WhenGoverningDocumentApprovedView =
+    viewFor[WhenGoverningDocumentApprovedView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[WhenGoverningDocumentApprovedView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, "4", fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "WhenGoverningDocumentApprovedView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
-
 }

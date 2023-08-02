@@ -16,10 +16,8 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
-import javax.inject.Inject
 import models.MongoDateTimeFormats.localDayMonthRead
 import models._
 import models.operations.FundRaisingOptions.Other
@@ -28,7 +26,7 @@ import pages.Page
 import pages.operationsAndFunds._
 import play.api.mvc.Call
 
-class FundRaisingNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class FundRaisingNavigator extends BaseNavigator {
 
   def overseasRedirect(userAnswers: UserAnswers, mode: Mode): Call = {
     val result = for (i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))

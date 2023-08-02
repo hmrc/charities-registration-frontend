@@ -16,17 +16,32 @@
 
 package views.errors
 
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.errors.SignedYouOutView
 
 class SignedYouOutViewSpec extends ViewBehaviours {
 
-  "Signed you out view" must {
+  private val view: SignedYouOutView = inject[SignedYouOutView]
 
-    val view = inject[SignedYouOutView]
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    val applyView = view.apply()(fakeRequest, messages, frontendAppConfig)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView, "signed_out")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
+
+  "SignedYouOutView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, "signed_out")
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

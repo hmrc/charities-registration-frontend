@@ -16,10 +16,9 @@
 
 package viewmodels.operationsAndFunds
 
-import models.{BankDetails, CheckMode, UserAnswers}
+import models.{CheckMode, UserAnswers}
 import pages.operationsAndFunds._
 import play.api.i18n.Messages
-import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}

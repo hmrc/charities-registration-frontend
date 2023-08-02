@@ -69,8 +69,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     }
 
   def multiLineAnswer[A <: WithOrder](page: QuestionPage[Set[A]], changeLinkCall: Call)(implicit
-    reads: Reads[A],
-    conversion: A => String
+    reads: Reads[A]
   ): Option[SummaryListRow] =
     userAnswers.get(page).map { ans =>
       summaryListRow(

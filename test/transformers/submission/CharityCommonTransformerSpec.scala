@@ -20,13 +20,14 @@ import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharityEstablishedOptions
-import models.{BankDetails, CharityContactDetails, CharityName, Name, PhoneNumber, SelectTitle}
-import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
-import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, AuthorisedOfficialsPositionPage}
-import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import models._
+import pages.addressLookup._
+import pages.authorisedOfficials._
+import pages.contactDetails._
 import pages.operationsAndFunds.{BankDetailsPage, CharityEstablishedInPage}
-import play.api.libs.json.{Json, __}
+import play.api.libs.json.Json
 
+//scalastyle:off file.size.limit
 class CharityCommonTransformerSpec extends SpecBase {
 
   val jsonTransformer: CharityCommonTransformer = new CharityCommonTransformer
@@ -85,6 +86,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       }
 
       "convert the correct Admin object when more than 50 is length of session Id" in {
+        val number    = 50
         val json      = emptyUserAnswers.data
           .transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestTooLongSessionId))
           .asOpt
@@ -93,7 +95,7 @@ class CharityCommonTransformerSpec extends SpecBase {
 
         sessionId must have length 50
         sessionId must not be empty
-        sessionId mustBe ("short id here not 50 chars" * 10).take(50)
+        sessionId mustBe ("short id here not 50 chars" * 10).take(number)
       }
 
     }
@@ -826,5 +828,5 @@ class CharityCommonTransformerSpec extends SpecBase {
       }
     }
   }
-
 }
+//scalastyle:on file.size.limit

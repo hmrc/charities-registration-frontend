@@ -22,27 +22,39 @@ import views.html.DeadEndView
 
 class DeadEndViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "deadEnd"
+  private val messageKeyPrefix: String = "deadEnd"
 
-  "deadEndView" must {
+  private val view: DeadEndView = viewFor[DeadEndView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[DeadEndView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "DeadEndView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "taskListLink",
-      controllers.routes.IndexController.onPageLoad(None).url,
-      messages("site.gotoTaskList")
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "p2")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "taskListLink",
+          controllers.routes.IndexController.onPageLoad(None).url,
+          messages("site.gotoTaskList")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

@@ -20,9 +20,9 @@ import base.SpecBase
 import controllers.routes
 import models._
 import models.operations.CharitablePurposes
-import models.operations.CharitablePurposes.{AmateurSport, Other}
+import models.operations.CharitablePurposes.AmateurSport
 import pages.IndexPage
-import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, CharityObjectivesSummaryPage, PublicBenefitsPage}
+import pages.operationsAndFunds._
 import controllers.operationsAndFunds.{routes => operations}
 
 class ObjectivesNavigatorSpec extends SpecBase {

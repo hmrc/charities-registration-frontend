@@ -25,40 +25,56 @@ import views.html.common.CurrencyView
 
 class CurrencyViewSpec extends QuestionViewBehaviours[BigDecimal] {
 
-  private lazy val estimatedIncomePrefix = "estimatedIncome"
-  private lazy val actualIncomePrefix    = "actualIncome"
-  val form: Form[BigDecimal]             = inject[CurrencyFormProvider].apply(estimatedIncomePrefix)
-  val formActual: Form[BigDecimal]       = inject[CurrencyFormProvider].apply(actualIncomePrefix)
+  private lazy val estimatedIncomePrefix: String = "estimatedIncome"
+  private lazy val actualIncomePrefix: String    = "actualIncome"
+  val form: Form[BigDecimal]                     = inject[CurrencyFormProvider].apply(estimatedIncomePrefix)
+  val formActual: Form[BigDecimal]               = inject[CurrencyFormProvider].apply(actualIncomePrefix)
 
-  def applyView(form: Form[_], prefix: String): HtmlFormat.Appendable = {
-    val view = viewFor[CurrencyView](Some(emptyUserAnswers))
+  private val view: CurrencyView = viewFor[CurrencyView](Some(emptyUserAnswers))
+
+  private def viewViaApply(form: Form[BigDecimal], prefix: String): HtmlFormat.Appendable =
     view.apply(form, prefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+
+  private def viewViaRender(form: Form[BigDecimal], prefix: String): HtmlFormat.Appendable =
+    view.render(form, prefix, onwardRoute, fakeRequest, messages, frontendAppConfig)
+
+  private def viewViaF(form: Form[BigDecimal], prefix: String): HtmlFormat.Appendable =
+    view.f(form, prefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+
+  private def viewTest(
+    method: String,
+    viewWithEstimated: HtmlFormat.Appendable,
+    viewWithActual: HtmlFormat.Appendable
+  ): Unit =
+    s"$method" when {
+      "with estimated income" must {
+        behave like normalPage(
+          viewWithEstimated,
+          estimatedIncomePrefix,
+          section = Some(messages("operationsAndFunds.section"))
+        )
+
+        behave like pageWithBackLink(viewWithEstimated)
+
+        behave like pageWithSubmitButton(viewWithEstimated, BaseMessages.saveAndContinue)
+      }
+
+      "with actual income" must {
+        behave like normalPage(
+          viewWithActual,
+          actualIncomePrefix,
+          section = Some(messages("operationsAndFunds.section"))
+        )
+
+        behave like pageWithBackLink(viewWithActual)
+
+        behave like pageWithSubmitButton(viewWithActual, BaseMessages.saveAndContinue)
+      }
+    }
+
+  "CurrencyView" when {
+    viewTest(".apply", viewViaApply(form, estimatedIncomePrefix), viewViaApply(formActual, actualIncomePrefix))
+    viewTest(".render", viewViaRender(form, estimatedIncomePrefix), viewViaRender(formActual, actualIncomePrefix))
+    viewTest(".f", viewViaF(form, estimatedIncomePrefix), viewViaF(formActual, actualIncomePrefix))
   }
-
-  "Charity's Estimated income view" must {
-
-    behave like normalPage(
-      applyView(form, estimatedIncomePrefix),
-      estimatedIncomePrefix,
-      section = Some(messages("operationsAndFunds.section"))
-    )
-
-    behave like pageWithBackLink(applyView(form, estimatedIncomePrefix))
-
-    behave like pageWithSubmitButton(applyView(form, estimatedIncomePrefix), BaseMessages.saveAndContinue)
-  }
-
-  "Charity's Actual income view" must {
-
-    behave like normalPage(
-      applyView(formActual, actualIncomePrefix),
-      actualIncomePrefix,
-      section = Some(messages("operationsAndFunds.section"))
-    )
-
-    behave like pageWithBackLink(applyView(formActual, actualIncomePrefix))
-
-    behave like pageWithSubmitButton(applyView(formActual, actualIncomePrefix), BaseMessages.saveAndContinue)
-  }
-
 }

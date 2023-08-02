@@ -23,26 +23,38 @@ import views.html.regulatorsAndDocuments.StartCharityRegulatorView
 
 class StartCharityRegulatorViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "startCharityRegulator"
-  private val section: String  = messages("charityRegulator.section")
+  private val messageKeyPrefix: String = "startCharityRegulator"
+  private val section: String          = messages("charityRegulator.section")
 
-  "StartCharityRegulatorView" must {
+  private val view: StartCharityRegulatorView = viewFor[StartCharityRegulatorView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[StartCharityRegulatorView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "b1", "b2")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "linkButton",
-      controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url,
-      messages("site.continue")
+  "StartCharityRegulatorView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
+
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "b1", "b2")
+
+        behave like pageWithHyperLink(
+          view,
+          "linkButton",
+          controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode).url,
+          messages("site.continue")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

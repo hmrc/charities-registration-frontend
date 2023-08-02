@@ -17,35 +17,70 @@
 package views.common
 
 import base.data.messages.BaseMessages
-import forms.common.{AmendAddressFormProvider, PassportFormProvider}
-import models.Passport
+import forms.common.AmendAddressFormProvider
 import models.addressLookup.AmendAddressModel
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.common.{AmendAddressView, PassportView}
+import views.html.common.AmendAddressView
 
 class AmendAddressViewSpec extends QuestionViewBehaviours[AmendAddressModel] {
 
-  private val messageKeyPrefix               = "charityOfficialAmendAddress"
-  override val form: Form[AmendAddressModel] = inject[AmendAddressFormProvider].apply(messageKeyPrefix)
+  private val messageKeyPrefix: String = "charityOfficialAmendAddress"
+  val form: Form[AmendAddressModel]    = inject[AmendAddressFormProvider].apply(messageKeyPrefix)
 
-  "AuthorisedOfficialsPassportView" must {
+  private val view: AmendAddressView = viewFor[AmendAddressView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[AmendAddressView](Some(emptyUserAnswers))
-      view.apply(form, messageKeyPrefix, onwardRoute, countries = Seq(("GB", "United Kingdom")))(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply(
+    form,
+    messageKeyPrefix,
+    onwardRoute,
+    countries = Seq(("GB", "United Kingdom"))
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(
+    form,
+    messageKeyPrefix,
+    onwardRoute,
+    None,
+    countries = Seq(("GB", "United Kingdom")),
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(
+    form,
+    messageKeyPrefix,
+    onwardRoute,
+    None,
+    Seq(("GB", "United Kingdom"))
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "AmendAddressView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

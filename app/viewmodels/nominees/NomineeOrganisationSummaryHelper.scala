@@ -19,7 +19,7 @@ package viewmodels.nominees
 import controllers.nominees.routes
 import models.nominees.NomineeSummary
 import models.{CheckMode, UserAnswers}
-import pages.addressLookup.{NomineeIndividualPreviousAddressLookupPage, OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
+import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
 import pages.nominees._
 import play.api.i18n.Messages
 import service.CountryService

@@ -26,6 +26,7 @@
     p: components.p,
     warning: components.warning,
     link: components.link,
+    printLink: components.printLink,
     bullets: components.bullets
 )
 
@@ -57,15 +58,15 @@
 
     @if(emailOrPost && noEmailOrPost){
         @h2{@messages("registrationSent.no.email.h2")}
-        @p(link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink")))
+        @p(printLink("registrationSent.printOrDownload", "printOrDownloadlink"))
         @p{@messages("registrationSent.no.email.p1")}
     } else if(noEmailOrPost) {
         <h2 class="govuk-heading-l">@messages("registrationSent.h2")</h2>
         @p{@messages("registrationSent.post.p1")}
-        @p(link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink")))
+        @p(printLink("registrationSent.printOrDownload", "printOrDownloadlink"))
     } else {
         @h2{@messages(s"registrationSent.$pageSelector.h2")}
-        @p(link("javascript:window.print()", "registrationSent.printOrDownload", Some("printOrDownloadlink")))
+        @p(printLink("registrationSent.printOrDownload", "printOrDownloadlink"))
     }
 
     @h2(messages("registrationSent.step1"))

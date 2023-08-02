@@ -22,29 +22,31 @@ import play.api.mvc.PathBindable
 
 class OptionBinderSpec extends SpecBase {
 
+  private val number: Int = 123
+
   "OptionBinder" should {
 
-    "must bind value to Right as Some" in {
+    "bind value to Right as Some" in {
 
-      val pathBindable = implicitly[PathBindable[Option[Int]]]
+      val pathBindable: PathBindable[Option[Int]] = implicitly[PathBindable[Option[Int]]]
 
       val bind: Either[String, Option[Int]] = pathBindable.bind("foo", "123")
-      bind.value mustBe Some(123)
+      bind.value mustBe Some(number)
     }
 
-    "must bind value to Left" in {
+    "bind value to Left" in {
 
-      val pathBindable = implicitly[PathBindable[Option[Int]]]
+      val pathBindable: PathBindable[Option[Int]] = implicitly[PathBindable[Option[Int]]]
 
       val bind: Either[String, Option[Int]] = pathBindable.bind("foo", "Invalid value")
 
       bind.isLeft mustBe true
     }
 
-    "must unbind path" in {
+    "unbind path" in {
 
-      val pathBindable = implicitly[PathBindable[Option[Int]]]
-      val bindValue    = pathBindable.unbind("foo", Some(123))
+      val pathBindable: PathBindable[Option[Int]] = implicitly[PathBindable[Option[Int]]]
+      val bindValue: String                       = pathBindable.unbind("foo", Some(number))
 
       bindValue mustBe "123"
     }

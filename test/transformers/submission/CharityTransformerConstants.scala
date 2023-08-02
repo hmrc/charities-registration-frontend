@@ -31,7 +31,6 @@ import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPa
 import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
-import play.api.libs.json.{JsValue, Json}
 
 import java.time.LocalDate
 import scala.util.Try

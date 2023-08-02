@@ -19,7 +19,6 @@ package viewmodels.otherOfficials
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{Index, Mode, UserAnswers}
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
-import pages.authorisedOfficials.AuthorisedOfficialsPassportPage
 import pages.otherOfficials._
 import play.api.i18n.Messages
 import service.CountryService

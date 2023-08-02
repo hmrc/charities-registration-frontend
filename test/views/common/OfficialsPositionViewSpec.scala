@@ -19,6 +19,7 @@ package views.common
 import base.data.messages.BaseMessages
 import forms.common.OfficialsPositionFormProvider
 import models.authOfficials.OfficialsPosition
+import org.jsoup.nodes.Document
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
@@ -30,36 +31,51 @@ class OfficialsPositionViewSpec extends ViewBehaviours {
   private val section: String          = messages("officialsAndNominees.section")
   val form: Form[OfficialsPosition]    = inject[OfficialsPositionFormProvider].apply(messageKeyPrefix)
 
-  "AuthorisedOfficialsPositionView" must {
+  private val view: OfficialsPositionView = viewFor[OfficialsPositionView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[OfficialsPosition]): HtmlFormat.Appendable = {
-      val view = viewFor[OfficialsPositionView](Some(emptyUserAnswers))
-      view.apply(form, "Jack", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[OfficialsPosition]): HtmlFormat.Appendable =
+    view.apply(form, "test", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq("Jack"), section = Some(section))
+  private def viewViaRender(form: Form[OfficialsPosition]): HtmlFormat.Appendable =
+    view.render(form, "test", messageKeyPrefix, onwardRoute, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[OfficialsPosition]): HtmlFormat.Appendable =
+    view.f(form, "test", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "OfficialsPositionView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, Seq("test"), section = Some(section))
 
-    OfficialsPosition.options(form).zipWithIndex.foreach { case (option, i) =>
-      val id = if (i == 0) "value" else s"value-${i + 1}"
+        behave like pageWithBackLink(view)
 
-      s"contain radio buttons for the value '${option.value.get}'" in {
-
-        val doc = asDocument(applyView(form))
-        assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = false)
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
       }
 
-      s"rendered with a value of '${option.value.get}'" must {
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form)),
+      (".render", viewViaRender(form)),
+      (".f", viewViaF(form))
+    )
 
-        s"have the '${option.value.get}' radio button selected" in {
+    input.foreach(args => (test _).tupled(args))
 
-          val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
-          val doc          = asDocument(applyView(formWithData))
+    ".apply" must {
+      OfficialsPosition.options(form).zipWithIndex.foreach { case (option, i) =>
+        val id: String = if (i == 0) "value" else s"value-${i + 1}"
 
-          assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = true)
+        s"contain radio buttons for the value '${option.value.get}'" in {
+          val doc: Document = asDocument(viewViaApply(form))
+          assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = false)
+        }
+
+        s"have the '${option.value.get}' radio button selected" when {
+          s"rendered with a value of '${option.value.get}'" in {
+            val formWithData: Form[OfficialsPosition] = form.bind(Map("value" -> s"${option.value.get}"))
+            val doc: Document                         = asDocument(viewViaApply(formWithData))
+
+            assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = true)
+          }
         }
       }
     }

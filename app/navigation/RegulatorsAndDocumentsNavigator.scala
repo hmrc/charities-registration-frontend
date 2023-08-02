@@ -16,10 +16,8 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
-import javax.inject.Inject
 import models._
 import models.regulators.CharityRegulator
 import models.regulators.SelectWhyNoRegulator._
@@ -27,7 +25,7 @@ import pages.regulatorsAndDocuments._
 import pages.{IsSwitchOverUserPage, Page, QuestionPage}
 import play.api.mvc.Call
 
-class RegulatorsAndDocumentsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class RegulatorsAndDocumentsNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
     case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorPageNav(NormalMode, userAnswers)

@@ -57,6 +57,12 @@ class EnumerableSpec extends AnyWordSpec with Matchers with EitherValues with Op
         JsPath -> Seq(JsonValidationError("error.invalid"))
       )
     }
+
+    "fail to bind for JsNumber" in {
+      Json.fromJson[Foo](JsNumber(1)).asEither.left.value must contain(
+        JsPath -> Seq(JsonValidationError("error.invalid"))
+      )
+    }
   }
 
   ".writes" must {

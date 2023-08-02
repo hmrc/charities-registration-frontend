@@ -22,27 +22,39 @@ import views.html.StartDeclarationView
 
 class StartDeclarationViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "startDeclaration"
+  private val messageKeyPrefix: String = "startDeclaration"
 
-  "startDeclarationView" must {
+  private val view: StartDeclarationView = viewFor[StartDeclarationView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[StartDeclarationView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("declaration.section")))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "StartDeclarationView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("declaration.section")))
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "declarationLink",
-      controllers.routes.DeclarationController.onPageLoad.url,
-      messages("site.continue")
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "declarationLink",
+          controllers.routes.DeclarationController.onPageLoad.url,
+          messages("site.continue")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

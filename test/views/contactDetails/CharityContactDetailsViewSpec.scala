@@ -26,21 +26,35 @@ import views.html.contactDetails.CharityContactDetailsView
 
 class CharityContactDetailsViewSpec extends QuestionViewBehaviours[CharityContactDetails] {
 
-  private val messageKeyPrefix          = "charityContactDetails"
+  private val messageKeyPrefix: String  = "charityContactDetails"
   val form: Form[CharityContactDetails] = inject[CharityContactDetailsFormProvider].apply()
 
-  "CharityContactDetailsView" must {
+  private val view: CharityContactDetailsView = viewFor[CharityContactDetailsView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[CharityContactDetailsView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("contactDetail.section")))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "CharityContactDetailsView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("contactDetail.section")))
 
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

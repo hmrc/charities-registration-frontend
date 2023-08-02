@@ -22,26 +22,39 @@ import views.html.checkEligibility.IncorrectDetailsView
 
 class IncorrectDetailsViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "incorrect-details"
+  private val messageKeyPrefix: String = "incorrect-details"
 
-  "IncorrectDetails view" must {
+  private val view: IncorrectDetailsView = viewFor[IncorrectDetailsView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[IncorrectDetailsView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(
-      applyView(),
-      messageKeyPrefix,
-      "notAnOrganisation.p1",
-      "notAnOrganisation.p2",
-      "notAnOrganisation.p1.link",
-      "notAnOrganisation.p2.link"
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
+
+  "IncorrectDetailsView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
+
+        behave like pageWithAdditionalGuidance(
+          view,
+          messageKeyPrefix,
+          "notAnOrganisation.p1",
+          "notAnOrganisation.p2",
+          "notAnOrganisation.p1.link",
+          "notAnOrganisation.p2.link"
+        )
+
+        behave like pageWithBackLink(view)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    behave like pageWithBackLink(applyView())
+    input.foreach(args => (test _).tupled(args))
   }
 }

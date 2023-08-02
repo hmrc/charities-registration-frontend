@@ -16,7 +16,6 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import controllers.routes
 import models._
@@ -25,9 +24,7 @@ import pages.Page
 import pages.regulatorsAndDocuments._
 import play.api.mvc.Call
 
-import javax.inject.Inject
-
-class DocumentsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class DocumentsNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
 

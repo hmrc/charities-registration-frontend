@@ -26,21 +26,35 @@ import views.html.regulatorsAndDocuments.GoverningDocumentNameView
 
 class GoverningDocumentNameViewSpec extends QuestionViewBehaviours[String] {
 
-  private val messageKeyPrefix = "governingDocumentName"
-  val form: Form[String]       = inject[GoverningDocumentNameFormProvider].apply()
+  private val messageKeyPrefix: String = "governingDocumentName"
+  val form: Form[String]               = inject[GoverningDocumentNameFormProvider].apply()
 
-  "GoverningDocumentNameView" must {
+  private val view: GoverningDocumentNameView = viewFor[GoverningDocumentNameView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[GoverningDocumentNameView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "GoverningDocumentNameView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("charityRegulator.section")))
 
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

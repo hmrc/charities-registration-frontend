@@ -17,7 +17,6 @@
 package controllers
 
 import models.UserAnswers
-import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Result
 import play.api.test.Helpers
@@ -27,8 +26,6 @@ import stubs.AuthStub.authorised
 import stubs.CharitiesStub._
 import utils.{CreateRequestHelper, IntegrationSpecBase, WireMockMethods}
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import scala.concurrent.Future
 import scala.io.Source
 

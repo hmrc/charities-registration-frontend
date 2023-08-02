@@ -19,7 +19,7 @@ package repositories
 import config.FrontendAppConfig
 import models.UserAnswers
 import org.mongodb.scala.MongoCollection
-import org.mongodb.scala.model.{Filters, FindOneAndReplaceOptions, IndexModel, IndexOptions, Indexes}
+import org.mongodb.scala.model._
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.Eventually.eventually
 import pages.checkEligibility.IsEligiblePurposePage
@@ -86,7 +86,7 @@ class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach w
         IndexModel(Indexes.ascending("_id"), IndexOptions().name("_id_"))
       )
 
-      await(repository.ensureIndexes)
+      await(repository.ensureIndexes())
 
       eventually(timeout(5.seconds), interval(100.milliseconds)) {
         assertIndexes(expectedIndexes.sorted, getIndexes(repository.collection).sorted)

@@ -18,7 +18,7 @@ package pages.nominees
 
 import models.Name
 import pages.QuestionPage
-import play.api.libs.json.{JsPath, __}
+import play.api.libs.json.JsPath
 
 case object IndividualNomineeNamePage extends QuestionPage[Name] {
 

@@ -31,19 +31,39 @@ class OperatingLocationViewSpec extends CheckboxViewBehaviours[OperatingLocation
   private val section: String                   = messages("operationsAndFunds.section")
   val form: Form[Set[OperatingLocationOptions]] = inject[OperatingLocationFormProvider].apply()
 
-  "OperatingLocationView" must {
+  private val view: OperatingLocationView = viewFor[OperatingLocationView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[Set[OperatingLocationOptions]]): HtmlFormat.Appendable = {
-      val view = viewFor[OperatingLocationView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Set[OperatingLocationOptions]]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+  private def viewViaRender(form: Form[Set[OperatingLocationOptions]]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Set[OperatingLocationOptions]]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like checkboxPage(form, applyView, messageKeyPrefix, OperatingLocationOptions.options(form), section)
+  "OperatingLocationView" when {
+    def test(
+      method: String,
+      view: HtmlFormat.Appendable,
+      createView: Form[Set[OperatingLocationOptions]] => HtmlFormat.Appendable
+    ): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
+
+        behave like checkboxPage(form, createView, messageKeyPrefix, OperatingLocationOptions.options(form), section)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Set[OperatingLocationOptions]] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

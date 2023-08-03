@@ -22,24 +22,36 @@ import views.html.DeclarationView
 
 class DeclarationViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "declaration"
+  private val messageKeyPrefix: String = "declaration"
 
-  "declarationView" must {
+  private val view: DeclarationView = viewFor[DeclarationView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[DeclarationView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("declaration.section")))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "DeclarationView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("declaration.section")))
 
-    behave like pageWithWarningText(applyView(), messages("declaration.warning"))
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1")
 
-    behave like pageWithSubmitButton(applyView(), messages("site.confirmAndSend"))
+        behave like pageWithBackLink(view)
 
+        behave like pageWithWarningText(view, messages("declaration.warning"))
+
+        behave like pageWithSubmitButton(view, messages("site.confirmAndSend"))
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

@@ -31,19 +31,39 @@ class FundRaisingViewSpec extends CheckboxViewBehaviours[FundRaisingOptions] {
   private val section: String             = messages("operationsAndFunds.section")
   val form: Form[Set[FundRaisingOptions]] = inject[FundRaisingFormProvider].apply()
 
-  "SelectFundRaisingView" must {
+  private val view: FundRaisingView = viewFor[FundRaisingView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[Set[FundRaisingOptions]]): HtmlFormat.Appendable = {
-      val view = viewFor[FundRaisingView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Set[FundRaisingOptions]]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+  private def viewViaRender(form: Form[Set[FundRaisingOptions]]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Set[FundRaisingOptions]]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like checkboxPage(form, applyView, messageKeyPrefix, FundRaisingOptions.options(form), section)
+  "FundRaisingView" when {
+    def test(
+      method: String,
+      view: HtmlFormat.Appendable,
+      createView: Form[Set[FundRaisingOptions]] => HtmlFormat.Appendable
+    ): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
+
+        behave like checkboxPage(form, createView, messageKeyPrefix, FundRaisingOptions.options(form), section)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Set[FundRaisingOptions]] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

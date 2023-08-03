@@ -22,7 +22,6 @@ import controllers.actions._
 import forms.contactDetails.CanWeSendToThisAddressFormProvider
 import javax.inject.Inject
 import models.Mode
-import models.requests.DataRequest
 import navigation.CharityInformationNavigator
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.contactDetails.CanWeSendToThisAddressPage

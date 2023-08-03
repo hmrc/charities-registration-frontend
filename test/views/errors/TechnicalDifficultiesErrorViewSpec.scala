@@ -17,30 +17,49 @@
 package views.errors
 
 import org.jsoup.Jsoup
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.errors.TechnicalDifficultiesErrorView
 
 class TechnicalDifficultiesErrorViewSpec extends ViewBehaviours {
 
-  "Technical Difficulties Error view" must {
+  private val view: TechnicalDifficultiesErrorView = inject[TechnicalDifficultiesErrorView]
 
-    val view = inject[TechnicalDifficultiesErrorView]
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply("title", "heading", "content")(fakeRequest, messages, frontendAppConfig)
 
-    val applyView     = view.apply("title", "heading", "content")(fakeRequest, messages, frontendAppConfig)
-    lazy val document = Jsoup.parse(applyView.toString)
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render("title", "heading", "content", fakeRequest, messages, frontendAppConfig)
 
-    "Have the correct pageTitle" in {
-      document.title mustBe title("Sorry, there is a problem with the service - Error")
+  private val viewViaF: HtmlFormat.Appendable =
+    view.f("title", "heading", "content")(fakeRequest, messages, frontendAppConfig)
+
+  "TechnicalDifficultiesErrorView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit = {
+      val document = Jsoup.parse(view.toString)
+      s"$method" must {
+        "have the correct pageTitle" in {
+          document.title mustBe title("Sorry, there is a problem with the service - Error")
+        }
+
+        "have the correct heading" in {
+          document.select("h1").text mustBe "Sorry, there is a problem with the service"
+        }
+
+        "have the correct content" in {
+          document
+            .select("main p.govuk-body")
+            .text mustBe "Try again later. We saved your answers. They will be available for 28 days."
+        }
+      }
     }
 
-    "Have the correct heading" in {
-      document.select("h1").text mustBe "Sorry, there is a problem with the service"
-    }
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
 
-    "Have the correct content" in {
-      document
-        .select("main p.govuk-body")
-        .text mustBe "Try again later. We saved your answers. They will be available for 28 days."
-    }
+    input.foreach(args => (test _).tupled(args))
   }
 }

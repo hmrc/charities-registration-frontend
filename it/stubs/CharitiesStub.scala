@@ -18,10 +18,9 @@ package stubs
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import models.UserAnswers
-import org.mockito.ArgumentMatchers.any
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.http.Status.{ACCEPTED, OK}
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import utils.WireMockMethods
 
 import java.time.LocalDate

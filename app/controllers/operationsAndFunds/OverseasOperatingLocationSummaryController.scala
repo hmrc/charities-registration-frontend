@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import forms.operationsAndFunds.OverseasOperatingLocationSummaryFormProvider
-import models.{Index, Mode}
+import models.Mode
 import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInPage}
 import pages.sections.Section5Page

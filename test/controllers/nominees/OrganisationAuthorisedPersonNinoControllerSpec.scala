@@ -16,24 +16,22 @@
 
 package controllers.nominees
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import forms.common.{DateOfBirthFormProvider, NinoFormProvider}
+import forms.common.NinoFormProvider
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.nominees.{OrganisationAuthorisedPersonDOBPage, OrganisationAuthorisedPersonNamePage, OrganisationAuthorisedPersonNinoPage}
+import pages.nominees.{OrganisationAuthorisedPersonNamePage, OrganisationAuthorisedPersonNinoPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import service.UserAnswerService
-import views.html.common.{DateOfBirthView, NinoView}
+import views.html.common.NinoView
 
 import scala.concurrent.Future
 

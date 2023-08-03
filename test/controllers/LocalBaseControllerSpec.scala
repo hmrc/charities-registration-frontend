@@ -17,7 +17,6 @@
 package controllers
 
 import base.SpecBase
-import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.{AddressModel, CountryModel}
 import models.regulators.SelectGoverningDocument
@@ -30,12 +29,12 @@ import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.OrganisationNomineeNamePage
-import pages.regulatorsAndDocuments.{GoverningDocumentNamePage, SelectGoverningDocumentPage}
-import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
+import pages.regulatorsAndDocuments._
+import pages.sections._
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.{AnyContent, MessagesControllerComponents, Result, Results}
-import play.api.test.Helpers.{redirectLocation, status, _}
+import play.api.mvc._
+import play.api.test.Helpers._
 import service.UserAnswerService
 
 import scala.concurrent.Future
@@ -58,13 +57,12 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
   private def block(test: String): Future[Result] =
     Future.successful(Results.Ok(test))
 
-  private def blockForAddress(test: Seq[String]) =
+  private def blockForAddress(test: Seq[String]): Future[Result] =
     Future.successful(Results.Ok(test.mkString(",")))
 
   class TestAuthorisedOfficialsController @Inject() (
     val controllerComponents: MessagesControllerComponents
-  )(implicit appConfig: FrontendAppConfig)
-      extends LocalBaseController
+  ) extends LocalBaseController
 
   private lazy val controller: TestAuthorisedOfficialsController = new TestAuthorisedOfficialsController(
     messagesControllerComponents
@@ -169,7 +167,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
             .value
         )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request)
 
         status(result) mustEqual OK
       }
@@ -185,7 +183,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
             .value
         )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request)
 
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(routes.PageNotFoundController.onPageLoad().url)
@@ -202,7 +200,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
             .value
         )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request)
 
         status(result) mustEqual OK
       }
@@ -218,7 +216,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
             .value
         )
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request)
 
         status(result) mustEqual OK
       }
@@ -227,7 +225,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
 
         val request: DataRequest[AnyContent] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
-        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request, messages)
+        val result = controller.getDocumentNameKey(SelectGoverningDocumentPage)(block)(request)
 
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(routes.PageNotFoundController.onPageLoad().url)

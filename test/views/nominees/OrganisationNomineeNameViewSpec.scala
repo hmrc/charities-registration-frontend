@@ -26,21 +26,35 @@ import views.html.nominees.OrganisationNomineeNameView
 
 class OrganisationNomineeNameViewSpec extends QuestionViewBehaviours[String] {
 
-  private val messageKeyPrefix = "nameOfOrganisation"
-  val form: Form[String]       = inject[OrganisationNomineeNameFormProvider].apply()
+  private val messageKeyPrefix: String = "nameOfOrganisation"
+  val form: Form[String]               = inject[OrganisationNomineeNameFormProvider].apply()
 
-  " OrganisationNomineeNameView" must {
+  private val view: OrganisationNomineeNameView = viewFor[OrganisationNomineeNameView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[OrganisationNomineeNameView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "OrganisationNomineeNameView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("officialsAndNominees.section")))
 
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

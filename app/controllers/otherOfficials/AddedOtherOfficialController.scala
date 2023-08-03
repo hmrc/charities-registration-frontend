@@ -20,7 +20,6 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.AddedOfficialController
-import models.Index
 import navigation.OtherOfficialsNavigator
 import pages.otherOfficials.{AddedOtherOfficialPage, OtherOfficialsNamePage}
 import pages.sections.Section8Page

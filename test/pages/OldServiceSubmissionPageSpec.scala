@@ -16,8 +16,6 @@
 
 package pages
 
-import java.time.LocalDate
-
 import models.OldServiceSubmission
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
@@ -28,7 +26,7 @@ class OldServiceSubmissionPageSpec extends PageBehaviours {
     OldServiceSubmission("num", "date")
   }
 
-  "ApplicationSubmissionDatePage" must {
+  "OldServiceSubmissionPage" must {
 
     beRetrievable[OldServiceSubmission](OldServiceSubmissionPage)
 

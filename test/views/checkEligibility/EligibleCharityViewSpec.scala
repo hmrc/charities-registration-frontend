@@ -25,36 +25,52 @@ import views.html.checkEligibility.EligibleCharityView
 
 class EligibleCharityViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "eligibleCharity"
+  private val messageKeyPrefix: String = "eligibleCharity"
 
-  "EligibleCharityView view" must {
+  private val view: EligibleCharityView = viewFor[EligibleCharityView](Some(emptyUserAnswers))
 
-    def applyView(sessionId: Option[SessionId] = None): HtmlFormat.Appendable = {
-      val view = viewFor[EligibleCharityView](Some(emptyUserAnswers))
-      view.apply(NormalMode, sessionId)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(sessionId: Option[SessionId] = None): HtmlFormat.Appendable =
+    view.apply(NormalMode, sessionId)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(NormalMode, None, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+  private val viewViaF: HtmlFormat.Appendable = view.f(NormalMode, None)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "EligibleCharityView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "linkButton",
-      controllers.routes.IndexController.onPageLoad(None).url,
-      BaseMessages.continue
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "linkButton",
+          controllers.routes.IndexController.onPageLoad(None).url,
+          BaseMessages.continue
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply()),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    "with session id" must {
-      behave like pageWithHyperLink(
-        applyView(Some(SessionId("123456"))),
-        "linkButton",
-        controllers.routes.IndexController.onPageLoad(Some("123456")).url,
-        BaseMessages.continue
-      )
-    }
+    input.foreach(args => (test _).tupled(args))
 
+    ".apply" when {
+      "with session id" must {
+        behave like pageWithHyperLink(
+          viewViaApply(Some(SessionId("123456"))),
+          "linkButton",
+          controllers.routes.IndexController.onPageLoad(Some("123456")).url,
+          BaseMessages.continue
+        )
+      }
+    }
   }
 }

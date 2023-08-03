@@ -16,34 +16,52 @@
 
 package views.errors
 
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.errors.PageNotFoundView
 
 class PageNotFoundViewSpec extends ViewBehaviours {
 
-  "PageNotFound view" must {
+  private val view: PageNotFoundView = inject[PageNotFoundView]
 
-    val view = inject[PageNotFoundView]
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(signedIn = false)(fakeRequest, messages, frontendAppConfig)
 
-    val applyView = view.apply(signedIn = false)(fakeRequest, messages, frontendAppConfig)
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(signedIn = false, fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView, "pageNotFound")
+  private val viewViaF: HtmlFormat.Appendable = view.f(false)(fakeRequest, messages, frontendAppConfig)
 
-    "reportLink" should {
-      behave like pageWithHyperLink(
-        applyView,
-        "reportLink",
-        frontendAppConfig.contactUrl,
-        messages("pageNotFound.p3.link")
-      )
-    }
+  "PageNotFoundView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, "pageNotFound")
 
-    behave like pageWithHyperLink(
-      applyView,
-      "startLink",
-      controllers.routes.PageNotFoundController.redirectToStartOfJourney().url,
-      messages("pageNotFound.back.start.link")
+        behave like pageWithHyperLink(
+          view,
+          "startLink",
+          controllers.routes.PageNotFoundController.redirectToStartOfJourney().url,
+          messages("pageNotFound.back.start.link")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
+
+    ".apply" when {
+      "reportLink" must {
+        behave like pageWithHyperLink(
+          viewViaApply,
+          "reportLink",
+          frontendAppConfig.contactUrl,
+          messages("pageNotFound.p3.link")
+        )
+      }
+    }
   }
 }

@@ -23,7 +23,7 @@ import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRe
 import models.NormalMode
 import navigation.ObjectivesNavigator
 import pages.IndexPage
-import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, CharityObjectivesSummaryPage, PublicBenefitsPage}
+import pages.operationsAndFunds.CharityObjectivesSummaryPage
 import pages.sections.Section4Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.UserAnswerService

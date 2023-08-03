@@ -31,19 +31,39 @@ class CharityRegulatorViewSpec extends CheckboxViewBehaviours[CharityRegulator] 
   private val section: String           = messages("charityRegulator.section")
   val form: Form[Set[CharityRegulator]] = inject[CharityRegulatorFormProvider].apply()
 
-  "CharityRegulatorView" must {
+  private val view: CharityRegulatorView = viewFor[CharityRegulatorView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[Set[CharityRegulator]]): HtmlFormat.Appendable = {
-      val view = viewFor[CharityRegulatorView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Set[CharityRegulator]]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+  private def viewViaRender(form: Form[Set[CharityRegulator]]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Set[CharityRegulator]]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like checkboxPage(form, applyView, messageKeyPrefix, CharityRegulator.options(form), section)
+  "CharityRegulatorView" when {
+    def test(
+      method: String,
+      view: HtmlFormat.Appendable,
+      createView: Form[Set[CharityRegulator]] => HtmlFormat.Appendable
+    ): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
+
+        behave like checkboxPage(form, createView, messageKeyPrefix, CharityRegulator.options(form), section)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Set[CharityRegulator]] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

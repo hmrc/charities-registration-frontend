@@ -31,19 +31,39 @@ class CharitablePurposesViewSpec extends CheckboxViewBehaviours[CharitablePurpos
   private val section: String             = messages("operationsAndFunds.section")
   val form: Form[Set[CharitablePurposes]] = inject[CharitablePurposesFormProvider].apply()
 
-  "CharitablePurposesView" must {
+  private val view: CharitablePurposesView = viewFor[CharitablePurposesView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[Set[CharitablePurposes]]): HtmlFormat.Appendable = {
-      val view = viewFor[CharitablePurposesView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Set[CharitablePurposes]]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+  private def viewViaRender(form: Form[Set[CharitablePurposes]]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Set[CharitablePurposes]]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like checkboxPage(form, applyView, messageKeyPrefix, CharitablePurposes.options(form), section)
+  "CharitablePurposesView" when {
+    def test(
+      method: String,
+      view: HtmlFormat.Appendable,
+      createView: Form[Set[CharitablePurposes]] => HtmlFormat.Appendable
+    ): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
+
+        behave like checkboxPage(form, createView, messageKeyPrefix, CharitablePurposes.options(form), section)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Set[CharitablePurposes]] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

@@ -26,35 +26,70 @@ import views.html.common.BankAccountDetailsView
 
 class BankAccountDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
-  private val messageKeyPrefix    = "organisationNomineesBankDetails"
-  private val sectionName: String = "officialsAndNominees.section"
-  val form: Form[BankDetails]     = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
+  private val messageKeyPrefix: String = "organisationNomineesBankDetails"
+  private val sectionName: String      = "officialsAndNominees.section"
+  val form: Form[BankDetails]          = inject[BankDetailsFormProvider].apply(messageKeyPrefix)
 
-  "BankAccountDetailsView" must {
+  private val view: BankAccountDetailsView = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[BankAccountDetailsView](Some(emptyUserAnswers))
-      view.apply(
-        form,
-        controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
-        messageKeyPrefix,
-        sectionName,
-        Some("Jim Jam")
-      )(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply(
+    form,
+    controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
+    messageKeyPrefix,
+    sectionName,
+    Some("test")
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like normalPage(
-      applyView(form),
-      messageKeyPrefix,
-      Seq("Jim Jam"),
-      section = Some(messages("officialsAndNominees.section"))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(
+    form,
+    controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
+    messageKeyPrefix,
+    sectionName,
+    Some("test"),
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
+
+  private val viewViaF: HtmlFormat.Appendable = view.f(
+    form,
+    controllers.nominees.routes.OrganisationNomineesBankDetailsController.onSubmit(NormalMode),
+    messageKeyPrefix,
+    sectionName,
+    Some("test")
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
+
+  "BankAccountDetailsView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(
+          view,
+          messageKeyPrefix,
+          Seq("test"),
+          section = Some(messages("officialsAndNominees.section"))
+        )
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithWarningText(view, messages("organisationNomineesBankDetails.basc.warning"))
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    behave like pageWithBackLink(applyView(form))
-
-    behave like pageWithWarningText(applyView(form), messages("organisationNomineesBankDetails.basc.warning"))
-
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    input.foreach(args => (test _).tupled(args))
   }
 }

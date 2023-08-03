@@ -23,7 +23,7 @@ import models.requests.DataRequest
 import pages.QuestionPage
 import pages.regulatorsAndDocuments.GoverningDocumentNamePage
 import pages.sections._
-import play.api.i18n.{I18nSupport, Messages}
+import play.api.i18n.I18nSupport
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
@@ -70,7 +70,7 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
 
   def getDocumentNameKey(
     page: QuestionPage[SelectGoverningDocument]
-  )(block: String => Future[Result])(implicit request: DataRequest[AnyContent], messages: Messages): Future[Result] =
+  )(block: String => Future[Result])(implicit request: DataRequest[AnyContent]): Future[Result] =
     request.userAnswers.get(page) match {
       case Some(SelectGoverningDocument.Other) =>
         request.userAnswers.get(GoverningDocumentNamePage) match {

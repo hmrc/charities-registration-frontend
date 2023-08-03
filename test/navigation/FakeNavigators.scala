@@ -28,33 +28,21 @@ object FakeNavigators extends SpecBase {
     override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
   }
 
-  object FakeEligibilityNavigator
-      extends EligibilityNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeEligibilityNavigator extends EligibilityNavigator with FakeMainNavigator
 
   object FakeCharityInformationNavigator
       extends CharityInformationNavigator()(frontendAppConfig: FrontendAppConfig)
       with FakeMainNavigator
 
-  object FakeRegulatorsAndDocumentsNavigator
-      extends RegulatorsAndDocumentsNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeRegulatorsAndDocumentsNavigator extends RegulatorsAndDocumentsNavigator with FakeMainNavigator
 
-  object FakeDocumentsNavigator
-      extends DocumentsNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeDocumentsNavigator extends DocumentsNavigator with FakeMainNavigator
 
-  object FakeObjectivesNavigator
-      extends ObjectivesNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeObjectivesNavigator extends ObjectivesNavigator with FakeMainNavigator
 
-  object FakeFundRaisingNavigator
-      extends FundRaisingNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeFundRaisingNavigator extends FundRaisingNavigator with FakeMainNavigator
 
-  object FakeBankDetailsNavigator
-      extends BankDetailsNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeBankDetailsNavigator extends BankDetailsNavigator with FakeMainNavigator
 
   object FakeAuthorisedOfficialsNavigator
       extends AuthorisedOfficialsNavigator()(frontendAppConfig: FrontendAppConfig)

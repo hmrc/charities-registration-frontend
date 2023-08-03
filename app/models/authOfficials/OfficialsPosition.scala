@@ -28,26 +28,26 @@ object OfficialsPosition extends Enumerable.Implicits {
 
   case object BoardMember extends WithName("01") with OfficialsPosition
   case object Bursar extends WithName("02") with OfficialsPosition
-  case object Chairman extends WithName("03") with OfficialsPosition
-  case object ChiefExecutive extends WithName("04") with OfficialsPosition
+  private case object Chairman extends WithName("03") with OfficialsPosition
+  private case object ChiefExecutive extends WithName("04") with OfficialsPosition
   case object Director extends WithName("05") with OfficialsPosition
-  case object Employee extends WithName("06") with OfficialsPosition
-  case object FinanceManager extends WithName("07") with OfficialsPosition
-  case object FinancialAccountant extends WithName("08") with OfficialsPosition
-  case object GiftAidSecretary extends WithName("09") with OfficialsPosition
-  case object Governor extends WithName("10") with OfficialsPosition
-  case object HeadTeacher extends WithName("11") with OfficialsPosition
-  case object AssistantHeadTeacher extends WithName("12") with OfficialsPosition
-  case object HumanResourcesManager extends WithName("13") with OfficialsPosition
-  case object InformationOfficer extends WithName("14") with OfficialsPosition
-  case object MinisterOfReligion extends WithName("15") with OfficialsPosition
-  case object Principal extends WithName("16") with OfficialsPosition
-  case object Secretary extends WithName("17") with OfficialsPosition
-  case object AssistantSecretary extends WithName("18") with OfficialsPosition
-  case object Teacher extends WithName("19") with OfficialsPosition
-  case object Treasurer extends WithName("20") with OfficialsPosition
-  case object AssistantTreasurer extends WithName("21") with OfficialsPosition
-  case object Trustee extends WithName("22") with OfficialsPosition
+  private case object Employee extends WithName("06") with OfficialsPosition
+  private case object FinanceManager extends WithName("07") with OfficialsPosition
+  private case object FinancialAccountant extends WithName("08") with OfficialsPosition
+  private case object GiftAidSecretary extends WithName("09") with OfficialsPosition
+  private case object Governor extends WithName("10") with OfficialsPosition
+  private case object HeadTeacher extends WithName("11") with OfficialsPosition
+  private case object AssistantHeadTeacher extends WithName("12") with OfficialsPosition
+  private case object HumanResourcesManager extends WithName("13") with OfficialsPosition
+  private case object InformationOfficer extends WithName("14") with OfficialsPosition
+  private case object MinisterOfReligion extends WithName("15") with OfficialsPosition
+  private case object Principal extends WithName("16") with OfficialsPosition
+  private case object Secretary extends WithName("17") with OfficialsPosition
+  private case object AssistantSecretary extends WithName("18") with OfficialsPosition
+  private case object Teacher extends WithName("19") with OfficialsPosition
+  private case object Treasurer extends WithName("20") with OfficialsPosition
+  private case object AssistantTreasurer extends WithName("21") with OfficialsPosition
+  private case object Trustee extends WithName("22") with OfficialsPosition
   case object UKAgent extends WithName("23") with OfficialsPosition
 
   val values: Seq[OfficialsPosition] = Seq(

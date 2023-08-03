@@ -25,32 +25,47 @@ import views.html.nominees.OrganisationNomineeAuthorisedPersonView
 
 class OrganisationNomineeAuthorisedPersonViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "organisationNomineeAuthorisedPerson"
+  private val messageKeyPrefix: String = "organisationNomineeAuthorisedPerson"
 
-  "OrganisationNomineeAuthorisedPerson View" must {
+  private val view: OrganisationNomineeAuthorisedPersonView =
+    viewFor[OrganisationNomineeAuthorisedPersonView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[OrganisationNomineeAuthorisedPersonView](Some(emptyUserAnswers))
-      view.apply("organisation name")(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply("organisation name")(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(
-      applyView(),
-      messageKeyPrefix,
-      Seq("organisation name"),
-      section = Some(messages("officialsAndNominees.section"))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render("organisation name", fakeRequest, messages, frontendAppConfig)
+
+  private val viewViaF: HtmlFormat.Appendable = view.f("organisation name")(fakeRequest, messages, frontendAppConfig)
+
+  "OrganisationNomineeAuthorisedPersonView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(
+          view,
+          messageKeyPrefix,
+          Seq("organisation name"),
+          section = Some(messages("officialsAndNominees.section"))
+        )
+
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "linkButton",
+          routes.OrganisationAuthorisedPersonNameController.onSubmit(NormalMode).url,
+          BaseMessages.continue
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
-
-    behave like pageWithBackLink(applyView())
-
-    behave like pageWithHyperLink(
-      applyView(),
-      "linkButton",
-      routes.OrganisationAuthorisedPersonNameController.onSubmit(NormalMode).url,
-      BaseMessages.continue
-    )
-
+    input.foreach(args => (test _).tupled(args))
   }
 }

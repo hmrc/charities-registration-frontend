@@ -24,32 +24,43 @@ import views.html.authorisedOfficials.CharityAuthorisedOfficialsView
 
 class CharityAuthorisedOfficialsViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "charityAuthorisedOfficials"
-  List(0, 1).foreach { index =>
-    s"CharityAuthorisedOfficialsView for index $index" must {
+  private val messageKeyPrefix: String = "charityAuthorisedOfficials"
 
-      def applyView(index: Index): HtmlFormat.Appendable = {
-        val view = viewFor[CharityAuthorisedOfficialsView](Some(emptyUserAnswers))
-        view.apply(index)(fakeRequest, messages, frontendAppConfig)
-      }
+  private val view: CharityAuthorisedOfficialsView = viewFor[CharityAuthorisedOfficialsView](Some(emptyUserAnswers))
 
+  private def viewViaApply(index: Index): HtmlFormat.Appendable =
+    view.apply(index)(fakeRequest, messages, frontendAppConfig)
+
+  private def viewViaRender(index: Index): HtmlFormat.Appendable =
+    view.render(index, fakeRequest, messages, frontendAppConfig)
+
+  private def viewViaF(index: Index): HtmlFormat.Appendable = view.f(index)(fakeRequest, messages, frontendAppConfig)
+
+  private def viewTest(method: String, view: HtmlFormat.Appendable, index: Index): Unit =
+    s"$method" must {
       behave like normalPage(
-        applyView(index),
+        view,
         messageKeyPrefix,
         section = Some(messages("officialsAndNominees.section"))
       )
 
-      behave like pageWithAdditionalGuidance(applyView(index), messageKeyPrefix, "p1", "p2")
+      behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "p2")
 
-      behave like pageWithBackLink(applyView(index))
+      behave like pageWithBackLink(view)
 
       behave like pageWithHyperLink(
-        applyView(index),
+        view,
         "linkButton",
         controllers.authorisedOfficials.routes.AuthorisedOfficialsNameController.onPageLoad(NormalMode, index).url,
         BaseMessages.continue
       )
+    }
 
+  List(0, 1).foreach { index =>
+    s"CharityAuthorisedOfficialsView for index $index" when {
+      viewTest(".apply", viewViaApply(index), index)
+      viewTest(".render", viewViaRender(index), index)
+      viewTest(".f", viewViaF(index), index)
     }
   }
 }

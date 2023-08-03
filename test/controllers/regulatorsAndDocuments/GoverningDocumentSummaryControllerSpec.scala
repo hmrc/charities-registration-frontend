@@ -16,7 +16,6 @@
 
 package controllers.regulatorsAndDocuments
 
-import java.time.LocalDate
 import base.SpecBase
 import base.data.constants.DateConstants.july1st2014
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
@@ -25,12 +24,12 @@ import models.regulators.SelectGoverningDocument
 import navigation.DocumentsNavigator
 import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SelectGoverningDocumentPage, WhenGoverningDocumentApprovedPage}
+import pages.regulatorsAndDocuments._
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers.{redirectLocation, status, _}
+import play.api.test.Helpers._
 import service.UserAnswerService
 
 import scala.concurrent.Future

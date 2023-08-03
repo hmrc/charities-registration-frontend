@@ -23,7 +23,6 @@ import forms.regulatorsAndDocuments.IsCharityRegulatorFormProvider
 
 import javax.inject.Inject
 import models.Mode
-import models.regulators.CharityRegulator
 import navigation.RegulatorsAndDocumentsNavigator
 import pages.regulatorsAndDocuments.IsCharityRegulatorPage
 import pages.sections.Section2Page

@@ -30,6 +30,7 @@ import play.api.libs.json.Json
 
 import java.time.LocalDate
 
+//scalastyle:off file.size.limit
 class CharityTransformerSpec extends CharityTransformerConstants with JsonMatchers {
 
   //scalastyle:off magic.number
@@ -1422,3 +1423,6 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
     }
   }
 }
+//scalastyle:on file.size.limit
+//scalastyle:on magic.number
+//scalastyle:on line.size.limit

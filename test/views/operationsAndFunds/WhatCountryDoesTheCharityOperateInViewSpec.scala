@@ -19,6 +19,7 @@ package views.operationsAndFunds
 import base.data.messages.BaseMessages
 import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
 import models.{Index, NormalMode}
+import org.jsoup.nodes.Document
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
@@ -30,31 +31,73 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
   private val section: String          = messages("operationsAndFunds.section")
   val form: Form[String]               = inject[WhatCountryDoesTheCharityOperateInFormProvider].apply()
 
-  "WhatCountryDoesTheCharityOperateInView" must {
+  private val view: WhatCountryDoesTheCharityOperateInView =
+    viewFor[WhatCountryDoesTheCharityOperateInView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[String], countriesList: Option[String] = None): HtmlFormat.Appendable = {
-      val view = viewFor[WhatCountryDoesTheCharityOperateInView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, Index(0), Seq(("GB", "United Kingdom")), countriesList)(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
-    }
+  private def viewViaApply(countriesList: Option[String] = None): HtmlFormat.Appendable = view.apply(
+    form,
+    NormalMode,
+    Index(0),
+    Seq(("GB", "United Kingdom")),
+    countriesList
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+  private def viewViaRender(countriesList: Option[String] = None): HtmlFormat.Appendable = view.render(
+    form,
+    NormalMode,
+    Index(0),
+    Seq(("GB", "United Kingdom")),
+    countriesList,
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(countriesList: Option[String] = None): HtmlFormat.Appendable = view.f(
+    form,
+    NormalMode,
+    Index(0),
+    Seq(("GB", "United Kingdom")),
+    countriesList
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "WhatCountryDoesTheCharityOperateInView" when {
+    def test(
+      method: String,
+      viewWithoutCountriesList: HtmlFormat.Appendable,
+      viewWithCountriesList: HtmlFormat.Appendable
+    ): Unit =
+      s"$method" must {
+        behave like normalPage(viewWithoutCountriesList, messageKeyPrefix, section = Some(section))
 
-    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "hint")
+        behave like pageWithBackLink(viewWithoutCountriesList)
 
-    "When Countries are populated" must {
-      "display the correct guidance" in {
+        behave like pageWithSubmitButton(viewWithoutCountriesList, BaseMessages.saveAndContinue)
 
-        val doc = asDocument(applyView(form, Some("United Kingdom")))
-        assertContainsText(doc, messages(s"$messageKeyPrefix.countries.hint", "United Kingdom"))
+        behave like pageWithAdditionalGuidance(viewWithoutCountriesList, messageKeyPrefix, "hint")
+
+        "display the correct guidance" when {
+          "countries are populated" in {
+            val doc: Document = asDocument(viewWithCountriesList)
+            assertContainsText(doc, messages(s"$messageKeyPrefix.countries.hint", "United Kingdom"))
+          }
+        }
       }
-    }
+
+    val input: Seq[(String, HtmlFormat.Appendable, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(), viewViaApply(Some("United Kingdom"))),
+      (".render", viewViaRender(), viewViaRender(Some("United Kingdom"))),
+      (".f", viewViaF(), viewViaF(Some("United Kingdom")))
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

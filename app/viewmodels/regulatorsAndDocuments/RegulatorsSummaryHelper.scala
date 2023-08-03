@@ -19,7 +19,7 @@ package viewmodels.regulatorsAndDocuments
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
 import models.{CharityOtherRegulatorDetails, CheckMode, UserAnswers}
 import pages.QuestionPage
-import pages.regulatorsAndDocuments.{CharityOtherRegulatorDetailsPage, _}
+import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
@@ -80,8 +80,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)(implicit va
     )
 
   private def answerRegistrationName[A](page: QuestionPage[CharityOtherRegulatorDetails], changeLinkCall: Call)(implicit
-    reads: Reads[CharityOtherRegulatorDetails],
-    conversion: CharityOtherRegulatorDetails => String
+    reads: Reads[CharityOtherRegulatorDetails]
   ): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
       summaryListRow(
@@ -93,9 +92,7 @@ class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)(implicit va
     }
 
   private def answerRegistrationNumber[A](page: QuestionPage[CharityOtherRegulatorDetails], changeLinkCall: Call)(
-    implicit
-    reads: Reads[CharityOtherRegulatorDetails],
-    conversion: CharityOtherRegulatorDetails => String
+    implicit reads: Reads[CharityOtherRegulatorDetails]
   ): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
       summaryListRow(

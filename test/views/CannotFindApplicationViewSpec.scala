@@ -22,27 +22,39 @@ import views.html.CannotFindApplicationView
 
 class CannotFindApplicationViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "cannotFindApplication"
+  private val messageKeyPrefix: String = "cannotFindApplication"
 
-  "CannotFindApplicationView" must {
+  private val view: CannotFindApplicationView = viewFor[CannotFindApplicationView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[CannotFindApplicationView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "CannotFindApplicationView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "link",
-      frontendAppConfig.signOutUrl,
-      messages("cannotFindApplication.p1.link")
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "link",
+          frontendAppConfig.signOutUrl,
+          messages("cannotFindApplication.p1.link")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

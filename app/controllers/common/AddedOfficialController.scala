@@ -54,7 +54,6 @@ trait AddedOfficialController extends LocalBaseController {
   }
 
   def postView(page: QuestionPage[String], section: QuestionPage[Boolean])(implicit
-    appConfig: FrontendAppConfig,
     request: DataRequest[AnyContent]
   ): Future[Result] =
     for {

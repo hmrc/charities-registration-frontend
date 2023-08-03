@@ -40,7 +40,7 @@ case class AddressModel(lines: Seq[String], postcode: Option[String], country: C
     )
   }
 
-  def editLines: (String, Option[String], Option[String], String) = {
+  private def editLines: (String, Option[String], Option[String], String) = {
 
     val l1 = lines.headOption.getOrElse("")
     val l2 = if (lines.length > 2) lines.lift(1) else None

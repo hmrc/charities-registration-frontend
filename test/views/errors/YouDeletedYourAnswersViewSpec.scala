@@ -16,17 +16,32 @@
 
 package views.errors
 
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.errors.{WeDeletedYourAnswersView, YouDeletedYourAnswersView}
+import views.html.errors.YouDeletedYourAnswersView
 
 class YouDeletedYourAnswersViewSpec extends ViewBehaviours {
 
-  "You Deleted your answers view" must {
+  private val view: YouDeletedYourAnswersView = inject[YouDeletedYourAnswersView]
 
-    val view = inject[YouDeletedYourAnswersView]
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    val applyView = view.apply()(fakeRequest, messages, frontendAppConfig)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView, "you_deleted_answers")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
+
+  "YouDeletedYourAnswersView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, "you_deleted_answers")
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

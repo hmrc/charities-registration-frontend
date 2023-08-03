@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import forms.operationsAndFunds.{CharityEstablishedInFormProvider, WhatCountryDoesTheCharityOperateInFormProvider}
+import forms.operationsAndFunds.CharityEstablishedInFormProvider
 import javax.inject.Inject
 import models.Mode
 import models.operations.CharityEstablishedOptions

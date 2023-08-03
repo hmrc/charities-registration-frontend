@@ -1,15 +1,11 @@
-import play.sbt.routes.RoutesKeys
-import scoverage.ScoverageKeys
-import uk.gov.hmrc.DefaultBuildSettings.*
+import uk.gov.hmrc.DefaultBuildSettings.integrationTestSettings
 
 lazy val appName: String = "charities-registration-frontend"
 
-lazy val root = (project in file("."))
+lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
-  .settings(scalaSettings)
-  .settings(defaultSettings())
-  .settings(inConfig(IntegrationTest)(integrationTestSettings()))
+  .settings(integrationTestSettings())
   .configs(IntegrationTest)
   .settings(
     javaOptions += "-Dlogger.resource=logback-test.xml",
@@ -21,8 +17,7 @@ lazy val root = (project in file("."))
   .settings(dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1")
   .settings(
     scalaVersion := "2.13.11",
-    name := appName,
-    RoutesKeys.routesImport ++= Seq("models._", "models.OptionBinder._"),
+    routesImport ++= Seq("models._", "models.OptionBinder._"),
     PlayKeys.playDefaultPort := 9457,
     TwirlKeys.templateImports ++= Seq(
       "play.twirl.api.HtmlFormat",
@@ -35,17 +30,14 @@ lazy val root = (project in file("."))
       "models.OptionBinder._",
       "controllers.routes._"
     ),
-    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;" +
-      ".*models.Mode*;.*handlers.*;.*components.*;.*TimeMachine.*;" +
-      ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;" +
-      ".*ControllerConfiguration;.*testonly.*;",
-    ScoverageKeys.coverageMinimumStmtTotal := 98,
-    ScoverageKeys.coverageFailOnMinimum := true,
-    ScoverageKeys.coverageHighlighting := true,
-    scalacOptions ++= Seq("-feature", "-Xlint:-unused", "-Wconf:src=routes/.*:s,src=views/.*:s"),
+    coverageExcludedFiles := "<empty>;.*components.*;.*Routes.*",
+    coverageMinimumStmtTotal := 99,
+    coverageFailOnMinimum := true,
+    coverageHighlighting := true,
+    scalacOptions ++= Seq("-feature", "-Wconf:src=routes/.*:s,src=views/.*:s"),
     libraryDependencies ++= AppDependencies(),
     // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
-    libraryDependencySchemes ++= Seq("org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always),
+    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
     retrieveManaged := true,
     Concat.groups := Seq(
       "javascripts/application.js" ->

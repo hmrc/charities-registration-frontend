@@ -20,12 +20,9 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import models.regulators.CharityRegulator
-import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Scottish}
-import models.regulators.SelectWhyNoRegulator.Other
-import models.{NormalMode, UserAnswers}
+import models.NormalMode
 import navigation.RegulatorsAndDocumentsNavigator
-import pages.{IndexPage, QuestionPage}
+import pages.IndexPage
 import pages.regulatorsAndDocuments._
 import pages.sections.Section2Page
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +30,6 @@ import service.UserAnswerService
 import viewmodels.regulatorsAndDocuments.{RegulatorsStatusHelper, RegulatorsSummaryHelper}
 import views.html.CheckYourAnswersView
 
-import scala.collection.mutable.ListBuffer
 import scala.concurrent.Future
 
 class RegulatorsSummaryController @Inject() (

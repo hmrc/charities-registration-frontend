@@ -23,26 +23,38 @@ import views.html.operationsAndFunds.StartBankDetailsView
 
 class StartBankDetailsViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "startBankDetails"
-  private val section: String  = messages("operationsAndFunds.section")
+  private val messageKeyPrefix: String = "startBankDetails"
+  private val section: String          = messages("operationsAndFunds.section")
 
-  "StartBankDetailsView" must {
+  private val view: StartBankDetailsView = viewFor[StartBankDetailsView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[StartBankDetailsView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix, section = Some(section))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "linkButton",
-      controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url,
-      messages("site.continue")
+  "StartBankDetailsView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
+
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "p2")
+
+        behave like pageWithHyperLink(
+          view,
+          "linkButton",
+          controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode).url,
+          messages("site.continue")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

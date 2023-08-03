@@ -20,6 +20,7 @@ import base.data.messages.BaseMessages
 import forms.regulatorsAndDocuments.SelectWhyNoRegulatorFormProvider
 import models.NormalMode
 import models.regulators.SelectWhyNoRegulator
+import org.jsoup.nodes.Document
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
@@ -31,36 +32,50 @@ class SelectWhyNoRegulatorViewSpec extends ViewBehaviours {
   private val section: String          = messages("charityRegulator.section")
   val form: Form[SelectWhyNoRegulator] = inject[SelectWhyNoRegulatorFormProvider].apply()
 
-  "CharityRegulatorView" must {
+  private val view: SelectWhyNoRegulatorView = viewFor[SelectWhyNoRegulatorView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[SelectWhyNoRegulator]): HtmlFormat.Appendable = {
-      val view = viewFor[SelectWhyNoRegulatorView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[SelectWhyNoRegulator]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "SelectWhyNoRegulatorView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
 
-    SelectWhyNoRegulator.options(form).zipWithIndex.foreach { case (option, i) =>
-      val id = if (i == 0) "value" else s"value-${i + 1}"
+        behave like pageWithBackLink(view)
 
-      s"contain radio buttons for the value '${option.value.get}'" in {
-
-        val doc = asDocument(applyView(form))
-        assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = false)
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
       }
 
-      s"rendered with a value of '${option.value.get}'" must {
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form)),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
 
-        s"have the '${option.value.get}' radio button selected" in {
+    input.foreach(args => (test _).tupled(args))
 
-          val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
-          val doc          = asDocument(applyView(formWithData))
+    ".apply" must {
+      SelectWhyNoRegulator.options(form).zipWithIndex.foreach { case (option, i) =>
+        val id: String = if (i == 0) "value" else s"value-${i + 1}"
 
-          assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = true)
+        s"contain radio buttons for the value '${option.value.get}'" in {
+          val doc: Document = asDocument(viewViaApply(form))
+          assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = false)
+        }
+
+        s"have the '${option.value.get}' radio button selected" when {
+          s"rendered with a value of '${option.value.get}'" in {
+            val formWithData: Form[SelectWhyNoRegulator] = form.bind(Map("value" -> s"${option.value.get}"))
+            val doc: Document                            = asDocument(viewViaApply(formWithData))
+
+            assertContainsRadioButton(doc, id, "value", option.value.get, isChecked = true)
+          }
         }
       }
     }

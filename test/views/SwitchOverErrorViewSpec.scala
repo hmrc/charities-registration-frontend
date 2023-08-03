@@ -22,27 +22,39 @@ import views.html.SwitchOverErrorView
 
 class SwitchOverErrorViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "switchOverError"
+  private val messageKeyPrefix: String = "switchOverError"
 
-  "SwitchOverErrorView" must {
+  private val view: SwitchOverErrorView = viewFor[SwitchOverErrorView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[SwitchOverErrorView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "p2")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "SwitchOverErrorView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "link",
-      controllers.routes.IndexController.onPageLoad(None).url,
-      messages("switchOverError.p3.link")
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "p2")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "link",
+          controllers.routes.IndexController.onPageLoad(None).url,
+          messages("switchOverError.p3.link")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

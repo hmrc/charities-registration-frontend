@@ -17,7 +17,6 @@
 package views.checkEligibility
 
 import base.data.messages.BaseMessages
-import controllers.checkEligibility.routes
 import forms.checkEligibility.IsEligiblePurposeFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -27,25 +26,40 @@ import views.html.checkEligibility.IsEligiblePurposeView
 
 class IsEligiblePurposeViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isEligiblePurpose"
-  val form: Form[Boolean]      = inject[IsEligiblePurposeFormProvider].apply()
+  private val messageKeyPrefix: String = "isEligiblePurpose"
+  val form: Form[Boolean]              = inject[IsEligiblePurposeFormProvider].apply()
 
-  "IsEligiblePurposeView" must {
+  private val view: IsEligiblePurposeView = viewFor[IsEligiblePurposeView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[IsEligiblePurposeView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+  private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "p")
+  private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  "IsEligiblePurposeView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[Boolean] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, legendKey = Some("heading"))
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p")
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+        behave like pageWithBackLink(view)
 
+        behave like yesNoPage(form, createView, messageKeyPrefix, legendKey = Some("heading"))
+
+        behave like pageWithSubmitButton(view, BaseMessages.continue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

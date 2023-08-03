@@ -20,13 +20,14 @@ import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharityEstablishedOptions
-import models.{BankDetails, CharityContactDetails, CharityName, Name, PhoneNumber, SelectTitle}
-import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
-import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage, AuthorisedOfficialsPositionPage}
-import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import models._
+import pages.addressLookup._
+import pages.authorisedOfficials._
+import pages.contactDetails._
 import pages.operationsAndFunds.{BankDetailsPage, CharityEstablishedInPage}
 import play.api.libs.json.Json
 
+//scalastyle:off file.size.limit
 class CharityCommonTransformerSpec extends SpecBase {
 
   val jsonTransformer: CharityCommonTransformer = new CharityCommonTransformer
@@ -828,5 +829,5 @@ class CharityCommonTransformerSpec extends SpecBase {
       }
     }
   }
-
 }
+//scalastyle:on file.size.limit

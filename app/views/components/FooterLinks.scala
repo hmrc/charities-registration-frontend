@@ -23,25 +23,25 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 
 object FooterLinks {
 
-  def cookieLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+  def cookieLink(implicit messages: Messages, appConfig: FrontendAppConfig): FooterItem =
     FooterItem(
       Some(messages("footer.cookies")),
       Some(appConfig.cookies)
     )
 
-  def privacyLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+  def privacyLink(implicit messages: Messages, appConfig: FrontendAppConfig): FooterItem =
     FooterItem(
       Some(messages("footer.privacy")),
       Some(appConfig.privacy)
     )
 
-  def termsConditionsLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+  def termsConditionsLink(implicit messages: Messages, appConfig: FrontendAppConfig): FooterItem =
     FooterItem(
       Some(messages("footer.termsConditions")),
       Some(appConfig.termsConditions)
     )
 
-  def govukHelpLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+  def govukHelpLink(implicit messages: Messages, appConfig: FrontendAppConfig): FooterItem =
     FooterItem(
       Some(messages("footer.govukHelp")),
       Some(appConfig.govUKHelp)

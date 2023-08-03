@@ -26,7 +26,7 @@ import java.util.UUID
 
 class CharityCommonTransformer extends JsonTransformer {
 
-  val sessionIdLength         = 50
+  private val sessionIdLength = 50
   private def newUUID: String = UUID.randomUUID.toString // will be 36 chars long
 
   private def getSessionId(implicit request: DataRequest[_]): String = {

@@ -17,9 +17,7 @@
 package views.common
 
 import base.data.messages.BaseMessages
-import controllers.authorisedOfficials.routes
 import forms.common.YesNoFormProvider
-import models.{Index, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
@@ -27,24 +25,39 @@ import views.html.common.IsOfficialsNinoView
 
 class IsOfficialsNinoViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix        = "isAuthorisedOfficialPosition"
-  private val section: Option[String] = Some(messages("officialsAndNominees.section"))
-  val form: Form[Boolean]             = inject[YesNoFormProvider].apply(messageKeyPrefix)
+  private val messageKeyPrefix: String = "isAuthorisedOfficialPosition"
+  private val section: Option[String]  = Some(messages("officialsAndNominees.section"))
+  val form: Form[Boolean]              = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
-  "AuthorisedOfficialsNameView" must {
+  private val view: IsOfficialsNinoView = viewFor[IsOfficialsNinoView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[IsOfficialsNinoView](Some(emptyUserAnswers))
-      view.apply(form, "test", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.apply(form, "test", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq("test"), section = section)
+  private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.render(form, "test", messageKeyPrefix, onwardRoute, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.f(form, "test", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, Seq("test"), section = section)
+  "IsOfficialsNinoView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[Boolean] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, Seq("test"), section = section)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
 
+        behave like yesNoPage(form, createView, messageKeyPrefix, Seq("test"), section = section)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

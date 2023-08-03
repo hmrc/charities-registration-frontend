@@ -27,7 +27,7 @@ package object viewmodels {
     sectionPage: QuestionPage[Boolean]
   ) extends StatusUtil {
 
-    def equivalentPages(index: Int): Map[String, (QuestionPage[_], QuestionPage[_])] = Map(
+    private def equivalentPages(index: Int): Map[String, (QuestionPage[_], QuestionPage[_])] = Map(
       ("nino", (AuthorisedOfficialsNinoPage(index), OtherOfficialsNinoPage(index))),
       ("passport", (AuthorisedOfficialsPassportPage(index), OtherOfficialsPassportPage(index))),
       (
@@ -36,7 +36,7 @@ package object viewmodels {
       )
     )
 
-    def getPage(section: QuestionPage[Boolean], page: String, index: Int): Seq[QuestionPage[_]] = Seq(
+    private def getPage(section: QuestionPage[Boolean], page: String, index: Int): Seq[QuestionPage[_]] = Seq(
       if (section == Section7Page) {
         equivalentPages(index)(page)._1
       } else {

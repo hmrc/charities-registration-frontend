@@ -26,40 +26,77 @@ import views.html.operationsAndFunds.BankDetailsView
 
 class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
-  private val messageKeyPrefix    = "bankDetails"
-  private val sectionName: String = "operationsAndFunds.section"
-  val form: Form[BankDetails]     = inject[BankDetailsFormProvider].apply(messageKeyPrefix, "charityName")
+  private val messageKeyPrefix: String = "bankDetails"
+  private val sectionName: String      = "operationsAndFunds.section"
+  val form: Form[BankDetails]          = inject[BankDetailsFormProvider].apply(messageKeyPrefix, "charityName")
 
-  "BankDetailsView" must {
+  private val view: BankDetailsView = viewFor[BankDetailsView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[BankDetailsView](Some(emptyUserAnswers))
-      view.apply(
-        form,
-        "charityName",
-        controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
-        messageKeyPrefix,
-        sectionName,
-        None
-      )(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply(
+    form,
+    "charityName",
+    controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
+    messageKeyPrefix,
+    sectionName,
+    None
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(
+    form,
+    "charityName",
+    controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
+    messageKeyPrefix,
+    sectionName,
+    None,
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(
+    form,
+    "charityName",
+    controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
+    messageKeyPrefix,
+    sectionName,
+    None
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like pageWithWarningText(applyView(form), messages("bankDetails.basc.warning"))
+  "BankDetailsView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
 
-    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "p1", "accountName", "accountName.hint")
+        behave like pageWithWarningText(view, messages("bankDetails.basc.warning"))
 
-    behave like pageWithHyperLink(
-      applyView(form),
-      "changeLink",
-      controllers.contactDetails.routes.CharityNameController.onPageLoad(PlaybackMode).url,
-      messages("site.edit") + messages("bankDetails.accountName")
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "accountName", "accountName.hint")
+
+        behave like pageWithHyperLink(
+          view,
+          "changeLink",
+          controllers.contactDetails.routes.CharityNameController.onPageLoad(PlaybackMode).url,
+          messages("site.edit") + messages("bankDetails.accountName")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

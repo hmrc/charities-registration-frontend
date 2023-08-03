@@ -174,7 +174,7 @@ index.section.canNotStartYet = Cannot start yet
 commonAddress.lookupPage.filterLabel = Property name or number (optional)
 commonAddress.LookupPage.postcodeLabel = Postcode search
 commonAddress.lookupPage.submitLabel = Find address
-commonAddress.lookupPage.noResultsFoundMessage = This is a test
+commonAddress.lookupPage.noResultsFoundMessage =
 commonAddress.lookupPage.resultLimitExceededMessage =
 
 commonAddress.selectPage.headingWithPostcode = Postcode search

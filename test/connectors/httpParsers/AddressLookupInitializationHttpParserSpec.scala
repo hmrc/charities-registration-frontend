@@ -56,7 +56,7 @@ class AddressLookupInitializationHttpParserSpec extends SpecBase {
 
     "given any other status" should {
 
-      "return a Left(UnexpectedFailure)" in {
+      "return a Left(DefaultedUnexpectedFailure)" in {
 
         val expectedResult = Left(DefaultedUnexpectedFailure(status = Status.INTERNAL_SERVER_ERROR))
         val actualResult   = AddressLookupInitializationReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR, ""))

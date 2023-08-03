@@ -22,51 +22,80 @@ import views.html.common.ConfirmAddressView
 
 class ConfirmAddressViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix                      = "charityOfficialAddress"
-  val charityInformationAddressLookup: List[String] = List("12", "Banner Way", "ZZ1 1ZZ")
+  private val messageKeyPrefix: String                      = "charityOfficialAddress"
+  private val charityInformationAddressLookup: List[String] = List("12", "Banner Way", "ZZ1 1ZZ")
 
-  "ConfirmAddressView" must {
+  private val view: ConfirmAddressView = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
-      view.apply(charityInformationAddressLookup, messageKeyPrefix, onwardRoute, onwardRoute, None)(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
+  private def viewViaApply(
+    name: Option[String] = None,
+    messageKeyPrefix: String = messageKeyPrefix
+  ): HtmlFormat.Appendable = view.apply(
+    charityInformationAddressLookup,
+    messageKeyPrefix,
+    onwardRoute,
+    onwardRoute,
+    name
+  )(fakeRequest, messages, frontendAppConfig)
+
+  private val viewViaRender: HtmlFormat.Appendable = view.render(
+    charityInformationAddressLookup,
+    messageKeyPrefix,
+    onwardRoute,
+    onwardRoute,
+    None,
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
+
+  private val viewViaF: HtmlFormat.Appendable = view.f(
+    charityInformationAddressLookup,
+    messageKeyPrefix,
+    onwardRoute,
+    onwardRoute,
+    None
+  )(fakeRequest, messages, frontendAppConfig)
+
+  "ConfirmAddressView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, s"$messageKeyPrefix.confirmPage")
+
+        behave like pageWithHyperLink(view, "confirmAndContinue", onwardRoute.url, "Confirm and continue")
+
+        behave like pageWithBackLink(view)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply()),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
+
+    ".apply" when {
+      "with name" must {
+        behave like normalPage(
+          viewViaApply(Some("John Doe"), "authorisedOfficialAddress"),
+          "authorisedOfficialAddress.confirmPage",
+          Seq("John Doe")
+        )
+      }
+
+      "change link with no name" must {
+        behave like pageWithHyperLink(viewViaApply(), "linkButton", onwardRoute.url, "Change charity’s address")
+      }
+
+      "change link with name" must {
+        behave like pageWithHyperLink(
+          viewViaApply(Some("John Doe"), "authorisedOfficialAddress"),
+          "linkButton",
+          onwardRoute.url,
+          "Change authorised official’s home address"
+        )
+      }
     }
-
-    def applyViewWithName(name: String): HtmlFormat.Appendable = {
-      val view = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
-      view.apply(charityInformationAddressLookup, "authorisedOfficialAddress", onwardRoute, onwardRoute, Some(name))(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
-    }
-
-    behave like normalPage(applyView(), s"$messageKeyPrefix.confirmPage")
-
-    "with name" must {
-      behave like normalPage(applyViewWithName("John Doe"), "authorisedOfficialAddress.confirmPage", Seq("John Doe"))
-    }
-
-    behave like pageWithBackLink(applyView())
-
-    "change link" must {
-      behave like pageWithHyperLink(applyView(), "linkButton", onwardRoute.url, "Change charity’s address")
-    }
-
-    "change link with name" must {
-      behave like pageWithHyperLink(
-        applyViewWithName("John Doe"),
-        "linkButton",
-        onwardRoute.url,
-        "Change authorised official’s home address"
-      )
-    }
-
-    behave like pageWithHyperLink(applyView(), "confirmAndContinue", onwardRoute.url, "Confirm and continue")
-
   }
 }

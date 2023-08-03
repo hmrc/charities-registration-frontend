@@ -17,7 +17,6 @@
 package views.regulatorsAndDocuments
 
 import base.data.messages.BaseMessages
-import controllers.regulatorsAndDocuments.routes
 import forms.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocumentFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -27,23 +26,40 @@ import views.html.regulatorsAndDocuments.HasCharityChangedPartsOfGoverningDocume
 
 class HasCharityChangedPartsOfGoverningDocumentViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix        = "hasCharityChangedPartsOfGoverningDocument.4"
-  private val section: Option[String] = Some(messages("charityRegulator.section"))
-  val form: Form[Boolean]             = inject[HasCharityChangedPartsOfGoverningDocumentFormProvider].apply()
+  private val messageKeyPrefix: String = "hasCharityChangedPartsOfGoverningDocument.4"
+  private val section: Option[String]  = Some(messages("charityRegulator.section"))
+  val form: Form[Boolean]              = inject[HasCharityChangedPartsOfGoverningDocumentFormProvider].apply()
 
-  "HasCharityChangedPartsOfGoverningDocument View" must {
+  private val view: HasCharityChangedPartsOfGoverningDocumentView =
+    viewFor[HasCharityChangedPartsOfGoverningDocumentView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[HasCharityChangedPartsOfGoverningDocumentView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+  private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, "4", fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.f(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
+  "HasCharityChangedPartsOfGoverningDocumentView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[Boolean] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = section)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
+
+        behave like yesNoPage(form, createView, messageKeyPrefix, section = section)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

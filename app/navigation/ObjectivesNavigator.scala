@@ -16,17 +16,14 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.operationsAndFunds.{routes => operations}
 import controllers.routes
-import javax.inject.Inject
 import models._
-import models.operations.CharitablePurposes.Other
 import pages.Page
 import pages.operationsAndFunds.{CharitableObjectivesPage, CharitablePurposesPage, PublicBenefitsPage}
 import play.api.mvc.Call
 
-class ObjectivesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class ObjectivesNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
 

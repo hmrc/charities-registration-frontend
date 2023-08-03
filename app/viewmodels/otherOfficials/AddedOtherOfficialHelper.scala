@@ -19,7 +19,6 @@ package viewmodels.otherOfficials
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import models.{Index, Mode, UserAnswers}
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
-import pages.authorisedOfficials.AuthorisedOfficialsPassportPage
 import pages.otherOfficials._
 import play.api.i18n.Messages
 import service.CountryService
@@ -84,14 +83,14 @@ class AddedOtherOfficialHelper(index: Index, mode: Mode, countryService: Country
       messagePrefix = "otherOfficialsNino"
     )
 
-  def otherOfficialPassportNumberRow: Option[SummaryListRow] =
+  private def otherOfficialPassportNumberRow: Option[SummaryListRow] =
     answerPassportNo(
       OtherOfficialsPassportPage(index),
       otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
       messagePrefix = "otherOfficialsPassport"
     )
 
-  def otherOfficialCountryOfIssueRow: Option[SummaryListRow] =
+  private def otherOfficialCountryOfIssueRow: Option[SummaryListRow] =
     answerCountryOfIssue(
       OtherOfficialsPassportPage(index),
       otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),
@@ -99,7 +98,7 @@ class AddedOtherOfficialHelper(index: Index, mode: Mode, countryService: Country
       countryService
     )
 
-  def otherOfficialExpiryDateRow: Option[SummaryListRow] =
+  private def otherOfficialExpiryDateRow: Option[SummaryListRow] =
     answerExpiryDate(
       OtherOfficialsPassportPage(index),
       otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(mode, index),

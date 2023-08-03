@@ -22,34 +22,46 @@ import views.html.checkEligibility.InEligibleCharitablePurposesView
 
 class InEligibleCharitablePurposesViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix   = "notEligible"
-  private val messageLink        = messages("notEligible.p3.link")
-  private val messageTabOrWindow = messages("site.opensInNewWindowOrTab")
+  private val messageKeyPrefix: String   = "notEligible"
+  private val messageLink: String        = messages("notEligible.p3.link")
+  private val messageTabOrWindow: String = messages("site.opensInNewWindowOrTab")
 
-  "InEligibleCharitablePurposesView" must {
+  private val view: InEligibleCharitablePurposesView = viewFor[InEligibleCharitablePurposesView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[InEligibleCharitablePurposesView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(
-      applyView(),
-      messageKeyPrefix,
-      "charitablePurposes.p1",
-      "p2",
-      "p3",
-      "p3.link"
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
+
+  "InEligibleCharitablePurposesView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
+
+        behave like pageWithAdditionalGuidance(
+          view,
+          messageKeyPrefix,
+          "charitablePurposes.p1",
+          "p2",
+          "p3",
+          "p3.link"
+        )
+
+        behave like pageWithHyperLink(
+          view,
+          "link",
+          frontendAppConfig.getRecognition,
+          messages(s"$messageLink $messageTabOrWindow")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "link",
-      frontendAppConfig.getRecognition,
-      messages(s"$messageLink $messageTabOrWindow")
-    )
-
+    input.foreach(args => (test _).tupled(args))
   }
 }

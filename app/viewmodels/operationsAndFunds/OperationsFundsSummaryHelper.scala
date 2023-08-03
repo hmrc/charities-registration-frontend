@@ -37,7 +37,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
     with SummaryListRowHelper
     with CurrencyFormatter {
 
-  val overseasOperatingLocationSummaryHelper =
+  private val overseasOperatingLocationSummaryHelper =
     new OverseasOperatingLocationSummaryHelper(userAnswers, countryService, CheckMode)
 
   def fundRaisingRow: Option[SummaryListRow] =
@@ -59,7 +59,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
   def estimatedAmountRow: Option[SummaryListRow] =
     answer(EstimatedIncomePage, operationFundsRoutes.EstimatedIncomeController.onPageLoad(CheckMode))
 
-  def whyNoBankStatementRow: Option[SummaryListRow] =
+  private def whyNoBankStatementRow: Option[SummaryListRow] =
     textBoxAnswer(WhyNoBankStatementPage, operationFundsRoutes.WhyNoBankStatementController.onPageLoad(CheckMode))
 
   def actualAmountRow: Option[SummaryListRow] =
@@ -74,7 +74,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
       operationFundsRoutes.AccountingPeriodEndDateController.onPageLoad(CheckMode)
     )
 
-  def otherFundRaisingRow: Option[SummaryListRow] =
+  private def otherFundRaisingRow: Option[SummaryListRow] =
     answer(OtherFundRaisingPage, operationFundsRoutes.OtherFundRaisingController.onPageLoad(CheckMode))
 
   private def answerAccountingPeriod[A](page: QuestionPage[MonthDay], changeLinkCall: Call): Option[SummaryListRow] =
@@ -87,7 +87,7 @@ class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countr
       )
     }
 
-  val overseasOperatingLocationRow: Option[SummaryListRow] =
+  private val overseasOperatingLocationRow: Option[SummaryListRow] =
     overseasOperatingLocationSummaryHelper.overseasOperatingLocationSummaryCYARow(
       operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(CheckMode)
     )

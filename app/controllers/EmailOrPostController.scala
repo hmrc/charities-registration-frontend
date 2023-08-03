@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.common.YesNoFormProvider
 import javax.inject.Inject
-import models.requests.DataRequest
 import pages.EmailOrPostPage
 import play.api.data.Form
 import play.api.mvc._

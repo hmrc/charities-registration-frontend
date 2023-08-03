@@ -19,10 +19,9 @@ package views.operationsAndFunds
 import base.data.messages.BaseMessages
 import forms.operationsAndFunds.OtherFundRaisingFormProvider
 import models.NormalMode
-import models.operations.FundRaisingOptions
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.{CheckboxViewBehaviours, QuestionViewBehaviours}
+import views.behaviours.QuestionViewBehaviours
 import views.html.operationsAndFunds.OtherFundRaisingView
 
 class OtherFundRaisingViewSpec extends QuestionViewBehaviours[String] {
@@ -31,17 +30,33 @@ class OtherFundRaisingViewSpec extends QuestionViewBehaviours[String] {
   private val section: String          = messages("operationsAndFunds.section")
   val form: Form[String]               = inject[OtherFundRaisingFormProvider].apply()
 
-  "OtherFundRaisingView" must {
+  private val view: OtherFundRaisingView = viewFor[OtherFundRaisingView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[String]): HtmlFormat.Appendable = {
-      val view = viewFor[OtherFundRaisingView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(section))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "OtherFundRaisingView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(section))
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

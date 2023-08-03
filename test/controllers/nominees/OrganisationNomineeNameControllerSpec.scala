@@ -19,7 +19,6 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.nominees.OrganisationNomineeNameFormProvider
-import forms.regulatorsAndDocuments.GoverningDocumentNameFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator

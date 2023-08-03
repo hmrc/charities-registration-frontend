@@ -27,22 +27,36 @@ import views.html.operationsAndFunds.AccountingPeriodEndDateView
 
 class AccountingPeriodEndDateViewSpec extends QuestionViewBehaviours[MonthDay] {
 
-  private val messageKeyPrefix = "accountingPeriodEndDate"
+  private val messageKeyPrefix: String = "accountingPeriodEndDate"
 
   val form: Form[MonthDay] = inject[AccountingPeriodEndDateFormProvider].apply()
 
-  "AccountingPeriodEndDate view" must {
+  private val view: AccountingPeriodEndDateView = viewFor[AccountingPeriodEndDateView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[AccountingPeriodEndDateView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable = view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "AccountingPeriodEndDateView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
-
 }

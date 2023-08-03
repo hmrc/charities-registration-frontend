@@ -17,7 +17,6 @@
 package views.checkEligibility
 
 import base.data.messages.BaseMessages
-import controllers.checkEligibility.routes
 import forms.checkEligibility.IsEligibleAccountFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -27,23 +26,38 @@ import views.html.checkEligibility.IsEligibleAccountView
 
 class IsEligibleAccountViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isEligibleAccount"
-  val form: Form[Boolean]      = inject[IsEligibleAccountFormProvider].apply()
+  private val messageKeyPrefix: String = "isEligibleAccount"
+  val form: Form[Boolean]              = inject[IsEligibleAccountFormProvider].apply()
 
-  "IsEligibleAccountView" must {
+  private val view: IsEligibleAccountView = viewFor[IsEligibleAccountView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[IsEligibleAccountView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+  private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix)
+  "IsEligibleAccountView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[Boolean] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+        behave like pageWithBackLink(view)
 
+        behave like yesNoPage(form, createView, messageKeyPrefix)
+
+        behave like pageWithSubmitButton(view, BaseMessages.continue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

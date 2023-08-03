@@ -25,26 +25,41 @@ import views.html.common.NinoView
 
 class NinoViewSpec extends QuestionViewBehaviours[String] {
 
-  private val messageKeyPrefix = "authorisedOfficialsNino"
-  val form: Form[String]       = inject[NinoFormProvider].apply(messageKeyPrefix)
+  private val messageKeyPrefix: String = "authorisedOfficialsNino"
+  val form: Form[String]               = inject[NinoFormProvider].apply(messageKeyPrefix)
 
-  "AuthorisedOfficialsNINOViewSpec view" must {
+  private val view: NinoView = viewFor[NinoView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[NinoView](Some(emptyUserAnswers))
-      view.apply(form, "AA123456A", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, "AA123456A", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(
-      applyView(form),
-      messageKeyPrefix,
-      Seq("AA123456A"),
-      section = Some(messages("officialsAndNominees.section"))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, "AA123456A", messageKeyPrefix, onwardRoute, fakeRequest, messages, frontendAppConfig)
+
+  private val viewViaF: HtmlFormat.Appendable =
+    view.f(form, "AA123456A", messageKeyPrefix, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+
+  "NinoView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(
+          view,
+          messageKeyPrefix,
+          Seq("AA123456A"),
+          section = Some(messages("officialsAndNominees.section"))
+        )
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    behave like pageWithBackLink(applyView(form))
-
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    input.foreach(args => (test _).tupled(args))
   }
-
 }

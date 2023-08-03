@@ -27,8 +27,9 @@ import pages.addressLookup._
 import pages.authorisedOfficials._
 import pages.nominees._
 import pages.otherOfficials._
-import play.api.libs.json.{Json, __}
+import play.api.libs.json._
 
+//scalastyle:off file.size.limit
 class CharityPartnerTransformerSpec extends SpecBase {
 
   val jsonTransformer: CharityPartnerTransformer = new CharityPartnerTransformer
@@ -1766,5 +1767,5 @@ class CharityPartnerTransformerSpec extends SpecBase {
       }
     }
   }
-
 }
+//scalastyle:on file.size.limit

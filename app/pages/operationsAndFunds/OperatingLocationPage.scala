@@ -22,7 +22,7 @@ import models.operations.OperatingLocationOptions.Overseas
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-import scala.util.{Success, Try}
+import scala.util.Try
 
 case object OperatingLocationPage extends QuestionPage[Set[OperatingLocationOptions]] {
 

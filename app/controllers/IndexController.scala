@@ -92,7 +92,7 @@ class IndexController @Inject() (
     }
   }
 
-  def signInDifferentAccount: Action[AnyContent] = Action { implicit request =>
+  def signInDifferentAccount: Action[AnyContent] = Action {
     Redirect(
       appConfig.loginUrl,
       Map(
@@ -102,7 +102,7 @@ class IndexController @Inject() (
     )
   }
 
-  def registerNewAccount: Action[AnyContent] = Action { implicit request =>
+  def registerNewAccount: Action[AnyContent] = Action {
     Redirect(
       appConfig.registerUrl,
       Map(

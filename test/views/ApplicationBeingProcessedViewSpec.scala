@@ -23,32 +23,56 @@ import views.html.ApplicationBeingProcessedView
 
 class ApplicationBeingProcessedViewSpec extends ViewBehaviours with ImplicitDateFormatter {
 
-  private val messageKeyPrefix = "beingProcessedOldSubmission"
+  private val messageKeyPrefix: String = "beingProcessedOldSubmission"
 
-  "ApplicationBeingProcessedView" must {
+  private val view: ApplicationBeingProcessedView = viewFor[ApplicationBeingProcessedView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[ApplicationBeingProcessedView](Some(emptyUserAnswers))
-      view.apply(dayToString(inject[TimeMachine].now(), dayOfWeek = false), "080582080582")(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
-    }
-
-    behave like normalPage(applyView(), messageKeyPrefix)
-
-    behave like pageWithHyperLink(
-      applyView(),
-      "link",
-      frontendAppConfig.exitSurveyUrl,
-      messages("registrationSent.link")
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(dayToString(inject[TimeMachine].now(), dayOfWeek = false), "080582080582")(
+      fakeRequest,
+      messages,
+      frontendAppConfig
     )
 
-    "Contains the reference number" in {
-      val doc = asDocument(applyView())
-      assertContainsText(doc, "080582080582")
-    }
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(
+      dayToString(inject[TimeMachine].now(), dayOfWeek = false),
+      "080582080582",
+      fakeRequest,
+      messages,
+      frontendAppConfig
+    )
 
+  private val viewViaF: HtmlFormat.Appendable =
+    view.f(
+      dayToString(inject[TimeMachine].now(), dayOfWeek = false),
+      "080582080582"
+    )(fakeRequest, messages, frontendAppConfig)
+
+  "ApplicationBeingProcessedView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
+
+        behave like pageWithHyperLink(
+          view,
+          "link",
+          frontendAppConfig.exitSurveyUrl,
+          messages("registrationSent.link")
+        )
+
+        "contain the reference number" in {
+          val doc = asDocument(view)
+          assertContainsText(doc, "080582080582")
+        }
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

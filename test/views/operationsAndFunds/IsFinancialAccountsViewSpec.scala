@@ -17,7 +17,6 @@
 package views.operationsAndFunds
 
 import base.data.messages.BaseMessages
-import controllers.operationsAndFunds.routes
 import forms.operationsAndFunds.IsFinancialAccountsFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -27,23 +26,39 @@ import views.html.operationsAndFunds.IsFinancialAccountsView
 
 class IsFinancialAccountsViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isFinancialAccounts"
-  private val section          = Option(messages("operationsAndFunds.section"))
-  val form: Form[Boolean]      = inject[IsFinancialAccountsFormProvider].apply()
+  private val messageKeyPrefix: String = "isFinancialAccounts"
+  private val section                  = Option(messages("operationsAndFunds.section"))
+  val form: Form[Boolean]              = inject[IsFinancialAccountsFormProvider].apply()
 
-  "IsFinancialAccountsView" must {
+  private val view: IsFinancialAccountsView = viewFor[IsFinancialAccountsView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[IsFinancialAccountsView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+  private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section)
+  "IsFinancialAccountsView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[Boolean] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = section)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
+
+        behave like yesNoPage(form, createView, messageKeyPrefix, section = section)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

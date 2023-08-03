@@ -61,7 +61,8 @@ class RegistrationSentController @Inject() (
           case _ if appConfig.noEmailPost                 => Future.successful(Ok(renderView(false, true)))
           case _                                          => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))
         }
-      case _                                                                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
+      case _                                                                 =>
+        Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
     }
   }
 

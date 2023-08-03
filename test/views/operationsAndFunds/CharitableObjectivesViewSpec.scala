@@ -26,22 +26,43 @@ import views.html.operationsAndFunds.CharitableObjectivesView
 
 class CharitableObjectivesViewSpec extends TextAreaViewBehaviours {
 
-  private val messageKeyPrefix = "charitableObjectives"
-  val form: Form[String]       = inject[CharitableObjectivesFormProvider].apply()
+  private val messageKeyPrefix: String = "charitableObjectives"
+  val form: Form[String]               = inject[CharitableObjectivesFormProvider].apply()
 
-  "CharitableObjectivesView" must {
+  private val view: CharitableObjectivesView = viewFor[CharitableObjectivesView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[CharitableObjectivesView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[String]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+  private def viewViaRender(form: Form[String]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[String]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "CharitableObjectivesView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[String] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
 
-    behave like textAreaPage(form, applyView, messageKeyPrefix, section = Some(messages("operationsAndFunds.section")))
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+
+        behave like textAreaPage(
+          form,
+          createView,
+          messageKeyPrefix,
+          section = Some(messages("operationsAndFunds.section"))
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[String] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

@@ -23,7 +23,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 sealed trait SelectTitle
 
@@ -31,7 +30,7 @@ object SelectTitle extends Enumerable.Implicits {
 
   case object Mr extends WithName("0001") with SelectTitle
   case object Mrs extends WithName("0002") with SelectTitle
-  case object Miss extends WithName("0003") with SelectTitle
+  private case object Miss extends WithName("0003") with SelectTitle
   case object Ms extends WithName("0004") with SelectTitle
   case object UnsupportedTitle extends WithName("unsupported") with SelectTitle
 
@@ -42,7 +41,7 @@ object SelectTitle extends Enumerable.Implicits {
     Ms
   )
 
-  val valuesAndUnsupported: Seq[SelectTitle] = values :+ UnsupportedTitle
+  private val valuesAndUnsupported: Seq[SelectTitle] = values :+ UnsupportedTitle
 
   def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
     RadioItem(

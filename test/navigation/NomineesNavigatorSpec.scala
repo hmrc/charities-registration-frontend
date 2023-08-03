@@ -29,6 +29,7 @@ import pages.nominees._
 
 import java.time.LocalDate
 
+//scalastyle:off file.size.limit
 class NomineesNavigatorSpec extends SpecBase {
 
   private val navigator: NomineesNavigator              = inject[NomineesNavigator]
@@ -1424,5 +1425,5 @@ class NomineesNavigatorSpec extends SpecBase {
     }
 
   }
-
 }
+//scalastyle:on file.size.limit

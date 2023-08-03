@@ -22,27 +22,39 @@ import views.html.SwitchOverAnswersLostErrorView
 
 class SwitchOverAnswersLostErrorViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "switchOverAnswersLostError"
+  private val messageKeyPrefix: String = "switchOverAnswersLostError"
 
-  "SwitchOverAnswersLostErrorView" must {
+  private val view: SwitchOverAnswersLostErrorView = viewFor[SwitchOverAnswersLostErrorView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[SwitchOverAnswersLostErrorView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "SwitchOverAnswersLostErrorView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "linkButton",
-      controllers.routes.IndexController.onPageLoad(None).url,
-      messages("site.continue")
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "linkButton",
+          controllers.routes.IndexController.onPageLoad(None).url,
+          messages("site.continue")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

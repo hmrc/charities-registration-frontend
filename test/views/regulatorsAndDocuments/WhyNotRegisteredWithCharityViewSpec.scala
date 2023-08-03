@@ -26,22 +26,43 @@ import views.html.regulatorsAndDocuments.WhyNotRegisteredWithCharityView
 
 class WhyNotRegisteredWithCharityViewSpec extends TextAreaViewBehaviours {
 
-  private val messageKeyPrefix = "whyNotRegisteredWithCharity"
-  val form: Form[String]       = inject[WhyNotRegisteredWithCharityFormProvider].apply()
+  private val messageKeyPrefix: String = "whyNotRegisteredWithCharity"
+  val form: Form[String]               = inject[WhyNotRegisteredWithCharityFormProvider].apply()
 
-  "WhyNotRegisteredWithCharityView" must {
+  private val view: WhyNotRegisteredWithCharityView = viewFor[WhyNotRegisteredWithCharityView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[WhyNotRegisteredWithCharityView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[String]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+  private def viewViaRender(form: Form[String]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[String]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+  "WhyNotRegisteredWithCharityView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[String] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("charityRegulator.section")))
 
-    behave like textAreaPage(form, applyView, messageKeyPrefix, section = Some(messages("charityRegulator.section")))
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+
+        behave like textAreaPage(
+          form,
+          createView,
+          messageKeyPrefix,
+          section = Some(messages("charityRegulator.section"))
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[String] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

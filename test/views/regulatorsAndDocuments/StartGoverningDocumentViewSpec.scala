@@ -23,25 +23,37 @@ import views.html.regulatorsAndDocuments.StartGoverningDocumentView
 
 class StartGoverningDocumentViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "startGoverningDocument"
+  private val messageKeyPrefix: String = "startGoverningDocument"
 
-  "StartGoverningDocumentView" must {
+  private val view: StartGoverningDocumentView = viewFor[StartGoverningDocumentView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[StartGoverningDocumentView](Some(emptyUserAnswers))
-      view.apply()(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply()(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix, section = Some(messages("regulatorsSummary.section")))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1", "b1", "b2")
+  private val viewViaF: HtmlFormat.Appendable = view.f()(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "linkButton",
-      controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url,
-      messages("site.continue")
+  "StartGoverningDocumentView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("regulatorsSummary.section")))
+
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "b1", "b2")
+
+        behave like pageWithHyperLink(
+          view,
+          "linkButton",
+          controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode).url,
+          messages("site.continue")
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

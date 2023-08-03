@@ -29,17 +29,34 @@ class OverseasOperatingLocationSummaryViewSpec extends ViewBehaviours {
   private val section: String          = messages("operationsAndFunds.section")
   val form: Form[Boolean]              = inject[OverseasOperatingLocationSummaryFormProvider].apply()
 
-  "OverseasOperatingLocationSummaryView" must {
+  private val view: OverseasOperatingLocationSummaryView =
+    viewFor[OverseasOperatingLocationSummaryView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[Boolean]): HtmlFormat.Appendable = {
-      val view = viewFor[OverseasOperatingLocationSummaryView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, Seq())(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable =
+    view.apply(form, NormalMode, Seq())(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix, Seq(), section = Some(section))
+  private val viewViaRender: HtmlFormat.Appendable =
+    view.render(form, NormalMode, Seq(), fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  private val viewViaF: HtmlFormat.Appendable =
+    view.f(form, NormalMode, Seq())(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithSubmitButton(applyView(form), messages("site.confirmAndContinue"))
+  "OverseasOperatingLocationSummaryView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, Seq(), section = Some(section))
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, messages("site.confirmAndContinue"))
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

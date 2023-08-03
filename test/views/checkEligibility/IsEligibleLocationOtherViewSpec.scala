@@ -17,7 +17,6 @@
 package views.checkEligibility
 
 import base.data.messages.BaseMessages
-import controllers.checkEligibility.routes
 import forms.checkEligibility.IsEligibleLocationOtherFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -27,57 +26,73 @@ import views.html.checkEligibility.IsEligibleLocationOtherView
 
 class IsEligibleLocationOtherViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix = "isEligibleLocationOther"
-  val form: Form[Boolean]      = inject[IsEligibleLocationOtherFormProvider].apply()
+  private val messageKeyPrefix: String = "isEligibleLocationOther"
+  val form: Form[Boolean]              = inject[IsEligibleLocationOtherFormProvider].apply()
 
-  "IsEligibleLocationOtherView" must {
+  private val view: IsEligibleLocationOtherView = viewFor[IsEligibleLocationOtherView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[IsEligibleLocationOtherView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+  private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.render(form, NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(form), messageKeyPrefix, "details")
+  private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.f(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView(form))
+  "IsEligibleLocationOtherView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[Boolean] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix)
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "details")
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+        behave like pageWithBackLink(view)
 
-    "display EU countries list" in {
-      assertContainsMessages(
-        asDocument(applyView(form)),
-        s"$messageKeyPrefix.austria",
-        s"$messageKeyPrefix.belgium",
-        s"$messageKeyPrefix.bulgaria",
-        s"$messageKeyPrefix.croatia",
-        s"$messageKeyPrefix.republicOfCyprus",
-        s"$messageKeyPrefix.czechRepublic",
-        s"$messageKeyPrefix.denmark",
-        s"$messageKeyPrefix.estonia",
-        s"$messageKeyPrefix.finland",
-        s"$messageKeyPrefix.france",
-        s"$messageKeyPrefix.germany",
-        s"$messageKeyPrefix.greece",
-        s"$messageKeyPrefix.hungary",
-        s"$messageKeyPrefix.ireland",
-        s"$messageKeyPrefix.italy",
-        s"$messageKeyPrefix.latvia",
-        s"$messageKeyPrefix.lithuania",
-        s"$messageKeyPrefix.luxembourg",
-        s"$messageKeyPrefix.malta",
-        s"$messageKeyPrefix.netherlands",
-        s"$messageKeyPrefix.poland",
-        s"$messageKeyPrefix.portugal",
-        s"$messageKeyPrefix.romania",
-        s"$messageKeyPrefix.slovakia",
-        s"$messageKeyPrefix.slovenia",
-        s"$messageKeyPrefix.spain",
-        s"$messageKeyPrefix.sweden"
-      )
-    }
+        behave like yesNoPage(form, createView, messageKeyPrefix)
+
+        behave like pageWithSubmitButton(view, BaseMessages.continue)
+
+        "display EU countries list" in {
+          assertContainsMessages(
+            asDocument(view),
+            s"$messageKeyPrefix.austria",
+            s"$messageKeyPrefix.belgium",
+            s"$messageKeyPrefix.bulgaria",
+            s"$messageKeyPrefix.croatia",
+            s"$messageKeyPrefix.republicOfCyprus",
+            s"$messageKeyPrefix.czechRepublic",
+            s"$messageKeyPrefix.denmark",
+            s"$messageKeyPrefix.estonia",
+            s"$messageKeyPrefix.finland",
+            s"$messageKeyPrefix.france",
+            s"$messageKeyPrefix.germany",
+            s"$messageKeyPrefix.greece",
+            s"$messageKeyPrefix.hungary",
+            s"$messageKeyPrefix.ireland",
+            s"$messageKeyPrefix.italy",
+            s"$messageKeyPrefix.latvia",
+            s"$messageKeyPrefix.lithuania",
+            s"$messageKeyPrefix.luxembourg",
+            s"$messageKeyPrefix.malta",
+            s"$messageKeyPrefix.netherlands",
+            s"$messageKeyPrefix.poland",
+            s"$messageKeyPrefix.portugal",
+            s"$messageKeyPrefix.romania",
+            s"$messageKeyPrefix.slovakia",
+            s"$messageKeyPrefix.slovenia",
+            s"$messageKeyPrefix.spain",
+            s"$messageKeyPrefix.sweden"
+          )
+        }
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

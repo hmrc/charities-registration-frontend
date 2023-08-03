@@ -18,7 +18,6 @@ package pages.nominees
 
 import models.UserAnswers
 import pages.QuestionPage
-import pages.addressLookup.NomineeIndividualPreviousAddressLookupPage
 import play.api.libs.json.JsPath
 
 import scala.util.Try

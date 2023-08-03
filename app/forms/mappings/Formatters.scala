@@ -26,7 +26,7 @@ trait Formatters {
 
   def replaceSpaces(input: String): String = trimString(input).replaceAll(" +", " ")
 
-  def trimString(input: String): String = input.trim
+  private def trimString(input: String): String = input.trim
 
   private[mappings] def stringFormatter(
     errorKey: String,

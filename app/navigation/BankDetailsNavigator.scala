@@ -16,15 +16,13 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.routes
-import javax.inject.Inject
 import models._
 import pages.Page
 import pages.operationsAndFunds._
 import play.api.mvc.Call
 
-class BankDetailsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class BankDetailsNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
 

@@ -24,27 +24,39 @@ import views.html.checkEligibility.CheckIfCanRegisterView
 
 class CheckIfCanRegisterViewSpec extends ViewBehaviours {
 
-  private val messageKeyPrefix = "checkIfYouCanRegister"
+  private val messageKeyPrefix: String = "checkIfYouCanRegister"
 
-  "CheckIfYouCanRegister view" must {
+  private val view: CheckIfCanRegisterView = viewFor[CheckIfCanRegisterView](Some(emptyUserAnswers))
 
-    def applyView(): HtmlFormat.Appendable = {
-      val view = viewFor[CheckIfCanRegisterView](Some(emptyUserAnswers))
-      view.apply(NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply(NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like normalPage(applyView(), messageKeyPrefix)
+  private val viewViaRender: HtmlFormat.Appendable = view.render(NormalMode, fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithAdditionalGuidance(applyView(), messageKeyPrefix, "p1")
+  private val viewViaF: HtmlFormat.Appendable = view.f(NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-    behave like pageWithBackLink(applyView())
+  "CheckIfCanRegisterView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix)
 
-    behave like pageWithHyperLink(
-      applyView(),
-      "linkButton",
-      controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url,
-      BaseMessages.continue
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1")
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithHyperLink(
+          view,
+          "linkButton",
+          controllers.checkEligibility.routes.IsEligiblePurposeController.onPageLoad().url,
+          BaseMessages.continue
+        )
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
+    input.foreach(args => (test _).tupled(args))
   }
 }

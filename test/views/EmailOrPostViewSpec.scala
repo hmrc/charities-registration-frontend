@@ -24,28 +24,52 @@ import views.html.EmailOrPostView
 
 class EmailOrPostViewSpec extends YesNoViewBehaviours {
 
-  private val messageKeyPrefix        = "emailOrPost"
-  val form: Form[Boolean]             = inject[YesNoFormProvider].apply(messageKeyPrefix)
-  private val section: Option[String] = Some(messages("declaration.section"))
+  private val messageKeyPrefix: String = "emailOrPost"
+  private val section: Option[String]  = Some(messages("declaration.section"))
+  val form: Form[Boolean]              = inject[YesNoFormProvider].apply(messageKeyPrefix)
 
-  "EmailOrPostView" must {
+  private val view: EmailOrPostView = viewFor[EmailOrPostView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[EmailOrPostView](Some(emptyUserAnswers))
-      view.apply(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
-    }
+  private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
+    view.apply(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
+      fakeRequest,
+      messages,
+      frontendAppConfig
+    )
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+  private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable = view.render(
+    form,
+    Seq("requiredDocuments.governingDocumentName.answerTrue"),
+    None,
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like pageWithBackLink(applyView(form))
+  private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable = view.f(
+    form,
+    Seq("requiredDocuments.governingDocumentName.answerTrue"),
+    None
+  )(fakeRequest, messages, frontendAppConfig)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, section = section, isEmailOrPost = true)
+  "EmailOrPostView" when {
+    def test(method: String, view: HtmlFormat.Appendable, createView: Form[Boolean] => HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(view, messageKeyPrefix, section = section)
 
-    behave like pageWithSubmitButton(applyView(form), messages("site.continue"))
+        behave like pageWithBackLink(view)
 
+        behave like yesNoPage(form, createView, messageKeyPrefix, section = section, isEmailOrPost = true)
+
+        behave like pageWithSubmitButton(view, messages("site.continue"))
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply(form), viewViaApply),
+      (".render", viewViaRender(form), viewViaRender),
+      (".f", viewViaF(form), viewViaF)
+    )
+
+    input.foreach(args => (test _).tupled(args))
   }
 }

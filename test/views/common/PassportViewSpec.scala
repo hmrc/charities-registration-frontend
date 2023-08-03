@@ -26,30 +26,67 @@ import views.html.common.PassportView
 
 class PassportViewSpec extends QuestionViewBehaviours[Passport] {
 
-  private val messageKeyPrefix      = "authorisedOfficialsPassport"
-  override val form: Form[Passport] = inject[PassportFormProvider].apply(messageKeyPrefix)
+  private val messageKeyPrefix: String = "authorisedOfficialsPassport"
+  override val form: Form[Passport]    = inject[PassportFormProvider].apply(messageKeyPrefix)
 
-  "AuthorisedOfficialsPassportView" must {
+  private val view: PassportView = viewFor[PassportView](Some(emptyUserAnswers))
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[PassportView](Some(emptyUserAnswers))
-      view.apply(form, "Jim John Jones", messageKeyPrefix, onwardRoute, Seq(("GB", "United Kingdom")))(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      )
-    }
+  private val viewViaApply: HtmlFormat.Appendable = view.apply(
+    form,
+    "test",
+    messageKeyPrefix,
+    onwardRoute,
+    Seq(("GB", "United Kingdom"))
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
 
-    behave like normalPage(
-      applyView(form),
-      messageKeyPrefix,
-      Seq("Jim John Jones"),
-      section = Some(messages("officialsAndNominees.section"))
+  private val viewViaRender: HtmlFormat.Appendable = view.render(
+    form,
+    "test",
+    messageKeyPrefix,
+    onwardRoute,
+    Seq(("GB", "United Kingdom")),
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
+
+  private val viewViaF: HtmlFormat.Appendable = view.f(
+    form,
+    "test",
+    messageKeyPrefix,
+    onwardRoute,
+    Seq(("GB", "United Kingdom"))
+  )(
+    fakeRequest,
+    messages,
+    frontendAppConfig
+  )
+
+  "PassportView" when {
+    def test(method: String, view: HtmlFormat.Appendable): Unit =
+      s"$method" must {
+        behave like normalPage(
+          view,
+          messageKeyPrefix,
+          Seq("test"),
+          section = Some(messages("officialsAndNominees.section"))
+        )
+
+        behave like pageWithBackLink(view)
+
+        behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+      }
+
+    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
+      (".apply", viewViaApply),
+      (".render", viewViaRender),
+      (".f", viewViaF)
     )
 
-    behave like pageWithBackLink(applyView(form))
-
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
+    input.foreach(args => (test _).tupled(args))
   }
 }

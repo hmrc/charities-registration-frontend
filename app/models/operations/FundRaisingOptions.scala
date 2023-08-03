@@ -30,27 +30,27 @@ object FundRaisingOptions extends Enumerable.Implicits {
     override val order: Int = 1
   }
 
-  case object Fundraising extends WithName("fundraising") with FundRaisingOptions {
+  private case object Fundraising extends WithName("fundraising") with FundRaisingOptions {
     override val order: Int = 2
   }
 
-  case object Grants extends WithName("grants") with FundRaisingOptions {
+  private case object Grants extends WithName("grants") with FundRaisingOptions {
     override val order: Int = 3
   }
 
-  case object MembershipSubscriptions extends WithName("membershipSubscriptions") with FundRaisingOptions {
+  private case object MembershipSubscriptions extends WithName("membershipSubscriptions") with FundRaisingOptions {
     override val order: Int = 4
   }
 
-  case object TradingIncome extends WithName("tradingIncome") with FundRaisingOptions {
+  private case object TradingIncome extends WithName("tradingIncome") with FundRaisingOptions {
     override val order: Int = 5
   }
 
-  case object TradingSubsidiaries extends WithName("tradingSubsidiaries") with FundRaisingOptions {
+  private case object TradingSubsidiaries extends WithName("tradingSubsidiaries") with FundRaisingOptions {
     override val order: Int = 6
   }
 
-  case object InvestmentIncome extends WithName("investmentIncome") with FundRaisingOptions {
+  private case object InvestmentIncome extends WithName("investmentIncome") with FundRaisingOptions {
     override val order: Int = 7
   }
 

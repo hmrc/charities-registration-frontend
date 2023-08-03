@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.UserAnswerService
 import views.html.StartDeclarationView
 
 import scala.concurrent.Future
@@ -28,7 +27,6 @@ import scala.concurrent.Future
 class StartDeclarationController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
-  userAnswerService: UserAnswerService,
   requireData: DataRequiredAction,
   view: StartDeclarationView,
   val controllerComponents: MessagesControllerComponents

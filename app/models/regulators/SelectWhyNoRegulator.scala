@@ -28,8 +28,8 @@ object SelectWhyNoRegulator extends Enumerable.Implicits {
 
   case object EnglandWalesUnderThreshold extends WithName("1") with SelectWhyNoRegulator
   case object ExemptOrExcepted extends WithName("5") with SelectWhyNoRegulator
-  case object NoRegulatorInCountry extends WithName("4") with SelectWhyNoRegulator
-  case object ParochialChurchCouncils extends WithName("2") with SelectWhyNoRegulator
+  private case object NoRegulatorInCountry extends WithName("4") with SelectWhyNoRegulator
+  private case object ParochialChurchCouncils extends WithName("2") with SelectWhyNoRegulator
   case object UniformedYouthGroup extends WithName("3") with SelectWhyNoRegulator
   case object Other extends WithName("7") with SelectWhyNoRegulator
 

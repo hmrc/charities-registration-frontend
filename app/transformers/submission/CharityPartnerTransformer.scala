@@ -141,20 +141,20 @@ class CharityPartnerTransformer extends JsonTransformer {
     localPath.json.copyFrom(partners)
   }
 
-  def getOfficials(action: String, relation: String, partnerType: String): Reads[JsObject] =
+  private def getOfficials(action: String, relation: String, partnerType: String): Reads[JsObject] =
     (userAnswersToResponsiblePerson(action, relation) and userAnswersToAddPartner(
       partnerType
     ) and userAnswersToIndividualDetails("officials") and
       userAnswersToPartnerAddressDetails).reduce
 
-  def getOrganisationNominee(action: String): Reads[JsObject] =
+  private def getOrganisationNominee(action: String): Reads[JsObject] =
     (userAnswersToResponsiblePerson(action, relationNominee) and userAnswersToAddPartner(partnerTypeOrganisation) and
       userAnswersToIndividualDetails(
         "organisationAuthorisedPerson"
       ) and userAnswersToPartnerAddressDetailsOrganisation and userAnswersToOrgDetails
       and userAnswersToPaymentDetails("organisationBankDetails", "isOrganisationNomineePayments")).reduce
 
-  def getIndividualNominee(action: String): Reads[JsObject] =
+  private def getIndividualNominee(action: String): Reads[JsObject] =
     (userAnswersToResponsiblePerson(action, relationNominee) and userAnswersToAddPartner(partnerTypeIndividual) and
       userAnswersToIndividualDetails("individual") and userAnswersToPartnerAddressDetailsIndividual
       and userAnswersToPaymentDetails("individualBankDetails", "isIndividualNomineePayments")).reduce

@@ -16,13 +16,12 @@
 
 package controllers.addressLookup
 
-import config.FrontendAppConfig
 import connectors.addressLookup.AddressLookupConnector
 import controllers.actions._
 import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
-import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
+import pages.addressLookup.AuthorisedOfficialPreviousAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.sections.Section7Page
 import play.api.mvc._
@@ -38,8 +37,7 @@ class AuthorisedOfficialsPreviousAddressLookupController @Inject() (
   override val addressLookupConnector: AddressLookupConnector,
   override val errorHandler: ErrorHandler,
   val controllerComponents: MessagesControllerComponents
-)(implicit appConfig: FrontendAppConfig)
-    extends BaseAddressController {
+) extends BaseAddressController {
 
   override val messagePrefix: String = "authorisedOfficialPreviousAddress"
 

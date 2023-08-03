@@ -101,7 +101,7 @@ trait Constraints extends InputFilter {
     Constraint {
       case str if str.replaceAll("\\r\\n", " ").replaceAll("\\t", " ").length <= maximum =>
         Valid
-      case x                                                                             =>
+      case _                                                                             =>
         Invalid(errorKey, maximum)
     }
 

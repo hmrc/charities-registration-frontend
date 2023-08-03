@@ -49,7 +49,7 @@ class IsRemoveOperatingCountryController @Inject() (
   private val messagePrefix: String = "isRemoveOperatingCountry"
   private val form: Form[Boolean]   = formProvider(messagePrefix)
 
-  def getCountryName(
+  private def getCountryName(
     page: QuestionPage[String]
   )(block: String => Future[Result])(implicit request: DataRequest[AnyContent]): Future[Result] =
     request.userAnswers

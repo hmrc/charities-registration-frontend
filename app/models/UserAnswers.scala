@@ -32,7 +32,7 @@ final case class UserAnswers(id: String, data: JsObject, lastUpdated: LocalDateT
       pages.forall(page => checkDataPresent(page).nonEmpty)
     }
 
-  def checkDataPresent[A](page: QuestionPage[A], idx: Option[Int] = None): Option[JsValue] =
+  private def checkDataPresent[A](page: QuestionPage[A], idx: Option[Int] = None): Option[JsValue] =
     path(page, idx).readNullable[JsValue].reads(data).getOrElse(None)
 
   def unneededPagesNotPresent(neededPages: Seq[QuestionPage[_]], allPages: Seq[QuestionPage[_]]): Boolean =
@@ -93,9 +93,9 @@ object UserAnswers {
   ): UserAnswers =
     new UserAnswers(id, data, lastUpdated, expiresAt)
 
-  lazy val expireMinutes = 15
+  private lazy val expireMinutes = 15
 
-  def calculateExpireTime: LocalDateTime = LocalDateTime.now.plusMinutes(expireMinutes)
+  private def calculateExpireTime: LocalDateTime = LocalDateTime.now.plusMinutes(expireMinutes)
 
   implicit lazy val reads: Reads[UserAnswers] = {
 

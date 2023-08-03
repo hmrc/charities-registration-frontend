@@ -35,7 +35,7 @@ class BankDetailsSummaryHelper(override val userAnswers: UserAnswers)(implicit v
       messagePrefix = "bankDetails.accountName"
     )
 
-  def accountSortCode: Option[SummaryListRow] =
+  private def accountSortCode: Option[SummaryListRow] =
     answerSortCode(
       BankDetailsPage,
       controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),
@@ -49,7 +49,7 @@ class BankDetailsSummaryHelper(override val userAnswers: UserAnswers)(implicit v
       messagePrefix = "bankDetails.accountNumber"
     )
 
-  def accountRollNumber: Option[SummaryListRow] =
+  private def accountRollNumber: Option[SummaryListRow] =
     answerRollNumber(
       BankDetailsPage,
       controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(CheckMode),

@@ -34,43 +34,45 @@ object CharitablePurposes extends Enumerable.Implicits {
     override val order: Int = 2
   }
 
-  case object ArtsCultureHeritageScience extends WithName("artsCultureOrScience") with CharitablePurposes {
+  private case object ArtsCultureHeritageScience extends WithName("artsCultureOrScience") with CharitablePurposes {
     override val order: Int = 3
   }
 
-  case object CitizenshipCommunity extends WithName("citizenshipOrCommunityDevelopment") with CharitablePurposes {
+  private case object CitizenshipCommunity
+      extends WithName("citizenshipOrCommunityDevelopment")
+      with CharitablePurposes {
     override val order: Int = 4
   }
 
-  case object Education extends WithName("education") with CharitablePurposes {
+  private case object Education extends WithName("education") with CharitablePurposes {
     override val order: Int = 5
   }
 
-  case object EnvironmentalProtection extends WithName("environmentalProtection") with CharitablePurposes {
+  private case object EnvironmentalProtection extends WithName("environmentalProtection") with CharitablePurposes {
     override val order: Int = 6
   }
 
-  case object Health extends WithName("healthOrSavingOfLives") with CharitablePurposes {
+  private case object Health extends WithName("healthOrSavingOfLives") with CharitablePurposes {
     override val order: Int = 7
   }
 
-  case object HumanRights extends WithName("humanRights") with CharitablePurposes {
+  private case object HumanRights extends WithName("humanRights") with CharitablePurposes {
     override val order: Int = 8
   }
 
-  case object PromotionOfEfficiency extends WithName("armedForcesOfTheCrown") with CharitablePurposes {
+  private case object PromotionOfEfficiency extends WithName("armedForcesOfTheCrown") with CharitablePurposes {
     override val order: Int = 9
   }
 
-  case object ReliefOfPoverty extends WithName("reliefOfPoverty") with CharitablePurposes {
+  private case object ReliefOfPoverty extends WithName("reliefOfPoverty") with CharitablePurposes {
     override val order: Int = 10
   }
 
-  case object ReliefOfThoseInNeed extends WithName("reliefOfYouthAge") with CharitablePurposes {
+  private case object ReliefOfThoseInNeed extends WithName("reliefOfYouthAge") with CharitablePurposes {
     override val order: Int = 11
   }
 
-  case object Religion extends WithName("religion") with CharitablePurposes {
+  private case object Religion extends WithName("religion") with CharitablePurposes {
     override val order: Int = 12
   }
 

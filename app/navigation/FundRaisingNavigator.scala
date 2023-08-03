@@ -28,7 +28,7 @@ import play.api.mvc.Call
 
 class FundRaisingNavigator extends BaseNavigator {
 
-  def overseasRedirect(userAnswers: UserAnswers, mode: Mode): Call = {
+  private def overseasRedirect(userAnswers: UserAnswers, mode: Mode): Call = {
     val result = for (i <- 0 to 4) yield userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
     if (result.filter(_.nonEmpty).flatten.nonEmpty) {
       operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(mode)

@@ -30,7 +30,7 @@ private[mappings] trait GenericDateFormatter extends Formatters with Constraints
       field -> data.get(s"$key.$field").filter(_.nonEmpty).map(f => filter(f))
     }.toMap
 
-  lazy val missingFields: (String, Map[String, String]) => List[String] = (key, data) =>
+  private lazy val missingFields: (String, Map[String, String]) => List[String] = (key, data) =>
     fields(key, data)
       .withFilter(_._2.isEmpty)
       .map(_._1)

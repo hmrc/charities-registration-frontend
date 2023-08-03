@@ -23,8 +23,6 @@ trait ErrorResponse {
   val body: String
 }
 
-case class UnexpectedFailure(override val status: Int, override val body: String) extends ErrorResponse
-
 case class DefaultedUnexpectedFailure(override val status: Int) extends ErrorResponse {
   override val body: String = s"Unexpected response, status $status returned"
 }

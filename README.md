@@ -30,15 +30,15 @@ To run the application:
 #### Prerequisites:
 This service is written in Scala and the Play Framework, therefore you will need at least a Java Runtime Environment to run it. You will also need mongodb by either locally installing it or running a mongo docker container.
 
-You should ensure that you have the latest version of the correct services and are running them through the service manager.
+You should ensure that you have the latest version of the correct services and are running them through the service manager 2.
 
-Make sure service-manager and service-manager-config are up to date
+Make sure sm2 and service-manager-config are up to date
 
 Then run the following command to start all services:
 
 
 ```
-sm --start CHARITIES_REGISTRATION_ALL -r --appendArgs '{"CHARITIES_REGISTRATION_FRONTEND": ["-J-Dmicroservice.services.address-lookup-frontend.port=6001"]}'
+sm2 --start CHARITIES_REGISTRATION_ALL --appendArgs '{"CHARITIES_REGISTRATION_FRONTEND": ["-J-Dmicroservice.services.address-lookup-frontend.port=6001"]}'
 ```
 
 **Ensure CHARITIES_REGISTRATION_FRONTEND uses port 6001 for address-lookup-frontend. Note: Update address-lookup-frontend port to 6001 in the application.conf of charities-registration-frontend**

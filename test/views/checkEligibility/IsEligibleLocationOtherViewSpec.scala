@@ -45,46 +45,11 @@ class IsEligibleLocationOtherViewSpec extends YesNoViewBehaviours {
       s"$method" must {
         behave like normalPage(view, messageKeyPrefix)
 
-        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "details")
-
         behave like pageWithBackLink(view)
 
-        behave like yesNoPage(form, createView, messageKeyPrefix)
+        behave like yesNoPage(form, createView, messageKeyPrefix, legendKey = Some("h2"))
 
         behave like pageWithSubmitButton(view, BaseMessages.continue)
-
-        "display EU countries list" in {
-          assertContainsMessages(
-            asDocument(view),
-            s"$messageKeyPrefix.austria",
-            s"$messageKeyPrefix.belgium",
-            s"$messageKeyPrefix.bulgaria",
-            s"$messageKeyPrefix.croatia",
-            s"$messageKeyPrefix.republicOfCyprus",
-            s"$messageKeyPrefix.czechRepublic",
-            s"$messageKeyPrefix.denmark",
-            s"$messageKeyPrefix.estonia",
-            s"$messageKeyPrefix.finland",
-            s"$messageKeyPrefix.france",
-            s"$messageKeyPrefix.germany",
-            s"$messageKeyPrefix.greece",
-            s"$messageKeyPrefix.hungary",
-            s"$messageKeyPrefix.ireland",
-            s"$messageKeyPrefix.italy",
-            s"$messageKeyPrefix.latvia",
-            s"$messageKeyPrefix.lithuania",
-            s"$messageKeyPrefix.luxembourg",
-            s"$messageKeyPrefix.malta",
-            s"$messageKeyPrefix.netherlands",
-            s"$messageKeyPrefix.poland",
-            s"$messageKeyPrefix.portugal",
-            s"$messageKeyPrefix.romania",
-            s"$messageKeyPrefix.slovakia",
-            s"$messageKeyPrefix.slovenia",
-            s"$messageKeyPrefix.spain",
-            s"$messageKeyPrefix.sweden"
-          )
-        }
       }
 
     val input: Seq[(String, HtmlFormat.Appendable, Form[Boolean] => HtmlFormat.Appendable)] = Seq(

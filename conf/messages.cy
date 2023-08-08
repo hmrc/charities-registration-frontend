@@ -350,38 +350,16 @@ isEligibleLocation.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’
 
 # IsEligibleLocationOtherPage Messages
 # ----------------------------------------------------------
-isEligibleLocationOther.title = A yw’r elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy?
-isEligibleLocationOther.heading = A yw’r elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy?
-isEligibleLocationOther.details = Gwledydd yn yr Undeb Ewropeaidd
-isEligibleLocationOther.austria = Awstria
-isEligibleLocationOther.belgium = Gwlad Belg
-isEligibleLocationOther.bulgaria = Bwlgaria
-isEligibleLocationOther.croatia = Croatia
-isEligibleLocationOther.republicOfCyprus = Gweriniaeth Cyprus
-isEligibleLocationOther.czechRepublic = Y Weriniaeth Tsiec
-isEligibleLocationOther.denmark = Denmarc
-isEligibleLocationOther.estonia = Estonia
-isEligibleLocationOther.finland = Y Ffindir
-isEligibleLocationOther.france = Ffrainc
-isEligibleLocationOther.germany = Yr Almaen
-isEligibleLocationOther.greece = Gwlad Groeg
-isEligibleLocationOther.hungary = Hwngari
-isEligibleLocationOther.ireland = Iwerddon
-isEligibleLocationOther.italy = Yr Eidal
-isEligibleLocationOther.latvia = Latvia
-isEligibleLocationOther.lithuania = Lithuania
-isEligibleLocationOther.luxembourg = Lwcsembwrg
-isEligibleLocationOther.malta = Malta
-isEligibleLocationOther.netherlands = Yr Iseldiroedd
-isEligibleLocationOther.poland = Gwlad Pwyl
-isEligibleLocationOther.portugal = Portiwgal
-isEligibleLocationOther.romania = România
-isEligibleLocationOther.slovakia = Slofakia
-isEligibleLocationOther.slovenia = Slofenia
-isEligibleLocationOther.spain = Sbaen
-isEligibleLocationOther.sweden = Sweden
-isEligibleLocationOther.checkYourAnswersLabel = A yw’ch elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy?
-isEligibleLocationOther.error.required = Dewiswch ‘Iawn’ os yw’r elusen wedi’i lleoli yn yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy
+isEligibleLocationOther.title = Elusennau nad ydynt wedi’u lleoli yn y DU
+isEligibleLocationOther.heading = Elusennau nad ydynt wedi’u lleoli yn y DU
+isEligibleLocationOther.h2 = A yw’r elusen yn cael ei llywodraethu gan gyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban?
+isEligibleLocationOther.p1 = Os nad yw’r elusen wedi’i lleoli yn y DU, mae’n bosibl y gallwch ei chofrestru o hyd os yw’n cael ei llywodraethu gan gyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban.
+isEligibleLocationOther.p2 = Mae’r elusen yn cael ei llywodraethu gan gyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban os (yw un neu fwy o’r canlynol yn berthnasol):
+isEligibleLocationOther.b1 = mae dogfen lywodraethu’r elusen yn mabwysiadu cyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban i’w llywodraethu
+isEligibleLocationOther.b2 = mae’r rhan fwyaf o ymddiriedolwyr yr elusen yn byw yn y DU
+isEligibleLocationOther.b3 = mae’r rhan fwyaf o eiddo’r elusen yn y DU
+isEligibleLocationOther.b4 = mae gweinyddiaeth gyffredinol yr elusen yn cael ei gwneud yn y DU
+isEligibleLocationOther.error.required = Dewiswch ‘Iawn’ os yw’r elusen yn cael ei llywodraethu gan gyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban.
 
 # InEligible Page Messages
 # ----------------------------------------------------------

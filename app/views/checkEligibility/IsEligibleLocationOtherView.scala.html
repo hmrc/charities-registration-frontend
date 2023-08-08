@@ -23,7 +23,11 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
+    p: components.p,
+    h1: components.h1,
+    h2: components.h2,
+    bullets: components.bullets,
+    summaryYesNo: components.summaryYesNo,
     button: components.button
 )
 
@@ -35,55 +39,17 @@
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "isEligibleLocationOther.heading")
+        @h1("isEligibleLocationOther.heading")
 
-        <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                  @messages("isEligibleLocationOther.details")
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-                <ul class="govuk-list govuk-list--bullet">
-                    @countriesList.map { country => <li>@country</li>}
-                </ul>
-            </div>
-        </details>
+        @p(Html(messages("isEligibleLocationOther.p1")))
+
+        @p(Html(messages("isEligibleLocationOther.p2")))
+
+        @bullets("isEligibleLocationOther.b1", "isEligibleLocationOther.b2", "isEligibleLocationOther.b3", "isEligibleLocationOther.b4")()
+
+        @summaryYesNo(form, Some("isEligibleLocationOther.h2"), inlineRadio = false)
 
         @button("site.continue")
 
     }
-}
-
-@countriesList() = @{
-    val countries = List(
-        messages("isEligibleLocationOther.austria"),
-        messages("isEligibleLocationOther.belgium"),
-        messages("isEligibleLocationOther.bulgaria"),
-        messages("isEligibleLocationOther.croatia"),
-        messages("isEligibleLocationOther.republicOfCyprus"),
-        messages("isEligibleLocationOther.czechRepublic"),
-        messages("isEligibleLocationOther.denmark"),
-        messages("isEligibleLocationOther.estonia"),
-        messages("isEligibleLocationOther.finland"),
-        messages("isEligibleLocationOther.france"),
-        messages("isEligibleLocationOther.germany"),
-        messages("isEligibleLocationOther.greece"),
-        messages("isEligibleLocationOther.hungary"),
-        messages("isEligibleLocationOther.ireland"),
-        messages("isEligibleLocationOther.italy"),
-        messages("isEligibleLocationOther.latvia"),
-        messages("isEligibleLocationOther.lithuania"),
-        messages("isEligibleLocationOther.luxembourg"),
-        messages("isEligibleLocationOther.malta"),
-        messages("isEligibleLocationOther.netherlands"),
-        messages("isEligibleLocationOther.poland"),
-        messages("isEligibleLocationOther.portugal"),
-        messages("isEligibleLocationOther.romania"),
-        messages("isEligibleLocationOther.slovakia"),
-        messages("isEligibleLocationOther.slovenia"),
-        messages("isEligibleLocationOther.spain"),
-        messages("isEligibleLocationOther.sweden")
-    )
-    if (messages.lang.code == "cy") countries.sorted else countries
 }

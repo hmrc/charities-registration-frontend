@@ -36,6 +36,8 @@ class CharityCommonTransformerSpec extends SpecBase {
 
     "userAnswersToAdmin" must {
 
+      val sessionIdLength: Int = 50
+
       "convert the correct Admin object" in {
 
         val expectedJson =
@@ -62,7 +64,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestNoSessionId)).asOpt.value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
       }
 
@@ -71,7 +73,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestEmptySessionId)).asOpt.value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
       }
 
@@ -80,22 +82,21 @@ class CharityCommonTransformerSpec extends SpecBase {
           emptyUserAnswers.data.transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestShortSessionId)).asOpt.value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
         sessionId must startWith("short id here not 50 chars")
       }
 
       "convert the correct Admin object when more than 50 is length of session Id" in {
-        val number    = 50
         val json      = emptyUserAnswers.data
           .transform(jsonTransformer.userAnswersToAdmin(fakeDataRequestTooLongSessionId))
           .asOpt
           .value
         val sessionId = (json \ "charityRegistration" \ "common" \ "admin" \ "sessionID").as[String]
 
-        sessionId must have length 50
+        sessionId must have length sessionIdLength
         sessionId must not be empty
-        sessionId mustBe ("short id here not 50 chars" * 10).take(number)
+        sessionId mustBe ("short id here not 50 chars" * 10).take(sessionIdLength)
       }
 
     }

@@ -375,7 +375,7 @@ notEligible.charitablePurposes.p1 = To use this service the charity must be esta
 
 # NotEligibleLocationOther Page Messages
 # ----------------------------------------------------------
-notEligible.locationOther.p1 = To use this service the charity must be based in the UK, European Union, Iceland, Liechtenstein or Norway.
+notEligible.locationOther.p1 = To use this service the charity must be based in the UK or governed by the law of England and Wales, Northern Ireland or Scotland.
 
 # InEligibleBank Page Messages
 # ----------------------------------------------------------

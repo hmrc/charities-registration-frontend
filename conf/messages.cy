@@ -375,7 +375,7 @@ notEligible.charitablePurposes.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rha
 
 # InEligibleLocationOther Page Messages
 # ----------------------------------------------------------
-notEligible.locationOther.p1 = I ddefnyddio’r gwasanaeth hwn, mae’n rhaid bod yr elusen wedi’i lleoli yn y DU, yr Undeb Ewropeaidd, Gwlad yr Iâ, Liechtenstein neu Norwy
+notEligible.locationOther.p1 = Er mwyn defnyddio’r gwasanaeth hwn, mae’n rhaid i’r elusen fod wedi’i lleoli yn y DU neu wedi’i llywodraethu gan gyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban.
 
 # InEligibleBank Page Messages
 # ----------------------------------------------------------

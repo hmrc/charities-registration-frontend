@@ -19,11 +19,12 @@ package controllers.checkEligibility
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import javax.inject.Inject
 import navigation.EligibilityNavigator
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.checkEligibility.InEligibleLocationOtherView
+
+import javax.inject.Inject
 
 class InEligibleLocationOtherController @Inject() (
   val sessionRepository: SessionRepository,

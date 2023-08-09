@@ -23,6 +23,7 @@
     govukSummaryList: GovukSummaryList,
     h1: components.h1,
     p: components.p,
+    bullets: components.bullets,
     warning: components.warning,
     button: components.button,
     formHelper: FormWithCSRF
@@ -34,9 +35,13 @@
 
     @h1(messages("declaration.heading"))
 
-    @warning{@messages("declaration.warning")}
+    @p(Html(messages("declaration.p1")))
 
-    @p{@messages("declaration.p1")}
+    @bullets("declaration.b1", "declaration.b2", "declaration.b3", "declaration.b4", "declaration.b5", "declaration.b6")()
+
+    @p(Html(messages("declaration.p2")))
+
+    @warning(Html(messages("declaration.warning")))
 
     @formHelper(action = controllers.routes.DeclarationController.onSubmit, 'autoComplete -> "off") {
 

@@ -216,8 +216,15 @@ startDeclaration.p = Bydd y tudalennau nesaf yn gofyn i chi gadarnhau datganiad 
 # ----------------------------------------------------------
 declaration.title = Datganiad
 declaration.heading = Datganiad
+declaration.p1 = Drwy anfon y cais hwn, rydych yn cadarnhau bod o leiaf un o’r canlynol yn wir:
+declaration.p2 = Rydych eisoes yn cadarnhau bod y wybodaeth rydych wedi’i rhoi yn y cais yn wir hyd eithaf eich gwybodaeth.
+declaration.b1 = mae’r elusen wedi’i lleoli yn y DU
+declaration.b2 = mae’r elusen wedi’i chofrestru gyda Chomisiwn Elusennau Cymru a Lloegr, Comisiwn Elusennau ar gyfer Gogledd Iwerddon neu Reoleiddiwr Elusennau’r Alban
+declaration.b3 = mae dogfen lywodraethu’r elusen yn mabwysiadu cyfraith Cymru a Lloegr, Gogledd Iwerddon neu’r Alban i’w llywodraethu
+declaration.b4 = mae’r rhan fwyaf o ymddiriedolwyr yr elusen yn byw yn y DU
+declaration.b5 = mae’r rhan fwyaf o eiddo’r elusen yn y DU
+declaration.b6 = mae gweinyddiaeth gyffredinol yr elusen yn cael ei gwneud yn y DU
 declaration.warning = Gellir eich erlid am roi gwybodaeth anwir neu gamarweiniol yn fwriadol ar eich cais.
-declaration.p1 = Drwy anfon y cais hwn, rwy’n cadarnhau bod yr wybodaeth a roddwyd gennyf yn wir hyd eithaf fy ngwybodaeth.
 
 # Required documents bullets Messages
 # ----------------------------------------------------------

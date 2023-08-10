@@ -216,8 +216,15 @@ startDeclaration.p = The next pages will ask you to confirm a declaration and se
 # ----------------------------------------------------------
 declaration.title = Declaration
 declaration.heading = Declaration
+declaration.p1 = By sending this application, you confirm that at least one of the following is true:
+declaration.p2 = You also confirm that the information you have provided in the application is true to the best of your knowledge.
+declaration.b1 = the charity is based in the UK
+declaration.b2 = the charity is registered with either the Charity Commission of England and Wales, the Charity Commission for Northern Ireland or the Scottish Charity Regulator
+declaration.b3 = the charity’s governing document adopts the law of England and Wales, Northern Ireland or Scotland to govern it
+declaration.b4 = most of the charity’s trustees live in the UK
+declaration.b5 = most of the charity’s property is in UK
+declaration.b6 = the charity’s general administration is done in the UK
 declaration.warning = You can be prosecuted for knowingly providing false or misleading information on your application.
-declaration.p1 = By sending this application, I confirm that the information I have provided is true to the best of my knowledge.
 
 # Required documents bullets Messages
 # ----------------------------------------------------------

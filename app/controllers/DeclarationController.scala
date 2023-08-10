@@ -17,6 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
+import connectors.httpParsers.UnexpectedFailureException
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.Logger
@@ -25,11 +26,9 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.{CharitiesRegistrationService, UserAnswerService}
 import transformers.submission.CharitySubmissionTransformer
 import views.html.DeclarationView
+
 import java.time.LocalDate
-
-import connectors.httpParsers.UnexpectedFailureException
 import javax.inject.Inject
-
 import scala.concurrent.Future
 
 class DeclarationController @Inject() (

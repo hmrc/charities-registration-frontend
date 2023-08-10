@@ -35,22 +35,23 @@ class DeclarationViewSpec extends ViewBehaviours {
   "DeclarationView" when {
     def test(method: String, view: HtmlFormat.Appendable): Unit =
       s"$method" must {
-        behave like normalPage(view, messageKeyPrefix, section = Some(messages("declaration.section")))
 
-        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1")
+        behave like normalPage(view, messageKeyPrefix, section = Some(messages("declaration.section")))
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "p2")
+
+        Seq(1, 2, 3, 4, 5, 6).foreach(i => behave like pageWithBulletedPoint(view, messages(s"declaration.b$i"), i))
 
         behave like pageWithBackLink(view)
-
         behave like pageWithWarningText(view, messages("declaration.warning"))
-
         behave like pageWithSubmitButton(view, messages("site.confirmAndSend"))
       }
 
-    val input: Seq[(String, HtmlFormat.Appendable)] = Seq(
-      (".apply", viewViaApply),
-      (".render", viewViaRender),
-      (".f", viewViaF)
-    )
+    val input: Seq[(String, HtmlFormat.Appendable)] =
+      Seq(
+        (".apply", viewViaApply),
+        (".render", viewViaRender),
+        (".f", viewViaF)
+      )
 
     input.foreach(args => (test _).tupled(args))
   }

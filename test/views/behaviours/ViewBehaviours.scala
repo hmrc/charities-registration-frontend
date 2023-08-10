@@ -16,6 +16,8 @@
 
 package views.behaviours
 
+import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
 
@@ -34,7 +36,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "have the service name" in {
 
-          val doc = asDocument(view)
+          val doc: Document = asDocument(view)
 
           assert(
             doc.getElementsByClass("hmrc-header__service-name--linked").first.text == messages("service.name"),
@@ -44,7 +46,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display the correct browser title" in {
 
-          val doc = asDocument(view)
+          val doc: Document = asDocument(view)
           assertEqualsMessage(
             doc,
             "title",
@@ -54,7 +56,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display the correct page heading" in {
 
-          val doc = asDocument(view)
+          val doc: Document = asDocument(view)
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading$postHeadingString", headingArgs: _*)
         }
 
@@ -72,7 +74,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       "have a back link" in {
 
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertRenderedById(doc, "back-link")
       }
     }
@@ -102,7 +104,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       "have a Sign Out link" in {
 
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertRenderedByCssSelector(doc, "ul.govuk-header__navigation li:nth-of-type(1) a")
       }
     }
@@ -112,7 +114,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       s"have a button with message '$msg'" in {
 
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertEqualsMessage(doc, "#main-content > div > div > div > form > button", msg)
       }
     }
@@ -122,7 +124,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       s"have a button with message '$msg'" in {
 
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertEqualsMessage(doc, selector, msg)
       }
     }
@@ -132,7 +134,7 @@ trait ViewBehaviours extends ViewSpecBase {
       s"element with cssSelector '$cssSelector'" must {
 
         s"have message '$message'" in {
-          val doc = asDocument(view)
+          val doc: Document = asDocument(view)
           doc.select(cssSelector).first.text() mustBe message
         }
       }
@@ -142,7 +144,7 @@ trait ViewBehaviours extends ViewSpecBase {
     s"behave like a page with bullet point$bullet" must {
 
       s"have a button with message '$msg'" in {
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertEqualsMessage(
           doc,
           cssSelector = s"#main-content > div > div > div > ul > li:nth-child($bullet)",
@@ -164,10 +166,15 @@ trait ViewBehaviours extends ViewSpecBase {
 
       s"have a warning message '$msg'" in {
 
-        val doc = asDocument(view)
+        val doc: Document            = asDocument(view)
+        val warningElement: Elements = doc.getElementsByClass("govuk-warning-text__text")
 
         assert(
-          doc.getElementsByClass("govuk-warning-text__assistive").first.text == msg,
+          warningElement.select("span").text == "Warning",
+          s"\n Warning assistance text missing"
+        )
+        assert(
+          warningElement.first().ownText() == msg,
           s"\n Warning message did not contain text $msg"
         )
       }
@@ -178,7 +185,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       s"have a button with message '$msg'" in {
 
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertEqualsMessage(doc, s"#main-content > div > div > div > form > p:nth-child($child)", msg)
       }
     }
@@ -192,7 +199,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       "display the correct guidance" in {
 
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         for (key <- expectedGuidanceKeys) assertContainsText(doc, messages(s"$messageKeyPrefix.$key"))
       }
     }
@@ -202,7 +209,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       s"have a guidance message '$msg'" in {
 
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertEqualsMessage(doc, "#main-content > div > div > div > form > h1", msg)
       }
     }
@@ -210,14 +217,14 @@ trait ViewBehaviours extends ViewSpecBase {
   def pageWithMultiFieldError(view: HtmlFormat.Appendable, key: String): Unit =
     "behave like a page with a multiField error" in {
 
-      val doc = asDocument(view)
+      val doc: Document = asDocument(view)
       assertRenderedById(doc, s"$key-multiField-error-message")
     }
 
   def pageWithHyperLink(view: => HtmlFormat.Appendable, linkId: String, url: String = "#", linkText: String): Unit =
     "behave like a page with a hyperlink" must {
       "have a hyperlink" in {
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         assertRenderedById(doc, linkId)
         doc.select(s"#$linkId").attr("href") mustBe url
         doc.select(s"#$linkId").text() mustBe linkText
@@ -227,7 +234,7 @@ trait ViewBehaviours extends ViewSpecBase {
   def pageWithPrintOrDownloadLink(view: HtmlFormat.Appendable, linkId: String, url: String, linkText: String): Unit =
     "behave like a page with a Print or download link" must {
       "have a hyperlink" in {
-        val doc = asDocument(view)
+        val doc: Document = asDocument(view)
         doc.select(s"#$linkId").attr("href") mustBe url
         doc.select(s"#$linkId").text() mustBe linkText
       }

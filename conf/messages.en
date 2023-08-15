@@ -911,8 +911,8 @@ isFinancialAccounts.checkYourAnswersLabel = Financial accounts
 
 # What is the charity’s estimated income for its current 12 months of operation?
 # ----------------------------------------------------------
-estimatedIncome.title = What is the charity’s estimated income for its current 12 months of operation?
-estimatedIncome.heading = What is the charity’s estimated income for its current 12 months of operation?
+estimatedIncome.title = What is the charity’s estimated income in pounds for its current 12 months of operation?
+estimatedIncome.heading = What is the charity’s estimated income in pounds for its current 12 months of operation?
 estimatedIncome.p1 = This figure should be the charity’s estimated income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 estimatedIncome.error.required = Enter the charity’s estimated income for the current 12 months of operation
 estimatedIncome.error.format = Estimated income must be written as a number, like 100.50 or 110

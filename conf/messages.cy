@@ -914,8 +914,8 @@ isFinancialAccounts.checkYourAnswersLabel = Cyfrifon ariannol
 
 # What is the charity’s estimated income for its current 12 months of operation?
 # ----------------------------------------------------------
-estimatedIncome.title = Beth yw incwm amcangyfrifedig yr elusen ar gyfer ei 12 mis presennol o weithredu?
-estimatedIncome.heading = Beth yw incwm amcangyfrifedig yr elusen ar gyfer ei 12 mis presennol o weithredu?
+estimatedIncome.title = Beth yw incwm amcangyfrifedig yr elusen mewn punnoedd ar gyfer y cyfnod 12 mis hwn?
+estimatedIncome.heading = Beth yw incwm amcangyfrifedig yr elusen mewn punnoedd ar gyfer y cyfnod 12 mis hwn?
 estimatedIncome.p1 = Dylai’r ffigwr hwn fod yn incwm amcangyfrifedig yr elusen cyn unrhyw ddidyniadau. Os ydych yn trosi i bunnoedd Prydain, dylech ddefnyddio’r gyfradd gyfnewid heddiw.
 estimatedIncome.error.required = Nodwch incwm amcangyfrifedig yr elusen ar gyfer y 12 mis presennol o weithredu
 estimatedIncome.error.format = Mae’n rhaid ysgrifennu’r incwm amcangyfrifedig fel rhif, megis 100.50 neu 110

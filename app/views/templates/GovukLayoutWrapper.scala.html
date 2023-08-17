@@ -97,7 +97,7 @@
 
 
     @if(backLink == true) {
-        @govukBackLink(BackLink(href = customBackLinkUrl.fold("#")(customUrl => customUrl), content = Text("Back"), attributes = Map("id" -> "back-link")))
+        @govukBackLink(BackLink(href = customBackLinkUrl.fold("#")(customUrl => customUrl), content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))
     }
 
     @if(appConfig.languageTranslationEnabled) {

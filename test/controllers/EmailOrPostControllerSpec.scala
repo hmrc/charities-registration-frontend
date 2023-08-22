@@ -19,13 +19,13 @@ package controllers
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{OldServiceSubmission, UserAnswers}
+import models.UserAnswers
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{EmailOrPostPage, OldServiceSubmissionPage}
+import pages.EmailOrPostPage
 import pages.sections._
 import play.api.data.Form
 import play.api.inject.bind

@@ -27,6 +27,8 @@ import pages.nominees._
 import pages.otherOfficials._
 import play.api.libs.json._
 
+import java.time.LocalDate
+
 //scalastyle:off file.size.limit
 class CharityPartnerTransformerSpec extends SpecBase {
 

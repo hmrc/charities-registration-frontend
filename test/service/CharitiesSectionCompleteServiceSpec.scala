@@ -46,7 +46,7 @@ import scala.concurrent.Future
 //scalastyle:off file.size.limit
 // scalastyle:off magic.number
 
-class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
+class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
 
   lazy val mockRepository: SessionRepository  = mock[SessionRepository]
   lazy val mockUserService: UserAnswerService = mock[UserAnswerService]
@@ -65,7 +65,7 @@ class CharitiesSave4LaterServiceSpec extends SpecBase with MockitoSugar with Bef
   override def beforeEach(): Unit =
     reset(mockAuditService, mockCacheMap)
 
-  lazy val service: CharitiesSave4LaterService = inject[CharitiesSave4LaterService]
+  lazy val service: CharitiesSectionCompleteService = inject[CharitiesSectionCompleteService]
 
   implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 

@@ -29,7 +29,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 import repositories.SessionRepository
-import service.{CharitiesSave4LaterService, UserAnswerService}
+import service.{CharitiesSectionCompleteService, UserAnswerService}
 
 import javax.inject.Inject
 import scala.concurrent.Future
@@ -39,18 +39,18 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   lazy val mockAuditService: AuditService            = MockitoSugar.mock[AuditService]
 
-  class FakeCharitiesSave4LaterService @Inject() (
+  class FakeCharitiesSectionCompleteService @Inject() (
     sessionRepository: SessionRepository,
     userAnswerService: UserAnswerService,
     auditService: AuditService
-  ) extends CharitiesSave4LaterService(
+  ) extends CharitiesSectionCompleteService(
         sessionRepository,
         userAnswerService,
         auditService
       )
 
   lazy val service =
-    new FakeCharitiesSave4LaterService(
+    new FakeCharitiesSectionCompleteService(
       mockSessionRepository,
       mockUserAnswerService,
       mockAuditService
@@ -60,7 +60,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-        bind[CharitiesSave4LaterService].toInstance(service),
+        bind[CharitiesSectionCompleteService].toInstance(service),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 

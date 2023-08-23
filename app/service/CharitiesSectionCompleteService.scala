@@ -39,7 +39,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Success, Try}
 
 @Singleton
-class CharitiesSave4LaterService @Inject() (
+class CharitiesSectionCompleteService @Inject() (
   sessionRepository: SessionRepository,
   userAnswerService: UserAnswerService,
   auditService: AuditService

@@ -22,10 +22,11 @@ import models.UserAnswers
 import models.requests.OptionalDataRequest
 import pages.AcknowledgementReferencePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import service.{CharitiesSave4LaterService, UserAnswerService}
+import service.UserAnswerService
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils.TaskListHelper
 import views.html.TaskList
+import service.CharitiesSectionCompleteService
 
 import javax.inject.Inject
 import scala.concurrent.Future
@@ -33,7 +34,7 @@ import scala.concurrent.Future
 class IndexController @Inject() (
   identify: AuthIdentifierAction,
   getData: UserDataRetrievalAction,
-  charitiesSave4LaterService: CharitiesSave4LaterService,
+  charitiesSectionCompleteService: CharitiesSectionCompleteService,
   userAnswerService: UserAnswerService,
   taskListHelper: TaskListHelper,
   view: TaskList,
@@ -45,7 +46,7 @@ class IndexController @Inject() (
     request: OptionalDataRequest[_],
     hc: HeaderCarrier
   ): Future[Result] =
-    charitiesSave4LaterService.checkForValidApplicationJourney(request, eligibleJourneyId).flatMap {
+    charitiesSectionCompleteService.checkForValidApplicationJourney(request, eligibleJourneyId).flatMap {
       case Right(userAnswers) =>
         val result    = taskListHelper.getTaskListRow(userAnswers)
         val completed = result.reverse.tail.forall(_.state.equals("index.section.completed"))

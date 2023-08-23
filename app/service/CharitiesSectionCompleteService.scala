@@ -45,8 +45,6 @@ class CharitiesSectionCompleteService @Inject() (
   auditService: AuditService
 ) extends ImplicitDateFormatter {
 
-  // scalastyle:off method.length
-
   private val logger = Logger(this.getClass)
 
   private[service] def isCharityInformationStatusSectionCompleted(userAnswers: UserAnswers): Try[UserAnswers] = {
@@ -109,17 +107,19 @@ class CharitiesSectionCompleteService @Inject() (
         sessionRepository.get(sessionId).flatMap {
           case None    =>
             logger
-              .warn(s"[CharitiesSave4LaterService][checkForValidApplicationJourney] no eligibility user-answers found")
+              .warn(
+                s"[CharitiesSectionCompleteService][checkForValidApplicationJourney] No eligibility user-answers found from frontend mongo"
+              )
             Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
           case Some(_) =>
             val userAnswers = UserAnswers(request.internalId)
-            logger.warn(s"CharitiesRewriteUser: ${AuditTypes.NewUser}")
+            logger.warn(s"[CharitiesSectionCompleteService][checkForValidApplicationJourney]: ${AuditTypes.NewUser}")
             auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
             userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
         }
       case _                       =>
         logger.error(
-          s"[CharitiesSave4LaterService][checkForValidApplicationJourney] no charities backend user answers found and no current session id/data"
+          s"[CharitiesSectionCompleteService][checkForValidApplicationJourney] No charities backend user answers found and no current session id/data"
         )
         Future(Left(controllers.routes.CannotFindApplicationController.onPageLoad))
     }

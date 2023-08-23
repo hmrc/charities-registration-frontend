@@ -19,15 +19,15 @@ package controllers.contactDetails
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.contactDetails.CharityNameFormProvider
-import models.{BankDetails, CharityName, NormalMode, OldServiceSubmission, UserAnswers}
+import models.{BankDetails, CharityName, NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{AcknowledgementReferencePage, EmailOrPostPage}
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
+import pages.{AcknowledgementReferencePage, EmailOrPostPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder

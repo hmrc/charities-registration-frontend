@@ -26,9 +26,7 @@ import pages.otherOfficials._
 import pages.sections.Section8Page
 import play.api.mvc.Call
 
-import javax.inject.Inject
-
-class OtherOfficialsNavigator @Inject() extends BaseNavigator {
+class OtherOfficialsNavigator extends BaseNavigator {
 
   def redirectToPlaybackPage(index: Int): Call = index match {
     case x if x >= 0 && x <= 2 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(x))

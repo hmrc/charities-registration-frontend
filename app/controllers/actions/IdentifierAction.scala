@@ -37,9 +37,6 @@ class AuthenticatedIdentifierAction @Inject() (
     extends AuthIdentifierAction
     with AuthorisedFunctions {
 
-  private lazy val startUUIDIndex = 0
-  private lazy val endUUIDIndex   = 16
-
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)

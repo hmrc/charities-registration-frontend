@@ -18,23 +18,19 @@ package service
 
 import audit.AuditService
 import base.SpecBase
-//import connectors.CharitiesShortLivedCache
 import models.UserAnswers
 import models.oldCharities._
-import models.requests.OptionalDataRequest
-import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.scalatest.{BeforeAndAfterEach, PrivateMethodTester}
+import org.mockito.ArgumentMatchers.any
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import pages.sections.Section1Page
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json._
-import play.api.mvc.{AnyContentAsEmpty, Call}
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import repositories.SessionRepository
-import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionId, SessionKeys}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionId}
 import utils.TestData
 
 import java.util.UUID
@@ -50,7 +46,6 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar wit
 
   lazy val mockRepository: SessionRepository  = mock[SessionRepository]
   lazy val mockUserService: UserAnswerService = mock[UserAnswerService]
-  lazy val mockCacheMap: CacheMap             = mock[CacheMap]
   lazy val mockAuditService: AuditService     = MockitoSugar.mock[AuditService]
 
   override def applicationBuilder(): GuiceApplicationBuilder =
@@ -58,21 +53,17 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar wit
       .overrides(
         bind[SessionRepository].toInstance(mockRepository),
         bind[UserAnswerService].toInstance(mockUserService),
-        bind[AuditService].toInstance(mockAuditService),
-        bind[CacheMap].toInstance(mockCacheMap)
+        bind[AuditService].toInstance(mockAuditService)
       )
 
   override def beforeEach(): Unit =
-    reset(mockAuditService, mockCacheMap)
+    reset(mockAuditService)
 
   lazy val service: CharitiesSectionCompleteService = inject[CharitiesSectionCompleteService]
 
   implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
-  private val sessionId           = s"session-${UUID.randomUUID}"
-  private val lastSessionId       = s"session-${UUID.randomUUID}"
-  private val requestWithSession  = fakeRequest.withSession(SessionKeys.sessionId -> sessionId)
-  private val optionalDataRequest = OptionalDataRequest(requestWithSession, "8799940975137654", None)
+  private val sessionId = s"session-${UUID.randomUUID}"
 
   override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
 
@@ -122,88 +113,13 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar wit
 
     def mockEligibleJourneyId: Option[String] = None
 
-    def mockCache: Option[CacheMap] = Some(mockCacheMap)
+//    def mockCache: Option[CacheMap] = Some(mockCacheMap)
 
     def mockRepositoryData: Option[UserAnswers] = None
 
     def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
 
     def initialiseCache(): Unit = {
-      when(
-        mockCacheMap.getEntry[CharityContactDetails](meq("charityContactDetails"))(meq(CharityContactDetails.formats))
-      ).thenReturn(mockContactDetails)
-      when(mockCacheMap.getEntry[CharityAddress](meq("charityOfficialAddress"))(meq(CharityAddress.formats)))
-        .thenReturn(mockCharityAddress)
-      when(
-        mockCacheMap.getEntry[OptionalCharityAddress](meq("correspondenceAddress"))(meq(OptionalCharityAddress.formats))
-      ).thenReturn(mockCorrespondenceAddress)
-      when(mockCacheMap.getEntry[CharityRegulator](meq("charityRegulator"))(meq(CharityRegulator.formats)))
-        .thenReturn(mockCharityRegulator)
-      when(
-        mockCacheMap.getEntry[CharityGoverningDocument](meq("charityGoverningDocument"))(
-          meq(CharityGoverningDocument.formats)
-        )
-      ).thenReturn(mockCharityGoverningDocument)
-      when(mockCacheMap.getEntry[WhatYourCharityDoes](meq("whatYourCharityDoes"))(meq(WhatYourCharityDoes.formats)))
-        .thenReturn(mockWhatYourCharityDoes)
-      when(mockCacheMap.getEntry[OperationAndFunds](meq("operationAndFunds"))(meq(OperationAndFunds.formats)))
-        .thenReturn(mockOperationAndFunds)
-      when(
-        mockCacheMap.getEntry[CharityBankAccountDetails](meq("charityBankAccountDetails"))(
-          meq(CharityBankAccountDetails.formats)
-        )
-      ).thenReturn(mockCharityBankAccountDetails)
-      when(
-        mockCacheMap.getEntry[CharityHowManyAuthOfficials](meq("charityHowManyAuthOfficials"))(
-          meq(CharityHowManyAuthOfficials.formats)
-        )
-      ).thenReturn(mockCharityHowManyAuthOfficials)
-      when(
-        mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("authorisedOfficialIndividual1"))(
-          meq(CharityAuthorisedOfficialIndividual.formats)
-        )
-      ).thenReturn(mockCharityAuthorisedOfficialIndividual1)
-      when(
-        mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("authorisedOfficialIndividual2"))(
-          meq(CharityAuthorisedOfficialIndividual.formats)
-        )
-      ).thenReturn(mockCharityAuthorisedOfficialIndividual2)
-      when(
-        mockCacheMap.getEntry[CharityHowManyOtherOfficials](meq("charityHowManyOtherOfficials"))(
-          meq(CharityHowManyOtherOfficials.formats)
-        )
-      ).thenReturn(mockCharityHowManyOtherOfficials)
-      when(
-        mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual1"))(
-          meq(CharityAuthorisedOfficialIndividual.formats)
-        )
-      ).thenReturn(mockCharityOtherOfficialIndividual1)
-      when(
-        mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual2"))(
-          meq(CharityAuthorisedOfficialIndividual.formats)
-        )
-      ).thenReturn(mockCharityOtherOfficialIndividual2)
-      when(
-        mockCacheMap.getEntry[CharityAuthorisedOfficialIndividual](meq("otherOfficialIndividual3"))(
-          meq(CharityAuthorisedOfficialIndividual.formats)
-        )
-      ).thenReturn(mockCharityOtherOfficialIndividual3)
-      when(mockCacheMap.getEntry[CharityAddNominee](meq("charityAddNominee"))(meq(CharityAddNominee.formats)))
-        .thenReturn(mockCharityAddNominee)
-      when(mockCacheMap.getEntry[CharityNomineeStatus](meq("charityNomineeStatus"))(meq(CharityNomineeStatus.formats)))
-        .thenReturn(mockCharityNomineeStatus)
-      when(
-        mockCacheMap.getEntry[CharityNomineeIndividual](meq("charityNomineeIndividual"))(
-          meq(CharityNomineeIndividual.formats)
-        )
-      ).thenReturn(mockCharityNomineeIndividual)
-      when(
-        mockCacheMap.getEntry[CharityNomineeOrganisation](meq("charityNomineeOrganisation"))(
-          meq(CharityNomineeOrganisation.formats)
-        )
-      ).thenReturn(mockCharityNomineeOrganisation)
-      when(mockCacheMap.getEntry[Acknowledgement](meq("acknowledgement-Reference"))(meq(Acknowledgement.formats)))
-        .thenReturn(mockAcknowledgement)
       when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
       when(mockUserService.set(any())(any(), any())).thenReturn(Future.successful(true))
       doNothing.when(mockAuditService).sendEvent(any())(any(), any())

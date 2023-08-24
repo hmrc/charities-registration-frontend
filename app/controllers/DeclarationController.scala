@@ -22,11 +22,10 @@ import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRe
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import service.{CharitiesRegistrationService, UserAnswerService}
+import service.CharitiesRegistrationService
 import transformers.submission.CharitySubmissionTransformer
 import views.html.DeclarationView
 
-import java.time.LocalDate
 import javax.inject.Inject
 import scala.concurrent.Future
 

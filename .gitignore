@@ -20,7 +20,6 @@ precompiled
 /.project
 project/project
 project/target
-project/.bloop
 project/metals.sbt
 project/.bloop
 /RUNNING_PID

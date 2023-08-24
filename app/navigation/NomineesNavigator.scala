@@ -16,7 +16,6 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.nominees.{routes => nomineeRoutes}
 import controllers.routes
@@ -26,9 +25,7 @@ import pages.addressLookup._
 import pages.nominees._
 import play.api.mvc.Call
 
-import javax.inject.Inject
-
-class NomineesNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class NomineesNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
 

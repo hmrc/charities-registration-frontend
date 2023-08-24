@@ -89,9 +89,6 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
   lazy val getCharitiesBackend: String = servicesConfig.baseUrl("charities")
 
-  lazy val save4laterCacheBaseUrl: String = servicesConfig.baseUrl("cachable.short-lived-cache")
-  lazy val save4laterDomain: String       = servicesConfig.getConfString("cachable.short-lived-cache.domain", "save4later")
-
   lazy val timeToLiveInDays: Int = servicesConfig.getInt("user-answers.timeToLiveInDays")
 
 }

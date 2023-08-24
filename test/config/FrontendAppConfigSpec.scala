@@ -149,14 +149,6 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.noEmailPost mustBe true
       }
 
-      "save4laterCacheBaseUrl" in {
-        frontendAppConfig.save4laterCacheBaseUrl mustBe "http://localhost:9272"
-      }
-
-      "save4laterDomain" in {
-        frontendAppConfig.save4laterDomain mustBe "save4later"
-      }
-
       "timeToLiveInDays" in {
         frontendAppConfig.timeToLiveInDays mustBe 28
       }

@@ -16,7 +16,6 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.contactDetails.{routes => charityInfoRoutes}
 import controllers.routes
 import models._
@@ -25,9 +24,7 @@ import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddre
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 import play.api.mvc.Call
 
-import javax.inject.Inject
-
-class CharityInformationNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class CharityInformationNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage                  =>

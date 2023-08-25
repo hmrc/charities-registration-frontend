@@ -99,7 +99,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
 
       "redirect to CannotFindApplication page" in {
 
-        val controller: IndexController = applicationBuilder().injector.instanceOf[IndexController]
+        val controller: IndexController = applicationBuilder().injector().instanceOf[IndexController]
 
         when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
 
@@ -112,7 +112,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       }
     }
 
-    "there are  empty useranswers and a session id" must {
+    "there are  empty user answers and a session id" must {
 
       "redirect to the task-list page" in {
 

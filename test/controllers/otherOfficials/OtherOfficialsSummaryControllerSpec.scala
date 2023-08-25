@@ -195,47 +195,6 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-    "redirect to the next page when valid data is submitted with three rows of officials and isExternalTest is true" in {
-
-      val app =
-        new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
-
-      val controller: OtherOfficialsSummaryController = app.injector.instanceOf[OtherOfficialsSummaryController]
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .flatMap(
-                _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
-              )
-              .flatMap(
-                _.set(OtherOfficialsNamePage(2), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
-              )
-              .success
-              .value
-          )
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val result = controller.onSubmit()(request)
-
-      status(result) mustBe SEE_OTHER
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
-
     "return errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "notACorrectValue"))
@@ -287,44 +246,5 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       status(result) mustBe SEE_OTHER
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
-    "redirect to the next page when valid data is submitted and isExternalTest is true" in {
-
-      val app =
-        new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[OtherOfficialsNavigator].toInstance(FakeOtherOfficialsNavigator),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
-
-      val controller: OtherOfficialsSummaryController = app.injector.instanceOf[OtherOfficialsSummaryController]
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
-              .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
-              .flatMap(
-                _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
-              )
-              .success
-              .value
-          )
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val result = controller.onSubmit()(request)
-
-      status(result) mustBe SEE_OTHER
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
-
   }
 }

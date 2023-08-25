@@ -105,34 +105,5 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
-    "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
-
-      val app =
-        new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[SessionRepository].toInstance(mockSessionRepository),
-            bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val controller: CharityInformationSummaryController = app.injector.instanceOf[CharityInformationSummaryController]
-
-      val result = controller.onSubmit()(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
   }
 }

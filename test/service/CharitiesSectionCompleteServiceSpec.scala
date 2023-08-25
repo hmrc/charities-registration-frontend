@@ -16,118 +16,16 @@
 
 package service
 
-import audit.AuditService
 import base.SpecBase
 import models.UserAnswers
-import models.oldCharities._
-import org.mockito.ArgumentMatchers.any
-import org.mockito.MockitoSugar
-import org.scalatest.BeforeAndAfterEach
 import pages.sections.Section1Page
-import play.api.inject.bind
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json._
-import play.api.mvc.AnyContentAsEmpty
-import play.api.test.FakeRequest
-import repositories.SessionRepository
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, SessionId}
-import utils.TestData
 
-import java.util.UUID
-import scala.concurrent.Future
-
-//scalastyle:off method.length
-// scalastyle:off number.of.methods
-// scalastyle:off line.size.limit
-//scalastyle:off file.size.limit
-// scalastyle:off magic.number
-
-class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with TestData {
-
-  lazy val mockRepository: SessionRepository  = mock[SessionRepository]
-  lazy val mockUserService: UserAnswerService = mock[UserAnswerService]
-  lazy val mockAuditService: AuditService     = MockitoSugar.mock[AuditService]
-
-  override def applicationBuilder(): GuiceApplicationBuilder =
-    new GuiceApplicationBuilder()
-      .overrides(
-        bind[SessionRepository].toInstance(mockRepository),
-        bind[UserAnswerService].toInstance(mockUserService),
-        bind[AuditService].toInstance(mockAuditService)
-      )
-
-  override def beforeEach(): Unit =
-    reset(mockAuditService)
+class CharitiesSectionCompleteServiceSpec extends SpecBase {
 
   lazy val service: CharitiesSectionCompleteService = inject[CharitiesSectionCompleteService]
 
-  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
-
-  private val sessionId = s"session-${UUID.randomUUID}"
-
-  override implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(sessionId)))
-
-  trait LocalSetup {
-
-    def mockContactDetails: Option[CharityContactDetails] = None
-
-    def mockCharityAddress: Option[CharityAddress] = None
-
-    def mockCorrespondenceAddress: Option[OptionalCharityAddress] = None
-
-    def mockCharityRegulator: Option[CharityRegulator] = None
-
-    def mockCharityGoverningDocument: Option[CharityGoverningDocument] = None
-
-    def mockWhatYourCharityDoes: Option[WhatYourCharityDoes] = None
-
-    def mockOperationAndFunds: Option[OperationAndFunds] = None
-
-    def mockCharityBankAccountDetails: Option[CharityBankAccountDetails] = None
-
-    def mockCharityHowManyAuthOfficials: Option[CharityHowManyAuthOfficials] = None
-
-    def mockCharityAuthorisedOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
-
-    def mockCharityAuthorisedOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
-
-    def mockCharityHowManyOtherOfficials: Option[CharityHowManyOtherOfficials] = None
-
-    def mockCharityOtherOfficialIndividual1: Option[CharityAuthorisedOfficialIndividual] = None
-
-    def mockCharityOtherOfficialIndividual2: Option[CharityAuthorisedOfficialIndividual] = None
-
-    def mockCharityOtherOfficialIndividual3: Option[CharityAuthorisedOfficialIndividual] = None
-
-    def mockCharityAddNominee: Option[CharityAddNominee] = None
-
-    def mockCharityNomineeStatus: Option[CharityNomineeStatus] = None
-
-    def mockCharityNomineeIndividual: Option[CharityNomineeIndividual] = None
-
-    def mockCharityNomineeOrganisation: Option[CharityNomineeOrganisation] = None
-
-    def mockAcknowledgement: Option[Acknowledgement] = None
-
-    def mockSessionId: SessionId = SessionId(sessionId)
-
-    def mockEligibleJourneyId: Option[String] = None
-
-//    def mockCache: Option[CacheMap] = Some(mockCacheMap)
-
-    def mockRepositoryData: Option[UserAnswers] = None
-
-    def removeResponse(): Future[HttpResponse] = Future.successful(HttpResponse.apply(204, ""))
-
-    def initialiseCache(): Unit = {
-      when(mockRepository.get(any())).thenReturn(Future.successful(mockRepositoryData))
-      when(mockUserService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      doNothing.when(mockAuditService).sendEvent(any())(any(), any())
-    }
-
-  }
-
-  "CharitiesSave4LaterService" when {
+  "CharitiesSectionCompleteService" when {
 
     "isCharityInformationStatusSectionCompleted" must {
 
@@ -144,7 +42,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar wit
         )
       )
 
-      "return false when sections are not completed" in new LocalSetup {
+      "return false when sections are not completed" in {
 
         val ua: UserAnswers = UserAnswers("8799940975137654", data)
 
@@ -153,7 +51,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar wit
         result.get.get(Section1Page) mustBe Some(false)
       }
 
-      "return false when all sections are completed and charity name is more than 60 characters" in new LocalSetup {
+      "return false when all sections are completed and charity name is more than 60 characters" in {
 
         val ua: UserAnswers = UserAnswers(
           "8799940975137654",
@@ -170,7 +68,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar wit
         result.get.get(Section1Page) mustBe Some(false)
       }
 
-      "return true when all sections are completed" in new LocalSetup {
+      "return true when all sections are completed" in {
 
         val ua: UserAnswers =
           UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
@@ -182,8 +80,3 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with MockitoSugar wit
     }
   }
 }
-//scalastyle:on method.length
-// scalastyle:on number.of.methods
-// scalastyle:on line.size.limit
-//scalastyle:on file.size.limit
-// scalastyle:on magic.number

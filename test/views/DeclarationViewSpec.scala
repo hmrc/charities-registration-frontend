@@ -39,7 +39,9 @@ class DeclarationViewSpec extends ViewBehaviours {
         behave like normalPage(view, messageKeyPrefix, section = Some(messages("declaration.section")))
         behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p1", "p2")
 
-        Seq(1, 2, 3, 4, 5, 6).foreach(i => behave like pageWithBulletedPoint(view, messages(s"declaration.b$i"), i))
+        val bulletsOneToSix: Seq[Int] = 1 to 6
+
+        bulletsOneToSix.foreach(i => behave like pageWithBulletedPoint(view, messages(s"declaration.b$i"), i))
 
         behave like pageWithBackLink(view)
         behave like pageWithWarningText(view, messages("declaration.warning"))

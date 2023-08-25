@@ -28,7 +28,6 @@ import play.api.libs.json._
 import play.api.mvc.{Call, RequestHeader}
 import repositories.SessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.ImplicitDateFormatter
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.nominees.NomineeStatusHelper
@@ -43,7 +42,7 @@ class CharitiesSectionCompleteService @Inject() (
   sessionRepository: SessionRepository,
   userAnswerService: UserAnswerService,
   auditService: AuditService
-) extends ImplicitDateFormatter {
+) {
 
   private val logger = Logger(this.getClass)
 

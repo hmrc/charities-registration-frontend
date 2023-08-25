@@ -128,73 +128,85 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       }
     }
 
-    "Fetch user answers and redirect to the task-list page" in {
+    "the user answers are answered for section1 but not for section 2 " must {
 
-      val userAnswers =
-        emptyUserAnswers
-          .set(Section1Page, true)
-          .flatMap(_.set(Section2Page, false))
-          .success
-          .value
+      "fetch user answers and redirect to the task-list page" in {
 
-      when(mockUserAnswerService.get(any())(any(), any()))
-        .thenReturn(Future(Some(userAnswers)))
+        val userAnswers =
+          emptyUserAnswers
+            .set(Section1Page, true)
+            .flatMap(_.set(Section2Page, false))
+            .success
+            .value
 
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
-      val result = controller.onPageLoad()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any()))
+          .thenReturn(Future(Some(userAnswers)))
 
-      status(result) mustEqual OK
-      titleOf(contentAsString(result)) mustBe
-        "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+        val result = controller.onPageLoad()(fakeRequest)
 
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        status(result) mustEqual OK
+        titleOf(contentAsString(result)) mustBe
+          "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
 
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+
+      }
     }
 
-    "redirect to the session expired page if no valid session id for switchover journey" in {
+    "there is no valid session id for switchover journey" must {
 
-      val userAnswers =
-        emptyUserAnswers
-          .set(Section1Page, true)
-          .flatMap(_.set(Section2Page, false))
-          .success
-          .value
+      "redirect to the session expired page" in {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(userAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+        val userAnswers =
+          emptyUserAnswers
+            .set(Section1Page, true)
+            .flatMap(_.set(Section2Page, false))
+            .success
+            .value
 
-      val result = controller.onPageLoad()(fakeRequestNoSessionId)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(userAnswers)))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
-      status(result) mustEqual SEE_OTHER
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, never).set(any())(any(), any())
+        val result = controller.onPageLoad()(fakeRequestNoSessionId)
+
+        status(result) mustEqual SEE_OTHER
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockUserAnswerService, never).set(any())(any(), any())
+      }
     }
 
-    "for keepalive" in {
+    "keepalive" must {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+      "return status NO_CONTENT" in {
 
-      val result = controller.keepalive()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
-      status(result) mustEqual NO_CONTENT
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+        val result = controller.keepalive()(fakeRequest)
+
+        status(result) mustEqual NO_CONTENT
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      }
     }
 
-    "for keepalive no UserAnswer" in {
+    "keepalive for no UserAnswer" must {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+      "return status NO_CONTENT" in {
 
-      val result = controller.keepalive()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
-      status(result) mustEqual NO_CONTENT
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+        val result = controller.keepalive()(fakeRequest)
+
+        status(result) mustEqual NO_CONTENT
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      }
     }
 
-    "signInDifferentAccount" should {
+    "signInDifferentAccount" must {
 
       "redirect to the loginUrl" in {
 
@@ -207,7 +219,7 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
       }
     }
 
-    "registerNewAccount" should {
+    "registerNewAccount" must {
 
       "redirect to the registerUrl" in {
         val result = controller.registerNewAccount()(fakeRequest)

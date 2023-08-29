@@ -22,6 +22,6 @@ messageKey: String,
 id: Option[String] = None,
 )(implicit messages: Messages)
 
-<a href="@link" role="button" class="govuk-button govuk-button" data-module="govuk-button" draggable="false" @id.map(x => s"id=$x")>
+<a href="@link" role="button" class="govuk-button" data-module="govuk-button" draggable="false" @id.map(x => s"id=$x")>
     @messages(messageKey)
 </a>

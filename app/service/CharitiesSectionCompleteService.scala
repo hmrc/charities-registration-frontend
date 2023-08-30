@@ -16,10 +16,8 @@
 
 package service
 
-import audit.AuditService
-import audit.NormalUserAuditEvent
-import models.AuditTypes
-import models.UserAnswers
+import audit.{AuditService, NormalUserAuditEvent}
+import models.{AuditTypes, UserAnswers}
 import models.requests.OptionalDataRequest
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.CharityNamePage
@@ -27,18 +25,15 @@ import pages.otherOfficials.OtherOfficialsNamePage
 import pages.sections._
 import play.api.Logger
 import play.api.libs.json._
-import play.api.mvc.Call
-import play.api.mvc.RequestHeader
+import play.api.mvc.{Call, RequestHeader}
 import repositories.SessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
 import viewmodels.charityInformation.CharityInformationStatusHelper
 import viewmodels.otherOfficials.OtherOfficialStatusHelper
 
-import javax.inject.Inject
-import javax.inject.Singleton
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
+import javax.inject.{Inject, Singleton}
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
 @Singleton

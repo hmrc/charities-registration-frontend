@@ -17,7 +17,6 @@
 package navigation
 
 import base.SpecBase
-import config.FrontendAppConfig
 import models.{Mode, UserAnswers}
 import pages.Page
 import play.api.mvc.Call
@@ -30,9 +29,7 @@ object FakeNavigators extends SpecBase {
 
   object FakeEligibilityNavigator extends EligibilityNavigator with FakeMainNavigator
 
-  object FakeCharityInformationNavigator
-      extends CharityInformationNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeCharityInformationNavigator extends CharityInformationNavigator with FakeMainNavigator
 
   object FakeRegulatorsAndDocumentsNavigator extends RegulatorsAndDocumentsNavigator with FakeMainNavigator
 
@@ -44,13 +41,9 @@ object FakeNavigators extends SpecBase {
 
   object FakeBankDetailsNavigator extends BankDetailsNavigator with FakeMainNavigator
 
-  object FakeAuthorisedOfficialsNavigator
-      extends AuthorisedOfficialsNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeAuthorisedOfficialsNavigator extends AuthorisedOfficialsNavigator with FakeMainNavigator
 
-  object FakeOtherOfficialsNavigator
-      extends OtherOfficialsNavigator()(frontendAppConfig: FrontendAppConfig)
-      with FakeMainNavigator
+  object FakeOtherOfficialsNavigator extends OtherOfficialsNavigator with FakeMainNavigator
 
-  object FakeNomineesNavigator extends NomineesNavigator()(frontendAppConfig: FrontendAppConfig) with FakeMainNavigator
+  object FakeNomineesNavigator extends NomineesNavigator with FakeMainNavigator
 }

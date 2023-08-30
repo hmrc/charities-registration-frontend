@@ -98,32 +98,5 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
       redirectLocation(result) mustBe Some(onwardRoute.url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
-
-    "redirect to the next page when valid data is submitted with some pages answered if isExternalTest is true" in {
-
-      val app =
-        new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[SessionRepository].toInstance(mockSessionRepository),
-            bind[NomineesNavigator].toInstance(FakeNomineesNavigator),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
-
-      val controller: NomineeDetailsSummaryController = app.injector.instanceOf[NomineeDetailsSummaryController]
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val result = controller.onSubmit()(request)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
   }
 }

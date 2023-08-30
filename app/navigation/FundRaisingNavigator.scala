@@ -44,7 +44,6 @@ class FundRaisingNavigator extends BaseNavigator {
         userAnswers.get(FundRaisingPage) match {
           case Some(items) if items.toSeq.contains(Other) =>
             operationFundsRoutes.OtherFundRaisingController.onPageLoad(NormalMode)
-          //case Some(_) => operationFundsRoutes.OperatingLocationController.onPageLoad(NormalMode)
           case Some(_)                                    => operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
           case _                                          => routes.PageNotFoundController.onPageLoad()
         }

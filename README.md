@@ -15,7 +15,7 @@ registered details (agents, nominees, bank details) online.
 | address-lookup-frontend | https://github.com/hmrc/address-lookup-frontend.git |
 | auth                    | https://github.com/hmrc/auth                        |
 | charities               | https://github.com/hmrc/charities.git               |
-| save4later              | https://github.com/hmrc/save4later.git              |
+
 
 ### Running the Application
 

@@ -16,11 +16,9 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
-import javax.inject.Inject
 import models.{CheckMode, Index, NormalMode, UserAnswers}
 import pages.Page
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
@@ -28,7 +26,7 @@ import pages.authorisedOfficials._
 import pages.sections.Section7Page
 import play.api.mvc.Call
 
-class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class AuthorisedOfficialsNavigator extends BaseNavigator {
 
   def redirectToPlaybackPage(index: Int): Call = index match {
     case x if x == 0 | x == 1 => authOfficialRoutes.AddedAuthorisedOfficialController.onPageLoad(Index(x))
@@ -77,14 +75,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
       userAnswers: UserAnswers =>
         userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              redirectToPlaybackPage(index)
-            } else {
-              userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-                case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
-                case _       =>
-                  addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
-              }
+            userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+              case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
+              case _       =>
+                addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }
@@ -93,14 +87,10 @@ class AuthorisedOfficialsNavigator @Inject() (implicit frontendAppConfig: Fronte
       userAnswers: UserAnswers =>
         userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              redirectToPlaybackPage(index)
-            } else {
-              userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
-                case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
-                case _       =>
-                  addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
-              }
+            userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
+              case Some(_) => authOfficialRoutes.ConfirmAuthorisedOfficialsAddressController.onPageLoad(index)
+              case _       =>
+                addressLookupRoutes.AuthorisedOfficialsAddressLookupController.initializeJourney(index, NormalMode)
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }

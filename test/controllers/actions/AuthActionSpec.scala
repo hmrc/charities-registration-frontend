@@ -18,17 +18,12 @@ package controllers.actions
 
 import base.SpecBase
 import com.google.inject.Inject
-import config.FrontendAppConfig
-import play.api.inject.bind
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{Action, AnyContent, BodyParsers, Results}
 import play.api.test.Helpers._
-import repositories.SessionRepository
-import service.UserAnswerService
 import uk.gov.hmrc.auth.core._
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.auth.core.retrieve.{Credentials, Retrieval}
-import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys, UnauthorizedException}
+import uk.gov.hmrc.http.{HeaderCarrier, UnauthorizedException}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -38,7 +33,7 @@ class AuthActionSpec extends SpecBase {
     def onPageLoad(): Action[AnyContent] = authAction(_ => Results.Ok)
   }
 
-  "Auth Action" when {
+  "AuthAction" when {
 
     "the user hasn't logged in" must {
 
@@ -222,63 +217,6 @@ class AuthActionSpec extends SpecBase {
 
         status(result) mustBe OK
       }
-
-      "redirect the user to correct for external test environment with session Id" in {
-
-        val application = new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[SessionRepository].toInstance(mockSessionRepository),
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[IdentifierAction].to[FakeIdentifierAction],
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
-            bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
-            bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
-          )
-          .build()
-
-        val bodyParsers                          = application.injector.instanceOf[BodyParsers.Default]
-        val frontendAppConfig: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
-
-        val authAction = new AuthenticatedIdentifierAction(
-          new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))),
-          frontendAppConfig,
-          bodyParsers
-        )
-        val controller = new Harness(authAction)
-        val result     = controller.onPageLoad()(fakeRequest.withSession(SessionKeys.sessionId -> "foo"))
-
-        status(result) mustBe OK
-      }
-
-      "redirect the user to correct for external test environment without session id" in {
-
-        val application = new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[SessionRepository].toInstance(mockSessionRepository),
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[IdentifierAction].to[FakeIdentifierAction],
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
-            bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers)),
-            bind[UserDataRetrievalAction].toInstance(new FakeUserDataRetrievalAction(userAnswers))
-          )
-          .build()
-
-        val bodyParsers                          = application.injector.instanceOf[BodyParsers.Default]
-        val frontendAppConfig: FrontendAppConfig = application.injector.instanceOf[FrontendAppConfig]
-
-        val authAction = new AuthenticatedIdentifierAction(
-          new FakeSuccessAuthConnector(Some(Credentials("valid", "org"))),
-          frontendAppConfig,
-          bodyParsers
-        )
-        val controller = new Harness(authAction)
-        val result     = controller.onPageLoad()(fakeRequest)
-
-        status(result) mustBe OK
-      }
-
     }
 
     "the Org user with not supporting credential role" must {

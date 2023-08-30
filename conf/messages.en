@@ -25,7 +25,6 @@ error.summary.title = There is a problem
 # Sitewide Messages
 # ----------------------------------------------------------
 site.back = Back
-site.saveForLater = Save and come back later
 site.review = Review
 site.delete = Remove
 site.edit = Change

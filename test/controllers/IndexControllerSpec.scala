@@ -18,300 +18,198 @@ package controllers
 
 import audit.AuditService
 import base.SpecBase
-import connectors.CharitiesShortLivedCache
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.requests.OptionalDataRequest
-import models.{OldServiceSubmission, UserAnswers}
+import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
+import pages.AcknowledgementReferencePage
 import pages.sections.{Section1Page, Section2Page}
-import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.{Call, RequestHeader}
-import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepository
-import service.{CharitiesSave4LaterService, UserAnswerService}
-import transformers.UserAnswerTransformer
-import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
-import uk.gov.hmrc.http.cache.client.CacheMap
+import service.{CharitiesSectionCompleteService, UserAnswerService}
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach {
 
-  override lazy val userAnswers: Option[UserAnswers]              = Some(emptyUserAnswers)
-  lazy val mockCharitiesShortLivedCache: CharitiesShortLivedCache = mock[CharitiesShortLivedCache]
-  lazy val mockCacheMap: CacheMap                                 = mock[CacheMap]
-  lazy val mockUserAnswerTransformer: UserAnswerTransformer       = mock[UserAnswerTransformer]
-  lazy val mockAuditService: AuditService                         = MockitoSugar.mock[AuditService]
+  override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  lazy val mockAuditService: AuditService            = MockitoSugar.mock[AuditService]
 
-  class FakeCharitiesSave4LaterService @Inject() (
-    cache: CharitiesShortLivedCache,
-    userAnswerTransformer: UserAnswerTransformer,
+  class FakeCharitiesSectionCompleteService @Inject() (
     sessionRepository: SessionRepository,
     userAnswerService: UserAnswerService,
-    auditService: AuditService,
-    userAnswers: Option[UserAnswers]
-  ) extends CharitiesSave4LaterService(
-        cache,
-        userAnswerTransformer,
+    auditService: AuditService
+  ) extends CharitiesSectionCompleteService(
         sessionRepository,
         userAnswerService,
-        auditService,
-        frontendAppConfig
-      ) {
-    override def getCacheData(
-      request: OptionalDataRequest[_],
-      sessionId: SessionId,
-      eligibleJourneyId: Option[String]
-    )(implicit hc: HeaderCarrier, ec: ExecutionContext, rh: RequestHeader): Future[Either[Call, UserAnswers]] =
-      userAnswers match {
-        case Some(ua) => Future.successful(Right(ua))
-        case _        => Future.successful(Left(routes.ApplicationBeingProcessedController.onPageLoad))
-      }
-  }
+        auditService
+      )
 
-  lazy val service = new FakeCharitiesSave4LaterService(
-    mockCharitiesShortLivedCache,
-    mockUserAnswerTransformer,
-    mockSessionRepository,
-    mockUserAnswerService,
-    mockAuditService,
-    Some(emptyUserAnswers)
-  )
+  lazy val service =
+    new FakeCharitiesSectionCompleteService(
+      mockSessionRepository,
+      mockUserAnswerService,
+      mockAuditService
+    )
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
-        bind[CacheMap].toInstance(mockCacheMap),
-        bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
-        bind[CharitiesSave4LaterService].toInstance(service),
+        bind[CharitiesSectionCompleteService].toInstance(service),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockUserAnswerService, mockCharitiesShortLivedCache)
+    reset(mockUserAnswerService)
   }
 
   lazy val controller: IndexController = inject[IndexController]
 
-  "Index Controller" must {
+  "Index Controller" when {
 
-    "Redirect to registration sent page if the acknowledgement reference number is already present" in {
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(AcknowledgementReferencePage, "0123123")
-              .success
-              .value
+    "the acknowledgement reference number is already present" must {
+
+      "redirect to RegistrationSent page" in {
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
+          Future(
+            Some(
+              emptyUserAnswers
+                .set(AcknowledgementReferencePage, "0123123")
+                .success
+                .value
+            )
           )
         )
-      )
 
-      val result = controller.onPageLoad()(fakeRequest)
+        val result = controller.onPageLoad()(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual routes.RegistrationSentController.onPageLoad.url
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      }
     }
 
-    "Redirect to registration sent page if the submission was completed in the old service" in {
-      lazy val service = new FakeCharitiesSave4LaterService(
-        mockCharitiesShortLivedCache,
-        mockUserAnswerTransformer,
-        mockSessionRepository,
-        mockUserAnswerService,
-        mockAuditService,
-        Some(
+    "there are no user-answers and no session id" must {
+
+      "redirect to CannotFindApplication page" in {
+
+        val controller: IndexController = applicationBuilder().injector().instanceOf[IndexController]
+
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
+
+        lazy val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustEqual 303
+        redirectLocation(result).value mustBe controllers.routes.CannotFindApplicationController.onPageLoad.url
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+
+      }
+    }
+
+    "there are  empty user answers and a session id" must {
+
+      "redirect to the task-list page" in {
+
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+
+        val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustEqual OK
+        titleOf(contentAsString(result)) mustBe
+          "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+      }
+    }
+
+    "the user answers are answered for section1 but not for section 2 " must {
+
+      "fetch user answers and redirect to the task-list page" in {
+
+        val userAnswers =
           emptyUserAnswers
-            .set(OldServiceSubmissionPage, OldServiceSubmission("num", "date"))
+            .set(Section1Page, true)
+            .flatMap(_.set(Section2Page, false))
             .success
             .value
-        )
-      )
-      val app          =
-        new GuiceApplicationBuilder()
-          .overrides(
-            bind[CharitiesSave4LaterService].toInstance(service),
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
 
-      val controller: IndexController = app.injector.instanceOf[IndexController]
+        when(mockUserAnswerService.get(any())(any(), any()))
+          .thenReturn(Future(Some(userAnswers)))
 
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(None))
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OldServiceSubmissionPage, OldServiceSubmission("num", "date"))
-              .success
-              .value
-          )
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
+        val result = controller.onPageLoad()(fakeRequest)
 
-      lazy val result = controller.onPageLoad()(fakeRequest)
+        status(result) mustEqual OK
+        titleOf(contentAsString(result)) mustBe
+          "Add information about the charity - Register your charity’s details with HMRC - GOV.UK"
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+
+      }
     }
 
-    "Redirect to error page if the charitiesSave4LaterService returing error" in {
-      lazy val service = new FakeCharitiesSave4LaterService(
-        mockCharitiesShortLivedCache,
-        mockUserAnswerTransformer,
-        mockSessionRepository,
-        mockUserAnswerService,
-        mockAuditService,
-        None
-      )
-      val app          =
-        new GuiceApplicationBuilder()
-          .overrides(
-            bind[CharitiesSave4LaterService].toInstance(service),
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
+    "there is no valid session id for switchover journey" must {
 
-      val controller: IndexController = app.injector.instanceOf[IndexController]
+      "redirect to the session expired page" in {
 
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(None))
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OldServiceSubmissionPage, OldServiceSubmission("num", "date"))
-              .success
-              .value
-          )
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+        val userAnswers =
+          emptyUserAnswers
+            .set(Section1Page, true)
+            .flatMap(_.set(Section2Page, false))
+            .success
+            .value
 
-      lazy val result = controller.onPageLoad()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(userAnswers)))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual routes.ApplicationBeingProcessedController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        val result = controller.onPageLoad()(fakeRequestNoSessionId)
+
+        status(result) mustEqual SEE_OTHER
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockUserAnswerService, never).set(any())(any(), any())
+      }
     }
 
-    "Set answers and redirect to the next page (start of journey page)" in {
+    "keepalive" must {
 
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(Some(true)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      "return status NO_CONTENT" in {
 
-      val result = controller.onPageLoad()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(Some(emptyUserAnswers)))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
-      status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        val result = controller.keepalive()(fakeRequest)
+
+        status(result) mustEqual NO_CONTENT
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      }
     }
 
-    "Fetch user answers and redirect to the next page (start of journey page)" in {
+    "keepalive for no UserAnswer" must {
 
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(Some(true)))
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(emptyUserAnswers.set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      "return status NO_CONTENT" in {
 
-      val result = controller.onPageLoad()(fakeRequest)
+        when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future(None))
+        when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future(true))
 
-      status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        val result = controller.keepalive()(fakeRequest)
+
+        status(result) mustEqual NO_CONTENT
+        verify(mockUserAnswerService, times(1)).get(any())(any(), any())
+        verify(mockUserAnswerService, times(1)).set(any())(any(), any())
+      }
     }
 
-    "redirect to the session expired page if no valid session id for switchover journey" in {
+    "signInDifferentAccount" must {
 
-      val requestWithoutSession = FakeRequest()
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(emptyUserAnswers.set(Section1Page, true).flatMap(_.set(Section2Page, false)).success.value)
-        )
-      )
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val result = controller.onPageLoad()(requestWithoutSession)
-
-      status(result) mustEqual SEE_OTHER
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, never).set(any())(any(), any())
-    }
-
-    "redirect to the task list without calling save4later service if external test is enabled" in {
-
-      val app =
-        new GuiceApplicationBuilder()
-          .configure("features.isExternalTest" -> "true")
-          .overrides(
-            bind[CharitiesSave4LaterService].toInstance(service),
-            bind[UserAnswerService].toInstance(mockUserAnswerService),
-            bind[CharitiesShortLivedCache].toInstance(mockCharitiesShortLivedCache),
-            bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
-          )
-          .build()
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockCharitiesShortLivedCache.fetchAndGetEntry[Boolean](any(), any())(any(), any(), any()))
-        .thenReturn(Future.successful(Some(true)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val controller: IndexController = app.injector.instanceOf[IndexController]
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual OK
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-      verify(mockCharitiesShortLivedCache, never).fetchAndGetEntry[Boolean](any(), any())(any(), any(), any())
-    }
-
-    "For keepalive" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val result = controller.keepalive()(fakeRequest)
-
-      status(result) mustEqual NO_CONTENT
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-    }
-
-    "For keepalive no UserAnswer" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-
-      val result = controller.keepalive()(fakeRequest)
-
-      status(result) mustEqual NO_CONTENT
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-      verify(mockUserAnswerService, times(1)).set(any())(any(), any())
-    }
-
-    "signInDifferentAccount" should {
       "redirect to the loginUrl" in {
+
         val result = controller.signInDifferentAccount()(fakeRequest)
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(
@@ -319,10 +217,10 @@ class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfter
             "%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend"
         )
       }
-
     }
 
-    "registerNewAccount" should {
+    "registerNewAccount" must {
+
       "redirect to the registerUrl" in {
         val result = controller.registerNewAccount()(fakeRequest)
         status(result) mustEqual SEE_OTHER

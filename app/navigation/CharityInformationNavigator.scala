@@ -16,7 +16,6 @@
 
 package navigation
 
-import config.FrontendAppConfig
 import controllers.contactDetails.{routes => charityInfoRoutes}
 import controllers.routes
 import models._
@@ -25,9 +24,7 @@ import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddre
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityInformationSummaryPage, CharityNamePage}
 import play.api.mvc.Call
 
-import javax.inject.Inject
-
-class CharityInformationNavigator @Inject() (implicit frontendAppConfig: FrontendAppConfig) extends BaseNavigator {
+class CharityInformationNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage                  =>
@@ -40,13 +37,9 @@ class CharityInformationNavigator @Inject() (implicit frontendAppConfig: Fronten
       userAnswers: UserAnswers =>
         userAnswers.get(CharityContactDetailsPage) match {
           case Some(_) =>
-            if (frontendAppConfig.isExternalTest) {
-              charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
-            } else {
-              userAnswers.get(CharityOfficialAddressLookupPage) match {
-                case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
-                case _       => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
-              }
+            userAnswers.get(CharityOfficialAddressLookupPage) match {
+              case Some(_) => charityInfoRoutes.ConfirmCharityOfficialAddressController.onPageLoad()
+              case _       => controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney
             }
           case _       => routes.PageNotFoundController.onPageLoad()
         }

@@ -145,20 +145,8 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.getCharitiesBackend mustBe "http://localhost:9329"
       }
 
-      "isExternalTest" in {
-        frontendAppConfig.isExternalTest mustBe false
-      }
-
       "noEmailPost" in {
         frontendAppConfig.noEmailPost mustBe true
-      }
-
-      "save4laterCacheBaseUrl" in {
-        frontendAppConfig.save4laterCacheBaseUrl mustBe "http://localhost:9272"
-      }
-
-      "save4laterDomain" in {
-        frontendAppConfig.save4laterDomain mustBe "save4later"
       }
 
       "timeToLiveInDays" in {

@@ -19,13 +19,13 @@ package controllers
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{OldServiceSubmission, UserAnswers}
+import models.UserAnswers
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.{EmailOrPostPage, OldServiceSubmissionPage}
+import pages.EmailOrPostPage
 import pages.sections._
 import play.api.data.Form
 import play.api.inject.bind
@@ -62,26 +62,6 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   "EmailOrPost Controller" must {
 
-    "redirect to ApplicationBeingProcessed page when data was submitted in old service" in {
-
-      when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(
-          Some(
-            emptyUserAnswers
-              .set(OldServiceSubmissionPage, OldServiceSubmission("a", "b"))
-              .success
-              .value
-          )
-        )
-      )
-
-      val result = controller.onPageLoad()(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual controllers.routes.ApplicationBeingProcessedController.onPageLoad.url
-      verify(mockUserAnswerService, times(1)).get(any())(any(), any())
-    }
-
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
@@ -106,11 +86,12 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
-        fakeRequest,
-        messages,
-        frontendAppConfig
-      ).toString
+      contentAsString(result) mustEqual
+        view(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
+          fakeRequest,
+          messages,
+          frontendAppConfig
+        ).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

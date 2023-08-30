@@ -25,7 +25,6 @@ error.summary.title = Mae problem wedi codi
 # Sitewide Messages
 # ----------------------------------------------------------
 site.back = Yn ôl
-site.saveForLater = Cadw a dod yn ôl yn nes ymlaen
 site.review = Adolygu
 site.delete = Tynnu
 site.edit = Newid

@@ -81,7 +81,6 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
     s"$accessibilityStatement?referrerUrl=${URLEncoder.encode(s"$platformHost${request.path}", "UTF-8")}"
 
   def languageTranslationEnabled: Boolean = servicesConfig.getBoolean("features.welshLanguage")
-  lazy val isExternalTest: Boolean        = servicesConfig.getBoolean("features.isExternalTest")
   lazy val noEmailPost: Boolean           = servicesConfig.getBoolean("features.noEmailPost")
 
   def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
@@ -89,9 +88,6 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   lazy val getRecognition: String = servicesConfig.getString("urls.getRecognition")
 
   lazy val getCharitiesBackend: String = servicesConfig.baseUrl("charities")
-
-  lazy val save4laterCacheBaseUrl: String = servicesConfig.baseUrl("cachable.short-lived-cache")
-  lazy val save4laterDomain: String       = servicesConfig.getConfString("cachable.short-lived-cache.domain", "save4later")
 
   lazy val timeToLiveInDays: Int = servicesConfig.getInt("user-answers.timeToLiveInDays")
 

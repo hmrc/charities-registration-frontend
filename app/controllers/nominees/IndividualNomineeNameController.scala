@@ -52,11 +52,11 @@ class IndividualNomineeNameController @Inject() (
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       postView(
-        mode,
-        IndividualNomineeNamePage,
-        form,
-        Section9Page,
-        controllers.nominees.routes.IndividualNomineeNameController.onSubmit(mode)
+        mode = mode,
+        page = IndividualNomineeNamePage,
+        form = form,
+        section = Section9Page,
+        submitCall = controllers.nominees.routes.IndividualNomineeNameController.onSubmit(mode)
       )
   }
 

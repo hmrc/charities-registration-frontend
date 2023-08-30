@@ -16,13 +16,13 @@
 
 package controllers.actions
 
-import javax.inject.Inject
 import controllers.routes
 import models.requests.{DataRequest, OptionalDataRequest}
-import pages.{AcknowledgementReferencePage, OldServiceSubmissionPage}
+import pages.AcknowledgementReferencePage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, Result}
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class DataRequiredActionImpl @Inject() (implicit val executionContext: ExecutionContext) extends DataRequiredAction {
@@ -32,10 +32,9 @@ class DataRequiredActionImpl @Inject() (implicit val executionContext: Execution
       case None       =>
         Future.successful(Left(Redirect(routes.PageNotFoundController.onPageLoad())))
       case Some(data) =>
-        (data.get(AcknowledgementReferencePage), data.get(OldServiceSubmissionPage)) match {
-          case (_, Some(_)) => Future.successful(Left(Redirect(routes.ApplicationBeingProcessedController.onPageLoad)))
-          case (Some(_), _) => Future.successful(Left(Redirect(routes.EmailOrPostController.onPageLoad)))
-          case _            =>
+        data.get(AcknowledgementReferencePage) match {
+          case Some(_) => Future.successful(Left(Redirect(routes.EmailOrPostController.onPageLoad)))
+          case _       =>
             Future.successful(Right(DataRequest(request.request, request.internalId, data)))
         }
     }

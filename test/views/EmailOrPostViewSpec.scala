@@ -31,7 +31,11 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
   private val view: EmailOrPostView = viewFor[EmailOrPostView](Some(emptyUserAnswers))
 
   private def viewViaApply(form: Form[Boolean]): HtmlFormat.Appendable =
-    view.apply(form, Seq("requiredDocuments.governingDocumentName.answerTrue"), None)(
+    view.apply(
+      form,
+      Seq("requiredDocuments.governingDocumentName.answerTrue"),
+      Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith"))
+    )(
       fakeRequest,
       messages,
       frontendAppConfig
@@ -40,7 +44,7 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
   private def viewViaRender(form: Form[Boolean]): HtmlFormat.Appendable = view.render(
     form,
     Seq("requiredDocuments.governingDocumentName.answerTrue"),
-    None,
+    Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith")),
     fakeRequest,
     messages,
     frontendAppConfig
@@ -49,7 +53,7 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
   private def viewViaF(form: Form[Boolean]): HtmlFormat.Appendable = view.f(
     form,
     Seq("requiredDocuments.governingDocumentName.answerTrue"),
-    None
+    Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith"))
   )(fakeRequest, messages, frontendAppConfig)
 
   "EmailOrPostView" when {
@@ -58,6 +62,16 @@ class EmailOrPostViewSpec extends YesNoViewBehaviours {
         behave like normalPage(view, messageKeyPrefix, section = section)
 
         behave like pageWithBackLink(view)
+
+        behave like pageWithHeading(
+          view,
+          "Would you prefer to send us the charity’s supporting documents by email or post?"
+        )
+
+        behave like pageWithAdditionalGuidance(view, messageKeyPrefix, "p")
+
+        behave like pageWithBulletedPoint(view, "requiredDocuments.governingDocumentName.answerTrue", 1)
+        behave like pageWithBulletedPoint(view, "requiredDocuments.foreignAddresses.answerTrue", 2, Some("John Smith"))
 
         behave like yesNoPage(form, createView, messageKeyPrefix, section = section, isEmailOrPost = true)
 

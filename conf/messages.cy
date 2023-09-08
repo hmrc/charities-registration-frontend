@@ -127,12 +127,6 @@ userEligibility.timeout.deleteAnswers = Dileu’ch atebion
 # ----------------------------------------------------------
 section.main = Prif adran
 
-# BETA Banner
-# ----------------------------------------------------------
-feedback.before = Gwasanaeth newydd yw hwn – bydd eich
-feedback.link = adborth
-feedback.after = yn ein helpu i’w wella.
-
 # CheckAnswersPage Messages
 # ----------------------------------------------------------
 main.checkYourAnswers.title = Gwiriwch eich atebion
@@ -187,6 +181,7 @@ commonAddress.editPage.line3Label = Cyfeiriad – llinell 3 (dewisol)
 commonAddress.editPage.townLabel = Tref neu ddinas
 commonAddress.editPage.postcodeLabel = Cod post neu god ‘zip’ (dewisol)
 commonAddress.editPage.country = Gwlad
+commonAddress.editPage.country.hintText = Dewiswch wlad
 commonAddress.editPage.submitLabel = Yn eich blaen
 
 commonAddress.confirmPage.infoMessage =

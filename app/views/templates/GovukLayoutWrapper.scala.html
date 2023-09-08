@@ -26,9 +26,7 @@
 
 @this(
     govukLayout: GovukLayout,
-    govukPhaseBanner: GovukPhaseBanner,
     govukBackLink: GovukBackLink,
-    phaseBanner: components.phaseBanner,
     link: components.link,
     hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper,
     languageSwitch: HmrcLanguageSelect,
@@ -92,9 +90,6 @@
 }
 
 @beforeContentBlock = {
-
-    @phaseBanner("beta", signOut)
-
 
     @if(backLink == true) {
         @govukBackLink(BackLink(href = customBackLinkUrl.fold("#")(customUrl => customUrl), content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))

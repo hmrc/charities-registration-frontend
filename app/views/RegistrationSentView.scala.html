@@ -71,12 +71,10 @@
 
     @h2(messages("registrationSent.step1"))
 
-    @p {
-        @p{
-            @messages("registrationSent.p3.beforeRefNo") <strong>@acknowledgementReference</strong> @messages("registrationSent.p3.afterRefNo")
-        }
-        @bullets(requiredDocuments: _*)(foreignAddresses)
+    @p{
+        @messages("registrationSent.p3.beforeRefNo") <strong>@acknowledgementReference</strong> @messages("registrationSent.p3.afterRefNo")
     }
+    @bullets(requiredDocuments: _*)(foreignAddresses)
 
     @if(!noEmailOrPost) {
         @h2(messages(s"registrationSent.$pageSelector.step2", sendBeforeDate))

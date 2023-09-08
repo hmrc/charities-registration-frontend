@@ -140,15 +140,21 @@ trait ViewBehaviours extends ViewSpecBase {
       }
   }
 
-  def pageWithBulletedPoint(view: HtmlFormat.Appendable, msg: String, bullet: Int): Unit =
-    s"behave like a page with bullet point$bullet" must {
-
-      s"have a button with message '$msg'" in {
+  def pageWithBulletedPoint(
+    view: HtmlFormat.Appendable,
+    msg: String,
+    bullet: Int,
+    customMsgValue: Option[String] = None
+  ): Unit =
+    s"behave like a page with bullet point $bullet" must {
+      s"with the message '$msg'" in {
         val doc: Document = asDocument(view)
+
         assertEqualsMessage(
           doc,
           cssSelector = s"#main-content > div > div > div > ul > li:nth-child($bullet)",
-          expectedMessageKey = msg
+          expectedMessageKey = msg,
+          additionalCustomValue = customMsgValue
         )
       }
     }

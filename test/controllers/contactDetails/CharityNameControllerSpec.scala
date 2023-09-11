@@ -28,9 +28,12 @@ import org.scalatest.BeforeAndAfterEach
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import pages.{AcknowledgementReferencePage, EmailOrPostPage}
+import play.api.Application
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.{AnyContent, AnyContentAsFormUrlEncoded, Result}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.contactDetails.CharityNameView
@@ -40,14 +43,19 @@ import scala.concurrent.Future
 class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
+  private class Setup(noEmailPost: Boolean = true) {
+    val controller: CharityNameController = applicationBuilder(noEmailPost).injector.instanceOf[CharityNameController]
+  }
 
-  override def applicationBuilder(): GuiceApplicationBuilder =
+  def applicationBuilder(noEmailPost: Boolean): Application =
     new GuiceApplicationBuilder()
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[CharityInformationNavigator].toInstance(FakeCharityInformationNavigator),
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
+      .configure("features.noEmailPost" -> noEmailPost)
+      .build()
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -58,11 +66,11 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val formProvider: CharityNameFormProvider = injector.instanceOf[CharityNameFormProvider]
   private val form: Form[CharityName]               = formProvider()
 
-  private val controller: CharityNameController = inject[CharityNameController]
-
   "CharityNameController" must {
 
-    "redirect to EmailOrPost page when acknowledgement reference is present" in {
+    "redirect to EmailOrPost page when acknowledgement reference is present and the feature is turned on" in new Setup(
+      noEmailPost = false
+    ) {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -76,44 +84,46 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
         )
       )
 
-      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+      val result: Future[Result] = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual controllers.routes.EmailOrPostController.onPageLoad.url
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-    "return OK and the correct view for a GET" in {
+    "return OK and the correct view for a GET" in new Setup {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
-      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+      val result: Future[Result] = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
+    "populate the view correctly on a GET when the question has previously been answered" in new Setup {
 
-      val userAnswers = emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+      val userAnswers: UserAnswers =
+        emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
-      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+      val result: Future[Result] = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-    "redirect to the next page when valid data is submitted" in {
+    "redirect to the next page when valid data is submitted" in new Setup {
 
-      val request = fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
+      val request: FakeRequest[AnyContent] =
+        fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
-      val result = controller.onSubmit(NormalMode)(request)
+      val result: Future[Result] = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -121,17 +131,18 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
     }
 
-    "redirect to the next page when valid data is submitted with BankDetails" in {
+    "redirect to the next page when valid data is submitted with BankDetails" in new Setup {
 
-      val request     = fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
-      val userAnswers = emptyUserAnswers
+      val request: FakeRequest[AnyContent] =
+        fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
+      val userAnswers: UserAnswers         = emptyUserAnswers
         .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName")))
         .success
         .value
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
-      val result = controller.onSubmit(NormalMode)(request)
+      val result: Future[Result] = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -139,37 +150,37 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).set(any())(any(), any())
     }
 
-    "return a Bad Request and errors when invalid data is submitted" in {
+    "return a Bad Request and errors when invalid data is submitted" in new Setup {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
-      val result = controller.onSubmit(NormalMode)(request)
+      val result: Future[Result] = controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockUserAnswerService, never).set(any())(any(), any())
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "redirect to Session Expired for a GET if no existing data is found" in new Setup {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
-      val result = controller.onPageLoad(NormalMode)(fakeRequest)
+      val result: Future[Result] = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
+    "redirect to Session Expired for a POST if no existing data is found" in new Setup {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request: FakeRequest[AnyContentAsFormUrlEncoded] = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
-      val result = controller.onSubmit(NormalMode)(request)
+      val result: Future[Result] = controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

@@ -16,7 +16,7 @@ lazy val microservice = Project(appName, file("."))
   // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
   .settings(dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1")
   .settings(
-    scalaVersion := "2.13.11",
+    scalaVersion := "2.13.12",
     routesImport ++= Seq("models._", "models.OptionBinder._"),
     PlayKeys.playDefaultPort := 9457,
     TwirlKeys.templateImports ++= Seq(
@@ -38,7 +38,6 @@ lazy val microservice = Project(appName, file("."))
     libraryDependencies ++= AppDependencies(),
     // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
     libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
-    retrieveManaged := true,
     Concat.groups := Seq(
       "javascripts/application.js" ->
         group(

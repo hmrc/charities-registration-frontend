@@ -32,8 +32,9 @@ class DataRequiredActionSpec extends SpecBase {
 
   implicit val mockFrontendAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
-  private val sut: Harness = new Harness
-  private val acknowledgedUserAnswers: UserAnswers = emptyUserAnswers.set(AcknowledgementReferencePage, "ReferenceCode").success.value
+  private val sut: Harness                         = new Harness
+  private val acknowledgedUserAnswers: UserAnswers =
+    emptyUserAnswers.set(AcknowledgementReferencePage, "ReferenceCode").success.value
 
   class Harness extends DataRequiredActionImpl {
     def callRefine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] = refine(request)
@@ -57,7 +58,8 @@ class DataRequiredActionSpec extends SpecBase {
       "redirect to the RegistrationSent page when the UserAnswers have an acknowledgment reference and noEmailPost feature is on" in {
         when(mockFrontendAppConfig.noEmailPost).thenReturn(true)
 
-        val request: OptionalDataRequest[AnyContent] = OptionalDataRequest(fakeRequest, "internalId", Some(acknowledgedUserAnswers))
+        val request: OptionalDataRequest[AnyContent] =
+          OptionalDataRequest(fakeRequest, "internalId", Some(acknowledgedUserAnswers))
 
         val futureResult: Future[Either[Result, DataRequest[AnyContent]]] =
           sut.callRefine(OptionalDataRequest(request, "internalId", Some(acknowledgedUserAnswers)))
@@ -71,7 +73,8 @@ class DataRequiredActionSpec extends SpecBase {
       "redirect to the EmailOrPost page when the UserAnswers have an acknowledgment reference and noEmailPost feature is off" in {
         when(mockFrontendAppConfig.noEmailPost).thenReturn(false)
 
-        val request: OptionalDataRequest[AnyContent] = OptionalDataRequest(fakeRequest, "internalId", Some(acknowledgedUserAnswers))
+        val request: OptionalDataRequest[AnyContent] =
+          OptionalDataRequest(fakeRequest, "internalId", Some(acknowledgedUserAnswers))
 
         val futureResult: Future[Either[Result, DataRequest[AnyContent]]] =
           sut.callRefine(OptionalDataRequest(request, "internalId", Some(acknowledgedUserAnswers)))
@@ -85,16 +88,17 @@ class DataRequiredActionSpec extends SpecBase {
 
       "pass the DataRequest on when UserAnswers do not have an acknowledgment reference" in {
 
-          val request: OptionalDataRequest[AnyContent] = OptionalDataRequest(fakeRequest, "internalId", Some(emptyUserAnswers))
+        val request: OptionalDataRequest[AnyContent] =
+          OptionalDataRequest(fakeRequest, "internalId", Some(emptyUserAnswers))
 
-          val futureResult: Future[Either[Result, DataRequest[AnyContent]]] =
-            sut.callRefine(OptionalDataRequest(request, "internalId", Some(emptyUserAnswers)))
+        val futureResult: Future[Either[Result, DataRequest[AnyContent]]] =
+          sut.callRefine(OptionalDataRequest(request, "internalId", Some(emptyUserAnswers)))
 
-          whenReady(futureResult) { result =>
-            result.isRight mustBe true
-            result.toOption.get mustBe DataRequest(request, request.internalId, emptyUserAnswers)
-          }
+        whenReady(futureResult) { result =>
+          result.isRight mustBe true
+          result.toOption.get mustBe DataRequest(request, request.internalId, emptyUserAnswers)
         }
       }
     }
+  }
 }

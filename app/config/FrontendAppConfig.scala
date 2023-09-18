@@ -38,14 +38,6 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
   lazy val contactUrl: String = s"$contactHost/contact/contact-hmrc?service=$contactFormServiceIdentifier"
 
-  val gtmContainer: String = servicesConfig.getString("tracking-consent-frontend.gtm.container")
-
-  def feedbackUrl: String =
-    s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier"
-
-  def feedbackUnauthenticatedUrl: String =
-    s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier"
-
   private val exitSurveyHost: String = servicesConfig.getString("feedback-frontend.host")
 
   lazy val userAnswersTimeToLive: Int = servicesConfig.getInt("mongodb.user-eligibility-answers.timeToLiveInSeconds")

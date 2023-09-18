@@ -42,12 +42,6 @@ sm2 --start CHARITIES_REGISTRATION_ALL --appendArgs '{"CHARITIES_REGISTRATION_FR
 
 ## Tests
 
-Please run tests with any work changes.
-
-```bash
-sbt test
-```
-
 Below command will run unit tests, integration tests, formatting, coverage and check dependencies:
 
 ```bash

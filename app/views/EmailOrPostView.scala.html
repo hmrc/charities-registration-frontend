@@ -25,7 +25,7 @@
         errorSummary: components.errorSummary,
         yesNoRadio: components.yesNoRadio,
         button: components.button,
-        strong: components.strong,
+        p: components.p,
         h1: components.h1,
         bullets: components.bullets,
         summaryYesNo: components.summaryYesNo
@@ -38,7 +38,7 @@
 
     @h1(messages("emailOrPost.heading"))
 
-    @strong(Html(messages("emailOrPost.p")))
+    @p(Html(s"<strong>${messages("emailOrPost.p")}</strong>"), "govuk-body govuk-!-font-weight-bold")
 
     @bullets(requiredDocuments: _*)(foreignAddresses)
 

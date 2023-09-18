@@ -68,7 +68,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   "CharityNameController" must {
 
-    "redirect to EmailOrPost page when acknowledgement reference is present and the feature is turned on" in new Setup(
+    "redirect to EmailOrPost page when acknowledgement reference is present and the feature is turned off" in new Setup(
       noEmailPost = false
     ) {
 

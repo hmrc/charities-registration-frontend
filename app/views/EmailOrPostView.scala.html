@@ -25,7 +25,7 @@
         errorSummary: components.errorSummary,
         yesNoRadio: components.yesNoRadio,
         button: components.button,
-        strong: components.strong,
+        p: components.p,
         h1: components.h1,
         bullets: components.bullets,
         summaryYesNo: components.summaryYesNo
@@ -34,18 +34,17 @@
 @(form: Form[_], requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "emailOrPost.title", Some(s"declaration.section")))) {
+    @errorSummary(form.errors)
+
+    @h1(messages("emailOrPost.heading"))
+
+    @p(Html(s"<strong>${messages("emailOrPost.p")}</strong>"), "govuk-body govuk-!-font-weight-bold")
+
+    @bullets(requiredDocuments: _*)(foreignAddresses)
 
     @formHelper(action = controllers.routes.EmailOrPostController.onSubmit) {
 
-        @errorSummary(form.errors)
-
-        @summaryYesNo(form, None, None, keyPrefix = "emailOrPost", Some(
-            Html(
-            h1(messages("emailOrPost.heading")) +
-            strong(Html(messages("emailOrPost.p"))) +
-            bullets(requiredDocuments: _*)(foreignAddresses)
-            )
-        ))
+        @summaryYesNo(form, None, keyPrefix = "emailOrPost")
 
         @button("site.continue")
 

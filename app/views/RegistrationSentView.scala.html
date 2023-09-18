@@ -71,12 +71,10 @@
 
     @h2(messages("registrationSent.step1"))
 
-    @p {
-        @p{
-            @messages("registrationSent.p3.beforeRefNo") <strong>@acknowledgementReference</strong> @messages("registrationSent.p3.afterRefNo")
-        }
-        @bullets(requiredDocuments: _*)(foreignAddresses)
+    @p{
+        @messages("registrationSent.p3.beforeRefNo") <strong>@acknowledgementReference</strong> @messages("registrationSent.p3.afterRefNo")
     }
+    @bullets(requiredDocuments: _*)(foreignAddresses)
 
     @if(!noEmailOrPost) {
         @h2(messages(s"registrationSent.$pageSelector.step2", sendBeforeDate))
@@ -86,7 +84,7 @@
 
     @if(emailOrPost && !noEmailOrPost) {
         @p{@messages("registrationSent.p4.beforeRegistrations") <strong>@messages("registrationSent.p4.keyWord")</strong> @messages("registrationSent.p4.beforeRegNo") <strong>@acknowledgementReference</strong> @messages("registrationSent.p4.afterRegNo")
-        @link(s"mailto:contactcharities@hmrc.gov.uk?subject=Registrations $acknowledgementReference", "registrationSent.p4.link")}
+        @link(s"mailto:contactcharities@hmrc.gov.uk?subject=Registrations%20$acknowledgementReference", "registrationSent.p4.link")}
     } else {
         @p{@messages("registrationSent.p4.receiveBy") <strong>@sendBeforeDate</strong>@messages("registrationSent.p4.applyAgain")}
         @p{@messages("registrationSent.p4.postTo")}

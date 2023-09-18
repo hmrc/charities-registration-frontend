@@ -1,6 +1,4 @@
-## charities-registration-frontend
-
-[ ![Download](https://api.bintray.com/packages/hmrc/releases/charities-registration-frontend/images/download.svg) ](https://bintray.com/hmrc/releases/tax-history-frontend/_latestVersion)
+# charities-registration-frontend
 
 This microservice is an electronic version of the ChA1 form. This form can be found at : http://www.hmrc.gov.uk/charities/cha1.pdf
 
@@ -17,7 +15,7 @@ registered details (agents, nominees, bank details) online.
 | charities               | https://github.com/hmrc/charities.git               |
 
 
-### Running the Application
+## Running the Application
 
 To run the application:
 
@@ -27,7 +25,7 @@ To run the application:
 * In your browser navigate to [http://localhost:9457/register-charity-hmrc/check-eligibility/register-the-charity](http://localhost:9457/register-charity-hmrc/check-eligibility/register-the-charity)
 * only organisation users are allowed for gg login
 
-#### Prerequisites:
+### Prerequisites:
 This service is written in Scala and the Play Framework, therefore you will need at least a Java Runtime Environment to run it. You will also need mongodb by either locally installing it or running a mongo docker container.
 
 You should ensure that you have the latest version of the correct services and are running them through the service manager 2.
@@ -36,26 +34,25 @@ Make sure sm2 and service-manager-config are up to date
 
 Then run the following command to start all services:
 
-
-```
+```bash
 sm2 --start CHARITIES_REGISTRATION_ALL --appendArgs '{"CHARITIES_REGISTRATION_FRONTEND": ["-J-Dmicroservice.services.address-lookup-frontend.port=6001"]}'
 ```
 
 **Ensure CHARITIES_REGISTRATION_FRONTEND uses port 6001 for address-lookup-frontend. Note: Update address-lookup-frontend port to 6001 in the application.conf of charities-registration-frontend**
 
-#### Tests:
-Please run tests with any work changes
-```
-sbt test
-```
-below command will help to run unit tests, integration tests and coverage 
-```
+## Tests
+
+Below command will run unit tests, integration tests, formatting, coverage and check dependencies:
+
+```bash
 ./run_all_tests.sh
 ```
 
 ### Journey tests and prototype
+
 Please run the app with mocked address lookup for journey tests with script:
-```
+
+```bash
 ./run_for_journey_tests.sh
 ```
 
@@ -63,3 +60,15 @@ Please run the app with mocked address lookup for journey tests with script:
 |---------------|------------------------------------------------------------------|
 | Journey tests | https://github.com/hmrc/charities-registration-journey-tests.git |
 | Prototype     | https://charities-prototype-v1.herokuapp.com/admin/listings      |
+
+## Accessibility Tests
+
+### Prerequisites
+Have node installed on your machine
+
+### Execute tests
+To run the tests locally, simply run:
+
+```bash
+sbt clean A11y/test
+```

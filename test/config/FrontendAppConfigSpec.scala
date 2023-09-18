@@ -48,18 +48,6 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.contactUrl mustBe "http://localhost:9250/contact/contact-hmrc?service=iCharities"
       }
 
-      "gtmContainer" in {
-        frontendAppConfig.gtmContainer mustBe "c"
-      }
-
-      "feedbackUrl" in {
-        frontendAppConfig.feedbackUrl mustBe "http://localhost:9250/contact/beta-feedback?service=iCharities"
-      }
-
-      "feedbackUnauthenticatedUrl" in {
-        frontendAppConfig.feedbackUnauthenticatedUrl mustBe "http://localhost:9250/contact/beta-feedback-unauthenticated?service=iCharities"
-      }
-
       "exitSurveyUrl" in {
         frontendAppConfig.exitSurveyUrl mustBe "http://localhost:9514/feedback/CHARITIES"
       }

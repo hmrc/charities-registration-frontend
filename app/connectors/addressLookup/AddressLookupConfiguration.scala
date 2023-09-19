@@ -37,10 +37,8 @@ class AddressLookupConfiguration @Inject() (
       version = 2,
       options = AddressLookupOptionsModel(
         continueUrl = SafeRedirectUrl(appConfig.host + callbackUrl),
-        phaseFeedbackLink = SafeRedirectUrl(appConfig.feedbackUrlAddressLookup),
         signOutHref = SafeRedirectUrl(controllers.routes.SignOutController.signOut.url),
         deskProServiceName = appConfig.contactFormServiceIdentifier,
-        showPhaseBanner = true,
         showBackButtons = true,
         includeHMRCBranding = false,
         allowedCountryCodes = allowedCountryCodes,

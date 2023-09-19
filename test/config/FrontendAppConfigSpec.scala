@@ -84,10 +84,6 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.retrieveAddressUrl mustBe "http://localhost:9028/api/v2/confirmed"
       }
 
-      "feedbackUrlAddressLookup" in {
-        frontendAppConfig.feedbackUrlAddressLookup mustBe "http://localhost:9250/contact/beta-feedback?service=iCharities"
-      }
-
       "cookies" in {
         frontendAppConfig.cookies mustBe "http://localhost:9457/help/cookies"
       }

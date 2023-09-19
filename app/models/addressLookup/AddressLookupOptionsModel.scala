@@ -21,10 +21,8 @@ import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
 case class AddressLookupOptionsModel(
   continueUrl: SafeRedirectUrl,
-  phaseFeedbackLink: SafeRedirectUrl,
   signOutHref: SafeRedirectUrl,
   deskProServiceName: String,
-  showPhaseBanner: Boolean,
   showBackButtons: Boolean,
   includeHMRCBranding: Boolean,
   allowedCountryCodes: Option[Set[String]],

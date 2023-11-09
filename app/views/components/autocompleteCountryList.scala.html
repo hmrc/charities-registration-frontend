@@ -52,7 +52,7 @@
 @select(hmrcComponent.Select(
     id = id,
     name = name,
-    errorMessage = form("country").error.map(fe ⇒ ErrorMessage(content = HtmlContent(messages(fe.message)))),
+    errorMessage = form("country").error.map(fe ⇒ ErrorMessage.errorMessageWithDefaultStringsTranslated(content = HtmlContent(messages(fe.message)))),
     items = Seq(SelectItem(value = Some(""), text=(hintText))) ++ countries.map {
     case (k,v) ⇒ SelectItem(
     value = Some(k),

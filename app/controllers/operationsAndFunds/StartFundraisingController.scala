@@ -19,10 +19,11 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import javax.inject.Inject
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.StartFundraisingView
+
+import javax.inject.Inject
 
 class StartFundraisingController @Inject() (
   val userAnswerService: UserAnswerService,

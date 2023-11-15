@@ -16,16 +16,14 @@
 
 package controllers.otherOfficials
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
 import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
-import navigation.OtherOfficialsNavigator
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
+import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.otherOfficials.{OtherOfficialsDOBPage, OtherOfficialsNamePage}
 import play.api.data.Form
@@ -35,6 +33,7 @@ import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class OtherOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterEach {

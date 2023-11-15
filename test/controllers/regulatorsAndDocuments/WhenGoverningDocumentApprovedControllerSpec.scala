@@ -16,8 +16,6 @@
 
 package controllers.regulatorsAndDocuments
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
@@ -26,7 +24,7 @@ import models.{NormalMode, UserAnswers}
 import navigation.DocumentsNavigator
 import navigation.FakeNavigators.FakeDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.{SelectGoverningDocumentPage, WhenGoverningDocumentApprovedPage}
 import play.api.data.Form
@@ -36,6 +34,7 @@ import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class WhenGoverningDocumentApprovedControllerSpec extends SpecBase with BeforeAndAfterEach {

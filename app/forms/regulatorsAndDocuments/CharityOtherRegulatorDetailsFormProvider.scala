@@ -17,10 +17,11 @@
 package forms.regulatorsAndDocuments
 
 import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
 import models.CharityOtherRegulatorDetails
+import play.api.data.Form
 import play.api.data.Forms._
+
+import javax.inject.Inject
 
 class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
 

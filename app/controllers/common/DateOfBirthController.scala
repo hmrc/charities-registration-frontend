@@ -16,8 +16,6 @@
 
 package controllers.common
 
-import java.time.LocalDate
-
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import models.Mode
@@ -29,6 +27,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 trait DateOfBirthController extends LocalBaseController {

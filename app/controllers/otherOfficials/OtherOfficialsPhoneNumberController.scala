@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.PhoneNumberController
 import forms.common.PhoneNumberFormProvider
-import javax.inject.Inject
 import models.{Index, Mode, PhoneNumber}
 import navigation.OtherOfficialsNavigator
 import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPhoneNumberPage}
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.PhoneNumberView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OtherOfficialsPhoneNumberController @Inject() (

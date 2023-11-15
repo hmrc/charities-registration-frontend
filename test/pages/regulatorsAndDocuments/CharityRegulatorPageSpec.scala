@@ -17,8 +17,8 @@
 package pages.regulatorsAndDocuments
 
 import models.regulators.CharityRegulator
-import org.scalacheck.{Arbitrary, Gen}
 import models.{CharityOtherRegulatorDetails, UserAnswers}
+import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 

@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.FundRaisingFormProvider
-import javax.inject.Inject
 import models.Mode
 import models.operations.FundRaisingOptions
 import navigation.FundRaisingNavigator
@@ -31,6 +30,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.FundRaisingView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class FundRaisingController @Inject() (

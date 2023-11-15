@@ -16,9 +16,10 @@
 
 package forms.operationsAndFunds
 import forms.mappings.Mappings
-import javax.inject.Inject
 import org.joda.time.MonthDay
 import play.api.data.Form
+
+import javax.inject.Inject
 
 class AccountingPeriodEndDateFormProvider @Inject() extends Mappings {
 

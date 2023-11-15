@@ -16,9 +16,9 @@
 
 package viewmodels
 
-import models.{Name, UserAnswers}
 import models.addressLookup.AddressModel
 import models.regulators.SelectWhyNoRegulator
+import models.{Name, UserAnswers}
 import pages.QuestionPage
 import pages.addressLookup._
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage

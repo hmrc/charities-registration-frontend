@@ -16,11 +16,11 @@
 
 package pages.authorisedOfficials
 
-import java.time.LocalDate
-
 import models.{Passport, UserAnswers}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
+
+import java.time.LocalDate
 
 class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 

@@ -19,11 +19,12 @@ package controllers.checkEligibility
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import javax.inject.Inject
 import navigation.EligibilityNavigator
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.checkEligibility.InEligibleCharitablePurposesView
+
+import javax.inject.Inject
 
 class InEligibleCharitablePurposesController @Inject() (
   val sessionRepository: SessionRepository,

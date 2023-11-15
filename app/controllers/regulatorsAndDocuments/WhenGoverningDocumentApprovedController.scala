@@ -16,13 +16,10 @@
 
 package controllers.regulatorsAndDocuments
 
-import java.time.LocalDate
-
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.{SelectGoverningDocumentPage, WhenGoverningDocumentApprovedPage}
@@ -32,6 +29,8 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
 
+import java.time.LocalDate
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhenGoverningDocumentApprovedController @Inject() (

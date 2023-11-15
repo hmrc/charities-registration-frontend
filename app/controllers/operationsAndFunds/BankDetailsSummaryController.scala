@@ -19,7 +19,6 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import javax.inject.Inject
 import models.NormalMode
 import navigation.BankDetailsNavigator
 import pages.IndexPage
@@ -31,6 +30,7 @@ import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
 import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 import views.html.CheckYourAnswersView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class BankDetailsSummaryController @Inject() (

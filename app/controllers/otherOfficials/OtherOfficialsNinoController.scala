@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.NinoController
 import forms.common.NinoFormProvider
-import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.OtherOfficialsNavigator
 import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsNinoPage}
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.NinoView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OtherOfficialsNinoController @Inject() (

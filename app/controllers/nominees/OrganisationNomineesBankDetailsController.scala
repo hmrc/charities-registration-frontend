@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.common.BankDetailsFormProvider
-import javax.inject.Inject
 import models.{BankDetails, Mode}
 import navigation.NomineesNavigator
 import pages.nominees.{OrganisationNomineeNamePage, OrganisationNomineesBankDetailsPage}
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.BankAccountDetailsView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OrganisationNomineesBankDetailsController @Inject() (

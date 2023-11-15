@@ -16,7 +16,6 @@
 
 package viewModels.nominees
 
-import java.time.LocalDate
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import models.nominees.OrganisationNomineeContactDetails
@@ -24,6 +23,8 @@ import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswer
 import pages.addressLookup._
 import pages.nominees._
 import viewmodels.nominees.NomineeStatusHelper
+
+import java.time.LocalDate
 
 class NomineeStatusHelperSpec extends SpecBase {
 

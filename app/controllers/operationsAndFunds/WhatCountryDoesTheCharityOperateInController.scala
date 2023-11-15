@@ -29,8 +29,8 @@ import play.api.data.Form
 import play.api.mvc._
 import service.{CountryService, UserAnswerService}
 import views.html.operationsAndFunds.WhatCountryDoesTheCharityOperateInView
-import javax.inject.Inject
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhatCountryDoesTheCharityOperateInController @Inject() (

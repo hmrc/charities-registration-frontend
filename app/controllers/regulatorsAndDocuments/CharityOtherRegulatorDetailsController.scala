@@ -20,8 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.CharityOtherRegulatorDetailsFormProvider
-
-import javax.inject.Inject
 import models.{CharityOtherRegulatorDetails, Mode}
 import navigation.RegulatorsAndDocumentsNavigator
 import pages.regulatorsAndDocuments.CharityOtherRegulatorDetailsPage
@@ -31,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.CharityOtherRegulatorDetailsView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharityOtherRegulatorDetailsController @Inject() (

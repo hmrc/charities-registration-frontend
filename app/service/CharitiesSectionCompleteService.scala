@@ -17,8 +17,8 @@
 package service
 
 import audit.{AuditService, NormalUserAuditEvent}
-import models.{AuditTypes, UserAnswers}
 import models.requests.OptionalDataRequest
+import models.{AuditTypes, UserAnswers}
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.CharityNamePage
 import pages.otherOfficials.OtherOfficialsNamePage

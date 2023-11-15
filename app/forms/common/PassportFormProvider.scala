@@ -17,11 +17,12 @@
 package forms.common
 
 import forms.mappings.Mappings
-import javax.inject.Inject
 import models.Passport
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.TimeMachine
+
+import javax.inject.Inject
 
 class PassportFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings {
 

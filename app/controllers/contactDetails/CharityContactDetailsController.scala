@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.contactDetails.CharityContactDetailsFormProvider
-import javax.inject.Inject
 import models.{CharityContactDetails, Mode}
 import navigation.CharityInformationNavigator
 import pages.contactDetails.CharityContactDetailsPage
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.contactDetails.CharityContactDetailsView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharityContactDetailsController @Inject() (

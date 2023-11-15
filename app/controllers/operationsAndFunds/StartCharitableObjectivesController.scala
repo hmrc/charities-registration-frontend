@@ -19,11 +19,12 @@ package controllers.operationsAndFunds
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, UserDataRetrievalAction}
-import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import service.UserAnswerService
 import views.html.operationsAndFunds.StartCharitableObjectivesView
+
+import javax.inject.Inject
 
 class StartCharitableObjectivesController @Inject() (
   val userAnswerService: UserAnswerService,

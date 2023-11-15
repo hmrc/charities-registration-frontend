@@ -18,13 +18,14 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.SessionIdentifierAction
-import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.auth.core.{AffinityGroup, AuthConnector}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import views.html.errors.PageNotFoundView
+
+import javax.inject.Inject
 
 class PageNotFoundController @Inject() (
   identify: SessionIdentifierAction,

@@ -19,13 +19,14 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.ConfirmAddressController
-import javax.inject.Inject
 import models.NormalMode
 import pages.addressLookup.OrganisationNomineeAddressLookupPage
 import pages.nominees.OrganisationNomineeNamePage
 import play.api.mvc._
 import service.CountryService
 import views.html.common.ConfirmAddressView
+
+import javax.inject.Inject
 
 class ConfirmOrganisationNomineeAddressController @Inject() (
   val identify: AuthIdentifierAction,

@@ -18,13 +18,14 @@ package controllers.addressLookup
 
 import connectors.addressLookup.AddressLookupConnector
 import controllers.actions._
-import javax.inject.Inject
 import navigation.CharityInformationNavigator
 import pages.addressLookup.CharityPostalAddressLookupPage
 import pages.sections.Section1Page
 import play.api.mvc._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
+
+import javax.inject.Inject
 
 class CharityPostalAddressLookupController @Inject() (
   override val sessionRepository: UserAnswerService,

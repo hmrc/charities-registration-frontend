@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.SelectWhyNoRegulatorFormProvider
-import javax.inject.Inject
 import models.Mode
 import models.regulators.SelectWhyNoRegulator
 import navigation.RegulatorsAndDocumentsNavigator
@@ -31,6 +30,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.SelectWhyNoRegulatorView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class SelectWhyNoRegulatorController @Inject() (

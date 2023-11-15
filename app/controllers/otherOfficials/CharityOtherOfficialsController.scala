@@ -19,12 +19,12 @@ package controllers.otherOfficials
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import javax.inject.Inject
 import models.Index
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.otherOfficials.CharityOtherOfficialsView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharityOtherOfficialsController @Inject() (

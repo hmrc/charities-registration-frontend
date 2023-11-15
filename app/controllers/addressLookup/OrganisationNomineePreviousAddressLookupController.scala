@@ -18,7 +18,6 @@ package controllers.addressLookup
 
 import connectors.addressLookup.AddressLookupConnector
 import controllers.actions._
-import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
 import pages.addressLookup.OrganisationNomineePreviousAddressLookupPage
@@ -27,6 +26,8 @@ import pages.sections.Section9Page
 import play.api.mvc._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
+
+import javax.inject.Inject
 
 class OrganisationNomineePreviousAddressLookupController @Inject() (
   override val sessionRepository: UserAnswerService,

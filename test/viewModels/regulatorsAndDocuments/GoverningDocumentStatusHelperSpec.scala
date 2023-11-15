@@ -16,12 +16,12 @@
 
 package viewModels.regulatorsAndDocuments
 
-import java.time.LocalDate
-
 import base.SpecBase
 import models.regulators.SelectGoverningDocument
 import pages.regulatorsAndDocuments._
 import viewmodels.regulatorsAndDocuments.GoverningDocumentStatusHelper
+
+import java.time.LocalDate
 
 class GoverningDocumentStatusHelperSpec extends SpecBase {
   //scalastyle:off magic.number

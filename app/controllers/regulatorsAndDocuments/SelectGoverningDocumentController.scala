@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.SelectGoverningDocumentFormProvider
-import javax.inject.Inject
 import models.Mode
 import models.regulators.SelectGoverningDocument
 import navigation.DocumentsNavigator
@@ -31,6 +30,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.SelectGoverningDocumentView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class SelectGoverningDocumentController @Inject() (

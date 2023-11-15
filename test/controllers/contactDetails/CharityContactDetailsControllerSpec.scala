@@ -23,7 +23,7 @@ import models.{CharityContactDetails, NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.contactDetails.CharityContactDetailsPage
 import play.api.data.Form

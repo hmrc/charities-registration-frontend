@@ -19,10 +19,11 @@ package controllers.regulatorsAndDocuments
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import javax.inject.Inject
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.StartGoverningDocumentView
+
+import javax.inject.Inject
 
 class StartGoverningDocumentController @Inject() (
   val userAnswerService: UserAnswerService,

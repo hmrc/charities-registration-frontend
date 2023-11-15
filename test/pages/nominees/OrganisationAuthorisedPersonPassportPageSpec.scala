@@ -16,11 +16,11 @@
 
 package pages.nominees
 
-import java.time.LocalDate
-
 import models.Passport
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
+
+import java.time.LocalDate
 
 class OrganisationAuthorisedPersonPassportPageSpec extends PageBehaviours {
 

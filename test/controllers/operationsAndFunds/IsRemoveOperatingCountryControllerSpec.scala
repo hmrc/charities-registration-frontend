@@ -20,12 +20,12 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
 import models.{Country, Index, NormalMode, UserAnswers}
-import navigation.FundRaisingNavigator
 import navigation.FakeNavigators.FakeFundRaisingNavigator
+import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
 import org.mockito.MockitoSugar
+import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.WhatCountryDoesTheCharityOperateInPage
 import play.api.data.Form
 import play.api.inject.bind

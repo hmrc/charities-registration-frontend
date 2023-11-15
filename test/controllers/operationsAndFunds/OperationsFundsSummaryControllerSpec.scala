@@ -22,7 +22,7 @@ import models.UserAnswers
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.{ActualIncomePage, EstimatedIncomePage, IsFinancialAccountsPage}
 import play.api.inject.bind

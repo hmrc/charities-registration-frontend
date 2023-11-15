@@ -17,13 +17,13 @@
 package navigation
 
 import base.SpecBase
+import controllers.operationsAndFunds.{routes => operations}
 import controllers.routes
 import models._
 import models.operations.CharitablePurposes
 import models.operations.CharitablePurposes.AmateurSport
 import pages.IndexPage
 import pages.operationsAndFunds._
-import controllers.operationsAndFunds.{routes => operations}
 
 class ObjectivesNavigatorSpec extends SpecBase {
 

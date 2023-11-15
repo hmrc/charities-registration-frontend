@@ -16,7 +16,7 @@
 
 package models
 
-import play.api.libs.json.{JsError, JsString, JsSuccess, Reads, Writes}
+import play.api.libs.json._
 
 trait Enumerable[A] {
 

@@ -17,13 +17,14 @@
 package views.regulatorsAndDocuments
 
 import base.data.messages.BaseMessages
-import java.time.LocalDate
 import forms.regulatorsAndDocuments.WhenGoverningDocumentApprovedFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.regulatorsAndDocuments.WhenGoverningDocumentApprovedView
+
+import java.time.LocalDate
 
 class WhenGoverningDocumentApprovedViewSpec extends QuestionViewBehaviours[LocalDate] {
 

@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.PublicBenefitsFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.ObjectivesNavigator
 import pages.operationsAndFunds.PublicBenefitsPage
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.PublicBenefitsView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class PublicBenefitsController @Inject() (

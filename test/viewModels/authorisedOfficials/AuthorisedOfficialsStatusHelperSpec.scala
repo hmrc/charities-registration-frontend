@@ -16,7 +16,6 @@
 
 package viewModels.authorisedOfficials
 
-import java.time.LocalDate
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import models.authOfficials.OfficialsPosition
@@ -24,6 +23,8 @@ import models.{Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
 import viewmodels.authorisedOfficials.AuthorisedOfficialsStatusHelper
+
+import java.time.LocalDate
 
 class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
 

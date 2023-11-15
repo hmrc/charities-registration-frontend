@@ -20,11 +20,11 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import pages.sections.Section1Page
-import javax.inject.Inject
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.StartBankDetailsView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class StartBankDetailsController @Inject() (

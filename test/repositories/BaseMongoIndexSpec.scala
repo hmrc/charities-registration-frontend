@@ -19,9 +19,9 @@ package repositories
 import base.SpecBase
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.model.{IndexModel, IndexOptions, Indexes}
-import scala.jdk.CollectionConverters._
 
 import java.util.concurrent.TimeUnit
+import scala.jdk.CollectionConverters._
 
 trait BaseMongoIndexSpec extends SpecBase {
 

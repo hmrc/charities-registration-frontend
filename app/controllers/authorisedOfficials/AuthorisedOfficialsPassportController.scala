@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.PassportController
 import forms.common.PassportFormProvider
-import javax.inject.Inject
 import models.{Index, Mode, Passport}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPassportPage}
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.{CountryService, UserAnswerService}
 import views.html.common.PassportView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class AuthorisedOfficialsPassportController @Inject() (

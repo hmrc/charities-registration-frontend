@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.NameController
 import forms.common.NameFormProvider
-import javax.inject.Inject
 import models.{Mode, Name}
 import navigation.NomineesNavigator
 import pages.nominees.OrganisationAuthorisedPersonNamePage
@@ -29,6 +28,8 @@ import play.api.data.Form
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.NameView
+
+import javax.inject.Inject
 
 class OrganisationAuthorisedPersonNameController @Inject() (
   val identify: AuthIdentifierAction,

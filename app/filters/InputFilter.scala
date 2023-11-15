@@ -18,7 +18,6 @@ package filters
 
 import java.util.regex.Pattern
 import java.util.regex.Pattern._
-
 import scala.annotation.tailrec
 
 trait InputFilter {

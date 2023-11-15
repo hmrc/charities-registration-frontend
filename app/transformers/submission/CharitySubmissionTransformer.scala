@@ -16,11 +16,12 @@
 
 package transformers.submission
 
-import javax.inject.Inject
 import models.requests.DataRequest
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json.Reads.JsObjectReducer
 import play.api.libs.json.{JsObject, Json, Reads}
+
+import javax.inject.Inject
 
 class CharitySubmissionTransformer @Inject() (
   charityTransformer: CharityTransformer,

@@ -16,7 +16,6 @@
 
 package controllers.nominees
 
-import java.time.LocalDate
 import base.SpecBase
 import base.data.constants.DateConstants.january1st2002
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
@@ -35,6 +34,7 @@ import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class OrganisationAuthorisedPersonDOBControllerSpec extends SpecBase with BeforeAndAfterEach {

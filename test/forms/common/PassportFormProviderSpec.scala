@@ -16,11 +16,11 @@
 
 package forms.common
 
-import java.time.LocalDate
-
 import forms.behaviours.StringFieldBehaviours
 import models.Passport
 import play.api.data.{Form, FormError}
+
+import java.time.LocalDate
 
 class PassportFormProviderSpec extends StringFieldBehaviours {
 

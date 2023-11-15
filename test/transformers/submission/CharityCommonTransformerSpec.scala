@@ -17,10 +17,10 @@
 package transformers.submission
 
 import base.SpecBase
+import models._
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharityEstablishedOptions
-import models._
 import pages.addressLookup._
 import pages.authorisedOfficials._
 import pages.contactDetails._

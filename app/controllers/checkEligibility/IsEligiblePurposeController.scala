@@ -20,8 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.checkEligibility.IsEligiblePurposeFormProvider
-
-import javax.inject.Inject
 import models.{Mode, UserAnswers}
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligiblePurposePage
@@ -30,6 +28,7 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.checkEligibility.IsEligiblePurposeView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsEligiblePurposeController @Inject() (

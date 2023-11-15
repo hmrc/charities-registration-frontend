@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.contactDetails.CharityNameFormProvider
-import javax.inject.Inject
 import models.{CharityName, Mode}
 import navigation.CharityInformationNavigator
 import pages.contactDetails.CharityNamePage
@@ -32,6 +31,7 @@ import service.UserAnswerService
 import viewmodels.charityInformation.CharityInformationStatusHelper.checkComplete
 import views.html.contactDetails.CharityNameView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CharityNameController @Inject() (

@@ -19,12 +19,12 @@ package controllers.nominees
 import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
-import javax.inject.Inject
 import pages.nominees._
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.nominees.OrganisationNomineeAuthorisedPersonView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OrganisationNomineeAuthorisedPersonController @Inject() (

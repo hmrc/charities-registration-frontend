@@ -17,8 +17,8 @@
 package connectors.httpParsers
 
 import base.SpecBase
+import ConfirmedAddressHttpParser.ConfirmedAddressReads
 import base.data.constants.ConfirmedAddressConstants
-import connectors.httpParsers.ConfirmedAddressHttpParser.ConfirmedAddressReads
 import play.api.http.Status
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpResponse

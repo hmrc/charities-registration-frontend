@@ -18,6 +18,8 @@ package models.oldCharities
 
 import org.joda.time.{LocalDate, MonthDay}
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
+import play.api.libs.json.JodaReads._
 
 // scalastyle:off number.of.types
 

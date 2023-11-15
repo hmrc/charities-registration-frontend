@@ -22,7 +22,7 @@ import models.UserAnswers
 import navigation.FakeNavigators.FakeRegulatorsAndDocumentsNavigator
 import navigation.RegulatorsAndDocumentsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.{reset, _}
 import org.scalatest.BeforeAndAfterEach
 import pages.regulatorsAndDocuments.IsCharityRegulatorPage
 import play.api.inject.bind

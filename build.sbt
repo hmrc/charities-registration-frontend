@@ -13,8 +13,10 @@ lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(libraryDependencies ++= AppDependencies())
+  .configs(IntegrationTest)
+  .settings(resolvers += Resolver.jcenterRepo)
   .settings(CodeCoverageSettings.settings)
-  .settings(scalacOptions += "-Wconf:src=routes/.*:s")
+  .settings(scalacOptions += "-Wconf:src=routes/.*:s,src=views/.*:s")
   .settings(PlayKeys.playDefaultPort := 9457)
   // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
   .settings(dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1")
@@ -31,7 +33,7 @@ lazy val microservice = Project(appName, file("."))
       "models.OptionBinder._",
       "controllers.routes._"
     ),
-    scalacOptions ++= Seq("-feature", "-Wconf:src=routes/.*:s,src=views/.*:s"),
+    scalacOptions ++= Seq("-feature"),
     Concat.groups := Seq(
       "javascripts/application.js" ->
         group(

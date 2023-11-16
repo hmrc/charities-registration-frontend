@@ -1,27 +1,24 @@
-import sbt.Keys.scalacOptions
-import uk.gov.hmrc.DefaultBuildSettings
+import uk.gov.hmrc.DefaultBuildSettings.integrationTestSettings
 
 lazy val appName: String = "charities-registration-frontend"
-
-ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.12"
-
-// To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
-ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
-  .settings(libraryDependencies ++= AppDependencies())
+  .settings(integrationTestSettings())
   .configs(IntegrationTest)
-  .settings(resolvers += Resolver.jcenterRepo)
-  .settings(CodeCoverageSettings.settings)
-  .settings(scalacOptions += "-Wconf:src=routes/.*:s,src=views/.*:s")
-  .settings(PlayKeys.playDefaultPort := 9457)
+  .settings(
+    javaOptions += "-Dlogger.resource=logback-test.xml",
+    IntegrationTest / resourceDirectory := (IntegrationTest / baseDirectory)(base => base / "it" / "resources").value,
+    IntegrationTest / fork := true
+  )
+  .settings(majorVersion := 0)
   // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
   .settings(dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1")
   .settings(
+    scalaVersion := "2.13.12",
     routesImport ++= Seq("models._", "models.OptionBinder._"),
+    PlayKeys.playDefaultPort := 9457,
     TwirlKeys.templateImports ++= Seq(
       "play.twirl.api.HtmlFormat",
       "uk.gov.hmrc.govukfrontend.views.html.components._",
@@ -33,7 +30,14 @@ lazy val microservice = Project(appName, file("."))
       "models.OptionBinder._",
       "controllers.routes._"
     ),
-    scalacOptions ++= Seq("-feature"),
+    coverageExcludedFiles := "<empty>;.*components.*;.*Routes.*",
+    coverageMinimumStmtTotal := 99,
+    coverageFailOnMinimum := true,
+    coverageHighlighting := true,
+    scalacOptions ++= Seq("-feature", "-Wconf:src=routes/.*:s,src=views/.*:s"),
+    libraryDependencies ++= AppDependencies(),
+    // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
+    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
     Concat.groups := Seq(
       "javascripts/application.js" ->
         group(
@@ -51,11 +55,5 @@ lazy val microservice = Project(appName, file("."))
     uglify / includeFilter := GlobFilter("application.js")
   )
 
-lazy val it = project
-  .enablePlugins(PlayScala)
-  .dependsOn(microservice % "test->test") // the "test->test" allows reusing test code and test dependencies
-  .settings(DefaultBuildSettings.itSettings)
-  .settings(libraryDependencies ++= AppDependencies.itDependencies)
-
-addCommandAlias("scalafmtAll", "all scalafmtSbt scalafmt Test/scalafmt it/Test/scalafmt A11y/scalafmt")
-addCommandAlias("scalastyleAll", "all scalastyle Test/scalastyle it/Test/scalastyle A11y/scalastyle")
+addCommandAlias("scalafmtAll", "all scalafmtSbt scalafmt Test/scalafmt IntegrationTest/scalafmt A11y/scalafmt")
+addCommandAlias("scalastyleAll", "all scalastyle Test/scalastyle IntegrationTest/scalastyle A11y/scalastyle")

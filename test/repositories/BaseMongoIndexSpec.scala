@@ -36,11 +36,18 @@ trait BaseMongoIndexSpec extends SpecBase {
           val indexFields = document.get("key").map(_.asDocument().keySet().asScala).getOrElse(Set.empty[String]).toSeq
           val name        = document.getString("name")
           val isUnique    = document.getBoolean("unique", false)
-          val expire      = document.getLong("expireAfterSeconds")
-          IndexModel(
-            Indexes.ascending(indexFields: _*),
-            IndexOptions().name(name).unique(isUnique).expireAfter(expire, TimeUnit.SECONDS)
-          )
+          val expire      = document.getInteger("expireAfterSeconds")
+          if (expire == null) {
+            IndexModel(
+              Indexes.ascending(indexFields: _*),
+              IndexOptions().name(name).unique(isUnique)
+            )
+          } else {
+            IndexModel(
+              Indexes.ascending(indexFields: _*),
+              IndexOptions().name(name).unique(isUnique).expireAfter(expire.toLong, TimeUnit.SECONDS)
+            )
+          }
         })
     )
 

@@ -17,8 +17,8 @@
 package viewModels.operationsAndFunds
 
 import base.SpecBase
-import models.{MongoDateTimeFormats, UserAnswers}
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
+import models.{MongoDateTimeFormats, UserAnswers}
 import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.operationsAndFunds._
 import viewmodels.operationsAndFunds.OperationsFundsStatusHelper

@@ -16,10 +16,10 @@
 
 package forms.common
 
-import java.time.LocalDate
-
 import forms.behaviours.DateBehaviours
 import play.api.data.{Form, FormError}
+
+import java.time.LocalDate
 
 class DateOfBirthFormProviderSpec extends DateBehaviours {
 

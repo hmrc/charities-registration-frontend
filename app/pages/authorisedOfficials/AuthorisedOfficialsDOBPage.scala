@@ -16,9 +16,10 @@
 
 package pages.authorisedOfficials
 
-import java.time.LocalDate
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import java.time.LocalDate
 
 case class AuthorisedOfficialsDOBPage(index: Int) extends QuestionPage[LocalDate] {
 

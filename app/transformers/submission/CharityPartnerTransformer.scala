@@ -16,11 +16,11 @@
 
 package transformers.submission
 
-import java.time.LocalDate
-
 import play.api.libs.functional.syntax._
 import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
+
+import java.time.LocalDate
 
 class CharityPartnerTransformer extends JsonTransformer {
 

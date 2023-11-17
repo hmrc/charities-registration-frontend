@@ -16,10 +16,11 @@
 
 package pages.otherOfficials
 
-import java.time.LocalDate
 import models.Index
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
+
+import java.time.LocalDate
 
 class OtherOfficialsDOBPageSpec extends PageBehaviours {
 

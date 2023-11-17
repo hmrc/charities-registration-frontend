@@ -20,8 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.NIRegulatorRegNumberFormProvider
-
-import javax.inject.Inject
 import models.Mode
 import navigation.RegulatorsAndDocumentsNavigator
 import pages.regulatorsAndDocuments.NIRegulatorRegNumberPage
@@ -31,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.NIRegulatorRegNumberView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class NIRegulatorRegNumberController @Inject() (

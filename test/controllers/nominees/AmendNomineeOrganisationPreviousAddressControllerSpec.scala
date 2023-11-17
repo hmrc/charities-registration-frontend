@@ -25,8 +25,8 @@ import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
 import org.mockito.MockitoSugar
+import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.OrganisationNomineePreviousAddressLookupPage
 import pages.contactDetails.AmendAddressPage
 import pages.nominees.OrganisationNomineeNamePage

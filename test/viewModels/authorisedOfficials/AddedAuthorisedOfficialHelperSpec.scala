@@ -16,7 +16,6 @@
 
 package viewModels.authorisedOfficials
 
-import java.time.LocalDate
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
@@ -32,6 +31,8 @@ import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
+
+import java.time.LocalDate
 
 class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 

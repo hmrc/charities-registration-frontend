@@ -20,8 +20,6 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.{AddressModel, CountryModel}
 import models.regulators.SelectGoverningDocument
-
-import javax.inject.Inject
 import models.requests.DataRequest
 import models.{Country, Index, Name, SelectTitle, UserAnswers}
 import org.mockito.Mockito.reset
@@ -37,6 +35,7 @@ import play.api.mvc._
 import play.api.test.Helpers._
 import service.UserAnswerService
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {

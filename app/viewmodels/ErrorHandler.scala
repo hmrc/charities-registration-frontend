@@ -17,20 +17,20 @@
 package viewmodels
 
 import config.FrontendAppConfig
-import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Request
 import play.twirl.api.Html
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.auth.core.{AffinityGroup, AuthConnector}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import views.html.errors.{PageNotFoundView, TechnicalDifficultiesErrorView}
-import scala.language.postfixOps
 
+import javax.inject.Inject
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.language.postfixOps
 
 class ErrorHandler @Inject() (
   val messagesApi: MessagesApi,

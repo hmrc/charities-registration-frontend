@@ -16,13 +16,10 @@
 
 package controllers.nominees
 
-import java.time.LocalDate
-
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.DateOfBirthController
 import forms.common.DateOfBirthFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
 import pages.nominees.{OrganisationAuthorisedPersonDOBPage, OrganisationAuthorisedPersonNamePage}
@@ -32,6 +29,8 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
+import java.time.LocalDate
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OrganisationAuthorisedPersonDOBController @Inject() (

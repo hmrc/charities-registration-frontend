@@ -17,10 +17,11 @@
 package forms.operationsAndFunds
 
 import forms.mappings.Mappings
-import javax.inject.Inject
 import models.operations.FundRaisingOptions
 import play.api.data.Form
 import play.api.data.Forms.set
+
+import javax.inject.Inject
 
 class FundRaisingFormProvider @Inject() extends Mappings {
 

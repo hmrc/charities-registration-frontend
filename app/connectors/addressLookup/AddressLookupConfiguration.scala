@@ -17,10 +17,11 @@
 package connectors.addressLookup
 
 import config.FrontendAppConfig
-import javax.inject.Inject
 import models.addressLookup._
 import play.api.i18n.{Lang, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
+
+import javax.inject.Inject
 
 class AddressLookupConfiguration @Inject() (
   callbackUrl: String,

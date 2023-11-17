@@ -19,12 +19,11 @@ package connectors.addressLookup
 import config.FrontendAppConfig
 import connectors.httpParsers.AddressLookupInitializationHttpParser.{AddressLookupInitializationReads, AddressLookupInitializationResponse}
 import connectors.httpParsers.ConfirmedAddressHttpParser.{ConfirmedAddressReads, ConfirmedAddressResponse}
-import javax.inject.Inject
 import models.addressLookup.AddressLookupConfigurationModel
 import play.api.i18n.MessagesApi
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class AddressLookupConnector @Inject() (httpClient: HttpClient, implicit val appConfig: FrontendAppConfig) {

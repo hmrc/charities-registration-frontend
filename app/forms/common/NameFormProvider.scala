@@ -17,10 +17,11 @@
 package forms.common
 
 import forms.mappings.Mappings
-import javax.inject.Inject
 import models.{Name, SelectTitle}
 import play.api.data.Form
 import play.api.data.Forms._
+
+import javax.inject.Inject
 
 class NameFormProvider @Inject() extends Mappings {
   private[common] val maxLength = 100

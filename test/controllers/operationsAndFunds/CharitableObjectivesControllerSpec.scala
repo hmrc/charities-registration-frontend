@@ -23,7 +23,7 @@ import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeObjectivesNavigator
 import navigation.ObjectivesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.CharitableObjectivesPage
 import play.api.data.Form

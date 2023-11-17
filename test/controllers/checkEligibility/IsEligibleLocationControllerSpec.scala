@@ -23,7 +23,7 @@ import models.{NormalMode, UserAnswers}
 import navigation.EligibilityNavigator
 import navigation.FakeNavigators.FakeEligibilityNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.checkEligibility.IsEligibleLocationPage
 import play.api.data.Form

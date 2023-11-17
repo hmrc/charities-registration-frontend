@@ -17,12 +17,13 @@
 package views.common
 
 import base.data.messages.BaseMessages
-import java.time.LocalDate
 import forms.common.DateOfBirthFormProvider
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.common.DateOfBirthView
+
+import java.time.LocalDate
 
 class DateOfBirthViewSpec extends QuestionViewBehaviours[LocalDate] {
 

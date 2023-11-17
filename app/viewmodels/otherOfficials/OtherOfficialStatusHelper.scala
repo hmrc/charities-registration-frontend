@@ -21,8 +21,7 @@ import pages.QuestionPage
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
 import pages.sections.Section8Page
-import viewmodels.StatusHelper
-import viewmodels._
+import viewmodels.{StatusHelper, _}
 
 object OtherOfficialStatusHelper extends StatusHelper {
 

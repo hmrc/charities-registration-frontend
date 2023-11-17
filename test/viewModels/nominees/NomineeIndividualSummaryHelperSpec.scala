@@ -16,7 +16,6 @@
 
 package viewModels.nominees
 
-import java.time.LocalDate
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
@@ -31,6 +30,8 @@ import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeIndividualSummaryHelper
+
+import java.time.LocalDate
 
 class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 

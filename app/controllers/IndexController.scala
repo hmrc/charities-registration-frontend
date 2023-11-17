@@ -22,11 +22,10 @@ import models.UserAnswers
 import models.requests.OptionalDataRequest
 import pages.AcknowledgementReferencePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import service.UserAnswerService
+import service.{CharitiesSectionCompleteService, UserAnswerService}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import utils.TaskListHelper
 import views.html.TaskList
-import service.CharitiesSectionCompleteService
 
 import javax.inject.Inject
 import scala.concurrent.Future

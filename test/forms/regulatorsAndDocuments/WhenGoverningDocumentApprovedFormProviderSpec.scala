@@ -16,11 +16,11 @@
 
 package forms.regulatorsAndDocuments
 
-import java.time.LocalDate
-
 import forms.behaviours.DateBehaviours
 import play.api.data.{Form, FormError}
 import utils.TimeMachine
+
+import java.time.LocalDate
 
 class WhenGoverningDocumentApprovedFormProviderSpec extends DateBehaviours {
 

@@ -22,15 +22,14 @@ import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import javax.inject.Inject
 import models.UserAnswers
 import models.requests.DataRequest
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.scalatest.BeforeAndAfterEach
 import org.mockito.MockitoSugar
+import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.sections.Section1Page
 import play.api.inject.bind
@@ -40,6 +39,7 @@ import play.api.test.Helpers._
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {

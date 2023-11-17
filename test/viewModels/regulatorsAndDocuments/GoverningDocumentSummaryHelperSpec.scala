@@ -16,7 +16,6 @@
 
 package viewModels.regulatorsAndDocuments
 
-import java.time.LocalDate
 import base.SpecBase
 import base.data.messages.BaseMessages
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
@@ -27,6 +26,8 @@ import pages.regulatorsAndDocuments._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
+
+import java.time.LocalDate
 
 class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 

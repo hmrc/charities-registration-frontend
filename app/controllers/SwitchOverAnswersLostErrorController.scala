@@ -18,10 +18,10 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.AuthIdentifierAction
-import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.SwitchOverAnswersLostErrorView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class SwitchOverAnswersLostErrorController @Inject() (

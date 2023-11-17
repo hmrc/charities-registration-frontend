@@ -20,8 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.operationsAndFunds.WhyNoBankStatementFormProvider
-
-import javax.inject.Inject
 import models.Mode
 import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.WhyNoBankStatementPage
@@ -31,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.operationsAndFunds.WhyNoBankStatementView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class WhyNoBankStatementController @Inject() (

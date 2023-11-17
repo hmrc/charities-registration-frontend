@@ -16,8 +16,8 @@
 
 package pages.regulatorsAndDocuments
 
-import models.{CharityOtherRegulatorDetails, UserAnswers}
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
+import models.{CharityOtherRegulatorDetails, UserAnswers}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 

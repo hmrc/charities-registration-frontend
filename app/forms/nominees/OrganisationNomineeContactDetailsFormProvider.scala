@@ -17,10 +17,11 @@
 package forms.nominees
 
 import forms.mappings.Mappings
-import javax.inject.Inject
 import models.nominees.OrganisationNomineeContactDetails
 import play.api.data.Form
 import play.api.data.Forms._
+
+import javax.inject.Inject
 
 class OrganisationNomineeContactDetailsFormProvider @Inject() extends Mappings {
 

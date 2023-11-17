@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.nominees.ChooseNomineeFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
 import pages.nominees.ChooseNomineePage
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.nominees.ChooseNomineeView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class ChooseNomineeController @Inject() (

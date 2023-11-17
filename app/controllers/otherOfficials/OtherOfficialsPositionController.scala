@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.OfficialsPositionController
 import forms.common.OfficialsPositionFormProvider
-import javax.inject.Inject
 import models.authOfficials.OfficialsPosition
 import models.{Index, Mode}
 import navigation.OtherOfficialsNavigator
@@ -31,6 +30,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.OfficialsPositionView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OtherOfficialsPositionController @Inject() (

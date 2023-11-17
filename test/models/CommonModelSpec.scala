@@ -16,13 +16,14 @@
 
 package models
 
-import java.time.LocalDate
 import base.SpecBase
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
+
+import java.time.LocalDate
 
 class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with OptionValues {
 

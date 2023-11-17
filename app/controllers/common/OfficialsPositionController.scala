@@ -18,8 +18,8 @@ package controllers.common
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
-import models.authOfficials.OfficialsPosition
 import models.Mode
+import models.authOfficials.OfficialsPosition
 import models.requests.DataRequest
 import navigation.BaseNavigator
 import pages.QuestionPage

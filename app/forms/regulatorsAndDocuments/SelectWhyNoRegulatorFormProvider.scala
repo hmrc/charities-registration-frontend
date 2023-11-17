@@ -17,9 +17,10 @@
 package forms.regulatorsAndDocuments
 
 import forms.mappings.Mappings
-import javax.inject.Inject
 import models.regulators.SelectWhyNoRegulator
 import play.api.data.Form
+
+import javax.inject.Inject
 
 class SelectWhyNoRegulatorFormProvider @Inject() extends Mappings {
 

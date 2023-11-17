@@ -22,7 +22,7 @@ import models.{Name, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.otherOfficials.{IsAddAnotherOtherOfficialPage, OtherOfficialsNamePage}
 import play.api.inject.bind

@@ -17,12 +17,13 @@
 package controllers.checkEligibility
 
 import config.FrontendAppConfig
-import javax.inject.Inject
 import models.Mode
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.checkEligibility.EligibleCharityView
+
+import javax.inject.Inject
 
 class EligibleCharityController @Inject() (
   val controllerComponents: MessagesControllerComponents,

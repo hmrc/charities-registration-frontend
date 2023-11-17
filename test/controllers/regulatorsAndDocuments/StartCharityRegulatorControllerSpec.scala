@@ -16,14 +16,14 @@
 
 package controllers.regulatorsAndDocuments
 
+import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
+import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import base.SpecBase
-import models.UserAnswers
 import play.api.test.Helpers._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.StartCharityRegulatorView

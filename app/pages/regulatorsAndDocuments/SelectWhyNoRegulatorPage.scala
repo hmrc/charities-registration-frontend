@@ -20,6 +20,7 @@ import models.UserAnswers
 import models.regulators.SelectWhyNoRegulator
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
 import scala.util.Try
 
 case object SelectWhyNoRegulatorPage extends QuestionPage[SelectWhyNoRegulator] {

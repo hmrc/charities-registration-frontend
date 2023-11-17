@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.nominees.IsAuthoriseNomineeFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
 import pages.nominees.IsAuthoriseNomineePage
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.nominees.IsAuthoriseNomineeView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsAuthoriseNomineeController @Inject() (

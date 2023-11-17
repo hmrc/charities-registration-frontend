@@ -22,7 +22,7 @@ import models.{BankDetails, UserAnswers}
 import navigation.BankDetailsNavigator
 import navigation.FakeNavigators.FakeBankDetailsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.BankDetailsPage
 import play.api.inject.bind

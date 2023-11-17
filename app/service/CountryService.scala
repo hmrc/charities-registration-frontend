@@ -17,10 +17,11 @@
 package service
 
 import com.google.inject.ImplementedBy
-import javax.inject.Singleton
 import models.{Country, FcoCountry}
 import play.api.i18n.Messages
 import play.api.libs.json.Json
+
+import javax.inject.Singleton
 
 @ImplementedBy(classOf[CountryServiceImpl])
 trait CountryService {

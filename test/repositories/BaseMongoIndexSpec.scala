@@ -19,9 +19,11 @@ package repositories
 import base.SpecBase
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.model.{IndexModel, IndexOptions, Indexes}
-import scala.jdk.CollectionConverters._
+import scala.util.{Failure, Success}
 
 import java.util.concurrent.TimeUnit
+import scala.jdk.CollectionConverters._
+import scala.util.Try
 
 trait BaseMongoIndexSpec extends SpecBase {
 
@@ -33,13 +35,17 @@ trait BaseMongoIndexSpec extends SpecBase {
         .listIndexes()
         .toFuture()
         .map(_.map { document =>
-          val indexFields = document.get("key").map(_.asDocument().keySet().asScala).getOrElse(Set.empty[String]).toSeq
-          val name        = document.getString("name")
-          val isUnique    = document.getBoolean("unique", false)
-          val expire      = document.getLong("expireAfterSeconds")
+          val indexFields              = document.get("key").map(_.asDocument().keySet().asScala).getOrElse(Set.empty[String]).toSeq
+          val name                     = document.getString("name")
+          val expireAfterSeconds       = document.getInteger("expireAfterSeconds")
+          val indexOptions             = IndexOptions().name(name)
+          val indexOptionsWithTtlCheck = Try(expireAfterSeconds.longValue()) match {
+            case Success(expireAfterSeconds) => indexOptions.expireAfter(expireAfterSeconds, TimeUnit.SECONDS)
+            case Failure(_)                  => indexOptions
+          }
           IndexModel(
             Indexes.ascending(indexFields: _*),
-            IndexOptions().name(name).unique(isUnique).expireAfter(expire, TimeUnit.SECONDS)
+            indexOptionsWithTtlCheck
           )
         })
     )

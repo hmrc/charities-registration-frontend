@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.common.IsOfficialsNinoController
 import forms.common.YesNoFormProvider
-import javax.inject.Inject
 import models.{Index, Mode}
 import navigation.AuthorisedOfficialsNavigator
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAuthorisedOfficialNinoPage}
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.YesNoView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsAuthorisedOfficialNinoController @Inject() (

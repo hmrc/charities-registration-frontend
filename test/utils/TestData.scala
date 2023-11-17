@@ -16,7 +16,7 @@
 
 package utils
 
-import models.oldCharities.{Acknowledgement, _}
+import models.oldCharities._
 import org.joda.time.{LocalDate, MonthDay}
 
 trait TestData {

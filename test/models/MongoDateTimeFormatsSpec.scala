@@ -19,10 +19,10 @@ package models
 import base.data.constants.DateConstants.feb1st2018
 import org.scalatest.OptionValues
 import org.scalatest.matchers.must.Matchers
-import play.api.libs.json._
-import java.time.LocalDateTime
-
 import org.scalatest.wordspec.AnyWordSpec
+import play.api.libs.json._
+
+import java.time.LocalDateTime
 
 class MongoDateTimeFormatsSpec extends AnyWordSpec with Matchers with OptionValues with MongoDateTimeFormats {
 

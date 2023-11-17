@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.regulatorsAndDocuments.IsApprovedGoverningDocumentFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.DocumentsNavigator
 import pages.regulatorsAndDocuments.{IsApprovedGoverningDocumentPage, SelectGoverningDocumentPage}
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.regulatorsAndDocuments.IsApprovedGoverningDocumentView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsApprovedGoverningDocumentController @Inject() (

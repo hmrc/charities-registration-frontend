@@ -18,10 +18,11 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions.{DataRetrievalAction, SessionIdentifierAction}
-import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
 import views.html.errors.{WeDeletedYourAnswersView, YouDeletedYourAnswersView}
+
+import javax.inject.Inject
 
 class DeleteAnswersController @Inject() (
   val controllerComponents: MessagesControllerComponents,

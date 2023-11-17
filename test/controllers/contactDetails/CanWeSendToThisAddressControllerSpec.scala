@@ -19,12 +19,12 @@ package controllers.contactDetails
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.contactDetails.CanWeSendToThisAddressFormProvider
-import models.{NormalMode, UserAnswers}
 import models.addressLookup.{AddressModel, CountryModel}
+import models.{NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.contactDetails.CanWeSendToThisAddressPage

@@ -16,7 +16,6 @@
 
 package viewmodels
 
-import java.text.DecimalFormat
 import models.addressLookup.AddressModel
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers, WithOrder}
@@ -28,6 +27,8 @@ import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
+
+import java.text.DecimalFormat
 
 trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHelper with CurrencyFormatter {
 

@@ -16,13 +16,12 @@
 
 package utils
 
-import java.time.LocalDate
-
 import com.ibm.icu.text.SimpleDateFormat
 import com.ibm.icu.util.{TimeZone, ULocale}
 import org.joda.time.MonthDay
 import play.api.i18n.Messages
 
+import java.time.LocalDate
 import scala.language.implicitConversions
 
 trait ImplicitDateFormatter {

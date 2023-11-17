@@ -20,8 +20,8 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.NameFormProvider
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
-import navigation.NomineesNavigator
 import navigation.FakeNavigators.FakeNomineesNavigator
+import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach

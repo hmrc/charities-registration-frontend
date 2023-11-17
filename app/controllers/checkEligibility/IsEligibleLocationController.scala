@@ -20,8 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.checkEligibility.IsEligibleLocationFormProvider
-
-import javax.inject.Inject
 import models.Mode
 import navigation.EligibilityNavigator
 import pages.checkEligibility.IsEligibleLocationPage
@@ -30,6 +28,7 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.checkEligibility.IsEligibleLocationView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class IsEligibleLocationController @Inject() (

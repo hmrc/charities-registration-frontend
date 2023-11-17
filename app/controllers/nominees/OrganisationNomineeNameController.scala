@@ -20,8 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.nominees.OrganisationNomineeNameFormProvider
-
-import javax.inject.Inject
 import models.Mode
 import navigation.NomineesNavigator
 import pages.nominees.OrganisationNomineeNamePage
@@ -31,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.nominees.OrganisationNomineeNameView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class OrganisationNomineeNameController @Inject() (

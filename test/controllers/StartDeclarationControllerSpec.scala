@@ -22,7 +22,7 @@ import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
-import pages.sections.{Section1Page, Section2Page, Section3Page, Section4Page, Section5Page, Section6Page, Section7Page, Section8Page, Section9Page}
+import pages.sections._
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._

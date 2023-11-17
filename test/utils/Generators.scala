@@ -16,9 +16,6 @@
 
 package utils
 
-import java.nio.charset.StandardCharsets
-import java.time.{Instant, LocalDate, ZoneOffset}
-
 import models.UserAnswers
 import org.joda.time.{LocalDate => JodaLocalDate}
 import org.scalacheck.Arbitrary._
@@ -29,6 +26,8 @@ import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import pages.QuestionPage
 import play.api.libs.json.{JsValue, Json}
 
+import java.nio.charset.StandardCharsets
+import java.time.{Instant, LocalDate, ZoneOffset}
 import scala.collection.immutable.NumericRange
 
 trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {

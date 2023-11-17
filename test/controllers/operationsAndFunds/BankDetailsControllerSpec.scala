@@ -23,7 +23,7 @@ import models.{BankDetails, CharityName, NormalMode, UserAnswers}
 import navigation.BankDetailsNavigator
 import navigation.FakeNavigators.FakeBankDetailsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, _}
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage

@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.contactDetails.CanWeSendToThisAddressFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.CharityInformationNavigator
 import pages.addressLookup.CharityOfficialAddressLookupPage
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.{CountryService, UserAnswerService}
 import views.html.contactDetails.CanWeSendToThisAddressView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CanWeSendToThisAddressController @Inject() (

@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import forms.common.CurrencyFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.ActualIncomePage
@@ -30,6 +29,7 @@ import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.CurrencyView
 
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class ActualIncomeController @Inject() (

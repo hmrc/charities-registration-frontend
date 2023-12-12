@@ -16,6 +16,8 @@
 
 package transformers.submission
 
+import java.time.{LocalDate, MonthDay}
+
 import base.SpecBase
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
@@ -24,7 +26,6 @@ import models.operations.{CharitablePurposes, CharityEstablishedOptions, FundRai
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.SelectWhyNoRegulator
 import models.{BankDetails, CharityContactDetails, CharityName, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle, UserAnswers}
-import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.addressLookup._
 import pages.authorisedOfficials._
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
@@ -32,19 +33,12 @@ import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
 
-import java.time.LocalDate
 import scala.util.Try
 
 trait CharityTransformerConstants extends SpecBase {
-
-  //scalastyle:off magic.number
   //scalastyle:off line.size.limit
 
   private val date = LocalDate.now()
-
-  val day: Int   = 11
-  val month: Int = 12
-  val year: Int  = 2000
 
   lazy val baseAnswers: Try[UserAnswers] = emptyUserAnswers
     .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None))
@@ -62,7 +56,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(_.set(IsCharityRegulatorPage, false))
     .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
-    .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
+    .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
     .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
     .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
     .flatMap(
@@ -73,7 +67,7 @@ trait CharityTransformerConstants extends SpecBase {
     )
     .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
     .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
-    .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
+    .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
     .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
     .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
     .flatMap(
@@ -89,7 +83,7 @@ trait CharityTransformerConstants extends SpecBase {
       )
     )
     .flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation))
-    .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+    .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01")))
 
   val localUserAnswers: UserAnswers = baseAnswers
     .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
@@ -100,11 +94,11 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         AccountingPeriodEndDatePage,
-        MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)
+        MonthDay.from(LocalDate.parse("2020-01-01"))
       )(MongoDateTimeFormats.localDayMonthWrite)
         .flatMap(_.set(IsFinancialAccountsPage, true))
-        .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-        .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+        .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+        .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
         .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
         .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
         .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))

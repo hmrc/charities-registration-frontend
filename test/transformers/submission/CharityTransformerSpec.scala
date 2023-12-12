@@ -16,6 +16,8 @@
 
 package transformers.submission
 
+import java.time.{LocalDate, MonthDay}
+
 import com.stephenn.scalatest.jsonassert.JsonMatchers
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
@@ -23,25 +25,21 @@ import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other,
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats}
-import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.operationsAndFunds._
 import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
-import java.time.LocalDate
-
 //scalastyle:off file.size.limit
 class CharityTransformerSpec extends CharityTransformerConstants with JsonMatchers {
 
-  //scalastyle:off magic.number
   //scalastyle:off line.size.limit
 
-  val reason =
+  private val reason: String =
     "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre" +
       "664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxa" +
       "sxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
 
-  val jsonTransformer: CharityTransformer = new CharityTransformer
+  private val jsonTransformer: CharityTransformer = new CharityTransformer
 
   "CharityTransformer" when {
 
@@ -238,7 +236,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(GoverningDocumentNamePage, "Other Documents for Charity")
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
           )
           .success
           .value
@@ -259,7 +257,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
 
         val localUserAnswers =
           emptyUserAnswers
-            .set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            .set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
             .success
             .value
 
@@ -282,7 +280,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -320,7 +318,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -353,7 +351,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -391,7 +389,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -423,7 +421,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFundsCommon object and changes are >255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 12, 25).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-12-25")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(
@@ -454,7 +452,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFundsCommon object and changes are <255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 11, 1).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-11-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(
@@ -480,7 +478,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFundsCommon object and replace tabs and new line characters with spaces and changes are <255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 11, 1).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-11-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(
@@ -510,7 +508,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFundsCommon object with no bank statements" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 15).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-15")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, false))
@@ -582,7 +580,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFunds object for all possible" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
@@ -644,12 +642,12 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFunds object with all required values" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
-          .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-          .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+          .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+          .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
           .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
           .flatMap(
             _.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England))
@@ -686,12 +684,12 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFunds object with Wales, Scotland and Northern Ireland" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
-          .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-          .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+          .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+          .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
           .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
           .flatMap(
             _.set(
@@ -737,11 +735,11 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
         val localUserAnswers = emptyUserAnswers
           .set(
             AccountingPeriodEndDatePage,
-            MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate)
+            MonthDay.from(LocalDate.parse("2020-01-01"))
           )(MongoDateTimeFormats.localDayMonthWrite)
           .flatMap(_.set(IsFinancialAccountsPage, true))
-          .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-          .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+          .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+          .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
           .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
           .flatMap(
             _.set(
@@ -785,12 +783,12 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFunds object with England and Northern Ireland" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
-          .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-          .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+          .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+          .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
           .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
           .flatMap(
             _.set(
@@ -830,12 +828,12 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
       "convert the correct OperationAndFunds object with England and Wales" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
-          .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-          .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+          .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+          .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
           .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
           .flatMap(
             _.set(
@@ -1209,7 +1207,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
           )
           .flatMap(
             _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
-              _.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1))
+              _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
                 .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -1217,7 +1215,7 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             )
           )
           .flatMap(
-            _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+            _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
               MongoDateTimeFormats.localDayMonthWrite
             ).flatMap(_.set(IsFinancialAccountsPage, true))
               .flatMap(_.set(WhyNoBankStatementPage, reason))
@@ -1329,16 +1327,16 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
           .set(IsCharityRegulatorPage, false)
           .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
           .flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation))
-          .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2014, 7, 1)))
+          .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01")))
           .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
           .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
           .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
           .flatMap(
-            _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+            _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
               MongoDateTimeFormats.localDayMonthWrite
             ).flatMap(_.set(IsFinancialAccountsPage, true))
-              .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-              .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+              .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+              .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
               .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
               .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
               .flatMap(
@@ -1424,5 +1422,4 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
   }
 }
 //scalastyle:on file.size.limit
-//scalastyle:on magic.number
 //scalastyle:on line.size.limit

@@ -16,13 +16,14 @@
 
 package viewModels.operationsAndFunds
 
+import java.time.{LocalDate, MonthDay}
+
 import base.SpecBase
 import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.operations.CharityEstablishedOptions.England
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
-import org.joda.time.{LocalDate, MonthDay}
 import org.mockito.MockitoSugar
 import pages.operationsAndFunds._
 import service.CountryService
@@ -33,9 +34,7 @@ import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 
 class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
-  //scalastyle:off magic.number
-
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  private lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
 
   private val helper = new OperationsFundsSummaryHelper(
     UserAnswers("id")
@@ -47,7 +46,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
       .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(11123.12)))
       .flatMap(_.set(IsBankStatementsPage, true))
       .flatMap(
-        _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(
+        _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-10-01")))(
           MongoDateTimeFormats.localDayMonthWrite
         )
       )
@@ -56,7 +55,7 @@ class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelpe
     mockCountryService
   )
 
-  "Check your answers helper" must {
+  "OperationsFundsSummaryHelper" when {
 
     "For the Charity raise funds answer" must {
 

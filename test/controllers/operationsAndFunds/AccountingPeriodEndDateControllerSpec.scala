@@ -16,13 +16,14 @@
 
 package controllers.operationsAndFunds
 
+import java.time.{LocalDate, MonthDay}
+
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.AccountingPeriodEndDateFormProvider
 import models.{MongoDateTimeFormats, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
-import org.joda.time.{LocalDate, MonthDay}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
@@ -59,13 +60,9 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
 
   private val controller: AccountingPeriodEndDateController = inject[AccountingPeriodEndDateController]
 
-  private val year       = 2000
-  private val month      = 10
-  private val dayOfMonth = 1
-
   val requestArgs: Seq[(String, String)] = Seq(
-    "date.day"   -> dayOfMonth.toString,
-    "date.month" -> month.toString
+    "date.day"   -> "1",
+    "date.month" -> "10"
   )
 
   "AccountingPeriodEndDate Controller " must {
@@ -87,7 +84,7 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new LocalDate(year, month, dayOfMonth).toDate))(
+              .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2000-10-01")))(
                 MongoDateTimeFormats.localDayMonthWrite
               )
               .getOrElse(emptyUserAnswers)

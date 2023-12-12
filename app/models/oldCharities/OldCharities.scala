@@ -16,10 +16,9 @@
 
 package models.oldCharities
 
-import org.joda.time.{LocalDate, MonthDay}
+import java.time.{LocalDate, MonthDay}
+
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
-import play.api.libs.json.JodaReads._
 
 // scalastyle:off number.of.types
 
@@ -125,11 +124,11 @@ case class ScalaMonthDay(monthDay: MonthDay)
 object ScalaMonthDay {
 
   implicit val MonthDayReads: Reads[ScalaMonthDay] = (jv: JsValue) => {
-    JsSuccess(ScalaMonthDay(new MonthDay((jv \ "monthInYear").as[Int], (jv \ "dayInMonth").as[Int])))
+    JsSuccess(ScalaMonthDay(MonthDay.of((jv \ "monthInYear").as[Int], (jv \ "dayInMonth").as[Int])))
   }
 
   implicit val MonthDayWrites: Writes[ScalaMonthDay] = (mt: ScalaMonthDay) =>
-    JsString(s"--${mt.monthDay.getMonthOfYear}-${mt.monthDay.getDayOfMonth}")
+    JsString(s"--${mt.monthDay.getMonthValue}-${mt.monthDay.getDayOfMonth}")
 }
 
 case class OperationAndFundsCommon(

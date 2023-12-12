@@ -16,12 +16,12 @@
 
 package utils
 
+import java.time.{LocalDate, MonthDay}
+
 import com.ibm.icu.text.SimpleDateFormat
 import com.ibm.icu.util.{TimeZone, ULocale}
-import org.joda.time.MonthDay
 import play.api.i18n.Messages
 
-import java.time.LocalDate
 import scala.language.implicitConversions
 
 trait ImplicitDateFormatter {
@@ -36,7 +36,7 @@ trait ImplicitDateFormatter {
 
   implicit def monthToString(monthDay: MonthDay)(implicit messages: Messages): String =
     createDateFormatForPattern("d MMMM").format(
-      new SimpleDateFormat("yyyy-MM-dd").parse(monthDay.toLocalDate(LocalDate.now().getYear).toString)
+      new SimpleDateFormat("yyyy-MM-dd").parse(monthDay.atYear(LocalDate.now().getYear).toString)
     )
 
   def dayToString(date: LocalDate, dayOfWeek: Boolean = true)(implicit messages: Messages): String = {

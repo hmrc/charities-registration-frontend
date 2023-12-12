@@ -16,7 +16,8 @@
 
 package models.oldCharities
 
-import org.joda.time.{LocalDate, MonthDay}
+import java.time.{LocalDate, MonthDay}
+
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.libs.json.{JsString, JsValue, Json}
@@ -32,10 +33,8 @@ class ScalaMonthDaySpec extends AnyWordSpecLike with Matchers {
     """.stripMargin
   )
 
-  private val year: Int = 2026
-
-  private val monthDay: MonthDay = MonthDay.fromDateFields(
-    new LocalDate(year, 2, 1).toDate
+  private val monthDay: MonthDay = MonthDay.from(
+    LocalDate.parse("2026-02-01")
   )
 
   private val model: ScalaMonthDay = ScalaMonthDay(monthDay = monthDay)

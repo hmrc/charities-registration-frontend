@@ -16,7 +16,8 @@
 
 package forms.mappings
 
-import org.joda.time.{LocalDate, MonthDay}
+import java.time.{LocalDate, MonthDay}
+
 import play.api.data.FormError
 import play.api.data.format.Formatter
 
@@ -35,12 +36,12 @@ private[mappings] class LocalDateFormatterDayMonth(
   val fieldKeys: List[String] = List("day", "month")
 
   private def toDate(key: String, day: Int, month: Int): Either[Seq[FormError], MonthDay] =
-    Try(MonthDay.fromDateFields(new LocalDate(LocalDate.now().getYear, month, day).toDate)) match {
-      case Success(date) if date.getDayOfMonth == 29 && date.getMonthOfYear == 2 =>
+    Try(MonthDay.from(LocalDate.of(LocalDate.now().getYear, month, day))) match {
+      case Success(date) if date.getDayOfMonth == 29 && date.getMonthValue == 2 =>
         Left(Seq(FormError(keyWithError(key, "day"), leapYearKey, args)))
-      case Success(date)                                                         =>
+      case Success(date)                                                        =>
         Right(date)
-      case Failure(_)                                                            =>
+      case Failure(_)                                                           =>
         Left(Seq(FormError(keyWithError(key, "day"), invalidKey, args)))
     }
 
@@ -82,6 +83,6 @@ private[mappings] class LocalDateFormatterDayMonth(
   override def unbind(key: String, value: MonthDay): Map[String, String] =
     Map(
       s"$key.day"   -> value.getDayOfMonth.toString,
-      s"$key.month" -> value.getMonthOfYear.toString
+      s"$key.month" -> value.getMonthValue.toString
     )
 }

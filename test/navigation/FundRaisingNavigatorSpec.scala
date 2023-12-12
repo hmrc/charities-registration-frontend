@@ -16,22 +16,22 @@
 
 package navigation
 
+import java.time.{LocalDate, MonthDay}
+
 import base.SpecBase
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import controllers.routes
 import models._
 import models.operations._
-import org.joda.time.{LocalDate, MonthDay}
 import pages.IndexPage
 import pages.operationsAndFunds._
 
 //scalastyle:off file.size.limit
 class FundRaisingNavigatorSpec extends SpecBase {
-  //scalastyle:off magic.number
 
   private val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
 
-  "Navigator.nextPage(page, mode, userAnswers)" when {
+  "FundRaisingNavigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {
 
@@ -394,7 +394,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 AccountingPeriodEndDatePage,
-                MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate)
+                MonthDay.from(LocalDate.parse("2020-10-01"))
               )(MongoDateTimeFormats.localDayMonthWrite)
               .success
               .value
@@ -774,7 +774,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             AccountingPeriodEndDatePage,
             CheckMode,
             emptyUserAnswers
-              .set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(
+              .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-10-01")))(
                 MongoDateTimeFormats.localDayMonthWrite
               )
               .success
@@ -804,4 +804,3 @@ class FundRaisingNavigatorSpec extends SpecBase {
   }
 }
 //scalastyle:on file.size.limit
-//scalastyle:on magic.number

@@ -16,10 +16,11 @@
 
 package viewmodels.operationsAndFunds
 
+import java.time.MonthDay
+
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.MongoDateTimeFormats._
 import models.{CheckMode, UserAnswers}
-import org.joda.time.MonthDay
 import pages.QuestionPage
 import pages.operationsAndFunds._
 import play.api.i18n.Messages

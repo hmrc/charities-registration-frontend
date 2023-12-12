@@ -16,7 +16,8 @@
 
 package forms.mappings
 
-import org.joda.time.{LocalDate, MonthDay}
+import java.time.{LocalDate, MonthDay}
+
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
@@ -33,9 +34,7 @@ class DateMappingsDayMonthSpec
     with OptionValues
     with Mappings {
 
-  //scalastyle:off magic.number
-
-  lazy val form: Form[MonthDay] = Form(
+  private lazy val form: Form[MonthDay] = Form(
     "value" -> localDateDayMonth(
       invalidKey = "error.invalid",
       allRequiredKey = "error.required.all",
@@ -45,26 +44,26 @@ class DateMappingsDayMonthSpec
     )
   )
 
-  val validData: Gen[LocalDate] = daysBetween(
-    min = new LocalDate(2000, 1, 31),
-    max = new LocalDate(2000, 12, 31)
+  private val validData: Gen[LocalDate] = datesBetween(
+    min = LocalDate.parse("2000-01-31"),
+    max = LocalDate.parse("2000-12-31")
   )
 
-  val invalidField: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)
+  private val invalidField: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)
 
-  val missingField: Gen[Option[String]] = Gen.option(Gen.const(""))
+  private val missingField: Gen[Option[String]] = Gen.option(Gen.const(""))
 
   forAll(validData -> "valid date") { date =>
     s"bind valid data $date" in {
 
       val data = Map(
         "value.day"   -> date.getDayOfMonth.toString,
-        "value.month" -> date.getMonthOfYear.toString
+        "value.month" -> date.getMonthValue.toString
       )
 
       val result = form.bind(data)
 
-      result.value.value mustEqual MonthDay.fromDateFields(date.toDate)
+      result.value.value mustEqual MonthDay.from(date)
     }
   }
 
@@ -79,7 +78,7 @@ class DateMappingsDayMonthSpec
 
     forAll(validData -> "valid date", missingField -> "missing field") { (date, field) =>
       val initialData = Map(
-        "value.month" -> date.getMonthOfYear.toString
+        "value.month" -> date.getMonthValue.toString
       )
 
       val data = field.fold(initialData) { value =>
@@ -97,7 +96,7 @@ class DateMappingsDayMonthSpec
     forAll(validData -> "valid date", invalidField -> "invalid field") { (date, field) =>
       val data = Map(
         "value.day"   -> field,
-        "value.month" -> date.getMonthOfYear.toString
+        "value.month" -> date.getMonthValue.toString
       )
 
       val result = form.bind(data)
@@ -202,10 +201,10 @@ class DateMappingsDayMonthSpec
   "unbind a date" in {
 
     forAll(validData -> "valid date") { date =>
-      val filledForm = form.fill(MonthDay.fromDateFields(date.toDate))
+      val filledForm = form.fill(MonthDay.from(date))
 
       filledForm("value.day").value.value mustEqual date.getDayOfMonth.toString
-      filledForm("value.month").value.value mustEqual date.getMonthOfYear.toString
+      filledForm("value.month").value.value mustEqual date.getMonthValue.toString
     }
   }
 }

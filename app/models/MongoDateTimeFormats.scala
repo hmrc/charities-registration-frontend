@@ -16,13 +16,12 @@
 
 package models
 
-import org.joda.time.MonthDay
-import play.api.libs.json._
-
 import java.time.Instant.ofEpochMilli
 import java.time.LocalDateTime.ofInstant
 import java.time.format.DateTimeFormatter
-import java.time.{LocalDate, LocalDateTime, ZoneOffset}
+import java.time._
+
+import play.api.libs.json._
 
 trait MongoDateTimeFormats {
 

@@ -16,13 +16,14 @@
 
 package viewModels.operationsAndFunds
 
+import java.time.{LocalDate, MonthDay}
+
 import base.SpecBase
 import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.operations.OperatingLocationOptions.{England, Overseas}
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import models.{Country, Index, MongoDateTimeFormats, NormalMode, UserAnswers}
-import org.joda.time.{LocalDate, MonthDay}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.when
 import org.mockito.MockitoSugar
@@ -35,9 +36,7 @@ import viewmodels.operationsAndFunds.OverseasOperatingLocationSummaryHelper
 
 class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
-  //scalastyle:off magic.number
-
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  private lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
 
   private val helper = new OverseasOperatingLocationSummaryHelper(
     UserAnswers("id")
@@ -55,7 +54,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
       )
       .flatMap(_.set(IsBankStatementsPage, true))
       .flatMap(
-        _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new LocalDate(2020, 10, 1).toDate))(
+        _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-10-01")))(
           MongoDateTimeFormats.localDayMonthWrite
         )
       )
@@ -74,7 +73,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
   when(mockCountryService.find(meq("PY"))(any())).thenReturn(Some(Country("PY", "Paraguay")))
   when(mockCountryService.find(meq("AF"))(any())).thenReturn(Some(Country("AF", "Afghanistan")))
 
-  "Overseas Operating Location Summary Helper" must {
+  "Overseas Operating Location Summary Helper" when {
 
     "overseas Operating Location Summary Row" must {
 

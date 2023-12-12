@@ -16,34 +16,33 @@
 
 package viewModels.operationsAndFunds
 
+import java.time.{LocalDate, MonthDay}
+
 import base.SpecBase
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.{MongoDateTimeFormats, UserAnswers}
-import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.operationsAndFunds._
 import viewmodels.operationsAndFunds.OperationsFundsStatusHelper
 
 class OperationsFundsStatusHelperSpec extends SpecBase {
 
-  //scalastyle:off magic.number
-
   private val helper = OperationsFundsStatusHelper
 
-  val commonData: UserAnswers = emptyUserAnswers
+  private val commonData: UserAnswers = emptyUserAnswers
     .set(IsFinancialAccountsPage, true)
     .flatMap(_.set(EstimatedIncomePage, BigDecimal.valueOf(1123.12)))
     .flatMap(_.set(ActualIncomePage, BigDecimal.valueOf(11123.12)))
     .flatMap(
-      _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 10, 1).toDate))(
+      _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-10-01")))(
         MongoDateTimeFormats.localDayMonthWrite
       )
     )
     .success
     .value
 
-  "OperationsFundsStatusHelper" must {
+  "OperationsFundsStatusHelper" when {
 
-    "when verifying section 5 answers" must {
+    "verifying section 5 answers" must {
 
       "return false when user answers is empty" in {
 
@@ -299,7 +298,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
         }
 
       "return true when  something other than 'other' fund raising, overseas countries, yes bank statement, " +
-        "mutliple overseas country and related questions are answered correctly (Scenario 9)" in {
+        "multiple overseas country and related questions are answered correctly (Scenario 9)" in {
           helper.checkComplete(
             commonData
               .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))
@@ -320,7 +319,7 @@ class OperationsFundsStatusHelperSpec extends SpecBase {
       }
 
       "return true when  something other than 'other' fund raising, no overseas countries, yes bank statement, " +
-        "mutliple overseas country and related questions are answered correctly (Scenario 11)" in {
+        "multiple overseas country and related questions are answered correctly (Scenario 11)" in {
           helper.checkComplete(
             commonData
               .set(FundRaisingPage, Set[FundRaisingOptions](FundRaisingOptions.Donations))

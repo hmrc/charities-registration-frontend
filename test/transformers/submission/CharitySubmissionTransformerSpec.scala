@@ -16,6 +16,8 @@
 
 package transformers.submission
 
+import java.time.{LocalDate, MonthDay}
+
 import com.stephenn.scalatest.jsonassert.JsonMatchers
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
@@ -25,7 +27,6 @@ import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other,
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
 import models.{BankDetails, CharityName, CharityOtherRegulatorDetails, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle}
-import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import pages.addressLookup._
 import pages.authorisedOfficials._
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityNamePage}
@@ -33,19 +34,15 @@ import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
 
-import java.time.LocalDate
-
 class CharitySubmissionTransformerSpec extends CharityTransformerConstants with JsonMatchers {
 
-  //scalastyle:off magic.number
-
-  val jsonTransformer = new CharitySubmissionTransformer(
+  private val jsonTransformer = new CharitySubmissionTransformer(
     new CharityTransformer,
     new CharityPartnerTransformer,
     new CharityCommonTransformer
   )
 
-  val reason: String =
+  private val reason: String =
     "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre6" +
       "64354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxa" +
       "sxe14crtgvqweqwewqesdfsdfdgxccvbcbre664311223344556677889900"
@@ -59,7 +56,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day)))
+        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
         .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A"))
         .flatMap(
@@ -70,7 +67,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day)))
+        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
         .flatMap(_.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A"))
         .flatMap(
@@ -84,11 +81,11 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
         .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
         .flatMap(
-          _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+          _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           ).flatMap(_.set(IsFinancialAccountsPage, true))
-            .flatMap(_.set(EstimatedIncomePage, BigDecimal(123)))
-            .flatMap(_.set(ActualIncomePage, BigDecimal(121)))
+            .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
+            .flatMap(_.set(ActualIncomePage, BigDecimal("121")))
             .flatMap(_.set(FundRaisingPage, FundRaisingOptions.values.toSet))
             .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
             .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
@@ -134,7 +131,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day)))
+        .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
         .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A"))
         .flatMap(
@@ -145,7 +142,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
-        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day)))
+        .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
         .flatMap(_.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A"))
         .flatMap(
@@ -182,7 +179,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
             )
         )
         .flatMap(
-          _.set(AccountingPeriodEndDatePage, MonthDay.fromDateFields(new JLocalDate(2020, 1, 1).toDate))(
+          _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
             MongoDateTimeFormats.localDayMonthWrite
           ).flatMap(_.set(IsFinancialAccountsPage, true))
             .flatMap(

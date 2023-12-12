@@ -16,8 +16,10 @@
 
 package utils
 
+import java.nio.charset.StandardCharsets
+import java.time._
+
 import models.UserAnswers
-import org.joda.time.{LocalDate => JodaLocalDate}
 import org.scalacheck.Arbitrary._
 import org.scalacheck.Gen._
 import org.scalacheck.{Arbitrary, Gen, Shrink}
@@ -26,8 +28,6 @@ import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import pages.QuestionPage
 import play.api.libs.json.{JsValue, Json}
 
-import java.nio.charset.StandardCharsets
-import java.time.{Instant, LocalDate, ZoneOffset}
 import scala.collection.immutable.NumericRange
 
 trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
@@ -145,18 +145,13 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
       date.atStartOfDay.atZone(ZoneOffset.UTC).toInstant.toEpochMilli
 
     Gen.choose(toMillis(min), toMillis(max)).map { millis =>
-      Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate
-    }
-  }
-
-  def daysBetween(min: JodaLocalDate, max: JodaLocalDate): Gen[JodaLocalDate] =
-    Gen.choose(min.toDateTimeAtStartOfDay().getMillis, max.toDateTimeAtStartOfDay.getMillis).map { millis =>
       val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate match {
         case leap if leap.getDayOfMonth == 29 && leap.getMonthValue == 2 => leap.plusDays(1)
         case nonLeap                                                     => nonLeap
       }
-      new JodaLocalDate(date.atStartOfDay().atZone(ZoneOffset.UTC).toInstant.toEpochMilli)
+      date
     }
+  }
 
   private val unicodeCapitalEnglish: NumericRange.Inclusive[Char] = '\u0041' to '\u005A'
   private val unicodeLowerEnglish: NumericRange.Inclusive[Char]   = '\u0061' to '\u007A'

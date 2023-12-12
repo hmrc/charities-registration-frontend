@@ -16,14 +16,13 @@
 
 package utils
 
+import java.time._
+import java.time.format.DateTimeFormatter
+
 import base.SpecBase
-import org.joda.time.{MonthDay, LocalDate => JLocalDate}
 import play.api.i18n.Messages
 import play.api.mvc.Cookie
 import play.api.test.FakeRequest
-
-import java.time.format.DateTimeFormatter
-import java.time.{LocalDate, ZonedDateTime}
 
 class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
   //scalastyle:off magic.number
@@ -75,8 +74,8 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
     "format MonthDay in correct style" in {
       val result: String = "30 Mehefin"
       monthToString(
-        MonthDay.fromDateFields(
-          new JLocalDate(2017, 6, 30).toDate
+        MonthDay.from(
+          LocalDate.of(2017, 6, 30)
         )
       )(localMessages) mustBe result
     }
@@ -84,7 +83,7 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
     "format MonthDay with single digit values in correct style" in {
       val result: String = "1 Tachwedd"
       monthToString(
-        MonthDay.fromDateFields(new JLocalDate(2017, 11, 1).toDate)
+        MonthDay.from(LocalDate.of(2017, 11, 1))
       )(localMessages) mustBe result
     }
 

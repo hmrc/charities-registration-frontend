@@ -16,16 +16,15 @@
 
 package forms.behaviours
 
-import org.joda.time.{MonthDay, LocalDate => JodaLocalDate}
+import java.time.format.DateTimeFormatter
+import java.time.{LocalDate, MonthDay}
+
 import org.scalacheck.Gen
 import play.api.data.{Form, FormError}
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
 class DateBehaviours extends FieldBehaviours {
 
-  //scalastyle:off magic.number
+  private val (day, year): (Long, Long) = (1, 10)
 
   def dateField(form: Form[_], key: String, validData: Gen[LocalDate]): Unit =
     forAll(validData -> "valid date") { date =>
@@ -55,16 +54,16 @@ class DateBehaviours extends FieldBehaviours {
       }
     }
 
-  def dayMonthField(form: Form[_], key: String, validData: Gen[JodaLocalDate]): Unit =
+  def dayMonthField(form: Form[_], key: String, validData: Gen[LocalDate]): Unit =
     forAll(validData -> "valid date") { date =>
       s"bind valid data for $date" in {
         val data = Map(
           s"$key.day"   -> date.getDayOfMonth.toString,
-          s"$key.month" -> date.getMonthOfYear.toString
+          s"$key.month" -> date.getMonthValue.toString
         )
 
         val result = form.bind(data)
-        result.value.value mustEqual MonthDay.fromDateFields(date.toDate)
+        result.value.value mustEqual MonthDay.from(date)
       }
     }
 
@@ -80,7 +79,7 @@ class DateBehaviours extends FieldBehaviours {
     }
 
   def dateFieldWithMax(form: Form[_], key: String, max: LocalDate, formError: FormError): Unit = {
-    val generator = datesBetween(max.plusDays(1), max.plusYears(10))
+    val generator = datesBetween(max.plusDays(day), max.plusYears(year))
     forAll(generator -> "invalid dates") { date =>
       s"fail to bind a date greater than ${max.format(DateTimeFormatter.ISO_LOCAL_DATE)} with $date" in {
 
@@ -99,7 +98,7 @@ class DateBehaviours extends FieldBehaviours {
 
   def dateFieldWithMin(form: Form[_], key: String, min: LocalDate, formError: FormError): Unit = {
 
-    val generator = datesBetween(min.minusYears(10), min.minusDays(1))
+    val generator = datesBetween(min.minusYears(year), min.minusDays(day))
     forAll(generator -> "invalid dates") { date =>
       s"fail to bind a date earlier than ${min.format(DateTimeFormatter.ISO_LOCAL_DATE)} with data" in {
         val data = Map(

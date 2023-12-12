@@ -16,11 +16,14 @@
 
 package utils
 
+import java.time.{LocalDate, MonthDay}
+
 import models.oldCharities._
-import org.joda.time.{LocalDate, MonthDay}
 
 trait TestData {
-  // scalastyle:off magic.number
+
+  val (income, numberOfAuthOfficials, numberOfOtherOfficials): (Int, Int, Int) = (100, 22, 33)
+
   val contactDetails: CharityContactDetails                                     = CharityContactDetails("Test123", None, "1234567890", None, None, None)
   val charityAddress: CharityAddress                                            = CharityAddress("Test123", "line2", "", "", "postcode", "")
   val correspondenceAddress: OptionalCharityAddress                             =
@@ -110,7 +113,7 @@ trait TestData {
   )
   val operationAndFunds: OperationAndFunds                                      = OperationAndFunds(
     OperationAndFundsCommon(
-      ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)),
+      ScalaMonthDay(MonthDay.from(LocalDate.parse("2020-01-01"))),
       Some(true),
       Some(true),
       Some("noBankStatements")
@@ -126,8 +129,8 @@ trait TestData {
       other = false
     ),
     Some("fundsOther"),
-    Some(100),
-    Some(100),
+    Some(income),
+    Some(income),
     Some(false),
     WhereWillCharityOperate(
       englandAndWales = true,
@@ -140,7 +143,7 @@ trait TestData {
   )
   val operationAndFundsUKWide: OperationAndFunds                                = OperationAndFunds(
     OperationAndFundsCommon(
-      ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)),
+      ScalaMonthDay(MonthDay.from(LocalDate.parse("2020-01-01"))),
       Some(true),
       Some(true),
       Some("noBankStatements")
@@ -156,8 +159,8 @@ trait TestData {
       other = false
     ),
     Some("fundsOther"),
-    Some(100),
-    Some(100),
+    Some(income),
+    Some(income),
     Some(false),
     WhereWillCharityOperate(
       englandAndWales = false,
@@ -170,7 +173,7 @@ trait TestData {
   )
   val operationAndFundsFiveCountries: OperationAndFunds                         = OperationAndFunds(
     OperationAndFundsCommon(
-      ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)),
+      ScalaMonthDay(MonthDay.from(LocalDate.parse("2020-01-01"))),
       Some(true),
       Some(true),
       Some("noBankStatements")
@@ -186,8 +189,8 @@ trait TestData {
       other = false
     ),
     Some("fundsOther"),
-    Some(100),
-    Some(100),
+    Some(income),
+    Some(income),
     Some(false),
     WhereWillCharityOperate(
       englandAndWales = false,
@@ -200,7 +203,7 @@ trait TestData {
   )
   val operationAndFundsFiveCountriesNoUK: OperationAndFunds                     = OperationAndFunds(
     OperationAndFundsCommon(
-      ScalaMonthDay(MonthDay.fromDateFields(new LocalDate(2020, 1, 1).toDate)),
+      ScalaMonthDay(MonthDay.from(LocalDate.parse("2020-01-01"))),
       Some(true),
       Some(true),
       Some("noBankStatements")
@@ -216,8 +219,8 @@ trait TestData {
       other = false
     ),
     Some("fundsOther"),
-    Some(100),
-    Some(100),
+    Some(income),
+    Some(income),
     Some(false),
     WhereWillCharityOperate(
       englandAndWales = false,
@@ -230,7 +233,9 @@ trait TestData {
   )
   val charityBankAccountDetails: CharityBankAccountDetails                      =
     CharityBankAccountDetails("Tesco", "123456", "12345678", Some("rollNumber"))
-  val charityHowManyAuthOfficials: CharityHowManyAuthOfficials                  = CharityHowManyAuthOfficials(Some(22))
+  val charityHowManyAuthOfficials: CharityHowManyAuthOfficials                  = CharityHowManyAuthOfficials(
+    Some(numberOfAuthOfficials)
+  )
   val identity: OfficialIndividualIdentity                                      =
     OfficialIndividualIdentity(Some("true"), "AB111111A", OfficialIndividualNationalIdentityCardDetails("", "", None))
   val currentAddress: CharityAddress                                            = CharityAddress("current", "address", "", "", "AA1 1AA", "")
@@ -269,7 +274,9 @@ trait TestData {
     previousAddress,
     identityPassport
   )
-  val charityHowManyOtherOfficials: CharityHowManyOtherOfficials                = CharityHowManyOtherOfficials(Some(33))
+  val charityHowManyOtherOfficials: CharityHowManyOtherOfficials                = CharityHowManyOtherOfficials(
+    Some(numberOfOtherOfficials)
+  )
   val charityOtherOfficialIndividual1: CharityAuthorisedOfficialIndividual      = CharityAuthorisedOfficialIndividual(
     "0001",
     "First",
@@ -320,7 +327,7 @@ trait TestData {
     "firstName",
     Some("middleName"),
     "lastName",
-    new LocalDate(2000, 10, 10),
+    LocalDate.parse("2000-10-10"),
     "1234567890",
     Some(""),
     Some(""),
@@ -338,11 +345,11 @@ trait TestData {
     "1234567890",
     charityAddress,
     correspondenceAddress,
-    NomineeOrgPersonalDetails("Mr", "firstName", Some("middleName"), "lastName", new LocalDate(2000, 10, 10)),
+    NomineeOrgPersonalDetails("Mr", "firstName", Some("middleName"), "lastName", LocalDate.parse("2000-10-10")),
     OfficialIndividualIdentity(
       Some("false"),
       "",
-      OfficialIndividualNationalIdentityCardDetails("AK123456K", "UK", Option(new LocalDate(2000, 10, 10)))
+      OfficialIndividualNationalIdentityCardDetails("AK123456K", "UK", Option(LocalDate.parse("2000-10-10")))
     ),
     NomineeBankDetails(
       Some("true"),
@@ -350,5 +357,4 @@ trait TestData {
     )
   )
   val acknowledgement: Acknowledgement                                          = Acknowledgement("080582080582", "9:56am, Tuesday 1 December 2020")
-  // scalastyle:on magic.number
 }

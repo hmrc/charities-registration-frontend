@@ -16,8 +16,6 @@
 
 package forms.mappings
 
-import java.time.{LocalDate, MonthDay}
-
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
@@ -25,6 +23,8 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.{Form, FormError}
 import utils.Generators
+
+import java.time.{LocalDate, MonthDay}
 
 class DateMappingsDayMonthSpec
     extends AnyFreeSpec
@@ -180,7 +180,7 @@ class DateMappingsDayMonthSpec
     val result = form.bind(data)
 
     result.errors must contain(
-      FormError("value.day", "error.invalid", List.empty)
+      FormError("value.day", "error.leapYear", List.empty)
     )
   }
 

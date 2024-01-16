@@ -16,10 +16,10 @@
 
 package forms.operationsAndFunds
 
-import java.time.{LocalDate, MonthDay}
-
 import forms.behaviours.DateBehaviours
 import play.api.data.{Form, FormError}
+
+import java.time.{LocalDate, MonthDay}
 
 class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
@@ -41,7 +41,7 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
       behave like dayMonthFieldFailOn29Feb(
         form,
         "date",
-        FormError("date.day", "accountingPeriodEndDate.error.invalid", List())
+        FormError("date.day", "accountingPeriodEndDate.error.leapYear", List())
       )
     }
   }

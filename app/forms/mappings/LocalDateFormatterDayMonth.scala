@@ -16,11 +16,10 @@
 
 package forms.mappings
 
-import java.time.{LocalDate, MonthDay}
-
 import play.api.data.FormError
 import play.api.data.format.Formatter
 
+import java.time.{LocalDate, MonthDay}
 import scala.util.{Failure, Success, Try}
 
 private[mappings] class LocalDateFormatterDayMonth(
@@ -35,15 +34,18 @@ private[mappings] class LocalDateFormatterDayMonth(
 
   val fieldKeys: List[String] = List("day", "month")
 
-  private def toDate(key: String, day: Int, month: Int): Either[Seq[FormError], MonthDay] =
-    Try(MonthDay.from(LocalDate.of(LocalDate.now().getYear, month, day))) match {
-      case Success(date) if date.getDayOfMonth == 29 && date.getMonthValue == 2 =>
-        Left(Seq(FormError(keyWithError(key, "day"), leapYearKey, args)))
-      case Success(date)                                                        =>
-        Right(date)
-      case Failure(_)                                                           =>
-        Left(Seq(FormError(keyWithError(key, "day"), invalidKey, args)))
+  private def toDate(key: String, day: Int, month: Int): Either[Seq[FormError], MonthDay] = {
+    val (leapYearDay, leapYearMonth): (Int, Int) = (29, 2)
+
+    if (day == leapYearDay && month == leapYearMonth) {
+      Left(Seq(FormError(keyWithError(key, "day"), leapYearKey, args)))
+    } else {
+      Try(MonthDay.from(LocalDate.of(LocalDate.now().getYear, month, day))) match {
+        case Success(date) => Right(date)
+        case Failure(_)    => Left(Seq(FormError(keyWithError(key, "day"), invalidKey, args)))
+      }
     }
+  }
 
   private def formatDate(key: String, data: Map[String, String]): Either[Seq[FormError], MonthDay] = {
 

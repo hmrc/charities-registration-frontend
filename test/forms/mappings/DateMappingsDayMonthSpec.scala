@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 
 package forms.mappings
 
-import java.time.{LocalDate, MonthDay}
-
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
@@ -25,6 +23,8 @@ import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.{Form, FormError}
 import utils.Generators
+
+import java.time.{LocalDate, MonthDay}
 
 class DateMappingsDayMonthSpec
     extends AnyFreeSpec
@@ -180,7 +180,7 @@ class DateMappingsDayMonthSpec
     val result = form.bind(data)
 
     result.errors must contain(
-      FormError("value.day", "error.invalid", List.empty)
+      FormError("value.day", "error.leapYear", List.empty)
     )
   }
 

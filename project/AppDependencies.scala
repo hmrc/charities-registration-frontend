@@ -2,20 +2,20 @@ import sbt.*
 
 object AppDependencies {
 
-  private lazy val mongoHmrcVersion     = "1.6.0"
-  private lazy val bootstrapPlayVersion = "7.23.0"
+  private lazy val mongoHmrcVersion     = "1.7.0"
+  private lazy val bootstrapPlayVersion = "8.4.0"
 
   private lazy val compile: Seq[ModuleID] = Seq(
     play.sbt.PlayImport.ws,
-    "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-28"            % mongoHmrcVersion,
+    "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-30"            % mongoHmrcVersion,
     "uk.gov.hmrc"       %% "play-conditional-form-mapping" % "1.13.0-play-28",
-    "uk.gov.hmrc"       %% "bootstrap-frontend-play-28"    % bootstrapPlayVersion,
+    "uk.gov.hmrc"       %% "bootstrap-frontend-play-30"    % bootstrapPlayVersion,
     "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "7.29.0-play-28"
   )
 
   private lazy val test: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc.mongo"   %% "hmrc-mongo-test-play-28"   % mongoHmrcVersion,
-    "uk.gov.hmrc"         %% "bootstrap-test-play-28"    % bootstrapPlayVersion,
+    "uk.gov.hmrc.mongo"   %% "hmrc-mongo-test-play-30"   % mongoHmrcVersion,
+    "uk.gov.hmrc"         %% "bootstrap-test-play-30"    % bootstrapPlayVersion,
     "org.scalatest"       %% "scalatest"                 % "3.2.17",
     "org.jsoup"            % "jsoup"                     % "1.17.2",
     "org.mockito"         %% "mockito-scala-scalatest"   % "1.17.30",

@@ -18,7 +18,6 @@ package transformers.submission
 
 import java.time.{LocalDate, MonthDay}
 
-import com.stephenn.scalatest.jsonassert.JsonMatchers
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
@@ -30,7 +29,7 @@ import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
 //scalastyle:off file.size.limit
-class CharityTransformerSpec extends CharityTransformerConstants with JsonMatchers {
+class CharityTransformerSpec extends CharityTransformerConstants {
 
   //scalastyle:off line.size.limit
 
@@ -632,11 +631,9 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data
-          .transform(jsonTransformer.userAnswersToOperationAndFunds)
-          .asOpt
-          .value
-          .toString() must matchJson(expectedJson)
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct OperationAndFunds object with all required values" in {
@@ -674,11 +671,9 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data
-          .transform(jsonTransformer.userAnswersToOperationAndFunds)
-          .asOpt
-          .value
-          .toString() must matchJson(expectedJson)
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct OperationAndFunds object with Wales, Scotland and Northern Ireland" in {
@@ -723,11 +718,9 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data
-          .transform(jsonTransformer.userAnswersToOperationAndFunds)
-          .asOpt
-          .value
-          .toString() must matchJson(expectedJson)
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct OperationAndFunds object with England, Scotland and Northern Ireland" in {
@@ -773,11 +766,9 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data
-          .transform(jsonTransformer.userAnswersToOperationAndFunds)
-          .asOpt
-          .value
-          .toString() must matchJson(expectedJson)
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct OperationAndFunds object with England and Northern Ireland" in {
@@ -818,11 +809,9 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data
-          .transform(jsonTransformer.userAnswersToOperationAndFunds)
-          .asOpt
-          .value
-          .toString() must matchJson(expectedJson)
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
 
       "convert the correct OperationAndFunds object with England and Wales" in {
@@ -863,11 +852,9 @@ class CharityTransformerSpec extends CharityTransformerConstants with JsonMatche
             |    }
             |}""".stripMargin
 
-        localUserAnswers.data
-          .transform(jsonTransformer.userAnswersToOperationAndFunds)
-          .asOpt
-          .value
-          .toString() must matchJson(expectedJson)
+        localUserAnswers.data.transform(jsonTransformer.userAnswersToOperationAndFunds).asOpt.value mustBe Json.parse(
+          expectedJson
+        )
       }
     }
 

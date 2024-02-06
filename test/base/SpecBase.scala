@@ -49,7 +49,6 @@ trait SpecBase
     with TryValues
     with ScalaFutures
     with IntegrationPatience
-    with MaterializerSupport
     with Injecting
     with OptionValues
     with EitherValues {

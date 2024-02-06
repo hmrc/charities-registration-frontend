@@ -16,9 +16,10 @@
 
 package transformers.submission
 
+import play.api.libs.json.Json
+
 import java.time.{LocalDate, MonthDay}
 
-import com.stephenn.scalatest.jsonassert.JsonMatchers
 import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
@@ -34,7 +35,7 @@ import pages.operationsAndFunds._
 import pages.otherOfficials._
 import pages.regulatorsAndDocuments._
 
-class CharitySubmissionTransformerSpec extends CharityTransformerConstants with JsonMatchers {
+class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
   private val jsonTransformer = new CharitySubmissionTransformer(
     new CharityTransformer,
@@ -100,11 +101,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         .success
         .value
 
-      localUserAnswers.data
-        .transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest))
-        .asOpt
-        .value
-        .toString() must matchJson(jsonGeneral)
+      localUserAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe Json
+        .parse(jsonGeneral)
     }
 
     "convert right with all fields filled" in {
@@ -201,11 +199,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         .success
         .value
 
-      userAnswers.data
-        .transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest))
-        .asOpt
-        .value
-        .toString() must matchJson(jsonAllFields)
+      userAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe Json
+        .parse(jsonAllFields)
     }
 
     "convert with minimum fields" in {
@@ -216,11 +211,8 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants with 
         .success
         .value
 
-      userAnswers.data
-        .transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest))
-        .asOpt
-        .value
-        .toString() must matchJson(jsonMinFields)
+      userAnswers.data.transform(jsonTransformer.userAnswersToSubmission(fakeDataRequest)).asOpt.value mustBe Json
+        .parse(jsonMinFields)
     }
   }
 }

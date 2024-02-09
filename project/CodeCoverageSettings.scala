@@ -5,7 +5,7 @@ object CodeCoverageSettings {
 
   private val excludedPackages: Seq[String] = Seq("<empty>;.*components.*;.*Routes.*")
 
-  val settings: Seq[Setting[_]] = Seq(
+  val settings: Seq[Setting[?]] = Seq(
     coverageExcludedPackages := excludedPackages.mkString(";"),
     coverageMinimumStmtTotal := 99,
     coverageFailOnMinimum := true,

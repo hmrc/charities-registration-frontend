@@ -1,4 +1,3 @@
-import sbt.Keys.scalacOptions
 import uk.gov.hmrc.DefaultBuildSettings
 
 lazy val appName: String = "charities-registration-frontend"
@@ -6,18 +5,18 @@ lazy val appName: String = "charities-registration-frontend"
 ThisBuild / majorVersion := 0
 ThisBuild / scalaVersion := "2.13.12"
 
-// To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
-ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+ThisBuild / excludeDependencies ++= Seq(
+  // As of Play 3.0, groupId has changed to org.playframework; exclude transitive dependencies to the old artifacts
+  // Specifically affects scalatest-json-jsonassert dependency
+  ExclusionRule(organization = "com.typesafe.play")
+)
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(libraryDependencies ++= AppDependencies())
   .settings(CodeCoverageSettings.settings)
-  .settings(scalacOptions += "-Wconf:src=routes/.*:s")
   .settings(PlayKeys.playDefaultPort := 9457)
-  // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
-  .settings(dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1")
   .settings(
     routesImport ++= Seq("models._", "models.OptionBinder._"),
     TwirlKeys.templateImports ++= Seq(

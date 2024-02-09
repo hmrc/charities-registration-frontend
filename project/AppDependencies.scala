@@ -13,12 +13,11 @@ object AppDependencies {
   )
 
   private lazy val test: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc.mongo" %% "hmrc-mongo-test-play-30"   % mongoHmrcVersion,
-    "uk.gov.hmrc"       %% "bootstrap-test-play-30"    % bootstrapPlayVersion,
-    "org.jsoup"          % "jsoup"                     % "1.17.2",
-    "org.mockito"       %% "mockito-scala-scalatest"   % "1.17.30",
-    "org.scalatestplus" %% "scalacheck-1-17"           % "3.2.18.0",
-    "com.stephenn"      %% "scalatest-json-jsonassert" % "0.2.5" //ExclusionRule in build.sbt for old play-json version
+    "uk.gov.hmrc.mongo" %% "hmrc-mongo-test-play-30" % mongoHmrcVersion,
+    "uk.gov.hmrc"       %% "bootstrap-test-play-30"  % bootstrapPlayVersion,
+    "org.jsoup"          % "jsoup"                   % "1.17.2",
+    "org.mockito"       %% "mockito-scala-scalatest" % "1.17.30",
+    "org.scalatestplus" %% "scalacheck-1-17"         % "3.2.18.0"
   ).map(_ % Test)
 
   val itDependencies: Seq[ModuleID]    = Seq.empty

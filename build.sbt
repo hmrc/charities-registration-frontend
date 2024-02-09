@@ -5,12 +5,6 @@ lazy val appName: String = "charities-registration-frontend"
 ThisBuild / majorVersion := 0
 ThisBuild / scalaVersion := "2.13.12"
 
-ThisBuild / excludeDependencies ++= Seq(
-  // As of Play 3.0, groupId has changed to org.playframework; exclude transitive dependencies to the old artifacts
-  // Specifically affects scalatest-json-jsonassert dependency
-  ExclusionRule(organization = "com.typesafe.play")
-)
-
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)

@@ -1,7 +1,7 @@
 $govuk-assets-path: "/register-charity-hmrc/assets/lib/govuk-frontend/govuk/assets/";
 $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
 
-@import "lib/govuk-frontend/govuk/all";
+@import "lib/govuk-frontend/dist/govuk/all";
 @import "lib/hmrc-frontend/hmrc/all";
 
 @import "timeout-dialog";

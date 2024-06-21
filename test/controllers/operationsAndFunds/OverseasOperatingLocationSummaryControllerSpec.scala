@@ -23,7 +23,6 @@ import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito._
-import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import pages.operationsAndFunds.{OverseasOperatingLocationSummaryPage, WhatCountryDoesTheCharityOperateInPage}
 import play.api.inject.bind
@@ -36,7 +35,7 @@ import scala.concurrent.Future
 class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

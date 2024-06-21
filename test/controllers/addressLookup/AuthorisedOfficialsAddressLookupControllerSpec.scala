@@ -28,7 +28,6 @@ import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import play.api.inject.bind
@@ -43,7 +42,7 @@ import scala.concurrent.Future
 class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers]             = Some(emptyUserAnswers)
-  private val mockAddressLookupConnector: AddressLookupConnector = MockitoSugar.mock[AddressLookupConnector]
+  private val mockAddressLookupConnector: AddressLookupConnector = mock(classOf[AddressLookupConnector])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

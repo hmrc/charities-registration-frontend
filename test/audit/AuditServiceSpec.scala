@@ -19,7 +19,8 @@ package audit
 import config.FrontendAppConfig
 import models.AuditTypes.{CharitiesRegistrationSubmission, NewUser, PartialUserTransfer}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.{ArgumentCaptor, MockitoSugar}
+import org.mockito.ArgumentCaptor
+import org.mockito.Mockito._
 import org.scalatest._
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -36,9 +37,9 @@ import uk.gov.hmrc.play.audit.model.ExtendedDataEvent
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside with MockitoSugar with BeforeAndAfterEach {
+class AuditServiceSpec extends PlaySpec with GuiceOneAppPerSuite with Inside with BeforeAndAfterEach {
 
-  private val mockAuditConnector = mock[AuditConnector]
+  private val mockAuditConnector = mock(classOf[AuditConnector])
 
   override lazy val app: Application = new GuiceApplicationBuilder()
     .overrides(

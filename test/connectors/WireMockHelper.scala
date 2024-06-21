@@ -18,13 +18,12 @@ package connectors
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
-import org.mockito.MockitoSugar
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.Source
 
-trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach with MockitoSugar {
+trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach {
   this: Suite =>
 
   private val wireHost                   = "localhost"

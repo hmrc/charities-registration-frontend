@@ -26,7 +26,6 @@ import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import org.mockito.MockitoSugar
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.contactDetails.AmendAddressPage
@@ -42,7 +41,7 @@ import scala.concurrent.Future
 class AmendAuthorisedOfficialsAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

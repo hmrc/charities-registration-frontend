@@ -3,7 +3,7 @@ import uk.gov.hmrc.DefaultBuildSettings
 lazy val appName: String = "charities-registration-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.12"
+ThisBuild / scalaVersion := "2.13.14"
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
@@ -29,7 +29,6 @@ lazy val microservice = Project(appName, file("."))
       "javascripts/application.js" ->
         group(
           Seq(
-            "lib/govuk-frontend/govuk/all.js",
             "javascripts/jquery.min.js",
             "javascripts/app.js",
             "javascripts/autocomplete.js"

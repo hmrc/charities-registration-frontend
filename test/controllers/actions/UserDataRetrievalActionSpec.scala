@@ -20,13 +20,13 @@ import base.SpecBase
 import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.MockitoSugar
+import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
 import service.UserAnswerService
 
 import scala.concurrent.Future
 
-class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
+class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
 
   class Harness(userAnswerService: UserAnswerService) extends UserDataRetrievalActionImpl(userAnswerService) {
     def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
@@ -38,7 +38,7 @@ class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaF
 
       "set userAnswers to 'None' in the request" in {
 
-        val userAnswerService = mock[UserAnswerService]
+        val userAnswerService = mock(classOf[UserAnswerService])
         when(userAnswerService.get(any())(any(), any())) thenReturn Future(None)
         val action            = new Harness(userAnswerService)
 
@@ -54,7 +54,7 @@ class UserDataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaF
 
       "build a userAnswers object and add it to the request" in {
 
-        val userAnswerService = mock[UserAnswerService]
+        val userAnswerService = mock(classOf[UserAnswerService])
         when(userAnswerService.get(any())(any(), any())) thenReturn Future(Some(UserAnswers("id")))
         val action            = new Harness(userAnswerService)
 

@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import controllers.routes
 import models.UserAnswers
 import models.requests.{DataRequest, OptionalDataRequest}
-import org.mockito.MockitoSugar.{mock, when}
+import org.mockito.Mockito.{mock, when}
 import pages.AcknowledgementReferencePage
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{AnyContent, Result}
@@ -30,7 +30,7 @@ import scala.concurrent.Future
 
 class DataRequiredActionSpec extends SpecBase {
 
-  implicit val mockFrontendAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
+  implicit val mockFrontendAppConfig: FrontendAppConfig = mock(classOf[FrontendAppConfig])
 
   private val sut: Harness                         = new Harness
   private val acknowledgedUserAnswers: UserAnswers =

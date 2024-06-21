@@ -25,9 +25,8 @@ import models.{Index, Name, NormalMode, Passport, SelectTitle, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito.{mock, reset, verify, _}
 import org.scalatest.BeforeAndAfterEach
-import org.mockito.MockitoSugar
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPassportPage}
 import play.api.data.Form
 import play.api.inject.bind
@@ -41,7 +40,7 @@ import scala.concurrent.Future
 class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

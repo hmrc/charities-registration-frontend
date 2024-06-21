@@ -24,7 +24,6 @@ import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesPassportPage}
 import play.api.data.Form
@@ -40,7 +39,7 @@ import scala.concurrent.Future
 class IndividualNomineePassportControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService        = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

@@ -18,6 +18,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.{components => hmrcComponent}
 @import uk.gov.hmrc.govukfrontend.views.html.components.{toClasses => govukToClasses}
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
 @this(select: GovukSelect)
 
@@ -60,7 +61,7 @@
     selected = k == form("country").value.getOrElse(""),
     attributes = Map("id" → s"country-$k"))
     },
-    formGroupClasses = "form-field-group"
+    formGroup = FormGroup(classes = Some("form-field-group"))
 ))
 </div>
 <script @CSPNonce.attr src="@controllers.routes.Assets.versioned("javascripts/autocomplete.js")" ></script>

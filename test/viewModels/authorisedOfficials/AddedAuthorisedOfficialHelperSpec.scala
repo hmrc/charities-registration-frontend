@@ -23,8 +23,7 @@ import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.mockito.Mockito.when
-import org.mockito.MockitoSugar
+import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
 import pages.authorisedOfficials._
 import service.CountryService
@@ -60,7 +59,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
     .success
     .value
 
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService = mock(classOf[CountryService])
   when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 

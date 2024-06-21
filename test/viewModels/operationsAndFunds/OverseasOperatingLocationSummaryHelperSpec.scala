@@ -25,8 +25,7 @@ import models.operations.OperatingLocationOptions.{England, Overseas}
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
 import models.{Country, Index, MongoDateTimeFormats, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.mockito.Mockito.when
-import org.mockito.MockitoSugar
+import org.mockito.Mockito.{mock, when}
 import pages.operationsAndFunds._
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
@@ -36,7 +35,7 @@ import viewmodels.operationsAndFunds.OverseasOperatingLocationSummaryHelper
 
 class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
-  private lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  private lazy val mockCountryService: CountryService = mock(classOf[CountryService])
 
   private val helper = new OverseasOperatingLocationSummaryHelper(
     UserAnswers("id")

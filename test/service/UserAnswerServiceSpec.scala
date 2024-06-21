@@ -21,7 +21,6 @@ import connectors.CharitiesConnector
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -31,7 +30,7 @@ import scala.concurrent.Future
 class UserAnswerServiceSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers]  = Some(emptyUserAnswers)
-  lazy val mockCharitiesConnector: CharitiesConnector = MockitoSugar.mock[CharitiesConnector]
+  lazy val mockCharitiesConnector: CharitiesConnector = mock(classOf[CharitiesConnector])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

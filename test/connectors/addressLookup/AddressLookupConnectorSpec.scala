@@ -24,15 +24,15 @@ import config.FrontendAppConfig
 import connectors.WireMockHelper
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, AddressNotFound, DefaultedUnexpectedFailure, NoLocationHeaderReturned}
-import org.mockito.MockitoSugar
+import org.mockito.Mockito._
 import play.api.http.HeaderNames
 import play.api.http.Status._
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpClient
 
-class AddressLookupConnectorSpec extends SpecBase with WireMockHelper with MockitoSugar {
+class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
 
-  lazy val mockFrontendAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
+  lazy val mockFrontendAppConfig: FrontendAppConfig = mock(classOf[FrontendAppConfig])
 
   "AddressLookupConnector" should {
     val httpClient: HttpClient                              = injector.instanceOf[HttpClient]

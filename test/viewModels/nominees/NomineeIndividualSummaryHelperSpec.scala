@@ -22,8 +22,7 @@ import base.data.messages.BaseMessages
 import controllers.nominees.{routes => nomineesRoutes}
 import models.{BankDetails, CheckMode, Country, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
-import org.mockito.Mockito.when
-import org.mockito.MockitoSugar
+import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
 import pages.nominees._
 import service.CountryService
@@ -39,7 +38,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
   private val month      = 1
   private val dayOfMonth = 2
 
-  lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  lazy val mockCountryService: CountryService = mock(classOf[CountryService])
   when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 

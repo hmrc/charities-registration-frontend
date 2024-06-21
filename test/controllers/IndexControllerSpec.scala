@@ -21,7 +21,7 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
-import org.mockito.MockitoSugar
+import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
 import pages.AcknowledgementReferencePage
 import pages.sections.{Section1Page, Section2Page}
@@ -34,10 +34,10 @@ import service.{CharitiesSectionCompleteService, UserAnswerService}
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class IndexControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach {
+class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockAuditService: AuditService            = MockitoSugar.mock[AuditService]
+  lazy val mockAuditService: AuditService            = mock(classOf[AuditService])
 
   class FakeCharitiesSectionCompleteService @Inject() (
     sessionRepository: SessionRepository,

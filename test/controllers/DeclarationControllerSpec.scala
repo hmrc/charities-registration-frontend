@@ -22,7 +22,6 @@ import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import pages.sections._
 import play.api.inject.bind
@@ -39,7 +38,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
   override lazy val userAnswers: Option[UserAnswers]                      = Some(emptyUserAnswers)
   lazy val mockCharitiesRegistrationService: CharitiesRegistrationService =
-    MockitoSugar.mock[CharitiesRegistrationService]
+    mock(classOf[CharitiesRegistrationService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

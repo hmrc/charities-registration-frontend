@@ -24,7 +24,6 @@ import models.requests.DataRequest
 import models.{RegistrationResponse, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
-import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import pages.AcknowledgementReferencePage
 import play.api.inject.bind
@@ -38,8 +37,8 @@ import scala.concurrent.Future
 class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers]                           = Some(emptyUserAnswers)
-  lazy val mockAuditService: AuditService                                      = MockitoSugar.mock[AuditService]
-  lazy val mockCharitiesConnector: CharitiesConnector                          = MockitoSugar.mock[CharitiesConnector]
+  lazy val mockAuditService: AuditService                                      = mock(classOf[AuditService])
+  lazy val mockCharitiesConnector: CharitiesConnector                          = mock(classOf[CharitiesConnector])
   lazy val userAnswersWithAcknowledgement: UserAnswers                         = emptyUserAnswers
     .set(AcknowledgementReferencePage, "acknowledgement")
     .success

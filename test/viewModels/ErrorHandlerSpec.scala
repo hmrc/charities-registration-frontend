@@ -19,8 +19,7 @@ package viewModels
 import base.SpecBase
 import controllers.actions.{FakeIdentifierAction, IdentifierAction}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, when}
-import org.mockito.MockitoSugar
+import org.mockito.Mockito.{mock, reset, when}
 import org.scalatest.BeforeAndAfterEach
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -34,7 +33,7 @@ import scala.concurrent.Future
 
 class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
 
-  lazy val mockAuthConnector: AuthConnector = MockitoSugar.mock[AuthConnector]
+  lazy val mockAuthConnector: AuthConnector = mock(classOf[AuthConnector])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

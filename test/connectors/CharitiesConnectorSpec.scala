@@ -22,15 +22,15 @@ import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
 import connectors.httpParsers.{CharitiesInvalidJson, DefaultedUnexpectedFailure, EtmpFailed}
 import models.{CharityName, RegistrationResponse, UserAnswers}
-import org.mockito.MockitoSugar
+import org.mockito.Mockito._
 import pages.contactDetails.CharityNamePage
 import play.api.http.Status._
 import play.api.libs.json.{JsResultException, Json}
 import uk.gov.hmrc.http.HttpClient
 
-class CharitiesConnectorSpec extends SpecBase with WireMockHelper with MockitoSugar {
+class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
 
-  lazy val mockFrontendAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
+  lazy val mockFrontendAppConfig: FrontendAppConfig = mock(classOf[FrontendAppConfig])
 
   "CharitiesConnector" when {
 

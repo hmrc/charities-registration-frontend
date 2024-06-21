@@ -24,7 +24,7 @@ import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.operations.CharityEstablishedOptions.England
 import models.operations.{CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.{CheckMode, MongoDateTimeFormats, UserAnswers}
-import org.mockito.MockitoSugar
+import org.mockito.Mockito.mock
 import pages.operationsAndFunds._
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
@@ -34,7 +34,7 @@ import viewmodels.operationsAndFunds.OperationsFundsSummaryHelper
 
 class OperationsFundsSummaryHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
-  private lazy val mockCountryService: CountryService = MockitoSugar.mock[CountryService]
+  private lazy val mockCountryService: CountryService = mock(classOf[CountryService])
 
   private val helper = new OperationsFundsSummaryHelper(
     UserAnswers("id")

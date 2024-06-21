@@ -21,7 +21,7 @@ import controllers.actions._
 import models.UserAnswers
 import models.requests.DataRequest
 import org.jsoup.Jsoup
-import org.mockito.MockitoSugar
+import org.mockito.Mockito._
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.{EitherValues, OptionValues, TryValues}
 import org.scalatestplus.play.PlaySpec
@@ -65,8 +65,8 @@ trait SpecBase
   lazy val messagesControllerComponents: MessagesControllerComponents =
     injector.instanceOf[MessagesControllerComponents]
   lazy val dataRequiredAction: DataRequiredActionImpl                 = injector.instanceOf[DataRequiredActionImpl]
-  lazy val mockSessionRepository: SessionRepository                   = MockitoSugar.mock[SessionRepository]
-  lazy val mockUserAnswerService: UserAnswerService                   = MockitoSugar.mock[UserAnswerService]
+  lazy val mockSessionRepository: SessionRepository                   = mock(classOf[SessionRepository])
+  lazy val mockUserAnswerService: UserAnswerService                   = mock(classOf[UserAnswerService])
 
   implicit val defaultTimeout: FiniteDuration       = 5.seconds
   implicit val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]

@@ -67,9 +67,12 @@ class CharityTransformer extends JsonTransformer {
         ((__ \ "charityOrganisation" \ "nonRegReason").json.copyFrom(
           (__ \ "selectWhyNoRegulator").json.pick
         ) orElse doNothing) and
-        ((__ \ "charityOrganisation" \ "otherReason").json.copyFrom(
-          (__ \ "whyNotRegisteredWithCharity").json.pick
-        ) orElse doNothing)
+        (__ \ "whyNotRegisteredWithCharity").readNullable[String].flatMap {
+          case Some(changes) if replaceInvalidCharacters(changes).length <= 100 =>
+            (__ \ "charityOrganisation" \ "otherReason").json
+              .put(JsString(replaceInvalidCharacters(changes)))
+          case _                                                                => doNothing
+        }
     ).reduce
 
   def userAnswersToAboutOrganisationCommon: Reads[JsObject] =

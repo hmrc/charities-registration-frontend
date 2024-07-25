@@ -19,7 +19,6 @@ package connectors.addressLookup
 import config.FrontendAppConfig
 import models.addressLookup._
 import play.api.i18n.{Lang, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
 import javax.inject.Inject
 
@@ -34,11 +33,14 @@ class AddressLookupConfiguration @Inject() (
     val english = Lang("en")
     val welsh   = Lang("cy")
 
+    val fullCallbackURL = appConfig.host + callbackUrl
+    val fullSignOutURL  = controllers.routes.SignOutController.signOut.url
+
     AddressLookupConfigurationModel(
       version = 2,
       options = AddressLookupOptionsModel(
-        continueUrl = SafeRedirectUrl(appConfig.host + callbackUrl),
-        signOutHref = SafeRedirectUrl(controllers.routes.SignOutController.signOut.url),
+        continueUrl = fullCallbackURL,
+        signOutHref = fullSignOutURL,
         deskProServiceName = appConfig.contactFormServiceIdentifier,
         showBackButtons = true,
         includeHMRCBranding = false,
@@ -56,7 +58,7 @@ class AddressLookupConfiguration @Inject() (
         ),
         timeoutConfig = AddressLookupConfirmTimeoutModel(
           timeoutAmount = appConfig.timeout,
-          timeoutUrl = SafeRedirectUrl(appConfig.host + controllers.routes.SignOutController.signOut)
+          timeoutUrl = fullSignOutURL
         )
       ),
       labels = AddressMessageLanguageModel(

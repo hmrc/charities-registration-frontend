@@ -23,6 +23,7 @@ import models.regulators.CharityRegulator
 import org.scalacheck.Arbitrary
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import uk.gov.hmrc.scalatestaccessibilitylinter.views.AutomaticAccessibilitySpec
@@ -116,6 +117,8 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec with TestData
 
   private val taskList: List[TaskListRow] =
     List(section1, section2, section3, section4, section5, section6, section7, section8, section9, section10)
+
+  implicit val arbRequestHeader: Arbitrary[RequestHeader] = fixed(fakeRequest)
 
   implicit val arbConfig: Arbitrary[FrontendAppConfig] = fixed(appConfig)
 

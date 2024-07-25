@@ -22,8 +22,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 
 trait CheckboxViewBehaviours[A] extends ViewBehaviours {
 
-  //scalastyle:off method.length
-
   def checkboxPage(
     form: Form[Set[A]],
     createView: Form[Set[A]] => HtmlFormat.Appendable,

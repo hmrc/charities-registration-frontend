@@ -89,7 +89,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     "return OK and the correct view for a GET" in {
 
       val amendCharitiesPostalsAddress =
-        AmendAddressModel("7 Morrison street near riverview gardens", Some(""), Some(""), "Glasgow", "G58AN", "GB")
+        AmendAddressModel("7 Morrison street near riverview gardens", None, None, "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -110,7 +110,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), Some(""), "Glasgow", "G58AN", "GB"))
+        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
         .success
         .value
 

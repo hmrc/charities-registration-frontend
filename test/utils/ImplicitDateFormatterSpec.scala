@@ -25,7 +25,6 @@ import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 
 class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
-  //scalastyle:off magic.number
 
   "The implicit date formatter" should {
 

@@ -21,12 +21,14 @@ import connectors.httpParsers.AddressLookupInitializationHttpParser.{AddressLook
 import connectors.httpParsers.ConfirmedAddressHttpParser.{ConfirmedAddressReads, ConfirmedAddressResponse}
 import models.addressLookup.AddressLookupConfigurationModel
 import play.api.i18n.MessagesApi
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import play.api.libs.json.Json
+import uk.gov.hmrc.http.client.HttpClientV2
+import uk.gov.hmrc.http.{HeaderCarrier, StringContextOps}
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class AddressLookupConnector @Inject() (httpClient: HttpClient, implicit val appConfig: FrontendAppConfig) {
+class AddressLookupConnector @Inject() (httpClient: HttpClientV2, implicit val appConfig: FrontendAppConfig) {
 
   private[connectors] lazy val addressLookupInitUrl: String = s"${appConfig.addressLookupFrontend}/api/v2/init"
 
@@ -39,17 +41,21 @@ class AddressLookupConnector @Inject() (httpClient: HttpClient, implicit val app
     hc: HeaderCarrier,
     ec: ExecutionContext,
     messages: MessagesApi
-  ): Future[AddressLookupInitializationResponse] =
-    httpClient.POST(
-      addressLookupInitUrl,
-      new AddressLookupConfiguration(callbackUrl, messagePrefix, fullName, allowedCountryCodes).apply
-    )(
-      AddressLookupConfigurationModel.writes,
-      AddressLookupInitializationReads,
-      hc,
-      ec
-    )
+  ): Future[AddressLookupInitializationResponse] = {
 
-  def retrieveAddress(id: String)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[ConfirmedAddressResponse] =
-    httpClient.GET(appConfig.retrieveAddressUrl, queryParams = Seq("id" -> id))(ConfirmedAddressReads, hc, ec)
+    val body = new AddressLookupConfiguration(callbackUrl, messagePrefix, fullName, allowedCountryCodes).apply
+
+    httpClient
+      .post(url"$addressLookupInitUrl")
+      .withBody(Json.toJson(body)(AddressLookupConfigurationModel.writes))
+      .execute[AddressLookupInitializationResponse]
+  }
+
+  def retrieveAddress(
+    id: String
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[ConfirmedAddressResponse] = {
+    val fullUrl = s"${appConfig.retrieveAddressUrl}?id=$id"
+    httpClient.get(url"$fullUrl").execute[ConfirmedAddressResponse]
+  }
+
 }

@@ -22,8 +22,6 @@ import play.api.data.Form
 
 trait FormBehaviours extends FormSpec {
 
-  //scalastyle:off method.length
-
   val validData: Map[String, String]
 
   val form: Form[_]

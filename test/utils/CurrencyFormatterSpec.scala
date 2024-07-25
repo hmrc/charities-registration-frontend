@@ -20,8 +20,6 @@ import base.SpecBase
 
 class CurrencyFormatterSpec extends SpecBase with CurrencyFormatter {
 
-  //scalastyle:off magic.number
-
   ".currencyFormat(amt: BigDecimal)" must {
 
     "correctly format an amount" which {

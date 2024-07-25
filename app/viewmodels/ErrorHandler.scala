@@ -18,7 +18,7 @@ package viewmodels
 
 import config.FrontendAppConfig
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Request
+import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 import uk.gov.hmrc.auth.core.retrieve.v2.Retrievals
 import uk.gov.hmrc.auth.core.{AffinityGroup, AuthConnector}
@@ -28,33 +28,28 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import views.html.errors.{PageNotFoundView, TechnicalDifficultiesErrorView}
 
 import javax.inject.Inject
-import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionContext, Future}
-import scala.language.postfixOps
+import scala.concurrent.{ExecutionContext, Future}
 
 class ErrorHandler @Inject() (
   val messagesApi: MessagesApi,
   technicalDifficultiesErrorView: TechnicalDifficultiesErrorView,
   pageNotFoundView: PageNotFoundView,
   authConnector: AuthConnector
-)(implicit appConfig: FrontendAppConfig, ex: ExecutionContext)
+)(implicit appConfig: FrontendAppConfig, val ec: ExecutionContext)
     extends FrontendErrorHandler
     with I18nSupport {
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit
-    rh: Request[_]
-  ): Html =
-    technicalDifficultiesErrorView(pageTitle, heading, message)
+    request: RequestHeader
+  ): Future[Html] =
+    Future.successful(technicalDifficultiesErrorView(pageTitle, heading, message))
 
-  override def notFoundTemplate(implicit request: Request[_]): Html = {
+  override def notFoundTemplate(implicit request: RequestHeader): Future[Html] =
+    isUserSignedIn(request).map { signedIn =>
+      pageNotFoundView(signedIn)
+    }
 
-    val signedIn = Await.result(isUserSignedIn(request), 10 seconds)
-
-    pageNotFoundView(signedIn)
-
-  }
-
-  private def isUserSignedIn(request: Request[_]): Future[Boolean] = {
+  private def isUserSignedIn(request: RequestHeader): Future[Boolean] = {
 
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 

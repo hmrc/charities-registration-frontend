@@ -98,7 +98,10 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
             val result = controller.initializeJourney()(fakeDataRequest)
 
             status(result) mustEqual INTERNAL_SERVER_ERROR
-            contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+            contentAsString(result) mustBe errorHandler
+              .internalServerErrorTemplate(fakeDataRequest)
+              .futureValue
+              .toString
           }
         }
 
@@ -151,7 +154,10 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
               val result = controller.callback(Some("id"))(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
             }
 
@@ -164,7 +170,10 @@ class CharityOfficialAddressLookupControllerSpec extends SpecBase with BeforeAnd
               val result = controller.callback(None)(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, never()).retrieveAddress(any())(any(), any())
             }
           }

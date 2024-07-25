@@ -45,14 +45,16 @@ trait BaseAddressController extends LocalBaseController {
     fullName: Option[String] = None,
     allowedCountryCodes: Option[Set[String]] = None
   )(implicit request: DataRequest[AnyContent], ec: ExecutionContext): Future[Result] =
-    addressLookupConnector.initialize(callbackUrl, messagePrefix, fullName, allowedCountryCodes)(
-      hc,
-      ec,
-      messagesApi
-    ) map {
-      case Right(AddressLookupOnRamp(url)) => Redirect(url)
-      case Left(_)                         => InternalServerError(errorHandler.internalServerErrorTemplate)
-    }
+    addressLookupConnector
+      .initialize(callbackUrl, messagePrefix, fullName, allowedCountryCodes)(
+        hc,
+        ec,
+        messagesApi
+      )
+      .flatMap {
+        case Right(AddressLookupOnRamp(url)) => Future.successful(Redirect(url))
+        case Left(_)                         => errorHandler.internalServerErrorTemplate.map(html => InternalServerError(html))
+      }
 
   def addressLookupCallback(
     page: QuestionPage[AddressModel],
@@ -73,13 +75,13 @@ trait BaseAddressController extends LocalBaseController {
             logger.error(
               s"[BaseAddressController][addressLookupCallback][$page] error was returned on callback from address lookup"
             )
-            Future(InternalServerError(errorHandler.internalServerErrorTemplate))
+            errorHandler.internalServerErrorTemplate.map(html => InternalServerError(html))
         }
       case _               =>
         logger.error(
           s"[BaseAddressController][addressLookupCallback][$page] No ID was returned on callback from address lookup"
         )
-        Future(InternalServerError(errorHandler.internalServerErrorTemplate))
+        errorHandler.internalServerErrorTemplate.map(html => InternalServerError(html))
     }
 
 }

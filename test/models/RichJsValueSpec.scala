@@ -36,9 +36,7 @@ class RichJsValueSpec extends AnyFreeSpec with Matchers with ScalaCheckPropertyC
       acc + (key -> Json.toJson[B](value))
     }
 
-  implicit val sequenceWrites: Writes[Seq[JsValue]] = (value: Seq[JsValue]) => {
-    JsArray(value)
-  }
+  implicit val sequenceWrites: Writes[Seq[JsValue]] = (value: Seq[JsValue]) => JsArray(value)
 
   "set" - {
 

@@ -43,7 +43,7 @@
     customBackLinkUrl: Option[String] = None,
     showDeskproLink: Boolean = true,
     timeout: Boolean = true
-)(contentBlock: Html)(implicit request: Request[_], requestHeader: RequestHeader, messages: Messages, appConfig: config.FrontendAppConfig)
+)(contentBlock: Html)(implicit requestHeader: RequestHeader, messages: Messages, appConfig: config.FrontendAppConfig)
 
 @head = {
     <!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->

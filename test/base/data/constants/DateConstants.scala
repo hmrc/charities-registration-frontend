@@ -20,8 +20,6 @@ import java.time.LocalDate
 
 object DateConstants {
 
-  //scalastyle:off magic.number
-
   val july1st2014 = LocalDate.of(2014, 7, 1)
 
   val january1st2002 = LocalDate.of(2002, 1, 1)

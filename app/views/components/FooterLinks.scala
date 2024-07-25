@@ -18,7 +18,7 @@ package views.components
 
 import config.FrontendAppConfig
 import play.api.i18n.Messages
-import play.api.mvc.Request
+import play.api.mvc.RequestHeader
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 
 object FooterLinks {
@@ -47,13 +47,13 @@ object FooterLinks {
       Some(appConfig.govUKHelp)
     )
 
-  def accessibilityLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): FooterItem =
+  def accessibilityLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: RequestHeader): FooterItem =
     FooterItem(
       Some(messages("footer.accessibility")),
       Some(appConfig.accessibilityStatementFrontendUrl)
     )
 
-  def items(implicit messages: Messages, appConfig: FrontendAppConfig, request: Request[_]): Seq[FooterItem] = Seq(
+  def items(implicit messages: Messages, appConfig: FrontendAppConfig, request: RequestHeader): Seq[FooterItem] = Seq(
     cookieLink,
     accessibilityLink,
     privacyLink,

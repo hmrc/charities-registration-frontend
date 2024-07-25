@@ -110,7 +110,10 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
             val result = controller.addressLookupInitialize("testCallback")(request, implicitly)
 
             status(result) mustEqual INTERNAL_SERVER_ERROR
-            contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+            contentAsString(result) mustBe errorHandler
+              .internalServerErrorTemplate(fakeDataRequest)
+              .futureValue
+              .toString
           }
         }
       }
@@ -152,7 +155,10 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
                 controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
             }
 
@@ -166,7 +172,10 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
                 controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, None)(request)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, never()).retrieveAddress(any())(any(), any())
             }
           }

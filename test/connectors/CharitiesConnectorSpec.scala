@@ -26,7 +26,7 @@ import org.mockito.Mockito._
 import pages.contactDetails.CharityNamePage
 import play.api.http.Status._
 import play.api.libs.json.{JsResultException, Json}
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.client.HttpClientV2
 
 class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
 
@@ -34,7 +34,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
 
   "CharitiesConnector" when {
 
-    val httpClient: HttpClient                      = injector.instanceOf[HttpClient]
+    val httpClient: HttpClientV2                    = injector.instanceOf[HttpClientV2]
     lazy val charitiesConnector: CharitiesConnector = new CharitiesConnector(httpClient, mockFrontendAppConfig)
     val requestJson                                 = readJsonFromFile("/request.json")
     val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value

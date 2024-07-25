@@ -17,9 +17,8 @@
 package models.addressLookup
 
 import play.api.libs.json.{Json, Writes}
-import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
-case class AddressLookupConfirmTimeoutModel(timeoutAmount: Int, timeoutUrl: SafeRedirectUrl)
+case class AddressLookupConfirmTimeoutModel(timeoutAmount: Int, timeoutUrl: String)
 
 object AddressLookupConfirmTimeoutModel {
   implicit val writes: Writes[AddressLookupConfirmTimeoutModel] = Json.writes[AddressLookupConfirmTimeoutModel]

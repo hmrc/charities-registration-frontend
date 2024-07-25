@@ -17,11 +17,10 @@
 package models.addressLookup
 
 import play.api.libs.json.{Json, Writes}
-import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 
 case class AddressLookupOptionsModel(
-  continueUrl: SafeRedirectUrl,
-  signOutHref: SafeRedirectUrl,
+  continueUrl: String,
+  signOutHref: String,
   deskProServiceName: String,
   showBackButtons: Boolean,
   includeHMRCBranding: Boolean,

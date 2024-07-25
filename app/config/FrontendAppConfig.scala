@@ -18,7 +18,7 @@ package config
 
 import com.google.inject.{Inject, Singleton}
 import play.api.i18n.Lang
-import play.api.mvc.Request
+import play.api.mvc.RequestHeader
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import java.net.URLEncoder
@@ -65,7 +65,7 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   lazy val accessibilityStatement: String = host + servicesConfig.getString("urls.footer.accessibilityStatement")
   lazy val platformHost: String           = Try(servicesConfig.getString("platform.frontend.host")).getOrElse("")
 
-  def accessibilityStatementFrontendUrl()(implicit request: Request[_]): String =
+  def accessibilityStatementFrontendUrl()(implicit request: RequestHeader): String =
     s"$accessibilityStatement?referrerUrl=${URLEncoder.encode(s"$platformHost${request.path}", "UTF-8")}"
 
   def languageTranslationEnabled: Boolean = servicesConfig.getBoolean("features.welshLanguage")

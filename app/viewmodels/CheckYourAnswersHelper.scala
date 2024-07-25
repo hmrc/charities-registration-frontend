@@ -32,8 +32,6 @@ import java.text.DecimalFormat
 
 trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHelper with CurrencyFormatter {
 
-  //scalastyle:off parameter.number
-
   implicit val messages: Messages
 
   val userAnswers: UserAnswers

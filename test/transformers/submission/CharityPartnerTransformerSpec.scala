@@ -29,7 +29,6 @@ import play.api.libs.json._
 
 import java.time.LocalDate
 
-//scalastyle:off file.size.limit
 class CharityPartnerTransformerSpec extends SpecBase {
 
   val jsonTransformer: CharityPartnerTransformer = new CharityPartnerTransformer
@@ -1767,4 +1766,3 @@ class CharityPartnerTransformerSpec extends SpecBase {
     }
   }
 }
-//scalastyle:on file.size.limit

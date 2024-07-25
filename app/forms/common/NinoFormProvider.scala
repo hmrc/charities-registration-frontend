@@ -23,7 +23,6 @@ import javax.inject.Inject
 
 class NinoFormProvider @Inject() extends Mappings {
 
-  // scalastyle:off line.size.limit
   private[common] val ninoPattern =
     """^[ \t]*[A-Za-z]{1}[ \t]*[ \t]*[A-Za-z]{1}[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[ \t]*[0-9]{1}[ \t]*[A-Da-d]{1}[ \t]*$""".r.anchored
       .toString()

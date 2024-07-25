@@ -21,8 +21,6 @@ import play.twirl.api.HtmlFormat
 
 trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
 
-  //scalastyle:off method.length
-
   val number = 123.12
 
   def decimalPage(

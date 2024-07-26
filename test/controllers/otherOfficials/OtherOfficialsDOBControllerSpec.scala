@@ -38,8 +38,6 @@ import scala.concurrent.Future
 
 class OtherOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterEach {
 
-  //scalastyle:off magic.number
-
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
 
   override def applicationBuilder(): GuiceApplicationBuilder =

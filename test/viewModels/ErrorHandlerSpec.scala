@@ -60,8 +60,8 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
 
       "return the view with correct messages" in {
 
-        errorHandler.standardErrorTemplate("", "", "test") mustBe
-          technicalDifficultiesErrorView("", "", "")(request, messages, frontendAppConfig)
+        errorHandler.standardErrorTemplate("", "", "test").futureValue.toString() mustBe
+          technicalDifficultiesErrorView("", "", "")(request, messages, frontendAppConfig).toString()
       }
     }
 
@@ -74,8 +74,8 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
         )
           .thenReturn(Future.successful(Some(Credentials("valid", "org"))))
 
-        errorHandler.notFoundTemplate mustBe
-          pageNotFoundView(signedIn = true)(request, messages, frontendAppConfig)
+        errorHandler.notFoundTemplate.futureValue.toString() mustBe
+          pageNotFoundView(signedIn = true)(request, messages, frontendAppConfig).toString()
       }
 
       "return false if user is logged in and load correct view with no user action" in {
@@ -85,8 +85,8 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
         )
           .thenReturn(Future.successful(None))
 
-        errorHandler.notFoundTemplate mustBe
-          pageNotFoundView(signedIn = false)(request, messages, frontendAppConfig)
+        errorHandler.notFoundTemplate.futureValue.toString() mustBe
+          pageNotFoundView(signedIn = false)(request, messages, frontendAppConfig).toString()
       }
 
       "return false if authorisation failed and load correct view with no user action" in {
@@ -94,8 +94,8 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
         when(mockAuthConnector.authorise(any(), any())(any(), any()))
           .thenReturn(Future.failed(new RuntimeException("Exception")))
 
-        errorHandler.notFoundTemplate mustBe
-          pageNotFoundView(signedIn = false)(request, messages, frontendAppConfig)
+        errorHandler.notFoundTemplate.futureValue.toString() mustBe
+          pageNotFoundView(signedIn = false)(request, messages, frontendAppConfig).toString()
       }
     }
   }

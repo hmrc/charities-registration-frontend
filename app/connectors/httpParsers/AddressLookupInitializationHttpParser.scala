@@ -33,9 +33,9 @@ object AddressLookupInitializationHttpParser {
       response.status match {
         case ACCEPTED =>
           response.header(HeaderNames.LOCATION) match {
-            case Some(url) =>
-              Right(AddressLookupOnRamp(url))
-            case None      =>
+            case Some(locationURL) =>
+              Right(AddressLookupOnRamp(locationURL))
+            case None              =>
               logger.warn(s"[AddressLookupInitializationReads][read]: No Location Header returned from Address Lookup")
               Left(NoLocationHeaderReturned)
           }

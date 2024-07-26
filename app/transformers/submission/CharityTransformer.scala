@@ -21,7 +21,6 @@ import play.api.libs.json.Reads.{JsObjectReducer, _}
 import play.api.libs.json.{__, _}
 
 class CharityTransformer extends JsonTransformer {
-  //scalastyle:off magic.number
 
   private def getRegulator(reg: String): Reads[JsObject] =
     (__ \ "charityRegulator")

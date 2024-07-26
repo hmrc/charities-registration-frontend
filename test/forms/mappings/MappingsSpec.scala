@@ -24,8 +24,6 @@ import play.api.data.{Form, FormError}
 
 object MappingsSpec {
 
-  //scalastyle:off magic.number
-
   sealed trait Foo
   case object Bar extends Foo
   case object Baz extends Foo

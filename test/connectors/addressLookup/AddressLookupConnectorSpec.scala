@@ -28,14 +28,14 @@ import org.mockito.Mockito._
 import play.api.http.HeaderNames
 import play.api.http.Status._
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.client.HttpClientV2
 
 class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
 
   lazy val mockFrontendAppConfig: FrontendAppConfig = mock(classOf[FrontendAppConfig])
 
   "AddressLookupConnector" should {
-    val httpClient: HttpClient                              = injector.instanceOf[HttpClient]
+    val httpClient: HttpClientV2                            = injector.instanceOf[HttpClientV2]
     lazy val addressLookupConnector: AddressLookupConnector =
       new AddressLookupConnector(httpClient, mockFrontendAppConfig)
 

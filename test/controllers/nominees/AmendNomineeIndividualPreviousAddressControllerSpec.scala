@@ -92,7 +92,7 @@ class AmendNomineeIndividualPreviousAddressControllerSpec extends SpecBase with 
     "return OK and the correct view for a GET" in {
 
       val amendNomineeIndividualPreviousAddress =
-        AmendAddressModel("7", Some("Morrison street near riverview gardens"), Some(""), "Glasgow", "G58AN", "GB")
+        AmendAddressModel("7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))

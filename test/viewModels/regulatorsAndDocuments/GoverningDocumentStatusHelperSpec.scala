@@ -24,7 +24,6 @@ import viewmodels.regulatorsAndDocuments.GoverningDocumentStatusHelper
 import java.time.LocalDate
 
 class GoverningDocumentStatusHelperSpec extends SpecBase {
-  //scalastyle:off magic.number
 
   private val helper = GoverningDocumentStatusHelper
 

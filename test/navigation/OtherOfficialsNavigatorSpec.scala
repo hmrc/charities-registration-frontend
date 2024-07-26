@@ -32,7 +32,6 @@ import play.api.mvc.Call
 
 import java.time.LocalDate
 
-//scalastyle:off file.size.limit
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: OtherOfficialsNavigator     = inject[OtherOfficialsNavigator]
@@ -922,4 +921,3 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
     }
   }
 }
-//scalastyle:on file.size.limit

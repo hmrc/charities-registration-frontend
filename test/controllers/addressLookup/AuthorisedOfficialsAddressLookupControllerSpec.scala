@@ -110,7 +110,10 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
             val result = controller.initializeJourney(Index(0), NormalMode)(fakeDataRequest)
 
             status(result) mustEqual INTERNAL_SERVER_ERROR
-            contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+            contentAsString(result) mustBe errorHandler
+              .internalServerErrorTemplate(fakeDataRequest)
+              .futureValue
+              .toString
           }
         }
 
@@ -163,7 +166,10 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
               val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
             }
 
@@ -176,7 +182,10 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
               val result = controller.callback(Index(0), NormalMode, None)(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, never()).retrieveAddress(any())(any(), any())
             }
           }

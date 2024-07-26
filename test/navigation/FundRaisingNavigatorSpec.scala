@@ -26,7 +26,6 @@ import models.operations._
 import pages.IndexPage
 import pages.operationsAndFunds._
 
-//scalastyle:off file.size.limit
 class FundRaisingNavigatorSpec extends SpecBase {
 
   private val navigator: FundRaisingNavigator = inject[FundRaisingNavigator]
@@ -803,4 +802,3 @@ class FundRaisingNavigatorSpec extends SpecBase {
     }
   }
 }
-//scalastyle:on file.size.limit

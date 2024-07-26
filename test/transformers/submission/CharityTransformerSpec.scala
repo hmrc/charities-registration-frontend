@@ -28,10 +28,7 @@ import pages.operationsAndFunds._
 import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
 
-//scalastyle:off file.size.limit
 class CharityTransformerSpec extends CharityTransformerConstants {
-
-  //scalastyle:off line.size.limit
 
   private val reason: String =
     "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre" +
@@ -1408,5 +1405,3 @@ class CharityTransformerSpec extends CharityTransformerConstants {
     }
   }
 }
-//scalastyle:on file.size.limit
-//scalastyle:on line.size.limit

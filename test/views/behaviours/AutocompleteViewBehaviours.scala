@@ -21,8 +21,6 @@ import play.twirl.api.HtmlFormat
 
 trait AutocompleteViewBehaviours extends QuestionViewBehaviours[String] {
 
-  //scalastyle:off method.length
-
   val answerValue = "value"
 
   def selectPage(

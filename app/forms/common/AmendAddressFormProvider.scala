@@ -26,7 +26,6 @@ import javax.inject.Inject
 
 class AmendAddressFormProvider @Inject() extends Mappings {
 
-  // scalastyle:off line.size.limit
   private[common] val postcodePattern =
     """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) ?[0-9][A-Z]{2})$"""
   private[common] val maxLength       = 35

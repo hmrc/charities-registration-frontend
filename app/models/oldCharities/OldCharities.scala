@@ -20,8 +20,6 @@ import java.time.{LocalDate, MonthDay}
 
 import play.api.libs.json._
 
-// scalastyle:off number.of.types
-
 case class CharityContactDetails(
   fullName: String,
   operatingName: Option[String],
@@ -123,9 +121,8 @@ case class ScalaMonthDay(monthDay: MonthDay)
 
 object ScalaMonthDay {
 
-  implicit val MonthDayReads: Reads[ScalaMonthDay] = (jv: JsValue) => {
+  implicit val MonthDayReads: Reads[ScalaMonthDay] = (jv: JsValue) =>
     JsSuccess(ScalaMonthDay(MonthDay.of((jv \ "monthInYear").as[Int], (jv \ "dayInMonth").as[Int])))
-  }
 
   implicit val MonthDayWrites: Writes[ScalaMonthDay] = (mt: ScalaMonthDay) =>
     JsString(s"--${mt.monthDay.getMonthValue}-${mt.monthDay.getDayOfMonth}")

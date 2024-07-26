@@ -46,9 +46,8 @@ object OperationsFundsStatusHelper extends StatusHelper {
   private val f1 = (list: Seq[QuestionPage[_]], isOtherFundRaising: Boolean) =>
     if (isOtherFundRaising) list ++ Seq(OtherFundRaisingPage) else list
 
-  private val f2 = (list: Seq[QuestionPage[_]], isOverseas: Boolean) => {
+  private val f2 = (list: Seq[QuestionPage[_]], isOverseas: Boolean) =>
     if (isOverseas) list ++ Seq(OverseasOperatingLocationSummaryPage, OverseasCountriesPage) else list
-  }
 
   private val f3 = (list: Seq[QuestionPage[_]]) => list ++ Seq(WhyNoBankStatementPage)
 

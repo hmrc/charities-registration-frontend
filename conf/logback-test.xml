@@ -14,16 +14,10 @@
         </encoder>
     </appender>
 
-    <appender name="CONNECTOR_LOG_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/connector.log</file>
-        <encoder>
-            <pattern>%message%n</pattern>
-        </encoder>
-    </appender>
-
     <logger name="com.google.inject" level="OFF"/>
 
     <logger name="org.asynchttpclient.netty" level="OFF"/>
+    <logger name="org.apache.hc.client5" level="OFF"/>
     <logger name="io.netty.buffer" level="OFF"/>
     <logger name="play.core.netty" level="OFF"/>
 

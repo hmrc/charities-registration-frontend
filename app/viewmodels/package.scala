@@ -44,21 +44,19 @@ package object viewmodels {
       }
     )
 
-    def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[_]] = (isPreviousAddress: Boolean, index: Int) => {
+    def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[_]] = (isPreviousAddress: Boolean, index: Int) =>
       updateAvailablePages(
         isPreviousAddress,
         getPage(sectionPage, "previousAddress", index)
       )
-    }
 
     def indexedOfficialStartOfJourney: (Int, Boolean, Seq[QuestionPage[_]]) => Seq[QuestionPage[_]] =
-      (index: Int, isNino: Boolean, commonPages: Seq[QuestionPage[_]]) => {
+      (index: Int, isNino: Boolean, commonPages: Seq[QuestionPage[_]]) =>
         updateAvailablePages(
           isNino,
           commonPages ++ getPage(sectionPage, "nino", index),
           commonPages ++ getPage(sectionPage, "passport", index)
         )
-      }
 
     def getOfficialPages(
       index: Int,

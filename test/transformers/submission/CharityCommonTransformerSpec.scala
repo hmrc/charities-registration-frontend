@@ -27,7 +27,6 @@ import pages.contactDetails._
 import pages.operationsAndFunds.{BankDetailsPage, CharityEstablishedInPage}
 import play.api.libs.json.Json
 
-//scalastyle:off file.size.limit
 class CharityCommonTransformerSpec extends SpecBase {
 
   val jsonTransformer: CharityCommonTransformer = new CharityCommonTransformer
@@ -830,4 +829,3 @@ class CharityCommonTransformerSpec extends SpecBase {
     }
   }
 }
-//scalastyle:on file.size.limit

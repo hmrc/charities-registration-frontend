@@ -107,7 +107,10 @@ class NomineeIndividualAddressLookupControllerSpec extends SpecBase with BeforeA
             val result = controller.initializeJourney(NormalMode)(fakeDataRequest)
 
             status(result) mustEqual INTERNAL_SERVER_ERROR
-            contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+            contentAsString(result) mustBe errorHandler
+              .internalServerErrorTemplate(fakeDataRequest)
+              .futureValue
+              .toString
           }
         }
 
@@ -160,7 +163,10 @@ class NomineeIndividualAddressLookupControllerSpec extends SpecBase with BeforeA
               val result = controller.callback(NormalMode, Some("id"))(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, times(1)).retrieveAddress(any())(any(), any())
             }
 
@@ -173,7 +179,10 @@ class NomineeIndividualAddressLookupControllerSpec extends SpecBase with BeforeA
               val result = controller.callback(NormalMode, None)(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
-              contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeDataRequest).toString
+              contentAsString(result) mustBe errorHandler
+                .internalServerErrorTemplate(fakeDataRequest)
+                .futureValue
+                .toString
               verify(mockAddressLookupConnector, never()).retrieveAddress(any())(any(), any())
             }
           }

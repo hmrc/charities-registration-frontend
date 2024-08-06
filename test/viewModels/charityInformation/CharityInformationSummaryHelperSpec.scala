@@ -23,6 +23,9 @@ import controllers.contactDetails.{routes => charityInfoRoutes}
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
 import pages.addressLookup.{CharityOfficialAddressLookupPage, CharityPostalAddressLookupPage}
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
+import play.api.i18n.Messages
+import play.api.mvc.Cookie
+import play.api.test.FakeRequest
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.charityInformation.CharityInformationSummaryHelper
@@ -73,6 +76,13 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .set(CharityPostalAddressLookupPage, ConfirmedAddressConstants.address)
     .success
     .value
+
+  private val welshRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
+  private lazy val welshMessages: Messages = messagesApi.preferred(welshRequest)
+
+  def helperWelsh(userAnswers: UserAnswers = officialAddress) = new CharityInformationSummaryHelper(userAnswers)(
+    welshMessages
+  )
 
   def helper(userAnswers: UserAnswers = officialAddress): CharityInformationSummaryHelper =
     new CharityInformationSummaryHelper(userAnswers)
@@ -182,6 +192,33 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
             Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("charityPostalAddress.addressLookup.checkYourAnswersLabel")),
             controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney -> BaseMessages.changeLink
+          )
+        )
+      }
+      "have a correctly formatted postalAddressRow row in welsh" in {
+
+        helperWelsh(postalAnswers).postalAddressRow mustBe Seq(
+          summaryListRow(
+            welshMessages("charityPostalAddress.addressLookup.checkYourAnswersLabel"),
+            Text("Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
+            Some(welshMessages("charityPostalAddress.addressLookup.checkYourAnswersLabel")),
+            controllers.addressLookup.routes.CharityPostalAddressLookupController
+              .initializeJourney() -> BaseMessages.changeLinkWelsh
+          )
+        )
+
+      }
+
+      "have a correctly formatted canWeSendToThisAddressRow row in welsh" in {
+        helperWelsh(
+          postalAnswers.set(CanWeSendToThisAddressPage, true).success.value
+        ).canWeSendToThisAddressRow mustBe Seq(
+          summaryListRow(
+            welshMessages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
+            HtmlContent(s"<div>${welshMessages("site.yes")}</div>Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
+            Some(welshMessages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
+            controllers.contactDetails.routes.CanWeSendToThisAddressController
+              .onPageLoad(CheckMode) -> BaseMessages.changeLinkWelsh
           )
         )
       }

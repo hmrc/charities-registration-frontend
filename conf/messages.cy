@@ -886,7 +886,11 @@ overseasOperatingLocationSummary.addAnotherCountry.h2 = A ydych eisiau ychwanegu
 overseasOperatingLocationSummary.addAnotherCountry.hint = Gallwch ychwanegu hyd at 5 gwlad
 overseasOperatingLocationSummary.addAnotherCountry.warn = Ni allwch ychwanegu gwlad gweithredu arall
 overseasOperatingLocationSummary.addAnotherCountry.error.required = Dewiswch ‘Iawn’ os ydych am ychwanegu gwlad gweithredu arall
-overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = Gwlad gweithredu {0}
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1 = Gwlad weithredu gyntaf
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2 = Ail wlad weithredu
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3 = Trydedd wlad weithredu
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4 = Pedwaredd wlad weithredu
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5 = Pumed wlad weithredu
 overseasOperatingLocationSummary.checkYourAnswersLabel = Lleoliadau gweithredu dramor
 
 # Other FundRaising Messages

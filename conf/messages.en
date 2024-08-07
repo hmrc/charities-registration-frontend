@@ -883,7 +883,11 @@ overseasOperatingLocationSummary.addAnotherCountry.h2 = Do you want to add anoth
 overseasOperatingLocationSummary.addAnotherCountry.hint = You can add up to 5 countries
 overseasOperatingLocationSummary.addAnotherCountry.warn = You cannot add another operating country.
 overseasOperatingLocationSummary.addAnotherCountry.error.required = Select yes if you want to add another operating country
-overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel = Operating country {0}
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1 = First operating country
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2 = Second operating country
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3 = Third operating country
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4 = Fourth operating country
+overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5 = Fifth operating country
 overseasOperatingLocationSummary.checkYourAnswersLabel = Overseas operating locations
 
 # Other FundRaising Messages

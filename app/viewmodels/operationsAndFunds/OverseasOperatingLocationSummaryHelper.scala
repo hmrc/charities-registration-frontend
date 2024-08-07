@@ -40,10 +40,10 @@ class OverseasOperatingLocationSummaryHelper(
   def overseasOperatingLocationSummaryRow(index: Int, changeLinkCall: Call): Option[SummaryListRow] =
     userAnswers.get(WhatCountryDoesTheCharityOperateInPage(index)).map { code =>
       summaryListRow(
-        label = messages("overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", index + 1),
+        label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.${index + 1}"),
         value = HtmlContent(countryService.find(code).fold(code)(_.name)),
         visuallyHiddenText =
-          Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel", index + 1)),
+          Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.${index + 1}")),
         changeLinkCall -> messages("site.delete")
       )
     }

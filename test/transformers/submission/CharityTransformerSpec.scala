@@ -16,17 +16,17 @@
 
 package transformers.submission
 
-import java.time.{LocalDate, MonthDay}
-
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
-import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats}
+import models.{CharityOtherRegulatorDetails, MongoDateTimeFormats, UserAnswers}
 import pages.operationsAndFunds._
 import pages.regulatorsAndDocuments._
 import play.api.libs.json.Json
+
+import java.time.{LocalDate, MonthDay}
 
 class CharityTransformerSpec extends CharityTransformerConstants {
 
@@ -199,29 +199,122 @@ class CharityTransformerSpec extends CharityTransformerConstants {
         )
       }
 
-      "convert the correct Regulator object other and reason" in {
+      "convert the correct Regulator object other and reason" when {
+        val reasonWithNoInvalidCharactersBelow100: String     = "notRegisteredReason"
+        val reasonWithNoInvalidCharactersAt100: String        =
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elementum accumsan quam, et turpis duis."
+        val reasonWithInvalidCharactersBelow100: String       = "a\r\nb"
+        val updatedReasonForInvalidCharactersBelow100: String = "a b"
+        val reasonWithInvalidCharactersAt100: String          =
+          "Lorem ipsum dolor sit amet, consectetur adipiscing.\r\nUt elementum accumsan quam, et turpis lectus."
+        val updatedReasonForInvalidCharactersAt100: String    =
+          "Lorem ipsum dolor sit amet, consectetur adipiscing. Ut elementum accumsan quam, et turpis lectus."
 
-        val localUserAnswers = emptyUserAnswers
-          .set(IsCharityRegulatorPage, false)
-          .flatMap(
-            _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
-              .flatMap(_.set(WhyNotRegisteredWithCharityPage, "notRegisteredReason"))
-          )
-          .success
-          .value
+        Seq(
+          (reasonWithNoInvalidCharactersBelow100, "less than 100"),
+          (reasonWithNoInvalidCharactersAt100, "equal to 100")
+        ).foreach { case (reason, scenario) =>
+          s"no invalid characters are present in a string with character length $scenario" in {
+            val localUserAnswers: UserAnswers = emptyUserAnswers
+              .set(IsCharityRegulatorPage, false)
+              .flatMap(
+                _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
+                  .flatMap(_.set(WhyNotRegisteredWithCharityPage, reason))
+              )
+              .success
+              .value
 
-        val expectedJson =
-          """{
-            |"charityOrganisation": {
-            |      "registeredRegulator": false,
-            |      "nonRegReason": "7",
-            |      "otherReason": "notRegisteredReason"
-            |   }
-            |}""".stripMargin
+            val expectedJson: String =
+              s"""
+                 |{
+                 |    "charityOrganisation": {
+                 |        "registeredRegulator": false,
+                 |        "nonRegReason": "7",
+                 |        "otherReason": "$reason"
+                 |    }
+                 |}
+            """.stripMargin
 
-        localUserAnswers.data.transform(jsonTransformer.userAnswersToCharityOrganisation).asOpt.value mustBe Json.parse(
-          expectedJson
-        )
+            localUserAnswers.data.transform(jsonTransformer.userAnswersToCharityOrganisation).asOpt.value mustBe Json
+              .parse(
+                expectedJson
+              )
+          }
+        }
+
+        Seq(
+          (reasonWithInvalidCharactersBelow100, updatedReasonForInvalidCharactersBelow100, "less than 100"),
+          (reasonWithInvalidCharactersAt100, updatedReasonForInvalidCharactersAt100, "equal to 100")
+        ).foreach { case (reason, updatedReason, scenario) =>
+          s"the invalid characters in a string with character length $scenario are replaced with spaces" in {
+            val localUserAnswers: UserAnswers = emptyUserAnswers
+              .set(IsCharityRegulatorPage, false)
+              .flatMap(
+                _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
+                  .flatMap(_.set(WhyNotRegisteredWithCharityPage, reason))
+              )
+              .success
+              .value
+
+            val expectedJson: String =
+              s"""
+                 |{
+                 |    "charityOrganisation": {
+                 |        "registeredRegulator": false,
+                 |        "nonRegReason": "7",
+                 |        "otherReason": "$updatedReason"
+                 |    }
+                 |}
+              """.stripMargin
+
+            localUserAnswers.data.transform(jsonTransformer.userAnswersToCharityOrganisation).asOpt.value mustBe Json
+              .parse(
+                expectedJson
+              )
+          }
+        }
+      }
+
+      "convert the correct Regulator object other and remove other reason" when {
+        val reasonWithNoInvalidCharactersAbove100: String =
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum sodales varius. " +
+            "Sed nulla nibh, rutrum vitae erat ut, dapibus tristique tortor. In id mattis libero, vitae gravida felis. " +
+            "Sed sit amet dictum sem. Pellentesque non blandit eros. Proin cursus nisi sed interdum dictum."
+        val reasonWithInvalidCharactersAbove100: String   =
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum sodales varius.\r\n" +
+            "Sed nulla nibh, rutrum vitae erat ut, dapibus tristique tortor. In id mattis libero, vitae gravida felis.\r\n" +
+            "Sed sit amet dictum sem. Pellentesque non blandit eros. Proin cursus nisi sed interdum dictum."
+
+        Seq(
+          (reasonWithNoInvalidCharactersAbove100, "no invalid characters"),
+          (reasonWithInvalidCharactersAbove100, "invalid characters")
+        ).foreach { case (reason, scenario) =>
+          s"$scenario are present in a string with character length greater than 100" in {
+            val localUserAnswers: UserAnswers = emptyUserAnswers
+              .set(IsCharityRegulatorPage, false)
+              .flatMap(
+                _.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
+                  .flatMap(_.set(WhyNotRegisteredWithCharityPage, reason))
+              )
+              .success
+              .value
+
+            val expectedJson: String =
+              """
+                |{
+                |    "charityOrganisation": {
+                |        "registeredRegulator": false,
+                |        "nonRegReason": "7"
+                |    }
+                |}
+              """.stripMargin
+
+            localUserAnswers.data.transform(jsonTransformer.userAnswersToCharityOrganisation).asOpt.value mustBe Json
+              .parse(
+                expectedJson
+              )
+          }
+        }
       }
     }
 

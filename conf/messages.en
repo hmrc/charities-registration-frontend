@@ -920,7 +920,7 @@ estimatedIncome.checkYourAnswersLabel = Estimated income for the current 12 mont
 # What is the charity’s actual income so far?
 # ----------------------------------------------------------
 actualIncome.title = What is the charity’s actual income so far?
-actualIncome.heading = What is the charity’s actual income so far?
+actualIncome.heading = What is the charity's actual income in pounds so far?
 actualIncome.p1 = This figure should be the charity’s actual income before any deductions. If you are converting to British pounds, you should use today’s exchange rate.
 actualIncome.error.required = Enter the charity’s actual income so far
 actualIncome.error.format = Actual income must be written as a number, like 100.50 or 110

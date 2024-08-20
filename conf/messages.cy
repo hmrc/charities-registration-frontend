@@ -922,7 +922,7 @@ estimatedIncome.checkYourAnswersLabel = Incwm amcangyfrifedig ar gyfer y 12 mis 
 
 # What is the charity’s actual income so far?
 # ----------------------------------------------------------
-actualIncome.title = Beth yw incwm gwirioneddol yr elusen hyd yn hyn?
+actualIncome.title = Beth yw incwm gwirioneddol yr elusen hyd yn hyn, mewn punnoedd?
 actualIncome.heading = Beth yw incwm gwirioneddol yr elusen hyd yn hyn, mewn punnoedd?
 actualIncome.p1 = Dylai’r ffigwr hwn fod yn incwm gwirioneddol yr elusen cyn unrhyw ddidyniadau. Os ydych yn trosi i bunnoedd Prydain, dylech ddefnyddio’r gyfradd gyfnewid heddiw.
 actualIncome.error.required = Nodwch incwm gwirioneddol yr elusen hyd yn hyn

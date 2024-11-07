@@ -202,8 +202,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
             welshMessages("charityPostalAddress.addressLookup.checkYourAnswersLabel"),
             Text("Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
             Some(welshMessages("charityPostalAddress.addressLookup.checkYourAnswersLabel")),
-            controllers.addressLookup.routes.CharityPostalAddressLookupController
-              .initializeJourney -> BaseMessages.changeLinkWelsh
+            controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney -> BaseMessages.changeLinkWelsh
           )
         )
 

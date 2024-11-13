@@ -60,15 +60,3 @@ Please run the app with mocked address lookup for journey tests with script:
 |---------------|------------------------------------------------------------------|
 | Journey tests | https://github.com/hmrc/charities-registration-journey-tests.git |
 | Prototype     | https://charities-prototype-v1.herokuapp.com/admin/listings      |
-
-## Accessibility Tests
-
-### Prerequisites
-Have node installed on your machine
-
-### Execute tests
-To run the tests locally, simply run:
-
-```bash
-sbt clean A11y/test
-```

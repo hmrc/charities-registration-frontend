@@ -60,11 +60,9 @@ trait ViewBehaviours extends ViewSpecBase {
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading$postHeadingString", headingArgs: _*)
         }
 
-        if (frontendAppConfig.languageTranslationEnabled) {
-          "display language toggles" in {
-            val doc = asDocument(view)
-            assertRenderedByCssSelector(doc, "nav.hmrc-language-select")
-          }
+        "display language toggles" in {
+          val doc = asDocument(view)
+          assertRenderedByCssSelector(doc, "nav.hmrc-language-select")
         }
       }
     }

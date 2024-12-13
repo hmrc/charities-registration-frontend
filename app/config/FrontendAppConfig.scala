@@ -68,8 +68,7 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   def accessibilityStatementFrontendUrl()(implicit request: RequestHeader): String =
     s"$accessibilityStatement?referrerUrl=${URLEncoder.encode(s"$platformHost${request.path}", "UTF-8")}"
 
-  def languageTranslationEnabled: Boolean = servicesConfig.getBoolean("features.welshLanguage")
-  lazy val noEmailPost: Boolean           = servicesConfig.getBoolean("features.noEmailPost")
+  lazy val noEmailPost: Boolean = servicesConfig.getBoolean("features.noEmailPost")
 
   def languageMap: Map[String, Lang] = Map("en" -> Lang("en"), "cy" -> Lang("cy"))
 

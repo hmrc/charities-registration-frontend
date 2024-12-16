@@ -994,7 +994,7 @@ bankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 bankDetails.rollNumber.hint = Bydd hyn ar gerdyn banc, cyfriflen neu baslyfr yr elusen
 bankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
 bankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
-bankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
+bankDetails.bacs.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 bankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
 bankDetails.sortCode.checkYourAnswersLabel = Cod didoli
 bankDetails.accountNumber.checkYourAnswersLabel = Rhif y cyfrif
@@ -1650,7 +1650,7 @@ individualNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os o
 individualNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
 individualNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
 individualNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
-individualNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
+individualNomineesBankDetails.bacs.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
 individualNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
 individualNomineesBankDetails.sortCode.checkYourAnswersLabel = Cod didoli
@@ -1768,7 +1768,7 @@ organisationNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os
 organisationNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
 organisationNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
 organisationNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
-organisationNomineesBankDetails.basc.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
+organisationNomineesBankDetails.bacs.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
 organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
 organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = Cod didoli

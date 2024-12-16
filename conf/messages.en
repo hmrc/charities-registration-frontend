@@ -991,7 +991,7 @@ bankDetails.rollNumber = Building society roll number (if you have one)
 bankDetails.rollNumber.hint = You can find it on your charity’s bank card, statement or passbook
 bankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 bankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
-bankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
+bankDetails.bacs.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 bankDetails.accountName.checkYourAnswersLabel = Account name
 bankDetails.sortCode.checkYourAnswersLabel = Sort code
 bankDetails.accountNumber.checkYourAnswersLabel = Account number
@@ -1644,7 +1644,7 @@ individualNomineesBankDetails.rollNumber = Building society roll number (if you 
 individualNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
 individualNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 individualNomineesBankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
-individualNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
+individualNomineesBankDetails.bacs.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 
 individualNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
 individualNomineesBankDetails.sortCode.checkYourAnswersLabel = Sort code
@@ -1762,7 +1762,7 @@ organisationNomineesBankDetails.rollNumber = Building society roll number (if yo
 organisationNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
 organisationNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
 organisationNomineesBankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
-organisationNomineesBankDetails.basc.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
+organisationNomineesBankDetails.bacs.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 
 organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
 organisationNomineesBankDetails.sortCode.checkYourAnswersLabel = Sort code

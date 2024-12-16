@@ -79,7 +79,7 @@ class BankAccountDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
         behave like pageWithBackLink(view)
 
-        behave like pageWithWarningText(view, messages("organisationNomineesBankDetails.basc.warning"))
+        behave like pageWithWarningText(view, messages("organisationNomineesBankDetails.bacs.warning"))
 
         behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
       }

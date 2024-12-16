@@ -39,7 +39,7 @@ headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinu
 
     @govukSummaryList(SummaryList(answers))
 
-    @formHelper(action = postAction, 'autoComplete -> "off") {
+    @formHelper(action = postAction) {
 
         @button(buttonMsg)
 

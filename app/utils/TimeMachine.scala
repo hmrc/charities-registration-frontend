@@ -18,7 +18,7 @@ package utils
 
 import java.time.{LocalDate, ZoneOffset}
 
-class TimeMachine() {
+class TimeMachine {
 
   def now(): LocalDate =
     LocalDate.now(ZoneOffset.UTC)

@@ -113,10 +113,6 @@ class FrontendAppConfigSpec extends SpecBase {
         frontendAppConfig.govUKHelp mustBe "https://www.gov.uk/help"
       }
 
-      "languageTranslationEnabled" in {
-        frontendAppConfig.languageTranslationEnabled mustBe true
-      }
-
       "languageMap" in {
         frontendAppConfig.languageMap mustBe Map("en" -> Lang("en"), "cy" -> Lang("cy"))
       }

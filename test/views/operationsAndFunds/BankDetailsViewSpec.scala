@@ -77,7 +77,7 @@ class BankDetailsViewSpec extends QuestionViewBehaviours[BankDetails] {
 
         behave like pageWithBackLink(view)
 
-        behave like pageWithWarningText(view, messages("bankDetails.basc.warning"))
+        behave like pageWithWarningText(view, messages("bankDetails.bacs.warning"))
 
         behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
 

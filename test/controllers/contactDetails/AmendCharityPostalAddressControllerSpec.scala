@@ -88,7 +88,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
 
     "return OK and the correct view for a GET" in {
 
-      val amendCharitiesPostalsAddress =
+      val amendCharitiesPostalAddress =
         AmendAddressModel("7 Morrison street near riverview gardens", None, None, "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -98,7 +98,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
-        form.fill(amendCharitiesPostalsAddress),
+        form.fill(amendCharitiesPostalAddress),
         messageKeyPrefix,
         controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit(),
         countries = Seq(("GB", "United Kingdom"))

@@ -83,7 +83,6 @@
 }
 
 @beforeContentBlock = {
-    @if(appConfig.languageTranslationEnabled) {
         @languageSwitch(LanguageSelect(
             if (messages.lang.code == "cy") Cy else En,
             (En, controllers.routes.LanguageSwitchController.switchToLanguage("en").url),

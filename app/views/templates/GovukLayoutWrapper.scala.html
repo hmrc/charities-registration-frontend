@@ -90,6 +90,8 @@
             (Cy, controllers.routes.LanguageSwitchController.switchToLanguage("cy").url)
         ))
 
+    @if(backLink == true) {
+        @govukBackLink(BackLink(href = customBackLinkUrl.fold("#")(customUrl => customUrl), content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))
     }
 
     @if(backLink == true) {

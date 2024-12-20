@@ -83,11 +83,11 @@
 }
 
 @beforeContentBlock = {
-        @languageSwitch(LanguageSelect(
-            if (messages.lang.code == "cy") Cy else En,
-            (En, controllers.routes.LanguageSwitchController.switchToLanguage("en").url),
-            (Cy, controllers.routes.LanguageSwitchController.switchToLanguage("cy").url)
-        ))
+    @languageSwitch(LanguageSelect(
+        if (messages.lang.code == "cy") Cy else En,
+        (En, controllers.routes.LanguageSwitchController.switchToLanguage("en").url),
+        (Cy, controllers.routes.LanguageSwitchController.switchToLanguage("cy").url)
+    ))
 
     @if(backLink == true) {
         @govukBackLink(BackLink(href = customBackLinkUrl.fold("#")(customUrl => customUrl), content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))

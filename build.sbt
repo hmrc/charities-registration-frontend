@@ -30,7 +30,8 @@ lazy val microservice = Project(appName, file("."))
         group(
           Seq(
             "javascripts/app.js",
-            "javascripts/autocomplete.js"
+            "javascripts/autocomplete.js",
+            "javascripts/jquery-3.7.1.slim.min.js"
           )
         )
     ),

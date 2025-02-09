@@ -81,7 +81,7 @@ class CharitiesRegistrationService @Inject() (
     }
 
   private def convertInputsForModel(requestJson: JsObject): JsValue = {
-    //Auditing has requested that some data reflects the input data, it is re-aligned to the ETMP model here
+    // Auditing has requested that some data reflects the input data, it is re-aligned to the ETMP model here
     val pathToAlter: JsPath = __ \ "charityRegistration" \ "common" \ "bankDetails"
 
     val accountNumberUpdate =

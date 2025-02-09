@@ -39,7 +39,7 @@ trait AutocompleteViewBehaviours extends QuestionViewBehaviours[String] {
 
           val doc              = asDocument(createView(form))
           val expectedHintText = expectedHintKey map (k => messages(k))
-          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.heading", headingArgs: _*), expectedHintText)
+          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.heading", headingArgs*), expectedHintText)
         }
 
         "contain a select input for the value" in {
@@ -80,9 +80,9 @@ trait AutocompleteViewBehaviours extends QuestionViewBehaviours[String] {
             doc,
             "title",
             s"""${messages("error.browser.title.prefix")} ${title(
-              messages(s"$messageKeyPrefix.title", headingArgs: _*),
-              section
-            )}"""
+                messages(s"$messageKeyPrefix.title", headingArgs*),
+                section
+              )}"""
           )
         }
       }

@@ -21,7 +21,7 @@ import play.api.libs.json.JsValue
 
 case class SubmissionAuditEvent(submission: JsValue) extends AuditEvent {
 
-  override def auditType: String = AuditTypes.CharitiesRegistrationSubmission
+  override def auditType: String = AuditTypes.CharitiesRegistrationSubmission.toString
 
   override def transactionName: String = "CharityRegistrationSubmission"
 

@@ -73,7 +73,7 @@
         ),
         errorMessage = hierarchyErrors(id, form, Seq(".day", ".month", ".year", ""))
                 .fold(form.errors.find(_.key.isEmpty))(err => Some(err)).map(
-                    err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args:_*))))
+                    err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args*))))
 ))
     @hierarchyErrors(id: String, form: Form[_], appended: Seq[String]) = @{
         val allFields = appended.flatMap(suffix => form(s"$id$suffix").error)

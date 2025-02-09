@@ -52,7 +52,7 @@ object SelectTitle extends Enumerable.Implicits {
   }
 
   implicit val enumerable: Enumerable[SelectTitle] =
-    Enumerable(valuesAndUnsupported.map(v => v.toString -> v): _*)
+    Enumerable(valuesAndUnsupported.map(v => v.toString -> v)*)
 }
 
 case class Name(title: SelectTitle, firstName: String, middleName: Option[String], lastName: String) {

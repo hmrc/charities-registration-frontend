@@ -58,7 +58,7 @@
         val errorMessageHtml =
             govukErrorMessage(ErrorMessage(
                 id = Some(errorId),
-                content = Text(messages(errorMessage.message, errorMessage.args:_*))
+                content = Text(messages(errorMessage.message, errorMessage.args*))
             ))
         (describedBy1, errorMessageHtml)
     }

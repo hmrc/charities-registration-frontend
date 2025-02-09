@@ -50,10 +50,9 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
 
   private val authorisedOfficial2common: Seq[QuestionPage[_]] = journeyCommon(1)
 
-  private val allPages: Seq[QuestionPage[_]] = {
+  private val allPages: Seq[QuestionPage[_]] =
     authorisedOfficial1common ++ authorisedOfficial2common ++
       remainingJourneyPages(0) ++ remainingJourneyPages(1)
-  }
 
   private def officialsTitleIsLegal(userAnswers: UserAnswers, index: Int): Boolean =
     userAnswers.get(AuthorisedOfficialsNamePage(index)) match {

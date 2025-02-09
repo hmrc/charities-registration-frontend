@@ -70,9 +70,8 @@ object NomineeStatusHelper extends StatusHelper {
   private val individualJourneyPages: Seq[QuestionPage[_]] =
     individualCommonJourneyPages ++ remainingIndividualJourneyPages
 
-  private val organisationJourneyPages: Seq[QuestionPage[_]] = {
+  private val organisationJourneyPages: Seq[QuestionPage[_]] =
     organisationCommonJourneyPages ++ remainingOrganisationJourneyPages ++ remainingOrganisationIndividualJourneyPages
-  }
 
   private val allPages: Seq[QuestionPage[_]] = commonJourneyPages ++ individualJourneyPages ++ organisationJourneyPages
 

@@ -42,9 +42,9 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
             val legends = doc.getElementsByTag("legend")
             legends.size mustBe 1
             legendKey.fold {
-              legends.first.text mustBe messages(s"$messageKeyPrefix.heading", headingArgs: _*)
+              legends.first.text mustBe messages(s"$messageKeyPrefix.heading", headingArgs*)
             } { key =>
-              legends.first.text mustBe messages(s"$messageKeyPrefix.$key", headingArgs: _*)
+              legends.first.text mustBe messages(s"$messageKeyPrefix.$key", headingArgs*)
             }
           }
         }
@@ -104,9 +104,9 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
             doc,
             "title",
             s"""${messages("error.browser.title.prefix")} ${title(
-              messages(s"$messageKeyPrefix.title", headingArgs: _*),
-              section
-            )}"""
+                messages(s"$messageKeyPrefix.title", headingArgs*),
+                section
+              )}"""
           )
         }
       }

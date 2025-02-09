@@ -49,10 +49,9 @@ object OtherOfficialStatusHelper extends StatusHelper {
 
   private val otherOfficial3common: Seq[QuestionPage[_]] = journeyCommon(2)
 
-  private val allPages: Seq[QuestionPage[_]] = {
+  private val allPages: Seq[QuestionPage[_]] =
     otherOfficial1common ++ otherOfficial2common ++ otherOfficial3common ++
       remainingJourneyPages(0) ++ remainingJourneyPages(1) ++ remainingJourneyPages(2)
-  }
 
   private def officialsTitleIsLegal(userAnswers: UserAnswers, index: Int): Boolean =
     userAnswers.get(OtherOfficialsNamePage(index)) match {

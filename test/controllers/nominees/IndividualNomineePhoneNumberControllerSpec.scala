@@ -101,7 +101,7 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
         .success
         .value
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

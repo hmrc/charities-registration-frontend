@@ -24,7 +24,7 @@
     link: components.link
 )
 
-@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@()(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @main_template(Some(titleNoForm("incorrect-details.title")), signOut = false) {
 

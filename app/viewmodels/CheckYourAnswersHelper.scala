@@ -45,9 +45,9 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
   )(implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs*),
         value = if (answerIsMsgKey) HtmlContent(messages(s"$page.$ans")) else HtmlContent(ans),
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
+        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs*)),
         changeLinkCall -> messages("site.edit")
       )
     }
@@ -60,9 +60,9 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
   )(implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs*),
         value = HtmlContent(ans.replaceAll("\r\n", "<br>")),
-        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*)),
+        visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs*)),
         changeLinkCall -> messages("site.edit")
       )
     }
@@ -105,9 +105,9 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
   )(implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
-        label = messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs: _*),
+        label = messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs*),
         value = if (answerIsMsgKey) HtmlContent(messages(s"$messagePrefix.$ans")) else HtmlContent(ans),
-        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs: _*)),
+        visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs*)),
         changeLinkCall -> messages("site.edit")
       )
     }

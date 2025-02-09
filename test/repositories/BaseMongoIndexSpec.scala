@@ -44,7 +44,7 @@ trait BaseMongoIndexSpec extends SpecBase {
             case Failure(_)                  => indexOptions
           }
           IndexModel(
-            Indexes.ascending(indexFields: _*),
+            Indexes.ascending(indexFields*),
             indexOptionsWithTtlCheck
           )
         })

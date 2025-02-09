@@ -36,7 +36,7 @@ trait MongoDateTimeFormats {
     override def writes(localDateTime: LocalDateTime): JsObject =
       Json.obj("$date" -> localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli)
 
-    override def reads(json: JsValue): JsResult[LocalDateTime]  =
+    override def reads(json: JsValue): JsResult[LocalDateTime] =
       json match {
         case JsObject(map) if map.contains("$date") =>
           map("$date") match {

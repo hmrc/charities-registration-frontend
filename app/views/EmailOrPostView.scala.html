@@ -31,7 +31,7 @@
         summaryYesNo: components.summaryYesNo
 )
 
-@(form: Form[_], requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "emailOrPost.title", Some(s"declaration.section")))) {
     @errorSummary(form.errors)
@@ -40,7 +40,7 @@
 
     @p(Html(s"<strong>${messages("emailOrPost.p")}</strong>"), "govuk-body govuk-!-font-weight-bold")
 
-    @bullets(requiredDocuments: _*)(foreignAddresses)
+    @bullets(requiredDocuments*)(foreignAddresses)
 
     @formHelper(action = controllers.routes.EmailOrPostController.onSubmit) {
 

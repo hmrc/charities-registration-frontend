@@ -73,10 +73,10 @@ class RegulatorsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
           summaryListRow(
             messages("charityRegulator.checkYourAnswersLabel"),
             HtmlContent(s"""<div>${messages(s"charityRegulator.$englandAndWales")}</div><div>${messages(
-              s"charityRegulator.$scottish"
-            )}</div><div>${messages(s"charityRegulator.$northernIreland")}</div><div>${messages(
-              s"charityRegulator.$other"
-            )}</div>""".stripMargin),
+                            s"charityRegulator.$scottish"
+                          )}</div><div>${messages(s"charityRegulator.$northernIreland")}</div><div>${messages(
+                            s"charityRegulator.$other"
+                          )}</div>""".stripMargin),
             Some(messages("charityRegulator.checkYourAnswersLabel")),
             regulatorDocsRoutes.CharityRegulatorController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

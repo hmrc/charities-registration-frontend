@@ -66,7 +66,7 @@ trait IntegrationSpecBase
     "microservice.services.charities.port"               -> mockPort
   )
 
-  lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type]     =
+  lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type] =
     FakeRequest("", "").withSession("sessionId" -> "sessionId")
 
   lazy val dataFakeRequest: FakeRequest[AnyContentAsEmpty.type] = fakeRequest

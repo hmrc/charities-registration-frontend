@@ -30,7 +30,7 @@
     country: components.autocompleteCountryList
 )
 
-@(form: Form[_], fullName:String, messagePrefix: String, submitCall: Call, countries: Seq[(String, String)])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], fullName:String, messagePrefix: String, submitCall: Call, countries: Seq[(String, String)])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("officialsAndNominees.section")))) {
 

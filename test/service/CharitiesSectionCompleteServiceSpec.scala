@@ -73,7 +73,7 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase {
         val ua: UserAnswers =
           UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
 
-        val result          = service.isCharityInformationStatusSectionCompleted(ua)
+        val result = service.isCharityInformationStatusSectionCompleted(ua)
 
         result.get.get(Section1Page) mustBe Some(true)
       }

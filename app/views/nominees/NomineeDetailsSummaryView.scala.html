@@ -30,13 +30,13 @@
 @(answersAuthorise: Seq[SummaryListRow], nomineeSummary: Option[NomineeSummary],
         section: String, postAction: Call, subheadingMsgArgs: Seq[String] = Seq(),
         headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinue", subH2MsgArgs: Seq[String] = Seq()
-)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+)(implicit request: Request[?], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(messages(s"$section.section", subheadingMsgArgs:_*))))) {
+@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(messages(s"$section.section", subheadingMsgArgs*))))) {
 
-    @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs:_*))
+    @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs*))
 
-    @h2(messages(s"$section.checkYourAnswers.h2.nominee", subH2MsgArgs:_*))
+    @h2(messages(s"$section.checkYourAnswers.h2.nominee", subH2MsgArgs*))
 
     @govukSummaryList(SummaryList(answersAuthorise))
 
@@ -44,13 +44,13 @@
 
         @if(nomineeSummaryRows.details.nonEmpty) {
 
-            @h2(messages(nomineeSummaryRows.h2Details, subH2MsgArgs:_*))
+            @h2(messages(nomineeSummaryRows.h2Details, subH2MsgArgs*))
 
             @govukSummaryList(SummaryList(nomineeSummaryRows.details))
 
             @if(nomineeSummaryRows.bankDetails.nonEmpty) {
 
-                @h2(messages(nomineeSummaryRows.h2BankDetails, subH2MsgArgs: _*))
+                @h2(messages(nomineeSummaryRows.h2BankDetails, subH2MsgArgs*))
 
                 @govukSummaryList(SummaryList(nomineeSummaryRows.bankDetails))
 
@@ -58,7 +58,7 @@
 
             @if(nomineeSummaryRows.authorisedPersonDetails.nonEmpty) {
 
-                @h2(messages(s"$section.checkYourAnswers.h2.organisationAuthorisedPerson", subH2MsgArgs:_*))
+                @h2(messages(s"$section.checkYourAnswers.h2.organisationAuthorisedPerson", subH2MsgArgs*))
 
                 @govukSummaryList(SummaryList(nomineeSummaryRows.authorisedPersonDetails))
             }

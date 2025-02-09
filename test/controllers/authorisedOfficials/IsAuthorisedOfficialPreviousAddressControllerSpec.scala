@@ -47,14 +47,14 @@ class IsAuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Be
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
-  override def beforeEach(): Unit = {
+  override def beforeEach(): Unit             = {
     super.beforeEach()
     reset(mockUserAnswerService)
   }
-  private val messageKeyPrefix                               = "isAuthorisedOfficialPreviousAddress"
-  private val view: IsPreviousAddressView                    = injector.instanceOf[IsPreviousAddressView]
-  private val formProvider: YesNoFormProvider                = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean]                            = formProvider(messageKeyPrefix)
+  private val messageKeyPrefix                = "isAuthorisedOfficialPreviousAddress"
+  private val view: IsPreviousAddressView     = injector.instanceOf[IsPreviousAddressView]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
+  private val form: Form[Boolean]             = formProvider(messageKeyPrefix)
 
   private val controller: IsAuthorisedOfficialPreviousAddressController =
     inject[IsAuthorisedOfficialPreviousAddressController]

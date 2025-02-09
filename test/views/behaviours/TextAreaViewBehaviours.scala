@@ -43,7 +43,7 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
           assertContainsLabel(
             doc,
             "value",
-            messages(if (isPageHeading) s"$messageKeyPrefix.heading" else s"$messageKeyPrefix.label", headingArgs: _*),
+            messages(if (isPageHeading) s"$messageKeyPrefix.heading" else s"$messageKeyPrefix.label", headingArgs*),
             expectedHintText
           )
         }
@@ -92,9 +92,9 @@ trait TextAreaViewBehaviours extends QuestionViewBehaviours[String] {
             doc,
             "title",
             s"""${messages("error.browser.title.prefix")} ${title(
-              messages(s"$messageKeyPrefix.title", headingArgs: _*),
-              section
-            )}"""
+                messages(s"$messageKeyPrefix.title", headingArgs*),
+                section
+              )}"""
           )
         }
       }

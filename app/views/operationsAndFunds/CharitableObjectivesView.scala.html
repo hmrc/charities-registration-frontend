@@ -30,7 +30,7 @@
     pAsHint: components.pAsHint
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "charitableObjectives.title",Some("operationsAndFunds.section")))) {
 

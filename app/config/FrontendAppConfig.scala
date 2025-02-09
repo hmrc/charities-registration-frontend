@@ -57,7 +57,7 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   lazy val addressLookupFrontend: String = servicesConfig.baseUrl("address-lookup-frontend")
   lazy val retrieveAddressUrl: String    = addressLookupFrontend + "/api/v2/confirmed"
 
-  //Footer Links
+  // Footer Links
   lazy val cookies: String                = host + servicesConfig.getString("urls.footer.cookies")
   lazy val privacy: String                = host + servicesConfig.getString("urls.footer.privacy")
   lazy val termsConditions: String        = host + servicesConfig.getString("urls.footer.termsConditions")

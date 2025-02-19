@@ -19,7 +19,7 @@ package views.behaviours
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 
-trait MultiFieldViewBehaviours[T <: Form[_]] extends ViewBehaviours {
+trait MultiFieldViewBehaviours[T <: Form[?]] extends ViewBehaviours {
 
   def pageWithMultiFieldForm(view: HtmlFormat.Appendable, expectedLabels: Map[String, String]): Unit =
     "behave link a page with a multi field form" when {

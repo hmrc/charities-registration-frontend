@@ -91,7 +91,7 @@ class FooterLinksSpec extends SpecBase {
         ),
         FooterItem(
           Some(FooterLinksMessages.accessibility),
-          Some(frontendAppConfig.accessibilityStatementFrontendUrl)
+          Some(frontendAppConfig.accessibilityStatementFrontendUrl())
         ),
         FooterItem(
           Some(FooterLinksMessages.privacy),

@@ -43,7 +43,7 @@ class CharitiesRegistrationService @Inject() (
   private val logger = Logger(this.getClass)
 
   def register(requestJson: JsObject, noEmailPost: Boolean)(implicit
-    request: DataRequest[_],
+    request: DataRequest[?],
     hc: HeaderCarrier,
     ec: ExecutionContext
   ): Future[Result] =

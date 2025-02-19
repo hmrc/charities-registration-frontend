@@ -20,7 +20,6 @@ import java.time.MonthDay
 
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.MongoDateTimeFormats._
-import models.{CheckMode, UserAnswers}
 import pages.QuestionPage
 import pages.operationsAndFunds._
 import play.api.i18n.Messages
@@ -30,6 +29,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.{CurrencyFormatter, ImplicitDateFormatter}
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
+import models._
 
 class OperationsFundsSummaryHelper(override val userAnswers: UserAnswers, countryService: CountryService)(implicit
   val messages: Messages

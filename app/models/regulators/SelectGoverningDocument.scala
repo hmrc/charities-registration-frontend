@@ -21,6 +21,7 @@ import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
+import play.api.libs.json._
 
 sealed trait SelectGoverningDocument
 
@@ -42,7 +43,7 @@ object SelectGoverningDocument extends Enumerable.Implicits {
     Other
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"selectGoverningDocument.${value.toString}")),
@@ -52,4 +53,18 @@ object SelectGoverningDocument extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[SelectGoverningDocument] =
     Enumerable(values.map(v => v.toString -> v)*)
+
+  implicit def reads: Reads[SelectGoverningDocument] = Reads[SelectGoverningDocument] {
+    case JsString(MemorandumArticlesAssociation.toString) => JsSuccess(MemorandumArticlesAssociation)
+    case JsString(RoyalCharacter.toString)                => JsSuccess(RoyalCharacter)
+    case JsString(RulesConstitution.toString)             => JsSuccess(RulesConstitution)
+    case JsString(TrustDeed.toString)                     => JsSuccess(TrustDeed)
+    case JsString(Will.toString)                          => JsSuccess(Will)
+    case JsString(Other.toString)                         => JsSuccess(Other)
+    case _                                                => JsError("error.invalid")
+  }
+
+  implicit def writes: Writes[SelectGoverningDocument] =
+    Writes(value => JsString(value.toString))
+
 }

@@ -26,7 +26,7 @@ import viewmodels.StatusHelper
 
 object RegulatorsStatusHelper extends StatusHelper {
 
-  private val allPages: Seq[QuestionPage[_]] = Seq(
+  private val allPages: Seq[QuestionPage[?]] = Seq(
     IsCharityRegulatorPage,
     CharityRegulatorPage,
     CharityCommissionRegistrationNumberPage,
@@ -37,34 +37,34 @@ object RegulatorsStatusHelper extends StatusHelper {
     WhyNotRegisteredWithCharityPage
   )
 
-  implicit class RegulatorsStatus(list: Seq[QuestionPage[_]]) {
+  implicit class RegulatorsStatus(list: Seq[QuestionPage[?]]) {
 
-    private val requiredPairs: Map[CharityRegulator, QuestionPage[_]] = Map(
+    private val requiredPairs: Map[CharityRegulator, QuestionPage[?]] = Map(
       (EnglandWales, CharityCommissionRegistrationNumberPage),
       (Scottish, ScottishRegulatorRegNumberPage),
       (NorthernIreland, NIRegulatorRegNumberPage),
       (models.regulators.CharityRegulator.Other, CharityOtherRegulatorDetailsPage)
     )
 
-    def withCharityRegulator: Seq[QuestionPage[_]] = list ++ Seq(CharityRegulatorPage)
+    def withCharityRegulator: Seq[QuestionPage[?]] = list ++ Seq(CharityRegulatorPage)
 
-    def withSelectWhyNoRegulator: Seq[QuestionPage[_]] = list ++ Seq(SelectWhyNoRegulatorPage)
+    def withSelectWhyNoRegulator: Seq[QuestionPage[?]] = list ++ Seq(SelectWhyNoRegulatorPage)
 
-    def withNotRegisteredCause(cause: SelectWhyNoRegulator): Seq[QuestionPage[_]] =
+    def withNotRegisteredCause(cause: SelectWhyNoRegulator): Seq[QuestionPage[?]] =
       if (cause.equals(Other)) {
         list ++ Seq(WhyNotRegisteredWithCharityPage)
       } else {
         list
       }
 
-    def withRegulators(regulators: Set[CharityRegulator]): Seq[QuestionPage[_]] =
+    def withRegulators(regulators: Set[CharityRegulator]): Seq[QuestionPage[?]] =
       list ++ regulators.map(regulator => requiredPairs(regulator))
 
   }
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    lazy val common: Seq[QuestionPage[_]] = Seq(IsCharityRegulatorPage)
+    lazy val common: Seq[QuestionPage[?]] = Seq(IsCharityRegulatorPage)
 
     userAnswers.get(IsCharityRegulatorPage) match {
       case Some(true) =>

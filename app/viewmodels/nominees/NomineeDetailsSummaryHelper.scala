@@ -17,12 +17,12 @@
 package viewmodels.nominees
 
 import controllers.nominees.routes
-import models.{CheckMode, UserAnswers}
 import pages.nominees.{ChooseNomineePage, IsAuthoriseNomineePage}
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
+import models._
 
 class NomineeDetailsSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
     extends ImplicitDateFormatter

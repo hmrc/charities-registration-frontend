@@ -58,7 +58,7 @@ class OfficialsPositionViewSpec extends ViewBehaviours {
       (".f", viewViaF(form))
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
 
     ".apply" must {
       OfficialsPosition.options(form).zipWithIndex.foreach { case (option, i) =>

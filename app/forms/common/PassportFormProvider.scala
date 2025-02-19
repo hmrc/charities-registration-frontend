@@ -45,6 +45,6 @@ class PassportFormProvider @Inject() (timeMachine: TimeMachine) extends Mappings
           requiredKey = s"$messagePrefix.error.required.one",
           nonNumericKey = s"$messagePrefix.error.nonNumeric"
         ).verifying(minDate(timeMachine.now().plusDays(1), s"$messagePrefix.error.minimum", "day", "month", "year"))
-      )(Passport.apply)(Passport.unapply)
+      )(Passport.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

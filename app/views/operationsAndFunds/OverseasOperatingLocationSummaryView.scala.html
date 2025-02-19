@@ -22,7 +22,6 @@
     govukLayout: templates.GovukLayoutWrapper,
     govukSummaryList: GovukSummaryList,
     h1: components.h1,
-    subheading: components.subheading,
     button: components.button,
     p: components.p,
     formHelper: FormWithCSRF,
@@ -41,7 +40,7 @@
 
     @govukSummaryList(SummaryList(answers))
 
-    @formHelper(action = controllers.operationsAndFunds.routes.OverseasOperatingLocationSummaryController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = controllers.operationsAndFunds.routes.OverseasOperatingLocationSummaryController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
         @if(answers.length < 5) {
 

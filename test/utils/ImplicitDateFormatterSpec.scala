@@ -57,7 +57,7 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
 
   "The implicit date formatter for Welsh" should {
 
-    implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
+    implicit val localRequest: FakeRequest[?] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
     implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
 
     "format dates with single digit values in correct style" in {
@@ -87,14 +87,14 @@ class ImplicitDateFormatterSpec extends SpecBase with ImplicitDateFormatter {
     }
 
     "for invalid lang" in {
-      implicit val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "QQ"))
+      implicit val localRequest: FakeRequest[?] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "QQ"))
       implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
       val result: String                        = "1 April 2017"
       dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result
     }
 
     "for no lang" in {
-      implicit val localRequest: FakeRequest[_] = FakeRequest()
+      implicit val localRequest: FakeRequest[?] = FakeRequest()
       implicit lazy val localMessages: Messages = messagesApi.preferred(localRequest)
       val result: String                        = "1 April 2017"
       dateToString(LocalDate.of(2017, 4, 1))(localMessages) mustBe result

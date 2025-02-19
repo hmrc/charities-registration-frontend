@@ -43,7 +43,7 @@ object SelectTitle extends Enumerable.Implicits {
 
   private val valuesAndUnsupported: Seq[SelectTitle] = values :+ UnsupportedTitle
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"nameTitle.${value.toString}")),
@@ -90,10 +90,6 @@ object Passport extends MongoDateTimeFormats {
 }
 
 case class Country(code: String, name: String)
-
-object Country {
-  implicit val formats: OFormat[Country] = Json.format[Country]
-}
 
 case class FcoCountry(country: String, name: String)
 

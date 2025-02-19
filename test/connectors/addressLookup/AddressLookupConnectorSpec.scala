@@ -39,11 +39,11 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
     lazy val addressLookupConnector: AddressLookupConnector =
       new AddressLookupConnector(httpClient, mockFrontendAppConfig)
 
-    when(mockFrontendAppConfig.addressLookupFrontend) thenReturn getUrl
-    when(mockFrontendAppConfig.host) thenReturn "http://localhost:9457"
-    when(mockFrontendAppConfig.contactFormServiceIdentifier) thenReturn "iCharities"
-    when(mockFrontendAppConfig.timeout) thenReturn 900
-    when(mockFrontendAppConfig.retrieveAddressUrl) thenReturn (getUrl + "/api/confirmed")
+    when(mockFrontendAppConfig.addressLookupFrontend) `thenReturn` getUrl
+    when(mockFrontendAppConfig.host) `thenReturn` "http://localhost:9457"
+    when(mockFrontendAppConfig.contactFormServiceIdentifier) `thenReturn` "iCharities"
+    when(mockFrontendAppConfig.timeout) `thenReturn` 900
+    when(mockFrontendAppConfig.retrieveAddressUrl) `thenReturn` (getUrl + "/api/confirmed")
 
     "For the .initialize() method" should {
 

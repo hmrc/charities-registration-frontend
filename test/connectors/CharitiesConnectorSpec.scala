@@ -40,7 +40,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
     val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value
     val organizationId                              = 1234
 
-    when(mockFrontendAppConfig.getCharitiesBackend) thenReturn getUrl
+    when(mockFrontendAppConfig.getCharitiesBackend) `thenReturn` getUrl
 
     "called registerCharities method" should {
 

@@ -19,6 +19,7 @@ package models.operations
 import models.{Enumerable, WithName}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
@@ -40,7 +41,7 @@ object CharityEstablishedOptions extends Enumerable.Implicits {
     Overseas
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"charityEstablishedIn.${value.toString}")),
@@ -50,4 +51,16 @@ object CharityEstablishedOptions extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[CharityEstablishedOptions] =
     Enumerable(values.map(v => v.toString -> v)*)
+
+  implicit def reads: Reads[CharityEstablishedOptions] = Reads[CharityEstablishedOptions] {
+    case JsString(England.toString)         => JsSuccess(England)
+    case JsString(Wales.toString)           => JsSuccess(Wales)
+    case JsString(Scotland.toString)        => JsSuccess(Scotland)
+    case JsString(NorthernIreland.toString) => JsSuccess(NorthernIreland)
+    case JsString(Overseas.toString)        => JsSuccess(Overseas)
+    case _                                  => JsError("error.invalid")
+  }
+
+  implicit def writes: Writes[CharityEstablishedOptions] =
+    Writes(value => JsString(value.toString))
 }

@@ -5,7 +5,7 @@ import scala.collection.immutable.Seq
 lazy val appName: String = "charities-registration-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "3.4.2"
+ThisBuild / scalaVersion := "3.5.2"
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
@@ -28,15 +28,8 @@ lazy val microservice = Project(appName, file("."))
     ),
     scalacOptions ++= Seq(
       "-feature",
-//      "-Wconf:src=routes/.*:s",
-//      "-Wconf:src=views/.*:s",
-      "-source:3.4-migration",
-      "-rewrite"
-    ),
-    Test / scalacOptions ++= Seq(
-      "-feature",
-      "-source:3.4-migration",
-      "-rewrite"
+      "-Wconf:src=routes/.*:s",
+      "-Wconf:src=views/.*:s"
     ),
     Concat.groups := Seq(
       "javascripts/application.js" ->

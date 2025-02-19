@@ -29,7 +29,7 @@ class CharitySubmissionTransformer @Inject() (
   charityCommonTransformer: CharityCommonTransformer
 ) extends JsonTransformer {
 
-  def userAnswersToSubmission(implicit request: DataRequest[_]): Reads[JsObject] =
+  def userAnswersToSubmission(implicit request: DataRequest[?]): Reads[JsObject] =
     (charityCommonTransformer.userAnswersToCommon and
       charityTransformer.userAnswersToCharity and
       charityPartnerTransformer.userAnswersToPartner).reduce

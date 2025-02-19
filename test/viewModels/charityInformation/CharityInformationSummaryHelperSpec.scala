@@ -77,7 +77,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .success
     .value
 
-  private val welshRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
+  private val welshRequest: FakeRequest[?] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
   private lazy val welshMessages: Messages = messagesApi.preferred(welshRequest)
 
   def helperWelsh(userAnswers: UserAnswers = officialAddress) = new CharityInformationSummaryHelper(userAnswers)(

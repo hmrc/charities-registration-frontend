@@ -76,7 +76,7 @@ trait QuestionViewBehaviours[A] extends ViewBehaviours {
 
             val doc       = asDocument(createView(form.withError(FormError(field, "error"))))
             val errorSpan = doc.getElementsByClass("error-message").first
-            doc.getElementById(field).attr("aria-describedby") contains errorSpan.attr("id")
+            doc.getElementById(field).attr("aria-describedby") `contains` errorSpan.attr("id")
             errorSpan.parent.attr("for") mustBe field
           }
         }

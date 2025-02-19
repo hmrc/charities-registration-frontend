@@ -58,7 +58,7 @@ class SelectWhyNoRegulatorViewSpec extends ViewBehaviours {
       (".f", viewViaF)
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
 
     ".apply" must {
       SelectWhyNoRegulator.options(form).zipWithIndex.foreach { case (option, i) =>

@@ -57,7 +57,7 @@ class NameViewSpec extends QuestionViewBehaviours[Name] {
       (".f", viewViaF(form))
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
 
     ".apply" must {
       SelectTitle.options(form).zipWithIndex.foreach { case (option, i) =>

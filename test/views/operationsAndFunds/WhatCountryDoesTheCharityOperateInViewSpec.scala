@@ -98,6 +98,6 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
       (".f", viewViaF(), viewViaF(Some("United Kingdom")))
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
   }
 }

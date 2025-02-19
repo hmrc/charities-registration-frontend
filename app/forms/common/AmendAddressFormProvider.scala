@@ -51,7 +51,7 @@ class AmendAddressFormProvider @Inject() extends Mappings {
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.townOrCity.error.format")),
         "postcode" -> default(posttext, ""),
         "country"  -> text(s"$messagePrefix.country.error.required")
-      )(AmendAddressModel.apply)(AmendAddressModel.unapply)
+      )(AmendAddressModel.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 
   def validatePostCode(form: Form[AmendAddressModel])(implicit messages: Messages): Form[AmendAddressModel] = {

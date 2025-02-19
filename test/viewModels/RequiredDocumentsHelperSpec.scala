@@ -53,7 +53,7 @@ class RequiredDocumentsHelperSpec extends SpecBase {
     .success
     .value
 
-  private val localRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
+  private val localRequest: FakeRequest[?] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
   private lazy val localMessages: Messages = messagesApi.preferred(localRequest)
 
   "RequiredDocumentsHelper" must {

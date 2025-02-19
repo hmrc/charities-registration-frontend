@@ -41,8 +41,8 @@ class IndexController @Inject() (
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
 
-  private def getTaskList(sessionId: SessionId, eligibleJourneyId: Option[String])(implicit
-    request: OptionalDataRequest[_],
+  private def getTaskList(eligibleJourneyId: Option[String])(implicit
+    request: OptionalDataRequest[?],
     hc: HeaderCarrier
   ): Future[Result] =
     charitiesSectionCompleteService.checkForValidApplicationJourney(request, eligibleJourneyId).flatMap {
@@ -59,8 +59,8 @@ class IndexController @Inject() (
       (hc.sessionId, request.userAnswers) match {
         case (Some(_), Some(userAnswers)) if userAnswers.get(AcknowledgementReferencePage).isDefined =>
           Future(Redirect(routes.RegistrationSentController.onPageLoad))
-        case (Some(sessionId), _)                                                                    =>
-          getTaskList(sessionId, eligibleJourneyId)
+        case (Some(_), _)                                                                            =>
+          getTaskList(eligibleJourneyId)
         case _                                                                                       =>
           Future(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
       }

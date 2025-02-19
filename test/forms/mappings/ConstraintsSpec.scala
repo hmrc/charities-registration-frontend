@@ -293,7 +293,7 @@ class ConstraintsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyC
 
   "nonEmptySet" must {
 
-    lazy val nonEmpty: Constraint[Set[_]] = nonEmptySet("error")
+    lazy val nonEmpty: Constraint[Set[?]] = nonEmptySet("error")
 
     "return Valid when supplied with a Set of values" in {
       nonEmpty(Set(1, 2)) mustEqual Valid

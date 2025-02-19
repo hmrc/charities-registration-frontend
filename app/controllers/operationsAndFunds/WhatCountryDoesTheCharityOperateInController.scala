@@ -48,7 +48,7 @@ class WhatCountryDoesTheCharityOperateInController @Inject() (
 
   private val form: Form[String] = formProvider()
 
-  private def getCountries(implicit request: DataRequest[_]): Option[String] = {
+  private def getCountries(implicit request: DataRequest[?]): Option[String] = {
 
     val result      = for (i <- 0 to 4) yield request.userAnswers.get(WhatCountryDoesTheCharityOperateInPage(i))
     val countryList = result.filter(_.nonEmpty).flatten.map(code => countryService.find(code).fold(code)(_.name))

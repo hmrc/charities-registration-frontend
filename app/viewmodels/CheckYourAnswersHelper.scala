@@ -46,7 +46,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs*),
-        value = if (answerIsMsgKey) HtmlContent(messages(s"$page.$ans")) else HtmlContent(ans),
+        value = if (answerIsMsgKey) HtmlContent(messages(s"$page.$ans")) else HtmlContent(conversion(ans)),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs*)),
         changeLinkCall -> messages("site.edit")
       )
@@ -61,7 +61,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs*),
-        value = HtmlContent(ans.replaceAll("\r\n", "<br>")),
+        value = HtmlContent(conversion(ans).replaceAll("\r\n", "<br>")),
         visuallyHiddenText = Some(messages(s"$page.checkYourAnswersLabel", headingMessageArgs*)),
         changeLinkCall -> messages("site.edit")
       )
@@ -106,7 +106,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
     userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs*),
-        value = if (answerIsMsgKey) HtmlContent(messages(s"$messagePrefix.$ans")) else HtmlContent(ans),
+        value = if (answerIsMsgKey) HtmlContent(messages(s"$messagePrefix.$ans")) else HtmlContent(conversion(ans)),
         visuallyHiddenText = Some(messages(s"$messagePrefix.checkYourAnswersLabel", headingMessageArgs*)),
         changeLinkCall -> messages("site.edit")
       )

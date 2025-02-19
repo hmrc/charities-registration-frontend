@@ -34,6 +34,6 @@ class PhoneNumberFormProvider @Inject() extends Mappings {
           text()
             .verifying(regexp(validateTelephoneNumber, s"$messagePrefix.alternativePhoneNumber.error.format"))
         )
-      )(PhoneNumber.apply)(PhoneNumber.unapply)
+      )(PhoneNumber.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

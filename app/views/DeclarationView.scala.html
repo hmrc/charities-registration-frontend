@@ -43,7 +43,7 @@
 
     @warning(Html(messages("declaration.warning")))
 
-    @formHelper(action = controllers.routes.DeclarationController.onSubmit, 'autoComplete -> "off") {
+    @formHelper(action = controllers.routes.DeclarationController.onSubmit, Symbol("autoComplete") -> "off") {
 
         @button("site.confirmAndSend")
 

@@ -17,7 +17,6 @@
 package viewmodels.regulatorsAndDocuments
 
 import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
-import models.{CharityOtherRegulatorDetails, CheckMode, UserAnswers}
 import pages.QuestionPage
 import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
@@ -27,6 +26,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
+import models._
 
 class RegulatorsSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
     extends ImplicitDateFormatter

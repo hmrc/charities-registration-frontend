@@ -26,6 +26,8 @@ import play.api.libs.json.{JsError, JsString, Json}
 
 class OfficialsPositionSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with OptionValues {
 
+  private val positions = OfficialsPosition.values
+
   "AuthorisedOfficialsPosition" must {
 
     "deserialise valid values" in {
@@ -49,13 +51,15 @@ class OfficialsPositionSpec extends AnyWordSpec with Matchers with ScalaCheckPro
       }
     }
 
-    "serialise" in {
-
-      val gen = Gen.oneOf(OfficialsPosition.values)
-
-      forAll(gen) { authorisedOfficialsPosition =>
+    positions.foreach { authorisedOfficialsPosition =>
+      s"serialise [$authorisedOfficialsPosition]" in {
         Json.toJson(authorisedOfficialsPosition) mustEqual JsString(authorisedOfficialsPosition.toString)
       }
+
+      s"deserialise [$authorisedOfficialsPosition]" in {
+        JsString(authorisedOfficialsPosition.toString).as[OfficialsPosition] mustEqual authorisedOfficialsPosition
+      }
     }
+
   }
 }

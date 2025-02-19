@@ -46,15 +46,6 @@ trait ImplicitDateFormatter {
     createDateFormatForPattern(outputFormat).format(new SimpleDateFormat("yyyy-MM-dd").parse(date.toString))
   }
 
-  def oldStringToDate(oldFormattedDate: String): LocalDate =
-    LocalDate.parse(
-      new SimpleDateFormat(s"yyyy-MM-dd").format(
-        new SimpleDateFormat("HH:mm EEEE dd MMMM yyyy").parse(
-          oldFormattedDate.replace("am, ", " ").replace("pm, ", " ")
-        )
-      )
-    )
-
   private val defaultTimeZone: TimeZone = TimeZone.getTimeZone("Europe/London")
 
   private def createDateFormatForPattern(pattern: String)(implicit messages: Messages): SimpleDateFormat = {

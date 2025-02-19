@@ -33,7 +33,7 @@
 
     @govukSummaryList(SummaryList(answers))
 
-    @formHelper(action = postAction, 'autoComplete -> "off") {
+    @formHelper(action = postAction, Symbol("autoComplete") -> "off") {
 
         @button("site.confirmAndContinue")
 

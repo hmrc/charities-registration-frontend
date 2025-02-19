@@ -27,6 +27,7 @@ import play.api.data.Form
 import play.api.mvc._
 import service.UserAnswerService
 import views.html.common.OfficialsPositionView
+import models.authOfficials.OfficialsPosition._
 
 import scala.concurrent.Future
 

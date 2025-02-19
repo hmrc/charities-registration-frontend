@@ -25,7 +25,7 @@ import scala.util.{Failure, Success, Try}
 
 final case class UserAnswers(id: String, data: JsObject, lastUpdated: LocalDateTime, expiresAt: LocalDateTime) {
 
-  def arePagesDefined(pages: Seq[QuestionPage[_]]): Boolean =
+  def arePagesDefined(pages: Seq[QuestionPage[?]]): Boolean =
     if (pages.isEmpty) {
       false
     } else {
@@ -35,7 +35,7 @@ final case class UserAnswers(id: String, data: JsObject, lastUpdated: LocalDateT
   private def checkDataPresent[A](page: QuestionPage[A], idx: Option[Int] = None): Option[JsValue] =
     path(page, idx).readNullable[JsValue].reads(data).getOrElse(None)
 
-  def unneededPagesNotPresent(neededPages: Seq[QuestionPage[_]], allPages: Seq[QuestionPage[_]]): Boolean =
+  def unneededPagesNotPresent(neededPages: Seq[QuestionPage[?]], allPages: Seq[QuestionPage[?]]): Boolean =
     (allPages diff neededPages).forall(page => checkDataPresent(page).isEmpty)
 
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
@@ -69,10 +69,10 @@ final case class UserAnswers(id: String, data: JsObject, lastUpdated: LocalDateT
     updatedData.map(d => copy(data = d))
   }
 
-  def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
+  def remove(pages: Seq[QuestionPage[?]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
 
   @tailrec
-  private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] =
+  private def recursivelyClearQuestions(pages: Seq[QuestionPage[?]], userAnswers: UserAnswers): Try[UserAnswers] =
     if (pages.isEmpty) {
       Success(userAnswers)
     } else {
@@ -106,7 +106,7 @@ object UserAnswers {
         (__ \ "data").read[JsObject] and
         (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeFormat) and
         (__ \ "expiresAt").read(MongoDateTimeFormats.localDateTimeFormat)
-    )(UserAnswers.apply _)
+    )(UserAnswers.apply)
   }
 
   implicit lazy val writes: OWrites[UserAnswers] = {
@@ -118,7 +118,7 @@ object UserAnswers {
         (__ \ "data").write[JsObject] and
         (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeFormat) and
         (__ \ "expiresAt").write(MongoDateTimeFormats.localDateTimeFormat)
-    )(unlift(UserAnswers.unapply))
+    )(o => Tuple.fromProductTyped(o))
   }
 
   implicit lazy val formats: OFormat[UserAnswers] = OFormat(reads, writes)

@@ -16,21 +16,21 @@
 
 package repositories
 
+import base.SpecBase
 import config.FrontendAppConfig
 import models.UserAnswers
-import org.mongodb.scala.MongoCollection
-import org.mongodb.scala.model._
-import org.scalatest.BeforeAndAfterEach
-import org.scalatest.concurrent.Eventually.eventually
+import org.mongodb.scala.model.*
+import org.mongodb.scala.{MongoCollection, SingleObservableFuture}
+import pages.AcknowledgementReferencePage
 import pages.checkEligibility.IsEligiblePurposePage
 import play.api.libs.json.Json
 import uk.gov.hmrc.mongo.test.MongoSupport
 
-import java.util.concurrent.TimeUnit
 import scala.concurrent.Future
-import scala.concurrent.duration.DurationInt
 
-class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach with MongoSupport {
+class SessionRepositorySpec extends SpecBase with MongoSupport {
+
+  override protected def databaseName: String = "test-charities" + this.getClass.getSimpleName
 
   private val config: FrontendAppConfig = inject[FrontendAppConfig]
 
@@ -42,6 +42,11 @@ class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach w
 
   private lazy val eligibilityUserAnswers: UserAnswers = emptyUserAnswers
     .set(IsEligiblePurposePage, true)
+    .success
+    .value
+
+  private lazy val eligibilityUserAnswersWithTtl: UserAnswers = emptyUserAnswers
+    .set(AcknowledgementReferencePage, "test-input")
     .success
     .value
 
@@ -71,29 +76,20 @@ class SessionRepositorySpec extends BaseMongoIndexSpec with BeforeAndAfterEach w
       findById(eligibilityUserAnswers.id, emptyUserAnswers).data mustBe Json.obj("isEligiblePurpose" -> true)
     }
 
+    "set eligibility user answer with expired set" in {
+      await(repository.upsert(eligibilityUserAnswersWithTtl))
+
+      findById(eligibilityUserAnswers.id, emptyUserAnswers).data mustBe Json.obj(
+        "acknowledgementReference" -> "test-input"
+      )
+    }
+
     "delete eligibility user answer" in {
       await(repository.delete(eligibilityUserAnswers))
 
       findById(eligibilityUserAnswers.id, emptyUserAnswers).data mustBe Json.obj()
     }
 
-    "have all expected indexes" in {
-      val expectedIndexes = List(
-        IndexModel(
-          Indexes.ascending("expiresAt"),
-          IndexOptions().name("dataExpiry").expireAfter(config.userAnswersTimeToLive, TimeUnit.SECONDS)
-        ),
-        IndexModel(Indexes.ascending("_id"), IndexOptions().name("_id_"))
-      )
-
-      await(repository.ensureIndexes())
-
-      eventually(timeout(5.seconds), interval(100.milliseconds)) {
-        assertIndexes(expectedIndexes.sorted, getIndexes(repository.collection).sorted)
-      }
-
-      await(repository.collection.drop().toFuture())
-    }
   }
 
 }

@@ -25,7 +25,7 @@ import viewmodels.StatusHelper
 
 object OperationsFundsStatusHelper extends StatusHelper {
 
-  private val common: Seq[QuestionPage[_]] = Seq(
+  private val common: Seq[QuestionPage[?]] = Seq(
     FundRaisingPage,
     CharityEstablishedInPage,
     OperatingLocationPage,
@@ -36,24 +36,24 @@ object OperationsFundsStatusHelper extends StatusHelper {
     AccountingPeriodEndDatePage
   )
 
-  private val allPages: Seq[QuestionPage[_]] = common ++ Seq(
+  private val allPages: Seq[QuestionPage[?]] = common ++ Seq(
     OtherFundRaisingPage,
     WhyNoBankStatementPage,
     OverseasOperatingLocationSummaryPage,
     OverseasCountriesPage
   )
 
-  private val f1 = (list: Seq[QuestionPage[_]], isOtherFundRaising: Boolean) =>
+  private val f1 = (list: Seq[QuestionPage[?]], isOtherFundRaising: Boolean) =>
     if (isOtherFundRaising) list ++ Seq(OtherFundRaisingPage) else list
 
-  private val f2 = (list: Seq[QuestionPage[_]], isOverseas: Boolean) =>
+  private val f2 = (list: Seq[QuestionPage[?]], isOverseas: Boolean) =>
     if (isOverseas) list ++ Seq(OverseasOperatingLocationSummaryPage, OverseasCountriesPage) else list
 
-  private val f3 = (list: Seq[QuestionPage[_]]) => list ++ Seq(WhyNoBankStatementPage)
+  private val f3 = (list: Seq[QuestionPage[?]]) => list ++ Seq(WhyNoBankStatementPage)
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[?]]): Boolean =
       userAnswers.unneededPagesNotPresent(list, allPages)
 
     userAnswers.get(FundRaisingPage) match {

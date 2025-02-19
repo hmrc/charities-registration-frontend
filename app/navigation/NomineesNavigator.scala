@@ -30,7 +30,7 @@ class NomineesNavigator extends BaseNavigator {
   override val normalRoutes: Page => UserAnswers => Call = {
 
     case IsAuthoriseNomineePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAuthoriseNomineePage) match {
           case Some(true)  => nomineeRoutes.ChooseNomineeController.onPageLoad(NormalMode)
           case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -38,7 +38,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case ChooseNomineePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(ChooseNomineePage) match {
           case Some(true)  => nomineeRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
           case Some(false) => nomineeRoutes.OrganisationNomineeNameController.onPageLoad(NormalMode)
@@ -46,28 +46,28 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IndividualNomineeNamePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineeNamePage) match {
           case Some(_) => nomineeRoutes.IndividualNomineeDOBController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IndividualNomineeDOBPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineeDOBPage) match {
           case Some(_) => nomineeRoutes.IndividualNomineesPhoneNumberController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IndividualNomineesPhoneNumberPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesPhoneNumberPage) match {
           case Some(_) => nomineeRoutes.IsIndividualNomineeNinoController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsIndividualNomineeNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsIndividualNomineeNinoPage) match {
           case Some(true)  => nomineeRoutes.IndividualNomineesNinoController.onPageLoad(NormalMode)
           case Some(false) => nomineeRoutes.IndividualNomineePassportController.onPageLoad(NormalMode)
@@ -75,7 +75,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IndividualNomineesPassportPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesPassportPage) match {
           case Some(_) =>
             userAnswers.get(NomineeIndividualAddressLookupPage) match {
@@ -88,7 +88,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IndividualNomineesNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesNinoPage) match {
           case Some(_) =>
             userAnswers.get(NomineeIndividualAddressLookupPage) match {
@@ -101,7 +101,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsIndividualNomineePaymentsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsIndividualNomineePaymentsPage) match {
           case Some(true)  => nomineeRoutes.IndividualNomineesBankDetailsController.onPageLoad(NormalMode)
           case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -109,14 +109,14 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IndividualNomineesBankDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesBankDetailsPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case NomineeIndividualAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(NomineeIndividualAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeIndividualAddressController.onPageLoad(NormalMode)
@@ -127,7 +127,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsIndividualNomineePreviousAddressPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsIndividualNomineePreviousAddressPage) match {
           case Some(true) if userAnswers.get(NomineeIndividualPreviousAddressLookupPage).isDefined =>
             nomineeRoutes.ConfirmNomineeIndividualPreviousAddressController.onPageLoad()
@@ -141,7 +141,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case NomineeIndividualPreviousAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(NormalMode)
@@ -152,14 +152,14 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationNomineeNamePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineeNamePage) match {
           case Some(_) => nomineeRoutes.OrganisationNomineeContactDetailsController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineeContactDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineeContactDetailsPage) match {
           case Some(_) =>
             userAnswers.get(OrganisationNomineeAddressLookupPage) match {
@@ -172,7 +172,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationNomineeAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineeAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode)
@@ -183,7 +183,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsOrganisationNomineePreviousAddressPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOrganisationNomineePreviousAddressPage) match {
           case Some(true) if userAnswers.get(OrganisationNomineePreviousAddressLookupPage).isDefined =>
             nomineeRoutes.ConfirmOrganisationNomineePreviousAddressController.onPageLoad()
@@ -196,7 +196,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationNomineePreviousAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(NormalMode)
@@ -207,7 +207,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsOrganisationNomineePaymentsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOrganisationNomineePaymentsPage) match {
           case Some(true)  => nomineeRoutes.OrganisationNomineesBankDetailsController.onPageLoad(NormalMode)
           case Some(false) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
@@ -215,28 +215,28 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationNomineesBankDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineesBankDetailsPage) match {
           case Some(_) => nomineeRoutes.OrganisationNomineeAuthorisedPersonController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationAuthorisedPersonNamePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
           case Some(_) => nomineeRoutes.OrganisationAuthorisedPersonDOBController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationAuthorisedPersonDOBPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonDOBPage) match {
           case Some(_) => nomineeRoutes.IsOrganisationNomineeNinoController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOrganisationNomineeNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOrganisationNomineeNinoPage) match {
           case Some(true)  => nomineeRoutes.OrganisationAuthorisedPersonNinoController.onPageLoad(NormalMode)
           case Some(false) => nomineeRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(NormalMode)
@@ -244,14 +244,14 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationAuthorisedPersonNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonNinoPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationAuthorisedPersonPassportPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonPassportPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
@@ -265,7 +265,7 @@ class NomineesNavigator extends BaseNavigator {
   override val checkRouteMap: Page => UserAnswers => Call = {
 
     case IsAuthoriseNomineePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAuthoriseNomineePage) match {
           case Some(true)  => nomineeRoutes.ChooseNomineeController.onPageLoad(CheckMode)
           case Some(false) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -273,7 +273,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case ChooseNomineePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(ChooseNomineePage) match {
           case Some(true)  => nomineeRoutes.IndividualNomineeNameController.onPageLoad(NormalMode)
           case Some(false) => nomineeRoutes.OrganisationNomineeNameController.onPageLoad(NormalMode)
@@ -281,28 +281,28 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IndividualNomineeNamePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineeNamePage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IndividualNomineeDOBPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineeDOBPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IndividualNomineesPhoneNumberPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesPhoneNumberPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsIndividualNomineeNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsIndividualNomineeNinoPage) match {
           case Some(true) if userAnswers.get(IndividualNomineesNinoPage).isDefined      =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -317,21 +317,21 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IndividualNomineesPassportPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesPassportPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IndividualNomineesNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesNinoPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case NomineeIndividualAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(NomineeIndividualAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeIndividualAddressController.onPageLoad(CheckMode)
@@ -342,7 +342,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsIndividualNomineePreviousAddressPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsIndividualNomineePreviousAddressPage) match {
           case Some(true) if userAnswers.get(NomineeIndividualPreviousAddressLookupPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -355,7 +355,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case NomineeIndividualPreviousAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(NomineeIndividualPreviousAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeIndividualPreviousAddressController.onPageLoad(CheckMode)
@@ -364,7 +364,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsIndividualNomineePaymentsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsIndividualNomineePaymentsPage) match {
           case Some(true) if userAnswers.get(IndividualNomineesBankDetailsPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -377,28 +377,28 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IndividualNomineesBankDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IndividualNomineesBankDetailsPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineeNamePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineeNamePage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineeContactDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineeContactDetailsPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationNomineeAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineeAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationAddressController.onPageLoad(CheckMode)
@@ -409,7 +409,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsOrganisationNomineePreviousAddressPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOrganisationNomineePreviousAddressPage) match {
           case Some(true) if userAnswers.get(OrganisationNomineePreviousAddressLookupPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -422,7 +422,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationNomineePreviousAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineePreviousAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             nomineeRoutes.AmendNomineeOrganisationPreviousAddressController.onPageLoad(CheckMode)
@@ -433,7 +433,7 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case IsOrganisationNomineePaymentsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOrganisationNomineePaymentsPage) match {
           case Some(true) if userAnswers.get(OrganisationNomineesBankDetailsPage).isDefined =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -446,28 +446,28 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationNomineesBankDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationNomineesBankDetailsPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationAuthorisedPersonNamePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonNamePage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationAuthorisedPersonDOBPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonDOBPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOrganisationNomineeNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOrganisationNomineeNinoPage) match {
           case Some(true) if userAnswers.get(OrganisationAuthorisedPersonNinoPage).isDefined      =>
             nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
@@ -482,14 +482,14 @@ class NomineesNavigator extends BaseNavigator {
         }
 
     case OrganisationAuthorisedPersonNinoPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonNinoPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OrganisationAuthorisedPersonPassportPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OrganisationAuthorisedPersonPassportPage) match {
           case Some(_) => nomineeRoutes.NomineeDetailsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()

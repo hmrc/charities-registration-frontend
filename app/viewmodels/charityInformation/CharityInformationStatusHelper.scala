@@ -25,7 +25,7 @@ import viewmodels.StatusHelper
 object CharityInformationStatusHelper extends StatusHelper {
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
-    val pagesAlwaysRequired: Seq[QuestionPage[_]] =
+    val pagesAlwaysRequired: Seq[QuestionPage[?]] =
       Seq(CharityNamePage, CharityContactDetailsPage, CharityOfficialAddressLookupPage, CanWeSendToThisAddressPage)
     val charityPostalAddressIsDefined             = userAnswers.arePagesDefined(Seq(CharityPostalAddressLookupPage))
 

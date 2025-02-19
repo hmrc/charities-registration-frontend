@@ -26,7 +26,7 @@ import viewmodels.otherOfficials.OtherOfficialStatusHelper.otherOfficialComplete
 
 trait OfficialSummaryRowHelper {
 
-  private def authorisedOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
+  private def authorisedOfficialAnswers(index: Index)(implicit request: DataRequest[?]): Seq[OfficialSummaryListRow] = {
     val isCompleted = authorisedOfficialCompleted(index, request.userAnswers)
     request.userAnswers
       .get[Name](AuthorisedOfficialsNamePage(index))
@@ -45,7 +45,7 @@ trait OfficialSummaryRowHelper {
       .foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
   }
 
-  private def otherOfficialAnswers(index: Index)(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = {
+  private def otherOfficialAnswers(index: Index)(implicit request: DataRequest[?]): Seq[OfficialSummaryListRow] = {
     val isCompleted = otherOfficialCompleted(index, request.userAnswers)
     request.userAnswers
       .get[Name](OtherOfficialsNamePage(index))
@@ -64,16 +64,16 @@ trait OfficialSummaryRowHelper {
       .foldLeft(Seq[OfficialSummaryListRow]())(_ :+ _)
   }
 
-  def firstAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+  def firstAuthorisedOfficialRow(implicit request: DataRequest[?]): Seq[OfficialSummaryListRow] =
     authorisedOfficialAnswers(0)
 
-  def secondAuthorisedOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] =
+  def secondAuthorisedOfficialRow(implicit request: DataRequest[?]): Seq[OfficialSummaryListRow] =
     authorisedOfficialAnswers(1)
 
-  def firstOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(0)
+  def firstOtherOfficialRow(implicit request: DataRequest[?]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(0)
 
-  def secondOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(1)
+  def secondOtherOfficialRow(implicit request: DataRequest[?]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(1)
 
-  def thirdOtherOfficialRow(implicit request: DataRequest[_]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(2)
+  def thirdOtherOfficialRow(implicit request: DataRequest[?]): Seq[OfficialSummaryListRow] = otherOfficialAnswers(2)
 
 }

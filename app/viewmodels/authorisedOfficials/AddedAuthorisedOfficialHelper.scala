@@ -25,6 +25,7 @@ import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
+import models.withNameToString
 
 class AddedAuthorisedOfficialHelper(index: Index, mode: Mode, countryService: CountryService)(
   override val userAnswers: UserAnswers

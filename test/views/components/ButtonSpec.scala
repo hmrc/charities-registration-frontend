@@ -16,30 +16,29 @@
 
 package views.components
 
-import base.SpecBase
 import org.jsoup.Jsoup
-import play.twirl.api.Html
+import org.jsoup.nodes.Document
+import play.twirl.api.{Html, HtmlFormat}
 import views.html.components.button
 
-class ButtonSpec extends SpecBase {
+class ButtonSpec extends ComponentsViewSpecBase {
 
-  lazy val buttonComponent: button = inject[button]
-  lazy val html: Html              = buttonComponent("site.continue")
+  override val viewViaApply: HtmlFormat.Appendable  = inject[button].apply("site.continue")
+  override val viewViaRender: HtmlFormat.Appendable = inject[button].render("site.continue", messages)
+  override val viewViaF: HtmlFormat.Appendable      = inject[button].f("site.continue")(messages)
 
-  object Selectors {
-    val button = "button"
-  }
+  "Button" when {
+    getViews.foreach { (title, view) =>
+      s"$title" must {
+        "Have the correct class" in {
+          asDocument(view).select("button").hasClass("govuk-button") mustBe true
+        }
 
-  s"button component" must {
-
-    lazy val document = Jsoup.parse(html.toString)
-
-    "Have the correct class" in {
-      document.select(Selectors.button).hasClass("govuk-button") mustBe true
-    }
-
-    "Have the correct button text" in {
-      document.select(Selectors.button).text mustBe messages("site.continue")
+        "Have the correct button text" in {
+          asDocument(view).select("button").text mustBe messages("site.continue")
+        }
+      }
     }
   }
+
 }

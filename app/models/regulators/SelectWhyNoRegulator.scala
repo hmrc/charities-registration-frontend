@@ -21,6 +21,7 @@ import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
+import play.api.libs.json._
 
 sealed trait SelectWhyNoRegulator
 
@@ -42,7 +43,7 @@ object SelectWhyNoRegulator extends Enumerable.Implicits {
     Other
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"selectWhyNoRegulator.${value.toString}")),
@@ -52,4 +53,18 @@ object SelectWhyNoRegulator extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[SelectWhyNoRegulator] =
     Enumerable(values.map(v => v.toString -> v)*)
+
+  implicit def reads: Reads[SelectWhyNoRegulator] = Reads[SelectWhyNoRegulator] {
+    case JsString(EnglandWalesUnderThreshold.toString) => JsSuccess(EnglandWalesUnderThreshold)
+    case JsString(ExemptOrExcepted.toString)           => JsSuccess(ExemptOrExcepted)
+    case JsString(NoRegulatorInCountry.toString)       => JsSuccess(NoRegulatorInCountry)
+    case JsString(ParochialChurchCouncils.toString)    => JsSuccess(ParochialChurchCouncils)
+    case JsString(UniformedYouthGroup.toString)        => JsSuccess(UniformedYouthGroup)
+    case JsString(Other.toString)                      => JsSuccess(Other)
+    case _                                             => JsError("error.invalid")
+  }
+
+  implicit def writes: Writes[SelectWhyNoRegulator] =
+    Writes(value => JsString(value.toString))
+
 }

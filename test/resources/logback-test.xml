@@ -1,36 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/charities-test-frontend.log</file>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>[%highlight(%.-4level)] %message %replace(exception=[%xException]){'^exception=\[\]$',''} %date{ISO8601} %n</pattern>
-        </encoder>
-    </appender>
-
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>[%highlight(%.-4level)] %message %replace(exception=[%xException]){'^exception=\[\]$',''} %date{ISO8601} %n</pattern>
+            <pattern>%date{ISO8601} level=[%level] logger=[%logger] thread=[%thread] rid=[%X{X-Request-ID}] user=[%X{Authorization}] message=[%message] %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
         </encoder>
     </appender>
 
     <logger name="com.google.inject" level="OFF"/>
-
     <logger name="org.asynchttpclient.netty" level="OFF"/>
-    <logger name="org.apache.hc.client5" level="OFF"/>
+    <logger name="org.apache.hc" level="OFF"/>
+    <logger name="org.apache.pekko" level="OFF"/>
     <logger name="io.netty.buffer" level="OFF"/>
     <logger name="play.core.netty" level="OFF"/>
+    <logger name="uk.gov" level="DEBUG"/>
+    <logger name="org.mongodb" level="OFF"/>
 
-    <logger name="uk.gov" level="OFF"/>
-
-    <logger name="application" level="DEBUG"/>
-
-    <logger name="connector" level="ERROR">
-        <appender-ref ref="STDOUT"/>
-    </logger>
-
-    <root level="ERROR">
-        <appender-ref ref="FILE"/>
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

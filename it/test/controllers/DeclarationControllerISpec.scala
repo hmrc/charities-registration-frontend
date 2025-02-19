@@ -24,12 +24,12 @@ import play.api.test.Helpers._
 import stubs.AuthStub
 import stubs.AuthStub.authorised
 import stubs.CharitiesStub._
-import utils.{CreateRequestHelper, IntegrationSpecBase, WireMockMethods}
+import utils.{IntegrationSpecBase, WireMockMethods}
 
 import scala.concurrent.Future
 import scala.io.Source
 
-class DeclarationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with WireMockMethods {
+class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethods {
 
   private def readJsonFromFile(filePath: String): JsValue = {
     val source = Source.fromURL(getClass.getResource(filePath))

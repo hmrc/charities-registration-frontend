@@ -28,13 +28,13 @@ class CharityInformationNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
     case CharityNamePage                  =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityNamePage) match {
           case Some(_) => charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
     case CharityContactDetailsPage        =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityContactDetailsPage) match {
           case Some(_) =>
             userAnswers.get(CharityOfficialAddressLookupPage) match {
@@ -44,7 +44,7 @@ class CharityInformationNavigator extends BaseNavigator {
           case _       => routes.PageNotFoundController.onPageLoad()
         }
     case CharityOfficialAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityOfficialAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
@@ -52,7 +52,7 @@ class CharityInformationNavigator extends BaseNavigator {
           case _                                           => routes.PageNotFoundController.onPageLoad()
         }
     case CanWeSendToThisAddressPage       =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CanWeSendToThisAddressPage) match {
           case Some(true)                                                               =>
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
@@ -64,7 +64,7 @@ class CharityInformationNavigator extends BaseNavigator {
             routes.PageNotFoundController.onPageLoad()
         }
     case CharityPostalAddressLookupPage   =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityPostalAddressLookupPage) match {
           case Some(address) if isNotValidAddress(address) =>
             charityInfoRoutes.AmendCharityPostalAddressController.onPageLoad()
@@ -80,25 +80,25 @@ class CharityInformationNavigator extends BaseNavigator {
   override val checkRouteMap: Page => UserAnswers => Call = {
 
     case CharityNamePage                  =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityNamePage) match {
           case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
     case CharityContactDetailsPage        =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityContactDetailsPage) match {
           case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
     case CharityOfficialAddressLookupPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityOfficialAddressLookupPage) match {
           case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
     case CanWeSendToThisAddressPage       =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CanWeSendToThisAddressPage) match {
           case Some(true)                                                               =>
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
@@ -110,7 +110,7 @@ class CharityInformationNavigator extends BaseNavigator {
             routes.PageNotFoundController.onPageLoad()
         }
     case CharityPostalAddressLookupPage   =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityPostalAddressLookupPage) match {
           case Some(_) => charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
@@ -122,7 +122,7 @@ class CharityInformationNavigator extends BaseNavigator {
   override val playbackRouteMap: Page => UserAnswers => Call = {
 
     case CharityNamePage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityNamePage) match {
           case Some(_) => controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()

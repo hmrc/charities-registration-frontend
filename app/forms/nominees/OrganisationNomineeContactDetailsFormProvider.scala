@@ -39,6 +39,6 @@ class OrganisationNomineeContactDetailsFormProvider @Inject() extends Mappings {
             "charityContactDetails.emailAddress.error.format",
             email => !email.contains("\"") && !email.matches(validateEmailExtraTld)
           )
-      )(OrganisationNomineeContactDetails.apply)(OrganisationNomineeContactDetails.unapply)
+      )(OrganisationNomineeContactDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

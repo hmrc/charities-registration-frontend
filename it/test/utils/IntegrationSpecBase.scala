@@ -19,15 +19,22 @@ package utils
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest._
+import org.scalatest.*
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.{Application, Environment, Mode}
 import uk.gov.hmrc.http.HeaderCarrier
+import play.api.Application
+import play.api.mvc.AnyContentAsEmpty
+import play.api.test.FakeRequest
+import play.api.test.Helpers.POST
+import uk.gov.hmrc.http.SessionKeys
 
+import java.util.UUID
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
 
 trait IntegrationSpecBase
     extends AnyWordSpec
@@ -42,16 +49,23 @@ trait IntegrationSpecBase
     with BeforeAndAfterEach
     with BeforeAndAfterAll
     with Eventually
-    with CreateRequestHelper
     with CustomMatchers {
 
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.global
   implicit val hc: HeaderCarrier    = HeaderCarrier()
 
+  val defaultSeconds                           = 5
+  implicit val defaultDuration: FiniteDuration = Duration.apply(defaultSeconds, SECONDS)
+
   override implicit lazy val app: Application = new GuiceApplicationBuilder()
     .in(Environment.simple(mode = Mode.Dev))
     .configure(config)
     .build()
+
+  def buildPost(url: String): FakeRequest[AnyContentAsEmpty.type] =
+    FakeRequest(POST, url)
+      .withSession(SessionKeys.sessionId -> UUID.randomUUID().toString, SessionKeys.authToken -> SessionKeys.authToken)
+      .withHeaders("Csrf-Token" -> "nocheck")
 
   val mockHost: String = WiremockHelper.wiremockHost
   val mockPort: String = WiremockHelper.wiremockPort.toString

@@ -54,7 +54,7 @@ class CharityPartnerTransformer extends JsonTransformer {
           )).reduce
     }
 
-    val remainingFields = (
+    val remainingFields: Reads[JsObject] = (
       getName(__ \ "individualDetails" \ "name", __ \ s"${prefix}Name") and
         (__ \ "individualDetails" \ "dateOfBirth").json.copyFrom((__ \ s"${prefix}DOB").json.pick) and
         ((__ \ "individualDetails" \ "nino").json.copyFrom(nino) orElse doNothing) and

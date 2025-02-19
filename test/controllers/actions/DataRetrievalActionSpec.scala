@@ -38,7 +38,7 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "set userAnswers to 'None' in the request" in {
 
         val sessionRepository = mock(classOf[SessionRepository])
-        when(sessionRepository.get("id")) thenReturn Future(None)
+        when(sessionRepository.get("id")) `thenReturn` Future(None)
         val action            = new Harness(sessionRepository)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
@@ -54,7 +54,7 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "build a userAnswers object and add it to the request" in {
 
         val sessionRepository = mock(classOf[SessionRepository])
-        when(sessionRepository.get("id")) thenReturn Future(Some(UserAnswers("id")))
+        when(sessionRepository.get("id")) `thenReturn` Future(Some(UserAnswers("id")))
         val action            = new Harness(sessionRepository)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))

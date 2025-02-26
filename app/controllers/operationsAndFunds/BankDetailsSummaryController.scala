@@ -20,12 +20,15 @@ import config.FrontendAppConfig
 import controllers.LocalBaseController
 import controllers.actions._
 import models.NormalMode
+import models.requests.BarsBankAccount
+import models.responses.SortCodeOnDenyList
+import models.responses.ValidateResponse.validateFailure
 import navigation.BankDetailsNavigator
 import pages.IndexPage
 import pages.operationsAndFunds.BankDetailsSummaryPage
 import pages.sections.Section6Page
 import play.api.mvc._
-import service.UserAnswerService
+import service.{BarsService, UserAnswerService}
 import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
 import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
 import views.html.CheckYourAnswersView
@@ -40,7 +43,8 @@ class BankDetailsSummaryController @Inject() (
   getData: UserDataRetrievalAction,
   requireData: DataRequiredAction,
   view: CheckYourAnswersView,
-  val controllerComponents: MessagesControllerComponents
+  val controllerComponents: MessagesControllerComponents,
+  barsService: BarsService
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
 
@@ -65,7 +69,16 @@ class BankDetailsSummaryController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    for {
+    barsService.validateBankAccount(BarsBankAccount(???, ???)).flatMap {
+      case validateResponse @ validateFailure() =>
+        Future.successful(Left(barsService.handleValidateErrorResponse(validateResponse)))
+      case response: SortCodeOnDenyList =>
+        Future.successful(Left(SortCodeOnDenyListErrorResponse(response)))
+      case _ =>
+    }
+
+    for { // todo integrate here
+      barsValidateResponse <- barsService.validateBankAccount(BarsBankAccount(???, ???))
       updatedAnswers <-
         Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
       _              <- sessionRepository.set(updatedAnswers)

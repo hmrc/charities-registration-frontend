@@ -26,7 +26,7 @@ class BankDetailsNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
 
-    case BankDetailsPage => userAnswers: UserAnswers => navigate(userAnswers)
+    case BankDetailsPage => userAnswers: UserAnswers => navigate(userAnswers) //todo gaston
 
     case BankDetailsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 

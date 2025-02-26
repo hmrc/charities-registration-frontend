@@ -115,7 +115,7 @@ class RegistrationSentViewSpec extends ViewBehaviours with ImplicitDateFormatter
       (".f", viewViaF)
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
   }
 
   "RegistrationSentView for Post" when {

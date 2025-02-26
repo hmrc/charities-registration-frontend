@@ -36,35 +36,35 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
   override val normalRoutes: Page => UserAnswers => Call = {
 
     case AuthorisedOfficialsNamePage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
           case Some(_) => authOfficialRoutes.AuthorisedOfficialsDOBController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsDOBPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
           case Some(_) => authOfficialRoutes.AuthorisedOfficialsPhoneNumberController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsPhoneNumberPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
           case Some(_) => authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsPositionPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
           case Some(_) => authOfficialRoutes.IsAuthorisedOfficialNinoController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsAuthorisedOfficialNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
           case Some(true)  => authOfficialRoutes.AuthorisedOfficialsNinoController.onPageLoad(NormalMode, index)
           case Some(false) => authOfficialRoutes.AuthorisedOfficialsPassportController.onPageLoad(NormalMode, index)
@@ -72,7 +72,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case AuthorisedOfficialsNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
           case Some(_) =>
             userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
@@ -84,7 +84,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case AuthorisedOfficialsPassportPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
           case Some(_) =>
             userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
@@ -96,7 +96,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case AuthorisedOfficialAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, index)
@@ -107,7 +107,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case IsAuthorisedOfficialPreviousAddressPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
           case Some(true) if userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)).isDefined =>
             authOfficialRoutes.ConfirmAuthorisedOfficialsPreviousAddressController.onPageLoad(index)
@@ -120,7 +120,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             authOfficialRoutes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
@@ -131,7 +131,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
     case AddedAuthorisedOfficialPage(_) => _ => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
 
     case AuthorisedOfficialsSummaryPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAddAnotherAuthorisedOfficialPage) match {
           case Some(true)
               if userAnswers.get(Section7Page).contains(true).||(userAnswers.get(AuthorisedOfficialsId(1)).nonEmpty) =>
@@ -142,7 +142,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case RemoveAuthorisedOfficialsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsId(0)) match {
           case Some(_)                               => authOfficialRoutes.AuthorisedOfficialsSummaryController.onPageLoad
           case _ if userAnswers.data.fields.nonEmpty =>
@@ -155,35 +155,35 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
 
   override val checkRouteMap: Page => UserAnswers => Call = {
     case AuthorisedOfficialsNamePage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsDOBPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsDOBPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsPhoneNumberPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsPhoneNumberPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsPositionPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsPositionPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsAuthorisedOfficialNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAuthorisedOfficialNinoPage(index)) match {
           case Some(true) if userAnswers.get(AuthorisedOfficialsNinoPage(index)).isDefined      =>
             redirectToPlaybackPage(index)
@@ -198,21 +198,21 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case AuthorisedOfficialsNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsNinoPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialsPassportPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialsPassportPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case AuthorisedOfficialAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             authOfficialRoutes.AmendAuthorisedOfficialsAddressController.onPageLoad(CheckMode, index)
@@ -223,7 +223,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case IsAuthorisedOfficialPreviousAddressPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAuthorisedOfficialPreviousAddressPage(index)) match {
           case Some(true) if userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)).isDefined =>
             redirectToPlaybackPage(index)
@@ -236,7 +236,7 @@ class AuthorisedOfficialsNavigator extends BaseNavigator {
         }
 
     case AuthorisedOfficialPreviousAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(AuthorisedOfficialPreviousAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             authOfficialRoutes.AmendAuthorisedOfficialsPreviousAddressController.onPageLoad(CheckMode, index)

@@ -47,14 +47,14 @@ class IsOrganisationNomineePaymentsControllerSpec extends SpecBase with BeforeAn
         bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
       )
 
-  override def beforeEach(): Unit = {
+  override def beforeEach(): Unit             = {
     super.beforeEach()
     reset(mockUserAnswerService)
   }
-  val messagePrefix: String                                  = "isOrganisationNomineePayments"
-  private val view: IsNomineePaymentsView                    = injector.instanceOf[IsNomineePaymentsView]
-  private val formProvider: YesNoFormProvider                = injector.instanceOf[YesNoFormProvider]
-  private val form: Form[Boolean]                            = formProvider(messagePrefix)
+  val messagePrefix: String                   = "isOrganisationNomineePayments"
+  private val view: IsNomineePaymentsView     = injector.instanceOf[IsNomineePaymentsView]
+  private val formProvider: YesNoFormProvider = injector.instanceOf[YesNoFormProvider]
+  private val form: Form[Boolean]             = formProvider(messagePrefix)
 
   private val controller: IsOrganisationNomineePaymentsController = inject[IsOrganisationNomineePaymentsController]
 

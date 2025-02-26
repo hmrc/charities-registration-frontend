@@ -24,12 +24,12 @@ import viewmodels.{StatusHelper, _}
 
 object NomineeStatusHelper extends StatusHelper {
 
-  private val commonJourneyPages: Seq[QuestionPage[_]] = Seq(
+  private val commonJourneyPages: Seq[QuestionPage[?]] = Seq(
     IsAuthoriseNomineePage,
     ChooseNomineePage
   )
 
-  private val individualCommonJourneyPages: Seq[QuestionPage[_]] = Seq(
+  private val individualCommonJourneyPages: Seq[QuestionPage[?]] = Seq(
     IndividualNomineeNamePage,
     IndividualNomineeDOBPage,
     IndividualNomineesPhoneNumberPage,
@@ -39,14 +39,14 @@ object NomineeStatusHelper extends StatusHelper {
     IsIndividualNomineePaymentsPage
   )
 
-  private val remainingIndividualJourneyPages: Seq[QuestionPage[_]] = Seq(
+  private val remainingIndividualJourneyPages: Seq[QuestionPage[?]] = Seq(
     IndividualNomineesNinoPage,
     IndividualNomineesPassportPage,
     NomineeIndividualPreviousAddressLookupPage,
     IndividualNomineesBankDetailsPage
   )
 
-  private val organisationCommonJourneyPages: Seq[QuestionPage[_]] = Seq(
+  private val organisationCommonJourneyPages: Seq[QuestionPage[?]] = Seq(
     OrganisationNomineeNamePage,
     OrganisationNomineeContactDetailsPage,
     OrganisationNomineeAddressLookupPage,
@@ -57,28 +57,27 @@ object NomineeStatusHelper extends StatusHelper {
     IsOrganisationNomineeNinoPage
   )
 
-  private val remainingOrganisationJourneyPages: Seq[QuestionPage[_]] = Seq(
+  private val remainingOrganisationJourneyPages: Seq[QuestionPage[?]] = Seq(
     OrganisationNomineePreviousAddressLookupPage,
     OrganisationNomineesBankDetailsPage
   )
 
-  private val remainingOrganisationIndividualJourneyPages: Seq[QuestionPage[_]] = Seq(
+  private val remainingOrganisationIndividualJourneyPages: Seq[QuestionPage[?]] = Seq(
     OrganisationAuthorisedPersonNinoPage,
     OrganisationAuthorisedPersonPassportPage
   )
 
-  private val individualJourneyPages: Seq[QuestionPage[_]] =
+  private val individualJourneyPages: Seq[QuestionPage[?]] =
     individualCommonJourneyPages ++ remainingIndividualJourneyPages
 
-  private val organisationJourneyPages: Seq[QuestionPage[_]] = {
+  private val organisationJourneyPages: Seq[QuestionPage[?]] =
     organisationCommonJourneyPages ++ remainingOrganisationJourneyPages ++ remainingOrganisationIndividualJourneyPages
-  }
 
-  private val allPages: Seq[QuestionPage[_]] = commonJourneyPages ++ individualJourneyPages ++ organisationJourneyPages
+  private val allPages: Seq[QuestionPage[?]] = commonJourneyPages ++ individualJourneyPages ++ organisationJourneyPages
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[?]]): Boolean =
       userAnswers.unneededPagesNotPresent(list, allPages)
 
     (userAnswers.get(IsAuthoriseNomineePage), userAnswers.get(ChooseNomineePage)) match {

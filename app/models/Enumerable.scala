@@ -16,7 +16,9 @@
 
 package models
 
-import play.api.libs.json._
+import play.api.libs.json.*
+
+import scala.language.implicitConversions
 
 trait Enumerable[A] {
 

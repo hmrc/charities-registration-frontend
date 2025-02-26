@@ -22,6 +22,7 @@ import controllers.actions._
 import forms.operationsAndFunds.CharityEstablishedInFormProvider
 import models.Mode
 import models.operations.CharityEstablishedOptions
+import models.operations.CharityEstablishedOptions._
 import navigation.FundRaisingNavigator
 import pages.operationsAndFunds.CharityEstablishedInPage
 import pages.sections.Section5Page

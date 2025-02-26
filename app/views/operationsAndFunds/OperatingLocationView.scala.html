@@ -26,11 +26,10 @@
     errorSummary: components.errorSummary,
     checkboxes: components.inputCheckboxes,
     button: components.button,
-    subheading: components.subheading,
     link: components.link
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "operatingLocation.title", Some("operationsAndFunds.section")))) {
 

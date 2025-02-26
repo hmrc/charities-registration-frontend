@@ -25,7 +25,7 @@ import viewmodels.StatusHelper
 
 object GoverningDocumentStatusHelper extends StatusHelper {
 
-  private val allPages: Seq[QuestionPage[_]] = Seq(
+  private val allPages: Seq[QuestionPage[?]] = Seq(
     SelectGoverningDocumentPage,
     GoverningDocumentNamePage,
     IsApprovedGoverningDocumentPage,
@@ -40,13 +40,13 @@ object GoverningDocumentStatusHelper extends StatusHelper {
 
   private val governingDoc      = (documentType: SelectGoverningDocument) =>
     if (documentType == Other) commonWithDocName else common
-  private val hasCharityChanged = (list: Seq[QuestionPage[_]]) =>
+  private val hasCharityChanged = (list: Seq[QuestionPage[?]]) =>
     list ++ Seq(HasCharityChangedPartsOfGoverningDocumentPage)
-  private val sectionsChanged   = (list: Seq[QuestionPage[_]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
+  private val sectionsChanged   = (list: Seq[QuestionPage[?]]) => list ++ Seq(SectionsChangedGoverningDocumentPage)
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[?]]): Boolean =
       userAnswers.unneededPagesNotPresent(list, allPages)
 
     userAnswers.get(SelectGoverningDocumentPage) match {

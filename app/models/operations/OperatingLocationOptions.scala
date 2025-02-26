@@ -50,7 +50,7 @@ object OperatingLocationOptions extends Enumerable.Implicits {
     Overseas
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
+  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
@@ -63,6 +63,6 @@ object OperatingLocationOptions extends Enumerable.Implicits {
   }
 
   implicit val enumerable: Enumerable[OperatingLocationOptions] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v)*)
 
 }

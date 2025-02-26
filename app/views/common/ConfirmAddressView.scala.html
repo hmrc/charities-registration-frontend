@@ -28,7 +28,7 @@
     button: components.button,
 )
 
-@(address: Seq[String], messagePrefix: String, submitCall: Call, changeLink: Call, h1Param: Option[String])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(address: Seq[String], messagePrefix: String, submitCall: Call, changeLink: Call, h1Param: Option[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(titleNoForm(s"$messagePrefix.confirmPage.title", None))) {
 

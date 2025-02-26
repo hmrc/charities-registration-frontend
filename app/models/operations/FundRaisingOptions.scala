@@ -70,7 +70,7 @@ object FundRaisingOptions extends Enumerable.Implicits {
       Other
     )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] =
+  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] =
     values.zipWithIndex.map { case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
@@ -86,5 +86,5 @@ object FundRaisingOptions extends Enumerable.Implicits {
     }
 
   implicit val enumerable: Enumerable[FundRaisingOptions] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v)*)
 }

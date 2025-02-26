@@ -28,30 +28,30 @@ import play.api.mvc.Call
 class RegulatorsAndDocumentsNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
-    case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorPageNav(NormalMode, userAnswers)
+    case IsCharityRegulatorPage => (userAnswers: UserAnswers) => isCharityRegulatorPageNav(NormalMode, userAnswers)
 
-    case CharityRegulatorPage => userAnswers: UserAnswers => nextNormalOrSwitchOverNavigation(userAnswers, Seq())
+    case CharityRegulatorPage => (userAnswers: UserAnswers) => nextNormalOrSwitchOverNavigation(userAnswers, Seq())
 
     case CharityCommissionRegistrationNumberPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         nextNormalOrSwitchOverNavigation(userAnswers, Seq(CharityCommissionRegistrationNumberPage))
 
     case ScottishRegulatorRegNumberPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         nextNormalOrSwitchOverNavigation(
           userAnswers,
           Seq(CharityCommissionRegistrationNumberPage, ScottishRegulatorRegNumberPage)
         )
 
     case NIRegulatorRegNumberPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         nextNormalOrSwitchOverNavigation(
           userAnswers,
           Seq(CharityCommissionRegistrationNumberPage, ScottishRegulatorRegNumberPage, NIRegulatorRegNumberPage)
         )
 
     case CharityOtherRegulatorDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityRegulatorPage) match {
           case Some(items) =>
             nextNav(
@@ -62,10 +62,10 @@ class RegulatorsAndDocumentsNavigator extends BaseNavigator {
           case _           => routes.PageNotFoundController.onPageLoad()
         }
 
-    case SelectWhyNoRegulatorPage => userAnswers: UserAnswers => selectWhyNoRegulatorPageNav(userAnswers, NormalMode)
+    case SelectWhyNoRegulatorPage => (userAnswers: UserAnswers) => selectWhyNoRegulatorPageNav(userAnswers, NormalMode)
 
     case WhyNotRegisteredWithCharityPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(WhyNotRegisteredWithCharityPage) match {
           case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
@@ -77,11 +77,11 @@ class RegulatorsAndDocumentsNavigator extends BaseNavigator {
   }
 
   override val checkRouteMap: Page => UserAnswers => Call = {
-    case IsCharityRegulatorPage => userAnswers: UserAnswers => isCharityRegulatorCheckNav(CheckMode, userAnswers)
+    case IsCharityRegulatorPage => (userAnswers: UserAnswers) => isCharityRegulatorCheckNav(CheckMode, userAnswers)
 
     case CharityRegulatorPage | CharityCommissionRegistrationNumberPage | ScottishRegulatorRegNumberPage |
         NIRegulatorRegNumberPage | CharityOtherRegulatorDetailsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharityRegulatorPage) match {
           case Some(items) =>
             nextNav(
@@ -95,7 +95,7 @@ class RegulatorsAndDocumentsNavigator extends BaseNavigator {
     case RegulatorsSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
     case SelectWhyNoRegulatorPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(SelectWhyNoRegulatorPage) match {
           case Some(Other) =>
             userAnswers.get(WhyNotRegisteredWithCharityPage) match {
@@ -107,7 +107,7 @@ class RegulatorsAndDocumentsNavigator extends BaseNavigator {
         }
 
     case WhyNotRegisteredWithCharityPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(WhyNotRegisteredWithCharityPage) match {
           case Some(_) => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
@@ -142,9 +142,9 @@ class RegulatorsAndDocumentsNavigator extends BaseNavigator {
       case _           => routes.PageNotFoundController.onPageLoad()
     }
 
-  private def nextNav(res: Seq[QuestionPage[_]], userAnswers: UserAnswers, mode: Mode): Call = {
+  private def nextNav(res: Seq[QuestionPage[?]], userAnswers: UserAnswers, mode: Mode): Call = {
 
-    def checkNextNav(seqPages: Seq[QuestionPage[_]]): Call =
+    def checkNextNav(seqPages: Seq[QuestionPage[?]]): Call =
       if (seqPages.isEmpty) {
         regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
       } else {
@@ -181,7 +181,7 @@ class RegulatorsAndDocumentsNavigator extends BaseNavigator {
     checkNextNav(res)
   }
 
-  private def switchOverNavigation(remainingPages: Seq[QuestionPage[_]]): Call =
+  private def switchOverNavigation(remainingPages: Seq[QuestionPage[?]]): Call =
     remainingPages match {
       case CharityCommissionRegistrationNumberPage :: _ =>
         regulatorDocsRoutes.CharityCommissionRegistrationNumberController.onPageLoad(NormalMode)
@@ -193,7 +193,7 @@ class RegulatorsAndDocumentsNavigator extends BaseNavigator {
       case _                                            => regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
     }
 
-  private def nextNormalOrSwitchOverNavigation(userAnswers: UserAnswers, initialPages: Seq[QuestionPage[_]]): Call = {
+  private def nextNormalOrSwitchOverNavigation(userAnswers: UserAnswers, initialPages: Seq[QuestionPage[?]]): Call = {
     val list = (items: Set[CharityRegulator]) =>
       CharityRegulator.pageMap.filter(p => items.contains(p._1)).values.toList
     (userAnswers.get(CharityRegulatorPage), userAnswers.get(IsSwitchOverUserPage)) match {

@@ -20,12 +20,12 @@ import pages.QuestionPage
 
 trait StatusUtil {
 
-  val commonPages: Seq[QuestionPage[_]] = Seq.empty
+  val commonPages: Seq[QuestionPage[?]] = Seq.empty
 
   def updateAvailablePages(
     condition: Boolean,
-    addIfTrue: Seq[QuestionPage[_]],
-    elseAdd: Seq[QuestionPage[_]] = Seq.empty
-  ): Seq[QuestionPage[_]] =
+    addIfTrue: Seq[QuestionPage[?]],
+    elseAdd: Seq[QuestionPage[?]] = Seq.empty
+  ): Seq[QuestionPage[?]] =
     if (condition) commonPages ++ addIfTrue else commonPages ++ elseAdd
 }

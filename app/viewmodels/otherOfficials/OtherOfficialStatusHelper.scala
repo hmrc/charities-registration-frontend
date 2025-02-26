@@ -27,7 +27,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
 
   implicit val sectionPage: QuestionPage[Boolean] = Section8Page
 
-  private def journeyCommon(index: Int): Seq[QuestionPage[_]] = Seq(
+  private def journeyCommon(index: Int): Seq[QuestionPage[?]] = Seq(
     OtherOfficialsNamePage(index),
     OtherOfficialsDOBPage(index),
     OtherOfficialsPhoneNumberPage(index),
@@ -37,22 +37,21 @@ object OtherOfficialStatusHelper extends StatusHelper {
     IsOtherOfficialsPreviousAddressPage(index)
   )
 
-  private def remainingJourneyPages(index: Int): Seq[QuestionPage[_]] = Seq(
+  private def remainingJourneyPages(index: Int): Seq[QuestionPage[?]] = Seq(
     OtherOfficialsNinoPage(index),
     OtherOfficialsPassportPage(index),
     OtherOfficialPreviousAddressLookupPage(index)
   )
 
-  private val otherOfficial1common: Seq[QuestionPage[_]] = journeyCommon(0)
+  private val otherOfficial1common: Seq[QuestionPage[?]] = journeyCommon(0)
 
-  private val otherOfficial2common: Seq[QuestionPage[_]] = journeyCommon(1) ++ Seq(IsAddAnotherOtherOfficialPage)
+  private val otherOfficial2common: Seq[QuestionPage[?]] = journeyCommon(1) ++ Seq(IsAddAnotherOtherOfficialPage)
 
-  private val otherOfficial3common: Seq[QuestionPage[_]] = journeyCommon(2)
+  private val otherOfficial3common: Seq[QuestionPage[?]] = journeyCommon(2)
 
-  private val allPages: Seq[QuestionPage[_]] = {
+  private val allPages: Seq[QuestionPage[?]] =
     otherOfficial1common ++ otherOfficial2common ++ otherOfficial3common ++
       remainingJourneyPages(0) ++ remainingJourneyPages(1) ++ remainingJourneyPages(2)
-  }
 
   private def officialsTitleIsLegal(userAnswers: UserAnswers, index: Int): Boolean =
     userAnswers.get(OtherOfficialsNamePage(index)) match {
@@ -68,7 +67,7 @@ object OtherOfficialStatusHelper extends StatusHelper {
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[?]]): Boolean =
       userAnswers.unneededPagesNotPresent(list, allPages)
 
     (

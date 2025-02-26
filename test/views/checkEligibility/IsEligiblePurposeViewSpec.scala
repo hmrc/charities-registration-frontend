@@ -60,6 +60,6 @@ class IsEligiblePurposeViewSpec extends YesNoViewBehaviours {
       (".f", viewViaF(form), viewViaF)
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
   }
 }

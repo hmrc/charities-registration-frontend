@@ -23,11 +23,11 @@ import pages.sections.Section7Page
 
 package object viewmodels {
 
-  implicit class OfficialStatus(override val commonPages: Seq[QuestionPage[_]])(implicit
+  implicit class OfficialStatus(override val commonPages: Seq[QuestionPage[?]])(implicit
     sectionPage: QuestionPage[Boolean]
   ) extends StatusUtil {
 
-    private def equivalentPages(index: Int): Map[String, (QuestionPage[_], QuestionPage[_])] = Map(
+    private def equivalentPages(index: Int): Map[String, (QuestionPage[?], QuestionPage[?])] = Map(
       ("nino", (AuthorisedOfficialsNinoPage(index), OtherOfficialsNinoPage(index))),
       ("passport", (AuthorisedOfficialsPassportPage(index), OtherOfficialsPassportPage(index))),
       (
@@ -36,7 +36,7 @@ package object viewmodels {
       )
     )
 
-    private def getPage(section: QuestionPage[Boolean], page: String, index: Int): Seq[QuestionPage[_]] = Seq(
+    private def getPage(section: QuestionPage[Boolean], page: String, index: Int): Seq[QuestionPage[?]] = Seq(
       if (section == Section7Page) {
         equivalentPages(index)(page)._1
       } else {
@@ -44,14 +44,14 @@ package object viewmodels {
       }
     )
 
-    def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[_]] = (isPreviousAddress: Boolean, index: Int) =>
+    def previousAddressEntry: (Boolean, Int) => Seq[QuestionPage[?]] = (isPreviousAddress: Boolean, index: Int) =>
       updateAvailablePages(
         isPreviousAddress,
         getPage(sectionPage, "previousAddress", index)
       )
 
-    def indexedOfficialStartOfJourney: (Int, Boolean, Seq[QuestionPage[_]]) => Seq[QuestionPage[_]] =
-      (index: Int, isNino: Boolean, commonPages: Seq[QuestionPage[_]]) =>
+    def indexedOfficialStartOfJourney: (Int, Boolean, Seq[QuestionPage[?]]) => Seq[QuestionPage[?]] =
+      (index: Int, isNino: Boolean, commonPages: Seq[QuestionPage[?]]) =>
         updateAvailablePages(
           isNino,
           commonPages ++ getPage(sectionPage, "nino", index),
@@ -62,21 +62,21 @@ package object viewmodels {
       index: Int,
       isNino: Boolean,
       isPreviousAddress: Boolean,
-      previousPages: Seq[QuestionPage[_]] = Seq.empty
-    ): Seq[QuestionPage[_]] =
+      previousPages: Seq[QuestionPage[?]] = Seq.empty
+    ): Seq[QuestionPage[?]] =
       commonPages
         .indexedOfficialStartOfJourney(index, isNino, previousPages)
         .previousAddressEntry(isPreviousAddress, index)
 
   }
 
-  implicit class NomineeStatus(override val commonPages: Seq[QuestionPage[_]]) extends StatusUtil {
+  implicit class NomineeStatus(override val commonPages: Seq[QuestionPage[?]]) extends StatusUtil {
 
     def getIndividualNomineePages(
       isNino: Boolean,
       isPreviousAddress: Boolean,
       isPayment: Boolean
-    ): Seq[QuestionPage[_]] =
+    ): Seq[QuestionPage[?]] =
       commonPages
         .updateAvailablePages(isNino, Seq(IndividualNomineesNinoPage), Seq(IndividualNomineesPassportPage))
         .updateAvailablePages(isPreviousAddress, Seq(NomineeIndividualPreviousAddressLookupPage))
@@ -86,7 +86,7 @@ package object viewmodels {
       isNino: Boolean,
       isPreviousAddress: Boolean,
       isPayment: Boolean
-    ): Seq[QuestionPage[_]] =
+    ): Seq[QuestionPage[?]] =
       commonPages
         .updateAvailablePages(
           isNino,

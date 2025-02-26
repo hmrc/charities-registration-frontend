@@ -76,7 +76,7 @@ trait SpecBase
   implicit val errorHandler: ErrorHandler           = injector.instanceOf[ErrorHandler]
   implicit val hc: HeaderCarrier                    = HeaderCarrier()
 
-  //with session id
+  // with session id
   lazy val fakeSessionId                                        = "this must be 50 chars long and so on and so forth!"
   lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type]     = FakeRequest("", "")
     .withSession(SessionKeys.sessionId -> fakeSessionId)
@@ -84,14 +84,14 @@ trait SpecBase
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
   lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
-  //without session id
+  // without session id
   lazy val fakeRequestNoSessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "").withCSRFToken
     .asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
 
   lazy val fakeDataRequestNoSessionId: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequestNoSessionId, internalId, emptyUserAnswers)
 
-  //with empty session id
+  // with empty session id
   lazy val fakeRequestEmptySessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
     .withSession(SessionKeys.sessionId -> "")
     .withCSRFToken
@@ -100,7 +100,7 @@ trait SpecBase
   lazy val fakeDataRequestEmptySessionId: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequestEmptySessionId, internalId, emptyUserAnswers)
 
-  //with less length than required session id
+  // with less length than required session id
   lazy val fakeRequestShortSessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
     .withSession(SessionKeys.sessionId -> "short id here not 50 chars")
     .withCSRFToken
@@ -109,7 +109,7 @@ trait SpecBase
   lazy val fakeDataRequestShortSessionId: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequestShortSessionId, internalId, emptyUserAnswers)
 
-  //with more length than required session id
+  // with more length than required session id
   lazy val fakeRequestTooLongSessionId: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
     .withSession(SessionKeys.sessionId -> "short id here not 50 chars" * 10)
     .withCSRFToken

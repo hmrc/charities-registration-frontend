@@ -39,7 +39,7 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "set userAnswers to 'None' in the request" in {
 
         val userAnswerService = mock(classOf[UserAnswerService])
-        when(userAnswerService.get(any())(any(), any())) thenReturn Future(None)
+        when(userAnswerService.get(any())(any(), any())) `thenReturn` Future(None)
         val action            = new Harness(userAnswerService)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))
@@ -55,7 +55,7 @@ class UserDataRetrievalActionSpec extends SpecBase with ScalaFutures {
       "build a userAnswers object and add it to the request" in {
 
         val userAnswerService = mock(classOf[UserAnswerService])
-        when(userAnswerService.get(any())(any(), any())) thenReturn Future(Some(UserAnswers("id")))
+        when(userAnswerService.get(any())(any(), any())) `thenReturn` Future(Some(UserAnswers("id")))
         val action            = new Harness(userAnswerService)
 
         val futureResult = action.callTransform(IdentifierRequest(fakeRequest, "id"))

@@ -36,35 +36,35 @@ class OtherOfficialsNavigator extends BaseNavigator {
   override val normalRoutes: Page => UserAnswers => Call = {
 
     case OtherOfficialsNamePage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsNamePage(index)) match {
           case Some(_) => otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsDOBPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsDOBPage(index)) match {
           case Some(_) => otherOfficialRoutes.OtherOfficialsPhoneNumberController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsPhoneNumberPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
           case Some(_) => otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsPositionPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsPositionPage(index)) match {
           case Some(_) => otherOfficialRoutes.IsOtherOfficialNinoController.onPageLoad(NormalMode, index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOtherOfficialNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOtherOfficialNinoPage(index)) match {
           case Some(true)  => otherOfficialRoutes.OtherOfficialsNinoController.onPageLoad(NormalMode, index)
           case Some(false) => otherOfficialRoutes.OtherOfficialsPassportController.onPageLoad(NormalMode, index)
@@ -72,7 +72,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case OtherOfficialsPassportPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsPassportPage(index)) match {
           case Some(_) =>
             userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
@@ -85,7 +85,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case OtherOfficialsNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsNinoPage(index)) match {
           case Some(_) =>
             userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
@@ -96,7 +96,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case OtherOfficialAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, index)
@@ -107,7 +107,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case IsOtherOfficialsPreviousAddressPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
           case Some(true) if userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)).isDefined =>
             otherOfficialRoutes.ConfirmOtherOfficialsPreviousAddressController.onPageLoad(index)
@@ -120,7 +120,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case OtherOfficialPreviousAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, index)
@@ -132,7 +132,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
       _ => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
 
     case OtherOfficialsSummaryPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsAddAnotherOtherOfficialPage) match {
           case Some(_)
               if userAnswers.get(Section8Page).contains(true).||(userAnswers.get(OtherOfficialsId(2)).nonEmpty) =>
@@ -146,7 +146,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case RemoveOtherOfficialsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsId(0)) match {
           case Some(_)                               => otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
           case _ if userAnswers.data.fields.nonEmpty => otherOfficialRoutes.CharityOtherOfficialsController.onPageLoad()
@@ -158,35 +158,35 @@ class OtherOfficialsNavigator extends BaseNavigator {
 
   override val checkRouteMap: Page => UserAnswers => Call = {
     case OtherOfficialsNamePage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsNamePage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsDOBPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsDOBPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsPhoneNumberPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsPhoneNumberPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsPositionPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsPositionPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case IsOtherOfficialNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOtherOfficialNinoPage(index)) match {
           case Some(true) if userAnswers.get(OtherOfficialsNinoPage(index)).isDefined      =>
             redirectToPlaybackPage(index)
@@ -201,21 +201,21 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case OtherOfficialsNinoPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsNinoPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialsPassportPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialsPassportPage(index)) match {
           case Some(_) => redirectToPlaybackPage(index)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case OtherOfficialAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(CheckMode, index)
@@ -226,7 +226,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case IsOtherOfficialsPreviousAddressPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(IsOtherOfficialsPreviousAddressPage(index)) match {
           case Some(true) if userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)).isDefined =>
             redirectToPlaybackPage(index)
@@ -239,7 +239,7 @@ class OtherOfficialsNavigator extends BaseNavigator {
         }
 
     case OtherOfficialPreviousAddressLookupPage(index) =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(OtherOfficialPreviousAddressLookupPage(index)) match {
           case Some(address) if isNotValidAddress(address) =>
             otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, index)

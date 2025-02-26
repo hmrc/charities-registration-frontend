@@ -22,7 +22,6 @@
     govukLayout: templates.GovukLayoutWrapper,
     govukSummaryList: GovukSummaryList,
     h1: components.h1,
-    subheading: components.subheading,
     button: components.button,
     p: components.p,
     formHelper: FormWithCSRF,
@@ -31,7 +30,7 @@
     summaryYesNo: components.summaryYesNo
 )
 
-@(form: Form[_], mode: Mode, answers: Seq[SummaryListRow])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(form: Form[_], mode: Mode, answers: Seq[SummaryListRow])(implicit request: Request[?], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "overseasOperatingLocationSummary.checkYourAnswers.title",Some("operationsAndFunds.section")))) {
 
@@ -41,7 +40,7 @@
 
     @govukSummaryList(SummaryList(answers))
 
-    @formHelper(action = controllers.operationsAndFunds.routes.OverseasOperatingLocationSummaryController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = controllers.operationsAndFunds.routes.OverseasOperatingLocationSummaryController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
         @if(answers.length < 5) {
 

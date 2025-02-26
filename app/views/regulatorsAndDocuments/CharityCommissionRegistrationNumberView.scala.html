@@ -24,11 +24,10 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    inputText: components.inputText,
-    subheading: components.subheading
+    inputText: components.inputText
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "charityCommissionRegistrationNumber.title",Some("charityRegulator.section")))) {
 

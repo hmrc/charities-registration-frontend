@@ -61,7 +61,7 @@
     ),
     hint = hintText.map(hint => Hint(content = Text(messages(hint)))),
     errorMessage = hierarchyErrors(id, form, Seq("day", "month"))
-            .fold(form.errors.find(_.key.isEmpty))(err => Some(err)).map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args:_*))))
+            .fold(form.errors.find(_.key.isEmpty))(err => Some(err)).map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args*))))
 ))
 
     @hierarchyErrors(id: String, form: Form[_], appended: Seq[String]) = @{

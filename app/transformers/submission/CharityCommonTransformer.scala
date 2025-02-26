@@ -29,7 +29,7 @@ class CharityCommonTransformer extends JsonTransformer {
   private val sessionIdLength = 50
   private def newUUID: String = UUID.randomUUID.toString // will be 36 chars long
 
-  private def getSessionId(implicit request: DataRequest[_]): String = {
+  private def getSessionId(implicit request: DataRequest[?]): String = {
     val veryLongUuid = "-" + newUUID + "-" + newUUID + "-" + newUUID
     val reqSessionId = request.session.data.getOrElse(SessionKeys.sessionId, newUUID)
     val sessionId    = if (reqSessionId.length < sessionIdLength) {
@@ -42,7 +42,7 @@ class CharityCommonTransformer extends JsonTransformer {
 
   val localPath: JsPath = __ \ "charityRegistration" \ "common"
 
-  def userAnswersToAdmin(implicit request: DataRequest[_]): Reads[JsObject] =
+  def userAnswersToAdmin(implicit request: DataRequest[?]): Reads[JsObject] =
     ((localPath \ "admin" \ "applicationDate").json.put(JsString("1970-01-01")) and
       (localPath \ "admin" \ "welshIndicator").json.put(JsBoolean(false)) and
       (localPath \ "admin" \ "credentialID").json.put(JsString(s"/newauth/credentialId/${request.internalId}")) and
@@ -122,7 +122,7 @@ class CharityCommonTransformer extends JsonTransformer {
       (localPath \ "declarationInfo" \ "declaration").json.put(JsBoolean(true))).reduce
   }
 
-  def userAnswersToCommon(implicit request: DataRequest[_]): Reads[JsObject] =
+  def userAnswersToCommon(implicit request: DataRequest[?]): Reads[JsObject] =
     (userAnswersToAdmin and userAnswersToOrganisation and userAnswersToAddressDetailsCommon and
       userAnswersToBankDetails and userAnswersToIndDeclarationInfo).reduce
 

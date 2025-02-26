@@ -27,28 +27,28 @@ class EligibilityNavigator extends BaseNavigator {
 
   override val normalRoutes: Page => UserAnswers => Call = {
     case IsEligiblePurposePage       =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         navigate(
           userAnswers.get(IsEligiblePurposePage),
           elroutes.IsEligibleAccountController.onPageLoad(),
           elroutes.InEligibleCharitablePurposesController.onPageLoad()
         )
     case IsEligibleAccountPage       =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         navigate(
           userAnswers.get(IsEligibleAccountPage),
           elroutes.IsEligibleLocationController.onPageLoad(),
           elroutes.InEligibleBankController.onPageLoad()
         )
     case IsEligibleLocationPage      =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         navigate(
           userAnswers.get(IsEligibleLocationPage),
           elroutes.EligibleCharityController.onPageLoad(),
           elroutes.IsEligibleLocationOtherController.onPageLoad()
         )
     case IsEligibleLocationOtherPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         navigate(
           userAnswers.get(IsEligibleLocationOtherPage),
           elroutes.EligibleCharityController.onPageLoad(),

@@ -41,13 +41,13 @@
   maxLength,
   classes = classes.fold("")(x => x),
   label = Label(
-    content = Text(messages(label, headingMessageArgs:_*)),
+    content = Text(messages(label, headingMessageArgs*)),
     isPageHeading = isPageHeading,
     classes = if(isPageHeading) "govuk-label--xl"
   ),
   hint = hint.map(hintHtml => Hint(
       content = HtmlContent(hintHtml)
   )),
-  errorMessage = form(name).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args:_*))))
+  errorMessage = form(name).error.map(err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(err.message, err.args*))))
 ))
 

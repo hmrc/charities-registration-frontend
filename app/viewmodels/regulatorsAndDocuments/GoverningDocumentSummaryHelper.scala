@@ -17,12 +17,12 @@
 package viewmodels.regulatorsAndDocuments
 
 import controllers.regulatorsAndDocuments.{routes => documentsRoutes}
-import models.{CheckMode, UserAnswers}
 import pages.regulatorsAndDocuments._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
+import models._
 
 class GoverningDocumentSummaryHelper(override val userAnswers: UserAnswers)(implicit val messages: Messages)
     extends ImplicitDateFormatter

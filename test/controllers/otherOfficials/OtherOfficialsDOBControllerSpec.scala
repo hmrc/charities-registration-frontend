@@ -95,7 +95,7 @@ class OtherOfficialsDOBControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs: _*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

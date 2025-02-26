@@ -39,7 +39,8 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
   private val exitSurveyHost: String = servicesConfig.getString("feedback-frontend.host")
 
-  lazy val userAnswersTimeToLive: Int = servicesConfig.getInt("mongodb.user-eligibility-answers.timeToLiveInSeconds")
+  lazy val userAnswersTimeToLive: Long =
+    servicesConfig.getInt("mongodb.user-eligibility-answers.timeToLiveInSeconds").toLong
 
   def exitSurveyUrl: String = s"$exitSurveyHost/feedback/CHARITIES"
 
@@ -57,7 +58,7 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   lazy val addressLookupFrontend: String = servicesConfig.baseUrl("address-lookup-frontend")
   lazy val retrieveAddressUrl: String    = addressLookupFrontend + "/api/v2/confirmed"
 
-  //Footer Links
+  // Footer Links
   lazy val cookies: String                = host + servicesConfig.getString("urls.footer.cookies")
   lazy val privacy: String                = host + servicesConfig.getString("urls.footer.privacy")
   lazy val termsConditions: String        = host + servicesConfig.getString("urls.footer.termsConditions")

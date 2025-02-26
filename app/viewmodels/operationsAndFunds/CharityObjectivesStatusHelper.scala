@@ -23,7 +23,7 @@ import viewmodels.StatusHelper
 
 object CharityObjectivesStatusHelper extends StatusHelper {
 
-  private val allPages: Seq[QuestionPage[_]] = Seq(
+  private val allPages: Seq[QuestionPage[?]] = Seq(
     CharitableObjectivesPage,
     CharitablePurposesPage,
     PublicBenefitsPage

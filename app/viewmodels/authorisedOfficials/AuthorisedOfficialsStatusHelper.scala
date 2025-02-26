@@ -27,7 +27,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
 
   implicit val sectionPage: QuestionPage[Boolean] = Section7Page
 
-  private def journeyCommon(index: Int): Seq[QuestionPage[_]] =
+  private def journeyCommon(index: Int): Seq[QuestionPage[?]] =
     Seq(
       AuthorisedOfficialsNamePage(index),
       AuthorisedOfficialsDOBPage(index),
@@ -38,22 +38,21 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
       IsAuthorisedOfficialPreviousAddressPage(index)
     )
 
-  private def remainingJourneyPages(index: Int): Seq[QuestionPage[_]] =
+  private def remainingJourneyPages(index: Int): Seq[QuestionPage[?]] =
     Seq(
       AuthorisedOfficialsNinoPage(index),
       AuthorisedOfficialsPassportPage(index),
       AuthorisedOfficialPreviousAddressLookupPage(index)
     )
 
-  private val authorisedOfficial1common: Seq[QuestionPage[_]] =
+  private val authorisedOfficial1common: Seq[QuestionPage[?]] =
     journeyCommon(0) ++ Seq(IsAddAnotherAuthorisedOfficialPage)
 
-  private val authorisedOfficial2common: Seq[QuestionPage[_]] = journeyCommon(1)
+  private val authorisedOfficial2common: Seq[QuestionPage[?]] = journeyCommon(1)
 
-  private val allPages: Seq[QuestionPage[_]] = {
+  private val allPages: Seq[QuestionPage[?]] =
     authorisedOfficial1common ++ authorisedOfficial2common ++
       remainingJourneyPages(0) ++ remainingJourneyPages(1)
-  }
 
   private def officialsTitleIsLegal(userAnswers: UserAnswers, index: Int): Boolean =
     userAnswers.get(AuthorisedOfficialsNamePage(index)) match {
@@ -69,7 +68,7 @@ object AuthorisedOfficialsStatusHelper extends StatusHelper {
 
   override def checkComplete(userAnswers: UserAnswers): Boolean = {
 
-    def noAdditionalPagesDefined(list: Seq[QuestionPage[_]]): Boolean =
+    def noAdditionalPagesDefined(list: Seq[QuestionPage[?]]): Boolean =
       userAnswers.unneededPagesNotPresent(list, allPages)
 
     (

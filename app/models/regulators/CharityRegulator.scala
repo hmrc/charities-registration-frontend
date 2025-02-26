@@ -18,9 +18,10 @@ package models.regulators
 
 import models.{Enumerable, WithName, WithOrder}
 import pages.QuestionPage
-import pages.regulatorsAndDocuments._
+import pages.regulatorsAndDocuments.*
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
@@ -48,14 +49,14 @@ object CharityRegulator extends Enumerable.Implicits {
     Other
   )
 
-  val pageMap: Map[CharityRegulator, QuestionPage[_]] = Map(
+  val pageMap: Map[CharityRegulator, QuestionPage[?]] = Map(
     EnglandWales    -> CharityCommissionRegistrationNumberPage,
     Scottish        -> ScottishRegulatorRegNumberPage,
     NorthernIreland -> NIRegulatorRegNumberPage,
     Other           -> CharityOtherRegulatorDetailsPage
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
+  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
@@ -68,6 +69,17 @@ object CharityRegulator extends Enumerable.Implicits {
   }
 
   implicit val enumerable: Enumerable[CharityRegulator] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v)*)
+
+  implicit def reads: Reads[CharityRegulator] = Reads[CharityRegulator] {
+    case JsString(EnglandWales.toString)    => JsSuccess(EnglandWales)
+    case JsString(Scottish.toString)        => JsSuccess(Scottish)
+    case JsString(NorthernIreland.toString) => JsSuccess(NorthernIreland)
+    case JsString(Other.toString)           => JsSuccess(Other)
+    case _                                  => JsError("error.invalid")
+  }
+
+  implicit def writes: Writes[CharityRegulator] =
+    Writes(value => JsString(value.toString))
 
 }

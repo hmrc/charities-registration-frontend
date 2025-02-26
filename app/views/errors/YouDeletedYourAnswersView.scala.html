@@ -23,7 +23,7 @@
     link: components.linkAsButton
 )
 
-@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@()(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(Some(titleNoForm("you_deleted_answers.title")), signOut = false, timeout = false) {
 

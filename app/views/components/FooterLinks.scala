@@ -50,7 +50,7 @@ object FooterLinks {
   def accessibilityLink(implicit messages: Messages, appConfig: FrontendAppConfig, request: RequestHeader): FooterItem =
     FooterItem(
       Some(messages("footer.accessibility")),
-      Some(appConfig.accessibilityStatementFrontendUrl)
+      Some(appConfig.accessibilityStatementFrontendUrl())
     )
 
   def items(implicit messages: Messages, appConfig: FrontendAppConfig, request: RequestHeader): Seq[FooterItem] = Seq(

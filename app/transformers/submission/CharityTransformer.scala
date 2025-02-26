@@ -273,13 +273,14 @@ class CharityTransformer extends JsonTransformer {
     ).reduce
 
   def userAnswersToOrgPurpose: Reads[JsObject] = (__ \ "orgPurpose").json.copyFrom(
-    (userAnswersToCharitableObjectives and userAnswersToCharitablePurposes and userAnswersToPublicBenefit).reduce
+    (userAnswersToCharitableObjectives and userAnswersToCharitablePurposes and userAnswersToPublicBenefit)
+      .reduce[JsObject, JsObject]
   )
 
   def userAnswersToCharity: Reads[JsObject] = (__ \ "charityRegistration" \ "charity").json.copyFrom(
     (
       userAnswersToCharityOrganisation and userAnswersToAboutOrganisation and
         userAnswersToOperationAndFunds and userAnswersToOrgPurpose
-    ).reduce
+    ).reduce[JsObject, JsObject]
   )
 }

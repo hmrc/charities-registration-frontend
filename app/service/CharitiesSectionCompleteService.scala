@@ -75,7 +75,7 @@ class CharitiesSectionCompleteService @Inject() (
       case _       => userAnswers.remove(Section8Page)
     }
 
-  def checkForValidApplicationJourney(request: OptionalDataRequest[_], lastSessionId: Option[String])(implicit
+  def checkForValidApplicationJourney(request: OptionalDataRequest[?], lastSessionId: Option[String])(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext,
     rh: RequestHeader
@@ -101,7 +101,7 @@ class CharitiesSectionCompleteService @Inject() (
           case Some(_) =>
             val userAnswers = UserAnswers(request.internalId)
             logger.warn(s"[CharitiesSectionCompleteService][checkForValidApplicationJourney]: ${AuditTypes.NewUser}")
-            auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser))
+            auditService.sendEvent(NormalUserAuditEvent(Json.obj("id" -> userAnswers.id), AuditTypes.NewUser.toString))
             userAnswerService.set(userAnswers).map(_ => Right(userAnswers))
         }
       case _                       =>

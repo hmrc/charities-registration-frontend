@@ -55,6 +55,6 @@ class DeadEndViewSpec extends ViewBehaviours {
       (".f", viewViaF)
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
   }
 }

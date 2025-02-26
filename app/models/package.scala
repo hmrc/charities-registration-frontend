@@ -94,14 +94,14 @@ package object models {
     private def removeIndexNode(node: IdxPathNode, valueToRemoveFrom: JsArray): JsResult[JsValue] = {
       val index: Int = node.idx
 
-      valueToRemoveFrom match {
-        case valueToRemoveFrom: JsArray if index >= 0 && index < valueToRemoveFrom.value.length =>
-          val updatedJsArray = valueToRemoveFrom.value.slice(0, index) ++ valueToRemoveFrom.value
-            .slice(index + 1, valueToRemoveFrom.value.size)
+      Option(valueToRemoveFrom) match {
+        case Some(valueToRemove) if index >= 0 && index < valueToRemove.value.length =>
+          val updatedJsArray = valueToRemove.value.slice(0, index) ++ valueToRemove.value
+            .slice(index + 1, valueToRemove.value.size)
           JsSuccess(JsArray(updatedJsArray))
-        case valueToRemoveFrom: JsArray                                                         =>
-          JsError(s"array index out of bounds: $index, $valueToRemoveFrom")
-        case _                                                                                  =>
+        case Some(valueToRemove)                                                     =>
+          JsError(s"array index out of bounds: $index, $valueToRemove")
+        case None                                                                    =>
           JsError(s"cannot set an index on $valueToRemoveFrom")
       }
     }
@@ -134,7 +134,7 @@ package object models {
           Reads
             .optionNoError(Reads.at[JsValue](JsPath(first :: Nil)))
             .reads(oldValue)
-            .flatMap { opt: Option[JsValue] =>
+            .flatMap { (opt: Option[JsValue]) =>
               opt
                 .map(JsSuccess(_))
                 .getOrElse {

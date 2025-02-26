@@ -29,21 +29,22 @@ class DocumentsNavigator extends BaseNavigator {
   override val normalRoutes: Page => UserAnswers => Call = {
 
     case SelectGoverningDocumentPage =>
-      userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, NormalMode)
+      (userAnswers: UserAnswers) => selectGoverningDocumentPagePageNav(userAnswers, NormalMode)
 
-    case GoverningDocumentNamePage => userAnswers: UserAnswers => governingDocumentNamePageNav(userAnswers, NormalMode)
+    case GoverningDocumentNamePage =>
+      (userAnswers: UserAnswers) => governingDocumentNamePageNav(userAnswers, NormalMode)
 
     case WhenGoverningDocumentApprovedPage =>
-      userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, NormalMode)
+      (userAnswers: UserAnswers) => whenGoverningDocumentApprovedPageNav(userAnswers, NormalMode)
 
     case IsApprovedGoverningDocumentPage =>
-      userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
+      (userAnswers: UserAnswers) => isApprovedGoverningDocumentPageNav(userAnswers, NormalMode)
 
     case HasCharityChangedPartsOfGoverningDocumentPage =>
-      userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, NormalMode)
+      (userAnswers: UserAnswers) => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, NormalMode)
 
     case SectionsChangedGoverningDocumentPage =>
-      userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, NormalMode)
+      (userAnswers: UserAnswers) => sectionsChangedGoverningDocumentPageNav(userAnswers, NormalMode)
 
     case GoverningDocumentSummaryPage => _ => routes.IndexController.onPageLoad(None)
 
@@ -53,21 +54,21 @@ class DocumentsNavigator extends BaseNavigator {
   override val checkRouteMap: Page => UserAnswers => Call = {
 
     case SelectGoverningDocumentPage =>
-      userAnswers: UserAnswers => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
+      (userAnswers: UserAnswers) => selectGoverningDocumentPagePageNav(userAnswers, CheckMode)
 
-    case GoverningDocumentNamePage => userAnswers: UserAnswers => governingDocumentNamePageNav(userAnswers, CheckMode)
+    case GoverningDocumentNamePage => (userAnswers: UserAnswers) => governingDocumentNamePageNav(userAnswers, CheckMode)
 
     case WhenGoverningDocumentApprovedPage =>
-      userAnswers: UserAnswers => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
+      (userAnswers: UserAnswers) => whenGoverningDocumentApprovedPageNav(userAnswers, CheckMode)
 
     case IsApprovedGoverningDocumentPage =>
-      userAnswers: UserAnswers => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
+      (userAnswers: UserAnswers) => isApprovedGoverningDocumentPageNav(userAnswers, CheckMode)
 
     case HasCharityChangedPartsOfGoverningDocumentPage =>
-      userAnswers: UserAnswers => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, CheckMode)
+      (userAnswers: UserAnswers) => hasCharityChangedPartsOfGoverningDocumentPageNav(userAnswers, CheckMode)
 
     case SectionsChangedGoverningDocumentPage =>
-      userAnswers: UserAnswers => sectionsChangedGoverningDocumentPageNav(userAnswers, CheckMode)
+      (userAnswers: UserAnswers) => sectionsChangedGoverningDocumentPageNav(userAnswers, CheckMode)
 
     case _ => _ => routes.IndexController.onPageLoad(None)
 

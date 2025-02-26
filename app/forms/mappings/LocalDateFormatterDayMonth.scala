@@ -28,7 +28,7 @@ private[mappings] class LocalDateFormatterDayMonth(
   requiredKey: String,
   nonNumericKey: String,
   leapYearKey: String,
-  args: Seq[String] = Seq.empty
+  args: Seq[String]
 ) extends Formatter[MonthDay]
     with GenericDateFormatter {
 

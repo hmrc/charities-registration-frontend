@@ -16,14 +16,26 @@
 
 package service
 
+import audit.AuditService
 import base.SpecBase
 import models.UserAnswers
-import pages.sections.Section1Page
-import play.api.libs.json._
+import org.mockito.Mockito.{mock, reset}
+import org.scalatest.BeforeAndAfterEach
+import pages.sections.{Section1Page, Section7Page, Section8Page}
+import play.api.libs.json.*
 
-class CharitiesSectionCompleteServiceSpec extends SpecBase {
+class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEach {
 
-  lazy val service: CharitiesSectionCompleteService = inject[CharitiesSectionCompleteService]
+  implicit val mockAuditService: AuditService = mock(classOf[AuditService])
+
+  lazy val service: CharitiesSectionCompleteService =
+    CharitiesSectionCompleteService(mockSessionRepository, mockUserAnswerService, mockAuditService)
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+
+    reset(mockAuditService)
+  }
 
   "CharitiesSectionCompleteService" when {
 
@@ -73,10 +85,31 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase {
         val ua: UserAnswers =
           UserAnswers("8799940975137654", data ++ Json.obj("canWeSendLettersToThisAddress" -> false))
 
-        val result          = service.isCharityInformationStatusSectionCompleted(ua)
+        val result = service.isCharityInformationStatusSectionCompleted(ua)
 
         result.get.get(Section1Page) mustBe Some(true)
       }
     }
+
+    "isAuthorisedOfficialsSectionCompleted" must {
+      "remove Section7Page when AuthorisedOfficialsNamePage(0) is not present" in {
+        val ua = UserAnswers("id")
+
+        val result = service.isAuthorisedOfficialsSectionCompleted(ua)
+
+        result.get.get(Section7Page) mustBe None
+      }
+    }
+
+    "isOtherOfficialStatusSectionCompleted" must {
+      "remove Section8Page when OtherOfficialsNamePage(0) is not present" in {
+        val ua = UserAnswers("id")
+
+        val result = service.isOtherOfficialStatusSectionCompleted(ua)
+
+        result.get.get(Section8Page) mustBe None
+      }
+    }
+
   }
 }

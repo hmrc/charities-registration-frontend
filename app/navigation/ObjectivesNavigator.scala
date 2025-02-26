@@ -28,21 +28,21 @@ class ObjectivesNavigator extends BaseNavigator {
   override val normalRoutes: Page => UserAnswers => Call = {
 
     case CharitableObjectivesPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharitableObjectivesPage) match {
           case Some(_) => operations.CharitablePurposesController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case CharitablePurposesPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharitablePurposesPage) match {
           case Some(_) => operations.PublicBenefitsController.onPageLoad(NormalMode)
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case PublicBenefitsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(PublicBenefitsPage) match {
           case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
@@ -54,21 +54,21 @@ class ObjectivesNavigator extends BaseNavigator {
   override val checkRouteMap: Page => UserAnswers => Call = {
 
     case CharitableObjectivesPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharitableObjectivesPage) match {
           case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case CharitablePurposesPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(CharitablePurposesPage) match {
           case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()
         }
 
     case PublicBenefitsPage =>
-      userAnswers: UserAnswers =>
+      (userAnswers: UserAnswers) =>
         userAnswers.get(PublicBenefitsPage) match {
           case Some(_) => operations.CharityObjectivesSummaryController.onPageLoad()
           case _       => routes.PageNotFoundController.onPageLoad()

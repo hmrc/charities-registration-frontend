@@ -32,13 +32,13 @@ class IsApprovedGoverningDocumentViewSpec extends YesNoViewBehaviours {
 
   private val view: IsApprovedGoverningDocumentView = viewFor[IsApprovedGoverningDocumentView](Some(emptyUserAnswers))
 
-  private def viewViaApply(form: Form[_]): HtmlFormat.Appendable =
+  private def viewViaApply(form: Form[?]): HtmlFormat.Appendable =
     view.apply(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
 
-  private def viewViaRender(form: Form[_]): HtmlFormat.Appendable =
+  private def viewViaRender(form: Form[?]): HtmlFormat.Appendable =
     view.render(form, NormalMode, "4", fakeRequest, messages, frontendAppConfig)
 
-  private def viewViaF(form: Form[_]): HtmlFormat.Appendable =
+  private def viewViaF(form: Form[?]): HtmlFormat.Appendable =
     view.f(form, NormalMode, "4")(fakeRequest, messages, frontendAppConfig)
 
   "IsApprovedGoverningDocumentView" when {
@@ -61,6 +61,6 @@ class IsApprovedGoverningDocumentViewSpec extends YesNoViewBehaviours {
       (".f", viewViaF(form), viewViaF)
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
   }
 }

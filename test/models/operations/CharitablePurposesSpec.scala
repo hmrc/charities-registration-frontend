@@ -54,7 +54,7 @@ class CharitablePurposesSpec extends AnyWordSpec with Matchers with ScalaCheckPr
       val gen = Gen.oneOf(CharitablePurposes.values)
 
       forAll(gen) { charitablePurposesCheckbox =>
-        Json.toJson(charitablePurposesCheckbox) mustEqual JsString(charitablePurposesCheckbox.toString)
+        Json.toJson(charitablePurposesCheckbox) mustBe JsString(charitablePurposesCheckbox.toString)
       }
     }
 

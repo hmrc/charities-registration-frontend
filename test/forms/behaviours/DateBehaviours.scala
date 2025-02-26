@@ -24,9 +24,9 @@ import play.api.data.{Form, FormError}
 
 class DateBehaviours extends FieldBehaviours {
 
-  private val (day, year): (Long, Long) = (1, 10)
+  private val (day, year): (Long, Long) = (1L, 10L)
 
-  def dateField(form: Form[_], key: String, validData: Gen[LocalDate]): Unit =
+  def dateField(form: Form[?], key: String, validData: Gen[LocalDate]): Unit =
     forAll(validData -> "valid date") { date =>
       s"bind valid data for $date" in {
         val data = Map(
@@ -40,7 +40,7 @@ class DateBehaviours extends FieldBehaviours {
       }
     }
 
-  def dateFieldIgnoreSpaces(form: Form[_], key: String, validData: Gen[LocalDate]): Unit =
+  def dateFieldIgnoreSpaces(form: Form[?], key: String, validData: Gen[LocalDate]): Unit =
     forAll(validData -> "valid date") { date =>
       s"bind valid data while ignoring spaces for $date" in {
         val data = Map(
@@ -54,7 +54,7 @@ class DateBehaviours extends FieldBehaviours {
       }
     }
 
-  def dayMonthField(form: Form[_], key: String, validData: Gen[LocalDate]): Unit =
+  def dayMonthField(form: Form[?], key: String, validData: Gen[LocalDate]): Unit =
     forAll(validData -> "valid date") { date =>
       s"bind valid data for $date" in {
         val data = Map(
@@ -67,7 +67,7 @@ class DateBehaviours extends FieldBehaviours {
       }
     }
 
-  def dayMonthFieldFailOn29Feb(form: Form[_], key: String, formError: FormError): Unit =
+  def dayMonthFieldFailOn29Feb(form: Form[?], key: String, formError: FormError): Unit =
     s"not bind valid data for 29/02/2000" in {
       val data = Map(
         s"$key.day"   -> "29",
@@ -78,7 +78,7 @@ class DateBehaviours extends FieldBehaviours {
       result.errors must contain only formError
     }
 
-  def dateFieldWithMax(form: Form[_], key: String, max: LocalDate, formError: FormError): Unit = {
+  def dateFieldWithMax(form: Form[?], key: String, max: LocalDate, formError: FormError): Unit = {
     val generator = datesBetween(max.plusDays(day), max.plusYears(year))
     forAll(generator -> "invalid dates") { date =>
       s"fail to bind a date greater than ${max.format(DateTimeFormatter.ISO_LOCAL_DATE)} with $date" in {
@@ -96,7 +96,7 @@ class DateBehaviours extends FieldBehaviours {
     }
   }
 
-  def dateFieldWithMin(form: Form[_], key: String, min: LocalDate, formError: FormError): Unit = {
+  def dateFieldWithMin(form: Form[?], key: String, min: LocalDate, formError: FormError): Unit = {
 
     val generator = datesBetween(min.minusYears(year), min.minusDays(day))
     forAll(generator -> "invalid dates") { date =>
@@ -115,7 +115,7 @@ class DateBehaviours extends FieldBehaviours {
   }
 
   def mandatoryDateField(
-    form: Form[_],
+    form: Form[?],
     key: String,
     requiredAllKey: String,
     errorArgs: Seq[String] = Seq("day", "month", "year")

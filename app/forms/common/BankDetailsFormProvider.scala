@@ -47,7 +47,7 @@ class BankDetailsFormProvider @Inject() extends Mappings {
             .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
             .verifying(regexp(rollNumberPattern, s"$messagePrefix.rollNumber.error.format"))
         )
-      )(BankDetails.apply)(BankDetails.unapply)
+      )(BankDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 
   def apply(messagePrefix: String, charityName: String): Form[BankDetails] =
@@ -63,6 +63,6 @@ class BankDetailsFormProvider @Inject() extends Mappings {
             .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
             .verifying(regexp(rollNumberPattern, s"$messagePrefix.rollNumber.error.format"))
         )
-      )(BankDetails.apply)(BankDetails.unapply)
+      )(BankDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

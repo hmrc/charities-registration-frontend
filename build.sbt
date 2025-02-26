@@ -1,15 +1,17 @@
 import uk.gov.hmrc.DefaultBuildSettings
 
+import scala.collection.immutable.Seq
+
 lazy val appName: String = "charities-registration-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.14"
+ThisBuild / scalaVersion := "3.5.2"
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(libraryDependencies ++= AppDependencies())
-  .settings(CodeCoverageSettings.settings)
+  .settings(CodeCoverageSettings())
   .settings(PlayKeys.playDefaultPort := 9457)
   .settings(
     routesImport ++= Seq("models._", "models.OptionBinder._"),
@@ -24,7 +26,11 @@ lazy val microservice = Project(appName, file("."))
       "models.OptionBinder._",
       "controllers.routes._"
     ),
-    scalacOptions ++= Seq("-feature", "-Wconf:src=routes/.*:s,src=views/.*:s"),
+    scalacOptions ++= Seq(
+      "-feature",
+      "-Wconf:src=routes/.*:s",
+      "-Wconf:src=views/.*:s"
+    ),
     Concat.groups := Seq(
       "javascripts/application.js" ->
         group(

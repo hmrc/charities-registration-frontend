@@ -26,11 +26,10 @@
     errorSummary: components.errorSummary,
     checkboxes: components.inputCheckboxes,
     button: components.button,
-    subheading: components.subheading,
     link: components.link
 )
 
-@(form: Form[Set[CharityRegulator]], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[Set[CharityRegulator]], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "charityRegulator.title", Some("charityRegulator.section")))) {
 

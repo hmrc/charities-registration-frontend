@@ -39,6 +39,6 @@ class CharityNameFormProvider @Inject() extends Mappings {
             .verifying(maxLength(maxLength, "charityName.operatingName.error.length"))
             .verifying(regexp(validateFieldWithFullStop, "charityName.operatingName.error.format"))
         )
-      )(CharityName.apply)(CharityName.unapply)
+      )(CharityName.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

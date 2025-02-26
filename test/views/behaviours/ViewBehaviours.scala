@@ -50,14 +50,14 @@ trait ViewBehaviours extends ViewSpecBase {
           assertEqualsMessage(
             doc,
             "title",
-            title(messages(s"$messageKeyPrefix.title$postHeadingString", headingArgs: _*), section)
+            title(messages(s"$messageKeyPrefix.title$postHeadingString", headingArgs*), section)
           )
         }
 
         "display the correct page heading" in {
 
           val doc: Document = asDocument(view)
-          assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading$postHeadingString", headingArgs: _*)
+          assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading$postHeadingString", headingArgs*)
         }
 
         "display language toggles" in {

@@ -108,7 +108,7 @@ trait Constraints extends InputFilter {
   protected def maxDate(maximum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] =
     Constraint {
       case date if date.isAfter(maximum) =>
-        Invalid(errorKey, args: _*)
+        Invalid(errorKey, args*)
       case _                             =>
         Valid
     }
@@ -116,7 +116,7 @@ trait Constraints extends InputFilter {
   protected def minDate(minimum: LocalDate, errorKey: String, args: Any*): Constraint[LocalDate] =
     Constraint {
       case date if date.isBefore(minimum) =>
-        Invalid(errorKey, args: _*)
+        Invalid(errorKey, args*)
       case _                              =>
         Valid
     }
@@ -133,7 +133,7 @@ trait Constraints extends InputFilter {
     }
   }
 
-  protected def nonEmptySet(errorKey: String): Constraint[Set[_]] =
+  protected def nonEmptySet(errorKey: String): Constraint[Set[?]] =
     Constraint {
       case set if set.nonEmpty =>
         Valid

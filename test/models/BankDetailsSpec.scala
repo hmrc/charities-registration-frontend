@@ -51,6 +51,34 @@ class BankDetailsSpec extends AnyWordSpec with Matchers with OptionValues {
         (result \ "rollNumber").as[String] mustBe "operatingName"
       }
     }
+
+    "deserialize correctly new format" when {
+
+      val json   = Json.obj(
+        "accountName"   -> "fullName",
+        "sortCode"      -> "12-34-56",
+        "accountNumber" -> "12 34 56 78",
+        "rollNumber"    -> "operatingName"
+      )
+      val result = json.as[BankDetails]
+
+      "we have a accountName" in {
+        result.accountName mustBe "fullName"
+      }
+
+      "we have sortCode" in {
+        result.sortCode mustBe "12-34-56"
+      }
+
+      "we have accountNumber" in {
+        result.accountNumber mustBe "12 34 56 78"
+      }
+
+      "we have rollNumber" in {
+        result.rollNumber.value mustBe "operatingName"
+      }
+    }
+
   }
 
   "toString" in {

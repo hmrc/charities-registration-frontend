@@ -22,7 +22,7 @@ import play.api.test.FakeRequest
 
 class FrontendAppConfigSpec extends SpecBase {
 
-  implicit val rq: FakeRequest[_] = fakeRequest
+  implicit val rq: FakeRequest[?] = fakeRequest
 
   "Application configuration" when {
 

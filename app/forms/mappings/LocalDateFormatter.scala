@@ -28,7 +28,7 @@ private[mappings] class LocalDateFormatter(
   twoRequiredKey: String,
   requiredKey: String,
   nonNumericKey: String,
-  args: Seq[String] = Seq.empty
+  args: Seq[String]
 ) extends Formatter[LocalDate]
     with GenericDateFormatter {
 

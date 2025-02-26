@@ -19,6 +19,7 @@ package models.operations
 import models.{Enumerable, WithName, WithOrder}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
@@ -96,7 +97,7 @@ object CharitablePurposes extends Enumerable.Implicits {
     Other
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
+  def options(form: Form[?])(implicit messages: Messages): Seq[CheckboxItem] = values.zipWithIndex.map {
     case (value, index) =>
       CheckboxItem(
         name = Some("value[]"),
@@ -109,6 +110,26 @@ object CharitablePurposes extends Enumerable.Implicits {
   }
 
   implicit val enumerable: Enumerable[CharitablePurposes] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v)*)
+
+  implicit def reads: Reads[CharitablePurposes] = Reads[CharitablePurposes] {
+    case JsString(AmateurSport.toString)               => JsSuccess(AmateurSport)
+    case JsString(AnimalWelfare.toString)              => JsSuccess(AnimalWelfare)
+    case JsString(ArtsCultureHeritageScience.toString) => JsSuccess(ArtsCultureHeritageScience)
+    case JsString(CitizenshipCommunity.toString)       => JsSuccess(CitizenshipCommunity)
+    case JsString(Education.toString)                  => JsSuccess(Education)
+    case JsString(EnvironmentalProtection.toString)    => JsSuccess(EnvironmentalProtection)
+    case JsString(Health.toString)                     => JsSuccess(Health)
+    case JsString(HumanRights.toString)                => JsSuccess(HumanRights)
+    case JsString(PromotionOfEfficiency.toString)      => JsSuccess(PromotionOfEfficiency)
+    case JsString(ReliefOfPoverty.toString)            => JsSuccess(ReliefOfPoverty)
+    case JsString(ReliefOfThoseInNeed.toString)        => JsSuccess(ReliefOfThoseInNeed)
+    case JsString(Religion.toString)                   => JsSuccess(Religion)
+    case JsString(Other.toString)                      => JsSuccess(Other)
+    case _                                             => JsError("error.invalid")
+  }
+
+  implicit def writes: Writes[CharitablePurposes] =
+    Writes(value => JsString(value.toString))
 
 }

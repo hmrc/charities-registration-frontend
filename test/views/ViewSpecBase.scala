@@ -21,6 +21,7 @@ import models.UserAnswers
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalatest.Assertion
+import org.scalatest.matchers.should.Matchers
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 
@@ -56,14 +57,14 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
 
     if (elements.isEmpty) throw new IllegalArgumentException(s"CSS Selector $cssSelector wasn't rendered.")
 
-    //<p> HTML elements are rendered out with a carriage return on some pages, so discount for comparison
+    // <p> HTML elements are rendered out with a carriage return on some pages, so discount for comparison
     assert(elements.first().html().replace("\n", "") == expectedValue)
   }
 
   def assertPageTitleEqualsMessage(doc: Document, expectedMessageKey: String, args: Any*): Assertion = {
     val headers = doc.getElementsByTag("h1")
     headers.size mustBe 1
-    headers.first.text.replaceAll("\u00a0", " ") mustBe messages(expectedMessageKey, args: _*).replaceAll("&nbsp;", " ")
+    headers.first.text.replaceAll("\u00a0", " ") mustBe messages(expectedMessageKey, args*).replaceAll("&nbsp;", " ")
   }
 
   def assertContainsText(doc: Document, text: String): Assertion =
@@ -72,7 +73,7 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
   def assertContainsMessages(doc: Document, expectedMessageKeys: String*): Unit =
     for (key <- expectedMessageKeys) assertContainsText(doc, messages(key))
 
-  def assertRenderedById(doc: Document, id: String): Assertion                  =
+  def assertRenderedById(doc: Document, id: String): Assertion =
     assert(doc.getElementById(id) != null, "\n\nElement " + id + " was not rendered on the page.\n")
 
   def assertRenderedByClass(doc: Document, cssClass: String): Assertion =

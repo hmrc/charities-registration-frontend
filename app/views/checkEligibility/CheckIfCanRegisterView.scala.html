@@ -26,7 +26,7 @@
     p: components.p
 )
 
-@(mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(titleNoForm("checkIfYouCanRegister.title", None)), signOut = false) {
 

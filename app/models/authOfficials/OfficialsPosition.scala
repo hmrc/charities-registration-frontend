@@ -21,6 +21,7 @@ import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
+import play.api.libs.json._
 
 sealed trait OfficialsPosition
 
@@ -76,7 +77,7 @@ object OfficialsPosition extends Enumerable.Implicits {
     UKAgent
   )
 
-  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
+  def options(form: Form[?])(implicit messages: Messages): Seq[RadioItem] = values.map { value =>
     RadioItem(
       value = Some(value.toString),
       content = Text(messages(s"officialsPosition.${value.toString}")),
@@ -85,5 +86,36 @@ object OfficialsPosition extends Enumerable.Implicits {
   }
 
   implicit val enumerable: Enumerable[OfficialsPosition] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v)*)
+
+  implicit def reads: Reads[OfficialsPosition] = Reads[OfficialsPosition] {
+    case JsString(BoardMember.toString)           => JsSuccess(BoardMember)
+    case JsString(Bursar.toString)                => JsSuccess(Bursar)
+    case JsString(Chairman.toString)              => JsSuccess(Chairman)
+    case JsString(ChiefExecutive.toString)        => JsSuccess(ChiefExecutive)
+    case JsString(Director.toString)              => JsSuccess(Director)
+    case JsString(Employee.toString)              => JsSuccess(Employee)
+    case JsString(FinanceManager.toString)        => JsSuccess(FinanceManager)
+    case JsString(FinancialAccountant.toString)   => JsSuccess(FinancialAccountant)
+    case JsString(GiftAidSecretary.toString)      => JsSuccess(GiftAidSecretary)
+    case JsString(Governor.toString)              => JsSuccess(Governor)
+    case JsString(HeadTeacher.toString)           => JsSuccess(HeadTeacher)
+    case JsString(AssistantHeadTeacher.toString)  => JsSuccess(AssistantHeadTeacher)
+    case JsString(HumanResourcesManager.toString) => JsSuccess(HumanResourcesManager)
+    case JsString(InformationOfficer.toString)    => JsSuccess(InformationOfficer)
+    case JsString(MinisterOfReligion.toString)    => JsSuccess(MinisterOfReligion)
+    case JsString(Principal.toString)             => JsSuccess(Principal)
+    case JsString(Secretary.toString)             => JsSuccess(Secretary)
+    case JsString(AssistantSecretary.toString)    => JsSuccess(AssistantSecretary)
+    case JsString(Teacher.toString)               => JsSuccess(Teacher)
+    case JsString(Treasurer.toString)             => JsSuccess(Treasurer)
+    case JsString(AssistantTreasurer.toString)    => JsSuccess(AssistantTreasurer)
+    case JsString(Trustee.toString)               => JsSuccess(Trustee)
+    case JsString(UKAgent.toString)               => JsSuccess(UKAgent)
+    case _                                        => JsError("error.invalid")
+  }
+
+  implicit def writes: Writes[OfficialsPosition] =
+    Writes(value => JsString(value.toString))
+
 }

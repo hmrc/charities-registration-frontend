@@ -20,7 +20,7 @@ import play.api.data.{Form, FormError}
 
 trait StringFieldBehaviours extends FieldBehaviours {
 
-  def fieldWithMaxLength(form: Form[_], fieldName: String, maxLength: Int, lengthError: FormError): Unit =
+  def fieldWithMaxLength(form: Form[?], fieldName: String, maxLength: Int, lengthError: FormError): Unit =
     forAll(stringsLongerThan(maxLength) -> "longString") { string =>
       s"not bind strings longer than $maxLength characters for $string" in {
         val result = form.bind(Map(fieldName -> string)).apply(fieldName)
@@ -28,7 +28,7 @@ trait StringFieldBehaviours extends FieldBehaviours {
       }
     }
 
-  def fieldWithRegex(form: Form[_], fieldName: String, invalidString: String, error: FormError): Unit =
+  def fieldWithRegex(form: Form[?], fieldName: String, invalidString: String, error: FormError): Unit =
     s"not bind $invalidString invalidated by regex" in {
       val result = form.bind(Map(fieldName -> invalidString)).apply(fieldName)
       result.errors mustEqual Seq(error)

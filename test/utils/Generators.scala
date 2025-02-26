@@ -44,7 +44,7 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
     Arbitrary {
       for {
         id   <- nonEmptyString
-        data <- Gen.const(Map[QuestionPage[_], JsValue]())
+        data <- Gen.const(Map[QuestionPage[?], JsValue]())
       } yield UserAnswers(
         id = id,
         data = data.foldLeft(Json.obj()) { case (obj, (path, value)) =>
@@ -155,7 +155,7 @@ trait Generators extends TryValues with ScalaCheckDrivenPropertyChecks {
   private val unicodeLowerEnglish: NumericRange.Inclusive[Char]   = '\u0061' to '\u007A'
   private val unicodeNumbers: NumericRange.Inclusive[Char]        = '\u0030' to '\u0039'
   private val specialCharacters: List[Char]                       =
-    """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~""".getBytes(StandardCharsets.UTF_8).map(_.toChar).toList
+    """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~""".getBytes(StandardCharsets.UTF_8).toList.map(_.toChar)
   def randomChar: Gen[Char]                                       =
     Gen.oneOf(specialCharacters ++ List(unicodeCapitalEnglish, unicodeLowerEnglish, unicodeNumbers).flatten)
 }

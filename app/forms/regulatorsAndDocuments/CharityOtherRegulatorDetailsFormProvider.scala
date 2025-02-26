@@ -39,7 +39,7 @@ class CharityOtherRegulatorDetailsFormProvider @Inject() extends Mappings {
             maxLength(maxLengthRegistrationNumber, "charityOtherRegulatorDetails.registrationNumber.error.length")
           )
           .verifying(regexp(validateFieldWithFullStop, "charityOtherRegulatorDetails.registrationNumber.error.format"))
-      )(CharityOtherRegulatorDetails.apply)(CharityOtherRegulatorDetails.unapply)
+      )(CharityOtherRegulatorDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 
 }

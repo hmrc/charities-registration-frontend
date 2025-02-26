@@ -28,7 +28,7 @@
     inputCharacterCount: components.inputCharacterCount,
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "whyNoBankStatement.title", Some("operationsAndFunds.section")))) {
 

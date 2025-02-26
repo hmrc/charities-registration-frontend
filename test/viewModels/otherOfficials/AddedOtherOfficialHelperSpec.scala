@@ -69,7 +69,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
     .success
     .value
 
-  private val welshRequest: FakeRequest[_] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
+  private val welshRequest: FakeRequest[?] = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
   private lazy val welshMessages: Messages = messagesApi.preferred(welshRequest)
 
   def helperWelsh(userAnswers: UserAnswers = otherOfficialDetails, index: Index): AddedOtherOfficialHelper =

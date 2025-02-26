@@ -16,7 +16,6 @@
 
 package models.nominees
 
-import play.api.libs.json.{Json, OFormat}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 
 case class NomineeSummary(
@@ -26,8 +25,3 @@ case class NomineeSummary(
   h2Details: String,
   h2BankDetails: String
 )
-
-object NomineeSummary {
-
-  implicit val formats: OFormat[NomineeSummary] = Json.format[NomineeSummary]
-}

@@ -17,7 +17,6 @@
 package viewmodels.otherOfficials
 
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
-import models.{Index, Mode, UserAnswers}
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials._
 import play.api.i18n.Messages
@@ -25,6 +24,7 @@ import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitDateFormatter
 import viewmodels.{CheckYourAnswersHelper, SummaryListRowHelper}
+import models._
 
 class AddedOtherOfficialHelper(index: Index, mode: Mode, countryService: CountryService)(
   override val userAnswers: UserAnswers

@@ -59,7 +59,7 @@ class CharityEstablishedInViewSpec extends ViewBehaviours {
       (".f", viewViaF)
     )
 
-    input.foreach(args => (test _).tupled(args))
+    input.foreach(args => test.tupled(args))
 
     ".apply" must {
       CharityEstablishedOptions.options(form).zipWithIndex.foreach { case (option, i) =>

@@ -89,6 +89,16 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       Name.toString mustBe "name"
     }
+
+    "json - serialise and deserialise" in {
+
+      val name = Name(SelectTitle.Mr, "Jack", Some("Joe"), "Jill")
+
+      val json = Json.toJson(name)
+
+      json.validate[Name].asOpt.value mustBe name
+    }
+
   }
 
   "PhoneNumber object" must {
@@ -107,6 +117,16 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       PhoneNumber.toString mustBe "phoneNumber"
     }
+
+    "json - serialise and deserialise" in {
+
+      val phoneNumber = PhoneNumber("01632 960 001", Some("01632 960 001"))
+
+      val json = Json.toJson(phoneNumber)
+
+      json.validate[PhoneNumber].asOpt.value mustBe phoneNumber
+    }
+
   }
 
   "Passport object" must {
@@ -125,6 +145,16 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       Passport.toString mustBe "passport"
     }
+
+    "json - serialise and deserialise" in {
+
+      val passport = Passport("GB123456", "GB", LocalDate.now)
+
+      val json = Json.toJson(passport)
+
+      json.validate[Passport].asOpt.value mustBe passport
+    }
+
   }
 
   "Country object" must {
@@ -147,6 +177,16 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
       country.country mustBe "GB"
       country.name mustBe "United Kingdom"
     }
+
+    "json - serialise and deserialise" in {
+
+      val fcoCountry = FcoCountry("GB", "United Kingdom")
+
+      val json = Json.toJson(fcoCountry)
+
+      json.validate[FcoCountry].asOpt.value mustBe fcoCountry
+    }
+
   }
 
   "CharityName object" must {
@@ -203,6 +243,16 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
       status.status mustBe true
     }
+
+    "json - serialise and deserialise" in {
+
+      val status = SaveStatus(true)
+
+      val json = Json.toJson(status)
+
+      json.validate[SaveStatus].asOpt.value mustBe status
+    }
+
   }
 
 }

@@ -24,79 +24,77 @@ import views.html.TaskList
 
 class TaskListViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "index"
+  val messageKeyPrefix: String = "index"
+
+  val section1: TaskListRow = TaskListRow(
+    "index.section1.spoke1.label",
+    controllers.contactDetails.routes.CharityNameController.onPageLoad(NormalMode),
+    "index.section.notStarted"
+  )
+
+  val section2: TaskListRow = TaskListRow(
+    "index.section2.spoke1.label",
+    controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode),
+    "index.section.completed"
+  )
+
+  val section3: TaskListRow = TaskListRow(
+    "index.section2.spoke2.label",
+    controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode),
+    "index.section.inProgress"
+  )
+
+  val section4: TaskListRow = TaskListRow(
+    "index.section3.spoke1.label",
+    controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode),
+    "index.section.notStarted"
+  )
+
+  val section5: TaskListRow = TaskListRow(
+    "index.section3.spoke2.label",
+    controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode),
+    "index.section.notStarted"
+  )
+
+  val section6: TaskListRow = TaskListRow(
+    "index.section3.spoke3.label",
+    controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode),
+    "index.section.completed"
+  )
+
+  val section7: TaskListRow = TaskListRow(
+    "index.section4.spoke1.label",
+    controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad(),
+    "index.section.notStarted"
+  )
+
+  val section8: TaskListRow = TaskListRow(
+    "index.section4.spoke2.label",
+    controllers.otherOfficials.routes.CharityOtherOfficialsController.onPageLoad(),
+    "index.section.notStarted"
+  )
+
+  val section9: TaskListRow = TaskListRow(
+    "index.section4.spoke3.label",
+    controllers.nominees.routes.CharityNomineeController.onPageLoad(),
+    "index.section.inProgress"
+  )
+
+  val section10: TaskListRow = TaskListRow(
+    "index.section5.spoke1.label",
+    controllers.routes.StartDeclarationController.onPageLoad,
+    "index.section.inProgress"
+  )
+
+  val allSections: List[TaskListRow] =
+    List(section1, section2, section3, section4, section5, section6, section7, section8, section9, section10)
+
+  def applyView(isCompleted: Boolean = false, isSwitchOver: Option[Boolean] = None): HtmlFormat.Appendable = {
+    val view = viewFor[TaskList](Some(emptyUserAnswers))
+    view.apply(allSections, status = isCompleted, isSwitchOver)(fakeRequest, messages, frontendAppConfig)
+  }
 
   "TaskList View" must {
-
-    val section1 = TaskListRow(
-      "index.section1.spoke1.label",
-      controllers.contactDetails.routes.CharityNameController.onPageLoad(NormalMode),
-      "index.section.notStarted"
-    )
-
-    val section2 = TaskListRow(
-      "index.section2.spoke1.label",
-      controllers.regulatorsAndDocuments.routes.IsCharityRegulatorController.onPageLoad(NormalMode),
-      "index.section.completed"
-    )
-
-    val section3 = TaskListRow(
-      "index.section2.spoke2.label",
-      controllers.regulatorsAndDocuments.routes.SelectGoverningDocumentController.onPageLoad(NormalMode),
-      "index.section.inProgress"
-    )
-
-    val section4 = TaskListRow(
-      "index.section3.spoke1.label",
-      controllers.operationsAndFunds.routes.CharitableObjectivesController.onPageLoad(NormalMode),
-      "index.section.notStarted"
-    )
-
-    val section5 = TaskListRow(
-      "index.section3.spoke2.label",
-      controllers.operationsAndFunds.routes.FundRaisingController.onPageLoad(NormalMode),
-      "index.section.notStarted"
-    )
-
-    val section6 = TaskListRow(
-      "index.section3.spoke3.label",
-      controllers.operationsAndFunds.routes.BankDetailsController.onPageLoad(NormalMode),
-      "index.section.completed"
-    )
-
-    val section7 = TaskListRow(
-      "index.section4.spoke1.label",
-      controllers.authorisedOfficials.routes.CharityAuthorisedOfficialsController.onPageLoad(),
-      "index.section.notStarted"
-    )
-
-    val section8 = TaskListRow(
-      "index.section4.spoke2.label",
-      controllers.otherOfficials.routes.CharityOtherOfficialsController.onPageLoad(),
-      "index.section.notStarted"
-    )
-
-    val section9 = TaskListRow(
-      "index.section4.spoke3.label",
-      controllers.nominees.routes.CharityNomineeController.onPageLoad(),
-      "index.section.inProgress"
-    )
-
-    val section10 = TaskListRow(
-      "index.section5.spoke1.label",
-      controllers.routes.StartDeclarationController.onPageLoad,
-      "index.section.inProgress"
-    )
-
-    def applyView(isCompleted: Boolean = false, isSwitchOver: Option[Boolean] = None): HtmlFormat.Appendable = {
-      val view = viewFor[TaskList](Some(emptyUserAnswers))
-      view.apply(
-        List(section1, section2, section3, section4, section5, section6, section7, section8, section9, section10),
-        status = isCompleted,
-        isSwitchOver
-      )(fakeRequest, messages, frontendAppConfig)
-    }
-
     behave like normalPage(applyView(), messageKeyPrefix)
 
     behave like pageWithAdditionalGuidance(

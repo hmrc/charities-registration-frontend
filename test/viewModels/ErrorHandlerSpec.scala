@@ -49,7 +49,7 @@ class ErrorHandlerSpec extends SpecBase with BeforeAndAfterEach {
     reset(mockAuthConnector)
   }
 
-  private implicit val request: FakeRequest[_] = fakeRequest
+  private implicit val request: FakeRequest[?] = fakeRequest
 
   val technicalDifficultiesErrorView: TechnicalDifficultiesErrorView = inject[TechnicalDifficultiesErrorView]
   val pageNotFoundView: PageNotFoundView                             = inject[PageNotFoundView]

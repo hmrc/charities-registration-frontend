@@ -93,6 +93,8 @@ POST       /enter-bank-details/change                           controllers.oper
 GET        /bank-details-summary                                controllers.operationsAndFunds.BankDetailsSummaryController.onPageLoad()
 POST       /bank-details-summary                                controllers.operationsAndFunds.BankDetailsSummaryController.onSubmit()
 
+GET        /bank-details-not-found                              controllers.operationsAndFunds.BankDetailsSummaryController
+
 GET        /other-fundraising                                   controllers.operationsAndFunds.OtherFundRaisingController.onPageLoad(mode: Mode = NormalMode)
 POST       /other-fundraising                                   controllers.operationsAndFunds.OtherFundRaisingController.onSubmit(mode: Mode = NormalMode)
 GET        /other-fundraising/change                            controllers.operationsAndFunds.OtherFundRaisingController.onPageLoad(mode: Mode = CheckMode)

@@ -90,8 +90,10 @@ POST       /enter-bank-details                                  controllers.oper
 GET        /enter-bank-details/change                           controllers.operationsAndFunds.BankDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-bank-details/change                           controllers.operationsAndFunds.BankDetailsController.onSubmit(mode: Mode = CheckMode)
 
-GET        /bank-details-summary                                controllers.operationsAndFunds.BankDetailsSummaryController.onPageLoad()
-POST       /bank-details-summary                                controllers.operationsAndFunds.BankDetailsSummaryController.onSubmit()
+GET        /bank-details-summary                                controllers.operationsAndFunds.BankDetailsSummaryController.onPageLoad(barsValidationFailed: Boolean ?= false)
+POST       /bank-details-summary                                controllers.operationsAndFunds.BankDetailsSummaryController.onSubmit(barsValidationFailed: Boolean)
+
+GET        /bank-details-not-found                              controllers.operationsAndFunds.BankDetailsNotFoundController.onPageLoad()
 
 GET        /other-fundraising                                   controllers.operationsAndFunds.OtherFundRaisingController.onPageLoad(mode: Mode = NormalMode)
 POST       /other-fundraising                                   controllers.operationsAndFunds.OtherFundRaisingController.onSubmit(mode: Mode = NormalMode)

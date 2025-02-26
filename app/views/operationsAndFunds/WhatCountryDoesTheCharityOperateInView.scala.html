@@ -28,7 +28,7 @@
     country: components.autocompleteCountryList
 )
 
-@(form: Form[_], mode: Mode, index: Index,countries: Seq[(String, String)], countriesList: Option[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[?], mode: Mode, index: Index,countries: Seq[(String, String)], countriesList: Option[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "whatCountryDoesTheCharityOperateIn.title", Some("operationsAndFunds.section")))) {
 

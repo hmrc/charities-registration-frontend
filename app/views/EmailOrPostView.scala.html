@@ -31,7 +31,7 @@
         summaryYesNo: components.summaryYesNo
 )
 
-@(form: Form[_], requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[?], requiredDocuments: Seq[String], foreignAddresses: Option[(String, String)])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "emailOrPost.title", Some(s"declaration.section")))) {
     @errorSummary(form.errors)

@@ -30,7 +30,7 @@
     summaryYesNo: components.summaryYesNo
 )
 
-@(form: Form[_], mode: Mode, answers: Seq[SummaryListRow])(implicit request: Request[?], messages: Messages, appConfig: config.FrontendAppConfig)
+@(form: Form[?], mode: Mode, answers: Seq[SummaryListRow])(implicit request: Request[?], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "overseasOperatingLocationSummary.checkYourAnswers.title",Some("operationsAndFunds.section")))) {
 

@@ -993,7 +993,7 @@ bankDetails.accountNumber.error.format = Mae’n rhaid ysgrifennu rhif y cyfrif 
 bankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 bankDetails.rollNumber.hint = Bydd hyn ar gerdyn banc, cyfriflen neu baslyfr yr elusen
 bankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
-bankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
+bankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl y gymdeithas gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
 bankDetails.bacs.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 bankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
 bankDetails.sortCode.checkYourAnswersLabel = Cod didoli
@@ -1649,7 +1649,7 @@ individualNomineesBankDetails.accountNumber.error.format = Mae’n rhaid ysgrife
 individualNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 individualNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
 individualNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
-individualNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
+individualNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl y gymdeithas gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
 individualNomineesBankDetails.bacs.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
 individualNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
@@ -1767,7 +1767,7 @@ organisationNomineesBankDetails.accountNumber.error.format = Mae’n rhaid ysgri
 organisationNomineesBankDetails.rollNumber = Rhif rôl y gymdeithas adeiladu (os oes un gennych)
 organisationNomineesBankDetails.rollNumber.hint = Bydd hyn ar ei gerdyn banc, cyfriflen neu baslyfr
 organisationNomineesBankDetails.rollNumber.error.length = Mae’n rhaid i rif rôl y gymdeithas adeiladu fod rhwng 1 cymeriad a 18 o gymeriadau
-organisationNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
+organisationNomineesBankDetails.rollNumber.error.format = Mae’n rhaid i’r rhif rôl y gymdeithas gynnwys llythrennau, rhifau, bylchau, cysylltnodau, blaenslaesau ac atalnodau llawn yn unig
 organisationNomineesBankDetails.bacs.warning = Byddwn yn anfon ad-daliadau gan ddefnyddio BACS. System electronig yw hon sy’n gwneud taliadau yn uniongyrchol o CThEF i gyfrif yr elusen. Dylech sicrhau y gall yr elusen dderbyn taliadau BACS.
 
 organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Enw’r cyfrif
@@ -1868,3 +1868,14 @@ nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = Manylion yr enwe
 nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = Manylion banc yr enwebai
 nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = Manylion y person awdurdodedig
 nomineeDetailsSummary.section = Swyddogion ac enwebeion
+
+# Charity’s Bank Details Not Found
+# ----------------------------------------------------------
+bankAccountDetails.notFound.title = Mae problem - Gweithrediadau a chronfeydd
+bankAccountDetails.notFound.p = Ni allwn ddod o hyd i gyfrif banc sy’n cyd-fynd â’r manylion a nodwyd gennych.
+bankAccountDetails.notFound.leadIn = Gallwch wneud y canlynol:
+bankAccountDetails.notFound.bullet1 = gwirio’r manylion banc a nodwyd gennych a
+bankAccountDetails.notFound.bullet1.linkText = rhoi cynnig arall arni
+bankAccountDetails.notFound.bullet2 = a rhoi manylion banc yn nes ymlaen
+bankAccountDetails.notFound.bullet2.linkText = ychwanegu gwybodaeth arall am yr elusen
+bankAccountDetails.notFound.buildingSociety.required = Nodwch rif rôl y gymdeithas adeiladu ar gyfer y cyfrif hwn

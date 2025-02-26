@@ -19,19 +19,20 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.BankDetailsFormProvider
+import models.responses.{BarsAssessmentType, BarsResponse, BarsValidateResponse, ValidateResponse}
 import models.{BankDetails, CharityName, NormalMode, UserAnswers}
 import navigation.BankDetailsNavigator
 import navigation.FakeNavigators.FakeBankDetailsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.Section1Page
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
-import service.UserAnswerService
+import play.api.test.Helpers.*
+import service.{BarsService, UserAnswerService}
 import views.html.operationsAndFunds.BankDetailsView
 
 import scala.concurrent.Future
@@ -45,12 +46,14 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
       .overrides(
         bind[UserAnswerService].toInstance(mockUserAnswerService),
         bind[BankDetailsNavigator].toInstance(FakeBankDetailsNavigator),
-        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction]
+        bind[AuthIdentifierAction].to[FakeAuthIdentifierAction],
+        bind[BarsService].toInstance(mockBarsService)
       )
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     reset(mockUserAnswerService)
+    reset(mockBarsService)
   }
 
   private val messagePrefix: String                 = "bankDetails"
@@ -58,6 +61,13 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val view: BankDetailsView                 = injector.instanceOf[BankDetailsView]
   private val formProvider: BankDetailsFormProvider = injector.instanceOf[BankDetailsFormProvider]
   private val form                                  = formProvider(messagePrefix, "CName")
+  private val validBarsResponse: BarsResponse       = ValidateResponse(barsValidateResponse =
+    BarsValidateResponse(
+      accountNumberIsWellFormatted = BarsAssessmentType.Yes,
+      nonStandardAccountDetailsRequiredForBacs = BarsAssessmentType.No,
+      sortCodeIsPresentOnEISCD = BarsAssessmentType.Yes
+    )
+  )
 
   private val controller: BankDetailsController = inject[BankDetailsController]
 
@@ -144,6 +154,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         )
       )
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
+      when(mockBarsService.validateBankDetails(any())(any())).thenReturn(Future.successful(Right(validBarsResponse)))
 
       val result = controller.onSubmit(NormalMode)(request)
 

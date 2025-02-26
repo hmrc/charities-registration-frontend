@@ -30,7 +30,7 @@
         summaryYesNo: components.summaryYesNo
 )
 
-@(form: Form[_], section: String, maxOfficials: Int, postAction: Call, officialAnswers: Seq[OfficialSummaryListRow] = Seq.empty
+@(form: Form[?], section: String, maxOfficials: Int, postAction: Call, officialAnswers: Seq[OfficialSummaryListRow] = Seq.empty
 )(implicit request: Request[?], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @suffix = @{

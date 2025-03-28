@@ -28,7 +28,7 @@
     button: components.button
 )
 
-@(form: Form[_], mode: Mode, charityInformationAddressLookup: Seq[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[?], mode: Mode, charityInformationAddressLookup: Seq[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
     @govukLayout(pageTitle = Some(title(form, "canWeSendLettersToThisAddress.title", Some("contactDetail.section")))) {
 

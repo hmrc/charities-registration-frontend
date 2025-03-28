@@ -27,7 +27,7 @@
         pAsHint: components.pAsHint
 )
 
-@(form: Form[_], messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[?], messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("operationsAndFunds.section")))) {
 

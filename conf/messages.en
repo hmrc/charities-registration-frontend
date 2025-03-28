@@ -990,7 +990,7 @@ bankDetails.accountNumber.error.format = Account number must be written as a num
 bankDetails.rollNumber = Building society roll number (if you have one)
 bankDetails.rollNumber.hint = You can find it on your charity’s bank card, statement or passbook
 bankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
-bankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
+bankDetails.rollNumber.error.format = Building society roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
 bankDetails.bacs.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 bankDetails.accountName.checkYourAnswersLabel = Account name
 bankDetails.sortCode.checkYourAnswersLabel = Sort code
@@ -1643,7 +1643,7 @@ individualNomineesBankDetails.accountNumber.error.format = Account number must b
 individualNomineesBankDetails.rollNumber = Building society roll number (if you have one)
 individualNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
 individualNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
-individualNomineesBankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
+individualNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
 individualNomineesBankDetails.bacs.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 
 individualNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
@@ -1761,7 +1761,7 @@ organisationNomineesBankDetails.accountNumber.error.format = Account number must
 organisationNomineesBankDetails.rollNumber = Building society roll number (if you have one)
 organisationNomineesBankDetails.rollNumber.hint = They can find it on their bank card, statement or passbook
 organisationNomineesBankDetails.rollNumber.error.length = Building society roll number must be between 1 and 18 characters
-organisationNomineesBankDetails.rollNumber.error.format = Roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
+organisationNomineesBankDetails.rollNumber.error.format = Building society roll number must only include letters, numbers, spaces, hyphens, forward slashes and full stops
 organisationNomineesBankDetails.bacs.warning = We will send repayments using BACS. This is an electronic system that makes payments directly from HMRC to the charity’s account. You should make sure the charity can receive BACS payments.
 
 organisationNomineesBankDetails.accountName.checkYourAnswersLabel = Account name
@@ -1862,3 +1862,14 @@ nomineeDetailsSummary.checkYourAnswers.h2.organisationDetails = Nominee’s deta
 nomineeDetailsSummary.checkYourAnswers.h2.organisationBank = Nominee’s bank details
 nomineeDetailsSummary.checkYourAnswers.h2.organisationAuthorisedPerson = Authorised person’s details
 nomineeDetailsSummary.section = Officials and nominees
+
+# Charity’s Bank Details Not Found
+# ----------------------------------------------------------
+bankAccountDetails.notFound.title = There is a problem - Operations and funds
+bankAccountDetails.notFound.p = We cannot find a bank account that matches the details that you entered.
+bankAccountDetails.notFound.leadIn = You can:
+bankAccountDetails.notFound.bullet1 = check the bank details you entered and
+bankAccountDetails.notFound.bullet1.linkText = try again
+bankAccountDetails.notFound.bullet2 = and provide bank details later
+bankAccountDetails.notFound.bullet2.linkText = add other information about the charity
+bankAccountDetails.notFound.buildingSociety.required = Enter the Building society roll number for this account

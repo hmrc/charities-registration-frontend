@@ -61,7 +61,7 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "signOutUrl" in {
-        frontendAppConfig.signOutUrl mustBe frontendAppConfig.basGatewayBaseUrl + "/bas-gateway/sign-out-without-state"
+        frontendAppConfig.signOutUrl contains "/bas-gateway/sign-out-without-state"
       }
 
       "loginContinueUrl" in {

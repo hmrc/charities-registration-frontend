@@ -57,7 +57,7 @@
             countdown = Some(appConfig.countdown),
             keepAliveUrl = Some(controllers.routes.IndexController.keepalive.url),
             signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
-            timeoutUrl = Some(controllers.routes.SignOutController.signOutNoSurvey().url),
+            timeoutUrl = Some(controllers.routes.SignOutController.signedYouOut.url),
             language = if (messages.lang.code == "cy") Some("cy") else Some("en")
         ))
     } else if(timeout) {

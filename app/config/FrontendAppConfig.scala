@@ -30,8 +30,8 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
   lazy val host: String              = servicesConfig.getString("host")
   lazy val appName: String           = servicesConfig.getString("appName")
   lazy val govUK: String             = servicesConfig.getString("urls.govUK")
-  lazy val basGatewayBaseUrl: String = servicesConfig.getString("bas-gateway.host")
-  lazy val feedbackFrontend: String  = servicesConfig.getString("feedback-frontend.host")
+  lazy val basGatewayBaseUrl: String = servicesConfig.baseUrl("bas-gateway")
+  lazy val feedbackFrontend: String  = servicesConfig.baseUrl("feedback-frontend")
 
   private val contactHost: String = servicesConfig.getString("contact-frontend.host")
 

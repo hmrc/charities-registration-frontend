@@ -29,12 +29,10 @@ class SignOutControllerSpec extends SpecBase {
 
       "redirect to service home with new session" in {
 
-        val result                = controller.signOut()(fakeRequest)
-        val signOutNoSurveyAction = controller.signOut()
-        val signOutResult         = signOutNoSurveyAction(fakeRequest)
-        val expectedRedirectUrl   = redirectLocation(signOutResult).get
+        val result = controller.signOut()(fakeRequest)
+
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(expectedRedirectUrl)
+        redirectLocation(result) contains Some(frontendAppConfig.signOutUrl)
       }
     }
 

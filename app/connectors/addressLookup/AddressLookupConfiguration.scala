@@ -34,7 +34,7 @@ class AddressLookupConfiguration @Inject() (
     val welsh   = Lang("cy")
 
     val fullCallbackURL = appConfig.host + callbackUrl
-    val fullSignOutURL  = controllers.routes.SignOutController.signOut.url
+    val fullSignOutURL  = controllers.routes.SignOutController.signOut().url
 
     AddressLookupConfigurationModel(
       version = 2,

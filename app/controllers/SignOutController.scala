@@ -26,8 +26,8 @@ class SignOutController @Inject() (val controllerComponents: MessagesControllerC
   implicit appConfig: FrontendAppConfig
 ) extends LocalBaseController {
 
-  def signOut: Action[AnyContent] = Action { _ =>
-    Redirect(appConfig.signOutUrl).withNewSession
+  def signOut(): Action[AnyContent] = Action { implicit request =>
+    Redirect(appConfig.signOutUrl, Map("continue" -> Seq(appConfig.exitSurveyUrl)))
   }
 
   def signedYouOut: Action[AnyContent] = Action { implicit request =>

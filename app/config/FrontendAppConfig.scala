@@ -27,9 +27,11 @@ import scala.util.Try
 @Singleton
 class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
-  lazy val host: String    = servicesConfig.getString("host")
-  lazy val appName: String = servicesConfig.getString("appName")
-  lazy val govUK: String   = servicesConfig.getString("urls.govUK")
+  lazy val host: String              = servicesConfig.getString("host")
+  lazy val appName: String           = servicesConfig.getString("appName")
+  lazy val govUK: String             = servicesConfig.getString("urls.govUK")
+  lazy val basGatewayBaseUrl: String = servicesConfig.baseUrl("bas-gateway")
+  lazy val feedbackFrontend: String  = servicesConfig.baseUrl("feedback-frontend")
 
   private val contactHost: String = servicesConfig.getString("contact-frontend.host")
 
@@ -37,16 +39,14 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
   lazy val contactUrl: String = s"$contactHost/contact/contact-hmrc?service=$contactFormServiceIdentifier"
 
-  private val exitSurveyHost: String = servicesConfig.getString("feedback-frontend.host")
-
   lazy val userAnswersTimeToLive: Long =
     servicesConfig.getInt("mongodb.user-eligibility-answers.timeToLiveInSeconds").toLong
 
-  def exitSurveyUrl: String = s"$exitSurveyHost/feedback/CHARITIES"
+  def exitSurveyUrl: String = s"$feedbackFrontend/feedback/CHARITIES"
 
   lazy val loginUrl: String                         = servicesConfig.getString("urls.login")
   lazy val registerUrl: String                      = servicesConfig.getString("urls.register")
-  lazy val signOutUrl: String                       = servicesConfig.getString("urls.signOut")
+  lazy val signOutUrl: String                       = s"$basGatewayBaseUrl/bas-gateway/sign-out-without-state"
   lazy val loginContinueUrl: String                 = servicesConfig.getString("urls.loginContinue")
   lazy val incorrectDetailsLoginContinueUrl: String = servicesConfig.getString("urls.incorrectDetailsLoginContinue")
   lazy val loginContinueKey: String                 = servicesConfig.getString("urls.continue")

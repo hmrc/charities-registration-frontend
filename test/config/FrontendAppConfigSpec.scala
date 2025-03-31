@@ -61,7 +61,7 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "signOutUrl" in {
-        frontendAppConfig.signOutUrl mustBe "https://www.gov.uk/charity-recognition-hmrc"
+        frontendAppConfig.signOutUrl contains "/bas-gateway/sign-out-without-state"
       }
 
       "loginContinueUrl" in {

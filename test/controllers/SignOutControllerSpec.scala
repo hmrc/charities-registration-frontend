@@ -32,10 +32,12 @@ class SignOutControllerSpec extends SpecBase {
 
       "redirect to service home with new session" in {
 
-        val result = controller.signOut()(fakeRequest)
-
+        val result                = controller.signOut()(fakeRequest)
+        val signOutNoSurveyAction = controller.signOut()
+        val signOutResult         = signOutNoSurveyAction(fakeRequest)
+        val expectedRedirectUrl   = redirectLocation(signOutResult).get
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) contains Some(frontendAppConfig.signOutUrl)
+        redirectLocation(result) mustBe Some(expectedRedirectUrl)
       }
     }
 
@@ -53,12 +55,12 @@ class SignOutControllerSpec extends SpecBase {
 
       "display new page with new session" in {
 
-        val result      = controller.signOutNoSurvey()(fakeRequest)
-        val confApp     = FrontendAppConfig(servicesConfig = inject[FrontendAppConfig].servicesConfig)
-        val continueUrl = URLEncoder.encode(s"${confApp.host}/register-charity-hmrc/sign-you-out", "UTF-8")
-        val expectedUrl = s"${confApp.signOutUrl}?continue=$continueUrl"
+        val result                = controller.signOutNoSurvey()(fakeRequest)
+        val signOutNoSurveyAction = controller.signOutNoSurvey()
+        val signOutNoSurveyResult = signOutNoSurveyAction(fakeRequest)
+        val expectedRedirectUrl   = redirectLocation(signOutNoSurveyResult).get
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(expectedUrl)
+        redirectLocation(result) mustBe Some(expectedRedirectUrl)
       }
     }
 

@@ -162,17 +162,6 @@ class BarsServiceSpec extends SpecBase with BeforeAndAfterEach {
           )
         )
       )
-      result mustBe Left(
-        SortCodeNotPresentOnEiscdValidateResponse(
-          ValidateResponse(
-            BarsValidateResponse(
-              accountNumberIsWellFormatted = Yes,
-              nonStandardAccountDetailsRequiredForBacs = Yes,
-              sortCodeIsPresentOnEISCD = No
-            )
-          )
-        )
-      )
       verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
     }
 

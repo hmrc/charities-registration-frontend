@@ -31,6 +31,15 @@ class SignOutController @Inject() (val controllerComponents: MessagesControllerC
   }
 
   def signedYouOut: Action[AnyContent] = Action { implicit request =>
-    Ok(view()).withNewSession
+    Ok(view())
   }
+
+  def signOutNoSurvey(): Action[AnyContent] = Action { implicit request =>
+    val signOutServiceUrl = appConfig.host + routes.SignOutController.signedYouOut.url
+    Redirect(
+      appConfig.signOutUrl,
+      Map("continue" -> Seq(signOutServiceUrl))
+    )
+  }
+
 }

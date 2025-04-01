@@ -162,6 +162,37 @@ class BarsServiceSpec extends SpecBase with BeforeAndAfterEach {
           )
         )
       )
+      result mustBe Left(
+        SortCodeNotPresentOnEiscdValidateResponse(
+          ValidateResponse(
+            BarsValidateResponse(
+              accountNumberIsWellFormatted = Yes,
+              nonStandardAccountDetailsRequiredForBacs = Yes,
+              sortCodeIsPresentOnEISCD = No
+            )
+          )
+        )
+      )
+      verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
+    }
+
+    "process validate failure properly for Sort Code Does Not Support DirectCredit" in {
+      val barsConnectorResponse =
+        """{
+          |"accountNumberIsWellFormatted": "yes",
+          |"nonStandardAccountDetailsRequiredForBacs": "yes",
+          |"sortCodeIsPresentOnEISCD":"yes",
+          |"sortCodeSupportsDirectCredit":"no"
+        }""".stripMargin
+      val response              = HttpResponse(status = OK, body = barsConnectorResponse)
+
+      when(mockBarsConnector.validateBankDetails(any())(any())).thenReturn(Future.successful(response))
+      val result = await(service.validateBankDetails(any())(any()))
+      result mustBe Left(
+        SortCodeDoesNotSupportDirectCreditValidateResponse(
+          ValidateResponse(Json.parse(barsConnectorResponse).as[BarsValidateResponse])
+        )
+      )
       verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
     }
   }

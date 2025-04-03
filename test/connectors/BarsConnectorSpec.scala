@@ -33,7 +33,7 @@ class BarsConnectorSpec extends SpecBase with WireMockHelper {
 
   "CharitiesConnector" when {
 
-    val httpClient: HttpClientV2                    = injector.instanceOf[HttpClientV2]
+    val httpClient: HttpClientV2          = injector.instanceOf[HttpClientV2]
     lazy val barsConnector: BarsConnector = new BarsConnector(httpClient, mockFrontendAppConfig)
 
     when(mockFrontendAppConfig.barsBaseUrl) `thenReturn` getUrl
@@ -51,21 +51,27 @@ class BarsConnectorSpec extends SpecBase with WireMockHelper {
               .withRequestBody(equalToJson(Json.toJson(request).toString))
               .willReturn(
                 aResponse()
-                  .withBody(Json.toJson(
-                    """{
+                  .withBody(
+                    Json
+                      .toJson("""{
                       |"accountNumberIsWellFormatted": "yes",
                       |"nonStandardAccountDetailsRequiredForBacs": "yes",
                       |"sortCodeIsPresentOnEISCD":"yes",
-                      |}""".stripMargin).toString())
+                      |}""".stripMargin)
+                      .toString()
+                  )
                   .withStatus(OK)
               )
           )
 
-          val expectedResult = HttpResponse(OK, """{
+          val expectedResult = HttpResponse(
+            OK,
+            """{
                                                   |"accountNumberIsWellFormatted": "yes",
                                                   |"nonStandardAccountDetailsRequiredForBacs": "yes",
                                                   |"sortCodeIsPresentOnEISCD":"yes",
-                                                  |}""".stripMargin)
+                                                  |}""".stripMargin
+          )
           val actualResult   = await(barsConnector.validateBankDetails(request)(hc))
 
           actualResult.status mustBe expectedResult.status
@@ -77,7 +83,7 @@ class BarsConnectorSpec extends SpecBase with WireMockHelper {
       "for an error response" must {
 
         "return a http response" in {
-          
+
           val request = BarsValidateRequest(BarsBankAccount(sortCode = "123456", accountNumber = "12345678"))
 
           stubFor(
@@ -85,21 +91,27 @@ class BarsConnectorSpec extends SpecBase with WireMockHelper {
               .withRequestBody(equalToJson(Json.toJson(request).toString))
               .willReturn(
                 aResponse()
-                  .withBody(Json.toJson(
-                    """{
+                  .withBody(
+                    Json
+                      .toJson("""{
                       |"accountNumberIsWellFormatted": "yes",
                       |"nonStandardAccountDetailsRequiredForBacs": "yes",
                       |"sortCodeIsPresentOnEISCD":"yes",
-                      |}""".stripMargin).toString())
+                      |}""".stripMargin)
+                      .toString()
+                  )
                   .withStatus(BAD_REQUEST)
               )
           )
 
-          val expectedResult = HttpResponse(BAD_REQUEST, """{
+          val expectedResult = HttpResponse(
+            BAD_REQUEST,
+            """{
                                                   |"accountNumberIsWellFormatted": "yes",
                                                   |"nonStandardAccountDetailsRequiredForBacs": "yes",
                                                   |"sortCodeIsPresentOnEISCD":"yes",
-                                                  |}""".stripMargin)
+                                                  |}""".stripMargin
+          )
           val actualResult   = await(barsConnector.validateBankDetails(request)(hc))
 
           actualResult.status mustBe expectedResult.status

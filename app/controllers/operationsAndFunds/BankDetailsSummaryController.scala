@@ -27,7 +27,7 @@ import pages.sections.Section6Page
 import play.api.mvc.*
 import service.UserAnswerService
 import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
-import viewmodels.otherOfficials.OtherOfficialStatusHelper.checkComplete
+import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
 import views.html.CheckYourAnswersView
 
 import javax.inject.Inject

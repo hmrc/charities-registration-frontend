@@ -23,11 +23,11 @@ sealed trait BarsError {
 sealed trait BarsValidateError extends BarsError
 sealed trait SortCodeOnDenyListError extends BarsValidateError
 sealed trait InvalidBankAccountError extends BarsValidateError
+sealed trait UnknownBarsError extends BarsError
 
 final case class AccountNumberNotWellFormattedValidateResponse(barsResponse: ValidateResponse) extends BarsValidateError
 final case class SortCodeNotPresentOnEiscdValidateResponse(barsResponse: ValidateResponse) extends BarsValidateError
-final case class SortCodeDoesNotSupportDirectCreditValidateResponse(barsResponse: ValidateResponse)
-    extends BarsValidateError
 
 final case class SortCodeOnDenyListErrorResponse(barsResponse: SortCodeOnDenyList) extends SortCodeOnDenyListError
 final case class InvalidAccountNumberErrorResponse(barsResponse: InvalidAccountNumber) extends InvalidBankAccountError
+final case class UnknownBarsErrorResponse(barsResponse: ValidateResponse) extends UnknownBarsError

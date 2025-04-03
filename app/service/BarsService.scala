@@ -73,8 +73,7 @@ class BarsService @Inject() (barsConnector: BarsConnector)(implicit ec: Executio
     response match {
       case accountNumberIsWellFormattedNo() => AccountNumberNotWellFormattedValidateResponse(response)
       case sortCodeIsPresentOnEiscdNo()     => SortCodeNotPresentOnEiscdValidateResponse(response)
-      case sortCodeSupportsDirectCreditNo() => SortCodeDoesNotSupportDirectCreditValidateResponse(response)
-      case _                                => sys.error("Could not understand BARs validate response")
+      case _                                => UnknownBarsErrorResponse(response)
     }
   }
 }

@@ -17,7 +17,10 @@
 package controllers
 
 import base.SpecBase
-import play.api.test.Helpers._
+import config.FrontendAppConfig
+import play.api.test.Helpers.*
+
+import java.net.URLEncoder
 
 class SignOutControllerSpec extends SpecBase {
 
@@ -52,12 +55,12 @@ class SignOutControllerSpec extends SpecBase {
 
       "display new page with new session" in {
 
-        val result                = controller.signOutNoSurvey()(fakeRequest)
-        val signOutNoSurveyAction = controller.signOutNoSurvey()
-        val signOutNoSurveyResult = signOutNoSurveyAction(fakeRequest)
-        val expectedRedirectUrl   = redirectLocation(signOutNoSurveyResult).get
+        val result      = controller.signOutNoSurvey()(fakeRequest)
+        val confApp     = FrontendAppConfig(servicesConfig = inject[FrontendAppConfig].servicesConfig)
+        val continueUrl = URLEncoder.encode(s"${confApp.host}/register-charity-hmrc/sign-you-out", "UTF-8")
+        val expectedUrl = s"${confApp.signOutUrl}?continue=$continueUrl"
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(expectedRedirectUrl)
+        redirectLocation(result) mustBe Some(expectedUrl)
       }
     }
 

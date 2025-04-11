@@ -35,34 +35,36 @@ class BankDetailsFormProvider @Inject() extends Mappings {
   def apply(messagePrefix: String): Form[BankDetails] =
     Form(
       mapping(
-        "accountName"   -> text(s"$messagePrefix.accountName.error.required")
+        "accountName"          -> text(s"$messagePrefix.accountName.error.required")
           .verifying(maxLength(maxLengthAccountName, s"$messagePrefix.accountName.error.length"))
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.accountName.error.format")),
-        "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
+        "sortCode"             -> text(s"$messagePrefix.sortCode.error.required")
           .verifying(regexp(sortCodePattern, s"$messagePrefix.sortCode.error.format")),
-        "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
+        "accountNumber"        -> text(s"$messagePrefix.accountNumber.error.required")
           .verifying(regexp(accountNumberPattern, s"$messagePrefix.accountNumber.error.format")),
-        "rollNumber"    -> optional(
+        "rollNumber"           -> optional(
           textWithOneSpace()
             .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
             .verifying(regexp(rollNumberPattern, s"$messagePrefix.rollNumber.error.format"))
-        )
+        ),
+        "barsValidationFailed" -> optional(boolean())
       )(BankDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 
   def apply(messagePrefix: String, charityName: String): Form[BankDetails] =
     Form(
       mapping(
-        "accountName"   -> default(text(), charityName),
-        "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
+        "accountName"          -> default(text(), charityName),
+        "sortCode"             -> text(s"$messagePrefix.sortCode.error.required")
           .verifying(regexp(sortCodePattern, s"$messagePrefix.sortCode.error.format")),
-        "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
+        "accountNumber"        -> text(s"$messagePrefix.accountNumber.error.required")
           .verifying(regexp(accountNumberPattern, s"$messagePrefix.accountNumber.error.format")),
-        "rollNumber"    -> optional(
+        "rollNumber"           -> optional(
           textWithOneSpace()
             .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
             .verifying(regexp(rollNumberPattern, s"$messagePrefix.rollNumber.error.format"))
-        )
+        ),
+        "barsValidationFailed" -> optional(boolean())
       )(BankDetails.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 }

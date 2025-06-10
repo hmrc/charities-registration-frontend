@@ -22,7 +22,7 @@ import controllers.actions.*
 import models.NormalMode
 import navigation.BankDetailsNavigator
 import pages.IndexPage
-import pages.operationsAndFunds.{BankDetailsPage, BankDetailsSummaryPage}
+import pages.operationsAndFunds.BankDetailsSummaryPage
 import pages.sections.Section6Page
 import play.api.mvc.*
 import service.UserAnswerService
@@ -44,30 +44,34 @@ class BankDetailsSummaryController @Inject() (
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val bankDetailsSummaryHelper = new BankDetailsSummaryHelper(request.userAnswers)
+  def onPageLoad(barsValidationFailed: Boolean): Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request =>
+      val bankDetailsSummaryHelper = new BankDetailsSummaryHelper(request.userAnswers)
 
-    if (bankDetailsSummaryHelper.rows.isEmpty) {
-      Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
-    } else {
-      Ok(
-        view(
-          bankDetailsSummaryHelper.rows,
-          BankDetailsSummaryPage,
-          controllers.operationsAndFunds.routes.BankDetailsSummaryController.onSubmit()
+      if (bankDetailsSummaryHelper.rows.isEmpty) {
+
+        Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
+
+      } else {
+
+        Ok(
+          view(
+            bankDetailsSummaryHelper.rows,
+            BankDetailsSummaryPage,
+            controllers.operationsAndFunds.routes.BankDetailsSummaryController.onSubmit(barsValidationFailed)
+          )
         )
-      )
-    }
+      }
   }
 
-  def onSubmit(): Action[AnyContent] =
+  def onSubmit(barsValidationFailed: Boolean): Action[AnyContent] =
     (identify andThen getData andThen requireData).async { implicit request =>
       for {
         updatedAnswers <-
           Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
         _              <- sessionRepository.set(updatedAnswers)
       } yield
-        if (updatedAnswers.get(BankDetailsPage).flatMap(_.barsValidationFailed).getOrElse(false))
+        if (barsValidationFailed)
           Redirect(controllers.operationsAndFunds.routes.BankDetailsNotFoundController.onPageLoad())
         else
           Redirect(navigator.nextPage(BankDetailsSummaryPage, NormalMode, updatedAnswers))

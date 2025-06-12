@@ -18,16 +18,16 @@ package controllers.operationsAndFunds
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
-import controllers.actions._
+import controllers.actions.*
 import models.NormalMode
 import navigation.BankDetailsNavigator
 import pages.IndexPage
-import pages.operationsAndFunds.BankDetailsSummaryPage
+import pages.operationsAndFunds.{BankDetailsPage, BankDetailsSummaryPage}
 import pages.sections.Section6Page
-import play.api.mvc._
+import play.api.mvc.*
 import service.UserAnswerService
-import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
 import viewmodels.operationsAndFunds.BankDetailsSummaryHelper
+import viewmodels.operationsAndFunds.BankDetailsStatusHelper.checkComplete
 import views.html.CheckYourAnswersView
 
 import javax.inject.Inject
@@ -44,15 +44,12 @@ class BankDetailsSummaryController @Inject() (
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val bankDetailsSummaryHelper = new BankDetailsSummaryHelper(request.userAnswers)
 
     if (bankDetailsSummaryHelper.rows.isEmpty) {
-
       Redirect(navigator.nextPage(IndexPage, NormalMode, request.userAnswers))
-
     } else {
-
       Ok(
         view(
           bankDetailsSummaryHelper.rows,
@@ -61,15 +58,18 @@ class BankDetailsSummaryController @Inject() (
         )
       )
     }
-
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    for {
-      updatedAnswers <-
-        Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
-      _              <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(BankDetailsSummaryPage, NormalMode, updatedAnswers))
-
-  }
+  def onSubmit(): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
+      for {
+        updatedAnswers <-
+          Future.fromTry(result = request.userAnswers.set(Section6Page, checkComplete(request.userAnswers)))
+        _              <- sessionRepository.set(updatedAnswers)
+      } yield
+        if (updatedAnswers.get(BankDetailsPage).flatMap(_.barsValidationFailed).getOrElse(false))
+          Redirect(controllers.operationsAndFunds.routes.BankDetailsNotFoundController.onPageLoad())
+        else
+          Redirect(navigator.nextPage(BankDetailsSummaryPage, NormalMode, updatedAnswers))
+    }
 }

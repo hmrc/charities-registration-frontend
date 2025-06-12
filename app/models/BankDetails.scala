@@ -18,7 +18,13 @@ package models
 
 import play.api.libs.json._
 
-case class BankDetails(accountName: String, sortCode: String, accountNumber: String, rollNumber: Option[String])
+case class BankDetails(
+  accountName: String,
+  sortCode: String,
+  accountNumber: String,
+  rollNumber: Option[String],
+  barsValidationFailed: Option[Boolean] = Option(false)
+)
 
 object BankDetails {
 
@@ -29,13 +35,15 @@ object BankDetails {
       (__ \ "accountName").write[String] and
         (__ \ "sortCode").write[String] and
         (__ \ "accountNumber").write[String] and
-        (__ \ "rollNumber").writeNullable[String]
+        (__ \ "rollNumber").writeNullable[String] and
+        (__ \ "barsValidationFailed").writeNullable[Boolean]
     )(bankDetails =>
       (
         bankDetails.accountName,
         bankDetails.sortCode.filter(_.isDigit).mkString,
         bankDetails.accountNumber.filter(_.isDigit).mkString,
-        bankDetails.rollNumber
+        bankDetails.rollNumber,
+        bankDetails.barsValidationFailed
       )
     )
   }

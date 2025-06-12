@@ -30,7 +30,7 @@
     link: components.link
 )
 
-@(form: Form[?], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "charityContactDetails.title",Some("contactDetail.section")))) {
 

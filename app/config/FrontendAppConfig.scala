@@ -79,5 +79,4 @@ class FrontendAppConfig @Inject() (val servicesConfig: ServicesConfig) {
 
   lazy val timeToLiveInDays: Int = servicesConfig.getInt("user-answers.timeToLiveInDays")
 
-  lazy val barsBaseUrl: String = servicesConfig.baseUrl("bank-account-reputation")
 }

@@ -59,7 +59,7 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
 
-      val result = controller.onPageLoad(barsValidationFailed = false)(fakeRequest)
+      val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -76,7 +76,7 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
         )
       )
 
-      val result = controller.onPageLoad(barsValidationFailed = false)(fakeRequest)
+      val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -87,7 +87,7 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
 
-      val result = controller.onSubmit(barsValidationFailed = false)(fakeRequest)
+      val result = controller.onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)

@@ -17,30 +17,30 @@
 package base
 
 import config.FrontendAppConfig
-import controllers.actions.*
+import controllers.actions._
 import models.UserAnswers
 import models.requests.DataRequest
 import org.jsoup.Jsoup
-import org.mockito.Mockito.*
+import org.mockito.Mockito._
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.{EitherValues, OptionValues, TryValues}
 import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.*
+import org.scalatestplus.play.guice._
 import play.api.Application
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.{Injector, bind}
 import play.api.libs.json.Json
 import play.api.mvc.{AnyContentAsEmpty, Call, MessagesControllerComponents}
-import play.api.test.CSRFTokenHelper.*
+import play.api.test.CSRFTokenHelper._
 import play.api.test.{FakeRequest, Injecting}
 import repositories.SessionRepository
-import service.{BarsService, UserAnswerService}
+import service.UserAnswerService
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 import viewmodels.ErrorHandler
 
 import java.time.temporal.ChronoUnit
-import scala.concurrent.duration.{Duration, FiniteDuration, *}
+import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 
 trait SpecBase
@@ -67,7 +67,6 @@ trait SpecBase
   lazy val dataRequiredAction: DataRequiredActionImpl                 = injector.instanceOf[DataRequiredActionImpl]
   lazy val mockSessionRepository: SessionRepository                   = mock(classOf[SessionRepository])
   lazy val mockUserAnswerService: UserAnswerService                   = mock(classOf[UserAnswerService])
-  lazy val mockBarsService: BarsService                               = mock(classOf[BarsService])
 
   implicit val defaultTimeout: FiniteDuration       = 5.seconds
   implicit val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]

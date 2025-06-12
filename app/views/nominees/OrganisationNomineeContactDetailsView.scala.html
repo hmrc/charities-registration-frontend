@@ -28,7 +28,7 @@
         fieldset: components.fieldset
 )
 
-@(form: Form[?], name: String, mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], name: String, mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "organisationContactDetails.title",Some("officialsAndNominees.section")))) {
 

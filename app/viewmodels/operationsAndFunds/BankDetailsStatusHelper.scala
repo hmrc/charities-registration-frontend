@@ -23,9 +23,6 @@ import viewmodels.StatusHelper
 object BankDetailsStatusHelper extends StatusHelper {
 
   override def checkComplete(userAnswers: UserAnswers): Boolean =
-    userAnswers.get(BankDetailsPage) match {
-      case Some(bd) => !bd.barsValidationFailed.getOrElse(false)
-      case _        => false
-    }
+    userAnswers.get(BankDetailsPage).isDefined
 
 }

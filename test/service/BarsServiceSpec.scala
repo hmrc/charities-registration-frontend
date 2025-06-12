@@ -56,19 +56,15 @@ class BarsServiceSpec extends SpecBase with BeforeAndAfterEach {
                                     |"nonStandardAccountDetailsRequiredForBacs": "no",
                                     |"sortCodeIsPresentOnEISCD":"yes"
         }""".stripMargin
-      val response              = HttpResponse(status = OK, body = barsConnectorResponse)
+      val response = HttpResponse(status = OK, body = barsConnectorResponse)
 
       when(mockBarsConnector.validateBankDetails(any())(any())).thenReturn(Future.successful(response))
       val result = await(service.validateBankDetails(any())(any()))
-      result mustBe Right(
-        ValidateResponse(
-          BarsValidateResponse(
-            accountNumberIsWellFormatted = Yes,
-            nonStandardAccountDetailsRequiredForBacs = No,
-            sortCodeIsPresentOnEISCD = Yes
-          )
-        )
-      )
+      result mustBe Right(ValidateResponse(BarsValidateResponse(
+        accountNumberIsWellFormatted = Yes,
+        nonStandardAccountDetailsRequiredForBacs = No,
+        sortCodeIsPresentOnEISCD = Yes
+      )))
       verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
     }
 
@@ -77,20 +73,14 @@ class BarsServiceSpec extends SpecBase with BeforeAndAfterEach {
                                     |"code": "SORT_CODE_ON_DENY_LIST",
                                     |"desc": "..."
         }""".stripMargin
-      val response              = HttpResponse(status = BAD_REQUEST, body = barsConnectorResponse)
+      val response = HttpResponse(status = BAD_REQUEST, body = barsConnectorResponse)
 
       when(mockBarsConnector.validateBankDetails(any())(any())).thenReturn(Future.successful(response))
       val result = await(service.validateBankDetails(any())(any()))
-      result mustBe Left(
-        SortCodeOnDenyListErrorResponse(
-          SortCodeOnDenyList(
-            BarsErrorResponse(
-              code = "SORT_CODE_ON_DENY_LIST",
-              desc = "..."
-            )
-          )
-        )
-      )
+      result mustBe Left(SortCodeOnDenyListErrorResponse(SortCodeOnDenyList(BarsErrorResponse(
+        code = "SORT_CODE_ON_DENY_LIST",
+        desc = "..."
+      ))))
       verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
     }
 
@@ -99,20 +89,14 @@ class BarsServiceSpec extends SpecBase with BeforeAndAfterEach {
                                     |"code": "INVALID_ACCOUNT_NUMBER",
                                     |"desc": "..."
         }""".stripMargin
-      val response              = HttpResponse(status = BAD_REQUEST, body = barsConnectorResponse)
+      val response = HttpResponse(status = BAD_REQUEST, body = barsConnectorResponse)
 
       when(mockBarsConnector.validateBankDetails(any())(any())).thenReturn(Future.successful(response))
       val result = await(service.validateBankDetails(any())(any()))
-      result mustBe Left(
-        InvalidAccountNumberErrorResponse(
-          InvalidAccountNumber(
-            BarsErrorResponse(
-              code = "INVALID_ACCOUNT_NUMBER",
-              desc = "..."
-            )
-          )
-        )
-      )
+      result mustBe Left(InvalidAccountNumberErrorResponse(InvalidAccountNumber(BarsErrorResponse(
+        code = "INVALID_ACCOUNT_NUMBER",
+        desc = "..."
+      ))))
       verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
     }
 
@@ -122,21 +106,15 @@ class BarsServiceSpec extends SpecBase with BeforeAndAfterEach {
                                     |"nonStandardAccountDetailsRequiredForBacs": "yes",
                                     |"sortCodeIsPresentOnEISCD":"yes"
         }""".stripMargin
-      val response              = HttpResponse(status = OK, body = barsConnectorResponse)
+      val response = HttpResponse(status = OK, body = barsConnectorResponse)
 
       when(mockBarsConnector.validateBankDetails(any())(any())).thenReturn(Future.successful(response))
       val result = await(service.validateBankDetails(any())(any()))
-      result mustBe Left(
-        AccountNumberNotWellFormattedValidateResponse(
-          ValidateResponse(
-            BarsValidateResponse(
-              accountNumberIsWellFormatted = No,
-              nonStandardAccountDetailsRequiredForBacs = Yes,
-              sortCodeIsPresentOnEISCD = Yes
-            )
-          )
-        )
-      )
+      result mustBe Left(AccountNumberNotWellFormattedValidateResponse(ValidateResponse(BarsValidateResponse(
+        accountNumberIsWellFormatted = No,
+        nonStandardAccountDetailsRequiredForBacs = Yes,
+        sortCodeIsPresentOnEISCD = Yes
+      ))))
       verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
     }
 
@@ -147,21 +125,31 @@ class BarsServiceSpec extends SpecBase with BeforeAndAfterEach {
           |"nonStandardAccountDetailsRequiredForBacs": "yes",
           |"sortCodeIsPresentOnEISCD":"no"
         }""".stripMargin
-      val response              = HttpResponse(status = OK, body = barsConnectorResponse)
+      val response = HttpResponse(status = OK, body = barsConnectorResponse)
 
       when(mockBarsConnector.validateBankDetails(any())(any())).thenReturn(Future.successful(response))
       val result = await(service.validateBankDetails(any())(any()))
-      result mustBe Left(
-        SortCodeNotPresentOnEiscdValidateResponse(
-          ValidateResponse(
-            BarsValidateResponse(
-              accountNumberIsWellFormatted = Yes,
-              nonStandardAccountDetailsRequiredForBacs = Yes,
-              sortCodeIsPresentOnEISCD = No
-            )
-          )
-        )
-      )
+      result mustBe Left(SortCodeNotPresentOnEiscdValidateResponse(ValidateResponse(BarsValidateResponse(
+        accountNumberIsWellFormatted = Yes,
+        nonStandardAccountDetailsRequiredForBacs = Yes,
+        sortCodeIsPresentOnEISCD = No
+      ))))
+      verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
+    }
+
+    "process validate failure properly for Sort Code Does Not Support DirectCredit" in {
+      val barsConnectorResponse =
+        """{
+          |"accountNumberIsWellFormatted": "yes",
+          |"nonStandardAccountDetailsRequiredForBacs": "yes",
+          |"sortCodeIsPresentOnEISCD":"yes",
+          |"sortCodeSupportsDirectCredit":"no"
+        }""".stripMargin
+      val response = HttpResponse(status = OK, body = barsConnectorResponse)
+
+      when(mockBarsConnector.validateBankDetails(any())(any())).thenReturn(Future.successful(response))
+      val result = await(service.validateBankDetails(any())(any()))
+      result mustBe Left(SortCodeDoesNotSupportDirectCreditValidateResponse(ValidateResponse(Json.parse(barsConnectorResponse).as[BarsValidateResponse])))
       verify(mockBarsConnector, times(1)).validateBankDetails(any())(any())
     }
   }

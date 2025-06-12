@@ -31,7 +31,8 @@ object ValidateResponse {
   object validateFailure {
     def unapply(response: ValidateResponse): Boolean =
       response.barsValidateResponse.sortCodeIsPresentOnEISCD.equals(No) ||
-        response.barsValidateResponse.accountNumberIsWellFormatted.equals(No)
+        response.barsValidateResponse.accountNumberIsWellFormatted.equals(No) ||
+        response.barsValidateResponse.sortCodeSupportsDirectCredit.contains(No)
   }
 
   object accountNumberIsWellFormattedNo {
@@ -43,4 +44,10 @@ object ValidateResponse {
     def unapply(response: ValidateResponse): Boolean =
       response.barsValidateResponse.sortCodeIsPresentOnEISCD.equals(No)
   }
+
+  object sortCodeSupportsDirectCreditNo {
+    def unapply(response: ValidateResponse): Boolean =
+      response.barsValidateResponse.sortCodeSupportsDirectCredit.contains(No)
+  }
+
 }

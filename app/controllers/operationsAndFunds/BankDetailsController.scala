@@ -107,26 +107,17 @@ class BankDetailsController @Inject() (
                 ),
               value =>
                 for {
+                  updatedAnswers  <-
+                    Future.fromTry(request.userAnswers.set(BankDetailsPage, value).flatMap(_.set(Section6Page, false)))
+                  _               <- sessionRepository.set(updatedAnswers)
                   barsServiceCall <-
                     barsService.validateBankDetails(BarsBankAccount(value.sortCode, value.accountNumber))
-                  updatedAnswers  <-
-                    Future.fromTry(
-                      request.userAnswers
-                        .set(
-                          BankDetailsPage,
-                          value.copy(barsValidationFailed = Option.when(barsServiceCall.isLeft)(true))
-                        )
-                        .flatMap(_.set(Section6Page, false))
-                    )
-                  _               <- sessionRepository.set(updatedAnswers)
                 } yield barsServiceCall match
                   case Right(barsResponse: ValidateResponse)
                       if barsResponse.barsValidateResponse.nonStandardAccountDetailsRequiredForBacs == Yes =>
                     BadRequest(
                       view(
-                        form
-                          .fill(value)
-                          .withError(FormError("rollNumber", "bankAccountDetails.notFound.buildingSociety.required")),
+                        form.withError(FormError("rollNumber", "bankAccountDetails.notFound.buildingSociety.required")),
                         charityName.fullName,
                         controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
                         messagePrefix,
@@ -136,7 +127,10 @@ class BankDetailsController @Inject() (
                     )
                   case Right(_) => Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
                   case _        =>
-                    Redirect(controllers.operationsAndFunds.routes.BankDetailsSummaryController.onPageLoad())
+                    Redirect(
+                      controllers.operationsAndFunds.routes.BankDetailsSummaryController
+                        .onPageLoad(barsValidationFailed = true)
+                    )
             )
         case _                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
       }

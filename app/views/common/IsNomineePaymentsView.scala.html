@@ -26,7 +26,7 @@
     button: components.button,
 )
 
-@(form: Form[?], fullName: String, messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], fullName: String, messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("officialsAndNominees.section")))) {
 

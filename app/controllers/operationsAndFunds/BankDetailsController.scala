@@ -18,19 +18,16 @@ package controllers.operationsAndFunds
 
 import config.FrontendAppConfig
 import controllers.LocalBaseController
-import controllers.actions.*
+import controllers.actions._
 import forms.common.BankDetailsFormProvider
-import models.requests.BarsBankAccount
-import models.responses.BarsAssessmentType.Yes
-import models.responses.{BarsError, BarsResponse, ValidateResponse}
 import models.{BankDetails, Mode}
 import navigation.BankDetailsNavigator
 import pages.contactDetails.CharityNamePage
 import pages.operationsAndFunds.BankDetailsPage
 import pages.sections.{Section1Page, Section6Page}
-import play.api.data.{Form, FormError}
-import play.api.mvc.*
-import service.{BarsService, UserAnswerService}
+import play.api.data.Form
+import play.api.mvc._
+import service.UserAnswerService
 import views.html.operationsAndFunds.BankDetailsView
 
 import javax.inject.Inject
@@ -44,8 +41,7 @@ class BankDetailsController @Inject() (
   requireData: DataRequiredAction,
   formProvider: BankDetailsFormProvider,
   val controllerComponents: MessagesControllerComponents,
-  view: BankDetailsView,
-  barsService: BarsService
+  view: BankDetailsView
 )(implicit appConfig: FrontendAppConfig)
     extends LocalBaseController {
 
@@ -107,30 +103,10 @@ class BankDetailsController @Inject() (
                 ),
               value =>
                 for {
-                  updatedAnswers  <-
+                  updatedAnswers <-
                     Future.fromTry(request.userAnswers.set(BankDetailsPage, value).flatMap(_.set(Section6Page, false)))
-                  _               <- sessionRepository.set(updatedAnswers)
-                  barsServiceCall <-
-                    barsService.validateBankDetails(BarsBankAccount(value.sortCode, value.accountNumber))
-                } yield barsServiceCall match
-                  case Right(barsResponse: ValidateResponse)
-                      if barsResponse.barsValidateResponse.nonStandardAccountDetailsRequiredForBacs == Yes =>
-                    BadRequest(
-                      view(
-                        form.withError(FormError("rollNumber", "bankAccountDetails.notFound.buildingSociety.required")),
-                        charityName.fullName,
-                        controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(mode),
-                        messagePrefix,
-                        sectionName,
-                        None
-                      )
-                    )
-                  case Right(_) => Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
-                  case _        =>
-                    Redirect(
-                      controllers.operationsAndFunds.routes.BankDetailsSummaryController
-                        .onPageLoad(barsValidationFailed = true)
-                    )
+                  _              <- sessionRepository.set(updatedAnswers)
+                } yield Redirect(navigator.nextPage(BankDetailsPage, mode, updatedAnswers))
             )
         case _                 => Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad()))
       }

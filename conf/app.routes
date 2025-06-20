@@ -21,8 +21,9 @@ GET        /register-new-account                        controllers.IndexControl
 ### SignOut/Session Expired
 GET        /page-not-found                              controllers.PageNotFoundController.onPageLoad()
 GET        /redirect-to-start-of-journey                controllers.PageNotFoundController.redirectToStartOfJourney()
-GET        /sign-out                                    controllers.SignOutController.signOut
-GET        /error/signed-you-out                        controllers.SignOutController.signedYouOut
+GET        /sign-out                                    controllers.SignOutController.signOut()
+GET        /sign-you-out                                controllers.SignOutController.signedYouOut
+GET        /error/signed-you-out                        controllers.SignOutController.signOutNoSurvey()
 GET        /you-deleted-your-answers                    controllers.DeleteAnswersController.youDeletedAnswers
 GET        /we-deleted-your-answers                     controllers.DeleteAnswersController.weDeletedYourAnswers
 

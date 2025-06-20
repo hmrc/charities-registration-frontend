@@ -56,8 +56,8 @@
             timeout = Some(appConfig.timeout),
             countdown = Some(appConfig.countdown),
             keepAliveUrl = Some(controllers.routes.IndexController.keepalive.url),
-            signOutUrl = Some(controllers.routes.SignOutController.signOut.url),
-            timeoutUrl = Some(controllers.routes.SignOutController.signedYouOut.url),
+            signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
+            timeoutUrl = Some(controllers.routes.SignOutController.signOutNoSurvey().url),
             language = if (messages.lang.code == "cy") Some("cy") else Some("en")
         ))
     } else if(timeout) {
@@ -107,7 +107,7 @@
   pageTitle = pageTitle,
   headBlock = Some(hmrcHead(headBlock = Some(head))),
   headerBlock = Some(header(Header(
-    signOutHref = if(signOut) Some(controllers.routes.SignOutController.signOut.url) else None,
+    signOutHref = if(signOut) Some(controllers.routes.SignOutController.signOut().url) else None,
     homepageUrl = appConfig.govUK,
     serviceName = Some(messages("service.name")),
     serviceUrl = if(signOut) controllers.routes.IndexController.onPageLoad(None).url else appConfig.signOutUrl,

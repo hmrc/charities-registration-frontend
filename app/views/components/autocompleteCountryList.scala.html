@@ -67,8 +67,8 @@
 <script @CSPNonce.attr src="@controllers.routes.Assets.versioned("javascripts/autocomplete.js")" ></script>
 
 <script @CSPNonce.attr>
-    accessibleAutocomplete.enhanceSelectElement({
-        selectElement: document.getElementById("country"),
+    {
+        selectElement: document.getElementById("country").asAccessibleAutocomplete(),
         name: 'countryCodeAutocomplete',
         defaultValue: '',
         tStatusQueryTooShort: '',
@@ -83,5 +83,5 @@
             }).val();
             $("#country-select").val(country);
         }
-    })
+    }
 </script>

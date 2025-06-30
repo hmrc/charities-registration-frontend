@@ -5,7 +5,6 @@ $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
 @import "lib/hmrc-frontend/hmrc/all";
 
 @import "timeout-dialog";
-@import "autocomplete";
 @import "currency-input";
 @import "percentage-input";
 @import "task-list";
@@ -18,27 +17,8 @@ $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
   }
 }
 
-.autocomplete__menu {
-  font-family: "GDS Transport", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 1.25;
-  color: #0b0c0c;
-}
-
-.autocomplete__wrapper{
-  max-width: 52ex + 1ex;
-}
-
 .app-task-list__task-name{
   width: 65%
-}
-
-.govuk-form-group--error .autocomplete__input {
-  border: 2px solid #d4351c;
 }
 
 .hmrc-add-to-a-list__contents {

@@ -21,7 +21,10 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.components._
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.{Footer => CustomFooter, Meta => HmrcMeta}
 @import views.html.helper.CSPNonce
-
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteCss
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteJavascript
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 
 @this(
     govukLayout: GovukLayout,
@@ -32,7 +35,9 @@
     hmrcTimeoutDialog: HmrcTimeoutDialog,
     hmrcFooter: HmrcFooter,
     hmrcHead: HmrcHead,
-    hmrcScripts: HmrcScripts
+    hmrcScripts: HmrcScripts,
+    autocompleteCss: HmrcAccessibleAutocompleteCss,
+    autocompleteJavascript: HmrcAccessibleAutocompleteJavascript
 )
 
 @(
@@ -74,6 +79,9 @@
         ))
     }
 
+@autocompleteCss()
+@autocompleteJavascript()
+
 }
 
 @scripts = {
@@ -114,6 +122,7 @@
     language = if (messages.lang.code == "cy") Cy else En
   ))),
   beforeContentBlock = Some(beforeContentBlock),
+scriptsBlock = Some(hmrcScripts(Some(autocompleteJavascript()))),
   bodyEndBlock = Some(hmrcScripts(scriptsBlock = Some(scripts))),
   footerBlock = Some(hmrcFooter(CustomFooter(
     meta = Some(HmrcMeta(items = Some(FooterLinks.items))),

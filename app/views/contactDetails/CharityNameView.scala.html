@@ -62,7 +62,9 @@
             )
         }
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
 
     }
 }

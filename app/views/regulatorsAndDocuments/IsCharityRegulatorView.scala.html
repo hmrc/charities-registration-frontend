@@ -25,7 +25,8 @@
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     button: components.button,
-    pAsHint: components.pAsHint
+    pAsHint: components.pAsHint,
+    link: components.linkAsButton
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -39,7 +40,9 @@
 
         @yesNoRadio(form, "isCharityRegulator.heading", hint = Some(Html(pAsHint("isCharityRegulator", "hint"))))
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
 
     }
 }

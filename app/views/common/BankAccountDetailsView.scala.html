@@ -28,7 +28,8 @@
     inputNumber: components.inputNumber,
     p: components.p,
     warning: components.warning,
-    fieldset: components.fieldset
+    fieldset: components.fieldset,
+link: components.link
 )
 
 @(form: Form[_], submitCall: Call, messagePrefix: String, sectionName: String, nomineeName: Option[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -90,7 +91,9 @@
 
         @warning{@messages(s"$messagePrefix.bacs.warning")}
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
 
     }
 }

@@ -24,7 +24,8 @@
     errorSummary: components.errorSummary,
     button: components.button,
     inputText: components.inputText,
-    fieldset: components.fieldset
+    fieldset: components.fieldset,
+link: components.link
 )
 
 @(form: Form[_], fullName: String, messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -45,7 +46,9 @@
             classes = Some("govuk-input govuk-input--width-10")
         )
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
 
     }
 }

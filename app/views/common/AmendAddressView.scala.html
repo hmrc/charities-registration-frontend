@@ -28,7 +28,8 @@
     fieldset: components.fieldset,
     p: components.p,
     bullets: components.bullets,
-    country: components.autocompleteCountryList
+    country: components.autocompleteCountryList,
+link: components.link
 )
 
 @(form: Form[_], messagePrefix: String, submitCall: Call, h1Param: Option[String] = None, countries: Seq[(String, String)])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -103,7 +104,9 @@
             )
 }
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
 
     }
 }

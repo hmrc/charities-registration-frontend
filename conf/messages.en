@@ -52,6 +52,7 @@ site.change = Change
 site.logOut = log out
 site.empref = Employer PAYE reference: {0}
 site.gotoTaskList = Go to task list
+site.returnToTaskList = Return to task list
 
 footer.cookies         = Cookies
 footer.accessibility   = Accessibility statement

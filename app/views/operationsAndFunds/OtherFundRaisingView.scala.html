@@ -26,6 +26,7 @@
     button: components.button,
     inputText: components.inputText,
     fieldset: components.fieldset,
+link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -46,7 +47,9 @@
             )
 
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
 
     }
 }

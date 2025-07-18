@@ -25,7 +25,8 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     inputRadio: components.inputRadio,
-    button: components.button
+    button: components.button,
+link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -42,7 +43,9 @@
             items = SelectGoverningDocument.options(form),
         )
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
 
     }
 }

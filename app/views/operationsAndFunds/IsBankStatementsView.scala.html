@@ -41,7 +41,9 @@ link: components.link
 
 @button("site.saveAndContinue")
 
+<div>
 @link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+</div>
 
     }
 }

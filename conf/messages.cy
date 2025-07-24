@@ -52,6 +52,7 @@ site.change = Newid
 site.logOut = allgofnodi
 site.empref = Cyfeirnod TWE y Cyflogwr: {0}
 site.gotoTaskList = Ewch i’r rhestr o dasgau
+site.returnToTaskList = Mynd yn ôl i’r rhestr tasgau
 
 footer.cookies         = Cwcis
 footer.accessibility   = Datganiad hygyrchedd

@@ -25,7 +25,8 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     inputRadio: components.inputRadio,
-    button: components.button
+    button: components.button,
+link: components.link
 )
 
 @(form: Form[_], fullName: String, messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -43,7 +44,11 @@
             hint = Some(Html(messages(s"$messagePrefix.hint"))),
         )
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+</div>
 
     }
 }

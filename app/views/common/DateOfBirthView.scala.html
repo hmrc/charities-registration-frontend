@@ -24,7 +24,8 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     inputDate: components.inputDate,
-    button: components.button
+    button: components.button,
+link: components.link
 
 )
 
@@ -44,7 +45,11 @@
                 legendAsPageHeading = true
             )
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+</div>
 
     }
 }

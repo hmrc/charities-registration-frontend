@@ -24,7 +24,8 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    inputText: components.inputText
+    inputText: components.inputText,
+link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -44,7 +45,11 @@
                 classes = Some("govuk-input govuk-input--width-20")
             )
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+</div>
 
     }
 }

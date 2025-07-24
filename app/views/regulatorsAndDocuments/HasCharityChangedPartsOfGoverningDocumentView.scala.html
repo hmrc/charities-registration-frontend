@@ -25,6 +25,7 @@
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     button: components.button,
+link: components.link
 )
 
 @(form: Form[_], mode: Mode, documentNameKey: String)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -37,6 +38,10 @@
 
         @yesNoRadio(form, s"hasCharityChangedPartsOfGoverningDocument.$documentNameKey.heading")
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+</div>
     }
 }

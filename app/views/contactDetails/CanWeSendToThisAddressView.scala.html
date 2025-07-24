@@ -25,7 +25,8 @@
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     h1: components.h1,
-    button: components.button
+    button: components.button,
+link: components.link
 )
 
 @(form: Form[_], mode: Mode, charityInformationAddressLookup: Seq[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -38,7 +39,11 @@
 
         @yesNoRadio(form, "canWeSendLettersToThisAddress.heading", isPageHeading = true, hint = Some(Html(hint)))
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+</div>
 
     }
 }

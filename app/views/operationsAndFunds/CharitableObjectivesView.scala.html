@@ -27,7 +27,8 @@
     inputCharacterCount: components.inputCharacterCount,
     fieldset: components.fieldset,
     h1: components.h1,
-    pAsHint: components.pAsHint
+    pAsHint: components.pAsHint,
+link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -51,7 +52,11 @@
             countMessageClasses = Some("govuk-textArea govuk-js-character-count"),
         )
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+</div>
 
     }
 }

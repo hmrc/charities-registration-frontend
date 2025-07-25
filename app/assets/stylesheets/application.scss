@@ -16,20 +16,14 @@ $hmrc-assets-path: "/register-charity-hmrc/assets/lib/hmrc-frontend/hmrc/";
     padding-bottom: 40px;
   }
 }
-
-.autocomplete__menu {
-  font-family: "GDS Transport", Arial, sans-serif;
-}
-
 .autocomplete__wrapper{
-  max-width: 52ex + 1ex;
+  max-width: 40.0625em;
 }
-
 .app-task-list__task-name{
   width: 65%
 }
 
-.govuk-form-group--error .autocomplete__input {
+.govuk-form-group--error {
   border: 2px solid #d4351c;
 }
 

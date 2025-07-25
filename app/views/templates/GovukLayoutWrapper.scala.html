@@ -79,8 +79,7 @@
         ))
     }
 
-@autocompleteCss()
-@autocompleteJavascript()
+    @autocompleteCss()
 
 }
 
@@ -122,7 +121,7 @@
     language = if (messages.lang.code == "cy") Cy else En
   ))),
   beforeContentBlock = Some(beforeContentBlock),
-scriptsBlock = Some(hmrcScripts(Some(autocompleteJavascript()))),
+  scriptsBlock = Some(hmrcScripts(Some(autocompleteJavascript()))),
   bodyEndBlock = Some(hmrcScripts(scriptsBlock = Some(scripts))),
   footerBlock = Some(hmrcFooter(CustomFooter(
     meta = Some(HmrcMeta(items = Some(FooterLinks.items))),

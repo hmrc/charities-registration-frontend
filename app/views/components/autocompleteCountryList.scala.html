@@ -65,7 +65,7 @@
     selected = k == form("country").value.getOrElse(""),
     attributes = Map("id" → s"country-$k"))
     },
-    formGroup = FormGroup(classes = Some("form-field-group"))
+    formGroup = FormGroup(classes = Some("autocomplete-wrapper govuk-!-width-three-quarters"))
 ).asAccessibleAutocomplete())
 </div>
 

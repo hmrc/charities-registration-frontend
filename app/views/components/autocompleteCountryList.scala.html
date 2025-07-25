@@ -19,6 +19,10 @@
 @import uk.gov.hmrc.govukfrontend.views.html.{components => hmrcComponent}
 @import uk.gov.hmrc.govukfrontend.views.html.components.{toClasses => govukToClasses}
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
+@import uk.gov.hmrc.govukfrontend.views.Implicits.RichSelect
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accessibleautocomplete.AccessibleAutocomplete
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 
 @this(select: GovukSelect)
 
@@ -61,27 +65,7 @@
     selected = k == form("country").value.getOrElse(""),
     attributes = Map("id" → s"country-$k"))
     },
-    formGroup = FormGroup(classes = Some("form-field-group"))
-))
+    formGroup = FormGroup(classes = Some("autocomplete-wrapper govuk-!-width-three-quarters"))
+).asAccessibleAutocomplete())
 </div>
-<script @CSPNonce.attr src="@controllers.routes.Assets.versioned("javascripts/autocomplete.js")" ></script>
 
-<script @CSPNonce.attr>
-    accessibleAutocomplete.enhanceSelectElement({
-        selectElement: document.getElementById("country"),
-        name: 'countryCodeAutocomplete',
-        defaultValue: '',
-        tStatusQueryTooShort: '',
-        @*
-          TF-640: Had to override the onConfirm function to include custom validation for countries because null / undefined values are not handled by the Autocomplete form:
-          https://github.com/alphagov/accessible-autocomplete/issues/260
-          When this is fixed the custom validation / onConfirm bypass can be removed
-        *@
-        onConfirm: () => {
-            const country = $("#country-select > option").filter(function() {
-                return this.text == $("#country").val()
-            }).val();
-            $("#country-select").val(country);
-        }
-    })
-</script>

@@ -25,6 +25,7 @@
     errorSummary: components.errorSummary,
     inputRadio: components.inputRadio,
     button: components.button,
+    link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -55,6 +56,10 @@
               )
 
     @button("site.saveAndContinue")
+
+    <div>
+    @link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+    </div>
 
    }
 

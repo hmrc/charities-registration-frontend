@@ -24,6 +24,7 @@
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     button: components.button,
+    link: components.link
 )
 
 @(form: Form[_], fullName: String, messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -37,6 +38,10 @@
     @yesNoRadio(form, s"$messagePrefix.heading", headingMessageArgs = Seq(fullName))
 
     @button("site.saveAndContinue")
+
+    <div>
+        @link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+    </div>
 
     }
 

@@ -25,7 +25,8 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    country: components.autocompleteCountryList
+    country: components.autocompleteCountryList,
+    link: components.link
 )
 
 @(form: Form[_], mode: Mode, index: Index,countries: Seq[(String, String)], countriesList: Option[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -49,6 +50,10 @@
     )
 
     @button("site.saveAndContinue")
+
+    <div>
+    @link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+    </div>
 
     }
 }

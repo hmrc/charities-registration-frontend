@@ -21,7 +21,7 @@
         messageKey: String,
         id: Option[String] = None,
         isExternal: Boolean = false,
-        classes: String = "govuk-link",
+        classes: String = None,
 )(implicit messages: Messages)
 
 <a href="@link" class="govuk-link @classes" @id.map(x => s"id=$x") @if(isExternal) { target="_blank" }>@messages(messageKey)@if(isExternal)(" " + messages("site.opensInNewWindowOrTab"))</a>

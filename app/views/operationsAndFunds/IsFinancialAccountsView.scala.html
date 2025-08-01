@@ -25,7 +25,8 @@
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     button: components.button,
-    h1: components.h1
+    h1: components.h1,
+    link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -39,6 +40,15 @@
     @yesNoRadio(form, "isFinancialAccounts.heading", hint = Some(Html(messages("isFinancialAccounts.hint"))), isPageHeading = true)
 
     @button("site.saveAndContinue")
+
+<div>
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
+</div>
 
     }
 }

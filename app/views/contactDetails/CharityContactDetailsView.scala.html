@@ -75,7 +75,12 @@
 @button("site.saveAndContinue")
 
 <div>
-@link(controllers.routes.IndexController.onPageLoad(None).url, "site.returnToTaskList", id=Some("taskListLink"))
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
 </div>
 
     }

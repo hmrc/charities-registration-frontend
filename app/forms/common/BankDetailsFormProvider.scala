@@ -20,17 +20,31 @@ import forms.mappings.Mappings
 import models.BankDetails
 import play.api.data.Form
 import play.api.data.Forms.{default, mapping, optional}
+import play.api.data.validation.{Constraint, Invalid, Valid}
 
 import javax.inject.Inject
 
 class BankDetailsFormProvider @Inject() extends Mappings {
 
-  private[common] val sortCodePattern: String      = "^[ -]*(?:\\d[ -]*){6,6}$".r.anchored.toString
-  private[common] val accountNumberPattern: String = "^[ -]*(?:\\d[ -]*){6,8}$".r.anchored.toString
-  private[common] val rollNumberPattern: String    = "^[a-zA-Z0-9- \\/.]*$".r.anchored.toString
+  private[common] val rollNumberPattern: String = "^[a-zA-Z0-9- \\/.]*$".r.anchored.toString
 
   private[common] val maxLengthAccountName = 60
   private[common] val maxLengthRollNumber  = 18
+
+  private def digitsOnlyConstraint(fieldName: String): Constraint[String] = Constraint { input =>
+    if (input.forall(_.isDigit)) Valid
+    else Invalid(s"$fieldName.error.format")
+  }
+
+  private def sortCodeLengthConstraint(fieldName: String): Constraint[String] = Constraint { input =>
+    if (input.length == 6) Valid
+    else Invalid(s"$fieldName.error.length")
+  }
+
+  private def accountNumberLengthConstraint(fieldName: String): Constraint[String] = Constraint { input =>
+    if (input.length >= 6 && input.length <= 8) Valid
+    else Invalid(s"$fieldName.error.length")
+  }
 
   def apply(messagePrefix: String): Form[BankDetails] =
     Form(
@@ -39,9 +53,13 @@ class BankDetailsFormProvider @Inject() extends Mappings {
           .verifying(maxLength(maxLengthAccountName, s"$messagePrefix.accountName.error.length"))
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.accountName.error.format")),
         "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
-          .verifying(regexp(sortCodePattern, s"$messagePrefix.sortCode.error.format")),
+          .verifying(digitsOnlyConstraint(s"$messagePrefix.sortCode"))
+          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(sortCodeLengthConstraint(s"$messagePrefix.sortCode")),
         "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
-          .verifying(regexp(accountNumberPattern, s"$messagePrefix.accountNumber.error.format")),
+          .verifying(digitsOnlyConstraint(s"$messagePrefix.accountNumber"))
+          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(accountNumberLengthConstraint(s"$messagePrefix.accountNumber")),
         "rollNumber"    -> optional(
           textWithOneSpace()
             .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))
@@ -55,9 +73,13 @@ class BankDetailsFormProvider @Inject() extends Mappings {
       mapping(
         "accountName"   -> default(text(), charityName),
         "sortCode"      -> text(s"$messagePrefix.sortCode.error.required")
-          .verifying(regexp(sortCodePattern, s"$messagePrefix.sortCode.error.format")),
+          .verifying(digitsOnlyConstraint(s"$messagePrefix.sortCode"))
+          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(sortCodeLengthConstraint(s"$messagePrefix.sortCode")),
         "accountNumber" -> text(s"$messagePrefix.accountNumber.error.required")
-          .verifying(regexp(accountNumberPattern, s"$messagePrefix.accountNumber.error.format")),
+          .verifying(digitsOnlyConstraint(s"$messagePrefix.accountNumber"))
+          .transform[String](_.filter(_.isDigit), identity)
+          .verifying(accountNumberLengthConstraint(s"$messagePrefix.accountNumber")),
         "rollNumber"    -> optional(
           textWithOneSpace()
             .verifying(maxLength(maxLengthRollNumber, s"$messagePrefix.rollNumber.error.length"))

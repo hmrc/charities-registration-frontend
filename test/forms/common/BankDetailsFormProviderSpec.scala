@@ -63,11 +63,10 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   }
 
   ".sortCode" must {
-
-    val fieldName   = "sortCode"
-    val requiredKey = s"$messagePrefix.sortCode.error.required"
-    val invalidKey  = s"$messagePrefix.sortCode.error.format"
-
+    val fieldName        = "sortCode"
+    val requiredKey      = s"$messagePrefix.sortCode.error.required"
+    val formatErrorKey   = s"$messagePrefix.sortCode.error.format"
+    val lengthErrorKey   = s"$messagePrefix.sortCode.error.length"
     val validSortCodeGen = for {
       firstDigits     <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
       firstSeparator  <- Gen.oneOf(' ', '-').map(_.toString)
@@ -75,118 +74,90 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       secondSeparator <- Gen.oneOf(' ', '-').map(_.toString)
       thirdDigits     <- Gen.listOfN(2, Gen.numChar).map(_.mkString)
     } yield s"$firstDigits$firstSeparator$secondDigits$secondSeparator$thirdDigits"
-
     behave like fieldThatBindsValidData(
       form,
       fieldName,
       validSortCodeGen
     )
-
     behave like mandatoryField(
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
-
-    behave like fieldWithRegex(
-      form,
-      fieldName,
-      "123456a",
-      FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
-    )
-
     "bind sort codes in nnnnnn format" in {
       val result = form.bind(Map(fieldName -> "123456")).apply(fieldName)
       result.value.value mustBe "123456"
     }
-
     "bind sort codes in nn-nn-nn format" in {
       val result = form.bind(Map(fieldName -> "12-34-56")).apply(fieldName)
       result.value.value mustBe "12-34-56"
     }
-
     "bind sort codes in nn nn nn format" in {
       val result = form.bind(Map(fieldName -> "12 34 56")).apply(fieldName)
       result.value.value mustBe "12 34 56"
     }
-
     "bind sort codes in nn   nn    nn format" in {
       val result = form.bind(Map(fieldName -> "12   34   56")).apply(fieldName)
       result.value.value mustBe "12   34   56"
     }
-
     "not bind sort codes with characters" in {
-      val result        = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
-      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
-      result.errors.head.key mustEqual expectedError.key
+      val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, formatErrorKey))
     }
-
-    "not bind sort codes with less than 6 digit" in {
-      val result        = form.bind(Map(fieldName -> "12   34  5")).apply(fieldName)
-      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
-      result.errors.head.key mustEqual expectedError.key
+    "not bind sort codes with less than 6 digits" in {
+      val result = form.bind(Map(fieldName -> "12345")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, lengthErrorKey))
     }
-
-    "not bind sort codes with more than 6 digit" in {
-      val result        = form.bind(Map(fieldName -> "12   34  5678")).apply(fieldName)
-      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.sortCodePattern))
-      result.errors.head.key mustEqual expectedError.key
+    "not bind sort codes with more than 6 digits" in {
+      val result = form.bind(Map(fieldName -> "12345678")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, lengthErrorKey))
     }
   }
 
   ".accountNumber" must {
-
-    val fieldName   = "accountNumber"
-    val requiredKey = s"$messagePrefix.accountNumber.error.required"
-    val invalidKey  = s"$messagePrefix.accountNumber.error.format"
-    val minLength   = 6
-    val maxLength   = 8
-
+    val fieldName             = "accountNumber"
+    val requiredKey           = s"$messagePrefix.accountNumber.error.required"
+    val formatErrorKey        = s"$messagePrefix.accountNumber.error.format"
+    val lengthErrorKey        = s"$messagePrefix.accountNumber.error.length"
+    val minLength             = 6
+    val maxLength             = 8
     val validAccountNumberGen = for {
       length <- Gen.choose(minLength, maxLength)
       digits <- Gen.listOfN(length, Gen.numChar)
     } yield digits.mkString
-
     behave like fieldThatBindsValidData(
       form,
       fieldName,
       validAccountNumberGen
     )
-
     behave like mandatoryField(
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
-
-    behave like fieldWithRegex(
-      form,
-      fieldName,
-      "12345678?",
-      FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
-    )
-
-    "bind account number in format with any number of spaces nn   nn    nn format" in {
+    "bind account number with any number of spaces" in {
       val result = form.bind(Map(fieldName -> "12   34   56")).apply(fieldName)
       result.value.value mustBe "12   34   56"
     }
-
     "not bind strings with characters" in {
-      val result        = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
-      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
-      result.errors.head.key mustEqual expectedError.key
+      val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, formatErrorKey))
     }
-
-    "not bind strings with less than 6 digit" in {
-      val result        = form.bind(Map(fieldName -> "12 34   5")).apply(fieldName)
-      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
-      result.errors.head.key mustEqual expectedError.key
+    "not bind strings with less than 6 digits" in {
+      val result = form.bind(Map(fieldName -> "12 34   5")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, formatErrorKey))
     }
-
-    "not bind strings with more than 8 digit" in {
-      val result        = form.bind(Map(fieldName -> "12 34 56 789")).apply(fieldName)
-      val expectedError = FormError(fieldName, invalidKey, Seq(formProvider.accountNumberPattern))
-      result.errors.head.key mustEqual expectedError.key
+    "not bind strings with less than 6 digits (all digits)" in {
+      val result = form.bind(Map(fieldName -> "12345")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, lengthErrorKey))
+    }
+    "not bind strings with more than 8 digits" in {
+      val result = form.bind(Map(fieldName -> "123456789")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, lengthErrorKey))
+    }
+    "not bind strings with more than 8 digits and spaces" in {
+      val result = form.bind(Map(fieldName -> "12 34 56 789")).apply(fieldName)
+      result.errors must contain(FormError(fieldName, formatErrorKey))
     }
   }
 
@@ -225,14 +196,14 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     "not bind strings with characters any other character apart from letters a to z, numbers, hyphens, spaces and full stops" in {
       val result        = form.bind(Map(fieldName -> "roll-Number, .!?")).apply(fieldName)
       val expectedError =
-        FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+        FormError(fieldName, s"$messagePrefix.rollNumber.error.format", Seq(formProvider.rollNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
 
     "not bind strings with more than 18 characters" in {
       val result        = form.bind(Map(fieldName -> "01234567890123456789")).apply(fieldName)
       val expectedError =
-        FormError(fieldName, s"$messagePrefix.error.accountNumber.invalid", Seq(formProvider.accountNumberPattern))
+        FormError(fieldName, s"$messagePrefix.rollNumber.error.length", Seq(formProvider.rollNumberPattern))
       result.errors.head.key mustEqual expectedError.key
     }
   }
@@ -322,32 +293,6 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
     "valid for accountName&" in {
 
       "accountName&" mustNot fullyMatch regex formProvider.validateField
-    }
-  }
-
-  "sortCode" must {
-
-    "valid for sortCode" in {
-
-      "123456" must fullyMatch regex formProvider.sortCodePattern
-    }
-
-    "valid for 1234567" in {
-
-      "1234567" mustNot fullyMatch regex formProvider.sortCodePattern
-    }
-  }
-
-  "accountNumber" must {
-
-    "valid for sortCode" in {
-
-      "12345678" must fullyMatch regex formProvider.accountNumberPattern
-    }
-
-    "invalid for 12345678a" in {
-
-      "12345678a" mustNot fullyMatch regex formProvider.accountNumberPattern
     }
   }
 

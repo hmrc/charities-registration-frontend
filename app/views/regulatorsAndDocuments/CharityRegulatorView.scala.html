@@ -44,7 +44,16 @@
             items = CharityRegulator.options(form),
         )
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
+</div>
 
     }
 }

@@ -27,7 +27,8 @@
     inputText: components.inputText,
     fieldset: components.fieldset,
     inputDate: components.inputDate,
-    country: components.autocompleteCountryList
+    country: components.autocompleteCountryList,
+link: components.link
 )
 
 @(form: Form[_], fullName:String, messagePrefix: String, submitCall: Call, countries: Seq[(String, String)])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -72,7 +73,16 @@
 
         }
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
+</div>
 
     }
 }

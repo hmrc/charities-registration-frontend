@@ -25,7 +25,8 @@
     button: components.button,
     inputText: components.inputText,
     h1: components.h1,
-    fieldset: components.fieldset
+    fieldset: components.fieldset,
+link: components.link
 )
 
 @(form: Form[_], fullName: String, messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -63,7 +64,16 @@
             )
         }
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
+</div>
 
     }
 }

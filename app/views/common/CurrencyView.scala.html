@@ -24,7 +24,8 @@
         errorSummary: components.errorSummary,
         inputCurrency: components.inputCurrency,
         button: components.button,
-        pAsHint: components.pAsHint
+        pAsHint: components.pAsHint,
+link: components.link
 )
 
 @(form: Form[_], messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -46,7 +47,16 @@
             )
 
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
+</div>
 
     }
 }

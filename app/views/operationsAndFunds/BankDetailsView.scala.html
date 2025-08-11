@@ -28,7 +28,8 @@
     inputNumber: components.inputNumber,
     p: components.p,
     warning: components.warning,
-    fieldset: components.fieldset
+    fieldset: components.fieldset,
+link: components.link
 )
 
 @(form: Form[_], charityName: String, submitCall: Call, messagePrefix: String, sectionName: String, nomineeName: Option[String])(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -106,7 +107,16 @@
 
         @warning{@messages(s"$messagePrefix.bacs.warning")}
 
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
+
+<div>
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
+</div>
 
     }
 }

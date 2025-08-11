@@ -26,7 +26,8 @@
     inputText: components.inputText,
     h1: components.h1,
     fieldset: components.fieldset,
-    inputRadio: components.inputRadio
+    inputRadio: components.inputRadio,
+link: components.link
 )
 
 @(form: Form[_], messagePrefix: String, submitCall: Call)(implicit request: Request[?], messages: Messages, appConfig: FrontendAppConfig)
@@ -75,7 +76,15 @@
                     classes = Some("govuk-input govuk-input--width-10")
                 )
             }
-        @button("site.saveAndContinue")
+@button("site.saveAndContinue")
 
+<div>
+    @link(
+    id = Some("taskListLink"),
+    messageKey = messages("site.returnToTaskList"),
+    link = controllers.routes.IndexController.onPageLoad(None).url,
+    classes = "govuk-!-font-size-19"
+    )
+</div>
     }
 }

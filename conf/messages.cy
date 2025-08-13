@@ -478,6 +478,8 @@ amendAddress.postcode.error.format = Nodwch god post dilys
 amendAddress.postcode.error.length = Mae’n rhaid i’r cod post neu god ‘zip’ fod yn 35 o gymeriadau neu lai
 amendAddress.postcode.error.format.nonUK = Mae’n rhaid i’r cod post neu god ‘zip’ gynnwys llythrennau, rhifau, cysylltnodau a bylchau yn unig
 amendAddress.country.error.required = Nodwch y wlad
+amendAddress.organisation.error.length = Mae’n rhaid i’r sefydliad fod yn 35 o gymeriadau neu lai
+amendAddress.organisation.error.format = Mae’n rhaid i’r sefydliad gynnwys llythrennau, rhifau, cysylltnodau, collnodau, comas, bylchau ac atalnodau llawn yn unig
 
 # Amend Charity Official Address Messages
 # ----------------------------------------------------------

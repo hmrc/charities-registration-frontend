@@ -59,11 +59,12 @@ trait LocalBaseController extends FrontendBaseController with I18nSupport with E
     request.userAnswers
       .get(addressLookupPageId)
       .map { charityInformationAddressLookup =>
-        val addressList = charityInformationAddressLookup.lines
-        val postcode    = charityInformationAddressLookup.postcode.fold(Seq[String]())(Seq(_))
-        val countryName = charityInformationAddressLookup.country.name
-        val countryCode = charityInformationAddressLookup.country.code
-        block(Seq(addressList, postcode).flatten, Country(countryCode, countryName))
+        val organization = charityInformationAddressLookup.organisation.fold(Seq[String]())(Seq(_))
+        val addressList  = charityInformationAddressLookup.lines
+        val postcode     = charityInformationAddressLookup.postcode.fold(Seq[String]())(Seq(_))
+        val countryName  = charityInformationAddressLookup.country.name
+        val countryCode  = charityInformationAddressLookup.country.code
+        block(Seq(organization, addressList, postcode).flatten, Country(countryCode, countryName))
 
       }
       .getOrElse(Future.successful(Redirect(controllers.routes.PageNotFoundController.onPageLoad())))

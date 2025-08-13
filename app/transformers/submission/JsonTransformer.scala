@@ -76,11 +76,17 @@ trait JsonTransformer {
     isNonUK.flatMap {
       case JsBoolean(true) =>
         ((submissionPath \ "nonUKAddress").json.copyFrom(isNonUK) and
+          ((submissionPath \ "organisation").json.copyFrom(
+            (userAnswerPath \ "organisation").json.pick
+          ) orElse doNothing) and
           (submissionPath \ "addressLine1").json.copyFrom((userAnswerPath \ "lines" \ 0).json.pick) and
           getNonUKAddressLines(submissionPath, userAnswerPath) and
           (submissionPath \ "nonUKCountry").json.copyFrom((userAnswerPath \ "country" \ "code").json.pick)).reduce
       case _               =>
         ((submissionPath \ "nonUKAddress").json.copyFrom(isNonUK) and
+          ((submissionPath \ "organisation").json.copyFrom(
+            (userAnswerPath \ "organisation").json.pick
+          ) orElse doNothing) and
           (submissionPath \ "addressLine1").json.copyFrom((userAnswerPath \ "lines" \ 0).json.pick) and
           (submissionPath \ "addressLine2").json.copyFrom((userAnswerPath \ "lines" \ 1).json.pick) and
           ((submissionPath \ "addressLine3").json.copyFrom(

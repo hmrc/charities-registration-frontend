@@ -238,6 +238,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
         label = messages(s"$messagePrefix.checkYourAnswersLabel"),
         value = Text(
           Seq(
+            address.organisation,
             Some(address.lines.mkString(", ")),
             address.postcode,
             CountryService.find(address.country.code).map(c => c.name)

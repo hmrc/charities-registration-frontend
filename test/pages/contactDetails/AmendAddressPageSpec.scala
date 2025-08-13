@@ -26,6 +26,7 @@ class AmendAddressPageSpec extends PageBehaviours {
 
     implicit lazy val arbitraryCharityContactDetails: Arbitrary[AmendAddressModel] = Arbitrary {
       AmendAddressModel(
+        organisation = Some("Test Organisation"),
         line1 = "23",
         line2 = Some("Morrison street"),
         line3 = Some(""),

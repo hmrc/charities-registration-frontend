@@ -24,7 +24,7 @@ import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.contactDetails.AmendAddressPage
@@ -32,7 +32,7 @@ import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.AmendAddressView
 
@@ -41,7 +41,7 @@ import scala.concurrent.Future
 class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
+  lazy val mockCountryService: CountryService = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -58,26 +58,28 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
     reset(mockCountryService)
   }
 
-  private val messageKeyPrefix                       = "amendOtherOfficialPreviousAddress"
-  private val view: AmendAddressView                 = inject[AmendAddressView]
+  private val messageKeyPrefix = "amendOtherOfficialPreviousAddress"
+  private val view: AmendAddressView = inject[AmendAddressView]
   private val formProvider: AmendAddressFormProvider = inject[AmendAddressFormProvider]
-  private val form: Form[AmendAddressModel]          = formProvider(messageKeyPrefix)
+  private val form: Form[AmendAddressModel] = formProvider(messageKeyPrefix)
 
   private val controller: AmendOtherOfficialsPreviousAddressController =
     inject[AmendOtherOfficialsPreviousAddressController]
 
-  private val requestArgs                   = Seq(
-    "line1"    -> "23",
-    "line2"    -> "Morrison street",
-    "line3"    -> "",
-    "town"     -> "Glasgow",
+  private val requestArgs = Seq(
+    "organisation" -> "Test Organisation",
+    "line1" -> "23",
+    "line2" -> "Morrison street",
+    "line3" -> "",
+    "town" -> "Glasgow",
     "postcode" -> "G58AN",
-    "country"  -> "GB"
+    "country" -> "GB"
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       OtherOfficialPreviousAddressLookupPage(0),
       AddressModel(
+        Some("Test Organisation"),
         Seq("7", "Morrison street near riverview gardens", "Glasgow"),
         Some("G58AN"),
         CountryModel("GB", "United Kingdom")
@@ -92,7 +94,7 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
     "return OK and the correct view for a GET" in {
 
       val amendOtherOfficialsPreviousAddress =
-        AmendAddressModel("7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
+        AmendAddressModel(Some("Test Organisation"), "7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -114,7 +116,7 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
+        .set(AmendAddressPage, AmendAddressModel(Some("Test Organisation"), "23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
         .success
         .value
 
@@ -130,7 +132,7 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs *)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

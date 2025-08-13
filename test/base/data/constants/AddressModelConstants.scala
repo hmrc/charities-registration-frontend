@@ -21,16 +21,22 @@ import models.addressLookup.{AddressModel, CountryModel}
 object AddressModelConstants {
 
   val address: AddressModel =
-    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(
+      Some("Test Organisation"),
+      Seq("7", "Morrison street"),
+      Some("G58AN"),
+      CountryModel("UK", "United Kingdom")
+    )
 
   val addressModelMax: AddressModel =
     AddressModel(
+      Some("Test Organisation"),
       Seq("7", "Morrison street near riverview gardens"),
       Some("G58AN"),
       CountryModel("UK", "United Kingdom")
     )
 
   val addressModelMin: AddressModel =
-    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(None, Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
 }

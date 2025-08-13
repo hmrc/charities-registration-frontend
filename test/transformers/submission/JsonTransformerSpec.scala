@@ -57,6 +57,7 @@ class JsonTransformerSpec extends SpecBase {
           .set(
             CharityOfficialAddressLookupPage,
             AddressModel(
+              Some("Test Organisation"),
               Seq("7", "Morrison street", "line3", "line4"),
               Some("G58AN"),
               CountryModel("GB", "United Kingdom")
@@ -71,6 +72,7 @@ class JsonTransformerSpec extends SpecBase {
             |   "common": {
             |    "addressDetails": {
             |      "officialAddress": {
+            |        "organisation": "Test Organisation",
             |        "postcode": "G58AN",
             |        "addressLine1": "7",
             |        "addressLine2": "Morrison street",
@@ -99,7 +101,7 @@ class JsonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "INDIA"))
+            AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "INDIA"))
           )
           .success
           .value
@@ -138,7 +140,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7 Morrison street", " ", "  ", "   "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+              AddressModel(None, Seq("7 Morrison street", " ", "  ", "   "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
             )
             .success
             .value
@@ -176,6 +178,7 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "address line 3", "address line 4"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
@@ -219,6 +222,7 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "address line 3", "address line 4 with more than 35 characters"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
@@ -262,6 +266,7 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "address line 3", ""),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
@@ -305,6 +310,7 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "address line 3"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
@@ -348,6 +354,7 @@ class JsonTransformerSpec extends SpecBase {
             .set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "", "address line 3"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
@@ -390,7 +397,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street", "", " "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+              AddressModel(None, Seq("7", "Morrison street", "", " "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
             )
             .success
             .value
@@ -428,7 +435,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+              AddressModel(None, Seq("7", "Morrison street"), Some("NonUKCode"), CountryModel("IN", "INDIA"))
             )
             .success
             .value
@@ -471,6 +478,7 @@ class JsonTransformerSpec extends SpecBase {
           .set(
             CharityOfficialAddressLookupPage,
             AddressModel(
+              None,
               Seq("7", "Morrison street", "line3", "line4"),
               Some("G58AN"),
               CountryModel("GB", "United Kingdom")

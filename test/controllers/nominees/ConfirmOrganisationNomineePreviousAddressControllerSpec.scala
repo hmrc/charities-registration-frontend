@@ -67,7 +67,7 @@ class ConfirmOrganisationNomineePreviousAddressControllerSpec extends SpecBase w
               .flatMap(
                 _.set(
                   OrganisationNomineePreviousAddressLookupPage,
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
                 )
               )
               .success
@@ -106,6 +106,7 @@ class ConfirmOrganisationNomineePreviousAddressControllerSpec extends SpecBase w
                 _.set(
                   OrganisationNomineePreviousAddressLookupPage,
                   AddressModel(
+                    None,
                     List("12", "Banner Way near south riverview gardens"),
                     None,
                     CountryModel("GB", "United Kingdom")

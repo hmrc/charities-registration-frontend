@@ -475,6 +475,8 @@ amendAddress.postcode.error.format = Enter a valid postcode
 amendAddress.postcode.error.length = Postcode or zipcode must be 35 characters or less
 amendAddress.postcode.error.format.nonUK = Postcode or zipcode must only include letters, numbers, hyphens and spaces
 amendAddress.country.error.required = Enter the country
+amendAddress.organisation.error.length = Organisation must be 35 characters or less
+amendAddress.organisation.error.format = Organisation must only include letters, numbers, hyphens, apostrophes, commas, spaces and full stops
 
 # Amend Charity Official Address Messages
 # ----------------------------------------------------------

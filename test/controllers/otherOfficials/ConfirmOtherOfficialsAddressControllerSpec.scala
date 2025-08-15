@@ -66,7 +66,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
                 )
               )
               .success
@@ -103,6 +103,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
                 _.set(
                   OtherOfficialAddressLookupPage(0),
                   AddressModel(
+                    None,
                     List("12", "Banner Way near south riverview gardens"),
                     None,
                     CountryModel("GB", "United Kingdom")

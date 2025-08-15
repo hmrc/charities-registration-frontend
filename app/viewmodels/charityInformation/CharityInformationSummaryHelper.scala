@@ -141,6 +141,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)(imp
             label = messages(s"$messagePrefix.checkYourAnswersLabel"),
             value = Text(
               Seq(
+                address.organisation,
                 Some(address.lines.mkString(", ")),
                 address.postcode,
                 CountryService.find(address.country.code).map(c => c.name)
@@ -164,6 +165,7 @@ class CharityInformationSummaryHelper(override val userAnswers: UserAnswers)(imp
             s"<div>${messages("site.yes")}</div>" +
               HtmlFormat.escape(
                 Seq(
+                  address.organisation,
                   Some(address.lines.mkString(", ")),
                   address.postcode,
                   CountryService.find(address.country.code).map(c => c.name)

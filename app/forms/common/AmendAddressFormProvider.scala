@@ -19,7 +19,7 @@ package forms.common
 import forms.mappings.Mappings
 import models.addressLookup.AmendAddressModel
 import play.api.data.Form
-import play.api.data.Forms.{default, mapping, optional, text => posttext}
+import play.api.data.Forms.{default, mapping, optional, text as posttext}
 import play.api.i18n.Messages
 
 import javax.inject.Inject
@@ -33,24 +33,29 @@ class AmendAddressFormProvider @Inject() extends Mappings {
   def apply(messagePrefix: String): Form[AmendAddressModel] =
     Form(
       mapping(
-        "line1"    -> text(s"$messagePrefix.addressLine1.error.required")
+        "organisation" -> optional(
+          text()
+            .verifying(maxLength(maxLength, s"$messagePrefix.organisation.error.length"))
+            .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.organisation.error.format")),
+        ),
+        "line1"        -> text(s"$messagePrefix.addressLine1.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.addressLine1.error.length"))
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine1.error.format")),
-        "line2"    -> optional(
+        "line2"        -> optional(
           text()
             .verifying(maxLength(maxLength, s"$messagePrefix.addressLine2.error.length"))
             .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine2.error.format"))
         ),
-        "line3"    -> optional(
+        "line3"        -> optional(
           text()
             .verifying(maxLength(maxLength, s"$messagePrefix.addressLine3.error.length"))
             .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.addressLine3.error.format"))
         ),
-        "town"     -> text(s"$messagePrefix.townOrCity.error.required")
+        "town"         -> text(s"$messagePrefix.townOrCity.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.townOrCity.error.length"))
           .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.townOrCity.error.format")),
-        "postcode" -> default(posttext, ""),
-        "country"  -> text(s"$messagePrefix.country.error.required")
+        "postcode"     -> default(posttext, ""),
+        "country"      -> text(s"$messagePrefix.country.error.required")
       )(AmendAddressModel.apply)(o => Some(Tuple.fromProductTyped(o)))
     )
 

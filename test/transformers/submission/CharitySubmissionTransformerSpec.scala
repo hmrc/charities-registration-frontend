@@ -63,7 +63,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
           )
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
@@ -74,7 +74,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
           )
         )
         .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
@@ -113,6 +113,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
           _.set(
             CharityOfficialAddressLookupPage,
             AddressModel(
+              None,
               Seq("7", "Morrison street", "line3", "line4"),
               Some("G58AN"),
               CountryModel("GB", "United Kingdom")
@@ -123,7 +124,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             CharityPostalAddressLookupPage,
-            AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
+            AddressModel(None, Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
           )
         )
         .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
@@ -135,7 +136,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
           )
         )
         .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
@@ -146,7 +147,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
           )
         )
         .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))

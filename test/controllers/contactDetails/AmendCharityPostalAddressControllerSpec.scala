@@ -65,17 +65,19 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
   private val controller: AmendCharityPostalAddressController = inject[AmendCharityPostalAddressController]
 
   private val requestArgs                   = Seq(
-    "line1"    -> "23",
-    "line2"    -> "Morrison street",
-    "line3"    -> "",
-    "town"     -> "Paris",
-    "postcode" -> "",
-    "country"  -> "FR"
+    "organisation" -> "Test Organisation",
+    "line1"        -> "23",
+    "line2"        -> "Morrison street",
+    "line3"        -> "",
+    "town"         -> "Paris",
+    "postcode"     -> "",
+    "country"      -> "FR"
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       CharityPostalAddressLookupPage,
       AddressModel(
+        Some("Test Organisation"),
         Seq("7 Morrison street near riverview gardens", "Glasgow"),
         Some("G58AN"),
         CountryModel("GB", "United Kingdom")
@@ -89,7 +91,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     "return OK and the correct view for a GET" in {
 
       val amendCharitiesPostalAddress =
-        AmendAddressModel("7 Morrison street near riverview gardens", None, None, "Glasgow", "G58AN", "GB")
+        AmendAddressModel(Some("Test Organisation"), "7 Morrison street near riverview gardens", None, None, "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -110,7 +112,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
+        .set(AmendAddressPage, AmendAddressModel(Some("Test Organisation"), "23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
         .success
         .value
 

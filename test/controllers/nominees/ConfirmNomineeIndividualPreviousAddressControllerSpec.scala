@@ -67,7 +67,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
                 )
               )
               .success
@@ -105,6 +105,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
                   AddressModel(
+                    None,
                     List("12", "Banner Way near south riverview gardens"),
                     None,
                     CountryModel("GB", "United Kingdom")

@@ -84,7 +84,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
               .flatMap(
                 _.set(
                   CharityOfficialAddressLookupPage,
-                  AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                  AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
                 )
               )
               .success
@@ -108,7 +108,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Seq("7", "Morrison street"), Some(""), CountryModel("UK", "United Kingdom"))
+                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some(""), CountryModel("UK", "United Kingdom"))
               )
               .success
               .value
@@ -123,7 +123,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Seq("7", "Morrison street"), Some("G58AN()"), CountryModel("FR", "France"))
+                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN()"), CountryModel("FR", "France"))
               )
               .success
               .value
@@ -138,7 +138,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("FR", "France"))
+                AddressModel(Some("Test Organisation"), Seq("7 Morrison street"), Some("G58AN"), CountryModel("FR", "France"))
               )
               .success
               .value
@@ -182,7 +182,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
               .flatMap(
                 _.set(
                   CharityPostalAddressLookupPage,
-                  AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                  AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
                 )
               )
               .success
@@ -206,7 +206,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
               )
               .success
               .value
@@ -221,7 +221,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Seq("7", "Morrison $treet"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                AddressModel(Some("Test Organisation"), Seq("7", "Morrison $treet"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
               )
               .success
               .value
@@ -313,7 +313,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
               )
               .success
               .value
@@ -356,7 +356,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
               .flatMap(
                 _.set(
                   CharityPostalAddressLookupPage,
-                  AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                  AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
                 )
               )
               .success
@@ -380,7 +380,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
               )
               .success
               .value

@@ -192,7 +192,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialAddressRow mustBe Some(
           summaryListRow(
             messages("otherOfficialAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("otherOfficialAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
@@ -229,7 +229,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         ).otherOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
@@ -248,7 +248,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         ).otherOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
+            Text("Test Organisation, Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
             Some(welshMessages("otherOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLinkWelsh

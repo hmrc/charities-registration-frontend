@@ -63,7 +63,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
               )
               .success
               .value
@@ -97,6 +97,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
               .set(
                 CharityOfficialAddressLookupPage,
                 AddressModel(
+                  None,
                   List("12", "Banner Way near south riverview gardens"),
                   None,
                   CountryModel("GB", "United Kingdom")

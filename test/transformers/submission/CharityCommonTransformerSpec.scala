@@ -209,6 +209,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .set(
             CharityOfficialAddressLookupPage,
             AddressModel(
+              Some("Test Organisation"),
               Seq("7", "Morrison street", "line3", "line4"),
               Some("G58AN"),
               CountryModel("GB", "United Kingdom")
@@ -225,6 +226,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "addressDetails": {
             |        "differentCorrespondence": false,
             |        "officialAddress": {
+            |          "organisation": "Test Organisation",
             |          "postcode": "G58AN",
             |          "addressLine1": "7",
             |          "addressLine2": "Morrison street",
@@ -248,6 +250,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .set(
             CharityOfficialAddressLookupPage,
             AddressModel(
+              None,
               Seq("7", "Morrison street", "line3", "line4"),
               Some("G58AN"),
               CountryModel("GB", "United Kingdom")
@@ -257,7 +260,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityPostalAddressLookupPage,
-              AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
+              AddressModel(None, Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
             )
           )
           .success
@@ -300,6 +303,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .set(
             CharityOfficialAddressLookupPage,
             AddressModel(
+              None,
               Seq("7", "Morrison street", "line3", "line4"),
               Some("G58AN"),
               CountryModel("GB", "United Kingdom")
@@ -310,6 +314,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             _.set(
               CharityPostalAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "line3", "line4"),
                 Some("G58AN"),
                 CountryModel("GB", "United Kingdom")
@@ -411,13 +416,14 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
+              AddressModel(None, Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
             )
           )
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "line3", "line4"),
                 Some("G58AN"),
                 CountryModel("GB", "United Kingdom")
@@ -462,13 +468,13 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+              AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
             )
           )
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+              AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
@@ -512,7 +518,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
+              AddressModel(None, Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
@@ -522,6 +528,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             _.set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "line3", "line4"),
                 Some("G58AN"),
                 CountryModel("GB", "United Kingdom")
@@ -533,7 +540,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityPostalAddressLookupPage,
-              AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
+              AddressModel(None, Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
             )
           )
           .flatMap(
@@ -545,6 +552,7 @@ class CharityCommonTransformerSpec extends SpecBase {
                 _.set(
                   CharityOfficialAddressLookupPage,
                   AddressModel(
+                    None,
                     Seq("7", "Morrison street", "line3", "line4"),
                     Some("G58AN"),
                     CountryModel("GB", "United Kingdom")
@@ -628,7 +636,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
+              AddressModel(None, Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
@@ -638,6 +646,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             _.set(
               CharityOfficialAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "line3", "line4"),
                 Some("G58AN"),
                 CountryModel("GB", "United Kingdom")
@@ -649,6 +658,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             _.set(
               CharityPostalAddressLookupPage,
               AddressModel(
+                None,
                 Seq("7", "Morrison street", "line3", "line4"),
                 Some("G58AN"),
                 CountryModel("GB", "United Kingdom")
@@ -665,6 +675,7 @@ class CharityCommonTransformerSpec extends SpecBase {
                 _.set(
                   CharityOfficialAddressLookupPage,
                   AddressModel(
+                    None,
                     Seq("7", "Morrison street", "line3", "line4"),
                     Some("G58AN"),
                     CountryModel("GB", "United Kingdom")
@@ -750,7 +761,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+              AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
@@ -759,7 +770,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+              AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
             )
           )
           .flatMap(_.set(CanWeSendToThisAddressPage, true))

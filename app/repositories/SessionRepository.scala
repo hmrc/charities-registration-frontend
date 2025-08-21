@@ -22,7 +22,6 @@ import org.mongodb.scala.model._
 import pages.AcknowledgementReferencePage
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
-import org.mongodb.scala.SingleObservableFuture
 
 import java.time.{LocalDateTime, ZoneOffset}
 import java.util.concurrent.TimeUnit

@@ -29,7 +29,8 @@ lazy val microservice = Project(appName, file("."))
     scalacOptions ++= Seq(
       "-feature",
       "-Wconf:src=routes/.*:s",
-      "-Wconf:src=views/.*:s"
+      "-Wconf:src=views/.*:s",
+      "-Wconf:msg=Flag.*repeatedly:s"
     ),
     Concat.groups := Seq(
       "javascripts/application.js" ->

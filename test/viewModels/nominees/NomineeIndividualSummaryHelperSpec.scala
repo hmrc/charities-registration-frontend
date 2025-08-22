@@ -200,7 +200,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAddress mustBe Some(
           summaryListRow(
             messages("nomineeIndividualAddress.checkYourAnswersLabel"),
-            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("nomineeIndividualAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.NomineeIndividualAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -229,7 +229,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePreviousAddress mustBe Some(
           summaryListRow(
             messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel"),
-            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink

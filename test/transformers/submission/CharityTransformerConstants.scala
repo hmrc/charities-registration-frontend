@@ -44,7 +44,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         CharityOfficialAddressLookupPage,
-        AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+        AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
       )
     )
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -61,7 +61,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(None, Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
       )
     )
     .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
@@ -72,7 +72,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(None, Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
       )
     )
     .flatMap(
@@ -114,7 +114,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+        AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
       )
     )
     .success

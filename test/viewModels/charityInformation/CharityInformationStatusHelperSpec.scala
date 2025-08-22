@@ -60,14 +60,14 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
             .flatMap(
               _.set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
               )
             )
             .success
@@ -91,7 +91,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -111,7 +111,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -130,7 +130,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -155,14 +155,14 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, false))
             .flatMap(
               _.set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
               )
             )
             .success

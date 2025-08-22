@@ -26,12 +26,11 @@ object CountryModel {
   implicit val fmt: Format[CountryModel] = Json.format[CountryModel]
 }
 
-case class AddressModel(organisation: Option[String], lines: Seq[String], postcode: Option[String], country: CountryModel) {
+case class AddressModel(lines: Seq[String], postcode: Option[String], country: CountryModel) {
 
   def toEdit: AmendAddressModel = {
     val el = editLines
     AmendAddressModel(
-      organisation,
       el._1,
       el._2,
       el._3,
@@ -66,7 +65,6 @@ object AmendAddressModel {
 }
 
 case class AmendAddressModel(
-  organisation: Option[String],
   line1: String,
   line2: Option[String],
   line3: Option[String],
@@ -77,7 +75,6 @@ case class AmendAddressModel(
 
   def toConfirmableAddress(implicit messages: Messages): AddressModel =
     AddressModel(
-      organisation,
       Seq(line1) ++ line2.toSeq ++ line3.toSeq ++ Seq(town),
       if (postcode.isEmpty) {
         None

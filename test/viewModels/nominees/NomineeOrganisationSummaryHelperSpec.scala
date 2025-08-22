@@ -140,7 +140,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeAddress mustBe Some(
           summaryListRow(
             messages("organisationNomineeAddress.checkYourAnswersLabel"),
-            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("organisationNomineeAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineeAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -171,7 +171,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineePreviousAddress mustBe Some(
           summaryListRow(
             messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel"),
-            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink

@@ -67,7 +67,7 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
               .flatMap(
                 _.set(
                   OrganisationNomineeAddressLookupPage,
-                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
                 )
               )
               .success
@@ -104,7 +104,6 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
                 _.set(
                   OrganisationNomineeAddressLookupPage,
                   AddressModel(
-                    None,
                     List("12", "Banner Way near south riverview gardens"),
                     None,
                     CountryModel("GB", "United Kingdom")

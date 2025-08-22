@@ -38,17 +38,16 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val otherOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
   private val address: AddressModel                  =
-    AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val addressMax: AddressModel               =
     AddressModel(
-      Some("Test Organisation"),
       Seq("7", "Morrison street near riverview gardens"),
       Some("G58AN"),
       CountryModel("UK", "United Kingdom")
     )
   private val minYear                                = 16
   private val minAddressLines: AddressModel          =
-    AddressModel(None, Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   def goToPlaybackPage(index: Int): Call = index match {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))

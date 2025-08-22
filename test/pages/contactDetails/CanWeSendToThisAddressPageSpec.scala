@@ -37,7 +37,7 @@ class CanWeSendToThisAddressPageSpec extends PageBehaviours {
       val userAnswer = UserAnswers("id", Json.obj())
         .set(
           CharityPostalAddressLookupPage,
-          AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+          AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
         )
         .success
         .value

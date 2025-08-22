@@ -139,7 +139,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(None, List("12", "Banner Way"), Some("NE128UZ"), CountryModel("GB", "GB"))
+            AddressModel(List("12", "Banner Way"), Some("NE128UZ"), CountryModel("GB", "GB"))
           )
           .success
           .value

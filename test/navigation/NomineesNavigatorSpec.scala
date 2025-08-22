@@ -36,15 +36,14 @@ class NomineesNavigatorSpec extends SpecBase {
   private val IndividualNomineePhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
   private val minYear                                   = 16
   private val address: AddressModel                     =
-    AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val addressMax: AddressModel                  = AddressModel(
-    Some("Test Organisation"),
     Seq("7", "Morrison street near riverview gardens"),
     Some("G58AN"),
     CountryModel("UK", "United Kingdom")
   )
   private val minAddressLines: AddressModel             =
-    AddressModel(None, Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   private val bankDetails = BankDetails(
     accountName = "fullName",

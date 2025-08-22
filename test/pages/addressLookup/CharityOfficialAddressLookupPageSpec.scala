@@ -25,7 +25,7 @@ class CharityOfficialAddressLookupPageSpec extends PageBehaviours {
   "CharityOfficialAddressLookupPage" must {
 
     implicit lazy val arbitraryAddressModel: Arbitrary[AddressModel] = Arbitrary {
-      AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+      AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
     }
 
     beRetrievable[AddressModel](CharityOfficialAddressLookupPage)

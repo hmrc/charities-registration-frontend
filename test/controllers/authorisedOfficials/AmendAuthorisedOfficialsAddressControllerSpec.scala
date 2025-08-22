@@ -66,19 +66,17 @@ class AmendAuthorisedOfficialsAddressControllerSpec extends SpecBase with Before
   private val controller: AmendAuthorisedOfficialsAddressController = inject[AmendAuthorisedOfficialsAddressController]
 
   private val requestArgs                   = Seq(
-    "organisation" -> "Test Organisation",
-    "line1"        -> "23",
-    "line2"        -> "Morrison street",
-    "line3"        -> "",
-    "town"         -> "Glasgow",
-    "postcode"     -> "G58AN",
-    "country"      -> "GB"
+    "line1"    -> "23",
+    "line2"    -> "Morrison street",
+    "line3"    -> "",
+    "town"     -> "Glasgow",
+    "postcode" -> "G58AN",
+    "country"  -> "GB"
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       AuthorisedOfficialAddressLookupPage(0),
       AddressModel(
-        Some("Test Organisation"),
         Seq("7", "Morrison street near riverview gardens", "Glasgow"),
         Some("G58AN"),
         CountryModel("GB", "United Kingdom")
@@ -93,7 +91,7 @@ class AmendAuthorisedOfficialsAddressControllerSpec extends SpecBase with Before
     "return OK and the correct view for a GET" in {
 
       val amendAuthorisedOfficialsAddress =
-        AmendAddressModel(Some("Test Organisation"),"7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
+        AmendAddressModel("7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
@@ -115,7 +113,7 @@ class AmendAuthorisedOfficialsAddressControllerSpec extends SpecBase with Before
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel(Some("Test Organisation"),"23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
+        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
         .success
         .value
 

@@ -66,7 +66,7 @@ class ConfirmNomineeIndividualAddressControllerSpec extends SpecBase with Before
               .flatMap(
                 _.set(
                   NomineeIndividualAddressLookupPage,
-                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
                 )
               )
               .success
@@ -103,7 +103,6 @@ class ConfirmNomineeIndividualAddressControllerSpec extends SpecBase with Before
                 _.set(
                   NomineeIndividualAddressLookupPage,
                   AddressModel(
-                    None,
                     List("12", "Banner Way near south riverview gardens"),
                     None,
                     CountryModel("GB", "United Kingdom")

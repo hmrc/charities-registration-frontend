@@ -252,7 +252,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialAddress.checkYourAnswersLabel"),
-            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("authorisedOfficialAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
@@ -290,7 +290,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         ).authOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
-            Text("Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
             Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink

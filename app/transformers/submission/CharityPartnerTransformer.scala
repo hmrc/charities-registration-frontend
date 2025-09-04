@@ -131,8 +131,8 @@ class CharityPartnerTransformer extends JsonTransformer {
       otherOfficials      <- (__ \ "otherOfficials")
                                .readNullable(Reads.seq(getOfficials(action, relationOO, partnerTypeIndividual)))
                                .map(x => x.fold(JsArray())(JsArray(_)))
-      organisation        <-
-        (__ \\ "organisation").readNullable(getOrganisationNominee(action)).map(x => x.fold(JsArray())(Json.arr(_)))
+      organisation        <- (__ \ "nominee" \ "organisation")
+                                .readNullable(getOrganisationNominee(action)).map(x => x.fold(JsArray())(Json.arr(_)))
       individual          <-
         (__ \\ "individual").readNullable(getIndividualNominee(action)).map(x => x.fold(JsArray())(Json.arr(_)))
 

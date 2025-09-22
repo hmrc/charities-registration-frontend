@@ -79,7 +79,8 @@ class IndexController @Inject() (
       appConfig.loginUrl,
       Map(
         appConfig.loginContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
-        "origin"                   -> Seq(appConfig.appName)
+        "origin"                   -> Seq(appConfig.appName),
+        "accountType"              -> Seq("organisation")
       )
     )
   }

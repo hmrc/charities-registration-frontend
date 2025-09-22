@@ -51,7 +51,14 @@ class AuthenticatedIdentifierAction @Inject() (
           case Some(id) => s"${config.loginContinueUrl}/${id.value}"
           case None     => config.loginContinueUrl
         }
-        Redirect(config.loginUrl, Map(config.loginContinueKey -> Seq(redirectUrl), "origin" -> Seq(config.appName),"accountType" -> Seq("organisation")))
+        Redirect(
+          config.loginUrl,
+          Map(
+            config.loginContinueKey -> Seq(redirectUrl),
+            "origin"                -> Seq(config.appName),
+            "accountType"           -> Seq("organisation")
+          )
+        )
       case _: AuthorisationException =>
         Redirect(controllers.checkEligibility.routes.IncorrectDetailsController.onPageLoad)
     }

@@ -214,7 +214,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(
           "http://localhost:9949/auth-login-stub/gg-sign-in?accountType=organisation&continue=http%3A%2F%2Flocalhost%3A9457%2Fregister-charity-hmrc" +
-            "%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend"
+            "%2Fcheck-eligibility%2Fcharitable-purposes&origin=charities-registration-frontend&accountType=organisation"
         )
       }
     }

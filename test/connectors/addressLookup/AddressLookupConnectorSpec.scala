@@ -23,7 +23,7 @@ import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
 import connectors.WireMockHelper
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
-import connectors.httpParsers.{AddressMalformed, AddressNotFound, DefaultedUnexpectedFailure, NoLocationHeaderReturned}
+import connectors.httpParsers.{AddressMalformed, AddressNotFound, NoLocationHeaderReturned, UnexpectedFailure}
 import org.mockito.Mockito._
 import play.api.http.HeaderNames
 import play.api.http.Status._
@@ -116,7 +116,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
               )
           )
 
-          val expectedResult = Left(DefaultedUnexpectedFailure(INTERNAL_SERVER_ERROR))
+          val expectedResult = Left(UnexpectedFailure(INTERNAL_SERVER_ERROR))
           val actualResult   =
             await(addressLookupConnector.initialize("/url/test", "test", Some("xyz"), None)(hc, ec, messagesApi))
 
@@ -198,7 +198,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
               )
           )
 
-          val expectedResult = Left(DefaultedUnexpectedFailure(INTERNAL_SERVER_ERROR))
+          val expectedResult = Left(UnexpectedFailure(INTERNAL_SERVER_ERROR))
           val actualResult   = await(addressLookupConnector.retrieveAddress("id")(hc, ec))
 
           actualResult mustBe expectedResult

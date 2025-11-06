@@ -68,13 +68,13 @@ class CharitiesRegistrationService @Inject() (
                 Redirect(controllers.routes.EmailOrPostController.onPageLoad)
               }
 
-          case Left(errors) =>
-            logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
-            throw UnexpectedFailureException(errors.body)
+          case Left(error) =>
+            logger.error(s"[CharitiesRegistrationService][register] registration failed with error $error")
+            throw UnexpectedFailureException(error.body)
 
-        } recover { case errors =>
-          logger.error(s"[CharitiesRegistrationService][register] registration failed with error $errors")
-          throw UnexpectedFailureException(errors.getMessage)
+        } recover { case e =>
+          logger.error(s"[CharitiesRegistrationService][register] registration failed with error $e")
+          throw UnexpectedFailureException(e.getMessage)
         }
 
       case Some(_) => Future.successful(Redirect(controllers.routes.EmailOrPostController.onPageLoad))

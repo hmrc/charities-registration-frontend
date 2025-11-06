@@ -41,7 +41,7 @@ object AddressLookupInitializationHttpParser {
           }
         case status   =>
           logger.error(s"[AddressLookupInitializationReads][read]: Unexpected response, status $status returned")
-          Left(DefaultedUnexpectedFailure(status))
+          Left(UnexpectedFailure(status))
       }
   }
 

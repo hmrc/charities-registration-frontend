@@ -5,6 +5,19 @@ lazy val appName: String = "charities-registration-frontend"
 ThisBuild / majorVersion := 0
 ThisBuild / scalaVersion := "3.5.2"
 
+val commonSettings: Seq[String] = Seq(
+  "-unchecked",
+  "-feature",
+  "-deprecation",
+  "-language:noAutoTupling",
+  "-Wvalue-discard",
+  "-Werror",
+  "-Wconf:src=routes/.*:s",
+  "-Wconf:src=views/.*:s",
+  "-Wunused:unsafe-warn-patvars",
+  "-Wconf:msg=Flag.*repeatedly:s"
+)
+
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
@@ -24,18 +37,7 @@ lazy val microservice = Project(appName, file("."))
       "models.OptionBinder._",
       "controllers.routes._"
     ),
-    scalacOptions ++= Seq(
-      "-unchecked",
-      "-feature",
-      "-deprecation",
-      "-language:noAutoTupling",
-      "-Wvalue-discard",
-      "-Werror",
-      "-Wconf:src=routes/.*:s",
-      "-Wconf:src=views/.*:s",
-      "-Wunused:unsafe-warn-patvars",
-      "-Wconf:msg=Flag.*repeatedly:s"
-    ),
+    scalacOptions ++= commonSettings,
     Concat.groups := Seq(
       "javascripts/application.js" ->
         group(
@@ -52,6 +54,7 @@ lazy val microservice = Project(appName, file("."))
 lazy val it = project
   .enablePlugins(PlayScala)
   .dependsOn(microservice % "test->test") // the "test->test" allows reusing test code and test dependencies
-  .settings(DefaultBuildSettings.itSettings())
+  .settings(DefaultBuildSettings.itSettings(), scalacOptions ++= commonSettings)
+  
 
 addCommandAlias("scalafmtAll", "all scalafmtSbt scalafmt Test/scalafmt it/Test/scalafmt")

@@ -16,21 +16,17 @@
 
 package utils
 
+import org.scalatest.*
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.*
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
-import play.api.{Application, Environment, Mode}
-import uk.gov.hmrc.http.HeaderCarrier
-import play.api.Application
-import play.api.mvc.AnyContentAsEmpty
-import play.api.test.FakeRequest
 import play.api.test.Helpers.POST
-import uk.gov.hmrc.http.SessionKeys
+import play.api.{Application, Environment, Mode}
+import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 
 import java.util.UUID
 import scala.concurrent.ExecutionContext

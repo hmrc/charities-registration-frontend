@@ -1,7 +1,5 @@
 import uk.gov.hmrc.DefaultBuildSettings
 
-import scala.collection.immutable.Seq
-
 lazy val appName: String = "charities-registration-frontend"
 
 ThisBuild / majorVersion := 0
@@ -27,9 +25,15 @@ lazy val microservice = Project(appName, file("."))
       "controllers.routes._"
     ),
     scalacOptions ++= Seq(
+      "-unchecked",
       "-feature",
+      "-deprecation",
+      "-language:noAutoTupling",
+      "-Wvalue-discard",
+      "-Werror",
       "-Wconf:src=routes/.*:s",
       "-Wconf:src=views/.*:s",
+      "-Wunused:unsafe-warn-patvars",
       "-Wconf:msg=Flag.*repeatedly:s"
     ),
     Concat.groups := Seq(

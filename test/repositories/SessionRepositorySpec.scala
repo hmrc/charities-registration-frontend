@@ -50,7 +50,7 @@ class SessionRepositorySpec extends SpecBase with MongoSupport {
     .success
     .value
 
-  private def givenAnExistingDocument(userAnswers: UserAnswers): Unit =
+  private def givenAnExistingDocument(userAnswers: UserAnswers): Unit = {
     await(
       repository.collection
         .findOneAndReplace(
@@ -61,6 +61,8 @@ class SessionRepositorySpec extends SpecBase with MongoSupport {
         .toFuture()
         .map(_ => Future.unit)
     )
+    ()
+  }
 
   "the eligibility answers session repository" must {
 

@@ -33,7 +33,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class CharitiesConnector @Inject() (httpClient: HttpClientV2, implicit val appConfig: FrontendAppConfig) {
 
   private val logger = Logger(this.getClass)
-
   def registerCharities(registrationJson: JsValue, organizationId: Int)(implicit
     hc: HeaderCarrier,
     ec: ExecutionContext

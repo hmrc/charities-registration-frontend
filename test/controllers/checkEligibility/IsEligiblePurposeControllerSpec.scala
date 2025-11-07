@@ -56,7 +56,7 @@ class IsEligiblePurposeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: IsEligiblePurposeController = inject[IsEligiblePurposeController]
 
-  "IsEligiblePurpose Controller" must {
+  "IsEligiblePurposeController" must {
 
     "return OK and the correct view for a GET" in {
 

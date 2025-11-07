@@ -60,9 +60,12 @@ class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach
   private val controller: IsOtherOfficialNinoController = inject[IsOtherOfficialNinoController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(OtherOfficialsNamePage(0), personNameWithMiddle)
+      .success
+      .value
 
-  "IsOtherOfficialPosition Controller" must {
+  "IsOtherOfficialNinoController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -73,7 +76,7 @@ class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+       personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(NormalMode, Index(0)),
         "officialsAndNominees"

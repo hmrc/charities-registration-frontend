@@ -53,7 +53,7 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   private val controller: BankDetailsSummaryController = inject[BankDetailsSummaryController]
 
-  "BankDetailsSummaryController Controller" must {
+  "BankDetailsSummaryController" must {
 
     "return redirect and task list view for a GET with no data stored" in {
 
@@ -71,7 +71,7 @@ class BankDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
-            emptyUserAnswers.set(BankDetailsPage, BankDetails("aaa", "123456", "00733445", Some("123"))).success.value
+            emptyUserAnswers.set(BankDetailsPage, bankDetails).success.value
           )
         )
       )

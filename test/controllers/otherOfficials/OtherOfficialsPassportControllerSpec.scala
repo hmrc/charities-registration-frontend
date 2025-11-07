@@ -66,31 +66,34 @@ class OtherOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterE
   private val futureDate: LocalDate = LocalDate.now().plusDays(1)
 
   private val requestArgs                   = Seq(
-    "passportNumber"   -> "123",
-    "country"          -> "United Kingdom",
+    "passportNumber"   -> passport.passportNumber,
+    "country"          -> passport.country, 
     "expiryDate.year"  -> futureDate.getYear.toString,
     "expiryDate.month" -> futureDate.getMonthValue.toString,
     "expiryDate.day"   -> futureDate.getDayOfMonth.toString
   )
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(OtherOfficialsNamePage(0), personNameWithMiddle)
+      .success
+      .value
 
-  "OtherOfficialsPassportController Controller " must {
+  "OtherOfficialsPassportController" must {
 
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.OtherOfficialsPassportController.onSubmit(NormalMode, Index(0)),
-        Seq(("GB", "United Kingdom"))
+        Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
@@ -104,7 +107,7 @@ class OtherOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterE
         .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -119,7 +122,7 @@ class OtherOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterE
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
@@ -135,7 +138,7 @@ class OtherOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterE
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

@@ -17,7 +17,6 @@
 package viewModels.nominees
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup._
@@ -33,7 +32,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     def addIndividualAddress(): UserAnswers =
       userAnswers
         .set(IsIndividualNomineePreviousAddressPage, true)
-        .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address))
+        .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, address))
         .success
         .value
 
@@ -41,7 +40,7 @@ class NomineeStatusHelperSpec extends SpecBase {
       userAnswers
         .set(IsIndividualNomineeNinoPage, false)
         .flatMap(
-          _.set(IndividualNomineesPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))
+          _.set(IndividualNomineesPassportPage, passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth)))
         )
         .success
         .value
@@ -52,12 +51,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         .flatMap(
           _.set(
             IndividualNomineesBankDetailsPage,
-            BankDetails(
-              accountName = "PM Cares",
-              sortCode = "176534",
-              accountNumber = "43444546",
-              rollNumber = Some("765431234")
-            )
+            bankDetails
           )
         )
         .success
@@ -69,7 +63,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     def addOrganizationAddress(): UserAnswers =
       userAnswers
         .set(IsOrganisationNomineePreviousAddressPage, true)
-        .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, ConfirmedAddressConstants.address))
+        .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, address))
         .success
         .value
 
@@ -79,12 +73,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         .flatMap(
           _.set(
             OrganisationNomineesBankDetailsPage,
-            BankDetails(
-              accountName = "PM Cares",
-              sortCode = "176534",
-              accountNumber = "43444546",
-              rollNumber = Some("765431234")
-            )
+            bankDetails
           )
         )
         .success
@@ -99,7 +88,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         .flatMap(
           _.set(
             OrganisationAuthorisedPersonPassportPage,
-            Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+            passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
           )
         )
         .success
@@ -115,12 +104,12 @@ class NomineeStatusHelperSpec extends SpecBase {
   private val nomineeIndividual: UserAnswers = UserAnswers("id")
     .set(IsAuthoriseNomineePage, true)
     .flatMap(_.set(ChooseNomineePage, true))
-    .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")))
+    .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname")))
     .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123123", Some("0123123124"))))
     .flatMap(_.set(IsIndividualNomineeNinoPage, true))
     .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
-    .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))
+    .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
     .flatMap(_.set(IsIndividualNomineePreviousAddressPage, false))
     .flatMap(_.set(IsIndividualNomineePaymentsPage, false))
     .success
@@ -129,15 +118,21 @@ class NomineeStatusHelperSpec extends SpecBase {
   private val nomineeOrganisation: UserAnswers = UserAnswers("id")
     .set(IsAuthoriseNomineePage, true)
     .flatMap(_.set(ChooseNomineePage, false))
-    .flatMap(_.set(OrganisationNomineeNamePage, "Company Inc"))
+    .flatMap(_.set(OrganisationNomineeNamePage, nomineeOrganisationName))
     .flatMap(
-      _.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com"))
+      _.set(
+        OrganisationNomineeContactDetailsPage,
+        OrganisationNomineeContactDetails("0123123123", organisationEmail)
+      )
     )
-    .flatMap(_.set(OrganisationNomineeAddressLookupPage, ConfirmedAddressConstants.address))
+    .flatMap(_.set(OrganisationNomineeAddressLookupPage, address))
     .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
     .flatMap(_.set(IsOrganisationNomineePaymentsPage, false))
     .flatMap(
-      _.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      _.set(
+        OrganisationAuthorisedPersonNamePage,
+        Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname")
+      )
     )
     .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .flatMap(_.set(IsOrganisationNomineeNinoPage, true))
@@ -424,7 +419,10 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(ChooseNomineePage, true)
                 .flatMap(
-                  _.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                  _.set(
+                    IndividualNomineeNamePage,
+                    Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname")
+                  )
                 )
             )
             .success
@@ -441,7 +439,7 @@ class NomineeStatusHelperSpec extends SpecBase {
                 .flatMap(
                   _.set(
                     IndividualNomineeNamePage,
-                    Name(SelectTitle.UnsupportedTitle, firstName = "John", None, lastName = "Jones")
+                    Name(SelectTitle.UnsupportedTitle, firstName = "AName", None, lastName = "Lastname")
                   )
                 )
             )
@@ -458,13 +456,13 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "company@inc.com")
+                OrganisationNomineeContactDetails("0123123123", organisationEmail)
               )
             )
             .flatMap(
               _.set(
                 OrganisationAuthorisedPersonNamePage,
-                Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")
+                Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname")
               )
             )
             .success
@@ -480,13 +478,13 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "company@inc.com")
+                OrganisationNomineeContactDetails("0123123123", organisationEmail)
               )
             )
             .flatMap(
               _.set(
                 OrganisationAuthorisedPersonNamePage,
-                Name(SelectTitle.UnsupportedTitle, firstName = "John", None, lastName = "Jones")
+                Name(SelectTitle.UnsupportedTitle, firstName = "AName", None, lastName = "Lastname")
               )
             )
             .success
@@ -503,7 +501,7 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationAuthorisedPersonNamePage,
-                Name(SelectTitle.UnsupportedTitle, firstName = "John", None, lastName = "Jones")
+                Name(SelectTitle.UnsupportedTitle, firstName = "AName", None, lastName = "Lastname")
               )
             )
             .success
@@ -520,7 +518,7 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationAuthorisedPersonNamePage,
-                Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")
+                Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname")
               )
             )
             .success
@@ -536,7 +534,7 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationAuthorisedPersonNamePage,
-                Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")
+                Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname")
               )
             )
             .success

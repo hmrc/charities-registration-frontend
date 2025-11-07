@@ -51,7 +51,7 @@ class RegulatorsSummaryControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: RegulatorsSummaryController = inject[RegulatorsSummaryController]
 
-  "Regulators Controller" must {
+  "RegulatorsSummaryController" must {
 
     "return OK and the correct view for a GET" in {
 

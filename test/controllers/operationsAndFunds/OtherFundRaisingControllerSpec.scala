@@ -58,7 +58,7 @@ class OtherFundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: OtherFundRaisingController = inject[OtherFundRaisingController]
 
-  "OtherFundRaising Controller " must {
+  "OtherFundRaisingController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -75,7 +75,7 @@ class OtherFundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(emptyUserAnswers.set(OtherFundRaisingPage, "FundRaiserValue").getOrElse(emptyUserAnswers))
+          Some(emptyUserAnswers.set(OtherFundRaisingPage, otherFundRaising).getOrElse(emptyUserAnswers))
         )
       )
 
@@ -87,7 +87,7 @@ class OtherFundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "FundRaiserValue"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", otherFundRaising))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

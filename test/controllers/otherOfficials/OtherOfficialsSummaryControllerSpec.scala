@@ -51,7 +51,7 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
   private val controller: OtherOfficialsSummaryController = inject[OtherOfficialsSummaryController]
 
-  "Other Officials summary Controller" must {
+  "OtherOfficialsSummaryController" must {
 
     "redirect to index page if rows are empty" in {
 
@@ -69,7 +69,7 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
               .success
               .value
@@ -89,10 +89,10 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
               .flatMap(
-                _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                _.set(OtherOfficialsNamePage(1), personName2WithoutMiddle)
               )
               .success
               .value
@@ -112,13 +112,13 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
               .flatMap(
-                _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                _.set(OtherOfficialsNamePage(1), personName2WithoutMiddle)
               )
               .flatMap(
-                _.set(OtherOfficialsNamePage(2), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                _.set(OtherOfficialsNamePage(2), personName3WithoutMiddle)
               )
               .success
               .value
@@ -138,7 +138,7 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
               .success
               .value
           )
@@ -173,13 +173,13 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
               .flatMap(
-                _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                _.set(OtherOfficialsNamePage(1), personName2WithoutMiddle)
               )
               .flatMap(
-                _.set(OtherOfficialsNamePage(2), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                _.set(OtherOfficialsNamePage(2), personName3WithoutMiddle)
               )
               .success
               .value
@@ -203,10 +203,10 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
               .flatMap(
-                _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                _.set(OtherOfficialsNamePage(1), personName2WithoutMiddle)
               )
               .success
               .value
@@ -229,10 +229,10 @@ class OtherOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
               .flatMap(
-                _.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+                _.set(OtherOfficialsNamePage(1), personName2WithoutMiddle)
               )
               .success
               .value

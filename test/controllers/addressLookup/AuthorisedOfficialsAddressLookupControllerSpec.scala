@@ -17,7 +17,6 @@
 package controllers.addressLookup
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
@@ -39,7 +38,7 @@ import viewmodels.ErrorHandler
 
 import scala.concurrent.Future
 
-class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
+class uthorisedOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers]             = Some(emptyUserAnswers)
   private val mockAddressLookupConnector: AddressLookupConnector = mock(classOf[AddressLookupConnector])
@@ -71,14 +70,14 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
     )
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
     .success
     .value
 
   override lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequest, internalId, localUserAnswers)
 
-  "AuthorisedOfficialsAddressLookup Controller" when {
+  "AuthorisedOfficialsAddressLookupController" when {
 
     "calling the .initializeJourney() endpoint" when {
 
@@ -145,7 +144,7 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
-                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+                .thenReturn(Future.successful(Right(address)))
 
               val result = controller.callback(Index(0), NormalMode, Some("id"))(fakeDataRequest)
 
@@ -177,7 +176,7 @@ class AuthorisedOfficialsAddressLookupControllerSpec extends SpecBase with Befor
 
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
-                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+                .thenReturn(Future.successful(Right(address)))
 
               val result = controller.callback(Index(0), NormalMode, None)(fakeDataRequest)
 

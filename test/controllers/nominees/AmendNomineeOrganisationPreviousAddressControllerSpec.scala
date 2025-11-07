@@ -41,7 +41,7 @@ import scala.concurrent.Future
 class AmendNomineeOrganisationPreviousAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
-  lazy val mockCountryService: CountryService = mock(classOf[CountryService])
+  lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
 
   override def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
@@ -58,49 +58,40 @@ class AmendNomineeOrganisationPreviousAddressControllerSpec extends SpecBase wit
     reset(mockCountryService)
   }
 
-  private val messageKeyPrefix = "amendNomineeOrganisationPreviousAddress"
-  private val view: AmendAddressView = inject[AmendAddressView]
+  private val messageKeyPrefix                       = "amendNomineeOrganisationPreviousAddress"
+  private val view: AmendAddressView                 = inject[AmendAddressView]
   private val formProvider: AmendAddressFormProvider = inject[AmendAddressFormProvider]
-  private val form: Form[AmendAddressModel] = formProvider(messageKeyPrefix)
+  private val form: Form[AmendAddressModel]          = formProvider(messageKeyPrefix)
 
   private val controller: AmendNomineeOrganisationPreviousAddressController =
     inject[AmendNomineeOrganisationPreviousAddressController]
 
   private val requestArgs = Seq(
-    "organisation" -> "Test Organisation",
-    "line1" -> "23",
-    "line2" -> "Morrison street",
+    "organisation" -> addressWithTown.organisation.get,
+    "line1" -> addressWithTown.lines.head,
+    "line2" -> addressWithTown.lines(1),
     "line3" -> "",
-    "town" -> "Glasgow",
-    "postcode" -> "G58AN",
-    "country" -> "GB"
+    "town" -> addressWithTown.lines(2),
+    "postcode" -> addressWithTown.postcode.get,
+    "country" -> addressWithTown.country.code
   )
-
-  private val organisation = "TestCompany"
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       OrganisationNomineePreviousAddressLookupPage,
-      AddressModel(
-        Some("Test Organisation"),
-        Seq("7", "Morrison street near riverview gardens", "Glasgow"),
-        Some("G58AN"),
-        CountryModel("GB", "United Kingdom")
-      )
+      addressModelMaxWithTown
     )
-    .flatMap(_.set(OrganisationNomineeNamePage, organisation))
+    .flatMap(_.set(OrganisationNomineeNamePage, nomineeOrganisationName))
     .success
     .value
 
-  "AmendNomineeOrganisationAddressController Controller " must {
+  "AmendNomineeOrganisationAddressController" must {
 
     "return OK and the correct view for a GET" in {
-
-      val amendNomineeOrganisationPreviousAddress =
-        AmendAddressModel(Some("Test Organisation"), "7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
+      val amendNomineeOrganisationPreviousAddress = toAmendAddressModel(addressModelMax, Some(town))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -109,8 +100,8 @@ class AmendNomineeOrganisationPreviousAddressControllerSpec extends SpecBase wit
         form.fill(amendNomineeOrganisationPreviousAddress),
         messageKeyPrefix,
         controllers.nominees.routes.AmendNomineeOrganisationPreviousAddressController.onSubmit(NormalMode),
-        Some(organisation),
-        countries = Seq(("GB", "United Kingdom"))
+        Some(nomineeOrganisationName),
+        countries = Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
@@ -119,12 +110,15 @@ class AmendNomineeOrganisationPreviousAddressControllerSpec extends SpecBase wit
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel(Some("Test Organisation"), "23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
+        .set(
+          AmendAddressPage,
+          toAmendAddressModel(address, Some(town))
+        )
         .success
         .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -135,11 +129,11 @@ class AmendNomineeOrganisationPreviousAddressControllerSpec extends SpecBase wit
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(requestArgs *)
+      val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -155,7 +149,7 @@ class AmendNomineeOrganisationPreviousAddressControllerSpec extends SpecBase wit
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
 

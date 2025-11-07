@@ -20,7 +20,7 @@ import base.SpecBase
 
 class InputFilterSpec extends SpecBase with InputFilter {
 
-  "Input filter" must {
+  "InputFilter" must {
     "filter out those hackers" in {
 
       filter("<script>(.*?)</script>") mustBe ""

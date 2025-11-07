@@ -37,7 +37,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
     val httpClient: HttpClientV2                    = injector.instanceOf[HttpClientV2]
     lazy val charitiesConnector: CharitiesConnector = new CharitiesConnector(httpClient, mockFrontendAppConfig)
     val requestJson                                 = readJsonFromFile("/request.json")
-    val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value
+    val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, charityNameNoOperatingName).success.value
     val organizationId                              = 1234
 
     when(mockFrontendAppConfig.getCharitiesBackend) `thenReturn` getUrl
@@ -93,14 +93,14 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
 
           stubFor(
             post(urlEqualTo("/org/1234/submissions/application"))
-              .withRequestBody(equalToJson(Json.parse("""{"fullName":"Johnson"}""").toString()))
+              .withRequestBody(equalToJson(Json.parse("""{"fullName":"ANameson"}""").toString()))
               .willReturn(aResponse().withStatus(NOT_ACCEPTABLE))
           )
 
           val expectedResult = Left(CharitiesInvalidJson)
           val actualResult   =
             await(
-              charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), organizationId)(hc, ec)
+              charitiesConnector.registerCharities(Json.parse("""{"fullName":"ANameson"}"""), organizationId)(hc, ec)
             )
 
           actualResult mustBe expectedResult
@@ -112,14 +112,14 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
 
           stubFor(
             post(urlEqualTo("/org/1234/submissions/application"))
-              .withRequestBody(equalToJson(Json.parse("""{"fullName":"Johnson"}""").toString()))
+              .withRequestBody(equalToJson(Json.parse("""{"fullName":"ANameson"}""").toString()))
               .willReturn(aResponse().withStatus(BAD_REQUEST))
           )
 
           val expectedResult = Left(EtmpFailed)
           val actualResult   =
             await(
-              charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), organizationId)(hc, ec)
+              charitiesConnector.registerCharities(Json.parse("""{"fullName":"ANameson"}"""), organizationId)(hc, ec)
             )
 
           actualResult mustBe expectedResult
@@ -148,18 +148,18 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
 
         "return Some(userAnswers) response)" in {
 
-          val responseJson = """{
+          val responseJson = s"""{
                                |    "_id": "id",
                                |    "data": {
                                |        "charityName": {
-                               |            "fullName": "AAA"
+                               |            "fullName": "$charityFullName"
                                |        }
                                |    },
                                |    "lastUpdated": {
-                               |        "$date": 1611336311912
+                               |        "$$date": 1611336311912
                                |    },
                                |    "expiresAt": {
-                               |        "$date": 1613779200000
+                               |        "$$date": 1613779200000
                                |    }
                                |}""".stripMargin
 

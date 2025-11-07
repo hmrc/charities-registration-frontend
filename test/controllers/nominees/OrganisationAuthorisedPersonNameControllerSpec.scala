@@ -60,7 +60,7 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
   private val controller: OrganisationAuthorisedPersonNameController =
     inject[OrganisationAuthorisedPersonNameController]
 
-  "OrganisationAuthorisedPersonName Controller" must {
+  "OrganisationAuthorisedPersonNameController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -80,7 +80,7 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
         .success
         .value
 
@@ -95,10 +95,10 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        ("value", SelectTitle.values.head.toString),
-        "firstName"  -> "FName",
-        "middleName" -> "MName",
-        "lastName"   -> "LName"
+        "value" -> personNameWithMiddle.title.toString,
+        "firstName"  -> personNameWithMiddle.firstName,
+        "middleName" -> personNameWithMiddle.middleName.get, 
+        "lastName"   -> personNameWithMiddle.lastName
       )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))

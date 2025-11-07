@@ -38,7 +38,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
       "some but not all data is provided" in {
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("a charity", Some("another name")))
+            .set(CharityNamePage, charityName)
             .success
             .value
         )
@@ -54,20 +54,30 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
-                CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")
+                charityContactDetails
               )
             )
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(
+                  Some("Test Organisation"),
+                  Seq("address"),
+                  Some("AA11AA"),
+                  gbCountryModel
+                )
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
             .flatMap(
               _.set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(
+                  Some("Test Organisation"),
+                  Seq("address"),
+                  Some("AA11AA"),
+                  gbCountryModel
+                )
               )
             )
             .success
@@ -85,13 +95,18 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
-                CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")
+                charityContactDetails
               )
             )
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(
+                  Some("Test Organisation"),
+                  Seq("address"),
+                  Some("AA11AA"),
+                  gbCountryModel
+                )
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -107,11 +122,16 @@ class CharityInformationStatusHelperSpec extends SpecBase {
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
             .set(CharityNamePage, CharityName("a charity", None))
-            .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "")))
+            .flatMap(_.set(CharityContactDetailsPage, charityContactDetails.copy(emailAddress = "")))
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(
+                  Some("Test Organisation"),
+                  Seq("address"),
+                  Some("AA11AA"),
+                  gbCountryModel
+                )
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -130,7 +150,12 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(
+                  Some("Test Organisation"),
+                  Seq("address"),
+                  Some("AA11AA"),
+                  gbCountryModel
+                )
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -149,20 +174,30 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
-                CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")
+                CharityContactDetails("0123123123", Some("07111111111"), "abc@example.com")
               )
             )
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(
+                  Some("Test Organisation"),
+                  Seq("address"),
+                  Some("AA11AA"),
+                  gbCountryModel
+                )
               )
             )
             .flatMap(_.set(CanWeSendToThisAddressPage, false))
             .flatMap(
               _.set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("address"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+                AddressModel(
+                  Some("Test Organisation"),
+                  Seq("address"),
+                  Some("AA11AA"),
+                  gbCountryModel
+                )
               )
             )
             .success

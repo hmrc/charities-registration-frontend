@@ -17,7 +17,6 @@
 package controllers.addressLookup
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
@@ -66,7 +65,7 @@ class CharityPostalAddressLookupControllerSpec extends SpecBase with BeforeAndAf
     messagesControllerComponents
   )
 
-  "CharityInformationPostalAddressLookup Controller" when {
+  "CharityInformationPostalAddressLookupController" when {
 
     "calling the .initializeJourney() endpoint" when {
 
@@ -133,9 +132,9 @@ class CharityPostalAddressLookupControllerSpec extends SpecBase with BeforeAndAf
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
-                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+                .thenReturn(Future.successful(Right(address)))
 
-              val result = controller.callback(Some("id"))(fakeDataRequest)
+              val result = controller.callback(Some(addressId))(fakeDataRequest)
 
               status(result) mustEqual SEE_OTHER
               redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -151,7 +150,7 @@ class CharityPostalAddressLookupControllerSpec extends SpecBase with BeforeAndAf
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
-              val result = controller.callback(Some("id"))(fakeDataRequest)
+              val result = controller.callback(Some(addressId))(fakeDataRequest)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
               contentAsString(result) mustBe errorHandler
@@ -165,7 +164,7 @@ class CharityPostalAddressLookupControllerSpec extends SpecBase with BeforeAndAf
 
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
-                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+                .thenReturn(Future.successful(Right(address)))
 
               val result = controller.callback(None)(fakeDataRequest)
 
@@ -182,7 +181,7 @@ class CharityPostalAddressLookupControllerSpec extends SpecBase with BeforeAndAf
 
             when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
-            val result = controller.callback(Some("id"))(fakeRequest)
+            val result = controller.callback(Some(addressId))(fakeRequest)
 
             status(result) mustBe SEE_OTHER
             redirectLocation(result) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)

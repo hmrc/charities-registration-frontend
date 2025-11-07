@@ -94,7 +94,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherFundRaisingPage,
             NormalMode,
-            emptyUserAnswers.set(OtherFundRaisingPage, "sdf").getOrElse(emptyUserAnswers)
+            emptyUserAnswers.set(OtherFundRaisingPage, otherFundRaising).getOrElse(emptyUserAnswers)
           ) mustBe
             operationFundsRoutes.CharityEstablishedInController.onPageLoad(NormalMode)
         }
@@ -135,7 +135,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             NormalMode,
             emptyUserAnswers
               .set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.Overseas))
-              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), gbCountry.code))
               .success
               .value
           ) mustBe
@@ -155,7 +155,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             navigator.nextPage(
               WhatCountryDoesTheCharityOperateInPage(0),
               NormalMode,
-              emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "PL").success.value
+              emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), gbCountry.code).success.value
             ) mustBe
               operationFundsRoutes.OverseasOperatingLocationSummaryController.onPageLoad(NormalMode)
           }
@@ -167,7 +167,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
               NormalMode,
               emptyUserAnswers
                 .set(OverseasOperatingLocationSummaryPage, true)
-                .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "PL"))
+                .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), gbCountry.code))
                 .success
                 .value
             ) mustBe
@@ -209,7 +209,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             OverseasOperatingLocationSummaryPage,
             NormalMode,
             emptyUserAnswers
-              .set(WhatCountryDoesTheCharityOperateInPage(0), "PL")
+              .set(WhatCountryDoesTheCharityOperateInPage(0), gbCountry.code)
               .success
               .value
           ) mustBe
@@ -233,7 +233,7 @@ class FundRaisingNavigatorSpec extends SpecBase {
             OverseasOperatingLocationSummaryPage,
             NormalMode,
             emptyUserAnswers
-              .set(WhatCountryDoesTheCharityOperateInPage(Index(0)), "PL")
+              .set(WhatCountryDoesTheCharityOperateInPage(Index(0)), gbCountry.code)
               .flatMap(_.set(OverseasOperatingLocationSummaryPage, false))
               .success
               .value

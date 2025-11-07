@@ -29,7 +29,7 @@ class SessionActionSpec extends SpecBase {
     def onPageLoad(): Action[AnyContent] = action(_ => Results.Ok)
   }
 
-  "Session Action" when {
+  "SessionAction" when {
 
     "there's no active session" must {
 

@@ -59,17 +59,13 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
 
   private val controller: IndividualNomineesBankDetailsController = inject[IndividualNomineesBankDetailsController]
 
-  private val bankDetails = BankDetails(
-    accountName = "fullName",
-    sortCode = "123456",
-    accountNumber = "12345678",
-    rollNumber = Some("operatingName")
-  )
-
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(IndividualNomineeNamePage, personNameWithMiddle)
+      .success
+      .value
 
-  "IndividualNomineesBankDetails Controller" must {
+  "IndividualNomineesBankDetailsController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -83,7 +79,7 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
         controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
         messagePrefix,
         "officialsAndNominees.section",
-        Some("Jim John Jones")
+        Some(personNameWithMiddle.getFullName)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
@@ -103,10 +99,10 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "accountName"   -> "fullName",
-        "sortCode"      -> "123456",
-        "accountNumber" -> "12345678",
-        "rollNumber"    -> "operatingName"
+        "accountName"   -> accountName,
+        "sortCode"      -> sortCode,
+        "accountNumber" -> accountNumber,
+        "rollNumber"    -> rollNumber
       )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))

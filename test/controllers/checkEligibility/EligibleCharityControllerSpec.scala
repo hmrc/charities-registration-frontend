@@ -31,7 +31,7 @@ class EligibleCharityControllerSpec extends SpecBase {
 
   private val controller: EligibleCharityController = inject[EligibleCharityController]
 
-  "EligibleCharity Controller" must {
+  "EligibleCharityController" must {
 
     "return OK and the correct view for a GET" in {
 

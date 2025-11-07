@@ -29,7 +29,7 @@ class CanWeSendToThisAddressViewSpec extends YesNoViewBehaviours {
   private val messageKeyPrefix: String                     = "canWeSendLettersToThisAddress"
   private val section: Some[String]                        = Some(messages("contactDetail.section"))
   val form: Form[Boolean]                                  = inject[CanWeSendToThisAddressFormProvider].apply()
-  private val charityInformationAddressLookup: Seq[String] = Seq("12", "Banner Way", "ZZ1 1ZZ")
+  private val charityInformationAddressLookup: Seq[String] = Seq("12", "Test Way", "ZY1 1ZZ")
 
   private val view: CanWeSendToThisAddressView = viewFor[CanWeSendToThisAddressView](Some(emptyUserAnswers))
 

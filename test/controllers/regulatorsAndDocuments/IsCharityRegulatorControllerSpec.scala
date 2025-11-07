@@ -58,7 +58,7 @@ class IsCharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   private val controller: IsCharityRegulatorController = inject[IsCharityRegulatorController]
 
-  "IsCharityRegulator Controller " must {
+  "IsCharityRegulatorController" must {
 
     "return OK and the correct view for a GET" in {
 

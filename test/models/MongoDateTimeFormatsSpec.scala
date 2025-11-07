@@ -16,15 +16,12 @@
 
 package models
 
-import base.data.constants.DateConstants.feb1st2018
-import org.scalatest.OptionValues
-import org.scalatest.matchers.must.Matchers
-import org.scalatest.wordspec.AnyWordSpec
-import play.api.libs.json._
+import base.SpecBase
+import play.api.libs.json.*
 
 import java.time.LocalDateTime
 
-class MongoDateTimeFormatsSpec extends AnyWordSpec with Matchers with OptionValues with MongoDateTimeFormats {
+class MongoDateTimeFormatsSpec extends SpecBase with MongoDateTimeFormats {
 
   private val date: LocalDateTime = feb1st2018.atStartOfDay
   private val dateMillis: Long    = 1517443200000L

@@ -24,9 +24,7 @@ class IndividualNomineeNamePageSpec extends PageBehaviours {
 
   "IndividualNomineeNamePage" must {
 
-    implicit lazy val arbitraryNomineesName: Arbitrary[Name] = Arbitrary {
-      Name(SelectTitle.Ms, "Jim", Some("John"), "Jones")
-    }
+    implicit lazy val arbitraryNomineesName: Arbitrary[Name] = Arbitrary(personNameWithMiddle)
 
     beRetrievable[Name](IndividualNomineeNamePage)
 

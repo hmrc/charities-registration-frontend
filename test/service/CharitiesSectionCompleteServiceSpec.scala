@@ -42,15 +42,15 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
     "isCharityInformationStatusSectionCompleted" must {
 
       val data = Json.obj(
-        "charityContactDetails"                      -> Json.parse("""{"emailAddress":"a@b.com","daytimePhone":"1234567890"}"""),
-        "charityName"                                -> Json.parse("""{"fullName":"Test123"}"""),
+        "charityContactDetails"                      -> Json.parse(s"""{"emailAddress":"${charityContactDetails.emailAddress}","daytimePhone":"${charityContactDetails.daytimePhone}"}"""),
+        "charityName"                                -> Json.parse(s"""{"fullName":"$charityFullName"}"""),
         "isCharityInformationStatusSectionCompleted" -> false,
         "isSwitchOver"                               -> true,
         "charityOfficialAddress"                     -> Json.parse(
-          """{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""
+          s"""{"country":{"code":"${address.country.code}","name":"${address.country.name}"},"postcode":"${address.postcode.get}","lines":["${address.lines.head}","${address.lines(1)}"]}"""
         ),
         "charityPostalAddress"                       -> Json.parse(
-          """{"country":{"code":"GB","name":"United Kingdom"},"postcode":"postcode","lines":["Test123","line2"]}"""
+          s"""{"country":{"code":"${address.country.code}","name":"${address.country.name}"},"postcode":"${address.postcode.get}","lines":["${address.lines.head}","${address.lines(1)}"]}"""
         )
       )
 

@@ -53,7 +53,7 @@ class InEligibleLocationOtherControllerSpec extends SpecBase with BeforeAndAfter
 
   private val controller: InEligibleLocationOtherController = inject[InEligibleLocationOtherController]
 
-  "InEligibleLocationOtherController Controller" must {
+  "InEligibleLocationOtherController" must {
 
     "return OK and the correct view for a GET" in {
 

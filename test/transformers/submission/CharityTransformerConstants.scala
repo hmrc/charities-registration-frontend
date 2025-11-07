@@ -40,39 +40,49 @@ trait CharityTransformerConstants extends SpecBase {
   private val date = LocalDate.now()
 
   lazy val baseAnswers: Try[UserAnswers] = emptyUserAnswers
-    .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None))
+    .set(BankDetailsPage, bankDetailsWithoutRollNumber)
     .flatMap(
       _.set(
         CharityOfficialAddressLookupPage,
-        AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+        AddressModel(None, Seq("7", "Test Street"), None, CountryModel("IN", "India"))
       )
     )
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
     .flatMap(
-      _.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
+      _.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@example.com"))
     )
-    .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
+    .flatMap(_.set(CharityNamePage, charityNameNoOperatingName))
     .flatMap(_.set(IsCharityRegulatorPage, false))
-    .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+    .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "LastnameE")))
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
     .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
     .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
     .flatMap(
       _.set(
         AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(None, Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+        AddressModel(
+          None,
+          Seq("2", "Dubai Main Road", "line3", "line4"),
+          Some("ZY11 1AA"),
+          gbCountryModel
+        )
       )
     )
-    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "LastnameE")))
     .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
     .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
     .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-    .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+    .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(None, Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+        AddressModel(
+          None,
+          Seq("2", "Dubai Main Road", "line3", "line4"),
+          Some("ZY11 1AA"),
+          gbCountryModel
+        )
       )
     )
     .flatMap(
@@ -109,12 +119,12 @@ trait CharityTransformerConstants extends SpecBase {
           )
         )
     )
-    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "David", None, "Beckham")))
+    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "David", None, "LastnameB")))
     .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Director))
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+        AddressModel(None, Seq("3", "Test Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
       )
     )
     .success
@@ -201,20 +211,20 @@ trait CharityTransformerConstants extends SpecBase {
        |    },
        |    "common": {
        |      "bankDetails": {
-       |        "accountName": "fullName",
-       |        "rollNumber": "operatingName",
-       |        "accountNumber": "12345678",
-       |        "sortCode": "123456"
+       |        "accountName": "$accountName",
+       |        "rollNumber": "$rollNumber",
+       |        "accountNumber": "$accountNumber",
+       |        "sortCode": "$sortCode"
        |      },
        |      "declarationInfo": {
        |        "name": {
        |          "firstName": "Albert",
-       |          "lastName": "Einstien",
+       |          "lastName": "LastnameE",
        |          "middleName": "G",
        |          "title": "0001"
        |        },
        |        "position": "02",
-       |        "postcode": "G58AN",
+       |        "postcode": "ZY11 1AA",
        |        "telephoneNumber": "07700 900 982",
        |        "declaration": true,
        |        "overseas": false
@@ -228,7 +238,7 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "organisation": {
        |        "applicationType": "0",
-       |        "emailAddress": "abc@gmail.com",
+       |        "emailAddress": "$organisationEmail",
        |        "countryEstd": "1",
        |        "orgName": "ABC",
        |        "telephoneNumber": "07700 900 982",
@@ -238,17 +248,17 @@ trait CharityTransformerConstants extends SpecBase {
        |      "addressDetails": {
        |        "differentCorrespondence": true,
        |        "officialAddress": {
-       |          "postcode": "G58AN",
+       |          "postcode": "ZY11 1AA",
        |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine2": "Test Street",
        |          "addressLine3": "line3",
        |          "addressLine4": "line4",
        |          "nonUKAddress": false
        |        },
        |        "correspondenceAddress": {
-       |          "postcode": "ZZ11ZZ",
+       |          "postcode": "ZY11ZZ",
        |          "addressLine1": "1",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine2": "Test Street",
        |          "nonUKAddress": false
        |        }
        |      }
@@ -268,13 +278,13 @@ trait CharityTransformerConstants extends SpecBase {
        |            "title": "0001",
        |            "firstName": "Albert",
        |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "lastName": "LastnameE"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456C"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
@@ -283,7 +293,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "postcode": "ZY11 1AA"
        |          }
        |        }
        |      },
@@ -300,19 +310,19 @@ trait CharityTransformerConstants extends SpecBase {
        |          "name": {
        |            "title": "0001",
        |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "lastName": "LastnameB"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456A"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
        |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
+       |            "addressLine2": "Test Street",
        |            "addressLine3": "Bill Tower",
        |            "nonUKCountry": "IT"
        |          }
@@ -332,13 +342,13 @@ trait CharityTransformerConstants extends SpecBase {
        |            "title": "0001",
        |            "firstName": "Albert",
        |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "lastName": "LastnameE"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456C"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
@@ -347,7 +357,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "postcode": "ZY11 1AA"
        |          }
        |        }
        |      },
@@ -364,19 +374,19 @@ trait CharityTransformerConstants extends SpecBase {
        |          "name": {
        |            "title": "0001",
        |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "lastName": "LastnameB"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456A"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
        |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
+       |            "addressLine2": "Test Street",
        |            "addressLine3": "Bill Tower",
        |            "nonUKCountry": "IT"
        |          }
@@ -391,15 +401,15 @@ trait CharityTransformerConstants extends SpecBase {
        |  "charityRegistration": {
        |    "common": {
        |      "bankDetails": {
-       |        "accountName": "fullName",
-       |        "accountNumber": "12345678",
-       |        "sortCode": "123456"
+       |        "accountName": "$accountName",
+       |        "accountNumber": "$accountNumber",
+       |        "sortCode": "$sortCode"
        |      },
        |      "declarationInfo": {
        |        "name": {
        |          "firstName": "Albert",
        |          "middleName": "G",
-       |          "lastName": "Einstien",
+       |          "lastName": "LastnameE",
        |          "title": "0001"
        |        },
        |        "position": "02",
@@ -416,7 +426,7 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "organisation": {
        |        "applicationType": "0",
-       |        "emailAddress": "abc@gmail.com",
+       |        "emailAddress": "$organisationEmail",
        |        "countryEstd": "1",
        |        "orgName": "ABC",
        |        "telephoneNumber": "07700 900 982",
@@ -426,7 +436,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        "differentCorrespondence": false,
        |        "officialAddress": {
        |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine2": "Test Street",
        |          "nonUKCountry": "IN",
        |          "nonUKAddress": true
        |        }
@@ -500,13 +510,13 @@ trait CharityTransformerConstants extends SpecBase {
        |            "title": "0001",
        |            "firstName": "Albert",
        |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "lastName": "LastnameE"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456C"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
@@ -515,7 +525,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "postcode": "ZY11 1AA"
        |          }
        |        }
        |      },
@@ -532,19 +542,19 @@ trait CharityTransformerConstants extends SpecBase {
        |          "name": {
        |            "title": "0001",
        |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "lastName": "LastnameB"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456C"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
        |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
+       |            "addressLine2": "Test Street",
        |            "addressLine3": "Bill Tower",
        |            "nonUKCountry": "IT"
        |          }
@@ -560,15 +570,15 @@ trait CharityTransformerConstants extends SpecBase {
        |  "charityRegistration": {
        |    "common": {
        |      "bankDetails": {
-       |        "accountName": "fullName",
-       |        "accountNumber": "12345678",
-       |        "sortCode": "123456"
+       |        "accountName": "$accountName",
+       |        "accountNumber": "$accountNumber",
+       |        "sortCode": "$sortCode"
        |      },
        |      "declarationInfo": {
        |        "name": {
        |          "firstName": "Albert",
        |          "middleName": "G",
-       |          "lastName": "Einstien",
+       |          "lastName": "LastnameE",
        |          "title": "0001"
        |        },
        |        "position": "23",
@@ -585,9 +595,9 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "organisation": {
        |        "applicationType": "0",
-       |        "emailAddress": "abc@gmail.com",
+       |        "emailAddress": "$charityEmail",
        |        "countryEstd": "1",
-       |        "orgName": "ABC",
+       |        "orgName": "$charityFullName",
        |        "telephoneNumber": "07700 900 982",
        |        "mobileNumber": "07700 000 111"
        |      },
@@ -595,7 +605,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        "differentCorrespondence": false,
        |        "officialAddress": {
        |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine2": "Test Street",
        |          "nonUKCountry": "IN",
        |          "nonUKAddress": true
        |        }
@@ -669,13 +679,13 @@ trait CharityTransformerConstants extends SpecBase {
        |            "title": "0001",
        |            "firstName": "Albert",
        |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "lastName": "LastnameE"
        |          },
        |          "position": "23",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456C"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
@@ -684,7 +694,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "postcode": "ZY11 1AA"
        |          }
        |        }
        |      },
@@ -701,19 +711,19 @@ trait CharityTransformerConstants extends SpecBase {
        |          "name": {
        |            "title": "0001",
        |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "lastName": "LastnameB"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456A"
+       |          "nino": "$nino2"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
        |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
+       |            "addressLine2": "Test Street",
        |            "addressLine3": "Bill Tower",
        |            "nonUKCountry": "IT"
        |          }
@@ -733,13 +743,13 @@ trait CharityTransformerConstants extends SpecBase {
        |            "title": "0001",
        |            "firstName": "Albert",
        |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "lastName": "LastnameE"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456C"
+       |          "nino": "$nino"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
@@ -748,7 +758,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine2": "Dubai Main Road",
        |            "addressLine3": "line3",
        |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "postcode": "ZY11 1AA"
        |          }
        |        }
        |      },
@@ -765,19 +775,19 @@ trait CharityTransformerConstants extends SpecBase {
        |          "name": {
        |            "title": "0001",
        |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "lastName": "LastnameB"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
        |          "dayPhoneNumber": "07700 900 982",
        |          "mobilePhone": "07700 900 981",
-       |          "nino": "QQ123456A"
+       |          "nino": "$nino2"
        |        },
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
        |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
+       |            "addressLine2": "Test Street",
        |            "addressLine3": "Bill Tower",
        |            "nonUKCountry": "IT"
        |          }

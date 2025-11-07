@@ -59,7 +59,7 @@ class OtherOfficialsNameControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   private val controller: OtherOfficialsNameController = inject[OtherOfficialsNameController]
 
-  "OtherOfficialsName Controller" must {
+  "OtherOfficialsNameController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -79,7 +79,7 @@ class OtherOfficialsNameControllerSpec extends SpecBase with BeforeAndAfterEach 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .set(OtherOfficialsNamePage(0), personNameWithMiddle)
         .success
         .value
 
@@ -94,10 +94,10 @@ class OtherOfficialsNameControllerSpec extends SpecBase with BeforeAndAfterEach 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        ("value", SelectTitle.values.head.toString),
-        "firstName"  -> "FName",
-        "middleName" -> "MName",
-        "lastName"   -> "LName"
+        "value" -> personNameWithMiddle.title.toString,
+        "firstName"  -> personNameWithMiddle.firstName,
+        "middleName" -> personNameWithMiddle.middleName.get,
+        "lastName"   -> personNameWithMiddle.lastName
       )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))

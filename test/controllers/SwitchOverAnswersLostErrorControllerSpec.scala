@@ -47,7 +47,7 @@ class SwitchOverAnswersLostErrorControllerSpec extends SpecBase with BeforeAndAf
 
   private val controller: SwitchOverAnswersLostErrorController = inject[SwitchOverAnswersLostErrorController]
 
-  "SwitchOverAnswersLostError Controller" must {
+  "SwitchOverAnswersLostErrorController" must {
 
     "return OK and the correct view for a GET" in {
 

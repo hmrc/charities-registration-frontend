@@ -64,7 +64,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                charityContactDetails
               )
               .success
               .value
@@ -79,12 +79,12 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                charityContactDetails
               )
               .flatMap(
                 _.set(
                   CharityOfficialAddressLookupPage,
-                  AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                  address
                 )
               )
               .success
@@ -108,7 +108,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some(""), CountryModel("UK", "United Kingdom"))
+                address.copy(postcode = Some(""))
               )
               .success
               .value
@@ -123,7 +123,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN()"), CountryModel("FR", "France"))
+                address.copy(postcode = address.postcode.map(postcode => s"$postcode()"))
               )
               .success
               .value
@@ -138,14 +138,13 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("7 Morrison street"), Some("G58AN"), CountryModel("FR", "France"))
+                addressModelMin.copy(organisation = address.organisation)
               )
               .success
               .value
           ) mustBe
             charityInfoRoutes.AmendCharityOfficialAddressController.onPageLoad()
         }
-
       }
 
       "from the CanWeSendToThisAddressPage" must {
@@ -182,7 +181,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
               .flatMap(
                 _.set(
                   CharityPostalAddressLookupPage,
-                  AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                  address
                 )
               )
               .success
@@ -206,7 +205,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                address
               )
               .success
               .value
@@ -221,7 +220,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("7", "Morrison $treet"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                address.copy(lines = Seq(address.lines.head, address.lines(1).replace('S', '$')))
               )
               .success
               .value
@@ -269,7 +268,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
           navigator.nextPage(
             CharityNamePage,
             CheckMode,
-            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+            emptyUserAnswers.set(CharityNamePage, charityName).success.value
           ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
@@ -290,7 +289,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                charityContactDetails
               )
               .success
               .value
@@ -313,7 +312,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                address
               )
               .success
               .value
@@ -356,7 +355,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
               .flatMap(
                 _.set(
                   CharityPostalAddressLookupPage,
-                  AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                  address
                 )
               )
               .success
@@ -380,7 +379,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+                address
               )
               .success
               .value
@@ -406,7 +405,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
           CharityNamePage,
           PlaybackMode,
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("CName", Some("OpName")))
+            .set(CharityNamePage, charityName)
             .success
             .value
         ) mustBe

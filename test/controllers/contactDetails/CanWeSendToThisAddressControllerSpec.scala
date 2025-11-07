@@ -54,16 +54,15 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
     reset(mockUserAnswerService)
   }
 
-  private val view: CanWeSendToThisAddressView = inject[CanWeSendToThisAddressView]
+  private val view: CanWeSendToThisAddressView                 = inject[CanWeSendToThisAddressView]
   private val formProvider: CanWeSendToThisAddressFormProvider = inject[CanWeSendToThisAddressFormProvider]
-  private val form: Form[Boolean] = formProvider()
-
-  private val country = new CountryModel("UK", "United Kingdom")
+  private val form: Form[Boolean]                              = formProvider()
 
   private val addressLookupData: AddressModel =
-    AddressModel(Some("Test Organisation"), Seq("4 Other Place", "Some District", "Anytown"), Some("ZZ1 1ZZ"), country)
+    addressWithTown
 
-  private val addressLookupDataParsed = List("Test Organisation", "4 Other Place", "Some District", "Anytown", "ZZ1 1ZZ", "United Kingdom")
+  private val addressLookupDataParsed =
+    Seq(address.organisation.get, address.lines.head, address.lines(1), town, address.postcode.get, address.country.name)
 
   private val addressUserAnswers: Some[UserAnswers] = Some(
     emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers)
@@ -71,7 +70,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
 
   private val controller: CanWeSendToThisAddressController = inject[CanWeSendToThisAddressController]
 
-  "CanWeSendToThisAddress Controller " must {
+  "CanWeSendToThisAddressController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -96,7 +95,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Some("Test Organisation"), Seq("4 Other Place", "Some District", "Anytown"), None, country)
+                addressWithTown.copy(postcode = None)
               )
               .getOrElse(emptyUserAnswers)
           )
@@ -109,7 +108,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
       contentAsString(result) mustEqual view(
         form,
         NormalMode,
-        List("Test Organisation", "4 Other Place", "Some District", "Anytown", "United Kingdom")
+        Seq(address.organisation.get, address.lines.head, address.lines(1), town, address.country.name)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }

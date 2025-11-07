@@ -54,8 +54,6 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
 
   "CharityCommissionRegistrationNumberFormProvider" must {
 
-    val charityCommissionRegistrationNumber = "1234567"
-
     "apply CharityCommissionRegistrationNumber correctly" in {
 
       val details = form
@@ -77,14 +75,12 @@ class CharityCommissionRegistrationNumberFormProviderSpec extends StringFieldBeh
 
   "validateRegistrationNumber" must {
 
-    "valid for 123456" in {
-
-      "123456" must fullyMatch regex formProvider.validateRegistrationNumber
+    s"valid for $charityCommissionRegistrationNumber" in {
+      charityCommissionRegistrationNumber must fullyMatch regex formProvider.validateRegistrationNumber
     }
 
-    "valid for 01632 960" in {
-
-      "01632 960" mustNot fullyMatch regex formProvider.validateRegistrationNumber
+    "be invalid if contains a space" in {
+      charityCommissionRegistrationNumber.take(3) + " " + charityCommissionRegistrationNumber.drop(3) mustNot fullyMatch regex formProvider.validateRegistrationNumber
     }
   }
 

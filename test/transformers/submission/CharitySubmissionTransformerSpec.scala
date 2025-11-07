@@ -54,31 +54,21 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
       val localUserAnswers = baseAnswers
         .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A"))
-        .flatMap(
-          _.set(
-            AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
-          )
-        )
-        .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
+        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), ninoWithSpaces))
+        .flatMap(_.set(AuthorisedOfficialAddressLookupPage(1), address.copy(organisation = None, postcode = None, country = thCountryModel)))
+        .flatMap(_.set(OtherOfficialsNamePage(1), personName2WithoutMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
-        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A"))
-        .flatMap(
-          _.set(
-            OtherOfficialAddressLookupPage(1),
-            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
-          )
-        )
+        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
+        .flatMap(_.set(OtherOfficialsNinoPage(1), ninoWithSpaces))
+        .flatMap(_.set(OtherOfficialAddressLookupPage(1), address.copy(organisation = None, postcode = None, country = thCountryModel)))
         .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
-        .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
+        .flatMap(_.set(GoverningDocumentNamePage, governingDocument))
         .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
         .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
         .flatMap(
@@ -91,12 +81,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
             .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
             .flatMap(_.set(OperatingLocationPage, Set[OperatingLocationOptions](OperatingLocationOptions.England)))
             .flatMap(_.set(CharitablePurposesPage, Set[CharitablePurposes](AmateurSport, AnimalWelfare)))
-            .flatMap(
-              _.set(
-                CharitableObjectivesPage,
-                "qweqwewqesdfsdfdgxccvbcbre664354wfffgdfgdq34tggnchjn4w7q3bearvfxasxe14crtgvqweqwewqesdfsdfdgxccvbcbre66"
-              )
-            )
+            .flatMap(_.set(CharitableObjectivesPage, charityObjective))
         )
         .success
         .value
@@ -108,15 +93,15 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
     "convert right with all fields filled" in {
 
       val userAnswers = baseAnswers
-        .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
+        .flatMap(_.set(BankDetailsPage, bankDetails))
         .flatMap(
           _.set(
             CharityOfficialAddressLookupPage,
             AddressModel(
               None,
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              CountryModel("GB", "United Kingdom")
+              Seq("7", "Test Street", "line3", "line4"),
+              Some("ZY11 1AA"),
+              gbCountryModel
             )
           )
         )
@@ -124,11 +109,11 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             CharityPostalAddressLookupPage,
-            AddressModel(None, Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
+            AddressModel(None, Seq("1", "Test Street"), Some("ZY11ZZ"), gbCountryModel)
           )
         )
         .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "LastnameB")))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
@@ -136,10 +121,10 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(None, Seq("3", "Test Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
           )
         )
-        .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "LastnameB")))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
@@ -147,7 +132,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(None, Seq("3", "Test Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
           )
         )
         .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))
@@ -207,7 +192,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
     "convert with minimum fields" in {
 
       val userAnswers = localUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "LastnameE"))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
         .success
         .value

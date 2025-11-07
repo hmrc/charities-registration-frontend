@@ -21,11 +21,11 @@ import models.addressLookup.{AddressModel, CountryModel}
 import models.authOfficials.OfficialsPosition
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
-import pages.addressLookup._
-import pages.authorisedOfficials._
-import pages.nominees._
-import pages.otherOfficials._
-import play.api.libs.json._
+import pages.addressLookup.*
+import pages.authorisedOfficials.*
+import pages.nominees.*
+import pages.otherOfficials.*
+import play.api.libs.json.*
 
 import java.time.LocalDate
 
@@ -47,30 +47,25 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers: UserAnswers = emptyUserAnswers
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, false))
-          .flatMap(
-            _.set(
-              OrganisationNomineeContactDetailsPage,
-              OrganisationNomineeContactDetails("0123123123", "abc@email.com")
-            )
-          )
-          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Authorised", None, "Person")))
+          .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails))
+          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, personNameWithoutMiddle))
           .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, day)))
-          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AA123123A"))
+          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Authorised",
-            |                    "lastName": "Person"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "01",
             |                "dateOfBirth": "2000-12-11",
-            |                "dayPhoneNumber": "0123123123",
-            |                "nino": "AA123123A"
+            |                "dayPhoneNumber": "$daytimePhone",
+            |                "nino": "$nino"
             |        }
             |}""".stripMargin
 
@@ -90,26 +85,26 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers: UserAnswers = emptyUserAnswers
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, true))
-          .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Individual", None, "Nominee")))
+          .flatMap(_.set(IndividualNomineeNamePage, personNameWithoutMiddle))
           .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, day)))
-          .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123121", Some("0123123122"))))
-          .flatMap(_.set(IndividualNomineesNinoPage, "AA123123A"))
+          .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
+          .flatMap(_.set(IndividualNomineesNinoPage, nino))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Individual",
-            |                    "lastName": "Nominee"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "01",
             |                "dateOfBirth": "2000-12-11",
-            |                "dayPhoneNumber": "0123123121",
-            |                "mobilePhone": "0123123122",
-            |                "nino": "AA123123A"
+            |                "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+            |                "mobilePhone": "${phoneNumbers.mobilePhone.get}",
+            |                "nino": "$nino"
             |        }
             |}""".stripMargin
 
@@ -126,28 +121,28 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with all fields" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
+          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "middleName": "G",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "middleName": "${personNameWithoutMiddle.middleName.get}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
-            |                "dayPhoneNumber": "07700 900 982",
-            |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+            |                "mobilePhone": "${phoneNumbers.mobilePhone}",
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -160,13 +155,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with passport" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(
-            _.set(AuthorisedOfficialsPassportPage(0), Passport("passportNumber", "gb", LocalDate.now.plusDays(1)))
-          )
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
+          .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
           .success
           .value
 
@@ -175,17 +168,17 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "middleName": "G",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "middleName": "${personNameWithoutMiddle.middleName.get}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
-            |                "dayPhoneNumber": "07700 900 982",
-            |                "mobilePhone": "07700 900 981",
-            |                "nationalIdentityNumber": "passportNumber",
-            |                "nationalIDCardIssuingCountry": "gb",
-            |                "nationalIDCardExpiryDate": "${LocalDate.now.plusDays(1)}"
+            |                "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+            |                "mobilePhone": "${phoneNumbers.mobilePhone}",
+            |                "nationalIdentityNumber": "${passport.passportNumber}",
+            |                "nationalIDCardIssuingCountry": "${passport.country}",
+            |                "nationalIDCardExpiryDate": "${passport.expiryDate}"
             |        }
             |  }""".stripMargin
 
@@ -198,27 +191,27 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", None, "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
+          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
-            |                "dayPhoneNumber": "07700 900 982",
-            |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+            |                "mobilePhone": "${phoneNumbers.mobilePhone}",
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -233,30 +226,22 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with all fields except previousAddress" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(
-              Some("Test Organisation"),
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
+          .set(AuthorisedOfficialAddressLookupPage(0), addressAllLines)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "organisation": "Test Organisation",
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
-            |               }
+            |                    "organisation": "${addressAllLines.organisation.get}",
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
+            |              }
             |        }
             |  }""".stripMargin
         val result       = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
@@ -266,47 +251,29 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with all fields including previousAddress" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
-          .flatMap(
-            _.set(
-              AuthorisedOfficialPreviousAddressLookupPage(0),
-              AddressModel(
-                None,
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
-              )
-            )
-          )
+          .set(AuthorisedOfficialAddressLookupPage(0), addressAllLines.copy(organisation = None))
+          .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), addressAllLines.copy(organisation = None)))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -317,22 +284,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(None, Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
-          )
+          .set(AuthorisedOfficialAddressLookupPage(0), address.copy(organisation = None, postcode = None, country = thCountryModel))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "nonUKCountry": "${thCountryModel.code}"
             |               }
             |        }
             |  }""".stripMargin
@@ -344,21 +307,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(None, Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
-          )
+          .set(AuthorisedOfficialAddressLookupPage(0), address.copy(organisation = None))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "postcode": "${address.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -373,28 +333,20 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with all fields except previousAddress" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            OrganisationNomineeAddressLookupPage,
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
+          .set(OrganisationNomineeAddressLookupPage, addressAllLines.copy(organisation = None))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -407,47 +359,29 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with all fields including previousAddress" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            OrganisationNomineeAddressLookupPage,
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
-          .flatMap(
-            _.set(
-              OrganisationNomineePreviousAddressLookupPage,
-              AddressModel(
-                None,
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
-              )
-            )
-          )
+          .set(OrganisationNomineeAddressLookupPage, addressAllLines.copy(organisation = None))
+          .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, addressAllLines.copy(organisation = None)))
           .success
           .value
 
         val expectedJson =
-          """{
+         s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -460,22 +394,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            OrganisationNomineeAddressLookupPage,
-            AddressModel(None, Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
-          )
+          .set(OrganisationNomineeAddressLookupPage, address.copy(organisation = None, postcode = None, country = thCountryModel))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "nonUKCountry": "${thCountryModel.code}"
             |               }
             |        }
             |  }""".stripMargin
@@ -489,21 +419,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            OrganisationNomineeAddressLookupPage,
-            AddressModel(None, Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
-          )
+          .set(OrganisationNomineeAddressLookupPage, address. copy(organisation = None))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -520,28 +447,20 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with all fields except previousAddress" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            NomineeIndividualAddressLookupPage,
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
+          .set(NomineeIndividualAddressLookupPage, addressAllLines.copy(organisation = None))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -554,47 +473,31 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with all fields including previousAddress" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            NomineeIndividualAddressLookupPage,
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
+          .set(NomineeIndividualAddressLookupPage, addressAllLines.copy(organisation = None))
           .flatMap(
-            _.set(
-              NomineeIndividualPreviousAddressLookupPage,
-              AddressModel(
-                None,
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
-              )
-            )
+            _.set(NomineeIndividualPreviousAddressLookupPage, addressAllLines.copy(organisation = None))
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -607,22 +510,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            NomineeIndividualAddressLookupPage,
-            AddressModel(None, Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
-          )
+          .set(NomineeIndividualAddressLookupPage, address.copy(organisation = None, postcode = None, country = thCountryModel))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "postcode": "${thCountryModel.code}"
             |               }
             |        }
             |  }""".stripMargin
@@ -636,21 +535,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            NomineeIndividualAddressLookupPage,
-            AddressModel(None, Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
-          )
+          .set(NomineeIndividualAddressLookupPage,  address.copy(organisation = None))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "postcode": "${thCountryModel.code}"
             |               }
             |        }
             |  }""".stripMargin
@@ -707,21 +603,16 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, false))
           .flatMap(_.set(OrganisationNomineeNamePage, "organisation"))
-          .flatMap(
-            _.set(
-              OrganisationNomineeContactDetailsPage,
-              OrganisationNomineeContactDetails("0123123123", "abc@email.com")
-            )
-          )
+          .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
              |        "orgDetails": {
              |              "orgName": "organisation",
-             |              "telephoneNumber": "0123123123",
-             |              "emailAddress": "abc@email.com"
+             |              "telephoneNumber": "${nomineeOrganisationContactDetails.phoneNumber}",
+             |              "emailAddress": "${nomineeOrganisationContactDetails.email}"
              |        }
              |  }""".stripMargin
 
@@ -735,17 +626,17 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct bankDetails object with bank roll number" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", Some("bankRoll123")))
+          .set(OrganisationNomineesBankDetailsPage, bankDetails)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
              |        "bankDetails": {
-             |              "accountName": "bankAcc",
-             |              "sortCode": 112233,
-             |              "accountNumber": 12341234,
-             |              "rollNumber": "bankRoll123"
+             |              "accountName": "${bankDetails.accountName}",
+             |              "sortCode": ${bankDetails.sortCode},
+             |              "accountNumber": ${bankDetails.accountNumber},
+             |              "rollNumber": "${bankDetails.rollNumber}"
              |        }
              |  }""".stripMargin
 
@@ -757,16 +648,16 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct bankDetails object without bank roll number" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None))
+          .set(OrganisationNomineesBankDetailsPage, bankDetailsWithoutRollNumber)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
              |        "bankDetails": {
-             |              "accountName": "bankAcc",
-             |              "sortCode": 112233,
-             |              "accountNumber": 12341234
+             |              "accountName": "${bankDetailsWithoutRollNumber.accountName}",
+             |              "sortCode": ${bankDetailsWithoutRollNumber.sortCode},
+             |              "accountNumber": ${bankDetailsWithoutRollNumber.accountNumber}
              |        }
              |  }""".stripMargin
 
@@ -805,18 +696,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
           .set(IsOrganisationNomineePaymentsPage, true)
-          .flatMap(_.set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None)))
+          .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetailsWithoutRollNumber))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |   "paymentDetails": {
             |     "authorisedPayments": true,
             |     "bankDetails": {
-            |              "accountName": "bankAcc",
-            |              "sortCode": 112233,
-            |              "accountNumber": 12341234
+            |              "accountName": "${bankDetailsWithoutRollNumber.accountName}",
+            |              "sortCode": ${bankDetailsWithoutRollNumber.sortCode},
+            |              "accountNumber": ${bankDetailsWithoutRollNumber.accountNumber}
             |     }
             |   }
             |}""".stripMargin
@@ -836,22 +727,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct object for one authorized official" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
-          .flatMap(
-            _.set(
-              AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(
-                None,
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
-              )
-            )
-          )
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
+          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
+          .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), addressAllLines.copy(organisation = None)))
           .success
           .value
 
@@ -871,24 +752,24 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      }
@@ -908,28 +789,28 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with all fields" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(OtherOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-          .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
+          .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "middleName": "G",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithMiddle.firstName}",
+            |                    "middleName": "${personNameWithMiddle.middleName.get}",
+            |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
-            |                "dayPhoneNumber": "07700 900 982",
-            |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+            |                "mobilePhone": "${phoneNumbers.mobilePhone}",
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -942,27 +823,27 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", None, "Einstien"))
+          .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-          .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
+          .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithMiddle.firstName}",
+            |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
-            |                "dayPhoneNumber": "07700 900 982",
-            |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+            |                "mobilePhone": "${phoneNumbers.mobilePhone}",
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -978,28 +859,20 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with all fields except previousAddress" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            OtherOfficialAddressLookupPage(0),
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
+          .set(OtherOfficialAddressLookupPage(0), addressAllLines.copy(organisation = None))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${addressAllLines.lines.head}",
+            |                    "addressLine2": "${addressAllLines.lines(1)}",
+            |                    "addressLine3": "${addressAllLines.lines(2)}",
+            |                    "addressLine4": "${addressAllLines.lines(3)}",
+            |                    "postcode": "${addressAllLines.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -1010,22 +883,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object and nonUKAddress is true" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            OtherOfficialAddressLookupPage(0),
-            AddressModel(None, Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
-          )
+          .set(OtherOfficialAddressLookupPage(0), address.copy(organisation = None, postcode = None, country = thCountryModel))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "postcode": "${address.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -1037,21 +906,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct addressDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(
-            OtherOfficialAddressLookupPage(0),
-            AddressModel(None, Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
-          )
+          .set(OtherOfficialAddressLookupPage(0), address.copy(organisation = None))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "${address.lines.head}",
+            |                    "addressLine2": "${address.lines(1)}",
+            |                    "postcode": "${address.postcode.get}"
             |               }
             |        }
             |  }""".stripMargin
@@ -1085,22 +951,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct object for one other official" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(OtherOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-          .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
-          .flatMap(
-            _.set(
-              OtherOfficialAddressLookupPage(0),
-              AddressModel(
-                None,
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
-              )
-            )
-          )
+          .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
+          .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
+          .flatMap(_.set(OtherOfficialAddressLookupPage(0), addressAllLines))
           .success
           .value
 
@@ -1120,24 +976,24 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      }
@@ -1154,60 +1010,30 @@ class CharityPartnerTransformerSpec extends SpecBase {
     "userAnswers for Official" must {
 
       val userAnswersTwoAuthOneOther: UserAnswers = emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+        .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
         .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
-        .flatMap(
-          _.set(
-            AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
-        )
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
+        .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
+        .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), addressAllLines.copy(organisation = None)))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), personName2WithoutMiddle))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day)))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A"))
-        .flatMap(
-          _.set(
-            AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
-          )
-        )
-        .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
+        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
+        .flatMap(_.set(AuthorisedOfficialAddressLookupPage(1), address.copy(organisation = None, postcode = None, country = thCountryModel)))
+        .flatMap(_.set(OtherOfficialsNamePage(0), personName3WithMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
         .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
-        .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
-        .flatMap(
-          _.set(
-            OtherOfficialAddressLookupPage(0),
-            AddressModel(
-              None,
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
-        )
-        .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
+        .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
+        .flatMap(_.set(OtherOfficialAddressLookupPage(0), addressAllLines.copy(organisation = None)))
+        .flatMap(_.set(OtherOfficialsNamePage(1), personName4WithoutMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day)))
-        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A"))
-        .flatMap(
-          _.set(
-            OtherOfficialAddressLookupPage(1),
-            AddressModel(None, Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
-          )
-        )
+        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
+        .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
+        .flatMap(_.set(OtherOfficialAddressLookupPage(1), address.copy(organisation = None, postcode = None, country = thCountryModel)))
         .success
         .value
 
@@ -1229,24 +1055,25 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
              |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      },
@@ -1262,22 +1089,21 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personName2WithoutMiddle.firstName}",
+             |            "lastName": "${personName2WithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "nonUKCountry": "${thCountry.code}"
              |          }
              |        }
              |      },
@@ -1293,24 +1119,25 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personName3WithMiddle.firstName}",
+             |            "middleName": "${personName3WithMiddle.middleName.get}",
+             |            "lastName": "${personName3WithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
              |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      },
@@ -1326,22 +1153,22 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personName4WithoutMiddle.firstName}",
+             |            "middleName": "${personName4WithoutMiddle.middleName.get}",
+             |            "lastName": "${personName4WithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "nonUKCountry": "${thCountry.code}"
              |          }
              |        }
              |      }
@@ -1355,29 +1182,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       }
 
       "convert the correct object for two authorized and other officials with an organisation nominee" in {
-
         val localUserAnswers = userAnswersTwoAuthOneOther
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, false))
-          .flatMap(_.set(OrganisationNomineeNamePage, "organisationName"))
-          .flatMap(
-            _.set(
-              OrganisationNomineeContactDetailsPage,
-              OrganisationNomineeContactDetails("0123123123", "abc@email.com")
-            )
-          )
-          .flatMap(
-            _.set(
-              OrganisationNomineeAddressLookupPage,
-              AddressModel(None, Seq("1", "Authorised Street", "Authorised Place"), None, CountryModel("IT", "Italy"))
-            )
-          )
+          .flatMap(_.set(OrganisationNomineeNamePage, nomineeOrganisationName))
+          .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails))
+          .flatMap(_.set(OrganisationNomineeAddressLookupPage, address.copy(organisation = None, postcode = None, country = thCountryModel)))
           .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
           .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
-          .flatMap(_.set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None)))
-          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Authorised", None, "Person")))
+          .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetails))
+          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, personNameWithoutMiddle))
           .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, day)))
-          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AA123123A"))
+          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino))
           .success
           .value
 
@@ -1397,24 +1213,24 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      },
@@ -1430,22 +1246,21 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personName2WithoutMiddle.firstName}",
+             |            "lastName": "${personName2WithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "nonUKCountry": "${thCountry.code}"
              |          }
              |        }
              |      },
@@ -1461,24 +1276,24 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personName3WithMiddle.firstName}",
+             |            "middleName": "${personName3WithMiddle.middleName.get}",
+             |            "lastName": "${personName3WithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      },
@@ -1494,22 +1309,21 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personName4WithoutMiddle.firstName}",
+             |            "lastName": "${personName4WithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "nonUKCountry": "${thCountry.code}"
              |          }
              |        }
              |      },
@@ -1523,36 +1337,35 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "effectiveDateOfChange": "$date"
              |        },
              |        "orgDetails": {
-             |          "orgName": "organisationName",
-             |          "telephoneNumber": "0123123123",
-             |          "emailAddress": "abc@email.com"
+             |          "orgName": "$nomineeOrganisationName",
+             |          "telephoneNumber": "${nomineeOrganisationContactDetails.phoneNumber}",
+             |          "emailAddress": "${nomineeOrganisationContactDetails.email}"
              |        },
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Authorised",
-             |            "lastName": "Person"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "01",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "0123123123",
-             |          "nino": "AA123123A"
+             |          "dayPhoneNumber": "${nomineeOrganisationContactDetails.phoneNumber}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
-             |            "addressLine1": "1",
-             |            "addressLine2": "Authorised Street",
-             |            "addressLine3": "Authorised Place",
-             |            "nonUKAddress": true,
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "nonUKCountry": "${thCountry.code}",
+             |            "nonUKAddress": true
              |          }
              |        },
              |        "paymentDetails": {
              |          "authorisedPayments": true,
              |          "bankDetails": {
-             |            "accountName": "bankAcc",
-             |            "sortCode": 112233,
-             |            "accountNumber": 12341234
+             |            "accountName": "${bankDetails.accountName}",
+             |            "sortCode": ${bankDetails.sortCode},
+             |            "accountNumber": ${bankDetails.accountNumber}
              |          }
              |        }
              |      }
@@ -1567,29 +1380,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
       }
 
       "convert the correct object for two authorized and other officials with an individual nominee" in {
-
         val localUserAnswers = userAnswersTwoAuthOneOther
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, true))
-          .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Individual", None, "Nominee")))
+          .flatMap(_.set(IndividualNomineeNamePage, personNameWithoutMiddle))
           .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, day)))
-          .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123121", Some("0123123122"))))
-          .flatMap(_.set(IndividualNomineesNinoPage, "AA123123A"))
-          .flatMap(
-            _.set(
-              NomineeIndividualAddressLookupPage,
-              AddressModel(None, Seq("1", "Nominee Street"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
-            )
-          )
+          .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
+          .flatMap(_.set(IndividualNomineesNinoPage, nino))
+          .flatMap(_.set(NomineeIndividualAddressLookupPage, address.copy(organisation = None)))
           .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
-          .flatMap(
-            _.set(
-              NomineeIndividualPreviousAddressLookupPage,
-              AddressModel(None, Seq("1", "Individual Drive"), None, CountryModel("IT", "Italy"))
-            )
-          )
+          .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, addressAllLines.copy(organisation = None, postcode = None, country = thCountryModel)))
           .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
-          .flatMap(_.set(IndividualNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None)))
+          .flatMap(_.set(IndividualNomineesBankDetailsPage, bankDetails))
           .success
           .value
 
@@ -1609,24 +1411,24 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      },
@@ -1642,22 +1444,21 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "nonUKCountry": "${thCountry.code}"
              |          }
              |        }
              |      },
@@ -1673,24 +1474,24 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personName3WithMiddle.firstName}",
+             |            "middleName": "${personName3WithMiddle.middleName.get}",
+             |            "lastName": "${personName3WithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "postcode": "${addressAllLines.postcode.get}"
              |          }
              |        }
              |      },
@@ -1706,22 +1507,21 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personName4WithMiddle.firstName}",
+             |            "lastName": "${personName4WithMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "07700 900 982",
-             |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "nonUKCountry": "${thCountry.code}"
              |          }
              |        }
              |      },
@@ -1737,35 +1537,35 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Individual",
-             |            "lastName": "Nominee"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "01",
              |          "dateOfBirth": "2000-12-11",
-             |          "dayPhoneNumber": "0123123121",
-             |          "mobilePhone": "0123123122",
-             |          "nino": "AA123123A"
+             |          "dayPhoneNumber": "${phoneNumbers.daytimePhone}",
+             |          "mobilePhone": "${phoneNumbers.mobilePhone}",
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
-             |            "addressLine1": "1",
-             |            "addressLine2": "Nominee Street",
-             |            "nonUKAddress": false,
-             |            "postcode": "AA11AA"
+             |            "addressLine1": "${address.lines.head}",
+             |            "addressLine2": "${address.lines(1)}",
+             |            "postcode": "${address.postcode.get}"
              |          },
              |          "previousAddress": {
-             |            "addressLine1": "1",
-             |            "addressLine2": "Individual Drive",
-             |            "nonUKAddress": true,
-             |            "nonUKCountry": "IT"
+             |            "addressLine1": "${addressAllLines.lines.head}",
+             |            "addressLine2": "${addressAllLines.lines(1)}",
+             |            "addressLine3": "${addressAllLines.lines(2)}",
+             |            "addressLine4": "${addressAllLines.lines(3)}",
+             |            "nonUKCountry": "${thCountry.code}"
              |          }
              |        },
              |        "paymentDetails": {
              |          "authorisedPayments": true,
              |          "bankDetails": {
-             |            "accountName": "bankAcc",
-             |            "sortCode": 112233,
-             |            "accountNumber": 12341234
+             |            "accountName": "$accountName",
+             |            "sortCode": "$sortCode",
+             |            "accountNumber": "$accountNumber"
              |          }
              |        }
              |      }

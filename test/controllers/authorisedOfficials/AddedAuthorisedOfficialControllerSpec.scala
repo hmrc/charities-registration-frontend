@@ -53,11 +53,11 @@ class AddedAuthorisedOfficialControllerSpec extends SpecBase with BeforeAndAfter
 
   private val controller: AddedAuthorisedOfficialController = inject[AddedAuthorisedOfficialController]
   private val localUserAnswers: UserAnswers                 = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
     .success
     .value
 
-  "AddedAuthorisedOfficialController Controller" must {
+  "AddedAuthorisedOfficialController" must {
 
     "return OK and the correct view for a GET" in {
 

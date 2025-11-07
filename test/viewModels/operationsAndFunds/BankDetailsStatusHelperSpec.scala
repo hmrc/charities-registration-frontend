@@ -36,12 +36,7 @@ class BankDetailsStatusHelperSpec extends SpecBase {
           emptyUserAnswers
             .set(
               BankDetailsPage,
-              BankDetails(
-                accountName = "PM Cares",
-                sortCode = "abc",
-                accountNumber = "43444546",
-                rollNumber = Some("765431234")
-              )
+              bankDetails
             )
             .success
             .value

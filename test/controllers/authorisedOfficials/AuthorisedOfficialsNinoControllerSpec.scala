@@ -61,11 +61,11 @@ class AuthorisedOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfter
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
       .success
       .value
 
-  "AuthorisedOfficialsNINOController Controller " must {
+  "AuthorisedOfficialsNINOController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -75,7 +75,7 @@ class AuthorisedOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfter
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsNinoController.onSubmit(NormalMode, Index(0))
       )(fakeRequest, messages, frontendAppConfig).toString
@@ -84,7 +84,7 @@ class AuthorisedOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfter
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C").success.value
+      val userAnswers = localUserAnswers.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -95,8 +95,7 @@ class AuthorisedOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfter
     }
 
     "redirect to the next page when valid data is submitted" in {
-
-      val request = fakeRequest.withFormUrlEncodedBody("nino" -> "QQ 12 34 56 C")
+      val request = fakeRequest.withFormUrlEncodedBody("nino" -> ninoWithSpaces)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

@@ -61,7 +61,7 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: CharityRegulatorController = inject[CharityRegulatorController]
 
-  "CharityRegulator Controller " must {
+  "CharityRegulatorController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -109,10 +109,10 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
       val userAnswer = emptyUserAnswers
         .set(CharityRegulatorPage, CharityRegulator.values.toSet)
         .flatMap(
-          _.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
-            .flatMap(_.set(ScottishRegulatorRegNumberPage, "registrationNumber"))
-            .flatMap(_.set(NIRegulatorRegNumberPage, "registrationNumber"))
-            .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567")))
+          _.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
+            .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+            .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
+            .flatMap(_.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails))
         )
         .success
         .value
@@ -127,9 +127,9 @@ class CharityRegulatorControllerSpec extends SpecBase with BeforeAndAfterEach {
       verify(mockUserAnswerService, times(1)).get(meq("id"))(any(), any())
 
       theUserAnswers.id mustBe "id"
-      theUserAnswers.data mustBe Json.parse("""{"isSection2Completed":false,
+      theUserAnswers.data mustBe Json.parse(s"""{"isSection2Completed":false,
           |"charityRegulator":["ccew"],
-          |"charityCommissionRegistrationNumber":"registrationNumber"
+          |"charityCommissionRegistrationNumber":"$charityCommissionRegistrationNumber"
           |}""".stripMargin)
 
       def theUserAnswers: UserAnswers = {

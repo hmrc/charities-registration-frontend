@@ -17,7 +17,6 @@
 package connectors.addressLookup
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
@@ -139,11 +138,11 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
               .willReturn(
                 aResponse()
                   .withStatus(OK)
-                  .withBody(Json.obj("address" -> Json.toJson(ConfirmedAddressConstants.address)).toString())
+                  .withBody(Json.obj("address" -> Json.toJson(address)).toString())
               )
           )
 
-          val expectedResult = Right(ConfirmedAddressConstants.address)
+          val expectedResult = Right(address)
           val actualResult   = await(addressLookupConnector.retrieveAddress("id")(hc, ec))
 
           actualResult mustBe expectedResult
@@ -161,7 +160,7 @@ class AddressLookupConnectorSpec extends SpecBase with WireMockHelper {
               .willReturn(
                 aResponse()
                   .withStatus(OK)
-                  .withBody(Json.toJson(ConfirmedAddressConstants.address).toString())
+                  .withBody(Json.toJson(address).toString())
               )
           )
 

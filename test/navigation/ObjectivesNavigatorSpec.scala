@@ -44,7 +44,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             CharitableObjectivesPage,
             NormalMode,
-            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)
+            emptyUserAnswers.set(CharitableObjectivesPage, charityObjective).getOrElse(emptyUserAnswers)
           ) mustBe
             operations.CharitablePurposesController.onPageLoad(NormalMode)
         }
@@ -78,7 +78,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             PublicBenefitsPage,
             NormalMode,
-            emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)
+            emptyUserAnswers.set(PublicBenefitsPage, publicBenefit).getOrElse(emptyUserAnswers)
           ) mustBe
             operations.CharityObjectivesSummaryController.onPageLoad()
         }
@@ -114,7 +114,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             CharitableObjectivesPage,
             CheckMode,
-            emptyUserAnswers.set(CharitableObjectivesPage, "abcd").getOrElse(emptyUserAnswers)
+            emptyUserAnswers.set(CharitableObjectivesPage, charityObjective).getOrElse(emptyUserAnswers)
           ) mustBe
             operations.CharityObjectivesSummaryController.onPageLoad()
         }
@@ -148,7 +148,7 @@ class ObjectivesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             PublicBenefitsPage,
             CheckMode,
-            emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").getOrElse(emptyUserAnswers)
+            emptyUserAnswers.set(PublicBenefitsPage, publicBenefit).getOrElse(emptyUserAnswers)
           ) mustBe
             operations.CharityObjectivesSummaryController.onPageLoad()
         }

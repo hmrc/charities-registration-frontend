@@ -17,7 +17,6 @@
 package controllers.addressLookup
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import connectors.addressLookup.AddressLookupConnector
 import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLookupOnRamp
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
@@ -78,7 +77,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
   )
   val request: DataRequest[AnyContent]             = DataRequest(fakeRequest, internalId, emptyUserAnswers)
 
-  "BaseAddress Controller" when {
+  "BaseAddressController" when {
 
     "calling the .addressLookupInitialize() endpoint" when {
 
@@ -132,7 +131,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
-                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+                .thenReturn(Future.successful(Right(address)))
 
               val result =
                 controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
@@ -152,7 +151,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
                 .thenReturn(Future.successful(Left(AddressMalformed)))
 
               val result =
-                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some("id"))(request)
+                controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, Some(addressId))(request)
 
               status(result) mustEqual INTERNAL_SERVER_ERROR
               contentAsString(result) mustBe errorHandler
@@ -166,7 +165,7 @@ class BaseAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
 
               when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
               when(mockAddressLookupConnector.retrieveAddress(any())(any(), any()))
-                .thenReturn(Future.successful(Right(ConfirmedAddressConstants.address)))
+                .thenReturn(Future.successful(Right(address)))
 
               val result =
                 controller.addressLookupCallback(CharityOfficialAddressLookupPage, Section1Page, None)(request)

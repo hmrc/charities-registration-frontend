@@ -74,15 +74,12 @@ class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
   }
 
   "validateRegistrationNumber" must {
-
-    "valid for SC045673" in {
-
-      "SC045673" must fullyMatch regex formProvider.validateRegistrationNumber
+    s"be valid for $scottishRegulatorRegistrationNumber" in {
+      scottishRegulatorRegistrationNumber must fullyMatch regex formProvider.validateRegistrationNumber
     }
 
-    "valid for 01632" in {
-
-      "01632" mustNot fullyMatch regex formProvider.validateRegistrationNumber
+    "be invalid if doesn't start with SC" in {
+      "01" + scottishRegulatorRegistrationNumber.drop(2) mustNot fullyMatch regex formProvider.validateRegistrationNumber
     }
   }
 }

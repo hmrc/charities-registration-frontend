@@ -53,7 +53,7 @@ class NomineeDetailsSummaryControllerSpec extends SpecBase with BeforeAndAfterEa
 
   private val controller: NomineeDetailsSummaryController = inject[NomineeDetailsSummaryController]
 
-  "NomineeDetailsSummaryController Controller" must {
+  "NomineeDetailsSummaryController" must {
 
     "redirect to index page no rows are defined" in {
 

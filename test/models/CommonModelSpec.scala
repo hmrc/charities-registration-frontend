@@ -62,26 +62,26 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
     "get correct Name with Title" in {
 
       val authorisedOfficialsName =
-        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("Joe"), lastName = "Jill")
+        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("Joe"), lastName = "LastnameJ")
 
-      authorisedOfficialsName.getFullNameWithTitle mustBe "Mr Jack Joe Jill"
+      authorisedOfficialsName.getFullNameWithTitle mustBe "Mr Jack Joe LastnameJ"
 
     }
 
     "all parameters defined" in {
 
       val authorisedOfficialsName =
-        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("and"), lastName = "Jill")
+        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("Middle"), lastName = "LastnameJ")
 
-      authorisedOfficialsName.getFullName mustBe "Jack and Jill"
+      authorisedOfficialsName.getFullName mustBe "Jack Middle LastnameJ"
 
     }
 
     "middleName is not defined" in {
 
-      val authorisedOfficialsName = Name(SelectTitle.Mr, firstName = "Jack", middleName = None, lastName = "Jill")
+      val authorisedOfficialsName = Name(SelectTitle.Mr, firstName = "Jack", middleName = None, lastName = "LastnameJ")
 
-      authorisedOfficialsName.getFullName mustBe "Jack Jill"
+      authorisedOfficialsName.getFullName mustBe "Jack LastnameJ"
 
     }
 
@@ -92,7 +92,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "json - serialise and deserialise" in {
 
-      val name = Name(SelectTitle.Mr, "Jack", Some("Joe"), "Jill")
+      val name = Name(SelectTitle.Mr, "Jack", Some("Joe"), "LastnameJ")
 
       val json = Json.toJson(name)
 
@@ -133,9 +133,9 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val authorisedOfficialsPassport = Passport("GB123456", "GB", LocalDate.now)
+      val authorisedOfficialsPassport = passport
 
-      authorisedOfficialsPassport.passportNumber mustBe "GB123456"
+      authorisedOfficialsPassport.passportNumber mustBe passportNumber
       authorisedOfficialsPassport.country mustBe "GB"
       authorisedOfficialsPassport.expiryDate mustBe LocalDate.now
 
@@ -147,9 +147,6 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
     }
 
     "json - serialise and deserialise" in {
-
-      val passport = Passport("GB123456", "GB", LocalDate.now)
-
       val json = Json.toJson(passport)
 
       json.validate[Passport].asOpt.value mustBe passport
@@ -161,7 +158,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val country = Country("GB", "United Kingdom")
+      val country = gbCountryModel
 
       country.code mustBe "GB"
       country.name mustBe "United Kingdom"
@@ -171,16 +168,14 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
   "FcoCountry object" must {
 
     "all parameters defined" in {
-
-      val country = FcoCountry("GB", "United Kingdom")
+      val country = gbFcoCountry
 
       country.country mustBe "GB"
       country.name mustBe "United Kingdom"
     }
 
     "json - serialise and deserialise" in {
-
-      val fcoCountry = FcoCountry("GB", "United Kingdom")
+      val fcoCountry = gbFcoCountry
 
       val json = Json.toJson(fcoCountry)
 
@@ -193,10 +188,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val charityName = CharityName("Name", Some("op number"))
-
-      charityName.fullName mustBe "Name"
-      charityName.operatingName mustBe Some("op number")
+      charityName.fullName mustBe charityFullName
+      charityName.operatingName mustBe Some(charityOperatingName)
     }
 
     "toString" in {
@@ -208,11 +201,9 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val charityContactDetails = CharityContactDetails("1234567890", Some("1234567890"), "a@b.com")
-
-      charityContactDetails.daytimePhone mustBe "1234567890"
-      charityContactDetails.mobilePhone mustBe Some("1234567890")
-      charityContactDetails.emailAddress mustBe "a@b.com"
+      charityContactDetails.daytimePhone mustBe daytimePhone
+      charityContactDetails.mobilePhone mustBe Some(mobileNumber)
+      charityContactDetails.emailAddress mustBe charityEmail
     }
 
     "toString" in {

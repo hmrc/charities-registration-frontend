@@ -19,8 +19,8 @@ package controllers.authorisedOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.AmendAddressFormProvider
-import models.addressLookup.{AddressModel, AmendAddressModel, CountryModel}
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.addressLookup.{AddressModel, AmendAddressModel}
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
@@ -66,38 +66,32 @@ class AmendAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase wit
   private val controller: AmendAuthorisedOfficialsPreviousAddressController =
     inject[AmendAuthorisedOfficialsPreviousAddressController]
 
-  private val requestArgs                   = Seq(
-    "organisation" -> "Test Organisation",
-    "line1"        -> "23",
-    "line2"        -> "Morrison street",
-    "line3"        -> "",
-    "town"         -> "Glasgow",
-    "postcode"     -> "G58AN",
-    "country"      -> "GB"
+  private val requestArgs = Seq(
+    "organisation" -> addressWithTown.organisation.get,
+    "line1" -> addressWithTown.lines.head,
+    "line2" -> addressWithTown.lines(1),
+    "line3" -> "",
+    "town" -> addressWithTown.lines(2),
+    "postcode" -> addressWithTown.postcode.get,
+    "country" -> addressWithTown.country.code
   )
+
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       AuthorisedOfficialPreviousAddressLookupPage(0),
-      AddressModel(
-        Some("Test Organisation"),
-        Seq("7", "Morrison street near riverview gardens", "Glasgow"),
-        Some("G58AN"),
-        CountryModel("GB", "United Kingdom")
-      )
+      addressModelMaxWithTown
     )
-    .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")))
+    .flatMap(_.set(AuthorisedOfficialsNamePage(0), personNameWithMiddle))
     .success
     .value
 
-  "AmendAuthorisedOfficialsPreviousAddressController Controller " must {
+  "AmendAuthorisedOfficialsPreviousAddressController" must {
 
     "return OK and the correct view for a GET" in {
-
-      val amendAuthorisedOfficialsPreviousAddress =
-        AmendAddressModel(Some("Test Organisation"), "7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
+      val amendAuthorisedOfficialsPreviousAddress = toAmendAddressModel(addressModelMax, Some(town))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -107,22 +101,24 @@ class AmendAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase wit
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsPreviousAddressController
           .onSubmit(NormalMode, Index(0)),
-        Some("Jim John Jones"),
-        Seq(("GB", "United Kingdom"))
+        Some(personNameWithMiddle.getFullName),
+        Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel(Some("Test Organisation"), "23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
+        .set(
+          AmendAddressPage,
+          toAmendAddressModel(address, Some(town))
+        )
         .success
         .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -137,7 +133,7 @@ class AmendAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase wit
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
@@ -153,7 +149,7 @@ class AmendAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase wit
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

@@ -61,13 +61,11 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
   private val controller: OrganisationNomineeContactDetailsController =
     inject[OrganisationNomineeContactDetailsController]
 
-  private val requestArgs = Seq("phoneNumber" -> "0123123123", "email" -> "test@email.com")
+  private val requestArgs = Seq("phoneNumber" -> daytimePhone, "email" -> organisationEmail)
 
-  private val company = "TestCompany"
+  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OrganisationNomineeNamePage, nomineeOrganisationName).success.value
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OrganisationNomineeNamePage, company).success.value
-
-  "OrganisationNomineeContactDetailsController Spec" must {
+  "OrganisationNomineeContactDetailsController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -76,7 +74,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, company, NormalMode)(
+      contentAsString(result) mustEqual view(form, nomineeOrganisationName, NormalMode)(
         fakeRequest,
         messages,
         frontendAppConfig
@@ -87,7 +85,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com"))
+        .set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails)
         .success
         .value
 

@@ -62,11 +62,11 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
       .success
       .value
 
-  "AuthorisedOfficialsPosition Controller" must {
+  "AuthorisedOfficialsPositionController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -77,7 +77,7 @@ class AuthorisedOfficialsPositionControllerSpec extends SpecBase with BeforeAndA
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsPositionController.onSubmit(NormalMode, Index(0))
       )(fakeRequest, messages, frontendAppConfig).toString

@@ -69,7 +69,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val addressUserAnswers: UserAnswers                    = emptyUserAnswers
     .set(
       AuthorisedOfficialsNamePage(0),
-      Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+      personNameWithMiddle
     )
     .success
     .value
@@ -95,7 +95,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
     .success
     .value
 
-  "LocalBase Controller" must {
+  "LocalBaseController" must {
 
     "calling the .getAuthorisedOfficialName() is successful" in {
 
@@ -139,7 +139,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(None, List("12", "Banner Way"), Some("NE128UZ"), CountryModel("GB", "GB"))
+            AddressModel(None, List("12", "Test Way"), Some("NE128UZ"), CountryModel("GB", "GB"))
           )
           .success
           .value

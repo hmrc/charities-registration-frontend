@@ -58,7 +58,7 @@ class IsEligibleAccountControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: IsEligibleAccountController = inject[IsEligibleAccountController]
 
-  "IsEligibleAccount Controller" must {
+  "IsEligibleAccountController" must {
 
     "return OK and the correct view for a GET" in {
 

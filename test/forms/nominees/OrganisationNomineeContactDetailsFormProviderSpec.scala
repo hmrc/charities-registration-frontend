@@ -84,88 +84,73 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
   "OrganisationNomineeContactDetailsFormProvider" must {
 
-    val organisationContactDetails = OrganisationNomineeContactDetails("01632 960 001", "company@org.com")
-
     "apply OrganisationNomineeContactDetailsSpec correctly" in {
 
       val details = form
         .bind(
           Map(
-            "phoneNumber" -> organisationContactDetails.phoneNumber,
-            "email"       -> organisationContactDetails.email
+            "phoneNumber" -> nomineeOrganisationContactDetails.phoneNumber,
+            "email"       -> nomineeOrganisationContactDetails.email
           )
         )
         .get
 
-      details.phoneNumber mustBe organisationContactDetails.phoneNumber
-      details.email mustBe organisationContactDetails.email
+      details.phoneNumber mustBe nomineeOrganisationContactDetails.phoneNumber
+      details.email mustBe nomineeOrganisationContactDetails.email
     }
 
     "unapply OrganisationNomineeContactDetailsSpec correctly" in {
-      val filled = form.fill(organisationContactDetails)
-      filled("phoneNumber").value.value mustBe organisationContactDetails.phoneNumber
-      filled("email").value.value mustBe organisationContactDetails.email
+      val filled = form.fill(nomineeOrganisationContactDetails)
+      filled("phoneNumber").value.value mustBe nomineeOrganisationContactDetails.phoneNumber
+      filled("email").value.value mustBe nomineeOrganisationContactDetails.email
     }
   }
 
   "validateTelephoneNumber" must {
-
-    "be valid for 01632 960 001" in {
-
-      "01632 960 001" must fullyMatch regex formProvider.validateTelephoneNumber
+    s"be valid for $daytimePhone" in {
+      daytimePhone must fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for short numbers like 01632 960" in {
-
-      "01632 960" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    s"be invalid for short numbers like ${daytimePhone.dropRight(4)}" in {
+      daytimePhone.dropRight(4) mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for special chars like (0)1632 960 001" in {
-
-      "(0)1632 960 001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    "be invalid for special chars such as numbers starting (0)" in {
+      s"(0)${daytimePhone.drop(1)}" mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for hyphens like 1-632-960-001" in {
-
-      "1-632-960-001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    "be invalid if containing hyphens" in {
+      s"1${daytimePhone.drop(2).replace(' ', '-')}" mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for dots like 1.632.960.001" in {
-
-      "1.632.960.001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    "be invalid if containing dots" in {
+      s"1{$daytimePhone.drop(2).replace(' ', '.'))" mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be valid for international numbers like +44 777 777 7777" in {
-
-      "+44 777 777 7777" must fullyMatch regex formProvider.validateTelephoneNumber
+    "be valid for international numbers like those starting +44" in {
+      s"+44 ${mobileNumber.drop(1)}" must fullyMatch regex formProvider.validateTelephoneNumber
     }
   }
+  
+    "validateEmailAddress" must {
+      "be valid for testmail@example.com" in {
+        "testmail@example.com" must fullyMatch regex formProvider.validateEmailAddress
+      }
 
-  "validateEmailAddress" must {
+      "be invalid for testmail" in {
+        "testmail" mustNot fullyMatch regex formProvider.validateEmailAddress
+      }
 
-    "be valid for testmail@email.com" in {
-
-      "testmail@email.com" must fullyMatch regex formProvider.validateEmailAddress
+      "be invalid for testmail@email" in {
+        "testmail@email" mustNot fullyMatch regex formProvider.validateEmailAddress
     }
 
-    "be invalid for testmail" in {
-
-      "testmail" mustNot fullyMatch regex formProvider.validateEmailAddress
+    "be invalid for example.com" in {
+      "example.com" mustNot fullyMatch regex formProvider.validateEmailAddress
     }
 
-    "be invalid for testmail@email" in {
-
-      "testmail@email" mustNot fullyMatch regex formProvider.validateEmailAddress
-    }
-
-    "be invalid for email.com" in {
-
-      "email.com" mustNot fullyMatch regex formProvider.validateEmailAddress
-    }
-
-    "be invalid for aWeirdEmail!%^&$*%&$*(*)@email.com" in {
-
-      "aWeirdEmail!%^&$*%&$*(*)@email.com" mustNot fullyMatch regex formProvider.validateEmailAddress
+    "be invalid for aWeirdEmail!%^&$*%&$*(*)@example.com" in {
+      "aWeirdEmail!%^&$*%&$*(*)@example.com" mustNot fullyMatch regex formProvider.validateEmailAddress
     }
   }
 }

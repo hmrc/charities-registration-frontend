@@ -53,7 +53,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
 
   private val controller: CharityInformationSummaryController = inject[CharityInformationSummaryController]
 
-  "CharityInformationSummary Controller" must {
+  "CharityInformationSummaryController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -94,7 +94,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)
+          Some(emptyUserAnswers.set(CharityNamePage, charityName).success.value)
         )
       )
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

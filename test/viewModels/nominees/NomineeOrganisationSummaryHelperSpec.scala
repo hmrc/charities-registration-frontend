@@ -17,7 +17,6 @@
 package viewModels.nominees
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.{routes => nomineesRoutes}
 import models.nominees.OrganisationNomineeContactDetails
@@ -40,30 +39,31 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
   private val dayOfMonth = 2
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
-  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(gbCountryModel))
 
   private lazy val baseUserAnswers: UserAnswers = UserAnswers("id")
-    .set(OrganisationNomineeNamePage, "Company Inc")
+    .set(OrganisationNomineeNamePage, nomineeOrganisationName)
     .flatMap(
-      _.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com"))
+      _.set(
+        OrganisationNomineeContactDetailsPage,
+        OrganisationNomineeContactDetails("0123123123", organisationEmail)
+      )
     )
-    .flatMap(_.set(OrganisationNomineeAddressLookupPage, ConfirmedAddressConstants.address))
+    .flatMap(_.set(OrganisationNomineeAddressLookupPage, confirmedAddress))
     .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
-    .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, ConfirmedAddressConstants.address))
+    .flatMap(_.set(OrganisationNomineePreviousAddressLookupPage, confirmedAddress))
     .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
     .flatMap(
       _.set(
         OrganisationNomineesBankDetailsPage,
-        BankDetails(
-          accountName = "PM Cares",
-          sortCode = "176534",
-          accountNumber = "43444546",
-          rollNumber = Some("765431234")
-        )
+        bankDetails
       )
     )
     .flatMap(
-      _.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      _.set(
+        OrganisationAuthorisedPersonNamePage,
+        Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname")
+      )
     )
     .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .success
@@ -83,7 +83,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       .flatMap(
         _.set(
           OrganisationAuthorisedPersonPassportPage,
-          Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+          passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
         )
       )
       .success
@@ -126,7 +126,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeEmailAddress mustBe Some(
           summaryListRow(
             messages("organisationContactDetails.email.checkYourAnswersLabel"),
-            HtmlContent("company@inc.com"),
+            HtmlContent(organisationEmail),
             Some(messages("organisationContactDetails.email.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationNomineeContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -200,7 +200,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeAccountName mustBe Some(
           summaryListRow(
             messages("organisationNomineesBankDetails.accountName.checkYourAnswersLabel"),
-            HtmlContent("PM Cares"),
+            HtmlContent(accountName),
             Some(messages("organisationNomineesBankDetails.accountName.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -214,7 +214,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeSortCode mustBe Some(
           summaryListRow(
             messages("organisationNomineesBankDetails.sortCode.checkYourAnswersLabel"),
-            HtmlContent("176534"),
+            HtmlContent(sortCode),
             Some(messages("organisationNomineesBankDetails.sortCode.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -228,7 +228,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeAccountNumber mustBe Some(
           summaryListRow(
             messages("organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel"),
-            HtmlContent("43444546"),
+            HtmlContent(accountNumber),
             Some(messages("organisationNomineesBankDetails.accountNumber.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -242,7 +242,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeBuildingRoll mustBe Some(
           summaryListRow(
             messages("organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel"),
-            HtmlContent("765431234"),
+            HtmlContent(rollNumber),
             Some(messages("organisationNomineesBankDetails.rollNumber.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -256,7 +256,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonName mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr AName Lastname"),
             Some(messages("organisationAuthorisedPersonName.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -325,7 +325,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperPassport.authorisedPersonPassportNumber mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel"),
-            HtmlContent("GB12345"),
+            HtmlContent(passportNumber),
             Some(messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(
               CheckMode

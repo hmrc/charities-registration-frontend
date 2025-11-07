@@ -26,7 +26,7 @@ class SignOutControllerSpec extends SpecBase {
 
   private val controller: SignOutController = inject[SignOutController]
 
-  "SignOut Controller" when {
+  "SignOutController" when {
 
     "calling the .signOut() method" must {
 

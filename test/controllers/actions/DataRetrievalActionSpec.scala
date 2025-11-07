@@ -31,7 +31,7 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures {
     def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)
   }
 
-  "Data Retrieval Action" when {
+  "DataRetrievalAction" when {
 
     "there is no data in the cache" must {
 

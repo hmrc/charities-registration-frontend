@@ -53,7 +53,7 @@ class InEligibleBankControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: InEligibleBankController = inject[InEligibleBankController]
 
-  "InEligibleBank Controller" must {
+  "InEligibleBankController" must {
 
     "return OK and the correct view for a GET" in {
 

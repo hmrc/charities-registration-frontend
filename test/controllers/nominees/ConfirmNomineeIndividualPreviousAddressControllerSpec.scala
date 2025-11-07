@@ -53,9 +53,8 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
   private val controller: ConfirmNomineeIndividualPreviousAddressController =
     inject[ConfirmNomineeIndividualPreviousAddressController]
   private val messageKeyPrefix                                              = "nomineeIndividualPreviousAddress"
-  private val nomineeIndividualPreviousAddressLookup                        = List("12", "Banner Way", "United Kingdom")
-
-  "ConfirmNomineeIndividualPreviousAddressController Controller" must {
+  private val nomineeIndividualPreviousAddressLookup                        = Seq(address.lines.head, address.lines(1), address.country.name)
+  "ConfirmNomineeIndividualPreviousAddressController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -63,11 +62,11 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(IndividualNomineeNamePage, personNameWithMiddle)
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
-                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  address.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -86,30 +85,24 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
           controllers.nominees.routes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode),
           controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
             .initializeJourney(NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return submitCall as Amend Address if address length is > 35" in {
-
-      val nomineeIndividualPreviousAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val nomineeIndividualPreviousAddressMax = Seq(addressModelMax.lines.head, addressModelMax.lines(1), addressModelMax.country.name)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(IndividualNomineeNamePage, personNameWithMiddle)
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
-                  AddressModel(
-                    None,
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    CountryModel("GB", "United Kingdom")
-                  )
+                  addressModelMax.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -128,7 +121,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
           controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onPageLoad(NormalMode),
           controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
             .initializeJourney(NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

@@ -17,7 +17,6 @@
 package viewModels.authorisedOfficials
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.authorisedOfficials.{routes => authOfficials}
 import models.authOfficials.OfficialsPosition
@@ -40,7 +39,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
   private val dayOfMonth = 2
 
   private def authorisedOfficialDetails(title: SelectTitle = SelectTitle.Mr): UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(title, firstName = "John", None, lastName = "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle.copy(title = title))
     .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)))
     .flatMap(
       _.set(
@@ -50,17 +49,17 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
     )
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head))
     .flatMap(_.set(IsAuthorisedOfficialNinoPage(0), true))
-    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
     .flatMap(
-      _.set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))
+      _.set(AuthorisedOfficialsPassportPage(0), passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth)))
     )
-    .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address))
+    .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), confirmedAddress))
     .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
     .success
     .value
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
-  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq(gbCountry.code))(any())).thenReturn(Some(gbCountry))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
   def helper(userAnswers: UserAnswers = authorisedOfficialDetails(), index: Index): AddedAuthorisedOfficialHelper =
@@ -75,7 +74,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialNamesRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr AName Lastname"),
             Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -87,7 +86,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(SelectTitle.UnsupportedTitle), 0).authOfficialNamesRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsName.checkYourAnswersLabel"),
-            HtmlContent("John Jones"),
+            HtmlContent("AName Lastname"),
             Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -192,7 +191,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialPassportNumberRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel"),
-            HtmlContent("GB12345"),
+            HtmlContent(passportNumber),
             Some(messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -217,7 +216,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
           authorisedOfficialDetails()
             .set(
               AuthorisedOfficialsPassportPage(0),
-              Passport("GB12345", "Unknown", LocalDate.of(year, month, dayOfMonth))
+              Passport(passportNumber, "Unknown", LocalDate.of(year, month, dayOfMonth))
             )
             .success
             .value,
@@ -283,7 +282,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
 
         helper(
           authorisedOfficialDetails()
-            .set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address)
+            .set(AuthorisedOfficialPreviousAddressLookupPage(0), confirmedAddress)
             .success
             .value,
           0

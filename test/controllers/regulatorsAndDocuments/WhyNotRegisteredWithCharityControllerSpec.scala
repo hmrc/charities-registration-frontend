@@ -59,9 +59,9 @@ class WhyNotRegisteredWithCharityControllerSpec extends SpecBase with BeforeAndA
 
   private val controller: WhyNotRegisteredWithCharityController = inject[WhyNotRegisteredWithCharityController]
 
-  private val requestArgs = Seq("value" -> "abcd")
+  private val requestArgs = Seq("value" -> whyNotRegistered)
 
-  "WhyNotRegisteredWithCharity Controller " must {
+  "WhyNotRegisteredWithCharityController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -76,7 +76,7 @@ class WhyNotRegisteredWithCharityControllerSpec extends SpecBase with BeforeAndA
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, "abcd").success.value
+      val userAnswers = emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, whyNotRegistered).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

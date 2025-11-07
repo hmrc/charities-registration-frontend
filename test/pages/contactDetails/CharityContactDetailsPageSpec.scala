@@ -24,13 +24,7 @@ class CharityContactDetailsPageSpec extends PageBehaviours {
 
   "CharityContactDetailsPage" must {
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityContactDetails] = Arbitrary {
-      CharityContactDetails(
-        daytimePhone = "07700 900 982",
-        mobilePhone = Some("07700 900 982"),
-        emailAddress = "abc@gmail.com"
-      )
-    }
+    implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityContactDetails] = Arbitrary(charityContactDetails)
 
     beRetrievable[CharityContactDetails](CharityContactDetailsPage)
 

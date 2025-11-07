@@ -61,9 +61,9 @@ class IsOrganisationNomineePreviousAddressControllerSpec extends SpecBase with B
     inject[IsOrganisationNomineePreviousAddressController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OrganisationNomineeNamePage, "org name").success.value
+    emptyUserAnswers.set(OrganisationNomineeNamePage, nomineeOrganisationName).success.value
 
-  " IsOrganisationNomineePreviousAddress Controller " must {
+  " IsOrganisationNomineePreviousAddressController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -73,7 +73,7 @@ class IsOrganisationNomineePreviousAddressControllerSpec extends SpecBase with B
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "org name",
+        nomineeOrganisationName,
         messageKeyPrefix,
         controllers.nominees.routes.IsOrganisationNomineePreviousAddressController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

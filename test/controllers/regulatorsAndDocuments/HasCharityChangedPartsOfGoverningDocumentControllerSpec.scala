@@ -65,7 +65,7 @@ class HasCharityChangedPartsOfGoverningDocumentControllerSpec extends SpecBase w
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value
 
-  "HasCharityChangedPartsofGoverningDocument Controller" must {
+  "HasCharityChangedPartsOfGoverningDocumentController" must {
 
     "return OK and the correct view for a GET" in {
 

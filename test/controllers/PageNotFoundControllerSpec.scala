@@ -53,7 +53,7 @@ class PageNotFoundControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: PageNotFoundController = inject[PageNotFoundController]
 
-  "PageNotFound Controller" when {
+  "PageNotFoundController" when {
 
     "onPageLoad" must {
 

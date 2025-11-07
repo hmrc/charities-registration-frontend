@@ -30,7 +30,7 @@ class IncorrectDetailsControllerSpec extends SpecBase {
         view = view
       )
 
-  "SessionExpired Controller" must {
+  "IncorrectDetailsController" must {
 
     "return OK and the correct view for a GET" in {
 

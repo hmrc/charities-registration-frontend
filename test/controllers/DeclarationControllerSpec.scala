@@ -58,7 +58,7 @@ class DeclarationControllerSpec extends SpecBase with BeforeAndAfterEach with Ch
 
   private val controller: DeclarationController = inject[DeclarationController]
 
-  "Declaration Controller" must {
+  "DeclarationController" must {
 
     "return OK and the correct view for a GET" in {
 

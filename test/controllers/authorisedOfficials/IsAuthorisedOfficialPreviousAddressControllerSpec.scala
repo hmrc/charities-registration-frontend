@@ -61,11 +61,11 @@ class IsAuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Be
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
       .success
       .value
 
-  "AuthorisedOfficialPreviousAddress Controller" must {
+  "AuthorisedOfficialPreviousAddressController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -76,7 +76,7 @@ class IsAuthorisedOfficialPreviousAddressControllerSpec extends SpecBase with Be
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController
           .onSubmit(NormalMode, Index(0))

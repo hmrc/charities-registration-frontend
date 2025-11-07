@@ -21,19 +21,7 @@ import base.SpecBase
 class OrganisationNomineeContactDetailsSpec extends SpecBase {
 
   "OrganisationNomineeContactDetailsSpec object" must {
-
-    "all parameters defined" in {
-
-      val contactDetails =
-        OrganisationNomineeContactDetails(phoneNumber = "01632 960 001", email = "testmail@email.com")
-
-      contactDetails.phoneNumber mustBe "01632 960 001"
-      contactDetails.email mustBe "testmail@email.com"
-
-    }
-
     "toString" in {
-
       OrganisationNomineeContactDetails.toString mustBe "contactDetails"
     }
   }

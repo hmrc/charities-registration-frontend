@@ -48,12 +48,12 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
   val expectedJsonObject: JsObject =
     Json
-      .parse("""{
+      .parse(s"""{
                |  "charityRegistration": {
                |    "common": {
                |      "bankDetails": {
-               |        "sortCode": "000123",
-               |        "accountNumber": "00000123"
+               |        "sortCode": "$sortCode",
+               |        "accountNumber": "$accountNumber"
                |      }
                |    }
                |  }
@@ -95,7 +95,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
-        Future.successful(Right(RegistrationResponse("765432")))
+        Future.successful(Right(RegistrationResponse(acknowledgementRef)))
       )
 
       doNothing().when(mockAuditService).sendEvent(any())(any(), any())
@@ -115,7 +115,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
-        Future.successful(Right(RegistrationResponse("765432")))
+        Future.successful(Right(RegistrationResponse(acknowledgementRef)))
       )
       doNothing().when(mockAuditService).sendEvent(any())(any(), any())
 
@@ -151,7 +151,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.failed(new RuntimeException("failed")))
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
-        Future.successful(Right(RegistrationResponse("765432")))
+        Future.successful(Right(RegistrationResponse(acknowledgementRef)))
       )
 
       intercept[UnexpectedFailureException] {

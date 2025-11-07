@@ -61,11 +61,11 @@ class IsOrganisationNomineeNinoControllerSpec extends SpecBase with BeforeAndAft
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
       .success
       .value
 
-  "IsOrganisationNomineeNino Controller" must {
+  "IsOrganisationNomineeNinoController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -76,7 +76,7 @@ class IsOrganisationNomineeNinoControllerSpec extends SpecBase with BeforeAndAft
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(NormalMode),
         "officialsAndNominees"

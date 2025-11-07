@@ -17,7 +17,6 @@
 package viewModels.otherOfficials
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.otherOfficials.{routes => otherOfficials}
 import models.authOfficials.OfficialsPosition
@@ -41,16 +40,13 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
   private val dayOfMonth = 2
 
   private val otherOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+    .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
     .success
     .value
     .set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth))
     .success
     .value
-    .set(
-      OtherOfficialsPhoneNumberPage(0),
-      PhoneNumber(daytimePhone = "07700 900 982", mobilePhone = Some("07700 900 982"))
-    )
+    .set(OtherOfficialsPhoneNumberPage(0), phoneNumbers)
     .success
     .value
     .set(OtherOfficialsPositionPage(0), OfficialsPosition.values.head)
@@ -59,10 +55,10 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
     .set(IsOtherOfficialNinoPage(0), true)
     .success
     .value
-    .set(OtherOfficialsNinoPage(0), "AA123456A")
+    .set(OtherOfficialsNinoPage(0), nino)
     .success
     .value
-    .set(OtherOfficialAddressLookupPage(0), ConfirmedAddressConstants.address)
+    .set(OtherOfficialAddressLookupPage(0), confirmedAddress)
     .success
     .value
     .set(IsOtherOfficialsPreviousAddressPage(0), false)
@@ -87,7 +83,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialNamesRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent(personNameWithoutMiddle.title.toString + " " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName),
             Some(messages("otherOfficialsName.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -117,7 +113,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("07700 900 982"),
+            HtmlContent(phoneNumbers.daytimePhone),
             Some(messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -132,7 +128,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("07700 900 982"),
+            HtmlContent(phoneNumbers.mobilePhone.get),
             Some(messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -177,7 +173,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialNinoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsNino.checkYourAnswersLabel"),
-            HtmlContent("AA123456A"),
+            HtmlContent(nino),
             Some(messages("otherOfficialsNino.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -222,7 +218,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helper(
           otherOfficialDetails
-            .set(OtherOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address)
+            .set(OtherOfficialPreviousAddressLookupPage(0), confirmedAddress)
             .success
             .value,
           0
@@ -241,7 +237,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
         helperWelsh(
           otherOfficialDetails
-            .set(OtherOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address)
+            .set(OtherOfficialPreviousAddressLookupPage(0), confirmedAddress)
             .success
             .value,
           0

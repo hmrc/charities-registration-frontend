@@ -59,11 +59,14 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
 
   private val controller: IndividualNomineesPhoneNumberController = inject[IndividualNomineesPhoneNumberController]
 
-  private val requestArgs                   = Seq("mainPhoneNumber" -> "07700 900 982", "alternativePhoneNumber" -> "07700 900 982")
+  private val requestArgs                   = Seq("mainPhoneNumber" -> daytimePhone, "alternativePhoneNumber" -> mobileNumber)
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(IndividualNomineeNamePage, personNameWithMiddle)
+      .success
+      .value
 
-  "IndividualNomineesPhoneNumberController " must {
+  "IndividualNomineesPhoneNumberController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -73,7 +76,7 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
@@ -83,7 +86,7 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(IndividualNomineesPhoneNumberPage, PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .set(IndividualNomineesPhoneNumberPage, phoneNumbers)
         .success
         .value
 
@@ -97,7 +100,7 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
 
     "redirect to the next page when valid data is submitted" in {
       val userAnswers = localUserAnswers
-        .set(IndividualNomineesPhoneNumberPage, PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .set(IndividualNomineesPhoneNumberPage, phoneNumbers)
         .success
         .value
 

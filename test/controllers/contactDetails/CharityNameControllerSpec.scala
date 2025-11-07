@@ -76,7 +76,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AcknowledgementReferencePage, "0123123")
+              .set(AcknowledgementReferencePage, acknowledgementRef)
               .flatMap(_.set(EmailOrPostPage, true))
               .success
               .value
@@ -105,7 +105,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
     "populate the view correctly on a GET when the question has previously been answered" in new Setup {
 
       val userAnswers: UserAnswers =
-        emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+        emptyUserAnswers.set(CharityNamePage, charityName).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -118,7 +118,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
     "redirect to the next page when valid data is submitted" in new Setup {
 
       val request: FakeRequest[AnyContent] =
-        fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
+        fakeRequest.withFormUrlEncodedBody("fullName" -> charityFullName, "operatingName" -> charityOperatingName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
@@ -134,9 +134,9 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
     "redirect to the next page when valid data is submitted with BankDetails" in new Setup {
 
       val request: FakeRequest[AnyContent] =
-        fakeRequest.withFormUrlEncodedBody("fullName" -> "CName", "operatingName" -> "OpName")
+        fakeRequest.withFormUrlEncodedBody("fullName" -> charityFullName, "operatingName" -> charityOperatingName)
       val userAnswers: UserAnswers         = emptyUserAnswers
-        .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName")))
+        .set(BankDetailsPage, bankDetails)
         .success
         .value
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))

@@ -114,7 +114,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
     "fail to bind an empty date" in {
 
-      val result = form.bind(Map("passportNumber" -> "GB123456", "country" -> "GB"))
+      val result = form.bind(Map("passportNumber" -> passportNumber, "country" -> "GB"))
 
       result.errors must contain only FormError(
         s"$fieldName.day",
@@ -126,7 +126,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
     s"fail to bind a today's date" in {
 
       val data = Map(
-        "passportNumber"    -> "GB123456",
+        "passportNumber"    -> passportNumber,
         "country"           -> "GB",
         s"$fieldName.day"   -> today.getDayOfMonth.toString,
         s"$fieldName.month" -> today.getMonthValue.toString,
@@ -141,7 +141,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
     s"fail to bind date in past" in {
 
       val data = Map(
-        "passportNumber"    -> "GB123456",
+        "passportNumber"    -> passportNumber,
         "country"           -> "GB",
         s"$fieldName.day"   -> pastDate.getDayOfMonth.toString,
         s"$fieldName.month" -> pastDate.getMonthValue.toString,
@@ -155,7 +155,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
     s"bind valid data if date is in future" in {
       val data = Map(
-        "passportNumber"    -> "GB123456",
+        "passportNumber"    -> passportNumber,
         "country"           -> "GB",
         s"$fieldName.day"   -> futureDate.getDayOfMonth.toString,
         s"$fieldName.month" -> futureDate.getMonthValue.toString,
@@ -170,7 +170,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
   "AuthorisedOfficialsPassportFormProvider" must {
 
-    val authorisedOfficialsPassport = Passport("GB123456", "gb", LocalDate.now.plusDays(1))
+    val authorisedOfficialsPassport = passport.copy(expiryDate = LocalDate.now.plusDays(1))
 
     "apply AuthorisedOfficialsPassport correctly" in {
 
@@ -203,28 +203,22 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
   }
 
   "passportNumber" must {
-
-    "valid for passportNumber" in {
-
-      "passportNumber" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"be valid for $passportNumber" in {
+      passportNumber must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for passportNumber&" in {
-
-      "passportNumber&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    "be invalid if contains &" in {
+      s"$passportNumber&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 
   "country" must {
-
-    "valid for country" in {
-
-      "country" must fullyMatch regex formProvider.validateField
+    s"be valid for ${gbCountry.name}" in {
+      gbCountry.name must fullyMatch regex formProvider.validateField
     }
 
-    "valid for country&" in {
-
-      "country&" mustNot fullyMatch regex formProvider.validateField
+    "be invalid if contains &" in {
+      s"${gbCountry.name}&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 }

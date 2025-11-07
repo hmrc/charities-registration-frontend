@@ -24,14 +24,7 @@ class IndividualNomineesBankDetailsPageSpec extends PageBehaviours {
 
   "IndividualNomineesBankAccountDetailsPage" must {
 
-    implicit lazy val arbitraryBankDetails: Arbitrary[BankDetails] = Arbitrary {
-      BankDetails(
-        accountName = "fullName",
-        sortCode = "123456",
-        accountNumber = "12345678",
-        rollNumber = Some("operatingName")
-      )
-    }
+    implicit lazy val arbitraryBankDetails: Arbitrary[BankDetails] = Arbitrary(bankDetails)
 
     beRetrievable[BankDetails](IndividualNomineesBankDetailsPage)
 

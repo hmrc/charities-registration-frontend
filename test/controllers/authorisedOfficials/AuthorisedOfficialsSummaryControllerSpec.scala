@@ -51,7 +51,7 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
 
   private val controller: AuthorisedOfficialsSummaryController = inject[AuthorisedOfficialsSummaryController]
 
-  "AuthorisedOfficials Controller" must {
+  "AuthorisedOfficialsController" must {
 
     "redirect to index page if rows are empty" in {
 
@@ -69,7 +69,10 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(
+                AuthorisedOfficialsNamePage(0),
+                personNameWithoutMiddle,
+              )
               .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
               .success
               .value
@@ -89,12 +92,15 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(
+                AuthorisedOfficialsNamePage(0),
+                personNameWithoutMiddle,
+              )
               .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
               .flatMap(
                 _.set(
                   AuthorisedOfficialsNamePage(1),
-                  Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")
+                  personNameWithoutMiddle
                 )
               )
               .success
@@ -115,7 +121,10 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(
+                AuthorisedOfficialsNamePage(0),
+                personNameWithoutMiddle
+              )
               .success
               .value
           )
@@ -150,8 +159,8 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
-              .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man")))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
+              .flatMap(_.set(AuthorisedOfficialsNamePage(1), personName2WithoutMiddle))
               .success
               .value
           )

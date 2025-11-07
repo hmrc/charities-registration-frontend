@@ -51,7 +51,7 @@ class OperationsFundsSummaryControllerSpec extends SpecBase with BeforeAndAfterE
 
   private val controller: OperationsFundsSummaryController = inject[OperationsFundsSummaryController]
 
-  "OperationsFundsSummary Controller" must {
+  "OperationsFundsSummaryController" must {
 
     "redirect to index page if rows are empty" in {
 

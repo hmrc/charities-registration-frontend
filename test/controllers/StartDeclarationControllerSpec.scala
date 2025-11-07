@@ -51,7 +51,7 @@ class StartDeclarationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: StartDeclarationController = inject[StartDeclarationController]
 
-  "StartDeclaration Controller" must {
+  "StartDeclarationController" must {
 
     "return OK and the correct view for a GET" in {
 

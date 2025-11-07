@@ -20,9 +20,9 @@ import base.SpecBase
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
-import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
+import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode}
 import pages.IndexPage
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.contactDetails.CharityNamePage
@@ -35,20 +35,7 @@ import java.time.LocalDate
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: OtherOfficialsNavigator     = inject[OtherOfficialsNavigator]
-  private val otherOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-  private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
-  private val address: AddressModel                  =
-    AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-  private val addressMax: AddressModel               =
-    AddressModel(
-      Some("Test Organisation"),
-      Seq("7", "Morrison street near riverview gardens"),
-      Some("G58AN"),
-      CountryModel("UK", "United Kingdom")
-    )
   private val minYear                                = 16
-  private val minAddressLines: AddressModel          =
-    AddressModel(None, Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
   def goToPlaybackPage(index: Int): Call = index match {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))
@@ -77,7 +64,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialsNamePage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNamePage(0), otherOfficialsName).success.value
+            emptyUserAnswers.set(OtherOfficialsNamePage(0), personNameWithMiddle).success.value
           ) mustBe
             otherOfficialRoutes.OtherOfficialsDOBController.onPageLoad(NormalMode, Index(0))
         }
@@ -111,7 +98,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialsPhoneNumberPage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber).success.value
+            emptyUserAnswers.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers).success.value
           ) mustBe
             otherOfficialRoutes.OtherOfficialsPositionController.onPageLoad(NormalMode, Index(0))
         }
@@ -172,8 +159,8 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             OtherOfficialsPassportPage(0),
             NormalMode,
             emptyUserAnswers
-              .set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
-              .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("1223", "gb", LocalDate.now())))
+              .set(OtherOfficialsPassportPage(0), passport)
+              .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
               .success
               .value
           ) mustBe
@@ -205,7 +192,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialsNinoPage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), ninoWithSpaces).success.value
           ) mustBe
             addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0), NormalMode)
         }
@@ -215,7 +202,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             OtherOfficialsNinoPage(0),
             NormalMode,
             emptyUserAnswers
-              .set(OtherOfficialsNinoPage(0), "QQ 12 34 56 A")
+              .set(OtherOfficialsNinoPage(0), ninoWithSpaces)
               .flatMap(_.set(OtherOfficialAddressLookupPage(0), address))
               .success
               .value
@@ -244,7 +231,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialAddressLookupPage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressModelMax).success.value
           ) mustBe
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
         }
@@ -253,7 +240,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialAddressLookupPage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), minAddressLines).success.value
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressModelMin).success.value
           ) mustBe
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
         }
@@ -340,9 +327,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               OtherOfficialPreviousAddressLookupPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(OtherOfficialPreviousAddressLookupPage(0), addressMax)
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), addressMax))
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), addressMax))
+                .set(OtherOfficialPreviousAddressLookupPage(0), addressModelMax)
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), addressModelMax))
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), addressModelMax))
                 .success
                 .value
             ) mustBe
@@ -448,7 +435,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             OtherOfficialsSummaryPage,
             NormalMode,
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), otherOfficialsName)
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(_.set(Section8Page, false))
               .success
               .value
@@ -461,8 +448,8 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             NormalMode,
             emptyUserAnswers
               .set(IsAddAnotherOtherOfficialPage, true)
-              .flatMap(_.set(OtherOfficialsNamePage(0), otherOfficialsName))
-              .flatMap(_.set(OtherOfficialsNamePage(1), otherOfficialsName))
+              .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithMiddle))
+              .flatMap(_.set(OtherOfficialsNamePage(1), personName2WithMiddle))
               .flatMap(_.set(Section8Page, false))
               .success
               .value
@@ -496,9 +483,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 OtherOfficialsNamePage(index),
                 CheckMode,
                 emptyUserAnswers
-                  .set(OtherOfficialsNamePage(0), otherOfficialsName)
-                  .flatMap(_.set(OtherOfficialsNamePage(previousOrSameIndex(index)), otherOfficialsName))
-                  .flatMap(_.set(OtherOfficialsNamePage(index), otherOfficialsName))
+                  .set(OtherOfficialsNamePage(0), personNameWithMiddle)
+                  .flatMap(_.set(OtherOfficialsNamePage(previousOrSameIndex(index)), personNameWithMiddle))
+                  .flatMap(_.set(OtherOfficialsNamePage(index), personNameWithMiddle))
                   .success
                   .value
               ) mustBe
@@ -542,9 +529,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 OtherOfficialsPhoneNumberPage(index),
                 CheckMode,
                 emptyUserAnswers
-                  .set(OtherOfficialsPhoneNumberPage(0), otherOfficialsPhoneNumber)
-                  .flatMap(_.set(OtherOfficialsPhoneNumberPage(previousOrSameIndex(index)), otherOfficialsPhoneNumber))
-                  .flatMap(_.set(OtherOfficialsPhoneNumberPage(index), otherOfficialsPhoneNumber))
+                  .set(OtherOfficialsPhoneNumberPage(0), phoneNumbers)
+                  .flatMap(_.set(OtherOfficialsPhoneNumberPage(previousOrSameIndex(index)), phoneNumbers))
+                  .flatMap(_.set(OtherOfficialsPhoneNumberPage(index), phoneNumbers))
                   .success
                   .value
               ) mustBe
@@ -589,14 +576,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
-                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
                   .flatMap(
                     _.set(
                       OtherOfficialsPassportPage(previousOrSameIndex(index)),
-                      Passport("123", "gb", LocalDate.now())
+                      passport
                     )
                   )
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe
@@ -611,9 +598,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
-                  .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe
@@ -628,9 +615,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
-                  .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe
@@ -645,14 +632,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
-                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
                   .flatMap(
                     _.set(
                       OtherOfficialsPassportPage(previousOrSameIndex(index)),
-                      Passport("123", "gb", LocalDate.now())
+                      passport
                     )
                   )
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe
@@ -672,9 +659,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 OtherOfficialsNinoPage(index),
                 CheckMode,
                 emptyUserAnswers
-                  .set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")
-                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .set(OtherOfficialsNinoPage(0), ninoWithSpaces)
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe
@@ -707,7 +694,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               navigator.nextPage(
                 OtherOfficialAddressLookupPage(0),
                 CheckMode,
-                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value
+                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressModelMax).success.value
               ) mustBe
                 otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(CheckMode, Index(0))
             }
@@ -782,14 +769,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
-                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
                   .flatMap(
                     _.set(
                       OtherOfficialsPassportPage(previousOrSameIndex(index)),
-                      Passport("123", "gb", LocalDate.now())
+                      passport
                     )
                   )
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe
@@ -822,7 +809,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               navigator.nextPage(
                 OtherOfficialPreviousAddressLookupPage(0),
                 CheckMode,
-                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressMax).success.value
+                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressModelMax).success.value
               ) mustBe
                 otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, Index(0))
             }
@@ -836,10 +823,10 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           OtherOfficialsNamePage(3),
           CheckMode,
           emptyUserAnswers
-            .set(OtherOfficialsNamePage(0), otherOfficialsName)
-            .flatMap(_.set(OtherOfficialsNamePage(1), otherOfficialsName))
-            .flatMap(_.set(OtherOfficialsNamePage(2), otherOfficialsName))
-            .flatMap(_.set(OtherOfficialsNamePage(3), otherOfficialsName))
+            .set(OtherOfficialsNamePage(0), personNameWithMiddle)
+            .flatMap(_.set(OtherOfficialsNamePage(1), personName2WithMiddle))
+            .flatMap(_.set(OtherOfficialsNamePage(2), personName3WithMiddle))
+            .flatMap(_.set(OtherOfficialsNamePage(3), personName4WithMiddle))
             .success
             .value
         ) mustBe
@@ -859,7 +846,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             NormalMode,
             emptyUserAnswers
               .set(RemoveOtherOfficialsPage, false)
-              .flatMap(_.set(OtherOfficialsNamePage(0), otherOfficialsName))
+              .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithMiddle))
               .success
               .value
           ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
@@ -871,7 +858,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             NormalMode,
             emptyUserAnswers
               .set(RemoveOtherOfficialsPage, true)
-              .flatMap(_.set(OtherOfficialsNamePage(0), otherOfficialsName))
+              .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithMiddle))
               .success
               .value
           ) mustBe otherOfficialRoutes.OtherOfficialsSummaryController.onPageLoad
@@ -883,7 +870,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             NormalMode,
             emptyUserAnswers
               .set(RemoveOtherOfficialsPage, true)
-              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+              .flatMap(_.set(CharityNamePage, charityName))
               .success
               .value
           ) mustBe otherOfficialRoutes.CharityOtherOfficialsController.onPageLoad()

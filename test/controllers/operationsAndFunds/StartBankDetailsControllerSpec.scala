@@ -52,7 +52,7 @@ class StartBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: StartBankDetailsController = inject[StartBankDetailsController]
 
-  "StartBankDetails Controller" must {
+  "StartBankDetailsController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -60,7 +60,7 @@ class StartBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .flatMap(_.set(Section1Page, true))
               .success
               .value
@@ -93,7 +93,7 @@ class StartBankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .flatMap(_.set(Section1Page, false))
               .success
               .value

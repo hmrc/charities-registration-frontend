@@ -59,9 +59,9 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
 
   private val controller: OrganisationNomineeNameController = inject[OrganisationNomineeNameController]
 
-  private val requestArgs = Seq("name" -> "abc")
+  private val requestArgs = Seq("name" -> nomineeOrganisationName)
 
-  " OrganisationNomineeName Controller" must {
+  " OrganisationNomineeNameController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -76,7 +76,7 @@ class OrganisationNomineeNameControllerSpec extends SpecBase with BeforeAndAfter
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(OrganisationNomineeNamePage, "abc").success.value
+      val userAnswers = emptyUserAnswers.set(OrganisationNomineeNamePage, nomineeOrganisationName).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

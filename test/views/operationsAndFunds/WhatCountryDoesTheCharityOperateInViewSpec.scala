@@ -38,7 +38,7 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
     form,
     NormalMode,
     Index(0),
-    Seq(("GB", "United Kingdom")),
+    Seq(gbCountryTuple),
     countriesList
   )(
     fakeRequest,
@@ -50,7 +50,7 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
     form,
     NormalMode,
     Index(0),
-    Seq(("GB", "United Kingdom")),
+    Seq(gbCountryTuple),
     countriesList,
     fakeRequest,
     messages,
@@ -61,7 +61,7 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
     form,
     NormalMode,
     Index(0),
-    Seq(("GB", "United Kingdom")),
+    Seq(gbCountryTuple),
     countriesList
   )(
     fakeRequest,

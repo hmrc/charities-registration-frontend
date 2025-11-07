@@ -53,9 +53,9 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
   private val controller: ConfirmOtherOfficialsPreviousAddressController =
     inject[ConfirmOtherOfficialsPreviousAddressController]
   private val messageKeyPrefix                                           = "otherOfficialPreviousAddress"
-  private val otherOfficialPreviousAddressLookup                         = List("12", "Banner Way", "United Kingdom")
+  private val otherOfficialPreviousAddressLookup                         = Seq(address.lines.head, address.lines(1), address.country.name)
 
-  "ConfirmAuthorisedOfficialsPreviousAddressController Controller" must {
+  "ConfirmAuthorisedOfficialsPreviousAddressController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -63,11 +63,11 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialPreviousAddressLookupPage(0),
-                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  address.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -86,7 +86,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
           controllers.otherOfficials.routes.AddedOtherOfficialController.onPageLoad(0),
           controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
             .initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -94,22 +94,17 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val otherOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val otherOfficialPreviousAddressMax = Seq(addressModelMax.lines.head, addressModelMax.lines(1), addressModelMax.country.name)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialPreviousAddressLookupPage(0),
-                  AddressModel(
-                    None,
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    CountryModel("GB", "United Kingdom")
-                  )
+                  addressModelMax.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -128,7 +123,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
           controllers.otherOfficials.routes.AmendOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.OtherOfficialsPreviousAddressLookupController
             .initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

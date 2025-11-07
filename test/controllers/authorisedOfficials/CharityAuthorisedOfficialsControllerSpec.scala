@@ -50,7 +50,7 @@ class CharityAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAf
 
   private val controller: CharityAuthorisedOfficialsController = inject[CharityAuthorisedOfficialsController]
 
-  "CharityAuthorisedOfficialsController Controller" must {
+  "CharityAuthorisedOfficialsController" must {
 
     "return OK and the correct view for a GET" in {
 

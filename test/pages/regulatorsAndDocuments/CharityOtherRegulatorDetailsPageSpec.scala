@@ -24,9 +24,7 @@ class CharityOtherRegulatorDetailsPageSpec extends PageBehaviours {
 
   "CharityOtherRegulatorDetailsPage" must {
 
-    implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityOtherRegulatorDetails] = Arbitrary {
-      CharityOtherRegulatorDetails(regulatorName = "ORegulatorName", registrationNumber = "1234567")
-    }
+    implicit lazy val arbitraryCharityContactDetails: Arbitrary[CharityOtherRegulatorDetails] = Arbitrary(charityRegulatorDetails)
 
     beRetrievable[CharityOtherRegulatorDetails](CharityOtherRegulatorDetailsPage)
 

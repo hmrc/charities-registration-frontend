@@ -37,8 +37,8 @@ class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
     val userAnswer = UserAnswers("id", Json.obj())
       .set(IsAuthorisedOfficialNinoPage(0), true)
-      .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123123", "UK", LocalDate.now())))
-      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AB111111A"))
+      .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
+      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
       .success
       .value
 

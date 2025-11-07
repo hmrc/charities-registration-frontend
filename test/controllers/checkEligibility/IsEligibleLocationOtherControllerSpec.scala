@@ -59,7 +59,7 @@ class IsEligibleLocationOtherControllerSpec extends SpecBase with BeforeAndAfter
 
   private val controller: IsEligibleLocationOtherController = inject[IsEligibleLocationOtherController]
 
-  "IsEligibleLocationOther Controller" must {
+  "IsEligibleLocationOtherController" must {
 
     "return OK and the correct view for a GET" in {
 

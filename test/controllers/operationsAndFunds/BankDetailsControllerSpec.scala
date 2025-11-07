@@ -57,18 +57,11 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val sectionName: String                   = "operationsAndFunds.section"
   private val view: BankDetailsView                 = injector.instanceOf[BankDetailsView]
   private val formProvider: BankDetailsFormProvider = injector.instanceOf[BankDetailsFormProvider]
-  private val form                                  = formProvider(messagePrefix, "CName")
+  private val form                                  = formProvider(messagePrefix, charityFullName)
 
   private val controller: BankDetailsController = inject[BankDetailsController]
 
-  private val bankDetails = BankDetails(
-    accountName = "fullName",
-    sortCode = "123456",
-    accountNumber = "12345678",
-    rollNumber = Some("operatingName")
-  )
-
-  "BankDetails Controller" must {
+  "BankDetailsController" must {
 
     "redirect to session expired and if charity name is not defined" in {
 
@@ -85,7 +78,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .flatMap(_.set(Section1Page, true))
               .success
               .value
@@ -98,7 +91,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "CName",
+        charityFullName,
         controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
         messagePrefix,
         sectionName,
@@ -111,7 +104,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       val userAnswers = emptyUserAnswers
         .set(BankDetailsPage, bankDetails)
-        .flatMap(_.set(CharityNamePage, CharityName("CName", Some("OpName"))))
+        .flatMap(_.set(CharityNamePage, charityName))
         .flatMap(_.set(Section1Page, true))
         .success
         .value
@@ -127,17 +120,17 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "accountName"   -> "fullName",
-        "sortCode"      -> "123456",
-        "accountNumber" -> "12345678",
-        "rollNumber"    -> "operatingName"
+        "accountName"   -> accountName,
+        "sortCode"      -> sortCode,
+        "accountNumber" -> accountNumber,
+        "rollNumber"    -> rollNumber
       )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .success
               .value
           )
@@ -161,7 +154,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName) 
               .success
               .value
           )
@@ -220,7 +213,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .flatMap(_.set(Section1Page, false))
               .success
               .value

@@ -35,10 +35,7 @@ class CanWeSendToThisAddressPageSpec extends PageBehaviours {
     "cleanup" when {
 
       val userAnswer = UserAnswers("id", Json.obj())
-        .set(
-          CharityPostalAddressLookupPage,
-          AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-        )
+        .set(CharityPostalAddressLookupPage, address)
         .success
         .value
 

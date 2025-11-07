@@ -90,8 +90,6 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
   "CharityNameFormProvider" must {
 
-    val charityName = CharityName("CName", Some("OpName"))
-
     "apply CharityName correctly" in {
 
       val details = form
@@ -115,28 +113,23 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
   }
 
   "fullName" must {
-
-    "valid for CName" in {
-
-      "CName" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"valid for $charityFullName" in {
+      charityFullName must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for CName&" in {
+    s"valid for $charityFullName&" in {
 
-      "CName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+      s"$charityFullName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 
   "operatingName" must {
-
-    "valid for OpName" in {
-
-      "OpName" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"valid for $charityOperatingName" in {
+      charityOperatingName must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for OpName&" in {
-
-      "OpName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    s"not valid be valid if contains&" in {
+      s"$charityOperatingName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 }

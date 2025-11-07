@@ -61,9 +61,12 @@ class IsIndividualNomineePreviousAddressControllerSpec extends SpecBase with Bef
     inject[IsIndividualNomineePreviousAddressController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(IndividualNomineeNamePage, personNameWithMiddle)
+      .success
+      .value
 
-  " IsIndividualNomineePreviousAddress Controller " must {
+  " IsIndividualNomineePreviousAddressController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -73,7 +76,7 @@ class IsIndividualNomineePreviousAddressControllerSpec extends SpecBase with Bef
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+       personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IsIndividualNomineePreviousAddressController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

@@ -46,7 +46,7 @@ class SessionRepositorySpec extends SpecBase with MongoSupport {
     .value
 
   private lazy val eligibilityUserAnswersWithTtl: UserAnswers = emptyUserAnswers
-    .set(AcknowledgementReferencePage, "test-input")
+    .set(AcknowledgementReferencePage, acknowledgementRef)
     .success
     .value
 
@@ -80,7 +80,7 @@ class SessionRepositorySpec extends SpecBase with MongoSupport {
       await(repository.upsert(eligibilityUserAnswersWithTtl))
 
       findById(eligibilityUserAnswers.id, emptyUserAnswers).data mustBe Json.obj(
-        "acknowledgementReference" -> "test-input"
+        "acknowledgementReference" -> acknowledgementRef
       )
     }
 

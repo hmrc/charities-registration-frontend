@@ -50,7 +50,7 @@ class StartCharitableObjectivesControllerSpec extends SpecBase with BeforeAndAft
 
   private val controller: StartCharitableObjectivesController = inject[StartCharitableObjectivesController]
 
-  "Start Charitable Objectives Controller" must {
+  "StartCharitableObjectivesController" must {
 
     "return OK and the correct view for a GET" in {
 

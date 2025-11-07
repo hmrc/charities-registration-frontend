@@ -39,7 +39,7 @@ class CountryServiceSpec extends SpecBase {
       found.last._2 must be("Zimbabwe")
     }
 
-    "return list of countries ordered by name in Weksh" in {
+    "return list of countries ordered by name in Welsh" in {
 
       val found = service.countries()(welshMessages)
       found.head._1 must be("AF")

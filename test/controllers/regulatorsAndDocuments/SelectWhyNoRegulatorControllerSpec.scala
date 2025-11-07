@@ -61,7 +61,7 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val controller: SelectWhyNoRegulatorController = inject[SelectWhyNoRegulatorController]
 
-  "SelectWhyNoRegulator Controller " must {
+  "SelectWhyNoRegulatorController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -108,7 +108,7 @@ class SelectWhyNoRegulatorControllerSpec extends SpecBase with BeforeAndAfterEac
       val request    = fakeRequest.withFormUrlEncodedBody(("value", SelectWhyNoRegulator.ExemptOrExcepted.toString))
       val userAnswer = emptyUserAnswers
         .set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.Other)
-        .flatMap(_.set(WhyNotRegisteredWithCharityPage, "abcd"))
+        .flatMap(_.set(WhyNotRegisteredWithCharityPage, whyNoRegulator))
         .success
         .value
       when(mockUserAnswerService.get(meq("id"))(any(), any())).thenReturn(Future.successful(Some(userAnswer)))

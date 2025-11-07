@@ -62,7 +62,7 @@ class IsApprovedGoverningDocumentControllerSpec extends SpecBase with BeforeAndA
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value
 
-  "IsApprovedGoverningDocumentController Controller " must {
+  "IsApprovedGoverningDocumentController" must {
 
     "return OK and the correct view for a GET" in {
 

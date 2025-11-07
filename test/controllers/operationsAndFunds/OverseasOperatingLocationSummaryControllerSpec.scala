@@ -54,14 +54,14 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
   private val controller: OverseasOperatingLocationSummaryController =
     inject[OverseasOperatingLocationSummaryController]
 
-  "OverseasOperatingLocationSummary Controller " must {
+  "OverseasOperatingLocationSummaryController" must {
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+      when(mockCountryService.find(meq(thCountry.code))(any())).thenReturn(Some(thCountry))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountry.code).success.value))
       )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -72,14 +72,14 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+      when(mockCountryService.find(meq(thCountry.code))(any())).thenReturn(Some(thCountry))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
               .set(OverseasOperatingLocationSummaryPage, true)
-              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "TT"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), thCountry.code))
               .getOrElse(emptyUserAnswers)
           )
         )
@@ -106,12 +106,12 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
     }
 
     "redirect to the next page when valid data is submitted" in {
-      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+      when(mockCountryService.find(meq(thCountry.code))(any())).thenReturn(Some(thCountry))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountry.code).success.value))
       )
 
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

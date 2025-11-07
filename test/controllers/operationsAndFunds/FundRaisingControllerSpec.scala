@@ -59,7 +59,7 @@ class FundRaisingControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: FundRaisingController = inject[FundRaisingController]
 
-  "SelectFundRaising Controller " must {
+  "FundRaisingController" must {
 
     "return OK and the correct view for a GET" in {
 

@@ -60,11 +60,11 @@ class IsOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Before
   private val controller: IsOtherOfficialsPreviousAddressController = inject[IsOtherOfficialsPreviousAddressController]
 
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(OtherOfficialsNamePage(0), Name(SelectTitle.values.head, "FName", Some("MName"), "LName"))
+    .set(OtherOfficialsNamePage(0), personNameWithMiddle)
     .success
     .value
 
-  "OtherOfficialsPreviousAddress Controller" must {
+  "IsOtherOfficialsPreviousAddressController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -74,7 +74,7 @@ class IsOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Before
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "FName MName LName",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onSubmit(NormalMode, Index(0))
       )(fakeRequest, messages, frontendAppConfig).toString

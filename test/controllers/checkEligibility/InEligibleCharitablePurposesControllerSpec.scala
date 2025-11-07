@@ -53,7 +53,7 @@ class InEligibleCharitablePurposesControllerSpec extends SpecBase with BeforeAnd
 
   private val controller: InEligibleCharitablePurposesController = inject[InEligibleCharitablePurposesController]
 
-  "InEligibleCharitablePurposes Controller" must {
+  "InEligibleCharitablePurposesController" must {
 
     "return OK and the correct view for a GET" in {
 

@@ -58,9 +58,9 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
 
   private val controller: GoverningDocumentNameController = inject[GoverningDocumentNameController]
 
-  private val requestArgs = Seq("name" -> "will")
+  private val requestArgs = Seq("name" -> governingDocument)
 
-  "GoverningDocumentName Controller " must {
+  "GoverningDocumentNameController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -75,7 +75,7 @@ class GoverningDocumentNameControllerSpec extends SpecBase with BeforeAndAfterEa
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(GoverningDocumentNamePage, "will").success.value
+      val userAnswers = emptyUserAnswers.set(GoverningDocumentNamePage, governingDocument).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

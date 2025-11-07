@@ -53,11 +53,9 @@ class OrganisationNomineeAuthorisedPersonControllerSpec extends SpecBase with Be
   private val controller: OrganisationNomineeAuthorisedPersonController =
     inject[OrganisationNomineeAuthorisedPersonController]
 
-  private val company = "TestCompany"
+  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OrganisationNomineeNamePage, nomineeOrganisationName).success.value
 
-  private val localUserAnswers: UserAnswers = emptyUserAnswers.set(OrganisationNomineeNamePage, company).success.value
-
-  "OrganisationNomineeAuthorisedPerson Controller " must {
+  "OrganisationNomineeAuthorisedPersonController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -66,7 +64,8 @@ class OrganisationNomineeAuthorisedPersonControllerSpec extends SpecBase with Be
       val result = controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(company)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(nomineeOrganisationName)(fakeRequest, messages, frontendAppConfig).toString
+      
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 

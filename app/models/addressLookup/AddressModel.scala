@@ -26,7 +26,12 @@ object CountryModel {
   implicit val fmt: Format[CountryModel] = Json.format[CountryModel]
 }
 
-case class AddressModel(organisation: Option[String], lines: Seq[String], postcode: Option[String], country: CountryModel) {
+case class AddressModel(
+  organisation: Option[String],
+  lines: Seq[String],
+  postcode: Option[String],
+  country: CountryModel
+) {
 
   def toEdit: AmendAddressModel = {
     val el = editLines

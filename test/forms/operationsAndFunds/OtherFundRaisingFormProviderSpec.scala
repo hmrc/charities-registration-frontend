@@ -57,24 +57,22 @@ class OtherFundRaisingFormProviderSpec extends StringFieldBehaviours {
   }
   "OtherFundRaisingFormProvider" must {
 
-    val otherFundRaisingMethod = "selling cookies"
-
     "apply otherFundRaisingMethod correctly" in {
 
       val details = form
         .bind(
           Map(
-            "value" -> otherFundRaisingMethod
+            "value" -> otherFundRaising
           )
         )
         .get
 
-      details mustBe otherFundRaisingMethod
+      details mustBe otherFundRaising
     }
 
     "unapply otherFundRaisingMethod correctly" in {
-      val filled = form.fill(otherFundRaisingMethod)
-      filled("value").value.value mustBe otherFundRaisingMethod
+      val filled = form.fill(otherFundRaising)
+      filled("value").value.value mustBe otherFundRaising
     }
   }
 

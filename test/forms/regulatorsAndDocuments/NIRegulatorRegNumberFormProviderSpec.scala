@@ -51,38 +51,32 @@ class NIRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
   }
 
   "NIRegulatorRegNumberFormProvider" must {
-
-    val nIRegulatorRegNumber = "123456"
-
     "apply NIRegulatorRegNumber correctly" in {
 
       val details = form
         .bind(
           Map(
-            "nIRegistrationNumber" -> nIRegulatorRegNumber
+            "nIRegistrationNumber" -> niRegulatorRegistrationNumber
           )
         )
         .get
 
-      details mustBe nIRegulatorRegNumber
+      details mustBe niRegulatorRegistrationNumber
     }
 
     "unapply NIRegulatorRegNumber correctly" in {
-      val filled = form.fill(nIRegulatorRegNumber)
-      filled("nIRegistrationNumber").value.value mustBe nIRegulatorRegNumber
+      val filled = form.fill(niRegulatorRegistrationNumber)
+      filled("nIRegistrationNumber").value.value mustBe niRegulatorRegistrationNumber
     }
   }
 
   "validateRegistrationNumberNI" must {
-
-    "valid for 123456" in {
-
-      "123456" must fullyMatch regex formProvider.validateRegistrationNumberNI
+    s"be valid for $niRegulatorRegistrationNumber" in {
+      niRegulatorRegistrationNumber must fullyMatch regex formProvider.validateRegistrationNumberNI
     }
 
-    "valid for 01632 960" in {
-
-      "01632 960" mustNot fullyMatch regex formProvider.validateRegistrationNumberNI
+    "be invalid if contains a space" in {
+      niRegulatorRegistrationNumber.take(3) + " " + niRegulatorRegistrationNumber.drop(3) mustNot fullyMatch regex formProvider.validateRegistrationNumberNI
     }
   }
 

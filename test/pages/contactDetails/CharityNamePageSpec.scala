@@ -24,12 +24,7 @@ class CharityNamePageSpec extends PageBehaviours {
 
   "CharityNamePage" must {
 
-    implicit lazy val arbitraryCharityName: Arbitrary[CharityName] = Arbitrary {
-      CharityName(
-        fullName = "fullName",
-        operatingName = Some("operatingName")
-      )
-    }
+    implicit lazy val arbitraryCharityName: Arbitrary[CharityName] = Arbitrary(charityName)
 
     beRetrievable[CharityName](CharityNamePage)
 

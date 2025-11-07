@@ -65,7 +65,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
   private val controller: WhatCountryDoesTheCharityOperateInController =
     inject[WhatCountryDoesTheCharityOperateInController]
 
-  "WhatCountryDoesTheCharityOperateIn Controller " must {
+  "WhatCountryDoesTheCharityOperateInController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -86,14 +86,13 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
     }
 
     "return OK and the correct view for a GET for Welsh" in {
-
       val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TH").success.value))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountry.code).success.value))
       )
       when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("TH", "Thai")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(thCountry))
       when(mockCountryService.isWelsh(any())).thenReturn(true)
 
       val result = controller.onPageLoad(NormalMode, Index(0))(welshRequest)
@@ -120,8 +119,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
     }
 
     "redirect to the next page when valid data is submitted" in {
-
-      val request = fakeRequest.withFormUrlEncodedBody(("country", "United Kingdom"))
+      val request = fakeRequest.withFormUrlEncodedBody(("country", gbCountryModel.name))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
@@ -139,7 +137,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

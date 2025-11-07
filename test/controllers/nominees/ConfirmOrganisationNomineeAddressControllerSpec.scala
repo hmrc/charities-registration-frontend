@@ -53,9 +53,9 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
   private val controller: ConfirmOrganisationNomineeAddressController =
     inject[ConfirmOrganisationNomineeAddressController]
   private val messageKeyPrefix                                        = "organisationNomineeAddress"
-  private val organisationNomineeAddressLookup                        = List("12", "Banner Way", "United Kingdom")
+  private val organisationNomineeAddressLookup                        =  Seq(address.lines.head, address.lines(1), address.country.name)
 
-  "ConfirmOrganisationNomineeAddressController Controller" must {
+  "ConfirmOrganisationNomineeAddressController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -63,11 +63,11 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OrganisationNomineeNamePage, "abc")
+              .set(OrganisationNomineeNamePage, nomineeOrganisationName)
               .flatMap(
                 _.set(
                   OrganisationNomineeAddressLookupPage,
-                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  address.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -85,30 +85,24 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
           messageKeyPrefix,
           controllers.nominees.routes.IsOrganisationNomineePreviousAddressController.onPageLoad(NormalMode),
           controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
-          Some("abc")
+          Some(nomineeOrganisationName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }
 
     "return submitCall as Amend Address if address length is > 35" in {
-
-      val organisationNomineeAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val organisationNomineeAddressMax = Seq(addressModelMax.lines.head, addressModelMax.lines(1), addressModelMax.country.name)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OrganisationNomineeNamePage, "abc")
+              .set(OrganisationNomineeNamePage, nomineeOrganisationName)
               .flatMap(
                 _.set(
                   OrganisationNomineeAddressLookupPage,
-                  AddressModel(
-                    None,
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    CountryModel("GB", "United Kingdom")
-                  )
+                  addressModelMax.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -126,7 +120,7 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
           messageKeyPrefix,
           controllers.nominees.routes.AmendNomineeOrganisationAddressController.onPageLoad(NormalMode),
           controllers.addressLookup.routes.OrganisationNomineeAddressLookupController.initializeJourney(NormalMode),
-          Some("abc")
+          Some(nomineeOrganisationName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

@@ -52,9 +52,9 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
   private val view: ConfirmAddressView                           = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmOtherOfficialsAddressController = inject[ConfirmOtherOfficialsAddressController]
   private val messageKeyPrefix                                   = "otherOfficialAddress"
-  private val otherOfficialAddressLookup                         = List("12", "Banner Way", "United Kingdom")
+  private val otherOfficialAddressLookup                         = Seq(address.lines.head, address.lines(1), address.country.name)
 
-  "ConfirmOtherOfficialsAddressController Controller" must {
+  "ConfirmOtherOfficialsAddressController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -62,11 +62,11 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
-                  AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  address.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -84,7 +84,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
           messageKeyPrefix,
           controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -92,22 +92,17 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val otherOfficialAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val otherOfficialAddressMax = Seq(addressModelMax.lines.head, addressModelMax.lines(1), addressModelMax.country.name)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
-                  AddressModel(
-                    None,
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    CountryModel("GB", "United Kingdom")
-                  )
+                  addressModelMax.copy(organisation = None, postcode = None)
                 )
               )
               .success
@@ -125,7 +120,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
           messageKeyPrefix,
           controllers.otherOfficials.routes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

@@ -64,36 +64,34 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
 
   private val controller: AuthorisedOfficialsPassportController = inject[AuthorisedOfficialsPassportController]
 
-  private val futureDate: LocalDate = LocalDate.now().plusDays(1)
-
   private val requestArgs                   = Seq(
-    "passportNumber"   -> "123",
-    "country"          -> "United Kingdom",
+    "passportNumber"   -> passportNumber,
+    "country"          -> gbCountryModel.name,
     "expiryDate.year"  -> futureDate.getYear.toString,
     "expiryDate.month" -> futureDate.getMonthValue.toString,
     "expiryDate.day"   -> futureDate.getDayOfMonth.toString
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
     .success
     .value
 
-  "AuthorisedOfficialsPassportController Controller " must {
+  "AuthorisedOfficialsPassportController" must {
 
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsPassportController.onSubmit(NormalMode, Index(0)),
-        Seq(("GB", "United Kingdom"))
+        Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
@@ -102,12 +100,12 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AuthorisedOfficialsPassportPage(0), Passport("hello", "gb", LocalDate.now.plusDays(1)))
+        .set(AuthorisedOfficialsPassportPage(0), passport.copy(expiryDate = futureDate))
         .success
         .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -122,7 +120,7 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
@@ -138,7 +136,7 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

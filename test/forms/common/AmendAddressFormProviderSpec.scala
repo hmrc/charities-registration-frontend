@@ -170,7 +170,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
   "AmendCharitiesOfficialsAddressFormProvider" must {
 
     val amendCharitiesOfficialsAddress =
-      AmendAddressModel(Some(""), "23", Some("Morrison street"), Some(""), "Glasgow", "G58 AN", "GB")
+      AmendAddressModel(Some(""), "23", Some("Test Street"), Some(""), "TestTown", "G58 AN", "GB")
 
     "unapply AmendCharitiesOfficialsAddress correctly" in {
 
@@ -189,12 +189,12 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
     "validate postcodes" when {
 
       Seq(
-        ("case 1", "MN 99555"),
-        ("case 2", "G58 AU"),
-        ("case 3", "G 5 8 A U"),
+        ("case 1", "ZZ 99555"),
+        ("case 2", "Z58 AU"),
+        ("case 3", "Z 5 8 A U"),
         ("case 4", "999999999999"),
         ("case 5", "ABC123XYZ123"),
-        ("case 6", "SW778 2BH")
+        ("case 6", "ZZ778 2BH")
       ).foreach { case (caseNum, postcode) =>
         s"not accept a UK address with an invalid postcode ($caseNum)" in {
           formProvider
@@ -203,7 +203,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
         }
       }
 
-      Seq(("case 1", "G5 8AU"), ("case 2", "G5 8AU"), ("case 3", ""), ("case 4", "EH7 5RG"), ("case 5", "EH7 5RG"))
+      Seq(("case 1", "Z5 8AU"), ("case 2", ""), ("case 3", "ZY7 5RG"), ("case 4", "ZY77 5RG"), ("case 5", "ZY1A 9YY"))
         .foreach { case (caseNum, postcode) =>
           s"accept UK address with valid or empty postcode ($caseNum)" in {
             formProvider
@@ -212,7 +212,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
           }
         }
 
-      Seq(("case 1", "MN *&%99555"), ("case 2", "G58 AU98JNG54FVB09MJSZA234HNBPR693GBJU78")).foreach {
+      Seq(("case 1", "ZZ *&%99555"), ("case 2", "Z58 AU98JNG54FVB09MJSZA234HNBPR693GBJU78")).foreach {
         case (caseNum, postcode) =>
           s"not accept non UK address with an invalid postcode ($caseNum)" in {
             formProvider
@@ -221,7 +221,7 @@ class AmendAddressFormProviderSpec extends StringFieldBehaviours {
           }
       }
 
-      Seq(("case 1", "MN 99555"), ("case 2", "600073")).foreach { case (caseNum, postcode) =>
+      Seq(("case 1", "ZZ 99555"), ("case 2", "600073")).foreach { case (caseNum, postcode) =>
         s"accept non UK address with valid postcode ($caseNum)" in {
           formProvider
             .validatePostCode(form.fill(AmendAddressModel(None, "23", Some(""), Some(""), "", postcode, "FR")))

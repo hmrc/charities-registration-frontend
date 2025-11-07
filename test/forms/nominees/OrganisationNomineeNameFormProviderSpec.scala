@@ -61,10 +61,7 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
 
   "OrganisationNomineeNameFormProvider" must {
 
-    val organisationName = "abc"
-
     "apply organisationName correctly" in {
-
       val details = form
         .bind(
           Map(
@@ -83,15 +80,12 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
   }
 
   "validateOrganisationName" must {
-
-    "valid for abc" in {
-
-      "abc" must fullyMatch regex formProvider.validateField
+    s"be valid for $organisationName" in {
+      organisationName must fullyMatch regex formProvider.validateField
     }
 
-    "valid for abc@" in {
-
-      "abc@" mustNot fullyMatch regex formProvider.validateField
+    s"be in valid if contains @" in {
+      s"$organisationName@" mustNot fullyMatch regex formProvider.validateField
     }
   }
 

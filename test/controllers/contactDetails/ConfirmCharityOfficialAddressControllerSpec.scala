@@ -51,9 +51,9 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
   private val view: ConfirmAddressView                            = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmCharityOfficialAddressController = inject[ConfirmCharityOfficialAddressController]
   private val messageKeyPrefix                                    = "charityOfficialAddress"
-  private val charityInformationAddressLookup                     = List("12", "Banner Way", "United Kingdom")
+  private val charityInformationAddressLookup                     = Seq(address.lines.head, address.lines(1), gbCountryModel.name)
 
-  "ConfirmCharityOfficialAddressController Controller" must {
+  "ConfirmCharityOfficialAddressController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -63,7 +63,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(None, List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                address.copy(organisation = None, postcode = None)
               )
               .success
               .value
@@ -87,8 +87,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
     }
 
     "return submitCall as Amend Address if address length is > 35" in {
-
-      val charityInformationAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val charityInformationAddressMax = Seq(addressModelMax.lines.head, addressModelMax.lines(1), gbCountryModel.name)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -96,12 +95,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(
-                  None,
-                  List("12", "Banner Way near south riverview gardens"),
-                  None,
-                  CountryModel("GB", "United Kingdom")
-                )
+                addressModelMax.copy(organisation = None, postcode = None)
               )
               .success
               .value

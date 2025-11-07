@@ -65,7 +65,7 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
     "date.month" -> "10"
   )
 
-  "AccountingPeriodEndDate Controller " must {
+  "AccountingPeriodEndDateController" must {
 
     "return OK and the correct view for a GET" in {
 

@@ -60,15 +60,12 @@ class WhyNoBankStatementFormProviderSpec extends StringFieldBehaviours {
   }
 
   "validate reason" must {
-
-    "valid for abcd" in {
-
+    "be valid for abcd containing whitespace characters" in {
       "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldWithNewLine
     }
 
-    "valid for abc@" in {
-
-      "abc@" mustNot fullyMatch regex formProvider.validateFieldWithNewLine
+    "be invalid if contains @" in {
+      s"$whyNoBankStatement@" mustNot fullyMatch regex formProvider.validateFieldWithNewLine
     }
   }
 }

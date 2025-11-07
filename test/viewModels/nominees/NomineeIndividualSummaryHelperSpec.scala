@@ -17,7 +17,6 @@
 package viewModels.nominees
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.{routes => nomineesRoutes}
 import models.{BankDetails, CheckMode, Country, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
@@ -39,32 +38,27 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
   private val dayOfMonth = 2
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
-  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(gbCountry))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
   private val helper = new NomineeIndividualSummaryHelper(mockCountryService)(
     UserAnswers("id")
-      .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname"))
       .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
       .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123123", Some("0123123124"))))
       .flatMap(_.set(IsIndividualNomineeNinoPage, true))
       .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
-      .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))
+      .flatMap(_.set(NomineeIndividualAddressLookupPage, confirmedAddress))
       .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
-      .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address))
+      .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, confirmedAddress))
       .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
       .flatMap(
         _.set(
           IndividualNomineesBankDetailsPage,
-          BankDetails(
-            accountName = "PM Cares",
-            sortCode = "176534",
-            accountNumber = "43444546",
-            rollNumber = Some("765431234")
-          )
+          bankDetails
         )
       )
-      .flatMap(_.set(IndividualNomineesPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))))
+      .flatMap(_.set(IndividualNomineesPassportPage, passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))))
       .success
       .value
   )
@@ -77,7 +71,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeName mustBe Some(
           summaryListRow(
             messages("individualNomineeName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr AName Lastname"),
             Some(messages("individualNomineeName.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineeNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -148,7 +142,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePassportNumber mustBe Some(
           summaryListRow(
             messages("individualNomineesPassport.passportNumber.checkYourAnswersLabel"),
-            HtmlContent("GB12345"),
+            HtmlContent(passportNumber),
             Some(messages("individualNomineesPassport.passportNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -258,7 +252,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAccountName mustBe Some(
           summaryListRow(
             messages("individualNomineesBankDetails.accountName.checkYourAnswersLabel"),
-            HtmlContent("PM Cares"),
+            HtmlContent("TestAccount"),
             Some(messages("individualNomineesBankDetails.accountName.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

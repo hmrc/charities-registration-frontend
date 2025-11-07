@@ -59,7 +59,7 @@ class CharitablePurposesControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   private val controller: CharitablePurposesController = inject[CharitablePurposesController]
 
-  "CharitablePurposes Controller " must {
+  "CharitablePurposesController" must {
 
     "return OK and the correct view for a GET" in {
 

@@ -143,7 +143,7 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
 
   "AuthorisedOfficialsNameFormProvider" must {
 
-    val authorisedOfficialsName = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+    val authorisedOfficialsName = personNameWithMiddle
 
     "apply AuthorisedOfficialsName correctly" in {
 
@@ -174,41 +174,32 @@ class NameFormProviderSpec extends OptionFieldBehaviours with StringFieldBehavio
   }
 
   "firstName" must {
-
-    "valid for firstName" in {
-
-      "firstName" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"be valid for ${personNameWithMiddle.firstName}" in {
+      personNameWithMiddle.firstName must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for firstName&" in {
-
-      "firstName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    "be invalid if contains &" in {
+      s"${personNameWithMiddle.firstName}&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 
   "middleName" must {
-
-    "valid for middleName" in {
-
-      "middleName" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"be valid for ${personNameWithMiddle.middleName.get}" in {
+      personNameWithMiddle.middleName.get must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for middleName&" in {
-
-      "middleName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    "be invalid if contains &" in {
+      s"${personNameWithMiddle.middleName.get}&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 
   "lastName" must {
-
-    "valid for lastName" in {
-
-      "OpName" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"be valid for ${personNameWithMiddle.lastName}" in {
+      personNameWithMiddle.lastName must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for lastName&" in {
-
-      "lastName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    "be invalid if contains &" in {
+      s"${personNameWithMiddle.lastName}&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 }

@@ -97,53 +97,45 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
 
   "CharityOtherRegulatorDetailsFormProvider" must {
 
-    val charityOtherRegulatorDetails = CharityOtherRegulatorDetails("ORegulatorName", "1234567")
-
     "apply CharityOtherRegulatorDetails correctly" in {
 
       val details = form
         .bind(
           Map(
-            "regulatorName"      -> charityOtherRegulatorDetails.regulatorName,
-            "registrationNumber" -> charityOtherRegulatorDetails.registrationNumber
+            "regulatorName"      -> charityRegulatorDetails.regulatorName,
+            "registrationNumber" -> charityRegulatorDetails.registrationNumber
           )
         )
         .get
 
-      details.regulatorName mustBe charityOtherRegulatorDetails.regulatorName
-      details.registrationNumber mustBe charityOtherRegulatorDetails.registrationNumber
+      details.regulatorName mustBe charityRegulatorDetails.regulatorName
+      details.registrationNumber mustBe charityRegulatorDetails.registrationNumber
     }
 
     "unapply charityOtherRegulatorDetails correctly" in {
-      val filled = form.fill(charityOtherRegulatorDetails)
-      filled("regulatorName").value.value mustBe charityOtherRegulatorDetails.regulatorName
-      filled("registrationNumber").value.value mustBe charityOtherRegulatorDetails.registrationNumber
+      val filled = form.fill(charityRegulatorDetails)
+      filled("regulatorName").value.value mustBe charityRegulatorDetails.regulatorName
+      filled("registrationNumber").value.value mustBe charityRegulatorDetails.registrationNumber
     }
   }
 
   "regulatorName" must {
-
-    "valid for ORegulatorName" in {
-
-      "ORegulatorName" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"be valid for $charityRegulatorDetails.regulatorName" in {
+      charityRegulatorDetails.regulatorName must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "ORegulatorName" in {
-
-      "ORegulatorName&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    "be invalid if contains &" in {
+      s"${charityRegulatorDetails.regulatorName}&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 
   "validateRegistrationNumber" must {
-
-    "valid for 123456" in {
-
-      "123456" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"be valid for ${charityRegulatorDetails.registrationNumber}" in {
+      charityRegulatorDetails.registrationNumber must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for 01632 960" in {
-
-      "123456&" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    "be invalid if contains a &" in {
+      s"${charityRegulatorDetails.registrationNumber}&"
     }
   }
 

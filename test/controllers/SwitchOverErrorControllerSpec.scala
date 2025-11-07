@@ -47,7 +47,7 @@ class SwitchOverErrorControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: SwitchOverErrorController = inject[SwitchOverErrorController]
 
-  "SwitchOverError Controller" must {
+  "SwitchOverErrorController" must {
 
     "return OK and the correct view for a GET" in {
 

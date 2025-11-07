@@ -4,7 +4,7 @@
     "charityContactDetails": {
       "daytimePhone": "07700 900 982",
       "mobilePhone": "07700 000 111",
-      "emailAddress": "abc@gmail.com"
+      "emailAddress": "abc@example.com"
     },
     "authorisedOfficials": [
       {
@@ -21,7 +21,7 @@
             "line3",
             "line4"
           ],
-          "postcode": "G27JD",
+          "postcode": "ZY11 1AA",
           "country": {
             "code": "GB",
             "name": "United Kingdom"
@@ -31,7 +31,7 @@
           "title": "0001",
           "firstName": "Albert",
           "middleName": "G",
-          "lastName": "Einstien"
+          "lastName": "LastnameE"
         },
         "officialsNino": "QQ 12 34 56 C"
       }
@@ -57,7 +57,7 @@
     "charityOfficialAddress": {
       "lines": [
         "7",
-        "Morrison street"
+        "Test Street"
       ],
       "country": {
         "code": "IN",
@@ -94,7 +94,7 @@
         "officialAddress": {
           "lines": [
             "3",
-            "Morrison Street",
+            "Test Street",
             "Bill Tower"
           ],
           "country": {
@@ -105,7 +105,7 @@
         "officialsName": {
           "title": "0001",
           "firstName": "David",
-          "lastName": "Beckham"
+          "lastName": "LastnameB"
         },
         "officialsNino": "QQ 12 34 56 C"
       }

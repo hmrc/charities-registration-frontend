@@ -61,8 +61,8 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-      .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones")))
+      .set(OtherOfficialsNamePage(0), personNameWithMiddle)
+      .flatMap(_.set(OtherOfficialsNamePage(1), personName2WithMiddle))
       .success
       .value
 
@@ -86,7 +86,7 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(Index(0)),
         "officialsAndNominees"
@@ -127,7 +127,7 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
 
       val localUserAnswers: UserAnswers =
         emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(OtherOfficialsNamePage(0), personNameWithMiddle)
           .success
           .value
 

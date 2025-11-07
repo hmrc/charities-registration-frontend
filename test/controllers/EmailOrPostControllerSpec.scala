@@ -60,7 +60,7 @@ class EmailOrPostControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: EmailOrPostController = inject[EmailOrPostController]
 
-  "EmailOrPost Controller" must {
+  "EmailOrPostController" must {
 
     "return OK and the correct view for a GET" in {
 

@@ -17,7 +17,6 @@
 package viewModels.charityInformation
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.contactDetails.{routes => charityInfoRoutes}
 import models.{CharityContactDetails, CharityName, CheckMode, UserAnswers}
@@ -33,20 +32,16 @@ import viewmodels.charityInformation.CharityInformationSummaryHelper
 class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val officialAddress: UserAnswers = emptyUserAnswers
-    .set(CharityNamePage, CharityName(fullName = "Believe", operatingName = Some("Original Charity")))
+    .set(CharityNamePage, CharityName(fullName = "TestCharity", operatingName = Some("Test Operating Charity")))
     .success
     .value
     .set(
       CharityContactDetailsPage,
-      CharityContactDetails(
-        daytimePhone = "07700 900 982",
-        mobilePhone = Some("07700 900 982"),
-        emailAddress = "japan@china.com"
-      )
+      charityContactDetails
     )
     .success
     .value
-    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address)
+    .set(CharityOfficialAddressLookupPage, confirmedAddress)
     .success
     .value
     .set(CanWeSendToThisAddressPage, true)
@@ -54,26 +49,22 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .value
 
   private val postalAnswers: UserAnswers = emptyUserAnswers
-    .set(CharityNamePage, CharityName(fullName = "Believe", operatingName = Some("Original Charity")))
+    .set(CharityNamePage, CharityName(fullName = "TestCharity", operatingName = Some("Test Operating Charity")))
     .success
     .value
     .set(
       CharityContactDetailsPage,
-      CharityContactDetails(
-        daytimePhone = "07700 900 982",
-        mobilePhone = Some("07700 900 982"),
-        emailAddress = "japan@china.com"
-      )
+      charityContactDetails
     )
     .success
     .value
-    .set(CharityOfficialAddressLookupPage, ConfirmedAddressConstants.address)
+    .set(CharityOfficialAddressLookupPage, confirmedAddress)
     .success
     .value
     .set(CanWeSendToThisAddressPage, false)
     .success
     .value
-    .set(CharityPostalAddressLookupPage, ConfirmedAddressConstants.address)
+    .set(CharityPostalAddressLookupPage, confirmedAddress)
     .success
     .value
 
@@ -96,13 +87,13 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().charityNameRows mustBe Seq(
           summaryListRow(
             messages("charityName.fullName.checkYourAnswersLabel"),
-            HtmlContent("Believe"),
+            HtmlContent("TestCharity"),
             Some(messages("charityName.fullName.checkYourAnswersLabel")),
             charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("charityName.operatingName.checkYourAnswersLabel"),
-            HtmlContent("Original Charity"),
+            HtmlContent("Test Operating Charity"),
             Some(messages("charityName.operatingName.checkYourAnswersLabel")),
             charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -129,7 +120,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
           ),
           summaryListRow(
             messages("charityContactDetails.emailAddress.checkYourAnswersLabel"),
-            HtmlContent("japan@china.com"),
+            HtmlContent("japan@example.com"),
             Some(messages("charityContactDetails.emailAddress.checkYourAnswersLabel")),
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -159,7 +150,9 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().canWeSendToThisAddressRow mustBe Seq(
           summaryListRow(
             messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-            HtmlContent(s"<div>${messages("site.yes")}</div>${"Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"}"),
+            HtmlContent(
+              s"<div>${messages("site.yes")}</div>${"Test Organisation, Test 1, Test 2, AA00 0AA, United Kingdom"}"
+            ),
             Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -214,7 +207,9 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         ).canWeSendToThisAddressRow mustBe Seq(
           summaryListRow(
             welshMessages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-            HtmlContent(s"<div>${welshMessages("site.yes")}</div>Test Organisation, Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"),
+            HtmlContent(
+              s"<div>${welshMessages("site.yes")}</div>Test Organisation, Test 1, Test 2, AA00 0AA, Y Deyrnas Unedig"
+            ),
             Some(welshMessages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
             controllers.contactDetails.routes.CanWeSendToThisAddressController
               .onPageLoad(CheckMode) -> BaseMessages.changeLinkWelsh

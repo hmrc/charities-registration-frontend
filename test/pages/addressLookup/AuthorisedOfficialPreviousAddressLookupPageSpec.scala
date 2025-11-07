@@ -24,9 +24,7 @@ class AuthorisedOfficialPreviousAddressLookupPageSpec extends PageBehaviours {
 
   "AuthorisedOfficialPreviousAddressLookupPage" must {
 
-    implicit lazy val arbitraryAddressModel: Arbitrary[AddressModel] = Arbitrary {
-      AddressModel(Some("Test Organisation"), Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
-    }
+    implicit lazy val arbitraryAddressModel: Arbitrary[AddressModel] = Arbitrary(address)
 
     beRetrievable[AddressModel](AuthorisedOfficialPreviousAddressLookupPage(0))
 

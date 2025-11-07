@@ -58,7 +58,7 @@ class EstimatedIncomeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: EstimatedIncomeController = inject[EstimatedIncomeController]
 
-  "EstimatedIncomeController " must {
+  "EstimatedIncomeController" must {
 
     "return OK and the correct view for a GET" in {
 

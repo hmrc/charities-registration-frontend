@@ -60,9 +60,12 @@ class IsIndividualNomineePaymentsControllerSpec extends SpecBase with BeforeAndA
   private val controller: IsIndividualNomineePaymentsController = inject[IsIndividualNomineePaymentsController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(IndividualNomineeNamePage, personNameWithMiddle)
+      .success
+      .value
 
-  "IsIndividualNomineePayments Controller " must {
+  "IsIndividualNomineePaymentsController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -72,7 +75,7 @@ class IsIndividualNomineePaymentsControllerSpec extends SpecBase with BeforeAndA
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messagePrefix,
         controllers.nominees.routes.IsIndividualNomineePaymentsController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

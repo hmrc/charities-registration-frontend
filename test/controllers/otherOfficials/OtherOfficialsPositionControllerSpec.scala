@@ -61,9 +61,12 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
   private val controller: OtherOfficialsPositionController = inject[OtherOfficialsPositionController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(OtherOfficialsNamePage(0), personNameWithMiddle)
+      .success
+      .value
 
-  "OtherOfficialsPosition Controller" must {
+  "OtherOfficialsPositionController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -74,7 +77,7 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(NormalMode, Index(0))
       )(fakeRequest, messages, frontendAppConfig).toString

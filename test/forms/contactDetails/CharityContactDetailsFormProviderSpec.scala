@@ -20,6 +20,8 @@ import forms.behaviours.StringFieldBehaviours
 import models.CharityContactDetails
 import play.api.data.{Form, FormError}
 
+import scala.util.Random
+
 class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   private val maxLength                                       = 160
@@ -110,70 +112,61 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "CharityContactDetailsFormProvider" must {
 
-    val charityContactDetails = CharityContactDetails("01632 960 001", Some("01632 960 001"), "abc@gmail.com")
-
     "apply CharityContactDetails correctly" in {
 
       val details = form
         .bind(
           Map(
-            "mainPhoneNumber"        -> charityContactDetails.daytimePhone,
-            "alternativePhoneNumber" -> charityContactDetails.mobilePhone.get,
-            "emailAddress"           -> charityContactDetails.emailAddress
+            "mainPhoneNumber"        -> daytimePhone,
+            "alternativePhoneNumber" -> mobileNumber,
+            "emailAddress"           -> charityEmail
           )
         )
         .get
 
-      details.daytimePhone mustBe charityContactDetails.daytimePhone
-      details.mobilePhone mustBe charityContactDetails.mobilePhone
-      details.emailAddress mustBe charityContactDetails.emailAddress
+      details.daytimePhone mustBe daytimePhone
+      details.mobilePhone mustBe Some(mobileNumber)
+      details.emailAddress mustBe charityEmail
     }
 
     "unapply CharityContactDetails correctly" in {
       val filled = form.fill(charityContactDetails)
-      filled("mainPhoneNumber").value.value mustBe charityContactDetails.daytimePhone
-      filled("alternativePhoneNumber").value.value mustBe charityContactDetails.mobilePhone.get
-      filled("emailAddress").value.value mustBe charityContactDetails.emailAddress
+      filled("mainPhoneNumber").value.value mustBe daytimePhone
+      filled("alternativePhoneNumber").value.value mustBe mobileNumber
+      filled("emailAddress").value.value mustBe charityEmail
     }
   }
 
   "validateTelephoneNumber" must {
-
-    "valid for 01632 960 001" in {
-
-      "01632 960 001" must fullyMatch regex formProvider.validateTelephoneNumber
+    s"be valid for $daytimePhone" in {
+      daytimePhone must fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for short numbers like 01632 960" in {
-
-      "01632 960" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    s"be invalid for short numbers like ${daytimePhone.dropRight(4)}" in {
+      daytimePhone.dropRight(4) mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for special chars like (0)1632 960 001" in {
-
-      "(0)1632 960 001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    "be invalid for special chars such as numbers starting (0)" in {
+      s"(0)${daytimePhone.drop(1)}" mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for hyphens like 1-632-960-001" in {
-
-      "1-632-960-001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    "be invalid if containing hyphens" in {
+      s"1${daytimePhone.drop(2).replace(' ', '-')}" mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be invalid for dots like 1.632.960.001" in {
-
-      "1.632.960.001" mustNot fullyMatch regex formProvider.validateTelephoneNumber
+    "be invalid if containing dots" in {
+      s"1{$daytimePhone.drop(2).replace(' ', '.'))" mustNot fullyMatch regex formProvider.validateTelephoneNumber
     }
 
-    "be valid for international numbers like +44 777 777 7777" in {
-
-      "+44 777 777 7777" must fullyMatch regex formProvider.validateTelephoneNumber
+    "be valid for international numbers like those starting +44" in {
+      s"+44 ${mobileNumber.drop(1)}" must fullyMatch regex formProvider.validateTelephoneNumber
     }
   }
 
   "emailAddress" must {
     "return valid" when {
-      "email is abc@gmail.com" in {
-        "abc@gmail.com" must fullyMatch regex formProvider.validateEmailAddress
+      s"email is $charityEmail" in {
+        charityEmail must fullyMatch regex formProvider.validateEmailAddress
       }
 
       "email is firstname.o\'lastname@domain.com" in {
@@ -190,42 +183,47 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
     }
 
     "return invalid" when {
-      "for email abc@gmail" in {
-        "abc@gmail" mustNot fullyMatch regex formProvider.validateEmailAddress
+      "for emails with an invalid domain" in {
+        "abc@example" mustNot fullyMatch regex formProvider.validateEmailAddress
       }
 
-      "for email two-dots..in-local@domain.com" in {
-        "two-dots..in-local@domain.com" mustNot fullyMatch regex formProvider.validateEmailAddress
+      "for email with with two consecutive dots" in {
+        "two-dots..in-local@example.com" mustNot fullyMatch regex formProvider.validateEmailAddress
       }
 
-      "for email pipe-in-domain@example.com|gov.uk" in {
-        "pipe-in-domain@example.com|gov.uk" mustNot fullyMatch regex formProvider.validateEmailAddress
+      "for emails containing a pipe character" in {
+        "pipe-in-domain@example.com|example.org" mustNot fullyMatch regex formProvider.validateEmailAddress
       }
 
-      "for email brackets(in)local@domain.com" in {
-        "brackets(in)local@domain.com" mustNot fullyMatch regex formProvider.validateEmailAddress
+      "for emails containing parenthesis" in {
+        "brackets(in)local@example.com" mustNot fullyMatch regex formProvider.validateEmailAddress
       }
 
-      "for email comma-in-domain@domain,gov.uk" in {
-        "comma-in-domain@domain,gov.uk" mustNot fullyMatch regex formProvider.validateEmailAddress
+      "for emails containing commas" in {
+        "comma-in-domain@example,com" mustNot fullyMatch regex formProvider.validateEmailAddress
       }
     }
   }
 
   "validateEmailExtraTld" must {
     "return invalid" when {
-      "email is abc@gmail.com" in {
-        "abc@gmail.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
+      "email is abc@example.com" in {
+        "abc@example.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
       }
 
-      "email is abc@123.com" in {
-        "abc@123.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
+      "email domain has a number and ends in .com" in {
+        s"abc@${Math.abs(Random().nextInt()) % 256}.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
       }
     }
 
     "return valid" when {
-      "for email email@123.123.123.123" in {
-        "email@123.123.123.123" must fullyMatch regex formProvider.validateEmailExtraTld
+      "when the domain is a dotted ip" in {
+        val a = Math.abs(Random().nextInt()) % 256
+        val b = Math.abs(Random().nextInt()) % 256
+        val c = Math.abs(Random().nextInt()) % 256
+        val d = Math.abs(Random().nextInt()) % 256
+        
+        s"email@$a.$b.$c.$d" must fullyMatch regex formProvider.validateEmailExtraTld
       }
     }
   }

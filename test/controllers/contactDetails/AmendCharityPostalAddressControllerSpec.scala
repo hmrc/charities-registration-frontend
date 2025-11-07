@@ -38,7 +38,6 @@ import views.html.common.AmendAddressView
 import scala.concurrent.Future
 
 class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAfterEach {
-
   override lazy val userAnswers: Option[UserAnswers] = Some(emptyUserAnswers)
   lazy val mockCountryService: CountryService        = mock(classOf[CountryService])
 
@@ -65,36 +64,30 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
   private val controller: AmendCharityPostalAddressController = inject[AmendCharityPostalAddressController]
 
   private val requestArgs                   = Seq(
-    "organisation" -> "Test Organisation",
-    "line1"        -> "23",
-    "line2"        -> "Morrison street",
-    "line3"        -> "",
-    "town"         -> "Paris",
-    "postcode"     -> "",
-    "country"      -> "FR"
-  )
+    "organisation" -> addressWithTown.organisation.get,
+    "line1" -> addressWithTown.lines.head,
+    "line2" -> addressWithTown.lines(1),
+    "line3" -> "",
+    "town" -> "Paris",
+    "postcode" -> "",
+    "country" -> "FR"
+  ) 
+  
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       CharityPostalAddressLookupPage,
-      AddressModel(
-        Some("Test Organisation"),
-        Seq("7 Morrison street near riverview gardens", "Glasgow"),
-        Some("G58AN"),
-        CountryModel("GB", "United Kingdom")
-      )
+      addressModelMax.copy(lines = Seq(addressModelMax.lines.mkString(" "), town)),
     )
     .success
     .value
 
-  "AmendCharityPostalAddressController Controller " must {
+  "AmendCharityPostalAddressController" must {
 
     "return OK and the correct view for a GET" in {
-
-      val amendCharitiesPostalAddress =
-        AmendAddressModel(Some("Test Organisation"), "7 Morrison street near riverview gardens", None, None, "Glasgow", "G58AN", "GB")
+      val amendCharitiesPostalAddress = toAmendAddressModel(addressModelMax.copy(lines = Seq(addressModelMax.lines.head + " " + addressModelMax.lines(1))), Some(town))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -103,7 +96,7 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
         form.fill(amendCharitiesPostalAddress),
         messageKeyPrefix,
         controllers.contactDetails.routes.AmendCharityPostalAddressController.onSubmit(),
-        countries = Seq(("GB", "United Kingdom"))
+        countries = Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
@@ -112,12 +105,15 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel(Some("Test Organisation"), "23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
+        .set(
+          AmendAddressPage,
+          toAmendAddressModel(address, Some(town))
+        )
         .success
         .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad()(fakeRequest)
 
@@ -127,12 +123,11 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     }
 
     "redirect to the next page when valid data is submitted" in {
-
       val request = fakeRequest.withFormUrlEncodedBody(requestArgs*)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -144,11 +139,10 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -159,7 +153,6 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
 
       val result = controller.onPageLoad()(fakeRequest)
@@ -170,7 +163,6 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))

@@ -51,7 +51,8 @@ trait SpecBase
     with IntegrationPatience
     with Injecting
     with OptionValues
-    with EitherValues {
+    with EitherValues
+    with TestData {
 
   lazy val injector: Injector                   = app.injector
   lazy val internalId: String                   = "id"

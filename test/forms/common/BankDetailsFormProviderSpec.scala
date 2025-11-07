@@ -85,20 +85,22 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       requiredError = FormError(fieldName, requiredKey)
     )
     "bind sort codes in nnnnnn format" in {
-      val result = form.bind(Map(fieldName -> "123456")).apply(fieldName)
-      result.value.value mustBe "123456"
+      val result = form.bind(Map(fieldName -> sortCode)).apply(fieldName)
+      result.value.value mustBe sortCode
     }
     "bind sort codes in nn-nn-nn format" in {
-      val result = form.bind(Map(fieldName -> "12-34-56")).apply(fieldName)
-      result.value.value mustBe "12-34-56"
+      val result = form.bind(Map(fieldName -> sortCodeWithHyphens)).apply(fieldName)
+      result.value.value mustBe sortCodeWithHyphens
     }
     "bind sort codes in nn nn nn format" in {
-      val result = form.bind(Map(fieldName -> "12 34 56")).apply(fieldName)
-      result.value.value mustBe "12 34 56"
+      val result = form.bind(Map(fieldName -> sortCodeWithSpaces)).apply(fieldName)
+      result.value.value mustBe sortCodeWithSpaces
     }
     "bind sort codes in nn   nn    nn format" in {
-      val result = form.bind(Map(fieldName -> "12   34   56")).apply(fieldName)
-      result.value.value mustBe "12   34   56"
+      val sortCodeWithManySpaces: String =
+        s"${sortCode.slice(0, 2)}   ${sortCode.slice(2, 4)}   ${sortCode.slice(4, 6)}"
+      val result                         = form.bind(Map(fieldName -> sortCodeWithManySpaces)).apply(fieldName)
+      result.value.value mustBe sortCodeWithManySpaces
     }
     "not bind sort codes with characters" in {
       val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
@@ -136,8 +138,11 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
       requiredError = FormError(fieldName, requiredKey)
     )
     "bind account number with any number of spaces" in {
-      val result = form.bind(Map(fieldName -> "12   34   56")).apply(fieldName)
-      result.value.value mustBe "12   34   56"
+      val sixDigitAccountNumber                       = accountNumber.take(6)
+      val sixDigitAccountNumberWithManySpaces: String =
+        s"${sixDigitAccountNumber.slice(0, 2)}   ${sixDigitAccountNumber.slice(2, 4)}   ${sixDigitAccountNumber.slice(4, 6)}"
+      val result                                      = form.bind(Map(fieldName -> sixDigitAccountNumberWithManySpaces)).apply(fieldName)
+      result.value.value mustBe sixDigitAccountNumberWithManySpaces
     }
     "not bind strings with characters" in {
       val result = form.bind(Map(fieldName -> "abcdef")).apply(fieldName)
@@ -209,14 +214,6 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   }
 
   "BankDetailsFormProvider" must {
-
-    val bankDetails = BankDetails(
-      accountName = "fullName",
-      sortCode = "123456",
-      accountNumber = "12345678",
-      rollNumber = Some("rollNumber")
-    )
-
     "apply BankDetails correctly" in {
 
       val details = form
@@ -247,14 +244,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "BankDetailsFormProvider with charity Name" must {
 
-    val bankDetails = BankDetails(
-      accountName = "fullName",
-      sortCode = "123456",
-      accountNumber = "12345678",
-      rollNumber = Some("rollNumber")
-    )
-
-    val form: Form[BankDetails] = formProvider(messagePrefix, "fullName")
+    val form: Form[BankDetails] = formProvider(messagePrefix, accountName)
 
     "apply BankDetails correctly" in {
 
@@ -284,27 +274,21 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   }
 
   "accountName" must {
-
-    "valid for accountName" in {
-
-      "accountName" must fullyMatch regex formProvider.validateField
+    s"be valid for $accountName" in {
+      accountName must fullyMatch regex formProvider.validateField
     }
 
-    "valid for accountName&" in {
-
-      "accountName&" mustNot fullyMatch regex formProvider.validateField
+    "be invalid if contains &" in {
+      s"$accountName&" mustNot fullyMatch regex formProvider.validateField
     }
   }
 
   "rollNumber" must {
-
-    "valid for roll-Number, ." in {
-
+    "be valid for roll-Number, ." in {
       "roll-Number /" must fullyMatch regex formProvider.rollNumberPattern
     }
 
-    "invalid for roll-Number, .!" in {
-
+    "be invalid for roll-Number, .!" in {
       "roll-Number, .!" mustNot fullyMatch regex formProvider.rollNumberPattern
     }
   }

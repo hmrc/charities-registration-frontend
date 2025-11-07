@@ -24,9 +24,7 @@ class OtherOfficialsNamePageSpec extends PageBehaviours {
 
   "OtherOfficialsNamePage" must {
 
-    implicit lazy val arbitraryAuthorisedOfficialsName: Arbitrary[Name] = Arbitrary {
-      Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-    }
+    implicit lazy val arbitraryAuthorisedOfficialsName: Arbitrary[Name] = Arbitrary(personNameWithMiddle)
 
     beRetrievable[Name](OtherOfficialsNamePage(0))
 

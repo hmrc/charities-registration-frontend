@@ -39,41 +39,41 @@ class LanguageSwitchControllerSpec extends SpecBase {
   def getLanguageCookies(future: Future[Result]): String =
     cookies(future).get("PLAY_LANG").get.value
 
-  "when translation is enabled switching language" should {
-    "set the language to Cymraeg" in {
-      val request = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("cy").url)
+  "LanguageSwitchController" when {
+    "translation is enabled switching language" must {
+      "set the language to Cymraeg" in {
+        val request = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("cy").url)
 
-      val result = Helpers.route(appWithWelshTranslation, request).get
+        val result = Helpers.route(appWithWelshTranslation, request).get
 
-      status(result) mustBe SEE_OTHER
-      getLanguageCookies(result) mustBe "cy"
+        status(result) mustBe SEE_OTHER
+        getLanguageCookies(result) mustBe "cy"
+      }
+
+      "set the language to English" in {
+        val request = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("en").url)
+
+        val result = Helpers.route(appWithEnglishTranslation, request).get
+
+        status(result) mustBe SEE_OTHER
+        getLanguageCookies(result) mustBe "en"
+      }
     }
 
-    "set the language to English" in {
-      val request = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("en").url)
+    "translation is disabled  switching language" must {
+      "should set the language to English regardless of what is requested" in {
+        val cymraegRequest = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("cy").url)
+        val englishRequest = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("en").url)
 
-      val result = Helpers.route(appWithEnglishTranslation, request).get
+        val cymraegResult = Helpers.route(appWithEnglishTranslation, cymraegRequest).get
+        val englishResult = Helpers.route(appWithEnglishTranslation, englishRequest).get
 
-      status(result) mustBe SEE_OTHER
-      getLanguageCookies(result) mustBe "en"
+        status(cymraegResult) mustBe SEE_OTHER
+        getLanguageCookies(cymraegResult) mustBe "en"
+
+        status(englishResult) mustBe SEE_OTHER
+        getLanguageCookies(englishResult) mustBe "en"
+      }
     }
   }
-
-  "when translation is disabled  switching language" should {
-
-    "should set the language to English regardless of what is requested" in {
-      val cymraegRequest = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("cy").url)
-      val englishRequest = FakeRequest(Helpers.GET, routes.LanguageSwitchController.switchToLanguage("en").url)
-
-      val cymraegResult = Helpers.route(appWithEnglishTranslation, cymraegRequest).get
-      val englishResult = Helpers.route(appWithEnglishTranslation, englishRequest).get
-
-      status(cymraegResult) mustBe SEE_OTHER
-      getLanguageCookies(cymraegResult) mustBe "en"
-
-      status(englishResult) mustBe SEE_OTHER
-      getLanguageCookies(englishResult) mustBe "en"
-    }
-  }
-
 }

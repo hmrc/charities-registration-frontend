@@ -59,7 +59,7 @@ class OperatingLocationControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: OperatingLocationController = inject[OperatingLocationController]
 
-  "OperatingLocation Controller " must {
+  "OperatingLocationController" must {
 
     "return OK and the correct view for a GET" in {
 

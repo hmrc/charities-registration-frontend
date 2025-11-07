@@ -36,7 +36,7 @@ class AmendAddressFormProvider @Inject() extends Mappings {
         "organisation" -> optional(
           text()
             .verifying(maxLength(maxLength, s"$messagePrefix.organisation.error.length"))
-            .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.organisation.error.format")),
+            .verifying(regexp(validateFieldWithFullStop, s"$messagePrefix.organisation.error.format"))
         ),
         "line1"        -> text(s"$messagePrefix.addressLine1.error.required")
           .verifying(maxLength(maxLength, s"$messagePrefix.addressLine1.error.length"))

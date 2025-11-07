@@ -58,7 +58,7 @@ class IsFinancialAccountsControllerSpec extends SpecBase with BeforeAndAfterEach
 
   private val controller: IsFinancialAccountsController = inject[IsFinancialAccountsController]
 
-  "IsFinancialAccounts Controller " must {
+  "IsFinancialAccountsController" must {
 
     "return OK and the correct view for a GET" in {
 

@@ -58,7 +58,7 @@ class WhyNoBankStatementControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   private val controller: WhyNoBankStatementController = inject[WhyNoBankStatementController]
 
-  "WhyNoBankStatement Controller " must {
+  "WhyNoBankStatementController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -75,7 +75,7 @@ class WhyNoBankStatementControllerSpec extends SpecBase with BeforeAndAfterEach 
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(emptyUserAnswers.set(WhyNoBankStatementPage, "WhyNoBankStatementValue").getOrElse(emptyUserAnswers))
+          Some(emptyUserAnswers.set(WhyNoBankStatementPage, whyNoBankStatement).getOrElse(emptyUserAnswers))
         )
       )
 
@@ -87,7 +87,7 @@ class WhyNoBankStatementControllerSpec extends SpecBase with BeforeAndAfterEach 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "WhyNoBankStatementValue"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", whyNoBankStatement))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

@@ -83,15 +83,12 @@ class GoverningDocumentNameFormProviderSpec extends StringFieldBehaviours {
   }
 
   "validateGoverningDocumentName" must {
-
-    "valid for will" in {
-
-      "will" must fullyMatch regex formProvider.validateFieldWithFullStop
+    s"valid for $governingDocument" in {
+      governingDocument must fullyMatch regex formProvider.validateFieldWithFullStop
     }
 
-    "valid for will@" in {
-
-      "will@" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
+    "be invalid if contains @" in {
+      s"$governingDocument@" mustNot fullyMatch regex formProvider.validateFieldWithFullStop
     }
   }
 

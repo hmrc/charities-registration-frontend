@@ -23,7 +23,7 @@ import views.html.common.ConfirmAddressView
 class ConfirmAddressViewSpec extends ViewBehaviours {
 
   private val messageKeyPrefix: String                      = "charityOfficialAddress"
-  private val charityInformationAddressLookup: List[String] = List("12", "Banner Way", "ZZ1 1ZZ")
+  private val charityInformationAddressLookup: List[String] = List("12", "Test Way", "ZY1 1ZZ")
 
   private val view: ConfirmAddressView = viewFor[ConfirmAddressView](Some(emptyUserAnswers))
 
@@ -78,9 +78,9 @@ class ConfirmAddressViewSpec extends ViewBehaviours {
     ".apply" when {
       "with name" must {
         behave like normalPage(
-          viewViaApply(Some("John Doe"), "authorisedOfficialAddress"),
+          viewViaApply(Some("AName Doe"), "authorisedOfficialAddress"),
           "authorisedOfficialAddress.confirmPage",
-          Seq("John Doe")
+          Seq("AName Doe")
         )
       }
 
@@ -90,7 +90,7 @@ class ConfirmAddressViewSpec extends ViewBehaviours {
 
       "change link with name" must {
         behave like pageWithHyperLink(
-          viewViaApply(Some("John Doe"), "authorisedOfficialAddress"),
+          viewViaApply(Some("AName Doe"), "authorisedOfficialAddress"),
           "linkButton",
           onwardRoute.url,
           "Change authorised official’s home address"

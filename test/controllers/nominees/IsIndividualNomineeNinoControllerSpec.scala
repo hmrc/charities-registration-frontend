@@ -60,9 +60,12 @@ class IsIndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfter
   private val controller: IsIndividualNomineeNinoController = inject[IsIndividualNomineeNinoController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers
+      .set(IndividualNomineeNamePage, personNameWithMiddle)
+      .success
+      .value
 
-  "IsIndividualNomineeNino Controller " must {
+  "IsIndividualNomineeNinoController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -72,7 +75,7 @@ class IsIndividualNomineeNinoControllerSpec extends SpecBase with BeforeAndAfter
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IsIndividualNomineeNinoController.onSubmit(NormalMode),
         "officialsAndNominees"

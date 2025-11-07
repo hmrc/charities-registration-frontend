@@ -18,7 +18,7 @@
             "Some District",
             "Anytown"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "ZY1 1ZZ",
           "country": {
             "code": "GB",
             "name": "United Kingdom"
@@ -27,7 +27,7 @@
         "officialsName": {
           "title": "0001",
           "firstName": "Steve",
-          "lastName": "Waugh"
+          "lastName": "LastnameW"
         },
         "officialsNino": "CS 70 01 00 A"
       }
@@ -48,7 +48,7 @@
     "isSection5Completed": true,
     "actualIncome": 100.0,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "John",
+      "regulatorName": "AName",
       "registrationNumber": "Ceana"
     },
     "charityOfficialAddress": {
@@ -58,7 +58,7 @@
         "Some District",
         "Anytown"
       ],
-      "postcode": "ZZ1 1ZZ",
+      "postcode": "ZY1 1ZZ",
       "country": {
         "code": "GB",
         "name": "United Kingdom"
@@ -87,15 +87,15 @@
     "charityContactDetails": {
       "daytimePhone": "+44 0808 157 1111",
       "mobilePhone": "+44 0808 157 2222",
-      "emailAddress": "a@b.com"
+      "emailAddress": "a@example.com"
     },
     "isCharityRegulator": true,
     "isSection7Completed": true,
     "isAuthoriseNominee": false,
     "isBankStatements": false,
     "charityName": {
-      "fullName": "Just a Drop",
-      "operatingName": "Operation Smile"
+      "fullName": "Test Charity",
+      "operatingName": "Test Operating Name"
     },
     "whyNoBankStatement": "Test",
     "accountingPeriodEndDate": "--11-11",
@@ -126,7 +126,7 @@
             "Some District",
             "Anytown"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "ZY1 1ZZ",
           "country": {
             "code": "GB",
             "name": "United Kingdom"
@@ -135,7 +135,7 @@
         "officialsName": {
           "title": "0001",
           "firstName": "Mark",
-          "lastName": "Waugh"
+          "lastName": "LastnameW"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "CS 70 01 00 A"
@@ -154,7 +154,7 @@
             "Some District",
             "Anytown"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "ZY1 1ZZ",
           "country": {
             "code": "GB",
             "name": "United Kingdom"
@@ -163,7 +163,7 @@
         "officialsName": {
           "title": "0001",
           "firstName": "Steve",
-          "lastName": "Waugh"
+          "lastName": "LastnameW"
         },
         "isOfficialsPreviousAddress": false,
         "officialsNino": "CS 70 03 00 A"

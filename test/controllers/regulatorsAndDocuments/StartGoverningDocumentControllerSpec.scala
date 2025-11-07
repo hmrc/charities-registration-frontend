@@ -50,7 +50,7 @@ class StartGoverningDocumentControllerSpec extends SpecBase with BeforeAndAfterE
 
   private val controller: StartGoverningDocumentController = inject[StartGoverningDocumentController]
 
-  "StartGoverningDocument Controller" must {
+  "StartGoverningDocumentController" must {
 
     "return OK and the correct view for a GET" in {
 

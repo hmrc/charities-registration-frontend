@@ -59,7 +59,7 @@ class CharityEstablishedInControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val controller: CharityEstablishedInController = inject[CharityEstablishedInController]
 
-  "WhatCountryWasTheCharityEstablishedIn Controller " must {
+  "CharityEstablishedInController" must {
 
     "return OK and the correct view for a GET" in {
 

@@ -31,25 +31,17 @@ import viewmodels.RequiredDocumentsHelper
 
 class RequiredDocumentsHelperSpec extends SpecBase {
 
-  private val john: Name = Name(SelectTitle.Mr, "John", None, "Smith")
-
   private val userAnswersForeignAuthOfficial1 = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), john)
+    .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
     .flatMap(
-      _.set(
-        AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(organisation = None, Seq("aa", "bb"), postcode = None, country = CountryModel("AA", "Aaa"))
-      )
+      _.set(AuthorisedOfficialAddressLookupPage(0), address.copy(organisation = None, postcode = None, country = thCountryModel))
     )
     .flatMap(_.set(IsCharityRegulatorPage, true))
     .success
     .value
 
   private val userAnswersUKAuthOfficial1 = emptyUserAnswers
-    .set(
-      AuthorisedOfficialAddressLookupPage(0),
-      AddressModel(organisation = None, Seq("aa", "bb"), postcode = None, country = CountryModel("GB", "United Kingdom"))
-    )
+    .set(AuthorisedOfficialAddressLookupPage(0), address.copy(organisation = None, postcode = None))
     .success
     .value
 
@@ -114,49 +106,46 @@ class RequiredDocumentsHelperSpec extends SpecBase {
       "return a non-empty sequence if at least one official lives abroad" in {
 
         RequiredDocumentsHelper.getOfficialsAndNomineesNames(userAnswersForeignAuthOfficial1) mustBe
-          Seq(john)
+          Seq(personNameWithoutMiddle)
       }
     }
 
     "formatNames" should {
 
       "format correctly for 1 name" in {
-        RequiredDocumentsHelper.formatNames(Seq(john)) mustBe "John Smith"
+        RequiredDocumentsHelper.formatNames(Seq(personNameWithoutMiddle)) mustBe personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName
       }
 
       "format correctly for 2 names" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john)) mustBe "John Smith and John Smith"
-
+        RequiredDocumentsHelper.formatNames(Seq(personNameWithoutMiddle, personNameWithoutMiddle)) mustBe personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + "and" + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName
       }
 
       "format correctly for 3 names" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john)) mustBe "John Smith, John Smith and John Smith"
-
+        RequiredDocumentsHelper.formatNames(Seq(personNameWithoutMiddle, personNameWithoutMiddle, personNameWithoutMiddle)) mustBe personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + "and" + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName
       }
 
       "format correctly for 4 or more names" in {
         RequiredDocumentsHelper.formatNames(
-          Seq(john, john, john, john)
-        ) mustBe "John Smith, John Smith, John Smith and John Smith"
-
+          Seq(personNameWithoutMiddle, personNameWithoutMiddle, personNameWithoutMiddle, personNameWithoutMiddle)
+        ) mustBe personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + "and" + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName
       }
 
       "format correctly for 2 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john))(localMessages) mustBe "John Smith, John Smith"
+        RequiredDocumentsHelper.formatNames(Seq(personNameWithoutMiddle, personNameWithoutMiddle))(localMessages) mustBe personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName
 
       }
 
       "format correctly for 3 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john))(
+        RequiredDocumentsHelper.formatNames(Seq(personNameWithoutMiddle, personNameWithoutMiddle, personNameWithoutMiddle))(
           localMessages
-        ) mustBe "John Smith, John Smith, John Smith"
+        ) mustBe personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName
 
       }
 
       "format correctly for 4 or more names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john, john))(
+        RequiredDocumentsHelper.formatNames(Seq(personNameWithoutMiddle, personNameWithoutMiddle, personNameWithoutMiddle, personNameWithoutMiddle))(
           localMessages
-        ) mustBe "John Smith, John Smith, John Smith, John Smith"
+        ) mustBe personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " + personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName + ", " +  personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName
 
       }
     }
@@ -174,7 +163,7 @@ class RequiredDocumentsHelperSpec extends SpecBase {
 
       "return a tuple if there is an official or nominee living abroad" in {
         RequiredDocumentsHelper.getForeignOfficialsMessages(userAnswersForeignAuthOfficial1) mustBe
-          Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith"))
+          Some(("requiredDocuments.foreignAddresses.answerTrue", personNameWithoutMiddle.firstName + " " + personNameWithoutMiddle.lastName))
       }
 
       "return a None if none of the officials or nominees live abroad" in {

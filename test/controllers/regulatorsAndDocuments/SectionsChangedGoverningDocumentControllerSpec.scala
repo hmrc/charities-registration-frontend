@@ -60,12 +60,12 @@ class SectionsChangedGoverningDocumentControllerSpec extends SpecBase with Befor
 
   private val controller: SectionsChangedGoverningDocumentController =
     inject[SectionsChangedGoverningDocumentController]
-  private val requestArgs                                            = Seq("value" -> "Governing document change")
+  private val requestArgs                                            = Seq("value" -> governingDocumentChange)
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(SelectGoverningDocumentPage, SelectGoverningDocument.Will).success.value
 
-  "SectionsChangedGoverningDocument Controller" must {
+  "SectionsChangedGoverningDocumentController" must {
 
     "return OK and the correct view for a GET" in {
 

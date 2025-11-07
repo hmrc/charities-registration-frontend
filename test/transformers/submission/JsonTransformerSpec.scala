@@ -54,30 +54,22 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct AddressModel" in {
 
         val userAnswers = emptyUserAnswers
-          .set(
-            CharityOfficialAddressLookupPage,
-            AddressModel(
-              Some("Test Organisation"),
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              CountryModel("GB", "United Kingdom")
-            )
-          )
+          .set(CharityOfficialAddressLookupPage, addressAllLines)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |   "common": {
             |    "addressDetails": {
             |      "officialAddress": {
-            |        "organisation": "Test Organisation",
-            |        "postcode": "G58AN",
-            |        "addressLine1": "7",
-            |        "addressLine2": "Morrison street",
-            |        "addressLine3": "line3",
-            |        "addressLine4": "line4",
+            |        "organisation": "${addressAllLines.organisation.get}",
+            |        "postcode": "${addressAllLines.postcode.get}",
+            |        "addressLine1": "${addressAllLines.lines.head}",
+            |        "addressLine2": "${addressAllLines.lines(1)}",
+            |        "addressLine3": "${addressAllLines.lines(2)}",
+            |        "addressLine4": "${addressAllLines.lines(3)}",
             |        "nonUKAddress": false
             |      }
             |     }
@@ -99,23 +91,20 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct AddressModel with mandatory fields only" in {
 
         val userAnswers = emptyUserAnswers
-          .set(
-            CharityOfficialAddressLookupPage,
-            AddressModel(None, Seq("7", "Morrison street"), None, CountryModel("IN", "INDIA"))
-          )
+          .set(CharityOfficialAddressLookupPage, address.copy(organisation = None, postcode = None, country = thCountryModel))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |   "common": {
             |    "addressDetails": {
             |      "officialAddress": {
-            |        "addressLine1": "7",
-            |        "addressLine2": "Morrison street",
+            |        "addressLine1": "${address.lines.head}",
+            |        "addressLine2": "${address.lines(1)}",
             |        "nonUKAddress": true,
-            |        "nonUKCountry":"IN"
+            |        "nonUKCountry":"${thCountryModel.code}"
             |      }
             |     }
             |    }
@@ -140,7 +129,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(None, Seq("7 Morrison street", " ", "  ", "   "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+              AddressModel(None, Seq("7 Test Street", " ", "  ", "   "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
             )
             .success
             .value
@@ -151,7 +140,7 @@ class JsonTransformerSpec extends SpecBase {
               |   "common": {
               |    "addressDetails": {
               |      "officialAddress": {
-              |        "addressLine1": "7 Morrison street",
+              |        "addressLine1": "7 Test Street",
               |        "addressLine2": "NonUKCode",
               |        "nonUKAddress": true,
               |        "nonUKCountry":"IN"
@@ -179,7 +168,7 @@ class JsonTransformerSpec extends SpecBase {
               CharityOfficialAddressLookupPage,
               AddressModel(
                 None,
-                Seq("7", "Morrison street", "address line 3", "address line 4"),
+                Seq("7", "Test Street", "address line 3", "address line 4"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
               )
@@ -194,7 +183,7 @@ class JsonTransformerSpec extends SpecBase {
               |    "addressDetails": {
               |      "officialAddress": {
               |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
+              |        "addressLine2": "Test Street",
               |        "addressLine3": "address line 3",
               |        "addressLine4": "address line 4, NonUKCode",
               |        "nonUKAddress": true,
@@ -223,7 +212,7 @@ class JsonTransformerSpec extends SpecBase {
               CharityOfficialAddressLookupPage,
               AddressModel(
                 None,
-                Seq("7", "Morrison street", "address line 3", "address line 4 with more than 35 characters"),
+                Seq("7", "Test Street", "address line 3", "address line 4 with more than 35 characters"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
               )
@@ -238,7 +227,7 @@ class JsonTransformerSpec extends SpecBase {
               |    "addressDetails": {
               |      "officialAddress": {
               |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
+              |        "addressLine2": "Test Street",
               |        "addressLine3": "address line 3",
               |        "addressLine4": "address line 4 with more than 35 characters",
               |        "nonUKAddress": true,
@@ -267,7 +256,7 @@ class JsonTransformerSpec extends SpecBase {
               CharityOfficialAddressLookupPage,
               AddressModel(
                 None,
-                Seq("7", "Morrison street", "address line 3", ""),
+                Seq("7", "Test Street", "address line 3", ""),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
               )
@@ -282,7 +271,7 @@ class JsonTransformerSpec extends SpecBase {
               |    "addressDetails": {
               |      "officialAddress": {
               |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
+              |        "addressLine2": "Test Street",
               |        "addressLine3": "address line 3",
               |        "addressLine4": "NonUKCode",
               |        "nonUKAddress": true,
@@ -311,7 +300,7 @@ class JsonTransformerSpec extends SpecBase {
               CharityOfficialAddressLookupPage,
               AddressModel(
                 None,
-                Seq("7", "Morrison street", "address line 3"),
+                Seq("7", "Test Street", "address line 3"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
               )
@@ -326,7 +315,7 @@ class JsonTransformerSpec extends SpecBase {
               |    "addressDetails": {
               |      "officialAddress": {
               |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
+              |        "addressLine2": "Test Street",
               |        "addressLine3": "address line 3",
               |        "addressLine4": "NonUKCode",
               |        "nonUKAddress": true,
@@ -355,7 +344,7 @@ class JsonTransformerSpec extends SpecBase {
               CharityOfficialAddressLookupPage,
               AddressModel(
                 None,
-                Seq("7", "Morrison street", "", "address line 3"),
+                Seq("7", "Test Street", "", "address line 3"),
                 Some("NonUKCode"),
                 CountryModel("IN", "INDIA")
               )
@@ -370,7 +359,7 @@ class JsonTransformerSpec extends SpecBase {
               |    "addressDetails": {
               |      "officialAddress": {
               |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
+              |        "addressLine2": "Test Street",
               |        "addressLine3": "address line 3",
               |        "addressLine4": "NonUKCode",
               |        "nonUKAddress": true,
@@ -397,7 +386,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(None, Seq("7", "Morrison street", "", " "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+              AddressModel(None, Seq("7", "Test Street", "", " "), Some("NonUKCode"), CountryModel("IN", "INDIA"))
             )
             .success
             .value
@@ -409,7 +398,7 @@ class JsonTransformerSpec extends SpecBase {
               |    "addressDetails": {
               |      "officialAddress": {
               |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
+              |        "addressLine2": "Test Street",
               |        "addressLine3": "NonUKCode",
               |        "nonUKAddress": true,
               |        "nonUKCountry":"IN"
@@ -435,7 +424,7 @@ class JsonTransformerSpec extends SpecBase {
           val userAnswers = emptyUserAnswers
             .set(
               CharityOfficialAddressLookupPage,
-              AddressModel(None, Seq("7", "Morrison street"), Some("NonUKCode"), CountryModel("IN", "INDIA"))
+              AddressModel(None, Seq("7", "Test Street"), Some("NonUKCode"), CountryModel("IN", "INDIA"))
             )
             .success
             .value
@@ -447,7 +436,7 @@ class JsonTransformerSpec extends SpecBase {
               |    "addressDetails": {
               |      "officialAddress": {
               |        "addressLine1": "7",
-              |        "addressLine2": "Morrison street",
+              |        "addressLine2": "Test Street",
               |        "addressLine3": "NonUKCode",
               |        "nonUKAddress": true,
               |        "nonUKCountry":"IN"
@@ -479,9 +468,9 @@ class JsonTransformerSpec extends SpecBase {
             CharityOfficialAddressLookupPage,
             AddressModel(
               None,
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              CountryModel("GB", "United Kingdom")
+              Seq("7", "Test Street", "line3", "line4"),
+              Some("ZY11 1AA"),
+              gbCountryModel
             )
           )
           .success
@@ -493,9 +482,9 @@ class JsonTransformerSpec extends SpecBase {
             |   "common": {
             |    "addressDetails": {
             |      "charityCorrespondenceAddress": {
-            |        "postcode": "G58AN",
+            |        "postcode": "ZY11 1AA",
             |        "addressLine1": "7",
-            |        "addressLine2": "Morrison street",
+            |        "addressLine2": "Test Street",
             |        "addressLine3": "line3",
             |        "addressLine4": "line4",
             |        "nonUKAddress": false
@@ -535,11 +524,11 @@ class JsonTransformerSpec extends SpecBase {
       "remove + from phone number " in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("+44 7700 900 982", Some("07700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbersWithIntCode)
           .success
           .value
 
-        val expectedJson = """{"individualDetails": {"dayPhoneNumber": "44 7700 900 982"}}"""
+        val expectedJson = s"""{"individualDetails": {"dayPhoneNumber": "${phoneNumbersWithIntCode.daytimePhone.drop(1)}"}}"""
 
         userAnswers.data
           .transform(
@@ -556,11 +545,11 @@ class JsonTransformerSpec extends SpecBase {
       "get the phone number as it is" in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers)
           .success
           .value
 
-        val expectedJson = """{"individualDetails": { "dayPhoneNumber": "07700 900 982" }}"""
+        val expectedJson = s"""{"individualDetails": { "dayPhoneNumber": "${phoneNumbers.daytimePhone}" }}"""
 
         userAnswers.data
           .transform(
@@ -580,11 +569,11 @@ class JsonTransformerSpec extends SpecBase {
       "remove + from phone number " in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("+44 7700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbersWithIntCode)
           .success
           .value
 
-        val expectedJson = """{"individualDetails": {"mobilePhone": "44 7700 900 981"}}"""
+        val expectedJson = s"""{"individualDetails": {"mobilePhone": "${phoneNumbersWithIntCode.mobilePhone.drop(1)}"}}"""
 
         userAnswers.data
           .transform(
@@ -601,11 +590,11 @@ class JsonTransformerSpec extends SpecBase {
       "get the phone number as it is" in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers)
           .success
           .value
 
-        val expectedJson = """{ "individualDetails": { "mobilePhone": "07700 900 981" } }"""
+        val expectedJson = s"""{ "individualDetails": { "mobilePhone": "${phoneNumbers.mobilePhone}" } }"""
 
         userAnswers.data
           .transform(
@@ -626,19 +615,19 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct Name object" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
-            |          "middleName": "John",
+            |          "firstName": "${personName3WithoutMiddle.firstName}",
+            |          "lastName": "${personName3WithoutMiddle.lastName}",
+            |          "lastName": "${personName3WithoutMiddle.middleName.get}",
             |          "title": "0001"
             |        }
             |      }
@@ -660,18 +649,18 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct AddressModel with mandatory fields only" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mrs, "Jim", None, "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personName3WithoutMiddle)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
+            |          "firstName": "${personName3WithoutMiddle.firstName}",
+            |          "lastName": "${personName3WithoutMiddle.lastName}",
             |          "title": "0002"
             |        }
             |      }

@@ -18,7 +18,6 @@ package connectors.httpParsers
 
 import base.SpecBase
 import ConfirmedAddressHttpParser.ConfirmedAddressReads
-import base.data.constants.ConfirmedAddressConstants
 import play.api.http.Status
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpResponse
@@ -33,18 +32,18 @@ class ConfirmedAddressHttpParserSpec extends SpecBase {
 
         "return the address" in {
 
-          val expectedResult = Right(ConfirmedAddressConstants.address)
+          val expectedResult = Right(confirmedAddress)
           val actualResult   = ConfirmedAddressReads.read(
             "",
             "",
-            HttpResponse(Status.OK, json = ConfirmedAddressConstants.addressLookupResponse, Map.empty)
+            HttpResponse(Status.OK, json = addressLookupResponse, Map.empty)
           )
 
           actualResult mustBe expectedResult
         }
       }
 
-      "the address is malfored" must {
+      "the address is malformed" must {
 
         "return a AddressMalformed err" in {
 

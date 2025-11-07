@@ -58,7 +58,7 @@ class ChooseNomineeControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: ChooseNomineeController = inject[ChooseNomineeController]
 
-  "ChooseNominee Controller" must {
+  "ChooseNomineeController" must {
 
     "return OK and the correct view for a GET" in {
 

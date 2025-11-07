@@ -87,7 +87,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityCommissionRegistrationNumberPage page when user answer has all options selected and its switch user journey" in {
           nextPageF(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, CharityRegulator.values.toSet))
               .flatMap(_.set(IsSwitchOverUserPage, true))
               .success
@@ -100,10 +100,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(ScottishRegulatorRegNumberPage, "registrationNumber")
               .flatMap(
-                _.set(
-                  CharityOtherRegulatorDetailsPage,
-                  CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-                )
+                _.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               )
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish, Other)))
               .flatMap(_.set(IsSwitchOverUserPage, true))
@@ -115,12 +112,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the NIRegulatorRegNumberPage page when user answer has NorthernIreland and Other selected and its switch user journey" in {
           nextPageF(
             emptyUserAnswers
-              .set(NIRegulatorRegNumberPage, "registrationNumber")
+              .set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber)
               .flatMap(
-                _.set(
-                  CharityOtherRegulatorDetailsPage,
-                  CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-                )
+                _.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               )
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland, Other)))
               .flatMap(_.set(IsSwitchOverUserPage, true))
@@ -132,10 +126,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer hasOther selected and its switch user journey" in {
           nextPageF(
             emptyUserAnswers
-              .set(
-                CharityOtherRegulatorDetailsPage,
-                CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-              )
+              .set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
               .flatMap(_.set(IsSwitchOverUserPage, true))
               .success
@@ -155,7 +146,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales)))
               .success
               .value
@@ -165,7 +156,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the ScottishRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish)))
               .success
               .value
@@ -175,7 +166,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the NIRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, NorthernIreland)))
               .success
               .value
@@ -185,7 +176,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Other)))
               .success
               .value
@@ -195,13 +186,10 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the ScottishRegulatorRegNumberPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
           nextPageF(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
-              .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber"))
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
+              .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
               .flatMap(
-                _.set(
-                  CharityOtherRegulatorDetailsPage,
-                  CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-                )
+                _.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               )
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, Other)))
               .flatMap(_.set(IsSwitchOverUserPage, true))
@@ -213,7 +201,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the RegulatorsSummaryController when user answer has EnglandWales and its switch user journey" in {
           nextPageF(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales)))
               .flatMap(_.set(IsSwitchOverUserPage, true))
               .success
@@ -233,7 +221,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish)))
               .success
               .value
@@ -243,7 +231,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the NIRegulatorRegNumberPage page when user answer has NorthernIreland selected and click Continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish, NorthernIreland)))
               .success
               .value
@@ -253,7 +241,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish, Other)))
               .success
               .value
@@ -261,20 +249,17 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
 
         "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
-          nextPageF(emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber").success.value) mustBe
+          nextPageF(emptyUserAnswers.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber).success.value) mustBe
             routes.PageNotFoundController.onPageLoad()
         }
 
         "go to the CharityOtherRegulatorDetailsPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
           nextPageF(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
-              .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber"))
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
+              .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
               .flatMap(
-                _.set(
-                  CharityOtherRegulatorDetailsPage,
-                  CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-                )
+                _.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               )
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, Other)))
               .flatMap(_.set(IsSwitchOverUserPage, true))
@@ -295,7 +280,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
+              .set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland)))
               .success
               .value
@@ -305,7 +290,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(NIRegulatorRegNumberPage, "registrationNumber")
+              .set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland, Other)))
               .success
               .value
@@ -314,7 +299,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           nextPageF(
-            emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber").success.value
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber).success.value
           ) mustBe
             routes.PageNotFoundController.onPageLoad()
         }
@@ -322,13 +307,10 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer has EnglandWales, Scottish and Other selected and its switch user journey" in {
           nextPageF(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
-              .flatMap(_.set(CharityCommissionRegistrationNumberPage, "registrationNumber"))
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
+              .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
               .flatMap(
-                _.set(
-                  CharityOtherRegulatorDetailsPage,
-                  CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-                )
+                _.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               )
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, Other)))
               .flatMap(_.set(IsSwitchOverUserPage, true))
@@ -349,10 +331,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(
-                CharityOtherRegulatorDetailsPage,
-                CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-              )
+              .set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
               .success
               .value
@@ -362,10 +341,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           nextPageF(
             emptyUserAnswers
-              .set(
-                CharityOtherRegulatorDetailsPage,
-                CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-              )
+              .set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               .success
               .value
           ) mustBe routes.PageNotFoundController.onPageLoad()
@@ -416,7 +392,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the RegulatorsSummary page when clicked continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(WhyNotRegisteredWithCharityPage, "reason")
+              .set(WhyNotRegisteredWithCharityPage, whyNotRegistered)
               .getOrElse(emptyUserAnswers)
           ) mustBe regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }
@@ -521,7 +497,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales)))
               .success
               .value
@@ -532,7 +508,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the ScottishRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish)))
               .success
               .value
@@ -543,7 +519,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the NIRegulatorRegNumberPage page when user answer has Scottish selected and click Continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, NorthernIreland)))
               .success
               .value
@@ -554,7 +530,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(CharityCommissionRegistrationNumberPage, "registrationNumber")
+              .set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Other)))
               .success
               .value
@@ -574,7 +550,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish)))
               .success
               .value
@@ -585,7 +561,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the NIRegulatorRegNumberPage page when user answer has NorthernIreland selected and click Continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish, NorthernIreland)))
               .success
               .value
@@ -596,7 +572,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(ScottishRegulatorRegNumberPage, "registrationNumber")
+              .set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish, Other)))
               .success
               .value
@@ -606,7 +582,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           nextPageCheckMode(
-            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, "registrationNumber").success.value
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber).success.value
           ) mustBe
             routes.PageNotFoundController.onPageLoad()
         }
@@ -623,7 +599,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(NIRegulatorRegNumberPage, "nIRegistrationNumber")
+              .set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland)))
               .success
               .value
@@ -634,7 +610,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the CharityOtherRegulatorDetailsPage page when user answer has Other selected and click Continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(NIRegulatorRegNumberPage, "registrationNumber")
+              .set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](NorthernIreland, Other)))
               .success
               .value
@@ -644,7 +620,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
 
         "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           nextPageCheckMode(
-            emptyUserAnswers.set(NIRegulatorRegNumberPage, "registrationNumber").success.value
+            emptyUserAnswers.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber).success.value
           ) mustBe
             routes.PageNotFoundController.onPageLoad()
         }
@@ -661,10 +637,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the Summary page when clicked continue button" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(
-                CharityOtherRegulatorDetailsPage,
-                CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-              )
+              .set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
               .success
               .value
@@ -674,10 +647,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
           nextPageCheckMode(
             emptyUserAnswers
-              .set(
-                CharityOtherRegulatorDetailsPage,
-                CharityOtherRegulatorDetails("ORegulatorName", "registrationNumber")
-              )
+              .set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
               .success
               .value
           ) mustBe routes.PageNotFoundController.onPageLoad()
@@ -721,7 +691,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the RegulatorsSummaryController page When answer is provided" in {
 
           nextPageCheckMode(
-            emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, "abcd").getOrElse(emptyUserAnswers)
+            emptyUserAnswers.set(WhyNotRegisteredWithCharityPage, whyNotRegistered).getOrElse(emptyUserAnswers)
           ) mustBe
             regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }

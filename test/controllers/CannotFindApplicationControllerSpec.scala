@@ -47,7 +47,7 @@ class CannotFindApplicationControllerSpec extends SpecBase with BeforeAndAfterEa
 
   private val controller: CannotFindApplicationController = inject[CannotFindApplicationController]
 
-  "CannotFindApplication Controller" must {
+  "CannotFindApplicationController" must {
 
     "return OK and the correct view for a GET" in {
 

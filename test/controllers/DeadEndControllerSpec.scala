@@ -50,7 +50,7 @@ class DeadEndControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: DeadEndController = inject[DeadEndController]
 
-  "DeadEnd Controller" must {
+  "DeadEndController" must {
 
     "return OK and the correct view for a GET" in {
 

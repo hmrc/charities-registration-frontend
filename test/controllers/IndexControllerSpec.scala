@@ -71,7 +71,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   lazy val controller: IndexController = inject[IndexController]
 
-  "Index Controller" when {
+  "IndexController" when {
 
     "the acknowledgement reference number is already present" must {
 
@@ -80,7 +80,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
           Future(
             Some(
               emptyUserAnswers
-                .set(AcknowledgementReferencePage, "0123123")
+                .set(AcknowledgementReferencePage, acknowledgementRef)
                 .success
                 .value
             )

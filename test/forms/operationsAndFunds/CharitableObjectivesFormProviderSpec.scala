@@ -60,14 +60,11 @@ class CharitableObjectivesFormProviderSpec extends StringFieldBehaviours {
   }
 
   "validatereason" must {
-
-    "valid for abcd" in {
-
+    "be valid for abcd" in {
       "ab\n\r\tcd" must fullyMatch regex formProvider.validateFieldWithNewLine
     }
 
-    "valid for abc@" in {
-
+    "be invalid for abc@" in {
       "abc@" mustNot fullyMatch regex formProvider.validateFieldWithNewLine
     }
   }

@@ -17,7 +17,6 @@
 package navigation
 
 import base.SpecBase
-import base.data.constants.AddressModelConstants._
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
@@ -37,10 +36,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
   private val navigator: AuthorisedOfficialsNavigator = inject[AuthorisedOfficialsNavigator]
 
   private val minYear                                     = 16
-  private val authorisedOfficialsName: Name               =
-    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-  private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
-
+  private val authorisedOfficialsName: Name               = personNameWithMiddle
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {
@@ -101,8 +97,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AuthorisedOfficialsPhoneNumberPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber)
-                .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(index), authorisedOfficialsPhoneNumber))
+                .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers)
+                .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(index), phoneNumbers))
                 .success
                 .value
             ) mustBe authOfficialRoutes.AuthorisedOfficialsPositionController.onPageLoad(NormalMode, index)
@@ -176,8 +172,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AuthorisedOfficialsNinoPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C")
-                .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 D"))
+                .set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces)
+                .flatMap(_.set(AuthorisedOfficialsNinoPage(index), ninoWithSpaces))
                 .success
                 .value
             ) mustBe
@@ -568,8 +564,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 AuthorisedOfficialsPhoneNumberPage(index),
                 CheckMode,
                 emptyUserAnswers
-                  .set(AuthorisedOfficialsPhoneNumberPage(0), authorisedOfficialsPhoneNumber)
-                  .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(index), authorisedOfficialsPhoneNumber))
+                  .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers)
+                  .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(index), phoneNumbers))
                   .success
                   .value
               ) mustBe
@@ -627,8 +623,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 emptyUserAnswers
                   .set(IsAuthorisedOfficialNinoPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
-                  .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe
@@ -642,8 +638,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 emptyUserAnswers
                   .set(IsAuthorisedOfficialNinoPage(0), true)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
-                  .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe
@@ -678,8 +674,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 AuthorisedOfficialsNinoPage(index),
                 CheckMode,
                 emptyUserAnswers
-                  .set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C")
-                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces)
+                  .flatMap(_.set(AuthorisedOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe

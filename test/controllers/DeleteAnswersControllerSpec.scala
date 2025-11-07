@@ -52,7 +52,7 @@ class DeleteAnswersControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: DeleteAnswersController = inject[DeleteAnswersController]
 
-  "DeleteAnswersController Controller" when {
+  "DeleteAnswersController" when {
 
     "You Delete your answers view" must {
 

@@ -58,9 +58,9 @@ class CharitableObjectivesControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val controller: CharitableObjectivesController = inject[CharitableObjectivesController]
 
-  private val requestArgs = Seq("value" -> "abcd")
+  private val requestArgs = Seq("value" -> charityObjective)
 
-  "CharitableObjectives Controller " must {
+  "CharitableObjectivesController" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -75,7 +75,7 @@ class CharitableObjectivesControllerSpec extends SpecBase with BeforeAndAfterEac
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(CharitableObjectivesPage, "abcd").success.value
+      val userAnswers = emptyUserAnswers.set(CharitableObjectivesPage, charityObjective).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

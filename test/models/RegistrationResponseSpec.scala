@@ -16,37 +16,37 @@
 
 package models
 
+import base.SpecBase
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import play.api.libs.json.Json
 
-class RegistrationResponseSpec extends AnyWordSpec with Matchers {
-
+class RegistrationResponseSpec extends SpecBase {
   "RegistrationResponse" should {
 
     "parse from JSON" in {
       val json = Json.parse(
-        """
+        s"""
           |{
-          |  "acknowledgementReference": "ackRef"
+          |  "acknowledgementReference": "$acknowledgementRef"
           |}
         """.stripMargin
       )
 
       val registrationResponse = json.as[RegistrationResponse]
 
-      registrationResponse.acknowledgementReference mustBe "ackRef"
+      registrationResponse.acknowledgementReference mustBe acknowledgementRef
     }
 
     "write to JSON" in {
-      val registrationResponse = RegistrationResponse("ackRef")
+      val registrationResponse = RegistrationResponse(acknowledgementRef)
 
       val json = Json.toJson(registrationResponse)
 
       json mustBe Json.parse(
-        """
+        s"""
           |{
-          |  "acknowledgementReference": "ackRef"
+          |  "acknowledgementReference": "$acknowledgementRef"
           |}
         """.stripMargin
       )

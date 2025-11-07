@@ -61,8 +61,8 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-      .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones")))
+      .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
+      .flatMap(_.set(AuthorisedOfficialsNamePage(1), personName2WithMiddle))
       .success
       .value
 
@@ -86,7 +86,7 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.RemoveAuthorisedOfficialsController.onSubmit(Index(0)),
         "officialsAndNominees"
@@ -127,7 +127,7 @@ class RemoveAuthorisedOfficialsControllerSpec extends SpecBase with BeforeAndAft
 
       val localUserAnswers: UserAnswers =
         emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .success
           .value
 

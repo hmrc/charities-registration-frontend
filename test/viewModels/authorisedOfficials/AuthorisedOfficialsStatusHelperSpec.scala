@@ -17,7 +17,6 @@
 package viewModels.authorisedOfficials
 
 import base.SpecBase
-import base.data.constants.ConfirmedAddressConstants
 import models.authOfficials.OfficialsPosition
 import models.{Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
@@ -35,7 +34,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
   private val dayOfMonth = 2
 
   def common(index: Int, userAnswers: UserAnswers): UserAnswers = userAnswers
-    .set(AuthorisedOfficialsNamePage(index), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+    .set(AuthorisedOfficialsNamePage(index), Name(SelectTitle.Mr, firstName = "AName", None, lastName = "Lastname"))
     .flatMap(_.set(AuthorisedOfficialsDOBPage(index), LocalDate.of(year, month, dayOfMonth)))
     .flatMap(
       _.set(
@@ -44,7 +43,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
       )
     )
     .flatMap(_.set(AuthorisedOfficialsPositionPage(index), OfficialsPosition.values.head))
-    .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), ConfirmedAddressConstants.address))
+    .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), address))
     .success
     .value
 
@@ -68,7 +67,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
@@ -91,11 +90,11 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
@@ -109,10 +108,10 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), false))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
@@ -124,13 +123,13 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(1),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), false))
@@ -144,12 +143,12 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(1),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -162,9 +161,9 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
             .value
@@ -176,7 +175,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
             .value
@@ -187,15 +186,15 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
             .value
@@ -206,13 +205,13 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
             .value
@@ -223,18 +222,18 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(1),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
             .value
@@ -245,12 +244,12 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(1),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -266,7 +265,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
@@ -291,11 +290,11 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), false)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
@@ -309,12 +308,12 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), false)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -330,11 +329,11 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
             .value
@@ -346,7 +345,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), false)
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
             .value
@@ -360,12 +359,12 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
             .value
@@ -379,20 +378,20 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(1),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
             .value
@@ -406,15 +405,15 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
             .value
@@ -439,14 +438,14 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 AuthorisedOfficialsPassportPage(0),
-                Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+                passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth))
               )
             )
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
-            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino))
+            .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
             .value
@@ -505,7 +504,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
 
     val userAnswers = common(0, emptyUserAnswers)
       .set(IsAuthorisedOfficialNinoPage(0), true)
-      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123123A"))
+      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
       .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
       .success
       .value
@@ -527,8 +526,8 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         common(
           0,
           userAnswers
-            .set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123123A"))
+            .set(AuthorisedOfficialsPassportPage(0), passport.copy(expiryDate = LocalDate.of(year, month, dayOfMonth)))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .success
             .value
         )

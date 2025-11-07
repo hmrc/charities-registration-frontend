@@ -17,7 +17,6 @@
 package controllers.nominees
 
 import base.SpecBase
-import base.data.constants.DateConstants.january1st2002
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
@@ -63,11 +62,11 @@ class OrganisationAuthorisedPersonDOBControllerSpec extends SpecBase with Before
 
   private val requestArgs                   = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
     .success
     .value
 
-  "OrganisationAuthorisedPersonDOB Controller " must {
+  "OrganisationAuthorisedPersonDOBController" must {
 
     "return OK and the correct view for a GET" in {
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
@@ -77,7 +76,7 @@ class OrganisationAuthorisedPersonDOBControllerSpec extends SpecBase with Before
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.OrganisationAuthorisedPersonDOBController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

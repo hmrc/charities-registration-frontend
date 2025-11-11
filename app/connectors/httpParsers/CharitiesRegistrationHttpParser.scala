@@ -36,16 +36,13 @@ object CharitiesRegistrationHttpParser {
           response.json.validate[RegistrationResponse] match {
             case JsSuccess(validResponse, _) => Right(validResponse)
             case JsError(errors)             =>
-              logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $errors returned")
               throw JsResultException(errors)
           }
 
         case BAD_REQUEST =>
-          logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $BAD_REQUEST returned")
           Left(RequestNotAccepted)
 
         case status =>
-          logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, status $status returned")
           Left(UnexpectedFailure(status))
       }
   }

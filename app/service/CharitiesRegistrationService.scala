@@ -69,11 +69,10 @@ class CharitiesRegistrationService @Inject() (
               }
 
           case Left(error) =>
-            logger.error(s"[CharitiesRegistrationService][register] registration failed with error $error")
             throw UnexpectedFailureException(error.body)
 
         } recover { case e =>
-          logger.error(s"[CharitiesRegistrationService][register] registration failed with error $e")
+          logger.info(s"[CharitiesRegistrationService][register] registration failed", e)
           throw UnexpectedFailureException(e.getMessage)
         }
 

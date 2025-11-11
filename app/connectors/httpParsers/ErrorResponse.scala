@@ -46,5 +46,5 @@ object NoLocationHeaderReturned extends ErrorResponse {
 
 object RequestNotAccepted extends ErrorResponse {
   override val status: Int  = BAD_REQUEST
-  override val body: String = "Request was not accepted by backend systems"
+  override val body: String = "Submission was not accepted by backend systems"
 }

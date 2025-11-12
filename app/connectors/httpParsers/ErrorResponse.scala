@@ -16,14 +16,14 @@
 
 package connectors.httpParsers
 
-import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_ACCEPTABLE, NOT_FOUND}
+import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND}
 
 trait ErrorResponse {
   val status: Int
   val body: String
 }
 
-case class DefaultedUnexpectedFailure(override val status: Int) extends ErrorResponse {
+case class UnexpectedFailure(override val status: Int) extends ErrorResponse {
   override val body: String = s"Unexpected response, status $status returned"
 }
 
@@ -44,12 +44,7 @@ object NoLocationHeaderReturned extends ErrorResponse {
   override val body: String = "Address Lookup returned ACCEPTED (202) but did not provide a Location header"
 }
 
-object EtmpFailed extends ErrorResponse {
+object RequestNotAccepted extends ErrorResponse {
   override val status: Int  = BAD_REQUEST
-  override val body: String = "Charities returned unexpected Response from ETMP"
-}
-
-object CharitiesInvalidJson extends ErrorResponse {
-  override val status: Int  = NOT_ACCEPTABLE
-  override val body: String = "Charities returned Json parsing error for invalid json input"
+  override val body: String = "Submission was not accepted by backend systems"
 }

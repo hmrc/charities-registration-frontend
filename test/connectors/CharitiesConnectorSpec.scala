@@ -20,7 +20,7 @@ import base.SpecBase
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import config.FrontendAppConfig
-import connectors.httpParsers.{CharitiesInvalidJson, DefaultedUnexpectedFailure, EtmpFailed}
+import connectors.httpParsers.{RequestNotAccepted, UnexpectedFailure}
 import models.{CharityName, RegistrationResponse, UserAnswers}
 import org.mockito.Mockito._
 import pages.contactDetails.CharityNamePage
@@ -88,27 +88,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
       }
 
       "for an error response" must {
-
-        "return a Left(CharitiesInvalidJson) when failed with invalid input json" in {
-
-          stubFor(
-            post(urlEqualTo("/org/1234/submissions/application"))
-              .withRequestBody(equalToJson(Json.parse("""{"fullName":"Johnson"}""").toString()))
-              .willReturn(aResponse().withStatus(NOT_ACCEPTABLE))
-          )
-
-          val expectedResult = Left(CharitiesInvalidJson)
-          val actualResult   =
-            await(
-              charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), organizationId)(hc, ec)
-            )
-
-          actualResult mustBe expectedResult
-
-          WireMock.verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
-        }
-
-        "return a Left(EtmpFailed) when failed with unexpected error" in {
+        "return a BAD_REQUEST when the request wasn't accepted" in {
 
           stubFor(
             post(urlEqualTo("/org/1234/submissions/application"))
@@ -116,7 +96,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
               .willReturn(aResponse().withStatus(BAD_REQUEST))
           )
 
-          val expectedResult = Left(EtmpFailed)
+          val expectedResult = Left(RequestNotAccepted)
           val actualResult   =
             await(
               charitiesConnector.registerCharities(Json.parse("""{"fullName":"Johnson"}"""), organizationId)(hc, ec)
@@ -127,7 +107,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
           WireMock.verify(postRequestedFor(urlEqualTo("/org/1234/submissions/application")))
         }
 
-        "return a Left(DefaultedUnexpectedFailure) for default errors" in {
+        "return a UnexpectedFailure for other errors" in {
 
           stubFor(
             post(urlEqualTo("/org/1234/submissions/application"))
@@ -135,7 +115,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
               .willReturn(aResponse().withStatus(CONFLICT))
           )
 
-          val expectedResult = Left(DefaultedUnexpectedFailure(CONFLICT))
+          val expectedResult = Left(UnexpectedFailure(CONFLICT))
           val actualResult   = await(charitiesConnector.registerCharities(requestJson, organizationId)(hc, ec))
 
           actualResult mustBe expectedResult

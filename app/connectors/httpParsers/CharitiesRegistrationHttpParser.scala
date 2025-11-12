@@ -18,7 +18,7 @@ package connectors.httpParsers
 
 import models.RegistrationResponse
 import play.api.Logger
-import play.api.http.Status.{ACCEPTED, BAD_REQUEST, NOT_ACCEPTABLE}
+import play.api.http.Status.{ACCEPTED, BAD_REQUEST}
 import play.api.libs.json.{JsError, JsResultException, JsSuccess}
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 
@@ -36,23 +36,14 @@ object CharitiesRegistrationHttpParser {
           response.json.validate[RegistrationResponse] match {
             case JsSuccess(validResponse, _) => Right(validResponse)
             case JsError(errors)             =>
-              logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $errors returned")
               throw JsResultException(errors)
           }
 
-        case NOT_ACCEPTABLE =>
-          logger.error(
-            s"[CharitiesRegistrationResponseReads][read]: can not process json, invalid json posted, $NOT_ACCEPTABLE returned"
-          )
-          Left(CharitiesInvalidJson)
-
         case BAD_REQUEST =>
-          logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, $BAD_REQUEST returned")
-          Left(EtmpFailed)
+          Left(RequestNotAccepted)
 
         case status =>
-          logger.error(s"[CharitiesRegistrationResponseReads][read]: Unexpected response, status $status returned")
-          Left(DefaultedUnexpectedFailure(status))
+          Left(UnexpectedFailure(status))
       }
   }
 }

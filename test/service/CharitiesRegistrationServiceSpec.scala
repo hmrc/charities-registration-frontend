@@ -19,18 +19,18 @@ package service
 import audit.{AuditService, SubmissionAuditEvent}
 import base.SpecBase
 import connectors.CharitiesConnector
-import connectors.httpParsers.{CharitiesInvalidJson, UnexpectedFailureException}
+import connectors.httpParsers.{RequestNotAccepted, UnexpectedFailureException}
 import models.requests.DataRequest
 import models.{RegistrationResponse, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.AcknowledgementReferencePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.AnyContentAsEmpty
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 
 import scala.concurrent.Future
 
@@ -134,7 +134,7 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(userAnswers))
 
       when(mockCharitiesConnector.registerCharities(any(), any())(any(), any())).thenReturn(
-        Future.successful(Left(CharitiesInvalidJson))
+        Future.successful(Left(RequestNotAccepted))
       )
 
       intercept[UnexpectedFailureException] {

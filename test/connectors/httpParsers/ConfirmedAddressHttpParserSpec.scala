@@ -72,7 +72,7 @@ class ConfirmedAddressHttpParserSpec extends SpecBase {
 
       "return a Left(DefaultedUnexpectedFailure)" in {
 
-        val expectedResult = Left(DefaultedUnexpectedFailure(status = Status.INTERNAL_SERVER_ERROR))
+        val expectedResult = Left(UnexpectedFailure(status = Status.INTERNAL_SERVER_ERROR))
         val actualResult   = ConfirmedAddressReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR, ""))
 
         actualResult mustBe expectedResult

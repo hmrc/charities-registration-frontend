@@ -44,7 +44,7 @@ object ConfirmedAddressHttpParser {
           Left(AddressNotFound)
         case status    =>
           logger.warn(s"[ConfirmedAddressReads][read]: Unexpected response, status $status returned")
-          Left(DefaultedUnexpectedFailure(status))
+          Left(UnexpectedFailure(status))
       }
   }
 }

@@ -17,7 +17,6 @@
 package connectors.httpParsers
 
 import models.RegistrationResponse
-import play.api.Logger
 import play.api.http.Status.{ACCEPTED, BAD_REQUEST}
 import play.api.libs.json.{JsError, JsResultException, JsSuccess}
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
@@ -25,8 +24,6 @@ import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 object CharitiesRegistrationHttpParser {
 
   type CharitiesRegistrationResponse = Either[ErrorResponse, RegistrationResponse]
-
-  private val logger = Logger(this.getClass)
 
   implicit object CharitiesRegistrationResponseReads extends HttpReads[CharitiesRegistrationResponse] {
 

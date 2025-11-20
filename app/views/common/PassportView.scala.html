@@ -35,7 +35,7 @@ link: components.link
 
 @govukLayout(pageTitle = Some(title(form, s"$messagePrefix.title", Some("officialsAndNominees.section")))) {
 
-    @errorSummary(form.errors, Try(form.error("expiryDate").get.args.head.toString).toOption)
+    @errorSummary(form.errors, form.error("expiryDate").flatMap(_.args.headOption.map(_.toString)))
 
     @formHelper(action = submitCall, args = Symbol("novalidate") -> "novalidate") {
 

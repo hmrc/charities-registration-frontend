@@ -35,7 +35,7 @@ link: components.link
 
     @formHelper(action = submitCall, args = Symbol("novalidate") -> "novalidate") {
 
-        @errorSummary(form.errors, Try(form.error("date").get.args.head.toString).toOption)
+        @errorSummary(form.errors, form.error("date").flatMap(_.args.headOption.map(_.toString)))
 
             @inputDate(
                 form,

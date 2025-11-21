@@ -12,4 +12,3 @@ addSbtPlugin("uk.gov.hmrc"       % "sbt-sass-compiler"  % "0.12.0")
 addSbtPlugin("com.github.sbt"    % "sbt-concat"         % "1.0.0")
 addSbtPlugin("com.timushev.sbt"  % "sbt-updates"        % "0.6.4")
 addSbtPlugin("com.github.sbt"    % "sbt-digest"         % "2.0.0")
-addSbtPlugin("com.sksamuel.scapegoat" %% "sbt-scapegoat" % "1.2.13") // Verify latest in badge above

@@ -91,7 +91,7 @@ class IndexController @Inject() (
       Map(
         appConfig.registrationContinueKey -> Seq(appConfig.incorrectDetailsLoginContinueUrl),
         "origin"                          -> Seq(appConfig.appName),
-        "accountType"                     -> Seq("organisation")
+        "affinityGroup"                   -> Seq("organisation")
       )
     )
   }

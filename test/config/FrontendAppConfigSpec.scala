@@ -53,7 +53,7 @@ class FrontendAppConfigSpec extends SpecBase {
       }
 
       "loginUrl" in {
-        frontendAppConfig.loginUrl mustBe "http://localhost:9949/auth-login-stub/gg-sign-in?accountType=organisation"
+        frontendAppConfig.loginUrl mustBe "http://localhost:9949/auth-login-stub/gg-sign-in?affinityGroup=organisation"
       }
 
       "login continue key" in {

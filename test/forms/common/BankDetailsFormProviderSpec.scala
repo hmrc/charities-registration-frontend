@@ -210,13 +210,6 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "BankDetailsFormProvider" must {
 
-    val bankDetails = BankDetails(
-      accountName = "fullName",
-      sortCode = "123456",
-      accountNumber = "12345678",
-      rollNumber = Some("rollNumber")
-    )
-
     "apply BankDetails correctly" in {
 
       val details = form
@@ -246,15 +239,7 @@ class BankDetailsFormProviderSpec extends StringFieldBehaviours {
   }
 
   "BankDetailsFormProvider with charity Name" must {
-
-    val bankDetails = BankDetails(
-      accountName = "fullName",
-      sortCode = "123456",
-      accountNumber = "12345678",
-      rollNumber = Some("rollNumber")
-    )
-
-    val form: Form[BankDetails] = formProvider(messagePrefix, "fullName")
+    val form: Form[BankDetails] = formProvider(messagePrefix, bankDetails.accountName)
 
     "apply BankDetails correctly" in {
 

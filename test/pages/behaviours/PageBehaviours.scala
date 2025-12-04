@@ -16,6 +16,7 @@
 
 package pages.behaviours
 
+import common.TestData
 import models.UserAnswers
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
@@ -24,7 +25,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.{OptionValues, TryValues}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import pages.QuestionPage
-import play.api.libs.json._
+import play.api.libs.json.*
 import utils.Generators
 
 trait PageBehaviours
@@ -33,7 +34,8 @@ trait PageBehaviours
     with ScalaCheckPropertyChecks
     with Generators
     with OptionValues
-    with TryValues {
+    with TryValues
+    with TestData {
 
   class BeRetrievable[A] {
     def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A]): Unit = {

@@ -59,13 +59,6 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
 
   private val controller: OrganisationNomineesBankDetailsController = inject[OrganisationNomineesBankDetailsController]
 
-  private val bankDetails: BankDetails = BankDetails(
-    accountName = "fullName",
-    sortCode = "123456",
-    accountNumber = "12345678",
-    rollNumber = Some("operatingName")
-  )
-
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(OrganisationNomineeNamePage, "TESCO").success.value
 
@@ -103,10 +96,10 @@ class OrganisationNomineesBankDetailsControllerSpec extends SpecBase with Before
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "accountName"   -> "fullName",
-        "sortCode"      -> "123456",
-        "accountNumber" -> "12345678",
-        "rollNumber"    -> "operatingName"
+        "accountName"   -> accountName,
+        "sortCode"      -> sortCode,
+        "accountNumber" -> accountNumber,
+        "rollNumber"    -> rollNumber
       )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))

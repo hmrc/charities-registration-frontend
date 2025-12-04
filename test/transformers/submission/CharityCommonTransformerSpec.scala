@@ -358,19 +358,19 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct BankDetails" in {
 
         val userAnswers = emptyUserAnswers
-          .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName")))
+          .set(BankDetailsPage, bankDetails)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
-            |        "accountName": "fullName",
-            |        "rollNumber": "operatingName",
-            |        "accountNumber": "12345678",
-            |        "sortCode": "123456"
+            |        "accountName": "$accountName",
+            |        "rollNumber": "$rollNumber",
+            |        "accountNumber": "$accountNumber",
+            |        "sortCode": "$sortCode"
             |      }
             |    }
             |  }
@@ -382,16 +382,16 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct AddressModel with mandatory fields only" in {
 
         val userAnswers =
-          emptyUserAnswers.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None)).success.value
+          emptyUserAnswers.set(BankDetailsPage, bankDetailsWithoutRollNumber).success.value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
-            |        "accountName": "fullName",
-            |        "accountNumber": "12345678",
-            |        "sortCode": "123456"
+            |        "accountName": "$accountName",
+            |        "accountNumber": "$accountNumber",
+            |        "sortCode": "$sortCode"
             |      }
             |    }
             |  }
@@ -517,7 +517,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
+          .flatMap(_.set(BankDetailsPage, bankDetails))
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
@@ -561,10 +561,10 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
-            |        "accountName": "fullName",
-            |        "rollNumber": "operatingName",
-            |        "accountNumber": "12345678",
-            |        "sortCode": "123456"
+            |        "accountName": "$accountName",
+            |        "rollNumber": "$rollNumber",
+            |        "accountNumber": "$accountNumber",
+            |        "sortCode": "$sortCode"
             |      },
             |      "declarationInfo": {
             |        "name": {
@@ -633,7 +633,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
-          .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
+          .flatMap(_.set(BankDetailsPage, bankDetails))
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
@@ -681,10 +681,10 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
-            |        "accountName": "fullName",
-            |        "rollNumber": "operatingName",
-            |        "accountNumber": "12345678",
-            |        "sortCode": "123456"
+            |        "accountName": "$accountName",
+            |        "rollNumber": "$rollNumber",
+            |        "accountNumber": "$accountNumber",
+            |        "sortCode": "$sortCode"
             |      },
             |      "declarationInfo": {
             |        "name": {
@@ -755,7 +755,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None)))
+          .flatMap(_.set(BankDetailsPage, bankDetailsWithoutRollNumber))
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
@@ -779,9 +779,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |  "charityRegistration": {
             |    "common": {
             |      "bankDetails": {
-            |        "accountName": "fullName",
-            |        "accountNumber": "12345678",
-            |        "sortCode": "123456"
+            |        "accountName": "$accountName",
+            |        "accountNumber": "$accountNumber",
+            |        "sortCode": "$sortCode"
             |      },
             |      "declarationInfo": {
             |        "name": {

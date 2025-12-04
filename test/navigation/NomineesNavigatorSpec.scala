@@ -45,13 +45,6 @@ class NomineesNavigatorSpec extends SpecBase {
   private val minAddressLines: AddressModel             =
     AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
 
-  private val bankDetails = BankDetails(
-    accountName = "fullName",
-    sortCode = "123456",
-    accountNumber = "12345678",
-    rollNumber = Some("operatingName")
-  )
-
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {

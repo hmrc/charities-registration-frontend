@@ -108,7 +108,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
     "convert right with all fields filled" in {
 
       val userAnswers = baseAnswers
-        .flatMap(_.set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", Some("operatingName"))))
+        .flatMap(_.set(BankDetailsPage, bankDetails))
         .flatMap(
           _.set(
             CharityOfficialAddressLookupPage,

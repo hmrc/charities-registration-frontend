@@ -76,9 +76,9 @@
     },
     "publicBenefits": "Test",
     "bankDetails": {
-      "accountName": "account name",
-      "sortCode": "123456",
-      "accountNumber": "12121212"
+      "accountName": "__ACCOUNTNAME__",
+      "sortCode": "__SORTCODE__",
+      "accountNumber": "__ACCOUNTNUMBER__"
     },
     "isSection3Completed": true,
     "isApprovedGoverningDocument": true,

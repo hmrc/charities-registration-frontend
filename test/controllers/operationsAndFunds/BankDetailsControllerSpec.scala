@@ -61,13 +61,6 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: BankDetailsController = inject[BankDetailsController]
 
-  private val bankDetails = BankDetails(
-    accountName = "fullName",
-    sortCode = "123456",
-    accountNumber = "12345678",
-    rollNumber = Some("operatingName")
-  )
-
   "BankDetails Controller" must {
 
     "redirect to session expired and if charity name is not defined" in {
@@ -127,10 +120,10 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "accountName"   -> "fullName",
-        "sortCode"      -> "123456",
-        "accountNumber" -> "12345678",
-        "rollNumber"    -> "operatingName"
+        "accountName"   -> accountName,
+        "sortCode"      -> sortCode,
+        "accountNumber" -> accountNumber,
+        "rollNumber"    -> rollNumber
       )
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(

@@ -18,12 +18,13 @@ package connectors
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
+import common.TestData
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.Source
 
-trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach {
+trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach with TestData {
   this: Suite =>
 
   private val wireHost                   = "localhost"
@@ -50,9 +51,9 @@ trait WireMockHelper extends BeforeAndAfterAll with BeforeAndAfterEach {
 
   def readJsonFromFile(filePath: String): JsValue = {
     val source = Source.fromURL(getClass.getResource(filePath))
-    val path   =
+    val json   =
       try source.mkString
       finally source.close()
-    Json.parse(path)
+    Json.parse(replacePlaceholders(json))
   }
 }

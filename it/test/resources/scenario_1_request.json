@@ -50,9 +50,9 @@
     },
     "accountingPeriodEndDate": "--01-01",
     "bankDetails": {
-      "accountName": "fullName",
-      "sortCode": "123456",
-      "accountNumber": "12345678"
+      "accountName": "__ACCOUNTNAME__",
+      "sortCode": "__SORTCODE__",
+      "accountNumber": "__ACCOUNTNUMBER__"
     },
     "charityOfficialAddress": {
       "lines": [

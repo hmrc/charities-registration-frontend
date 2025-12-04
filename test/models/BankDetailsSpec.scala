@@ -16,66 +16,64 @@
 
 package models
 
-import org.scalatest.OptionValues
-import org.scalatest.matchers.must.Matchers
-import org.scalatest.wordspec.AnyWordSpec
+import base.SpecBase
 import play.api.libs.json.Json
 
-class BankDetailsSpec extends AnyWordSpec with Matchers with OptionValues {
+class BankDetailsSpec extends SpecBase {
 
   "A Bank details object" should {
 
     "serialize correctly new format" when {
 
       val bankDetails = BankDetails(
-        accountName = "fullName",
-        sortCode = "12-34-56",
-        accountNumber = "12 34 56 78",
-        rollNumber = Some("operatingName")
+        accountName = accountName,
+        sortCode = sortCodeWithHyphens,
+        accountNumber = accountNumberWithSpaces,
+        rollNumber = Some(rollNumber)
       )
       val result      = Json.toJson(bankDetails)(BankDetails.writes)
 
       "we have a accountName" in {
-        (result \ "accountName").as[String] mustBe "fullName"
+        (result \ "accountName").as[String] mustBe accountName
       }
 
       "we have sortCode" in {
-        (result \ "sortCode").as[String] mustBe "123456"
+        (result \ "sortCode").as[String] mustBe sortCode
       }
 
       "we have accountNumber" in {
-        (result \ "accountNumber").as[String] mustBe "12345678"
+        (result \ "accountNumber").as[String] mustBe accountNumber
       }
 
       "we have rollNumber" in {
-        (result \ "rollNumber").as[String] mustBe "operatingName"
+        (result \ "rollNumber").as[String] mustBe rollNumber
       }
     }
 
     "deserialize correctly new format" when {
 
       val json   = Json.obj(
-        "accountName"   -> "fullName",
-        "sortCode"      -> "12-34-56",
-        "accountNumber" -> "12 34 56 78",
-        "rollNumber"    -> "operatingName"
+        "accountName"   -> accountName,
+        "sortCode"      -> sortCodeWithHyphens,
+        "accountNumber" -> accountNumberWithSpaces,
+        "rollNumber"    -> rollNumber
       )
       val result = json.as[BankDetails]
 
       "we have a accountName" in {
-        result.accountName mustBe "fullName"
+        result.accountName mustBe accountName
       }
 
       "we have sortCode" in {
-        result.sortCode mustBe "12-34-56"
+        result.sortCode mustBe sortCodeWithHyphens
       }
 
       "we have accountNumber" in {
-        result.accountNumber mustBe "12 34 56 78"
+        result.accountNumber mustBe accountNumberWithSpaces
       }
 
       "we have rollNumber" in {
-        result.rollNumber.value mustBe "operatingName"
+        result.rollNumber.value mustBe rollNumber
       }
     }
 

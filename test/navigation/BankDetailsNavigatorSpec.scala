@@ -26,13 +26,6 @@ class BankDetailsNavigatorSpec extends SpecBase {
 
   private val navigator: BankDetailsNavigator = inject[BankDetailsNavigator]
 
-  private val bankDetails = BankDetails(
-    accountName = "fullName",
-    sortCode = "123456",
-    accountNumber = "12345678",
-    rollNumber = Some("operatingName")
-  )
-
   "Navigator.nextPage(page, mode, userAnswers)" when {
 
     "in Normal mode" when {

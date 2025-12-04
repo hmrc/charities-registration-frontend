@@ -48,12 +48,12 @@ class CharitiesRegistrationServiceSpec extends SpecBase with BeforeAndAfterEach 
 
   val expectedJsonObject: JsObject =
     Json
-      .parse("""{
+      .parse(s"""{
                |  "charityRegistration": {
                |    "common": {
                |      "bankDetails": {
-               |        "sortCode": "000123",
-               |        "accountNumber": "00000123"
+               |        "sortCode": "$sortCode",
+               |        "accountNumber": "$accountNumber"
                |      }
                |    }
                |  }

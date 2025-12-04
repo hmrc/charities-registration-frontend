@@ -21,6 +21,7 @@ val commonSettings: Seq[String] = Seq(
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin)
+  .settings(inConfig(Test)(testSettings) *)
   .settings(libraryDependencies ++= AppDependencies())
   .settings(CodeCoverageSettings())
   .settings(PlayKeys.playDefaultPort := 9457)
@@ -51,10 +52,14 @@ lazy val microservice = Project(appName, file("."))
     Assets / pipelineStages := Seq(concat)
   )
 
+lazy val testSettings: Seq[Def.Setting[_]] = Seq(
+  fork := true,
+  unmanagedSourceDirectories += baseDirectory.value / "test-utils"
+)
+
 lazy val it = project
   .enablePlugins(PlayScala)
   .dependsOn(microservice % "test->test") // the "test->test" allows reusing test code and test dependencies
   .settings(DefaultBuildSettings.itSettings(), scalacOptions ++= commonSettings)
-  
 
 addCommandAlias("scalafmtAll", "all scalafmtSbt scalafmt Test/scalafmt it/Test/scalafmt")

@@ -725,17 +725,17 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct bankDetails object with bank roll number" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", Some("bankRoll123")))
+          .set(OrganisationNomineesBankDetailsPage, bankDetails)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
              |        "bankDetails": {
-             |              "accountName": "bankAcc",
-             |              "sortCode": 112233,
-             |              "accountNumber": 12341234,
-             |              "rollNumber": "bankRoll123"
+             |              "accountName": "$accountName",
+             |              "sortCode": $sortCode,
+             |              "accountNumber": $accountNumber,
+             |              "rollNumber": "$rollNumber"
              |        }
              |  }""".stripMargin
 
@@ -747,16 +747,16 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct bankDetails object without bank roll number" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None))
+          .set(OrganisationNomineesBankDetailsPage, bankDetailsWithoutRollNumber)
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
              |        "bankDetails": {
-             |              "accountName": "bankAcc",
-             |              "sortCode": 112233,
-             |              "accountNumber": 12341234
+             |              "accountName": "$accountName",
+             |              "sortCode": $sortCode,
+             |              "accountNumber": $accountNumber
              |        }
              |  }""".stripMargin
 
@@ -795,18 +795,18 @@ class CharityPartnerTransformerSpec extends SpecBase {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
           .set(IsOrganisationNomineePaymentsPage, true)
-          .flatMap(_.set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None)))
+          .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetailsWithoutRollNumber))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |   "paymentDetails": {
             |     "authorisedPayments": true,
             |     "bankDetails": {
-            |              "accountName": "bankAcc",
-            |              "sortCode": 112233,
-            |              "accountNumber": 12341234
+            |              "accountName": "$accountName",
+            |              "sortCode": $sortCode,
+            |              "accountNumber": $accountNumber
             |     }
             |   }
             |}""".stripMargin
@@ -1359,7 +1359,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           )
           .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
           .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
-          .flatMap(_.set(OrganisationNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None)))
+          .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetailsWithoutRollNumber))
           .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Authorised", None, "Person")))
           .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, day)))
           .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AA123123A"))
@@ -1535,9 +1535,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "paymentDetails": {
              |          "authorisedPayments": true,
              |          "bankDetails": {
-             |            "accountName": "bankAcc",
-             |            "sortCode": 112233,
-             |            "accountNumber": 12341234
+             |            "accountName": "$accountName",
+             |            "sortCode": $sortCode,
+             |            "accountNumber": $accountNumber
              |          }
              |        }
              |      }
@@ -1574,7 +1574,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             )
           )
           .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
-          .flatMap(_.set(IndividualNomineesBankDetailsPage, BankDetails("bankAcc", "112233", "12341234", None)))
+          .flatMap(_.set(IndividualNomineesBankDetailsPage, bankDetailsWithoutRollNumber))
           .success
           .value
 
@@ -1748,9 +1748,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "paymentDetails": {
              |          "authorisedPayments": true,
              |          "bankDetails": {
-             |            "accountName": "bankAcc",
-             |            "sortCode": 112233,
-             |            "accountNumber": 12341234
+             |            "accountName": "$accountName",
+             |            "sortCode": $sortCode,
+             |            "accountNumber": $accountNumber
              |          }
              |        }
              |      }

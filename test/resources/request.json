@@ -44,10 +44,10 @@
         }
       },
       "bankDetails": {
-        "accountName": "Test Account Name",
-        "accountNumber": 11223456,
-        "sortCode": 123456,
-        "rollNumber": "606060"
+        "accountName": "__ACCOUNTNAME__",
+        "sortCode": "__SORTCODE__",
+        "accountNumber": "__ACCOUNTNUMBER__",
+        "rollNumber": "__ROLLNUMBER__"
       },
       "declarationInfo": {
         "name": {
@@ -241,10 +241,10 @@
         "paymentDetails": {
           "authorisedPayments": false,
           "bankDetails": {
-            "accountName": "Test Account Name",
-            "accountNumber": 11223456,
-            "sortCode": 123456,
-            "rollNumber": "606060"
+            "accountName": "__ACCOUNTNAME__",
+            "sortCode": "__SORTCODE__",
+            "accountNumber": "__ACCOUNTNUMBER__",
+            "rollNumber" : "__ROLLNUMBER__"
           }
         }
       }

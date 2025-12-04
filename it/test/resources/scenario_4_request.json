@@ -66,10 +66,10 @@
     },
     "publicBenefits": "Test",
     "bankDetails": {
-      "accountName": "account name",
-      "sortCode": "123456",
-      "accountNumber": "12121212",
-      "rollNumber": "roll number"
+      "accountName": "__ACCOUNTNAME__",
+      "sortCode": "__SORTCODE__",
+      "accountNumber": "__ACCOUNTNUMBER__",
+      "rollNumber": "__ROLLNUMBER__"
     },
     "isSection3Completed": true,
     "isApprovedGoverningDocument": false,

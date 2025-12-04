@@ -26,10 +26,10 @@
       }
     },
     "bankDetails" : {
-      "accountName" : "Charity two",
-      "sortCode" : "654321",
-      "accountNumber" : "654321",
-      "rollNumber" : "9865"
+      "accountName": "__ACCOUNTNAME__",
+      "sortCode": "__SORTCODE__",
+      "accountNumber": "__ACCOUNTNUMBER__",
+      "rollNumber" : "__ROLLNUMBER__"
     },
     "isSection3Completed" : true,
     "operatingLocation" : [

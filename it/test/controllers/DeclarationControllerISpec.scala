@@ -20,10 +20,10 @@ import models.UserAnswers
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Result
 import play.api.test.Helpers
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import stubs.AuthStub
 import stubs.AuthStub.authorised
-import stubs.CharitiesStub._
+import stubs.CharitiesStub.*
 import utils.{IntegrationSpecBase, WireMockMethods}
 
 import scala.concurrent.Future
@@ -36,16 +36,15 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
     val result =
       try source.mkString
       finally source.close()
-    Json.parse(result)
+    Json.parse(replacePlaceholders(result))
   }
 
   trait LocalSetup {
 
     def internalId: String
 
-    private val requestJson: String = s"/$internalId.json"
-
-    def ua: UserAnswers = readJsonFromFile(requestJson).as[UserAnswers]
+    private val requestJsonFileName = s"/$internalId.json"
+    private val ua                  = readJsonFromFile(requestJsonFileName).as[UserAnswers]
 
     stubUserAnswerGet(ua, internalId)
     stubUserAnswerPost(ua, internalId)

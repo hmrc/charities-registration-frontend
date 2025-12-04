@@ -29,15 +29,7 @@ class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val helper = new BankDetailsSummaryHelper(
     UserAnswers("id")
-      .set(
-        BankDetailsPage,
-        BankDetails(
-          accountName = "PM Cares",
-          sortCode = "176534",
-          accountNumber = "43444546",
-          rollNumber = Some("765431234")
-        )
-      )
+      .set(BankDetailsPage, bankDetails)
       .success
       .value
   )
@@ -51,25 +43,25 @@ class BankDetailsSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
         helper.rows mustBe Seq(
           summaryListRow(
             messages("bankDetails.accountName.checkYourAnswersLabel"),
-            HtmlContent("PM Cares"),
+            HtmlContent(accountName),
             Some(messages("bankDetails.accountName.checkYourAnswersLabel")),
             operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("bankDetails.sortCode.checkYourAnswersLabel"),
-            HtmlContent("176534"),
+            HtmlContent(sortCode),
             Some(messages("bankDetails.sortCode.checkYourAnswersLabel")),
             operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("bankDetails.accountNumber.checkYourAnswersLabel"),
-            HtmlContent("43444546"),
+            HtmlContent(accountNumber),
             Some(messages("bankDetails.accountNumber.checkYourAnswersLabel")),
             operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("bankDetails.rollNumber.checkYourAnswersLabel"),
-            HtmlContent("765431234"),
+            HtmlContent(rollNumber),
             Some(messages("bankDetails.rollNumber.checkYourAnswersLabel")),
             operationFundsRoutes.BankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

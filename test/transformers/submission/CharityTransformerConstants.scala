@@ -40,7 +40,7 @@ trait CharityTransformerConstants extends SpecBase {
   private val date = LocalDate.now()
 
   lazy val baseAnswers: Try[UserAnswers] = emptyUserAnswers
-    .set(BankDetailsPage, BankDetails("fullName", "123456", "12345678", None))
+    .set(BankDetailsPage, bankDetailsWithoutRollNumber)
     .flatMap(
       _.set(
         CharityOfficialAddressLookupPage,
@@ -201,10 +201,10 @@ trait CharityTransformerConstants extends SpecBase {
        |    },
        |    "common": {
        |      "bankDetails": {
-       |        "accountName": "fullName",
-       |        "rollNumber": "operatingName",
-       |        "accountNumber": "12345678",
-       |        "sortCode": "123456"
+       |        "accountName": "$accountName",
+       |        "rollNumber": "$rollNumber",
+       |        "accountNumber": "$accountNumber",
+       |        "sortCode": "$sortCode"
        |      },
        |      "declarationInfo": {
        |        "name": {
@@ -391,9 +391,9 @@ trait CharityTransformerConstants extends SpecBase {
        |  "charityRegistration": {
        |    "common": {
        |      "bankDetails": {
-       |        "accountName": "fullName",
-       |        "accountNumber": "12345678",
-       |        "sortCode": "123456"
+       |        "accountName": "$accountName",
+       |        "accountNumber": "$accountNumber",
+       |        "sortCode": "$sortCode"
        |      },
        |      "declarationInfo": {
        |        "name": {
@@ -560,9 +560,9 @@ trait CharityTransformerConstants extends SpecBase {
        |  "charityRegistration": {
        |    "common": {
        |      "bankDetails": {
-       |        "accountName": "fullName",
-       |        "accountNumber": "12345678",
-       |        "sortCode": "123456"
+       |        "accountName": "$accountName",
+       |        "accountNumber": "$accountNumber",
+       |        "sortCode": "$sortCode"
        |      },
        |      "declarationInfo": {
        |        "name": {

@@ -16,7 +16,8 @@
 
 package utils
 
-import org.scalatest.*
+import common.TestData
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen, TestSuite, TryValues}
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -45,7 +46,8 @@ trait IntegrationSpecBase
     with BeforeAndAfterEach
     with BeforeAndAfterAll
     with Eventually
-    with CustomMatchers {
+    with CustomMatchers
+    with TestData {
 
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.global
   implicit val hc: HeaderCarrier    = HeaderCarrier()

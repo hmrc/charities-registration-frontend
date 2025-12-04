@@ -49,17 +49,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     def addPayment(): UserAnswers =
       userAnswers
         .set(IsIndividualNomineePaymentsPage, true)
-        .flatMap(
-          _.set(
-            IndividualNomineesBankDetailsPage,
-            BankDetails(
-              accountName = "PM Cares",
-              sortCode = "176534",
-              accountNumber = "43444546",
-              rollNumber = Some("765431234")
-            )
-          )
-        )
+        .flatMap(_.set(IndividualNomineesBankDetailsPage, bankDetails))
         .success
         .value
 
@@ -76,17 +66,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     def addOrganisationPayment(): UserAnswers =
       userAnswers
         .set(IsOrganisationNomineePaymentsPage, true)
-        .flatMap(
-          _.set(
-            OrganisationNomineesBankDetailsPage,
-            BankDetails(
-              accountName = "PM Cares",
-              sortCode = "176534",
-              accountNumber = "43444546",
-              rollNumber = Some("765431234")
-            )
-          )
-        )
+        .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetails))
         .success
         .value
 

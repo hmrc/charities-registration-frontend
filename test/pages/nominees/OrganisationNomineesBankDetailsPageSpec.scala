@@ -17,26 +17,19 @@
 package pages.nominees
 
 import models.BankDetails
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
 
 class OrganisationNomineesBankDetailsPageSpec extends PageBehaviours {
 
   "OrganisationNomineesBankAccountDetailsPage" must {
 
-    implicit lazy val arbitraryBankDetails: Arbitrary[BankDetails] = Arbitrary {
-      BankDetails(
-        accountName = "fullName",
-        sortCode = "123456",
-        accountNumber = "12345678",
-        rollNumber = Some("operatingName")
-      )
-    }
+    implicit lazy val arbitraryBankDetails: Arbitrary[BankDetails] = Arbitrary(bankDetails)
+
+    println(bankDetails)
 
     beRetrievable[BankDetails](OrganisationNomineesBankDetailsPage)
-
     beSettable[BankDetails](OrganisationNomineesBankDetailsPage)
-
     beRemovable[BankDetails](OrganisationNomineesBankDetailsPage)
   }
 }

@@ -53,17 +53,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
       .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
       .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address))
       .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
-      .flatMap(
-        _.set(
-          IndividualNomineesBankDetailsPage,
-          BankDetails(
-            accountName = "PM Cares",
-            sortCode = "176534",
-            accountNumber = "43444546",
-            rollNumber = Some("765431234")
-          )
-        )
-      )
+      .flatMap(_.set(IndividualNomineesBankDetailsPage, bankDetails))
       .flatMap(_.set(IndividualNomineesPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))))
       .success
       .value
@@ -258,7 +248,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAccountName mustBe Some(
           summaryListRow(
             messages("individualNomineesBankDetails.accountName.checkYourAnswersLabel"),
-            HtmlContent("PM Cares"),
+            HtmlContent(accountName),
             Some(messages("individualNomineesBankDetails.accountName.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -272,7 +262,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeSortCode mustBe Some(
           summaryListRow(
             messages("individualNomineesBankDetails.sortCode.checkYourAnswersLabel"),
-            HtmlContent("176534"),
+            HtmlContent(sortCode),
             Some(messages("individualNomineesBankDetails.sortCode.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -286,7 +276,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAccountNumber mustBe Some(
           summaryListRow(
             messages("individualNomineesBankDetails.accountNumber.checkYourAnswersLabel"),
-            HtmlContent("43444546"),
+            HtmlContent(accountNumber),
             Some(messages("individualNomineesBankDetails.accountNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -300,7 +290,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeBuildingRoll mustBe Some(
           summaryListRow(
             messages("individualNomineesBankDetails.rollNumber.checkYourAnswersLabel"),
-            HtmlContent("765431234"),
+            HtmlContent(rollNumber),
             Some(messages("individualNomineesBankDetails.rollNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesBankDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

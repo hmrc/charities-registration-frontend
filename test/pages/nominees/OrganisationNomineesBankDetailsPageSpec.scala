@@ -26,8 +26,6 @@ class OrganisationNomineesBankDetailsPageSpec extends PageBehaviours {
 
     implicit lazy val arbitraryBankDetails: Arbitrary[BankDetails] = Arbitrary(bankDetails)
 
-    println(bankDetails)
-
     beRetrievable[BankDetails](OrganisationNomineesBankDetailsPage)
     beSettable[BankDetails](OrganisationNomineesBankDetailsPage)
     beRemovable[BankDetails](OrganisationNomineesBankDetailsPage)

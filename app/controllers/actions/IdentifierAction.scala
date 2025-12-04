@@ -56,7 +56,7 @@ class AuthenticatedIdentifierAction @Inject() (
           Map(
             config.loginContinueKey -> Seq(redirectUrl),
             "origin"                -> Seq(config.appName),
-            "accountType"           -> Seq("organisation")
+            "affinityGroup"         -> Seq("organisation")
           )
         )
       case _: AuthorisationException =>

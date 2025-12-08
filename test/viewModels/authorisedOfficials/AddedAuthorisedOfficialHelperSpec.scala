@@ -19,19 +19,20 @@ package viewModels.authorisedOfficials
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
-import controllers.authorisedOfficials.{routes => authOfficials}
+import controllers.authorisedOfficials.routes as authOfficials
 import models.authOfficials.OfficialsPosition
 import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
-import org.mockito.ArgumentMatchers.{any, eq => meq}
+import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
-import pages.authorisedOfficials._
+import pages.authorisedOfficials.*
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
 
@@ -52,7 +53,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
     .flatMap(_.set(IsAuthorisedOfficialNinoPage(0), true))
     .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
     .flatMap(
-      _.set(AuthorisedOfficialsPassportPage(0), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))
+      _.set(AuthorisedOfficialsPassportPage(0), passport)
     )
     .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), ConfirmedAddressConstants.address))
     .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
@@ -192,7 +193,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialPassportNumberRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel"),
-            HtmlContent("GB12345"),
+            HtmlContent(passportNumber),
             Some(messages("authorisedOfficialsPassport.passportNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -215,10 +216,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
 
         helper(
           authorisedOfficialDetails()
-            .set(
-              AuthorisedOfficialsPassportPage(0),
-              Passport("GB12345", "Unknown", LocalDate.of(year, month, dayOfMonth))
-            )
+            .set(AuthorisedOfficialsPassportPage(0), passport.copy(country = "Unknown"))
             .success
             .value,
           0
@@ -237,7 +235,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialExpiryDateRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel"),
-            HtmlContent("2 January 2000"),
+            HtmlContent(passport.expiryDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))),
             Some(messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

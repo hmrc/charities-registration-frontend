@@ -165,7 +165,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
           .flatMap(
-            _.set(AuthorisedOfficialsPassportPage(0), Passport("passportNumber", "gb", LocalDate.now.plusDays(1)))
+            _.set(AuthorisedOfficialsPassportPage(0), passport.copy("passportNumber", "gb", passport.expiryDate.plusDays(1)))
           )
           .success
           .value
@@ -185,7 +185,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "mobilePhone": "07700 900 981",
             |                "nationalIdentityNumber": "passportNumber",
             |                "nationalIDCardIssuingCountry": "gb",
-            |                "nationalIDCardExpiryDate": "${LocalDate.now.plusDays(1)}"
+            |                "nationalIDCardExpiryDate": "${passport.expiryDate.plusDays(1)}"
             |        }
             |  }""".stripMargin
 

@@ -41,9 +41,9 @@
           }
         },
         "officialsPassport": {
-          "passportNumber": "UK12345",
-          "country": "SE",
-          "expiryDate": "2099-11-11"
+          "passportNumber": "__PASSPORTNUMBER__",
+          "country": "__PASSPORTCOUNTRY__",
+          "expiryDate": "__EXPIRYDATE__"
         }
       },
       {
@@ -74,9 +74,9 @@
           "lastName": "Waugh"
         },
         "officialsPassport": {
-          "passportNumber": "AT12345",
-          "country": "FR",
-          "expiryDate": "2099-09-23"
+          "passportNumber": "__PASSPORTNUMBER__",
+          "country": "__PASSPORTCOUNTRY__",
+          "expiryDate": "__EXPIRYDATE__"
         }
       }
     ],
@@ -127,7 +127,7 @@
       "accountName": "__ACCOUNTNAME__",
       "sortCode": "__SORTCODE__",
       "accountNumber": "__ACCOUNTNUMBER__",
-      "rollNumber" : "__ROLLNUMBER__"
+      "rollNumber": "__ROLLNUMBER__"
     },
     "isSection3Completed": true,
     "isApprovedGoverningDocument": true,
@@ -228,9 +228,9 @@
         },
         "officialsNino": "CS 70 01 00 A",
         "officialsPassport": {
-          "passportNumber": "UK12345",
-          "country": "FR",
-          "expiryDate": "2099-11-11"
+          "passportNumber": "__PASSPORTNUMBER__",
+          "country": "__PASSPORTCOUNTRY__",
+          "expiryDate": "__EXPIRYDATE__"
         }
       },
       {

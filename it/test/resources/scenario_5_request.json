@@ -1,293 +1,293 @@
 {
-  "_id" : "scenario_5_request",
-  "data" : {
-    "charityEstablishedIn" : "1",
-    "charitablePurposes" : [
+  "_id": "scenario_5_request",
+  "data": {
+    "charityEstablishedIn": "1",
+    "charitablePurposes": [
       "education"
     ],
-    "hasCharityChangedPartsOfGoverningDocument" : true,
-    "charityRegulator" : [
+    "hasCharityChangedPartsOfGoverningDocument": true,
+    "charityRegulator": [
       "ccew",
       "oscr",
       "ccni",
       "otherRegulator"
     ],
-    "publicBenefits" : "Charity Purpose",
-    "charityOfficialAddress" : {
-      "lines" : [
+    "publicBenefits": "Charity Purpose",
+    "charityOfficialAddress": {
+      "lines": [
         "4 Other Place",
         "Some District",
         "Anytown"
       ],
-      "postcode" : "ZZ1 1ZZ",
-      "country" : {
-        "code" : "GB",
-        "name" : "United Kingdom"
+      "postcode": "ZZ1 1ZZ",
+      "country": {
+        "code": "GB",
+        "name": "United Kingdom"
       }
     },
-    "bankDetails" : {
+    "bankDetails": {
       "accountName": "__ACCOUNTNAME__",
       "sortCode": "__SORTCODE__",
       "accountNumber": "__ACCOUNTNUMBER__",
-      "rollNumber" : "__ROLLNUMBER__"
+      "rollNumber": "__ROLLNUMBER__"
     },
-    "isSection3Completed" : true,
-    "operatingLocation" : [
+    "isSection3Completed": true,
+    "operatingLocation": [
       "5"
     ],
-    "charityContactDetails" : {
-      "daytimePhone" : "07111111111",
-      "mobilePhone" : "0722222222222",
-      "emailAddress" : "test@test.com"
+    "charityContactDetails": {
+      "daytimePhone": "07111111111",
+      "mobilePhone": "0722222222222",
+      "emailAddress": "test@test.com"
     },
-    "isCharityRegulator" : true,
-    "sectionsChangedGoverningDocument" : "Section one",
-    "isBankStatements" : false,
-    "accountingPeriodEndDate" : "--04-01",
-    "isSection9Completed" : true,
-    "isSection4Completed" : true,
-    "whatCountryDoesTheCharityOperateIn" : [
+    "isCharityRegulator": true,
+    "sectionsChangedGoverningDocument": "Section one",
+    "isBankStatements": false,
+    "accountingPeriodEndDate": "--04-01",
+    "isSection9Completed": true,
+    "isSection4Completed": true,
+    "whatCountryDoesTheCharityOperateIn": [
       {
-        "overseasCountry" : "AL"
+        "overseasCountry": "AL"
       },
       {
-        "overseasCountry" : "AL"
+        "overseasCountry": "AL"
       }
     ],
-    "scottishRegulatorRegNumber" : "SC012344",
-    "selectGoverningDocument" : "6",
-    "canWeSendLettersToThisAddress" : false,
-    "estimatedIncome" : 123.12,
-    "charityCommissionRegistrationNumber" : "7654321",
-    "otherOfficials" : [
+    "scottishRegulatorRegNumber": "SC012344",
+    "selectGoverningDocument": "6",
+    "canWeSendLettersToThisAddress": false,
+    "estimatedIncome": 123.12,
+    "charityCommissionRegistrationNumber": "7654321",
+    "otherOfficials": [
       {
-        "officialsPhoneNumber" : {
-          "daytimePhone" : "01632 960 001",
-          "mobilePhone" : "01632 960 001"
+        "officialsPhoneNumber": {
+          "daytimePhone": "01632 960 001",
+          "mobilePhone": "01632 960 001"
         },
-        "officialsPosition" : "23",
-        "officialsDOB" : "2002-07-03",
-        "isOfficialNino" : true,
-        "officialAddress" : {
-          "lines" : [
+        "officialsPosition": "23",
+        "officialsDOB": "2002-07-03",
+        "isOfficialNino": true,
+        "officialAddress": {
+          "lines": [
             "4 Other Place",
             "Some District",
             "Anytown"
           ],
-          "postcode" : "ZZ1 1ZZ",
-          "country" : {
-            "code" : "GB",
-            "name" : "United Kingdom"
+          "postcode": "ZZ1 1ZZ",
+          "country": {
+            "code": "GB",
+            "name": "United Kingdom"
           }
         },
-        "officialsName" : {
-          "title" : "0001",
-          "firstName" : "Bobby",
-          "middleName" : "Ge",
-          "lastName" : "Tables"
+        "officialsName": {
+          "title": "0001",
+          "firstName": "Bobby",
+          "middleName": "Ge",
+          "lastName": "Tables"
         },
-        "isOfficialsPreviousAddress" : true,
-        "officialPreviousAddress" : {
-          "lines" : [
+        "isOfficialsPreviousAddress": true,
+        "officialPreviousAddress": {
+          "lines": [
             "Flat 1",
             "7 Other Place",
             "Some District",
             "Anytown"
           ],
-          "postcode" : "ZZ1 1ZZ",
-          "country" : {
-            "code" : "GB",
-            "name" : "United Kingdom"
+          "postcode": "ZZ1 1ZZ",
+          "country": {
+            "code": "GB",
+            "name": "United Kingdom"
           }
         },
-        "officialsNino" : "QQ 12 34 56 C"
+        "officialsNino": "QQ 12 34 56 C"
       },
       {
-        "officialsPhoneNumber" : {
-          "daytimePhone" : "01632 960 002",
-          "mobilePhone" : "01632 960 003"
+        "officialsPhoneNumber": {
+          "daytimePhone": "01632 960 002",
+          "mobilePhone": "01632 960 003"
         },
-        "officialsPosition" : "01",
-        "officialsDOB" : "2002-07-03",
-        "isOfficialNino" : false,
-        "officialAddress" : {
-          "lines" : [
+        "officialsPosition": "01",
+        "officialsDOB": "2002-07-03",
+        "isOfficialNino": false,
+        "officialAddress": {
+          "lines": [
             "4 Other Place",
             "Some District",
             "Anytown"
           ],
-          "postcode" : "ZZ1 1ZZ",
-          "country" : {
-            "code" : "GB",
-            "name" : "United Kingdom"
+          "postcode": "ZZ1 1ZZ",
+          "country": {
+            "code": "GB",
+            "name": "United Kingdom"
           }
         },
-        "officialsName" : {
-          "title" : "0001",
-          "firstName" : "Alex",
-          "middleName" : "Je",
-          "lastName" : "David"
+        "officialsName": {
+          "title": "0001",
+          "firstName": "Alex",
+          "middleName": "Je",
+          "lastName": "David"
         },
-        "isOfficialsPreviousAddress" : false,
-        "officialsPassport" : {
-          "passportNumber" : "US123445",
-          "country" : "SI",
-          "expiryDate" : "2021-01-30"
+        "isOfficialsPreviousAddress": false,
+        "officialsPassport": {
+          "passportNumber": "__PASSPORTNUMBER__",
+          "country": "__PASSPORTCOUNTRY__",
+          "expiryDate": "__EXPIRYDATE__"
         }
       },
       {
-        "officialsPhoneNumber" : {
-          "daytimePhone" : "01632 960 001",
-          "mobilePhone" : "01632 960 001"
+        "officialsPhoneNumber": {
+          "daytimePhone": "01632 960 001",
+          "mobilePhone": "01632 960 001"
         },
-        "officialsPosition" : "01",
-        "officialsDOB" : "1998-10-30",
-        "isOfficialNino" : true,
-        "officialAddress" : {
-          "lines" : [
+        "officialsPosition": "01",
+        "officialsDOB": "1998-10-30",
+        "isOfficialNino": true,
+        "officialAddress": {
+          "lines": [
             "4 Other Place",
             "Some District",
             "Anytown"
           ],
-          "postcode" : "ZZ1 1ZZ",
-          "country" : {
-            "code" : "GB",
-            "name" : "United Kingdom"
+          "postcode": "ZZ1 1ZZ",
+          "country": {
+            "code": "GB",
+            "name": "United Kingdom"
           }
         },
-        "officialsName" : {
-          "title" : "0001",
-          "firstName" : "Jamie",
-          "middleName" : "Le",
-          "lastName" : "White"
+        "officialsName": {
+          "title": "0001",
+          "firstName": "Jamie",
+          "middleName": "Le",
+          "lastName": "White"
         },
-        "isOfficialsPreviousAddress" : false,
-        "officialsNino" : "CS 70 01 00 B"
+        "isOfficialsPreviousAddress": false,
+        "officialsNino": "CS 70 01 00 B"
       }
     ],
-    "otherFundRaising" : "1234",
-    "authorisedOfficials" : [
+    "otherFundRaising": "1234",
+    "authorisedOfficials": [
       {
-        "isOfficialPreviousAddress" : true,
-        "officialsPhoneNumber" : {
-          "daytimePhone" : "01632 960 001",
-          "mobilePhone" : "01632 960 001"
+        "isOfficialPreviousAddress": true,
+        "officialsPhoneNumber": {
+          "daytimePhone": "01632 960 001",
+          "mobilePhone": "01632 960 001"
         },
-        "officialsPosition" : "23",
-        "officialsDOB" : "2002-07-03",
-        "isOfficialNino" : true,
-        "officialAddress" : {
-          "lines" : [
+        "officialsPosition": "23",
+        "officialsDOB": "2002-07-03",
+        "isOfficialNino": true,
+        "officialAddress": {
+          "lines": [
             "Flat 1",
             "7 Other Place",
             "Some District",
             "Anytown"
           ],
-          "postcode" : "ZZ1 1ZZ",
-          "country" : {
-            "code" : "GB",
-            "name" : "United Kingdom"
+          "postcode": "ZZ1 1ZZ",
+          "country": {
+            "code": "GB",
+            "name": "United Kingdom"
           }
         },
-        "officialsName" : {
-          "title" : "0001",
-          "firstName" : "Bobby",
-          "middleName" : "Ge",
-          "lastName" : "Tables"
+        "officialsName": {
+          "title": "0001",
+          "firstName": "Bobby",
+          "middleName": "Ge",
+          "lastName": "Tables"
         },
-        "officialPreviousAddress" : {
-          "lines" : [
+        "officialPreviousAddress": {
+          "lines": [
             "Flat 1",
             "7 Other Place",
             "Some District",
             "Anytown"
           ],
-          "postcode" : "ZZ1 1ZZ",
-          "country" : {
-            "code" : "GB",
-            "name" : "United Kingdom"
+          "postcode": "ZZ1 1ZZ",
+          "country": {
+            "code": "GB",
+            "name": "United Kingdom"
           }
         },
-        "officialsNino" : "QQ 12 34 56 C"
+        "officialsNino": "QQ 12 34 56 C"
       },
       {
-        "isOfficialPreviousAddress" : false,
-        "officialsPhoneNumber" : {
-          "daytimePhone" : "01632 960 001",
-          "mobilePhone" : "01632 960 001"
+        "isOfficialPreviousAddress": false,
+        "officialsPhoneNumber": {
+          "daytimePhone": "01632 960 001",
+          "mobilePhone": "01632 960 001"
         },
-        "officialsPosition" : "01",
-        "officialsDOB" : "1999-12-31",
-        "isOfficialNino" : false,
-        "officialAddress" : {
-          "lines" : [
+        "officialsPosition": "01",
+        "officialsDOB": "1999-12-31",
+        "isOfficialNino": false,
+        "officialAddress": {
+          "lines": [
             "4 Other Place",
             "Some District",
             "Anytown"
           ],
-          "postcode" : "ZZ1 1ZZ",
-          "country" : {
-            "code" : "GB",
-            "name" : "United Kingdom"
+          "postcode": "ZZ1 1ZZ",
+          "country": {
+            "code": "GB",
+            "name": "United Kingdom"
           }
         },
-        "officialsName" : {
-          "title" : "0001",
-          "firstName" : "Alex",
-          "middleName" : "Je",
-          "lastName" : "David"
+        "officialsName": {
+          "title": "0001",
+          "firstName": "Alex",
+          "middleName": "Je",
+          "lastName": "David"
         },
-        "officialsPassport" : {
-          "passportNumber" : "AT123445",
-          "country" : "RS",
-          "expiryDate" : "2021-01-28"
+        "officialsPassport": {
+          "passportNumber": "__PASSPORTNUMBER__",
+          "country": "__PASSPORTCOUNTRY__",
+          "expiryDate": "__EXPIRYDATE__"
         }
       }
     ],
-    "whenGoverningDocumentApproved" : "2019-01-01",
-    "isSection2Completed" : true,
-    "isAddAnotherOfficial" : true,
-    "isSection5Completed" : true,
-    "actualIncome" : 420,
-    "charityOtherRegulatorDetails" : {
-      "regulatorName" : "ORegulatorName",
-      "registrationNumber" : "123456789"
+    "whenGoverningDocumentApproved": "2019-01-01",
+    "isSection2Completed": true,
+    "isAddAnotherOfficial": true,
+    "isSection5Completed": true,
+    "actualIncome": 420,
+    "charityOtherRegulatorDetails": {
+      "regulatorName": "ORegulatorName",
+      "registrationNumber": "123456789"
     },
-    "isApprovedGoverningDocument" : true,
-    "selectFundRaising" : [
+    "isApprovedGoverningDocument": true,
+    "selectFundRaising": [
       "other"
     ],
-    "nominee" : {
-      "isAuthoriseNominee" : false
+    "nominee": {
+      "isAuthoriseNominee": false
     },
-    "charitableObjectives" : "Donate",
-    "isSection8Completed" : true,
-    "isSection7Completed" : true,
-    "whyNoBankStatement" : "123 no",
-    "charityName" : {
-      "fullName" : "Charity two",
-      "operatingName" : "Charity Optional two"
+    "charitableObjectives": "Donate",
+    "isSection8Completed": true,
+    "isSection7Completed": true,
+    "whyNoBankStatement": "123 no",
+    "charityName": {
+      "fullName": "Charity two",
+      "operatingName": "Charity Optional two"
     },
-    "isSection6Completed" : true,
-    "addAnotherOtherOfficial" : true,
-    "charityPostalAddress" : {
-      "lines" : [
+    "isSection6Completed": true,
+    "addAnotherOtherOfficial": true,
+    "charityPostalAddress": {
+      "lines": [
         "Flat 1",
         "7 Other Place",
         "Some District",
         "Anytown"
       ],
-      "postcode" : "ZZ1 1ZZ",
-      "country" : {
-        "code" : "GB",
-        "name" : "United Kingdom"
+      "postcode": "ZZ1 1ZZ",
+      "country": {
+        "code": "GB",
+        "name": "United Kingdom"
       }
     },
-    "anotherCountry" : false,
-    "emailOrPost" : true,
-    "isSection1Completed" : true,
-    "nIRegulatorRegNumber" : "654321",
-    "isFinancialAccounts" : true
+    "anotherCountry": false,
+    "emailOrPost": true,
+    "isSection1Completed": true,
+    "nIRegulatorRegNumber": "654321",
+    "isFinancialAccounts": true
   },
   "lastUpdated":{"$date":1611678637692},
   "expiresAt":{"$date":1611679537692}

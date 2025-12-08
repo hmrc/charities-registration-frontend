@@ -16,7 +16,9 @@
 
 package common
 
-import models.BankDetails
+import models.{BankDetails, Passport}
+
+import java.time.LocalDate
 
 trait TestData extends ModelGenerators {
   val sortCode: String            = sortCodeGen.sample.get
@@ -50,10 +52,16 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
+  val passportNumber: String = passportGen.sample.get
+  val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
+
   def replacePlaceholders(inString: String): String =
     inString
       .replaceAll("__ACCOUNTNAME__", accountName)
       .replaceAll("__SORTCODE__", sortCode)
       .replaceAll("__ACCOUNTNUMBER__", accountNumber)
       .replaceAll("__ROLLNUMBER__", rollNumber)
+      .replaceAll("__PASSPORTNUMBER__", passportNumber)
+      .replaceAll("__PASSPORTCOUNTRY__", passport.country)
+      .replaceAll("__EXPIRYDATE__", passport.expiryDate.toString)
 }

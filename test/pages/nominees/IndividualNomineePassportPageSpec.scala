@@ -24,7 +24,7 @@ class IndividualNomineePassportPageSpec extends PageBehaviours {
 
   "IndividualNomineePassportPage" must {
 
-    implicit lazy val arbitraryAuthorisedOfficialsPassport: Arbitrary[Passport] = Arbitrary (passport)
+    implicit lazy val arbitraryAuthorisedOfficialsPassport: Arbitrary[Passport] = Arbitrary(passport)
 
     beRetrievable[Passport](IndividualNomineesPassportPage)
     beSettable[Passport](IndividualNomineesPassportPage)

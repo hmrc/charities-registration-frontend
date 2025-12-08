@@ -40,6 +40,9 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
   private val month      = 1
   private val dayOfMonth = 2
 
+  private def formatDate(date: LocalDate): String =
+    date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
+
   private def authorisedOfficialDetails(title: SelectTitle = SelectTitle.Mr): UserAnswers = emptyUserAnswers
     .set(AuthorisedOfficialsNamePage(0), Name(title, firstName = "John", None, lastName = "Jones"))
     .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)))
@@ -235,7 +238,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialExpiryDateRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel"),
-            HtmlContent(passport.expiryDate.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))),
+            HtmlContent(formatDate(passport.expiryDate)),
             Some(messages("authorisedOfficialsPassport.expiryDate.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

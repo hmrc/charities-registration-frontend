@@ -192,7 +192,7 @@
           "dayPhoneNumber": "0121 123 4567",
           "mobilePhone": "",
           "emailAddress": "abc@gmail.com",
-          "nino": "NM789012A",
+          "nino": "__NINO1__",
           "nationalIdentityNumber": "",
           "nationalIDCardIssuingCountry": ""
         },

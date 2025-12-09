@@ -73,10 +73,10 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
 
   def completeFirstTwo: UserAnswers = common(1, common(0, emptyUserAnswers))
     .set(IsOtherOfficialNinoPage(0), true)
-    .flatMap(_.set(OtherOfficialsNinoPage(0), "AA123123A"))
+    .flatMap(_.set(OtherOfficialsNinoPage(0), nino))
     .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(0), false))
     .flatMap(_.set(IsOtherOfficialNinoPage(1), true))
-    .flatMap(_.set(OtherOfficialsNinoPage(1), "AA123123A"))
+    .flatMap(_.set(OtherOfficialsNinoPage(1), nino2))
     .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(1), false))
     .flatMap(_.set(IsAddAnotherOtherOfficialPage, false))
     .success
@@ -84,7 +84,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
 
   def completeAllThree: UserAnswers = common(2, completeFirstTwo)
     .set(IsOtherOfficialNinoPage(2), true)
-    .flatMap(_.set(OtherOfficialsNinoPage(2), "AA123123A"))
+    .flatMap(_.set(OtherOfficialsNinoPage(2), nino))
     .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(2), false))
     .flatMap(_.set(IsAddAnotherOtherOfficialPage, true))
     .success
@@ -109,7 +109,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           common(0, emptyUserAnswers)
             .set(IsOtherOfficialNinoPage(0), true)
-            .flatMap(_.set(OtherOfficialsNinoPage(0), "AA123123A"))
+            .flatMap(_.set(OtherOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(0), false))
             .success
             .value
@@ -129,7 +129,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
           completeFirstTwo
             .addPassport(0)
             .addPassport(1)
-            .set(OtherOfficialsNinoPage(0), "AA123123A")
+            .set(OtherOfficialsNinoPage(0), nino)
             .success
             .value
         ) mustBe false
@@ -181,8 +181,8 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
             .addPassport(1)
             .addAddress(0)
             .addAddress(1)
-            .set(OtherOfficialsNinoPage(0), "AA123123A")
-            .flatMap(_.set(OtherOfficialsNinoPage(1), "AA123123A"))
+            .set(OtherOfficialsNinoPage(0), nino)
+            .flatMap(_.set(OtherOfficialsNinoPage(1), nino2))
             .success
             .value
         ) mustBe false
@@ -251,8 +251,8 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
           completeFirstTwo
             .addPassport(0)
             .addPassport(1)
-            .set(OtherOfficialsNinoPage(0), "AA123123A")
-            .flatMap(_.set(OtherOfficialsNinoPage(1), "AA123123A"))
+            .set(OtherOfficialsNinoPage(0), nino)
+            .flatMap(_.set(OtherOfficialsNinoPage(1), nino2))
             .success
             .value
         ) mustBe false
@@ -298,8 +298,8 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
             .addAddress(0)
             .addPassport(1)
             .addAddress(1)
-            .set(OtherOfficialsNinoPage(0), "AA123123A")
-            .flatMap(_.set(OtherOfficialsNinoPage(1), "AA123123A"))
+            .set(OtherOfficialsNinoPage(0), nino)
+            .flatMap(_.set(OtherOfficialsNinoPage(1), nino2))
             .success
             .value
         ) mustBe false
@@ -426,7 +426,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
 
     val userAnswers = common(0, emptyUserAnswers)
       .set(IsOtherOfficialNinoPage(0), true)
-      .flatMap(_.set(OtherOfficialsNinoPage(0), "AA123123A"))
+      .flatMap(_.set(OtherOfficialsNinoPage(0), nino))
       .flatMap(_.set(IsOtherOfficialsPreviousAddressPage(0), false))
       .success
       .value
@@ -449,7 +449,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
           0,
           userAnswers
             .addPassport(0)
-            .set(OtherOfficialsNinoPage(0), "AA123123A")
+            .set(OtherOfficialsNinoPage(0), nino)
             .success
             .value
         )

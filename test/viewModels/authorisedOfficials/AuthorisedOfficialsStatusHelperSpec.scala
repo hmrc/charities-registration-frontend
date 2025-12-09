@@ -68,7 +68,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success
@@ -91,7 +91,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(
               _.set(AuthorisedOfficialsPassportPage(0), passport)
             )
@@ -106,10 +106,10 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), false))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
@@ -121,7 +121,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(_.set(AuthorisedOfficialsPassportPage(1), passport))
@@ -136,7 +136,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(_.set(AuthorisedOfficialsPassportPage(1), passport))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -149,7 +149,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
@@ -174,7 +174,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
@@ -188,11 +188,11 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -205,7 +205,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
@@ -222,7 +222,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), true)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), false))
             .flatMap(_.set(AuthorisedOfficialsPassportPage(1), passport))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -258,7 +258,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), false)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
@@ -271,7 +271,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(1, commonData(0, emptyUserAnswers))
             .set(IsAuthorisedOfficialNinoPage(0), false)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
             .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -310,7 +310,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), false)
             .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
@@ -344,7 +344,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(1), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
@@ -372,7 +372,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), true))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(0), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAuthorisedOfficialNinoPage(1), true))
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "AA123456A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino))
             .flatMap(_.set(AuthorisedOfficialPreviousAddressLookupPage(1), ConfirmedAddressConstants.address))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
             .success
@@ -432,7 +432,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
 
     val userAnswers = common(0, emptyUserAnswers)
       .set(IsAuthorisedOfficialNinoPage(0), true)
-      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123123A"))
+      .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
       .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
       .success
       .value
@@ -455,7 +455,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
           0,
           userAnswers
             .set(AuthorisedOfficialsPassportPage(0), passport)
-            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123123A"))
+            .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
             .success
             .value
         )

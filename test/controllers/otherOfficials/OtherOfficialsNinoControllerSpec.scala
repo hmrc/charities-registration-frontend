@@ -83,7 +83,7 @@ class OtherOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfterEach 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value
+      val userAnswers = localUserAnswers.set(OtherOfficialsNinoPage(0), ninoWithSpaces).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 
@@ -95,7 +95,7 @@ class OtherOfficialsNinoControllerSpec extends SpecBase with BeforeAndAfterEach 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody("nino" -> "QQ 12 34 56 C")
+      val request = fakeRequest.withFormUrlEncodedBody("nino" -> ninoWithSpaces)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

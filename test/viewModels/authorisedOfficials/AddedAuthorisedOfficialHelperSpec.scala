@@ -54,7 +54,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
     )
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head))
     .flatMap(_.set(IsAuthorisedOfficialNinoPage(0), true))
-    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "AA123456A"))
+    .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
     .flatMap(
       _.set(AuthorisedOfficialsPassportPage(0), passport)
     )
@@ -181,7 +181,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialNinoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsNino.checkYourAnswersLabel"),
-            HtmlContent("AA123456A"),
+            HtmlContent(nino),
             Some(messages("authorisedOfficialsNino.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

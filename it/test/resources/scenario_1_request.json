@@ -33,7 +33,7 @@
           "middleName": "G",
           "lastName": "Einstien"
         },
-        "officialsNino": "QQ 12 34 56 C"
+        "officialsNino": "__NINOWITHSPACE1__"
       }
     ],
     "whenGoverningDocumentApproved": "2014-07-01",
@@ -107,7 +107,7 @@
           "firstName": "David",
           "lastName": "Beckham"
         },
-        "officialsNino": "QQ 12 34 56 C"
+        "officialsNino": "__NINOWITHSPACE1__"
       }
     ],
     "isFinancialAccounts": true,

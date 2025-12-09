@@ -55,12 +55,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
           )
           .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Authorised", None, "Person")))
           .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, day)))
-          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AA123123A"))
+          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
@@ -70,7 +70,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "position": "01",
             |                "dateOfBirth": "2000-12-11",
             |                "dayPhoneNumber": "0123123123",
-            |                "nino": "AA123123A"
+            |                "nino": "$nino"
             |        }
             |}""".stripMargin
 
@@ -93,12 +93,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Individual", None, "Nominee")))
           .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, day)))
           .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123121", Some("0123123122"))))
-          .flatMap(_.set(IndividualNomineesNinoPage, "AA123123A"))
+          .flatMap(_.set(IndividualNomineesNinoPage, nino))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
@@ -109,7 +109,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "dateOfBirth": "2000-12-11",
             |                "dayPhoneNumber": "0123123121",
             |                "mobilePhone": "0123123122",
-            |                "nino": "AA123123A"
+            |                "nino": "$nino"
             |        }
             |}""".stripMargin
 
@@ -130,12 +130,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
@@ -147,7 +147,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "dateOfBirth": "2000-12-11",
             |                "dayPhoneNumber": "07700 900 982",
             |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -205,12 +205,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
@@ -221,7 +221,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "dateOfBirth": "2000-12-11",
             |                "dayPhoneNumber": "07700 900 982",
             |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -833,7 +833,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
@@ -871,7 +871,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -904,12 +904,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
@@ -921,7 +921,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "dateOfBirth": "2000-12-11",
             |                "dayPhoneNumber": "07700 900 982",
             |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -938,12 +938,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
@@ -954,7 +954,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "dateOfBirth": "2000-12-11",
             |                "dayPhoneNumber": "07700 900 982",
             |                "mobilePhone": "07700 900 981",
-            |                "nino": "QQ123456C"
+            |                "nino": "$nino"
             |        }
             |  }""".stripMargin
 
@@ -1080,7 +1080,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-          .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+          .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
           .flatMap(
             _.set(
               OtherOfficialAddressLookupPage(0),
@@ -1118,7 +1118,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1148,7 +1148,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNinoPage(0), "QQ 12 34 56 C"))
+        .flatMap(_.set(AuthorisedOfficialsNinoPage(0), ninoWithSpaces))
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(0),
@@ -1163,7 +1163,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A"))
+        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
@@ -1174,7 +1174,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
         .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
+        .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(0),
@@ -1189,7 +1189,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A"))
+        .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
@@ -1225,7 +1225,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1257,7 +1257,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1289,7 +1289,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1321,7 +1321,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1365,7 +1365,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetailsWithoutRollNumber))
           .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Authorised", None, "Person")))
           .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, day)))
-          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "AA123123A"))
+          .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino3))
           .success
           .value
 
@@ -1393,7 +1393,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1425,7 +1425,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1457,7 +1457,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1489,7 +1489,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1524,7 +1524,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "position": "01",
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "0123123123",
-             |          "nino": "AA123123A"
+             |          "nino": "$nino3"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1562,7 +1562,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Individual", None, "Nominee")))
           .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, day)))
           .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123121", Some("0123123122"))))
-          .flatMap(_.set(IndividualNomineesNinoPage, "AA123123A"))
+          .flatMap(_.set(IndividualNomineesNinoPage, nino3))
           .flatMap(
             _.set(
               NomineeIndividualAddressLookupPage,
@@ -1605,7 +1605,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1637,7 +1637,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1669,7 +1669,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456C"
+             |          "nino": "$nino"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1701,7 +1701,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "07700 900 982",
              |          "mobilePhone": "07700 900 981",
-             |          "nino": "QQ123456A"
+             |          "nino": "$nino2"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
@@ -1732,7 +1732,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "dateOfBirth": "2000-12-11",
              |          "dayPhoneNumber": "0123123121",
              |          "mobilePhone": "0123123122",
-             |          "nino": "AA123123A"
+             |          "nino": "$nino3"
              |        },
              |        "addressDetails": {
              |          "currentAddress": {

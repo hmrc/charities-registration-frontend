@@ -226,7 +226,7 @@
             "name": "United Kingdom"
           }
         },
-        "officialsNino": "CS 70 01 00 A",
+        "officialsNino": "__NINOWITHSPACE1__",
         "officialsPassport": {
           "passportNumber": "__PASSPORTNUMBER__",
           "country": "__PASSPORTCOUNTRY__",
@@ -259,7 +259,7 @@
           "lastName": "Waugh"
         },
         "isOfficialsPreviousAddress": false,
-        "officialsNino": "CS 70 03 00 A"
+        "officialsNino": "__NINOWITHSPACE2__"
       }
     ],
     "isFinancialAccounts": true

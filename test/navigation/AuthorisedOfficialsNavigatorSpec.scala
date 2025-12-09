@@ -35,7 +35,6 @@ import java.time.LocalDate
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: AuthorisedOfficialsNavigator = inject[AuthorisedOfficialsNavigator]
-
   private val minYear                                     = 16
   private val authorisedOfficialsName: Name               =
     Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
@@ -213,8 +212,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AuthorisedOfficialsPassportPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
-                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))
+                .set(AuthorisedOfficialsPassportPage(0), passport)
+                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), passport))
                 .success
                 .value
             ) mustBe
@@ -226,8 +225,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
               AuthorisedOfficialsPassportPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
-                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                .set(AuthorisedOfficialsPassportPage(0), passport)
+                .flatMap(_.set(AuthorisedOfficialsPassportPage(index), passport))
                 .flatMap(_.set(AuthorisedOfficialAddressLookupPage(0), address))
                 .flatMap(_.set(AuthorisedOfficialAddressLookupPage(index), address))
                 .success
@@ -612,8 +611,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 emptyUserAnswers
                   .set(IsAuthorisedOfficialNinoPage(0), true)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), true))
-                  .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe
@@ -657,8 +656,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 emptyUserAnswers
                   .set(IsAuthorisedOfficialNinoPage(0), false)
                   .flatMap(_.set(IsAuthorisedOfficialNinoPage(index), false))
-                  .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe
@@ -699,8 +698,8 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
                 AuthorisedOfficialsPassportPage(index),
                 CheckMode,
                 emptyUserAnswers
-                  .set(AuthorisedOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
-                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), Passport("1223", "gb", LocalDate.now())))
+                  .set(AuthorisedOfficialsPassportPage(0), passport)
+                  .flatMap(_.set(AuthorisedOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe

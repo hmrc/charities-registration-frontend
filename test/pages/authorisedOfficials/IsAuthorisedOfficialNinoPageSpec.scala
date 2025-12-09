@@ -20,16 +20,12 @@ import models.{Passport, UserAnswers}
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
 
-import java.time.LocalDate
-
 class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
   "IsAuthorisedOfficialNinoPage" must {
 
     beRetrievable[Boolean](IsAuthorisedOfficialNinoPage(0))
-
     beSettable[Boolean](IsAuthorisedOfficialNinoPage(0))
-
     beRemovable[Boolean](IsAuthorisedOfficialNinoPage(0))
   }
 
@@ -37,7 +33,7 @@ class IsAuthorisedOfficialNinoPageSpec extends PageBehaviours {
 
     val userAnswer = UserAnswers("id", Json.obj())
       .set(IsAuthorisedOfficialNinoPage(0), true)
-      .flatMap(_.set(AuthorisedOfficialsPassportPage(0), Passport("123123", "UK", LocalDate.now())))
+      .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
       .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
       .success
       .value

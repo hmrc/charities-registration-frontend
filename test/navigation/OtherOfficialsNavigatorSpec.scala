@@ -171,8 +171,8 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             OtherOfficialsPassportPage(0),
             NormalMode,
             emptyUserAnswers
-              .set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
-              .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("1223", "gb", LocalDate.now())))
+              .set(OtherOfficialsPassportPage(0), passport)
+              .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
               .success
               .value
           ) mustBe
@@ -184,7 +184,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             OtherOfficialsPassportPage(0),
             NormalMode,
             emptyUserAnswers
-              .set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now()))
+              .set(OtherOfficialsPassportPage(0), passport)
               .flatMap(_.set(OtherOfficialAddressLookupPage(0), address))
               .success
               .value
@@ -588,14 +588,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
-                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
-                  .flatMap(
-                    _.set(
-                      OtherOfficialsPassportPage(previousOrSameIndex(index)),
-                      Passport("123", "gb", LocalDate.now())
-                    )
-                  )
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
+                  .flatMap(_.set(OtherOfficialsPassportPage(previousOrSameIndex(index)), passport))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe
@@ -644,14 +639,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
-                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
                   .flatMap(
                     _.set(
                       OtherOfficialsPassportPage(previousOrSameIndex(index)),
-                      Passport("123", "gb", LocalDate.now())
+                      passport
                     )
                   )
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe
@@ -781,14 +776,14 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
-                  .flatMap(_.set(OtherOfficialsPassportPage(0), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(0), passport))
                   .flatMap(
                     _.set(
                       OtherOfficialsPassportPage(previousOrSameIndex(index)),
-                      Passport("123", "gb", LocalDate.now())
+                      passport
                     )
                   )
-                  .flatMap(_.set(OtherOfficialsPassportPage(index), Passport("123", "gb", LocalDate.now())))
+                  .flatMap(_.set(OtherOfficialsPassportPage(index), passport))
                   .success
                   .value
               ) mustBe

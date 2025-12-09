@@ -102,7 +102,7 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AuthorisedOfficialsPassportPage(0), Passport("hello", "gb", LocalDate.now.plusDays(1)))
+        .set(AuthorisedOfficialsPassportPage(0), passport)
         .success
         .value
 

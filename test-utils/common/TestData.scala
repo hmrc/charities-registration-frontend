@@ -16,7 +16,9 @@
 
 package common
 
-import models.BankDetails
+import models.{BankDetails, Passport}
+
+import java.time.LocalDate
 
 trait TestData extends ModelGenerators {
   val sortCode: String            = sortCodeGen.sample.get
@@ -42,7 +44,7 @@ trait TestData extends ModelGenerators {
   val nino2: String = ninoGen.sample.get
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
-    
+
   val nino3: String = ninoGen.sample.get
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
@@ -61,6 +63,9 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
+  val passportNumber: String = passportGen.sample.get
+  val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
+
   def replacePlaceholders(inString: String): String =
     inString
       .replaceAll("__ACCOUNTNAME__", accountName)
@@ -70,4 +75,7 @@ trait TestData extends ModelGenerators {
       .replaceAll("__NINO1__",nino)
       .replaceAll("__NINOWITHSPACE1__",ninoWithSpaces)
       .replaceAll("__NINOWITHSPACE2__",nino2WithSpaces)
+      .replaceAll("__PASSPORTNUMBER__", passportNumber)
+      .replaceAll("__PASSPORTCOUNTRY__", passport.country)
+      .replaceAll("__EXPIRYDATE__", passport.expiryDate.toString)
 }

@@ -20,20 +20,14 @@ import models.Passport
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
-import java.time.LocalDate
-
 class OtherOfficialsPassportPageSpec extends PageBehaviours {
 
   "OtherOfficialsPassportPage" must {
 
-    implicit lazy val arbitraryOtherOfficialsPassport: Arbitrary[Passport] = Arbitrary {
-      Passport("123", "gb", LocalDate.now())
-    }
+    implicit lazy val arbitraryOtherOfficialsPassport: Arbitrary[Passport] = Arbitrary(passport)
 
     beRetrievable[Passport](OtherOfficialsPassportPage(0))
-
     beSettable[Passport](OtherOfficialsPassportPage(0))
-
     beRemovable[Passport](OtherOfficialsPassportPage(0))
   }
 }

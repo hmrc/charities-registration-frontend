@@ -41,7 +41,7 @@ class NomineeStatusHelperSpec extends SpecBase {
       userAnswers
         .set(IsIndividualNomineeNinoPage, false)
         .flatMap(
-          _.set(IndividualNomineesPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))
+          _.set(IndividualNomineesPassportPage, passport)
         )
         .success
         .value
@@ -79,7 +79,7 @@ class NomineeStatusHelperSpec extends SpecBase {
         .flatMap(
           _.set(
             OrganisationAuthorisedPersonPassportPage,
-            Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+            passport
           )
         )
         .success

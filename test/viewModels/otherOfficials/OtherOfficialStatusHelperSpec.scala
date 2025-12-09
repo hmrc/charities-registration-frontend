@@ -41,7 +41,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
       userAnswers
         .set(IsOtherOfficialNinoPage(index), false)
         .flatMap(
-          _.set(OtherOfficialsPassportPage(index), Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth)))
+          _.set(OtherOfficialsPassportPage(index), passport)
         )
         .success
         .value

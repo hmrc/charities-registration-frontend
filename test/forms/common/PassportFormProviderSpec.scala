@@ -32,7 +32,6 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
   private val today      = LocalDate.now
   private val futureDate = today.plusDays(1)
-  private val pastDate   = today.minusDays(1)
 
   ".passportNumber" must {
 
@@ -114,7 +113,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
     "fail to bind an empty date" in {
 
-      val result = form.bind(Map("passportNumber" -> "GB123456", "country" -> "GB"))
+      val result = form.bind(Map("passportNumber" -> passportNumber, "country" -> passport.country))
 
       result.errors must contain only FormError(
         s"$fieldName.day",
@@ -126,11 +125,11 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
     s"fail to bind a today's date" in {
 
       val data = Map(
-        "passportNumber"    -> "GB123456",
-        "country"           -> "GB",
-        s"$fieldName.day"   -> today.getDayOfMonth.toString,
-        s"$fieldName.month" -> today.getMonthValue.toString,
-        s"$fieldName.year"  -> today.getYear.toString
+        "passportNumber"    -> passportNumber,
+        "country"           -> passport.country,
+        s"$fieldName.day"   -> passport.expiryDate.getDayOfMonth.toString,
+        s"$fieldName.month" -> passport.expiryDate.getMonthValue.toString,
+        s"$fieldName.year"  -> passport.expiryDate.getYear.toString
       )
 
       val result = form.bind(data)
@@ -141,11 +140,11 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
     s"fail to bind date in past" in {
 
       val data = Map(
-        "passportNumber"    -> "GB123456",
-        "country"           -> "GB",
-        s"$fieldName.day"   -> pastDate.getDayOfMonth.toString,
-        s"$fieldName.month" -> pastDate.getMonthValue.toString,
-        s"$fieldName.year"  -> pastDate.getYear.toString
+        "passportNumber"    -> passportNumber,
+        "country"           -> passport.country,
+        s"$fieldName.day"   -> passport.expiryDate.minusDays(1).getDayOfMonth.toString,
+        s"$fieldName.month" -> passport.expiryDate.getMonthValue.toString,
+        s"$fieldName.year"  -> passport.expiryDate.getYear.toString
       )
 
       val result = form.bind(data)
@@ -155,11 +154,11 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
     s"bind valid data if date is in future" in {
       val data = Map(
-        "passportNumber"    -> "GB123456",
-        "country"           -> "GB",
-        s"$fieldName.day"   -> futureDate.getDayOfMonth.toString,
-        s"$fieldName.month" -> futureDate.getMonthValue.toString,
-        s"$fieldName.year"  -> futureDate.getYear.toString
+        "passportNumber"    -> passportNumber,
+        "country"           -> passport.country,
+        s"$fieldName.day"   -> passport.expiryDate.plusDays(1).getDayOfMonth.toString,
+        s"$fieldName.month" -> passport.expiryDate.getMonthValue.toString,
+        s"$fieldName.year"  -> passport.expiryDate.getYear.toString
       )
 
       val result = form.bind(data)
@@ -170,7 +169,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
   "AuthorisedOfficialsPassportFormProvider" must {
 
-    val authorisedOfficialsPassport = Passport("GB123456", "gb", LocalDate.now.plusDays(1))
+    val authorisedOfficialsPassport = passport.copy(expiryDate = LocalDate.now.plusDays(1))
 
     "apply AuthorisedOfficialsPassport correctly" in {
 

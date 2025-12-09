@@ -244,7 +244,7 @@
             "accountName": "__ACCOUNTNAME__",
             "sortCode": "__SORTCODE__",
             "accountNumber": "__ACCOUNTNUMBER__",
-            "rollNumber" : "__ROLLNUMBER__"
+            "rollNumber": "__ROLLNUMBER__"
           }
         }
       }

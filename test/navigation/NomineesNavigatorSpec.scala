@@ -199,7 +199,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             IndividualNomineesPassportPage,
             NormalMode,
-            emptyUserAnswers.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now())).success.value
+            emptyUserAnswers.set(IndividualNomineesPassportPage, passport).success.value
           ) mustBe
             controllers.addressLookup.routes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
 
@@ -210,7 +210,7 @@ class NomineesNavigatorSpec extends SpecBase {
             IndividualNomineesPassportPage,
             NormalMode,
             emptyUserAnswers
-              .set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now()))
+              .set(IndividualNomineesPassportPage, passport)
               .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
               .success
               .value
@@ -697,7 +697,7 @@ class NomineesNavigatorSpec extends SpecBase {
             OrganisationAuthorisedPersonPassportPage,
             NormalMode,
             emptyUserAnswers
-              .set(OrganisationAuthorisedPersonPassportPage, Passport("123", "gb", LocalDate.now().plusDays(1)))
+              .set(OrganisationAuthorisedPersonPassportPage, passport)
               .success
               .value
           ) mustBe
@@ -869,7 +869,7 @@ class NomineesNavigatorSpec extends SpecBase {
             CheckMode,
             emptyUserAnswers
               .set(IsIndividualNomineeNinoPage, false)
-              .flatMap(_.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now())))
+              .flatMap(_.set(IndividualNomineesPassportPage, passport))
               .success
               .value
           ) mustBe
@@ -897,7 +897,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             IndividualNomineesPassportPage,
             CheckMode,
-            emptyUserAnswers.set(IndividualNomineesPassportPage, Passport("123", "gb", LocalDate.now())).success.value
+            emptyUserAnswers.set(IndividualNomineesPassportPage, passport).success.value
           ) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
@@ -1335,7 +1335,7 @@ class NomineesNavigatorSpec extends SpecBase {
             CheckMode,
             emptyUserAnswers
               .set(IsOrganisationNomineeNinoPage, false)
-              .flatMap(_.set(OrganisationAuthorisedPersonPassportPage, Passport("123", "gb", LocalDate.now())))
+              .flatMap(_.set(OrganisationAuthorisedPersonPassportPage, passport))
               .success
               .value
           ) mustBe
@@ -1382,7 +1382,7 @@ class NomineesNavigatorSpec extends SpecBase {
             OrganisationAuthorisedPersonPassportPage,
             CheckMode,
             emptyUserAnswers
-              .set(OrganisationAuthorisedPersonPassportPage, Passport("123", "gb", LocalDate.now().plusDays(1)))
+              .set(OrganisationAuthorisedPersonPassportPage, passport)
               .success
               .value
           ) mustBe

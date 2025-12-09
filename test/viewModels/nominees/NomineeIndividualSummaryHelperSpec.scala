@@ -19,20 +19,23 @@ package viewModels.nominees
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
-import controllers.nominees.{routes => nomineesRoutes}
+import controllers.nominees.routes as nomineesRoutes
 import models.{BankDetails, CheckMode, Country, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
-import org.mockito.ArgumentMatchers.{any, eq => meq}
+import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
-import pages.nominees._
+import pages.nominees.*
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeIndividualSummaryHelper
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
+
+  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   private val year       = 1991
   private val month      = 1
@@ -54,7 +57,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
       .flatMap(_.set(NomineeIndividualPreviousAddressLookupPage, ConfirmedAddressConstants.address))
       .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
       .flatMap(_.set(IndividualNomineesBankDetailsPage, bankDetails))
-      .flatMap(_.set(IndividualNomineesPassportPage, Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))))
+      .flatMap(_.set(IndividualNomineesPassportPage, passport))
       .success
       .value
   )
@@ -138,7 +141,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePassportNumber mustBe Some(
           summaryListRow(
             messages("individualNomineesPassport.passportNumber.checkYourAnswersLabel"),
-            HtmlContent("GB12345"),
+            HtmlContent(passportNumber),
             Some(messages("individualNomineesPassport.passportNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -150,7 +153,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePassportCountry mustBe Some(
           summaryListRow(
             messages("individualNomineesPassport.country.checkYourAnswersLabel"),
-            HtmlContent("United Kingdom"),
+            HtmlContent(passport.copy(country = "United Kingdom").country),
             Some(messages("individualNomineesPassport.country.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -162,7 +165,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePassportExpiry mustBe Some(
           summaryListRow(
             messages("individualNomineesPassport.expiryDate.checkYourAnswersLabel"),
-            HtmlContent("2 January 1991"),
+            HtmlContent(passport.expiryDate.format(dateFormatter)),
             Some(messages("individualNomineesPassport.expiryDate.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

@@ -204,7 +204,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialsNinoPage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C").success.value
+            emptyUserAnswers.set(OtherOfficialsNinoPage(0), ninoWithSpaces).success.value
           ) mustBe
             addressLookupRoutes.OtherOfficialsAddressLookupController.initializeJourney(Index(0), NormalMode)
         }
@@ -214,7 +214,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             OtherOfficialsNinoPage(0),
             NormalMode,
             emptyUserAnswers
-              .set(OtherOfficialsNinoPage(0), "QQ 12 34 56 A")
+              .set(OtherOfficialsNinoPage(0), ninoWithSpaces)
               .flatMap(_.set(OtherOfficialAddressLookupPage(0), address))
               .success
               .value
@@ -610,9 +610,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), false)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), false))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), false))
-                  .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe
@@ -627,9 +627,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                   .set(IsOtherOfficialNinoPage(0), true)
                   .flatMap(_.set(IsOtherOfficialNinoPage(previousOrSameIndex(index)), true))
                   .flatMap(_.set(IsOtherOfficialNinoPage(index), true))
-                  .flatMap(_.set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .flatMap(_.set(OtherOfficialsNinoPage(0), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe
@@ -671,9 +671,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
                 OtherOfficialsNinoPage(index),
                 CheckMode,
                 emptyUserAnswers
-                  .set(OtherOfficialsNinoPage(0), "QQ 12 34 56 C")
-                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), "QQ 12 34 56 C"))
-                  .flatMap(_.set(OtherOfficialsNinoPage(index), "QQ 12 34 56 C"))
+                  .set(OtherOfficialsNinoPage(0), ninoWithSpaces)
+                  .flatMap(_.set(OtherOfficialsNinoPage(previousOrSameIndex(index)), ninoWithSpaces))
+                  .flatMap(_.set(OtherOfficialsNinoPage(index), ninoWithSpaces))
                   .success
                   .value
               ) mustBe

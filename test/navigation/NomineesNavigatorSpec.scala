@@ -230,7 +230,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             IndividualNomineesNinoPage,
             NormalMode,
-            emptyUserAnswers.set(IndividualNomineesNinoPage, "QQ 12 34 56 C").success.value
+            emptyUserAnswers.set(IndividualNomineesNinoPage, ninoWithSpaces).success.value
           ) mustBe
             addressLookupRoutes.NomineeIndividualAddressLookupController.initializeJourney(NormalMode)
         }
@@ -240,7 +240,7 @@ class NomineesNavigatorSpec extends SpecBase {
             IndividualNomineesNinoPage,
             NormalMode,
             emptyUserAnswers
-              .set(IndividualNomineesNinoPage, "QQ 12 34 56 C")
+              .set(IndividualNomineesNinoPage, ninoWithSpaces)
               .flatMap(_.set(NomineeIndividualAddressLookupPage, address))
               .success
               .value
@@ -847,7 +847,7 @@ class NomineesNavigatorSpec extends SpecBase {
             CheckMode,
             emptyUserAnswers
               .set(IsIndividualNomineeNinoPage, true)
-              .flatMap(_.set(IndividualNomineesNinoPage, "QQ 12 34 56 C"))
+              .flatMap(_.set(IndividualNomineesNinoPage, ninoWithSpaces))
               .success
               .value
           ) mustBe
@@ -914,7 +914,7 @@ class NomineesNavigatorSpec extends SpecBase {
           navigator.nextPage(
             IndividualNomineesNinoPage,
             CheckMode,
-            emptyUserAnswers.set(IndividualNomineesNinoPage, "QQ 12 34 56 C").success.value
+            emptyUserAnswers.set(IndividualNomineesNinoPage, ninoWithSpaces).success.value
           ) mustBe
             nomineesRoutes.NomineeDetailsSummaryController.onPageLoad()
         }
@@ -1313,7 +1313,7 @@ class NomineesNavigatorSpec extends SpecBase {
             CheckMode,
             emptyUserAnswers
               .set(IsOrganisationNomineeNinoPage, true)
-              .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, "QQ 12 34 56 C"))
+              .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, ninoWithSpaces))
               .success
               .value
           ) mustBe

@@ -29,7 +29,7 @@
           "firstName": "Steve",
           "lastName": "Waugh"
         },
-        "officialsNino": "CS 70 01 00 A"
+        "officialsNino": "__NINOWITHSPACE1__"
       }
     ],
     "whenGoverningDocumentApproved": "2001-11-11",
@@ -138,7 +138,7 @@
           "lastName": "Waugh"
         },
         "isOfficialsPreviousAddress": false,
-        "officialsNino": "CS 70 01 00 A"
+        "officialsNino": "__NINOWITHSPACE1__"
       },
       {
         "officialsPhoneNumber": {
@@ -166,7 +166,7 @@
           "lastName": "Waugh"
         },
         "isOfficialsPreviousAddress": false,
-        "officialsNino": "CS 70 03 00 A"
+        "officialsNino": "__NINOWITHSPACE2__"
       }
     ],
     "isFinancialAccounts": true

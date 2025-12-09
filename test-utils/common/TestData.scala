@@ -36,6 +36,17 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
+  val nino: String = ninoGen.sample.get
+  val ninoWithSpaces: String =
+    s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
+  val nino2: String = ninoGen.sample.get
+  val nino2WithSpaces: String =
+    s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
+    
+  val nino3: String = ninoGen.sample.get
+  val nino3WithSpaces: String =
+    s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
+
   val bankDetailsWithoutRollNumber: BankDetails = BankDetails(
     accountName = accountName,
     sortCode = sortCode,
@@ -56,4 +67,7 @@ trait TestData extends ModelGenerators {
       .replaceAll("__SORTCODE__", sortCode)
       .replaceAll("__ACCOUNTNUMBER__", accountNumber)
       .replaceAll("__ROLLNUMBER__", rollNumber)
+      .replaceAll("__NINO1__",nino)
+      .replaceAll("__NINOWITHSPACE1__",ninoWithSpaces)
+      .replaceAll("__NINOWITHSPACE2__",nino2WithSpaces)
 }

@@ -100,7 +100,7 @@
             "name" : "United Kingdom"
           }
         },
-        "officialsNino" : "QQ 12 34 56 C"
+        "officialsNino" : "__NINOWITHSPACE1__"
       },
       {
         "officialsPhoneNumber" : {
@@ -162,7 +162,7 @@
           "lastName" : "White"
         },
         "isOfficialsPreviousAddress" : false,
-        "officialsNino" : "CS 70 01 00 B"
+        "officialsNino" : "__NINOWITHSPACE2__"
       }
     ],
     "otherFundRaising" : "1234",
@@ -208,7 +208,7 @@
             "name" : "United Kingdom"
           }
         },
-        "officialsNino" : "QQ 12 34 56 C"
+        "officialsNino" : "__NINOWITHSPACE1__"
       },
       {
         "isOfficialPreviousAddress" : false,

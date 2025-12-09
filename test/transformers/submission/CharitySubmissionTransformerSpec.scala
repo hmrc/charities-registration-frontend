@@ -59,7 +59,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A"))
+        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
@@ -70,7 +70,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A"))
+        .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
@@ -131,7 +131,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), "QQ 12 34 56 A"))
+        .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
@@ -142,7 +142,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
-        .flatMap(_.set(OtherOfficialsNinoPage(1), "QQ 12 34 56 A"))
+        .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),

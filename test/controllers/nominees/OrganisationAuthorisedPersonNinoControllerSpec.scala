@@ -60,7 +60,7 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
   private val controller: OrganisationAuthorisedPersonNinoController =
     inject[OrganisationAuthorisedPersonNinoController]
 
-  private val requestArgs                   = Seq("nino" -> "AA123123A")
+  private val requestArgs                   = Seq("nino" -> nino)
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
     .success
@@ -85,7 +85,7 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = localUserAnswers.set(OrganisationAuthorisedPersonNinoPage, "AA123123A").success.value
+      val userAnswers = localUserAnswers.set(OrganisationAuthorisedPersonNinoPage, nino).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

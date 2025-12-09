@@ -59,7 +59,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
     .set(IsOtherOfficialNinoPage(0), true)
     .success
     .value
-    .set(OtherOfficialsNinoPage(0), "AA123456A")
+    .set(OtherOfficialsNinoPage(0), nino)
     .success
     .value
     .set(OtherOfficialAddressLookupPage(0), ConfirmedAddressConstants.address)
@@ -177,7 +177,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialNinoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsNino.checkYourAnswersLabel"),
-            HtmlContent("AA123456A"),
+            HtmlContent(nino),
             Some(messages("otherOfficialsNino.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsNinoController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

@@ -23,9 +23,7 @@ class CharityInformationSummaryPageSpec extends PageBehaviours {
   "CharityInformationSummaryPage" must {
 
     beRetrievable[String](CharityInformationSummaryPage)
-
     beSettable[String](CharityInformationSummaryPage)
-
     beRemovable[String](CharityInformationSummaryPage)
   }
 }

@@ -28,14 +28,12 @@ class CharityContactDetailsPageSpec extends PageBehaviours {
       CharityContactDetails(
         daytimePhone = "07700 900 982",
         mobilePhone = Some("07700 900 982"),
-        emailAddress = "abc@gmail.com"
+        emailAddress = charityEmail
       )
     }
 
     beRetrievable[CharityContactDetails](CharityContactDetailsPage)
-
     beSettable[CharityContactDetails](CharityContactDetailsPage)
-
     beRemovable[CharityContactDetails](CharityContactDetailsPage)
   }
 }

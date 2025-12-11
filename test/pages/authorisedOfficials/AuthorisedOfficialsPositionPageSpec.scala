@@ -29,9 +29,7 @@ class AuthorisedOfficialsPositionPageSpec extends PageBehaviours {
     }
 
     beRetrievable[OfficialsPosition](AuthorisedOfficialsPositionPage(0))
-
     beSettable[OfficialsPosition](AuthorisedOfficialsPositionPage(0))
-
     beRemovable[OfficialsPosition](AuthorisedOfficialsPositionPage(0))
   }
 

@@ -23,15 +23,13 @@ import pages.behaviours.PageBehaviours
 class OrganisationNomineeContactDetailsPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryContactDetails: Arbitrary[OrganisationNomineeContactDetails] = Arbitrary {
-    OrganisationNomineeContactDetails("0123123123", "email@email.com")
+    OrganisationNomineeContactDetails("0123123123", organisationEmail)
   }
 
   "OrganisationNomineeContactDetailsPage" must {
 
     beRetrievable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
-
     beSettable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
-
     beRemovable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
   }
 }

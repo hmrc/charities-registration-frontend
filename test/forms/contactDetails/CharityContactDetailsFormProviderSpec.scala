@@ -110,7 +110,7 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "CharityContactDetailsFormProvider" must {
 
-    val charityContactDetails = CharityContactDetails("01632 960 001", Some("01632 960 001"), "abc@gmail.com")
+    val charityContactDetails = CharityContactDetails("01632 960 001", Some("01632 960 001"), charityEmail)
 
     "apply CharityContactDetails correctly" in {
 
@@ -172,8 +172,8 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "emailAddress" must {
     "return valid" when {
-      "email is abc@gmail.com" in {
-        "abc@gmail.com" must fullyMatch regex formProvider.validateEmailAddress
+      s"email is $charityEmail" in {
+        s"$charityEmail" must fullyMatch regex formProvider.validateEmailAddress
       }
 
       "email is firstname.o\'lastname@domain.com" in {
@@ -214,12 +214,12 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "validateEmailExtraTld" must {
     "return invalid" when {
-      "email is abc@gmail.com" in {
-        "abc@gmail.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
+      s"email is $charityEmail" in {
+        s"$charityEmail" mustNot fullyMatch regex formProvider.validateEmailExtraTld
       }
 
-      "email is abc@123.com" in {
-        "abc@123.com" mustNot fullyMatch regex formProvider.validateEmailExtraTld
+      s"email is $organisationEmail" in {
+        s"$organisationEmail" mustNot fullyMatch regex formProvider.validateEmailExtraTld
       }
     }
 

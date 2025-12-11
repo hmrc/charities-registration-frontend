@@ -877,7 +877,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
             NormalMode,
             emptyUserAnswers
               .set(RemoveOtherOfficialsPage, true)
-              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+              .flatMap(_.set(CharityNamePage, charityName))
               .success
               .value
           ) mustBe otherOfficialRoutes.CharityOtherOfficialsController.onPageLoad()

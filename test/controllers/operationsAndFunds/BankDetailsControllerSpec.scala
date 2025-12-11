@@ -57,7 +57,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
   private val sectionName: String                   = "operationsAndFunds.section"
   private val view: BankDetailsView                 = injector.instanceOf[BankDetailsView]
   private val formProvider: BankDetailsFormProvider = injector.instanceOf[BankDetailsFormProvider]
-  private val form                                  = formProvider(messagePrefix, "CName")
+  private val form                                  = formProvider(messagePrefix, charityFullName)
 
   private val controller: BankDetailsController = inject[BankDetailsController]
 
@@ -78,7 +78,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .flatMap(_.set(Section1Page, true))
               .success
               .value
@@ -91,7 +91,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "CName",
+        charityFullName,
         controllers.operationsAndFunds.routes.BankDetailsController.onSubmit(NormalMode),
         messagePrefix,
         sectionName,
@@ -104,7 +104,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
       val userAnswers = emptyUserAnswers
         .set(BankDetailsPage, bankDetails)
-        .flatMap(_.set(CharityNamePage, CharityName("CName", Some("OpName"))))
+        .flatMap(_.set(CharityNamePage, charityName))
         .flatMap(_.set(Section1Page, true))
         .success
         .value
@@ -130,7 +130,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .success
               .value
           )
@@ -154,7 +154,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .success
               .value
           )
@@ -213,7 +213,7 @@ class BankDetailsControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(CharityNamePage, CharityName("CName", Some("OpName")))
+              .set(CharityNamePage, charityName)
               .flatMap(_.set(Section1Page, false))
               .success
               .value

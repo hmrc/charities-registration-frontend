@@ -111,7 +111,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     .flatMap(_.set(ChooseNomineePage, false))
     .flatMap(_.set(OrganisationNomineeNamePage, "Company Inc"))
     .flatMap(
-      _.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com"))
+      _.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", charityEmail))
     )
     .flatMap(_.set(OrganisationNomineeAddressLookupPage, ConfirmedAddressConstants.address))
     .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
@@ -438,7 +438,7 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "company@inc.com")
+                OrganisationNomineeContactDetails("0123123123", charityEmail)
               )
             )
             .flatMap(
@@ -460,7 +460,7 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "company@inc.com")
+                OrganisationNomineeContactDetails("0123123123", charityEmail)
               )
             )
             .flatMap(

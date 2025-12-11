@@ -29,9 +29,7 @@ class CharityEstablishedInPageSpec extends PageBehaviours {
   "WhatCountryWasTheCharityEstablishedIn" must {
 
     beRetrievable[CharityEstablishedOptions](CharityEstablishedInPage)
-
     beSettable[CharityEstablishedOptions](CharityEstablishedInPage)
-
     beRemovable[CharityEstablishedOptions](CharityEstablishedInPage)
   }
 

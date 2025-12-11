@@ -61,7 +61,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
   private val controller: OrganisationNomineeContactDetailsController =
     inject[OrganisationNomineeContactDetailsController]
 
-  private val requestArgs = Seq("phoneNumber" -> "0123123123", "email" -> "test@email.com")
+  private val requestArgs = Seq("phoneNumber" -> "0123123123", "email" -> organisationEmail)
 
   private val company = "TestCompany"
 
@@ -87,7 +87,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "test@email.com"))
+        .set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", organisationEmail))
         .success
         .value
 

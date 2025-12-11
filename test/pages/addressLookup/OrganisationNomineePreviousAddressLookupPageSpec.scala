@@ -29,9 +29,7 @@ class OrganisationNomineePreviousAddressLookupPageSpec extends PageBehaviours {
     }
 
     beRetrievable[AddressModel](OrganisationNomineePreviousAddressLookupPage)
-
     beSettable[AddressModel](OrganisationNomineePreviousAddressLookupPage)
-
     beRemovable[AddressModel](OrganisationNomineePreviousAddressLookupPage)
   }
 }

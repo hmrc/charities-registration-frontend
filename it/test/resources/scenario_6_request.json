@@ -38,7 +38,7 @@
     "charityContactDetails": {
       "daytimePhone": "07111111111",
       "mobilePhone": "0722222222222",
-      "emailAddress": "test@test.com"
+      "emailAddress": "__CHARITYEMAIL__"
     },
     "isCharityRegulator": true,
     "sectionsChangedGoverningDocument": "Section one",
@@ -312,8 +312,8 @@
     "isSection7Completed": true,
     "whyNoBankStatement": "123 no",
     "charityName": {
-      "fullName": "Charity two",
-      "operatingName": "Charity Optional two"
+      "fullName": "__CHARITYFULLNAME__",
+      "operatingName": "__CHARITYOPERATINGNAME__"
     },
     "isSection6Completed": true,
     "addAnotherOtherOfficial": true,

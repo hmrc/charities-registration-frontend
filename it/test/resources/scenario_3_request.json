@@ -145,7 +145,7 @@
     "charityContactDetails": {
       "daytimePhone": "+44 0808 157 1111",
       "mobilePhone": "+44 0808 157 2222",
-      "emailAddress": "a@b.com"
+      "emailAddress": "__CHARITYEMAIL__"
     },
     "isCharityRegulator": true,
     "sectionsChangedGoverningDocument": "Test",
@@ -153,8 +153,8 @@
     "isAuthoriseNominee": false,
     "isBankStatements": true,
     "charityName": {
-      "fullName": "Just a Drop",
-      "operatingName": "Operation Smile"
+      "fullName": "__CHARITYFULLNAME__",
+      "operatingName": "__CHARITYOPERATINGNAME__"
     },
     "whyNoBankStatement": "Test",
     "accountingPeriodEndDate": "--11-11",

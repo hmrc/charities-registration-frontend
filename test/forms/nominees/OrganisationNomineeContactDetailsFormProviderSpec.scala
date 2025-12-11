@@ -84,7 +84,7 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
   "OrganisationNomineeContactDetailsFormProvider" must {
 
-    val organisationContactDetails = OrganisationNomineeContactDetails("01632 960 001", "company@org.com")
+    val organisationContactDetails = OrganisationNomineeContactDetails("01632 960 001", organisationEmail)
 
     "apply OrganisationNomineeContactDetailsSpec correctly" in {
 
@@ -143,9 +143,9 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
   "validateEmailAddress" must {
 
-    "be valid for testmail@email.com" in {
+    s"be valid for $organisationEmail" in {
 
-      "testmail@email.com" must fullyMatch regex formProvider.validateEmailAddress
+      organisationEmail must fullyMatch regex formProvider.validateEmailAddress
     }
 
     "be invalid for testmail" in {

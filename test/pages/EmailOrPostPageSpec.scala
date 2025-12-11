@@ -23,9 +23,7 @@ class EmailOrPostPageSpec extends PageBehaviours {
   "EmailOrPostPage" must {
 
     beRetrievable[Boolean](EmailOrPostPage)
-
     beSettable[Boolean](EmailOrPostPage)
-
     beRemovable[Boolean](EmailOrPostPage)
   }
 }

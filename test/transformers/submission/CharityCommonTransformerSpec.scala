@@ -107,25 +107,25 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityContactDetailsPage,
-            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            CharityContactDetails("07700 900 982", Some("07700 000 111"), charityEmail)
           )
-          .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+          .flatMap(_.set(CharityNamePage, charityName))
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Scotland))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "2",
-            |        "orgName": "ABC",
+            |        "orgName": "$charityFullName",
             |        "telephoneNumber": "07700 900 982",
             |        "mobileNumber": "07700 000 111",
-            |        "operatingName": "OpName"
+            |        "operatingName": "$charityOperatingName"
             |      }
             |    }
             |  }
@@ -140,22 +140,22 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityContactDetailsPage,
-            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            CharityContactDetails("07700 900 982", Some("07700 000 111"), charityEmail)
           )
-          .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
+          .flatMap(_.set(CharityNamePage, charityNameNoOperatingName))
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
-            |        "orgName": "ABC",
+            |        "orgName": "$charityFullName",
             |        "telephoneNumber": "07700 900 982",
             |        "mobileNumber": "07700 000 111"
             |      }
@@ -172,22 +172,22 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityContactDetailsPage,
-            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            CharityContactDetails("07700 900 982", Some("07700 000 111"), charityEmail)
           )
-          .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
+          .flatMap(_.set(CharityNamePage, charityNameNoOperatingName))
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
-            |        "orgName": "ABC",
+            |        "orgName": "$charityFullName",
             |        "telephoneNumber": "07700 900 982",
             |        "mobileNumber": "07700 000 111"
             |      }
@@ -539,7 +539,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+              CharityContactDetails("07700 900 982", Some("07700 000 111"), charityEmail)
             )
               .flatMap(
                 _.set(
@@ -551,7 +551,7 @@ class CharityCommonTransformerSpec extends SpecBase {
                   )
                 )
               )
-              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+              .flatMap(_.set(CharityNamePage, charityName))
           )
           .success
           .value
@@ -588,12 +588,12 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
-            |        "orgName": "ABC",
+            |        "orgName": "$charityFullName",
             |        "telephoneNumber": "07700 900 982",
             |        "mobileNumber": "07700 000 111",
-            |        "operatingName": "OpName"
+            |        "operatingName": "$charityOperatingName"
             |      },
             |      "addressDetails": {
             |        "differentCorrespondence": true,
@@ -659,7 +659,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+              CharityContactDetails("07700 900 982", Some("07700 000 111"), charityEmail)
             )
               .flatMap(
                 _.set(
@@ -671,7 +671,7 @@ class CharityCommonTransformerSpec extends SpecBase {
                   )
                 )
               )
-              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+              .flatMap(_.set(CharityNamePage, charityName))
           )
           .success
           .value
@@ -708,12 +708,12 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
-            |        "orgName": "ABC",
+            |        "orgName": "$charityFullName",
             |        "telephoneNumber": "07700 900 982",
             |        "mobileNumber": "07700 000 111",
-            |        "operatingName": "OpName"
+            |        "operatingName": "$charityOperatingName"
             |      },
             |      "addressDetails": {
             |        "differentCorrespondence": false,
@@ -767,10 +767,10 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+              CharityContactDetails("07700 900 982", Some("07700 000 111"), charityEmail)
             )
           )
-          .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
+          .flatMap(_.set(CharityNamePage, charityNameNoOperatingName))
           .success
           .value
 
@@ -803,9 +803,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
-            |        "orgName": "ABC",
+            |        "orgName": "$charityFullName",
             |        "telephoneNumber": "07700 900 982",
             |        "mobileNumber": "07700 000 111"
             |      },

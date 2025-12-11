@@ -31,9 +31,7 @@ class SelectWhyNoRegulatorPageSpec extends PageBehaviours {
     }
 
     beRetrievable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)
-
     beSettable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)
-
     beRemovable[SelectWhyNoRegulator](SelectWhyNoRegulatorPage)
 
     "cleanup" when {

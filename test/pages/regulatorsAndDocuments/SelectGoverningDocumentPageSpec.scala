@@ -32,9 +32,7 @@ class SelectGoverningDocumentPageSpec extends PageBehaviours {
   "SelectGoverningDocument" must {
 
     beRetrievable[SelectGoverningDocument](SelectGoverningDocumentPage)
-
     beSettable[SelectGoverningDocument](SelectGoverningDocumentPage)
-
     beRemovable[SelectGoverningDocument](SelectGoverningDocumentPage)
 
     "cleanup" when {

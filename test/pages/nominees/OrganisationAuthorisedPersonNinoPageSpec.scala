@@ -23,9 +23,7 @@ class OrganisationAuthorisedPersonNinoPageSpec extends PageBehaviours {
   "OrganisationAuthorisedPersonNinoPage" must {
 
     beRetrievable[String](OrganisationAuthorisedPersonNinoPage)
-
     beSettable[String](OrganisationAuthorisedPersonNinoPage)
-
     beRemovable[String](OrganisationAuthorisedPersonNinoPage)
   }
 }

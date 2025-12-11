@@ -44,7 +44,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
           navigator.nextPage(
             CharityNamePage,
             NormalMode,
-            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+            emptyUserAnswers.set(CharityNamePage, charityName).success.value
           ) mustBe
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(NormalMode)
         }
@@ -64,7 +64,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                CharityContactDetails("07700 900 982", Some("07700 900 982"), charityEmail)
               )
               .success
               .value
@@ -79,7 +79,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                CharityContactDetails("07700 900 982", Some("07700 900 982"), charityEmail)
               )
               .flatMap(
                 _.set(
@@ -269,7 +269,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
           navigator.nextPage(
             CharityNamePage,
             CheckMode,
-            emptyUserAnswers.set(CharityNamePage, CharityName("CName", Some("OpName"))).success.value
+            emptyUserAnswers.set(CharityNamePage, charityName).success.value
           ) mustBe
             charityInfoRoutes.CharityInformationSummaryController.onPageLoad()
         }
@@ -290,7 +290,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                CharityContactDetails("07700 900 982", Some("07700 900 982"), charityEmail)
               )
               .success
               .value
@@ -406,7 +406,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
           CharityNamePage,
           PlaybackMode,
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("CName", Some("OpName")))
+            .set(CharityNamePage, charityName)
             .success
             .value
         ) mustBe

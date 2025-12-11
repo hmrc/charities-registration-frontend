@@ -4,7 +4,7 @@
     "charityContactDetails": {
       "daytimePhone": "07700 900 982",
       "mobilePhone": "07700 000 111",
-      "emailAddress": "abc@gmail.com"
+      "emailAddress": "__CHARITYEMAIL__"
     },
     "authorisedOfficials": [
       {
@@ -46,7 +46,7 @@
     "selectWhyNoRegulator": "1",
     "governingDocumentName": "Other Documents for Charity",
     "charityName": {
-      "fullName": "ABC"
+      "fullName": "__CHARITYFULLNAME__"
     },
     "accountingPeriodEndDate": "--01-01",
     "bankDetails": {

@@ -486,7 +486,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
           nextPage(
             emptyUserAnswers
               .set(RemoveAuthorisedOfficialsPage, true)
-              .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+              .flatMap(_.set(CharityNamePage, charityName))
               .success
               .value
           ) mustBe authOfficialRoutes.CharityAuthorisedOfficialsController.onPageLoad()

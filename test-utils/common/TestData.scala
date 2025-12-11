@@ -16,7 +16,7 @@
 
 package common
 
-import models.{BankDetails, Passport}
+import models.{BankDetails, Passport, PhoneNumber}
 
 import java.time.LocalDate
 
@@ -65,6 +65,17 @@ trait TestData extends ModelGenerators {
 
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
+
+  val daytimePhone: String = exampleFixedLineGen.sample.get
+  val mobileNumber: String = exampleMobileGen.sample.get
+
+  val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
+
+  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+
+  val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
+
 
   def replacePlaceholders(inString: String): String =
     inString

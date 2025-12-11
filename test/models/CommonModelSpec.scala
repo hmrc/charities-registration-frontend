@@ -105,11 +105,10 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val authorisedOfficialsPhoneNumber =
-        PhoneNumber(daytimePhone = "01632 960 001", mobilePhone = Some("01632 960 001"))
+      val authorisedOfficialsPhoneNumber = phoneNumbers
 
-      authorisedOfficialsPhoneNumber.daytimePhone mustBe "01632 960 001"
-      authorisedOfficialsPhoneNumber.mobilePhone.get mustBe "01632 960 001"
+      authorisedOfficialsPhoneNumber.daytimePhone mustBe daytimePhone
+      authorisedOfficialsPhoneNumber.mobilePhone.get mustBe mobileNumber
 
     }
 
@@ -120,7 +119,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "json - serialise and deserialise" in {
 
-      val phoneNumber = PhoneNumber("01632 960 001", Some("01632 960 001"))
+      val phoneNumber = phoneNumbers
       val json = Json.toJson(phoneNumber)
 
       json.validate[PhoneNumber].asOpt.value mustBe phoneNumber
@@ -201,10 +200,10 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val charityContactDetails = CharityContactDetails("1234567890", Some("1234567890"), "a@b.com")
+      val charityContactDetails = CharityContactDetails(daytimePhone = daytimePhone, mobilePhone = Some(mobileNumber), emailAddress =  "a@b.com")
 
-      charityContactDetails.daytimePhone mustBe "1234567890"
-      charityContactDetails.mobilePhone mustBe Some("1234567890")
+      charityContactDetails.daytimePhone mustBe daytimePhone
+      charityContactDetails.mobilePhone mustBe Some(mobileNumber)
       charityContactDetails.emailAddress mustBe "a@b.com"
     }
 

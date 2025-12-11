@@ -18,6 +18,8 @@ package common
 
 import org.scalacheck.Gen
 import uk.gov.hmrc.domain.NinoGenerator
+import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat
 
 trait ModelGenerators {
   private val ninoGenerator: NinoGenerator = NinoGenerator()
@@ -48,4 +50,63 @@ trait ModelGenerators {
 
   def acknowledgementRefGen: Gen[String] =
     Gen.stringOfN(7, Gen.numChar)
+
+  private val phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance()
+  private val region    = "GB"
+
+  private def format(
+      number: com.google.i18n.phonenumbers.Phonenumber.PhoneNumber,
+      fmt: PhoneNumberFormat
+    ): String =
+    phoneUtil.format(number, fmt)
+
+
+  def exampleFixedLineGen: Gen[String] =
+    Gen.const {
+      val num = phoneUtil.getExampleNumberForType(
+        region,
+        PhoneNumberUtil.PhoneNumberType.FIXED_LINE
+      )
+      format(num, PhoneNumberFormat.NATIONAL)
+    }
+
+  def exampleFixedLineIntGen: Gen[String] =
+    exampleFixedLineGen.map { national =>
+      val parsed = phoneUtil.parse(national, region)
+      format(parsed, PhoneNumberFormat.E164)
+    }
+
+  def exampleMobileIntGen: Gen[String] =
+    exampleMobileGen.map { national =>
+      val parsed = phoneUtil.parse(national, region)
+      format(parsed, PhoneNumberFormat.E164)
+    }
+
+  def exampleMobileGen: Gen[String] =
+    Gen.const {
+      val num = phoneUtil.getExampleNumberForType(
+        region,
+        PhoneNumberUtil.PhoneNumberType.MOBILE
+      )
+      format(num, PhoneNumberFormat.NATIONAL)
+    }
+
+//  def phoneNumbersGen: Gen[PhoneNumber] =
+//    for {
+//      daytime <- exampleFixedLineGen
+//      mobile <- exampleMobileGen
+//    } yield PhoneNumber(
+//      daytimePhone = daytime,
+//      mobilePhone = Some(mobile)
+//    )
+//
+//  def phoneNumbersWithIntCodeGen: Gen[PhoneNumber] =
+//    for {
+//      daytime <- exampleFixedLineIntGen
+//      mobile <- exampleMobileIntGen
+//    } yield PhoneNumber(
+//      daytimePhone = daytime,
+//      mobilePhone = Some(mobile)
+//    )
+
 }

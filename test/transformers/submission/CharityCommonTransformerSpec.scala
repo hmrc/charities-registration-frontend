@@ -107,7 +107,7 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityContactDetailsPage,
-            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            charityContactDetails
           )
           .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Scotland))
@@ -115,16 +115,16 @@ class CharityCommonTransformerSpec extends SpecBase {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "2",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982",
-            |        "mobileNumber": "07700 000 111",
+            |        "telephoneNumber": "$daytimePhone",
+            |        "mobileNumber": "$mobileNumber",
             |        "operatingName": "OpName"
             |      }
             |    }
@@ -140,7 +140,7 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityContactDetailsPage,
-            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            charityContactDetails
           )
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.England))
@@ -148,16 +148,16 @@ class CharityCommonTransformerSpec extends SpecBase {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982",
-            |        "mobileNumber": "07700 000 111"
+            |        "telephoneNumber": "$daytimePhone",
+            |        "mobileNumber": "$mobileNumber"
             |      }
             |    }
             |  }
@@ -172,7 +172,7 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityContactDetailsPage,
-            CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+            charityContactDetails
           )
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
@@ -180,16 +180,16 @@ class CharityCommonTransformerSpec extends SpecBase {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982",
-            |        "mobileNumber": "07700 000 111"
+            |        "telephoneNumber": "$daytimePhone",
+            |        "mobileNumber": "$mobileNumber"
             |      }
             |    }
             |  }
@@ -424,13 +424,13 @@ class CharityCommonTransformerSpec extends SpecBase {
               )
             )
           )
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("+44 7700 900 982", Some("07700 900 981"))))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbersWithIntCode))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "declarationInfo": {
@@ -442,7 +442,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        },
             |        "position": "23",
             |        "postcode": "G58AN",
-            |        "telephoneNumber": "44 7700 900 982",
+            |        "telephoneNumber": "${normalisePhoneForTest(phoneNumbersWithIntCode.daytimePhone)}",
             |        "declaration": true,
             |        "overseas": false
             |      }
@@ -471,13 +471,13 @@ class CharityCommonTransformerSpec extends SpecBase {
               AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
             )
           )
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "declarationInfo": {
@@ -488,7 +488,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |          "title": "0001"
             |        },
             |        "position": "23",
-            |        "telephoneNumber": "07700 900 982",
+            |        "telephoneNumber": "$daytimePhone",
             |        "declaration": true,
             |        "overseas": true
             |      }
@@ -516,7 +516,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
           .flatMap(_.set(BankDetailsPage, bankDetails))
           .flatMap(
             _.set(
@@ -539,7 +539,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+              charityContactDetails
             )
               .flatMap(
                 _.set(
@@ -575,7 +575,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        },
             |        "position": "23",
             |        "postcode": "G58AN",
-            |        "telephoneNumber": "07700 900 982",
+            |        "telephoneNumber": "$daytimePhone",
             |        "declaration": true,
             |        "overseas": false
             |      },
@@ -588,11 +588,11 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982",
-            |        "mobileNumber": "07700 000 111",
+            |        "telephoneNumber": "$daytimePhone",
+            |        "mobileNumber": "$mobileNumber",
             |        "operatingName": "OpName"
             |      },
             |      "addressDetails": {
@@ -631,7 +631,7 @@ class CharityCommonTransformerSpec extends SpecBase {
               AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("GB", "United Kingdom"))
             )
           )
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
           .flatMap(_.set(BankDetailsPage, bankDetails))
           .flatMap(
@@ -659,7 +659,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+              charityContactDetails
             )
               .flatMap(
                 _.set(
@@ -695,7 +695,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |        },
             |        "position": "23",
             |        "postcode": "G58AN",
-            |        "telephoneNumber": "07700 900 982",
+            |        "telephoneNumber": "$daytimePhone",
             |        "declaration": true,
             |        "overseas": false
             |      },
@@ -708,11 +708,11 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982",
-            |        "mobileNumber": "07700 000 111",
+            |        "telephoneNumber": "$daytimePhone",
+            |        "mobileNumber": "$mobileNumber",
             |        "operatingName": "OpName"
             |      },
             |      "addressDetails": {
@@ -754,7 +754,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
-          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+          .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
           .flatMap(_.set(BankDetailsPage, bankDetailsWithoutRollNumber))
           .flatMap(
             _.set(
@@ -767,7 +767,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityContactDetailsPage,
-              CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com")
+              charityContactDetails
             )
           )
           .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
@@ -790,7 +790,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |          "title": "0001"
             |        },
             |        "position": "23",
-            |        "telephoneNumber": "07700 900 982",
+            |        "telephoneNumber": "$daytimePhone",
             |        "declaration": true,
             |        "overseas": true
             |      },
@@ -803,11 +803,11 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "organisation": {
             |        "applicationType": "0",
-            |        "emailAddress": "abc@gmail.com",
+            |        "emailAddress": "$charityEmail",
             |        "countryEstd": "1",
             |        "orgName": "ABC",
-            |        "telephoneNumber": "07700 900 982",
-            |        "mobileNumber": "07700 000 111"
+            |        "telephoneNumber": "$daytimePhone",
+            |        "mobileNumber": "$mobileNumber"
             |      },
             |      "addressDetails": {
             |        "differentCorrespondence": false,

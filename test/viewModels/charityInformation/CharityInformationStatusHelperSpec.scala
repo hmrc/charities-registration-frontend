@@ -54,7 +54,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
-                CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")
+                charityContactDetails
               )
             )
             .flatMap(
@@ -85,7 +85,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
-                CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")
+                charityContactDetails
               )
             )
             .flatMap(
@@ -104,10 +104,16 @@ class CharityInformationStatusHelperSpec extends SpecBase {
 
       "all data necessary is provided when postal address is the same as location and email is blank" in {
 
+        val charityContactDetailsNoEmail: CharityContactDetails = CharityContactDetails(
+          daytimePhone = daytimePhone,
+          mobilePhone = Some(mobileNumber),
+          emailAddress = ""
+        )
+
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
             .set(CharityNamePage, CharityName("a charity", None))
-            .flatMap(_.set(CharityContactDetailsPage, CharityContactDetails("0123123123", Some("07111111111"), "")))
+            .flatMap(_.set(CharityContactDetailsPage, charityContactDetailsNoEmail))
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
@@ -149,7 +155,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
-                CharityContactDetails("0123123123", Some("07111111111"), "abc@email.com")
+                charityContactDetails
               )
             )
             .flatMap(

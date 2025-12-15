@@ -49,7 +49,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
     .value
     .set(
       OtherOfficialsPhoneNumberPage(0),
-      PhoneNumber(daytimePhone = "07700 900 982", mobilePhone = Some("07700 900 982"))
+      phoneNumbers
     )
     .success
     .value
@@ -117,7 +117,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("07700 900 982"),
+            HtmlContent(s"$daytimePhone"),
             Some(messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -132,7 +132,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("07700 900 982"),
+            HtmlContent(s"$mobileNumber"),
             Some(messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

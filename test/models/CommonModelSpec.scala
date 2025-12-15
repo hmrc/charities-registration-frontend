@@ -200,11 +200,10 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val charityContactDetails = CharityContactDetails(daytimePhone = daytimePhone, mobilePhone = Some(mobileNumber), emailAddress =  "a@b.com")
 
       charityContactDetails.daytimePhone mustBe daytimePhone
       charityContactDetails.mobilePhone mustBe Some(mobileNumber)
-      charityContactDetails.emailAddress mustBe "a@b.com"
+      charityContactDetails.emailAddress mustBe charityEmail
     }
 
     "toString" in {

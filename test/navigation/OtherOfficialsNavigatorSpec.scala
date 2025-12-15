@@ -36,7 +36,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: OtherOfficialsNavigator     = inject[OtherOfficialsNavigator]
   private val otherOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-  private val otherOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
+  private val otherOfficialsPhoneNumber: PhoneNumber = phoneNumbers
   private val address: AddressModel                  =
     AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
   private val addressMax: AddressModel               =

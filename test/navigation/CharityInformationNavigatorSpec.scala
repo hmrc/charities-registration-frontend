@@ -64,7 +64,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                charityContactDetails
               )
               .success
               .value
@@ -79,7 +79,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                charityContactDetails
               )
               .flatMap(
                 _.set(
@@ -290,7 +290,7 @@ class CharityInformationNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 CharityContactDetailsPage,
-                CharityContactDetails("07700 900 982", Some("07700 900 982"), "abc@gmail.com")
+                charityContactDetails
               )
               .success
               .value

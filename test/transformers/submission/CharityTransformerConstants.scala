@@ -49,14 +49,14 @@ trait CharityTransformerConstants extends SpecBase {
     )
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
     .flatMap(
-      _.set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), "abc@gmail.com"))
+      _.set(CharityContactDetailsPage, charityContactDetails)
     )
     .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
     .flatMap(_.set(IsCharityRegulatorPage, false))
     .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
     .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
-    .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+    .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
     .flatMap(_.set(AuthorisedOfficialsNinoPage(0), nino))
     .flatMap(
       _.set(
@@ -67,7 +67,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
     .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
     .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
-    .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+    .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
     .flatMap(_.set(OtherOfficialsNinoPage(0), nino))
     .flatMap(
       _.set(
@@ -215,7 +215,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "position": "02",
        |        "postcode": "G58AN",
-       |        "telephoneNumber": "07700 900 982",
+       |        "telephoneNumber": "$daytimePhone",
        |        "declaration": true,
        |        "overseas": false
        |      },
@@ -228,11 +228,11 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "organisation": {
        |        "applicationType": "0",
-       |        "emailAddress": "abc@gmail.com",
+       |        "emailAddress": "$charityEmail",
        |        "countryEstd": "1",
        |        "orgName": "ABC",
-       |        "telephoneNumber": "07700 900 982",
-       |        "mobileNumber": "07700 000 111",
+       |        "telephoneNumber": "$daytimePhone",
+       |        "mobileNumber": "$mobileNumber",
        |        "operatingName": "OpName"
        |      },
        |      "addressDetails": {
@@ -272,8 +272,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino"
        |        },
        |        "addressDetails": {
@@ -304,8 +304,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino2"
        |        },
        |        "addressDetails": {
@@ -336,8 +336,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino"
        |        },
        |        "addressDetails": {
@@ -368,8 +368,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino2"
        |        },
        |        "addressDetails": {
@@ -403,7 +403,7 @@ trait CharityTransformerConstants extends SpecBase {
        |          "title": "0001"
        |        },
        |        "position": "02",
-       |        "telephoneNumber": "07700 900 982",
+       |        "telephoneNumber": "$daytimePhone",
        |        "declaration": true,
        |        "overseas": false
        |      },
@@ -416,11 +416,11 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "organisation": {
        |        "applicationType": "0",
-       |        "emailAddress": "abc@gmail.com",
+       |        "emailAddress": "$charityEmail",
        |        "countryEstd": "1",
        |        "orgName": "ABC",
-       |        "telephoneNumber": "07700 900 982",
-       |        "mobileNumber": "07700 000 111"
+       |        "telephoneNumber": "$daytimePhone",
+       |        "mobileNumber": "$mobileNumber"
        |      },
        |      "addressDetails": {
        |        "differentCorrespondence": false,
@@ -504,8 +504,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino"
        |        },
        |        "addressDetails": {
@@ -536,8 +536,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino"
        |        },
        |        "addressDetails": {
@@ -572,7 +572,7 @@ trait CharityTransformerConstants extends SpecBase {
        |          "title": "0001"
        |        },
        |        "position": "23",
-       |        "telephoneNumber": "07700 900 982",
+       |        "telephoneNumber": "$daytimePhone",
        |        "declaration": true,
        |        "overseas": false
        |      },
@@ -585,11 +585,11 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "organisation": {
        |        "applicationType": "0",
-       |        "emailAddress": "abc@gmail.com",
+       |        "emailAddress": "$charityEmail",
        |        "countryEstd": "1",
        |        "orgName": "ABC",
-       |        "telephoneNumber": "07700 900 982",
-       |        "mobileNumber": "07700 000 111"
+       |        "telephoneNumber": "$daytimePhone",
+       |        "mobileNumber": "$mobileNumber"
        |      },
        |      "addressDetails": {
        |        "differentCorrespondence": false,
@@ -673,8 +673,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "23",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino"
        |        },
        |        "addressDetails": {
@@ -705,8 +705,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino2"
        |        },
        |        "addressDetails": {
@@ -737,8 +737,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino"
        |        },
        |        "addressDetails": {
@@ -769,8 +769,8 @@ trait CharityTransformerConstants extends SpecBase {
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
-       |          "dayPhoneNumber": "07700 900 982",
-       |          "mobilePhone": "07700 900 981",
+       |          "dayPhoneNumber": "$daytimePhone",
+       |          "mobilePhone": "$mobileNumber",
        |          "nino": "$nino2"
        |        },
        |        "addressDetails": {

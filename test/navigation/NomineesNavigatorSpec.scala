@@ -33,7 +33,7 @@ class NomineesNavigatorSpec extends SpecBase {
 
   private val navigator: NomineesNavigator              = inject[NomineesNavigator]
   private val nomineeName: Name                         = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-  private val IndividualNomineePhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
+  private val IndividualNomineePhoneNumber: PhoneNumber = phoneNumbers
   private val minYear                                   = 16
   private val address: AddressModel                     =
     AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))

@@ -97,7 +97,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     .flatMap(_.set(ChooseNomineePage, true))
     .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")))
     .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
-    .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123123", Some("0123123124"))))
+    .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
     .flatMap(_.set(IsIndividualNomineeNinoPage, true))
     .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
     .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))

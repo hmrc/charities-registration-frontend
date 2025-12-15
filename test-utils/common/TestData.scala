@@ -16,7 +16,8 @@
 
 package common
 
-import models.{BankDetails, Passport, PhoneNumber}
+import models.{BankDetails, CharityContactDetails, Passport, PhoneNumber}
+import models.nominees.OrganisationNomineeContactDetails
 
 import java.time.LocalDate
 
@@ -75,6 +76,22 @@ trait TestData extends ModelGenerators {
   val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
 
   val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
+
+  val charityEmail = "charity@example.com"
+  val organisationEmail = "company@example.com"
+
+  val charityContactDetails: CharityContactDetails = CharityContactDetails(
+    daytimePhone = daytimePhone,
+    mobilePhone = Some(mobileNumber),
+    emailAddress = charityEmail
+  )
+
+  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails = OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
+
+
+
+
+
 
 
   def replacePlaceholders(inString: String): String =

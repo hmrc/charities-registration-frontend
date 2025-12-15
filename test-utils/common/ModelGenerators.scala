@@ -76,12 +76,6 @@ trait ModelGenerators {
       format(parsed, PhoneNumberFormat.E164)
     }
 
-  def exampleMobileIntGen: Gen[String] =
-    exampleMobileGen.map { national =>
-      val parsed = phoneUtil.parse(national, region)
-      format(parsed, PhoneNumberFormat.E164)
-    }
-
   def exampleMobileGen: Gen[String] =
     Gen.const {
       val num = phoneUtil.getExampleNumberForType(
@@ -91,22 +85,10 @@ trait ModelGenerators {
       format(num, PhoneNumberFormat.NATIONAL)
     }
 
-//  def phoneNumbersGen: Gen[PhoneNumber] =
-//    for {
-//      daytime <- exampleFixedLineGen
-//      mobile <- exampleMobileGen
-//    } yield PhoneNumber(
-//      daytimePhone = daytime,
-//      mobilePhone = Some(mobile)
-//    )
-//
-//  def phoneNumbersWithIntCodeGen: Gen[PhoneNumber] =
-//    for {
-//      daytime <- exampleFixedLineIntGen
-//      mobile <- exampleMobileIntGen
-//    } yield PhoneNumber(
-//      daytimePhone = daytime,
-//      mobilePhone = Some(mobile)
-//    )
-
+  def exampleMobileIntGen: Gen[String] =
+    exampleMobileGen.map { national =>
+      val parsed = phoneUtil.parse(national, region)
+      format(parsed, PhoneNumberFormat.E164)
+    }
+  
 }

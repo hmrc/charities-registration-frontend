@@ -51,7 +51,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(CharityContactDetailsPage, charityContactDetails)
     )
-    .flatMap(_.set(CharityNamePage, CharityName("ABC", None)))
+    .flatMap(_.set(CharityNamePage, charityNameNoOperatingName))
     .flatMap(_.set(IsCharityRegulatorPage, false))
     .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
@@ -230,10 +230,10 @@ trait CharityTransformerConstants extends SpecBase {
        |        "applicationType": "0",
        |        "emailAddress": "$charityEmail",
        |        "countryEstd": "1",
-       |        "orgName": "ABC",
+       |        "orgName": "$charityFullName",
        |        "telephoneNumber": "$daytimePhone",
        |        "mobileNumber": "$mobileNumber",
-       |        "operatingName": "OpName"
+       |        "operatingName": "$charityOperatingName"
        |      },
        |      "addressDetails": {
        |        "differentCorrespondence": true,
@@ -418,7 +418,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        "applicationType": "0",
        |        "emailAddress": "$charityEmail",
        |        "countryEstd": "1",
-       |        "orgName": "ABC",
+       |        "orgName": "$charityFullName",
        |        "telephoneNumber": "$daytimePhone",
        |        "mobileNumber": "$mobileNumber"
        |      },
@@ -587,7 +587,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        "applicationType": "0",
        |        "emailAddress": "$charityEmail",
        |        "countryEstd": "1",
-       |        "orgName": "ABC",
+       |        "orgName": "$charityFullName",
        |        "telephoneNumber": "$daytimePhone",
        |        "mobileNumber": "$mobileNumber"
        |      },

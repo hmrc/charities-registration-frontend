@@ -153,8 +153,8 @@
     "isAuthoriseNominee": false,
     "isBankStatements": true,
     "charityName": {
-      "fullName": "Just a Drop",
-      "operatingName": "Operation Smile"
+      "fullName": "__CHARITYFULLNAME__",
+      "operatingName": "__CHARITYOPERATINGNAME__"
     },
     "whyNoBankStatement": "Test",
     "accountingPeriodEndDate": "--11-11",

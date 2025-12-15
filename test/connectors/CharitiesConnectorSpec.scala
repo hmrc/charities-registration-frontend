@@ -37,7 +37,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
     val httpClient: HttpClientV2                    = injector.instanceOf[HttpClientV2]
     lazy val charitiesConnector: CharitiesConnector = new CharitiesConnector(httpClient, mockFrontendAppConfig)
     val requestJson                                 = readJsonFromFile("/request.json")
-    val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, CharityName("AAA", None)).success.value
+    val userAnswers: UserAnswers                    = emptyUserAnswers.set(CharityNamePage, charityNameNoOperatingName).success.value
     val organizationId                              = 1234
 
     when(mockFrontendAppConfig.getCharitiesBackend) `thenReturn` getUrl
@@ -128,18 +128,18 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
 
         "return Some(userAnswers) response)" in {
 
-          val responseJson = """{
+          val responseJson = s"""{
                                |    "_id": "id",
                                |    "data": {
                                |        "charityName": {
-                               |            "fullName": "AAA"
+                               |            "fullName": "$charityFullName"
                                |        }
                                |    },
                                |    "lastUpdated": {
-                               |        "$date": 1611336311912
+                               |        "$$date": 1611336311912
                                |    },
                                |    "expiresAt": {
-                               |        "$date": 1613779200000
+                               |        "$$date": 1613779200000
                                |    }
                                |}""".stripMargin
 

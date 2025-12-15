@@ -33,7 +33,7 @@ import viewmodels.charityInformation.CharityInformationSummaryHelper
 class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
 
   private val officialAddress: UserAnswers = emptyUserAnswers
-    .set(CharityNamePage, CharityName(fullName = "Believe", operatingName = Some("Original Charity")))
+    .set(CharityNamePage, charityName)
     .success
     .value
     .set(
@@ -50,7 +50,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
     .value
 
   private val postalAnswers: UserAnswers = emptyUserAnswers
-    .set(CharityNamePage, CharityName(fullName = "Believe", operatingName = Some("Original Charity")))
+    .set(CharityNamePage, charityName)
     .success
     .value
     .set(
@@ -88,13 +88,13 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().charityNameRows mustBe Seq(
           summaryListRow(
             messages("charityName.fullName.checkYourAnswersLabel"),
-            HtmlContent("Believe"),
+            HtmlContent(charityFullName),
             Some(messages("charityName.fullName.checkYourAnswersLabel")),
             charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("charityName.operatingName.checkYourAnswersLabel"),
-            HtmlContent("Original Charity"),
+            HtmlContent(charityOperatingName),
             Some(messages("charityName.operatingName.checkYourAnswersLabel")),
             charityInfoRoutes.CharityNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -121,7 +121,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
           ),
           summaryListRow(
             messages("charityContactDetails.emailAddress.checkYourAnswersLabel"),
-            HtmlContent(s"${charityContactDetails.emailAddress}"),
+            HtmlContent(charityEmail),
             Some(messages("charityContactDetails.emailAddress.checkYourAnswersLabel")),
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

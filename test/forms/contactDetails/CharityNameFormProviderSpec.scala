@@ -90,21 +90,19 @@ class CharityNameFormProviderSpec extends StringFieldBehaviours {
 
   "CharityNameFormProvider" must {
 
-    val charityName = CharityName("CName", Some("OpName"))
-
     "apply CharityName correctly" in {
 
       val details = form
         .bind(
           Map(
-            "fullName"      -> charityName.fullName,
-            "operatingName" -> charityName.operatingName.getOrElse("")
+            "fullName"      -> charityFullName,
+            "operatingName" -> charityName.operatingName.get
           )
         )
         .get
 
-      details.fullName mustBe charityName.fullName
-      details.operatingName mustBe charityName.operatingName
+      details.fullName mustBe charityFullName
+      details.operatingName mustBe Some(charityOperatingName)
     }
 
     "unapply CharityName correctly" in {

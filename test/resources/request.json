@@ -10,7 +10,7 @@
       },
       "organisation": {
         "applicationType": "0",
-        "orgName": "This is my Charity",
+        "orgName": "__CHARITYFULLNAME__",
         "operatingName": "",
         "telephoneNumber": "0121 123 4567",
         "mobileNumber": "",
@@ -171,9 +171,9 @@
         },
         "type": "3",
         "orgDetails": {
-          "orgName": "Organisation name of the CorporateTrustee",
+          "orgName": "__CHARITYFULLNAME__",
           "telephoneNumber": "0121 456 7890",
-          "emailAddress": "corporatetrustee@charitiesrus.co.uk",
+          "emailAddress": "__CHARITYEMAIL__",
           "utr": "",
           "crn": "",
           "vatNo": "",
@@ -191,7 +191,7 @@
           "dateOfBirth": "1978-03-12",
           "dayPhoneNumber": "0121 123 4567",
           "mobilePhone": "",
-          "emailAddress": "abc@gmail.com",
+          "emailAddress": "__CHARITYEMAIL__",
           "nino": "__NINO1__",
           "nationalIdentityNumber": "",
           "nationalIDCardIssuingCountry": ""

@@ -324,8 +324,8 @@
     "isSection7Completed": true,
     "whyNoBankStatement": "123 no",
     "charityName": {
-      "fullName": "Charity two",
-      "operatingName": "Charity Optional two"
+      "fullName": "__CHARITYFULLNAME__",
+      "operatingName": "__CHARITYOPERATINGNAME__"
     },
     "isSection6Completed": true,
     "addAnotherOtherOfficial": true,

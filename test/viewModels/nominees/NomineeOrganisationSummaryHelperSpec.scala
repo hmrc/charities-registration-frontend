@@ -19,21 +19,24 @@ package viewModels.nominees
 import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
-import controllers.nominees.{routes => nomineesRoutes}
+import controllers.nominees.routes as nomineesRoutes
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, CheckMode, Country, Name, Passport, SelectTitle, UserAnswers}
-import org.mockito.ArgumentMatchers.{any, eq => meq}
+import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
-import pages.nominees._
+import pages.nominees.*
 import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.nominees.NomineeOrganisationSummaryHelper
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowHelper {
+
+  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   private val year       = 1991
   private val month      = 1
@@ -73,7 +76,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
       .flatMap(
         _.set(
           OrganisationAuthorisedPersonPassportPage,
-          Passport("GB12345", "GB", LocalDate.of(year, month, dayOfMonth))
+          passport
         )
       )
       .success
@@ -315,7 +318,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperPassport.authorisedPersonPassportNumber mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel"),
-            HtmlContent("GB12345"),
+            HtmlContent(passportNumber),
             Some(messages("organisationAuthorisedPersonPassport.passportNumber.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(
               CheckMode
@@ -328,7 +331,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperPassport.authorisedPersonPassportExpiry mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel"),
-            HtmlContent("2 January 1991"),
+            HtmlContent(passport.expiryDate.format(dateFormatter)),
             Some(messages("organisationAuthorisedPersonPassport.expiryDate.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(
               CheckMode

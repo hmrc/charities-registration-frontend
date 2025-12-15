@@ -126,7 +126,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
             AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), CountryModel("GB", "United Kingdom"))
           )
         )
-        .flatMap(_.set(CharityNamePage, CharityName("ABC", Some("OpName"))))
+        .flatMap(_.set(CharityNamePage, charityName))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))

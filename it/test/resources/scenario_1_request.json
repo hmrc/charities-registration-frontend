@@ -46,7 +46,7 @@
     "selectWhyNoRegulator": "1",
     "governingDocumentName": "Other Documents for Charity",
     "charityName": {
-      "fullName": "ABC"
+      "fullName": "__CHARITYFULLNAME__"
     },
     "accountingPeriodEndDate": "--01-01",
     "bankDetails": {

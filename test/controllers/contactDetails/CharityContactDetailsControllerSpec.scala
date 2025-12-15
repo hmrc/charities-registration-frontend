@@ -61,7 +61,7 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
   private val requestArgs = Seq(
     "mainPhoneNumber"        -> s"$daytimePhone",
     "alternativePhoneNumber" -> s"$daytimePhone",
-    "emailAddress"           -> "abc@gmail.com"
+    "emailAddress"           -> charityEmail
   )
 
   "CharityContactDetails Controller " must {

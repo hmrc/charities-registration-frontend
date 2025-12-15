@@ -29,9 +29,7 @@ class CharityContactDetailsPageSpec extends PageBehaviours {
     }
 
     beRetrievable[CharityContactDetails](CharityContactDetailsPage)
-
     beSettable[CharityContactDetails](CharityContactDetailsPage)
-
     beRemovable[CharityContactDetails](CharityContactDetailsPage)
   }
 }

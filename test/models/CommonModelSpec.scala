@@ -185,10 +185,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val charityName = CharityName("Name", Some("op number"))
-
-      charityName.fullName mustBe "Name"
-      charityName.operatingName mustBe Some("op number")
+      charityName.fullName mustBe charityFullName
+      charityName.operatingName mustBe Some(charityOperatingName)
     }
 
     "toString" in {

@@ -34,9 +34,7 @@ class OrganisationAuthorisedPersonDOBPageSpec extends PageBehaviours {
   "OrganisationAuthorisedPersonDOBPage" must {
 
     beRetrievable[LocalDate](OrganisationAuthorisedPersonDOBPage)
-
     beSettable[LocalDate](OrganisationAuthorisedPersonDOBPage)
-
     beRemovable[LocalDate](OrganisationAuthorisedPersonDOBPage)
   }
 }

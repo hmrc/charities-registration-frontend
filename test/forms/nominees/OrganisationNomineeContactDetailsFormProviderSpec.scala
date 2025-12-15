@@ -143,9 +143,9 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
   "validateEmailAddress" must {
 
-    "be valid for testmail@email.com" in {
+    s"be valid for $organisationEmail" in {
 
-      "testmail@email.com" must fullyMatch regex formProvider.validateEmailAddress
+      organisationEmail must fullyMatch regex formProvider.validateEmailAddress
     }
 
     "be invalid for testmail" in {

@@ -23,9 +23,7 @@ class IsOrganisationNomineePaymentsPageSpec extends PageBehaviours {
   "IsOrganisationNomineePaymentsPage" must {
 
     beRetrievable[Boolean](IsOrganisationNomineePaymentsPage)
-
     beSettable[Boolean](IsOrganisationNomineePaymentsPage)
-
     beRemovable[Boolean](IsOrganisationNomineePaymentsPage)
   }
 }

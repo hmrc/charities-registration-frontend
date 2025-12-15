@@ -167,7 +167,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialsPassportPage(0),
-              passport.copy("passportNumber", "gb", passport.expiryDate.plusDays(1))
+              passport.copy(expiryDate = passport.expiryDate.plusDays(1))
             )
           )
           .success
@@ -186,8 +186,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                "dateOfBirth": "2000-12-11",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "mobilePhone": "$mobileNumber",
-            |                "nationalIdentityNumber": "passportNumber",
-            |                "nationalIDCardIssuingCountry": "gb",
+            |                "nationalIdentityNumber": "$passportNumber",
+            |                "nationalIDCardIssuingCountry": "${passport.country}",
             |                "nationalIDCardExpiryDate": "${passport.expiryDate.plusDays(1)}"
             |        }
             |  }""".stripMargin
@@ -1347,7 +1347,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = userAnswersTwoAuthOneOther
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, false))
-          .flatMap(_.set(OrganisationNomineeNamePage, "organisationName"))
+          .flatMap(_.set(OrganisationNomineeNamePage, charityOperatingName))
           .flatMap(
             _.set(
               OrganisationNomineeContactDetailsPage,
@@ -1511,7 +1511,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |          "effectiveDateOfChange": "$date"
              |        },
              |        "orgDetails": {
-             |          "orgName": "organisationName",
+             |          "orgName": "$charityOperatingName",
              |          "telephoneNumber": "$daytimePhone",
              |          "emailAddress": "$organisationEmail"
              |        },

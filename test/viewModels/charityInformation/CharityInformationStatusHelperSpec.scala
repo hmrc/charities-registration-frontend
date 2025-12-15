@@ -38,7 +38,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
       "some but not all data is provided" in {
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("a charity", Some("another name")))
+            .set(CharityNamePage, charityName)
             .success
             .value
         )
@@ -50,7 +50,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
 
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("a charity", None))
+            .set(CharityNamePage, charityNameNoOperatingName)
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
@@ -81,7 +81,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
 
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("a charity", None))
+            .set(CharityNamePage, charityNameNoOperatingName)
             .flatMap(
               _.set(
                 CharityContactDetailsPage,
@@ -112,7 +112,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
 
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("a charity", None))
+            .set(CharityNamePage, charityNameNoOperatingName)
             .flatMap(_.set(CharityContactDetailsPage, charityContactDetailsNoEmail))
             .flatMap(
               _.set(
@@ -132,7 +132,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
 
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("a charity", None))
+            .set(CharityNamePage, charityNameNoOperatingName)
             .flatMap(
               _.set(
                 CharityOfficialAddressLookupPage,
@@ -151,7 +151,7 @@ class CharityInformationStatusHelperSpec extends SpecBase {
 
         val result = CharityInformationStatusHelper.checkComplete(
           emptyUserAnswers
-            .set(CharityNamePage, CharityName("a charity", None))
+            .set(CharityNamePage, charityNameNoOperatingName)
             .flatMap(
               _.set(
                 CharityContactDetailsPage,

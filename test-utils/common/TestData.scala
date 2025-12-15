@@ -16,7 +16,7 @@
 
 package common
 
-import models.{BankDetails, CharityContactDetails, Passport, PhoneNumber}
+import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber}
 import models.nominees.OrganisationNomineeContactDetails
 
 import java.time.LocalDate
@@ -67,6 +67,16 @@ trait TestData extends ModelGenerators {
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
 
+  val charityFullName = "A Charity"
+  val charityOperatingName = "Charity Operating Name"
+
+  val charityName: CharityName = CharityName(charityFullName, Some(charityOperatingName))
+  val charityNameNoOperatingName: CharityName = charityName.copy(operatingName = None)
+
+  val charityEmail = "charity@example.com"
+  val organisationEmail = "company@example.com"
+
+
   val daytimePhone: String = exampleFixedLineGen.sample.get
   val mobileNumber: String = exampleMobileGen.sample.get
 
@@ -76,9 +86,6 @@ trait TestData extends ModelGenerators {
   val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
 
   val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
-
-  val charityEmail = "charity@example.com"
-  val organisationEmail = "company@example.com"
 
   val charityContactDetails: CharityContactDetails = CharityContactDetails(
     daytimePhone = daytimePhone,
@@ -106,6 +113,8 @@ trait TestData extends ModelGenerators {
       .replaceAll("__PASSPORTNUMBER__", passportNumber)
       .replaceAll("__PASSPORTCOUNTRY__", passport.country)
       .replaceAll("__EXPIRYDATE__", passport.expiryDate.toString)
+      .replaceAll("__CHARITYOPERATINGNAME__", charityOperatingName)
+      .replaceAll("__CHARITYFULLNAME__", charityFullName)
       .replaceAll("__CHARITYEMAIL__", charityEmail)
       .replaceAll("__ORGANISATIONEMAIL__", organisationEmail)
       .replaceAll("__DAYTIMEPHONE__", daytimePhone)

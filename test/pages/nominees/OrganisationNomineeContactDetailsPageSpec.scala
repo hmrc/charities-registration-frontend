@@ -29,9 +29,7 @@ class OrganisationNomineeContactDetailsPageSpec extends PageBehaviours {
   "OrganisationNomineeContactDetailsPage" must {
 
     beRetrievable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
-
     beSettable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
-
     beRemovable[OrganisationNomineeContactDetails](OrganisationNomineeContactDetailsPage)
   }
 }

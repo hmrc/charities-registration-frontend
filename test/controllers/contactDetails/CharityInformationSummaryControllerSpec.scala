@@ -58,7 +58,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, CharityName("aaa", None)).success.value))
+        Future.successful(Some(emptyUserAnswers.set(CharityNamePage, charityNameNoOperatingName).success.value))
       )
 
       val result = controller.onPageLoad()(fakeRequest)
@@ -94,7 +94,7 @@ class CharityInformationSummaryControllerSpec extends SpecBase with BeforeAndAft
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
-          Some(emptyUserAnswers.set(CharityNamePage, CharityName("a charity", Some("another name"))).success.value)
+          Some(emptyUserAnswers.set(CharityNamePage, charityName).success.value)
         )
       )
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

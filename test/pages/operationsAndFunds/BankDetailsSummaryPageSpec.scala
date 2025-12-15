@@ -23,9 +23,7 @@ class BankDetailsSummaryPageSpec extends PageBehaviours {
   "OperationsFundsSummaryPage" must {
 
     beRetrievable[String](BankDetailsSummaryPage)
-
     beSettable[String](BankDetailsSummaryPage)
-
     beRemovable[String](BankDetailsSummaryPage)
   }
 }

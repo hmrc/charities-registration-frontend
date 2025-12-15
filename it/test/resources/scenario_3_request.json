@@ -5,8 +5,8 @@
       {
         "isOfficialPreviousAddress": true,
         "officialsPhoneNumber": {
-          "daytimePhone": "+44 0808 157 1111",
-          "mobilePhone": "+44 0808 157 2222"
+          "daytimePhone": "__DAYTIMEPHONEINT__",
+          "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "01",
         "officialsDOB": "2001-01-11",
@@ -49,8 +49,8 @@
       {
         "isOfficialPreviousAddress": false,
         "officialsPhoneNumber": {
-          "daytimePhone": "+44 0808 157 2222",
-          "mobilePhone": "+44 0808 157 3333"
+          "daytimePhone": "__DAYTIMEPHONEINT__",
+          "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "23",
         "officialsDOB": "2002-02-02",
@@ -143,9 +143,9 @@
     "charitableObjectives": "Test",
     "isSection8Completed": true,
     "charityContactDetails": {
-      "daytimePhone": "+44 0808 157 1111",
-      "mobilePhone": "+44 0808 157 2222",
-      "emailAddress": "a@b.com"
+      "daytimePhone": "__DAYTIMEPHONEINT__",
+      "mobilePhone": "__MOBILEPHONEINT__",
+      "emailAddress": "__CHARITYEMAIL__"
     },
     "isCharityRegulator": true,
     "sectionsChangedGoverningDocument": "Test",
@@ -190,8 +190,8 @@
     "otherOfficials": [
       {
         "officialsPhoneNumber": {
-          "daytimePhone": "+44 0808 157 2222",
-          "mobilePhone": "+44 0808 157 1111"
+          "daytimePhone": "__DAYTIMEPHONEINT__",
+          "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "02",
         "officialsDOB": "2001-01-11",
@@ -235,8 +235,8 @@
       },
       {
         "officialsPhoneNumber": {
-          "daytimePhone": "+44 0808 157 2222",
-          "mobilePhone": "+44 0808 157 3333"
+          "daytimePhone": "__DAYTIMEPHONEINT__",
+          "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "03",
         "officialsDOB": "2001-02-02",

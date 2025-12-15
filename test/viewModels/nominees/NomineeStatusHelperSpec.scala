@@ -89,6 +89,8 @@ class NomineeStatusHelperSpec extends SpecBase {
   private val year       = 2000
   private val month      = 1
   private val dayOfMonth = 2
+  
+  private val nomineeOrganisationContactDetailsEmptyEmail: OrganisationNomineeContactDetails = OrganisationNomineeContactDetails(daytimePhone, "")
 
   private val noNominee = UserAnswers("id").set(IsAuthoriseNomineePage, false).success.value
 
@@ -111,7 +113,7 @@ class NomineeStatusHelperSpec extends SpecBase {
     .flatMap(_.set(ChooseNomineePage, false))
     .flatMap(_.set(OrganisationNomineeNamePage, "Company Inc"))
     .flatMap(
-      _.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com"))
+      _.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails)
     )
     .flatMap(_.set(OrganisationNomineeAddressLookupPage, ConfirmedAddressConstants.address))
     .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
@@ -438,7 +440,7 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "company@inc.com")
+                nomineeOrganisationContactDetails
               )
             )
             .flatMap(
@@ -460,7 +462,7 @@ class NomineeStatusHelperSpec extends SpecBase {
             .flatMap(
               _.set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "company@inc.com")
+                nomineeOrganisationContactDetails
               )
             )
             .flatMap(
@@ -479,7 +481,7 @@ class NomineeStatusHelperSpec extends SpecBase {
           val nomineeOrganisation: UserAnswers = UserAnswers("id")
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
-            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "")))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetailsEmptyEmail))
             .flatMap(
               _.set(
                 OrganisationAuthorisedPersonNamePage,
@@ -496,7 +498,7 @@ class NomineeStatusHelperSpec extends SpecBase {
           val nomineeOrganisation: UserAnswers = UserAnswers("id")
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
-            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "")))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetailsEmptyEmail))
             .flatMap(
               _.set(
                 OrganisationAuthorisedPersonNamePage,
@@ -529,7 +531,7 @@ class NomineeStatusHelperSpec extends SpecBase {
           val nomineeOrganisation: UserAnswers = UserAnswers("id")
             .set(IsAuthoriseNomineePage, true)
             .flatMap(_.set(ChooseNomineePage, false))
-            .flatMap(_.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "")))
+            .flatMap(_.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetailsEmptyEmail))
             .success
             .value
 

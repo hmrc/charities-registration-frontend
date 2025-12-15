@@ -106,4 +106,10 @@ trait TestData extends ModelGenerators {
       .replaceAll("__PASSPORTNUMBER__", passportNumber)
       .replaceAll("__PASSPORTCOUNTRY__", passport.country)
       .replaceAll("__EXPIRYDATE__", passport.expiryDate.toString)
+      .replaceAll("__CHARITYEMAIL__", charityEmail)
+      .replaceAll("__ORGANISATIONEMAIL__", organisationEmail)
+      .replaceAll("__DAYTIMEPHONE__", daytimePhone)
+      .replaceAll("__DAYTIMEPHONEINT__", daytimePhoneWithIntCode)
+      .replaceAll("__MOBILEPHONE__", mobileNumber)
+      .replaceAll("__MOBILEPHONEINT__", mobileNumberWithIntCode)
 }

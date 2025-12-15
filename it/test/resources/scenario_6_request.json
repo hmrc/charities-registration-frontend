@@ -36,9 +36,11 @@
       "5"
     ],
     "charityContactDetails": {
-      "daytimePhone": "07111111111",
-      "mobilePhone": "0722222222222",
-      "emailAddress": "test@test.com"
+      "daytimePhone": "__DAYTIMEPHONE__"
+,
+      "mobilePhone": "__MOBILEPHONE__"
+,
+      "emailAddress": "__CHARITYEMAIL__"
     },
     "isCharityRegulator": true,
     "sectionsChangedGoverningDocument": "Section one",
@@ -62,8 +64,10 @@
     "otherOfficials": [
       {
         "officialsPhoneNumber": {
-          "daytimePhone": "01632 960 001",
-          "mobilePhone": "01632 960 001"
+          "daytimePhone": "__DAYTIMEPHONE__"
+,
+          "mobilePhone": "__MOBILEPHONE__"
+
         },
         "officialsPosition": "23",
         "officialsDOB": "2002-07-03",
@@ -104,8 +108,10 @@
       },
       {
         "officialsPhoneNumber": {
-          "daytimePhone": "01632 960 002",
-          "mobilePhone": "01632 960 003"
+          "daytimePhone": "__DAYTIMEPHONE__"
+,
+          "mobilePhone": "__MOBILEPHONE__"
+
         },
         "officialsPosition": "01",
         "officialsDOB": "2002-07-03",
@@ -137,8 +143,10 @@
       },
       {
         "officialsPhoneNumber": {
-          "daytimePhone": "01632 960 001",
-          "mobilePhone": "01632 960 001"
+          "daytimePhone": "__DAYTIMEPHONE__"
+,
+          "mobilePhone": "__MOBILEPHONE__"
+
         },
         "officialsPosition": "01",
         "officialsDOB": "1998-10-30",
@@ -170,8 +178,10 @@
       {
         "isOfficialPreviousAddress": true,
         "officialsPhoneNumber": {
-          "daytimePhone": "01632 960 001",
-          "mobilePhone": "01632 960 001"
+          "daytimePhone": "__DAYTIMEPHONE__"
+,
+          "mobilePhone": "__MOBILEPHONE__"
+
         },
         "officialsPosition": "23",
         "officialsDOB": "2002-07-03",
@@ -213,8 +223,10 @@
       {
         "isOfficialPreviousAddress": false,
         "officialsPhoneNumber": {
-          "daytimePhone": "01632 960 001",
-          "mobilePhone": "01632 960 001"
+          "daytimePhone": "__DAYTIMEPHONE__"
+,
+          "mobilePhone": "__MOBILEPHONE__"
+
         },
         "officialsPosition": "01",
         "officialsDOB": "1999-12-31",
@@ -303,7 +315,7 @@
         },
         "organisationContactDetails": {
           "phoneNumber": "01632 960 002",
-          "email": "newOrganisation@email.com"
+          "email": "__ORGANISATIONEMAIL__"
         }
       }
     },

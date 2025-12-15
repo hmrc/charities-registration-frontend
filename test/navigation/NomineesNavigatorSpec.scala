@@ -431,7 +431,7 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "test@email.com")
+                nomineeOrganisationContactDetails
               )
               .success
               .value
@@ -446,7 +446,7 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "test@email.com")
+                nomineeOrganisationContactDetails
               )
               .flatMap(_.set(OrganisationNomineeAddressLookupPage, address))
               .success
@@ -1105,7 +1105,7 @@ class NomineesNavigatorSpec extends SpecBase {
             emptyUserAnswers
               .set(
                 OrganisationNomineeContactDetailsPage,
-                OrganisationNomineeContactDetails("0123123123", "test@email.com")
+                nomineeOrganisationContactDetails
               )
               .success
               .value

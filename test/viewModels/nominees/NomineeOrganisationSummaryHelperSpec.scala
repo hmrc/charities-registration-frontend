@@ -45,7 +45,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
   private lazy val baseUserAnswers: UserAnswers = UserAnswers("id")
     .set(OrganisationNomineeNamePage, "Company Inc")
     .flatMap(
-      _.set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", "company@inc.com"))
+      _.set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails)
     )
     .flatMap(_.set(OrganisationNomineeAddressLookupPage, ConfirmedAddressConstants.address))
     .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
@@ -102,7 +102,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeMainPhone mustBe Some(
           summaryListRow(
             messages("organisationContactDetails.phoneNumber.checkYourAnswersLabel"),
-            HtmlContent("0123123123"),
+            HtmlContent(daytimePhone),
             Some(messages("organisationContactDetails.phoneNumber.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationNomineeContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -116,7 +116,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeEmailAddress mustBe Some(
           summaryListRow(
             messages("organisationContactDetails.email.checkYourAnswersLabel"),
-            HtmlContent("company@inc.com"),
+            HtmlContent(organisationEmail),
             Some(messages("organisationContactDetails.email.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationNomineeContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

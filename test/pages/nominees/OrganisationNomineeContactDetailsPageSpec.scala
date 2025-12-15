@@ -23,7 +23,7 @@ import pages.behaviours.PageBehaviours
 class OrganisationNomineeContactDetailsPageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryContactDetails: Arbitrary[OrganisationNomineeContactDetails] = Arbitrary {
-    OrganisationNomineeContactDetails("0123123123", "email@email.com")
+    nomineeOrganisationContactDetails
   }
 
   "OrganisationNomineeContactDetailsPage" must {

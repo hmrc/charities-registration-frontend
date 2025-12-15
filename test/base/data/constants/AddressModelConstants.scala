@@ -16,21 +16,22 @@
 
 package base.data.constants
 
-import models.addressLookup.{AddressModel, CountryModel}
+import base.SpecBase
+import models.addressLookup.AddressModel
 
-object AddressModelConstants {
+object AddressModelConstants extends SpecBase{
 
   val address: AddressModel =
-    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
 
   val addressModelMax: AddressModel =
     AddressModel(
       Seq("7", "Morrison street near riverview gardens"),
       Some("G58AN"),
-      CountryModel("UK", "United Kingdom")
+      gbCountryModel
     )
 
   val addressModelMin: AddressModel =
-    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7 Morrison street"), Some("G58AN"), gbCountryModel)
 
 }

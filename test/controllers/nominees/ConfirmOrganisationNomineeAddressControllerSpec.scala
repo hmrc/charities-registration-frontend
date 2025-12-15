@@ -18,7 +18,7 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.{NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
@@ -53,7 +53,7 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
   private val controller: ConfirmOrganisationNomineeAddressController =
     inject[ConfirmOrganisationNomineeAddressController]
   private val messageKeyPrefix                                        = "organisationNomineeAddress"
-  private val organisationNomineeAddressLookup                        = List("12", "Banner Way", "United Kingdom")
+  private val organisationNomineeAddressLookup                        = List("12", "Banner Way", gbCountryName)
 
   "ConfirmOrganisationNomineeAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
               .flatMap(
                 _.set(
                   OrganisationNomineeAddressLookupPage,
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
                 )
               )
               .success
@@ -93,7 +93,7 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val organisationNomineeAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val organisationNomineeAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -106,7 +106,7 @@ class ConfirmOrganisationNomineeAddressControllerSpec extends SpecBase with Befo
                   AddressModel(
                     List("12", "Banner Way near south riverview gardens"),
                     None,
-                    CountryModel("GB", "United Kingdom")
+                    gbCountryModel
                   )
                 )
               )

@@ -18,7 +18,7 @@ package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
@@ -53,7 +53,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
   private val controller: ConfirmOtherOfficialsPreviousAddressController =
     inject[ConfirmOtherOfficialsPreviousAddressController]
   private val messageKeyPrefix                                           = "otherOfficialPreviousAddress"
-  private val otherOfficialPreviousAddressLookup                         = List("12", "Banner Way", "United Kingdom")
+  private val otherOfficialPreviousAddressLookup                         = List("12", "Banner Way", gbCountryName)
 
   "ConfirmAuthorisedOfficialsPreviousAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
               .flatMap(
                 _.set(
                   OtherOfficialPreviousAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
                 )
               )
               .success
@@ -94,7 +94,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val otherOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val otherOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -107,7 +107,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
                   AddressModel(
                     List("12", "Banner Way near south riverview gardens"),
                     None,
-                    CountryModel("GB", "United Kingdom")
+                    gbCountryModel
                   )
                 )
               )

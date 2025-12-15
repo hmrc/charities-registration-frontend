@@ -19,7 +19,7 @@ package controllers.contactDetails
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
@@ -51,7 +51,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
   private val view: ConfirmAddressView                          = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmCharityPostalAddressController = inject[ConfirmCharityPostalAddressController]
   private val messageKeyPrefix                                  = "charityPostalAddress"
-  private val charityInformationAddressLookup                   = List("12", "Banner Way", "United Kingdom")
+  private val charityInformationAddressLookup                   = List("12", "Banner Way", gbCountry.name)
 
   "ConfirmCharityPostalAddressController Controller" must {
 
@@ -63,7 +63,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
             emptyUserAnswers
               .set(
                 CharityPostalAddressLookupPage,
-                AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                AddressModel(List("12", "Banner Way"), None, gbCountryModel)
               )
               .success
               .value
@@ -88,7 +88,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val charityInformationAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val charityInformationAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -99,7 +99,7 @@ class ConfirmCharityPostalAddressControllerSpec extends SpecBase with BeforeAndA
                 AddressModel(
                   List("12", "Banner Way near south riverview gardens"),
                   None,
-                  CountryModel("GB", "United Kingdom")
+                  gbCountryModel
                 )
               )
               .success

@@ -23,9 +23,7 @@ class WhatCountryDoesTheCharityOperateInDeletePageSpec extends PageBehaviours {
   "WhatCountryDoesTheCharityOperateInPage" must {
 
     beRetrievable[String](WhatCountryDoesTheCharityOperateInDeletePage(0))
-
     beSettable[String](WhatCountryDoesTheCharityOperateInDeletePage(0))
-
     beRemovable[String](WhatCountryDoesTheCharityOperateInDeletePage(0))
 
   }

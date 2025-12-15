@@ -35,9 +35,7 @@ class AuthorisedOfficialsIdSpec extends PageBehaviours {
     }
 
     beRetrievable[JsObject](AuthorisedOfficialsId(0))
-
     beSettable[JsObject](AuthorisedOfficialsId(0))
-
     beRemovable[JsObject](AuthorisedOfficialsId(0))
   }
 }

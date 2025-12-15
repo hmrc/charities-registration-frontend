@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{Country, Index, NormalMode, UserAnswers}
+import models.{Index, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
@@ -63,7 +63,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(WhatCountryDoesTheCharityOperateInPage(0), "XX")
+      .set(WhatCountryDoesTheCharityOperateInPage(0), gbCountry.code)
       .success
       .value
 
@@ -82,18 +82,18 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("XX", "CountryCountry")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "CountryCountry",
+        gbCountryName,
         messageKeyPrefix,
         controllers.operationsAndFunds.routes.IsRemoveOperatingCountryController.onSubmit(NormalMode, Index(0)),
         "operationsAndFunds",
-        Seq("CountryCountry")
+        Seq(gbCountryName)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
 
@@ -105,7 +105,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("XX", "CountryCountry")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
@@ -121,7 +121,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("XX", "CountryCountry")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
@@ -134,7 +134,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("XX", "CountryCountry")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -149,7 +149,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(None))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("XX", "CountryCountry")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
@@ -165,7 +165,7 @@ class IsRemoveOperatingCountryControllerSpec extends SpecBase with BeforeAndAfte
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("XX", "CountryCountry")))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(gbCountry))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

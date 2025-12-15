@@ -19,7 +19,7 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.AmendAddressFormProvider
-import models.addressLookup.{AddressModel, AmendAddressModel, CountryModel}
+import models.addressLookup.{AddressModel, AmendAddressModel}
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
@@ -71,7 +71,7 @@ class AmendNomineeOrganisationAddressControllerSpec extends SpecBase with Before
     "line3"    -> "",
     "town"     -> "Glasgow",
     "postcode" -> "G58AN",
-    "country"  -> "GB"
+    "country"  -> gbCountryCode
   )
 
   private val organisation = "TestCompany"
@@ -82,7 +82,7 @@ class AmendNomineeOrganisationAddressControllerSpec extends SpecBase with Before
       AddressModel(
         Seq("7", "Morrison street near riverview gardens", "Glasgow"),
         Some("G58AN"),
-        CountryModel("GB", "United Kingdom")
+        gbCountryModel
       )
     )
     .flatMap(_.set(OrganisationNomineeNamePage, organisation))
@@ -94,10 +94,10 @@ class AmendNomineeOrganisationAddressControllerSpec extends SpecBase with Before
     "return OK and the correct view for a GET" in {
 
       val amendNomineeOrganisationAddress =
-        AmendAddressModel("7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", "GB")
+        AmendAddressModel("7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", gbCountryCode)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -107,7 +107,7 @@ class AmendNomineeOrganisationAddressControllerSpec extends SpecBase with Before
         messageKeyPrefix,
         controllers.nominees.routes.AmendNomineeOrganisationAddressController.onSubmit(NormalMode),
         Some(organisation),
-        countries = Seq(("GB", "United Kingdom"))
+        countries = Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
       verify(mockCountryService, times(1)).countries()(any())
@@ -116,12 +116,12 @@ class AmendNomineeOrganisationAddressControllerSpec extends SpecBase with Before
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", "GB"))
+        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", gbCountryCode))
         .success
         .value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -136,7 +136,7 @@ class AmendNomineeOrganisationAddressControllerSpec extends SpecBase with Before
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
 
@@ -152,7 +152,7 @@ class AmendNomineeOrganisationAddressControllerSpec extends SpecBase with Before
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
 

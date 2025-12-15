@@ -35,7 +35,7 @@ class AmendAddressViewSpec extends QuestionViewBehaviours[AmendAddressModel] {
     form,
     messageKeyPrefix,
     onwardRoute,
-    countries = Seq(("GB", "United Kingdom"))
+    countries = Seq(gbCountryTuple)
   )(
     fakeRequest,
     messages,
@@ -47,7 +47,7 @@ class AmendAddressViewSpec extends QuestionViewBehaviours[AmendAddressModel] {
     messageKeyPrefix,
     onwardRoute,
     None,
-    countries = Seq(("GB", "United Kingdom")),
+    countries = Seq(gbCountryTuple),
     fakeRequest,
     messages,
     frontendAppConfig
@@ -58,7 +58,7 @@ class AmendAddressViewSpec extends QuestionViewBehaviours[AmendAddressModel] {
     messageKeyPrefix,
     onwardRoute,
     None,
-    Seq(("GB", "United Kingdom"))
+    Seq(gbCountryTuple)
   )(
     fakeRequest,
     messages,

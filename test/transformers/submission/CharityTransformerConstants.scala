@@ -19,7 +19,7 @@ package transformers.submission
 import java.time.{LocalDate, MonthDay}
 
 import base.SpecBase
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
@@ -44,7 +44,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         CharityOfficialAddressLookupPage,
-        AddressModel(Seq("7", "Morrison street"), None, CountryModel("IN", "India"))
+        AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
       )
     )
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -61,7 +61,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), gbCountryModel)
       )
     )
     .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
@@ -72,7 +72,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), gbCountryModel)
       )
     )
     .flatMap(
@@ -114,7 +114,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+        AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
       )
     )
     .success
@@ -314,7 +314,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "IT"
+       |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
        |      },
@@ -378,7 +378,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "IT"
+       |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
        |      }
@@ -427,7 +427,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        "officialAddress": {
        |          "addressLine1": "7",
        |          "addressLine2": "Morrison street",
-       |          "nonUKCountry": "IN",
+       |          "nonUKCountry": "$inCountryCode",
        |          "nonUKAddress": true
        |        }
        |      }
@@ -546,7 +546,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "IT"
+       |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
        |      }
@@ -596,7 +596,7 @@ trait CharityTransformerConstants extends SpecBase {
        |        "officialAddress": {
        |          "addressLine1": "7",
        |          "addressLine2": "Morrison street",
-       |          "nonUKCountry": "IN",
+       |          "nonUKCountry": "$inCountryCode",
        |          "nonUKAddress": true
        |        }
        |      }
@@ -715,7 +715,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "IT"
+       |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
        |      },
@@ -779,7 +779,7 @@ trait CharityTransformerConstants extends SpecBase {
        |            "addressLine1": "3",
        |            "addressLine2": "Morrison Street",
        |            "addressLine3": "Bill Tower",
-       |            "nonUKCountry": "IT"
+       |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
        |      }

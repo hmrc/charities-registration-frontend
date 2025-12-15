@@ -19,7 +19,7 @@ package controllers.contactDetails
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.contactDetails.CanWeSendToThisAddressFormProvider
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.{NormalMode, UserAnswers}
 import navigation.CharityInformationNavigator
 import navigation.FakeNavigators.FakeCharityInformationNavigator
@@ -58,12 +58,10 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
   private val formProvider: CanWeSendToThisAddressFormProvider = inject[CanWeSendToThisAddressFormProvider]
   private val form: Form[Boolean]                              = formProvider()
 
-  private val country = new CountryModel("UK", "United Kingdom")
-
   private val addressLookupData: AddressModel =
-    AddressModel(Seq("4 Other Place", "Some District", "Anytown"), Some("ZZ1 1ZZ"), country)
+    AddressModel(Seq("4 Other Place", "Some District", "Anytown"), Some("ZZ1 1ZZ"), gbCountryModel)
 
-  private val addressLookupDataParsed = List("4 Other Place", "Some District", "Anytown", "ZZ1 1ZZ", "United Kingdom")
+  private val addressLookupDataParsed = List("4 Other Place", "Some District", "Anytown", "ZZ1 1ZZ", gbCountryName)
 
   private val addressUserAnswers: Some[UserAnswers] = Some(
     emptyUserAnswers.set(CharityOfficialAddressLookupPage, addressLookupData).getOrElse(emptyUserAnswers)
@@ -96,7 +94,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(Seq("4 Other Place", "Some District", "Anytown"), None, country)
+                AddressModel(Seq("4 Other Place", "Some District", "Anytown"), None, gbCountryModel)
               )
               .getOrElse(emptyUserAnswers)
           )
@@ -109,7 +107,7 @@ class CanWeSendToThisAddressControllerSpec extends SpecBase with BeforeAndAfterE
       contentAsString(result) mustEqual view(
         form,
         NormalMode,
-        List("4 Other Place", "Some District", "Anytown", "United Kingdom")
+        List("4 Other Place", "Some District", "Anytown", gbCountryName)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }

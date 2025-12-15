@@ -21,7 +21,7 @@ import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.authorisedOfficials.routes as authOfficials
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Country, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import models.{CheckMode, Index, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
@@ -64,7 +64,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
     .value
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
-  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq(gbCountryCode))(any())).thenReturn(Some(gbCountry))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
   def helper(userAnswers: UserAnswers = authorisedOfficialDetails(), index: Index): AddedAuthorisedOfficialHelper =
@@ -208,7 +208,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialCountryOfIssueRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPassport.country.checkYourAnswersLabel"),
-            HtmlContent("United Kingdom"),
+            HtmlContent(gbCountryName),
             Some(messages("authorisedOfficialsPassport.country.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPassportController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -253,7 +253,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("authorisedOfficialAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink
@@ -291,7 +291,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         ).authOfficialPreviousAddressRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("authorisedOfficialPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.AuthorisedOfficialsPreviousAddressLookupController
               .initializeJourney(0, CheckMode) -> BaseMessages.changeLink

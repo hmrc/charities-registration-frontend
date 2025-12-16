@@ -59,7 +59,7 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
 
   private val controller: IndividualNomineesPhoneNumberController = inject[IndividualNomineesPhoneNumberController]
 
-  private val requestArgs                   = Seq("mainPhoneNumber" -> s"$daytimePhone", "alternativePhoneNumber" -> s"$daytimePhone")
+  private val requestArgs                   = Seq("mainPhoneNumber" -> daytimePhone, "alternativePhoneNumber" -> daytimePhone)
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 

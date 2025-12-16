@@ -109,13 +109,13 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().charityContactDetailsRows mustBe Seq(
           summaryListRow(
             messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$daytimePhone"),
+            HtmlContent(daytimePhone),
             Some(messages("charityContactDetails.mainPhoneNumber.checkYourAnswersLabel")),
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$mobileNumber"),
+            HtmlContent(mobileNumber),
             Some(messages("charityContactDetails.alternativePhoneNumber.checkYourAnswersLabel")),
             charityInfoRoutes.CharityContactDetailsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           ),

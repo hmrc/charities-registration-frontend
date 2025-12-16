@@ -98,7 +98,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeMainPhone mustBe Some(
           summaryListRow(
             messages("individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$daytimePhone"),
+            HtmlContent(daytimePhone),
             Some(messages("individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesPhoneNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -112,7 +112,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAltPhone mustBe Some(
           summaryListRow(
             messages("individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$mobileNumber"),
+            HtmlContent(mobileNumber),
             Some(messages("individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesPhoneNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

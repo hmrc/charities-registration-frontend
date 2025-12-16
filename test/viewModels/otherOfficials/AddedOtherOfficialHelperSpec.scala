@@ -117,7 +117,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$daytimePhone"),
+            HtmlContent(daytimePhone),
             Some(messages("otherOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -132,7 +132,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
         helper(otherOfficialDetails, 0).otherOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$mobileNumber"),
+            HtmlContent(mobileNumber),
             Some(messages("otherOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             otherOfficials.OtherOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

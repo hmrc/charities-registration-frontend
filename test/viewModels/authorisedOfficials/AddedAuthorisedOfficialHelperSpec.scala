@@ -121,7 +121,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$daytimePhone"),
+            HtmlContent(daytimePhone),
             Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -136,7 +136,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent(s"$mobileNumber"),
+            HtmlContent(mobileNumber),
             Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

@@ -23,9 +23,7 @@ class IsRemoveOperatingCountryPageSpec extends PageBehaviours {
   "IsRemoveOperatingCountry Page" must {
 
     beRetrievable[Boolean](IsRemoveOperatingCountryPage)
-
     beSettable[Boolean](IsRemoveOperatingCountryPage)
-
     beRemovable[Boolean](IsRemoveOperatingCountryPage)
   }
 }

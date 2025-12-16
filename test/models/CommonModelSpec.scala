@@ -155,10 +155,8 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val country = Country("GB", "United Kingdom")
-
-      country.code mustBe "GB"
-      country.name mustBe "United Kingdom"
+      gbCountry.code mustBe gbCountryCode
+      gbCountry.name mustBe gbCountryName
     }
   }
 
@@ -166,18 +164,15 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val country = FcoCountry("GB", "United Kingdom")
-
-      country.country mustBe "GB"
-      country.name mustBe "United Kingdom"
+      gbFcoCountry.country mustBe gbCountryCode
+      gbFcoCountry.name mustBe gbCountryName
     }
 
     "json - serialise and deserialise" in {
 
-      val fcoCountry = FcoCountry("GB", "United Kingdom")
-      val json = Json.toJson(fcoCountry)
+      val json = Json.toJson(gbFcoCountry)
 
-      json.validate[FcoCountry].asOpt.value mustBe fcoCountry
+      json.validate[FcoCountry].asOpt.value mustBe gbFcoCountry
     }
 
   }

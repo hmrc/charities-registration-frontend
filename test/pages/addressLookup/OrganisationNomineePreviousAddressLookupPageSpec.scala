@@ -16,7 +16,7 @@
 
 package pages.addressLookup
 
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
@@ -25,7 +25,7 @@ class OrganisationNomineePreviousAddressLookupPageSpec extends PageBehaviours {
   "OrganisationNomineePreviousAddressLookupPage" must {
 
     implicit lazy val arbitraryAddressModel: Arbitrary[AddressModel] = Arbitrary {
-      AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+      AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
     }
 
     beRetrievable[AddressModel](OrganisationNomineePreviousAddressLookupPage)

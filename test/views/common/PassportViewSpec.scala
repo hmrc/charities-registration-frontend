@@ -36,7 +36,7 @@ class PassportViewSpec extends QuestionViewBehaviours[Passport] {
     "test",
     messageKeyPrefix,
     onwardRoute,
-    Seq(("GB", "United Kingdom"))
+    Seq(gbCountryTuple)
   )(
     fakeRequest,
     messages,
@@ -48,7 +48,7 @@ class PassportViewSpec extends QuestionViewBehaviours[Passport] {
     "test",
     messageKeyPrefix,
     onwardRoute,
-    Seq(("GB", "United Kingdom")),
+    Seq(gbCountryTuple),
     fakeRequest,
     messages,
     frontendAppConfig
@@ -59,7 +59,7 @@ class PassportViewSpec extends QuestionViewBehaviours[Passport] {
     "test",
     messageKeyPrefix,
     onwardRoute,
-    Seq(("GB", "United Kingdom"))
+    Seq(gbCountryTuple)
   )(
     fakeRequest,
     messages,

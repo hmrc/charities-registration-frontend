@@ -31,14 +31,12 @@ class AmendAddressPageSpec extends PageBehaviours {
         line3 = Some(""),
         town = "Glasgow",
         postcode = "G58AN",
-        country = "GB"
+        gbCountryCode
       )
     }
 
     beRetrievable[AmendAddressModel](AmendAddressPage)
-
     beSettable[AmendAddressModel](AmendAddressPage)
-
     beRemovable[AmendAddressModel](AmendAddressPage)
   }
 }

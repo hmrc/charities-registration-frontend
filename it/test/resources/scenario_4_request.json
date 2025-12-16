@@ -20,8 +20,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -60,8 +60,8 @@
       ],
       "postcode": "ZZ1 1ZZ",
       "country": {
-        "code": "GB",
-        "name": "United Kingdom"
+        "code": "____GBCOUNTRYCODE__",
+        "name": "____GBCOUNTRYNAME__"
       }
     },
     "publicBenefits": "Test",
@@ -128,8 +128,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -156,8 +156,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {

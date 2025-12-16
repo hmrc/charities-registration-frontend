@@ -18,7 +18,7 @@ package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
@@ -52,7 +52,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
   private val view: ConfirmAddressView                           = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmOtherOfficialsAddressController = inject[ConfirmOtherOfficialsAddressController]
   private val messageKeyPrefix                                   = "otherOfficialAddress"
-  private val otherOfficialAddressLookup                         = List("12", "Banner Way", "United Kingdom")
+  private val otherOfficialAddressLookup                         = List("12", "Banner Way", gbCountryName)
 
   "ConfirmOtherOfficialsAddressController Controller" must {
 
@@ -66,7 +66,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
                 )
               )
               .success
@@ -92,7 +92,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val otherOfficialAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val otherOfficialAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -105,7 +105,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
                   AddressModel(
                     List("12", "Banner Way near south riverview gardens"),
                     None,
-                    CountryModel("GB", "United Kingdom")
+                    gbCountryModel
                   )
                 )
               )

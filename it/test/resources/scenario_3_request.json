@@ -19,8 +19,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -36,8 +36,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsPassport": {
@@ -64,8 +64,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -118,8 +118,8 @@
       ],
       "postcode": "ZZ1 1ZZ",
       "country": {
-        "code": "GB",
-        "name": "United Kingdom"
+        "code": "__GBCOUNTRYCODE__",
+        "name": "__GBCOUNTRYNAME__"
       }
     },
     "publicBenefits": "Test",
@@ -168,18 +168,18 @@
       ],
       "postcode": "ZZ1 1ZZ",
       "country": {
-        "code": "GB",
-        "name": "United Kingdom"
+        "code": "__GBCOUNTRYCODE__",
+        "name": "__GBCOUNTRYNAME__"
       }
     },
     "isSection9Completed": true,
     "isSection4Completed": true,
     "whatCountryDoesTheCharityOperateIn": [
       {
-        "country": "IN"
+        "country": "__INCOUNTRYCODE__"
       },
       {
-        "country": "BG"
+        "country": "__GBCOUNTRYCODE__"
       }
     ],
     "anotherCountry": false,
@@ -204,8 +204,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -222,8 +222,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsNino": "__NINOWITHSPACE1__",
@@ -249,8 +249,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {

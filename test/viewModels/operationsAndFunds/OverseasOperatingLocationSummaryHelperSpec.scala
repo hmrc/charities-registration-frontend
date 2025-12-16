@@ -23,7 +23,7 @@ import base.data.messages.BaseMessages
 import controllers.operationsAndFunds.{routes => operationFundsRoutes}
 import models.operations.OperatingLocationOptions.{England, Overseas}
 import models.operations.{FundRaisingOptions, OperatingLocationOptions}
-import models.{Country, Index, MongoDateTimeFormats, NormalMode, UserAnswers}
+import models.{Index, MongoDateTimeFormats, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq => meq}
 import org.mockito.Mockito.{mock, when}
 import pages.operationsAndFunds._
@@ -45,11 +45,11 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
       .flatMap(_.set(EstimatedIncomePage, BigDecimal(1123.12)))
       .flatMap(_.set(ActualIncomePage, BigDecimal(11123.12)))
       .flatMap(
-        _.set(WhatCountryDoesTheCharityOperateInPage(0), "TH")
-          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
-          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "PT"))
-          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), "PY"))
-          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), "AF"))
+        _.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode)
+          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), inCountryCode))
+          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), frCountryCode))
+          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), usCountryCode))
+          .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), chCountryCode))
       )
       .flatMap(_.set(IsBankStatementsPage, true))
       .flatMap(
@@ -64,13 +64,13 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
   )
 
   when(mockCountryService.countries()(any()))
-    .thenReturn(Seq(("TH", "Thai"), ("IN", "India"), ("PT", "Portugal"), ("PY", "Paraguay"), ("AF", "Afghanistan")))
+    .thenReturn(Seq(thCountryTuple, inCountryTuple, frCountryTuple, usCountryTuple, chCountryTuple))
 
-  when(mockCountryService.find(meq("TH"))(any())).thenReturn(Some(Country("TH", "Thai")))
-  when(mockCountryService.find(meq("IN"))(any())).thenReturn(Some(Country("IN", "India")))
-  when(mockCountryService.find(meq("PT"))(any())).thenReturn(Some(Country("PT", "Portugal")))
-  when(mockCountryService.find(meq("PY"))(any())).thenReturn(Some(Country("PY", "Paraguay")))
-  when(mockCountryService.find(meq("AF"))(any())).thenReturn(Some(Country("AF", "Afghanistan")))
+  when(mockCountryService.find(meq(thCountryCode))(any())).thenReturn(Some(thCountry))
+  when(mockCountryService.find(meq(inCountryCode))(any())).thenReturn(Some(inCountry))
+  when(mockCountryService.find(meq(frCountryCode))(any())).thenReturn(Some(frCountry))
+  when(mockCountryService.find(meq(usCountryCode))(any())).thenReturn(Some(usCountry))
+  when(mockCountryService.find(meq(chCountryCode))(any())).thenReturn(Some(chCountry))
 
   "Overseas Operating Location Summary Helper" when {
 
@@ -81,7 +81,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
         helper.overseasOperatingLocationSummaryRow(0, onwardRoute) mustBe Some(
           summaryListRow(
             label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1"),
-            value = HtmlContent("Thai"),
+            value = HtmlContent(thCountryName),
             visuallyHiddenText =
               Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1")),
             onwardRoute -> BaseMessages.delete
@@ -97,7 +97,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
         helper.rows mustBe List(
           summaryListRow(
             label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1"),
-            value = HtmlContent("Thai"),
+            value = HtmlContent(thCountryName),
             visuallyHiddenText =
               Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.1")),
             operationFundsRoutes.IsRemoveOperatingCountryController
@@ -105,7 +105,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
           ),
           summaryListRow(
             label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2"),
-            value = HtmlContent("India"),
+            value = HtmlContent(inCountryName),
             visuallyHiddenText =
               Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.2")),
             operationFundsRoutes.IsRemoveOperatingCountryController
@@ -113,7 +113,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
           ),
           summaryListRow(
             label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3"),
-            value = HtmlContent("Portugal"),
+            value = HtmlContent(frCountryName),
             visuallyHiddenText =
               Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.3")),
             operationFundsRoutes.IsRemoveOperatingCountryController
@@ -121,7 +121,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
           ),
           summaryListRow(
             label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4"),
-            value = HtmlContent("Paraguay"),
+            value = HtmlContent(usCountryName),
             visuallyHiddenText =
               Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.4")),
             operationFundsRoutes.IsRemoveOperatingCountryController
@@ -129,7 +129,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
           ),
           summaryListRow(
             label = messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5"),
-            value = HtmlContent("Afghanistan"),
+            value = HtmlContent(chCountryName),
             visuallyHiddenText =
               Some(messages(s"overseasOperatingLocationSummary.addAnotherCountry.checkYourAnswersLabel.5")),
             operationFundsRoutes.IsRemoveOperatingCountryController
@@ -143,7 +143,7 @@ class OverseasOperatingLocationSummaryHelperSpec extends SpecBase with SummaryLi
 
       "have a correctly formatted summary list row" in {
         val countries =
-          s"""<div>Thai</div><div>India</div><div>Portugal</div><div>Paraguay</div><div>Afghanistan</div>"""
+          s"""<div>$thCountryName</div><div>$inCountryName</div><div>$frCountryName</div><div>$usCountryName</div><div>$chCountryName</div>"""
 
         helper.overseasOperatingLocationSummaryCYARow(onwardRoute) mustBe Some(
           summaryListRow(

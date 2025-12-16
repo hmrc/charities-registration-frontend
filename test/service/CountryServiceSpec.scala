@@ -53,13 +53,13 @@ class CountryServiceSpec extends SpecBase {
 
     "keep reference to UK" in {
 
-      val found = service.find(code = "GB")
-      found.get.name must be("United Kingdom")
+      val found = service.find(code = gbCountry.code)
+      found.get.name must be(gbCountry.name)
     }
 
     "keep reference to UK in welsh" in {
 
-      val found = service.find(code = "GB")(welshMessages)
+      val found = service.find(code = gbCountryCode)(welshMessages)
       found.get.name must be("Y Deyrnas Unedig")
     }
   }

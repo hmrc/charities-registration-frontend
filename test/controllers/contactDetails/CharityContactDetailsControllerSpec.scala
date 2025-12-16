@@ -59,8 +59,8 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
   private val controller: CharityContactDetailsController = inject[CharityContactDetailsController]
 
   private val requestArgs = Seq(
-    "mainPhoneNumber"        -> s"$daytimePhone",
-    "alternativePhoneNumber" -> s"$daytimePhone",
+    "mainPhoneNumber"        -> daytimePhone,
+    "alternativePhoneNumber" -> daytimePhone,
     "emailAddress"           -> charityEmail
   )
 

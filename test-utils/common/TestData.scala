@@ -93,14 +93,9 @@ trait TestData extends ModelGenerators {
     emailAddress = charityEmail
   )
 
-  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails = OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
-
-
-
-
-
-
-
+  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails = 
+    OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
+  
   def replacePlaceholders(inString: String): String =
     inString
       .replaceAll("__ACCOUNTNAME__", accountName)

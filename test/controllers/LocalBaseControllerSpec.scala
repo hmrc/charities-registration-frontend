@@ -18,7 +18,7 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.regulators.SelectGoverningDocument
 import models.requests.DataRequest
 import models.{Country, Index, Name, SelectTitle, UserAnswers}
@@ -139,7 +139,7 @@ class LocalBaseControllerSpec extends SpecBase with BeforeAndAfterEach {
         emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(List("12", "Banner Way"), Some("NE128UZ"), CountryModel("GB", "GB"))
+            AddressModel(List("12", "Banner Way"), Some("NE128UZ"), gbCountryModel)
           )
           .success
           .value

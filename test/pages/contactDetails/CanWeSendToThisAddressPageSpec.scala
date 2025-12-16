@@ -17,7 +17,7 @@
 package pages.contactDetails
 
 import models.UserAnswers
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import pages.addressLookup.CharityPostalAddressLookupPage
 import pages.behaviours.PageBehaviours
 import play.api.libs.json.Json
@@ -37,7 +37,7 @@ class CanWeSendToThisAddressPageSpec extends PageBehaviours {
       val userAnswer = UserAnswers("id", Json.obj())
         .set(
           CharityPostalAddressLookupPage,
-          AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+          AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
         )
         .success
         .value

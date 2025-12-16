@@ -20,7 +20,7 @@ import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.routes as nomineesRoutes
-import models.{BankDetails, CheckMode, Country, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
@@ -42,7 +42,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
   private val dayOfMonth = 2
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
-  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq(gbCountryCode))(any())).thenReturn(Some(gbCountry))
   when(mockCountryService.find(meq("Unknown"))(any())).thenReturn(None)
 
   private val helper = new NomineeIndividualSummaryHelper(mockCountryService)(
@@ -153,7 +153,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePassportCountry mustBe Some(
           summaryListRow(
             messages("individualNomineesPassport.country.checkYourAnswersLabel"),
-            HtmlContent(passport.copy(country = "United Kingdom").country),
+            HtmlContent(passport.copy(country = gbCountryName).country),
             Some(messages("individualNomineesPassport.country.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineePassportController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -193,7 +193,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAddress mustBe Some(
           summaryListRow(
             messages("nomineeIndividualAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("nomineeIndividualAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.NomineeIndividualAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -222,7 +222,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineePreviousAddress mustBe Some(
           summaryListRow(
             messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("nomineeIndividualPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink

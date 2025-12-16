@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.otherOfficials.{routes => otherOfficialRoutes}
 import controllers.routes
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
 import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
 import pages.IndexPage
@@ -38,16 +38,16 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val otherOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   private val otherOfficialsPhoneNumber: PhoneNumber = phoneNumbers
   private val address: AddressModel                  =
-    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
   private val addressMax: AddressModel               =
     AddressModel(
       Seq("7", "Morrison street near riverview gardens"),
       Some("G58AN"),
-      CountryModel("UK", "United Kingdom")
+      gbCountryModel
     )
   private val minYear                                = 16
   private val minAddressLines: AddressModel          =
-    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7 Morrison street"), Some("G58AN"), gbCountryModel)
 
   def goToPlaybackPage(index: Int): Call = index match {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))

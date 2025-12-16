@@ -204,7 +204,7 @@
             "addressLine3": "Address3",
             "addressLine4": "Address4",
             "postcode": "",
-            "nonUKCountry": "UK"
+            "nonUKCountry": "__THCOUNTRYCODE__"
           },
           "previousAddress": {
             "nonUKAddress": true,
@@ -213,7 +213,7 @@
             "addressLine3": "Address3",
             "addressLine4": "Address4",
             "postcode": "",
-            "nonUKCountry": "UK"
+            "nonUKCountry": "__THCOUNTRYCODE__"
           }
         },
         "collectionAgentDetails": {

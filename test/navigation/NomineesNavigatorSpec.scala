@@ -21,7 +21,7 @@ import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.nominees.{routes => nomineesRoutes}
 import controllers.routes
 import models._
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.nominees.OrganisationNomineeContactDetails
 import pages.IndexPage
 import pages.addressLookup._
@@ -36,14 +36,14 @@ class NomineesNavigatorSpec extends SpecBase {
   private val IndividualNomineePhoneNumber: PhoneNumber = phoneNumbers
   private val minYear                                   = 16
   private val address: AddressModel                     =
-    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
   private val addressMax: AddressModel                  = AddressModel(
     Seq("7", "Morrison street near riverview gardens"),
     Some("G58AN"),
-    CountryModel("UK", "United Kingdom")
+    gbCountryModel
   )
   private val minAddressLines: AddressModel             =
-    AddressModel(Seq("7 Morrison street"), Some("G58AN"), CountryModel("UK", "United Kingdom"))
+    AddressModel(Seq("7 Morrison street"), Some("G58AN"), gbCountryModel)
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

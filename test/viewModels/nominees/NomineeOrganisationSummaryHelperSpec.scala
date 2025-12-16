@@ -21,7 +21,7 @@ import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.routes as nomineesRoutes
 import models.nominees.OrganisationNomineeContactDetails
-import models.{BankDetails, CheckMode, Country, Name, Passport, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Name, Passport, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
@@ -43,7 +43,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
   private val dayOfMonth = 2
 
   lazy val mockCountryService: CountryService = mock(classOf[CountryService])
-  when(mockCountryService.find(meq("GB"))(any())).thenReturn(Some(Country("GB", "United Kingdom")))
+  when(mockCountryService.find(meq(gbCountryCode))(any())).thenReturn(Some(gbCountry))
 
   private lazy val baseUserAnswers: UserAnswers = UserAnswers("id")
     .set(OrganisationNomineeNamePage, "Company Inc")
@@ -133,7 +133,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeAddress mustBe Some(
           summaryListRow(
             messages("organisationNomineeAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("organisationNomineeAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineeAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -164,7 +164,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineePreviousAddress mustBe Some(
           summaryListRow(
             messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -305,7 +305,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperPassport.authorisedPersonPassportCountry mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonPassport.country.checkYourAnswersLabel"),
-            HtmlContent("United Kingdom"),
+            HtmlContent(gbCountryName),
             Some(messages("organisationAuthorisedPersonPassport.country.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonPassportController.onPageLoad(
               CheckMode

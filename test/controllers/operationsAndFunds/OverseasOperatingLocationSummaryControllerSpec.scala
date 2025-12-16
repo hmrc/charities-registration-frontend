@@ -18,7 +18,7 @@ package controllers.operationsAndFunds
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{Country, NormalMode, UserAnswers}
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.{any, eq => meq}
@@ -58,10 +58,10 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
     "return OK and the correct view for a GET" in {
 
-      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+      when(mockCountryService.find(meq(thCountryCode))(any())).thenReturn(Some(thCountry))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value))
       )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -72,14 +72,14 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+      when(mockCountryService.find(meq(thCountryCode))(any())).thenReturn(Some(thCountry))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
           Some(
             emptyUserAnswers
               .set(OverseasOperatingLocationSummaryPage, true)
-              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), "TT"))
+              .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode))
               .getOrElse(emptyUserAnswers)
           )
         )
@@ -106,12 +106,12 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
     }
 
     "redirect to the next page when valid data is submitted" in {
-      when(mockCountryService.find(meq("TT"))(any())).thenReturn(Some(Country("TT", "Testland")))
+      when(mockCountryService.find(meq(thCountryCode))(any())).thenReturn(Some(thCountry))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TT").success.value))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value))
       )
 
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
@@ -129,24 +129,24 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val userAnswers = emptyUserAnswers
-        .set(WhatCountryDoesTheCharityOperateInPage(0), "TH")
-        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), "IN"))
-        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), "PT"))
-        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), "PY"))
-        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), "AF"))
+        .set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode)
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(1), inCountryCode))
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(2), thCountryCode))
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(3), frCountryCode))
+        .flatMap(_.set(WhatCountryDoesTheCharityOperateInPage(4), chCountryCode))
         .success
         .value
 
-      when(mockCountryService.find(meq("TH"))(any())).thenReturn(Some(Country("TH", "Thai")))
-      when(mockCountryService.find(meq("IN"))(any())).thenReturn(Some(Country("IN", "India")))
-      when(mockCountryService.find(meq("PT"))(any())).thenReturn(Some(Country("PT", "Portugal")))
-      when(mockCountryService.find(meq("PY"))(any())).thenReturn(Some(Country("PY", "Paraguay")))
-      when(mockCountryService.find(meq("AF"))(any())).thenReturn(Some(Country("AF", "Afghanistan")))
+      when(mockCountryService.find(meq(thCountryCode))(any())).thenReturn(Some(thCountry))
+      when(mockCountryService.find(meq(inCountryCode))(any())).thenReturn(Some(inCountry))
+      when(mockCountryService.find(meq(frCountryCode))(any())).thenReturn(Some(frCountry))
+      when(mockCountryService.find(meq(usCountryCode))(any())).thenReturn(Some(usCountry))
+      when(mockCountryService.find(meq(chCountryCode))(any())).thenReturn(Some(chCountry))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
       when(mockCountryService.countries()(any()))
-        .thenReturn(Seq(("TH", "Thai"), ("IN", "INDIA"), ("PT", "Portugal"), ("PY", "Paraguay"), ("AF", "Afghanistan")))
+        .thenReturn(Seq(thCountryTuple, inCountryTuple, frCountryTuple, usCountryTuple, chCountryTuple))
 
       val result = controller.onSubmit(NormalMode)(request)
 

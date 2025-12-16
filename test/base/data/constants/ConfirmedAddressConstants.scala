@@ -16,22 +16,19 @@
 
 package base.data.constants
 
-import models.addressLookup.{AddressModel, CountryModel}
+import base.SpecBase
+import models.addressLookup.AddressModel
 import play.api.libs.json.{JsObject, Json}
 
-object ConfirmedAddressConstants {
+object ConfirmedAddressConstants extends SpecBase{
 
   val lines: Seq[String]    = Seq("Test 1", "Test 2")
   val postcode: String      = "AA00 0AA"
-  val country: CountryModel = CountryModel(
-    code = "GB",
-    name = "United Kingdom"
-  )
-
+ 
   val address: AddressModel = AddressModel(
     lines,
     postcode = Some(postcode),
-    country
+    gbCountryModel
   )
 
   val addressLookupResponse: JsObject = Json.obj(
@@ -44,8 +41,8 @@ object ConfirmedAddressConstants {
     "lines"    -> Json.toJson(lines),
     "postcode" -> "AA00 0AA",
     "country"  -> Json.obj(
-      "code" -> "GB",
-      "name" -> "United Kingdom"
+      "code" -> gbCountryCode,
+      "name" -> gbCountryName
     )
   )
 }

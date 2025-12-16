@@ -17,7 +17,7 @@
 package transformers.submission
 
 import base.SpecBase
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
 import models.nominees.OrganisationNomineeContactDetails
 import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
@@ -241,7 +241,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
           .success
@@ -272,7 +272,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
           .flatMap(
@@ -281,7 +281,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
               AddressModel(
                 Seq("2", "Dubai Main Road", "line3", "line4"),
                 Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
+                gbCountryModel
               )
             )
           )
@@ -318,20 +318,20 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
+            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
             |  }""".stripMargin
@@ -345,7 +345,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
           )
           .success
           .value
@@ -377,7 +377,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
           .success
@@ -410,7 +410,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
           .flatMap(
@@ -419,7 +419,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
               AddressModel(
                 Seq("2", "Dubai Main Road", "line3", "line4"),
                 Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
+                gbCountryModel
               )
             )
           )
@@ -458,20 +458,20 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OrganisationNomineeAddressLookupPage,
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
+            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
             |  }""".stripMargin
@@ -487,7 +487,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OrganisationNomineeAddressLookupPage,
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
           )
           .success
           .value
@@ -521,7 +521,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
           .success
@@ -554,7 +554,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
           .flatMap(
@@ -563,7 +563,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
               AddressModel(
                 Seq("2", "Dubai Main Road", "line3", "line4"),
                 Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
+                gbCountryModel
               )
             )
           )
@@ -602,20 +602,20 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             NomineeIndividualAddressLookupPage,
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
+            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
             |  }""".stripMargin
@@ -631,7 +631,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             NomineeIndividualAddressLookupPage,
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
           )
           .success
           .value
@@ -840,7 +840,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
               AddressModel(
                 Seq("2", "Dubai Main Road", "line3", "line4"),
                 Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
+                gbCountryModel
               )
             )
           )
@@ -975,7 +975,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
           .success
@@ -1003,20 +1003,20 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OtherOfficialAddressLookupPage(0),
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, CountryModel("FR", "France"))
+            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
             |                    "addressLine1": "121",
             |                    "addressLine2": "Saint Mount Emilion",
             |                    "addressLine3": "Bercy Village",
-            |                    "nonUKCountry": "FR"
+            |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
             |  }""".stripMargin
@@ -1030,7 +1030,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OtherOfficialAddressLookupPage(0),
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), CountryModel("GB", "United Kingdom"))
+            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
           )
           .success
           .value
@@ -1087,7 +1087,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
               AddressModel(
                 Seq("2", "Dubai Main Road", "line3", "line4"),
                 Some("G27JD"),
-                CountryModel("GB", "United Kingdom")
+                gbCountryModel
               )
             )
           )
@@ -1155,7 +1155,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
         )
@@ -1167,7 +1167,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, inCountryModel)
           )
         )
         .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
@@ -1181,7 +1181,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(
               Seq("2", "Dubai Main Road", "line3", "line4"),
               Some("G27JD"),
-              CountryModel("GB", "United Kingdom")
+              gbCountryModel
             )
           )
         )
@@ -1193,7 +1193,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, CountryModel("IT", "Italy"))
+            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, inCountryModel)
           )
         )
         .success
@@ -1265,7 +1265,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry": "$inCountryCode"
              |          }
              |        }
              |      },
@@ -1329,7 +1329,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry": "$inCountryCode"
              |          }
              |        }
              |      }
@@ -1357,7 +1357,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               OrganisationNomineeAddressLookupPage,
-              AddressModel(Seq("1", "Authorised Street", "Authorised Place"), None, CountryModel("IT", "Italy"))
+              AddressModel(Seq("1", "Authorised Street", "Authorised Place"), None, inCountryModel)
             )
           )
           .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
@@ -1433,7 +1433,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry": "$inCountryCode"
              |          }
              |        }
              |      },
@@ -1497,7 +1497,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry":"$inCountryCode"
              |          }
              |        }
              |      },
@@ -1532,7 +1532,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine2": "Authorised Street",
              |            "addressLine3": "Authorised Place",
              |            "nonUKAddress": true,
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry":"$inCountryCode"
              |          }
              |        },
              |        "paymentDetails": {
@@ -1566,14 +1566,14 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               NomineeIndividualAddressLookupPage,
-              AddressModel(Seq("1", "Nominee Street"), Some("AA11AA"), CountryModel("GB", "United Kingdom"))
+              AddressModel(Seq("1", "Nominee Street"), Some("AA11AA"), gbCountryModel)
             )
           )
           .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
           .flatMap(
             _.set(
               NomineeIndividualPreviousAddressLookupPage,
-              AddressModel(Seq("1", "Individual Drive"), None, CountryModel("IT", "Italy"))
+              AddressModel(Seq("1", "Individual Drive"), None, inCountryModel)
             )
           )
           .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
@@ -1645,7 +1645,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry":"$inCountryCode"
              |          }
              |        }
              |      },
@@ -1709,7 +1709,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "3",
              |            "addressLine2": "Morrison Street",
              |            "addressLine3": "Bill Tower",
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry":"$inCountryCode"
              |          }
              |        }
              |      },
@@ -1745,7 +1745,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "addressLine1": "1",
              |            "addressLine2": "Individual Drive",
              |            "nonUKAddress": true,
-             |            "nonUKCountry": "IT"
+             |            "nonUKCountry":"$inCountryCode"
              |          }
              |        },
              |        "paymentDetails": {

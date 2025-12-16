@@ -38,7 +38,7 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
     form,
     NormalMode,
     Index(0),
-    Seq(("GB", "United Kingdom")),
+    Seq(gbCountryTuple),
     countriesList
   )(
     fakeRequest,
@@ -50,7 +50,7 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
     form,
     NormalMode,
     Index(0),
-    Seq(("GB", "United Kingdom")),
+    Seq(gbCountryTuple),
     countriesList,
     fakeRequest,
     messages,
@@ -61,7 +61,7 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
     form,
     NormalMode,
     Index(0),
-    Seq(("GB", "United Kingdom")),
+    Seq(gbCountryTuple),
     countriesList
   )(
     fakeRequest,
@@ -87,15 +87,15 @@ class WhatCountryDoesTheCharityOperateInViewSpec extends QuestionViewBehaviours[
         "display the correct guidance" when {
           "countries are populated" in {
             val doc: Document = asDocument(viewWithCountriesList)
-            assertContainsText(doc, messages(s"$messageKeyPrefix.countries.hint", "United Kingdom"))
+            assertContainsText(doc, messages(s"$messageKeyPrefix.countries.hint", gbCountryName))
           }
         }
       }
 
     val input: Seq[(String, HtmlFormat.Appendable, HtmlFormat.Appendable)] = Seq(
-      (".apply", viewViaApply(), viewViaApply(Some("United Kingdom"))),
-      (".render", viewViaRender(), viewViaRender(Some("United Kingdom"))),
-      (".f", viewViaF(), viewViaF(Some("United Kingdom")))
+      (".apply", viewViaApply(), viewViaApply(Some(gbCountryName))),
+      (".render", viewViaRender(), viewViaRender(Some(gbCountryName))),
+      (".f", viewViaF(), viewViaF(Some(gbCountryName)))
     )
 
     input.foreach(args => test.tupled(args))

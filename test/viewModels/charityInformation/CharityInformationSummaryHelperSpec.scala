@@ -136,7 +136,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().officialAddressRow mustBe Seq(
           summaryListRow(
             messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("charityOfficialAddress.addressLookup.checkYourAnswersLabel")),
             controllers.addressLookup.routes.CharityOfficialAddressLookupController.initializeJourney -> BaseMessages.changeLink
           )
@@ -151,7 +151,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper().canWeSendToThisAddressRow mustBe Seq(
           summaryListRow(
             messages("canWeSendLettersToThisAddress.checkYourAnswersLabel"),
-            HtmlContent(s"<div>${messages("site.yes")}</div>${"Test 1, Test 2, AA00 0AA, United Kingdom"}"),
+            HtmlContent(s"<div>${messages("site.yes")}</div>${s"Test 1, Test 2, AA00 0AA, $gbCountryName"}"),
             Some(messages("canWeSendLettersToThisAddress.checkYourAnswersLabel")),
             charityInfoRoutes.CanWeSendToThisAddressController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -181,7 +181,7 @@ class CharityInformationSummaryHelperSpec extends SpecBase with SummaryListRowHe
         helper(postalAnswers).postalAddressRow mustBe Seq(
           summaryListRow(
             messages("charityPostalAddress.addressLookup.checkYourAnswersLabel"),
-            Text("Test 1, Test 2, AA00 0AA, United Kingdom"),
+            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
             Some(messages("charityPostalAddress.addressLookup.checkYourAnswersLabel")),
             controllers.addressLookup.routes.CharityPostalAddressLookupController.initializeJourney -> BaseMessages.changeLink
           )

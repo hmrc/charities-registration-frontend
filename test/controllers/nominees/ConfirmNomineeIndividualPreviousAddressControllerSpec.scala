@@ -18,7 +18,7 @@ package controllers.nominees
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.{Name, NormalMode, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
@@ -53,7 +53,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
   private val controller: ConfirmNomineeIndividualPreviousAddressController =
     inject[ConfirmNomineeIndividualPreviousAddressController]
   private val messageKeyPrefix                                              = "nomineeIndividualPreviousAddress"
-  private val nomineeIndividualPreviousAddressLookup                        = List("12", "Banner Way", "United Kingdom")
+  private val nomineeIndividualPreviousAddressLookup                        = List("12", "Banner Way", gbCountryName)
 
   "ConfirmNomineeIndividualPreviousAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
                 )
               )
               .success
@@ -94,7 +94,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val nomineeIndividualPreviousAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val nomineeIndividualPreviousAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -107,7 +107,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
                   AddressModel(
                     List("12", "Banner Way near south riverview gardens"),
                     None,
-                    CountryModel("GB", "United Kingdom")
+                    gbCountryModel
                   )
                 )
               )

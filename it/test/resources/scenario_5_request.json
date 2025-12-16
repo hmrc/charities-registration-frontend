@@ -21,8 +21,8 @@
       ],
       "postcode": "ZZ1 1ZZ",
       "country": {
-        "code": "GB",
-        "name": "United Kingdom"
+        "code": "__GBCOUNTRYCODE__",
+        "name": "__GBCOUNTRYNAME__"
       }
     },
     "bankDetails": {
@@ -80,8 +80,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -100,8 +100,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsNino": "__NINOWITHSPACE1__"
@@ -124,8 +124,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -159,8 +159,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -195,8 +195,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -214,8 +214,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsNino": "__NINOWITHSPACE1__"
@@ -239,8 +239,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -291,8 +291,8 @@
       ],
       "postcode": "ZZ1 1ZZ",
       "country": {
-        "code": "GB",
-        "name": "United Kingdom"
+        "code": "__GBCOUNTRYCODE__",
+        "name": "__GBCOUNTRYNAME__"
       }
     },
     "anotherCountry": false,

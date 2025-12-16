@@ -19,7 +19,7 @@ package controllers.operationsAndFunds
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.operationsAndFunds.WhatCountryDoesTheCharityOperateInFormProvider
-import models.{Country, Index, NormalMode, UserAnswers}
+import models.{Index, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeFundRaisingNavigator
 import navigation.FundRaisingNavigator
 import org.mockito.ArgumentMatchers.any
@@ -70,12 +70,12 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
     "return OK and the correct view for a GET" in {
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(thCountryTuple))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(("TH", "Thai")), None)(
+      contentAsString(result) mustEqual view(form, NormalMode, Index(0), Seq(thCountryTuple), None)(
         fakeRequest,
         messages,
         frontendAppConfig
@@ -90,10 +90,10 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "TH").success.value))
+        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value))
       )
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("TH", "Thai")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(thCountryTuple))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(thCountry))
       when(mockCountryService.isWelsh(any())).thenReturn(true)
 
       val result = controller.onPageLoad(NormalMode, Index(0))(welshRequest)
@@ -106,11 +106,11 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), "United Kingdom").success.value
+      val userAnswers = emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), gbCountryName).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
-      when(mockCountryService.find(any())(any())).thenReturn(Some(Country("TH", "Thai")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(thCountryTuple))
+      when(mockCountryService.find(any())(any())).thenReturn(Some(thCountry))
 
       val result = controller.onPageLoad(NormalMode, Index(0))(fakeRequest)
 
@@ -121,11 +121,11 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("country", "United Kingdom"))
+      val request = fakeRequest.withFormUrlEncodedBody(("country", gbCountryName))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("TH", "Thai")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(thCountryTuple))
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 
       status(result) mustBe SEE_OTHER
@@ -139,7 +139,7 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       val request = fakeRequest.withFormUrlEncodedBody()
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(emptyUserAnswers)))
-      when(mockCountryService.countries()(any())).thenReturn(Seq(("GB", "United Kingdom")))
+      when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
 
       val result = controller.onSubmit(NormalMode, Index(0))(request)
 

@@ -21,8 +21,8 @@
       ],
       "postcode": "ZZ1 1ZZ",
       "country": {
-        "code": "GB",
-        "name": "United Kingdom"
+        "code": "__GBCOUNTRYCODE__",
+        "name": "__GBCOUNTRYNAME__"
       }
     },
     "bankDetails": {
@@ -49,10 +49,10 @@
     "isSection4Completed": true,
     "whatCountryDoesTheCharityOperateIn": [
       {
-        "overseasCountry": "AL"
+        "overseasCountry": "__FRCOUNTRYCODE__"
       },
       {
-        "overseasCountry": "AL"
+        "overseasCountry": "__FRCOUNTRYCODE__"
       }
     ],
     "scottishRegulatorRegNumber": "SC012344",
@@ -78,8 +78,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -98,8 +98,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsNino": "__NINOWITHSPACE1__"
@@ -121,8 +121,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -155,8 +155,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -190,8 +190,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -209,8 +209,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsNino": "__NINOWITHSPACE1__"
@@ -233,8 +233,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -278,8 +278,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "individualPreviousAddress": {
@@ -290,8 +290,8 @@
           ],
           "postcode": "ZZ1 1ZZ",
           "country": {
-            "code": "GB",
-            "name": "United Kingdom"
+            "code": "__GBCOUNTRYCODE__",
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "individualBankDetails": {
@@ -338,8 +338,8 @@
       ],
       "postcode": "ZZ1 1ZZ",
       "country": {
-        "code": "GB",
-        "name": "United Kingdom"
+        "code": "__GBCOUNTRYCODE__",
+        "name": "__GBCOUNTRYNAME__"
       }
     },
     "anotherCountry": false,

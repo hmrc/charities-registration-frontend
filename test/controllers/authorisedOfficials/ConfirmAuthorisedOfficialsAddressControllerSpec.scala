@@ -18,7 +18,7 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.addressLookup.{AddressModel, CountryModel}
+import models.addressLookup.AddressModel
 import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
@@ -53,7 +53,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
   private val controller: ConfirmAuthorisedOfficialsAddressController =
     inject[ConfirmAuthorisedOfficialsAddressController]
   private val messageKeyPrefix                                        = "authorisedOfficialAddress"
-  private val authorisedOfficialAddressLookup                         = List("12", "Banner Way", "United Kingdom")
+  private val authorisedOfficialAddressLookup                         = List("12", "Banner Way", gbCountryName)
 
   "ConfirmAuthorisedOfficialsAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
               .flatMap(
                 _.set(
                   AuthorisedOfficialAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, CountryModel("GB", "United Kingdom"))
+                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
                 )
               )
               .success
@@ -94,7 +94,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val authorisedOfficialAddressMax = List("12", "Banner Way near south riverview gardens", "United Kingdom")
+      val authorisedOfficialAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -107,7 +107,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
                   AddressModel(
                     List("12", "Banner Way near south riverview gardens"),
                     None,
-                    CountryModel("GB", "United Kingdom")
+                    gbCountryModel
                   )
                 )
               )

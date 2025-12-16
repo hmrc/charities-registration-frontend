@@ -16,8 +16,9 @@
 
 package common
 
-import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber}
+import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber, Country, FcoCountry}
 import models.nominees.OrganisationNomineeContactDetails
+import models.addressLookup.CountryModel
 
 import java.time.LocalDate
 
@@ -76,6 +77,40 @@ trait TestData extends ModelGenerators {
   val charityEmail = "charity@example.com"
   val organisationEmail = "company@example.com"
 
+  val gbCountryModel: CountryModel = CountryModel("GB", "United Kingdom")
+  val gbCountry: Country = Country("GB", "United Kingdom")
+  val gbCountryTuple: (String, String) = (gbCountry.code, gbCountry.name)
+  val gbFcoCountry: FcoCountry = FcoCountry("GB", "United Kingdom")
+  val (gbCountryCode, gbCountryName) = gbCountryTuple
+
+  val thCountryModel: CountryModel = CountryModel("TH", "Thailand")
+  val thCountry: Country = Country("TH", "Thailand")
+  val thCountryTuple: (String, String) = (thCountry.code, thCountry.name)
+  val thFcoCountry: FcoCountry = FcoCountry("TH", "Thailand")
+  val (thCountryCode, thCountryName) = thCountryTuple
+
+  val frCountryModel: CountryModel = CountryModel("FR", "France")
+  val frCountry: Country = Country("FR", "France")
+  val frCountryTuple: (String, String) = (frCountry.code, frCountry.name)
+  val (frCountryCode, frCountryName) = frCountryTuple
+
+  val inCountryModel: CountryModel = CountryModel("IN", "India")
+  val inCountry: Country = Country("IN", "India")
+  val inCountryTuple: (String, String) = (inCountry.code, inCountry.name)
+  val (inCountryCode, inCountryName) = inCountryTuple
+
+  val itCountryModel: CountryModel = CountryModel("IT", "Italy")
+  val itCountry: Country = Country("IT", "Italy")
+  val itCountryTuple: (String, String) = (itCountry.code, itCountry.name)
+  val (itCountryCode, itCountryName) = itCountryTuple
+
+  val usCountry: Country = Country("US", "United States")
+  val usCountryTuple: (String, String) = (usCountry.code, usCountry.name)
+  val (usCountryCode, usCountryName) = usCountryTuple
+
+  val chCountry: Country = Country("CH", "Switzerland")
+  val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
+  val (chCountryCode, chCountryName) = chCountryTuple
 
   val daytimePhone: String = exampleFixedLineGen.sample.get
   val mobileNumber: String = exampleMobileGen.sample.get
@@ -93,9 +128,9 @@ trait TestData extends ModelGenerators {
     emailAddress = charityEmail
   )
 
-  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails = 
+  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
     OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
-  
+
   def replacePlaceholders(inString: String): String =
     inString
       .replaceAll("__ACCOUNTNAME__", accountName)
@@ -116,4 +151,15 @@ trait TestData extends ModelGenerators {
       .replaceAll("__DAYTIMEPHONEINT__", daytimePhoneWithIntCode)
       .replaceAll("__MOBILEPHONE__", mobileNumber)
       .replaceAll("__MOBILEPHONEINT__", mobileNumberWithIntCode)
+      .replaceAll("__THCOUNTRYCODE__", thCountry.code)
+      .replaceAll("__THCOUNTRYNAME__", thCountry.name)
+      .replaceAll("__GBCOUNTRYCODE__", gbCountry.code)
+      .replaceAll("__GBCOUNTRYNAME__", gbCountry.name)
+      .replaceAll("__ITCOUNTRYCODE__", itCountry.code)
+      .replaceAll("__ITCOUNTRYNAME__", itCountry.name)
+      .replaceAll("__INCOUNTRYCODE__", inCountry.code)
+      .replaceAll("__INCOUNTRYNAME__", inCountry.name)
+      .replaceAll("__FRCOUNTRYCODE__", frCountry.code)
+      .replaceAll("__FRCOUNTRYNAME__", frCountry.name)
+
 }

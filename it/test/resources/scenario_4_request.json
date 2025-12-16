@@ -61,7 +61,7 @@
       "postcode": "ZZ1 1ZZ",
       "country": {
         "code": "____GBCOUNTRYCODE__",
-        "name": "____GBCOUNTRYCODE__"
+        "name": "____GBCOUNTRYNAME__"
       }
     },
     "publicBenefits": "Test",
@@ -129,7 +129,7 @@
           "postcode": "ZZ1 1ZZ",
           "country": {
             "code": "__GBCOUNTRYCODE__",
-            "name": "__COUNTRYNAME__"
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {
@@ -157,7 +157,7 @@
           "postcode": "ZZ1 1ZZ",
           "country": {
             "code": "__GBCOUNTRYCODE__",
-            "name": "__COUNTRYNAME__"
+            "name": "__GBCOUNTRYNAME__"
           }
         },
         "officialsName": {

@@ -107,7 +107,7 @@ trait TestData extends ModelGenerators {
   val usCountryTuple: (String, String) = (usCountry.code, usCountry.name)
   val (usCountryCode, usCountryName) = usCountryTuple
   
-  val chCountry: Country = Country("CH", "China")
+  val chCountry: Country = Country("CH", "Switzerland")
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName) = chCountryTuple
 
@@ -130,11 +130,11 @@ trait TestData extends ModelGenerators {
       .replaceAll("__THCOUNTRYNAME__", thCountry.name)
       .replaceAll("__GBCOUNTRYCODE__", gbCountry.code)
       .replaceAll("__GBCOUNTRYNAME__", gbCountry.name)
+      .replaceAll("__ITCOUNTRYCODE__", itCountry.code)
       .replaceAll("__ITCOUNTRYNAME__", itCountry.name)
-      .replaceAll("__ITCOUNTRYNAME__", itCountry.name)
+      .replaceAll("__INCOUNTRYCODE__", inCountry.code)
       .replaceAll("__INCOUNTRYNAME__", inCountry.name)
-      .replaceAll("__INCOUNTRYNAME__", inCountry.name)
-      .replaceAll("__FRCOUNTRYNAME__", frCountry.name)
+      .replaceAll("__FRCOUNTRYCODE__", frCountry.code)
       .replaceAll("__FRCOUNTRYNAME__", frCountry.name)
 
 }

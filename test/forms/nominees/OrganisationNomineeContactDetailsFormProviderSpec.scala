@@ -84,7 +84,7 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
   "OrganisationNomineeContactDetailsFormProvider" must {
 
-    val organisationContactDetails = OrganisationNomineeContactDetails("01632 960 001", organisationEmail)
+    val organisationContactDetails = nomineeOrganisationContactDetails
 
     "apply OrganisationNomineeContactDetailsSpec correctly" in {
 

@@ -2,16 +2,16 @@
   "_id": "scenario_1_request",
   "data": {
     "charityContactDetails": {
-      "daytimePhone": "07700 900 982",
-      "mobilePhone": "07700 000 111",
+      "daytimePhone": "__DAYTIMEPHONE__",
+      "mobilePhone": "__MOBILEPHONE__",
       "emailAddress": "__CHARITYEMAIL__"
     },
     "authorisedOfficials": [
       {
         "officialsPosition": "02",
         "officialsPhoneNumber": {
-          "daytimePhone": "07700 900 982",
-          "mobilePhone": "07700 900 981"
+          "daytimePhone": "__DAYTIMEPHONE__",
+          "mobilePhone": "__MOBILEPHONE__"
         },
         "officialsDOB": "2000-12-11",
         "officialAddress": {
@@ -87,8 +87,8 @@
       {
         "officialsPosition": "05",
         "officialsPhoneNumber": {
-          "daytimePhone": "07700 900 982",
-          "mobilePhone": "07700 900 981"
+          "daytimePhone": "__DAYTIMEPHONE__",
+          "mobilePhone": "__MOBILEPHONE__"
         },
         "officialsDOB": "2000-12-11",
         "officialAddress": {

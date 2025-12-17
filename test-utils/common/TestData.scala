@@ -16,8 +16,9 @@
 
 package common
 
+import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber, Country, FcoCountry}
+import models.nominees.OrganisationNomineeContactDetails
 import models.addressLookup.CountryModel
-import models.{BankDetails, CharityName, Country, FcoCountry, Passport}
 
 import java.time.LocalDate
 
@@ -106,10 +107,29 @@ trait TestData extends ModelGenerators {
   val usCountry: Country = Country("US", "United States")
   val usCountryTuple: (String, String) = (usCountry.code, usCountry.name)
   val (usCountryCode, usCountryName) = usCountryTuple
-  
+
   val chCountry: Country = Country("CH", "Switzerland")
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName) = chCountryTuple
+
+  val daytimePhone: String = exampleFixedLineGen.sample.get
+  val mobileNumber: String = exampleMobileGen.sample.get
+
+  val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
+
+  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+
+  val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
+
+  val charityContactDetails: CharityContactDetails = CharityContactDetails(
+    daytimePhone = daytimePhone,
+    mobilePhone = Some(mobileNumber),
+    emailAddress = charityEmail
+  )
+
+  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
+    OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
 
   def replacePlaceholders(inString: String): String =
     inString
@@ -126,6 +146,11 @@ trait TestData extends ModelGenerators {
       .replaceAll("__CHARITYOPERATINGNAME__", charityOperatingName)
       .replaceAll("__CHARITYFULLNAME__", charityFullName)
       .replaceAll("__CHARITYEMAIL__", charityEmail)
+      .replaceAll("__ORGANISATIONEMAIL__", organisationEmail)
+      .replaceAll("__DAYTIMEPHONE__", daytimePhone)
+      .replaceAll("__DAYTIMEPHONEINT__", daytimePhoneWithIntCode)
+      .replaceAll("__MOBILEPHONE__", mobileNumber)
+      .replaceAll("__MOBILEPHONEINT__", mobileNumberWithIntCode)
       .replaceAll("__THCOUNTRYCODE__", thCountry.code)
       .replaceAll("__THCOUNTRYNAME__", thCountry.name)
       .replaceAll("__GBCOUNTRYCODE__", gbCountry.code)

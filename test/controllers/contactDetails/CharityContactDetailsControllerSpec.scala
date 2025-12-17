@@ -59,8 +59,8 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
   private val controller: CharityContactDetailsController = inject[CharityContactDetailsController]
 
   private val requestArgs = Seq(
-    "mainPhoneNumber"        -> "07700 900 982",
-    "alternativePhoneNumber" -> "07700 900 982",
+    "mainPhoneNumber"        -> daytimePhone,
+    "alternativePhoneNumber" -> daytimePhone,
     "emailAddress"           -> charityEmail
   )
 
@@ -80,7 +80,7 @@ class CharityContactDetailsControllerSpec extends SpecBase with BeforeAndAfterEa
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(CharityContactDetailsPage, CharityContactDetails("07700 900 982", Some("07700 000 111"), charityEmail))
+        .set(CharityContactDetailsPage, charityContactDetails)
         .success
         .value
 

@@ -527,11 +527,11 @@ class JsonTransformerSpec extends SpecBase {
       "remove + from phone number " in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("+44 7700 900 982", Some("07700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbersWithIntCode)
           .success
           .value
 
-        val expectedJson = """{"individualDetails": {"dayPhoneNumber": "44 7700 900 982"}}"""
+        val expectedJson = s"""{"individualDetails": {"dayPhoneNumber": "${normalisePhoneForTest(daytimePhoneWithIntCode)}"}}"""
 
         userAnswers.data
           .transform(
@@ -548,11 +548,11 @@ class JsonTransformerSpec extends SpecBase {
       "get the phone number as it is" in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers)
           .success
           .value
 
-        val expectedJson = """{"individualDetails": { "dayPhoneNumber": "07700 900 982" }}"""
+        val expectedJson = s"""{"individualDetails": { "dayPhoneNumber": "$daytimePhone" }}"""
 
         userAnswers.data
           .transform(
@@ -572,11 +572,11 @@ class JsonTransformerSpec extends SpecBase {
       "remove + from phone number " in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("+44 7700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbersWithIntCode)
           .success
           .value
 
-        val expectedJson = """{"individualDetails": {"mobilePhone": "44 7700 900 981"}}"""
+        val expectedJson = s"""{"individualDetails": {"mobilePhone": "${normalisePhoneForTest(mobileNumberWithIntCode)}"}}"""
 
         userAnswers.data
           .transform(
@@ -593,11 +593,11 @@ class JsonTransformerSpec extends SpecBase {
       "get the phone number as it is" in {
 
         val userAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981")))
+          .set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers)
           .success
           .value
 
-        val expectedJson = """{ "individualDetails": { "mobilePhone": "07700 900 981" } }"""
+        val expectedJson = s"""{ "individualDetails": { "mobilePhone": "$mobileNumber" } }"""
 
         userAnswers.data
           .transform(

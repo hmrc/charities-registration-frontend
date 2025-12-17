@@ -54,11 +54,11 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
       val localUserAnswers = baseAnswers
         .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
@@ -69,7 +69,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
-        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
@@ -130,7 +130,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(AuthorisedOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
@@ -141,7 +141,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse("2000-12-11")))
-        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+        .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
         .flatMap(_.set(OtherOfficialsNinoPage(1), nino2WithSpaces))
         .flatMap(
           _.set(
@@ -207,7 +207,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
       val userAnswers = localUserAnswers
         .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
-        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 981"))))
+        .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
         .success
         .value
 

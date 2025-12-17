@@ -87,7 +87,7 @@ class OrganisationNomineeContactDetailsControllerSpec extends SpecBase with Befo
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(OrganisationNomineeContactDetailsPage, OrganisationNomineeContactDetails("0123123123", organisationEmail))
+        .set(OrganisationNomineeContactDetailsPage, nomineeOrganisationContactDetails)
         .success
         .value
 

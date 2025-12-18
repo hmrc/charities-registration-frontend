@@ -39,7 +39,7 @@ trait ViewBehaviours extends ViewSpecBase {
           val doc: Document = asDocument(view)
 
           assert(
-            doc.getElementsByClass("govuk-header__service-name").text == messages("service.name"),
+            doc.getElementsByClass("govuk-service-navigation__service-name").text == messages("service.name"),
             s"\n\nService name did not contain text ${messages("service.name")}"
           )
         }
@@ -50,7 +50,7 @@ trait ViewBehaviours extends ViewSpecBase {
           assertEqualsMessage(
             doc,
             "title",
-            title(messages(s"$messageKeyPrefix.title$postHeadingString", headingArgs*), section)
+            title(messages(s"$messageKeyPrefix.title$postHeadingString", headingArgs *), section)
           )
         }
 
@@ -62,7 +62,8 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display language toggles" in {
           val doc = asDocument(view)
-          assertRenderedByCssSelector(doc, "nav.hmrc-language-select")
+          assertRenderedByCssSelector(doc, "section.hmrc-service-navigation--with-language-select")
+
         }
       }
     }

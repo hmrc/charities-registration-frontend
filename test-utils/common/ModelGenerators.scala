@@ -52,14 +52,13 @@ trait ModelGenerators {
     Gen.stringOfN(7, Gen.numChar)
 
   private val phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance()
-  private val region    = "GB"
+  private val region                     = "GB"
 
   private def format(
-      number: com.google.i18n.phonenumbers.Phonenumber.PhoneNumber,
-      fmt: PhoneNumberFormat
-    ): String =
+    number: com.google.i18n.phonenumbers.Phonenumber.PhoneNumber,
+    fmt: PhoneNumberFormat
+  ): String =
     phoneUtil.format(number, fmt)
-
 
   def exampleFixedLineGen: Gen[String] =
     Gen.const {
@@ -90,5 +89,5 @@ trait ModelGenerators {
       val parsed = phoneUtil.parse(national, region)
       format(parsed, PhoneNumberFormat.E164)
     }
-  
+
 }

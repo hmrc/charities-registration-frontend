@@ -90,7 +90,8 @@ class NomineeStatusHelperSpec extends SpecBase {
   private val month      = 1
   private val dayOfMonth = 2
 
-  private val nomineeOrganisationContactDetailsEmptyEmail: OrganisationNomineeContactDetails = OrganisationNomineeContactDetails(daytimePhone, "")
+  private val nomineeOrganisationContactDetailsEmptyEmail: OrganisationNomineeContactDetails =
+    OrganisationNomineeContactDetails(daytimePhone, "")
 
   private val noNominee = UserAnswers("id").set(IsAuthoriseNomineePage, false).success.value
 

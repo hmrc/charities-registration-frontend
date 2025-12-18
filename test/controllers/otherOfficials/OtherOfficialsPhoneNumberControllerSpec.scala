@@ -59,7 +59,7 @@ class OtherOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeAndAft
 
   private val controller: OtherOfficialsPhoneNumberController = inject[OtherOfficialsPhoneNumberController]
 
-  private val requestArgs                   = Seq("mainPhoneNumber" -> "07700 900 982", "alternativePhoneNumber" -> "07700 900 982")
+  private val requestArgs                   = Seq("mainPhoneNumber" -> daytimePhone, "alternativePhoneNumber" -> daytimePhone)
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
 
@@ -83,7 +83,7 @@ class OtherOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeAndAft
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .set(OtherOfficialsPhoneNumberPage(0), phoneNumbers)
         .success
         .value
 
@@ -97,7 +97,7 @@ class OtherOfficialsPhoneNumberControllerSpec extends SpecBase with BeforeAndAft
 
     "redirect to the next page when valid data is submitted" in {
       val userAnswers = localUserAnswers
-        .set(OtherOfficialsPhoneNumberPage(0), PhoneNumber("07700 900 982", Some("07700 900 982")))
+        .set(OtherOfficialsPhoneNumberPage(0), phoneNumbers)
         .success
         .value
 

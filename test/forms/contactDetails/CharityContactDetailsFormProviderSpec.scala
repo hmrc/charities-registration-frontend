@@ -110,8 +110,6 @@ class CharityContactDetailsFormProviderSpec extends StringFieldBehaviours {
 
   "CharityContactDetailsFormProvider" must {
 
-    val charityContactDetails = CharityContactDetails("01632 960 001", Some("01632 960 001"), charityEmail)
-
     "apply CharityContactDetails correctly" in {
 
       val details = form

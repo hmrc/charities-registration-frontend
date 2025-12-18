@@ -16,8 +16,9 @@
 
 package common
 
+import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber, Country, FcoCountry}
+import models.nominees.OrganisationNomineeContactDetails
 import models.addressLookup.CountryModel
-import models.{BankDetails, CharityName, Country, FcoCountry, Passport}
 
 import java.time.LocalDate
 
@@ -39,14 +40,14 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
-  val nino: String            = ninoGen.sample.get
-  val ninoWithSpaces: String  =
+  val nino: String = ninoGen.sample.get
+  val ninoWithSpaces: String =
     s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
-  val nino2: String           = ninoGen.sample.get
+  val nino2: String = ninoGen.sample.get
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
 
-  val nino3: String           = ninoGen.sample.get
+  val nino3: String = ninoGen.sample.get
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 
@@ -67,60 +68,68 @@ trait TestData extends ModelGenerators {
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
 
-  val charityFullName      = "A Charity"
+  val charityFullName = "A Charity"
   val charityOperatingName = "Charity Operating Name"
 
-  val charityName: CharityName                = CharityName(charityFullName, Some(charityOperatingName))
+  val charityName: CharityName = CharityName(charityFullName, Some(charityOperatingName))
   val charityNameNoOperatingName: CharityName = charityName.copy(operatingName = None)
 
-  val charityEmail      = "charity@example.com"
+  val charityEmail = "charity@example.com"
   val organisationEmail = "company@example.com"
 
-  val gbCountryModel: CountryModel     = CountryModel("GB", "United Kingdom")
-  val gbCountry: Country               = Country("GB", "United Kingdom")
+  val gbCountryModel: CountryModel = CountryModel("GB", "United Kingdom")
+  val gbCountry: Country = Country("GB", "United Kingdom")
   val gbCountryTuple: (String, String) = (gbCountry.code, gbCountry.name)
-  val gbFcoCountry: FcoCountry         = FcoCountry("GB", "United Kingdom")
-  val (gbCountryCode, gbCountryName)   = gbCountryTuple
+  val gbFcoCountry: FcoCountry = FcoCountry("GB", "United Kingdom")
+  val (gbCountryCode, gbCountryName) = gbCountryTuple
 
-  val thCountryModel: CountryModel     = CountryModel("TH", "Thailand")
-  val thCountry: Country               = Country("TH", "Thailand")
+  val thCountryModel: CountryModel = CountryModel("TH", "Thailand")
+  val thCountry: Country = Country("TH", "Thailand")
   val thCountryTuple: (String, String) = (thCountry.code, thCountry.name)
-  val thFcoCountry: FcoCountry         = FcoCountry("TH", "Thailand")
-  val (thCountryCode, thCountryName)   = thCountryTuple
+  val thFcoCountry: FcoCountry = FcoCountry("TH", "Thailand")
+  val (thCountryCode, thCountryName) = thCountryTuple
 
-  val frCountryModel: CountryModel     = CountryModel("FR", "France")
-  val frCountry: Country               = Country("FR", "France")
+  val frCountryModel: CountryModel = CountryModel("FR", "France")
+  val frCountry: Country = Country("FR", "France")
   val frCountryTuple: (String, String) = (frCountry.code, frCountry.name)
-  val (frCountryCode, frCountryName)   = frCountryTuple
+  val (frCountryCode, frCountryName) = frCountryTuple
 
-  val inCountryModel: CountryModel     = CountryModel("IN", "India")
-  val inCountry: Country               = Country("IN", "India")
+  val inCountryModel: CountryModel = CountryModel("IN", "India")
+  val inCountry: Country = Country("IN", "India")
   val inCountryTuple: (String, String) = (inCountry.code, inCountry.name)
-  val (inCountryCode, inCountryName)   = inCountryTuple
+  val (inCountryCode, inCountryName) = inCountryTuple
 
-  val itCountryModel: CountryModel     = CountryModel("IT", "Italy")
-  val itCountry: Country               = Country("IT", "Italy")
+  val itCountryModel: CountryModel = CountryModel("IT", "Italy")
+  val itCountry: Country = Country("IT", "Italy")
   val itCountryTuple: (String, String) = (itCountry.code, itCountry.name)
-  val (itCountryCode, itCountryName)   = itCountryTuple
+  val (itCountryCode, itCountryName) = itCountryTuple
 
-  val usCountry: Country               = Country("US", "United States")
+  val usCountry: Country = Country("US", "United States")
   val usCountryTuple: (String, String) = (usCountry.code, usCountry.name)
-  val (usCountryCode, usCountryName)   = usCountryTuple
+  val (usCountryCode, usCountryName) = usCountryTuple
 
-  val chCountry: Country               = Country("CH", "Switzerland")
+  val chCountry: Country = Country("CH", "Switzerland")
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
-  val (chCountryCode, chCountryName)   = chCountryTuple
+  val (chCountryCode, chCountryName) = chCountryTuple
 
-  val acknowledgementRef: String      = acknowledgementRefGen.sample.get
-  val charityObjective: String        = "Make the World better"
-  val publicBenefit: String           = "FreeEducation"
-  val whyNoBankStatement: String      = "Reason why no bank statement"
-  val otherFundRaising: String        = "Other fund raising"
-  val governingDocument: String       = "will"
-  val governingDocumentOther: String  = "other"
-  val whyNoRegulator: String          = "reason"
-  val whyNotRegistered: String        = "reason"
-  val governingDocumentChange: String = "Governing document change and reason"
+  val daytimePhone: String = exampleFixedLineGen.sample.get
+  val mobileNumber: String = exampleMobileGen.sample.get
+
+  val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
+
+  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+
+  val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
+
+  val charityContactDetails: CharityContactDetails = CharityContactDetails(
+    daytimePhone = daytimePhone,
+    mobilePhone = Some(mobileNumber),
+    emailAddress = charityEmail
+  )
+
+  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
+    OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
 
   def replacePlaceholders(inString: String): String =
     inString
@@ -128,15 +137,20 @@ trait TestData extends ModelGenerators {
       .replaceAll("__SORTCODE__", sortCode)
       .replaceAll("__ACCOUNTNUMBER__", accountNumber)
       .replaceAll("__ROLLNUMBER__", rollNumber)
-      .replaceAll("__NINO1__", nino)
-      .replaceAll("__NINOWITHSPACE1__", ninoWithSpaces)
-      .replaceAll("__NINOWITHSPACE2__", nino2WithSpaces)
+      .replaceAll("__NINO1__",nino)
+      .replaceAll("__NINOWITHSPACE1__",ninoWithSpaces)
+      .replaceAll("__NINOWITHSPACE2__",nino2WithSpaces)
       .replaceAll("__PASSPORTNUMBER__", passportNumber)
       .replaceAll("__PASSPORTCOUNTRY__", passport.country)
       .replaceAll("__EXPIRYDATE__", passport.expiryDate.toString)
       .replaceAll("__CHARITYOPERATINGNAME__", charityOperatingName)
       .replaceAll("__CHARITYFULLNAME__", charityFullName)
       .replaceAll("__CHARITYEMAIL__", charityEmail)
+      .replaceAll("__ORGANISATIONEMAIL__", organisationEmail)
+      .replaceAll("__DAYTIMEPHONE__", daytimePhone)
+      .replaceAll("__DAYTIMEPHONEINT__", daytimePhoneWithIntCode)
+      .replaceAll("__MOBILEPHONE__", mobileNumber)
+      .replaceAll("__MOBILEPHONEINT__", mobileNumberWithIntCode)
       .replaceAll("__THCOUNTRYCODE__", thCountry.code)
       .replaceAll("__THCOUNTRYNAME__", thCountry.name)
       .replaceAll("__GBCOUNTRYCODE__", gbCountry.code)
@@ -147,15 +161,5 @@ trait TestData extends ModelGenerators {
       .replaceAll("__INCOUNTRYNAME__", inCountry.name)
       .replaceAll("__FRCOUNTRYCODE__", frCountry.code)
       .replaceAll("__FRCOUNTRYNAME__", frCountry.name)
-      .replaceAll("__ACKNOWLEDGEMENTREF__", acknowledgementRef)
-      .replaceAll("__CHARITYOBJECTIVE__", charityObjective)
-      .replaceAll("__PUBLICBENEFIT__", publicBenefit)
-      .replaceAll("__WHYNOBANKSTETEMENT__", whyNoBankStatement)
-      .replaceAll("__OTHERFUNDRAISING__", otherFundRaising)
-      .replaceAll("__GOVERNINGDOCUMENT__", governingDocument)
-      .replaceAll("__GOVERNINGDOCUMENTOTHER__", governingDocumentOther)
-      .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
-      .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
-      .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
 
 }

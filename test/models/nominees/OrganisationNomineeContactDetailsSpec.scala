@@ -25,9 +25,9 @@ class OrganisationNomineeContactDetailsSpec extends SpecBase {
     "all parameters defined" in {
 
       val contactDetails =
-        OrganisationNomineeContactDetails(phoneNumber = "01632 960 001", email = organisationEmail)
+        nomineeOrganisationContactDetails
 
-      contactDetails.phoneNumber mustBe "01632 960 001"
+      contactDetails.phoneNumber mustBe daytimePhone
       contactDetails.email mustBe organisationEmail
 
     }

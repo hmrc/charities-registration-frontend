@@ -25,10 +25,7 @@ class IndividualNomineePhoneNumberPageSpec extends PageBehaviours {
   "IndividualNomineePhoneNumberPage" must {
 
     implicit lazy val arbitraryPhoneNumber: Arbitrary[PhoneNumber] = Arbitrary {
-      PhoneNumber(
-        daytimePhone = "07700 900 982",
-        mobilePhone = Some("07700 900 982")
-      )
+      phoneNumbers
     }
 
     beRetrievable[PhoneNumber](IndividualNomineesPhoneNumberPage)

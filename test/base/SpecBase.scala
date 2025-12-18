@@ -129,6 +129,9 @@ trait SpecBase
 
   def titleOf(result: String): String = Jsoup.parse(result).title
 
+  def normalisePhoneForTest(phone: String): String =
+    phone.replaceAll("^\\+", "")
+
   protected def applicationBuilder(): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(

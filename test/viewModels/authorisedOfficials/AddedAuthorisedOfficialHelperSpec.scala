@@ -49,7 +49,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
     .flatMap(
       _.set(
         AuthorisedOfficialsPhoneNumberPage(0),
-        PhoneNumber(daytimePhone = "07700 900 982", mobilePhone = Some("07700 900 982"))
+        phoneNumbers
       )
     )
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.values.head))
@@ -121,7 +121,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialMainPhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("07700 900 982"),
+            HtmlContent(daytimePhone),
             Some(messages("authorisedOfficialsPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -136,7 +136,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialAlternativePhoneNoRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("07700 900 982"),
+            HtmlContent(mobileNumber),
             Some(messages("authorisedOfficialsPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsPhoneNumberController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

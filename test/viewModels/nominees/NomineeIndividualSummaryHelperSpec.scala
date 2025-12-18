@@ -49,7 +49,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
     UserAnswers("id")
       .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
       .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
-      .flatMap(_.set(IndividualNomineesPhoneNumberPage, PhoneNumber("0123123123", Some("0123123124"))))
+      .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
       .flatMap(_.set(IsIndividualNomineeNinoPage, true))
       .flatMap(_.set(IndividualNomineesNinoPage, "AB123123A"))
       .flatMap(_.set(NomineeIndividualAddressLookupPage, ConfirmedAddressConstants.address))
@@ -98,7 +98,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeMainPhone mustBe Some(
           summaryListRow(
             messages("individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("0123123123"),
+            HtmlContent(daytimePhone),
             Some(messages("individualNomineesPhoneNumber.mainPhoneNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesPhoneNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )
@@ -112,7 +112,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeAltPhone mustBe Some(
           summaryListRow(
             messages("individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel"),
-            HtmlContent("0123123124"),
+            HtmlContent(mobileNumber),
             Some(messages("individualNomineesPhoneNumber.alternativePhoneNumber.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineesPhoneNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

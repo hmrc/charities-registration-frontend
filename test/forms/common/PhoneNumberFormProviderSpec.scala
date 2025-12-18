@@ -74,27 +74,26 @@ class PhoneNumberFormProviderSpec extends StringFieldBehaviours {
 
   "AuthorisedOfficialsPhoneNumberFormProvider" must {
 
-    val authorisedOfficialsPhoneNumber = PhoneNumber("01632 960 001", Some("01632 960 001"))
 
     "apply AuthorisedOfficialsPhoneNumber correctly" in {
 
       val details = form
         .bind(
           Map(
-            "mainPhoneNumber"        -> authorisedOfficialsPhoneNumber.daytimePhone,
-            "alternativePhoneNumber" -> authorisedOfficialsPhoneNumber.mobilePhone.get
+            "mainPhoneNumber"        -> phoneNumbers.daytimePhone,
+            "alternativePhoneNumber" -> phoneNumbers.mobilePhone.get
           )
         )
         .get
 
-      details.daytimePhone mustBe authorisedOfficialsPhoneNumber.daytimePhone
-      details.mobilePhone mustBe authorisedOfficialsPhoneNumber.mobilePhone
+      details.daytimePhone mustBe phoneNumbers.daytimePhone
+      details.mobilePhone mustBe phoneNumbers.mobilePhone
     }
 
     "unapply AuthorisedOfficialsPhoneNumber correctly" in {
-      val filled = form.fill(authorisedOfficialsPhoneNumber)
-      filled("mainPhoneNumber").value.value mustBe authorisedOfficialsPhoneNumber.daytimePhone
-      filled("alternativePhoneNumber").value.value mustBe authorisedOfficialsPhoneNumber.mobilePhone.get
+      val filled = form.fill(phoneNumbers)
+      filled("mainPhoneNumber").value.value mustBe phoneNumbers.daytimePhone
+      filled("alternativePhoneNumber").value.value mustBe phoneNumbers.mobilePhone.get
     }
   }
 

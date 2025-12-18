@@ -40,7 +40,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
     .flatMap(
       _.set(
         AuthorisedOfficialsPhoneNumberPage(index),
-        PhoneNumber(daytimePhone = "07700 900 982", mobilePhone = Some("07700 900 982"))
+        phoneNumbers
       )
     )
     .flatMap(_.set(AuthorisedOfficialsPositionPage(index), OfficialsPosition.values.head))

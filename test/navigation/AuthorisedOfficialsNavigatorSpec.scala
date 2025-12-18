@@ -38,7 +38,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
   private val minYear                                     = 16
   private val authorisedOfficialsName: Name               =
     Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
-  private val authorisedOfficialsPhoneNumber: PhoneNumber = PhoneNumber("07700 900 982", Some("07700 900 982"))
+  private val authorisedOfficialsPhoneNumber: PhoneNumber = phoneNumbers
 
   "Navigator.nextPage(page, mode, userAnswers)" when {
 

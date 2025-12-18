@@ -34,7 +34,7 @@ import java.time.LocalDate
 
 class AuthorisedOfficialsNavigatorSpec extends SpecBase {
 
-  private val navigator: AuthorisedOfficialsNavigator = inject[AuthorisedOfficialsNavigator]
+  private val navigator: AuthorisedOfficialsNavigator     = inject[AuthorisedOfficialsNavigator]
   private val minYear                                     = 16
   private val authorisedOfficialsName: Name               =
     Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")

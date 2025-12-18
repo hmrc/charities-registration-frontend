@@ -30,7 +30,7 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
   private val helper = new CharityObjectivesSummaryHelper(
     UserAnswers("id")
-      .set(CharitableObjectivesPage, "Charitable Objectives")
+      .set(CharitableObjectivesPage, charityObjective)
       .flatMap(_.set(CharitablePurposesPage, CharitablePurposes.values.toSet))
       .flatMap(_.set(PublicBenefitsPage, "Public Benefits"))
       .success
@@ -46,7 +46,7 @@ class CharityObjectivesSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.charitableObjectivesRow mustBe Some(
           summaryListRow(
             messages("charitableObjectives.checkYourAnswersLabel"),
-            HtmlContent("Charitable Objectives"),
+            HtmlContent(charityObjective),
             Some(messages("charitableObjectives.checkYourAnswersLabel")),
             operations.CharitableObjectivesController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

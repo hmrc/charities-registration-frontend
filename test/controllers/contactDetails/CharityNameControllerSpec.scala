@@ -76,7 +76,7 @@ class CharityNameControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AcknowledgementReferencePage, "0123123")
+              .set(AcknowledgementReferencePage, acknowledgementRef)
               .flatMap(_.set(EmailOrPostPage, true))
               .success
               .value

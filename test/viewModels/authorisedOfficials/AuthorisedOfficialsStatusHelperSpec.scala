@@ -235,7 +235,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.checkComplete(
           commonData(0, emptyUserAnswers)
             .set(IsAuthorisedOfficialNinoPage(0), false)
-            .flatMap(_.set(AuthorisedOfficialsPassportPage(0),passport))
+            .flatMap(_.set(AuthorisedOfficialsPassportPage(0), passport))
             .flatMap(_.set(IsAuthorisedOfficialPreviousAddressPage(0), false))
             .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, false))
             .success

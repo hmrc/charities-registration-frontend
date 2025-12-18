@@ -121,7 +121,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
     "json - serialise and deserialise" in {
 
       val phoneNumber = PhoneNumber("01632 960 001", Some("01632 960 001"))
-      val json = Json.toJson(phoneNumber)
+      val json        = Json.toJson(phoneNumber)
 
       json.validate[PhoneNumber].asOpt.value mustBe phoneNumber
     }
@@ -233,7 +233,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
     "json - serialise and deserialise" in {
 
       val status = SaveStatus(true)
-      val json = Json.toJson(status)
+      val json   = Json.toJson(status)
 
       json.validate[SaveStatus].asOpt.value mustBe status
     }

@@ -20,11 +20,11 @@ import base.SpecBase
 import models.addressLookup.AddressModel
 import play.api.libs.json.{JsObject, Json}
 
-object ConfirmedAddressConstants extends SpecBase{
+object ConfirmedAddressConstants extends SpecBase {
 
-  val lines: Seq[String]    = Seq("Test 1", "Test 2")
-  val postcode: String      = "AA00 0AA"
- 
+  val lines: Seq[String] = Seq("Test 1", "Test 2")
+  val postcode: String   = "AA00 0AA"
+
   val address: AddressModel = AddressModel(
     lines,
     postcode = Some(postcode),

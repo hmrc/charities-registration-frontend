@@ -53,12 +53,12 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
               .withRequestBody(equalToJson(Json.stringify(requestJson)))
               .willReturn(
                 aResponse()
-                  .withBody(Json.parse("""{"acknowledgementReference":"765432"}""").toString())
+                  .withBody(Json.parse(s"""{"acknowledgementReference":"$acknowledgementRef"}""").toString())
                   .withStatus(ACCEPTED)
               )
           )
 
-          val expectedResult = Right(RegistrationResponse("765432"))
+          val expectedResult = Right(RegistrationResponse(acknowledgementRef))
           val actualResult   = await(charitiesConnector.registerCharities(requestJson, organizationId)(hc, ec))
 
           actualResult mustBe expectedResult
@@ -73,7 +73,7 @@ class CharitiesConnectorSpec extends SpecBase with WireMockHelper {
               .withRequestBody(equalToJson(Json.stringify(requestJson)))
               .willReturn(
                 aResponse()
-                  .withBody(Json.parse("""{"acknowledgementRef":"765432"}""").toString())
+                  .withBody(Json.parse(s"""{"acknowledgementRef":"$acknowledgementRef"}""").toString())
                   .withStatus(ACCEPTED)
               )
           )

@@ -61,7 +61,9 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       when(mockCountryService.find(meq(thCountryCode))(any())).thenReturn(Some(thCountry))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value))
+        Future.successful(
+          Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value)
+        )
       )
 
       val result = controller.onPageLoad(NormalMode)(fakeRequest)
@@ -111,7 +113,9 @@ class OverseasOperatingLocationSummaryControllerSpec extends SpecBase with Befor
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value))
+        Future.successful(
+          Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value)
+        )
       )
 
       when(mockUserAnswerService.set(any())(any(), any())).thenReturn(Future.successful(true))

@@ -58,7 +58,7 @@ class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: PublicBenefitsController = inject[PublicBenefitsController]
 
-  private val requestArgs = Seq("value" -> "FreeEducation")
+  private val requestArgs = Seq("value" -> publicBenefit)
 
   "PublicBenefits Controller " must {
 
@@ -75,7 +75,7 @@ class PublicBenefitsControllerSpec extends SpecBase with BeforeAndAfterEach {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(PublicBenefitsPage, "FreeEducation").success.value
+      val userAnswers = emptyUserAnswers.set(PublicBenefitsPage, publicBenefit).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

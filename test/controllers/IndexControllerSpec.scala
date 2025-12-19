@@ -80,7 +80,7 @@ class IndexControllerSpec extends SpecBase with BeforeAndAfterEach {
           Future(
             Some(
               emptyUserAnswers
-                .set(AcknowledgementReferencePage, "0123123")
+                .set(AcknowledgementReferencePage, acknowledgementRef)
                 .success
                 .value
             )

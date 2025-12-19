@@ -74,7 +74,6 @@ class PhoneNumberFormProviderSpec extends StringFieldBehaviours {
 
   "AuthorisedOfficialsPhoneNumberFormProvider" must {
 
-
     "apply AuthorisedOfficialsPhoneNumber correctly" in {
 
       val details = form

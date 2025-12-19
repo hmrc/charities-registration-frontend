@@ -19,7 +19,7 @@ package base.data.constants
 import base.SpecBase
 import models.addressLookup.AddressModel
 
-object AddressModelConstants extends SpecBase{
+object AddressModelConstants extends SpecBase {
 
   val address: AddressModel =
     AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)

@@ -94,6 +94,17 @@ trait TestData extends ModelGenerators {
     emailAddress = charityEmail
   )
 
+  val charityObjective: String = "Make the World better"
+  val acknowledgementRef: String = acknowledgementRefGen.sample.get
+  val publicBenefit: String = "FreeEducation"
+  val whyNoBankStatement: String = "Reason why no bank statement"
+  val otherFundRaising: String = "Other fund raising"
+  val governingDocument: String = "will"
+  val governingDocumentOther: String = "other"
+  val whyNoRegulator: String = "reason"
+  val whyNotRegistered: String = "reason"
+  val governingDocumentChange: String = "Governing document change and reason"
+
   val nomineeOrganisationName: String = "Nominee Organisation"
   val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
     OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
@@ -164,5 +175,15 @@ trait TestData extends ModelGenerators {
       .replaceAll("__FRCOUNTRYCODE__", frCountry.code)
       .replaceAll("__FRCOUNTRYNAME__", frCountry.name)
       .replaceAll("__NOMINEEORGANISATIONNAME__", nomineeOrganisationName)
-
+      .replaceAll("__ACKNOWLEDGEMENTREF__", acknowledgementRef)
+      .replaceAll("__CHARITYOBJECTIVE__", charityObjective)
+      .replaceAll("__PUBLICBENEFIT__", publicBenefit)
+      .replaceAll("__WHYNOBANKSTETEMENT__", whyNoBankStatement)
+      .replaceAll("__OTHERFUNDRAISING__", otherFundRaising)
+      .replaceAll("__GOVERNINGDOCUMENT__", governingDocument)
+      .replaceAll("__GOVERNINGDOCUMENTOTHER__", governingDocumentOther)
+      .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
+      .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
+      .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
 }
+

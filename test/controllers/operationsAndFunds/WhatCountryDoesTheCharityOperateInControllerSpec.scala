@@ -90,7 +90,9 @@ class WhatCountryDoesTheCharityOperateInControllerSpec extends SpecBase with Bef
       val welshRequest = FakeRequest().withCookies(Cookie(messagesApi.langCookieName, "cy"))
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
-        Future.successful(Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value))
+        Future.successful(
+          Some(emptyUserAnswers.set(WhatCountryDoesTheCharityOperateInPage(0), thCountryCode).success.value)
+        )
       )
       when(mockCountryService.countries()(any())).thenReturn(Seq(thCountryTuple))
       when(mockCountryService.find(any())(any())).thenReturn(Some(thCountry))

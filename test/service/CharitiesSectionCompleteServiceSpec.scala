@@ -47,10 +47,10 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
         "isCharityInformationStatusSectionCompleted" -> false,
         "isSwitchOver"                               -> true,
         "charityOfficialAddress"                     -> Json.parse(
-         s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
+          s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
         ),
         "charityPostalAddress"                       -> Json.parse(
-         s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
+          s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
         )
       )
 

@@ -53,7 +53,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
 
   private val controller: RegistrationSentController = inject[RegistrationSentController]
 
-  private val acknowledgementReferenceNo: String = "123456789"
+  private val acknowledgementReferenceNo: String = acknowledgementRef
   private val daysToAdd: Long                    = 28
 
   "RegistrationSent Controller" must {
@@ -74,7 +74,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AcknowledgementReferencePage, "123456789")
+              .set(AcknowledgementReferencePage, acknowledgementRef)
               .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
               .flatMap(_.set(EmailOrPostPage, true))
               .success
@@ -104,7 +104,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AcknowledgementReferencePage, "123456789")
+              .set(AcknowledgementReferencePage, acknowledgementRef)
               .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
               .flatMap(_.set(EmailOrPostPage, true))
               .success
@@ -148,7 +148,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
       contentAsString(result) mustEqual view(
         dayToString(inject[TimeMachine].now().plusDays(daysToAdd)),
         dayToString(inject[TimeMachine].now(), dayOfWeek = false),
-        "123456789",
+        acknowledgementRef,
         emailOrPost = false,
         noEmailOrPost = true,
         Seq("requiredDocuments.governingDocumentName.answerTrue"),
@@ -173,7 +173,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AcknowledgementReferencePage, "123456789")
+              .set(AcknowledgementReferencePage, acknowledgementRef)
               .flatMap(_.set(ApplicationSubmissionDatePage, inject[TimeMachine].now()))
               .success
               .value
@@ -219,7 +219,7 @@ class RegistrationSentControllerSpec extends SpecBase with BeforeAndAfterEach {
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AcknowledgementReferencePage, "123456789")
+              .set(AcknowledgementReferencePage, acknowledgementRef)
               .flatMap(_.set(EmailOrPostPage, true))
               .success
               .value

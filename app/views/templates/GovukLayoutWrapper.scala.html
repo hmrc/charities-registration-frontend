@@ -25,13 +25,14 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteJavascript
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
 
 @this(
     govukLayout: GovukLayout,
     govukBackLink: GovukBackLink,
     hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper,
     languageSwitch: HmrcLanguageSelect,
-    header: HmrcHeader,
+    header: HmrcStandardHeader,
     hmrcTimeoutDialog: HmrcTimeoutDialog,
     hmrcFooter: HmrcFooter,
     hmrcHead: HmrcHead,
@@ -90,12 +91,6 @@
 }
 
 @beforeContentBlock = {
-    @languageSwitch(LanguageSelect(
-        if (messages.lang.code == "cy") Cy else En,
-        (En, controllers.routes.LanguageSwitchController.switchToLanguage("en").url),
-        (Cy, controllers.routes.LanguageSwitchController.switchToLanguage("cy").url)
-    ))
-
     @if(backLink == true) {
         @govukBackLink(BackLink(href = customBackLinkUrl.fold("#")(customUrl => customUrl), content = Text(messages("site.back")), attributes = Map("id" -> "back-link")))
     }
@@ -113,13 +108,13 @@
 @govukLayout(
   pageTitle = pageTitle,
   headBlock = Some(hmrcHead(headBlock = Some(head))),
-  headerBlock = Some(header(Header(
-    signOutHref = if(signOut) Some(controllers.routes.SignOutController.signOut().url) else None,
-    homepageUrl = appConfig.govUK,
-    serviceName = Some(messages("service.name")),
-    serviceUrl = if(signOut) controllers.routes.IndexController.onPageLoad(None).url else appConfig.signOutUrl,
-    language = if (messages.lang.code == "cy") Cy else En
-  ))),
+  headerBlock = Some(
+    header(
+        signOutUrl = if(signOut) Some(controllers.routes.SignOutController.signOut().url) else None,
+        serviceName = Some(messages("service.name")),
+        serviceUrl = if(signOut) Some(controllers.routes.IndexController.onPageLoad(None).url) else Some(appConfig.signOutUrl),
+        isWelshTranslationAvailable = true
+ )),
   beforeContentBlock = Some(beforeContentBlock),
   scriptsBlock = Some(hmrcScripts(Some(autocompleteJavascript()))),
   bodyEndBlock = Some(hmrcScripts(scriptsBlock = Some(scripts))),

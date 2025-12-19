@@ -41,6 +41,7 @@ class AddressLookupConfiguration @Inject() (
       options = AddressLookupOptionsModel(
         continueUrl = fullCallbackURL,
         signOutHref = fullSignOutURL,
+        useNewGovUkServiceNavigation = true,
         deskProServiceName = appConfig.contactFormServiceIdentifier,
         showBackButtons = true,
         includeHMRCBranding = false,

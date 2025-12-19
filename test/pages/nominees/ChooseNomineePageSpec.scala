@@ -23,9 +23,7 @@ class ChooseNomineePageSpec extends PageBehaviours {
   "ChooseNomineePage" must {
 
     beRetrievable[Boolean](ChooseNomineePage)
-
     beSettable[Boolean](ChooseNomineePage)
-
     beRemovable[Boolean](ChooseNomineePage)
   }
 }

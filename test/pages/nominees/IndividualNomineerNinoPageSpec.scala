@@ -23,9 +23,7 @@ class IndividualNomineerNinoPageSpec extends PageBehaviours {
   "IndividualNomineeNinoPage" must {
 
     beRetrievable[String](IndividualNomineesNinoPage)
-
     beSettable[String](IndividualNomineesNinoPage)
-
     beRemovable[String](IndividualNomineesNinoPage)
   }
 }

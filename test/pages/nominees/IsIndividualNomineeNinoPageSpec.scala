@@ -23,9 +23,7 @@ class IsIndividualNomineeNinoPageSpec extends PageBehaviours {
   "IsIndividualNomineeNinoPage" must {
 
     beRetrievable[Boolean](IsIndividualNomineeNinoPage)
-
     beSettable[Boolean](IsIndividualNomineeNinoPage)
-
     beRemovable[Boolean](IsIndividualNomineeNinoPage)
   }
 }

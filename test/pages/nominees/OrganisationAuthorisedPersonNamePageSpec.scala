@@ -29,9 +29,7 @@ class OrganisationAuthorisedPersonNamePageSpec extends PageBehaviours {
     }
 
     beRetrievable[Name](OrganisationAuthorisedPersonNamePage)
-
     beSettable[Name](OrganisationAuthorisedPersonNamePage)
-
     beRemovable[Name](OrganisationAuthorisedPersonNamePage)
   }
 }

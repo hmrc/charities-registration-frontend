@@ -23,15 +23,17 @@ import models.addressLookup.CountryModel
 import java.time.LocalDate
 
 trait TestData extends ModelGenerators {
+
   val sortCode: String            = sortCodeGen.sample.get
   val sortCodeWithSpaces: String  = s"${sortCode.slice(0, 2)} ${sortCode.slice(2, 4)} ${sortCode.slice(4, 6)}"
   val sortCodeWithHyphens: String = s"${sortCode.slice(0, 2)}-${sortCode.slice(2, 4)}-${sortCode.slice(4, 6)}"
 
-  val accountNumber: String           = accountNumberGen.sample.get
+  val accountNumber: String = accountNumberGen.sample.get
   val accountNumberWithSpaces: String =
     s"${accountNumber.slice(0, 2)} ${accountNumber.slice(2, 4)} ${accountNumber.slice(4, 6)} ${accountNumber.slice(6, 8)}"
-  val rollNumber: String              = rollNumberGen.sample.get
-  val accountName: String             = accountNameGen.sample.get
+  val accountName: String = accountNameGen.sample.get
+
+  val rollNumber: String = rollNumberGen.sample.get
 
   val bankDetails: BankDetails = BankDetails(
     accountName = accountName,
@@ -39,17 +41,6 @@ trait TestData extends ModelGenerators {
     accountNumber = accountNumber,
     rollNumber = Some(rollNumber)
   )
-
-  val nino: String            = ninoGen.sample.get
-  val ninoWithSpaces: String  =
-    s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
-  val nino2: String           = ninoGen.sample.get
-  val nino2WithSpaces: String =
-    s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
-
-  val nino3: String           = ninoGen.sample.get
-  val nino3WithSpaces: String =
-    s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 
   val bankDetailsWithoutRollNumber: BankDetails = BankDetails(
     accountName = accountName,
@@ -65,8 +56,28 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
+
+  val nino: String = ninoGen.sample.get
+  val ninoWithSpaces: String =
+    s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
+  val nino2: String = ninoGen.sample.get
+  val nino2WithSpaces: String =
+    s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
+  val nino3: String = ninoGen.sample.get
+  val nino3WithSpaces: String =
+    s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
+
+
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
+
+  val daytimePhone: String = exampleFixedLineGen.sample.get
+  val mobileNumber: String = exampleMobileGen.sample.get
+  val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
+
+  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+  val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
 
   val charityFullName      = "A Charity"
   val charityOperatingName = "Charity Operating Name"
@@ -76,6 +87,27 @@ trait TestData extends ModelGenerators {
 
   val charityEmail      = "charity@example.com"
   val organisationEmail = "company@example.com"
+
+  val charityContactDetails: CharityContactDetails = CharityContactDetails(
+    daytimePhone = daytimePhone,
+    mobilePhone = Some(mobileNumber),
+    emailAddress = charityEmail
+  )
+
+  val charityObjective: String = "Make the World better"
+  val acknowledgementRef: String = acknowledgementRefGen.sample.get
+  val publicBenefit: String = "FreeEducation"
+  val whyNoBankStatement: String = "Reason why no bank statement"
+  val otherFundRaising: String = "Other fund raising"
+  val governingDocument: String = "will"
+  val governingDocumentOther: String = "other"
+  val whyNoRegulator: String = "reason"
+  val whyNotRegistered: String = "reason"
+  val governingDocumentChange: String = "Governing document change and reason"
+
+  val nomineeOrganisationName: String = "Nominee Organisation"
+  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
+    OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
 
   val gbCountryModel: CountryModel     = CountryModel("GB", "United Kingdom")
   val gbCountry: Country               = Country("GB", "United Kingdom")
@@ -112,36 +144,6 @@ trait TestData extends ModelGenerators {
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName)   = chCountryTuple
 
-  val daytimePhone: String = exampleFixedLineGen.sample.get
-  val mobileNumber: String = exampleMobileGen.sample.get
-
-  val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
-
-  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
-  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
-
-  val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
-
-  val charityContactDetails: CharityContactDetails = CharityContactDetails(
-    daytimePhone = daytimePhone,
-    mobilePhone = Some(mobileNumber),
-    emailAddress = charityEmail
-  )
-
-  val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
-    OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
-
-  val charityObjective: String        = "Make the World better"
-  val acknowledgementRef: String      = acknowledgementRefGen.sample.get
-  val publicBenefit: String           = "FreeEducation"
-  val whyNoBankStatement: String      = "Reason why no bank statement"
-  val otherFundRaising: String        = "Other fund raising"
-  val governingDocument: String       = "will"
-  val governingDocumentOther: String  = "other"
-  val whyNoRegulator: String          = "reason"
-  val whyNotRegistered: String        = "reason"
-  val governingDocumentChange: String = "Governing document change and reason"
-
   def replacePlaceholders(inString: String): String =
     inString
       .replaceAll("__ACCOUNTNAME__", accountName)
@@ -172,6 +174,7 @@ trait TestData extends ModelGenerators {
       .replaceAll("__INCOUNTRYNAME__", inCountry.name)
       .replaceAll("__FRCOUNTRYCODE__", frCountry.code)
       .replaceAll("__FRCOUNTRYNAME__", frCountry.name)
+      .replaceAll("__NOMINEEORGANISATIONNAME__", nomineeOrganisationName)
       .replaceAll("__ACKNOWLEDGEMENTREF__", acknowledgementRef)
       .replaceAll("__CHARITYOBJECTIVE__", charityObjective)
       .replaceAll("__PUBLICBENEFIT__", publicBenefit)
@@ -182,5 +185,5 @@ trait TestData extends ModelGenerators {
       .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
       .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
       .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
-
 }
+

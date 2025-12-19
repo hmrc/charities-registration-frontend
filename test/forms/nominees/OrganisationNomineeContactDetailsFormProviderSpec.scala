@@ -84,27 +84,25 @@ class OrganisationNomineeContactDetailsFormProviderSpec extends StringFieldBehav
 
   "OrganisationNomineeContactDetailsFormProvider" must {
 
-    val organisationContactDetails = nomineeOrganisationContactDetails
-
     "apply OrganisationNomineeContactDetailsSpec correctly" in {
 
       val details = form
         .bind(
           Map(
-            "phoneNumber" -> organisationContactDetails.phoneNumber,
-            "email"       -> organisationContactDetails.email
+            "phoneNumber" -> daytimePhone,
+            "email"       -> organisationEmail
           )
         )
         .get
 
-      details.phoneNumber mustBe organisationContactDetails.phoneNumber
-      details.email mustBe organisationContactDetails.email
+      details.phoneNumber mustBe daytimePhone
+      details.email mustBe organisationEmail
     }
 
     "unapply OrganisationNomineeContactDetailsSpec correctly" in {
-      val filled = form.fill(organisationContactDetails)
-      filled("phoneNumber").value.value mustBe organisationContactDetails.phoneNumber
-      filled("email").value.value mustBe organisationContactDetails.email
+      val filled = form.fill(nomineeOrganisationContactDetails)
+      filled("phoneNumber").value.value mustBe daytimePhone
+      filled("email").value.value mustBe organisationEmail
     }
   }
 

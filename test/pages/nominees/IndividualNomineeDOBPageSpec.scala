@@ -34,9 +34,7 @@ class IndividualNomineeDOBPageSpec extends PageBehaviours {
   "IndividualNomineeDOBPage" must {
 
     beRetrievable[LocalDate](IndividualNomineeDOBPage)
-
     beSettable[LocalDate](IndividualNomineeDOBPage)
-
     beRemovable[LocalDate](IndividualNomineeDOBPage)
   }
 }

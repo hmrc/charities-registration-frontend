@@ -699,7 +699,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers: UserAnswers = emptyUserAnswers
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, false))
-          .flatMap(_.set(OrganisationNomineeNamePage, "organisation"))
+          .flatMap(_.set(OrganisationNomineeNamePage, nomineeOrganisationName))
           .flatMap(
             _.set(
               OrganisationNomineeContactDetailsPage,
@@ -712,9 +712,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val expectedJson =
           s"""{
              |        "orgDetails": {
-             |              "orgName": "organisation",
-             |              "telephoneNumber": "${nomineeOrganisationContactDetails.phoneNumber}",
-             |              "emailAddress": "${nomineeOrganisationContactDetails.email}"
+             |              "orgName": "$nomineeOrganisationName",
+             |              "telephoneNumber": "$daytimePhone",
+             |              "emailAddress": "$organisationEmail"
              |        }
              |  }""".stripMargin
 

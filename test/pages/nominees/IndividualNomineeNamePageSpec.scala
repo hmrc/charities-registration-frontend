@@ -29,9 +29,7 @@ class IndividualNomineeNamePageSpec extends PageBehaviours {
     }
 
     beRetrievable[Name](IndividualNomineeNamePage)
-
     beSettable[Name](IndividualNomineeNamePage)
-
     beRemovable[Name](IndividualNomineeNamePage)
   }
 }

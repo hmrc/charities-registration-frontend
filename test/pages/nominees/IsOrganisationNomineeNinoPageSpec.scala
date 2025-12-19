@@ -23,9 +23,7 @@ class IsOrganisationNomineeNinoPageSpec extends PageBehaviours {
   "IsOrganisationNomineeNinoPage" must {
 
     beRetrievable[Boolean](IsOrganisationNomineeNinoPage)
-
     beSettable[Boolean](IsOrganisationNomineeNinoPage)
-
     beRemovable[Boolean](IsOrganisationNomineeNinoPage)
   }
 }

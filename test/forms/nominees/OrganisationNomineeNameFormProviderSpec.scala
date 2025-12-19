@@ -61,24 +61,22 @@ class OrganisationNomineeNameFormProviderSpec extends StringFieldBehaviours {
 
   "OrganisationNomineeNameFormProvider" must {
 
-    val organisationName = "abc"
-
     "apply organisationName correctly" in {
 
       val details = form
         .bind(
           Map(
-            "name" -> organisationName
+            "name" -> nomineeOrganisationName
           )
         )
         .get
 
-      details mustBe organisationName
+      details mustBe nomineeOrganisationName
     }
 
     "unapply organisationName correctly" in {
-      val filled = form.fill(organisationName)
-      filled("name").value.value mustBe organisationName
+      val filled = form.fill(nomineeOrganisationName)
+      filled("name").value.value mustBe nomineeOrganisationName
     }
   }
 

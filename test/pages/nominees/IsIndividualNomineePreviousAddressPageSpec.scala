@@ -23,9 +23,7 @@ class IsIndividualNomineePreviousAddressPageSpec extends PageBehaviours {
   "IsIndividualNomineePreviousAddressPage" must {
 
     beRetrievable[Boolean](IsIndividualNomineePreviousAddressPage)
-
     beSettable[Boolean](IsIndividualNomineePreviousAddressPage)
-
     beRemovable[Boolean](IsIndividualNomineePreviousAddressPage)
   }
 }

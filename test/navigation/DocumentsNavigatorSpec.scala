@@ -75,7 +75,7 @@ class DocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             GoverningDocumentNamePage,
             NormalMode,
-            emptyUserAnswers.set(GoverningDocumentNamePage, "will").success.value
+            emptyUserAnswers.set(GoverningDocumentNamePage, governingDocument).success.value
           ) mustBe
             regulatorDocsRoutes.WhenGoverningDocumentApprovedController.onPageLoad(NormalMode)
         }
@@ -215,7 +215,7 @@ class DocumentsNavigatorSpec extends SpecBase {
             CheckMode,
             emptyUserAnswers
               .set(SelectGoverningDocumentPage, SelectGoverningDocument.Other)
-              .flatMap(_.set(GoverningDocumentNamePage, "other"))
+              .flatMap(_.set(GoverningDocumentNamePage, governingDocumentOther))
               .success
               .value
           ) mustBe
@@ -243,7 +243,7 @@ class DocumentsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             GoverningDocumentNamePage,
             CheckMode,
-            emptyUserAnswers.set(GoverningDocumentNamePage, "will").success.value
+            emptyUserAnswers.set(GoverningDocumentNamePage, governingDocument).success.value
           ) mustBe
             regulatorDocsRoutes.GoverningDocumentSummaryController.onPageLoad()
         }

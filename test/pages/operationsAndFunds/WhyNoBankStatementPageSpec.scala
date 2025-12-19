@@ -23,9 +23,7 @@ class WhyNoBankStatementPageSpec extends PageBehaviours {
   "WhyNoBankStatementPage" must {
 
     beRetrievable[String](WhyNoBankStatementPage)
-
     beSettable[String](WhyNoBankStatementPage)
-
     beRemovable[String](WhyNoBankStatementPage)
 
   }

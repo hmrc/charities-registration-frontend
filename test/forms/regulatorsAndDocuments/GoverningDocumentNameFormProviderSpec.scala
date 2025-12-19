@@ -61,7 +61,7 @@ class GoverningDocumentNameFormProviderSpec extends StringFieldBehaviours {
 
   "GoverningDocumentNameFormProvider" must {
 
-    val governingDocumentName = "will"
+    val governingDocumentName = governingDocument
 
     "apply governingDocumentName correctly" in {
 

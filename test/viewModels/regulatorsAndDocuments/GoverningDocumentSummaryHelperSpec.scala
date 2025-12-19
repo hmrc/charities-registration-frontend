@@ -34,7 +34,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
   private val helper = new GoverningDocumentSummaryHelper(
     UserAnswers("id")
       .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
-      .flatMap(_.set(GoverningDocumentNamePage, "will"))
+      .flatMap(_.set(GoverningDocumentNamePage, governingDocument))
       .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2)))
       .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
       .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Governing document change"))
@@ -67,7 +67,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.whatIsTheGoverningDocumentNameRow mustBe Some(
           summaryListRow(
             messages("governingDocumentName.checkYourAnswersLabel"),
-            HtmlContent("will"),
+            HtmlContent(governingDocument),
             Some(messages("governingDocumentName.checkYourAnswersLabel")),
             regulatorDocsRoutes.GoverningDocumentNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

@@ -531,7 +531,8 @@ class JsonTransformerSpec extends SpecBase {
           .success
           .value
 
-        val expectedJson = s"""{"individualDetails": {"dayPhoneNumber": "${normalisePhoneForTest(daytimePhoneWithIntCode)}"}}"""
+        val expectedJson =
+          s"""{"individualDetails": {"dayPhoneNumber": "${normalisePhoneForTest(daytimePhoneWithIntCode)}"}}"""
 
         userAnswers.data
           .transform(
@@ -576,7 +577,8 @@ class JsonTransformerSpec extends SpecBase {
           .success
           .value
 
-        val expectedJson = s"""{"individualDetails": {"mobilePhone": "${normalisePhoneForTest(mobileNumberWithIntCode)}"}}"""
+        val expectedJson =
+          s"""{"individualDetails": {"mobilePhone": "${normalisePhoneForTest(mobileNumberWithIntCode)}"}}"""
 
         userAnswers.data
           .transform(

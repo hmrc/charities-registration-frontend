@@ -23,9 +23,7 @@ class IsIndividualNomineePaymentsPageSpec extends PageBehaviours {
   "IsIndividualNomineePaymentsPage" must {
 
     beRetrievable[Boolean](IsIndividualNomineePaymentsPage)
-
     beSettable[Boolean](IsIndividualNomineePaymentsPage)
-
     beRemovable[Boolean](IsIndividualNomineePaymentsPage)
   }
 }

@@ -128,14 +128,14 @@ trait CharityTransformerConstants extends SpecBase {
        |        "registeredRegulator": true,
        |        "regulator": {
        |          "ccew": true,
-       |          "ccewRegistrationNumber": "123456",
+       |          "ccewRegistrationNumber": "$charityCommissionRegistrationNumber",
        |          "oscr": true,
-       |          "oscrRegistrationNumber": "SC123456",
+       |          "oscrRegistrationNumber": "$scottishRegulatorRegistrationNumber",
        |          "ccni": true,
-       |          "ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
+       |          "ccniRegistrationNumber": "$niRegulatorRegistrationNumber",
        |          "otherRegulator": true,
-       |          "otherRegulatorName": "Other Regulator Name",
-       |          "otherRegulatorRegistrationNumber": "12345678901234567890"
+       |          "otherRegulatorName": "$charityRegulatorName",
+       |          "otherRegulatorRegistrationNumber": "$chartyRegulatorRegistrationNumber"
        |        }
        |      },
        |      "aboutOrganisation": {

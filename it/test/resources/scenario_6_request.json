@@ -56,11 +56,11 @@
         "overseasCountry": "__FRCOUNTRYCODE__"
       }
     ],
-    "scottishRegulatorRegNumber": "SC012344",
+    "scottishRegulatorRegNumber": "__SCREGULATORNUMBER__",
     "selectGoverningDocument": "6",
     "canWeSendLettersToThisAddress": false,
     "estimatedIncome": 123.12,
-    "charityCommissionRegistrationNumber": "7654321",
+    "charityCommissionRegistrationNumber": "__CCREGISTRATIONNUMBER__",
     "otherOfficials": [
       {
         "officialsPhoneNumber": {
@@ -262,8 +262,8 @@
     "isSection5Completed": true,
     "actualIncome": 420,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "ORegulatorName",
-      "registrationNumber": "123456789"
+      "regulatorName": "__CREGULATORNAME__",
+      "registrationNumber": "__CREGULATORNUMBER__"
     },
     "isApprovedGoverningDocument": true,
     "selectFundRaising": [
@@ -345,7 +345,7 @@
     "anotherCountry": false,
     "emailOrPost": true,
     "isSection1Completed": true,
-    "nIRegulatorRegNumber": "654321",
+    "nIRegulatorRegNumber": "__NIREGULATORNUMBER__",
     "isFinancialAccounts": true
   },
   "lastUpdated":{"$date":1611678637692},

@@ -29,11 +29,15 @@ class CharitiesRegistrationHttpParserSpec extends SpecBase {
     "status is ACCEPTED" when {
       "passing valid Json" must {
         "return a valid registration response" in {
-          val expectedResult = Right(RegistrationResponse("765432"))
+          val expectedResult = Right(RegistrationResponse(acknowledgementRef))
           val actualResult   = CharitiesRegistrationResponseReads.read(
             "",
             "",
-            HttpResponse(Status.ACCEPTED, json = Json.parse("""{"acknowledgementReference":"765432"}"""), Map.empty)
+            HttpResponse(
+              Status.ACCEPTED,
+              json = Json.parse(s"""{"acknowledgementReference":"$acknowledgementRef"}"""),
+              Map.empty
+            )
           )
 
           actualResult mustBe expectedResult
@@ -46,7 +50,7 @@ class CharitiesRegistrationHttpParserSpec extends SpecBase {
             CharitiesRegistrationResponseReads.read(
               "",
               "",
-              HttpResponse(Status.ACCEPTED, json = Json.parse("""{"blah":"765432"}"""), Map.empty)
+              HttpResponse(Status.ACCEPTED, json = Json.parse(s"""{"blah":"$acknowledgementRef"}"""), Map.empty)
             )
           }
         }

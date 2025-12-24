@@ -23,9 +23,7 @@ class NomineeDetailsSummaryPageSpec extends PageBehaviours {
   "NomineeDetailsSummaryPage" must {
 
     beRetrievable[String](NomineeDetailsSummaryPage)
-
     beSettable[String](NomineeDetailsSummaryPage)
-
     beRemovable[String](NomineeDetailsSummaryPage)
   }
 }

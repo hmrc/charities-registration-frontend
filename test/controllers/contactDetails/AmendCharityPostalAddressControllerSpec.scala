@@ -110,7 +110,10 @@ class AmendCharityPostalAddressControllerSpec extends SpecBase with BeforeAndAft
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", gbCountryCode))
+        .set(
+          AmendAddressPage,
+          AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", gbCountryCode)
+        )
         .success
         .value
 

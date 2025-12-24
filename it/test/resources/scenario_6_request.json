@@ -276,7 +276,7 @@
         "isOrganisationPreviousAddress": true,
         "isOrganisationNino": false,
         "isOrganisationNomineePayments": false,
-        "organisationName": "abcde",
+        "organisationName": "__NOMINEEORGANISATIONNAME__",
         "organisationAuthorisedPersonName": {
           "title": "0001",
           "firstName": "John",

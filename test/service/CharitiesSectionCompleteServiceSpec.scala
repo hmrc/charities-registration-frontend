@@ -42,15 +42,15 @@ class CharitiesSectionCompleteServiceSpec extends SpecBase with BeforeAndAfterEa
     "isCharityInformationStatusSectionCompleted" must {
 
       val data = Json.obj(
-        "charityContactDetails"                      -> Json.parse(s"""{"emailAddress":"$charityEmail","daytimePhone":"1234567890"}"""),
+        "charityContactDetails"                      -> Json.parse(s"""{"emailAddress":"$charityEmail","daytimePhone":"$daytimePhone"}"""),
         "charityName"                                -> Json.parse(s"""{"fullName":"$charityFullName"}"""),
         "isCharityInformationStatusSectionCompleted" -> false,
         "isSwitchOver"                               -> true,
         "charityOfficialAddress"                     -> Json.parse(
-         s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
+          s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
         ),
         "charityPostalAddress"                       -> Json.parse(
-         s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
+          s"""{"country":{"code":"$gbCountryCode","name":"$gbCountryName"},"postcode":"postcode","lines":["Test123","line2"]}"""
         )
       )
 

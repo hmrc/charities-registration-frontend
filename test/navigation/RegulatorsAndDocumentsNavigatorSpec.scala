@@ -416,7 +416,7 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         "go to the RegulatorsSummary page when clicked continue button" in {
           nextPageF(
             emptyUserAnswers
-              .set(WhyNotRegisteredWithCharityPage, "reason")
+              .set(WhyNotRegisteredWithCharityPage, whyNotRegistered)
               .getOrElse(emptyUserAnswers)
           ) mustBe regulatorDocsRoutes.RegulatorsSummaryController.onPageLoad()
         }

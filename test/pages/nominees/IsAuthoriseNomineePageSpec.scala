@@ -23,9 +23,7 @@ class IsAuthoriseNomineePageSpec extends PageBehaviours {
   "IsAuthoriseNomineePage" must {
 
     beRetrievable[Boolean](IsAuthoriseNomineePage)
-
     beSettable[Boolean](IsAuthoriseNomineePage)
-
     beRemovable[Boolean](IsAuthoriseNomineePage)
   }
 }

@@ -113,7 +113,10 @@ class AmendAuthorisedOfficialsAddressControllerSpec extends SpecBase with Before
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(AmendAddressPage, AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", gbCountry.code))
+        .set(
+          AmendAddressPage,
+          AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", gbCountry.code)
+        )
         .success
         .value
 

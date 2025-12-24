@@ -39,7 +39,7 @@ class SelectGoverningDocumentPageSpec extends PageBehaviours {
 
       val userAnswer = UserAnswers("id", Json.obj())
         .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
-        .flatMap(_.set(GoverningDocumentNamePage, "will"))
+        .flatMap(_.set(GoverningDocumentNamePage, governingDocument))
         .success
         .value
 

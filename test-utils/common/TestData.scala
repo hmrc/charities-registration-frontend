@@ -16,7 +16,7 @@
 
 package common
 
-import models.{BankDetails, CharityContactDetails, CharityName, Country, FcoCountry, Passport, PhoneNumber}
+import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber, Country, FcoCountry, CharityOtherRegulatorDetails}
 import models.nominees.OrganisationNomineeContactDetails
 import models.addressLookup.CountryModel
 
@@ -70,7 +70,6 @@ trait TestData extends ModelGenerators {
 
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
-
   val daytimePhone: String = exampleFixedLineGen.sample.get
   val mobileNumber: String = exampleMobileGen.sample.get
   val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
@@ -84,6 +83,18 @@ trait TestData extends ModelGenerators {
 
   val charityName: CharityName                = CharityName(charityFullName, Some(charityOperatingName))
   val charityNameNoOperatingName: CharityName = charityName.copy(operatingName = None)
+
+  val charityRegistrationNumber: String = charityRegistrationGen.sample.get
+
+  val charityCommissionRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+  val scottishRegulatorRegistrationNumber: String = "SC" + charityRegulatorRegistrationGen.sample.get
+  val niRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+
+  val charityRegulatorName: String = "Regulator name"
+  val chartyRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+
+  val charityRegulatorDetails: CharityOtherRegulatorDetails = CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
+
 
   val charityEmail      = "charity@example.com"
   val organisationEmail = "company@example.com"
@@ -185,5 +196,11 @@ trait TestData extends ModelGenerators {
       .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
       .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
       .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
+      .replaceAll("__CCREGISTRATIONNUMBER__", charityCommissionRegistrationNumber)
+      .replaceAll("__SCREGULATORNUMBER__", scottishRegulatorRegistrationNumber)
+      .replaceAll("__NIREGULATORNUMBER__", niRegulatorRegistrationNumber)
+      .replaceAll("__CREGULATORNAME__", charityRegulatorName)
+      .replaceAll("__CREGULATORNUMBER__", chartyRegulatorRegistrationNumber)
+
 }
 

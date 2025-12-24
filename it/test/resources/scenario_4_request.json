@@ -49,8 +49,8 @@
     "isSection5Completed": true,
     "actualIncome": 100.0,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "John",
-      "registrationNumber": "Ceana"
+      "regulatorName": "__CREGULATORNAME__",
+      "registrationNumber": "__CREGULATORNUMBER__"
     },
     "charityOfficialAddress": {
       "lines": [
@@ -105,11 +105,11 @@
     "isSection9Completed": true,
     "isSection4Completed": true,
     "isSection1Completed": true,
-    "scottishRegulatorRegNumber": "SC012345",
-    "nIRegulatorRegNumber": "123456",
+    "scottishRegulatorRegNumber": "__SCREGULATORNUMBER__",
+    "nIRegulatorRegNumber": "__NIREGULATORNUMBER__",
     "selectGoverningDocument": "1",
     "canWeSendLettersToThisAddress": true,
-    "charityCommissionRegistrationNumber": "123456",
+    "charityCommissionRegistrationNumber": "__CCREGISTRATIONNUMBER__",
     "estimatedIncome": 100.0,
     "otherOfficials": [
       {

@@ -32,9 +32,9 @@ class RegulatorsStatusHelperSpec extends SpecBase {
         emptyUserAnswers
           .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland)))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .success
           .value
       )
@@ -47,13 +47,13 @@ class RegulatorsStatusHelperSpec extends SpecBase {
         emptyUserAnswers
           .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+              charityRegulatorDetails
             )
           )
           .success
@@ -68,7 +68,7 @@ class RegulatorsStatusHelperSpec extends SpecBase {
         emptyUserAnswers
           .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish)))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
           .success
           .value
       )
@@ -84,7 +84,7 @@ class RegulatorsStatusHelperSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+              charityRegulatorDetails
             )
           )
           .success
@@ -124,8 +124,8 @@ class RegulatorsStatusHelperSpec extends SpecBase {
         emptyUserAnswers
           .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland)))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .success
           .value
       )
@@ -138,13 +138,13 @@ class RegulatorsStatusHelperSpec extends SpecBase {
         emptyUserAnswers
           .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "dummyEnglishCharity"))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+              charityRegulatorDetails
             )
           )
           .flatMap(_.set(SelectWhyNoRegulatorPage, EnglandWalesUnderThreshold))
@@ -184,8 +184,8 @@ class RegulatorsStatusHelperSpec extends SpecBase {
         emptyUserAnswers
           .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Scottish)))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "dummyNICharity"))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .success
           .value
       )
@@ -210,11 +210,11 @@ class RegulatorsStatusHelperSpec extends SpecBase {
         emptyUserAnswers
           .set(IsCharityRegulatorPage, true)
           .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](Other)))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "dummyScottishCharity"))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+              charityRegulatorDetails
             )
           )
           .success
@@ -266,7 +266,7 @@ class RegulatorsStatusHelperSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("dummyOtherCharity", "dummyOtherCharity")
+              charityRegulatorDetails
             )
           )
           .success

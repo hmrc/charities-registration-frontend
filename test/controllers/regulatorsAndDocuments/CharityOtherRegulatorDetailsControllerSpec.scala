@@ -77,7 +77,7 @@ class CharityOtherRegulatorDetailsControllerSpec extends SpecBase with BeforeAnd
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567"))
+        .set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails)
         .success
         .value
 

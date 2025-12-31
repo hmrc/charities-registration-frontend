@@ -207,10 +207,10 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "all parameters defined" in {
 
-      val charityOtherRegulatorDetails = CharityOtherRegulatorDetails("1234567890", "1234567890")
+      val charityOtherRegulatorDetails = charityRegulatorDetails
 
-      charityOtherRegulatorDetails.regulatorName mustBe "1234567890"
-      charityOtherRegulatorDetails.registrationNumber mustBe "1234567890"
+      charityOtherRegulatorDetails.regulatorName mustBe charityRegulatorName
+      charityOtherRegulatorDetails.registrationNumber mustBe chartyRegulatorRegistrationNumber
     }
 
     "toString" in {

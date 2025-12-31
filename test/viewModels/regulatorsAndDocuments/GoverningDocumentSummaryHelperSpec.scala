@@ -18,11 +18,11 @@ package viewModels.regulatorsAndDocuments
 
 import base.SpecBase
 import base.data.messages.BaseMessages
-import controllers.regulatorsAndDocuments.{routes => regulatorDocsRoutes}
+import controllers.regulatorsAndDocuments.routes as regulatorDocsRoutes
 import models.regulators.SelectGoverningDocument
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.{CheckMode, UserAnswers}
-import pages.regulatorsAndDocuments._
+import pages.regulatorsAndDocuments.*
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import viewmodels.SummaryListRowHelper
 import viewmodels.regulatorsAndDocuments.GoverningDocumentSummaryHelper
@@ -35,7 +35,7 @@ class GoverningDocumentSummaryHelperSpec extends SpecBase with SummaryListRowHel
     UserAnswers("id")
       .set(SelectGoverningDocumentPage, SelectGoverningDocument.values.head)
       .flatMap(_.set(GoverningDocumentNamePage, governingDocument))
-      .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.of(2000, 1, 2)))
+      .flatMap(_.set(WhenGoverningDocumentApprovedPage, jan2nd2000))
       .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
       .flatMap(_.set(SectionsChangedGoverningDocumentPage, "Governing document change"))
       .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, true))

@@ -10,7 +10,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "2001-01-11",
+        "officialsDOB": "__JAN11TH2001__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -33,7 +33,7 @@
         "officialsNino": "__NINOWITHSPACE1__"
       }
     ],
-    "whenGoverningDocumentApproved": "2001-11-11",
+    "whenGoverningDocumentApproved": "__NOV11TH2001__",
     "isSection2Completed": true,
     "charitablePurposes": [
       "amateurSport",
@@ -118,7 +118,7 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "02",
-        "officialsDOB": "2001-01-11",
+        "officialsDOB": "__JAN11TH2001__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -147,7 +147,7 @@
           "mobilePhone": "__MOBILEPHONEINT__"
         },
         "officialsPosition": "03",
-        "officialsDOB": "2001-02-02",
+        "officialsDOB": "__FEB2ND2002__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [

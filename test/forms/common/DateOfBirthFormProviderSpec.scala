@@ -30,7 +30,7 @@ class DateOfBirthFormProviderSpec extends DateBehaviours {
 
   ".value" should {
     val minYear   = 16
-    val validDate = LocalDate.now().minusYears(minYear)
+    val validDate = today.minusYears(minYear)
 
     behave like dateField(form, "date", validDate)
 

@@ -325,16 +325,16 @@ class CharityTransformerSpec extends CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(GoverningDocumentNamePage, "Other Documents for Charity")
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
+            _.set(WhenGoverningDocumentApprovedPage, july1st2014)
           )
           .success
           .value
 
         val expectedJson =
-          """{
+         s"""{
             |    "aboutOrgCommon": {
             |        "otherDocument": "Other Documents for Charity",
-            |        "effectiveDate": "2014-07-01"
+            |        "effectiveDate": "${july1st2014.toString}"
             |   }
             |}""".stripMargin
 
@@ -346,14 +346,14 @@ class CharityTransformerSpec extends CharityTransformerConstants {
 
         val localUserAnswers =
           emptyUserAnswers
-            .set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
+            .set(WhenGoverningDocumentApprovedPage, july1st2014)
             .success
             .value
 
         val expectedJson =
-          """{
+          s"""{
             |    "aboutOrgCommon": {
-            |        "effectiveDate": "2014-07-01"
+            |        "effectiveDate": "${july1st2014.toString}"
             |   }
             |}""".stripMargin
 
@@ -369,7 +369,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
+            _.set(WhenGoverningDocumentApprovedPage, july1st2014)
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -384,11 +384,11 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |    "aboutOrganisation": {
             |      "aboutOrgCommon": {
             |        "otherDocument": "Other Documents for Charity",
-            |        "effectiveDate": "2014-07-01"
+            |        "effectiveDate": "${july1st2014.toString}"
             |      },
             |      "documentEnclosed": "2",
             |      "governingApprovedDoc": true,
@@ -407,7 +407,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
+            _.set(WhenGoverningDocumentApprovedPage, july1st2014)
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -417,11 +417,11 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |    "aboutOrganisation": {
             |      "aboutOrgCommon": {
             |        "otherDocument": "Other Documents for Charity",
-            |        "effectiveDate": "2014-07-01"
+            |        "effectiveDate": "${july1st2014.toString}"
             |      },
             |      "documentEnclosed": "2",
             |      "governingApprovedDoc": true,
@@ -440,7 +440,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
+            _.set(WhenGoverningDocumentApprovedPage, july1st2014)
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -455,11 +455,11 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |    "aboutOrganisation": {
             |      "aboutOrgCommon": {
             |        "otherDocument": "Other Documents for Charity",
-            |        "effectiveDate": "2014-07-01"
+            |        "effectiveDate": "${july1st2014.toString}"
             |      },
             |      "documentEnclosed": "2",
             |      "governingApprovedDoc": true,
@@ -478,7 +478,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
         val localUserAnswers = emptyUserAnswers
           .set(SelectGoverningDocumentPage, MemorandumArticlesAssociation)
           .flatMap(
-            _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
+            _.set(WhenGoverningDocumentApprovedPage, july1st2014)
               .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
               .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
               .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -487,11 +487,11 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |    "aboutOrganisation": {
             |      "aboutOrgCommon": {
             |        "otherDocument": "Other Documents for Charity",
-            |        "effectiveDate": "2014-07-01"
+            |        "effectiveDate": "${july1st2014.toString}"
             |      },
             |      "documentEnclosed": "2",
             |      "governingApprovedDoc": false,
@@ -510,7 +510,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object and changes are >255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-12-25")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(dec25th2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(
@@ -541,7 +541,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object and changes are <255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-11-01")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(nov1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(
@@ -567,7 +567,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFundsCommon object and replace tabs and new line characters with spaces and changes are <255 characters long" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-11-01")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(nov1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(
@@ -669,7 +669,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFunds object for all possible" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
@@ -729,7 +729,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFunds object with all required values" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
@@ -769,7 +769,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFunds object with Wales, Scotland and Northern Ireland" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
@@ -864,7 +864,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFunds object with England and Northern Ireland" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
@@ -907,7 +907,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
       "convert the correct OperationAndFunds object with England and Wales" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+          .set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           )
           .flatMap(_.set(IsFinancialAccountsPage, true))
@@ -1284,7 +1284,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           )
           .flatMap(
             _.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation).flatMap(
-              _.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01"))
+              _.set(WhenGoverningDocumentApprovedPage, july1st2014)
                 .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
                 .flatMap(_.set(IsApprovedGoverningDocumentPage, true))
                 .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
@@ -1292,7 +1292,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             )
           )
           .flatMap(
-            _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+            _.set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
               MongoDateTimeFormats.localDayMonthWrite
             ).flatMap(_.set(IsFinancialAccountsPage, true))
               .flatMap(_.set(WhyNoBankStatementPage, reason))
@@ -1312,7 +1312,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "charity": {
             |      "charityOrganisation": {
@@ -1332,7 +1332,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      "aboutOrganisation": {
             |        "aboutOrgCommon": {
             |          "otherDocument": "Other Documents for Charity",
-            |          "effectiveDate": "2014-07-01"
+            |          "effectiveDate": "${july1st2014.toString}"
             |        },
             |        "documentEnclosed": "2",
             |        "governingApprovedDoc": true,
@@ -1404,12 +1404,12 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .set(IsCharityRegulatorPage, false)
           .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
           .flatMap(_.set(SelectGoverningDocumentPage, MemorandumArticlesAssociation))
-          .flatMap(_.set(WhenGoverningDocumentApprovedPage, LocalDate.parse("2014-07-01")))
+          .flatMap(_.set(WhenGoverningDocumentApprovedPage, july1st2014))
           .flatMap(_.set(GoverningDocumentNamePage, "Other Documents for Charity"))
           .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
           .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
           .flatMap(
-            _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+            _.set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
               MongoDateTimeFormats.localDayMonthWrite
             ).flatMap(_.set(IsFinancialAccountsPage, true))
               .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
@@ -1434,7 +1434,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "charity": {
             |      "charityOrganisation": {
@@ -1444,7 +1444,7 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |      "aboutOrganisation": {
             |        "aboutOrgCommon": {
             |          "otherDocument": "Other Documents for Charity",
-            |          "effectiveDate": "2014-07-01"
+            |          "effectiveDate": "${july1st2014.toString}"
             |        },
             |        "documentEnclosed": "2",
             |        "governingApprovedDoc": false,

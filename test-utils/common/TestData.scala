@@ -28,10 +28,10 @@ trait TestData extends ModelGenerators {
   val sortCodeWithSpaces: String  = s"${sortCode.slice(0, 2)} ${sortCode.slice(2, 4)} ${sortCode.slice(4, 6)}"
   val sortCodeWithHyphens: String = s"${sortCode.slice(0, 2)}-${sortCode.slice(2, 4)}-${sortCode.slice(4, 6)}"
 
-  val accountNumber: String = accountNumberGen.sample.get
+  val accountNumber: String           = accountNumberGen.sample.get
   val accountNumberWithSpaces: String =
     s"${accountNumber.slice(0, 2)} ${accountNumber.slice(2, 4)} ${accountNumber.slice(4, 6)} ${accountNumber.slice(6, 8)}"
-  val accountName: String = accountNameGen.sample.get
+  val accountName: String             = accountNameGen.sample.get
 
   val rollNumber: String = rollNumberGen.sample.get
 
@@ -56,27 +56,25 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
-
-  val nino: String = ninoGen.sample.get
-  val ninoWithSpaces: String =
+  val nino: String            = ninoGen.sample.get
+  val ninoWithSpaces: String  =
     s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
-  val nino2: String = ninoGen.sample.get
+  val nino2: String           = ninoGen.sample.get
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
-  val nino3: String = ninoGen.sample.get
+  val nino3: String           = ninoGen.sample.get
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
-
 
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
 
-  val daytimePhone: String = exampleFixedLineGen.sample.get
-  val mobileNumber: String = exampleMobileGen.sample.get
+  val daytimePhone: String      = exampleFixedLineGen.sample.get
+  val mobileNumber: String      = exampleMobileGen.sample.get
   val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
 
-  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
-  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+  val daytimePhoneWithIntCode: String      = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String      = exampleMobileIntGen.sample.get
   val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
 
   val charityFullName      = "A Charity"
@@ -94,18 +92,18 @@ trait TestData extends ModelGenerators {
     emailAddress = charityEmail
   )
 
-  val charityObjective: String = "Make the World better"
-  val acknowledgementRef: String = acknowledgementRefGen.sample.get
-  val publicBenefit: String = "FreeEducation"
-  val whyNoBankStatement: String = "Reason why no bank statement"
-  val otherFundRaising: String = "Other fund raising"
-  val governingDocument: String = "will"
-  val governingDocumentOther: String = "other"
-  val whyNoRegulator: String = "reason"
-  val whyNotRegistered: String = "reason"
+  val charityObjective: String        = "Make the World better"
+  val acknowledgementRef: String      = acknowledgementRefGen.sample.get
+  val publicBenefit: String           = "FreeEducation"
+  val whyNoBankStatement: String      = "Reason why no bank statement"
+  val otherFundRaising: String        = "Other fund raising"
+  val governingDocument: String       = "will"
+  val governingDocumentOther: String  = "other"
+  val whyNoRegulator: String          = "reason"
+  val whyNotRegistered: String        = "reason"
   val governingDocumentChange: String = "Governing document change and reason"
 
-  val nomineeOrganisationName: String = "Nominee Organisation"
+  val nomineeOrganisationName: String                                      = "Nominee Organisation"
   val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
     OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
 
@@ -143,6 +141,40 @@ trait TestData extends ModelGenerators {
   val chCountry: Country               = Country("CH", "Switzerland")
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName)   = chCountryTuple
+
+  val jan1st1111: LocalDate = LocalDate.of(1111, 1, 1)
+  val oct30th1998: LocalDate = LocalDate.of(1998, 10, 30)
+  val dec31th1999: LocalDate = LocalDate.of(1999, 12, 31)
+  val jan1st2000: LocalDate = LocalDate.of(2000, 1, 1)
+  val jan2nd2000: LocalDate = LocalDate.of(2000, 1, 2)
+  val jan31st2000: LocalDate = LocalDate.of(2000, 1, 31)
+  val oct1st2000: LocalDate = LocalDate.of(2000, 10, 1)
+  val dec11th2000: LocalDate = LocalDate.of(2000, 12, 11)
+  val dec31st2000: LocalDate = LocalDate.of(2000, 12, 31)
+  val jan1st2001: LocalDate = LocalDate.of(2001, 1, 1)
+  val jan11th2001: LocalDate = LocalDate.of(2001, 1, 11)
+  val feb2nd2001: LocalDate = LocalDate.of(2001, 2, 2)
+  val nov11th2001: LocalDate = LocalDate.of(2001, 11, 11)
+  val dec31st2001: LocalDate = LocalDate.of(2001, 12, 31)
+  val jan1st2002: LocalDate = LocalDate.of(2002, 1, 1)
+  val feb2nd2002: LocalDate = LocalDate.of(2002, 2, 2)
+  val july3rd2002: LocalDate = LocalDate.of(2002, 7, 3)
+  val july1st2014: LocalDate = LocalDate.of(2014, 7, 1)
+  val apr1st2017: LocalDate = LocalDate.of(2017, 4, 1)
+  val jun1st2017: LocalDate = LocalDate.of(2017, 6, 1)
+  val nov1st2017: LocalDate = LocalDate.of(2017, 11, 1)
+  val jun30tt2017: LocalDate = LocalDate.of(2017, 6, 30)
+  val feb1st2018: LocalDate = LocalDate.of(2018, 2, 1)
+  val jan1st2019: LocalDate = LocalDate.of(2019, 1, 1)
+  val jan1st2020: LocalDate = LocalDate.of(2020, 1, 1)
+  val sep1st2020: LocalDate = LocalDate.of(2020, 9, 1)
+  val sep14th2020: LocalDate = LocalDate.of(2020, 9, 14)
+  val sep22nd2020: LocalDate = LocalDate.of(2020, 9, 22)
+  val sep23rd2020: LocalDate = LocalDate.of(2020, 9, 23)
+  val nov1st2020: LocalDate = LocalDate.of(2020, 11, 1)
+  val dec25th2020: LocalDate = LocalDate.of(2020, 12, 25)
+  val today: LocalDate = LocalDate.now()
+  val futureDate: LocalDate = today.plusYears(1)
 
   def replacePlaceholders(inString: String): String =
     inString
@@ -184,6 +216,20 @@ trait TestData extends ModelGenerators {
       .replaceAll("__GOVERNINGDOCUMENTOTHER__", governingDocumentOther)
       .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
       .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
-      .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
-}
+      .replaceAll("__OCT30TH1998__", oct30th1998.toString)
+      .replaceAll("__DEC31TH1999__", dec31th1999.toString)
+      .replaceAll("__JAN1ST2000__", jan1st2000.toString)
+      .replaceAll("__DEC11TH2000__", dec11th2000.toString)
+      .replaceAll("__DEC31ST2000__", dec31st2000.toString)
+      .replaceAll("__JAN11TH2001__", jan11th2001.toString)
+      .replaceAll("__FEB2ND2001__", feb2nd2001.toString)
+      .replaceAll("__NOV11TH2001__", nov11th2001.toString)
+      .replaceAll("__JAN1ST2002__", jan1st2002.toString)
+      .replaceAll("__FEB2ND2002__", feb2nd2002.toString)
+      .replaceAll("__JULY3RD2002__", july3rd2002.toString)
+      .replaceAll("__JULY1ST2014__", july1st2014.toString)
+      .replaceAll("__FEB1ST2018__", feb1st2018.toString)
+      .replaceAll("__JAN1ST2019__", jan1st2019.toString)
+      .replaceAll("__FUTUREDATE__", futureDate.toString)
 
+}

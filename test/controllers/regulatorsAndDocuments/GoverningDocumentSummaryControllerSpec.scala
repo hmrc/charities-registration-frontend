@@ -17,7 +17,6 @@
 package controllers.regulatorsAndDocuments
 
 import base.SpecBase
-import base.data.constants.DateConstants.july1st2014
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.UserAnswers
 import models.regulators.SelectGoverningDocument

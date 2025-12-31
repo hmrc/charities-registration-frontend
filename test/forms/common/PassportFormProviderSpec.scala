@@ -30,9 +30,6 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
   private val maxLengthCountry                   = 50
   private val maxLengthPassport                  = 30
 
-  private val today      = LocalDate.now
-  private val futureDate = today.plusDays(1)
-
   ".passportNumber" must {
 
     val fieldName   = "passportNumber"
@@ -156,9 +153,9 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
       val data = Map(
         "passportNumber"    -> passportNumber,
         "country"           -> passport.country,
-        s"$fieldName.day"   -> passport.expiryDate.plusDays(1).getDayOfMonth.toString,
+        s"$fieldName.day"   -> passport.expiryDate.getDayOfMonth.toString,
         s"$fieldName.month" -> passport.expiryDate.getMonthValue.toString,
-        s"$fieldName.year"  -> passport.expiryDate.getYear.toString
+        s"$fieldName.year"  -> passport.expiryDate.plusYears(1).getYear.toString
       )
 
       val result = form.bind(data)
@@ -169,7 +166,7 @@ class PassportFormProviderSpec extends StringFieldBehaviours {
 
   "AuthorisedOfficialsPassportFormProvider" must {
 
-    val authorisedOfficialsPassport = passport.copy(expiryDate = LocalDate.now.plusDays(1))
+    val authorisedOfficialsPassport = passport.copy(expiryDate = LocalDate.now.plusYears(1))
 
     "apply AuthorisedOfficialsPassport correctly" in {
 

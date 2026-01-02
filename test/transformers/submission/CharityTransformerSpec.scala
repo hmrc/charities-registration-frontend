@@ -45,30 +45,30 @@ class CharityTransformerSpec extends CharityTransformerConstants {
 
         val localUserAnswers = emptyUserAnswers
           .set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "123456"))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "SC123456"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "ABCDEFGHIJ1234567890"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("Other Regulator Name", "12345678901234567890")
+              charityRegulatorDetails
             )
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |      "regulator": {
             |        "ccew": true,
-            |        "ccewRegistrationNumber": "123456",
+            |        "ccewRegistrationNumber": "$charityCommissionRegistrationNumber",
             |        "oscr": true,
-            |        "oscrRegistrationNumber": "SC123456",
+            |        "oscrRegistrationNumber": "$scottishRegulatorRegistrationNumber",
             |        "ccni": true,
-            |        "ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
+            |        "ccniRegistrationNumber": "$niRegulatorRegistrationNumber",
             |        "otherRegulator": true,
-            |        "otherRegulatorName": "Other Regulator Name",
-            |        "otherRegulatorRegistrationNumber": "12345678901234567890"
+            |        "otherRegulatorName": "$charityRegulatorName",
+            |        "otherRegulatorRegistrationNumber": "$chartyRegulatorRegistrationNumber"
             |      }
             |}""".stripMargin
 
@@ -80,23 +80,23 @@ class CharityTransformerSpec extends CharityTransformerConstants {
 
         val localUserAnswers = emptyUserAnswers
           .set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "123456"))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "SC123456"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
           .flatMap(
-            _.set(NIRegulatorRegNumberPage, "ABCDEFGHIJ1234567890")
+            _.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber)
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |      "regulator": {
             |        "ccew": true,
-            |        "ccewRegistrationNumber": "123456",
+            |        "ccewRegistrationNumber": "$charityCommissionRegistrationNumber",
             |        "oscr": true,
-            |        "oscrRegistrationNumber": "SC123456",
+            |        "oscrRegistrationNumber": "$scottishRegulatorRegistrationNumber",
             |        "ccni": true,
-            |        "ccniRegistrationNumber": "ABCDEFGHIJ1234567890"
+            |        "ccniRegistrationNumber": "$niRegulatorRegistrationNumber"
             |      }
             |}""".stripMargin
 
@@ -112,18 +112,18 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("Other Regulator Name", "12345678901234567890")
+              charityRegulatorDetails
             )
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |      "regulator": {
             |        "otherRegulator": true,
-            |        "otherRegulatorName": "Other Regulator Name",
-            |        "otherRegulatorRegistrationNumber": "12345678901234567890"
+            |        "otherRegulatorName": "$charityRegulatorName",
+            |        "otherRegulatorRegistrationNumber": "$chartyRegulatorRegistrationNumber"
             |      }
             |}""".stripMargin
 
@@ -139,13 +139,13 @@ class CharityTransformerSpec extends CharityTransformerConstants {
 
         val localUserAnswers = emptyUserAnswers
           .set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "123456"))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "SC123456"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "ABCDEFGHIJ1234567890"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("Other Regulator Name", "12345678901234567890")
+              charityRegulatorDetails
             ).flatMap(
               _.set(IsCharityRegulatorPage, true)
             )
@@ -154,19 +154,19 @@ class CharityTransformerSpec extends CharityTransformerConstants {
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |"charityOrganisation": {
             |      "registeredRegulator": true,
             |      "regulator": {
             |        "ccew": true,
-            |        "ccewRegistrationNumber": "123456",
+            |        "ccewRegistrationNumber": "$charityCommissionRegistrationNumber",
             |        "oscr": true,
-            |        "oscrRegistrationNumber": "SC123456",
+            |        "oscrRegistrationNumber": "$scottishRegulatorRegistrationNumber",
             |        "ccni": true,
-            |        "ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
+            |        "ccniRegistrationNumber": "$niRegulatorRegistrationNumber",
             |        "otherRegulator": true,
-            |        "otherRegulatorName": "Other Regulator Name",
-            |        "otherRegulatorRegistrationNumber": "12345678901234567890"
+            |        "otherRegulatorName": "$charityRegulatorName",
+            |        "otherRegulatorRegistrationNumber": "$chartyRegulatorRegistrationNumber"
             |      }
             |   }
             |}""".stripMargin
@@ -1259,13 +1259,13 @@ class CharityTransformerSpec extends CharityTransformerConstants {
 
         val localUserAnswers = emptyUserAnswers
           .set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other))
-          .flatMap(_.set(CharityCommissionRegistrationNumberPage, "123456"))
-          .flatMap(_.set(ScottishRegulatorRegNumberPage, "SC123456"))
-          .flatMap(_.set(NIRegulatorRegNumberPage, "ABCDEFGHIJ1234567890"))
+          .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+          .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+          .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
           .flatMap(
             _.set(
               CharityOtherRegulatorDetailsPage,
-              CharityOtherRegulatorDetails("Other Regulator Name", "12345678901234567890")
+              charityRegulatorDetails
             )
           )
           .flatMap(_.set(IsCharityRegulatorPage, true))
@@ -1319,14 +1319,14 @@ class CharityTransformerSpec extends CharityTransformerConstants {
             |        "registeredRegulator": true,
             |        "regulator": {
             |          "ccew": true,
-            |          "ccewRegistrationNumber": "123456",
+            |          "ccewRegistrationNumber": "$charityCommissionRegistrationNumber",
             |          "oscr": true,
-            |          "oscrRegistrationNumber": "SC123456",
+            |          "oscrRegistrationNumber": "$scottishRegulatorRegistrationNumber",
             |          "ccni": true,
-            |          "ccniRegistrationNumber": "ABCDEFGHIJ1234567890",
+            |          "ccniRegistrationNumber": "$niRegulatorRegistrationNumber",
             |          "otherRegulator": true,
-            |          "otherRegulatorName": "Other Regulator Name",
-            |          "otherRegulatorRegistrationNumber": "12345678901234567890"
+            |          "otherRegulatorName": "$charityRegulatorName",
+            |          "otherRegulatorRegistrationNumber": "$chartyRegulatorRegistrationNumber"
             |        }
             |      },
             |      "aboutOrganisation": {

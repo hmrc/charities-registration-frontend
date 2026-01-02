@@ -150,13 +150,13 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
           )
         )
         .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))
-        .flatMap(_.set(CharityCommissionRegistrationNumberPage, "123456"))
-        .flatMap(_.set(ScottishRegulatorRegNumberPage, "SC123456"))
-        .flatMap(_.set(NIRegulatorRegNumberPage, "ABCDEFGHIJ1234567890"))
+        .flatMap(_.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber))
+        .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+        .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
         .flatMap(
           _.set(
             CharityOtherRegulatorDetailsPage,
-            CharityOtherRegulatorDetails("Other Regulator Name", "12345678901234567890")
+            charityRegulatorDetails
           )
         )
         .flatMap(_.set(IsCharityRegulatorPage, true))

@@ -97,7 +97,7 @@ class CharityOtherRegulatorDetailsFormProviderSpec extends StringFieldBehaviours
 
   "CharityOtherRegulatorDetailsFormProvider" must {
 
-    val charityOtherRegulatorDetails = CharityOtherRegulatorDetails("ORegulatorName", "1234567")
+    val charityOtherRegulatorDetails = charityRegulatorDetails
 
     "apply CharityOtherRegulatorDetails correctly" in {
 

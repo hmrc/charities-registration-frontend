@@ -42,10 +42,10 @@ class CharityRegulatorPageSpec extends PageBehaviours {
       val userAnswer = UserAnswers("id", Json.obj())
         .set(CharityRegulatorPage, CharityRegulator.values.toSet)
         .flatMap(
-          _.set(CharityCommissionRegistrationNumberPage, "registrationNumber")
-            .flatMap(_.set(ScottishRegulatorRegNumberPage, "registrationNumber"))
-            .flatMap(_.set(NIRegulatorRegNumberPage, "registrationNumber"))
-            .flatMap(_.set(CharityOtherRegulatorDetailsPage, CharityOtherRegulatorDetails("ORegulatorName", "1234567")))
+          _.set(CharityCommissionRegistrationNumberPage, charityCommissionRegistrationNumber)
+            .flatMap(_.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber))
+            .flatMap(_.set(NIRegulatorRegNumberPage, niRegulatorRegistrationNumber))
+            .flatMap(_.set(CharityOtherRegulatorDetailsPage, charityRegulatorDetails))
         )
         .success
         .value

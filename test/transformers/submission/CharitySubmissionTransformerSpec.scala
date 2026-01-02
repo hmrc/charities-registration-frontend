@@ -82,7 +82,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(_.set(IsApprovedGoverningDocumentPage, false))
         .flatMap(_.set(HasCharityChangedPartsOfGoverningDocumentPage, false))
         .flatMap(
-          _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+          _.set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           ).flatMap(_.set(IsFinancialAccountsPage, true))
             .flatMap(_.set(EstimatedIncomePage, BigDecimal("123")))
@@ -177,7 +177,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
             )
         )
         .flatMap(
-          _.set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2020-01-01")))(
+          _.set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2020))(
             MongoDateTimeFormats.localDayMonthWrite
           ).flatMap(_.set(IsFinancialAccountsPage, true))
             .flatMap(

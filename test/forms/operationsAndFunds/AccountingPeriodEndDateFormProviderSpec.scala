@@ -28,8 +28,8 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
   ".value" should {
 
     val validData = datesBetween(
-      min = jan1st2001,
-      max = dec31st2001
+      min = jan1st2019,
+      max = jan1st2020
     )
 
     ".value" should {

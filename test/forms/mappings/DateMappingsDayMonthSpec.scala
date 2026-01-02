@@ -47,8 +47,8 @@ class DateMappingsDayMonthSpec
   )
 
   private val validData: Gen[LocalDate] = datesBetween(
-    min = jan31st2000,
-    max = dec31st2000
+    min = jan1st2019,
+    max = jan1st2020
   )
 
   private val invalidField: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)

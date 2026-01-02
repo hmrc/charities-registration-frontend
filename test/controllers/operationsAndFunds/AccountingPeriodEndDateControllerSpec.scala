@@ -84,7 +84,7 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AccountingPeriodEndDatePage, MonthDay.from(oct1st2000))(
+              .set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2019))(
                 MongoDateTimeFormats.localDayMonthWrite
               )
               .getOrElse(emptyUserAnswers)

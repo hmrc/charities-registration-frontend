@@ -50,7 +50,7 @@ trait ViewBehaviours extends ViewSpecBase {
           assertEqualsMessage(
             doc,
             "title",
-            title(messages(s"$messageKeyPrefix.title$postHeadingString", headingArgs *), section)
+            title(messages(s"$messageKeyPrefix.title$postHeadingString", headingArgs*), section)
           )
         }
 

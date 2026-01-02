@@ -16,7 +16,7 @@
 
 package controllers.operationsAndFunds
 
-import java.time.{LocalDate, MonthDay}
+import java.time.MonthDay
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
@@ -84,7 +84,7 @@ class AccountingPeriodEndDateControllerSpec extends SpecBase with BeforeAndAfter
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AccountingPeriodEndDatePage, MonthDay.from(LocalDate.parse("2000-10-01")))(
+              .set(AccountingPeriodEndDatePage, MonthDay.from(jan1st2019))(
                 MongoDateTimeFormats.localDayMonthWrite
               )
               .getOrElse(emptyUserAnswers)

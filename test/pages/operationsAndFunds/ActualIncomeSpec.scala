@@ -23,9 +23,7 @@ class ActualIncomeSpec extends PageBehaviours {
   "ActualIncomePage" must {
 
     beRetrievable[BigDecimal](ActualIncomePage)
-
     beSettable[BigDecimal](ActualIncomePage)
-
     beRemovable[BigDecimal](ActualIncomePage)
   }
 }

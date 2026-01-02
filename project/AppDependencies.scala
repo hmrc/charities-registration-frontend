@@ -3,12 +3,12 @@ import sbt.*
 object AppDependencies {
 
   private lazy val mongoHmrcVersion     = "2.11.0"
-  private lazy val bootstrapPlayVersion = "10.4.0"
+  private lazy val bootstrapPlayVersion = "10.5.0"
 
   private lazy val compile: Seq[ModuleID] = Seq(
     "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-30"         % mongoHmrcVersion,
     "uk.gov.hmrc"       %% "bootstrap-frontend-play-30" % bootstrapPlayVersion,
-    "uk.gov.hmrc"       %% "play-frontend-hmrc-play-30" % "12.24.0"
+    "uk.gov.hmrc"       %% "play-frontend-hmrc-play-30" % "12.25.0"
   )
 
   private lazy val test: Seq[ModuleID] = Seq(

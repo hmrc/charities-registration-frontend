@@ -19,7 +19,7 @@ package forms.operationsAndFunds
 import forms.behaviours.DateBehaviours
 import play.api.data.{Form, FormError}
 
-import java.time.{LocalDate, MonthDay}
+import java.time.MonthDay
 
 class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
@@ -28,8 +28,8 @@ class AccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
   ".value" should {
 
     val validData = datesBetween(
-      min = LocalDate.parse("2001-01-01"),
-      max = LocalDate.parse("2001-12-31")
+      min = jan1st2019,
+      max = jan1st2020
     )
 
     ".value" should {

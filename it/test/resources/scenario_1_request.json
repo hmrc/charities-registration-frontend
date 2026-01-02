@@ -13,7 +13,7 @@
           "daytimePhone": "__DAYTIMEPHONE__",
           "mobilePhone": "__MOBILEPHONE__"
         },
-        "officialsDOB": "2000-12-11",
+        "officialsDOB": "__DEC11TH2000__",
         "officialAddress": {
           "lines": [
             "2",
@@ -36,7 +36,7 @@
         "officialsNino": "__NINOWITHSPACE1__"
       }
     ],
-    "whenGoverningDocumentApproved": "2014-07-01",
+    "whenGoverningDocumentApproved": "__JULY1ST2014__",
     "charitablePurposes": [
       "amateurSport",
       "animalWelfare"
@@ -90,7 +90,7 @@
           "daytimePhone": "__DAYTIMEPHONE__",
           "mobilePhone": "__MOBILEPHONE__"
         },
-        "officialsDOB": "2000-12-11",
+        "officialsDOB": "__DEC11TH2000__",
         "officialAddress": {
           "lines": [
             "3",

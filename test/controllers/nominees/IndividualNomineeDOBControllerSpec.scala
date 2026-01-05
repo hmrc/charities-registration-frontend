@@ -20,17 +20,17 @@ import base.SpecBase
 import base.data.constants.DateConstants.january1st2002
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{IndividualNomineeDOBPage, IndividualNomineeNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.DateOfBirthView
 
@@ -63,7 +63,7 @@ class IndividualNomineeDOBControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val requestArgs                   = Seq("date.year" -> "2001", "date.month" -> "1", "date.day" -> "1")
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(IndividualNomineeNamePage, personNameWithMiddle).success.value
 
   "IndividualNomineeDOB Controller " must {
 
@@ -75,7 +75,7 @@ class IndividualNomineeDOBControllerSpec extends SpecBase with BeforeAndAfterEac
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IndividualNomineeDOBController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

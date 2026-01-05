@@ -18,16 +18,16 @@ package controllers.otherOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{Index, Name, SelectTitle, UserAnswers}
+import models.{Index, Name, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers.{redirectLocation, status, _}
+import play.api.test.Helpers.{redirectLocation, status, *}
 import repositories.SessionRepository
 import service.UserAnswerService
 
@@ -53,7 +53,7 @@ class AddedOtherOfficialControllerSpec extends SpecBase with BeforeAndAfterEach 
 
   private val controller: AddedOtherOfficialController = inject[AddedOtherOfficialController]
   private val localUserAnswers: UserAnswers            =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), personNameWithMiddle).success.value
 
   "AddedOtherOfficialController Controller" must {
 

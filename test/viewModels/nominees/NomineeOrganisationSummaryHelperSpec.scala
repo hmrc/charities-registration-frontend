@@ -56,7 +56,10 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
     .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetails))
     .flatMap(
-      _.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      _.set(
+        OrganisationAuthorisedPersonNamePage,
+        Name(SelectTitle.Mr, firstName = "Firstname", None, lastName = "Lastname")
+      )
     )
     .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .success
@@ -249,7 +252,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonName mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr Firstname Lastname"),
             Some(messages("organisationAuthorisedPersonName.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

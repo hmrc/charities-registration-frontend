@@ -19,15 +19,15 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.AddressModel
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.NomineeIndividualPreviousAddressLookupPage
 import pages.nominees.IndividualNomineeNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.ConfirmAddressView
 
@@ -63,7 +63,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(IndividualNomineeNamePage, personNameWithMiddle)
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
@@ -86,7 +86,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
           controllers.nominees.routes.IsIndividualNomineePaymentsController.onPageLoad(NormalMode),
           controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
             .initializeJourney(NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -100,7 +100,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(IndividualNomineeNamePage, personNameWithMiddle)
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
@@ -127,7 +127,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
           controllers.nominees.routes.AmendNomineeIndividualPreviousAddressController.onPageLoad(NormalMode),
           controllers.addressLookup.routes.NomineeIndividualPreviousAddressLookupController
             .initializeJourney(NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

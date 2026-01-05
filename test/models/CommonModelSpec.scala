@@ -92,7 +92,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "json - serialise and deserialise" in {
 
-      val name = Name(SelectTitle.Mr, "Jack", Some("Joe"), "Jill")
+      val name = personNameWithMiddle
 
       val json = Json.toJson(name)
 

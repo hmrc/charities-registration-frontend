@@ -35,7 +35,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
   private val dayOfMonth = 2
 
   def common(index: Int, userAnswers: UserAnswers): UserAnswers = userAnswers
-    .set(AuthorisedOfficialsNamePage(index), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+    .set(AuthorisedOfficialsNamePage(index), personNameWithoutMiddle)
     .flatMap(_.set(AuthorisedOfficialsDOBPage(index), LocalDate.of(year, month, dayOfMonth)))
     .flatMap(
       _.set(

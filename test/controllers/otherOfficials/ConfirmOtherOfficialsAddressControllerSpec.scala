@@ -19,15 +19,15 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.AddressModel
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.OtherOfficialAddressLookupPage
 import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.ConfirmAddressView
 
@@ -62,7 +62,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
@@ -84,7 +84,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
           messageKeyPrefix,
           controllers.otherOfficials.routes.IsOtherOfficialsPreviousAddressController.onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -98,7 +98,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(OtherOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
@@ -124,7 +124,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
           messageKeyPrefix,
           controllers.otherOfficials.routes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.OtherOfficialsAddressLookupController.initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

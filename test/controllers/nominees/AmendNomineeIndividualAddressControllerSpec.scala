@@ -20,11 +20,11 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.AmendAddressFormProvider
 import models.addressLookup.{AddressModel, AmendAddressModel}
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.NomineeIndividualAddressLookupPage
 import pages.contactDetails.AmendAddressPage
@@ -32,7 +32,7 @@ import pages.nominees.IndividualNomineeNamePage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.AmendAddressView
 
@@ -82,7 +82,7 @@ class AmendNomineeIndividualAddressControllerSpec extends SpecBase with BeforeAn
         gbCountryModel
       )
     )
-    .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")))
+    .flatMap(_.set(IndividualNomineeNamePage, personNameWithMiddle))
     .success
     .value
 
@@ -109,7 +109,7 @@ class AmendNomineeIndividualAddressControllerSpec extends SpecBase with BeforeAn
         form.fill(amendNomineeIndividualAddress),
         messageKeyPrefix,
         controllers.nominees.routes.AmendNomineeIndividualAddressController.onSubmit(NormalMode),
-        Some("Jim John Jones"),
+        Some(personNameWithMiddle.getFullName),
         countries = Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

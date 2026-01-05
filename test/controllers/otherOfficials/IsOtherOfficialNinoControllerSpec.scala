@@ -19,17 +19,17 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.otherOfficials.{IsOtherOfficialNinoPage, OtherOfficialsNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.YesNoView
 
@@ -60,7 +60,7 @@ class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach
   private val controller: IsOtherOfficialNinoController = inject[IsOtherOfficialNinoController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), personNameWithMiddle).success.value
 
   "IsOtherOfficialPosition Controller" must {
 
@@ -73,7 +73,7 @@ class IsOtherOfficialNinoControllerSpec extends SpecBase with BeforeAndAfterEach
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.IsOtherOfficialNinoController.onSubmit(NormalMode, Index(0)),
         "officialsAndNominees"

@@ -47,7 +47,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
   private val helper = new NomineeIndividualSummaryHelper(mockCountryService)(
     UserAnswers("id")
-      .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "Firstname", None, lastName = "Lastname"))
       .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
       .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
       .flatMap(_.set(IsIndividualNomineeNinoPage, true))
@@ -70,7 +70,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
         helper.nomineeName mustBe Some(
           summaryListRow(
             messages("individualNomineeName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr Firstname Lastname"),
             Some(messages("individualNomineeName.checkYourAnswersLabel")),
             nomineesRoutes.IndividualNomineeNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

@@ -52,7 +52,7 @@ class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   "ScottishRegulatorRegNumberFormProvider" must {
 
-    val scottishRegulatorRegNumber = "SC045673"
+    val scottishRegulatorRegNumber = scottishRegulatorRegistrationNumber
 
     "apply ScottishRegulatorRegNumber correctly" in {
 
@@ -75,9 +75,9 @@ class ScottishRegulatorRegNumberFormProviderSpec extends StringFieldBehaviours {
 
   "validateRegistrationNumber" must {
 
-    "valid for SC045673" in {
+    s"valid for $scottishRegulatorRegistrationNumber" in {
 
-      "SC045673" must fullyMatch regex formProvider.validateRegistrationNumber
+      scottishRegulatorRegistrationNumber must fullyMatch regex formProvider.validateRegistrationNumber
     }
 
     "valid for 01632" in {

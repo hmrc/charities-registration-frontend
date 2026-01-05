@@ -83,6 +83,18 @@ trait TestData extends ModelGenerators {
   val charityName: CharityName                = CharityName(charityFullName, Some(charityOperatingName))
   val charityNameNoOperatingName: CharityName = charityName.copy(operatingName = None)
 
+  val charityRegistrationNumber: String = charityRegistrationGen.sample.get
+
+  val charityCommissionRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+  val scottishRegulatorRegistrationNumber: String = "SC" + charityRegulatorRegistrationGen.sample.get
+  val niRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+
+  val charityRegulatorName: String = "Regulator name"
+  val chartyRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+
+  val charityRegulatorDetails: CharityOtherRegulatorDetails = CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
+
+
   val charityEmail      = "charity@example.com"
   val organisationEmail = "company@example.com"
 
@@ -200,4 +212,10 @@ trait TestData extends ModelGenerators {
       .replaceAll("__PERSONNAME3WITHOUTMIDDLE__", personName3WithMiddle)
       .replaceAll("__PERSONNAME4WITHOUTMIDDLE__", personName4WithoutMiddle)
       .replaceAll("__PERSONNAME4WITHMIDDLE__", personName4WithMiddle)
+      .replaceAll("__CCREGISTRATIONNUMBER__", charityCommissionRegistrationNumber)
+      .replaceAll("__SCREGULATORNUMBER__", scottishRegulatorRegistrationNumber)
+      .replaceAll("__NIREGULATORNUMBER__", niRegulatorRegistrationNumber)
+      .replaceAll("__CREGULATORNAME__", charityRegulatorName)
+      .replaceAll("__CREGULATORNUMBER__", chartyRegulatorRegistrationNumber)
+
 }

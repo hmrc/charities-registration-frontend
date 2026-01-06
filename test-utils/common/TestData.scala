@@ -16,7 +16,7 @@
 
 package common
 
-import models.{BankDetails, CharityContactDetails, CharityName, Country, FcoCountry, Name, Passport, PhoneNumber, SelectTitle, withNameToString}
+import models.{BankDetails, CharityContactDetails, CharityName, CharityOtherRegulatorDetails, Country, FcoCountry, Name, Passport, PhoneNumber, SelectTitle, withNameToString}
 import models.nominees.OrganisationNomineeContactDetails
 import models.addressLookup.CountryModel
 
@@ -87,16 +87,15 @@ trait TestData extends ModelGenerators {
 
   val charityCommissionRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
   val scottishRegulatorRegistrationNumber: String = "SC" + charityRegulatorRegistrationGen.sample.get
-  val niRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+  val niRegulatorRegistrationNumber: String       = charityRegulatorRegistrationGen.sample.get
 
-  val charityRegulatorName: String = "Regulator name"
+  val charityRegulatorName: String              = "Regulator name"
   val chartyRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
 
-  val charityRegulatorDetails: CharityOtherRegulatorDetails = CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
-
-
-  val charityEmail      = "charity@example.com"
-  val organisationEmail = "company@example.com"
+  val charityRegulatorDetails: CharityOtherRegulatorDetails =
+    CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
+  val charityEmail                                          = "charity@example.com"
+  val organisationEmail                                     = "company@example.com"
 
   val charityContactDetails: CharityContactDetails = CharityContactDetails(
     daytimePhone = daytimePhone,

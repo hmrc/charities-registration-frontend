@@ -620,7 +620,7 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct Name object" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .success
           .value
 
@@ -630,9 +630,9 @@ class JsonTransformerSpec extends SpecBase {
             |    "common": {
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
-            |          "middleName": "John",
+            |          "firstName": "Firstname",
+            |          "lastName": "Lastname",
+            |          "middleName": "Middle",
             |          "title": "0001"
             |        }
             |      }

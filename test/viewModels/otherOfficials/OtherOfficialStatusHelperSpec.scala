@@ -403,8 +403,8 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
         helper.validateDataFromOldService(
           emptyUserAnswers
             .set(IsAddAnotherOtherOfficialPage, true)
-            .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
-            .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mrs, "Joe", None, "Bloggs")))
+            .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithoutMiddle))
+            .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
             .success
             .value
         ) mustBe true
@@ -414,7 +414,7 @@ class OtherOfficialStatusHelperSpec extends SpecBase {
         helper.validateDataFromOldService(
           emptyUserAnswers
             .set(IsAddAnotherOtherOfficialPage, false)
-            .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
+            .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithoutMiddle))
             .success
             .value
         ) mustBe true

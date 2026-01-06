@@ -19,17 +19,17 @@ package controllers.otherOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{Index, Name, SelectTitle, UserAnswers}
+import models.{Index, Name, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.otherOfficials.{IsOtherOfficialNinoPage, OtherOfficialsNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.YesNoView
 
@@ -61,8 +61,8 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
-      .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "John", Some("Jim"), "Jones")))
+      .set(OtherOfficialsNamePage(0), personNameWithMiddle)
+      .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithMiddle))
       .success
       .value
 
@@ -86,7 +86,7 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.RemoveOtherOfficialsController.onSubmit(Index(0)),
         "officialsAndNominees"
@@ -127,7 +127,7 @@ class RemoveOtherOfficialsControllerSpec extends SpecBase with BeforeAndAfterEac
 
       val localUserAnswers: UserAnswers =
         emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(OtherOfficialsNamePage(0), personNameWithMiddle)
           .success
           .value
 

@@ -20,7 +20,7 @@ import base.SpecBase
 import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.routes as nomineesRoutes
-import models.{BankDetails, CheckMode, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Name, Passport, PhoneNumber, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{NomineeIndividualAddressLookupPage, NomineeIndividualPreviousAddressLookupPage}
@@ -47,7 +47,7 @@ class NomineeIndividualSummaryHelperSpec extends SpecBase with SummaryListRowHel
 
   private val helper = new NomineeIndividualSummaryHelper(mockCountryService)(
     UserAnswers("id")
-      .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, firstName = "Firstname", None, lastName = "Lastname"))
+      .set(IndividualNomineeNamePage, personNameWithoutMiddle)
       .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, dayOfMonth)))
       .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
       .flatMap(_.set(IsIndividualNomineeNinoPage, true))

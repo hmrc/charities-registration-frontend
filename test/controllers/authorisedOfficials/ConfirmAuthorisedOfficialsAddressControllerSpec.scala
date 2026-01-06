@@ -19,15 +19,15 @@ package controllers.authorisedOfficials
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import models.addressLookup.AddressModel
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.ConfirmAddressView
 
@@ -63,7 +63,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   AuthorisedOfficialAddressLookupPage(0),
@@ -86,7 +86,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
           controllers.authorisedOfficials.routes.IsAuthorisedOfficialPreviousAddressController
             .onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -100,7 +100,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
               .flatMap(
                 _.set(
                   AuthorisedOfficialAddressLookupPage(0),
@@ -126,7 +126,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
           messageKeyPrefix,
           controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsAddressController.onPageLoad(NormalMode, 0),
           controllers.addressLookup.routes.AuthorisedOfficialsAddressLookupController.initializeJourney(0, NormalMode),
-          Some("Jim John Jones")
+          Some(personNameWithMiddle.getFullName)
         )(fakeRequest, messages, frontendAppConfig)
         .toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

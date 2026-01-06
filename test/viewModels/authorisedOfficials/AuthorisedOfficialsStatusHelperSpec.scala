@@ -409,8 +409,8 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.validateDataFromOldService(
           emptyUserAnswers
             .set(IsAddAnotherAuthorisedOfficialPage, true)
-            .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
-            .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mrs, "Joe", None, "Bloggs")))
+            .flatMap(_.set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle))
+            .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
             .success
             .value
         ) mustBe true
@@ -420,7 +420,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.validateDataFromOldService(
           emptyUserAnswers
             .set(IsAddAnotherAuthorisedOfficialPage, false)
-            .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
+            .flatMap(_.set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle))
             .success
             .value
         ) mustBe true

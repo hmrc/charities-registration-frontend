@@ -21,7 +21,7 @@ import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.routes as nomineesRoutes
 import models.nominees.OrganisationNomineeContactDetails
-import models.{BankDetails, CheckMode, Name, Passport, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Name, Passport, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
@@ -58,7 +58,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     .flatMap(
       _.set(
         OrganisationAuthorisedPersonNamePage,
-        Name(SelectTitle.Mr, firstName = "Firstname", None, lastName = "Lastname")
+        personNameWithoutMiddle
       )
     )
     .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))

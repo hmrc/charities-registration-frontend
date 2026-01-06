@@ -20,11 +20,11 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.AmendAddressFormProvider
 import models.addressLookup.{AddressModel, AmendAddressModel}
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, _}
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.AuthorisedOfficialAddressLookupPage
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
@@ -32,7 +32,7 @@ import pages.contactDetails.AmendAddressPage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.AmendAddressView
 
@@ -82,7 +82,7 @@ class AmendAuthorisedOfficialsAddressControllerSpec extends SpecBase with Before
         gbCountryModel
       )
     )
-    .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")))
+    .flatMap(_.set(AuthorisedOfficialsNamePage(0), personNameWithMiddle))
     .success
     .value
 
@@ -103,7 +103,7 @@ class AmendAuthorisedOfficialsAddressControllerSpec extends SpecBase with Before
         form.fill(amendAuthorisedOfficialsAddress),
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.AmendAuthorisedOfficialsAddressController.onSubmit(NormalMode, Index(0)),
-        Some("Jim John Jones"),
+        Some(personNameWithMiddle.getFullName),
         Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())

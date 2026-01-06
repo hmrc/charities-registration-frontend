@@ -21,7 +21,7 @@ import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.otherOfficials.routes as otherOfficials
 import models.authOfficials.OfficialsPosition
-import models.{CheckMode, Index, Name, PhoneNumber, SelectTitle, UserAnswers}
+import models.{CheckMode, Index, Name, PhoneNumber, UserAnswers}
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.otherOfficials.*
 import play.api.i18n.Messages
@@ -41,7 +41,7 @@ class AddedOtherOfficialHelperSpec extends SpecBase with SummaryListRowHelper {
   private val dayOfMonth = 2
 
   private val otherOfficialDetails: UserAnswers = emptyUserAnswers
-    .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "Firstname", None, lastName = "Lastname"))
+    .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
     .success
     .value
     .set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth))

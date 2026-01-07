@@ -23,17 +23,17 @@ import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLooku
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, FakeAuthIdentifierAction, UserDataRetrievalAction}
 import models.requests.DataRequest
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.IndividualNomineeNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
@@ -71,7 +71,7 @@ class NomineeIndividualPreviousAddressLookupControllerSpec extends SpecBase with
     )
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(IndividualNomineeNamePage, personNameWithMiddle).success.value
 
   override lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequest, internalId, localUserAnswers)

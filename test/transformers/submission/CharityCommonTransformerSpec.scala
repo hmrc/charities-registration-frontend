@@ -391,7 +391,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct IndDeclarationInfo with UK data" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
@@ -415,9 +415,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |    "common": {
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
-            |          "middleName": "John",
+            |          "firstName": "${personNameWithMiddle.firstName}",
+            |          "lastName": "${personNameWithMiddle.lastName}",
+            |          "middleName": "${personNameWithMiddle.middleName.get}",
             |          "title": "0001"
             |        },
             |        "position": "23",
@@ -438,7 +438,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct IndDeclarationInfo with non UK data" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
@@ -462,9 +462,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |    "common": {
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
-            |          "middleName": "John",
+            |          "firstName": "${personNameWithMiddle.firstName}",
+            |          "lastName": "${personNameWithMiddle.lastName}",
+            |          "middleName": "${personNameWithMiddle.middleName.get}",
             |          "title": "0001"
             |        },
             |        "position": "23",
@@ -488,7 +488,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct Common object with all data" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
@@ -540,9 +540,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
-            |          "middleName": "John",
+            |          "firstName": "${personNameWithMiddle.firstName}",
+            |          "lastName": "${personNameWithMiddle.lastName}",
+            |          "middleName": "${personNameWithMiddle.middleName.get}",
             |          "title": "0001"
             |        },
             |        "position": "23",
@@ -596,7 +596,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct Common object when officialAddress and correspondenceAddress" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
@@ -648,9 +648,9 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
-            |          "middleName": "John",
+            |          "firstName": "${personNameWithMiddle.firstName}",
+            |          "lastName": "${personNameWithMiddle.lastName}",
+            |          "middleName": "${personNameWithMiddle.middleName.get}",
             |          "title": "0001"
             |        },
             |        "position": "23",
@@ -706,7 +706,7 @@ class CharityCommonTransformerSpec extends SpecBase {
       "convert the correct Common object with mandatory fields only" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", None, "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
@@ -745,8 +745,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      },
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
+            |          "firstName": "${personNameWithMiddle.firstName}",
+            |          "lastName": "${personNameWithMiddle.lastName}",
             |          "title": "0001"
             |        },
             |        "position": "23",

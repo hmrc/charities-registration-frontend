@@ -32,7 +32,7 @@ import java.time.LocalDate
 class NomineesNavigatorSpec extends SpecBase {
 
   private val navigator: NomineesNavigator              = inject[NomineesNavigator]
-  private val nomineeName: Name                         = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+  private val nomineeName: Name                         = personNameWithMiddle
   private val IndividualNomineePhoneNumber: PhoneNumber = phoneNumbers
   private val minYear                                   = 16
 

@@ -20,12 +20,12 @@ import base.SpecBase
 import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
 import models.nominees.OrganisationNomineeContactDetails
-import models.{BankDetails, Name, Passport, PhoneNumber, SelectTitle, UserAnswers}
-import pages.addressLookup._
-import pages.authorisedOfficials._
-import pages.nominees._
-import pages.otherOfficials._
-import play.api.libs.json._
+import models.{BankDetails, Name, Passport, PhoneNumber, UserAnswers}
+import pages.addressLookup.*
+import pages.authorisedOfficials.*
+import pages.nominees.*
+import pages.otherOfficials.*
+import play.api.libs.json.*
 
 import java.time.LocalDate
 
@@ -53,7 +53,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
               nomineeOrganisationContactDetails
             )
           )
-          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Authorised", None, "Person")))
+          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, personNameWithoutMiddle))
           .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, day)))
           .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino))
           .success
@@ -64,8 +64,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Authorised",
-            |                    "lastName": "Person"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "01",
             |                "dateOfBirth": "2000-12-11",
@@ -90,7 +90,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers: UserAnswers = emptyUserAnswers
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, true))
-          .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Individual", None, "Nominee")))
+          .flatMap(_.set(IndividualNomineeNamePage, personNameWithoutMiddle))
           .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, day)))
           .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
           .flatMap(_.set(IndividualNomineesNinoPage, nino))
@@ -102,8 +102,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Individual",
-            |                    "lastName": "Nominee"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "01",
             |                "dateOfBirth": "2000-12-11",
@@ -126,7 +126,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with all fields" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -139,9 +139,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "middleName": "G",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithMiddle.firstName}",
+            |                    "middleName": "${personNameWithMiddle.middleName.get}",
+            |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
@@ -160,7 +160,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with passport" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -178,9 +178,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "middleName": "G",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithMiddle.firstName}",
+            |                    "middleName": "${personNameWithMiddle.middleName.get}",
+            |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
@@ -201,7 +201,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", None, "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -214,8 +214,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
@@ -793,7 +793,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct object for one authorized official" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -823,9 +823,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -860,7 +860,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with all fields" in {
 
         val localUserAnswers: UserAnswers = emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(OtherOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -873,9 +873,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "middleName": "G",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithMiddle.firstName}",
+            |                    "middleName": "${personNameWithMiddle.middleName.get}",
+            |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
@@ -894,7 +894,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct individualDetails object with mandatory fields only" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", None, "Einstien"))
+          .set(OtherOfficialsNamePage(0), personNameWithoutMiddle)
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -907,8 +907,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "individualDetails": {
             |                "name": {
             |                    "title": "0001",
-            |                    "firstName": "Albert",
-            |                    "lastName": "Einstien"
+            |                    "firstName": "${personNameWithoutMiddle.firstName}",
+            |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "02",
             |                "dateOfBirth": "2000-12-11",
@@ -1032,7 +1032,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
       "convert the correct object for one other official" in {
 
         val localUserAnswers = emptyUserAnswers
-          .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+          .set(OtherOfficialsNamePage(0), personNameWithMiddle)
           .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
           .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
           .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -1062,9 +1062,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -1096,7 +1096,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
     "userAnswers for Official" must {
 
       val userAnswersTwoAuthOneOther: UserAnswers = emptyUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+        .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
         .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, day)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -1111,7 +1111,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             )
           )
         )
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.of(year, month, day)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
@@ -1122,7 +1122,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             AddressModel(Seq(line1, line2, line3), None, inCountryModel)
           )
         )
-        .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+        .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
         .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.of(year, month, day)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -1137,7 +1137,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             )
           )
         )
-        .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.of(year, month, day)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
@@ -1169,9 +1169,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -1202,8 +1202,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
@@ -1233,9 +1233,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -1266,8 +1266,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
@@ -1315,7 +1315,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
           .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
           .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetailsWithoutRollNumber))
-          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Authorised", None, "Person")))
+          .flatMap(_.set(OrganisationAuthorisedPersonNamePage, personNameWithoutMiddle))
           .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, day)))
           .flatMap(_.set(OrganisationAuthorisedPersonNinoPage, nino3))
           .success
@@ -1337,9 +1337,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -1370,8 +1370,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
@@ -1401,9 +1401,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -1434,8 +1434,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
@@ -1470,8 +1470,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Authorised",
-             |            "lastName": "Person"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "01",
              |          "dateOfBirth": "2000-12-11",
@@ -1511,7 +1511,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = userAnswersTwoAuthOneOther
           .set(IsAuthoriseNomineePage, true)
           .flatMap(_.set(ChooseNomineePage, true))
-          .flatMap(_.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Individual", None, "Nominee")))
+          .flatMap(_.set(IndividualNomineeNamePage, personNameWithoutMiddle))
           .flatMap(_.set(IndividualNomineeDOBPage, LocalDate.of(year, month, day)))
           .flatMap(_.set(IndividualNomineesPhoneNumberPage, phoneNumbers))
           .flatMap(_.set(IndividualNomineesNinoPage, nino3))
@@ -1549,9 +1549,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -1582,8 +1582,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
@@ -1613,9 +1613,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Albert",
-             |            "middleName": "G",
-             |            "lastName": "Einstien"
+             |            "firstName": "${personNameWithMiddle.firstName}",
+             |            "middleName": "${personNameWithMiddle.middleName.get}",
+             |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
              |          "dateOfBirth": "2000-12-11",
@@ -1646,8 +1646,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "David",
-             |            "lastName": "Beckham"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
              |          "dateOfBirth": "2000-12-11",
@@ -1677,8 +1677,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "individualDetails": {
              |          "name": {
              |            "title": "0001",
-             |            "firstName": "Individual",
-             |            "lastName": "Nominee"
+             |            "firstName": "${personNameWithoutMiddle.firstName}",
+             |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "01",
              |          "dateOfBirth": "2000-12-11",

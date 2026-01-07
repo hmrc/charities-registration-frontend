@@ -19,17 +19,17 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
-import models.{Name, NormalMode, Passport, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, Passport, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesPassportPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.PassportView
 
@@ -73,7 +73,7 @@ class IndividualNomineePassportControllerSpec extends SpecBase with BeforeAndAft
     "expiryDate.day"   -> futureDate.getDayOfMonth.toString
   )
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(IndividualNomineeNamePage, personNameWithMiddle).success.value
 
   "IndividualNomineePassportController Controller " must {
 
@@ -87,7 +87,7 @@ class IndividualNomineePassportControllerSpec extends SpecBase with BeforeAndAft
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IndividualNomineePassportController.onSubmit(NormalMode),
         Seq(gbCountryTuple)

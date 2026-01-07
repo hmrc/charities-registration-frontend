@@ -78,9 +78,9 @@ class ConfirmAddressViewSpec extends ViewBehaviours {
     ".apply" when {
       "with name" must {
         behave like normalPage(
-          viewViaApply(Some("John Doe"), "authorisedOfficialAddress"),
+          viewViaApply(Some("Firstname Lastname"), "authorisedOfficialAddress"),
           "authorisedOfficialAddress.confirmPage",
-          Seq("John Doe")
+          Seq("Firstname Lastname")
         )
       }
 
@@ -90,7 +90,7 @@ class ConfirmAddressViewSpec extends ViewBehaviours {
 
       "change link with name" must {
         behave like pageWithHyperLink(
-          viewViaApply(Some("John Doe"), "authorisedOfficialAddress"),
+          viewViaApply(Some("Firstname Lastname"), "authorisedOfficialAddress"),
           "linkButton",
           onwardRoute.url,
           "Change authorised official’s home address"

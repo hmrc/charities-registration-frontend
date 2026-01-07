@@ -80,7 +80,7 @@ class OrganisationAuthorisedPersonNameControllerSpec extends SpecBase with Befor
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
         .success
         .value
 

@@ -76,7 +76,8 @@ class ScottishRegulatorRegNumberControllerSpec extends SpecBase with BeforeAndAf
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber).success.value
+      val userAnswers =
+        emptyUserAnswers.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber).success.value
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(userAnswers)))
 

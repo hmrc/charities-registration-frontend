@@ -19,17 +19,17 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.PhoneNumberFormProvider
-import models.{Name, NormalMode, PhoneNumber, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, PhoneNumber, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesPhoneNumberPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.PhoneNumberView
 
@@ -61,7 +61,7 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
 
   private val requestArgs                   = Seq("mainPhoneNumber" -> daytimePhone, "alternativePhoneNumber" -> daytimePhone)
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(IndividualNomineeNamePage, personNameWithMiddle).success.value
 
   "IndividualNomineesPhoneNumberController " must {
 
@@ -73,7 +73,7 @@ class IndividualNomineePhoneNumberControllerSpec extends SpecBase with BeforeAnd
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IndividualNomineesPhoneNumberController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

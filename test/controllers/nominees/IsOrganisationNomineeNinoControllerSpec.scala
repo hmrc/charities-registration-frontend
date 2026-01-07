@@ -19,17 +19,17 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.YesNoFormProvider
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{IsOrganisationNomineeNinoPage, OrganisationAuthorisedPersonNamePage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.YesNoView
 
@@ -61,7 +61,7 @@ class IsOrganisationNomineeNinoControllerSpec extends SpecBase with BeforeAndAft
 
   private val localUserAnswers: UserAnswers =
     emptyUserAnswers
-      .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+      .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
       .success
       .value
 
@@ -76,7 +76,7 @@ class IsOrganisationNomineeNinoControllerSpec extends SpecBase with BeforeAndAft
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.IsOrganisationNomineeNinoController.onSubmit(NormalMode),
         "officialsAndNominees"

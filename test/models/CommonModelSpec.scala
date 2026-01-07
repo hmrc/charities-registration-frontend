@@ -62,26 +62,26 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
     "get correct Name with Title" in {
 
       val authorisedOfficialsName =
-        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("Joe"), lastName = "Jill")
+        personNameWithMiddle
 
-      authorisedOfficialsName.getFullNameWithTitle mustBe "Mr Jack Joe Jill"
+      authorisedOfficialsName.getFullNameWithTitle mustBe "Mr Firstname Middle Lastname"
 
     }
 
     "all parameters defined" in {
 
       val authorisedOfficialsName =
-        Name(SelectTitle.Mr, firstName = "Jack", middleName = Some("and"), lastName = "Jill")
+        personNameWithMiddle
 
-      authorisedOfficialsName.getFullName mustBe "Jack and Jill"
+      authorisedOfficialsName.getFullName mustBe "Firstname Middle Lastname"
 
     }
 
     "middleName is not defined" in {
 
-      val authorisedOfficialsName = Name(SelectTitle.Mr, firstName = "Jack", middleName = None, lastName = "Jill")
+      val authorisedOfficialsName = personNameWithoutMiddle
 
-      authorisedOfficialsName.getFullName mustBe "Jack Jill"
+      authorisedOfficialsName.getFullName mustBe "Firstname Lastname"
 
     }
 
@@ -92,7 +92,7 @@ class CommonModelSpec extends SpecBase with ScalaCheckPropertyChecks with Option
 
     "json - serialise and deserialise" in {
 
-      val name = Name(SelectTitle.Mr, "Jack", Some("Joe"), "Jill")
+      val name = personNameWithMiddle
 
       val json = Json.toJson(name)
 

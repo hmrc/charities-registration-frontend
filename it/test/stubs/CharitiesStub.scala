@@ -20,7 +20,7 @@ import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import models.UserAnswers
 import pages.{AcknowledgementReferencePage, ApplicationSubmissionDatePage}
 import play.api.http.Status.{ACCEPTED, OK}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, Json}
 import utils.WireMockMethods
 
 import java.time.LocalDate
@@ -50,4 +50,10 @@ object CharitiesStub extends WireMockMethods {
 
   def stubUserAnswerGet(ua: UserAnswers, userId: String): StubMapping =
     when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = Json.toJson(ua))
+    
+  def stubUserAnswerGet(status: Int, userId: String): StubMapping =
+    when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = status, body = Json.toJson("{}"))
+    
+  def stubUserAnswerGet(jsObject: JsObject, userId: String): StubMapping =
+    when(method = GET, uri = s"$getUserAnswer$userId").thenReturn(status = OK, body = jsObject)
 }

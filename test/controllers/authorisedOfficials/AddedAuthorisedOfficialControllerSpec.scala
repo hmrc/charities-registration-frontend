@@ -18,16 +18,16 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{Index, Name, SelectTitle, UserAnswers}
+import models.{Index, Name, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers.{redirectLocation, status, _}
+import play.api.test.Helpers.{redirectLocation, status, *}
 import repositories.SessionRepository
 import service.UserAnswerService
 
@@ -53,7 +53,7 @@ class AddedAuthorisedOfficialControllerSpec extends SpecBase with BeforeAndAfter
 
   private val controller: AddedAuthorisedOfficialController = inject[AddedAuthorisedOfficialController]
   private val localUserAnswers: UserAnswers                 = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
     .success
     .value
 

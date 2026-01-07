@@ -21,7 +21,7 @@ import base.data.constants.ConfirmedAddressConstants
 import base.data.messages.BaseMessages
 import controllers.nominees.routes as nomineesRoutes
 import models.nominees.OrganisationNomineeContactDetails
-import models.{BankDetails, CheckMode, Name, Passport, SelectTitle, UserAnswers}
+import models.{BankDetails, CheckMode, Name, Passport, UserAnswers}
 import org.mockito.ArgumentMatchers.{any, eq as meq}
 import org.mockito.Mockito.{mock, when}
 import pages.addressLookup.{OrganisationNomineeAddressLookupPage, OrganisationNomineePreviousAddressLookupPage}
@@ -56,7 +56,10 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
     .flatMap(_.set(IsOrganisationNomineePaymentsPage, true))
     .flatMap(_.set(OrganisationNomineesBankDetailsPage, bankDetails))
     .flatMap(
-      _.set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+      _.set(
+        OrganisationAuthorisedPersonNamePage,
+        personNameWithoutMiddle
+      )
     )
     .flatMap(_.set(OrganisationAuthorisedPersonDOBPage, LocalDate.of(year, month, dayOfMonth)))
     .success
@@ -133,7 +136,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineeAddress mustBe Some(
           summaryListRow(
             messages("organisationNomineeAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("organisationNomineeAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineeAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -164,7 +167,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.nomineePreviousAddress mustBe Some(
           summaryListRow(
             messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel"),
-            Text(s"Test 1, Test 2, AA00 0AA, $gbCountryName"),
+            Text(s"$line1, $line2, $ukPostcode, $gbCountryName"),
             Some(messages("nomineeOrganisationPreviousAddress.checkYourAnswersLabel")),
             controllers.addressLookup.routes.OrganisationNomineePreviousAddressLookupController
               .initializeJourney(CheckMode) -> BaseMessages.changeLink
@@ -249,7 +252,7 @@ class NomineeOrganisationSummaryHelperSpec extends SpecBase with SummaryListRowH
         helperNino.authorisedPersonName mustBe Some(
           summaryListRow(
             messages("organisationAuthorisedPersonName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr Firstname Lastname"),
             Some(messages("organisationAuthorisedPersonName.checkYourAnswersLabel")),
             nomineesRoutes.OrganisationAuthorisedPersonNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
           )

@@ -16,25 +16,24 @@
 
 package controllers.authorisedOfficials
 
-import java.time.LocalDate
-
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.DateOfBirthFormProvider
-import models.{Index, Name, NormalMode, Passport, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, Passport, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{mock, reset, verify, _}
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPassportPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.PassportView
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterEach {
@@ -72,7 +71,7 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
     "expiryDate.day"   -> futureDate.getDayOfMonth.toString
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
     .success
     .value
 
@@ -88,7 +87,7 @@ class AuthorisedOfficialsPassportControllerSpec extends SpecBase with BeforeAndA
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.authorisedOfficials.routes.AuthorisedOfficialsPassportController.onSubmit(NormalMode, Index(0)),
         Seq(gbCountryTuple)

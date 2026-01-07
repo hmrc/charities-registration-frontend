@@ -16,10 +16,6 @@
 
 package transformers.submission
 
-import play.api.libs.json.Json
-
-import java.time.{LocalDate, MonthDay}
-
 import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
 import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
@@ -27,13 +23,16 @@ import models.operations.{CharitablePurposes, CharityEstablishedOptions, FundRai
 import models.regulators.CharityRegulator.{EnglandWales, NorthernIreland, Other, Scottish}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.{CharityRegulator, SelectWhyNoRegulator}
-import models.{BankDetails, CharityName, CharityOtherRegulatorDetails, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle}
-import pages.addressLookup._
-import pages.authorisedOfficials._
+import models.{BankDetails, CharityName, CharityOtherRegulatorDetails, MongoDateTimeFormats, Name, PhoneNumber}
+import pages.addressLookup.*
+import pages.authorisedOfficials.*
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityNamePage}
-import pages.operationsAndFunds._
-import pages.otherOfficials._
-import pages.regulatorsAndDocuments._
+import pages.operationsAndFunds.*
+import pages.otherOfficials.*
+import pages.regulatorsAndDocuments.*
+import play.api.libs.json.Json
+
+import java.time.{LocalDate, MonthDay}
 
 class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
 
@@ -55,7 +54,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
       val localUserAnswers = baseAnswers
         .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
@@ -63,10 +62,10 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
-        .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
@@ -74,7 +73,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
         .flatMap(_.set(SelectWhyNoRegulatorPage, SelectWhyNoRegulator.EnglandWalesUnderThreshold))
@@ -112,22 +111,18 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             CharityOfficialAddressLookupPage,
-            AddressModel(
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              gbCountryModel
-            )
+            addressAllLines
           )
         )
         .flatMap(_.set(CanWeSendToThisAddressPage, false))
         .flatMap(
           _.set(
             CharityPostalAddressLookupPage,
-            AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), gbCountryModel)
+            address
           )
         )
         .flatMap(_.set(CharityNamePage, charityName))
-        .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(AuthorisedOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(AuthorisedOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(1), phoneNumbers))
@@ -135,10 +130,10 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
-        .flatMap(_.set(OtherOfficialsNamePage(1), Name(SelectTitle.Mr, "David", None, "Beckham")))
+        .flatMap(_.set(OtherOfficialsNamePage(1), personNameWithoutMiddle))
         .flatMap(_.set(OtherOfficialsPositionPage(1), OfficialsPosition.Director))
         .flatMap(_.set(OtherOfficialsDOBPage(1), LocalDate.parse(dec11th2000.toString)))
         .flatMap(_.set(OtherOfficialsPhoneNumberPage(1), phoneNumbers))
@@ -146,7 +141,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+            addressWithTown.copy(postcode = None, country = itCountryModel)
           )
         )
         .flatMap(_.set(CharityRegulatorPage, Set[CharityRegulator](EnglandWales, Scottish, NorthernIreland, Other)))
@@ -206,7 +201,7 @@ class CharitySubmissionTransformerSpec extends CharityTransformerConstants {
     "convert with minimum fields" in {
 
       val userAnswers = localUserAnswers
-        .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien"))
+        .set(AuthorisedOfficialsNamePage(0), personNameWithMiddle)
         .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
         .success
         .value

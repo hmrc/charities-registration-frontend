@@ -20,11 +20,11 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.AmendAddressFormProvider
 import models.addressLookup.{AddressModel, AmendAddressModel}
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.addressLookup.OtherOfficialPreviousAddressLookupPage
 import pages.contactDetails.AmendAddressPage
@@ -32,7 +32,7 @@ import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.{CountryService, UserAnswerService}
 import views.html.common.AmendAddressView
 
@@ -67,23 +67,19 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
     inject[AmendOtherOfficialsPreviousAddressController]
 
   private val requestArgs                   = Seq(
-    "line1"    -> "23",
-    "line2"    -> "Morrison street",
+    "line1"    -> line1,
+    "line2"    -> line2,
     "line3"    -> "",
-    "town"     -> "Glasgow",
-    "postcode" -> "G58AN",
+    "town"     -> town.get,
+    "postcode" -> ukPostcode,
     "country"  -> gbCountryCode
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(
       OtherOfficialPreviousAddressLookupPage(0),
-      AddressModel(
-        Seq("7", "Morrison street near riverview gardens", "Glasgow"),
-        Some("G58AN"),
-        gbCountryModel
-      )
+      addressModelMaxWithTown
     )
-    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")))
+    .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithMiddle))
     .success
     .value
 
@@ -92,7 +88,7 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
     "return OK and the correct view for a GET" in {
 
       val amendOtherOfficialsPreviousAddress =
-        AmendAddressModel("7", Some("Morrison street near riverview gardens"), None, "Glasgow", "G58AN", gbCountryCode)
+        toAmendAddressModel(addressModelMax, town)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(Future.successful(Some(localUserAnswers)))
       when(mockCountryService.countries()(any())).thenReturn(Seq(gbCountryTuple))
@@ -104,7 +100,7 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
         form.fill(amendOtherOfficialsPreviousAddress),
         messageKeyPrefix,
         controllers.otherOfficials.routes.AmendOtherOfficialsPreviousAddressController.onSubmit(NormalMode, Index(0)),
-        Some("Jim John Jones"),
+        Some(personNameWithMiddle.getFullName),
         Seq(gbCountryTuple)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
@@ -116,7 +112,7 @@ class AmendOtherOfficialsPreviousAddressControllerSpec extends SpecBase with Bef
       val userAnswers = localUserAnswers
         .set(
           AmendAddressPage,
-          AmendAddressModel("23", Some("Morrison street"), None, "Glasgow", "G58AN", gbCountryCode)
+          toAmendAddressModel(address, town)
         )
         .success
         .value

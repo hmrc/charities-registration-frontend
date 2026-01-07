@@ -17,15 +17,14 @@
 package navigation
 
 import base.SpecBase
-import base.data.constants.AddressModelConstants._
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes
 import models.authOfficials.OfficialsPosition
-import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
+import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode}
 import pages.IndexPage
 import pages.addressLookup.{AuthorisedOfficialAddressLookupPage, AuthorisedOfficialPreviousAddressLookupPage}
-import pages.authorisedOfficials._
+import pages.authorisedOfficials.*
 import pages.contactDetails.CharityNamePage
 import pages.sections.Section7Page
 import play.api.mvc.Call
@@ -37,7 +36,7 @@ class AuthorisedOfficialsNavigatorSpec extends SpecBase {
   private val navigator: AuthorisedOfficialsNavigator     = inject[AuthorisedOfficialsNavigator]
   private val minYear                                     = 16
   private val authorisedOfficialsName: Name               =
-    Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+    personNameWithMiddle
   private val authorisedOfficialsPhoneNumber: PhoneNumber = phoneNumbers
 
   "Navigator.nextPage(page, mode, userAnswers)" when {

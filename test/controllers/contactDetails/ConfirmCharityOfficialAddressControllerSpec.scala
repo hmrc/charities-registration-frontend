@@ -51,7 +51,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
   private val view: ConfirmAddressView                            = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmCharityOfficialAddressController = inject[ConfirmCharityOfficialAddressController]
   private val messageKeyPrefix                                    = "charityOfficialAddress"
-  private val charityInformationAddressLookup                     = List("12", "Banner Way", gbCountry.name)
+  private val charityInformationAddressLookup                     = List(line1, line2, gbCountry.name)
 
   "ConfirmCharityOfficialAddressController Controller" must {
 
@@ -63,7 +63,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                address.copy(postcode = None)
               )
               .success
               .value
@@ -88,7 +88,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val charityInformationAddressMax = List("12", "Banner Way near south riverview gardens", gbCountry.name)
+      val charityInformationAddressMax = List(line1, maxLine, gbCountry.name)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -96,11 +96,7 @@ class ConfirmCharityOfficialAddressControllerSpec extends SpecBase with BeforeAn
             emptyUserAnswers
               .set(
                 CharityOfficialAddressLookupPage,
-                AddressModel(
-                  List("12", "Banner Way near south riverview gardens"),
-                  None,
-                  gbCountryModel
-                )
+                addressModelMax.copy(postcode = None)
               )
               .success
               .value

@@ -16,8 +16,6 @@
 
 package transformers.submission
 
-import java.time.{LocalDate, MonthDay}
-
 import base.SpecBase
 import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
@@ -25,14 +23,15 @@ import models.operations.CharitablePurposes.{AmateurSport, AnimalWelfare}
 import models.operations.{CharitablePurposes, CharityEstablishedOptions, FundRaisingOptions, OperatingLocationOptions}
 import models.regulators.SelectGoverningDocument.MemorandumArticlesAssociation
 import models.regulators.SelectWhyNoRegulator
-import models.{BankDetails, CharityContactDetails, CharityName, MongoDateTimeFormats, Name, PhoneNumber, SelectTitle, UserAnswers}
-import pages.addressLookup._
-import pages.authorisedOfficials._
+import models.{BankDetails, CharityContactDetails, CharityName, MongoDateTimeFormats, Name, PhoneNumber, UserAnswers}
+import pages.addressLookup.*
+import pages.authorisedOfficials.*
 import pages.contactDetails.{CanWeSendToThisAddressPage, CharityContactDetailsPage, CharityNamePage}
-import pages.operationsAndFunds._
-import pages.otherOfficials._
-import pages.regulatorsAndDocuments._
+import pages.operationsAndFunds.*
+import pages.otherOfficials.*
+import pages.regulatorsAndDocuments.*
 
+import java.time.{LocalDate, MonthDay}
 import scala.util.Try
 
 trait CharityTransformerConstants extends SpecBase {
@@ -44,7 +43,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         CharityOfficialAddressLookupPage,
-        AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
+        address.copy(postcode = None, country = inCountryModel)
       )
     )
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -53,7 +52,7 @@ trait CharityTransformerConstants extends SpecBase {
     )
     .flatMap(_.set(CharityNamePage, charityNameNoOperatingName))
     .flatMap(_.set(IsCharityRegulatorPage, false))
-    .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+    .flatMap(_.set(AuthorisedOfficialsNamePage(0), personNameWithMiddle))
     .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.Bursar))
     .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
     .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -61,10 +60,10 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), gbCountryModel)
+        addressAllLines
       )
     )
-    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
+    .flatMap(_.set(OtherOfficialsNamePage(0), personName2WithMiddle))
     .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Bursar))
     .flatMap(_.set(OtherOfficialsDOBPage(0), LocalDate.parse("2000-12-11")))
     .flatMap(_.set(OtherOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -72,7 +71,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), gbCountryModel)
+        addressAllLines
       )
     )
     .flatMap(
@@ -109,12 +108,12 @@ trait CharityTransformerConstants extends SpecBase {
           )
         )
     )
-    .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "David", None, "Beckham")))
+    .flatMap(_.set(OtherOfficialsNamePage(0), personNameWithoutMiddle))
     .flatMap(_.set(OtherOfficialsPositionPage(0), OfficialsPosition.Director))
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+        addressWithTown.copy(postcode = None, country = itCountryModel)
       )
     )
     .success
@@ -208,13 +207,14 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "declarationInfo": {
        |        "name": {
-       |          "firstName": "Albert",
-       |          "lastName": "Einstien",
-       |          "middleName": "G",
-       |          "title": "0001"
+       |          "title": "0001",
+       |          "firstName": "${personNameWithMiddle.firstName}",
+       |          "lastName": "${personNameWithMiddle.lastName}",
+       |          "middleName": "${personNameWithMiddle.middleName.get}"
+       |
        |        },
        |        "position": "02",
-       |        "postcode": "G58AN",
+       |        "postcode": "$ukPostcode",
        |        "telephoneNumber": "$daytimePhone",
        |        "declaration": true,
        |        "overseas": false
@@ -238,17 +238,17 @@ trait CharityTransformerConstants extends SpecBase {
        |      "addressDetails": {
        |        "differentCorrespondence": true,
        |        "officialAddress": {
-       |          "postcode": "G58AN",
-       |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
-       |          "addressLine3": "line3",
-       |          "addressLine4": "line4",
+       |          "postcode": "$ukPostcode",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
+       |          "addressLine3": "$line3",
+       |          "addressLine4": "${town.get}",
        |          "nonUKAddress": false
        |        },
        |        "correspondenceAddress": {
-       |          "postcode": "ZZ11ZZ",
-       |          "addressLine1": "1",
-       |          "addressLine2": "Morrison street",
+       |          "postcode": "$ukPostcode",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
        |          "nonUKAddress": false
        |        }
        |      }
@@ -266,9 +266,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "Albert",
-       |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "firstName": "${personNameWithMiddle.firstName}",
+       |            "middleName": "${personNameWithMiddle.middleName.get}",
+       |            "lastName": "${personNameWithMiddle.lastName}"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
@@ -279,11 +279,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -299,8 +299,8 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "firstName": "${personNameWithoutMiddle.firstName}",
+       |            "lastName": "${personNameWithoutMiddle.lastName}"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
@@ -311,9 +311,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -329,10 +329,10 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "individualDetails": {
        |          "name": {
-       |            "title": "0001",
-       |            "firstName": "Albert",
-       |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "title": "0004",
+       |            "firstName": "${personName2WithMiddle.firstName}",
+       |            "middleName": "${personName2WithMiddle.middleName.get}",
+       |            "lastName": "${personName2WithMiddle.lastName}"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
@@ -343,11 +343,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -363,8 +363,8 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "firstName": "${personNameWithoutMiddle.firstName}",
+       |            "lastName": "${personNameWithoutMiddle.lastName}"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
@@ -375,9 +375,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -397,10 +397,10 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "declarationInfo": {
        |        "name": {
-       |          "firstName": "Albert",
-       |          "middleName": "G",
-       |          "lastName": "Einstien",
-       |          "title": "0001"
+       |          "title": "0001",
+       |          "firstName": "${personNameWithMiddle.firstName}",
+       |          "middleName": "${personNameWithMiddle.middleName.get}",
+       |          "lastName": "${personNameWithMiddle.lastName}"
        |        },
        |        "position": "02",
        |        "telephoneNumber": "$daytimePhone",
@@ -425,8 +425,8 @@ trait CharityTransformerConstants extends SpecBase {
        |      "addressDetails": {
        |        "differentCorrespondence": false,
        |        "officialAddress": {
-       |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
        |          "nonUKCountry": "$inCountryCode",
        |          "nonUKAddress": true
        |        }
@@ -498,9 +498,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "Albert",
-       |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "firstName": "${personNameWithMiddle.firstName}",
+       |            "middleName": "${personNameWithMiddle.middleName.get}",
+       |            "lastName": "${personNameWithMiddle.lastName}"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
@@ -511,11 +511,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -531,8 +531,8 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "firstName": "${personNameWithoutMiddle.firstName}",
+       |            "lastName": "${personNameWithoutMiddle.lastName}"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
@@ -543,9 +543,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -566,10 +566,10 @@ trait CharityTransformerConstants extends SpecBase {
        |      },
        |      "declarationInfo": {
        |        "name": {
-       |          "firstName": "Albert",
-       |          "middleName": "G",
-       |          "lastName": "Einstien",
-       |          "title": "0001"
+       |        "title": "0001",
+       |          "firstName": "${personNameWithMiddle.firstName}",
+       |          "middleName": "${personNameWithMiddle.middleName.get}",
+       |          "lastName": "${personNameWithMiddle.lastName}"
        |        },
        |        "position": "23",
        |        "telephoneNumber": "$daytimePhone",
@@ -594,8 +594,8 @@ trait CharityTransformerConstants extends SpecBase {
        |      "addressDetails": {
        |        "differentCorrespondence": false,
        |        "officialAddress": {
-       |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
        |          "nonUKCountry": "$inCountryCode",
        |          "nonUKAddress": true
        |        }
@@ -667,9 +667,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "Albert",
-       |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "firstName": "${personNameWithMiddle.firstName}",
+       |            "middleName": "${personNameWithMiddle.middleName.get}",
+       |            "lastName": "${personNameWithMiddle.lastName}"
        |          },
        |          "position": "23",
        |          "dateOfBirth": "2000-12-11",
@@ -680,11 +680,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -700,8 +700,8 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "firstName": "${personNameWithoutMiddle.firstName}",
+       |            "lastName": "${personNameWithoutMiddle.lastName}"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
@@ -712,9 +712,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -730,10 +730,10 @@ trait CharityTransformerConstants extends SpecBase {
        |        },
        |        "individualDetails": {
        |          "name": {
-       |            "title": "0001",
-       |            "firstName": "Albert",
-       |            "middleName": "G",
-       |            "lastName": "Einstien"
+       |            "title": "0004",
+       |            "firstName": "${personName2WithMiddle.firstName}",
+       |            "middleName": "${personName2WithMiddle.middleName.get}",
+       |            "lastName": "${personName2WithMiddle.lastName}"
        |          },
        |          "position": "02",
        |          "dateOfBirth": "2000-12-11",
@@ -744,11 +744,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -764,8 +764,8 @@ trait CharityTransformerConstants extends SpecBase {
        |        "individualDetails": {
        |          "name": {
        |            "title": "0001",
-       |            "firstName": "David",
-       |            "lastName": "Beckham"
+       |            "firstName": "${personNameWithoutMiddle.firstName}",
+       |            "lastName": "${personNameWithoutMiddle.lastName}"
        |          },
        |          "position": "05",
        |          "dateOfBirth": "2000-12-11",
@@ -776,9 +776,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }

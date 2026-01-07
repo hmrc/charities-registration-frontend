@@ -238,29 +238,25 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -269,47 +265,39 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .flatMap(
             _.set(
               AuthorisedOfficialPreviousAddressLookupPage(0),
-              AddressModel(
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .success
           .value
 
         val expectedJson =
-          """{
+         s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "authorisedOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -318,7 +306,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
+            addressWithTown.copy(postcode = None, country = frCountryModel)
           )
           .success
           .value
@@ -328,9 +316,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "${town.get}",
             |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
@@ -345,19 +333,19 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             AuthorisedOfficialAddressLookupPage(0),
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
+            address
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
@@ -374,29 +362,25 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OrganisationNomineeAddressLookupPage,
-            AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsOrganisation).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -407,47 +391,39 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OrganisationNomineeAddressLookupPage,
-            AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .flatMap(
             _.set(
               OrganisationNomineePreviousAddressLookupPage,
-              AddressModel(
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "organisation").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsOrganisation).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -458,7 +434,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OrganisationNomineeAddressLookupPage,
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
+            addressWithTown.copy(postcode = None, country = frCountryModel)
           )
           .success
           .value
@@ -468,9 +444,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "${town.get}",
             |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
@@ -487,19 +463,19 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OrganisationNomineeAddressLookupPage,
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
+            address
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
@@ -518,29 +494,25 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             NomineeIndividualAddressLookupPage,
-            AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsIndividual).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -551,47 +523,39 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             NomineeIndividualAddressLookupPage,
-            AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .flatMap(
             _.set(
               NomineeIndividualPreviousAddressLookupPage,
-              AddressModel(
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               },
             |              "previousAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "nominee" \ "individual").json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetailsIndividual).asOpt.value mustBe Json.parse(
           expectedJson
         )
@@ -602,7 +566,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             NomineeIndividualAddressLookupPage,
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
+            addressWithTown.copy(postcode = None, country = frCountryModel)
           )
           .success
           .value
@@ -612,9 +576,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "${town.get}",
             |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
@@ -631,19 +595,19 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             NomineeIndividualAddressLookupPage,
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
+            AddressModel(Seq(line1, line2), Some(ukPostcode), gbCountryModel)
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
@@ -837,11 +801,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .success
@@ -876,11 +836,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      }
@@ -972,29 +932,25 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OtherOfficialAddressLookupPage(0),
-            AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "addressLine3": "line3",
-            |                    "addressLine4": "line4",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "$line3",
+            |                    "addressLine4": "${town.get}",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
-        val result       = localUserAnswers.data.transform((__ \ "otherOfficials" \ 0).json.pick).asOpt.get
+        val result = localUserAnswers.data.transform((__ \ "otherOfficials" \ 0).json.pick).asOpt.get
         result.transform(jsonTransformer.userAnswersToPartnerAddressDetails).asOpt.value mustBe Json.parse(expectedJson)
       }
 
@@ -1003,7 +959,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OtherOfficialAddressLookupPage(0),
-            AddressModel(Seq("121", "Saint Mount Emilion", "Bercy Village"), None, frCountryModel)
+            addressWithTown.copy(postcode = None, country = frCountryModel)
           )
           .success
           .value
@@ -1013,9 +969,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": true,
-            |                    "addressLine1": "121",
-            |                    "addressLine2": "Saint Mount Emilion",
-            |                    "addressLine3": "Bercy Village",
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "addressLine3": "${town.get}",
             |                    "nonUKCountry": "$frCountryCode"
             |               }
             |        }
@@ -1030,19 +986,19 @@ class CharityPartnerTransformerSpec extends SpecBase {
         val localUserAnswers = emptyUserAnswers
           .set(
             OtherOfficialAddressLookupPage(0),
-            AddressModel(Seq("2", "Dubai Main Road"), Some("G27JD"), gbCountryModel)
+            address
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |         "addressDetails": {
             |              "currentAddress": {
             |                    "nonUKAddress": false,
-            |                    "addressLine1": "2",
-            |                    "addressLine2": "Dubai Main Road",
-            |                    "postcode": "G27JD"
+            |                    "addressLine1": "$line1",
+            |                    "addressLine2": "$line2",
+            |                    "postcode": "$ukPostcode"
             |               }
             |        }
             |  }""".stripMargin
@@ -1084,11 +1040,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               OtherOfficialAddressLookupPage(0),
-              AddressModel(
-                Seq("2", "Dubai Main Road", "line3", "line4"),
-                Some("G27JD"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .success
@@ -1123,11 +1075,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      }
@@ -1153,8 +1105,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
           _.set(
             AuthorisedOfficialAddressLookupPage(0),
             AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
+              Seq(line1, line2, line3, town.get),
+              Some(ukPostcode),
               gbCountryModel
             )
           )
@@ -1167,7 +1119,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(
           _.set(
             AuthorisedOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, inCountryModel)
+            AddressModel(Seq(line1, line2, line3), None, inCountryModel)
           )
         )
         .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
@@ -1179,8 +1131,8 @@ class CharityPartnerTransformerSpec extends SpecBase {
           _.set(
             OtherOfficialAddressLookupPage(0),
             AddressModel(
-              Seq("2", "Dubai Main Road", "line3", "line4"),
-              Some("G27JD"),
+              Seq(line1, line2, line3, town.get),
+              Some(ukPostcode),
               gbCountryModel
             )
           )
@@ -1193,7 +1145,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
         .flatMap(
           _.set(
             OtherOfficialAddressLookupPage(1),
-            AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, inCountryModel)
+            AddressModel(Seq(line1, line2, line3), None, inCountryModel)
           )
         )
         .success
@@ -1230,11 +1182,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      },
@@ -1262,9 +1214,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
              |            "nonUKCountry": "$inCountryCode"
              |          }
              |        }
@@ -1294,11 +1246,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      },
@@ -1326,9 +1278,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
              |            "nonUKCountry": "$inCountryCode"
              |          }
              |        }
@@ -1357,7 +1309,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               OrganisationNomineeAddressLookupPage,
-              AddressModel(Seq("1", "Authorised Street", "Authorised Place"), None, inCountryModel)
+              AddressModel(Seq(line1, line2, line3), None, inCountryModel)
             )
           )
           .flatMap(_.set(IsOrganisationNomineePreviousAddressPage, false))
@@ -1398,11 +1350,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      },
@@ -1430,9 +1382,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
              |            "nonUKCountry": "$inCountryCode"
              |          }
              |        }
@@ -1462,11 +1414,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      },
@@ -1494,9 +1446,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
              |            "nonUKCountry":"$inCountryCode"
              |          }
              |        }
@@ -1528,9 +1480,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
-             |            "addressLine1": "1",
-             |            "addressLine2": "Authorised Street",
-             |            "addressLine3": "Authorised Place",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
              |            "nonUKAddress": true,
              |            "nonUKCountry":"$inCountryCode"
              |          }
@@ -1566,14 +1518,14 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               NomineeIndividualAddressLookupPage,
-              AddressModel(Seq("1", "Nominee Street"), Some("AA11AA"), gbCountryModel)
+              AddressModel(Seq(line1, line2), Some(ukPostcode), gbCountryModel)
             )
           )
           .flatMap(_.set(IsIndividualNomineePreviousAddressPage, true))
           .flatMap(
             _.set(
               NomineeIndividualPreviousAddressLookupPage,
-              AddressModel(Seq("1", "Individual Drive"), None, inCountryModel)
+              AddressModel(Seq(line1, "Individual Drive"), None, inCountryModel)
             )
           )
           .flatMap(_.set(IsIndividualNomineePaymentsPage, true))
@@ -1610,11 +1562,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      },
@@ -1642,9 +1594,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
              |            "nonUKCountry":"$inCountryCode"
              |          }
              |        }
@@ -1674,11 +1626,11 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": false,
-             |            "addressLine1": "2",
-             |            "addressLine2": "Dubai Main Road",
-             |            "addressLine3": "line3",
-             |            "addressLine4": "line4",
-             |            "postcode": "G27JD"
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
+             |            "addressLine4": "${town.get}",
+             |            "postcode": "$ukPostcode"
              |          }
              |        }
              |      },
@@ -1706,9 +1658,9 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        "addressDetails": {
              |          "currentAddress": {
              |            "nonUKAddress": true,
-             |            "addressLine1": "3",
-             |            "addressLine2": "Morrison Street",
-             |            "addressLine3": "Bill Tower",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
+             |            "addressLine3": "$line3",
              |            "nonUKCountry":"$inCountryCode"
              |          }
              |        }
@@ -1736,16 +1688,16 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |        },
              |        "addressDetails": {
              |          "currentAddress": {
-             |            "addressLine1": "1",
-             |            "addressLine2": "Nominee Street",
+             |            "addressLine1": "$line1",
+             |            "addressLine2": "$line2",
              |            "nonUKAddress": false,
-             |            "postcode": "AA11AA"
+             |            "postcode": "$ukPostcode"
              |          },
              |          "previousAddress": {
-             |            "addressLine1": "1",
+             |            "addressLine1": "$line1",
              |            "addressLine2": "Individual Drive",
              |            "nonUKAddress": true,
-             |            "nonUKCountry":"$inCountryCode"
+             |            "nonUKCountry": "$inCountryCode"
              |          }
              |        },
              |        "paymentDetails": {

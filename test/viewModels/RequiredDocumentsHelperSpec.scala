@@ -38,7 +38,7 @@ class RequiredDocumentsHelperSpec extends SpecBase {
     .flatMap(
       _.set(
         AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(Seq("aa", "bb"), postcode = None, country = thCountryModel)
+        address.copy(postcode = None, country = thCountryModel)
       )
     )
     .flatMap(_.set(IsCharityRegulatorPage, true))
@@ -48,7 +48,7 @@ class RequiredDocumentsHelperSpec extends SpecBase {
   private val userAnswersUKAuthOfficial1 = emptyUserAnswers
     .set(
       AuthorisedOfficialAddressLookupPage(0),
-      AddressModel(Seq("aa", "bb"), postcode = None, country = gbCountryModel)
+      address.copy(postcode = None, country = gbCountryModel)
     )
     .success
     .value

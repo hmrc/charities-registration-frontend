@@ -53,7 +53,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
   private val controller: ConfirmAuthorisedOfficialsAddressController =
     inject[ConfirmAuthorisedOfficialsAddressController]
   private val messageKeyPrefix                                        = "authorisedOfficialAddress"
-  private val authorisedOfficialAddressLookup                         = List("12", "Banner Way", gbCountryName)
+  private val authorisedOfficialAddressLookup                         = List(line1, line2, gbCountryName)
 
   "ConfirmAuthorisedOfficialsAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
               .flatMap(
                 _.set(
                   AuthorisedOfficialAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                  address.copy(postcode = None)
                 )
               )
               .success
@@ -94,7 +94,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val authorisedOfficialAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val authorisedOfficialAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -104,11 +104,7 @@ class ConfirmAuthorisedOfficialsAddressControllerSpec extends SpecBase with Befo
               .flatMap(
                 _.set(
                   AuthorisedOfficialAddressLookupPage(0),
-                  AddressModel(
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    gbCountryModel
-                  )
+                  addressModelMax.copy(postcode = None)
                 )
               )
               .success

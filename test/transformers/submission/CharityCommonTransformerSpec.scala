@@ -208,28 +208,24 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .flatMap(_.set(CanWeSendToThisAddressPage, true))
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "addressDetails": {
             |        "differentCorrespondence": false,
             |        "officialAddress": {
-            |          "postcode": "G58AN",
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
-            |          "addressLine3": "line3",
-            |          "addressLine4": "line4",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
+            |          "addressLine3": "$line3",
+            |          "addressLine4": "${town.get}",
             |          "nonUKAddress": false
             |        }
             |      }
@@ -247,40 +243,36 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(
             _.set(
               CharityPostalAddressLookupPage,
-              AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), gbCountryModel)
+              address
             )
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "addressDetails": {
             |        "differentCorrespondence": true,
             |        "officialAddress": {
-            |          "postcode": "G58AN",
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
-            |          "addressLine3": "line3",
-            |          "addressLine4": "line4",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
+            |          "addressLine3": "$line3",
+            |          "addressLine4": "${town.get}",
             |          "nonUKAddress": false
             |        },
             |        "correspondenceAddress": {
-            |          "postcode": "ZZ11ZZ",
-            |          "addressLine1": "1",
-            |          "addressLine2": "Morrison street",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
             |          "nonUKAddress": false
             |        }
             |      }
@@ -299,46 +291,38 @@ class CharityCommonTransformerSpec extends SpecBase {
         val userAnswers = emptyUserAnswers
           .set(
             CharityOfficialAddressLookupPage,
-            AddressModel(
-              Seq("7", "Morrison street", "line3", "line4"),
-              Some("G58AN"),
-              gbCountryModel
-            )
+            addressAllLines
           )
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(
             _.set(
               CharityPostalAddressLookupPage,
-              AddressModel(
-                Seq("7", "Morrison street", "line3", "line4"),
-                Some("G58AN"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .success
           .value
 
         val expectedJson =
-          """{
+          s"""{
             |  "charityRegistration": {
             |    "common": {
             |      "addressDetails": {
             |        "differentCorrespondence": false,
             |        "officialAddress": {
-            |          "postcode": "G58AN",
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
-            |          "addressLine3": "line3",
-            |          "addressLine4": "line4",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
+            |          "addressLine3": "$line3",
+            |          "addressLine4": "${town.get}",
             |          "nonUKAddress": false
             |        },
             |        "correspondenceAddress": {
-            |          "postcode": "G58AN",
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
-            |          "addressLine3": "line3",
-            |          "addressLine4": "line4",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
+            |          "addressLine3": "$line3",
+            |          "addressLine4": "${town.get}",
             |          "nonUKAddress": false
             |        }
             |      }
@@ -411,17 +395,13 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
+              address
             )
           )
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-              AddressModel(
-                Seq("7", "Morrison street", "line3", "line4"),
-                Some("G58AN"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbersWithIntCode))
@@ -441,7 +421,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |          "title": "0001"
             |        },
             |        "position": "23",
-            |        "postcode": "G58AN",
+            |        "postcode": "$ukPostcode",
             |        "telephoneNumber": "${normalisePhoneForTest(phoneNumbersWithIntCode.daytimePhone)}",
             |        "declaration": true,
             |        "overseas": false
@@ -462,13 +442,13 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
+              address.copy(postcode = None, country = inCountryModel)
             )
           )
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
+              address.copy(postcode = None, country = inCountryModel)
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -512,7 +492,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
+              address
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
@@ -521,11 +501,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-              AddressModel(
-                Seq("7", "Morrison street", "line3", "line4"),
-                Some("G58AN"),
-                gbCountryModel
-              )
+                addressAllLines
             )
               .flatMap(_.set(CanWeSendToThisAddressPage, false))
           )
@@ -533,7 +509,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityPostalAddressLookupPage,
-              AddressModel(Seq("1", "Morrison street"), Some("ZZ11ZZ"), gbCountryModel)
+              address
             )
           )
           .flatMap(
@@ -544,11 +520,7 @@ class CharityCommonTransformerSpec extends SpecBase {
               .flatMap(
                 _.set(
                   CharityOfficialAddressLookupPage,
-                  AddressModel(
-                    Seq("7", "Morrison street", "line3", "line4"),
-                    Some("G58AN"),
-                    gbCountryModel
-                  )
+                  addressAllLines
                 )
               )
               .flatMap(_.set(CharityNamePage, charityName))
@@ -574,7 +546,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |          "title": "0001"
             |        },
             |        "position": "23",
-            |        "postcode": "G58AN",
+            |        "postcode": "$ukPostcode",
             |        "telephoneNumber": "$daytimePhone",
             |        "declaration": true,
             |        "overseas": false
@@ -598,17 +570,17 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "addressDetails": {
             |        "differentCorrespondence": true,
             |        "officialAddress": {
-            |          "postcode": "G58AN",
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
-            |          "addressLine3": "line3",
-            |          "addressLine4": "line4",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
+            |          "addressLine3": "$line3",
+            |          "addressLine4": "${town.get}",
             |          "nonUKAddress": false
             |        },
             |        "correspondenceAddress": {
-            |          "postcode": "ZZ11ZZ",
-            |          "addressLine1": "1",
-            |          "addressLine2": "Morrison street",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
             |          "nonUKAddress": false
             |        }
             |      }
@@ -628,7 +600,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
+              address
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPhoneNumberPage(0), phoneNumbers))
@@ -637,22 +609,14 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-              AddressModel(
-                Seq("7", "Morrison street", "line3", "line4"),
-                Some("G58AN"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .flatMap(_.set(CanWeSendToThisAddressPage, false))
           .flatMap(
             _.set(
               CharityPostalAddressLookupPage,
-              AddressModel(
-                Seq("7", "Morrison street", "line3", "line4"),
-                Some("G58AN"),
-                gbCountryModel
-              )
+              addressAllLines
             )
           )
           .flatMap(_.set(CharityEstablishedInPage, CharityEstablishedOptions.Wales))
@@ -664,11 +628,7 @@ class CharityCommonTransformerSpec extends SpecBase {
               .flatMap(
                 _.set(
                   CharityOfficialAddressLookupPage,
-                  AddressModel(
-                    Seq("7", "Morrison street", "line3", "line4"),
-                    Some("G58AN"),
-                    gbCountryModel
-                  )
+                  addressAllLines
                 )
               )
               .flatMap(_.set(CharityNamePage, charityName))
@@ -694,7 +654,7 @@ class CharityCommonTransformerSpec extends SpecBase {
             |          "title": "0001"
             |        },
             |        "position": "23",
-            |        "postcode": "G58AN",
+            |        "postcode": "$ukPostcode",
             |        "telephoneNumber": "$daytimePhone",
             |        "declaration": true,
             |        "overseas": false
@@ -718,19 +678,19 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "addressDetails": {
             |        "differentCorrespondence": false,
             |        "officialAddress": {
-            |          "postcode": "G58AN",
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
-            |          "addressLine3": "line3",
-            |          "addressLine4": "line4",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
+            |          "addressLine3": "$line3",
+            |          "addressLine4": "${town.get}",
             |          "nonUKAddress": false
             |        },
             |        "correspondenceAddress": {
-            |          "postcode": "G58AN",
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
-            |          "addressLine3": "line3",
-            |          "addressLine4": "line4",
+            |          "postcode": "$ukPostcode",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
+            |          "addressLine3": "$line3",
+            |          "addressLine4": "${town.get}",
             |          "nonUKAddress": false
             |        }
             |      }
@@ -750,7 +710,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialAddressLookupPage(0),
-              AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
+              address.copy(postcode = None, country = inCountryModel)
             )
           )
           .flatMap(_.set(AuthorisedOfficialsPositionPage(0), OfficialsPosition.UKAgent))
@@ -759,7 +719,7 @@ class CharityCommonTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               CharityOfficialAddressLookupPage,
-              AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
+              address.copy(postcode = None, country = inCountryModel)
             )
           )
           .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -812,8 +772,8 @@ class CharityCommonTransformerSpec extends SpecBase {
             |      "addressDetails": {
             |        "differentCorrespondence": false,
             |        "officialAddress": {
-            |          "addressLine1": "7",
-            |          "addressLine2": "Morrison street",
+            |          "addressLine1": "$line1",
+            |          "addressLine2": "$line2",
             |          "nonUKCountry": "$inCountryCode",
             |          "nonUKAddress": true
             |        }

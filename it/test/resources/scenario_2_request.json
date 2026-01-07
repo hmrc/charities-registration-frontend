@@ -13,12 +13,12 @@
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
-            "Flat 1",
-            "7 Other Place",
-            "Some District",
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSLINE3__",
             "Anytown"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -58,17 +58,17 @@
     "isSection5Completed": true,
     "actualIncome": 100.0,
     "charityOtherRegulatorDetails": {
-      "regulatorName": "__CREGULATORNAME__",
-      "registrationNumber": "__CREGULATORNUMBER__"
+      "regulatorName": "John",
+      "registrationNumber": "Ceana"
     },
     "charityOfficialAddress": {
       "lines": [
-        "Flat 1",
-        "7 Other Place",
-        "Some District",
-        "Anytown"
+        "__ADDRESSLINE1__",
+        "__ADDRESSLINE2__",
+        "__ADDRESSLINE3__",
+        "__ADDRESSTOWN__"
       ],
-      "postcode": "ZZ1 1ZZ",
+      "postcode": "__ADDRESSUKPOSTCODE__",
       "country": {
         "code": "__GBCOUNTRYCODE__",
         "name": "__GBCOUNTRYNAME__"
@@ -113,11 +113,11 @@
     "addAnotherOtherOfficial": false,
     "charityPostalAddress": {
       "lines": [
-        "4 Other Place",
-        "Some District",
-        "Anytown"
+        "__ADDRESSLINE1__",
+        "__ADDRESSLINE2__",
+        "__ADDRESSTOWN__"
       ],
-      "postcode": "ZZ1 1ZZ",
+      "postcode": "__ADDRESSUKPOSTCODE__",
       "country": {
         "code": "__GBCOUNTRYCODE__",
         "name": "__GBCOUNTRYNAME__"
@@ -149,12 +149,12 @@
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
-            "Flat 1",
-            "7 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSLINE3__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"
@@ -178,11 +178,11 @@
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
-            "3 Other Place",
-            "Some District",
-            "Anytown"
+            "__ADDRESSLINE1__",
+            "__ADDRESSLINE2__",
+            "__ADDRESSTOWN__"
           ],
-          "postcode": "ZZ1 1ZZ",
+          "postcode": "__ADDRESSUKPOSTCODE__",
           "country": {
             "code": "__GBCOUNTRYCODE__",
             "name": "__GBCOUNTRYNAME__"

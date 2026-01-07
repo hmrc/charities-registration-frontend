@@ -53,7 +53,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
   private val controller: ConfirmOtherOfficialsPreviousAddressController =
     inject[ConfirmOtherOfficialsPreviousAddressController]
   private val messageKeyPrefix                                           = "otherOfficialPreviousAddress"
-  private val otherOfficialPreviousAddressLookup                         = List("12", "Banner Way", gbCountryName)
+  private val otherOfficialPreviousAddressLookup                         = List(line1, line2, gbCountryName)
 
   "ConfirmAuthorisedOfficialsPreviousAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
               .flatMap(
                 _.set(
                   OtherOfficialPreviousAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                  address.copy(postcode = None)
                 )
               )
               .success
@@ -94,7 +94,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val otherOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val otherOfficialPreviousAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -104,11 +104,7 @@ class ConfirmOtherOfficialsPreviousAddressControllerSpec extends SpecBase with B
               .flatMap(
                 _.set(
                   OtherOfficialPreviousAddressLookupPage(0),
-                  AddressModel(
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    gbCountryModel
-                  )
+                  addressModelMax.copy(postcode = None)
                 )
               )
               .success

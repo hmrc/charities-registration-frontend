@@ -37,17 +37,8 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
   private val navigator: OtherOfficialsNavigator     = inject[OtherOfficialsNavigator]
   private val otherOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
   private val otherOfficialsPhoneNumber: PhoneNumber = phoneNumbers
-  private val address: AddressModel                  =
-    AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
-  private val addressMax: AddressModel               =
-    AddressModel(
-      Seq("7", "Morrison street near riverview gardens"),
-      Some("G58AN"),
-      gbCountryModel
-    )
+
   private val minYear                                = 16
-  private val minAddressLines: AddressModel          =
-    AddressModel(Seq("7 Morrison street"), Some("G58AN"), gbCountryModel)
 
   def goToPlaybackPage(index: Int): Call = index match {
     case 0 => otherOfficialRoutes.AddedOtherOfficialController.onPageLoad(Index(0))
@@ -243,7 +234,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialAddressLookupPage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressModelMax).success.value
           ) mustBe
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
         }
@@ -252,7 +243,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
           navigator.nextPage(
             OtherOfficialAddressLookupPage(0),
             NormalMode,
-            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), minAddressLines).success.value
+            emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressModelMin).success.value
           ) mustBe
             otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(NormalMode, Index(0))
         }
@@ -339,9 +330,9 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               OtherOfficialPreviousAddressLookupPage(index),
               NormalMode,
               emptyUserAnswers
-                .set(OtherOfficialPreviousAddressLookupPage(0), addressMax)
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), addressMax))
-                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), addressMax))
+                .set(OtherOfficialPreviousAddressLookupPage(0), addressModelMax)
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(previousOrSameIndex(index)), addressModelMax))
+                .flatMap(_.set(OtherOfficialPreviousAddressLookupPage(index), addressModelMax))
                 .success
                 .value
             ) mustBe
@@ -701,7 +692,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               navigator.nextPage(
                 OtherOfficialAddressLookupPage(0),
                 CheckMode,
-                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressMax).success.value
+                emptyUserAnswers.set(OtherOfficialAddressLookupPage(0), addressModelMax).success.value
               ) mustBe
                 otherOfficialRoutes.AmendOtherOfficialsAddressController.onPageLoad(CheckMode, Index(0))
             }
@@ -816,7 +807,7 @@ class OtherOfficialsNavigatorSpec extends SpecBase {
               navigator.nextPage(
                 OtherOfficialPreviousAddressLookupPage(0),
                 CheckMode,
-                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressMax).success.value
+                emptyUserAnswers.set(OtherOfficialPreviousAddressLookupPage(0), addressModelMax).success.value
               ) mustBe
                 otherOfficialRoutes.AmendOtherOfficialsPreviousAddressController.onPageLoad(CheckMode, Index(0))
             }

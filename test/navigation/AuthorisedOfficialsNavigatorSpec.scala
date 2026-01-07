@@ -17,7 +17,6 @@
 package navigation
 
 import base.SpecBase
-import base.data.constants.AddressModelConstants._
 import controllers.addressLookup.{routes => addressLookupRoutes}
 import controllers.authorisedOfficials.{routes => authOfficialRoutes}
 import controllers.routes

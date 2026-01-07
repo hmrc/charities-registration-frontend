@@ -44,7 +44,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         CharityOfficialAddressLookupPage,
-        AddressModel(Seq("7", "Morrison street"), None, inCountryModel)
+        address.copy(postcode = None, country = inCountryModel)
       )
     )
     .flatMap(_.set(CanWeSendToThisAddressPage, true))
@@ -61,7 +61,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         AuthorisedOfficialAddressLookupPage(0),
-        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), gbCountryModel)
+        addressAllLines
       )
     )
     .flatMap(_.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Albert", Some("G"), "Einstien")))
@@ -72,7 +72,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(Seq("2", "Dubai Main Road", "line3", "line4"), Some("G27JD"), gbCountryModel)
+        addressAllLines
       )
     )
     .flatMap(
@@ -114,7 +114,7 @@ trait CharityTransformerConstants extends SpecBase {
     .flatMap(
       _.set(
         OtherOfficialAddressLookupPage(0),
-        AddressModel(Seq("3", "Morrison Street", "Bill Tower"), None, itCountryModel)
+        addressWithTown.copy(postcode = None, country = itCountryModel)
       )
     )
     .success
@@ -214,7 +214,7 @@ trait CharityTransformerConstants extends SpecBase {
        |          "title": "0001"
        |        },
        |        "position": "02",
-       |        "postcode": "G58AN",
+       |        "postcode": "$ukPostcode",
        |        "telephoneNumber": "$daytimePhone",
        |        "declaration": true,
        |        "overseas": false
@@ -238,17 +238,17 @@ trait CharityTransformerConstants extends SpecBase {
        |      "addressDetails": {
        |        "differentCorrespondence": true,
        |        "officialAddress": {
-       |          "postcode": "G58AN",
-       |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
-       |          "addressLine3": "line3",
-       |          "addressLine4": "line4",
+       |          "postcode": "$ukPostcode",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
+       |          "addressLine3": "$line3",
+       |          "addressLine4": "${town.get}",
        |          "nonUKAddress": false
        |        },
        |        "correspondenceAddress": {
-       |          "postcode": "ZZ11ZZ",
-       |          "addressLine1": "1",
-       |          "addressLine2": "Morrison street",
+       |          "postcode": "$ukPostcode",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
        |          "nonUKAddress": false
        |        }
        |      }
@@ -279,11 +279,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -311,9 +311,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -343,11 +343,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -375,9 +375,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -425,8 +425,8 @@ trait CharityTransformerConstants extends SpecBase {
        |      "addressDetails": {
        |        "differentCorrespondence": false,
        |        "officialAddress": {
-       |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
        |          "nonUKCountry": "$inCountryCode",
        |          "nonUKAddress": true
        |        }
@@ -511,11 +511,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -543,9 +543,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -594,8 +594,8 @@ trait CharityTransformerConstants extends SpecBase {
        |      "addressDetails": {
        |        "differentCorrespondence": false,
        |        "officialAddress": {
-       |          "addressLine1": "7",
-       |          "addressLine2": "Morrison street",
+       |          "addressLine1": "$line1",
+       |          "addressLine2": "$line2",
        |          "nonUKCountry": "$inCountryCode",
        |          "nonUKAddress": true
        |        }
@@ -680,11 +680,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -712,9 +712,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }
@@ -744,11 +744,11 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": false,
-       |            "addressLine1": "2",
-       |            "addressLine2": "Dubai Main Road",
-       |            "addressLine3": "line3",
-       |            "addressLine4": "line4",
-       |            "postcode": "G27JD"
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "$line3",
+       |            "addressLine4": "${town.get}",
+       |            "postcode": "$ukPostcode"
        |          }
        |        }
        |      },
@@ -776,9 +776,9 @@ trait CharityTransformerConstants extends SpecBase {
        |        "addressDetails": {
        |          "currentAddress": {
        |            "nonUKAddress": true,
-       |            "addressLine1": "3",
-       |            "addressLine2": "Morrison Street",
-       |            "addressLine3": "Bill Tower",
+       |            "addressLine1": "$line1",
+       |            "addressLine2": "$line2",
+       |            "addressLine3": "${town.get}",
        |            "nonUKCountry": "$itCountryCode"
        |          }
        |        }

@@ -52,7 +52,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
   private val view: ConfirmAddressView                           = injector.instanceOf[ConfirmAddressView]
   private val controller: ConfirmOtherOfficialsAddressController = inject[ConfirmOtherOfficialsAddressController]
   private val messageKeyPrefix                                   = "otherOfficialAddress"
-  private val otherOfficialAddressLookup                         = List("12", "Banner Way", gbCountryName)
+  private val otherOfficialAddressLookup                         = List(line1, line2, gbCountryName)
 
   "ConfirmOtherOfficialsAddressController Controller" must {
 
@@ -66,7 +66,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                  address.copy(postcode = None)
                 )
               )
               .success
@@ -92,7 +92,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val otherOfficialAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val otherOfficialAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -102,11 +102,7 @@ class ConfirmOtherOfficialsAddressControllerSpec extends SpecBase with BeforeAnd
               .flatMap(
                 _.set(
                   OtherOfficialAddressLookupPage(0),
-                  AddressModel(
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    gbCountryModel
-                  )
+                  addressModelMax.copy(postcode = None)
                 )
               )
               .success

@@ -16,9 +16,18 @@
 
 package common
 
-import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber, Country, FcoCountry, CharityOtherRegulatorDetails}
+import models.{
+  BankDetails,
+  CharityContactDetails,
+  CharityName,
+  CharityOtherRegulatorDetails,
+  Country,
+  FcoCountry,
+  Passport,
+  PhoneNumber
+}
 import models.nominees.OrganisationNomineeContactDetails
-import models.addressLookup.CountryModel
+import models.addressLookup.{AddressModel, AmendAddressModel, CountryModel}
 
 import java.time.LocalDate
 
@@ -56,7 +65,6 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
-
   val nino: String = ninoGen.sample.get
   val ninoWithSpaces: String =
     s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
@@ -67,15 +75,14 @@ trait TestData extends ModelGenerators {
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 
-
-  val passportNumber: String = passportGen.sample.get
-  val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
-  val daytimePhone: String = exampleFixedLineGen.sample.get
-  val mobileNumber: String = exampleMobileGen.sample.get
+  val passportNumber: String    = passportGen.sample.get
+  val passport: Passport        = Passport(passportNumber, "GB", LocalDate.now)
+  val daytimePhone: String      = exampleFixedLineGen.sample.get
+  val mobileNumber: String      = exampleMobileGen.sample.get
   val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
 
-  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
-  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+  val daytimePhoneWithIntCode: String      = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String      = exampleMobileIntGen.sample.get
   val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
 
   val charityFullName      = "A Charity"
@@ -88,13 +95,13 @@ trait TestData extends ModelGenerators {
 
   val charityCommissionRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
   val scottishRegulatorRegistrationNumber: String = "SC" + charityRegulatorRegistrationGen.sample.get
-  val niRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+  val niRegulatorRegistrationNumber: String       = charityRegulatorRegistrationGen.sample.get
 
-  val charityRegulatorName: String = "Regulator name"
+  val charityRegulatorName: String              = "Regulator name"
   val chartyRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
 
-  val charityRegulatorDetails: CharityOtherRegulatorDetails = CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
-
+  val charityRegulatorDetails: CharityOtherRegulatorDetails =
+    CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
 
   val charityEmail      = "charity@example.com"
   val organisationEmail = "company@example.com"
@@ -105,15 +112,15 @@ trait TestData extends ModelGenerators {
     emailAddress = charityEmail
   )
 
-  val charityObjective: String = "Make the World better"
-  val acknowledgementRef: String = acknowledgementRefGen.sample.get
-  val publicBenefit: String = "FreeEducation"
-  val whyNoBankStatement: String = "Reason why no bank statement"
-  val otherFundRaising: String = "Other fund raising"
-  val governingDocument: String = "will"
-  val governingDocumentOther: String = "other"
-  val whyNoRegulator: String = "reason"
-  val whyNotRegistered: String = "reason"
+  val charityObjective: String        = "Make the World better"
+  val acknowledgementRef: String      = acknowledgementRefGen.sample.get
+  val publicBenefit: String           = "FreeEducation"
+  val whyNoBankStatement: String      = "Reason why no bank statement"
+  val otherFundRaising: String        = "Other fund raising"
+  val governingDocument: String       = "will"
+  val governingDocumentOther: String  = "other"
+  val whyNoRegulator: String          = "reason"
+  val whyNotRegistered: String        = "reason"
   val governingDocumentChange: String = "Governing document change and reason"
 
   val nomineeOrganisationName: String = "Nominee Organisation"
@@ -154,6 +161,57 @@ trait TestData extends ModelGenerators {
   val chCountry: Country               = Country("CH", "Switzerland")
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName)   = chCountryTuple
+
+  val addressId: String     = "Address Id"
+  val line1: String         = "Test 1"
+  val line2: String         = "Test 2"
+  val line3: String         = "Test Area"
+  val maxLine: String       = "Testttt Street near TestTest Gardens"
+  val ukPostcode: String    = "ZY11 1AA"
+  val nonUkPostcode: String = "NonUKCode"
+  val town: Option[String]  = Some("TestTown")
+
+  val address: AddressModel =
+    AddressModel(
+      Seq(line1, line2),
+      Some(ukPostcode),
+      gbCountryModel
+    )
+
+  val addressAllLines: AddressModel =
+    AddressModel(
+      Seq(line1, line2, line3, town.get),
+      Some(ukPostcode),
+      gbCountryModel
+    )
+
+  val addressModelMax: AddressModel =
+    AddressModel(
+      Seq(line1, maxLine),
+      Some(ukPostcode),
+      gbCountryModel
+    )
+  val addressModelMin: AddressModel =
+    AddressModel(Seq(maxLine), Some(ukPostcode), gbCountryModel)
+
+  val addressModelMinWithTown: AddressModel =
+    addressModelMin.copy(lines = addressModelMin.lines :+ town.get)
+
+  val addressWithTown: AddressModel = address.copy(lines = address.lines :+ town.get)
+
+  val addressWithTownAnd3Lines: AddressModel = address.copy(lines = address.lines :+ line3 :+ town.get)
+
+  val addressModelMaxWithTown: AddressModel = addressModelMax.copy(lines = addressModelMax.lines :+ town.get)
+
+  def toAmendAddressModel(addressModel: AddressModel, maybeTown: Option[String] = None): AmendAddressModel =
+    AmendAddressModel(
+      addressModel.lines.head,
+      addressModel.lines.slice(1, 2).headOption,
+      addressModel.lines.slice(2, 3).headOption,
+      addressModel.lines.slice(3, 4).headOption.orElse(maybeTown).getOrElse(""),
+      addressModel.postcode.get,
+      addressModel.country.code
+    )
 
   def replacePlaceholders(inString: String): String =
     inString
@@ -201,6 +259,10 @@ trait TestData extends ModelGenerators {
       .replaceAll("__NIREGULATORNUMBER__", niRegulatorRegistrationNumber)
       .replaceAll("__CREGULATORNAME__", charityRegulatorName)
       .replaceAll("__CREGULATORNUMBER__", chartyRegulatorRegistrationNumber)
-
+      .replaceAll("__ADDRESSLINE1__", line1)
+      .replaceAll("__ADDRESSLINE2__", line2)
+      .replaceAll("__ADDRESSLINE3__", line3)
+      .replaceAll("__ADDRESSMAXLINE__", maxLine)
+      .replaceAll("__ADDRESSTOWN__", town.get)
+      .replaceAll("__ADDRESSUKPOSTCODE__", ukPostcode)
 }
-

@@ -53,7 +53,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
   private val controller: ConfirmNomineeIndividualPreviousAddressController =
     inject[ConfirmNomineeIndividualPreviousAddressController]
   private val messageKeyPrefix                                              = "nomineeIndividualPreviousAddress"
-  private val nomineeIndividualPreviousAddressLookup                        = List("12", "Banner Way", gbCountryName)
+  private val nomineeIndividualPreviousAddressLookup                        = List(line1, line2, gbCountryName)
 
   "ConfirmNomineeIndividualPreviousAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
-                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                  address.copy(postcode = None)
                 )
               )
               .success
@@ -94,7 +94,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val nomineeIndividualPreviousAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val nomineeIndividualPreviousAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -104,11 +104,7 @@ class ConfirmNomineeIndividualPreviousAddressControllerSpec extends SpecBase wit
               .flatMap(
                 _.set(
                   NomineeIndividualPreviousAddressLookupPage,
-                  AddressModel(
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    gbCountryModel
-                  )
+                  addressModelMax.copy(postcode = None)
                 )
               )
               .success

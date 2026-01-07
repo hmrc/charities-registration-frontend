@@ -53,7 +53,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
   private val controller: ConfirmAuthorisedOfficialsPreviousAddressController =
     inject[ConfirmAuthorisedOfficialsPreviousAddressController]
   private val messageKeyPrefix                                                = "authorisedOfficialPreviousAddress"
-  private val authorisedOfficialPreviousAddressLookup                         = List("12", "Banner Way", gbCountryName)
+  private val authorisedOfficialPreviousAddressLookup                         = List(line1, line2, gbCountryName)
 
   "ConfirmAuthorisedOfficialsPreviousAddressController Controller" must {
 
@@ -67,7 +67,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
               .flatMap(
                 _.set(
                   AuthorisedOfficialPreviousAddressLookupPage(0),
-                  AddressModel(List("12", "Banner Way"), None, gbCountryModel)
+                  address.copy(postcode = None)
                 )
               )
               .success
@@ -94,7 +94,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
 
     "return submitCall as Amend Address if address length is > 35" in {
 
-      val authorisedOfficialPreviousAddressMax = List("12", "Banner Way near south riverview gardens", gbCountryName)
+      val authorisedOfficialPreviousAddressMax = List(line1, maxLine, gbCountryName)
 
       when(mockUserAnswerService.get(any())(any(), any())).thenReturn(
         Future.successful(
@@ -104,11 +104,7 @@ class ConfirmAuthorisedOfficialsPreviousAddressControllerSpec extends SpecBase w
               .flatMap(
                 _.set(
                   AuthorisedOfficialPreviousAddressLookupPage(0),
-                  AddressModel(
-                    List("12", "Banner Way near south riverview gardens"),
-                    None,
-                    gbCountryModel
-                  )
+                  addressModelMax.copy(postcode = None)
                 )
               )
               .success

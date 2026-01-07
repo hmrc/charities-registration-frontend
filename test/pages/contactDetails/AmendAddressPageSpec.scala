@@ -25,14 +25,7 @@ class AmendAddressPageSpec extends PageBehaviours {
   "AmendCharityOfficialAddressPage" must {
 
     implicit lazy val arbitraryCharityContactDetails: Arbitrary[AmendAddressModel] = Arbitrary {
-      AmendAddressModel(
-        line1 = "23",
-        line2 = Some("Morrison street"),
-        line3 = Some(""),
-        town = "Glasgow",
-        postcode = "G58AN",
-        gbCountryCode
-      )
+     toAmendAddressModel(address, town)
     }
 
     beRetrievable[AmendAddressModel](AmendAddressPage)

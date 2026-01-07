@@ -25,7 +25,7 @@ class NomineeIndividualAddressLookupPageSpec extends PageBehaviours {
   "NomineeIndividualAddressLookupPage" must {
 
     implicit lazy val arbitraryAddressModel: Arbitrary[AddressModel] = Arbitrary {
-      AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)
+      address
     }
 
     beRetrievable[AddressModel](NomineeIndividualAddressLookupPage)

@@ -22,15 +22,6 @@ import play.api.libs.json.{JsObject, Json}
 
 object ConfirmedAddressConstants extends SpecBase {
 
-  val lines: Seq[String] = Seq("Test 1", "Test 2")
-  val postcode: String   = "AA00 0AA"
-
-  val address: AddressModel = AddressModel(
-    lines,
-    postcode = Some(postcode),
-    gbCountryModel
-  )
-
   val addressLookupResponse: JsObject = Json.obj(
     "auditRef" -> "a1fe6969-e3fd-421b-a5fb-c9458c9cfd22",
     "id"       -> "GB690091234501",
@@ -38,8 +29,8 @@ object ConfirmedAddressConstants extends SpecBase {
   )
 
   val addressJson: JsObject = Json.obj(
-    "lines"    -> Json.toJson(lines),
-    "postcode" -> "AA00 0AA",
+    "lines"    -> Json.toJson(Seq(line1, line2)),
+    "postcode" -> ukPostcode,
     "country"  -> Json.obj(
       "code" -> gbCountryCode,
       "name" -> gbCountryName

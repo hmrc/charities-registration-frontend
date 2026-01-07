@@ -16,7 +16,7 @@
 
 package pages.operationsAndFunds
 
-import java.time.{LocalDate, MonthDay}
+import java.time.MonthDay
 
 import models.MongoDateTimeFormats._
 import org.scalacheck.Arbitrary
@@ -25,15 +25,13 @@ import pages.behaviours.PageBehaviours
 class AccountingPeriodEndDatePageSpec extends PageBehaviours {
 
   implicit lazy val arbitraryLocalDate: Arbitrary[MonthDay] = Arbitrary {
-    MonthDay.from(LocalDate.parse("2020-01-01"))
+    MonthDay.from(jan1st2019)
   }
 
   "AccountingPeriodEndDate" must {
 
     beRetrievable[MonthDay](AccountingPeriodEndDatePage)
-
     beSettable[MonthDay](AccountingPeriodEndDatePage)
-
     beRemovable[MonthDay](AccountingPeriodEndDatePage)
   }
 

@@ -67,9 +67,9 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
   private val requestArgs                   = Seq(
     "passportNumber"   -> passport.passportNumber,
     "country"          -> passport.country,
-    "expiryDate.year"  -> passport.expiryDate.getYear.toString,
+    "expiryDate.year"  -> passport.expiryDate.plusYears(1).getYear.toString,
     "expiryDate.month" -> passport.expiryDate.getMonthValue.toString,
-    "expiryDate.day"   -> passport.expiryDate.plusDays(1).getDayOfMonth.toString
+    "expiryDate.day"   -> passport.expiryDate.getDayOfMonth.toString
   )
   private val localUserAnswers: UserAnswers = emptyUserAnswers
     .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
@@ -100,7 +100,7 @@ class OrganisationAuthorisedPersonPassportControllerSpec extends SpecBase with B
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = localUserAnswers
-        .set(OrganisationAuthorisedPersonPassportPage, passport.copy(expiryDate = passport.expiryDate.plusDays(1)))
+        .set(OrganisationAuthorisedPersonPassportPage, passport.copy(expiryDate = passport.expiryDate.plusYears(1)))
         .success
         .value
 

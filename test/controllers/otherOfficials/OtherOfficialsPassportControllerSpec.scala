@@ -63,8 +63,6 @@ class OtherOfficialsPassportControllerSpec extends SpecBase with BeforeAndAfterE
 
   private val controller: OtherOfficialsPassportController = inject[OtherOfficialsPassportController]
 
-  private val futureDate: LocalDate = LocalDate.now().plusDays(1)
-
   private val requestArgs                   = Seq(
     "passportNumber"   -> "123",
     "country"          -> gbCountryName,

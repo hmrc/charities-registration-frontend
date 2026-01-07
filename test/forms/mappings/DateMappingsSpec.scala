@@ -16,6 +16,7 @@
 
 package forms.mappings
 
+import common.TestData
 import org.scalacheck.Gen
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
@@ -32,7 +33,8 @@ class DateMappingsSpec
     with ScalaCheckPropertyChecks
     with Generators
     with OptionValues
-    with Mappings {
+    with Mappings
+    with TestData {
 
   val form: Form[LocalDate] = Form(
     "value" -> localDate(
@@ -45,8 +47,8 @@ class DateMappingsSpec
   )
 
   val validData: Gen[LocalDate] = datesBetween(
-    min = LocalDate.of(2000, 1, 1),
-    max = LocalDate.of(2000, 1, 31)
+    min = jan1st2019,
+    max = jan1st2020
   )
 
   val invalidField: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)

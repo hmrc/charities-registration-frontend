@@ -68,7 +68,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "01",
-            |                "dateOfBirth": "2000-12-11",
+            |                "dateOfBirth": "$dec11th2000",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "nino": "$nino"
             |        }
@@ -106,7 +106,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "01",
-            |                "dateOfBirth": "2000-12-11",
+            |                "dateOfBirth": "$dec11th2000",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "mobilePhone": "$mobileNumber",
             |                "nino": "$nino"
@@ -144,7 +144,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
-            |                "dateOfBirth": "2000-12-11",
+            |                "dateOfBirth": "$dec11th2000",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "mobilePhone": "$mobileNumber",
             |                "nino": "$nino"
@@ -167,7 +167,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
           .flatMap(
             _.set(
               AuthorisedOfficialsPassportPage(0),
-              passport.copy(expiryDate = passport.expiryDate.plusDays(1))
+              passport.copy(expiryDate = passport.expiryDate.plusYears(1))
             )
           )
           .success
@@ -183,12 +183,12 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
-            |                "dateOfBirth": "2000-12-11",
+            |                "dateOfBirth": "$dec11th2000",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "mobilePhone": "$mobileNumber",
             |                "nationalIdentityNumber": "$passportNumber",
             |                "nationalIDCardIssuingCountry": "${passport.country}",
-            |                "nationalIDCardExpiryDate": "${passport.expiryDate.plusDays(1)}"
+            |                "nationalIDCardExpiryDate": "${passport.expiryDate.plusYears(1)}"
             |        }
             |  }""".stripMargin
 
@@ -218,7 +218,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "02",
-            |                "dateOfBirth": "2000-12-11",
+            |                "dateOfBirth": "$dec11th2000",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "mobilePhone": "$mobileNumber",
             |                "nino": "$nino"
@@ -828,7 +828,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -878,7 +878,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "lastName": "${personNameWithMiddle.lastName}"
             |                },
             |                "position": "02",
-            |                "dateOfBirth": "2000-12-11",
+            |                "dateOfBirth": "$dec11th2000",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "mobilePhone": "$mobileNumber",
             |                "nino": "$nino"
@@ -911,7 +911,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
             |                    "lastName": "${personNameWithoutMiddle.lastName}"
             |                },
             |                "position": "02",
-            |                "dateOfBirth": "2000-12-11",
+            |                "dateOfBirth": "$dec11th2000",
             |                "dayPhoneNumber": "$daytimePhone",
             |                "mobilePhone": "$mobileNumber",
             |                "nino": "$nino"
@@ -1067,7 +1067,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -1174,7 +1174,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -1206,7 +1206,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino2"
@@ -1238,7 +1238,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -1270,7 +1270,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino2"
@@ -1342,7 +1342,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -1374,7 +1374,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino2"
@@ -1406,7 +1406,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -1438,7 +1438,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino2"
@@ -1474,7 +1474,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "01",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "nino": "$nino3"
              |        },
@@ -1554,7 +1554,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -1586,7 +1586,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino2"
@@ -1618,7 +1618,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithMiddle.lastName}"
              |          },
              |          "position": "02",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino"
@@ -1650,7 +1650,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "05",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino2"
@@ -1681,7 +1681,7 @@ class CharityPartnerTransformerSpec extends SpecBase {
              |            "lastName": "${personNameWithoutMiddle.lastName}"
              |          },
              |          "position": "01",
-             |          "dateOfBirth": "2000-12-11",
+             |          "dateOfBirth": "$dec11th2000",
              |          "dayPhoneNumber": "$daytimePhone",
              |          "mobilePhone": "$mobileNumber",
              |          "nino": "$nino3"

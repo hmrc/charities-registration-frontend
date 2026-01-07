@@ -68,7 +68,7 @@
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "2002-07-03",
+        "officialsDOB": "__JULY3RD2002__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -111,7 +111,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "2002-07-03",
+        "officialsDOB": "__JULY3RD2002__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
@@ -145,7 +145,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "1998-10-30",
+        "officialsDOB": "__JAN1ST2019__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -179,7 +179,7 @@
 
         },
         "officialsPosition": "23",
-        "officialsDOB": "2002-07-03",
+        "officialsDOB": "__JULY3RD2002__",
         "isOfficialNino": true,
         "officialAddress": {
           "lines": [
@@ -223,7 +223,7 @@
 
         },
         "officialsPosition": "01",
-        "officialsDOB": "1999-12-31",
+        "officialsDOB": "__DEC31TH1999__",
         "isOfficialNino": false,
         "officialAddress": {
           "lines": [
@@ -250,7 +250,7 @@
         }
       }
     ],
-    "whenGoverningDocumentApproved": "2019-01-01",
+    "whenGoverningDocumentApproved": "__JAN1ST2019__",
     "isSection2Completed": true,
     "isAddAnotherOfficial": true,
     "isSection5Completed": true,
@@ -267,7 +267,7 @@
       "chooseNominee": true,
       "individual": {
         "isIndividualPreviousAddress": true,
-        "individualDOB": "2002-07-03",
+        "individualDOB": "__JULY3RD2002__",
         "isIndividualNino": false,
         "isIndividualNomineePayments": true,
         "individualAddress": {

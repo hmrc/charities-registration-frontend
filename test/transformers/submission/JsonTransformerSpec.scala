@@ -18,7 +18,7 @@ package transformers.submission
 
 import base.SpecBase
 import models.addressLookup.AddressModel
-import models.{Name, PhoneNumber, SelectTitle, UserAnswers}
+import models.{Name, PhoneNumber, UserAnswers}
 import pages.addressLookup.CharityOfficialAddressLookupPage
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, AuthorisedOfficialsPhoneNumberPage}
 import play.api.libs.json.{Json, __}
@@ -654,7 +654,7 @@ class JsonTransformerSpec extends SpecBase {
       "convert the correct AddressModel with mandatory fields only" in {
 
         val userAnswers = emptyUserAnswers
-          .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mrs, "Jim", None, "Jones"))
+          .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
           .success
           .value
 
@@ -664,9 +664,10 @@ class JsonTransformerSpec extends SpecBase {
             |    "common": {
             |      "declarationInfo": {
             |        "name": {
-            |          "firstName": "Jim",
-            |          "lastName": "Jones",
-            |          "title": "0002"
+            |        "title": "0001",
+            |          "firstName": "Firstname",
+            |          "lastName": "Lastname"
+            |
             |        }
             |      }
             |    }

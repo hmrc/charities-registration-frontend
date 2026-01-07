@@ -17,7 +17,7 @@
 package controllers
 
 import models.UserAnswers
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsResultException, JsValue, Json}
 import play.api.mvc.Result
 import play.api.test.Helpers
 import play.api.test.Helpers.*
@@ -26,7 +26,8 @@ import stubs.AuthStub.authorised
 import stubs.CharitiesStub.*
 import utils.{IntegrationSpecBase, WireMockMethods}
 
-import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.io.Source
 
 class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethods {
@@ -39,25 +40,20 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
     Json.parse(replacePlaceholders(result))
   }
 
-  trait LocalSetup {
+  private def runTest(internalId: String): Future[Result] = {
 
-    def internalId: String
-
-    private val requestJsonFileName = s"/$internalId.json"
-    private val ua                  = readJsonFromFile(requestJsonFileName).as[UserAnswers]
+    val requestJsonFileName = s"/$internalId.json"
+    val ua                  = readJsonFromFile(requestJsonFileName).as[UserAnswers]
 
     stubUserAnswerGet(ua, internalId)
     stubUserAnswerPost(ua, internalId)
     authorised(internalId)
     stubScenario()
 
-    def response: Future[Result] = route(
+    route(
       app,
       buildPost(routes.DeclarationController.onSubmit.url)
     ).get
-
-    status(response) mustBe SEE_OTHER
-    Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
   }
 
   "Calling Charities service" when {
@@ -66,59 +62,119 @@ class DeclarationControllerISpec extends IntegrationSpecBase with WireMockMethod
 
       "completed all the sections with minimum data" must {
         "submitting the data for charities registration" must {
-          "redirect to registration set page" in new LocalSetup {
-            override def internalId: String = "scenario_1_request"
+          "redirect to registration set page" in {
+
+            val response = runTest("scenario_1_request")
+            status(response) mustBe SEE_OTHER
+            Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
           }
         }
       }
 
       "completed all the sections with different data changes for section 1 to 6" must {
         "submitting the data for charities registration" must {
-          "redirect to registration set page" in new LocalSetup {
-            override def internalId: String = "scenario_2_request"
+          "redirect to registration set page" in {
+            val response = runTest("scenario_2_request")
+            status(response) mustBe SEE_OTHER
+            Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
           }
         }
       }
 
       "completed all the sections with different data changes for section 1 to 8" must {
         "submitting the data for charities registration" must {
-          "redirect to registration set page" in new LocalSetup {
-            override def internalId: String = "scenario_3_request"
+          "redirect to registration set page" in {
+            val response = runTest("scenario_3_request")
+            status(response) mustBe SEE_OTHER
+            Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
           }
         }
       }
 
       "completed all the sections with another set of minimum data" must {
         "submitting the data for charities registration" must {
-          "redirect to registration set page" in new LocalSetup {
-            override def internalId: String = "scenario_4_request"
+          "redirect to registration set page" in {
+            val response = runTest("scenario_4_request")
+            status(response) mustBe SEE_OTHER
+            Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
           }
         }
       }
 
       "completed all the sections with mixed data sets" must {
         "submitting the data for charities registration" must {
-          "redirect to registration set page" in new LocalSetup {
-            override def internalId: String = "scenario_5_request"
+          "redirect to registration set page" in {
+            val response = runTest("scenario_5_request")
+            status(response) mustBe SEE_OTHER
+            Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
           }
         }
       }
 
       "completed all the sections with mixed data sets with nominee as organisation" must {
         "submitting the data for charities registration" must {
-          "redirect to registration set page" in new LocalSetup {
-            override def internalId: String = "scenario_6_request"
+          "redirect to registration set page" in {
+            val response = runTest("scenario_6_request")
+            status(response) mustBe SEE_OTHER
+            Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
           }
         }
       }
 
       "completed all the sections with mixed data sets with nominee as individual" must {
         "submitting the data for charities registration" must {
-          "redirect to registration set page" in new LocalSetup {
-            override def internalId: String = "scenario_7_request"
+          "redirect to registration set page" in {
+            val response = runTest("scenario_7_request")
+            status(response) mustBe SEE_OTHER
+            Helpers.redirectLocation(response) mustBe Some(controllers.routes.RegistrationSentController.onPageLoad.url)
           }
         }
       }
+
+      "submitting the data for charities registration where user answers json invalid" must {
+        "throw jsresultexception" in {
+          val internalId = "scenario_7_request"
+
+          val requestJsonFileName = s"/$internalId.json"
+          val ua                  = readJsonFromFile(requestJsonFileName).as[UserAnswers]
+
+          stubUserAnswerGet(Json.obj("invalid" -> "invalid"), internalId)
+          stubUserAnswerPost(ua, internalId)
+          authorised(internalId)
+          stubScenario()
+
+          intercept[JsResultException](
+            Await.result(
+              route(
+                app,
+                buildPost(routes.DeclarationController.onSubmit.url)
+              ).get,
+              Duration.Inf
+            )
+          )
+        }
+      }
+      "getting user answers data for charities registration where status is not OK"    must {
+        "Redirect to page not found page" in {
+          val internalId = "scenario_7_request"
+
+          val requestJsonFileName = s"/$internalId.json"
+          val ua                  = readJsonFromFile(requestJsonFileName).as[UserAnswers]
+
+          stubUserAnswerGet(BAD_REQUEST, internalId)
+          stubUserAnswerPost(ua, internalId)
+          authorised(internalId)
+          stubScenario()
+
+          val response = route(
+            app,
+            buildPost(routes.DeclarationController.onSubmit.url)
+          ).get
+          status(response) mustBe SEE_OTHER
+          Helpers.redirectLocation(response) mustBe Some(controllers.routes.PageNotFoundController.onPageLoad().url)
+        }
+      }
+
     }
 
     "user not authorised" must {

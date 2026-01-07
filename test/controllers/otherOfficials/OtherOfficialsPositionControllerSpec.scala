@@ -20,17 +20,17 @@ import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.OfficialsPositionFormProvider
 import models.authOfficials.OfficialsPosition
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.otherOfficials.{OtherOfficialsNamePage, OtherOfficialsPositionPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.OfficialsPositionView
 
@@ -61,7 +61,7 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
   private val controller: OtherOfficialsPositionController = inject[OtherOfficialsPositionController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), personNameWithMiddle).success.value
 
   "OtherOfficialsPosition Controller" must {
 
@@ -74,7 +74,7 @@ class OtherOfficialsPositionControllerSpec extends SpecBase with BeforeAndAfterE
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.otherOfficials.routes.OtherOfficialsPositionController.onSubmit(NormalMode, Index(0))
       )(fakeRequest, messages, frontendAppConfig).toString

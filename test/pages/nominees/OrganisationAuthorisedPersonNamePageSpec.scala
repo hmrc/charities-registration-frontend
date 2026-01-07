@@ -16,7 +16,7 @@
 
 package pages.nominees
 
-import models.{Name, SelectTitle}
+import models.Name
 import org.scalacheck.Arbitrary
 import pages.behaviours.PageBehaviours
 
@@ -25,7 +25,7 @@ class OrganisationAuthorisedPersonNamePageSpec extends PageBehaviours {
   "OrganisationAuthorisedPersonNamePage" must {
 
     implicit lazy val arbitraryNomineesName: Arbitrary[Name] = Arbitrary {
-      Name(SelectTitle.Ms, "Jim", Some("John"), "Jones")
+      personNameWithMiddle
     }
 
     beRetrievable[Name](OrganisationAuthorisedPersonNamePage)

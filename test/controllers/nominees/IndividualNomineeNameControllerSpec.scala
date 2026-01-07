@@ -79,7 +79,7 @@ class IndividualNomineeNameControllerSpec extends SpecBase with BeforeAndAfterEa
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .set(IndividualNomineeNamePage, personNameWithMiddle)
         .success
         .value
 

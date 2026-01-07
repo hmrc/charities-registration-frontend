@@ -18,16 +18,16 @@ package controllers.authorisedOfficials
 
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
-import models.{Name, SelectTitle, UserAnswers}
+import models.{Name, UserAnswers}
 import navigation.AuthorisedOfficialsNavigator
 import navigation.FakeNavigators.FakeAuthorisedOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.authorisedOfficials.{AuthorisedOfficialsNamePage, IsAddAnotherAuthorisedOfficialPage}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers.{redirectLocation, status, _}
+import play.api.test.Helpers.{redirectLocation, status, *}
 import service.UserAnswerService
 
 import scala.concurrent.Future
@@ -69,7 +69,7 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
               .success
               .value
@@ -89,12 +89,12 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
               .flatMap(_.set(IsAddAnotherAuthorisedOfficialPage, true))
               .flatMap(
                 _.set(
                   AuthorisedOfficialsNamePage(1),
-                  Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones")
+                  personNameWithoutMiddle
                 )
               )
               .success
@@ -115,7 +115,7 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
               .success
               .value
           )
@@ -150,8 +150,8 @@ class AuthorisedOfficialsSummaryControllerSpec extends SpecBase with BeforeAndAf
         Future.successful(
           Some(
             emptyUserAnswers
-              .set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Test", None, "Man"))
-              .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mr, "Test", None, "Man")))
+              .set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle)
+              .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
               .success
               .value
           )

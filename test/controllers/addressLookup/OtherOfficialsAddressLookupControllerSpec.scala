@@ -23,17 +23,17 @@ import connectors.httpParsers.AddressLookupInitializationHttpParser.AddressLooku
 import connectors.httpParsers.{AddressMalformed, NoLocationHeaderReturned}
 import controllers.actions.{AuthIdentifierAction, DataRequiredAction, FakeAuthIdentifierAction, UserDataRetrievalAction}
 import models.requests.DataRequest
-import models.{Index, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Index, Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeOtherOfficialsNavigator
 import navigation.OtherOfficialsNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.otherOfficials.OtherOfficialsNamePage
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import viewmodels.ErrorHandler
 
@@ -70,7 +70,7 @@ class OtherOfficialsAddressLookupControllerSpec extends SpecBase with BeforeAndA
   )
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(OtherOfficialsNamePage(0), personNameWithMiddle).success.value
 
   override lazy val fakeDataRequest: DataRequest[AnyContentAsEmpty.type] =
     DataRequest(fakeRequest, internalId, localUserAnswers)

@@ -17,16 +17,16 @@
 package navigation
 
 import base.SpecBase
-import controllers.addressLookup.{routes => addressLookupRoutes}
-import controllers.otherOfficials.{routes => otherOfficialRoutes}
+import controllers.addressLookup.routes as addressLookupRoutes
+import controllers.otherOfficials.routes as otherOfficialRoutes
 import controllers.routes
 import models.addressLookup.AddressModel
 import models.authOfficials.OfficialsPosition
-import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode, SelectTitle}
+import models.{CharityName, CheckMode, Index, Name, NormalMode, Passport, PhoneNumber, PlaybackMode}
 import pages.IndexPage
 import pages.addressLookup.{OtherOfficialAddressLookupPage, OtherOfficialPreviousAddressLookupPage}
 import pages.contactDetails.CharityNamePage
-import pages.otherOfficials._
+import pages.otherOfficials.*
 import pages.sections.Section8Page
 import play.api.mvc.Call
 
@@ -35,7 +35,7 @@ import java.time.LocalDate
 class OtherOfficialsNavigatorSpec extends SpecBase {
 
   private val navigator: OtherOfficialsNavigator     = inject[OtherOfficialsNavigator]
-  private val otherOfficialsName: Name               = Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")
+  private val otherOfficialsName: Name               = personNameWithMiddle
   private val otherOfficialsPhoneNumber: PhoneNumber = phoneNumbers
   private val address: AddressModel                  =
     AddressModel(Seq("7", "Morrison street"), Some("G58AN"), gbCountryModel)

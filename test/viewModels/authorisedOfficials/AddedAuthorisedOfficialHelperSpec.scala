@@ -30,7 +30,6 @@ import service.CountryService
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import viewmodels.SummaryListRowHelper
 import viewmodels.authorisedOfficials.AddedAuthorisedOfficialHelper
-
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -44,7 +43,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
     date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
 
   private def authorisedOfficialDetails(title: SelectTitle = SelectTitle.Mr): UserAnswers = emptyUserAnswers
-    .set(AuthorisedOfficialsNamePage(0), Name(title, firstName = "John", None, lastName = "Jones"))
+    .set(AuthorisedOfficialsNamePage(0), Name(title, firstName = "Firstname", None, lastName = "Lastname"))
     .flatMap(_.set(AuthorisedOfficialsDOBPage(0), LocalDate.of(year, month, dayOfMonth)))
     .flatMap(
       _.set(
@@ -79,7 +78,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(), 0).authOfficialNamesRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsName.checkYourAnswersLabel"),
-            HtmlContent("Mr John Jones"),
+            HtmlContent("Mr Firstname Lastname"),
             Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )
@@ -91,7 +90,7 @@ class AddedAuthorisedOfficialHelperSpec extends SpecBase with SummaryListRowHelp
         helper(authorisedOfficialDetails(SelectTitle.UnsupportedTitle), 0).authOfficialNamesRow mustBe Some(
           summaryListRow(
             messages("authorisedOfficialsName.checkYourAnswersLabel"),
-            HtmlContent("John Jones"),
+            HtmlContent("Firstname Lastname"),
             Some(messages("authorisedOfficialsName.checkYourAnswersLabel")),
             authOfficials.AuthorisedOfficialsNameController.onPageLoad(CheckMode, 0) -> BaseMessages.changeLink
           )

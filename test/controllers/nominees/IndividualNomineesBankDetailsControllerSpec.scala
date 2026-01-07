@@ -19,17 +19,17 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.BankDetailsFormProvider
-import models.{BankDetails, Name, NormalMode, SelectTitle, UserAnswers}
+import models.{BankDetails, Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{IndividualNomineeNamePage, IndividualNomineesBankDetailsPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.BankAccountDetailsView
 
@@ -60,7 +60,7 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
   private val controller: IndividualNomineesBankDetailsController = inject[IndividualNomineesBankDetailsController]
 
   private val localUserAnswers: UserAnswers =
-    emptyUserAnswers.set(IndividualNomineeNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones")).success.value
+    emptyUserAnswers.set(IndividualNomineeNamePage, personNameWithMiddle).success.value
 
   "IndividualNomineesBankDetails Controller" must {
 
@@ -76,7 +76,7 @@ class IndividualNomineesBankDetailsControllerSpec extends SpecBase with BeforeAn
         controllers.nominees.routes.IndividualNomineesBankDetailsController.onSubmit(NormalMode),
         messagePrefix,
         "officialsAndNominees.section",
-        Some("Jim John Jones")
+        Some(personNameWithMiddle.getFullName)
       )(fakeRequest, messages, frontendAppConfig).toString
       verify(mockUserAnswerService, times(1)).get(any())(any(), any())
     }

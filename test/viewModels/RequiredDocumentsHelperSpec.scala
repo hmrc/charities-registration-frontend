@@ -17,9 +17,9 @@
 package viewModels
 
 import base.SpecBase
+import models.Name
 import models.addressLookup.AddressModel
-import models.{Name, SelectTitle}
-import pages.addressLookup._
+import pages.addressLookup.*
 import pages.authorisedOfficials.AuthorisedOfficialsNamePage
 import pages.nominees.{IndividualNomineeNamePage, OrganisationAuthorisedPersonNamePage}
 import pages.otherOfficials.OtherOfficialsNamePage
@@ -31,7 +31,7 @@ import viewmodels.RequiredDocumentsHelper
 
 class RequiredDocumentsHelperSpec extends SpecBase {
 
-  private val john: Name = Name(SelectTitle.Mr, "John", None, "Smith")
+  private val john: Name = personNameWithoutMiddle
 
   private val userAnswersForeignAuthOfficial1 = emptyUserAnswers
     .set(AuthorisedOfficialsNamePage(0), john)
@@ -121,42 +121,46 @@ class RequiredDocumentsHelperSpec extends SpecBase {
     "formatNames" should {
 
       "format correctly for 1 name" in {
-        RequiredDocumentsHelper.formatNames(Seq(john)) mustBe "John Smith"
+        RequiredDocumentsHelper.formatNames(Seq(john)) mustBe "Firstname Lastname"
       }
 
       "format correctly for 2 names" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john)) mustBe "John Smith and John Smith"
+        RequiredDocumentsHelper.formatNames(Seq(john, john)) mustBe "Firstname Lastname and Firstname Lastname"
 
       }
 
       "format correctly for 3 names" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john, john)) mustBe "John Smith, John Smith and John Smith"
+        RequiredDocumentsHelper.formatNames(
+          Seq(john, john, john)
+        ) mustBe "Firstname Lastname, Firstname Lastname and Firstname Lastname"
 
       }
 
       "format correctly for 4 or more names" in {
         RequiredDocumentsHelper.formatNames(
           Seq(john, john, john, john)
-        ) mustBe "John Smith, John Smith, John Smith and John Smith"
+        ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname and Firstname Lastname"
 
       }
 
       "format correctly for 2 names in Welsh" in {
-        RequiredDocumentsHelper.formatNames(Seq(john, john))(localMessages) mustBe "John Smith, John Smith"
+        RequiredDocumentsHelper.formatNames(Seq(john, john))(
+          localMessages
+        ) mustBe "Firstname Lastname, Firstname Lastname"
 
       }
 
       "format correctly for 3 names in Welsh" in {
         RequiredDocumentsHelper.formatNames(Seq(john, john, john))(
           localMessages
-        ) mustBe "John Smith, John Smith, John Smith"
+        ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname"
 
       }
 
       "format correctly for 4 or more names in Welsh" in {
         RequiredDocumentsHelper.formatNames(Seq(john, john, john, john))(
           localMessages
-        ) mustBe "John Smith, John Smith, John Smith, John Smith"
+        ) mustBe "Firstname Lastname, Firstname Lastname, Firstname Lastname, Firstname Lastname"
 
       }
     }
@@ -174,7 +178,7 @@ class RequiredDocumentsHelperSpec extends SpecBase {
 
       "return a tuple if there is an official or nominee living abroad" in {
         RequiredDocumentsHelper.getForeignOfficialsMessages(userAnswersForeignAuthOfficial1) mustBe
-          Some(("requiredDocuments.foreignAddresses.answerTrue", "John Smith"))
+          Some(("requiredDocuments.foreignAddresses.answerTrue", "Firstname Lastname"))
       }
 
       "return a None if none of the officials or nominees live abroad" in {

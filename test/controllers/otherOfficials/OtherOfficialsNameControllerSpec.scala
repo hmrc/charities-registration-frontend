@@ -79,7 +79,7 @@ class OtherOfficialsNameControllerSpec extends SpecBase with BeforeAndAfterEach 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(OtherOfficialsNamePage(0), Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+        .set(OtherOfficialsNamePage(0), personNameWithMiddle)
         .success
         .value
 

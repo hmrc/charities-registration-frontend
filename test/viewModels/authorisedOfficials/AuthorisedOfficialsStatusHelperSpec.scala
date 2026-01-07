@@ -35,7 +35,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
   private val dayOfMonth = 2
 
   def common(index: Int, userAnswers: UserAnswers): UserAnswers = userAnswers
-    .set(AuthorisedOfficialsNamePage(index), Name(SelectTitle.Mr, firstName = "John", None, lastName = "Jones"))
+    .set(AuthorisedOfficialsNamePage(index), personNameWithoutMiddle)
     .flatMap(_.set(AuthorisedOfficialsDOBPage(index), LocalDate.of(year, month, dayOfMonth)))
     .flatMap(
       _.set(
@@ -409,8 +409,8 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.validateDataFromOldService(
           emptyUserAnswers
             .set(IsAddAnotherAuthorisedOfficialPage, true)
-            .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
-            .flatMap(_.set(AuthorisedOfficialsNamePage(1), Name(SelectTitle.Mrs, "Joe", None, "Bloggs")))
+            .flatMap(_.set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle))
+            .flatMap(_.set(AuthorisedOfficialsNamePage(1), personNameWithoutMiddle))
             .success
             .value
         ) mustBe true
@@ -420,7 +420,7 @@ class AuthorisedOfficialsStatusHelperSpec extends SpecBase {
         helper.validateDataFromOldService(
           emptyUserAnswers
             .set(IsAddAnotherAuthorisedOfficialPage, false)
-            .flatMap(_.set(AuthorisedOfficialsNamePage(0), Name(SelectTitle.Mr, "Joe", None, "Bloggs")))
+            .flatMap(_.set(AuthorisedOfficialsNamePage(0), personNameWithoutMiddle))
             .success
             .value
         ) mustBe true

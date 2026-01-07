@@ -16,7 +16,7 @@
 
 package common
 
-import models.{BankDetails, CharityName, CharityContactDetails, Passport, PhoneNumber, Country, FcoCountry, CharityOtherRegulatorDetails}
+import models.{BankDetails, CharityContactDetails, CharityName, CharityOtherRegulatorDetails, Country, FcoCountry, Name, Passport, PhoneNumber, SelectTitle, withNameToString}
 import models.nominees.OrganisationNomineeContactDetails
 import models.addressLookup.CountryModel
 
@@ -28,10 +28,10 @@ trait TestData extends ModelGenerators {
   val sortCodeWithSpaces: String  = s"${sortCode.slice(0, 2)} ${sortCode.slice(2, 4)} ${sortCode.slice(4, 6)}"
   val sortCodeWithHyphens: String = s"${sortCode.slice(0, 2)}-${sortCode.slice(2, 4)}-${sortCode.slice(4, 6)}"
 
-  val accountNumber: String = accountNumberGen.sample.get
+  val accountNumber: String           = accountNumberGen.sample.get
   val accountNumberWithSpaces: String =
     s"${accountNumber.slice(0, 2)} ${accountNumber.slice(2, 4)} ${accountNumber.slice(4, 6)} ${accountNumber.slice(6, 8)}"
-  val accountName: String = accountNameGen.sample.get
+  val accountName: String             = accountNameGen.sample.get
 
   val rollNumber: String = rollNumberGen.sample.get
 
@@ -56,26 +56,25 @@ trait TestData extends ModelGenerators {
     rollNumber = Some(rollNumber)
   )
 
-
-  val nino: String = ninoGen.sample.get
-  val ninoWithSpaces: String =
+  val nino: String            = ninoGen.sample.get
+  val ninoWithSpaces: String  =
     s"${nino.slice(0, 2)} ${nino.slice(2, 4)} ${nino.slice(4, 6)} ${nino.slice(6, 8)} ${nino.slice(8, 9)}"
-  val nino2: String = ninoGen.sample.get
+  val nino2: String           = ninoGen.sample.get
   val nino2WithSpaces: String =
     s"${nino2.slice(0, 2)} ${nino2.slice(2, 4)} ${nino2.slice(4, 6)} ${nino2.slice(6, 8)} ${nino2.slice(8, 9)}"
-  val nino3: String = ninoGen.sample.get
+  val nino3: String           = ninoGen.sample.get
   val nino3WithSpaces: String =
     s"${nino3.slice(0, 2)} ${nino3.slice(2, 4)} ${nino3.slice(4, 6)} ${nino3.slice(6, 8)} ${nino3.slice(8, 9)}"
 
-
   val passportNumber: String = passportGen.sample.get
   val passport: Passport     = Passport(passportNumber, "GB", LocalDate.now)
-  val daytimePhone: String = exampleFixedLineGen.sample.get
-  val mobileNumber: String = exampleMobileGen.sample.get
+
+  val daytimePhone: String      = exampleFixedLineGen.sample.get
+  val mobileNumber: String      = exampleMobileGen.sample.get
   val phoneNumbers: PhoneNumber = PhoneNumber(daytimePhone, Some(mobileNumber))
 
-  val daytimePhoneWithIntCode: String = exampleFixedLineIntGen.sample.get
-  val mobileNumberWithIntCode: String = exampleMobileIntGen.sample.get
+  val daytimePhoneWithIntCode: String      = exampleFixedLineIntGen.sample.get
+  val mobileNumberWithIntCode: String      = exampleMobileIntGen.sample.get
   val phoneNumbersWithIntCode: PhoneNumber = PhoneNumber(daytimePhoneWithIntCode, Some(mobileNumberWithIntCode))
 
   val charityFullName      = "A Charity"
@@ -88,16 +87,15 @@ trait TestData extends ModelGenerators {
 
   val charityCommissionRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
   val scottishRegulatorRegistrationNumber: String = "SC" + charityRegulatorRegistrationGen.sample.get
-  val niRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
+  val niRegulatorRegistrationNumber: String       = charityRegulatorRegistrationGen.sample.get
 
-  val charityRegulatorName: String = "Regulator name"
+  val charityRegulatorName: String              = "Regulator name"
   val chartyRegulatorRegistrationNumber: String = charityRegulatorRegistrationGen.sample.get
 
-  val charityRegulatorDetails: CharityOtherRegulatorDetails = CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
-
-
-  val charityEmail      = "charity@example.com"
-  val organisationEmail = "company@example.com"
+  val charityRegulatorDetails: CharityOtherRegulatorDetails =
+    CharityOtherRegulatorDetails(charityRegulatorName, chartyRegulatorRegistrationNumber)
+  val charityEmail                                          = "charity@example.com"
+  val organisationEmail                                     = "company@example.com"
 
   val charityContactDetails: CharityContactDetails = CharityContactDetails(
     daytimePhone = daytimePhone,
@@ -105,18 +103,18 @@ trait TestData extends ModelGenerators {
     emailAddress = charityEmail
   )
 
-  val charityObjective: String = "Make the World better"
-  val acknowledgementRef: String = acknowledgementRefGen.sample.get
-  val publicBenefit: String = "FreeEducation"
-  val whyNoBankStatement: String = "Reason why no bank statement"
-  val otherFundRaising: String = "Other fund raising"
-  val governingDocument: String = "will"
-  val governingDocumentOther: String = "other"
-  val whyNoRegulator: String = "reason"
-  val whyNotRegistered: String = "reason"
+  val charityObjective: String        = "Make the World better"
+  val acknowledgementRef: String      = acknowledgementRefGen.sample.get
+  val publicBenefit: String           = "FreeEducation"
+  val whyNoBankStatement: String      = "Reason why no bank statement"
+  val otherFundRaising: String        = "Other fund raising"
+  val governingDocument: String       = "will"
+  val governingDocumentOther: String  = "other"
+  val whyNoRegulator: String          = "reason"
+  val whyNotRegistered: String        = "reason"
   val governingDocumentChange: String = "Governing document change and reason"
 
-  val nomineeOrganisationName: String = "Nominee Organisation"
+  val nomineeOrganisationName: String                                      = "Nominee Organisation"
   val nomineeOrganisationContactDetails: OrganisationNomineeContactDetails =
     OrganisationNomineeContactDetails(daytimePhone, organisationEmail)
 
@@ -154,6 +152,15 @@ trait TestData extends ModelGenerators {
   val chCountry: Country               = Country("CH", "Switzerland")
   val chCountryTuple: (String, String) = (chCountry.code, chCountry.name)
   val (chCountryCode, chCountryName)   = chCountryTuple
+
+  val personNameWithoutMiddle: Name  = Name(SelectTitle.Mr, "Firstname", None, "Lastname")
+  val personNameWithMiddle: Name     = Name(SelectTitle.Mr, "Firstname", Some("Middle"), "Lastname")
+  val personName2WithoutMiddle: Name = Name(SelectTitle.Ms, "Firstname2", None, "Lastname2")
+  val personName2WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname2", Some("Middle2"), "Lastname2")
+  val personName3WithoutMiddle: Name = Name(SelectTitle.Mrs, "Firstname3", None, "Lastname3")
+  val personName3WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname3", Some("Middle3"), "Lastname3")
+  val personName4WithoutMiddle: Name = Name(SelectTitle.Ms, "Firstname4", None, "Lastname4")
+  val personName4WithMiddle: Name    = Name(SelectTitle.Ms, "Firstname4", Some("Middle4"), "Lastname4")
 
   def replacePlaceholders(inString: String): String =
     inString
@@ -196,6 +203,14 @@ trait TestData extends ModelGenerators {
       .replaceAll("__WHYNOREGULATOR__", whyNoRegulator)
       .replaceAll("__WHYNOTREGISTERED__", whyNotRegistered)
       .replaceAll("__GOVERNINGDOCUMENTCHANGE__", governingDocumentChange)
+      .replaceAll("__PERSONNAMEWITHOUTMIDDLE__", personNameWithoutMiddle)
+      .replaceAll("__PERSONNAMEWITHMIDDLE__", personNameWithMiddle)
+      .replaceAll("__PERSONNAME2WITHOUTMIDDLE__", personName2WithoutMiddle)
+      .replaceAll("__PERSONNAME2WITHMIDDLE__", personName2WithMiddle)
+      .replaceAll("__PERSONNAME3WITHOUTMIDDLE__", personName3WithoutMiddle)
+      .replaceAll("__PERSONNAME3WITHOUTMIDDLE__", personName3WithMiddle)
+      .replaceAll("__PERSONNAME4WITHOUTMIDDLE__", personName4WithoutMiddle)
+      .replaceAll("__PERSONNAME4WITHMIDDLE__", personName4WithMiddle)
       .replaceAll("__CCREGISTRATIONNUMBER__", charityCommissionRegistrationNumber)
       .replaceAll("__SCREGULATORNUMBER__", scottishRegulatorRegistrationNumber)
       .replaceAll("__NIREGULATORNUMBER__", niRegulatorRegistrationNumber)
@@ -203,4 +218,3 @@ trait TestData extends ModelGenerators {
       .replaceAll("__CREGULATORNUMBER__", chartyRegulatorRegistrationNumber)
 
 }
-

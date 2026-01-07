@@ -19,17 +19,17 @@ package controllers.nominees
 import base.SpecBase
 import controllers.actions.{AuthIdentifierAction, FakeAuthIdentifierAction}
 import forms.common.NinoFormProvider
-import models.{Name, NormalMode, SelectTitle, UserAnswers}
+import models.{Name, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNomineesNavigator
 import navigation.NomineesNavigator
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import pages.nominees.{OrganisationAuthorisedPersonNamePage, OrganisationAuthorisedPersonNinoPage}
 import play.api.data.Form
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import service.UserAnswerService
 import views.html.common.NinoView
 
@@ -62,7 +62,7 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
 
   private val requestArgs                   = Seq("nino" -> nino)
   private val localUserAnswers: UserAnswers = emptyUserAnswers
-    .set(OrganisationAuthorisedPersonNamePage, Name(SelectTitle.Mr, "Jim", Some("John"), "Jones"))
+    .set(OrganisationAuthorisedPersonNamePage, personNameWithMiddle)
     .success
     .value
 
@@ -76,7 +76,7 @@ class OrganisationAuthorisedPersonNinoControllerSpec extends SpecBase with Befor
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form,
-        "Jim John Jones",
+        personNameWithMiddle.getFullName,
         messageKeyPrefix,
         controllers.nominees.routes.OrganisationAuthorisedPersonNinoController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

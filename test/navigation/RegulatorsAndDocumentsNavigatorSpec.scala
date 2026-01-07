@@ -261,7 +261,9 @@ class RegulatorsAndDocumentsNavigatorSpec extends SpecBase {
         }
 
         "go to the PageNotFoundController page when user answer has no CharityRegulator is selected" in {
-          nextPageF(emptyUserAnswers.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber).success.value) mustBe
+          nextPageF(
+            emptyUserAnswers.set(ScottishRegulatorRegNumberPage, scottishRegulatorRegistrationNumber).success.value
+          ) mustBe
             routes.PageNotFoundController.onPageLoad()
         }
 
